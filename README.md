@@ -29,6 +29,8 @@ From the **Help** menu select **Eclipse Marketplace**.
 
 Install the plugin called *Maven Integration for Eclipse*. This will require Eclipse to restart.
 
+After restarting, go to **Window->Preferences** in Eclipse, and then go to **Maven->Installations**.  Add the install of Maven from Step 1.
+
 ## Step 3: Get and Initialize the Repository
 
 Clone the repository.
@@ -48,8 +50,7 @@ This adds the Object Editor jar file to your local Maven repository so that the 
 
 ## Step 4: Add the Project to Eclipse
 
-In Eclipse, create a new Java project. Don't use the default location but browse to and select the cloned git repo.
-Remove the "Test Data" folder from the sources.
+In Eclipse, import a Maven project. Select the project you just cloned.
 
 *Note:* The compliance level may be set to **1.5** so be sure to change this to **1.7**.
 
