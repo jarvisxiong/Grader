@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.unc</groupId>
-    <artifactId>comp401-grader</artifactId>
+    <artifactId>programming-project-grader</artifactId>
     <version>11.2</version>
 
     <dependencies>
