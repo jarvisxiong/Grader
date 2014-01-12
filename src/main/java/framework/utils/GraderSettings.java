@@ -1,13 +1,13 @@
 package framework.utils;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * This is used to set, get, save, and load settings related to the grader.
@@ -73,8 +73,8 @@ public class GraderSettings {
             writer.close();
 
             // Make sure the file is hidden
-            if (GradingEnvironment.get().getOsName().equals("Windows"))
-                Runtime.getRuntime().exec("attrib +H .gradersettings");
+            //if (GradingEnvironment.get().getOsName().equals("Windows"))
+            //    Runtime.getRuntime().exec("attrib +H .gradersettings");
         } catch (IOException e) {
             System.out.println("Error saving settings.");
         }
