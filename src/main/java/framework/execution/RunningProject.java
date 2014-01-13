@@ -26,6 +26,9 @@ public class RunningProject {
     }
 
     public void appendOutput(String output) {
+    	if (this.output == null && output != null) {
+    		this.output = "";
+    	}
         this.output += output;
     }
 
