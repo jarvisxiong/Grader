@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * Based on {@link grader.sakai.StudentAssignment}
  */
-public interface StudentFolder<T extends Project> {
+public interface StudentFolder<T extends Project> extends Comparable<StudentFolder<T>>{
 
     /**
      * @return The student folder

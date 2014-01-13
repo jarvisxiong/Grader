@@ -1,5 +1,6 @@
 package framework.navigation;
 
+import framework.project.Project;
 import framework.project.StandardProject;
 import tools.DirectoryUtils;
 import net.lingala.zip4j.core.ZipFile;
@@ -16,7 +17,7 @@ import java.io.IOException;
 /**
  * A Sakai-structured student folder.
  */
-public class SakaiStudentFolder implements StudentFolder {
+public class SakaiStudentFolder implements StudentFolder<StandardProject> {
 
     private File folder;
 
@@ -137,4 +138,9 @@ public class SakaiStudentFolder implements StudentFolder {
         } else
             return Option.empty();
     }
+
+	@Override
+	public int compareTo(StudentFolder<StandardProject> o) {
+		return getOnyen().compareTo(o.getOnyen());
+	}
 }

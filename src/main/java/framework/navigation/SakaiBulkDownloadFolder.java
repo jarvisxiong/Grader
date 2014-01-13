@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * This is a Sakai-specific implementation for handling bulk download folders.
@@ -61,9 +62,17 @@ public class SakaiBulkDownloadFolder implements BulkDownloadFolder {
      */
     @Override
     public List<StudentFolder> getStudentFolders(String start, String end) {
+    	
+    	// Switch start and end if they are in reverse lexicographic order
+    	if (start.compareTo(end) > 0) {
+    		String temp = end;
+    		end = start;
+    		start = temp;
+    	}
+    	
         List<StudentFolder> filteredFolders = new ArrayList<StudentFolder>();
         boolean collect = false;
-        for (StudentFolder studentFolder : getStudentFolders()) {
+        for (StudentFolder studentFolder : new TreeSet<StudentFolder>(getStudentFolders())) {
             if (studentFolder.getOnyen().equals(start))
                 collect = true;
             if (collect)
