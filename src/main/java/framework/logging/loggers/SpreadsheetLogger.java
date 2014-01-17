@@ -87,6 +87,7 @@ public class SpreadsheetLogger implements Logger {
 			// See:
 			// http://stackoverflow.com/questions/18261152/org-apache-xmlbeans-impl-values-xmlvaluedisconnectedexception-when-write-workboo
 			loadWorkbook();
+			System.out.println("Spreadsheet grades saved to " + spreadsheetFile.getCanonicalPath());
 		} catch (IOException e) {
 			e.printStackTrace(); // To change body of catch statement use File |
 									// Settings | File Templates.
