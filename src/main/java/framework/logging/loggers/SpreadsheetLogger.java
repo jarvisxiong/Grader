@@ -61,6 +61,7 @@ public class SpreadsheetLogger implements Logger {
 		// Get the row and save the feature and restriction results
 		XSSFRow row = findRow(recordingSession);
 		double rawScore = 0;
+		int rowNum = row.getRowNum() + 1;
 		int columnCounter = 7;
 		for (CheckResult result : recordingSession.getFeatureResults()) {
 			rawScore += result.getScore();
@@ -74,7 +75,7 @@ public class SpreadsheetLogger implements Logger {
 		// Save the final scores
 		row.getCell(4).setCellValue(rawScore);
 		row.getCell(5).setCellValue(recordingSession.getLatePenalty());
-		row.getCell(6).setCellValue(recordingSession.getLatePenalty() * rawScore);
+		row.getCell(6).setCellFormula("E" + rowNum + "*F" + rowNum);
 
 		// Save the workbook to the file
 		try {
