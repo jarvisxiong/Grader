@@ -53,6 +53,8 @@ public class Driver {
                     recorder.addLogger(new FeedbackJsonLogger());
                 if (method.equals("spreadsheet"))
                     recorder.addLogger(new SpreadsheetLogger(requirements));
+                if (method.equals("csv"))
+                    recorder.addLogger(new CsvLogger());
             }
 
             // Run the grading process
