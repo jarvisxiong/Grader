@@ -23,8 +23,8 @@ public class Program0Requirements extends FrameworkProjectRequirements {
 		// This defines the due dates. What this is saying is, if a project is
 		// turned in on or before the specified time
 		// then its score is multiplied by the defined percentage.
-		addDueDate("01/16/2014 23:55:59", 1.0);
-		addDueDate("01/17/2014 23:55:59", 0.5);
+		addDueDate("01/17/2014 23:55:59", 1.0);
+		addDueDate("01/18/2014 23:55:59", 0.5);
 
 		// Check for a HelloWorld class
 		addFeature("Contains the HelloWorld class", 30, new HelloWorldClassTestCase());
