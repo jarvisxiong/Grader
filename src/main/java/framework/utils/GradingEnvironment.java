@@ -19,6 +19,12 @@ public class GradingEnvironment {
         "/usr/local/bin/edit"
     };
 
+    private static final String[] linuxEditors = new String[]{
+        "/usr/local/bin/gvim",
+        "/usr/local/bin/emacs",
+        "/usr/local/bin/gedit",
+    };
+
     private static final String[] windowsEditors = new String[]{
         "C:\\Program Files\\Sublime Text 2\\sublime_text.exe",
         "C:\\Program Files (x86)\\Sublime Text 2\\sublime_text.exe",
@@ -35,10 +41,14 @@ public class GradingEnvironment {
 
     private GradingEnvironment() {
         osName = System.getProperty("os.name");
-        if (osName.equals("Mac OS X") || osName.equals("Linux")) {
+        if (osName.equals("Mac OS X")) {
             osName = "Mac";
             browser = "open";
             editor = findEditor(macEditors);
+            classpath = findClasspath(":");
+        } else if (osName.equals("Linux")) {
+            browser = "nautilus";
+            editor = findEditor(linuxEditors);
             classpath = findClasspath(":");
         } else {
             osName = "Windows";
@@ -93,12 +103,29 @@ public class GradingEnvironment {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+    
+    private void editSubFiles(File folder) {
+    	File[] subFiles = folder.listFiles();
+    	for (File subFile: subFiles) {
+    		if (subFile.isDirectory()) {
+    			editSubFiles(subFile);
+    		} else {
+    			edit(subFile);
+    		}
+    	}
+    }
 
     /**
      * Edits a directory or file in the text editor
      * @param file The directory or file
      */
     public void edit(File file) {
+
+    	if (file.isDirectory() && osName.equals("Linux")) {
+    		editSubFiles(file);
+    		return;
+    	}
+    	
         try {
             new ProcessBuilder(editor, file.getAbsolutePath()).start();
         } catch (IOException e) {
