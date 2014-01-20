@@ -91,12 +91,16 @@ public class Driver {
 
         } catch (ConfigurationException e) {
             System.err.println("Error loading config file.");
+            System.err.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             System.err.println("Could not find project requirements.");
+            System.err.println(e.getMessage());
         } catch (InstantiationException e) {
             System.err.println("Could not create project requirements.");
+            System.err.println(e.getMessage());
         } catch (IllegalAccessException e) {
             System.err.println("Could not create project requirements.");
+            System.err.println(e.getMessage());
         }
     }
 }
