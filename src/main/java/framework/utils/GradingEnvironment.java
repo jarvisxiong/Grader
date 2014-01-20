@@ -35,7 +35,7 @@ public class GradingEnvironment {
 
     private GradingEnvironment() {
         osName = System.getProperty("os.name");
-        if (osName.equals("Mac OS X")) {
+        if (osName.equals("Mac OS X") || osName.equals("Linux")) {
             osName = "Mac";
             browser = "open";
             editor = findEditor(macEditors);
