@@ -117,9 +117,30 @@ public class ProcessRunner implements Runner {
                         System.out.println(line);
                         runner.appendOutput(line);
                     }
+                    scanner.close();
                     outputSemaphore.release();
                 }
             }).start();
+            
+            // Print error output to the console
+            InputStream processErrorOut = process.getErrorStream();
+            final Scanner errorScanner = new Scanner(processErrorOut);
+            final Semaphore errorSemaphore = new Semaphore(1);
+            errorSemaphore.acquire();
+            
+            new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					while (errorScanner.hasNextLine()) {
+						String line = errorScanner.nextLine();
+						System.err.println(line);
+						runner.appendOutput(line);
+					}
+					errorScanner.close();
+					errorSemaphore.release();
+				}
+			}).start();;
 
             // Write to the process
             OutputStreamWriter processIn = new OutputStreamWriter(process.getOutputStream());
@@ -137,6 +158,7 @@ public class ProcessRunner implements Runner {
 
             // Wait for the output to finish
             outputSemaphore.acquire();
+            errorSemaphore.acquire();
             runner.end();
 
         } catch (Exception e) {

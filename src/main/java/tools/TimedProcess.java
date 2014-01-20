@@ -37,6 +37,10 @@ public class TimedProcess {
     public OutputStream getOutputStream() {
         return process.getOutputStream();
     }
+    
+    public InputStream getErrorStream() {
+    	return process.getErrorStream();
+    }
 
     public Process getProcess() {
         return process;
