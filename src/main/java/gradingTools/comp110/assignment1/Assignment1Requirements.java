@@ -1,6 +1,7 @@
 package gradingTools.comp110.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
+import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.comp110.assignment1.testcases.AddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
@@ -24,6 +25,10 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 
 		// Check for adding and multiplying of numbers
 		addFeature("Adds and multiplies the numbers", 10, new AddAndMultiplyTestCase());
+
+		// Check for the messages with the outputs
+		addFeature("Messages with output", 10, new ManualTestCase(
+				"Prints clear messages for each of the outputs"));
 
 		// Check for the results of addition and multiplication
 		addFeature("Displays results of addition and multiplication", 40,
