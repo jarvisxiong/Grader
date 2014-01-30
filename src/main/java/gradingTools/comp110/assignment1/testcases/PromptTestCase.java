@@ -11,7 +11,7 @@ import gradingTools.utils.RunningProjectUtils;
 
 public class PromptTestCase extends BasicTestCase {
 	public PromptTestCase() {
-		super("Hello World printer test case");
+		super("Prompt printer test case");
 	}
 
 	private TestCaseResult testForIntegerPrompt(String output) {
@@ -52,7 +52,7 @@ public class PromptTestCase extends BasicTestCase {
 			// See if the initial prompt is an int or double prompt
 			boolean hasIntPrompt = testForIntegerPrompt(noInputPrompt).getPercentage() > 0;
 			boolean hasDoublePrompt = testForDoublePrompt(noInputPrompt).getPercentage() > 0;
-			boolean independentPrompts = hasIntPrompt && hasDoublePrompt;
+			boolean samePromptForBoth = hasIntPrompt && hasDoublePrompt;
 
 			// If we have not seen prompts for ints or doubles, check if they
 			// show up after giving input
@@ -60,7 +60,7 @@ public class PromptTestCase extends BasicTestCase {
 				hasIntPrompt = testForIntegerPrompt(doubleInputPrompt).getPercentage() > 0;
 			}
 			if (!hasDoublePrompt) {
-				hasDoublePrompt = testForDoublePrompt(doubleInputPrompt).getPercentage() > 0;
+				hasDoublePrompt = testForDoublePrompt(integerInputPrompt).getPercentage() > 0;
 			}
 
 			// Create an error message based on our findings
@@ -78,13 +78,16 @@ public class PromptTestCase extends BasicTestCase {
 					credit = 0.5;
 				}
 			}
-			if (!independentPrompts) {
+			if (samePromptForBoth) {
 				errorMessage = "Program does not prompt separately for int and double inputs\n";
 				credit = 0.5;
 			}
 
 			if (credit == 1.0) {
 				return pass();
+			} else if ((noInputPrompt.length()) > 0
+					&& ((integerInputPrompt.length() > 0) || (doubleInputPrompt.length() > 0))) {
+				throw new NotGradableException();
 			} else {
 				return partialPass(credit, errorMessage);
 			}
@@ -94,5 +97,4 @@ public class PromptTestCase extends BasicTestCase {
 			throw new NotGradableException();
 		}
 	}
-
 }
