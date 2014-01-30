@@ -5,6 +5,7 @@ import gradingTools.comp110.assignment1.testcases.AddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
+import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
 
 public class Assignment1Requirements extends FrameworkProjectRequirements {
@@ -27,6 +28,8 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		// Check for the results of addition and multiplication
 		addFeature("Displays results of addition and multiplication", 40,
 				new PrintAddAndMultiplyTestCase());
+
+		addFeature("Has a proper header", 10, new ProperHeaderTestCase());
 
 	}
 }
