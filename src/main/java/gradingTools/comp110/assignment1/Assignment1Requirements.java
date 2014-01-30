@@ -10,11 +10,8 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		// Check for a main method
 		addFeature("Contains a main method", 10, new MainMethodTestCase());
 
-		// Checks for prompt for integer
-		addFeature("Prompts for an integer", 5, new IntegerPromptTestCase());
-
-		// //Checks if integer was taken in
-		addFeature("Prompts for Double", 5, new DoublePromptTestCase());
+		// Checks for prompts
+		addFeature("Prompts for inputs", 10, new PromptTestCase());
 
 		// //Combines Taking in Int and Double together into one test case
 		// addFeature("Takes in Double and Integer",10, new
