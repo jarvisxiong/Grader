@@ -128,7 +128,7 @@ public class ProcessRunner implements Runner {
 					while (scanner.hasNextLine()) {
 						String line = scanner.nextLine();
 						System.out.println(line);
-						runner.appendOutput(line);
+						runner.appendOutput(line + "\n");
 					}
 					scanner.close();
 					outputSemaphore.release();
@@ -148,7 +148,7 @@ public class ProcessRunner implements Runner {
 					while (errorScanner.hasNextLine()) {
 						String line = errorScanner.nextLine();
 						System.err.println(line);
-						runner.appendOutput(line);
+						runner.appendErrorOutput(line + "\n");
 					}
 					errorScanner.close();
 					errorSemaphore.release();
