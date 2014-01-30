@@ -7,6 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
+import gradingTools.utils.RunningProjectUtils;
 
 public class DoublePromptTestCase extends BasicTestCase {
 
@@ -15,19 +16,19 @@ public class DoublePromptTestCase extends BasicTestCase {
 	}
 
 	@Override
-	public TestCaseResult test(Project project, boolean autoGrade)
-			throws NotAutomatableException, NotGradableException {
+	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
+			NotGradableException {
 		try {
-			RunningProject runningProject = project.launch("", 3);
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
 			String output = runningProject.await();
 			int run1 = output.length();
-			RunningProject runningProject2 = project.launch("1", 3);
+
+			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 3, "1");
 			String output2 = runningProject2.await();
 			output2 = output2.substring(run1).trim();
 
 			// Now you can test the output for certain things
-			if (output2.toLowerCase().contains("dec")
-					|| output2.toLowerCase().contains("doub"))
+			if (output2.toLowerCase().contains("dec") || output2.toLowerCase().contains("doub"))
 				return pass();
 			else if (output2.trim().length() == 0)
 				return fail("Program does not output any double prompt");
