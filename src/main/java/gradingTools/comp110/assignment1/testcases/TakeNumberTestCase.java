@@ -1,4 +1,4 @@
-package gradingTools.comp110.assignment1;
+package gradingTools.comp110.assignment1.testcases;
 
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;

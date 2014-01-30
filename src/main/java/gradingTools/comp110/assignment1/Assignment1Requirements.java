@@ -1,6 +1,9 @@
 package gradingTools.comp110.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
+import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
+import gradingTools.comp110.assignment1.testcases.PromptTestCase;
+import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
 
 public class Assignment1Requirements extends FrameworkProjectRequirements {
 	public Assignment1Requirements() {
@@ -14,8 +17,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		addFeature("Prompts for inputs", 10, new PromptTestCase());
 
 		// //Combines Taking in Int and Double together into one test case
-		// addFeature("Takes in Double and Integer",10, new
-		// TakeNumberTestCase());
+		addFeature("Takes in Double and Integer", 10, new TakeNumberTestCase());
 
 	}
 }
