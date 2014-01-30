@@ -87,7 +87,7 @@ public class PromptTestCase extends BasicTestCase {
 				return pass();
 			} else if ((noInputPrompt.length()) > 0
 					&& ((integerInputPrompt.length() > 0) || (doubleInputPrompt.length() > 0))) {
-				throw new NotGradableException();
+				throw new NotAutomatableException();
 			} else {
 				return partialPass(credit, errorMessage);
 			}
