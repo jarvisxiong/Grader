@@ -1,6 +1,7 @@
 package gradingTools.comp110.assignment1.testcases;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
@@ -18,6 +19,13 @@ public class ProperHeaderTestCase extends BasicTestCase {
 		super("Proper header test case");
 	}
 
+	static final String UNFILLED_PROGRAM_NAME = "Program or Assignment #: Insert assignment name";
+	static final String UNFILLED_PROGRAMMER = "Programmer: Insert your name";
+	static final String UNFILLED_DUE_DATE = "Due Date: Insert due date";
+	static final String UNFILLED_PROGRAM_DESCRIPTION = "Description: Insert a brief paragraph describing the program";
+	static final String UNFILLED_INPUT = "Input: Insert a brief description of user inputs, or \"None\" if * there is no user input";
+	static final String UNFILLED_OUTPUT = "Output: Insert a brief description of the program output";
+
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
@@ -31,14 +39,23 @@ public class ProperHeaderTestCase extends BasicTestCase {
 				String code = FileUtils.readFileToString(description.getSource());
 				code = code.replaceAll("\\s+", " ");
 
-				// Half credit for not filling in header
-				if (code.contains("/****************************************************************** * Program or Assignment #: Insert assignment name * * Programmer: Insert your name * * Due Date: Insert due date * * COMP110-002, Spring 2014 Instructor: Prof. Jay Aikat * * Pledge: I have neither given nor received unauthorized aid * on this program. * * Description: Insert a brief paragraph describing the program * * Input: Insert a brief description of user inputs, or \"None\" if * there is no user input * * Output: Insert a brief description of the program output * ******************************************************************/")) {
-					return partialPass(0.5, "You must fill in the information in the header");
-				}
+				String headerRegex = "/[*]{1,} ([*]{1,} )*Program or Assignment #: .+ [*]{1,} [*]{1,} Programmer: .+ [*]{1,} [*]{1,} Due Date: .+ [*]{1,} [*]{1,} COMP110-002, Spring 2014 Instructor: Prof. Jay Aikat [*]{1,} [*]{1,} Pledge: I have neither given nor received unauthorized aid ([*]{1,} )?on this program. [*]{1,} [*]{1,} Description: .+ [*]{1,} [*]{1,} Input: .+ [*]{1,} [*]{1,} Output: .+ [*]{1,} [*]{1,}/";
+				Matcher matcher = Pattern.compile(headerRegex).matcher(code);
+				if (matcher.find()) {
+					String header = matcher.group();
 
-				String headerRegex = "/[*]{1,} [*]{1,} Program or Assignment #: .+ [*]{1,} [*]{1,} Programmer: [^\\s]+ [*]{1,} [*]{1,} Due Date: .+ [*]{1,} [*]{1,} COMP110-002, Spring 2014 Instructor: Prof. Jay Aikat [*]{1,} [*]{1,} Pledge: I have neither given nor received unauthorized aid [*]{1,} on this program. [*]{1,} [*]{1,} Description: .+ [*]{1,} [*]{1,} Input: .+ [*]{1,} [*]{1,} Output: .+ [*]{1,} [*]{1,}/";
-				if (Pattern.compile(headerRegex).matcher(code).find()) {
-					return pass();
+					// Half credit for not filling in header
+					if (header.contains(UNFILLED_PROGRAM_NAME)
+							|| header.contains(UNFILLED_DUE_DATE)
+							|| header.contains(UNFILLED_PROGRAMMER)
+							|| header.contains(UNFILLED_PROGRAM_DESCRIPTION)
+							|| header.contains(UNFILLED_INPUT) || code.contains(UNFILLED_OUTPUT)) {
+
+						return partialPass(0.5, "Did not fill in all parts of the header");
+
+					} else {
+						return pass();
+					}
 				}
 
 				throw new NotAutomatableException();
