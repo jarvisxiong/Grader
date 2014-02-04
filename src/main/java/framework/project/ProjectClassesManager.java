@@ -5,11 +5,15 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import org.apache.commons.io.FileUtils;
@@ -22,10 +26,10 @@ import tools.DirectoryUtils;
  */
 public class ProjectClassesManager implements ClassesManager {
 
-	private File buildFolder;
-	private File sourceFolder;
-	private ClassLoader classLoader;
-	private Set<ClassDescription> classDescriptions;
+	private final File buildFolder;
+	private final File sourceFolder;
+	private final ClassLoader classLoader;
+	private final Set<ClassDescription> classDescriptions;
 
 	public ProjectClassesManager(File buildFolder, File sourceFolder) throws IOException,
 			ClassNotFoundException {
@@ -55,10 +59,27 @@ public class ProjectClassesManager implements ClassesManager {
 				return pathname.getName().endsWith(".java");
 			}
 		});
+
+		// Check if any files need to be compiled
+		ArrayList<File> filesToCompile = new ArrayList<File>();
 		for (File file : javaFiles) {
 			String className = getClassName(file);
 			File classFile = getClassFile(className);
-			possiblyCompile(file, classFile);
+			if (shouldCompile(file, classFile)) {
+				filesToCompile.add(file);
+			}
+		}
+		if (filesToCompile.size() > 0) {
+			compile(filesToCompile);
+		}
+
+		for (File file : javaFiles) {
+			String className = getClassName(file);
+			File classFile = getClassFile(className);
+			if (shouldCompile(file, classFile)) {
+				filesToCompile.add(file);
+				continue;
+			}
 			try {
 				Class c = classLoader.loadClass(className);
 				classDescriptions.add(new BasicClassDescription(c, file));
@@ -120,22 +141,56 @@ public class ProjectClassesManager implements ClassesManager {
 	}
 
 	/**
-	 * Given a .java and .class file, this compiles or recompiles the .java file
-	 * if necessary.
+	 * Given a .java and .class file, returns whether the .java file needs to be
+	 * compiled or recompiled
 	 * 
 	 * @param javaFile
 	 *            The Java file
 	 * @param classFile
 	 *            The class file
-	 * @return The .class File.
+	 * @return boolean true if should compile/recompile false otherwise
 	 */
-	private void possiblyCompile(File javaFile, File classFile) {
+	private boolean shouldCompile(File javaFile, File classFile) {
 
-		if (!classFile.exists() || classFile.lastModified() < javaFile.lastModified()) {
-			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			// TODO: run compiler on java files
+		return !classFile.exists() || classFile.lastModified() < javaFile.lastModified();
+	}
 
+	/**
+	 * Given an ArrayList of .javaFiles, returns whether the .java file needs to
+	 * be compiled or recompiled
+	 * 
+	 * @param javaFiles
+	 *            ArrayList of .java files
+	 * @throws IOException
+	 */
+	private boolean compile(ArrayList<File> javaFiles) {
+
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		if (compiler != null) {
+			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+
+			List<String> optionList = new ArrayList<String>();
+			// set the output directory for the compiler
+			try {
+				String buildFolderPath = buildFolder.getCanonicalPath().toString();
+				optionList.addAll(Arrays.asList("-d", buildFolderPath));
+				System.out.println(buildFolderPath);
+			} catch (IOException e) {
+				return false;
+			}
+
+			Iterable<? extends JavaFileObject> compilationUnits = fileManager
+					.getJavaFileObjectsFromFiles(javaFiles);
+			try {
+				compiler.getTask(null, fileManager, null, optionList, null, compilationUnits)
+						.call();
+				return true;
+			} catch (IllegalStateException e) {
+				return false;
+			}
 		}
+
+		return false;
 	}
 
 	@Override
