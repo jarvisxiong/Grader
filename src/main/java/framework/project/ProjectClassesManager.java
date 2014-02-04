@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+
 import org.apache.commons.io.FileUtils;
 
 import scala.Option;
@@ -129,7 +132,9 @@ public class ProjectClassesManager implements ClassesManager {
 	private void possiblyCompile(File javaFile, File classFile) {
 
 		if (!classFile.exists() || classFile.lastModified() < javaFile.lastModified()) {
-			// TODO: compile java code
+			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			// TODO: run compiler on java files
+
 		}
 	}
 
