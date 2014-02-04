@@ -70,16 +70,17 @@ public class ProjectClassesManager implements ClassesManager {
 			}
 		}
 		if (filesToCompile.size() > 0) {
-			compile(filesToCompile);
+			try {
+				System.out.println("Attempting to compile files.");
+				compile(filesToCompile);
+				System.out.println("Compilation succeeded.");
+			} catch (Exception e) {
+				System.out.println("Compilation failed: " + e.toString());
+			}
 		}
 
 		for (File file : javaFiles) {
 			String className = getClassName(file);
-			File classFile = getClassFile(className);
-			if (shouldCompile(file, classFile)) {
-				filesToCompile.add(file);
-				continue;
-			}
 			try {
 				Class c = classLoader.loadClass(className);
 				classDescriptions.add(new BasicClassDescription(c, file));
@@ -163,7 +164,7 @@ public class ProjectClassesManager implements ClassesManager {
 	 *            ArrayList of .java files
 	 * @throws IOException
 	 */
-	private boolean compile(ArrayList<File> javaFiles) {
+	private void compile(ArrayList<File> javaFiles) throws IOException, IllegalStateException {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		if (compiler != null) {
@@ -171,26 +172,16 @@ public class ProjectClassesManager implements ClassesManager {
 
 			List<String> optionList = new ArrayList<String>();
 			// set the output directory for the compiler
-			try {
-				String buildFolderPath = buildFolder.getCanonicalPath().toString();
-				optionList.addAll(Arrays.asList("-d", buildFolderPath));
-				System.out.println(buildFolderPath);
-			} catch (IOException e) {
-				return false;
-			}
+			String buildFolderPath = buildFolder.getCanonicalPath();
+			optionList.addAll(Arrays.asList("-d", buildFolderPath));
+			System.out.println(buildFolderPath);
 
 			Iterable<? extends JavaFileObject> compilationUnits = fileManager
 					.getJavaFileObjectsFromFiles(javaFiles);
-			try {
-				compiler.getTask(null, fileManager, null, optionList, null, compilationUnits)
-						.call();
-				return true;
-			} catch (IllegalStateException e) {
-				return false;
-			}
+			compiler.getTask(null, fileManager, null, optionList, null, compilationUnits).call();
+		} else {
+			throw new RuntimeException("Compiler not accessible");
 		}
-
-		return false;
 	}
 
 	@Override
