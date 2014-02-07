@@ -80,6 +80,10 @@ public class SpreadsheetLogger implements Logger {
 		// Save the workbook to the file
 		try {
 
+			if (!spreadsheetFile.getParentFile().exists()) {
+				spreadsheetFile.getParentFile().mkdirs();
+			}
+
 			FileOutputStream outputStream = new FileOutputStream(spreadsheetFile);
 			workbook.write(outputStream);
 			outputStream.close();
