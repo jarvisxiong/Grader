@@ -1,6 +1,6 @@
 package examples;
 
-import examples.checkers.testCases.ErrorTestCase;
+import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
 import framework.grading.FrameworkProjectRequirements;
@@ -29,7 +29,7 @@ public class GraderWithFrameworkExample {
         FrameworkProjectRequirements requirements = new FrameworkProjectRequirements() {{
             addFeature("Test feature 1", 20, new PassingTestCase());
             addFeature("Test feature 2", 15, new FailingTestCase());
-            addFeature("Test feature 3", 10, new ErrorTestCase());
+            addFeature("Test feature 3", 10, new ErrorMessageTestCase());
         }};
         database.addProjectRequirements(requirements);
 
