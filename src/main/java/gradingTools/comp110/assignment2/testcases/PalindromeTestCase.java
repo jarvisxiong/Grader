@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment2.testcases;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import framework.execution.NotRunnableException;
@@ -13,16 +14,29 @@ import gradingTools.utils.RunningProjectUtils;
 
 public class PalindromeTestCase extends BasicTestCase {
 
+	private Random rand = new Random();
+
+	private static ArrayList<Character> possibleChars = new ArrayList<Character>();
+	static {
+		for (int i = 0; i < 26; i++) {
+			possibleChars.add((char) ((int) 'a' + i));
+			possibleChars.add((char) ((int) 'A' + i));
+		}
+	}
+
 	public PalindromeTestCase() {
 		super("Palindrome Test Case");
 	}
 
 	protected boolean resultOfInputContains(Project project, String input, String requiredResultPart)
 			throws NotRunnableException, NotAutomatableException {
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
 		String prompt = runningProject.await();
+		if (prompt.endsWith("\n")) {
+			prompt = prompt.substring(0, prompt.length() - 1);
+		}
 
-		RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3, input);
+		RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
 		String output = runningProjectWithInput.await();
 
 		if (!output.startsWith(prompt)) {
@@ -37,23 +51,30 @@ public class PalindromeTestCase extends BasicTestCase {
 			String nonPalindrome) throws NotAutomatableException, NotGradableException {
 
 		try {
-			return resultOfInputContains(project, palindrome, "is a palindrome")
-					&& resultOfInputContains(project, nonPalindrome, "is not a palindrome");
+			return resultOfInputContains(project, palindrome + "\n", "is a palindrome")
+					&& !resultOfInputContains(project, palindrome + "\n", "is not a palindrome")
+					&& resultOfInputContains(project, nonPalindrome + "\n", "is not a palindrome")
+					&& !resultOfInputContains(project, nonPalindrome + "\n", "is a palindrome");
 
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
 		}
 	}
 
+	private char getRandomCharacter() {
+		int pos = rand.nextInt(possibleChars.size());
+		return possibleChars.get(pos);
+	}
+
 	private String createPalindrome(int length) {
 		Random rand = new Random();
 		String result = "";
 		if (length % 2 == 1) {
-			char randomChar = (char) rand.nextInt(Character.MAX_CODE_POINT + 1);
+			char randomChar = getRandomCharacter();
 			result += randomChar;
 		}
 		for (int i = 0; i < length / 2; i++) {
-			char randomChar = (char) rand.nextInt(Character.MAX_CODE_POINT + 1);
+			char randomChar = getRandomCharacter();
 			result = randomChar + result + randomChar;
 		}
 		return result;
@@ -63,11 +84,11 @@ public class PalindromeTestCase extends BasicTestCase {
 		Random rand = new Random();
 		String result = "";
 		for (int i = 0; i < length; i++) {
-			char randomChar = (char) rand.nextInt(Character.MAX_CODE_POINT + 1);
-			result = randomChar + result + randomChar;
+			char randomChar = getRandomCharacter();
+			result = result + randomChar;
 		}
 		while (result.charAt(0) == result.charAt(result.length() - 1)) {
-			char randomChar = (char) rand.nextInt(Character.MAX_CODE_POINT + 1);
+			char randomChar = getRandomCharacter();
 			result = result.substring(0, result.length() - 1) + randomChar;
 		}
 		return result;

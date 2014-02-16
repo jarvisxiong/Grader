@@ -1,9 +1,9 @@
 package gradingTools.comp110.assignment2;
 
-import examples.checkers.testCases.ErrorMessageTestCase;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
+import gradingTools.comp110.assignment2.testcases.ErrorTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeIgnoreCaseTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeTestCase;
 import gradingTools.comp110.assignment2.testcases.PromptTestCase;
@@ -27,7 +27,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		addFeature("Takes in a String", 10, new TakeStingTestCase());
 
 		// Check for error message with incorrect input
-		addFeature("Prints an error message", 10, new ErrorMessageTestCase());
+		addFeature("Prints an error message", 10, new ErrorTestCase());
 
 		// Check that palindromes are properly checked
 		addFeature("Correctly checks for palindrome", 40, new PalindromeTestCase());

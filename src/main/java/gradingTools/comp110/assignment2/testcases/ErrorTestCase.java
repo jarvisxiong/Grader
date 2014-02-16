@@ -20,6 +20,9 @@ public class ErrorTestCase extends BasicTestCase {
 		try {
 			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
 			String output = runningProject.await();
+			if (output.endsWith("\n")) {
+				output = output.substring(0, output.length() - 1);
+			}
 			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3,
 					input);
 			String outputAfterInput = runningProjectWithInput.await();
@@ -45,7 +48,7 @@ public class ErrorTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 
-		if (hasErrorMessage(project, "this string is much longer than is acceptable")
+		if (hasErrorMessage(project, "this string is much longer than is acceptable\n")
 				&& !hasErrorMessage(project, "short")) {
 			return pass();
 		} else {

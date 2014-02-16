@@ -40,7 +40,7 @@ public class TakeStingTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 
-		return testAcceptingInput(null, "This is a string");
+		return testAcceptingInput(project, "This is a string\n");
 
 	}
 }

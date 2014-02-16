@@ -20,7 +20,8 @@ public class PromptTestCase extends BasicTestCase {
 		String lowercaseOutput = output.trim().toLowerCase();
 		boolean containsString = lowercaseOutput.contains("string")
 				|| lowercaseOutput.contains("word");
-		boolean containsLength = Pattern.matches(".*1\\s*(-|(to))\\s*8.*", lowercaseOutput);
+		boolean containsLength = Pattern.matches(
+				".*((1)|(one))\\s*(-|(to)|(and))\\s*((8)|(eight)).*", lowercaseOutput);
 		if (containsString && containsLength) {
 			return pass();
 		} else {
