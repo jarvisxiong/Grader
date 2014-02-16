@@ -4,6 +4,7 @@ import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment2.testcases.ErrorTestCase;
+import gradingTools.comp110.assignment2.testcases.NoStringBufferTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeIgnoreCaseTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeTestCase;
 import gradingTools.comp110.assignment2.testcases.PromptTestCase;
@@ -35,6 +36,9 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		// Check that it ignores case when checking palindromes
 		addFeature("Ignores case when checking for palindromes", 10,
 				new PalindromeIgnoreCaseTestCase());
+
+		// Deduct points for using StringBuffer
+		addRestriction("No StringBuffer allowed", 30, new NoStringBufferTestCase());
 
 	}
 }
