@@ -163,11 +163,11 @@ public class SpreadsheetLogger implements Logger {
 				row.createCell(1).setCellValue(line[1]);
 				row.createCell(2).setCellValue(line[2]);
 				row.createCell(3).setCellValue(line[3]);
-				row.createCell(4).setCellValue(0);
-				row.createCell(5).setCellValue(0);
-				row.createCell(6).setCellValue(0);
+				row.createCell(4);
+				row.createCell(5);
+				row.createCell(6);
 				for (int i = 7; i < columnCounter; i++)
-					row.createCell(i).setCellValue(0);
+					row.createCell(i);
 			}
 			reader.close();
 			workbookCreated = true;
