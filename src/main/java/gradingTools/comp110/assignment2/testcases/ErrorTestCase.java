@@ -48,7 +48,7 @@ public class ErrorTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 
-		if (hasErrorMessage(project, "this string is much longer than is acceptable\n")
+		if (hasErrorMessage(project, "this_string_is_much_longer_than_is_acceptable\n")
 				&& !hasErrorMessage(project, "short")) {
 			return pass();
 		} else {

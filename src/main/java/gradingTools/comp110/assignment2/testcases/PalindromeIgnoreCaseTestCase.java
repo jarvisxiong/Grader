@@ -14,7 +14,7 @@ public class PalindromeIgnoreCaseTestCase extends PalindromeTestCase {
 
 		try {
 
-			String casedPalindrome = "A!!a";
+			String casedPalindrome = "A!bB!a";
 
 			if (resultOfInputContains(project, casedPalindrome, "is a palindrome")) {
 				return pass();
