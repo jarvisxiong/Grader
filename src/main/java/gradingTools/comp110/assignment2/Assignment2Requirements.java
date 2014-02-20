@@ -12,8 +12,8 @@ import gradingTools.comp110.assignment2.testcases.TakeStingTestCase;
 
 public class Assignment2Requirements extends FrameworkProjectRequirements {
 	public Assignment2Requirements() {
-		addDueDate("02/4/2014 23:55:59", 1.0);
-		addDueDate("02/5/2014 23:55:59", 0.5);
+		addDueDate("02/21/2014 23:55:59", 1.0);
+		addDueDate("02/22/2014 23:55:59", 0.5);
 
 		// Check for a main method
 		addFeature("Contains a main method", 10, new MainMethodTestCase());
