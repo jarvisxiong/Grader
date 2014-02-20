@@ -21,7 +21,8 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	String binaryFolderName = BINARY;
 	RootFolderProxy root;
 	String projectFolder; 
-	FileProxy sourceFolder, binaryFolder;
+	// changing sourceFolder to rootfolderproxy from FileProxy as we do not need the more general type
+	RootFolderProxy sourceFolder, binaryFolder;
 	
 	boolean separateSourceBinary = true;
 	boolean hasSource;
@@ -34,8 +35,10 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 //		if (aRoot.getAbsoluteName().indexOf("erichman") != -1) {
 //			System.out.println (" found erichman");
 //		}
+		// this code is a bit of a mess, need to clean this up
 		root = aRoot;
 		setSeparateSourcBinary();
+		// should we not be doing this only if there is a separate source and binary?
 		sourceFolderName = getEntryWithSuffix(aRoot, SOURCE);
 		binaryFolderName = getEntryWithSuffix(aRoot, BINARY);
 		// allow a set here
@@ -67,6 +70,8 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 			binaryFolder = root.getFileEntry(binaryFolderName);
 		} else {
 			projectFolder = binaryFolderName;
+			//added this.
+			sourceFolder = root;
 		}
 		
 		

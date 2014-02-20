@@ -11,7 +11,9 @@ import framework.utils.GradingEnvironment;
 import util.misc.Common;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
+import grader.sakai.project.ASakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
@@ -30,6 +32,10 @@ public class Driver {
             // Get the project name
             String projectName = configuration.getString("project.name");
             GradingEnvironment.get().setAssignmentName(projectName);
+            
+                        
+            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
             // Get the project requirements
             Class<?> _class = Class.forName(configuration.getString("project.requirements"));
@@ -70,12 +76,16 @@ public class Driver {
                 // Start the grading process by, first, getting the settings the running the project database
                 SettingsWindow settingsWindow = SettingsWindow.create();
                 settingsWindow.awaitBegin();
+//                ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
+
 
                 // Logging/results saving
                 FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
 
                 // Create the database
                 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+//             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
+
                 database.addProjectRequirements(requirements);
 
                 // Possibly set the stepper displayer
@@ -86,6 +96,7 @@ public class Driver {
                 // Feedback
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
+                database.getOrCreateProjectStepper().setAutoAutoGrade(true);
 
                 database.nonBlockingRunProjectsInteractively();
             }

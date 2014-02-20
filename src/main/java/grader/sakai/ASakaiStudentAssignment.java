@@ -36,6 +36,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             submissionFolder = aFileProxy.getFileEntryFromLocalName(SUBMISSION_LOCAL_NAME);
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
             commentsFile = aFileProxy.getFileEntryFromLocalName(COMMENTS_LOCAL_NAME);
+            if (commentsFile != null)
             commentsFileName = commentsFile.getAbsoluteName();
             timeStampFile = aFileProxy.getFileEntryFromLocalName(TIMESTAMP_LOCAL_NAME);
             try {

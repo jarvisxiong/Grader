@@ -155,7 +155,7 @@ public class AGradingFeature implements GradingFeature {
     }
 
     @Position(0)
-    @ComponentWidth(100)
+    @ComponentWidth(250)
     public String getFeature() {
         return featureName;
     }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 
+
+
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
@@ -13,6 +15,8 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.project.Project;
 import grader.sakai.BulkAssignmentFolder;
+import grader.sakai.GenericStudentAssignmentDatabase;
+import grader.sakai.StudentCodingAssignment;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 
@@ -69,6 +73,13 @@ public interface SakaiProjectDatabase {
 	void startProjectStepper();
 
 	public Object displayProjectStepper(ProjectStepper aProjectStepper) ;
+
+	GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase();
+
+	 public ProjectStepper getProjectStepper() ;
+
+	public void setProjectStepper(ProjectStepper projectStepper) ;
+	ProjectStepper getOrCreateProjectStepper();
 
 
 

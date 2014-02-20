@@ -1,11 +1,12 @@
 package grader.sakai;
 
 import grader.file.FileProxy;
+import grader.file.RootFolderProxy;
 
 import java.util.Set;
 
 public interface BulkAssignmentFolder {
-    public FileProxy getAssignmentFolder();
+    public RootFolderProxy getAssignmentFolder();
 
     Set<String> getStudentFolderNames();
 

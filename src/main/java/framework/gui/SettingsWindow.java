@@ -3,10 +3,14 @@ package framework.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
+import grader.sakai.project.ASakaiProjectDatabase;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -114,6 +118,7 @@ public class SettingsWindow {
             GraderSettings.get().set("start", start.getText());
             GraderSettings.get().set("end", end.getText());
             GraderSettings.get().set("path", downloadPath);
+//            ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
             GraderSettings.get().set("editor", editor);
             GraderSettings.get().save();
         } catch (InterruptedException e) {

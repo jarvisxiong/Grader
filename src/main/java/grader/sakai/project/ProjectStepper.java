@@ -64,7 +64,9 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	boolean preRunProjectsInteractively();
 
 	void move(boolean forward);
-
+	public boolean isAutoAutoGrade() ;
+    public void setAutoAutoGrade(boolean newVal) ;
+    public void autoAutoGrade() ;
 	
 
 }
