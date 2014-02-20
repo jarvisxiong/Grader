@@ -100,6 +100,8 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
 		if (autoRun)
 		projectDatabase.runProject(anOnyen, project);
+		if (autoAutoGrade)
+			autoGrade();
 		manualOnyen = true;
 	
 //		projectDatabase.runProjectInteractively(anOnyen, this);
@@ -127,6 +129,18 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	}
     public void autoRun() {
     	autoRun = !autoRun;
+    }
+    boolean autoAutoGrade = false; // should we automatically do all the auto grade
+	public boolean isAutoAutoGrade() {
+		return autoAutoGrade;
+		
+	}
+    public void setAutoAutoGrade(boolean newVal) {
+    	autoAutoGrade = newVal;
+		
+	}
+    public void autoAutoGrade() {
+    	autoAutoGrade = !autoAutoGrade;
     }
 	@Row(1)
 	@ComponentWidth(150)
@@ -382,14 +396,17 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	}
 	@Override
 	public boolean preAutoGrade() {
-		return project.runChecked() && project.canBeRun() && preGetGradingFeatures();
+//		return project.runChecked() && project.canBeRun() && preGetGradingFeatures();
+		return /*project.runChecked() && project.canBeRun() &&*/ preGetGradingFeatures();
+
 	}
 //	
 	@Row(8)
 	@ComponentWidth(100)
 	@Override
 	public void autoGrade() {
-		project.setHasBeenRun(true);
+		// not sure if this is true any longer
+		//project.setHasBeenRun(true);
 		for (GradingFeature gradingFeature:projectDatabase.getGradingFeatures()) {
 			if (gradingFeature.isAutoGradable()) {
 				gradingFeature.autoGrade();
@@ -670,7 +687,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		setProject(anOnyen);
 		if (isAutoRun())
 			projectDatabase.runProject(anOnyen, aProject);		
-		
+		if (isAutoAutoGrade())
+			autoGrade();
+		// why twice?
 		setProject(anOnyen);
 		
 		
@@ -706,8 +725,11 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		projectDatabase.initIO();
 		projectDatabase.recordWindows();		
 		setProject(anOnyen);
+		// these two steps should go into setProject unless there is something subttle here, specially as the stepProject step below is commented put
 		if (isAutoRun())
-			projectDatabase.runProject(anOnyen, aProject);		
+			projectDatabase.runProject(anOnyen, aProject);	
+		if (isAutoAutoGrade())
+			autoGrade();
 		
 //		setProject(anOnyen);
 	}

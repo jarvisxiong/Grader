@@ -137,18 +137,39 @@ public class AProject implements Project {
     }
 
     public void maybeMakeClassDescriptions() {
-        if (!runChecked && !hasBeenRun)
-            return;
+    	// earlier it expected class descroptions to be fetched after running
+    	// but we need the class descriptions to find the main method sometimes
+    	// so removing this check
+//        if (!runChecked && !hasBeenRun)
+//            return;
 
         if (madeClassDescriptions)
             return;
+        
+        makeClassDescriptions();
+        madeClassDescriptions = true;
 
+//        try { // Added by Josh: Exceptions can occur when making class descriptions
+//            classesManager.makeClassDescriptions(this);
+//            classViewManager = new AClassViewManager(classesManager);
+//            classesTextManager = new AClassesTextManager(classViewManager);
+//            classesTextManager.initializeAllSourcesText();
+//            System.out.println("Write sources to:" + sourceFileName);
+//            classesTextManager.writeAllSourcesText(sourceFileName);
+//            madeClassDescriptions = true;
+//        } catch (Exception e) {
+//            System.out.println("Error making class descriptions");
+//        }
+    }
+    
+    public void makeClassDescriptions() {
+    	
         try { // Added by Josh: Exceptions can occur when making class descriptions
             classesManager.makeClassDescriptions(this);
             classViewManager = new AClassViewManager(classesManager);
             classesTextManager = new AClassesTextManager(classViewManager);
             classesTextManager.initializeAllSourcesText();
-            System.out.println("Write sources to:" + sourceFileName);
+//            System.out.println("Write sources to:" + sourceFileName);
             classesTextManager.writeAllSourcesText(sourceFileName);
             madeClassDescriptions = true;
         } catch (Exception e) {
@@ -181,7 +202,7 @@ public class AProject implements Project {
             inputFiles = anInputFiles;
             outputFiles = anOutputFiles;
             if (mainClass == null) {
-                mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName);
+                mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName, this);
             }
             if (mainClass == null) {
                 System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());

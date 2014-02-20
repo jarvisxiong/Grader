@@ -1,5 +1,6 @@
 package grader.sakai.project;
 
+import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.AGradingFeatureList;
 import grader.assignment.AnAssignmenDataFolder;
@@ -17,6 +18,7 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
+import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
 import grader.project.AMainClassFinder;
 import grader.project.AProject;
@@ -41,6 +43,8 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
 
 import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -54,19 +58,23 @@ import java.util.Set;
 import util.misc.Common;
 import util.models.AListenableVector;
 import util.trace.Tracer;
-
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrameList;
 
 public class ASakaiProjectDatabase implements SakaiProjectDatabase {
-	public static final String DEFAULT_ASSIGNMENT_DATA_FOLDER = "C:/Users/dewan/Downloads/GraderData";
-	public static final String DEFAULT_SCORE_FILE_NAME= "scores.txt";
+	static SakaiProjectDatabase currentSakaiProjectDatabase;
+	
 
+//	public static final String DEFAULT_ASSIGNMENT_DATA_FOLDER = "C:/Users/dewan/Downloads/GraderData";
+	public static final String DEFAULT_SCORE_FILE_NAME= "scores.txt";
+	boolean assignmentRoot;
 	Map<String, SakaiProject> onyenToProject = new HashMap();
 	String bulkAssignmentsFolderName;
 	BulkAssignmentFolder bulkFolder;
-	String assignmentsDataFolderName = DEFAULT_ASSIGNMENT_DATA_FOLDER;
+//	String assignmentsDataFolderName = DEFAULT_ASSIGNMENT_DATA_FOLDER;
+	String assignmentsDataFolderName;
+
 	AssignmentDataFolder assignmentDataFolder;
 	// String outputFileName;
 	FinalGradeRecorder gradeRecorder;
@@ -80,41 +88,98 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	ManualFeedback manualFeedback;
 	SourceDisplayer sourceDisplayer;
 	 MainClassFinder mainClassFinder;
-
-
-	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
-			String anAssignmentsDataFolderName) {
-		sourceSuffix = sourceSuffix();
-		outputSuffix = outputSuffix();
-		bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
-		assignmentsDataFolderName = anAssignmentsDataFolderName;
-		maybeMakeProjects();
-		// gradeRecorder = new
-		// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
-		// gradeRecorder = new
-		// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
-		// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
-		featureGradeRecorder = createFeatureGradeRecorder();
-		gradeRecorder = createFinalGradeRecorder();
-//		totalScoreRecorder = createTotalScoreRecorder();
-		totalScoreRecorder = createTotalScoreRecorder();
-		autoFeedback = createAutoFeedback();
-		manualFeedback = createManualFeedback();
-		scoreFeedback = createScoreFeedback();
-		sourceDisplayer = createSourceDisplayer();
-		mainClassFinder = createMainClassFinder();
-		projectStepperDisplayer = createProjectStepperDisplayer();
-		navigationListCreator = createNavigationListCreator();
-		
-
-		
-//		maybeMakeProjects();
-
-
-		initInputFiles();
-
-	}
+	 String startStudentID, endStudentID;
+	 ProjectStepper projectStepper;
+	 
 	
+	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
+				String anAssignmentsDataFolderName, String aStartStudentID, String anEndStudentID, boolean anAssignmentRoot) {
+		 
+		 startStudentID = aStartStudentID;
+		 endStudentID = anEndStudentID;
+		 init (aBulkAssignmentsFolderName, anAssignmentsDataFolderName , anAssignmentRoot);
+		 
+		 
+	 }
+	 
+		public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
+				String anAssignmentsDataFolderName, boolean anAssignmentRoot) {
+			init (aBulkAssignmentsFolderName, anAssignmentsDataFolderName, anAssignmentRoot );
+//			sourceSuffix = sourceSuffix();
+//			outputSuffix = outputSuffix();
+//			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
+//			assignmentsDataFolderName = anAssignmentsDataFolderName;
+//			maybeMakeProjects();
+//			// gradeRecorder = new
+//			// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
+//			// gradeRecorder = new
+//			// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
+//			// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
+//			featureGradeRecorder = createFeatureGradeRecorder();
+//			gradeRecorder = createFinalGradeRecorder();
+////			totalScoreRecorder = createTotalScoreRecorder();
+//			totalScoreRecorder = createTotalScoreRecorder();
+//			autoFeedback = createAutoFeedback();
+//			manualFeedback = createManualFeedback();
+//			scoreFeedback = createScoreFeedback();
+//			sourceDisplayer = createSourceDisplayer();
+//			mainClassFinder = createMainClassFinder();
+//			projectStepperDisplayer = createProjectStepperDisplayer();
+//			navigationListCreator = createNavigationListCreator();
+			
+
+			
+//			maybeMakeProjects();
+
+
+//			initInputFiles();
+
+		}
+	 
+	 public void init(String aBulkAssignmentsFolderName,
+				String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
+		 	assignmentRoot = anAssigmentRoot;
+			sourceSuffix = sourceSuffix();
+			outputSuffix = outputSuffix();
+			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
+			assignmentsDataFolderName = anAssignmentsDataFolderName;
+			maybeMakeProjects();
+			// gradeRecorder = new
+			// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
+			// gradeRecorder = new
+			// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
+			// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
+			featureGradeRecorder = createFeatureGradeRecorder();
+			gradeRecorder = createFinalGradeRecorder();
+//			totalScoreRecorder = createTotalScoreRecorder();
+			totalScoreRecorder = createTotalScoreRecorder();
+			autoFeedback = createAutoFeedback();
+			manualFeedback = createManualFeedback();
+			scoreFeedback = createScoreFeedback();
+			sourceDisplayer = createSourceDisplayer();
+			mainClassFinder = createMainClassFinder();
+			projectStepperDisplayer = createProjectStepperDisplayer();
+			navigationListCreator = createNavigationListCreator();
+			
+
+			
+//			maybeMakeProjects();
+
+
+			initInputFiles();
+
+		}
+
+
+
+	public static SakaiProjectDatabase getCurrentSakaiProjectDatabase() {
+		return currentSakaiProjectDatabase;
+	}
+
+	public static void setCurrentSakaiProjectDatabase(
+			SakaiProjectDatabase currentSakaiProjectDatabase) {
+		ASakaiProjectDatabase.currentSakaiProjectDatabase = currentSakaiProjectDatabase;
+	}
 	public AutoFeedback getAutoFeedback() {
 		return autoFeedback;
 	}
@@ -458,16 +523,31 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			gradingFeature.setOutputFiles(outputFiles);
 		}
 	}
+	
+
 
 	public ProjectStepper createAndDisplayProjectStepper() {
-		ProjectStepper aProjectStepper = createProjectStepper();
-		aProjectStepper.setProjectDatabase(this);
+//		if (projectStepper != null) {
+//		ProjectStepper aProjectStepper = createProjectStepper();
+//		aProjectStepper.setProjectDatabase(this);
+//		projectStepper = aProjectStepper;
+//		}
 		// OEFrame oeFrame = ObjectEditor.edit(clearanceManager);
 		// oeFrame.setLocation(800, 500);
 		// oeFrame.setSize(400, 400);
-		displayProjectStepper(aProjectStepper);
-		return aProjectStepper;
+		displayProjectStepper(getOrCreateProjectStepper());
+		return projectStepper;
 	}
+	
+	 public ProjectStepper getProjectStepper() {
+		 
+			return projectStepper;
+		}
+
+		public void setProjectStepper(ProjectStepper projectStepper) {
+			this.projectStepper = projectStepper;
+		}
+
 	
 	ProjectStepperDisplayer projectStepperDisplayer;
 	
@@ -493,8 +573,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 //		return oeFrame;
 	}
 
-	public ProjectStepper createProjectStepper() {
-		return new AProjectStepper();
+	public ProjectStepper getOrCreateProjectStepper() {
+		if (projectStepper == null) {
+		 projectStepper = new AProjectStepper();
+		 projectStepper.setProjectDatabase(this);
+		}
+		
+		return projectStepper;
 	}
 
 	public void runProjectInteractively(String anOnyen) {
@@ -717,34 +802,113 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	}
 
-	public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
-		if (studentAssignmentDatabase == null) {
-			studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(
-					bulkFolder);
-
-		}
-		return studentAssignmentDatabase;
-
-	}
+	/**
+	 * replacing it with Josh's better version below that called getBulkAssignmentFolder()
+	 */
+//	@Override
+//	public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
+//		if (studentAssignmentDatabase == null) {
+//			studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(
+//					bulkFolder);
+//
+//		}
+//		return studentAssignmentDatabase;
+//
+//	}
+	
+	 @Override
+	    public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
+	        if (studentAssignmentDatabase == null)
+	            studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(getBulkAssignmentFolder());
+	        return studentAssignmentDatabase;
+	    }
 
 	GenericStudentAssignmentDatabase<StudentCodingAssignment> studentAssignmentDatabase;
+	// duplicated fiunctinality in ProjectDatabaseWrapper
+	static File maybeCreateFolder(String aName) {
+		File theDir = new File(aName);
+
+		  // if the directory does not exist, create it
+		  if (!theDir.exists()) {
+//		    boolean result = theDir.mkdir();  
+		     theDir.mkdirs();
+
+		     
+		  }
+		  return theDir;
+	}
+	// duplicated functinality in ProjectDatabaseWrapper
+
+	  public static File maybeCreateFile(String aFileName) {
+	    	File theFile = new File(aFileName);
+
+			  // if the file does not exist, create it
+			  if (!theFile.exists()) {
+			    try {
+					boolean result = theFile.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
+
+			     
+			  }
+			  return theFile;
+	    }
+	  
+	// duplicated functinality in ProjectDatabaseWrapper
+
+	void maybeWriteStudentIDs(File file) {
+		if (startStudentID == null && endStudentID == null) 
+			return;
+		StringBuffer stringBuffer = new StringBuffer();
+		Set<String> allStudentFolderNames = bulkFolder.getStudentFolderNames();
+		boolean first = true;
+		for (String studentFolderName:allStudentFolderNames) {
+			String studentID = ASakaiBulkAssignmentFolder.extractOnyen(studentFolderName);
+			if (startStudentID.compareToIgnoreCase(studentID) <= 0 && 
+					endStudentID.compareToIgnoreCase(studentID) >= 0) {
+				if (!first) {
+					stringBuffer.append("\n");
+				}
+				stringBuffer.append(studentID);
+				first = !first;
+			}			
+				
+		}
+		try {
+			Common.writeText(file, stringBuffer.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void maybeMakeProjects() {
 		if (projectsMade)
 			return;
 		projectsMade = true;
-		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName);
+		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot);
 		String assignmentName = bulkFolder.getAssignmentName();
+		if (assignmentsDataFolderName == null)
+			assignmentsDataFolderName = GradingEnvironment.get().getDefaultAssignmentsDataFolderName();		
 		String specificAssignmentDataFolderName = assignmentsDataFolderName
 				+ "/" + assignmentName;
+		maybeCreateFolder(specificAssignmentDataFolderName);
+        File idFile = maybeCreateFile(specificAssignmentDataFolderName + "/" + AnAssignmenDataFolder.ID_FILE_NAME);
 
+        maybeWriteStudentIDs(idFile);
 		assignmentDataFolder = new AnAssignmenDataFolder(
 				specificAssignmentDataFolderName, bulkFolder.getSpreadsheet());
+		
+
 
 		if (!assignmentDataFolder.exists()) {
 			System.out.println("Expecting assignment data folder:"
 					+ specificAssignmentDataFolderName);
 		}
+		
+		
 		// GenericStudentAssignmentDatabase<StudentCodingAssignment>
 		// studentAssignmentDatabase = new
 		// ASakaiStudentCodingAssignmentsDatabase(bulkFolder);
@@ -787,7 +951,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public static void main(String[] args) {
 		SakaiProjectDatabase projectDatabase = new ASakaiProjectDatabase(
 				ASakaiBulkAssignmentFolder.DEFAULT_BULK_DOWNLOAD_FOLDER,
-				"C:/Users/dewan/Downloads/GraderData");
+				"C:/Users/dewan/Downloads/GraderData", false);
 		// projectDatabase.runProjectInteractively("mkcolema");
 //		projectDatabase.runProjectsInteractively();
 		projectDatabase.nonBlockingRunProjectsInteractively();

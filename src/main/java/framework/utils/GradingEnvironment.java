@@ -38,8 +38,18 @@ public class GradingEnvironment {
     private String browser;
     private String classpath;
     private String assignmentName;
+    private String defaulAssignmentsDataFolderName;
 
-    private GradingEnvironment() {
+	public String getDefaultAssignmentsDataFolderName() {
+		return defaulAssignmentsDataFolderName;
+	}
+
+	public void setDefaultAssignmentsDataFolderName(
+			String newVal) {
+		this.defaulAssignmentsDataFolderName = newVal;
+	}
+
+	private GradingEnvironment() {
         osName = System.getProperty("os.name");
         if (osName.equals("Mac OS X")) {
             osName = "Mac";

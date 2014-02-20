@@ -15,7 +15,7 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 
     public String getIdFileName();
 
-    public void setIdFileName(String idFileName);
+//    public void setIdFileName(String idFileName);
 
     public String getGradedIdFileName();
 

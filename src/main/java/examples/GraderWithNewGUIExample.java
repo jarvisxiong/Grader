@@ -22,7 +22,7 @@ public class GraderWithNewGUIExample {
         String bulkFolder = "/Users/josh/Downloads/a7";
         String dataFolder = "/Users/josh/Documents/School/Fall 2013/COMP401/Grader2/GraderData";
 
-        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder);
+        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder, false);
         List<GradingFeature> features = new ArrayList<GradingFeature>() {{
             add(new AGradingFeature("Test feature 1", 20, new PassingFeatureChecker()));
             add(new AGradingFeature("Test feature 2", 15, new FailingFeatureChecker()));

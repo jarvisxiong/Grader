@@ -8,6 +8,7 @@ import grader.file.filesystem.AFileSystemRootFolderProxy;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,14 +16,14 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
 
-    public static final String DEFAULT_ID_FILE_NAME = "onyens.txt";
+    public static final String ID_FILE_NAME = "onyens.txt";
     public static final String DEFAULT_LOG_FILE_NAME = "log.txt";
     public static final String DEFAULT_SKIPPED_FILE_NAME = "skipped_onyens.txt";
     public static final String DEFAULT_GRADED_ID_FILE_NAME = "graded_onyens.txt";
 
     public static final String DEFAULT_INPUT_FOLDER_NAME = "input";
     public static final String DEFAULT_FEATURE_GRADE_FILE_NAME = "FeatureGrades.csv";
-    String idFileName = DEFAULT_ID_FILE_NAME;
+    String idFileName = ID_FILE_NAME;
     String gradedIdFileName;
     String skippedIdFileName;
     String logFileName;
@@ -40,12 +41,16 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         if (rootFolder != null)
             initGraderData();
     }
+    
+  
 
     void initGraderData() {
 
         FileProxy inputFolder = this.getFileEntryFromLocalName(inputFolderName);
         if (inputFolder != null)
             inputFiles = inputFolder.getChildrenNames();
+        else
+        	inputFiles = new HashSet<>();
         FileProxy idFileProxy = getFileEntryFromLocalName(idFileName);
         featureGradeFile = getFileEntryFromLocalName(featureGradeFileName);
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
@@ -85,9 +90,9 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         return idFileName;
     }
 
-    public void setIdFileName(String idFileName) {
-        this.idFileName = idFileName;
-    }
+//    public void setIdFileName(String idFileName) {
+//        this.idFileName = idFileName;
+//    }
 
     public String getGradedIdFileName() {
         return gradedIdFileName;

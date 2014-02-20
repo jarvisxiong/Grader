@@ -21,7 +21,7 @@ public class GraderExample {
         String dataFolder = "/Users/josh/Documents/School/Fall 2013/COMP401/Grader2/GraderData";
 
         // Create a project database, which will contain the project grading criteria
-        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder);
+        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder, false);
         List<GradingFeature> features = new ArrayList<GradingFeature>() {{
             add(new AGradingFeature("Test feature 1", 20, new PassingFeatureChecker()));
             add(new AGradingFeature("Test feature 2", 15, new FailingFeatureChecker()));

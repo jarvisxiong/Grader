@@ -8,6 +8,7 @@ import framework.utils.GradingEnvironment;
 import wrappers.framework.project.ProjectWrapper;
 import grader.checkers.ACheckResult;
 import grader.checkers.CheckResult;
+import grader.sakai.project.SakaiProject;
 
 /**
  * This wraps a {@link Checkable} in a feature checker so as to handle the exceptions.

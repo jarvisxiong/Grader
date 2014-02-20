@@ -21,9 +21,9 @@ import java.io.FileNotFoundException;
  */
 public class ProjectWrapper extends StandardProject {
 
-    private Project project;
-
-    public ProjectWrapper(Project project, String name) throws FileNotFoundException {
+    private SakaiProject project;
+    // changed to SakaiProject
+    public ProjectWrapper(SakaiProject project, String name) throws FileNotFoundException {
         super(getDirectory(project), name);
         this.project = project;
     }
