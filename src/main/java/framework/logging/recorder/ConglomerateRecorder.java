@@ -246,4 +246,16 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setFeatureResults(List<TestCaseResult> results) {
         featureResults = results;
     }
+
+	@Override
+	public void setNotes(String aStudentName, String anOnyen, String aFeature,
+			String aNotes) {
+		save(aFeature, aNotes);		
+	}
+
+	@Override
+	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
+		// TODO Auto-generated method stub
+		return "";
+	}
 }

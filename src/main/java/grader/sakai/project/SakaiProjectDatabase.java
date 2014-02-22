@@ -7,7 +7,12 @@ import java.util.Set;
 
 
 
+
+
+import framework.grading.ProjectRequirements;
+import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
+import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
@@ -80,6 +85,12 @@ public interface SakaiProjectDatabase {
 
 	public void setProjectStepper(ProjectStepper projectStepper) ;
 	ProjectStepper getOrCreateProjectStepper();
+
+	void addProjectRequirements(ProjectRequirements requirements);
+
+	ProjectRequirements getProjectRequirements();
+
+	Checkable getRequirement(GradingFeature aGradingFeature);
 
 
 

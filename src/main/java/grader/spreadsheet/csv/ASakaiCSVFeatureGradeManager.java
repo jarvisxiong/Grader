@@ -18,7 +18,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
 import grader.file.FileProxy;
@@ -202,6 +201,19 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			
 		}
 		
+	}
+
+	@Override
+	public void setNotes(String aStudentName, String anOnyen, String aFeature,
+			String aNotes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
+		// TODO Auto-generated method stub
+		return "";
 	}
 	
 	
