@@ -53,32 +53,34 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
     public ProjectDatabaseWrapper(String aBulkAssignmentsFolderName, String anAssignmentsDataFolderName) {
         super(aBulkAssignmentsFolderName, anAssignmentsDataFolderName, true);
     }
+    
+    // moving to super class
 
-    /**
-     * This generates grading features based on the project requirements
-     *
-     * @param requirements The FrameworkProjectRequirements to add to the project database
-     */
-    public void addProjectRequirements(ProjectRequirements requirements) {
-        projectRequirements = requirements;
-        List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
-
-        // Add the features
-        for (Feature feature : requirements.getFeatures()) {
-            gradingFeatures.add(new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit()));
-        }
-
-        // Add the restrictions
-        for (Restriction restriction : requirements.getRestrictions()) {
-            gradingFeatures.add(new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction)));
-        }
-
-        addGradingFeatures(gradingFeatures);
-    }
-
-    public ProjectRequirements getProjectRequirements() {
-        return projectRequirements;
-    }
+//    /**
+//     * This generates grading features based on the project requirements
+//     *
+//     * @param requirements The FrameworkProjectRequirements to add to the project database
+//     */
+//    public void addProjectRequirements(ProjectRequirements requirements) {
+//        projectRequirements = requirements;
+//        List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
+//
+//        // Add the features
+//        for (Feature feature : requirements.getFeatures()) {
+//            gradingFeatures.add(new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit()));
+//        }
+//
+//        // Add the restrictions
+//        for (Restriction restriction : requirements.getRestrictions()) {
+//            gradingFeatures.add(new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction)));
+//        }
+//
+//        addGradingFeatures(gradingFeatures);
+//    }
+//
+//    public ProjectRequirements getProjectRequirements() {
+//        return projectRequirements;
+//    }
 
     /**
      * This method is overridden to take the assignment name for the settings singleton rather than looking for an extra

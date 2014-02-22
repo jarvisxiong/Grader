@@ -129,6 +129,16 @@ public class CheckResult implements Describable {
         score += result.getPercentage() * pointWeight;
         results.add(result);
     }
+    
+    public String getMessage() {
+    	 String message = "";
+         for (TestCaseResult testResult : getResults()) {
+             message += testResult.getName() + ": " + (testResult.getPercentage() * 100) + "% \n";
+             if (!testResult.getNotes().isEmpty())
+                 message += "  -- " + testResult.getNotes() + "\n";
+         }
+         return message;
+    }
 
     @Override
     public String getSummary() {

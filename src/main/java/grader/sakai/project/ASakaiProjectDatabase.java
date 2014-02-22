@@ -1,5 +1,9 @@
 package grader.sakai.project;
 
+import framework.grading.ProjectRequirements;
+import framework.grading.testing.Checkable;
+import framework.grading.testing.Feature;
+import framework.grading.testing.Restriction;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.AGradingFeatureList;
@@ -57,7 +61,9 @@ import java.util.Set;
 
 import util.misc.Common;
 import util.models.AListenableVector;
+import util.models.Hashcodetable;
 import util.trace.Tracer;
+import wrappers.grader.checkers.FeatureCheckerWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrameList;
@@ -90,6 +96,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 MainClassFinder mainClassFinder;
 	 String startStudentID, endStudentID;
 	 ProjectStepper projectStepper;
+	 Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
+	 protected ProjectRequirements projectRequirements;
+
 	 
 	
 	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
@@ -982,5 +991,39 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
     public void saveProject(String onyen, SakaiProject project) {
         onyenToProject.put(onyen, project);
+    }
+    @Override
+    public Checkable getRequirement(GradingFeature aGradingFeature) {
+    	return featureToCheckable.get(aGradingFeature);
+    }
+    /**
+     * This generates grading features based on the project requirements
+     *
+     * @param requirements The FrameworkProjectRequirements to add to the project database
+     */
+    @Override
+    public void addProjectRequirements(ProjectRequirements requirements) {
+        projectRequirements = requirements;
+        List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
+
+        // Add the features
+        for (Feature feature : requirements.getFeatures()) {
+        	GradingFeature gradingFeature = new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit());
+            gradingFeatures.add(gradingFeature);
+            featureToCheckable.put(gradingFeature, feature);
+        }
+
+        // Add the restrictions
+        for (Restriction restriction : requirements.getRestrictions()) {
+        	GradingFeature gradingFeature = new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction));
+            gradingFeatures.add(gradingFeature);
+            featureToCheckable.put(gradingFeature, restriction);
+        }
+
+        addGradingFeatures(gradingFeatures);
+    }
+    @Override
+    public ProjectRequirements getProjectRequirements() {
+        return projectRequirements;
     }
 }

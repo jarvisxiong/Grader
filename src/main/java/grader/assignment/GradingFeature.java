@@ -59,5 +59,8 @@ public interface GradingFeature extends PropertyListenerRegisterer {
     public void setLinkedFeature(GradingFeature aGradingFeature);
 
     public void pureSetGraded(boolean newValue);
+    String getNotes();
+    public boolean isSelected() ;
+    public void setSelected(boolean newVal) ;
 
 }

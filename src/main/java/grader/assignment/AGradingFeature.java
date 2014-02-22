@@ -33,8 +33,14 @@ public class AGradingFeature implements GradingFeature {
     String[] inputFiles;
     GradingFeature linkedFeature;
     boolean cannotAutoGrade;
+    String notes = "";
+//    String result = "";
 
-    PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+   
+
+	
+
+	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     public AGradingFeature(String aFeature, double aMaxScore) {
         featureName = aFeature;
@@ -231,8 +237,8 @@ public class AGradingFeature implements GradingFeature {
             correct();
         }
     }
-
-    @Position(3)
+// this is not displayed
+//    @Position(3)
     public void correct() {
         pureSetScore(maxScore);
     }
@@ -244,6 +250,48 @@ public class AGradingFeature implements GradingFeature {
     public boolean isAutoGradable() {
         return featureChecker != null;
     }
+    
+    boolean isSelected;
+    @util.annotations.Explanation("test")
+    @Position(6)
+    @ComponentWidth(80)
+    
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean newVal) {
+    	boolean oldVal = isSelected;
+        isSelected = newVal;
+        if (newVal) {
+        	setGraded(true);
+        }
+        propertyChangeSupport.firePropertyChange("Selected", oldVal, isSelected);
+        
+    }
+//    @Visible(false)
+//    public String getResult() {
+//		return result;
+//	}
+//    @Visible(false)
+//
+//	public void setResult(String result) {
+//    	String oldVal = result;
+//		this.result = result;
+//        propertyChangeSupport.firePropertyChange("result", oldVal, result);
+//
+//	}
+    @Visible(false)
+
+	public String getNotes() {
+		return notes;
+	}
+    @Visible(false)
+	public void setNotes(String notes) {
+    	String oldVal = notes;
+		this.notes = notes;
+        propertyChangeSupport.firePropertyChange("notes", oldVal, notes);
+	}
+
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener aListener) {
@@ -258,4 +306,5 @@ public class AGradingFeature implements GradingFeature {
     public void firePropertyChange(String aName, Object anOldValue, Object aNewValue) {
         propertyChangeSupport.firePropertyChange(aName, anOldValue, aNewValue);
     }
+    
 }

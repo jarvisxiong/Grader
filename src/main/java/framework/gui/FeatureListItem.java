@@ -97,6 +97,7 @@ public class FeatureListItem {
             gradeResults.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                	// should now use getMessage of result
                     String message = "";
                     for (TestCaseResult testResult : result.getResults()) {
                         message += testResult.getName() + ": " + (testResult.getPercentage() * 100) + "% \n";
@@ -133,6 +134,8 @@ public class FeatureListItem {
             gradeResults.setEnabled(false);
         }
     }
+    
+   
 
     public CheckResult getResult() {
         return result;

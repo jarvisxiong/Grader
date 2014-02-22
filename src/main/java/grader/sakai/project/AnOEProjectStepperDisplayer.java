@@ -7,7 +7,7 @@ public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<OEFr
 	public OEFrame display(ProjectStepper aProjectStepper) {
 		OEFrame oeFrame = ObjectEditor.edit(aProjectStepper);
 		oeFrame.setLocation(700, 500);
-		oeFrame.setSize(600, 700);
+		oeFrame.setSize(650, 800);
 		return oeFrame;
 	}
 

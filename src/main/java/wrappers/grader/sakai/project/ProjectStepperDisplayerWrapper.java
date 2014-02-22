@@ -94,8 +94,9 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                     throw new FileNotFoundException();
 
                 // Attempt to get the student's project and check it
-                project.setCanBeRun(true);
-                project.setHasBeenRun(true);
+                // these are no longer needed
+//                project.setCanBeRun(true);
+//                project.setHasBeenRun(true);
                 project.maybeMakeClassDescriptions();
                 framework.project.Project wrappedProject = new ProjectWrapper(this.project, GradingEnvironment.get().getAssignmentName());
                 featureResults = requirements.checkFeatures(wrappedProject);
