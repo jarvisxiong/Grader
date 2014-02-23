@@ -13,6 +13,7 @@ import grader.assignment.GradingFeature;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.spreadsheet.FeatureGradeRecorderSelector;
 import tools.DirectoryUtils;
 
 import java.io.File;
@@ -174,8 +175,18 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
         Before creating the project database.
      */
+    
+    FeatureGradeRecorder basicFeatureGradeRecorder; // this is the original factory-based recorder that this  dispatching conglomerate recorder replaces
 
-    /**
+    public FeatureGradeRecorder getBasicFeatureGradeRecorder() {
+		return basicFeatureGradeRecorder;
+	}
+
+	public void setBasicFeatureGradeRecorder(FeatureGradeRecorder featureGradeRecorder) {
+		this.basicFeatureGradeRecorder = featureGradeRecorder;
+	}
+
+	/**
      * Feature score setter.
      * This is needed so that when setScore or pureSetScore are called it comes here.
      */
@@ -183,16 +194,20 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore) {
         checkSession(anOnyen);
         save(aFeature, aScore);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
     }
 
     /**
      * The ConglomerateRecorder is for recording only. This will return 0 always.
      * @deprecated Don't use this. Write only
      */
+    /**
+     * Need the get method to allow browsing of past graded students
+     */
     @Override
-    @Deprecated
+//    @Deprecated
     public double getGrade(String aStudentName, String anOnyen, String aFeature) {
-        return 0;
+        return basicFeatureGradeRecorder.getGrade(aStudentName, anOnyen, aFeature);
     }
 
     /**
@@ -203,16 +218,20 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void setGrade(String aStudentName, String anOnyen, double aScore) {
         checkSession(anOnyen);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore);
     }
 
     /**
      * The ConglomerateRecorder is for recording only. This will return 0 always.
      * @deprecated Don't use this. Write only
      */
+    /**
+     * Need the get method to allow browsing of past graded students
+     */
     @Override
-    @Deprecated
+//    @Deprecated
     public double getGrade(String aStudentName, String anOnyen) {
-        return 0;
+        return basicFeatureGradeRecorder.getGrade(aStudentName, anOnyen);
     }
 
     private void checkSession(String onyen) {
