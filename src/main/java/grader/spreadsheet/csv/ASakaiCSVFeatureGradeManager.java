@@ -258,6 +258,12 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void comment(GradingFeature aGradingFeature) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
