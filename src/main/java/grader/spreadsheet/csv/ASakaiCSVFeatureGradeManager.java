@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
+import framework.grading.testing.TestCaseResult;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
 import grader.file.FileProxy;
@@ -214,6 +215,48 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
 		// TODO Auto-generated method stub
 		return "";
+	}
+
+	@Override
+	public void newSession(String onyen) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(double gradePercentage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFeatureComments(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFeatureResults(List<TestCaseResult> results) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSummary() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

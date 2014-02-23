@@ -260,6 +260,8 @@ public class AGradingFeature implements GradingFeature {
         return isSelected;
     }
     public void setSelected(boolean newVal) {
+    	if (isSelected == newVal)
+    		return;
     	boolean oldVal = isSelected;
         isSelected = newVal;
         if (newVal) {

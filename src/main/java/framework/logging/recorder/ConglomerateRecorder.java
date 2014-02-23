@@ -7,6 +7,7 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCaseResult;
 import framework.logging.loggers.Logger;
+import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
 import grader.feedback.AutoFeedback;
@@ -160,6 +161,11 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             logger.save(recordingSession);
         recordingSession = null;
         featureComments = "";
+    }
+    @Override
+    public String getSummary() {
+        return SerializationUtils.getSerializer("text").serialize(recordingSession);
+
     }
 
     /*
