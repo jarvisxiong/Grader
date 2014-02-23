@@ -12,7 +12,9 @@ import util.misc.Common;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
+import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -81,12 +83,15 @@ public class Driver {
 
                 // Logging/results saving
                 FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
+                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
 
                 // Create the database
                 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
 
                 database.addProjectRequirements(requirements);
+                
+                ConglomerateRecorder.getInstance().setBasicFeatureGradeRecorder(BasicFeatureGradeRecorderSelector.createFeatureGradeRecorder(database));
 
                 // Possibly set the stepper displayer
                 boolean useFrameworkGUI = configuration.getBoolean("grader.controller.useFrameworkGUI", false);
