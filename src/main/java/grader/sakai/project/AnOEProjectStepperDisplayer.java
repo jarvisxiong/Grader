@@ -6,7 +6,8 @@ import bus.uigen.ObjectEditor;
 public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<OEFrame> {
 	public OEFrame display(ProjectStepper aProjectStepper) {
 		OEFrame oeFrame = ObjectEditor.edit(aProjectStepper);
-		oeFrame.setLocation(700, 500);
+//		oeFrame.setLocation(700, 500);
+		oeFrame.setLocation(0, 0);
 		oeFrame.setSize(650, 800);
 		return oeFrame;
 	}

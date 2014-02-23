@@ -2,6 +2,8 @@ package grader.sakai.project;
 
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
+import framework.logging.recorder.ConglomerateRecorder;
+import framework.navigation.StudentFolder;
 import framework.utils.GradingEnvironment;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
@@ -27,9 +29,13 @@ import java.util.List;
 
 import javax.swing.JTextArea;
 
+import org.joda.time.DateTime;
+
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrameList;
+import bus.uigen.controller.menus.SelectedMenuItem;
+import scala.Option;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
@@ -55,7 +61,8 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	double score;
 	List<String> documents;
 	int nextDocumentIndex = 0;
-	FeatureGradeRecorder featureGradeRecorder;
+	//ideally this stuff should really be done through property change as Josh's wrapper does
+	FeatureGradeRecorder featureGradeRecorder; 
 	
 	String onyen = "";
 	
@@ -66,9 +73,11 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	FinalGradeRecorder totalScoreRecorder;
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
-	String notes = "", result = "", log = "";
+	String notes = "", result = "", log = "", comments = "";
 	List<CheckResult> featureResults;
     List<CheckResult> restrictionResults;
+    GradingFeature selectedGradingFeature;
+    StudentFolder studentFolder;
 	
 //	FinalGradeRecorder gradeRecorder() {
 //		return projectDatabase.getGradeRecorder();
@@ -268,19 +277,21 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		if (newVal == null) {
             // Josh: Added event
             propertyChangeSupport.firePropertyChange("Project", null, null);
+            // not sending anything to feature recorder
             return false;
         }
 		writeScores(this);
 		runExecuted = false;
 		project = newVal;
 		
-
-		if (project == null) {
-			System.out.println("No project submitted for dewan");
-			return false;
-		}
+// not needed because of Josh's addition
+//		if (project == null) {
+//			System.out.println("No project submitted ");
+//			return false;
+//		}
 		try {
 			wrappedProject =  new ProjectWrapper(project, GradingEnvironment.get().getAssignmentName());
+			studentFolder = ProjectWrapper.getStudentFolder(onyen);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -300,6 +311,13 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
         // Josh: Added event
         propertyChangeSupport.firePropertyChange("Project", null, project);
+        
+        featureGradeRecorder.newSession(onyen);
+        // Josh's code from ProjectStepperDisplayerWrapper
+        // Figure out the late penalty
+        Option<DateTime> timestamp = studentFolder.getTimestamp();
+        double gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
+        featureGradeRecorder.save(gradePercentage);
 
 		return true;
 	}
@@ -329,9 +347,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		}
 
 	}
-	void unSelectOtherGradingFeatures(GradingFeature selectedGradingFeature) {
+	void unSelectOtherGradingFeatures(GradingFeature currentGradingFeature) {
 		for (GradingFeature gradingFeature:projectDatabase.getGradingFeatures()) {
-			if (selectedGradingFeature == gradingFeature)
+			if (currentGradingFeature == gradingFeature)
 				continue;
 			gradingFeature.setSelected(false);
 		}
@@ -441,7 +459,28 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			}
 		}
 		featureResults = projectDatabase.getProjectRequirements().checkFeatures(wrappedProject);
-		restrictionResults = projectDatabase.getProjectRequirements().checkRestrictions(wrappedProject);		
+		restrictionResults = projectDatabase.getProjectRequirements().checkRestrictions(wrappedProject);
+		GradingFeatureList features = projectDatabase.getGradingFeatures();
+		setScore();
+        for (int i = 0; i < features.size(); i++) {
+            // Figure out the score for the feature/restriction
+            double score = (i < featureResults.size()) ? featureResults.get(i).getScore() : restrictionResults.get(i - featureResults.size()).getScore();
+
+            // Save the comments. We save them in the ConglomerateRecorder so that, if it is being used as the
+            // manual feedback, they will be pulled in.
+            
+            // correcting josh's code to separate feature comments and results            
+//           featureGradeRecorder.setFeatureComments(featureResults.get(i).getNotes());
+//           featureGradeRecorder.setFeatureResults(featureResults.get(i).getResults());
+           featureGradeRecorder.setFeatureComments((i < featureResults.size()) ? featureResults.get(i).getNotes() : restrictionResults.get(i - featureResults.size()).getNotes());
+           featureGradeRecorder.setFeatureResults((i < featureResults.size()) ? featureResults.get(i).getResults() : restrictionResults.get(i - featureResults.size()).getResults());
+            features.get(i).setScore(score);
+
+            // Save the score
+            featureGradeRecorder.setGrade(name, onyen, features.get(i).getFeature(), score);
+        }
+        setSummary();
+        
 	}
 	@Override
 	@Row(9)
@@ -452,6 +491,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		
 	}
 	public boolean preProceed() {
+		// if manuelOnyen then we will go to next step
+		// cannot proceed if it is not all graded
+		// why check for manualOnyen?
 		return (hasMoreSteps || manualOnyen) && isAllGraded();
 	}
 	public boolean preSkip() {
@@ -500,9 +542,13 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 //		// should put person in skipped list
 //		
 //	}
+	
 	@Override
 	public boolean preNext() {
-		return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
+		return preProceed() && nextOnyenIndex < onyens.size() - 1 ;
+		// this does not make sense, next is a stronger condition than next
+
+//		return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
 	}
 	@Row(12)
 	@ComponentWidth(100)
@@ -568,18 +614,45 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	public String getNotes() {
 		return notes;
 	}
-	
+	public boolean preSetNotes() {
+		return selectedGradingFeature != null;
+	}
 	public void setNotes(String newVal) {
 		String oldVal =  newVal;
 		notes = newVal;
 		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
+		if (preSetNotes()) {
+			setNotes(selectedGradingFeature, newVal);
+			featureGradeRecorder.setFeatureComments(newVal);
+		}
 	}
 	
 	@Row(17)
 	@ComponentWidth(600)
+	public String getComments() {
+		return comments;
+		
+	}
+	public void setComments(String newVal) {
+		String oldVal =  newVal;
+		comments = newVal;
+		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
+		featureGradeRecorder.save(comments);
+	}
+	
+	void setSummary() {
+		String oldVal = log;
+        log = featureGradeRecorder.getSummary();
+		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
+	}
+	
+	
+	
+	@Row(18)
+	@ComponentWidth(600)
 	@ComponentHeight(600)
 	@PreferredWidgetClass(JTextArea.class)
-	public String getComments() {
+	public String getSummary() {
 		return log;
 		
 	}
@@ -737,9 +810,13 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			notes = getNotes(gradingFeature);
 			result = getResult(gradingFeature);
 			log = gradingFeature.getFeature();
+			selectedGradingFeature = gradingFeature;			
 			unSelectOtherGradingFeatures(gradingFeature);
 			} else {
-				
+				// this may be a bounced feature
+//				selectedGradingFeature = null;
+//				unSelectOtherGradingFeatures(null);
+//				setNotes("");
 			}
 			
 		}
@@ -809,13 +886,19 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			autoGrade();
 		// why twice?
 //		setProject(anOnyen);		
-	}
+	} 
 	@Override
 	public boolean preDone() {
-		return preProceed();
+//		return preProceed();
+		// we are done but do not have another step
+		return preProceed() && !preNext();
 	}
 	@Override
 	public synchronized void move(boolean forward) {
+		// josh's code
+		featureGradeRecorder.finish();
+		
+		// my original code
 		projectDatabase.resetIO();
 		projectDatabase.clearWindows();
 		if (forward) {
@@ -851,6 +934,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	@Row(11)
 	@ComponentWidth(100)
 	public synchronized void done() {
+		
 		if (manualOnyen)
 			writeScores(this);
 		try {
