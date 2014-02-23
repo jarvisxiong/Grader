@@ -318,6 +318,19 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
         Option<DateTime> timestamp = studentFolder.getTimestamp();
         double gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
         featureGradeRecorder.save(gradePercentage);
+        if (isAutoRun())
+			projectDatabase.runProject(onyen, project);	
+		if (isAutoAutoGrade())
+			autoGrade();
+        if (selectedGradingFeature != null) {
+			internalSetNotes( getNotes(selectedGradingFeature));
+			internalSetResult(getResult(selectedGradingFeature));
+
+
+        } else {
+			internalSetNotes( "");
+        	result = "";
+        }
 
 		return true;
 	}
@@ -617,14 +630,37 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	public boolean preSetNotes() {
 		return selectedGradingFeature != null;
 	}
-	public void setNotes(String newVal) {
-		String oldVal =  newVal;
+	
+	void internalSetNotes(String newVal) {
+		String oldVal =  notes;
+
 		notes = newVal;
+
 		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
+	}
+	
+	void internalSetResult(String newVal) {
+		String oldVal =  result;
+
+		result = newVal;
+
+		propertyChangeSupport.firePropertyChange("result", oldVal, newVal);
+	}
+	
+	
+	
+	public void setNotes(String newVal) {
 		if (preSetNotes()) {
 			setNotes(selectedGradingFeature, newVal);
 			featureGradeRecorder.setFeatureComments(newVal);
 		}
+
+		setSummary();
+		internalSetNotes(newVal);
+//		notes = newVal;
+
+//		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
+
 	}
 	
 	@Row(17)
@@ -780,10 +816,12 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	
 	
 	void setNotes(GradingFeature aGradingFeature, String aNotes) {
-		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
-		if (checkResult != null) {
-			 checkResult.setNotes(aNotes);
-		}
+		featureGradeRecorder.setFeatureComments(aNotes);
+		featureGradeRecorder.comment(aGradingFeature);
+//		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
+//		if (checkResult != null) {
+//			 checkResult.setNotes(aNotes);
+//		}
 		
 		
 	}
@@ -809,7 +847,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			if ((Boolean) evt.getNewValue()) {
 			notes = getNotes(gradingFeature);
 			result = getResult(gradingFeature);
-			log = gradingFeature.getFeature();
+//			log = gradingFeature.getFeature();
 			selectedGradingFeature = gradingFeature;			
 			unSelectOtherGradingFeatures(gradingFeature);
 			} else {
@@ -880,10 +918,10 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
 		projectDatabase.recordWindows();		
 		setProject(anOnyen);
-		if (isAutoRun())
-			projectDatabase.runProject(anOnyen, aProject);		
-		if (isAutoAutoGrade())
-			autoGrade();
+//		if (isAutoRun())
+//			projectDatabase.runProject(anOnyen, aProject);		
+//		if (isAutoAutoGrade())
+//			autoGrade();
 		// why twice?
 //		setProject(anOnyen);		
 	} 
@@ -922,10 +960,10 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		projectDatabase.recordWindows();		
 		setProject(anOnyen);
 		// these two steps should go into setProject unless there is something subttle here, specially as the stepProject step below is commented put
-		if (isAutoRun())
-			projectDatabase.runProject(anOnyen, aProject);	
-		if (isAutoAutoGrade())
-			autoGrade();
+//		if (isAutoRun())
+//			projectDatabase.runProject(anOnyen, aProject);	
+//		if (isAutoAutoGrade())
+//			autoGrade();
 		
 //		setProject(anOnyen);
 	}
