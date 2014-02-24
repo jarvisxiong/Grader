@@ -66,7 +66,7 @@ public class AGradingFeature implements GradingFeature {
 	        	isRestriction = true;
 	        }
    }
-
+    @Visible(false)
     @Override
     public boolean isRestriction() {
     	return isRestriction;

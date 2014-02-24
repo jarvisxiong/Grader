@@ -15,9 +15,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import scala.xml.dtd.DEFAULT;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
 import grader.file.FileProxy;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -26,6 +26,9 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;
 	public static final int GRADE_COLUMN = 4;
 	public static final int TITLE_ROW = 2;
+	 public static final String DEFAULT_CHAR = "";
+	 public static final double  DEFAULT_VALUE = -1;
+
 //	InputStream input; // this may have to be reinitialized each time
 //	OutputStream output; // may have to reinitialized and closed each time
 	FileProxy gradeSpreadsheet;
@@ -91,11 +94,13 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public double getGrade (String[] aRow, int aColumn) {
 		try {
 		String aGradeCell = aRow[aColumn];
+		if (aGradeCell.equals(DEFAULT_CHAR))
+			return DEFAULT_VALUE; 
 		
 		return Double.parseDouble(aGradeCell);
 		} catch (Exception e) {
 //			e.printStackTrace();
-			return 0;
+			return DEFAULT_VALUE;
 		}
 	}
 	

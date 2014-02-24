@@ -25,5 +25,10 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	public List<GradingFeature>  getGradingFeatures();
 
 	void finish();
-	String getSummary();
+	String computeSummary();
+	
+	void setEarlyLatePoints(String aStudentName, String anOnyen, double aScore);
+	double getEarlyLatePoints(String aStudentName, String anOnyen);
+	String getStoredSummary();
+	
 }

@@ -6,6 +6,7 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCaseResult;
+import framework.logging.loggers.FeedbackTextSummaryLogger;
 import framework.logging.loggers.Logger;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
@@ -164,7 +165,11 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         featureComments = "";
     }
     @Override
-    public String getSummary() {
+    public String getStoredSummary() {
+    	return FeedbackTextSummaryLogger.restore(recordingSession);
+    }
+    @Override
+    public String computeSummary() {
         return SerializationUtils.getSerializer("text").serialize(recordingSession);
 
     }
@@ -297,5 +302,18 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	@Override
 	public List<GradingFeature> getGradingFeatures() {
 		return gradingFeatures;
+	}
+
+	@Override
+	public void setEarlyLatePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

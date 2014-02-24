@@ -15,6 +15,7 @@ import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderFactory;
 import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 
 import java.awt.Window;
 import java.beans.PropertyChangeEvent;
@@ -100,7 +101,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	boolean runExecuted;
 	
 	boolean runAttempted() {
-		return runExecuted|| isAutoRun();
+		return runExecuted|| isAutoRun() || isAutoAutoGrade();
 	}
 	
 	@ComponentWidth(150)
@@ -201,10 +202,10 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		if (projectDatabase == null)
 			return;
 		
-		List<GradingFeature> gradingFeatures = projectDatabase.getGradingFeatures();
+		GradingFeatureList gradingFeatures = projectDatabase.getGradingFeatures();
 		for (GradingFeature aGradingFeature:gradingFeatures) {
 //			double lastScore = featureGradeRecorder.getGrade(project.getStudentAssignment().getStudentName(), project.getStudentAssignment().getOnyen(), aGradingFeature.getFeature());
-			double lastScore = getGrade(aGradingFeature.getFeature());
+//			double lastScore = getGrade(aGradingFeature.getFeature());
 
 //			aGradingFeature.initScore(lastScore);
 			aGradingFeature.setProject(project);
@@ -219,6 +220,8 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 //			aGradingFeature.setProject(project);
 			// initScore was not firing updates
 //			aGradingFeature.initScore(lastScore);
+			if (lastScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE)
+
 			aGradingFeature.pureSetScore(lastScore); 
 
 		}
@@ -320,10 +323,14 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
         Option<DateTime> timestamp = studentFolder.getTimestamp();
         double gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
         featureGradeRecorder.save(gradePercentage);
-        if (isAutoRun())
+        if (isAutoRun() && !getGradingFeatures().isAllAutoGraded())
 			projectDatabase.runProject(onyen, project);	
-		if (isAutoAutoGrade())
+		if (isAutoAutoGrade() && !getGradingFeatures().isAllAutoGraded()) {			
 			autoGrade();
+			setComputedSummary();
+		} else {
+			setStoredSummary();
+		}
         if (selectedGradingFeature != null) {
 			internalSetNotes( getNotes(selectedGradingFeature));
 			internalSetResult(getResult(selectedGradingFeature));
@@ -466,8 +473,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	@ComponentWidth(100)
 	@Override
 	public void autoGrade() {
-		// not sure if this is true any longer
-		//project.setHasBeenRun(true);
+		project.setHasBeenRun(true);
 		for (GradingFeature gradingFeature:projectDatabase.getGradingFeatures()) {
 			if (gradingFeature.isAutoGradable()) {
 				gradingFeature.pureSetGraded(true);
@@ -497,7 +503,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
             // Save the score
             featureGradeRecorder.setGrade(name, onyen, features.get(i).getFeature(), score);
         }
-        setSummary();
+//        setSummary();
         
 	}
 	@Override
@@ -660,7 +666,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			featureGradeRecorder.setFeatureComments(newVal);
 		}
 
-		setSummary();
+		setComputedSummary();
 		internalSetNotes(newVal);
 //		notes = newVal;
 
@@ -681,13 +687,17 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		featureGradeRecorder.save(comments);
 	}
 	
-	void setSummary() {
+	void setComputedSummary() {
 		String oldVal = log;
-        log = featureGradeRecorder.getSummary();
+        log = featureGradeRecorder.computeSummary();
 		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
 	}
 	
-	
+	void setStoredSummary() {
+		String oldVal = log;
+        log = featureGradeRecorder.getStoredSummary();
+		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
+	}
 	
 	@Row(18)
 	@ComponentWidth(600)
@@ -787,6 +797,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	}
 	
 	CheckResult checkableToResult(Checkable aCheckable) {
+		try {
 		for (CheckResult checkResult:featureResults) {
 			if (checkResult.getTarget() == aCheckable)
 				return checkResult;
@@ -795,6 +806,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		for (CheckResult checkResult:restrictionResults) {
 			if (checkResult.getTarget() == aCheckable)
 				return checkResult;
+		}
+		} catch (Exception e) {
+			return null;
 		}
 		return null;
 		
@@ -833,11 +847,14 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	}
 	
 	String getNotes(GradingFeature aGradingFeature) {
-		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
-		if (checkResult != null) {
-			return checkResult.getNotes();			}
+		String retVal = aGradingFeature.getNotes();
+//		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
+//		if (checkResult != null) {
+//			return checkResult.getNotes();			}
+		if (retVal == null)
+			retVal = "";
 	
-		return "";
+		return retVal;
 	}
 	
 
