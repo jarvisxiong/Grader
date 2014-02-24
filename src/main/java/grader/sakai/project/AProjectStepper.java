@@ -487,7 +487,10 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 //           featureGradeRecorder.setFeatureResults(featureResults.get(i).getResults());
            featureGradeRecorder.setFeatureComments((i < featureResults.size()) ? featureResults.get(i).getNotes() : restrictionResults.get(i - featureResults.size()).getNotes());
            featureGradeRecorder.setFeatureResults((i < featureResults.size()) ? featureResults.get(i).getResults() : restrictionResults.get(i - featureResults.size()).getResults());
-            features.get(i).setScore(score);
+           
+           features.get(i).setNotes((i < featureResults.size()) ? featureResults.get(i).getNotes() : restrictionResults.get(i - featureResults.size()).getNotes());
+
+           features.get(i).setScore(score);
 
             // Save the score
             featureGradeRecorder.setGrade(name, onyen, features.get(i).getFeature(), score);
@@ -818,6 +821,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	void setNotes(GradingFeature aGradingFeature, String aNotes) {
 		featureGradeRecorder.setFeatureComments(aNotes);
 		featureGradeRecorder.comment(aGradingFeature);
+		aGradingFeature.setNotes(aNotes);
 //		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
 //		if (checkResult != null) {
 //			 checkResult.setNotes(aNotes);

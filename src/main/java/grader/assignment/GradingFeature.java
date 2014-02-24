@@ -3,6 +3,7 @@ package grader.assignment;
 import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import util.annotations.Visible;
 import util.models.PropertyListenerRegisterer;
 
 import java.beans.PropertyChangeListener;
@@ -60,7 +61,11 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
     public void pureSetGraded(boolean newValue);
     String getNotes();
+    public void setNotes(String notes);
     public boolean isSelected() ;
     public void setSelected(boolean newVal) ;
+    public String getResult() ;
+
+	public void setResult(String result) ;
 
 }

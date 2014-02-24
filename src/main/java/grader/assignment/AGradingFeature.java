@@ -34,7 +34,7 @@ public class AGradingFeature implements GradingFeature {
     GradingFeature linkedFeature;
     boolean cannotAutoGrade;
     String notes = "";
-//    String result = "";
+    String result = "";
 
    
 
@@ -270,18 +270,18 @@ public class AGradingFeature implements GradingFeature {
         propertyChangeSupport.firePropertyChange("Selected", oldVal, isSelected);
         
     }
-//    @Visible(false)
-//    public String getResult() {
-//		return result;
-//	}
-//    @Visible(false)
-//
-//	public void setResult(String result) {
-//    	String oldVal = result;
-//		this.result = result;
-//        propertyChangeSupport.firePropertyChange("result", oldVal, result);
-//
-//	}
+    @Visible(false)
+    public String getResult() {
+		return result;
+	}
+    @Visible(false)
+
+	public void setResult(String result) {
+    	String oldVal = result;
+		this.result = result;
+        propertyChangeSupport.firePropertyChange("result", oldVal, result);
+
+	}
     @Visible(false)
 
 	public String getNotes() {

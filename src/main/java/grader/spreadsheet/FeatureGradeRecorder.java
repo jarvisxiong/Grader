@@ -21,6 +21,9 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 
 
 	public void setFeatureResults(List<TestCaseResult> results);
+	public void setGradingFeatures(List<GradingFeature> newVal);
+	public List<GradingFeature>  getGradingFeatures();
+
 	void finish();
 	String getSummary();
 }

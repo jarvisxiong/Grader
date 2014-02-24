@@ -153,7 +153,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         for (Restriction restriction : projectRequirements.getRestrictions())
             featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, restriction));
 
-        recordingSession = new RecordingSession(userId, featureResults, restrictionResults, "", 1);
+        recordingSession = new RecordingSession(userId, featureResults, restrictionResults, "", 1, gradingFeatures);
 
     }
 
@@ -175,6 +175,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
         Before creating the project database.
      */
+    
     
     FeatureGradeRecorder basicFeatureGradeRecorder; // this is the original factory-based recorder that this  dispatching conglomerate recorder replaces
 
@@ -282,5 +283,19 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
 		// TODO Auto-generated method stub
 		return "";
+	}
+	
+    List<GradingFeature> gradingFeatures;
+
+
+	@Override
+	public void setGradingFeatures(List<GradingFeature> newVal) {
+		gradingFeatures = newVal;
+		
+	}
+
+	@Override
+	public List<GradingFeature> getGradingFeatures() {
+		return gradingFeatures;
 	}
 }
