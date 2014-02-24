@@ -1,6 +1,7 @@
 package framework.logging.recorder;
 
 import framework.grading.testing.CheckResult;
+import grader.assignment.GradingFeature;
 
 import java.util.List;
 
@@ -14,14 +15,17 @@ public class RecordingSession {
     private List<CheckResult> restrictionResults;
     private String comments;
     private double latePenalty;
+    List<GradingFeature> gradingFeatures;
 
-    public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
-                            String comments, double latePenalty) {
+    
+	public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
+                            String comments, double latePenalty, List<GradingFeature> newGradingFeatures) {
         this.userId = userId;
         this.featureResults = featureResults;
         this.restrictionResults = restrictionResults;
         this.comments = comments;
         this.latePenalty = latePenalty;
+        gradingFeatures = newGradingFeatures;
     }
 
     public String getUserId() {
@@ -63,4 +67,13 @@ public class RecordingSession {
     public void setLatePenalty(double latePenalty) {
         this.latePenalty = latePenalty;
     }
+    
+    public List<GradingFeature> getGradingFeatures() {
+		return gradingFeatures;
+	}
+
+	public void setGradingFeatures(List<GradingFeature> gradingFeatures) {
+		this.gradingFeatures = gradingFeatures;
+	}
+
 }
