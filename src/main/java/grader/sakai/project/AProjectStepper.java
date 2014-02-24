@@ -217,7 +217,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
 //			aGradingFeature.initScore(lastScore);
 //			aGradingFeature.setProject(project);
-			aGradingFeature.initScore(lastScore);
+			// initScore was not firing updates
+//			aGradingFeature.initScore(lastScore);
+			aGradingFeature.pureSetScore(lastScore); 
 
 		}
 	}

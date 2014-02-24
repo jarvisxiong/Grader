@@ -35,6 +35,7 @@ public class AGradingFeature implements GradingFeature {
     boolean cannotAutoGrade;
     String notes = "";
     String result = "";
+    boolean isRestriction;
 
    
 
@@ -44,8 +45,31 @@ public class AGradingFeature implements GradingFeature {
 
     public AGradingFeature(String aFeature, double aMaxScore) {
         featureName = aFeature;
-        score = aMaxScore;
+        
         maxScore = aMaxScore;
+        processMaxScore();
+    }
+    public AGradingFeature(String aFeature, double aMaxScore, FeatureChecker aFeatureChecker) {
+        featureName = aFeature;
+        maxScore = aMaxScore;
+        processMaxScore();
+//        score = aMaxScore;
+        featureChecker = aFeatureChecker;
+        featureChecker.init(this);
+    }
+    
+   void  processMaxScore() {
+	   if (maxScore > 0)
+	        score = maxScore;
+	        else {
+	        	score = 0;
+	        	isRestriction = true;
+	        }
+   }
+
+    @Override
+    public boolean isRestriction() {
+    	return isRestriction;
     }
 
     @Visible(false)
@@ -66,14 +90,7 @@ public class AGradingFeature implements GradingFeature {
         return "Feature:" + featureName + "\tMax:" + maxScore + "\tScore: " + score + (extraCredit ? "\tExtra" : "");
     }
 
-    public AGradingFeature(String aFeature, double aMaxScore, FeatureChecker aFeatureChecker) {
-        featureName = aFeature;
-        maxScore = aMaxScore;
-        score = aMaxScore;
-        featureChecker = aFeatureChecker;
-        featureChecker.init(this);
-    }
-
+  
     public AGradingFeature(String aFeature, double aMaxScore, FeatureChecker aFeatureChecker, boolean anExtraCredit) {
         this(aFeature, aMaxScore, aFeatureChecker);
         extraCredit = anExtraCredit;

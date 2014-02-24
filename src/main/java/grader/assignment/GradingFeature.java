@@ -68,4 +68,6 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	public void setResult(String result) ;
 
+	boolean isRestriction();
+
 }
