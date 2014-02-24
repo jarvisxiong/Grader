@@ -25,7 +25,7 @@ public class ErrorTestCase extends PalindromeTestCase {
 			}
 
 			String[] isError = { "Error" };
-			String[] isNotError = { "is not a palindrome", "is a palindrome" };
+			String[] isNotError = {};
 
 			return resultOfInputMatches(project, prompt, input, isError, isNotError);
 
