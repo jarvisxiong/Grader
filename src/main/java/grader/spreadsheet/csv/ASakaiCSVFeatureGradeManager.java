@@ -37,6 +37,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 //	List<String[]>  table;
 	 List<GradingFeature> gradingFeatures;
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
+	 public static final int EARLY_LATE_COLUMN = GRADE_COLUMN + 1;
+	 public static final String LATE_TITLE = "Early/Late";
+	 public static final int PRE_FEATURE_COLUMN = EARLY_LATE_COLUMN;
 
 	public ASakaiCSVFeatureGradeManager(FileProxy aGradeSpreadsheet, List<GradingFeature> aGradingFeatures) {
 		super(aGradeSpreadsheet);
@@ -56,7 +59,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		super.createTable();
 		if (gradingFeatures == null) return;
 		String[] headers = table.get(TITLE_ROW);
-		if (headers.length < GRADE_COLUMN + gradingFeatures.size() + 1) {
+		if (headers.length < PRE_FEATURE_COLUMN + gradingFeatures.size() + 1) {
 			
 		extendTable();
 		makeTitles();
@@ -68,8 +71,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	
 	void makeTitles() {
 		String[] titleRow = table.get(TITLE_ROW);
+		titleRow[EARLY_LATE_COLUMN] = LATE_TITLE;
 		for (int i = 0; i < gradingFeatures.size(); i++) {
-			int featureColumn = GRADE_COLUMN + 1 + i;
+			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
 			titleRow[featureColumn] = gradingFeatures.get(i).getFeature();
 			
@@ -78,7 +82,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	
 	void makeMap() {
 		for (int i = 0; i < gradingFeatures.size(); i++) {
-			int featureColumn = GRADE_COLUMN + 1 + i;
+			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
 			
 		}
@@ -91,12 +95,14 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	String[] extendedRow(String[] anExistinRow) {
-		String[] retVal = new String[anExistinRow.length + gradingFeatures.size()];
+		// adding late penalty column also
+		String[] retVal = new String[anExistinRow.length + 1 + gradingFeatures.size()];
 		for (int index = 0; index < anExistinRow.length; index++) {
 			retVal[index] = anExistinRow[index];
 		}
 		for (int index = anExistinRow.length; index < retVal.length; index++) {
-			retVal[index] = "0";
+//			retVal[index] = "0";
+			retVal[index] = DEFAULT_CHAR;
 		}
 		return retVal;
 		
@@ -115,10 +121,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	public void setGrade(String aStudentName, String anOnyen, String aFeature,
 			double aScore) {
 		try {
-//			InputStream input = gradeSpreadsheet.getInputStream();
-//			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
-//			List<String[]>  table = csvReader.readAll();
-//			csvReader.close();
+
 			maybeCreateTable();
 			
 		    String[] row = getStudentRow(table, aStudentName, anOnyen);
@@ -131,43 +134,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		    writeTable();
 
 
-//		OutputStream output = gradeSpreadsheet.getOutputStream();
-//		if (output == null) {
-//			System.out.println("Cannot write grade as null output stream");
-//			return;
-//		}
-//		CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(output));
-//		csvWriter.writeAll(table);
-//		csvWriter.close();
-	    
-    
 
-//
-//    Row row = sheet.getRow(2);
-//    Cell cell1 = row.getCell(4);
-//    if (cell1 == null)
-//    	cell1 = row.createCell(5);
-//    double doubleCell = cell1.getNumericCellValue();
-//    int i = 0;
-//    cell1.setCellValue (doubleCell + 2);
-//    Cell cell2 = row.getCell(0);
-//    if (cell2 != null) {
-//    	String stringCell = cell2.getStringCellValue();
-//    	System.out.println(stringCell);
-//    }
-
-    /*
-    if (cell == null)
-        cell = row.createCell(3);
-    cell.setCellType(Cell.CELL_TYPE_STRING);
-    cell.setCellValue("a test");
-    */
-    /*
-    // Write the output to a file
-    FileOutputStream fileOut = new FileOutputStream("workbook.xls");
-    wb.write(fileOut);
-    fileOut.close();
-    */
 	} catch (Exception e) {
 		e.printStackTrace();
 		
@@ -178,10 +145,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	@Override
 	public double getGrade(String aStudentName, String anOnyen, String aFeature) {
 		try {
-//			InputStream input = gradeSpreadsheet.getInputStream();
-//			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
-//			List<String[]>  table = csvReader.readAll();
-//			csvReader.close();
+
 				maybeCreateTable();
 			
 		   
@@ -192,15 +156,44 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	    }
 	   double retVal =  getGrade(row, aFeature);
 
-	//
-//	    input.close();
+	
 	    return retVal;
 	    
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
+			return DEFAULT_VALUE;
 			
 		}
+		
+	}
+	
+
+	@Override
+	public void setEarlyLatePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		maybeCreateTable();
+		
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return;
+	    }
+	    
+	    recordGrade(row, EARLY_LATE_COLUMN, aScore);
+	    writeTable();
+
+		
+	}
+
+	@Override
+	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
+		 String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return -1;
+		    }
+		   return getGrade(row, EARLY_LATE_COLUMN);
+
 		
 	}
 
@@ -254,7 +247,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	@Override
-	public String getSummary() {
+	public String computeSummary() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -276,6 +269,13 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getStoredSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

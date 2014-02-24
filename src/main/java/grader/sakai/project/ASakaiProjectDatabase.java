@@ -761,7 +761,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public void displayOutput() {
 		resetIO();
-		if (outputFiles.length == 0) {
+		if (outputFiles == null || outputFiles.length == 0) {
 			DocumentDisplayerRegistry.display(outputFileName);
 			return;
 		}

@@ -25,5 +25,19 @@ public class FeedbackTextSummaryLogger implements Logger {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+    public static  String restore (RecordingSession recordingSession) {
+    	return restore(recordingSession.getUserId());
+    }
+    
+    public static  String restore (String aUserId) {
+    	File file = new File(GraderSettings.get().get("path") + "/" + aUserId + "/Feedback Attachment(s)/feedback.txt");
+        try {
+            return FileUtils.readFileToString(file);
+        } catch (IOException e) {
+            return "";
+        }
+    }
+    
+ 
 
 }
