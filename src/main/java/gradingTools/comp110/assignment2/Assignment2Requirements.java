@@ -4,11 +4,11 @@ import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment2.testcases.ErrorTestCase;
-import gradingTools.comp110.assignment2.testcases.NoStringBufferTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeIgnoreCaseTestCase;
 import gradingTools.comp110.assignment2.testcases.PalindromeTestCase;
 import gradingTools.comp110.assignment2.testcases.PromptTestCase;
 import gradingTools.comp110.assignment2.testcases.TakeStingTestCase;
+import gradingTools.sharedTestCase.RestrictedStringOutsideComments;
 
 public class Assignment2Requirements extends FrameworkProjectRequirements {
 	public Assignment2Requirements() {
@@ -38,7 +38,8 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 				new PalindromeIgnoreCaseTestCase());
 
 		// Deduct points for using StringBuffer
-		addRestriction("No StringBuffer allowed", 30, new NoStringBufferTestCase());
+		addRestriction("No StringBuffer allowed", 30, new RestrictedStringOutsideComments(
+				"StringBuffer"));
 
 	}
 }
