@@ -11,6 +11,7 @@ import framework.logging.loggers.Logger;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.spreadsheet.FeatureGradeRecorder;
@@ -290,30 +291,28 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 		return "";
 	}
 	
-    List<GradingFeature> gradingFeatures;
+    GradingFeatureList gradingFeatures;
 
 
 	@Override
-	public void setGradingFeatures(List<GradingFeature> newVal) {
+	public void setGradingFeatures(GradingFeatureList newVal) {
 		gradingFeatures = newVal;
 		
 	}
 
 	@Override
-	public List<GradingFeature> getGradingFeatures() {
+	public GradingFeatureList getGradingFeatures() {
 		return gradingFeatures;
 	}
 
 	@Override
 	public void setEarlyLatePoints(String aStudentName, String anOnyen,
 			double aScore) {
-		// TODO Auto-generated method stub
-		
+		basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);		
 	}
 
 	@Override
 	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
-		// TODO Auto-generated method stub
-		return 0;
+		return basicFeatureGradeRecorder.getEarlyLatePoints(aStudentName, anOnyen);
 	}
 }
