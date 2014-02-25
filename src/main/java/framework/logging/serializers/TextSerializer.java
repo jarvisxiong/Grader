@@ -2,6 +2,8 @@ package framework.logging.serializers;
 
 import framework.grading.testing.CheckResult;
 import framework.logging.recorder.RecordingSession;
+import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -76,19 +78,29 @@ public class TextSerializer implements RecordingSessionSerializer {
 
          log += "Grading features...\n";
          log += "----------------------------------\n";
-         for (CheckResult result : recordingSession.getFeatureResults()) {
-             awarded += result.getScore();
-             log += String.format(result.getTarget().getSummary(), result.getScore()) + "\n";
+         boolean hasRestrictions = false;
+         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+        	 if (gradingFeature.isRestriction()) {
+        		 hasRestrictions = true;
+        		 continue;
+        	 }
+             awarded += gradingFeature.getScore();
+             log += String.format(gradingFeature.getResult(), gradingFeature.getScore()) + "\n";
          }
          log += "----------------------------------\n";
          log += "  Points Awarded: " + awarded + "\n\n";
+         
 
-         if (!recordingSession.getRestrictionResults().isEmpty()) {
+//         if (!recordingSession.getRestrictionResults().isEmpty()) {
+         if (hasRestrictions) {
              log += "Grading restrictions...\n";
              log += "----------------------------------\n";
-             for (CheckResult result : recordingSession.getRestrictionResults()) {
-                 deducted += result.getScore();
-                 log += String.format(result.getTarget().getSummary(), result.getScore()) + "\n";
+             for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+            	 if (!gradingFeature.isRestriction()) {
+            		 continue;
+            	 }
+                 deducted += gradingFeature.getScore();
+                 log += String.format(gradingFeature.getResult(), gradingFeature.getScore()) + "\n";
              }
              log += "----------------------------------\n";
              log += "  Points Deducted: " + deducted + "\n\n";
@@ -98,18 +110,28 @@ public class TextSerializer implements RecordingSessionSerializer {
 
          log += "\nNotes from grading features:\n";
          log += "----------------------------------\n";
-         for (CheckResult result : recordingSession.getFeatureResults()) {
-             String note = result.getSummary();
+         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+        	 if (gradingFeature.isRestriction()) {
+        		 continue;
+        	 }
+         
+             String note = gradingFeature.getNotes();
              if (!note.isEmpty())
                  log += note + "\n";
          }
+         if (hasRestrictions) {
 
          log += "\nNotes from grading restrictions:\n";
          log += "----------------------------------\n";
-         for (CheckResult result : recordingSession.getRestrictionResults()) {
-             String note = result.getSummary();
+         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+        	 if (!gradingFeature.isRestriction()) {
+        		 continue;
+        	 }
+         
+             String note = gradingFeature.getNotes();
              if (!note.isEmpty())
                  log += note + "\n";
+         }
          }
 
          if (recordingSession.getLatePenalty() < 1)

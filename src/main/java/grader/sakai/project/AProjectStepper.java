@@ -497,6 +497,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
            featureGradeRecorder.setFeatureResults((i < featureResults.size()) ? featureResults.get(i).getResults() : restrictionResults.get(i - featureResults.size()).getResults());
            
            features.get(i).setNotes((i < featureResults.size()) ? featureResults.get(i).getNotes() : restrictionResults.get(i - featureResults.size()).getNotes());
+           features.get(i).setResult((i < featureResults.size()) ? featureResults.get(i).getTarget().getSummary() : restrictionResults.get(i - featureResults.size()).getTarget().getSummary());
 
            features.get(i).setScore(score);
 
@@ -939,7 +940,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
 		projectDatabase.initIO();
 
-		projectDatabase.recordWindows();		
+		projectDatabase.recordWindows();	
+        featureGradeRecorder.setGradingFeatures(projectDatabase.getGradingFeatures());
+
 		setProject(anOnyen);
 //		if (isAutoRun())
 //			projectDatabase.runProject(anOnyen, aProject);		
