@@ -66,6 +66,7 @@ import util.trace.Tracer;
 import wrappers.grader.checkers.FeatureCheckerWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
+import bus.uigen.uiFrame;
 import bus.uigen.uiFrameList;
 
 public class ASakaiProjectDatabase implements SakaiProjectDatabase {
@@ -534,7 +535,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 	
 
-
+	uiFrame frame;
 	public ProjectStepper createAndDisplayProjectStepper() {
 //		if (projectStepper != null) {
 //		ProjectStepper aProjectStepper = createProjectStepper();
@@ -544,7 +545,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// OEFrame oeFrame = ObjectEditor.edit(clearanceManager);
 		// oeFrame.setLocation(800, 500);
 		// oeFrame.setSize(400, 400);
-		displayProjectStepper(getOrCreateProjectStepper());
+		ProjectStepper projectStepper = getOrCreateProjectStepper();
+		frame = (uiFrame) displayProjectStepper(projectStepper);
+		projectStepper.setOEFrame(frame);
 		return projectStepper;
 	}
 	

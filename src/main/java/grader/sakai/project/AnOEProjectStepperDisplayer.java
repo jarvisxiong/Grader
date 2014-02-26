@@ -9,13 +9,13 @@ import bus.uigen.uiFrame;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.oadapters.ObjectAdapter;
 
-public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<OEFrame> {
-	public OEFrame display(ProjectStepper aProjectStepper) {
+public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFrame> {
+	public uiFrame display(ProjectStepper aProjectStepper) {
 		uiFrame oeFrame = ObjectEditor.edit(aProjectStepper);
 		GradingFeatureList gradingFeatures = aProjectStepper.getGradingFeatures();
 		ObjectAdapter objectAdapter = oeFrame.getObjectAdapter(gradingFeatures.get(0));
-		objectAdapter.setLocalAttribute(AttributeNames.COMPONENT_BACKGROUND, Color.PINK);
-		objectAdapter.setTempAttributeValue(AttributeNames.COMPONENT_BACKGROUND, Color.PINK);
+//		objectAdapter.setLocalAttribute(AttributeNames.CONTAINER_BACKGROUND, Color.PINK);
+//		objectAdapter.setTempAttributeValue(AttributeNames.CONTAINER_BACKGROUND, Color.PINK);
 
 		oeFrame.refresh();
 //		oeFrame.setLocation(700, 500);

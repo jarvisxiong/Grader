@@ -6,6 +6,7 @@ import grader.sakai.project.SakaiProjectDatabase;
 import util.annotations.Visible;
 import util.models.PropertyListenerRegisterer;
 
+import java.awt.Color;
 import java.beans.PropertyChangeListener;
 
 public interface GradingFeature extends PropertyListenerRegisterer {
@@ -69,5 +70,15 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 	public void setResult(String result) ;
 
 	boolean isRestriction();
+
+	boolean isManual();
+
+	boolean isAutoWithPartialCredit();
+
+	boolean isAutoNotGraded();
+
+	boolean isManualWithPartialCredit();
+
+	Color computeColor();
 
 }

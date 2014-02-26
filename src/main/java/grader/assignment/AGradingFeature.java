@@ -9,6 +9,7 @@ import util.annotations.*;
 import util.misc.Common;
 import util.trace.Tracer;
 
+import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 // a feature to be implemented by a student
+@util.annotations.Explanation("grading feature tooltip")
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGradingFeature implements GradingFeature {
 	public static final String FEEDBACK_FILE_PREFIX = "Score-";
@@ -24,6 +26,7 @@ public class AGradingFeature implements GradingFeature {
 	public static final String NOTES_FILE_PREFIX = "Notes-";
 
 	public static final String FEEDBACK_FILE_SUFFIX = ".txt";
+	Color color;
 
 	String featureName = "Some feature";
 	// String comment = " ";
@@ -262,12 +265,29 @@ public class AGradingFeature implements GradingFeature {
 		firePropertyChange("Graded", null, true);
 	}
 
-	@util.annotations.Explanation("test")
+	@util.annotations.Explanation("is graded tooltip")
 	@Position(5)
 	@ComponentWidth(70)
 	public boolean isGraded() {
 		return graded;
 	}
+	@Visible(false)
+	@Override
+	public boolean isAutoWithPartialCredit() {
+		return isAutoGradable() && score < maxScore;
+	}
+	
+	@Visible(false)
+	@Override
+	public boolean isManualWithPartialCredit() {
+		return !isAutoGradable() && score < maxScore;
+	}
+	
+	@Visible(false)
+	@Override
+	public boolean isAutoNotGraded() {
+		return isAutoGradable() && !isGraded();		
+	}	
 
 	public void pureSetGraded(boolean newValue) {
 		if (graded == newValue)
@@ -318,9 +338,19 @@ public class AGradingFeature implements GradingFeature {
 	@Position(3)
 	@Label("Auto")
 	@ComponentWidth(60)
+	@Visible(false)
 	public boolean isAutoGradable() {
 		return featureChecker != null;
 	}
+	
+	@Override
+	@Position(3)
+	@Label("Manual")
+	@ComponentWidth(70)
+	public boolean isManual() {
+		return !isAutoGradable();
+	}
+
 
 	boolean isSelected;
 
@@ -418,6 +448,24 @@ public class AGradingFeature implements GradingFeature {
 	public void firePropertyChange(String aName, Object anOldValue,
 			Object aNewValue) {
 		propertyChangeSupport.firePropertyChange(aName, anOldValue, aNewValue);
+	}
+	@Override
+	public Color computeColor() {
+		if (!getNotes().isEmpty())
+			return Color.GREEN;	
+		if (!isGraded() && isExtraCredit())
+			return Color.BLUE;
+		if (!isGraded())
+//		 if (isAutoNotGraded())
+			return Color.RED;
+		 if (isAutoWithPartialCredit())
+			return Color.PINK;
+//		 if (!isGraded())
+//			return Color.BLUE;
+		 if (isManualWithPartialCredit())
+			return Color.PINK;
+		
+		return null;
 	}
 
 }
