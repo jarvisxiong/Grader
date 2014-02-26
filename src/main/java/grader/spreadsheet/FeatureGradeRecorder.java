@@ -4,6 +4,7 @@ import java.util.List;
 
 import framework.grading.testing.TestCaseResult;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 
 public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore);
@@ -21,8 +22,8 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 
 
 	public void setFeatureResults(List<TestCaseResult> results);
-	public void setGradingFeatures(List<GradingFeature> newVal);
-	public List<GradingFeature>  getGradingFeatures();
+	public void setGradingFeatures(GradingFeatureList newVal);
+	public GradingFeatureList  getGradingFeatures();
 
 	void finish();
 	String computeSummary();

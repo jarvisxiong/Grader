@@ -21,6 +21,7 @@ import au.com.bytecode.opencsv.CSVWriter;
 import framework.grading.testing.TestCaseResult;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 import grader.file.FileProxy;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -259,13 +260,13 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	@Override
-	public void setGradingFeatures(List<GradingFeature> newVal) {
+	public void setGradingFeatures(GradingFeatureList newVal) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<GradingFeature> getGradingFeatures() {
+	public GradingFeatureList getGradingFeatures() {
 		// TODO Auto-generated method stub
 		return null;
 	}

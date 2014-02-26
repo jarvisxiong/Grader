@@ -2,6 +2,7 @@ package framework.logging.recorder;
 
 import framework.grading.testing.CheckResult;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class RecordingSession {
 
     
 	public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
-                            String comments, double latePenalty, List<GradingFeature> newGradingFeatures) {
+                            String comments, double latePenalty, GradingFeatureList newGradingFeatures) {
         this.userId = userId;
         this.featureResults = featureResults;
         this.restrictionResults = restrictionResults;
