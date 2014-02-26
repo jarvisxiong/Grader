@@ -10,6 +10,8 @@ import grader.project.Project;
 
 import java.beans.PropertyChangeListener;
 
+import bus.uigen.uiFrame;
+
 
 public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
 	public boolean setProject(SakaiProject newVal) ;
@@ -67,6 +69,10 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	public boolean isAutoAutoGrade() ;
     public void setAutoAutoGrade(boolean newVal) ;
     public void autoAutoGrade() ;
+
+	void setOEFrame(uiFrame aFrame);
+
+	uiFrame getOEFrame();
 	
 
 }
