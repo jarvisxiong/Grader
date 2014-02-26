@@ -33,6 +33,7 @@ public class AGradingFeature implements GradingFeature {
 	boolean autoGraded;
 	boolean extraCredit;
 	FileProxy feedbackFolder;
+	String feedbackFolderName;
 	FeatureChecker featureChecker;
 	String feedbackFileName, resultsFileName, notesFileName;
 	SakaiProject project;
@@ -145,19 +146,31 @@ public class AGradingFeature implements GradingFeature {
 				&& project.canBeRun();
 
 	}
+	
+	public static String getFeedbackFolderName (SakaiProject aProject) {
+		FileProxy feedbackFolder = aProject.getStudentAssignment().getFeedbackFolder();
+		return feedbackFolder.getAbsoluteName() + "/";
+	}
 
 	public void setProject(SakaiProject aProject) {
 		project = aProject;
 		if (featureChecker != null)
 			featureChecker.setProject(aProject);
 		feedbackFolder = aProject.getStudentAssignment().getFeedbackFolder();
-		feedbackFileName = feedbackFolder.getAbsoluteName() + "/"
-				+ FEEDBACK_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
-		notesFileName = feedbackFolder.getAbsoluteName() + "/"
+		
+		String feedbackFolderName = getFeedbackFolderName(aProject);
+		
+//		feedbackFileName = feedbackFolder.getAbsoluteName() + "/"
+//				+ FEEDBACK_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
+//		notesFileName = feedbackFolder.getAbsoluteName() + "/"
+//				+ NOTES_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
+//		resultsFileName = feedbackFolder.getAbsoluteName() + "/"
+//				+ RESULTS_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
+		feedbackFileName = feedbackFolderName + featureName + FEEDBACK_FILE_SUFFIX;
+		notesFileName = feedbackFolderName
 				+ NOTES_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
-		resultsFileName = feedbackFolder.getAbsoluteName() + "/"
+		resultsFileName = feedbackFolderName
 				+ RESULTS_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
-
 		graded = false;
 		cannotAutoGrade = false;
 		notes = retrieveNotes();
@@ -340,6 +353,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setResult(String result) {
 		String oldVal = result;
 		this.result = result;
+		recordResult();
 		propertyChangeSupport.firePropertyChange("result", oldVal, result);
 
 	}
@@ -366,7 +380,7 @@ public class AGradingFeature implements GradingFeature {
 		}
 	}
 	
-	void recordResults() {
+	void recordResult() {
 		try {
 			FileUtils.writeStringToFile(new File(getResultFileName()), result);
 		} catch (IOException e) {
@@ -387,6 +401,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setNotes(String notes) {
 		String oldVal = notes;
 		this.notes = notes;
+		recordNotes();
 		propertyChangeSupport.firePropertyChange("notes", oldVal, notes);
 	}
 

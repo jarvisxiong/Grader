@@ -5,6 +5,7 @@ import framework.grading.testing.Checkable;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
 import framework.utils.GradingEnvironment;
+import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.documents.DocumentDisplayerRegistry;
@@ -15,7 +16,9 @@ import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderFactory;
 import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
+import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 
 import java.awt.Window;
 import java.beans.PropertyChangeEvent;
@@ -30,6 +33,7 @@ import java.util.List;
 
 import javax.swing.JTextArea;
 
+import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
 import bus.uigen.OEFrame;
@@ -55,6 +59,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	PropertyChangeSupport propertyChangeSupport =new PropertyChangeSupport(this);
 	public final static long  UI_LOAD_TIME = 10*1000;
 	boolean firstTime;
+	String COMMENTS_FILE_PREFIX = "Comments";
 //	List<OEFrame>  oldList;
 //	Window[] oldWindows;
 	String name = "";
@@ -64,8 +69,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	int nextDocumentIndex = 0;
 	//ideally this stuff should really be done through property change as Josh's wrapper does
 	FeatureGradeRecorder featureGradeRecorder; 
-	
+	double gradePercentage = 1;
 	String onyen = "";
+	String commentsFileName = "";
 	
 	SakaiProject project;
 	framework.project.Project wrappedProject;
@@ -109,6 +115,28 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 	public String getOnyen() {
 		return onyen;
 	}
+	
+    String getCommentsFileName(SakaiProject aProject) {
+    	return AGradingFeature.getFeedbackFolderName(aProject) + COMMENTS_FILE_PREFIX + AGradingFeature.FEEDBACK_FILE_SUFFIX;
+    	
+
+	}
+    
+    String readComments(SakaiProject aProject) {
+    	try {
+			return FileUtils.readFileToString(new File(getCommentsFileName(aProject)));
+		} catch (IOException e) {
+			return "";
+		}
+    }
+    
+    void writeComments(SakaiProject aProject, String newVal) {
+    	try {
+			FileUtils.writeStringToFile(new File(getCommentsFileName(aProject)), newVal);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 	
 	public void setOnyen(String anOnyen) {
 //		project = projectDatabase.getProject(anOnyen);
@@ -321,16 +349,25 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
         // Josh's code from ProjectStepperDisplayerWrapper
         // Figure out the late penalty
         Option<DateTime> timestamp = studentFolder.getTimestamp();
-        double gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
-        featureGradeRecorder.save(gradePercentage);
-        if (isAutoRun() && !getGradingFeatures().isAllAutoGraded())
+//        double gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
+        
+        if (isAutoRun() && !getGradingFeatures().isAllAutoGraded()) {
 			projectDatabase.runProject(onyen, project);	
+        }
 		if (isAutoAutoGrade() && !getGradingFeatures().isAllAutoGraded()) {			
 			autoGrade();
-			setComputedSummary();
+//			setComputedSummary();
+//			gradePercentage = timestamp.isDefined() ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get()) : 0;
 		} else {
+			gradePercentage = featureGradeRecorder.getEarlyLatePoints(name, onyen);
+	        if (gradePercentage == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
+	        	gradePercentage = 1;
+			featureGradeRecorder.setEarlyLatePoints(name, onyen, gradePercentage);
+
 			setStoredSummary();
 		}
+//        featureGradeRecorder.setEarlyLatePoints(name, onyen, gradePercentage);
+
         if (selectedGradingFeature != null) {
 			internalSetNotes( getNotes(selectedGradingFeature));
 			internalSetResult(getResult(selectedGradingFeature));
@@ -340,6 +377,9 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 			internalSetNotes( "");
         	result = "";
         }
+        
+        internalSetComments(readComments(project));
+        
 
 		return true;
 	}
@@ -504,6 +544,8 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
             // Save the score
             featureGradeRecorder.setGrade(name, onyen, features.get(i).getFeature(), score);
         }
+        setComputedSummary();
+       featureGradeRecorder.setEarlyLatePoints(name, onyen, featureGradeRecorder.getEarlyLatePoints(name, onyen));
 //        setSummary();
         
 	}
@@ -628,12 +670,17 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		 runProjectsInteractively();
 	}
 	@Row(15)
+
+	public double getMultiplier() {
+		return gradePercentage;
+	}
+	@Row(16)
 	@ComponentWidth(400)
 	public String getResult() {
 		return result;
 	}
 	
-	@Row(16)
+	@Row(17)
 	@ComponentWidth(400)
 
 	public String getNotes() {
@@ -650,6 +697,8 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
 		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
+	
+	
 	
 	void internalSetResult(String newVal) {
 		String oldVal =  result;
@@ -675,17 +724,28 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 
 	}
 	
-	@Row(17)
+	@Row(18)
 	@ComponentWidth(600)
 	public String getComments() {
 		return comments;
 		
 	}
-	public void setComments(String newVal) {
-		String oldVal =  newVal;
+	void internalSetComments(String newVal) {
+		String oldVal =  comments;
+
 		comments = newVal;
+
 		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
+	}
+	public void setComments(String newVal) {
+		internalSetComments(newVal);
+//		String oldVal =  newVal;
+//		comments = newVal;
+//		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
 		featureGradeRecorder.save(comments);
+		writeComments(project, newVal);
+		setComputedSummary();
+
 	}
 	
 	void setComputedSummary() {
@@ -700,7 +760,7 @@ public class AProjectStepper extends AClearanceManager implements ProjectStepper
 		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
 	}
 	
-	@Row(18)
+	@Row(19)
 	@ComponentWidth(600)
 	@ComponentHeight(600)
 	@PreferredWidgetClass(JTextArea.class)
