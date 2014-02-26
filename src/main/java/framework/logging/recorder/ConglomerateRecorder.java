@@ -94,6 +94,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 
     public void save(double gradePercentage) {
         recordingSession.setLatePenalty(gradePercentage);
+//        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
     }
 
     public void save(String featureName, double score) {
@@ -304,10 +305,12 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	public GradingFeatureList getGradingFeatures() {
 		return gradingFeatures;
 	}
-
+	// version of save called by AProjectStepper, these two should be combined
 	@Override
 	public void setEarlyLatePoints(String aStudentName, String anOnyen,
 			double aScore) {
+        recordingSession.setLatePenalty(aScore);
+
 		basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);		
 	}
 
