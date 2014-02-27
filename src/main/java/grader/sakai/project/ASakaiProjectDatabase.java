@@ -201,6 +201,11 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public ScoreFeedback getScoreFeedback() {
 		return scoreFeedback;
 	}
+	
+	public void setScoreFeedback(ScoreFeedback newVal) {
+		 scoreFeedback = newVal;
+	}
+
 
 	public SourceDisplayer getSourceDisplayer() {
 		return sourceDisplayer;

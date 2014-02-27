@@ -91,6 +91,12 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		
 	}
 	
+	public void recordResult (String[] aRow, int aColumn, String aResult) {
+		String aGradeCell = aRow[aColumn];
+		aRow[aColumn] = aResult;
+		
+	}
+	
 	public double getGrade (String[] aRow, int aColumn) {
 		try {
 		String aGradeCell = aRow[aColumn];
@@ -101,6 +107,16 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		} catch (Exception e) {
 //			e.printStackTrace();
 			return DEFAULT_VALUE;
+		}
+	}
+	
+	public String getResult (String[] aRow, int aColumn) {
+		try {
+		return aRow[aColumn];
+		
+		} catch (Exception e) {
+//			e.printStackTrace();
+			return "";
 		}
 	}
 	

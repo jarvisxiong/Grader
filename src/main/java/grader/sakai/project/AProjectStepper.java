@@ -4,11 +4,13 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
+import framework.project.ProjectClassesManager;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.documents.DocumentDisplayerRegistry;
+import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
 import grader.project.Project;
@@ -97,6 +99,7 @@ public class AProjectStepper extends AClearanceManager implements
 	uiFrame oeFrame;
 	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
 	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
+	boolean changed;
 
 	// FinalGradeRecorder gradeRecorder() {
 	// return projectDatabase.getGradeRecorder();
@@ -104,6 +107,9 @@ public class AProjectStepper extends AClearanceManager implements
 	// FinalGradeRecorder totalScoreRecorder() {
 	// return projectDatabase.getTotalScoreRecorder();
 	// }
+	public AProjectStepper() {
+		addPropertyChangeListener(this); // listen to yourself to see if you have changed
+	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
@@ -309,7 +315,9 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	public static void writeScores(ProjectStepper aProjectStepper) {
-		aProjectStepper.getProjectDatabase().getScoreFeedback()
+		ScoreFeedback scoreFeedback = aProjectStepper.getProjectDatabase().getScoreFeedback();
+		if (scoreFeedback != null)
+		    scoreFeedback
 				.writeScores(aProjectStepper);
 		// if (aProjectStepper.getProject() == null) return;
 		// FileProxy feedbackFolder =
@@ -358,6 +366,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
+		changed = false;
 		if (newVal == null) {
 			// Josh: Added event
 			propertyChangeSupport.firePropertyChange("Project", null, null);
@@ -390,8 +399,9 @@ public class AProjectStepper extends AClearanceManager implements
 		// documents.remove(project.getOutputFileName());
 		// documents.remove(project.getSourceFileName());
 		nextDocumentIndex = 0;
-		if (totalScoreRecorder != null)
-			setInternalScore(getGrade());
+//		if (totalScoreRecorder != null)
+//			setInternalScore(getGrade());
+		setScore();
 
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
@@ -431,7 +441,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		if (selectedGradingFeature != null) {
 			internalSetNotes(getNotes(selectedGradingFeature));
-			internalSetResult(getResult(selectedGradingFeature));
+			internalSetResult(getSavedResult(selectedGradingFeature));
 
 		} else {
 			internalSetNotes("");
@@ -563,10 +573,9 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	void setGrade(double newVal) {
-		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
-		// project.getStudentAssignment().getOnyen(), newVal);
-		// featureGradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
-		// project.getStudentAssignment().getOnyen(), newVal);
+		// This will be a spurious message to conglomerate as t serves as total
+		// and feature recorder
+		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
 		totalScoreRecorder.setGrade(project.getStudentAssignment()
 				.getStudentName(), project.getStudentAssignment().getOnyen(),
 				newVal);
@@ -580,6 +589,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	void setGrade(String aFeature, double newVal) {
+		if (!settingUpProject)
 		featureGradeRecorder.setGrade(project.getStudentAssignment()
 				.getStudentName(), project.getStudentAssignment().getOnyen(),
 				aFeature, newVal);
@@ -637,7 +647,7 @@ public class AProjectStepper extends AClearanceManager implements
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
-		setScore();
+		setScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {
 			// Figure out the score for the feature/restriction
 			double score = (i < featureResults.size()) ? featureResults.get(i)
@@ -659,17 +669,21 @@ public class AProjectStepper extends AClearanceManager implements
 					.setFeatureResults((i < featureResults.size()) ? featureResults
 							.get(i).getResults() : restrictionResults.get(
 							i - featureResults.size()).getResults());
-
+			
 			features.get(i).setNotes(
 					(i < featureResults.size()) ? featureResults.get(i)
 							.getNotes() : restrictionResults.get(
 							i - featureResults.size()).getNotes());
-			features.get(i).setResult(
-					(i < featureResults.size()) ? featureResults.get(i)
-							.getTarget().getSummary() : restrictionResults
-							.get(i - featureResults.size()).getTarget()
-							.getSummary());
-
+			
+			String result = (i < featureResults.size()) ? featureResults.get(i)
+					.getTarget().getSummary() : restrictionResults
+					.get(i - featureResults.size()).getTarget()
+					.getSummary();
+			// in memory save
+			features.get(i).setResult(result);
+			// save to the excel file so we can read it later
+			featureGradeRecorder.setResult(name, onyen, features.get(i).getFeature(), 
+					result);			
 			features.get(i).setScore(score);
 
 			// Save the score
@@ -799,7 +813,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	}
 
-	String filter = "";
+//	String filter = "";
 
 	@Row(14)
 	@ComponentWidth(150)
@@ -864,6 +878,7 @@ public class AProjectStepper extends AClearanceManager implements
 		setComputedSummary();
 		internalSetNotes(newVal);
 		refreshColors();
+//		changed = true;
 		// notes = newVal;
 
 		// propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
@@ -884,6 +899,7 @@ public class AProjectStepper extends AClearanceManager implements
 		comments = newVal;
 
 		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
+		
 	}
 
 	public void setComments(String newVal) {
@@ -894,6 +910,7 @@ public class AProjectStepper extends AClearanceManager implements
 		featureGradeRecorder.save(comments);
 		writeComments(project, newVal);
 		setComputedSummary();
+		
 
 	}
 
@@ -935,66 +952,13 @@ public class AProjectStepper extends AClearanceManager implements
 
 	}
 
-	// public void recordWindows() {
-	// oldList = new ArrayList( uiFrameList.getList());
-	// oldWindows = Window.getWindows();
-	// }
-	// public void clearWindows() {
-	// if (oldWindows != null && oldList != null) {// somebody went before me,
-	// get rid of their windows
-	// // System.out.println("dispoing old windows");
-	// List<OEFrame> newList = new ArrayList( uiFrameList.getList());
-	//
-	//
-	//
-	// for (OEFrame frame:newList) {
-	// if (oldList.contains(frame))
-	// continue;
-	// frame.dispose(); // will this work
-	// }
-	// Window[] newWindows = Window.getWindows();
-	//
-	//
-	// for (Window frame:newWindows) {
-	// if (Common.containsReference(oldWindows, frame)) {
-	// continue;
-	// }
-	// frame.dispose();
-	// }
-	// }
-	// }
+	
 
 	@Override
 	public synchronized void waitForClearance() {
 
 		super.waitForClearance();
-		// if (oldWindows != null && oldList != null) {// somebody went before
-		// me, get rid of their windows
-		// // System.out.println("dispoing old windows");
-		// List<OEFrame> newList = new ArrayList( uiFrameList.getList());
-		//
-		//
-		//
-		// for (OEFrame frame:newList) {
-		// if (oldList.contains(frame))
-		// continue;
-		// frame.dispose(); // will this work
-		// }
-		// Window[] newWindows = Window.getWindows();
-		//
-		//
-		// for (Window frame:newWindows) {
-		// if (Common.containsReference(oldWindows, frame)) {
-		// continue;
-		// }
-		// frame.dispose();
-		// }
-		// }
-		// clearWindows();
-		// recordWindows();
-
-		// oldList = new ArrayList( uiFrameList.getList());
-		// oldWindows = Window.getWindows();
+		
 
 	}
 
@@ -1028,8 +992,12 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 		return null;
 	}
+	
+	String getSavedResult(GradingFeature aGradingFeature) {
+		return featureGradeRecorder.getResult(name, onyen, aGradingFeature.getFeature());
+	}
 
-	String getResult(GradingFeature aGradingFeature) {
+	String getInMemoryResult(GradingFeature aGradingFeature) {
 		return aGradingFeature.getResult();
 //		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
 //		if (checkResult != null) {
@@ -1069,15 +1037,18 @@ public class AProjectStepper extends AClearanceManager implements
 				&& evt.getPropertyName().equalsIgnoreCase("score")) {
 			GradingFeature aGradingFeature = (GradingFeature) evt.getSource();
 			// setInternalScore(aGradingFeature.getScore());
+			if (!settingUpProject)
 			setScore();
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
+			if (!settingUpProject)
+			changed = true;
 			refreshColors();
 		} else if (evt.getSource() instanceof GradingFeature
 				&& evt.getPropertyName().equalsIgnoreCase("selected")) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
 			if ((Boolean) evt.getNewValue()) {
 				notes = getNotes(gradingFeature);
-				result = getResult(gradingFeature);
+				result = getInMemoryResult(gradingFeature);
 				// log = gradingFeature.getFeature();
 				selectedGradingFeature = gradingFeature;
 				unSelectOtherGradingFeatures(gradingFeature);
@@ -1088,6 +1059,13 @@ public class AProjectStepper extends AClearanceManager implements
 				// setNotes("");
 			}
 
+		} else if (evt.getSource() == this) {
+			// will get even name and onyen changes - let us focus on the changes that really need to be saved in the setters
+			if (!settingUpProject)
+
+			changed = true;
+			return; // do not want to execute the statement below as it  will cause infinite recursion
+			
 		}
 		propertyChangeSupport.firePropertyChange("this", null, this); // an
 																		// event
@@ -1210,6 +1188,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Override
 	public synchronized void move(boolean forward) {
 		// josh's code
+		if (changed) // no serialization otherwise
 		featureGradeRecorder.finish();
 
 		// my original code
@@ -1263,22 +1242,7 @@ public class AProjectStepper extends AClearanceManager implements
 			e.printStackTrace();
 		}
 		move(true);
-		// projectDatabase.resetIO();
-		// projectDatabase.clearWindows();
-		// nextOnyenIndex++;
-		// if (nextOnyenIndex >= onyens.size()) {
-		// hasMoreSteps = false;
-		// return;
-		// }
-		// String anOnyen = onyens.get(nextOnyenIndex);
-		// SakaiProject aProject = projectDatabase.getProject(anOnyen);
-		// projectDatabase.initIO();
-		// projectDatabase.recordWindows();
-		// setProject(anOnyen);
-		// if (isAutoRun())
-		// projectDatabase.runProject(anOnyen, aProject);
-		//
-		// setProject(anOnyen);
+	
 
 	}
 

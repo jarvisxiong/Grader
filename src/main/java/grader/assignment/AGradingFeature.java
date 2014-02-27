@@ -71,10 +71,12 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	void processMaxScore() {
-		if (maxScore > 0)
-			score = maxScore;
-		else {
+		if (maxScore > 0) {
+//			score = maxScore;
 			score = 0;
+
+		} else {
+			score = maxScore;
 			isRestriction = true;
 		}
 	}
@@ -178,7 +180,8 @@ public class AGradingFeature implements GradingFeature {
 		graded = false;
 		cannotAutoGrade = false;
 		notes = retrieveNotes();
-		result = retrieveResult();
+		// will let project stepper worry abput this
+//		result = retrieveResult();
 		firePropertyChange("this", null, this);
 	}
 
@@ -278,15 +281,18 @@ public class AGradingFeature implements GradingFeature {
 	@Visible(false)
 	@Override
 	public boolean isAutoWithNotFullCredit() {
-		return isAutoGradable() && score != maxScore;
+		return isAutoGradable() && !isFullCredit();
 	}
 	
+	public boolean isFullCredit() {
+		return isRestriction? score== 0:score == maxScore;
+	}
 	
 	
 	@Visible(false)
 	@Override
 	public boolean isManualOverride() {
-		return isAutoGradable() && scoreSetManually;
+		return isAutoGradable() && !isFullCredit();
 	}
 	
 	@Visible(false)
@@ -395,7 +401,8 @@ public class AGradingFeature implements GradingFeature {
 	public void setResult(String result) {
 		String oldVal = result;
 		this.result = result;
-		recordResult();
+		// let project stepper get this value from feature recorder
+//		recordResult();
 		propertyChangeSupport.firePropertyChange("result", oldVal, result);
 
 	}
