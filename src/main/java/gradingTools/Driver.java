@@ -87,6 +87,7 @@ public class Driver {
 
                 // Create the database
                 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+                database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
 
                 database.addProjectRequirements(requirements);

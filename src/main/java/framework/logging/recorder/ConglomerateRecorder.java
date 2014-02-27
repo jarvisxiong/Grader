@@ -318,4 +318,16 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
 		return basicFeatureGradeRecorder.getEarlyLatePoints(aStudentName, anOnyen);
 	}
+	// this should be integrated with whatever method saves results here
+	@Override
+	public void setResult(String aStudentName, String anOnyen, String aFeature,
+			String aResult) {
+		basicFeatureGradeRecorder.setResult(aStudentName, anOnyen, aFeature, aResult);
+		
+	}
+
+	@Override
+	public String getResult(String aStudentName, String anOnyen, String aFeature) {
+		return basicFeatureGradeRecorder.getResult(aStudentName, anOnyen, aFeature);
+	}
 }

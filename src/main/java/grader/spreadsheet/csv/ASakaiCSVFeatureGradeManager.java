@@ -38,6 +38,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 //	List<String[]>  table;
 	 List<GradingFeature> gradingFeatures;
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
+	 Map<String, Integer> resultToColumnNumber = new HashMap();
 	 public static final int EARLY_LATE_COLUMN = GRADE_COLUMN + 1;
 	 public static final String LATE_TITLE = "Early/Late";
 	 public static final int PRE_FEATURE_COLUMN = EARLY_LATE_COLUMN;
@@ -77,6 +78,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
 			titleRow[featureColumn] = gradingFeatures.get(i).getFeature();
+			int resultsColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
+			titleRow[resultsColumn] = gradingFeatures.get(i).getFeature();
+
 			
 		}
 	}
@@ -85,6 +89,8 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
+			int resultColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
+			resultToColumnNumber.put(gradingFeatures.get(i).getFeature(), resultColumn);
 			
 		}
 	}
@@ -96,8 +102,8 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	String[] extendedRow(String[] anExistinRow) {
-		// adding late penalty column also
-		String[] retVal = new String[anExistinRow.length + 1 + gradingFeatures.size()];
+		// adding late penalty column also and results column
+		String[] retVal = new String[anExistinRow.length + 1 + 2*gradingFeatures.size()];
 		for (int index = 0; index < anExistinRow.length; index++) {
 			retVal[index] = anExistinRow[index];
 		}
@@ -113,8 +119,18 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 
 	}
 	
+	public String getResult (String[] aRow, String aFeatureName) {
+		return getResult(aRow, resultToColumnNumber.get(aFeatureName));
+
+	}
+	
 	public void recordGrade (String[] aRow, String aFeature, double aScore) {
 		recordGrade(aRow, featureToColumnNumber.get(aFeature), aScore);
+
+	}
+	
+	public void recordResult (String[] aRow, String aFeature, String aScore) {
+		recordResult(aRow, resultToColumnNumber.get(aFeature), aScore);
 
 	}
 
@@ -142,6 +158,31 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 		
 	}
+	
+	@Override
+	public void setResult(String aStudentName, String anOnyen, String aFeature,
+			String aResult) {
+		try {
+
+			maybeCreateTable();
+			
+		    String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return;
+		    }
+		    
+		    recordResult(row, aFeature, aResult);
+		    writeTable();
+
+
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		
+	}
+		
+	}
 
 	@Override
 	public double getGrade(String aStudentName, String anOnyen, String aFeature) {
@@ -155,17 +196,36 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
 			return -1;
 	    }
-	   double retVal =  getGrade(row, aFeature);
-
-	
+	   double retVal =  getGrade(row, aFeature);	
 	    return retVal;
 	    
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DEFAULT_VALUE;
 			
-		}
-		
+		}		
+	}
+	
+	@Override
+	public String getResult(String aStudentName, String anOnyen, String aFeature) {
+		try {
+
+				maybeCreateTable();
+			
+		   
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return "";
+	    }
+	   String retVal =  getResult(row, aFeature);	
+	    return retVal;
+	    
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+			
+		}		
 	}
 	
 
