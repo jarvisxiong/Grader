@@ -148,6 +148,8 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	void writeComments(SakaiProject aProject, String newVal) {
+		if (newVal.equals("")) // why create file?
+			return;
 		try {
 			FileUtils.writeStringToFile(
 					new File(getCommentsFileName(aProject)), newVal);
@@ -355,9 +357,11 @@ public class AProjectStepper extends AClearanceManager implements
 	// property change event here.
 	@Visible(false)
 	public boolean setProject(SakaiProject newVal) {
+		settingUpProject = true;
 		if (newVal == null) {
 			// Josh: Added event
 			propertyChangeSupport.firePropertyChange("Project", null, null);
+			settingUpProject = false;
 			// not sending anything to feature recorder
 			return false;
 		}
@@ -435,11 +439,24 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 
 		internalSetComments(readComments(project));
+		settingUpProject = false;
+
+		refreshColors();
+//		boolean changed = setCurrentColors();
+//		if (changed)
+//			displayColors();
+
+		return true;
+	}
+	
+	void refreshColors() {
+		// no incremental updates as score and other properties change during auto grade
+		if (settingUpProject) 
+		    return;
 		boolean changed = setCurrentColors();
 		if (changed)
 			displayColors();
-
-		return true;
+		
 	}
 	
 	void displayColors() {
@@ -602,7 +619,7 @@ public class AProjectStepper extends AClearanceManager implements
 		return /* project.runChecked() && project.canBeRun() && */preGetGradingFeatures();
 
 	}
-
+	boolean settingUpProject;
 	//
 	@Row(8)
 	@ComponentWidth(100)
@@ -663,6 +680,7 @@ public class AProjectStepper extends AClearanceManager implements
 		featureGradeRecorder.setEarlyLatePoints(name, onyen,
 				featureGradeRecorder.getEarlyLatePoints(name, onyen));
 		// setSummary();
+		
 
 	}
 
@@ -845,6 +863,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		setComputedSummary();
 		internalSetNotes(newVal);
+		refreshColors();
 		// notes = newVal;
 
 		// propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
@@ -892,7 +911,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(19)
 	@ComponentWidth(600)
-	@ComponentHeight(600)
+	@ComponentHeight(300)
 	@PreferredWidgetClass(JTextArea.class)
 	public String getSummary() {
 		return log;
@@ -1052,6 +1071,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// setInternalScore(aGradingFeature.getScore());
 			setScore();
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
+			refreshColors();
 		} else if (evt.getSource() instanceof GradingFeature
 				&& evt.getPropertyName().equalsIgnoreCase("selected")) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
