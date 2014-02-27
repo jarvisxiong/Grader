@@ -73,12 +73,14 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	boolean isManual();
 
-	boolean isAutoWithPartialCredit();
+	boolean isAutoWithNotFullCredit();
 
 	boolean isAutoNotGraded();
 
-	boolean isManualWithPartialCredit();
+	boolean isManualWithNotFullCredit();
 
 	Color computeColor();
+
+	boolean isManualOverride();
 
 }

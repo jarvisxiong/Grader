@@ -27,6 +27,7 @@ public class AGradingFeature implements GradingFeature {
 
 	public static final String FEEDBACK_FILE_SUFFIX = ".txt";
 	Color color;
+	boolean scoreSetManually;
 
 	String featureName = "Some feature";
 	// String comment = " ";
@@ -243,13 +244,16 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public boolean preSetScore() {
-		return featureChecker == null || preAutoGrade();
+//		return featureChecker == null || preAutoGrade();
+		return true; // we will allow override through this feature rather than linked feature
+
 	}
 
 	public void setScore(double score) {
 		pureSetScore(score);
-		if (score != maxScore)
-			comment();
+		scoreSetManually = true;
+//		if (score != maxScore)
+//			comment();
 
 	}
 
@@ -273,14 +277,22 @@ public class AGradingFeature implements GradingFeature {
 	}
 	@Visible(false)
 	@Override
-	public boolean isAutoWithPartialCredit() {
-		return isAutoGradable() && score < maxScore;
+	public boolean isAutoWithNotFullCredit() {
+		return isAutoGradable() && score != maxScore;
+	}
+	
+	
+	
+	@Visible(false)
+	@Override
+	public boolean isManualOverride() {
+		return isAutoGradable() && scoreSetManually;
 	}
 	
 	@Visible(false)
 	@Override
-	public boolean isManualWithPartialCredit() {
-		return !isAutoGradable() && score < maxScore;
+	public boolean isManualWithNotFullCredit() {
+		return !isAutoGradable() && score!= maxScore;
 	}
 	
 	@Visible(false)
@@ -394,6 +406,8 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	void recordNotes() {
+		if (notes.equals("")) // why create file?
+			return;
 		try {
 			FileUtils.writeStringToFile(new File(getNotesFileName()), notes);
 		} catch (IOException e) {
@@ -402,7 +416,7 @@ public class AGradingFeature implements GradingFeature {
 		}
 	}
 	
-	String retrieveResult() {
+	String retrieveResult() {		
 		try {
 			return FileUtils.readFileToString(new File(getResultFileName()));
 		} catch (IOException e) {
@@ -411,6 +425,8 @@ public class AGradingFeature implements GradingFeature {
 	}
 	
 	void recordResult() {
+		if (result.equals("")) // why create file?
+			return;
 		try {
 			FileUtils.writeStringToFile(new File(getResultFileName()), result);
 		} catch (IOException e) {
@@ -434,6 +450,8 @@ public class AGradingFeature implements GradingFeature {
 		recordNotes();
 		propertyChangeSupport.firePropertyChange("notes", oldVal, notes);
 	}
+	
+	
 
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
@@ -458,12 +476,15 @@ public class AGradingFeature implements GradingFeature {
 		if (!isGraded())
 //		 if (isAutoNotGraded())
 			return Color.RED;
-		 if (isAutoWithPartialCredit())
+		// put some notes if these conditions hold
+		 if (isAutoWithNotFullCredit() ||
+				 isManualWithNotFullCredit() ) 
 			return Color.PINK;
+		
 //		 if (!isGraded())
 //			return Color.BLUE;
-		 if (isManualWithPartialCredit())
-			return Color.PINK;
+//		 if (isManualWithNotFullCredit())
+//			return Color.PINK;
 		
 		return null;
 	}
