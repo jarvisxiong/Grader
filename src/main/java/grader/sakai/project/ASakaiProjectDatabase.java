@@ -24,6 +24,8 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
+import grader.photos.APictureReader;
+import grader.photos.PictureReader;
 import grader.project.AMainClassFinder;
 import grader.project.AProject;
 import grader.project.MainClassFinder;
@@ -97,6 +99,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 MainClassFinder mainClassFinder;
 	 String startStudentID, endStudentID;
 	 ProjectStepper projectStepper;
+	 PictureReader pictureReader;
 	 Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
 	 protected ProjectRequirements projectRequirements;
 
@@ -170,6 +173,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			mainClassFinder = createMainClassFinder();
 			projectStepperDisplayer = createProjectStepperDisplayer();
 			navigationListCreator = createNavigationListCreator();
+			pictureReader = createPictureReader();
 			
 
 			
@@ -225,6 +229,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	protected SourceDisplayer createSourceDisplayer() {
 		return new AnAllTextSourceDisplayer();
+	}
+	
+	protected PictureReader createPictureReader() {
+		return new APictureReader(this);
 	}
 
 
@@ -1034,4 +1042,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
     public ProjectRequirements getProjectRequirements() {
         return projectRequirements;
     }
+    @Override
+	public PictureReader getPictureReader() {
+		return pictureReader;
+	}
+    @Override
+	public void setPictureReader(PictureReader pictureReader) {
+		this.pictureReader = pictureReader;
+	}
 }
