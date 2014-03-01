@@ -79,7 +79,7 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	boolean isManualWithNotFullCredit();
 
-	Color computeColor();
+//	Color computeColor();
 
 	boolean isManualOverride();
 

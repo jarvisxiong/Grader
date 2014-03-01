@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 import grader.sakai.project.SakaiProjectDatabase;
 
-public class APictureReader implements PictureReader{
+public class APhotoReader implements PhotoReader{
 	SakaiProjectDatabase projectDatabase;
 	
 	public  static final String PHOTO_FOLDER = "photos";
@@ -23,13 +23,16 @@ public class APictureReader implements PictureReader{
 	Image noPhotoOriginalImage;
 	Image noPhotoImage;
 
-	public APictureReader (SakaiProjectDatabase aProjectDatabase) {
+	public APhotoReader (SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
 		photosFolderFullName = aProjectDatabase.getAssignmentsDataFolderName() + "/" + PHOTO_FOLDER  + "/";
-		noPhotoOriginalImage = Toolkit.getDefaultToolkit().getImage(photosFolderFullName + NO_PHOTO_FILE_NAME);
-		noPhotoImage = scaledImage(noPhotoOriginalImage);
-//		noPhotoIcon = new ImageIcon( photosFolderFullName + NO_PHOTO_FILE_NAME);
-		noPhotoIcon = new ImageIcon( noPhotoImage);
+		String noPhotoFileName = photosFolderFullName + NO_PHOTO_FILE_NAME;
+		File noPhotoFile = new File (noPhotoFileName);
+		if (noPhotoFile.exists()) {
+			noPhotoOriginalImage = Toolkit.getDefaultToolkit().getImage(photosFolderFullName + NO_PHOTO_FILE_NAME);
+			noPhotoImage = scaledImage(noPhotoOriginalImage);	
+			noPhotoIcon = new ImageIcon( noPhotoImage);			
+		}
 
 		
 	}

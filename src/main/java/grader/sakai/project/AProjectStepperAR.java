@@ -9,7 +9,9 @@ public class AProjectStepperAR implements ExecutableCommand {
 	
 		public Object execute(Object theFrame) {
 //			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary", AttributeNames.LABELLED, false);
-			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Photo", AttributeNames.LABELLED, false);
+
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 
 			return null;
 		}
