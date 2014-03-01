@@ -474,26 +474,26 @@ public class AGradingFeature implements GradingFeature {
 			Object aNewValue) {
 		propertyChangeSupport.firePropertyChange(aName, anOldValue, aNewValue);
 	}
-	@Override
-	public Color computeColor() {
-		if (!getNotes().isEmpty())
-			return Color.GREEN;	
-		if (!isGraded() && isExtraCredit())
-			return Color.BLUE;
-		if (!isGraded())
-//		 if (isAutoNotGraded())
-			return Color.RED;
-		// put some notes if these conditions hold
-		 if (isAutoWithNotFullCredit() ||
-				 isManualWithNotFullCredit() ) 
-			return Color.PINK;
-		
-//		 if (!isGraded())
+//	@Override
+//	public Color computeColor() {
+//		if (!getNotes().isEmpty())
+//			return Color.GREEN;	
+//		if (!isGraded() && isExtraCredit())
 //			return Color.BLUE;
-//		 if (isManualWithNotFullCredit())
+//		if (!isGraded())
+////		 if (isAutoNotGraded())
+//			return Color.RED;
+//		// put some notes if these conditions hold
+//		 if (isAutoWithNotFullCredit() ||
+//				 isManualWithNotFullCredit() ) 
 //			return Color.PINK;
-		
-		return null;
-	}
+//		
+////		 if (!isGraded())
+////			return Color.BLUE;
+////		 if (isManualWithNotFullCredit())
+////			return Color.PINK;
+//		
+//		return null;
+//	}
 
 }

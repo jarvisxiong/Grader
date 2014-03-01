@@ -13,6 +13,7 @@ import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
+import grader.photos.APhotoReader;
 import grader.project.Project;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -455,8 +456,18 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 
 		internalSetComments(readComments(project));
-		studentPhoto = projectDatabase.getPhotoReader().getIcon(onyen);
+		
+		
+		studentPhoto = projectDatabase.getStudentPhoto(onyen, project);
+				
+//				projectDatabase.getPhotoReader().getIcon(onyen);
 		photoLabelModel.setIcon(studentPhoto);
+
+		if (studentPhoto != null){
+			photoLabelModel.setText("");
+		} else {
+			photoLabelModel.setText(APhotoReader.NO_PHOTO_TITLE);
+		}
 		settingUpProject = false;
 
 		refreshColors();
@@ -844,20 +855,20 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(16)
 	@ComponentWidth(400)
-	@Label("Auto Notes")
+//	@Label("Auto Notes")
 
-	public String getResult() {
+	public String getAutoNotes() {
 		return result;
 	}
 
 	@Row(17)
 	@ComponentWidth(400)
-	@Label("Manual Notes")
-	public String getNotes() {
+//	@Label("Manual Notes:")
+	public String getManualNotes() {
 		return notes;
 	}
 
-	public boolean preSetNotes() {
+	public boolean preSetManualNotes() {
 		return selectedGradingFeature != null;
 	}
 
@@ -877,8 +888,8 @@ public class AProjectStepper extends AClearanceManager implements
 		propertyChangeSupport.firePropertyChange("result", oldVal, newVal);
 	}
 
-	public void setNotes(String newVal) {
-		if (preSetNotes()) {
+	public void setManualNotes(String newVal) {
+		if (preSetManualNotes()) {
 			setNotes(selectedGradingFeature, newVal);
 			featureGradeRecorder.setFeatureComments(newVal);
 		}
@@ -894,9 +905,9 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	@Row(18)
-	@Label("Overall Notes")
+//	@Label("Overall Notes")
 	@ComponentWidth(600)
-	public String getComments() {
+	public String getOverallNotes() {
 		return comments;
 
 	}
@@ -910,7 +921,7 @@ public class AProjectStepper extends AClearanceManager implements
 		
 	}
 
-	public void setComments(String newVal) {
+	public void setOverallNotes(String newVal) {
 		internalSetComments(newVal);
 		// String oldVal = newVal;
 		// comments = newVal;
@@ -935,7 +946,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	@Row(19)
-	public LabelModel getLabelModel() {
+	public LabelModel getPhoto() {
 		return photoLabelModel;
 	}
 
@@ -1275,8 +1286,8 @@ public class AProjectStepper extends AClearanceManager implements
 	public void computeNextColors() {
 //		List<Color> colors = new ArrayList();
 		int i = 0;
-		for (GradingFeature gradingFeature:projectDatabase.getGradingFeatures()) {
-			nextColors.set(i, gradingFeature.computeColor() );
+		for (GradingFeature aGradingFeature:projectDatabase.getGradingFeatures()) {
+			nextColors.set(i, projectDatabase.getGradingFeatureColorComputer().computeColor(aGradingFeature) );
 			i++;
 		}
 		

@@ -6,10 +6,12 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
+import grader.assignment.AGradingFeatureColorComputer;
 import grader.assignment.AGradingFeatureList;
 import grader.assignment.AnAssignmenDataFolder;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureColorComputer;
 import grader.assignment.GradingFeatureList;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
@@ -24,8 +26,8 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
-import grader.photos.APictureReader;
-import grader.photos.PictureReader;
+import grader.photos.APhotoReader;
+import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
 import grader.project.AProject;
 import grader.project.MainClassFinder;
@@ -60,6 +62,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.Icon;
 
 import util.misc.Common;
 import util.models.AListenableVector;
@@ -99,9 +103,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 MainClassFinder mainClassFinder;
 	 String startStudentID, endStudentID;
 	 ProjectStepper projectStepper;
-	 PictureReader pictureReader;
+	 PhotoReader photoReader;
 	 Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
 	 protected ProjectRequirements projectRequirements;
+	 GradingFeatureColorComputer gradingFeatureColorComputer;
 
 	 
 	
@@ -173,7 +178,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			mainClassFinder = createMainClassFinder();
 			projectStepperDisplayer = createProjectStepperDisplayer();
 			navigationListCreator = createNavigationListCreator();
-			pictureReader = createPictureReader();
+			photoReader = createPhotoReader();
+			gradingFeatureColorComputer = createGradingFeatureColorComputer();
 			
 
 			
@@ -231,10 +237,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		return new AnAllTextSourceDisplayer();
 	}
 	
-	protected PictureReader createPictureReader() {
-		return new APictureReader(this);
+	protected PhotoReader createPhotoReader() {
+		return new APhotoReader(this);
 	}
-
+	protected GradingFeatureColorComputer createGradingFeatureColorComputer() {
+		return new AGradingFeatureColorComputer(this);
+	}
 
 	protected FinalGradeRecorder createFinalGradeRecorder() {
 //		return FinalGradeRecorderSelector.createFinalGradeRecorder(this);
@@ -1043,12 +1051,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
         return projectRequirements;
     }
     @Override
-	public PictureReader getPhotoReader() {
-		return pictureReader;
+	public PhotoReader getPhotoReader() {
+		return photoReader;
 	}
     @Override
-	public void setPictureReader(PictureReader pictureReader) {
-		this.pictureReader = pictureReader;
+	public void setPhotoReader(PhotoReader pictureReader) {
+		this.photoReader = pictureReader;
 	}
     @Override
 	public String getAssignmentsDataFolderName() {
@@ -1058,4 +1066,22 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void setAssignmentsDataFolderName(String assignmentsDataFolderName) {
 		this.assignmentsDataFolderName = assignmentsDataFolderName;
 	}
+    @Override
+	public GradingFeatureColorComputer getGradingFeatureColorComputer() {
+		return gradingFeatureColorComputer;
+	}
+    @Override
+	public void setGradingFeatureColorComputer(
+			GradingFeatureColorComputer gradingFeatureColorComputer) {
+		this.gradingFeatureColorComputer = gradingFeatureColorComputer;
+	}
+    @Override
+    public Icon getStudentPhoto(String anOnyen, SakaiProject aProject ) { // so we do not lookup the project
+    	Icon retVal = aProject.getStudentPhoto();
+    	if (retVal == null) {
+    		retVal = getPhotoReader().getIcon(anOnyen);
+    		aProject.setStudentPhoto(retVal);
+    	}
+    	return retVal;
+    }
 }

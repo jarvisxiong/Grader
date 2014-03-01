@@ -12,16 +12,21 @@ import java.util.Set;
 
 
 
+
+
+import javax.swing.Icon;
+
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureColorComputer;
 import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
-import grader.photos.PictureReader;
+import grader.photos.PhotoReader;
 import grader.project.Project;
 import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
@@ -96,13 +101,20 @@ public interface SakaiProjectDatabase {
 
 	Checkable getRequirement(GradingFeature aGradingFeature);
 
-	PictureReader getPhotoReader();
+	PhotoReader getPhotoReader();
 
-	void setPictureReader(PictureReader pictureReader);
+	void setPhotoReader(PhotoReader pictureReader);
 
 	String getAssignmentsDataFolderName();
 
 	void setAssignmentsDataFolderName(String assignmentsDataFolderName);
+
+	GradingFeatureColorComputer getGradingFeatureColorComputer();
+
+	void setGradingFeatureColorComputer(
+			GradingFeatureColorComputer gradingFeatureColorComputer);
+
+	Icon getStudentPhoto(String anOnyen, SakaiProject aProject);
 
 
 
