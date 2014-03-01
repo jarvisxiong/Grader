@@ -1043,11 +1043,19 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
         return projectRequirements;
     }
     @Override
-	public PictureReader getPictureReader() {
+	public PictureReader getPhotoReader() {
 		return pictureReader;
 	}
     @Override
 	public void setPictureReader(PictureReader pictureReader) {
 		this.pictureReader = pictureReader;
+	}
+    @Override
+	public String getAssignmentsDataFolderName() {
+		return assignmentsDataFolderName;
+	}
+    @Override
+	public void setAssignmentsDataFolderName(String assignmentsDataFolderName) {
+		this.assignmentsDataFolderName = assignmentsDataFolderName;
 	}
 }

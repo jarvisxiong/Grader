@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JTextArea;
 
 import org.apache.commons.io.FileUtils;
@@ -59,6 +60,8 @@ import util.annotations.Visible;
 import util.misc.AClearanceManager;
 import util.misc.Common;
 import util.misc.ThreadSupport;
+import util.models.ALabelModel;
+import util.models.LabelModel;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
@@ -91,7 +94,7 @@ public class AProjectStepper extends AClearanceManager implements
 	FinalGradeRecorder totalScoreRecorder;
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
-	String notes = "", result = "", log = "", comments = "";
+	String notes = "", result = "", feedback = "", comments = "";
 	List<CheckResult> featureResults;
 	List<CheckResult> restrictionResults;
 	GradingFeature selectedGradingFeature;
@@ -100,6 +103,8 @@ public class AProjectStepper extends AClearanceManager implements
 	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
 	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
 	boolean changed;
+	Icon studentPhoto;
+	LabelModel photoLabelModel;
 
 	// FinalGradeRecorder gradeRecorder() {
 	// return projectDatabase.getGradeRecorder();
@@ -108,7 +113,8 @@ public class AProjectStepper extends AClearanceManager implements
 	// return projectDatabase.getTotalScoreRecorder();
 	// }
 	public AProjectStepper() {
-		addPropertyChangeListener(this); // listen to yourself to see if you have changed
+		photoLabelModel = new ALabelModel("");
+//		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
@@ -434,7 +440,7 @@ public class AProjectStepper extends AClearanceManager implements
 			featureGradeRecorder.setEarlyLatePoints(name, onyen,
 					gradePercentage);
 
-			setStoredSummary();
+			setStoredFeedback();
 		}
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
@@ -449,6 +455,8 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 
 		internalSetComments(readComments(project));
+		studentPhoto = projectDatabase.getPhotoReader().getIcon(onyen);
+		photoLabelModel.setIcon(studentPhoto);
 		settingUpProject = false;
 
 		refreshColors();
@@ -690,7 +698,7 @@ public class AProjectStepper extends AClearanceManager implements
 			featureGradeRecorder.setGrade(name, onyen, features.get(i)
 					.getFeature(), score);
 		}
-		setComputedSummary();
+		setComputedFeedback();
 		featureGradeRecorder.setEarlyLatePoints(name, onyen,
 				featureGradeRecorder.getEarlyLatePoints(name, onyen));
 		// setSummary();
@@ -875,7 +883,7 @@ public class AProjectStepper extends AClearanceManager implements
 			featureGradeRecorder.setFeatureComments(newVal);
 		}
 
-		setComputedSummary();
+		setComputedFeedback();
 		internalSetNotes(newVal);
 		refreshColors();
 //		changed = true;
@@ -909,29 +917,34 @@ public class AProjectStepper extends AClearanceManager implements
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
 		featureGradeRecorder.save(comments);
 		writeComments(project, newVal);
-		setComputedSummary();
+		setComputedFeedback();
 		
 
 	}
 
-	void setComputedSummary() {
-		String oldVal = log;
-		log = featureGradeRecorder.computeSummary();
-		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
+	void setComputedFeedback() {
+		String oldVal = feedback;
+		feedback = featureGradeRecorder.computeSummary();
+		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
 	}
 
-	void setStoredSummary() {
-		String oldVal = log;
-		log = featureGradeRecorder.getStoredSummary();
-		propertyChangeSupport.firePropertyChange("summary", oldVal, log);
+	void setStoredFeedback() {
+		String oldVal = feedback;
+		feedback = featureGradeRecorder.getStoredSummary();
+		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
 	}
-
+	
 	@Row(19)
+	public LabelModel getLabelModel() {
+		return photoLabelModel;
+	}
+
+	@Row(20)
 	@ComponentWidth(600)
 	@ComponentHeight(300)
 	@PreferredWidgetClass(JTextArea.class)
-	public String getSummary() {
-		return log;
+	public String getFeedback() {
+		return feedback;
 
 	}
 

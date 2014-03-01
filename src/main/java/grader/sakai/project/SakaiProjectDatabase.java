@@ -10,6 +10,8 @@ import java.util.Set;
 
 
 
+
+
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
@@ -94,9 +96,13 @@ public interface SakaiProjectDatabase {
 
 	Checkable getRequirement(GradingFeature aGradingFeature);
 
-	PictureReader getPictureReader();
+	PictureReader getPhotoReader();
 
 	void setPictureReader(PictureReader pictureReader);
+
+	String getAssignmentsDataFolderName();
+
+	void setAssignmentsDataFolderName(String assignmentsDataFolderName);
 
 
 
