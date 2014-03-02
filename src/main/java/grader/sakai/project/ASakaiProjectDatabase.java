@@ -6,13 +6,16 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
-import grader.assignment.AGradingFeatureColorComputer;
 import grader.assignment.AGradingFeatureList;
 import grader.assignment.AnAssignmenDataFolder;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
-import grader.assignment.GradingFeatureColorComputer;
 import grader.assignment.GradingFeatureList;
+import grader.colorers.AGradingFeatureColorer;
+import grader.colorers.ANotesColorer;
+import grader.colorers.AScoreColorer;
+import grader.colorers.Colorer;
+import grader.colorers.GradingFeatureColorer;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
@@ -106,7 +109,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 PhotoReader photoReader;
 	 Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
 	 protected ProjectRequirements projectRequirements;
-	 GradingFeatureColorComputer gradingFeatureColorComputer;
+	 Colorer<GradingFeature> gradingFeatureColorer;
+	 Colorer<Double> scoreColorer, multiplierColorer;
+	 Colorer<String> overallNotesColorer;
 
 	 
 	
@@ -179,7 +184,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			projectStepperDisplayer = createProjectStepperDisplayer();
 			navigationListCreator = createNavigationListCreator();
 			photoReader = createPhotoReader();
-			gradingFeatureColorComputer = createGradingFeatureColorComputer();
+			gradingFeatureColorer = createGradingFeatureColorer();
+			scoreColorer = createScoreColorer();
+			multiplierColorer = createMultiplierColorer();
+			overallNotesColorer = createOverallNotesColorer();
 			
 
 			
@@ -240,9 +248,23 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected PhotoReader createPhotoReader() {
 		return new APhotoReader(this);
 	}
-	protected GradingFeatureColorComputer createGradingFeatureColorComputer() {
-		return new AGradingFeatureColorComputer(this);
+	protected Colorer<GradingFeature> createGradingFeatureColorer() {
+		return new AGradingFeatureColorer(this);
 	}
+	
+	protected Colorer<Double> createScoreColorer() {
+		return new AScoreColorer(this, 100);
+	}
+	
+	protected Colorer<Double> createMultiplierColorer() {
+		return new AScoreColorer(this, 1.0);
+	}
+	
+	protected Colorer<String> createOverallNotesColorer() {
+		return new ANotesColorer(this);
+	}
+
+
 
 	protected FinalGradeRecorder createFinalGradeRecorder() {
 //		return FinalGradeRecorderSelector.createFinalGradeRecorder(this);
@@ -1067,13 +1089,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		this.assignmentsDataFolderName = assignmentsDataFolderName;
 	}
     @Override
-	public GradingFeatureColorComputer getGradingFeatureColorComputer() {
-		return gradingFeatureColorComputer;
+	public Colorer<GradingFeature> getGradingFeatureColorer() {
+		return gradingFeatureColorer;
 	}
     @Override
-	public void setGradingFeatureColorComputer(
-			GradingFeatureColorComputer gradingFeatureColorComputer) {
-		this.gradingFeatureColorComputer = gradingFeatureColorComputer;
+	public void setGradingFeatureColorer(
+			Colorer<GradingFeature> gradingFeatureColorComputer) {
+		this.gradingFeatureColorer = gradingFeatureColorComputer;
 	}
     @Override
     public Icon getStudentPhoto(String anOnyen, SakaiProject aProject ) { // so we do not lookup the project
@@ -1084,4 +1106,28 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
     	}
     	return retVal;
     }
+
+	public Colorer<Double> getScoreColorer() {
+		return scoreColorer;
+	}
+
+	public void setScoreColorer(Colorer<Double> scoreColorer) {
+		this.scoreColorer = scoreColorer;
+	}
+
+	public Colorer<Double> getMultiplierColorer() {
+		return multiplierColorer;
+	}
+
+	public void setMultiplierColorer(Colorer<Double> multiplierColorer) {
+		this.multiplierColorer = multiplierColorer;
+	}
+
+	public Colorer<String> getOverallNotesColorer() {
+		return overallNotesColorer;
+	}
+
+	public void setOverallNotesColorer(Colorer<String> overallNotesColorer) {
+		this.overallNotesColorer = overallNotesColorer;
+	}
 }

@@ -14,14 +14,18 @@ import java.util.Set;
 
 
 
+
+
+
+
 import javax.swing.Icon;
 
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
-import grader.assignment.GradingFeatureColorComputer;
 import grader.assignment.GradingFeatureList;
+import grader.colorers.Colorer;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
@@ -109,12 +113,22 @@ public interface SakaiProjectDatabase {
 
 	void setAssignmentsDataFolderName(String assignmentsDataFolderName);
 
-	GradingFeatureColorComputer getGradingFeatureColorComputer();
+	Colorer<GradingFeature> getGradingFeatureColorer();
 
-	void setGradingFeatureColorComputer(
-			GradingFeatureColorComputer gradingFeatureColorComputer);
+	void setGradingFeatureColorer(
+			Colorer<GradingFeature> gradingFeatureColorComputer);
 
 	Icon getStudentPhoto(String anOnyen, SakaiProject aProject);
+	public Colorer<Double> getScoreColorer() ;
+	public void setScoreColorer(Colorer<Double> scoreColorer) ;
+
+	public Colorer<Double> getMultiplierColorer() ;
+
+	public void setMultiplierColorer(Colorer<Double> multiplierColorer) ;
+
+	public Colorer<String> getOverallNotesColorer();
+
+	public void setOverallNotesColorer(Colorer<String> overallNotesColorer) ;
 
 
 

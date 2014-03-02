@@ -38,6 +38,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JTextArea;
 
+import org.antlr.runtime.EarlyExitException;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
@@ -47,6 +48,7 @@ import bus.uigen.uiFrame;
 import bus.uigen.uiFrameList;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.controller.menus.SelectedMenuItem;
+import bus.uigen.oadapters.ClassAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import scala.Option;
 import util.annotations.Column;
@@ -84,7 +86,7 @@ public class AProjectStepper extends AClearanceManager implements
 	// ideally this stuff should really be done through property change as
 	// Josh's wrapper does
 	FeatureGradeRecorder featureGradeRecorder;
-	double gradePercentage = 1;
+	double multiplier = 1;
 	String onyen = "";
 	String commentsFileName = "";
 
@@ -95,14 +97,19 @@ public class AProjectStepper extends AClearanceManager implements
 	FinalGradeRecorder totalScoreRecorder;
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
-	String notes = "", result = "", feedback = "", comments = "";
+	String manualNotes = "", autoNotes = "", feedback = "", overallNotes = "";
 	List<CheckResult> featureResults;
 	List<CheckResult> restrictionResults;
 	GradingFeature selectedGradingFeature;
 	StudentFolder studentFolder;
 	uiFrame oeFrame;
 	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
+	ClassAdapter stepperViewAdapter;
+	ObjectAdapter multiplierAdapter, scoreAdapter, gradingFeaturesAdapter, overallNotesAdapter; 
 	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
+	Color currentScoreColor, currentMultiplierColor, currentOverallNotesColor;
+	Color nextScoreColor, nextMultiplierColor, nextOverallNotesColor;
+
 	boolean changed;
 	Icon studentPhoto;
 	LabelModel photoLabelModel;
@@ -434,12 +441,12 @@ public class AProjectStepper extends AClearanceManager implements
 			// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
 			// : 0;
 		} else {
-			gradePercentage = featureGradeRecorder.getEarlyLatePoints(name,
+			multiplier = featureGradeRecorder.getEarlyLatePoints(name,
 					onyen);
-			if (gradePercentage == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
-				gradePercentage = 1;
+			if (multiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
+				multiplier = 1;
 			featureGradeRecorder.setEarlyLatePoints(name, onyen,
-					gradePercentage);
+					multiplier);
 
 			setStoredFeedback();
 		}
@@ -452,7 +459,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		} else {
 			internalSetNotes("");
-			result = "";
+			autoNotes = "";
 		}
 
 		internalSetComments(readComments(project));
@@ -469,7 +476,7 @@ public class AProjectStepper extends AClearanceManager implements
 			photoLabelModel.setText(APhotoReader.NO_PHOTO_TITLE);
 		}
 		settingUpProject = false;
-
+		setScore();
 		refreshColors();
 //		boolean changed = setCurrentColors();
 //		if (changed)
@@ -493,15 +500,21 @@ public class AProjectStepper extends AClearanceManager implements
 			ObjectAdapter gradingAdapter =  gradingObjectAdapters.get(i);
 			gradingAdapter.setTempAttributeValue(AttributeNames.CONTAINER_BACKGROUND, currentColors.get(i));
 		}
-		oeFrame.refresh();
-	}
-
-	void setColors() {
-		if (oeFrame == null)
-			return;
 		
+		
+		stepperViewAdapter.get("score")
+		.setTempAttributeValue(AttributeNames.COMPONENT_BACKGROUND, currentScoreColor);
 
+		scoreAdapter.setTempAttributeValue(AttributeNames.COMPONENT_BACKGROUND, currentScoreColor);
+		multiplierAdapter.setTempAttributeValue(AttributeNames.COMPONENT_BACKGROUND, currentMultiplierColor);
+		overallNotesAdapter.setTempAttributeValue(AttributeNames.COMPONENT_BACKGROUND, currentOverallNotesColor);
+
+
+		oeFrame.refresh();
+//		stepperViewAdapter.refreshAttributes();
 	}
+
+	
 
 	public boolean preOutput() {
 		// return project.canBeRun();
@@ -588,6 +601,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	void setInternalScore(double newVal) {
 		score = newVal;
+		if (!settingUpProject)
 		propertyChangeSupport.firePropertyChange("Score", null, newVal);
 	}
 
@@ -850,7 +864,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(15)
 	public double getMultiplier() {
-		return gradePercentage;
+		return multiplier;
 	}
 
 	@Row(16)
@@ -858,14 +872,14 @@ public class AProjectStepper extends AClearanceManager implements
 //	@Label("Auto Notes")
 
 	public String getAutoNotes() {
-		return result;
+		return autoNotes;
 	}
 
 	@Row(17)
 	@ComponentWidth(400)
 //	@Label("Manual Notes:")
 	public String getManualNotes() {
-		return notes;
+		return manualNotes;
 	}
 
 	public boolean preSetManualNotes() {
@@ -873,17 +887,17 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	void internalSetNotes(String newVal) {
-		String oldVal = notes;
+		String oldVal = manualNotes;
 
-		notes = newVal;
+		manualNotes = newVal;
 
 		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
 
 	void internalSetResult(String newVal) {
-		String oldVal = result;
+		String oldVal = autoNotes;
 
-		result = newVal;
+		autoNotes = newVal;
 
 		propertyChangeSupport.firePropertyChange("result", oldVal, newVal);
 	}
@@ -908,14 +922,14 @@ public class AProjectStepper extends AClearanceManager implements
 //	@Label("Overall Notes")
 	@ComponentWidth(600)
 	public String getOverallNotes() {
-		return comments;
+		return overallNotes;
 
 	}
 
 	void internalSetComments(String newVal) {
-		String oldVal = comments;
+		String oldVal = overallNotes;
 
-		comments = newVal;
+		overallNotes = newVal;
 
 		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
 		
@@ -926,7 +940,7 @@ public class AProjectStepper extends AClearanceManager implements
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-		featureGradeRecorder.save(comments);
+		featureGradeRecorder.save(overallNotes);
 		writeComments(project, newVal);
 		setComputedFeedback();
 		
@@ -1071,8 +1085,8 @@ public class AProjectStepper extends AClearanceManager implements
 				&& evt.getPropertyName().equalsIgnoreCase("selected")) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
 			if ((Boolean) evt.getNewValue()) {
-				notes = getNotes(gradingFeature);
-				result = getInMemoryResult(gradingFeature);
+				manualNotes = getNotes(gradingFeature);
+				autoNotes = getInMemoryResult(gradingFeature);
 				// log = gradingFeature.getFeature();
 				selectedGradingFeature = gradingFeature;
 				unSelectOtherGradingFeatures(gradingFeature);
@@ -1154,6 +1168,13 @@ public class AProjectStepper extends AClearanceManager implements
 //			featureAdapter.refresh();
 			gradingObjectAdapters.add(featureAdapter);
 		}
+		gradingFeaturesAdapter = oeFrame.getObjectAdapter(projectDatabase.getGradingFeatures());
+		if (gradingFeaturesAdapter == null) return;
+		stepperViewAdapter = (ClassAdapter) gradingFeaturesAdapter.getParentAdapter(); // this might be a delegator
+		scoreAdapter = stepperViewAdapter.get("score");
+		multiplierAdapter = stepperViewAdapter.get("multiplier");
+		overallNotesAdapter = stepperViewAdapter.get("overallNotes");
+		
 
 	}
 
@@ -1183,21 +1204,22 @@ public class AProjectStepper extends AClearanceManager implements
 		setObjectAdapters();
 		setProject(anOnyen);
 		
-//		currentColors = computeColors();
-		// if (isAutoRun())
-		// projectDatabase.runProject(anOnyen, aProject);
-		// if (isAutoAutoGrade())
-		// autoGrade();
-		// why twice?
-		// setProject(anOnyen);
+
 	}
+	// setCurrentColors and refreshColors should probably be combined
 	boolean setCurrentColors() {
 		 computeNextColors();
-		boolean changed = !currentColors.equals(nextColors);
+		boolean changed = !currentColors.equals(nextColors) ||
+				(currentMultiplierColor != nextMultiplierColor) ||
+				(currentOverallNotesColor != nextOverallNotesColor) ||
+				(currentScoreColor != nextScoreColor);
 		if (changed) {
 			for (int i=0; i < currentColors.size();i++) {
 				currentColors.set(i, nextColors.get(i));
 			}
+			currentScoreColor = nextScoreColor;
+			currentMultiplierColor = nextMultiplierColor;
+			currentOverallNotesColor = nextOverallNotesColor;
 		}
 		return changed;
 	}
@@ -1287,9 +1309,12 @@ public class AProjectStepper extends AClearanceManager implements
 //		List<Color> colors = new ArrayList();
 		int i = 0;
 		for (GradingFeature aGradingFeature:projectDatabase.getGradingFeatures()) {
-			nextColors.set(i, projectDatabase.getGradingFeatureColorComputer().computeColor(aGradingFeature) );
+			nextColors.set(i, projectDatabase.getGradingFeatureColorer().color(aGradingFeature) );
 			i++;
 		}
+		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
+		nextScoreColor = projectDatabase.getScoreColorer().color(score);
+		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		
 	}
 
