@@ -9,6 +9,9 @@ public class AScoreColorer implements Colorer<Double>{
 	double maxValue;
 	double notAThreshold = 0.9;
 	double failThreshold = 0.6;
+	Color notAColor = Color.PINK;
+	Color moreThanFullCreditColor = Color.GREEN;
+	Color failColor = Color.RED;
 	
 	public AScoreColorer(SakaiProjectDatabase aDatabase, double aMaxValue) {
 		database = aDatabase;
@@ -17,11 +20,11 @@ public class AScoreColorer implements Colorer<Double>{
 	@Override
 	public Color color(Double aNum) {
 		if (aNum > maxValue)
-			return Color.GREEN;
+			return moreThanFullCreditColor;
 		else if (aNum < maxValue*notAThreshold )
-			return Color.PINK;
+			return notAColor;
 		else if (aNum < maxValue*failThreshold) 
-			return Color.RED;
+			return failColor;
 		else
 			return null;			
 	}
