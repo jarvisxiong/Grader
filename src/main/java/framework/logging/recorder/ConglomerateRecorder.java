@@ -330,4 +330,13 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	public String getResult(String aStudentName, String anOnyen, String aFeature) {
 		return basicFeatureGradeRecorder.getResult(aStudentName, anOnyen, aFeature);
 	}
+
+	@Override
+	public boolean logSaved() {
+		for (Logger logger:loggers) {
+			if (!logger.isSaved(recordingSession.getUserId()))
+				return false;
+		}
+		return true;
+	}
 }

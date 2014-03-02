@@ -26,6 +26,30 @@ public class CsvLogger implements Logger {
 	        }
 	}
 	
+//	public String logFileName(RecordingSession recordingSession) {
+//		return GraderSettings.get().get("path") + "/" + recordingSession.getUserId() + "/Feedback Attachment(s)/feedback.txt";
+//	}
+//	
+	public String logFileName(String aUserId) {
+		File file = logFile(aUserId);
+		if (file != null && file.exists()) {
+			return file.getAbsolutePath();
+		}
+		return null;
+	}
+	
+	 File logFile(String aUserId) {
+		SakaiBulkDownloadFolder sakaiFolder;
+		try {
+			sakaiFolder = new SakaiBulkDownloadFolder(GraderSettings.get().get("path"));
+			File file = sakaiFolder.getGrades();
+			return file; 
+		} catch (NotValidDownloadFolderException e) {
+			return null;
+		}
+		
+	}
+	
      void resultsBasedSave(RecordingSession recordingSession) {
         String text = SerializationUtils.getSerializer("text").serialize(recordingSession);
 
@@ -71,6 +95,8 @@ public class CsvLogger implements Logger {
 			System.err.println(e.getMessage());
 		}
         File file = new File(GraderSettings.get().get("path") + "/" + recordingSession.getUserId() + "/Feedback Attachment(s)/feedback.txt");
+//        File file = new File(logFileName(recordingSession));
+
         try {
             FileUtils.writeStringToFile(file, text);
         } catch (IOException e) {
@@ -122,10 +148,17 @@ public class CsvLogger implements Logger {
  			System.err.println(e.getMessage());
  		}
          File file = new File(GraderSettings.get().get("path") + "/" + recordingSession.getUserId() + "/Feedback Attachment(s)/feedback.txt");
+//         File file = new File(logFileName(recordingSession));
          try {
              FileUtils.writeStringToFile(file, text);
          } catch (IOException e) {
              e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
          }
      }
+// this is not correct, should really look at specific entry 
+	@Override
+	public boolean isSaved(String aUserId) {
+        File file = logFile(aUserId);
+        return file != null && file.exists();
+	}
 }

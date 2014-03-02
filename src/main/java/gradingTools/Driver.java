@@ -48,6 +48,8 @@ public class Driver {
             recorder.setProjectRequirements(requirements);
 
             String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
+           //lazy coding means feedback should be the last step so that isSaved works correctly
+
             for (String method :loggingMethods) {
 
                 // Add loggers
