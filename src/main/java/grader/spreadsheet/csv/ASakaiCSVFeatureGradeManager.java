@@ -270,10 +270,10 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		// TODO Auto-generated method stub
 		return "";
 	}
-
+	String onyen;
 	@Override
-	public void newSession(String onyen) {
-		// TODO Auto-generated method stub
+	public void newSession(String anOnyen) {
+		onyen = anOnyen;
 		
 	}
 
@@ -335,6 +335,12 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	public String getStoredSummary() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	// should really check that all grading features are non null for current onyen
+	public boolean logSaved() {
+		return true;
 	}
 
 	

@@ -1314,7 +1314,9 @@ public class AProjectStepper extends AClearanceManager implements
 	@Override
 	public synchronized void move(boolean forward) {
 		// josh's code
-		if (changed) // no serialization otherwise
+		// no serialization otherwise
+		if (changed || 
+				!featureGradeRecorder.logSaved()) 
 		featureGradeRecorder.finish();
 
 		// my original code

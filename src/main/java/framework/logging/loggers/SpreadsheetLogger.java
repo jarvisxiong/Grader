@@ -33,6 +33,8 @@ public class SpreadsheetLogger implements Logger {
 	private final File spreadsheetFile;
 	private XSSFWorkbook workbook;
 	private boolean workbookCreated = false;
+//	String logFile;
+//	String logFileName;
 
 	public SpreadsheetLogger(ProjectRequirements projectRequirements) throws ConfigurationException {
 		this.projectRequirements = projectRequirements;
@@ -179,6 +181,17 @@ public class SpreadsheetLogger implements Logger {
 			e.printStackTrace(); // To change body of catch statement use File |
 									// Settings | File Templates.
 		}
+	}
+
+	@Override
+	public String logFileName(String aUserId) {
+		return spreadsheetFile.getAbsolutePath();
+	}
+
+	@Override
+	//  this is not correct, should really look at specific entry
+	public boolean isSaved(String aUserId) {
+		return true;
 	}
 
 }
