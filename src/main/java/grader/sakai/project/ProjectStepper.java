@@ -4,6 +4,7 @@ import util.annotations.ComponentWidth;
 import util.annotations.Row;
 import util.annotations.Visible;
 import util.misc.ClearanceManager;
+import util.models.LabelBeanModel;
 import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
@@ -73,6 +74,8 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	void setOEFrame(uiFrame aFrame);
 
 	uiFrame getOEFrame();
+
+	LabelBeanModel getPhoto();
 	
 
 }
