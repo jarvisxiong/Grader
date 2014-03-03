@@ -18,8 +18,8 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 //		frame = (JFrame) aFrame.getFrame().getPhysicalComponent();
 	}
 	
-	public void initFrame(OEFrame aFrame) {
-		frame = (JFrame) aFrame.getFrame().getPhysicalComponent();
+	public void initFrame(JFrame aFrame) {
+		frame = aFrame;
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 	public static void main (String[] args) {
 		AFileSetterModel aFileSetterModel = new AFileSetterModel();
 		OEFrame oeFrame = ObjectEditor.edit(aFileSetterModel);
-		aFileSetterModel.initFrame(oeFrame);
+		aFileSetterModel.initFrame((JFrame) oeFrame.getFrame().getPhysicalComponent());
 		oeFrame.setSize(600,  200);
 	}
 

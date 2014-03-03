@@ -1,8 +1,8 @@
 package grader.start;
 
-import bus.uigen.OEFrame;
+import javax.swing.JFrame;
 
 public interface FileSetterModel extends LabelSetterModel {
-	public void initFrame(OEFrame aFrame);
+	public void initFrame(JFrame aFrame);
 
 }
