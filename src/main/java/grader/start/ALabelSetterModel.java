@@ -17,7 +17,7 @@ public abstract class ALabelSetterModel implements LabelSetterModel{
 		labelModel.set(newValue, null);
 	}
 	
-	@ComponentWidth(350)
+//	@ComponentWidth(350)
 	@ComponentHeight(25)
 	@Column(1)
 	public LabelBeanModel getLabel() {

@@ -24,7 +24,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 
 	@Override
 	@Column(2)
-	@ComponentWidth(80)
+//	@ComponentWidth(80)
 	@ComponentHeight(25)
 	public void change() {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
