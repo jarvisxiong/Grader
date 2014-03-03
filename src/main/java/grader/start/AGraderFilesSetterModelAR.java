@@ -10,6 +10,8 @@ public class AGraderFilesSetterModelAR implements ExecutableCommand{
 
 //		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "DownloadFolder", AttributeNames.LABEL_WIDTH, 90);
 //		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "TextEditor", AttributeNames.LABEL_WIDTH, 90);
+		ObjectEditor.setAttribute(AGraderFilesSetterModel.class,  AttributeNames.LAYOUT, AttributeNames.GRID_BAG_LAYOUT);
+//		ObjectEditor.setAttribute(AGraderFilesSetterModel.class,  AttributeNames.STRETCH_ROWS, true);
 
 		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "DownloadFolder", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IS_LEFT);
 		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "TextEditor", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IS_LEFT);

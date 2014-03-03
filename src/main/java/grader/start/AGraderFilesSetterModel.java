@@ -2,16 +2,20 @@ package grader.start;
 
 import javax.swing.JFrame;
 
+import util.annotations.Row;
+import util.annotations.Visible;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
 public class AGraderFilesSetterModel implements GraderFilesSetterModel {
 	FileSetterModel downloadPathModel = new AFileSetterModel();
 	FileSetterModel textEditorPathModel = new AFileSetterModel();
-	
+	@Row(0)
 	public FileSetterModel getDownloadFolder() {
 		return downloadPathModel;
 	}
+	@Row(1)
+//	@Visible(false)
 	public FileSetterModel getTextEditor() {
 		return textEditorPathModel;
 	}
