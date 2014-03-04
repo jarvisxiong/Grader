@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;

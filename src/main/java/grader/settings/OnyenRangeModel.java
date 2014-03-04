@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 public interface OnyenRangeModel {
 	public String getStartingOnyen() ;

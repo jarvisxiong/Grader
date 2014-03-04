@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import grader.sakai.project.AProjectStepper;
 import bus.uigen.ObjectEditor;

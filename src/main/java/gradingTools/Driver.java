@@ -12,12 +12,17 @@ import util.misc.Common;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.settings.AGraderSettingsModel;
+import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+
+import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
 
 /**
  * This is the entry class for the grading tools that Maven will reference.
@@ -76,12 +81,23 @@ public class Driver {
                 manager.run();
 
             } else if (controller.equals("SakaiProjectDatabase")) {
+            	
+            	 String settings = configuration.getString("grader.settings", "oe");
+            	 if (settings.equalsIgnoreCase("oe")) {
+            		 GraderSettingsModel settingsModel = new AGraderSettingsModel();
+            			OEFrame frame = ObjectEditor.edit(settingsModel);
+            			frame.setTitle("Grader Settings");
+            			frame.setSize(550, 250);
+            			settingsModel.awaitBegin();
+            	 
+            		 
+            	 } else {
 
                 // Start the grading process by, first, getting the settings the running the project database
                 SettingsWindow settingsWindow = SettingsWindow.create();
                 settingsWindow.awaitBegin();
 //                ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
-
+            	 }
 
                 // Logging/results saving
                 FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());

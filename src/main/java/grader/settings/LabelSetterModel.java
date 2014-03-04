@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import util.annotations.Visible;
 import util.models.LabelBeanModel;

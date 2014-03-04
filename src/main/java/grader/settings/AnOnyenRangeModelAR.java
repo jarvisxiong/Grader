@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;

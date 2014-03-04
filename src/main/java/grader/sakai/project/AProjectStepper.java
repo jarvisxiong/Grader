@@ -1054,6 +1054,8 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	@Row(19)
+//	@ComponentHeight(100)
+//	@ComponentWidth(100)
 	@Override
 	public LabelBeanModel getPhoto() {
 		return photoLabelBeanModel;
