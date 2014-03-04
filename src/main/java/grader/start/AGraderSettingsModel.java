@@ -1,10 +1,12 @@
 package grader.start;
 
+import util.annotations.ComponentHeight;
 import util.annotations.Row;
 import util.annotations.Visible;
+import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
-public class AGraderStartModel {
+public class AGraderSettingsModel {
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
 	OnyenRangeModel onyens = new AnOnyenRangeModel();
 	BeginActionModel beginActionModel = new ABeginActionModel();
@@ -24,16 +26,22 @@ public class AGraderStartModel {
 		this.onyens = onyens;
 	}
 	@Row(2)
-	public BeginActionModel getBeginActionModel() {
-		return beginActionModel;
+	@ComponentHeight(25)
+	public void begin() {
+		
 	}
-	public void setBeginActionModel(BeginActionModel beginActionModel) {
-		this.beginActionModel = beginActionModel;
-	}
+//	public BeginActionModel getBeginActionModel() {
+//		return beginActionModel;
+//	}
+//	public void setBeginActionModel(BeginActionModel beginActionModel) {
+//		this.beginActionModel = beginActionModel;
+//	}
 
 	public static void main (String[] args) {
-		AGraderStartModel startModel = new AGraderStartModel();
-		ObjectEditor.edit(startModel);
+		AGraderSettingsModel startModel = new AGraderSettingsModel();
+		OEFrame frame = ObjectEditor.edit(startModel);
+		frame.setTitle("Grader Settings");
+		frame.setSize(500, 250);
 	}
 	
 
