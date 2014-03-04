@@ -8,6 +8,7 @@ import bus.uigen.ObjectEditor;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Visible;
 import util.models.LabelBeanModel;
 
 public class AFileSetterModel extends ALabelSetterModel implements FileSetterModel {
@@ -17,7 +18,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 	public AFileSetterModel () {
 //		frame = (JFrame) aFrame.getFrame().getPhysicalComponent();
 	}
-	
+	@Visible(false)
 	public void initFrame(JFrame aFrame) {
 		frame = aFrame;
 	}

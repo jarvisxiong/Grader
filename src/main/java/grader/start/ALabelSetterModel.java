@@ -11,7 +11,6 @@ public abstract class ALabelSetterModel implements LabelSetterModel{
 	LabelBeanModel labelModel = new ALabelBeanModel(" A Label", null);
 	String text;
 	
-	public abstract void change();
 	
 	 void setText(String newValue) {		 
 		labelModel.set(newValue, null);

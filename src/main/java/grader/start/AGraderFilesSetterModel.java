@@ -19,7 +19,7 @@ public class AGraderFilesSetterModel implements GraderFilesSetterModel {
 	public FileSetterModel getTextEditor() {
 		return textEditorPathModel;
 	}
-	
+	@Visible(false)
 	public void initFrame(JFrame aFrame) {
 		downloadPathModel.initFrame(aFrame);
 		textEditorPathModel.initFrame(aFrame);
