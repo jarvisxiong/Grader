@@ -1,10 +1,11 @@
 package grader.start;
 
+import util.annotations.Row;
 import bus.uigen.ObjectEditor;
 
 public class AnOnyenRangeModel implements OnyenRangeModel{
 	String startingOnyen = "", endingOnyen = "";
-
+    @Row(0)
 	public String getStartingOnyen() {
 		return startingOnyen;
 	}
@@ -12,7 +13,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	public void setStartingOnyen(String startingOnyen) {
 		this.startingOnyen = startingOnyen;
 	}
-
+	@Row(1)
 	public String getEndingOnyen() {
 		return endingOnyen;
 	}
