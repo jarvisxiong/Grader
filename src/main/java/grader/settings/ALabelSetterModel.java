@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import util.annotations.Column;
 import util.annotations.ComponentHeight;

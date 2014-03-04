@@ -1,4 +1,4 @@
-package grader.start;
+package grader.settings;
 
 import util.annotations.Row;
 
