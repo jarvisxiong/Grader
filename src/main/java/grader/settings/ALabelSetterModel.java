@@ -3,6 +3,7 @@ package grader.settings;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Row;
 import util.annotations.Visible;
 import util.models.ALabelBeanModel;
 import util.models.LabelBeanModel;
@@ -19,6 +20,8 @@ public abstract class ALabelSetterModel implements LabelSetterModel{
 //	@ComponentWidth(350)
 	@ComponentHeight(25)
 	@Column(1)
+//	@Row(0)
+
 	public LabelBeanModel getLabel() {
 		return labelModel;
 	}

@@ -8,6 +8,7 @@ import bus.uigen.ObjectEditor;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Row;
 import util.annotations.Visible;
 import util.models.LabelBeanModel;
 
@@ -25,6 +26,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 
 	@Override
 	@Column(2)
+//	@Row(1)
 //	@ComponentWidth(80)
 	@ComponentHeight(25)
 	public void change() {
