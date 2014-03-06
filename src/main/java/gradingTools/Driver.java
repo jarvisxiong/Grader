@@ -14,6 +14,9 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModel;
+import grader.settings.navigation.AGradingStatusFilter;
+import grader.settings.navigation.NavigationFilterManager;
+import grader.settings.navigation.NavigationFilter;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
@@ -84,6 +87,9 @@ public class Driver {
             	
             	 String settings = configuration.getString("grader.settings", "oe");
             	 if (settings.equalsIgnoreCase("oe")) {
+                 	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
+                 	NavigationFilterManager.register(gradingBasedFilterer);
+
             		 GraderSettingsModel settingsModel = new AGraderSettingsModel();
             			OEFrame frame = ObjectEditor.edit(settingsModel);
             			frame.setTitle("Grader Settings");

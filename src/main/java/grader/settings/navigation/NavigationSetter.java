@@ -1,5 +1,9 @@
 package grader.settings.navigation;
 
-public interface NavigationSetter {
+import java.beans.PropertyChangeListener;
+
+import util.models.PropertyListenerRegisterer;
+
+public interface NavigationSetter extends PropertyChangeListener, PropertyListenerRegisterer {
 
 }
