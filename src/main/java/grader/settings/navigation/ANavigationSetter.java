@@ -15,6 +15,7 @@ import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
 import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
+import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
 public class ANavigationSetter implements NavigationSetter {
@@ -39,7 +40,7 @@ public class ANavigationSetter implements NavigationSetter {
 		this.navigationKind = navigationKind;
 	}
 	@Row(1)
-	@Label("Automatic Navigation Parameters")
+	@Label("Automatic Navigation Options")
 	public AutomaticNavigationSetter getAutomaticNavigationSetter() {
 		return automaticNavigationSetter;
 	}
@@ -66,15 +67,35 @@ public class ANavigationSetter implements NavigationSetter {
 //	public boolean preGetParameters() {
 //		return preGetNavigationFilterTypes() && currentNavigationFilter != null && currentNavigationFilter.getParameters() != null;
 //	}
-	@Row(2)
-	public DynamicEnum getNavigationFilterTypes() {
+	@Row(2)	
+	public DynamicEnum getNavigationFilterType() {
 		return navigationFilterEnum;
 	}
 	
 	
 	@Row(3)
-	public Object getFilterParameters() {
+	@PreferredWidgetClass(JRadioButton.class)
+	@Label("Navigation Filter Options")
+	public Object getFilterOptions() {
 		return currentNavigationFilter.getParameters();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent anEvent) {
+		if (anEvent.getSource() == navigationFilterEnum && anEvent.getPropertyName().equals("value")) {
+			currentNavigationFilterName = (String) anEvent.getNewValue();
+			Object oldParameters = currentNavigationFilter.getParameters();
+			currentNavigationFilter = NavigationFilterManager.getFilterer(currentNavigationFilterName);
+			Object newParameters = currentNavigationFilter.getParameters();
+			propertyChangeSupport.firePropertyChange("FilterOptions", oldParameters, newParameters);
+		}
+		
+		
+	}
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener aListener) {
+		propertyChangeSupport.addPropertyChangeListener(aListener);
+		
 	}
 	
 	
@@ -84,24 +105,8 @@ public class ANavigationSetter implements NavigationSetter {
      	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
      	NavigationFilterManager.register(notesStatusFilter);
 		NavigationSetter navigationSetter = new ANavigationSetter();
-		ObjectEditor.edit(navigationSetter);
-	}
-	@Override
-	public void propertyChange(PropertyChangeEvent anEvent) {
-		if (anEvent.getSource() == navigationFilterEnum && anEvent.getPropertyName().equals("value")) {
-			currentNavigationFilterName = (String) anEvent.getNewValue();
-			Object oldParameters = currentNavigationFilter.getParameters();
-			currentNavigationFilter = NavigationFilterManager.getFilterer(currentNavigationFilterName);
-			Object newParameters = currentNavigationFilter.getParameters();
-			propertyChangeSupport.firePropertyChange("FilterParameters", oldParameters, newParameters);
-		}
-		
-		
-	}
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener aListener) {
-		propertyChangeSupport.addPropertyChangeListener(aListener);
-		
+		OEFrame frame = ObjectEditor.edit(navigationSetter);
+		frame.setSize(600, 300);
 	}
 	
 }

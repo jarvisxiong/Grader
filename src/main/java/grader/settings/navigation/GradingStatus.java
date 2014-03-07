@@ -1,10 +1,10 @@
 package grader.settings.navigation;
 
 public enum GradingStatus {
-	ALL ("All Submitted"),
 	NOT_AUTO_GRADED ("Not Auto Graded"),
 	NOT_GRADED ("Not Fully Graded"),
-	GRADED ("Fully Graded");
+	GRADED ("Fully Graded"),
+	ALL ("All");
 	
 
 	// display name constructor and variable

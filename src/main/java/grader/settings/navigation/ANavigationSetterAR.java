@@ -12,6 +12,8 @@ public class ANavigationSetterAR implements ExecutableCommand{
 		ObjectEditor.setAttribute(ANavigationSetter.class,  AttributeNames.LAYOUT, AttributeNames.GRID_BAG_LAYOUT);
 		ObjectEditor.setPropertyAttribute(ANavigationSetter.class, "NavigationKind",  AttributeNames.DIRECTION, AttributeNames.HORIZONTAL);
 		ObjectEditor.setPropertyAttribute(ANavigationSetter.class, "NavigationKind",  AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+		ObjectEditor.setPropertyAttribute(ANavigationSetter.class, "FilterOptions",  AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+		ObjectEditor.setPropertyAttribute(ANavigationSetter.class, "FilterOptions",  AttributeNames.DIRECTION, AttributeNames.HORIZONTAL);
 
 //		ObjectEditor.setAttribute(AnOnyenRangeModel.class,  AttributeNames.STRETCHABLE_BY_PARENT, true);
 

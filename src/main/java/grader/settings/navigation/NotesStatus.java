@@ -2,7 +2,7 @@ package grader.settings.navigation;
 
 public enum NotesStatus {
 	NOTES ("Has Notes"),
-	NO_NOTES ("No Notes"),
+	NO_NOTES ("Has No Notes"),
 	ALL ("All"),;
 	
 	// display name constructor and variable
