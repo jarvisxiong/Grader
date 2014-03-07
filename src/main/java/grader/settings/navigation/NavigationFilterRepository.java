@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class NavigationFilterManager {
+public class NavigationFilterRepository {
 	static Map<String, Object> filterTypeToParameters = new HashMap<>();
 	static Map<String, NavigationFilter> filterTypeToFilterer = new HashMap<>();
 

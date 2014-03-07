@@ -1,7 +1,11 @@
 package grader.settings.navigation;
 
+import util.annotations.Explanation;
+
+@Explanation("Needs notes")
 public enum NotesStatus {
-	NOTES ("Has Notes"),
+	NEEDS_NOTES ("Needs Notes"),
+	HAS_NOTES ("Has Some Notes"),
 	NO_NOTES ("Has No Notes"),
 	ALL ("All"),;
 	
