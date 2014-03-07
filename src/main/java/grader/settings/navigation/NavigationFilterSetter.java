@@ -4,6 +4,6 @@ import java.beans.PropertyChangeListener;
 
 import util.models.PropertyListenerRegisterer;
 
-public interface NavigationSetter  {
+public interface NavigationFilterSetter extends PropertyChangeListener, PropertyListenerRegisterer {
 
 }

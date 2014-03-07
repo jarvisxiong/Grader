@@ -695,8 +695,10 @@ public class AProjectStepper extends AClearanceManager implements
 
 	void setInternalScore(double newVal) {
 		score = newVal;
-		if (!settingUpProject)
-		propertyChangeSupport.firePropertyChange("Score", null, newVal);
+		if (!settingUpProject) {
+			setScoreColor();
+			propertyChangeSupport.firePropertyChange("Score", null, newVal);
+		}
 	}
 
 	void setGrade(double newVal) {

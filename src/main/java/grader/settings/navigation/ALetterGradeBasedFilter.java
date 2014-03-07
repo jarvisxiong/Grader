@@ -1,11 +1,12 @@
 package grader.settings.navigation;
 
+import grader.letter_grade.CoarseLetterGrade;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 
-public class AGradingStatusFilter implements NavigationFilter{
-	public static final String NAME = "Grading Status";
-	public static final GradingStatus parameters = GradingStatus.NOT_FULLY_GRADED;
+public class ALetterGradeBasedFilter implements NavigationFilter{
+	public static final String NAME = "Letter Grade";
+	public static final CoarseLetterGrade parameters = CoarseLetterGrade.C;
 
 	@Override
 	public boolean includeProject(ProjectStepper aProjectState,
@@ -19,7 +20,7 @@ public class AGradingStatusFilter implements NavigationFilter{
 	}
 
 	@Override
-	public GradingStatus getParameters() {
+	public Object getParameters() {
 		return parameters;
 	}
 
