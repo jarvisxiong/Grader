@@ -1,6 +1,7 @@
 package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
+
 import grader.project.file.RootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
@@ -62,5 +63,11 @@ public interface Project {
     Thread runProject();
 
     JavaDocBuilder getJavaDocBuilder();
+
+	StringBuffer getCurrentOutput();
+
+	void clearOutput();
+
+	void setCurrentOutput(StringBuffer currentOutput);
 
 }

@@ -50,7 +50,7 @@ public class ReflectionRunner implements Runner {
      */
     @Override
     public RunningProject run(final String input, final String[] args, int timeout) throws NotRunnableException {
-        final RunningProject runner = new RunningProject();
+        final RunningProject runner = new RunningProject(project);
         try {
             runner.start();
         } catch (InterruptedException e) {

@@ -12,7 +12,10 @@ public class AProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Photo", AttributeNames.LABELLED, false);
 
 			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
-
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
+			
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Output", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Output", AttributeNames.SCROLLED, true);
 			return null;
 		}
 

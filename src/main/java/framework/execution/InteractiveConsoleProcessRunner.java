@@ -17,11 +17,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
     private String entryPoint;
     private File folder;
+    Project project;
 
-    public InteractiveConsoleProcessRunner(Project project) throws NotRunnableException {
+    public InteractiveConsoleProcessRunner(Project aProject) throws NotRunnableException {
         try {
-            entryPoint = getEntryPoint(project);
-            folder = project.getBuildFolder(entryPoint);
+            entryPoint = getEntryPoint(aProject);
+            folder = aProject.getBuildFolder(entryPoint);
+            project = aProject;
         } catch (Exception e) {
             throw new NotRunnableException();
         }
@@ -81,7 +83,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      */
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-        final RunningProject runner = new RunningProject();
+        final RunningProject runner = new RunningProject(project);
 
         try {
 //            runner.start();

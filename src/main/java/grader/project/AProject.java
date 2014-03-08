@@ -1,6 +1,7 @@
 package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
+
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
@@ -13,6 +14,7 @@ import grader.project.view.ClassViewManager;
 import grader.sakai.StudentCodingAssignment;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ public class AProject implements Project {
     MainClassFinder mainClassFinder;
     String[][] args;
     boolean runChecked;
+    StringBuffer currentOutput = new StringBuffer();
+//    FileWriter outputFile ;
 
     protected Class mainClass;
     protected Method mainMethod;
@@ -340,5 +344,26 @@ public class AProject implements Project {
         }
         return javaDocBuilder;
     }
+    @Override
+	public StringBuffer getCurrentOutput() {
+		return currentOutput;
+	}
+    @Override
+    public void clearOutput() {
+    	currentOutput.setLength(0);
+    	try {
+			FileWriter fileWriter = new FileWriter(new File(outputFileName));
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    
+  
+    @Override
+	public void setCurrentOutput(StringBuffer currentOutput) {
+		this.currentOutput = currentOutput;
+	}
 
 }
