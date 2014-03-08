@@ -7,10 +7,12 @@ import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 import tools.TimedProcess;
+import wrappers.framework.project.ProjectWrapper;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.sakai.project.SakaiProject;
 
 /**
  * This runs the program in a new process.
@@ -102,6 +104,11 @@ public class ProcessRunner implements Runner {
 	@Override
 	public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
 		final RunningProject runner = new RunningProject(project);
+		if (project instanceof ProjectWrapper) {
+			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
+			sakaiProject.setCurrentInput(input);
+			sakaiProject.setCurrentArgs(args);			
+		}
 
 		try {
 			runner.start();

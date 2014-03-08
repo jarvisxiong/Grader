@@ -303,6 +303,9 @@ public class AProjectStepper extends AClearanceManager implements
 			// project.getStudentAssignment().getOnyen(),
 			// aGradingFeature.getFeature());
 			double lastScore = getGrade(aGradingFeature.getFeature());
+			String result = getSavedResult(aGradingFeature);
+			if (result != "")
+				aGradingFeature.setResult(result);
 
 			// aGradingFeature.initScore(lastScore);
 			// aGradingFeature.setProject(project);
@@ -379,7 +382,7 @@ public class AProjectStepper extends AClearanceManager implements
 	
 	void setStoredOutput () {
 		 project.setCurrentOutput(Common.toText(project.getOutputFileName()));
-		 output = project.getCurrentOutput().toString();
+		 internalSetOutput( project.getCurrentOutput().toString());
 	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
@@ -423,7 +426,6 @@ public class AProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		setScore();
-		setStoredOutput();
 
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
@@ -459,13 +461,15 @@ public class AProjectStepper extends AClearanceManager implements
 					multiplier);
 
 			setStoredFeedback();
+
+			setStoredOutput();
 		}
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
 
 		if (selectedGradingFeature != null) {
 			internalSetNotes(getNotes(selectedGradingFeature));
-			internalSetResult(getSavedResult(selectedGradingFeature));
+			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
 
 		} else {
 			internalSetNotes("");
@@ -831,6 +835,7 @@ public class AProjectStepper extends AClearanceManager implements
 					.getFeature(), score);
 		}
 		setComputedFeedback();
+		setStoredOutput();
 		featureGradeRecorder.setEarlyLatePoints(name, onyen,
 				featureGradeRecorder.getEarlyLatePoints(name, onyen));
 		// setSummary();
@@ -1000,6 +1005,14 @@ public class AProjectStepper extends AClearanceManager implements
 
 		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
+	
+	void internalSetOutput(String newVal) {
+		String oldVal = output;
+
+		output = newVal;
+
+		propertyChangeSupport.firePropertyChange("output", oldVal, newVal);
+	}
 
 	void internalSetResult(String newVal) {
 		String oldVal = autoNotes;
@@ -1076,7 +1089,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Row(20)
 	@Override
 	@ComponentWidth(600)
-	@ComponentHeight(200)
+	@ComponentHeight(100)
 	@PreferredWidgetClass(JTextArea.class)
 	public String getFeedback() {
 		return feedback;
@@ -1087,7 +1100,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Row(21)
 //	@Override
 	@ComponentWidth(600)
-	@ComponentHeight(200)
+	@ComponentHeight(100)
 	@PreferredWidgetClass(JTextArea.class)
 	public String getOutput() {
 		return output;

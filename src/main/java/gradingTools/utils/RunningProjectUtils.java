@@ -23,8 +23,7 @@ public class RunningProjectUtils {
 	 * 
 	 * The running project also timesout based on the given timeout
 	 */
-	public static RunningProject runProject(Project project, String inputSeparator, int timeout,
-			String... inputs) throws NotRunnableException {
+	public static RunningProject runProject(Project project, String inputSeparator, int timeout, String... inputs) throws NotRunnableException {
 		String allInputsStr = "";
 		for (int i = 0; i < inputs.length; i++) {
 			if (i > 0) {

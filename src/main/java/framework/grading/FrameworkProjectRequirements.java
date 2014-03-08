@@ -5,9 +5,13 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
 import framework.project.Project;
+import grader.sakai.project.SakaiProject;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import wrappers.framework.project.ProjectWrapper;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -99,8 +103,17 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
      */
     public List<CheckResult> checkFeatures(Project project) {
         List<CheckResult> results = new LinkedList<CheckResult>();
-        for (Feature feature : features)
+        SakaiProject sakaiProject = null;
+        if (project instanceof ProjectWrapper) {
+    		ProjectWrapper projectWrapper = (ProjectWrapper) project;
+    		sakaiProject = projectWrapper.getProject();
+    	}
+        for (Feature feature : features) {
+        	if (sakaiProject != null) {
+        		sakaiProject.setCurrentGradingFeature(feature);
+        	}
             results.add(feature.check(project));
+        }
         return results;
     }
 

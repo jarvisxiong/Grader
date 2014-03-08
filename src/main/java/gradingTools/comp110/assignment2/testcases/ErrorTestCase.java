@@ -23,8 +23,7 @@ public class ErrorTestCase extends BasicTestCase {
 			if (output.endsWith("\n")) {
 				output = output.substring(0, output.length() - 1);
 			}
-			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3,
-					input);
+			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3, input);
 			String outputAfterInput = runningProjectWithInput.await();
 
 			// Now you can test that the output has an error message

@@ -23,14 +23,16 @@ public class RunningProject {
 	ProjectWrapper projectWrapper;
 	String outputFileName;
 	StringBuffer projectOutput;
+	SakaiProject project;
 
 	public RunningProject(Project aProject) {
 		exception = null;
 		output = null;
 		if (aProject instanceof ProjectWrapper) {
 			projectWrapper = (ProjectWrapper) aProject;
-			outputFileName = projectWrapper.getProject().getOutputFileName();
-			projectOutput = projectWrapper.getProject().getCurrentOutput();
+			project = projectWrapper.getProject();
+			outputFileName = project.getOutputFileName();
+			projectOutput = project.getCurrentOutput();
 		}
 	}
 
@@ -72,15 +74,55 @@ public class RunningProject {
 		this.exception = new NotRunnableException();
 	}
 	
+	StringBuffer transcript = new StringBuffer();
+	
+	String createFeatureTranscript() {
+		transcript.setLength(0);
+		transcript.append("*****************************(");
+		String featureName = project.getCurrentGradingFeature().getName();
+		transcript.append(featureName);
+		transcript.append(")*****************************\n");
+		String input = project.getCurrentInput();
+		if (!input.isEmpty()) {
+			transcript.append("INPUT(" + featureName + ")\n");
+			transcript.append(input + "\n");
+		}
+		String[] args = project.getCurrentArgs();
+
+		if (args.length > 0) {
+			transcript.append("MAIN ARGS(" + featureName + ")\n");
+			transcript.append("[");
+			for (int i = 0; i < args.length; i++) {
+				if (i != 0) {
+					transcript.append(",");
+				}
+				transcript.append(args[i]);				
+			}
+			transcript.append("[");
+
+		}
+		if (!output.isEmpty()) {
+		transcript.append("OUTPUT(" + featureName + ")\n");
+		transcript.append(output + "\n");
+		}
+		if (!errorOutput.isEmpty()) {
+		transcript.append("ERRORS(" + featureName + ")\n");
+		transcript.append(errorOutput + "\n");
+		}
+		return transcript.toString();
+
+	}
+	
 	void appendCumulativeOutput() {
 		if (projectOutput == null)
 			return;
-		projectOutput.append(output);
+		String transcript = createFeatureTranscript();
+		projectOutput.append(transcript);
 		if (outputFileName == null)
 			return;
 		try {
 			FileWriter fileWriter = new FileWriter(outputFileName, true);
-			fileWriter.append(output);
+			fileWriter.append(transcript);
 			fileWriter.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

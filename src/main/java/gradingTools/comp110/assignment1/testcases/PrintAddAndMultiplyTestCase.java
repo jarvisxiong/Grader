@@ -25,8 +25,7 @@ public class PrintAddAndMultiplyTestCase extends BasicTestCase {
 		String oneInputOutput = oneInputRunningProject.await();
 
 		// Get the output when we have double input from the user
-		RunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 1, input1,
-				input2);
+		RunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 1, input1, input2);
 		String twoInputsOutput = twoInputsRunningProject.await();
 		twoInputsOutput = twoInputsOutput.substring(oneInputOutput.length());
 
