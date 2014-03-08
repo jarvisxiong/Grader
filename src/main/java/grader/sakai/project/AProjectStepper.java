@@ -114,6 +114,7 @@ public class AProjectStepper extends AClearanceManager implements
 	boolean changed;
 	Icon studentPhoto;
 	LabelBeanModel photoLabelBeanModel;
+	String output = "";
 
 	// FinalGradeRecorder gradeRecorder() {
 	// return projectDatabase.getGradeRecorder();
@@ -375,6 +376,11 @@ public class AProjectStepper extends AClearanceManager implements
 		return stringBuffer;
 
 	}
+	
+	void setStoredOutput () {
+		 project.setCurrentOutput(Common.toText(project.getOutputFileName()));
+		 output = project.getCurrentOutput().toString();
+	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
 	// property change event here.
@@ -417,6 +423,7 @@ public class AProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		setScore();
+		setStoredOutput();
 
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
@@ -435,6 +442,8 @@ public class AProjectStepper extends AClearanceManager implements
 		if (isAutoRun() && !getGradingFeatures().isAllAutoGraded()) {
 			projectDatabase.runProject(onyen, project);
 		}
+		
+		
 		if (isAutoAutoGrade() && !getGradingFeatures().isAllAutoGraded()) {
 			autoGrade();
 			// setComputedSummary();
@@ -765,6 +774,8 @@ public class AProjectStepper extends AClearanceManager implements
 	@Override
 	public void autoGrade() {
 		project.setHasBeenRun(true);
+		changed = true;
+		project.clearOutput();
 		for (GradingFeature gradingFeature : projectDatabase
 				.getGradingFeatures()) {
 			if (gradingFeature.isAutoGradable()) {
@@ -1062,15 +1073,27 @@ public class AProjectStepper extends AClearanceManager implements
 	public LabelBeanModel getPhoto() {
 		return photoLabelBeanModel;
 	}
-
 	@Row(20)
+	@Override
 	@ComponentWidth(600)
-	@ComponentHeight(300)
+	@ComponentHeight(200)
 	@PreferredWidgetClass(JTextArea.class)
 	public String getFeedback() {
 		return feedback;
 
 	}
+	
+	@Visible(true)
+	@Row(21)
+//	@Override
+	@ComponentWidth(600)
+	@ComponentHeight(200)
+	@PreferredWidgetClass(JTextArea.class)
+	public String getOutput() {
+		return output;
+
+	}
+	
 
 	@Override
 	public boolean hasMoreSteps() {

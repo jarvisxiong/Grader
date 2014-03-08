@@ -76,6 +76,10 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	uiFrame getOEFrame();
 
 	LabelBeanModel getPhoto();
+
+	String getFeedback();
+
+	String getOutput();
 	
 
 }
