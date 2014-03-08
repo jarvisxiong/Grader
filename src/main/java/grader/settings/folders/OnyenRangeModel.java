@@ -1,4 +1,4 @@
-package grader.settings;
+package grader.settings.folders;
 
 public interface OnyenRangeModel {
 	public String getStartingOnyen() ;

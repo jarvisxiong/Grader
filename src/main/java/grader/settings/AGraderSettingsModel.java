@@ -2,6 +2,13 @@ package grader.settings;
 
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.settings.folders.AGraderFilesSetterModel;
+import grader.settings.folders.AnOnyenRangeModel;
+import grader.settings.folders.GraderFilesSetterModel;
+import grader.settings.folders.OnyenRangeModel;
+import grader.settings.navigation.ANavigationFilterSetter;
+import grader.settings.navigation.ANavigationSetter;
+import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
 import util.annotations.Row;
 import util.annotations.Visible;
@@ -10,6 +17,7 @@ import bus.uigen.ObjectEditor;
 
 public class AGraderSettingsModel implements GraderSettingsModel{
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
+	NavigationSetter navigationSetter = new ANavigationSetter();
 	OnyenRangeModel onyens = new AnOnyenRangeModel();
 	BeginActionModel beginActionModel = new ABeginActionModel();
 	
@@ -69,6 +77,15 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		this.onyens = onyens;
 	}
 	@Row(2)
+	public NavigationSetter getNavigationSetter() {
+		return navigationSetter;
+	}
+
+	public void setNavigationSetter(NavigationSetter navigationSetter) {
+		this.navigationSetter = navigationSetter;
+	}
+
+	@Row(3)
 	@ComponentHeight(25)
 	public synchronized void begin() {
 		notify();
@@ -97,7 +114,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		AGraderSettingsModel startModel = new AGraderSettingsModel();
 		OEFrame frame = ObjectEditor.edit(startModel);
 		frame.setTitle("Grader Settings");
-		frame.setSize(550, 250);
+		frame.setSize(550, 475);
 	}
 	
 

@@ -5,7 +5,7 @@ import grader.sakai.project.SakaiProjectDatabase;
 
 public class ANotesStatusFilter implements NavigationFilter{
 	public static final String NAME = "Notes Status";
-	public static final NotesStatus parameters = NotesStatus.HAS_NOTES;
+	public static final NotesStatus parameters = NotesStatus.NEEDS_NOTES;
 
 	@Override
 	public boolean includeProject(ProjectStepper aProjectState,

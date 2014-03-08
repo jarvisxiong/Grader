@@ -1,5 +1,7 @@
 package grader.settings;
 
+import grader.settings.folders.GraderFilesSetterModel;
+import grader.settings.folders.OnyenRangeModel;
 import util.annotations.ComponentHeight;
 import util.annotations.Row;
 import util.annotations.Visible;

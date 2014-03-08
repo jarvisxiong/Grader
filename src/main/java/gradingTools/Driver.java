@@ -93,7 +93,8 @@ public class Driver {
             		 GraderSettingsModel settingsModel = new AGraderSettingsModel();
             			OEFrame frame = ObjectEditor.edit(settingsModel);
             			frame.setTitle("Grader Settings");
-            			frame.setSize(550, 250);
+//            			frame.setSize(550, 250);
+            			frame.setSize(550, 475);
             			settingsModel.awaitBegin();
             	 
             		 

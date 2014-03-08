@@ -34,9 +34,11 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	
 	
 	void constructNavigationFilterTypes () {
-		Set<String> filterNames = NavigationFilterRepository.filterTypes();
-		List<String> filterNamesList = new ArrayList(filterNames);
-		Collections.sort(filterNamesList);
+//		Set<String> filterNames = NavigationFilterRepository.filterTypes();
+//		List<String> filterNamesList = new ArrayList(filterNames);
+//		Collections.sort(filterNamesList);
+		List<String> filterNamesList = NavigationFilterRepository.filterTypes();
+
 		navigationFilterEnum = new ADynamicEnum(filterNamesList);
 		navigationFilterEnum.addPropertyChangeListener(this);
 		if (filterNamesList.size() > 0) {
@@ -85,10 +87,10 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	
 	
 	public static void main (String[] args) {
-		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
-     	NavigationFilterRepository.register(gradingStatusFilter);
-     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
-     	NavigationFilterRepository.register(notesStatusFilter);
+//		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
+//     	NavigationFilterRepository.register(gradingStatusFilter);
+//     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
+//     	NavigationFilterRepository.register(notesStatusFilter);
 		NavigationFilterSetter navigationFilterSetter = new ANavigationFilterSetter();
 		OEFrame frame = ObjectEditor.edit(navigationFilterSetter);
 		frame.setSize(600, 300);
