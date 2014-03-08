@@ -2,6 +2,8 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
+import framework.grading.testing.Feature;
+import grader.assignment.GradingFeature;
 import grader.project.file.RootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
@@ -69,5 +71,17 @@ public interface Project {
 	void clearOutput();
 
 	void setCurrentOutput(StringBuffer currentOutput);
+
+	Feature getCurrentGradingFeature();
+
+	void setCurrentGradingFeature(Feature currentGradingFeature);
+
+	String getCurrentInput();
+
+	void setCurrentInput(String currentInput);
+
+	String[] getCurrentArgs();
+
+	void setCurrentArgs(String[] currentArgs);
 
 }

@@ -2,6 +2,8 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
+import framework.grading.testing.Feature;
+import grader.assignment.GradingFeature;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
@@ -48,9 +50,12 @@ public class AProject implements Project {
     boolean hasBeenRun, canBeRun = true;
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
+    Feature currentGradingFeature; // ugly but do not want to change project runner code that has access to project and not grading feature
     String[][] args;
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
+    String currentInput;
+    String[] currentArgs;
 //    FileWriter outputFile ;
 
     protected Class mainClass;
@@ -364,6 +369,30 @@ public class AProject implements Project {
     @Override
 	public void setCurrentOutput(StringBuffer currentOutput) {
 		this.currentOutput = currentOutput;
+	}
+    @Override
+	public Feature getCurrentGradingFeature() {
+		return currentGradingFeature;
+	}
+    @Override
+	public void setCurrentGradingFeature(Feature currentGradingFeature) {
+		this.currentGradingFeature = currentGradingFeature;
+	}
+    @Override
+	public String getCurrentInput() {
+		return currentInput;
+	}
+    @Override
+	public void setCurrentInput(String currentInput) {
+		this.currentInput = currentInput;
+	}
+    @Override
+	public String[] getCurrentArgs() {
+		return currentArgs;
+	}
+    @Override
+	public void setCurrentArgs(String[] currentArgs) {
+		this.currentArgs = currentArgs;
 	}
 
 }

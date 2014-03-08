@@ -38,14 +38,12 @@ public class PromptTestCase extends BasicTestCase {
 			String noInputPrompt = noInputRunningProject.await();
 
 			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1");
+			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1, "1");
 			String integerInputPrompt = integerInputRunningProject.await();
 			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
 
 			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1.4");
+			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1, "1.4");
 			String doubleInputPrompt = doubleInputRunningProject.await();
 			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
 

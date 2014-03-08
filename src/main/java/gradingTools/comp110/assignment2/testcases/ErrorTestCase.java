@@ -47,3 +47,4 @@ public class ErrorTestCase extends PalindromeTestCase {
 
 	}
 }
+
