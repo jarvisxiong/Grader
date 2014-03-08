@@ -1,4 +1,4 @@
-package grader.settings;
+package grader.settings.folders;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;

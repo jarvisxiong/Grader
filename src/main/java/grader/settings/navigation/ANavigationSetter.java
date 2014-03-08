@@ -111,11 +111,13 @@ public class ANavigationSetter implements NavigationSetter {
 	
 	
 	public static void main (String[] args) {
-		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
-     	NavigationFilterRepository.register(gradingStatusFilter);
-     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
-     	NavigationFilterRepository.register(notesStatusFilter);
-		NavigationSetter navigationSetter = new ANavigationSetter();
+//		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
+//     	NavigationFilterRepository.register(gradingStatusFilter);
+//     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
+//     	NavigationFilterRepository.register(notesStatusFilter);
+//     	NavigationFilter letterStatusFilter = new ALetterGradeBasedFilter();
+//     	NavigationFilterRepository.register(letterStatusFilter);
+		NavigationSetter navigationSetter = new ANavigationSetter();		
 		OEFrame frame = ObjectEditor.edit(navigationSetter);
 		frame.setSize(600, 300);
 	}
