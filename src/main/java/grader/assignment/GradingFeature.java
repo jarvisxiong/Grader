@@ -82,5 +82,7 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 //	Color computeColor();
 
 	boolean isManualOverride();
+	String getOutput();
+	void setOutput(String newVal);
 
 }

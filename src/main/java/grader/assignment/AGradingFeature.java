@@ -49,6 +49,7 @@ public class AGradingFeature implements GradingFeature {
 	String notes = "";
 	String result = "";
 	boolean isRestriction;
+	String output = "";
 
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
@@ -241,6 +242,14 @@ public class AGradingFeature implements GradingFeature {
 	public double getScore() {
 		return score;
 	}
+	@Visible(false)
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
 
 	public void reset() {
 		pureSetScore(maxScore);
@@ -265,12 +274,17 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public void pureSetScore(double score) {
-		pureSetGraded(true);
+		boolean oldFullCredit = isFullCredit();
+		pureSetGraded(true);		
 		double oldScore = this.score;
 		this.score = score;
+		boolean newFullCredit = isFullCredit();
 		propertyChangeSupport.firePropertyChange("Score", oldScore, score);
+		propertyChangeSupport.firePropertyChange("FullCredit", oldFullCredit, newFullCredit);
 		firePropertyChange("Graded", null, true);
 	}
+	
+	
 
 	@util.annotations.Explanation("is graded tooltip")
 	@Position(5)
@@ -283,9 +297,17 @@ public class AGradingFeature implements GradingFeature {
 	public boolean isAutoWithNotFullCredit() {
 		return isAutoGradable() && !isFullCredit();
 	}
-	
+	@util.annotations.Explanation("is full credit tooltip")
+	@Position(6)
+	@ComponentWidth(90)
 	public boolean isFullCredit() {
 		return isRestriction? score== 0:score == maxScore;
+	}
+	
+	public void setFullCredit(boolean newVal) {
+		if (newVal) {
+			setScore(isRestriction? 0:maxScore);
+		}
 	}
 	
 	
@@ -373,7 +395,7 @@ public class AGradingFeature implements GradingFeature {
 	boolean isSelected;
 
 	@util.annotations.Explanation("test")
-	@Position(6)
+	@Position(7)
 	@ComponentWidth(80)
 	public boolean isSelected() {
 		return isSelected;
