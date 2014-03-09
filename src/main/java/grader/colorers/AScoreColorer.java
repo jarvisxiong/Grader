@@ -17,7 +17,8 @@ public class AScoreColorer implements Colorer<Double>{
 	public static final Color SEA_GREEN = new Color (0,250,154);
 
 	public static final Color DARK_KHAKI = new Color (189,183,107); 
-	public static final Color MY_HYBRID_GREEN = new Color (150,255,0); 
+//	public static final Color MY_HYBRID_GREEN = new Color (150,255,0); 
+	public static final Color MY_HYBRID_GREEN = new Color (200,255,0);
 	public static final Color YELLOW_GREEN = new Color (154,205,50);
 	public static final Color KHAKI = new Color (240,230,140); 
 	public static final Color OLIVE = new Color (128,128,0); 
