@@ -8,6 +8,7 @@ import util.models.LabelBeanModel;
 import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
+import grader.settings.navigation.NavigationSetter;
 
 import java.beans.PropertyChangeListener;
 
@@ -42,9 +43,9 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	void done();
 
-	String getNavigationFilter();
-
-	void setNavigationFilter(String newVal);
+//	String getNavigationFilter();
+//
+//	void setNavigationFilter(String newVal);
 
 	boolean preGetGradingFeatures();
 
@@ -79,7 +80,9 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	String getFeedback();
 
-	String getOutput();
+	String getTranscript();
+
+	NavigationSetter getNavigationSetter();
 	
 
 }

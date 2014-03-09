@@ -35,26 +35,33 @@ public class ANavigationSetter implements NavigationSetter {
 	}
 	@Row(0)
 	@PreferredWidgetClass(JRadioButton.class)
+	@Override
 	public NavigationKind getNavigationKind() {
 		return navigationKind;
 	}
+	@Override
 	public void setNavigationKind(NavigationKind navigationKind) {
 		this.navigationKind = navigationKind;
 	}
+	
 	@Row(1)
 	@Label("Automatic Navigation Options")
+	@Override
 	public AutomaticNavigationSetter getAutomaticNavigationSetter() {
 		return automaticNavigationSetter;
 	}
+	@Override
 	public void setAutomaticNavigationSetter(
 			AutomaticNavigationSetter automaticNavigationSetter) {
 		this.automaticNavigationSetter = automaticNavigationSetter;
 	}
 	@Row(2)
 	@Label("Manual Navigation Filter") // theoretically this could be used also for automatic navigation
+	@Override
 	public NavigationFilterSetter getNavigationFilterSetter() {
 		return navigationFilterSetter;
 	}
+	@Override
 	public void setNavigationFilterSetter(
 			NavigationFilterSetter navigationFilterSetter) {
 		this.navigationFilterSetter = navigationFilterSetter;

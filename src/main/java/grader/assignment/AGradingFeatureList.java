@@ -12,10 +12,25 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 	@Visible(false)
 	public boolean isAllGraded() {
 		for (GradingFeature gradingFeature:this) {
-			if (! (gradingFeature.isGraded()))
+			if (! (gradingFeature.isGraded()) 
+					|| (!gradingFeature.isFullCredit() && gradingFeature.getNotes().isEmpty())	
+					
+					)
 					return false;
+			
 		}
 		return true;
+	}
+	
+	@Visible(false)
+	@Override
+	public boolean hasSomeNotes() {
+		for (GradingFeature gradingFeature:this) {
+			if (!gradingFeature.getNotes().isEmpty())				
+					return true;
+			
+		}
+		return false;
 	}
 	
 	@Visible(false)

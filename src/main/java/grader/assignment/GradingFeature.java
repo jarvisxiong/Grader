@@ -85,4 +85,6 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 	String getOutput();
 	void setOutput(String newVal);
 
+	boolean isFullCredit();
+
 }

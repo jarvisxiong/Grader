@@ -1,5 +1,10 @@
 package grader.settings.navigation;
 
+import grader.navigation.filter.AGradingStatusFilter;
+import grader.navigation.filter.ALetterGradeBasedFilter;
+import grader.navigation.filter.ANotesStatusFilter;
+import grader.navigation.filter.NavigationFilter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +24,7 @@ public class NavigationFilterRepository {
 			filterNames.add(aFilterType);
 	}	
 	public static void register (NavigationFilter aFilterer ) {
-		register (aFilterer.getName(), aFilterer.getParameters(),  aFilterer);		
+		register (aFilterer.getName(), aFilterer.getParameter(),  aFilterer);		
 	}	
 	public static List<String> filterTypes() {
 		return filterNames;
@@ -33,7 +38,7 @@ public class NavigationFilterRepository {
 		return filterTypeToParameters.get(aFilterType);		
 	}
 	
-	public static NavigationFilter getFilterer(String aFilterType) {
+	public static NavigationFilter getFilter(String aFilterType) {
 		return filterTypeToFilterer.get(aFilterType);		
 	}
 	
@@ -43,10 +48,10 @@ public class NavigationFilterRepository {
 	}
 	
 	static {
-     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
-     	NavigationFilterRepository.register(notesStatusFilter);
 		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
      	NavigationFilterRepository.register(gradingStatusFilter);
+     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
+     	NavigationFilterRepository.register(notesStatusFilter);
      	NavigationFilter letterStatusFilter = new ALetterGradeBasedFilter();
      	NavigationFilterRepository.register(letterStatusFilter);
 	}

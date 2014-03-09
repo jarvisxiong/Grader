@@ -27,11 +27,11 @@ public class AProject implements Project {
     public static final String ZIP_SUFFIX = ".zip";
     public static final String DEFAULT_PROJECT_FOLDER = ".";
     public static final String DEFAULT_GRADING_FOLDER = "C:/Users/dewan/Downloads/GraderData";
-    public static final String DEFAULT_OUTPUT_FILE_PREFIX = "output";
-    public static final String DEFAULT_OUTPUT_FILE_SUFFIX = ".txt";
-    public static final String DEFAULT_OUTPUT_FILE_NAME = DEFAULT_OUTPUT_FILE_PREFIX + DEFAULT_OUTPUT_FILE_SUFFIX;
-    public static final String PROJECT_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated/Final";
-    public static final String PROJECT_ZIPPED_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated.zip";
+    public static final String DEFAULT_TRANSCRIPT_FILE_PREFIX = "transcript";
+    public static final String DEFAULT_TRANSCRIPT_FILE_SUFFIX = ".txt";
+    public static final String DEFAULT_TRASNCRIPT_FILE_NAME = DEFAULT_TRANSCRIPT_FILE_PREFIX + DEFAULT_TRANSCRIPT_FILE_SUFFIX;
+//    public static final String PROJECT_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated/Final";
+//    public static final String PROJECT_ZIPPED_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated.zip";
 
     String projectFolderName = DEFAULT_PROJECT_FOLDER;
     String gradingProjectFolderName = DEFAULT_GRADING_FOLDER;
@@ -46,7 +46,7 @@ public class AProject implements Project {
     String outputFolder = ".";
     String sourceFileName, outputFileName;
     String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
-    String outputSuffix = DEFAULT_OUTPUT_FILE_SUFFIX;
+    String outputSuffix = DEFAULT_TRANSCRIPT_FILE_SUFFIX;
     boolean hasBeenRun, canBeRun = true;
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
@@ -127,7 +127,7 @@ public class AProject implements Project {
     }
 
     public String createLocalOutputFileName() {
-        return DEFAULT_OUTPUT_FILE_PREFIX + outputSuffix;
+        return DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
     }
 
     public String createFullSourceFileName() {

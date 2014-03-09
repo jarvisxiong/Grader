@@ -1,5 +1,7 @@
 package grader.settings.navigation;
 
+import grader.navigation.filter.NavigationFilter;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -43,7 +45,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 		navigationFilterEnum.addPropertyChangeListener(this);
 		if (filterNamesList.size() > 0) {
 		  currentNavigationFilterName =  filterNamesList.get(0);
-		  currentNavigationFilter = NavigationFilterRepository.getFilterer(currentNavigationFilterName);
+		  currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
 		}
 	}
 	
@@ -53,27 +55,28 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 //	public boolean preGetParameters() {
 //		return preGetNavigationFilterTypes() && currentNavigationFilter != null && currentNavigationFilter.getParameters() != null;
 //	}
+	@Override
 	@Row(2)	
 	@Label("Filter Type")
 	public DynamicEnum getNavigationFilterType() {
 		return navigationFilterEnum;
 	}
 	
-	
+	@Override
 	@Row(3)
 	@PreferredWidgetClass(JRadioButton.class)
 	@Label("Filter Options")
-	public Object getFilterOptions() {
-		return currentNavigationFilter.getParameters();
+	public Object getFilterParameter() {
+		return currentNavigationFilter.getParameter();
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent anEvent) {
 		if (anEvent.getSource() == navigationFilterEnum && anEvent.getPropertyName().equals("value")) {
 			currentNavigationFilterName = (String) anEvent.getNewValue();
-			Object oldParameters = currentNavigationFilter.getParameters();
-			currentNavigationFilter = NavigationFilterRepository.getFilterer(currentNavigationFilterName);
-			Object newParameters = currentNavigationFilter.getParameters();
+			Object oldParameters = currentNavigationFilter.getParameter();
+			currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
+			Object newParameters = currentNavigationFilter.getParameter();
 			propertyChangeSupport.firePropertyChange("FilterOptions", oldParameters, newParameters);
 		}
 		
