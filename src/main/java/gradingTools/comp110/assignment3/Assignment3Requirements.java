@@ -23,6 +23,6 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		// Has the proper methods
 		long methodsTimeout = 3000L; // 3 seconds
 		addFeature("Has proper isPalindromeMethod method", 20, new IsPalindromeTestCase(
-				methodsTimeout));
+				IsPalindromeTestCase.getRandomInputs(9, 20), methodsTimeout));
 	}
 }

@@ -1,6 +1,7 @@
 package gradingTools.comp110.assignment3.testCases;
 
 import gradingTools.sharedTestCase.ASimpleMethodMatcher;
+import gradingTools.sharedTestCase.ArgsAndReturnValues;
 import gradingTools.sharedTestCase.MethodFinderAndRunner;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.Random;
 public class IsPalindromeTestCase extends MethodFinderAndRunner {
 
 	private static Random rand = new Random();
-	private static ArgsAndRetVals argsAndRetVals = getRandomInputs(10, 20);
 
 	private static ArrayList<Character> possibleChars = null;
 
@@ -20,30 +20,20 @@ public class IsPalindromeTestCase extends MethodFinderAndRunner {
 		}
 	}
 
-	private static class ArgsAndRetVals {
-		ArrayList<Object[]> argSets = new ArrayList<Object[]>();
-		ArrayList<Object> retVals = new ArrayList<Object>();
-
-		private void addArgsAndRetVal(Object[] args, Object retVal) {
-			argSets.add(args);
-			retVals.add(retVal);
-		}
-	}
-
-	private static ArgsAndRetVals getRandomInputs(int minLength, int maxLength) {
+	public static ArgsAndReturnValues getRandomInputs(int minLength, int maxLength) {
 
 		int length = rand.nextInt(maxLength + 1 - minLength) + minLength;
 		String palindrome = createPalindrome(length);
 		String nonPalindrome = createNonPalindrome(length);
 
-		ArgsAndRetVals toReturn = new ArgsAndRetVals();
+		ArgsAndReturnValues toReturn = new ArgsAndReturnValues();
 		Object[] args = new Object[1];
 		args[0] = palindrome;
-		toReturn.addArgsAndRetVal(args, Boolean.TRUE);
+		toReturn.addArgsAndReturnValues(args, Boolean.TRUE);
 
 		args = new Object[1];
 		args[0] = nonPalindrome;
-		toReturn.addArgsAndRetVal(args, Boolean.FALSE);
+		toReturn.addArgsAndReturnValues(args, Boolean.FALSE);
 
 		return toReturn;
 	}
@@ -93,9 +83,9 @@ public class IsPalindromeTestCase extends MethodFinderAndRunner {
 		return result;
 	}
 
-	public IsPalindromeTestCase(long timeout) {
-		super(new ASimpleMethodMatcher("isPalindrome"), argsAndRetVals.argSets
-				.toArray(new Object[0][0]), argsAndRetVals.retVals.toArray(), timeout);
+	public IsPalindromeTestCase(ArgsAndReturnValues argsAndRetVals, long timeout) {
+		super(new ASimpleMethodMatcher("isPalindrome"), argsAndRetVals.getArgumentSets(),
+				argsAndRetVals.getReturnValues(), timeout);
 	}
 
 }
