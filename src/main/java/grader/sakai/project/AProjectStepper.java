@@ -450,6 +450,9 @@ public class AProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		setScore();
+		if (!shouldVisit()) {
+			return false;
+		}
 
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
@@ -515,11 +518,11 @@ public class AProjectStepper extends AClearanceManager implements
 			photoLabelBeanModel.set(APhotoReader.NO_PHOTO_TITLE, studentPhoto);
 		}
 		settingUpProject = false;
-		setScore();
+//		setScore();
 		setColors();
-		if (!shouldVisit()) {
-			return false;
-		}
+//		if (!shouldVisit()) {
+//			return false;
+//		}
 		
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
 
