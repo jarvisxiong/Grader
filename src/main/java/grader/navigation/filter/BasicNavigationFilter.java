@@ -1,11 +1,10 @@
-package grader.settings.navigation;
+package grader.navigation.filter;
 
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 
-public interface NavigationFilter {
-	String getName();
+public interface BasicNavigationFilter<ParameterType> {	
 	boolean includeProject (ProjectStepper aProjectState, SakaiProjectDatabase aDatabase);
-	Object getParameters();
+
 
 }

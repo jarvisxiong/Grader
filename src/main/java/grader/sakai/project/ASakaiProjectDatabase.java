@@ -29,6 +29,8 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
+import grader.navigation.filter.ADispatchingFilter;
+import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
@@ -44,6 +46,7 @@ import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
 import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
+import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -98,7 +101,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected FeatureGradeRecorder featureGradeRecorder;
 	GradingFeatureList gradingFeatures = new AGradingFeatureList();
 	String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
-	String outputSuffix = AProject.DEFAULT_OUTPUT_FILE_SUFFIX;
+	String outputSuffix = AProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 	ScoreFeedback scoreFeedback;
 	AutoFeedback autoFeedback;
 	ManualFeedback manualFeedback;
@@ -112,6 +115,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 Colorer<GradingFeature> gradingFeatureColorer;
 	 Colorer<Double> scoreColorer, multiplierColorer;
 	 Colorer<String> overallNotesColorer;
+	 GraderSettingsModel graderSettings;
+	 BasicNavigationFilter navigationFilter;
 
 	 
 	
@@ -294,7 +299,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	public String outputSuffix() {
-		return AProject.DEFAULT_OUTPUT_FILE_SUFFIX;
+		return AProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 	}
 
 	public GradingFeatureList getGradingFeatures() {
@@ -303,6 +308,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected MainClassFinder createMainClassFinder() {
 		return new AMainClassFinder();
 	}
+	
+	 
 
 	public void addGradingFeatures(List<GradingFeature> aGradingFeatures) {
 		for (GradingFeature aGradingFeature : aGradingFeatures) {
@@ -444,7 +451,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	public String getDefaultOutputFileName() {
-		return AProject.DEFAULT_OUTPUT_FILE_PREFIX + outputSuffix;
+		return AProject.DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
 	}
 
 	public String[] getOutputFileNames(SakaiProject aProject,
@@ -709,15 +716,15 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		aProjectStepper.configureNavigationList();
 	}
 	
-	String navigationFilter  = "";
-
-	public String getNavigationFilter() {
-		return navigationFilter;
-	}
-
-	public void setNavigationFilter(String navigationFilter) {
-		this.navigationFilter = navigationFilter;
-	}
+//	String navigationFilter  = "";
+//
+//	public String getNavigationFilter() {
+//		return navigationFilter;
+//	}
+//
+//	public void setNavigationFilter(String navigationFilter) {
+//		this.navigationFilter = navigationFilter;
+//	}
 
 	PrintStream origOut;
 	InputStream origIn;
@@ -1129,5 +1136,26 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public void setOverallNotesColorer(Colorer<String> overallNotesColorer) {
 		this.overallNotesColorer = overallNotesColorer;
+	}
+	@Override
+	public GraderSettingsModel getGraderSettings() {
+		return graderSettings;
+	}
+	@Override
+	public void setGraderSettings(GraderSettingsModel graderSettings) {
+		this.graderSettings = graderSettings;
+		if (graderSettings != null) {
+			BasicNavigationFilter dispatcher = new ADispatchingFilter(graderSettings.getNavigationSetter().getNavigationFilterSetter());
+			setNavigationFilter(dispatcher);
+		}
+	}
+	@Override
+	public BasicNavigationFilter getNavigationFilter() {
+		return navigationFilter;
+	}
+	@Override
+	public void setNavigationFilter(BasicNavigationFilter navigationFilter) {
+		this.navigationFilter = navigationFilter;
+		
 	}
 }

@@ -77,10 +77,11 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		this.onyens = onyens;
 	}
 	@Row(2)
+	@Override
 	public NavigationSetter getNavigationSetter() {
 		return navigationSetter;
 	}
-
+	@Override
 	public void setNavigationSetter(NavigationSetter navigationSetter) {
 		this.navigationSetter = navigationSetter;
 	}

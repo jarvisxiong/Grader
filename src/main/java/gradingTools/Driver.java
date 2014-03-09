@@ -11,12 +11,12 @@ import framework.utils.GradingEnvironment;
 import util.misc.Common;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
+import grader.navigation.filter.AGradingStatusFilter;
+import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModel;
-import grader.settings.navigation.AGradingStatusFilter;
 import grader.settings.navigation.NavigationFilterRepository;
-import grader.settings.navigation.NavigationFilter;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
@@ -77,6 +77,7 @@ public class Driver {
 
             // Run the grading process
             String controller = configuration.getString("grader.controller", "GradingManager");
+            GraderSettingsModel settingsModel = null;
             if (controller.equals("GradingManager")) {
 
                 // Run the GraderManager
@@ -90,7 +91,7 @@ public class Driver {
                  	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
-            		 GraderSettingsModel settingsModel = new AGraderSettingsModel();
+            		  settingsModel = new AGraderSettingsModel();
             			OEFrame frame = ObjectEditor.edit(settingsModel);
             			frame.setTitle("Grader Settings");
 //            			frame.setSize(550, 250);
@@ -112,6 +113,7 @@ public class Driver {
 
                 // Create the database
                 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+                database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
 

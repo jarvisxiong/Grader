@@ -6,6 +6,7 @@ import framework.grading.testing.Checkable;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
 import framework.project.ProjectClassesManager;
+import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
@@ -14,8 +15,13 @@ import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
+import grader.navigation.filter.ADispatchingFilter;
+import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.settings.GraderSettingsModel;
+import grader.settings.navigation.NavigationKind;
+import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderFactory;
@@ -138,6 +144,8 @@ public class AProjectStepper extends AClearanceManager implements
 				.getGradedIdFileName();
 		skippedFile = aProjectDatabase.getAssigmentDataFolder()
 				.getSkippedIdFileName();
+		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
+		
 		// recordWindows(); // the first project does not wait so we need to
 		// record here
 
@@ -180,7 +188,7 @@ public class AProjectStepper extends AClearanceManager implements
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void setOnyen(String anOnyen) {
 		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
@@ -190,12 +198,13 @@ public class AProjectStepper extends AClearanceManager implements
 			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
 			return;
 		}
-		projectDatabase.resetRunningProject(project);
-
-		if (autoRun)
-			projectDatabase.runProject(anOnyen, project);
-		if (autoAutoGrade)
-			autoGrade();
+		// set project does most of this except the output files part
+//		projectDatabase.resetRunningProject(project);
+//
+//		if (autoRun)
+//			projectDatabase.runProject(anOnyen, project);
+//		if (autoAutoGrade)
+//			autoGrade();
 		manualOnyen = true;
 
 		// projectDatabase.runProjectInteractively(anOnyen, this);
@@ -404,6 +413,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
+		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 		changed = false;
 		if (newVal == null) {
 			// Josh: Added event
@@ -507,11 +517,28 @@ public class AProjectStepper extends AClearanceManager implements
 		settingUpProject = false;
 		setScore();
 		setColors();
+		if (!shouldVisit()) {
+			return false;
+		}
+		
+		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
+
 //		boolean changed = setCurrentColors();
 //		if (changed)
 //			displayColors();
 
 		return true;
+	}
+	
+	boolean shouldVisit() {
+		if (manualOnyen)
+			return true;
+		GraderSettingsModel graderSettingsModel = projectDatabase.getGraderSettings();
+		if (graderSettingsModel == null) return true;
+		if (graderSettingsModel.getNavigationSetter().getNavigationKind() != NavigationKind.MANUAL)
+			return true;
+		BasicNavigationFilter navigationFilter = projectDatabase.getNavigationFilter();
+		return navigationFilter.includeProject(this, projectDatabase);
 	}
 	
 //	void refreshColors() {
@@ -975,19 +1002,19 @@ public class AProjectStepper extends AClearanceManager implements
 
 //	String filter = "";
 
-	@Row(14)
-	@ComponentWidth(150)
-	@Override
-	public String getNavigationFilter() {
-		return projectDatabase.getNavigationFilter();
-	}
-
-	@Override
-	public void setNavigationFilter(String newVal) {
-		projectDatabase.setNavigationFilter(newVal);
-		configureNavigationList();
-		runProjectsInteractively();
-	}
+//	@Row(14)
+//	@ComponentWidth(150)
+//	@Override
+//	public String getNavigationFilter() {
+//		return projectDatabase.getNavigationFilter();
+//	}
+//
+//	@Override
+//	public void setNavigationFilter(String newVal) {
+//		projectDatabase.setNavigationFilter(newVal);
+//		configureNavigationList();
+//		runProjectsInteractively();
+//	}
 
 	@Row(15)
 	public double getMultiplier() {
@@ -1117,9 +1144,17 @@ public class AProjectStepper extends AClearanceManager implements
 	@ComponentWidth(600)
 	@ComponentHeight(100)
 	@PreferredWidgetClass(JTextArea.class)
-	public String getOutput() {
+	public String getTranscript() {
 		return output;
 
+	}
+	public boolean preGetNavigationSetter() {
+		return projectDatabase.getGraderSettings() != null;
+	}
+	@Row(22)
+	@Override
+	public NavigationSetter getNavigationSetter() {
+		return projectDatabase.getGraderSettings().getNavigationSetter();
 	}
 	
 
@@ -1355,7 +1390,9 @@ public class AProjectStepper extends AClearanceManager implements
 			nextColors.add(null);
 		}
 		setObjectAdapters();
-		setProject(anOnyen);
+		boolean retVal = setProject(anOnyen);
+		if (!retVal)
+			next();
 		
 
 	}
@@ -1398,7 +1435,10 @@ public class AProjectStepper extends AClearanceManager implements
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
 		projectDatabase.initIO();
 		projectDatabase.recordWindows();
-		setProject(anOnyen);
+		boolean projectSet = setProject(anOnyen);
+		if (!projectSet)
+			move(forward);
+			
 		// these two steps should go into setProject unless there is something
 		// subttle here, specially as the stepProject step below is commented
 		// put

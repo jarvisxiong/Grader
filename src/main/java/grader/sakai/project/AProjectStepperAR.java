@@ -14,8 +14,8 @@ public class AProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
 			
-			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Output", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
-			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Output", AttributeNames.SCROLLED, true);
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Transcript", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "Transcript", AttributeNames.SCROLLED, true);
 			return null;
 		}
 

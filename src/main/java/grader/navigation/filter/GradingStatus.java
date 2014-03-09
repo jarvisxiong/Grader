@@ -1,9 +1,9 @@
-package grader.settings.navigation;
+package grader.navigation.filter;
 
 public enum GradingStatus {
 	NOT_FULLY_GRADED ("Not Fully Graded"),
 	FULLY_GRADED ("Fully Graded"),
-	NOT_AUTO_GRADED ("Not Auto Graded"),
+	NOT_FULLY_AUTO_GRADED ("Not Auto Graded"),
 	ALL ("All");
 	
 

@@ -18,6 +18,8 @@ import java.util.Set;
 
 
 
+
+
 import javax.swing.Icon;
 
 import framework.grading.ProjectRequirements;
@@ -30,11 +32,13 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
+import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.PhotoReader;
 import grader.project.Project;
 import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
 import grader.sakai.StudentCodingAssignment;
+import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 
@@ -84,9 +88,9 @@ public interface SakaiProjectDatabase {
 	public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase);
 	public List<String> getOnyenNavigationList();
 	void nonBlockingRunProjectsInteractively();
-	public String getNavigationFilter() ;
-
-	public void setNavigationFilter(String navigationFilter) ;
+//	public String getNavigationFilter() ;
+//
+//	public void setNavigationFilter(String navigationFilter) ;
 
 	void startProjectStepper();
 
@@ -129,6 +133,14 @@ public interface SakaiProjectDatabase {
 	public Colorer<String> getOverallNotesColorer();
 
 	public void setOverallNotesColorer(Colorer<String> overallNotesColorer) ;
+
+	GraderSettingsModel getGraderSettings();
+
+	void setGraderSettings(GraderSettingsModel graderSettings);
+
+	BasicNavigationFilter getNavigationFilter();
+
+	void setNavigationFilter(BasicNavigationFilter navigationFilter);
 
 
 

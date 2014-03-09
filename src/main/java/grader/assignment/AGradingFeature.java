@@ -297,6 +297,7 @@ public class AGradingFeature implements GradingFeature {
 	public boolean isAutoWithNotFullCredit() {
 		return isAutoGradable() && !isFullCredit();
 	}
+	@Override
 	@util.annotations.Explanation("is full credit tooltip")
 	@Position(6)
 	@ComponentWidth(90)

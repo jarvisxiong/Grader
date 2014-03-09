@@ -1,4 +1,4 @@
-package grader.settings.navigation;
+package grader.navigation.filter;
 
 import util.annotations.Explanation;
 
