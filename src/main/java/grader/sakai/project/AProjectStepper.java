@@ -1,5 +1,6 @@
 package grader.sakai.project;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.logging.recorder.ConglomerateRecorder;
@@ -381,8 +382,21 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	void setStoredOutput () {
-		 project.setCurrentOutput(Common.toText(project.getOutputFileName()));
-		 internalSetOutput( project.getCurrentOutput().toString());
+		StringBuffer currentOutput = Common.toText(project.getOutputFileName());		
+		 project.setCurrentOutput(currentOutput);
+		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
+		 String allOutput = currentOutput.toString();
+
+			for (GradingFeature aGradingFeature : gradingFeatures) {
+				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeature(), allOutput);
+				aGradingFeature.setOutput(output);			
+			} 
+			if (selectedGradingFeature != null) {
+//		 internalSetOutput( project.getCurrentOutput().toString());
+				internalSetOutput(selectedGradingFeature.getOutput());
+			} else {
+				internalSetOutput(allOutput);
+			}
 	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
@@ -469,7 +483,8 @@ public class AProjectStepper extends AClearanceManager implements
 
 		if (selectedGradingFeature != null) {
 			internalSetNotes(getNotes(selectedGradingFeature));
-			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
+//			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
+			internalSetResult(selectedGradingFeature.getResult());  
 
 		} else {
 			internalSetNotes("");
@@ -1215,6 +1230,7 @@ public class AProjectStepper extends AClearanceManager implements
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
 			if (!settingUpProject) {
 			changed = true;
+			setComputedFeedback();
 			setGradingFeatureColors();
 			}
 		} else if (evt.getSource() instanceof GradingFeature
@@ -1225,6 +1241,7 @@ public class AProjectStepper extends AClearanceManager implements
 				autoNotes = getInMemoryResult(gradingFeature);
 				// log = gradingFeature.getFeature();
 				selectedGradingFeature = gradingFeature;
+				output = selectedGradingFeature.getOutput();
 				unSelectOtherGradingFeatures(gradingFeature);
 			} else {
 				// this may be a bounced feature

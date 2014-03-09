@@ -74,14 +74,52 @@ public class RunningProject {
 		this.exception = new NotRunnableException();
 	}
 	
+	public static final String FEATURE_HEADER_PREFIX = "*****************************(";
+	public static final String FEATURE_HEADER_SUFFIX = ")*****************************";
+
+	
+	
+	public static String featureHeader(String aFeatureName) {
+		return FEATURE_HEADER_PREFIX + aFeatureName + FEATURE_HEADER_SUFFIX ;
+	}
+	
+	public static String extractFeatureTranscript(String aFeatureName, String allOutput) {
+		int startIndex = allOutput.indexOf(featureHeader(aFeatureName));
+		if (startIndex == -1)
+			return "";
+		int endIndex;
+		int prevIndex = startIndex;
+		int nextIndex;
+		while (true) {
+			nextIndex =  allOutput.indexOf(aFeatureName, prevIndex + 1);
+			if (nextIndex < 0) {
+				endIndex = allOutput.indexOf(FEATURE_HEADER_PREFIX, prevIndex + 1);
+				if (endIndex == -1) 
+					endIndex = allOutput.length();
+				break;				
+			} else {
+				prevIndex = nextIndex;
+			}
+			
+		}
+		return allOutput.substring(startIndex, endIndex);
+		
+		
+		
+		
+	}
+	
 	StringBuffer transcript = new StringBuffer();
 	
 	String createFeatureTranscript() {
 		transcript.setLength(0);
-		transcript.append("*****************************(");
 		String featureName = project.getCurrentGradingFeature().getName();
-		transcript.append(featureName);
-		transcript.append(")*****************************\n");
+
+		transcript.append(featureHeader(featureName) + "\n");
+//		transcript.append("*****************************(");
+//		String featureName = project.getCurrentGradingFeature().getName();
+//		transcript.append(featureName);
+//		transcript.append(")*****************************\n");
 		String input = project.getCurrentInput();
 		if (!input.isEmpty()) {
 			transcript.append("INPUT(" + featureName + ")\n");
