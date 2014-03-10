@@ -12,8 +12,6 @@ import grader.settings.navigation.NavigationSetter;
 
 import java.beans.PropertyChangeListener;
 
-import bus.uigen.uiFrame;
-
 
 public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
 	public boolean setProject(SakaiProject newVal) ;
@@ -36,7 +34,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	
 	public void setHasMoreSteps(boolean newVal);
     public SakaiProject getProject();
-    void runProjectsInteractively();
+    boolean runProjectsInteractively();
     public void configureNavigationList();
 
 	boolean preDone();
@@ -67,14 +65,14 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	boolean preRunProjectsInteractively();
 
-	void move(boolean forward);
+	boolean move(boolean forward);
 	public boolean isAutoAutoGrade() ;
     public void setAutoAutoGrade(boolean newVal) ;
     public void autoAutoGrade() ;
 
-	void setOEFrame(uiFrame aFrame);
+	void setFrame(Object aFrame);
 
-	uiFrame getOEFrame();
+	Object getFrame();
 
 	LabelBeanModel getPhoto();
 

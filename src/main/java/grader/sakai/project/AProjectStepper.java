@@ -110,6 +110,7 @@ public class AProjectStepper extends AClearanceManager implements
 	List<CheckResult> restrictionResults;
 	GradingFeature selectedGradingFeature;
 	StudentFolder studentFolder;
+	Object frame;
 	uiFrame oeFrame;
 	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
 	ClassAdapter stepperViewAdapter;
@@ -627,7 +628,9 @@ public class AProjectStepper extends AClearanceManager implements
 	void setGradingFeatureColors() {
 		if (settingUpProject) 
 		    return;
-		for (int i = 0; i < gradingObjectAdapters.size(); i++) {
+//		for (int i = 0; i < gradingObjectAdapters.size(); i++) {
+		for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {
+
 //			if (currentColors.get(i) != nextColors.get(i)) {
 				setGradingFeatureColor(i);
 //				setGradingFeatureColor(i);
@@ -994,7 +997,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		move(true);
+		 move(true);
 		// should put person in skipped list
 
 	}
@@ -1018,7 +1021,7 @@ public class AProjectStepper extends AClearanceManager implements
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
-		move(false);
+		 move(false);
 		// should put person in skipped list
 
 	}
@@ -1426,7 +1429,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	@Override
-	public void runProjectsInteractively() {
+	public boolean runProjectsInteractively() {
 		// onyens = projectDatabase.getOnyenNavigationList();
 
 		// nextOnyenIndex = 0;
@@ -1435,7 +1438,7 @@ public class AProjectStepper extends AClearanceManager implements
 		if (!preRunProjectsInteractively()) {
 			Tracer.error("Projects not configured");
 			hasMoreSteps = false;
-			return;
+			return false;
 		}
 		String anOnyen = onyens.get(nextOnyenIndex);
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
@@ -1450,8 +1453,12 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 		setObjectAdapters();
 		boolean retVal = setProject(anOnyen);
-		if (!retVal)
-			next();
+		if (!retVal) {
+			 next();
+			 if (!hasMoreSteps)
+				 return false;
+		}
+		return true;
 		
 
 	}
@@ -1465,7 +1472,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	@Override
-	public synchronized void move(boolean forward) {
+	public synchronized boolean move(boolean forward) {
 		// josh's code
 		// no serialization otherwise
 		if (changed || 
@@ -1480,13 +1487,13 @@ public class AProjectStepper extends AClearanceManager implements
 
 			if (nextOnyenIndex >= onyens.size()) {
 				hasMoreSteps = false;
-				return;
+				return false;
 			}
 		} else {
 			nextOnyenIndex--;
 			if (nextOnyenIndex < 0) {
 				hasMoreSteps = false;
-				return;
+				return false;
 			}
 
 		}
@@ -1496,7 +1503,8 @@ public class AProjectStepper extends AClearanceManager implements
 		projectDatabase.recordWindows();
 		boolean projectSet = setProject(anOnyen);
 		if (!projectSet)
-			move(forward);
+			return move(forward);
+		return true;
 			
 		// these two steps should go into setProject unless there is something
 		// subttle here, specially as the stepProject step below is commented
@@ -1532,14 +1540,19 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Visible(false)
 	@Override
-	public void setOEFrame(uiFrame aFrame) {
-		oeFrame = aFrame;
+	public void setFrame(Object aFrame) {
+		frame = aFrame;
+		if (aFrame instanceof uiFrame) {
+			oeFrame = (uiFrame) aFrame;
+//		oeFrame = aFrame;
+//			setObjectAdapters();
+		}
 	}
 
 	@Visible(false)
 	@Override
-	public uiFrame getOEFrame() {
-		return oeFrame;
+	public Object getFrame() {
+		return frame;
 	}
 	
 	

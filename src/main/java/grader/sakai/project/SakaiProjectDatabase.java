@@ -89,7 +89,7 @@ public interface SakaiProjectDatabase {
 	void clearWindows();
 	public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase);
 	public List<String> getOnyenNavigationList();
-	void nonBlockingRunProjectsInteractively();
+	boolean nonBlockingRunProjectsInteractively();
 //	public String getNavigationFilter() ;
 //
 //	public void setNavigationFilter(String navigationFilter) ;
