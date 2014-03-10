@@ -711,7 +711,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		aProjectStepper.setHasMoreSteps(false);
 
 	}
-	void setVisible (Object aFrame, boolean newVal) {
+	public static void setVisible (Object aFrame, boolean newVal) {
 		if (aFrame instanceof Component) {
 			((Component) aFrame).setVisible(newVal);
 		} else if (aFrame instanceof VirtualComponent) {
@@ -720,7 +720,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			((OEFrame) aFrame).getFrame().setVisible(newVal);
 		}
 	}
-	void dispose (Object aFrame) {
+	public static void  dispose (Object aFrame) {
 		if (aFrame instanceof Frame) {
 			((Frame) aFrame).dispose();
 		} else if (aFrame instanceof VirtualFrame) {

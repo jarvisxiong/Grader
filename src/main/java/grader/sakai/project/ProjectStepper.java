@@ -25,7 +25,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	public SakaiProjectDatabase getProjectDatabase() ;
 
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) ;
-	public void setOnyen(String anOnyen) ;
+	public void setOnyen(String anOnyen) throws MissingOnyenException ;
 	public boolean setProject(String anOnyen) ;
 	public boolean isAutoRun() ;
     public void setAutoRun(boolean newVal);

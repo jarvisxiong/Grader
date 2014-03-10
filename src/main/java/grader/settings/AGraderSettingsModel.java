@@ -75,9 +75,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	public void setOnyens(OnyenRangeModel onyens) {
 		this.onyens = onyens;
-	}
-	@Row(2)
+	}	
+//	@Row(2)
 	@Override
+//	@Visible(false)
 	public NavigationSetter getNavigationSetter() {
 		return navigationSetter;
 	}

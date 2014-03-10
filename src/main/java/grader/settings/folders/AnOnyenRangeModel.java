@@ -4,7 +4,7 @@ import util.annotations.Row;
 import bus.uigen.ObjectEditor;
 
 public class AnOnyenRangeModel implements OnyenRangeModel{
-	String startingOnyen = "", endingOnyen = "";
+	String startingOnyen = "", endingOnyen = "", goToOnyen = "";
     @Row(0)
 	public String getStartingOnyen() {
 		return startingOnyen;
@@ -21,7 +21,16 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	public void setEndingOnyen(String endingOnyen) {
 		this.endingOnyen = endingOnyen;
 	}
-	
+	@Row(2)
+	@Override
+	public String getGoToOnyen() {
+		return goToOnyen;
+	}
+    @Override
+	public void setGoToOnyen(String goToOnyen) {
+		this.goToOnyen = goToOnyen;
+	}
+
 	public static void main (String[] args) {
 		AnOnyenRangeModel onyenRangeModel = new AnOnyenRangeModel();
 		ObjectEditor.edit(onyenRangeModel);
