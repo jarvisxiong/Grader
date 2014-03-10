@@ -328,7 +328,7 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 	}
 
-	void setScore() {
+	void setComputedScore() {
 		List<GradingFeature> gradingFeatures = projectDatabase
 				.getGradingFeatures();
 		double aScore = 0;
@@ -449,7 +449,9 @@ public class AProjectStepper extends AClearanceManager implements
 		nextDocumentIndex = 0;
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
-		setScore();
+		double savedScore = featureGradeRecorder.getGrade(name, onyen);
+		
+		setInternalScore(savedScore);
 		if (!shouldVisit()) {
 			return false;
 		}
@@ -792,11 +794,20 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Override
 	public void setScore(double newVal) {
+		if (score == newVal) return;
+		double oldVal = score;
 		setInternalScore(newVal);
 		if (totalScoreRecorder != null)
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
+		featureGradeRecorder.setGrade(name, onyen, newVal);
+		String aNotes = projectDatabase.getNotesGenerator().scoreOverrideNotes(this, oldVal, newVal);
+		String oldOverallNotes = getOverallNotes();
+		String newNotes = oldOverallNotes + " " + aNotes;
+		setOverallNotes(newNotes);
+		
+		
 		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen(), newVal);
 		// score = newVal;
@@ -836,7 +847,7 @@ public class AProjectStepper extends AClearanceManager implements
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
-		setScore(); // will trigger change occurred
+		setComputedScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {
 			// Figure out the score for the feature/restriction
 			double score = (i < featureResults.size()) ? featureResults.get(i)
@@ -881,8 +892,17 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 		setComputedFeedback();
 		setStoredOutput();
-		featureGradeRecorder.setEarlyLatePoints(name, onyen,
-				featureGradeRecorder.getEarlyLatePoints(name, onyen));
+		// Josh's code from ProjectStepperDisplayerWrapper
+				// Figure out the late penalty
+		Option<DateTime> timestamp = studentFolder.getTimestamp();
+				// double gradePercentage = timestamp.isDefined() ?
+				// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
+				// : 0;
+		double aMultiplier = timestamp.isDefined() ?
+				 projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
+				 : 0;
+		internalSetMultiplier(aMultiplier);
+//		featureGradeRecorder.setEarlyLatePoints(name, onyen, aMultiplier);
 		// setSummary();
 		
 
@@ -1002,6 +1022,22 @@ public class AProjectStepper extends AClearanceManager implements
 		// should put person in skipped list
 
 	}
+	
+	void validate (GradingFeature aGradingFeature) {
+		String aNotes = projectDatabase.getNotesGenerator().validationNotes(this, aGradingFeature);
+		setManualNotes(aNotes);
+		
+//		setNotes(aGradingFeature, aNotes);;
+	}
+	@Row(14)
+	@Override
+	@ComponentWidth(100)
+	public void validate() {
+		if (selectedGradingFeature != null) {
+			validate(selectedGradingFeature);
+		}
+		
+	}
 
 //	String filter = "";
 
@@ -1022,6 +1058,26 @@ public class AProjectStepper extends AClearanceManager implements
 	@Row(15)
 	public double getMultiplier() {
 		return multiplier;
+	}
+	
+	public void internalSetMultiplier(double newValue) {
+		double oldValue = multiplier;
+		multiplier = newValue;
+		featureGradeRecorder.setEarlyLatePoints(name, onyen,
+				multiplier);
+		setMultiplierColor();
+		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
+	}
+	
+	public void setMultiplier(double newValue) {
+		double oldVal = multiplier;
+		if (oldVal == newValue) return;
+		internalSetMultiplier(newValue);
+		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
+		String oldOverallNotes = getOverallNotes();
+		String newNotes = oldOverallNotes + " " + aNotes;
+		setOverallNotes(newNotes);
+		
 	}
 
 	@Row(16)
@@ -1264,7 +1320,7 @@ public class AProjectStepper extends AClearanceManager implements
 			GradingFeature aGradingFeature = (GradingFeature) evt.getSource();
 			// setInternalScore(aGradingFeature.getScore());
 			if (!settingUpProject)
-			setScore();
+			setComputedScore();
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
 			if (!settingUpProject) {
 			changed = true;

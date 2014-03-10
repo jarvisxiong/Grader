@@ -20,6 +20,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 
 import framework.grading.ProjectRequirements;
@@ -27,6 +28,7 @@ import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.auto_notes.NotesGenerator;
 import grader.colorers.Colorer;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
@@ -141,6 +143,10 @@ public interface SakaiProjectDatabase {
 	BasicNavigationFilter getNavigationFilter();
 
 	void setNavigationFilter(BasicNavigationFilter navigationFilter);
+
+	NotesGenerator getNotesGenerator();
+
+	void setNotesGenerator(NotesGenerator notesGenerator);
 
 
 
