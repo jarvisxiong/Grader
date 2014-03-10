@@ -190,9 +190,19 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 	}
 	
+
+	
 	public void setOnyen(String anOnyen) {
 		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
+		int onyenIndex = onyens.indexOf(anOnyen);
+		if (onyenIndex < 0) {
+			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
+			return;
+		}
+		nextOnyenIndex = onyenIndex;
+		maybeSaveState();
+		redirectProject();
 		boolean retVal = setProject(anOnyen);
 		if (!retVal) {
 			onyen = oldOnyen;
@@ -1144,7 +1154,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(18)
 //	@Label("Overall Notes")
-	@ComponentWidth(600)
+	@ComponentWidth(800)
 	public String getOverallNotes() {
 		return overallNotes;
 
@@ -1470,18 +1480,34 @@ public class AProjectStepper extends AClearanceManager implements
 		// we are done but do not have another step
 		return preProceed() && !preNext();
 	}
+	void maybeSaveState() {
+		// josh's code
+				// no serialization otherwise
+				if (changed || 
+						!featureGradeRecorder.logSaved()) 
+				featureGradeRecorder.finish();
+
+				// my original code
+				projectDatabase.resetIO();
+				projectDatabase.clearWindows();
+	}
+	void redirectProject() {
+		projectDatabase.initIO();
+		projectDatabase.recordWindows();
+	}
 
 	@Override
 	public synchronized boolean move(boolean forward) {
-		// josh's code
-		// no serialization otherwise
-		if (changed || 
-				!featureGradeRecorder.logSaved()) 
-		featureGradeRecorder.finish();
-
-		// my original code
-		projectDatabase.resetIO();
-		projectDatabase.clearWindows();
+		maybeSaveState();
+//		// josh's code
+//		// no serialization otherwise
+//		if (changed || 
+//				!featureGradeRecorder.logSaved()) 
+//		featureGradeRecorder.finish();
+//
+//		// my original code
+//		projectDatabase.resetIO();
+//		projectDatabase.clearWindows();
 		if (forward) {
 			nextOnyenIndex++;
 
@@ -1497,10 +1523,12 @@ public class AProjectStepper extends AClearanceManager implements
 			}
 
 		}
+		redirectProject();
 		String anOnyen = onyens.get(nextOnyenIndex);
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
-		projectDatabase.initIO();
-		projectDatabase.recordWindows();
+//		redirectProject();
+//		projectDatabase.initIO();
+//		projectDatabase.recordWindows();
 		boolean projectSet = setProject(anOnyen);
 		if (!projectSet)
 			return move(forward);
