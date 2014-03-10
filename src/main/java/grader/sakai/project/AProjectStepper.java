@@ -200,7 +200,7 @@ public class AProjectStepper extends AClearanceManager implements
 			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
 			return;
 		}
-		nextOnyenIndex = onyenIndex;
+		currentOnyenIndex = onyenIndex;
 		maybeSaveState();
 		redirectProject();
 		boolean retVal = setProject(anOnyen);
@@ -987,7 +987,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Override
 	public boolean preNext() {
-		return preProceed() && nextOnyenIndex < onyens.size() - 1;
+		return preProceed() && currentOnyenIndex < onyens.size() - 1;
 		// this does not make sense, next is a stronger condition than next
 
 		// return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
@@ -1014,7 +1014,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Override
 	public boolean prePrevious() {
-		return nextOnyenIndex > 0;
+		return currentOnyenIndex > 0;
 	}
 
 	@Row(13)
@@ -1405,19 +1405,20 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	List<String> onyens;
-	int nextOnyenIndex = 0;
+	int currentOnyenIndex = 0;
+	int filteredOnyenIndex = 0;
 	String nextOnyen;
 
 	@Override
 	public void configureNavigationList() {
 		onyens = projectDatabase.getOnyenNavigationList();
-		nextOnyenIndex = 0;
+		currentOnyenIndex = 0;
 		hasMoreSteps = true;
 	}
 
 	@Override
 	public boolean preRunProjectsInteractively() {
-		return onyens != null && nextOnyenIndex < onyens.size();
+		return onyens != null && currentOnyenIndex < onyens.size();
 	}
 	
 	void setObjectAdapters() {
@@ -1450,7 +1451,7 @@ public class AProjectStepper extends AClearanceManager implements
 			hasMoreSteps = false;
 			return false;
 		}
-		String anOnyen = onyens.get(nextOnyenIndex);
+		String anOnyen = onyens.get(currentOnyenIndex);
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
 		projectDatabase.initIO();
 
@@ -1465,9 +1466,12 @@ public class AProjectStepper extends AClearanceManager implements
 		boolean retVal = setProject(anOnyen);
 		if (!retVal) {
 			 next();
-			 if (!hasMoreSteps)
+			 if (!hasMoreSteps) {
+				 currentOnyenIndex = filteredOnyenIndex;
 				 return false;
+			 }
 		}
+		filteredOnyenIndex = currentOnyenIndex;
 		return true;
 		
 
@@ -1509,29 +1513,40 @@ public class AProjectStepper extends AClearanceManager implements
 //		projectDatabase.resetIO();
 //		projectDatabase.clearWindows();
 		if (forward) {
-			nextOnyenIndex++;
+			currentOnyenIndex++;
 
-			if (nextOnyenIndex >= onyens.size()) {
+			if (currentOnyenIndex >= onyens.size()) {
 				hasMoreSteps = false;
 				return false;
 			}
 		} else {
-			nextOnyenIndex--;
-			if (nextOnyenIndex < 0) {
+			currentOnyenIndex--;
+			if (currentOnyenIndex < 0) {
 				hasMoreSteps = false;
 				return false;
 			}
 
 		}
 		redirectProject();
-		String anOnyen = onyens.get(nextOnyenIndex);
+		String anOnyen = onyens.get(currentOnyenIndex);
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
 //		redirectProject();
 //		projectDatabase.initIO();
 //		projectDatabase.recordWindows();
 		boolean projectSet = setProject(anOnyen);
-		if (!projectSet)
-			return move(forward);
+		if (!projectSet) {
+			boolean retVal = move(forward);
+			if (!retVal && filteredOnyenIndex != currentOnyenIndex) {
+				currentOnyenIndex = filteredOnyenIndex;
+				setOnyen(onyens.get(filteredOnyenIndex));
+				Tracer.error("Cannot move as no more records that satisfy selection condition");
+			} else {
+				filteredOnyenIndex = currentOnyenIndex;
+				
+			}
+			return retVal;
+		}
+		filteredOnyenIndex = currentOnyenIndex;
 		return true;
 			
 		// these two steps should go into setProject unless there is something
