@@ -12,6 +12,7 @@ import gradingTools.comp110.assignment3.testCases.CountUniqueCharactersTestCase;
 import gradingTools.comp110.assignment3.testCases.InfiniteLoopComputationTestCase;
 import gradingTools.comp110.assignment3.testCases.IsPalindromeTestCase;
 import gradingTools.comp110.assignment3.testCases.PromptStringTestCase;
+import gradingTools.comp110.assignment3.testCases.ReverseWordCharacters;
 import gradingTools.sharedTestCase.MultipleRestrictedStringOutsideComments;
 import gradingTools.sharedTestCase.RestrictedStringOutsideComments;
 
@@ -69,5 +70,12 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		addRestriction("No advanced Java classes allowed", 30,
 				new MultipleRestrictedStringOutsideComments(restrictedClasses));
 
+		String reverseWordInput = "Computer programming can be a difficult task or it can be as easy as 123";
+		String[] reverseWordOutputs = { "retupmoC gnimmargorp nac eb a tluciffid ksat ro ti nac eb sa ysae sa 321" };
+		String[] incorrectReverseWordOutputs = {};
+		addFeature("EXTRA CREDIT: reverseWordCharacters", 20, true, new ReverseWordCharacters(
+				ReverseWordCharacters.getRandomInputs(10, 30, 10), 3),
+				new CorrectOutputTypeOnComputationChoice(reverseWordInput,
+						"reverse word characters", reverseWordOutputs, incorrectReverseWordOutputs));
 	}
 }

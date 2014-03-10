@@ -55,11 +55,14 @@ public class MethodFinderAndRunner extends BasicTestCase {
 				argsStr = argsStr.substring(0, argsStr.length() - 1) + ")";
 				System.out.println("args:" + argsStr);
 				System.out.println("expected output:" + expectedRetVal);
-				System.out.println("actual output:" + retVal);
+				System.out.println("actual output:  " + retVal);
 				if (expectedRetVal == null) {
 					correctOutput = retVal != null;
 				} else {
 					correctOutput = expectedRetVal.equals(retVal);
+					if (!correctOutput && retVal != null && retVal instanceof String) {
+						correctOutput = expectedRetVal.equals(((String) retVal).trim());
+					}
 				}
 				if (!correctOutput) {
 					return;
