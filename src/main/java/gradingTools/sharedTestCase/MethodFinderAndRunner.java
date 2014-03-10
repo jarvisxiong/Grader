@@ -48,6 +48,14 @@ public class MethodFinderAndRunner extends BasicTestCase {
 			Object expectedRetVal = expectedRetVals[i];
 			try {
 				Object retVal = method.run(args);
+				String argsStr = "(";
+				for (Object arg : args) {
+					argsStr += arg + ",";
+				}
+				argsStr = argsStr.substring(0, argsStr.length() - 1) + ")";
+				System.out.println("args:" + argsStr);
+				System.out.println("expected output:" + expectedRetVal);
+				System.out.println("actual output:" + retVal);
 				if (expectedRetVal == null) {
 					correctOutput = retVal != null;
 				} else {
@@ -139,6 +147,9 @@ public class MethodFinderAndRunner extends BasicTestCase {
 		thread.start();
 		try {
 			Thread.sleep(timeout);
+			if (thread.isAlive()) {
+				// thread.stop();
+			}
 			notes += "- Method " + runnableMethod.getMethod().getName()
 					+ " did not complete within " + ((double) timeout / 1000)
 					+ "seconds.  Likely an infinite loop.\n";

@@ -38,7 +38,7 @@ public class RestrictedStringOutsideComments extends BasicTestCase {
 	}
 
 	protected TestCaseResult restrictedStringOccurred() {
-		return fail(restrictedString + "not allowed");
+		return fail(restrictedString + " not allowed");
 	}
 
 	protected TestCaseResult noRestrictedString() {
