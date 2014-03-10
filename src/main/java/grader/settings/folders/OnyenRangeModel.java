@@ -6,5 +6,7 @@ public interface OnyenRangeModel {
 	public String getEndingOnyen();
 
 	public void setEndingOnyen(String endingOnyen) ;
+	String getGoToOnyen();
+	void setGoToOnyen(String goToOnyen);
 
 }

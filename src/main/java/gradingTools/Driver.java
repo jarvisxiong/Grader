@@ -15,6 +15,7 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.MissingOnyenException;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModel;
 import grader.settings.navigation.NavigationFilterRepository;
@@ -80,6 +81,7 @@ public class Driver {
             String controller = configuration.getString("grader.controller", "GradingManager");
             GraderSettingsModel settingsModel = null;
             OEFrame settingsFrame = null;
+            String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
 
@@ -100,6 +102,7 @@ public class Driver {
 //            			frame.setSize(550, 250);
             			settingsFrame.setSize(550, 475);
             			settingsModel.awaitBegin();
+            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 //            			settingsFrame.dispose();
             	 
             		 
@@ -136,13 +139,27 @@ public class Driver {
                 database.getOrCreateProjectStepper().setAutoAutoGrade(true);
                 while (true) {
                     boolean retVal = database.nonBlockingRunProjectsInteractively();
-               	   if (retVal) break;
+               	   if (retVal) {
+               		if (!goToOnyen.isEmpty()) {
+               			try {
+//               				ASakaiProjectDatabase.setVisible(database.getProjectStepper().getFrame(), false);
+               				database.getProjectStepper().setOnyen(goToOnyen);
+               			} catch (MissingOnyenException moe) {
+               				continue;
+               			}
+                    }
+               		   break;
+               	   }
                	   Tracer.error("Did not find any matching entries. Try again.");
                		 if (settingsModel != null)
                			 settingsModel.awaitBegin();
                	  
                	   
                 }
+//                if (!goToOnyen.isEmpty()) {
+//           			
+//           				ASakaiProjectDatabase.setVisible(database.getProjectStepper().getFrame(), true);
+//                }
                 if (settingsFrame != null)
                 	settingsFrame.dispose();
             }

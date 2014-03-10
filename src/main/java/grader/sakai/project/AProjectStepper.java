@@ -192,13 +192,14 @@ public class AProjectStepper extends AClearanceManager implements
 	
 
 	
-	public void setOnyen(String anOnyen) {
+	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
 		int onyenIndex = onyens.indexOf(anOnyen);
 		if (onyenIndex < 0) {
 			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-			return;
+			throw new MissingOnyenException(anOnyen);
+//			return;
 		}
 		currentOnyenIndex = onyenIndex;
 		maybeSaveState();
@@ -1538,7 +1539,11 @@ public class AProjectStepper extends AClearanceManager implements
 			boolean retVal = move(forward);
 			if (!retVal && filteredOnyenIndex != currentOnyenIndex) {
 				currentOnyenIndex = filteredOnyenIndex;
-				setOnyen(onyens.get(filteredOnyenIndex));
+				try {
+					setOnyen(onyens.get(filteredOnyenIndex));
+				} catch (MissingOnyenException e) {
+					e.printStackTrace(); // this should never be executed
+				}
 				Tracer.error("Cannot move as no more records that satisfy selection condition");
 			} else {
 				filteredOnyenIndex = currentOnyenIndex;
