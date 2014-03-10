@@ -58,6 +58,8 @@ import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
 
+import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +74,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.Icon;
+import javax.swing.JFrame;
 
 import util.misc.Common;
 import util.models.AListenableVector;
@@ -82,6 +85,8 @@ import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
 import bus.uigen.uiFrameList;
+import bus.uigen.widgets.VirtualComponent;
+import bus.uigen.widgets.VirtualFrame;
 
 public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	static SakaiProjectDatabase currentSakaiProjectDatabase;
@@ -600,8 +605,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// oeFrame.setLocation(800, 500);
 		// oeFrame.setSize(400, 400);
 		ProjectStepper projectStepper = getOrCreateProjectStepper();
-		frame = (uiFrame) displayProjectStepper(projectStepper);
-		projectStepper.setOEFrame(frame);
+		displayProjectStepper(projectStepper);
+//		projectStepper.setOEFrame(frame);
 		return projectStepper;
 	}
 	
@@ -631,7 +636,16 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	public Object displayProjectStepper(ProjectStepper aProjectStepper) {
-		return projectStepperDisplayer.display(aProjectStepper);
+//		return projectStepperDisplayer.display(aProjectStepper);
+		Object retVal = projectStepperDisplayer.display(aProjectStepper);
+//		if (retVal instanceof uiFrame) {
+			projectStepper.setFrame(retVal);
+//		}
+		recordWindows(); // make sure this frame is not disposed on next
+//		frame = (uiFrame) displayProjectStepper(projectStepper);
+//		projectStepper.setOEFrame(retVal);
+		return retVal;
+
 
 //		OEFrame oeFrame = ObjectEditor.edit(aProjectStepper);
 //		oeFrame.setLocation(700, 500);
@@ -697,11 +711,41 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		aProjectStepper.setHasMoreSteps(false);
 
 	}
-	public void nonBlockingRunProjectsInteractively() {
+	void setVisible (Object aFrame, boolean newVal) {
+		if (aFrame instanceof Component) {
+			((Component) aFrame).setVisible(newVal);
+		} else if (aFrame instanceof VirtualComponent) {
+			((VirtualComponent) aFrame).setVisible(newVal);
+		} else if (aFrame instanceof OEFrame) {
+			((OEFrame) aFrame).getFrame().setVisible(newVal);
+		}
+	}
+	void dispose (Object aFrame) {
+		if (aFrame instanceof Frame) {
+			((Frame) aFrame).dispose();
+		} else if (aFrame instanceof VirtualFrame) {
+			((VirtualFrame) aFrame).dispose();
+		} else if (aFrame instanceof JFrame) {
+			((JFrame) aFrame).dispose();
+			
+		} else if (aFrame instanceof OEFrame) {
+			((OEFrame) aFrame).getFrame().dispose();;
+		}
+	}
+	public boolean nonBlockingRunProjectsInteractively() {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
+		Object frame = aProjectStepper.getFrame();
+//		setVisible(frame, false);
+		
+//		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
+
 		aProjectStepper.configureNavigationList();
-		aProjectStepper.runProjectsInteractively();
+		boolean retVal = aProjectStepper.runProjectsInteractively();
+		if (!retVal  ) {
+			dispose(frame);
+		}
+		return retVal;
 //		aProjectStepper.setProjectDatabase(this);
 //		Set<String> onyens = new HashSet(onyenToProject.keySet());
 //		aProjectStepper.setHasMoreSteps(true);
@@ -745,11 +789,11 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void clearWindows() {
 		if (oldWindows != null && oldList != null) {// somebody went before me, get rid of their windows
 //			System.out.println("dispoing old windows");
-			List<OEFrame> newList = new ArrayList( uiFrameList.getList());
+			List<uiFrame> newList = new ArrayList( uiFrameList.getList());
 			
 
 
-			for (OEFrame frame:newList) {
+			for (uiFrame frame:newList) {
 				if (oldList.contains(frame))
 					continue;
 				frame.dispose(); // will this work

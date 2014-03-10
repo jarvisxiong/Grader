@@ -9,6 +9,7 @@ import framework.logging.recorder.ConglomerateRecorder;
 import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GradingEnvironment;
 import util.misc.Common;
+import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.navigation.filter.AGradingStatusFilter;
@@ -78,6 +79,7 @@ public class Driver {
             // Run the grading process
             String controller = configuration.getString("grader.controller", "GradingManager");
             GraderSettingsModel settingsModel = null;
+            OEFrame settingsFrame = null;
             
             if (controller.equals("GradingManager")) {
 
@@ -93,12 +95,12 @@ public class Driver {
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
             		  settingsModel = new AGraderSettingsModel();
-            			OEFrame settingsFrame = ObjectEditor.edit(settingsModel);
+            			settingsFrame = ObjectEditor.edit(settingsModel);
             			settingsFrame.setTitle("Grader Settings");
 //            			frame.setSize(550, 250);
             			settingsFrame.setSize(550, 475);
             			settingsModel.awaitBegin();
-            			settingsFrame.dispose();
+//            			settingsFrame.dispose();
             	 
             		 
             	 } else {
@@ -132,8 +134,17 @@ public class Driver {
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
                 database.getOrCreateProjectStepper().setAutoAutoGrade(true);
-
-                database.nonBlockingRunProjectsInteractively();
+                while (true) {
+                    boolean retVal = database.nonBlockingRunProjectsInteractively();
+               	   if (retVal) break;
+               	   Tracer.error("Did not find any matching entries. Try again.");
+               		 if (settingsModel != null)
+               			 settingsModel.awaitBegin();
+               	  
+               	   
+                }
+                if (settingsFrame != null)
+                	settingsFrame.dispose();
             }
 
 
