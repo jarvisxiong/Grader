@@ -83,6 +83,8 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	String getTranscript();
 
 	NavigationSetter getNavigationSetter();
+
+	void validate();
 	
 
 }

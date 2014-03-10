@@ -11,6 +11,8 @@ import grader.assignment.AnAssignmenDataFolder;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.auto_notes.ANotesGenerator;
+import grader.auto_notes.NotesGenerator;
 import grader.colorers.AGradingFeatureColorer;
 import grader.colorers.ANotesColorer;
 import grader.colorers.AScoreColorer;
@@ -117,6 +119,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 Colorer<String> overallNotesColorer;
 	 GraderSettingsModel graderSettings;
 	 BasicNavigationFilter navigationFilter;
+	 NotesGenerator notesGenerator;
 
 	 
 	
@@ -193,6 +196,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			scoreColorer = createScoreColorer();
 			multiplierColorer = createMultiplierColorer();
 			overallNotesColorer = createOverallNotesColorer();
+			notesGenerator = createNotesGenerator();
 			
 
 			
@@ -1157,5 +1161,18 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void setNavigationFilter(BasicNavigationFilter navigationFilter) {
 		this.navigationFilter = navigationFilter;
 		
+	}
+	
+	protected NotesGenerator createNotesGenerator() {
+		return new ANotesGenerator(this);
+	}
+
+	@Override
+	public NotesGenerator getNotesGenerator() {
+		return notesGenerator;
+	}
+    @Override
+	public void setNotesGenerator(NotesGenerator notesGenerator) {
+		this.notesGenerator = notesGenerator;
 	}
 }

@@ -78,6 +78,7 @@ public class Driver {
             // Run the grading process
             String controller = configuration.getString("grader.controller", "GradingManager");
             GraderSettingsModel settingsModel = null;
+            
             if (controller.equals("GradingManager")) {
 
                 // Run the GraderManager
@@ -92,11 +93,12 @@ public class Driver {
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
             		  settingsModel = new AGraderSettingsModel();
-            			OEFrame frame = ObjectEditor.edit(settingsModel);
-            			frame.setTitle("Grader Settings");
+            			OEFrame settingsFrame = ObjectEditor.edit(settingsModel);
+            			settingsFrame.setTitle("Grader Settings");
 //            			frame.setSize(550, 250);
-            			frame.setSize(550, 475);
+            			settingsFrame.setSize(550, 475);
             			settingsModel.awaitBegin();
+            			settingsFrame.dispose();
             	 
             		 
             	 } else {
