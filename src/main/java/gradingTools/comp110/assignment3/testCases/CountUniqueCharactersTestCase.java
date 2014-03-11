@@ -31,11 +31,15 @@ public class CountUniqueCharactersTestCase extends MethodFinderAndRunner {
 		int length = rand.nextInt(maxLength + 1 - minLength) + minLength;
 
 		String inputStr = "";
-		Set<Character> characters = new TreeSet<Character>();
 		for (int i = 0; i < length; i++) {
 			char c = getRandomCharacter();
 			inputStr += c;
-			characters.add(Character.toLowerCase(c));
+		}
+
+		Set<Character> characters = new TreeSet<Character>();
+		String lowerCaseInputStr = inputStr.toLowerCase();
+		for (int i = 0; i < lowerCaseInputStr.length(); i++) {
+			characters.add(lowerCaseInputStr.charAt(i));
 		}
 
 		ArgsAndReturnValues toReturn = new ArgsAndReturnValues();
