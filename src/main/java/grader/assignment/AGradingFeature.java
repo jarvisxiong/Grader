@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import grader.auto_notes.NotesGenerator;
 import grader.checkers.CheckResult;
 import grader.checkers.FeatureChecker;
 import grader.file.FileProxy;
@@ -261,9 +262,23 @@ public class AGradingFeature implements GradingFeature {
 
 	}
 
-	public void setScore(double score) {
-		pureSetScore(score);
+	public void setScore(double newVal) {
+		double oldVal = score;
+		// piggyback this notification on score notfication to project stepper
+		if (!isManual()) {
+			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+			setNotes(notesGenerator.appendNotes(
+					getNotes(), 
+					notesGenerator.autoFeatureScoreOverrideNotes(projectDatabase.getProjectStepper(), this, oldVal, newVal)));
+		}
+		pureSetScore(newVal);
 		scoreSetManually = true;
+//		if (!isManual()) {
+//			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+//			setNotes(notesGenerator.appendNotes(
+//					getNotes(), 
+//					notesGenerator.autoFeatureScoreOverrideNotes(projectDatabase.getProjectStepper(), this, oldVal, newVal)));
+//		}
 //		if (score != maxScore)
 //			comment();
 
@@ -474,11 +489,11 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	@Visible(false)
-	public void setNotes(String notes) {
+	public void setNotes(String newVal) {
 		String oldVal = notes;
-		this.notes = notes;
+		this.notes = newVal;
 		recordNotes();
-		propertyChangeSupport.firePropertyChange("notes", oldVal, notes);
+//		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
 	
 	
