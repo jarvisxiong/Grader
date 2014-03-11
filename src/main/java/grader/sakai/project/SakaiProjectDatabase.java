@@ -21,6 +21,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 
 import framework.grading.ProjectRequirements;
@@ -147,6 +148,9 @@ public interface SakaiProjectDatabase {
 	NotesGenerator getNotesGenerator();
 
 	void setNotesGenerator(NotesGenerator notesGenerator);
+
+	boolean nonBlockingRunProjectsInteractively(String aGoToOnyen)
+			throws MissingOnyenException;
 
 
 

@@ -83,6 +83,8 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	NavigationSetter getNavigationSetter();
 
 	void validate();
+
+	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException;
 	
 
 }
