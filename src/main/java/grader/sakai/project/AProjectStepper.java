@@ -11,6 +11,7 @@ import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.auto_notes.NotesGenerator;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
@@ -210,6 +211,9 @@ public class AProjectStepper extends AClearanceManager implements
 			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
 			return;
 		}
+		// again this will void a getter call when properties are redisplayed
+		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+
 		// set project does most of this except the output files part
 //		projectDatabase.resetRunningProject(project);
 //
@@ -258,7 +262,10 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	public void setAutoAutoGrade(boolean newVal) {
+		boolean oldVal = autoAutoGrade;
 		autoAutoGrade = newVal;
+		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, onyen);
+
 
 	}
 
@@ -275,7 +282,8 @@ public class AProjectStepper extends AClearanceManager implements
 	public void setName(String newVal) {
 		name = newVal;
 		// System.out.println("name changed to" + newVal);
-		// propertyChangeSupport.firePropertyChange("Name", null, newVal);
+		// as we are postponing notfications, sending the name change is useful
+		 propertyChangeSupport.firePropertyChange("Name", null, newVal);
 		notifyPreconditionChanged();
 		// System.out.println("precondition notified");
 	}
@@ -816,10 +824,16 @@ public class AProjectStepper extends AClearanceManager implements
 			// if (gradeRecorder != null)
 			setGrade(newVal);
 		featureGradeRecorder.setGrade(name, onyen, newVal);
-		String aNotes = projectDatabase.getNotesGenerator().scoreOverrideNotes(this, oldVal, newVal);
-		String oldOverallNotes = getOverallNotes();
-		String newNotes = oldOverallNotes + " " + aNotes;
-		setOverallNotes(newNotes);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		setOverallNotes(notesGenerator.appendNotes(
+				getOverallNotes(), 
+				notesGenerator.totalScoreOverrideNotes(this, oldVal, newVal)));
+		
+//		
+//		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
+//		String oldOverallNotes = getOverallNotes();
+//		String newNotes = oldOverallNotes + " " + aNotes;
+//		setOverallNotes(newNotes);
 		
 		
 		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
@@ -1038,8 +1052,14 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	void validate (GradingFeature aGradingFeature) {
-		String aNotes = projectDatabase.getNotesGenerator().validationNotes(this, aGradingFeature);
-		setManualNotes(aNotes);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		setManualNotes(notesGenerator.appendNotes(
+				getManualNotes(), 
+				notesGenerator.validationNotes(this, aGradingFeature)));
+		
+//		
+//		String aNotes = projectDatabase.getNotesGenerator().validationNotes(this, aGradingFeature);
+//		setManualNotes(aNotes);
 		
 //		setNotes(aGradingFeature, aNotes);;
 	}
@@ -1087,10 +1107,14 @@ public class AProjectStepper extends AClearanceManager implements
 		double oldVal = multiplier;
 		if (oldVal == newValue) return;
 		internalSetMultiplier(newValue);
-		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
-		String oldOverallNotes = getOverallNotes();
-		String newNotes = oldOverallNotes + " " + aNotes;
-		setOverallNotes(newNotes);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		setOverallNotes(notesGenerator.appendNotes(
+				getOverallNotes(), 
+				notesGenerator.multiplierOverrideNotes(this, oldVal, newValue)));
+//		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
+//		String oldOverallNotes = getOverallNotes();
+//		String newNotes = oldOverallNotes + " " + aNotes;
+//		setOverallNotes(newNotes);
 		
 	}
 
@@ -1118,7 +1142,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		manualNotes = newVal;
 
-		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("manualNotes", oldVal, newVal);
 	}
 	
 	void internalSetOutput(String newVal) {
@@ -1134,7 +1158,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		autoNotes = newVal;
 
-		propertyChangeSupport.firePropertyChange("result", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("AutoNotes", oldVal, newVal);
 	}
 
 	public void setManualNotes(String newVal) {
@@ -1326,6 +1350,22 @@ public class AProjectStepper extends AClearanceManager implements
 
 		return retVal;
 	}
+	
+	void refreshSelectedFeature() {
+		if (selectedGradingFeature != null)
+		manualNotes = getNotes(selectedGradingFeature);
+	}
+	
+	void setSelectedFeature (GradingFeature gradingFeature) {
+		
+			manualNotes = getNotes(gradingFeature);
+			autoNotes = getInMemoryResult(gradingFeature);
+			// log = gradingFeature.getFeature();
+			selectedGradingFeature = gradingFeature;
+			output = selectedGradingFeature.getOutput();
+			unSelectOtherGradingFeatures(gradingFeature);
+		
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -1336,21 +1376,26 @@ public class AProjectStepper extends AClearanceManager implements
 			if (!settingUpProject)
 			setComputedScore();
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
+//			setSelectedFeature(aGradingFeature);// auto select
 			if (!settingUpProject) {
 			changed = true;
 			setComputedFeedback();
 			setGradingFeatureColors();
+			
 			}
+
+			aGradingFeature.setSelected(true); 
 		} else if (evt.getSource() instanceof GradingFeature
 				&& evt.getPropertyName().equalsIgnoreCase("selected")) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
 			if ((Boolean) evt.getNewValue()) {
-				manualNotes = getNotes(gradingFeature);
-				autoNotes = getInMemoryResult(gradingFeature);
-				// log = gradingFeature.getFeature();
-				selectedGradingFeature = gradingFeature;
-				output = selectedGradingFeature.getOutput();
-				unSelectOtherGradingFeatures(gradingFeature);
+				setSelectedFeature(gradingFeature);
+//				manualNotes = getNotes(gradingFeature);
+//				autoNotes = getInMemoryResult(gradingFeature);
+//				// log = gradingFeature.getFeature();
+//				selectedGradingFeature = gradingFeature;
+//				output = selectedGradingFeature.getOutput();
+//				unSelectOtherGradingFeatures(gradingFeature);
 			} else {
 				// this may be a bounced feature
 				// selectedGradingFeature = null;
@@ -1366,6 +1411,9 @@ public class AProjectStepper extends AClearanceManager implements
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
 		}
+		
+		refreshSelectedFeature();
+		if (!settingUpProject) {
 		propertyChangeSupport.firePropertyChange("this", null, this); // an
 																		// event
 																		// from
@@ -1378,6 +1426,7 @@ public class AProjectStepper extends AClearanceManager implements
 																		// such
 																		// as
 																		// auoGraded
+		}
 
 	}
 
