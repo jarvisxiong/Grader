@@ -69,6 +69,13 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	public Object getFilterParameter() {
 		return currentNavigationFilter.getParameter();
 	}
+	@Override
+	public void setFilterParameter(Object newVal) {
+		Object oldVal = currentNavigationFilter.getParameter();
+		currentNavigationFilter.setParameter(newVal);
+//		propertyChangeSupport.firePropertyChange("FilterParameter", oldVal, newVal);
+
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent anEvent) {
@@ -77,7 +84,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 			Object oldParameters = currentNavigationFilter.getParameter();
 			currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
 			Object newParameters = currentNavigationFilter.getParameter();
-			propertyChangeSupport.firePropertyChange("FilterOptions", oldParameters, newParameters);
+			propertyChangeSupport.firePropertyChange("FilterParameter", oldParameters, newParameters);
 		}
 		
 		

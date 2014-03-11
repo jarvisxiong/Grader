@@ -1,12 +1,22 @@
 package grader.navigation.filter;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 
-public class AGradingStatusFilter implements NavigationFilter<GradingStatus>{
+public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStatus> implements NavigationFilter<GradingStatus>{
 	public static final String NAME = "Grading Status";
-	GradingStatus parameter = GradingStatus.NOT_FULLY_GRADED;
+//	GradingStatus parameter = GradingStatus.NOT_FULLY_GRADED;
+//	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+	
+	public AGradingStatusFilter() {
+		name = NAME;
+		parameter =  GradingStatus.NOT_FULLY_GRADED;
+
+	}
 
 	@Override
 	public boolean includeProject(ProjectStepper aProjectState,
@@ -29,14 +39,28 @@ public class AGradingStatusFilter implements NavigationFilter<GradingStatus>{
 		return GradingStatus.NOT_FULLY_GRADED;
 	}
 	
-	@Override
-	public String getName() {
-		return NAME;
-	}
-
-	@Override
-	public GradingStatus getParameter() {
-		return parameter;
-	}
+//	@Override
+//	public String getName() {
+//		return NAME;
+//	}
+//
+//	@Override
+//	public GradingStatus getParameter() {
+//		return parameter;
+//	}
+//
+//	@Override
+//	public void setParameter(GradingStatus newValue) {
+//		Object oldValue = parameter;
+//		parameter = newValue;
+//		propertyChangeSupport.firePropertyChange("parameter", oldValue, newValue);
+//		
+//	}
+//
+//	@Override
+//	public void addPropertyChangeListener(PropertyChangeListener aListener) {
+//		propertyChangeSupport.addPropertyChangeListener(aListener);
+//		
+//	}
 
 }
