@@ -733,6 +733,16 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		}
 	}
 	public boolean nonBlockingRunProjectsInteractively() {
+		try {
+			return nonBlockingRunProjectsInteractively("");
+		} catch (MissingOnyenException e) {
+			// unreachable code
+			e.printStackTrace();
+			return false;
+		}
+	}
+	@Override
+	public boolean nonBlockingRunProjectsInteractively(String aGoToOnyen) throws MissingOnyenException {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
 		Object frame = aProjectStepper.getFrame();
@@ -741,7 +751,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 //		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
 
 		aProjectStepper.configureNavigationList();
-		boolean retVal = aProjectStepper.runProjectsInteractively();
+		boolean retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
 		if (!retVal  ) {
 			dispose(frame);
 		}

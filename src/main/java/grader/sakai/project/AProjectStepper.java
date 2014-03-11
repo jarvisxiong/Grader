@@ -999,10 +999,12 @@ public class AProjectStepper extends AClearanceManager implements
 	// // should put person in skipped list
 	//
 	// }
+	
+	boolean noNextFilteredRecords;
 
 	@Override
 	public boolean preNext() {
-		return preProceed() && currentOnyenIndex < onyens.size() - 1;
+		return !noNextFilteredRecords && preProceed() && currentOnyenIndex < onyens.size() - 1;
 		// this does not make sense, next is a stronger condition than next
 
 		// return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
@@ -1026,10 +1028,11 @@ public class AProjectStepper extends AClearanceManager implements
 		// should put person in skipped list
 
 	}
+	boolean noPreviousFilteredRecords;
 
 	@Override
 	public boolean prePrevious() {
-		return currentOnyenIndex > 0;
+		return !noPreviousFilteredRecords && currentOnyenIndex > 0;
 	}
 
 	@Row(13)
@@ -1381,12 +1384,13 @@ public class AProjectStepper extends AClearanceManager implements
 			changed = true;
 			setComputedFeedback();
 			setGradingFeatureColors();
+			aGradingFeature.setSelected(true); 
 			
 			}
 
-			aGradingFeature.setSelected(true); 
+			
 		} else if (evt.getSource() instanceof GradingFeature
-				&& evt.getPropertyName().equalsIgnoreCase("selected")) {
+				&& evt.getPropertyName().equalsIgnoreCase("selected") && !settingUpProject) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
 			if ((Boolean) evt.getNewValue()) {
 				setSelectedFeature(gradingFeature);
@@ -1411,9 +1415,9 @@ public class AProjectStepper extends AClearanceManager implements
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
 		}
-		
-		refreshSelectedFeature();
-		if (!settingUpProject) {
+		if (!settingUpProject) { 
+		refreshSelectedFeature(); // we know a user action occurred
+	
 		propertyChangeSupport.firePropertyChange("this", null, this); // an
 																		// event
 																		// from
@@ -1488,20 +1492,38 @@ public class AProjectStepper extends AClearanceManager implements
 		
 
 	}
+	
+	public boolean runProjectsInteractively() {
+	
+			try {
+				return runProjectsInteractively("");
+			} catch (MissingOnyenException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace(); // this cannot happen
+				return false;
+			}
+	}
+	
 
 	@Override
-	public boolean runProjectsInteractively() {
-		// onyens = projectDatabase.getOnyenNavigationList();
-
-		// nextOnyenIndex = 0;
-		// if (nextOnyenIndex >= onyens.size())
-		// return;
+	public boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException {
+		
 		if (!preRunProjectsInteractively()) {
 			Tracer.error("Projects not configured");
 			hasMoreSteps = false;
 			return false;
 		}
-		String anOnyen = onyens.get(currentOnyenIndex);
+		
+		String anOnyen = aGoToOnyen;
+		if (aGoToOnyen.isEmpty()) {
+		
+			anOnyen= onyens.get(currentOnyenIndex);
+		} else {
+			currentOnyenIndex = onyens.indexOf(anOnyen);
+			if (currentOnyenIndex == -1) {
+				throw new MissingOnyenException(anOnyen);
+			}
+		}
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
 		projectDatabase.initIO();
 
@@ -1549,6 +1571,22 @@ public class AProjectStepper extends AClearanceManager implements
 		projectDatabase.initIO();
 		projectDatabase.recordWindows();
 	}
+	
+	void setFailedMoveFlags(boolean forward) {
+		if (forward)
+			noNextFilteredRecords = true;
+		else
+			noPreviousFilteredRecords = true;
+	}
+	
+	void setSuccessfulMoveFlags(boolean forward) {
+		if (forward)
+			noNextFilteredRecords = false;
+		else
+			noPreviousFilteredRecords = false;
+	}
+	
+	
 
 	@Override
 	public synchronized boolean move(boolean forward) {
@@ -1594,9 +1632,10 @@ public class AProjectStepper extends AClearanceManager implements
 					e.printStackTrace(); // this should never be executed
 				}
 				Tracer.error("Cannot move as no more records that satisfy selection condition");
+				setFailedMoveFlags(forward);
 			} else {
 				filteredOnyenIndex = currentOnyenIndex;
-				
+				setSuccessfulMoveFlags(forward);
 			}
 			return retVal;
 		}
