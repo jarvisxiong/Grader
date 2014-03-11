@@ -11,4 +11,6 @@ public interface NavigationFilterSetter extends PropertyChangeListener, Property
 
 	Object getFilterParameter();
 
+	void setFilterParameter(Object newVal);
+
 }

@@ -147,6 +147,8 @@ public class AProjectStepper extends AClearanceManager implements
 		skippedFile = aProjectDatabase.getAssigmentDataFolder()
 				.getSkippedIdFileName();
 		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
+//		graderSettings.getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
+		getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
 		
 		// recordWindows(); // the first project does not wait so we need to
 		// record here
@@ -1414,6 +1416,9 @@ public class AProjectStepper extends AClearanceManager implements
 			changed = true;
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
+		} else if (evt.getSource() == getNavigationSetter().getAutomaticNavigationSetter()) {
+			noNextFilteredRecords = false;
+			noPreviousFilteredRecords = false;
 		}
 		if (!settingUpProject) { 
 		refreshSelectedFeature(); // we know a user action occurred
