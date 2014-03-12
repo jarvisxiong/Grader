@@ -1,4 +1,4 @@
-package grader.sakai.project;
+package grader.project.graded;
 
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
@@ -8,12 +8,15 @@ import util.models.LabelBeanModel;
 import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
+import grader.sakai.project.MissingOnyenException;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
 
 import java.beans.PropertyChangeListener;
 
 
-public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
+public interface GradedProjectNavigator  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
 	public boolean setProject(SakaiProject newVal) ;
 	
 	public void output();
@@ -85,12 +88,6 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	void validate();
 
 	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException;
-
-	void setName(String newVal);
-
-	String getName();
-
-	String getOnyen();
 	
 
 }

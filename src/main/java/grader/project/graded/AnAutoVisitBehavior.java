@@ -1,4 +1,4 @@
-package grader.sakai.project;
+package grader.project.graded;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.CheckResult;
@@ -20,6 +20,10 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.sakai.project.MissingOnyenException;
+import grader.sakai.project.ProjectStepper;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.settings.navigation.NavigationKind;
 import grader.settings.navigation.NavigationSetter;
@@ -78,7 +82,7 @@ import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-public class AProjectStepper extends AClearanceManager implements
+public class AnAutoVisitBehavior extends AClearanceManager implements
 		ProjectStepper {
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
@@ -131,7 +135,7 @@ public class AProjectStepper extends AClearanceManager implements
 	// FinalGradeRecorder totalScoreRecorder() {
 	// return projectDatabase.getTotalScoreRecorder();
 	// }
-	public AProjectStepper() {
+	public AnAutoVisitBehavior() {
 		photoLabelBeanModel = new ALabelBeanModel("");
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
@@ -163,7 +167,6 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@ComponentWidth(150)
 	@Row(0)
-	@Override
 	public String getOnyen() {
 		return onyen;
 	}
@@ -193,7 +196,7 @@ public class AProjectStepper extends AClearanceManager implements
 			e.printStackTrace();
 		}
 	}
-	@Override
+	
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		internalSetOnyen(anOnyen);
 		manualOnyen = true;
@@ -270,7 +273,7 @@ public class AProjectStepper extends AClearanceManager implements
 	public void setAutoAutoGrade(boolean newVal) {
 		boolean oldVal = autoAutoGrade;
 		autoAutoGrade = newVal;
-		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, getOnyen());
+		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, onyen);
 
 
 	}
@@ -281,11 +284,10 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(1)
 	@ComponentWidth(150)
-	@Override
 	public String getName() {
 		return name;
 	}
-	@Override
+
 	public void setName(String newVal) {
 		name = newVal;
 		// System.out.println("name changed to" + newVal);
@@ -476,7 +478,7 @@ public class AProjectStepper extends AClearanceManager implements
 		nextDocumentIndex = 0;
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
-		double savedScore = featureGradeRecorder.getGrade(getName(), onyen);
+		double savedScore = featureGradeRecorder.getGrade(name, onyen);
 		
 		setInternalScore(savedScore);
 		if (!shouldVisit()) {
@@ -715,7 +717,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@ComponentWidth(100)
 	public void run() {
 		runExecuted = true;
-		projectDatabase.runProject(getOnyen(), project);
+		projectDatabase.runProject(onyen, project);
 		project.setHasBeenRun(true);
 		for (GradingFeature gradingFeature : projectDatabase
 				.getGradingFeatures()) {
@@ -830,7 +832,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
-		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+		featureGradeRecorder.setGrade(name, onyen, newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		setOverallNotes(notesGenerator.appendNotes(
 				getOverallNotes(), 
@@ -917,12 +919,12 @@ public class AProjectStepper extends AClearanceManager implements
 			// in memory save
 			features.get(i).setResult(result);
 			// save to the excel file so we can read it later
-			featureGradeRecorder.setResult(getName(), getOnyen(), features.get(i).getFeature(), 
+			featureGradeRecorder.setResult(name, onyen, features.get(i).getFeature(), 
 					result);			
 			features.get(i).setScore(score);
 
 			// Save the score
-			featureGradeRecorder.setGrade(getName(), getOnyen(), features.get(i)
+			featureGradeRecorder.setGrade(name, onyen, features.get(i)
 					.getFeature(), score);
 		}
 		setComputedFeedback();
@@ -981,7 +983,7 @@ public class AProjectStepper extends AClearanceManager implements
 		try {
 			// Common.appendText(logFile, onyen + " Skipped " +
 			// Common.currentTimeAsDate() + "\n\r");
-			Common.appendText(gradedFile, getOnyen() + "\n");
+			Common.appendText(gradedFile, onyen + "\n");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1023,9 +1025,9 @@ public class AProjectStepper extends AClearanceManager implements
 	public synchronized void next() {
 
 		try {
-			// Common.appendText(logFile, getOnyen() + " Skipped " +
+			// Common.appendText(logFile, onyen + " Skipped " +
 			// Common.currentTimeAsDate() + "\n");
-			Common.appendText(skippedFile, getOnyen() + "\n");
+			Common.appendText(skippedFile, onyen + "\n");
 			List<String> list = FileProxyUtils.toList(new File(logFile));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1107,7 +1109,7 @@ public class AProjectStepper extends AClearanceManager implements
 	public void internalSetMultiplier(double newValue) {
 		double oldValue = multiplier;
 		multiplier = newValue;
-		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
+		featureGradeRecorder.setEarlyLatePoints(name, onyen,
 				multiplier);
 		setMultiplierColor();
 		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
@@ -1324,7 +1326,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	String getSavedResult(GradingFeature aGradingFeature) {
-		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeature());
+		return featureGradeRecorder.getResult(name, onyen, aGradingFeature.getFeature());
 	}
 
 	String getInMemoryResult(GradingFeature aGradingFeature) {
@@ -1673,7 +1675,7 @@ public class AProjectStepper extends AClearanceManager implements
 		try {
 			// Common.appendText(logFile, onyen + " Skipped " +
 			// Common.currentTimeAsDate() + "\n\r");
-			Common.appendText(gradedFile, getOnyen() + "\n");
+			Common.appendText(gradedFile, onyen + "\n");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1716,7 +1718,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	public static void main(String[] args) {
-		ObjectEditor.edit(new AProjectStepper());
+		ObjectEditor.edit(new AnAutoVisitBehavior());
 	}
 
 }
