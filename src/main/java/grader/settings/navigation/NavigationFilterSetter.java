@@ -9,8 +9,8 @@ public interface NavigationFilterSetter extends PropertyChangeListener, Property
 
 	DynamicEnum getNavigationFilterType();
 
-	Object getFilterParameter();
+	Object getParameter();
 
-	void setFilterParameter(Object newVal);
+	void setParameter(Object newVal);
 
 }
