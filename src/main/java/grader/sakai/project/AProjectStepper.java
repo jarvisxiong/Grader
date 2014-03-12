@@ -193,9 +193,12 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 	}
 	
-
-	
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
+		internalSetOnyen(anOnyen);
+		manualOnyen = true;
+	}
+	
+	 void internalSetOnyen(String anOnyen) throws MissingOnyenException {
 		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
 		int onyenIndex = onyens.indexOf(anOnyen);
@@ -223,7 +226,7 @@ public class AProjectStepper extends AClearanceManager implements
 //			projectDatabase.runProject(anOnyen, project);
 //		if (autoAutoGrade)
 //			autoGrade();
-		manualOnyen = true;
+//		manualOnyen = true;
 
 		// projectDatabase.runProjectInteractively(anOnyen, this);
 		// onyen = anOnyen;
@@ -1632,7 +1635,7 @@ public class AProjectStepper extends AClearanceManager implements
 			if (!retVal && filteredOnyenIndex != currentOnyenIndex) {
 				currentOnyenIndex = filteredOnyenIndex;
 				try {
-					setOnyen(onyens.get(filteredOnyenIndex));
+					internalSetOnyen(onyens.get(filteredOnyenIndex));
 				} catch (MissingOnyenException e) {
 					e.printStackTrace(); // this should never be executed
 				}
