@@ -1416,7 +1416,7 @@ public class AProjectStepper extends AClearanceManager implements
 			changed = true;
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
-		} else if (evt.getSource() == getNavigationSetter().getAutomaticNavigationSetter()) {
+		} else if (evt.getSource() == getNavigationSetter().getNavigationFilterSetter()) {
 			noNextFilteredRecords = false;
 			noPreviousFilteredRecords = false;
 		}

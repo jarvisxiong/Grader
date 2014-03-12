@@ -46,6 +46,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 		if (filterNamesList.size() > 0) {
 		  currentNavigationFilterName =  filterNamesList.get(0);
 		  currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
+		  currentNavigationFilter.addPropertyChangeListener(this);
 		}
 	}
 	
@@ -66,11 +67,11 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	@Row(3)
 	@PreferredWidgetClass(JRadioButton.class)
 	@Label("Filter Options")
-	public Object getFilterParameter() {
+	public Object getParameter() {
 		return currentNavigationFilter.getParameter();
 	}
 	@Override
-	public void setFilterParameter(Object newVal) {
+	public void setParameter(Object newVal) {
 		Object oldVal = currentNavigationFilter.getParameter();
 		currentNavigationFilter.setParameter(newVal);
 //		propertyChangeSupport.firePropertyChange("FilterParameter", oldVal, newVal);
@@ -84,7 +85,10 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 			Object oldParameters = currentNavigationFilter.getParameter();
 			currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
 			Object newParameters = currentNavigationFilter.getParameter();
-			propertyChangeSupport.firePropertyChange("FilterParameter", oldParameters, newParameters);
+			propertyChangeSupport.firePropertyChange("Parameter", oldParameters, newParameters);
+		} else if (anEvent.getSource() == currentNavigationFilter) {
+			// assuming the property names are the same in both objects, maybe bad idea
+			propertyChangeSupport.firePropertyChange(anEvent.getPropertyName(), anEvent.getOldValue(), anEvent.getNewValue());
 		}
 		
 		
