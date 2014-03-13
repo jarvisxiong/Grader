@@ -320,12 +320,27 @@ public class AGradingFeature implements GradingFeature {
 		return isRestriction? score== 0:score == maxScore;
 	}
 	
+	
+	@Override
 	public void setFullCredit(boolean newVal) {
 		if (newVal) {
 			setScore(isRestriction? 0:maxScore);
 		}
 	}
+	boolean validate;
+	@Override
+	@util.annotations.Explanation("is validated credit tooltip")
+	@Position(7)
+	@ComponentWidth(90)
+	public boolean isValidate() {
+		return validate;
+	}
 	
+	public void setValidate(boolean newVal) {		
+		validate = newVal;
+		propertyChangeSupport.firePropertyChange("Validate", false, true);
+
+	}
 	
 	@Visible(false)
 	@Override
@@ -411,7 +426,7 @@ public class AGradingFeature implements GradingFeature {
 	boolean isSelected;
 
 	@util.annotations.Explanation("test")
-	@Position(7)
+	@Position(8)
 	@ComponentWidth(80)
 	public boolean isSelected() {
 		return isSelected;

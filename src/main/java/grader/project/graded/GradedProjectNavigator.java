@@ -16,28 +16,28 @@ import grader.settings.navigation.NavigationSetter;
 import java.beans.PropertyChangeListener;
 
 
-public interface GradedProjectNavigator  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
+public interface GradedProjectNavigator   extends /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{
 	public boolean setProject(SakaiProject newVal) ;
 	
-	public void output();
+//	public void output();
 	
-	public void sources() ;
-	public double getScore() ;
-	public void setScore(double newVal) ;
-	public  void waitForClearance() ;
+//	public void sources() ;
+//	public double getScore() ;
+//	public void setScore(double newVal) ;
+//	public  void waitForClearance() ;
 	public SakaiProjectDatabase getProjectDatabase() ;
 
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) ;
-	public void setOnyen(String anOnyen) throws MissingOnyenException ;
-	public boolean setProject(String anOnyen) ;
-	public boolean isAutoRun() ;
-    public void setAutoRun(boolean newVal);
-    public void autoRun() ;
-    public boolean hasMoreSteps();
+//	public void setOnyen(String anOnyen) throws MissingOnyenException ;
+//	public boolean setProject(String anOnyen) ;
+//	public boolean isAutoRun() ;
+//    public void setAutoRun(boolean newVal);
+//    public void autoRun() ;
+//    public boolean hasMoreSteps();
 	
-	public void setHasMoreSteps(boolean newVal);
+//	public void setHasMoreSteps(boolean newVal);
     public SakaiProject getProject();
-    boolean runProjectsInteractively();
+//    boolean runProjectsInteractively();
     public void configureNavigationList();
 
 	boolean preDone();
@@ -48,15 +48,15 @@ public interface GradedProjectNavigator  extends ClearanceManager, PropertyListe
 //
 //	void setNavigationFilter(String newVal);
 
-	boolean preGetGradingFeatures();
+//	boolean preGetGradingFeatures();
 
-	boolean preAutoGrade();
+//	boolean preAutoGrade();
 
-	void autoGrade();
+//	void autoGrade();
 
-	GradingFeatureList getGradingFeatures();
+//	GradingFeatureList getGradingFeatures();
 
-	boolean isAllGraded();
+//	boolean isAllGraded();
 
 	boolean preNext();
 
@@ -66,28 +66,32 @@ public interface GradedProjectNavigator  extends ClearanceManager, PropertyListe
 
 	void previous();
 
-	boolean preRunProjectsInteractively();
+//	boolean preRunProjectsInteractively();
 
 	boolean move(boolean forward);
-	public boolean isAutoAutoGrade() ;
-    public void setAutoAutoGrade(boolean newVal) ;
-    public void autoAutoGrade() ;
+//	public boolean isAutoAutoGrade() ;
+//    public void setAutoAutoGrade(boolean newVal) ;
+//    public void autoAutoGrade() ;
 
-	void setFrame(Object aFrame);
+	boolean isProceedWhenDone();
 
-	Object getFrame();
+	void toggleProceedWhenDone();
 
-	LabelBeanModel getPhoto();
+//	void setFrame(Object aFrame);
+//
+//	Object getFrame();
+//
+//	LabelBeanModel getPhoto();
+//
+//	String getFeedback();
 
-	String getFeedback();
+//	String getTranscript();
 
-	String getTranscript();
+//	NavigationSetter getNavigationSetter();
 
-	NavigationSetter getNavigationSetter();
+//	void validate();
 
-	void validate();
-
-	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException;
+//	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException;
 	
 
 }

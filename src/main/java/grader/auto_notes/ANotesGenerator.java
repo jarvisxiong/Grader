@@ -16,7 +16,9 @@ public class ANotesGenerator implements NotesGenerator{
 //	}	
 	public String validationNotes (ProjectStepper aProjectStepper, GradingFeature aGradingFeature) {
 //		return " " + aGradingFeature.getFeature() + " auto grading validated.";
-		return "Validated.";
+		String retVal = "Validated by instructor.";
+		if (aGradingFeature.getNotes().contains(retVal)) return "";
+		return retVal;
 	}
 	
 	public String totalScoreOverrideNotes (ProjectStepper aProjectStepper, double oldVal, double newVal) {
@@ -24,7 +26,8 @@ public class ANotesGenerator implements NotesGenerator{
 	}
 	
 	public String autoFeatureScoreOverrideNotes (ProjectStepper aProjectStepper, GradingFeature aGradingFeature, double oldVal, double newVal) {
-		return  "Score manually changed from " + oldVal + " to " + newVal + "." ;
+//		return  "Score manually changed from " + oldVal + " to " + newVal + "." ;
+		return  "";
 	}
 	
 	public String multiplierOverrideNotes (ProjectStepper aProjectStepper, double oldVal, double newVal) {
@@ -34,6 +37,8 @@ public class ANotesGenerator implements NotesGenerator{
 	public  String appendNotes (String existingNotes, String newNotes) {
 		if (existingNotes == null || existingNotes.isEmpty())
 			return newNotes;
+		if (newNotes == null || newNotes.isEmpty())
+			return existingNotes;
 		return existingNotes + " " + newNotes;
 		
 	}

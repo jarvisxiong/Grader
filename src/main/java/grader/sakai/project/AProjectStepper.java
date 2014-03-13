@@ -198,8 +198,8 @@ public class AProjectStepper extends AClearanceManager implements
 		internalSetOnyen(anOnyen);
 		manualOnyen = true;
 	}
-	
-	 void internalSetOnyen(String anOnyen) throws MissingOnyenException {
+	@Override
+	public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
 		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
 		int onyenIndex = onyens.indexOf(anOnyen);
@@ -416,8 +416,8 @@ public class AProjectStepper extends AClearanceManager implements
 		return stringBuffer;
 
 	}
-	
-	void setStoredOutput () {
+	@Override
+	public void setStoredOutput () {
 		StringBuffer currentOutput = Common.toText(project.getOutputFileName());		
 		 project.setCurrentOutput(currentOutput);
 		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
@@ -438,6 +438,7 @@ public class AProjectStepper extends AClearanceManager implements
 	// Josh: We want to know when a project is set, so I'm adding the project
 	// property change event here.
 	@Visible(false)
+	@Override
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
@@ -665,8 +666,8 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 		
 	}
-	
-	void setColors() {
+	@Override
+	public void setColors() {
 		// no incremental updates as score and other properties change during auto grade
 		if (settingUpProject) 
 		    return;
@@ -952,12 +953,25 @@ public class AProjectStepper extends AClearanceManager implements
 			return null;
 
 	}
+	boolean proceedWhenDone = true;
+	@Visible(false)
+	@Override
+	public boolean isProceedWhenDone() {
+		return proceedWhenDone;
+		
+	}
+	@Override
+	public void toggleProceedWhenDone() {
+		proceedWhenDone = !proceedWhenDone;
+	}
 
 	public boolean preProceed() {
 		// if manuelOnyen then we will go to next step
 		// cannot proceed if it is not all graded
 		// why check for manualOnyen?
-		return (hasMoreSteps || manualOnyen) && isAllGraded();
+		// removing first clause
+		return //(hasMoreSteps || manualOnyen) && 
+				isAllGraded() || !proceedWhenDone;
 	}
 
 	public boolean preSkip() {
@@ -1039,7 +1053,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Override
 	public boolean prePrevious() {
-		return !noPreviousFilteredRecords && currentOnyenIndex > 0;
+		return !noPreviousFilteredRecords && preProceed() && currentOnyenIndex > 0;
 	}
 
 	@Row(13)
@@ -1063,9 +1077,16 @@ public class AProjectStepper extends AClearanceManager implements
 	
 	void validate (GradingFeature aGradingFeature) {
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-		setManualNotes(notesGenerator.appendNotes(
-				getManualNotes(), 
-				notesGenerator.validationNotes(this, aGradingFeature)));
+		String newNotes = notesGenerator.appendNotes(
+				aGradingFeature.getNotes(), 
+				notesGenerator.validationNotes(this, aGradingFeature));
+		aGradingFeature.setNotes(newNotes);
+		if (selectedGradingFeature == aGradingFeature) {
+			setManualNotes(newNotes);
+		}
+//		setManualNotes(notesGenerator.appendNotes(
+//				getManualNotes(), 
+//				notesGenerator.validationNotes(this, aGradingFeature)));
 		
 //		
 //		String aNotes = projectDatabase.getNotesGenerator().validationNotes(this, aGradingFeature);
@@ -1103,7 +1124,7 @@ public class AProjectStepper extends AClearanceManager implements
 	public double getMultiplier() {
 		return multiplier;
 	}
-	
+	@Override
 	public void internalSetMultiplier(double newValue) {
 		double oldValue = multiplier;
 		multiplier = newValue;
@@ -1135,6 +1156,10 @@ public class AProjectStepper extends AClearanceManager implements
 	public String getAutoNotes() {
 		return autoNotes;
 	}
+	@Override
+	public void internalSetAutoNotes(String newVal) {
+		autoNotes = newVal;
+	}
 
 	@Row(17)
 	@ComponentWidth(400)
@@ -1146,8 +1171,8 @@ public class AProjectStepper extends AClearanceManager implements
 	public boolean preSetManualNotes() {
 		return selectedGradingFeature != null;
 	}
-
-	void internalSetNotes(String newVal) {
+    @Override
+	public void internalSetNotes(String newVal) {
 		String oldVal = manualNotes;
 
 		manualNotes = newVal;
@@ -1162,8 +1187,8 @@ public class AProjectStepper extends AClearanceManager implements
 
 		propertyChangeSupport.firePropertyChange("output", oldVal, newVal);
 	}
-
-	void internalSetResult(String newVal) {
+    @Override
+	public void internalSetResult(String newVal) {
 		String oldVal = autoNotes;
 
 		autoNotes = newVal;
@@ -1190,12 +1215,13 @@ public class AProjectStepper extends AClearanceManager implements
 	@Row(18)
 //	@Label("Overall Notes")
 	@ComponentWidth(800)
+	@Override
 	public String getOverallNotes() {
 		return overallNotes;
 
 	}
-
-	void internalSetComments(String newVal) {
+@Override
+	public void internalSetComments(String newVal) {
 		String oldVal = overallNotes;
 
 		overallNotes = newVal;
@@ -1203,7 +1229,7 @@ public class AProjectStepper extends AClearanceManager implements
 		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
 		
 	}
-
+    @Override
 	public void setOverallNotes(String newVal) {
 		internalSetComments(newVal);
 		// String oldVal = newVal;
@@ -1215,14 +1241,14 @@ public class AProjectStepper extends AClearanceManager implements
 		
 
 	}
-
-	void setComputedFeedback() {
+    @Override
+	public void setComputedFeedback() {
 		String oldVal = feedback;
 		feedback = featureGradeRecorder.computeSummary();
 		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
 	}
-
-	void setStoredFeedback() {
+    @Override
+	public void setStoredFeedback() {
 		String oldVal = feedback;
 		feedback = featureGradeRecorder.getStoredSummary();
 		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
@@ -1235,6 +1261,8 @@ public class AProjectStepper extends AClearanceManager implements
 	public LabelBeanModel getPhoto() {
 		return photoLabelBeanModel;
 	}
+	
+	
 	@Row(20)
 	@Override
 	@ComponentWidth(600)
@@ -1365,8 +1393,11 @@ public class AProjectStepper extends AClearanceManager implements
 		if (selectedGradingFeature != null)
 		manualNotes = getNotes(selectedGradingFeature);
 	}
-	
-	void setSelectedFeature (GradingFeature gradingFeature) {
+	@Override
+	public GradingFeature getSelectedGradingFeature() {
+		return selectedGradingFeature;
+	}
+	public void setSelectedFeature (GradingFeature gradingFeature) {
 		
 			manualNotes = getNotes(gradingFeature);
 			autoNotes = getInMemoryResult(gradingFeature);
@@ -1414,6 +1445,13 @@ public class AProjectStepper extends AClearanceManager implements
 				// setNotes("");
 			}
 
+		} else if (evt.getSource() instanceof GradingFeature
+				&& evt.getPropertyName().equalsIgnoreCase("validate") && !settingUpProject) {
+			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
+			validate(gradingFeature);
+			setGradingFeatureColors();
+			gradingFeature.setSelected(true); 
+		
 		} else if (evt.getSource() == this) {
 			// will get even name and onyen changes - let us focus on the changes that really need to be saved in the setters
 			if (!settingUpProject)

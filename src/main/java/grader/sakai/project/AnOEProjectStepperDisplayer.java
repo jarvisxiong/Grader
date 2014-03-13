@@ -17,7 +17,7 @@ public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFr
 		uiFrame oeFrame = ObjectEditor.edit(aProjectStepper);
 		GradingFeatureList gradingFeatures = aProjectStepper.getGradingFeatures();
 		oeFrame.setLocation(0, 0);
-		oeFrame.setSize(770, 800);
+		oeFrame.setSize(830, 800);
 		return oeFrame;
 	}
 

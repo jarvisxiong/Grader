@@ -82,34 +82,33 @@ import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-public class AGradedProjectOverview  implements
-		GradedProjectOverview {
+public class AGradedProjectTextOverview  implements
+		GradedProjectTextOverview {
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
-	GradedProjectTextOverview textOverview;
 //	public final static long UI_LOAD_TIME = 10 * 1000;
 //	boolean firstTime;
 //	String COMMENTS_FILE_PREFIX = "Comments";
 //	// List<OEFrame> oldList;
 //	// Window[] oldWindows;
-//	String name = "";
+	String name = "";
 	SakaiProjectDatabase projectDatabase;
-//	double score;
+	double score;
 //	List<String> documents;
 //	int nextDocumentIndex = 0;
 //	// ideally this stuff should really be done through property change as
 //	// Josh's wrapper does
-//	FeatureGradeRecorder featureGradeRecorder;
-//	double multiplier = 1;
-//	String onyen = "";
-////	String commentsFileName = "";
-//
+	FeatureGradeRecorder featureGradeRecorder;
+	double multiplier = 1;
+	String onyen = "";
+//	String commentsFileName = "";
+
 	SakaiProject project;
-////	framework.project.Project wrappedProject;
-////	// FinalGradeRecorder gradeRecorder;
-////	boolean hasMoreSteps = true;
-//	FinalGradeRecorder totalScoreRecorder;
-//	boolean manualOnyen;
+//	framework.project.Project wrappedProject;
+//	// FinalGradeRecorder gradeRecorder;
+//	boolean hasMoreSteps = true;
+	FinalGradeRecorder totalScoreRecorder;
+	boolean manualOnyen;
 //	String logFile, gradedFile, skippedFile;
 //	String manualNotes = "", autoNotes = "", feedback = "", overallNotes = "";
 //	List<CheckResult> featureResults;
@@ -122,15 +121,15 @@ public class AGradedProjectOverview  implements
 //	ClassAdapter stepperViewAdapter;
 //	ObjectAdapter multiplierAdapter, scoreAdapter, gradingFeaturesAdapter, overallNotesAdapter; 
 //	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
-//	Color currentScoreColor, currentMultiplierColor;
-////	currentOverallNotesColor;
-//	Color nextScoreColor, nextMultiplierColor;
-////	, nextOverallNotesColor;
-//
-////	boolean changed;
+	Color currentScoreColor, currentMultiplierColor;
+//	currentOverallNotesColor;
+	Color nextScoreColor, nextMultiplierColor;
+//	, nextOverallNotesColor;
+
+//	boolean changed;
 	Icon studentPhoto;
 	LabelBeanModel photoLabelBeanModel;
-//	ProjectStepper projectStepper;
+	ProjectStepper projectStepper;
 //	String output = "";
 
 	// FinalGradeRecorder gradeRecorder() {
@@ -139,18 +138,16 @@ public class AGradedProjectOverview  implements
 	// FinalGradeRecorder totalScoreRecorder() {
 	// return projectDatabase.getTotalScoreRecorder();
 	// }
-	public AGradedProjectOverview() {
+	public AGradedProjectTextOverview() {
 		photoLabelBeanModel = new ALabelBeanModel("");
-		textOverview = new AGradedProjectTextOverview();
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
-		textOverview.setProjectDatabase(aProjectDatabase);
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
-//		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
-//		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
-//		projectStepper = projectDatabase.getProjectStepper();
+		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
+		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
+		projectStepper = projectDatabase.getProjectStepper();
 //		registerWithGradingFeatures();
 //		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
@@ -165,19 +162,19 @@ public class AGradedProjectOverview  implements
 		// record here
 
 	}
+
+//	boolean runExecuted;
 //
-////	boolean runExecuted;
-////
-////	boolean runAttempted() {
-////		return runExecuted || isAutoRun() || isAutoAutoGrade();
-////	}
-//
-//	@ComponentWidth(150)
-//	@Row(0)
-//	@Override
-//	public String getOnyen() {
-//		return onyen;
+//	boolean runAttempted() {
+//		return runExecuted || isAutoRun() || isAutoAutoGrade();
 //	}
+
+	@ComponentWidth(150)
+	@Row(0)
+	@Override
+	public String getOnyen() {
+		return onyen;
+	}
 
 //	String getCommentsFileName(SakaiProject aProject) {
 //		return AGradingFeature.getFeedbackFolderName(aProject)
@@ -204,49 +201,49 @@ public class AGradedProjectOverview  implements
 //			e.printStackTrace();
 //		}
 //	}
-//	@Override
-//	public void setOnyen(String anOnyen) throws MissingOnyenException {
-//		internalSetOnyen(anOnyen);
-//		manualOnyen = true;
-//	}
-//	@Override
-//	 public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
-//		// project = projectDatabase.getProject(anOnyen);
-//		String oldOnyen = onyen;
-//		// this stuff will go into basic project or project stepper
-////		int onyenIndex = onyens.indexOf(anOnyen);
-////		if (onyenIndex < 0) {
-////			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-////			throw new MissingOnyenException(anOnyen);
-//////			return;
-//////		}
-////		currentOnyenIndex = onyenIndex;
-////		maybeSaveState();
-////		redirectProject();
-////		boolean retVal = setProject(anOnyen);
-////		if (!retVal) {
-////			onyen = oldOnyen;
-////			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
+	@Override
+	public void setOnyen(String anOnyen) throws MissingOnyenException {
+		internalSetOnyen(anOnyen);
+		manualOnyen = true;
+	}
+	@Override
+	 public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
+		// project = projectDatabase.getProject(anOnyen);
+		String oldOnyen = onyen;
+		// this stuff will go into basic project or project stepper
+//		int onyenIndex = onyens.indexOf(anOnyen);
+//		if (onyenIndex < 0) {
+//			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
+//			throw new MissingOnyenException(anOnyen);
 ////			return;
 ////		}
-//		// again this will void a getter call when properties are redisplayed
-//		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+//		currentOnyenIndex = onyenIndex;
+//		maybeSaveState();
+//		redirectProject();
+//		boolean retVal = setProject(anOnyen);
+//		if (!retVal) {
+//			onyen = oldOnyen;
+//			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
+//			return;
+//		}
+		// again this will void a getter call when properties are redisplayed
+		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+
+		// set project does most of this except the output files part
+//		projectDatabase.resetRunningProject(project);
 //
-//		// set project does most of this except the output files part
-////		projectDatabase.resetRunningProject(project);
-////
-////		if (autoRun)
-////			projectDatabase.runProject(anOnyen, project);
-////		if (autoAutoGrade)
-////			autoGrade();
-////		manualOnyen = true;
-//
-//		// projectDatabase.runProjectInteractively(anOnyen, this);
-//		// onyen = anOnyen;
-//		// setProject( projectDatabase.getProject(anOnyen));
-//		// projectDatabase.
-//
-//	}
+//		if (autoRun)
+//			projectDatabase.runProject(anOnyen, project);
+//		if (autoAutoGrade)
+//			autoGrade();
+//		manualOnyen = true;
+
+		// projectDatabase.runProjectInteractively(anOnyen, this);
+		// onyen = anOnyen;
+		// setProject( projectDatabase.getProject(anOnyen));
+		// projectDatabase.
+
+	}
 
 //	public void setProject(String anOnyen) {
 //
@@ -291,32 +288,32 @@ public class AGradedProjectOverview  implements
 //		autoAutoGrade = !autoAutoGrade;
 //	}
 
-//	@Row(1)
-//	@ComponentWidth(150)
-//	@Override
-//	public String getName() {
-//		return name;
-//	}
-//	@Override
-//	public void setName(String newVal) {
-//		name = newVal;
-//		// System.out.println("name changed to" + newVal);
-//		// as we are postponing notfications, sending the name change is useful
-//		 propertyChangeSupport.firePropertyChange("Name", null, newVal);
-////		notifyPreconditionChanged();
-//		// System.out.println("precondition notified");
-//	}
+	@Row(1)
+	@ComponentWidth(150)
+	@Override
+	public String getName() {
+		return name;
+	}
+	@Override
+	public void setName(String newVal) {
+		name = newVal;
+		// System.out.println("name changed to" + newVal);
+		// as we are postponing notfications, sending the name change is useful
+		 propertyChangeSupport.firePropertyChange("Name", null, newVal);
+//		notifyPreconditionChanged();
+		// System.out.println("precondition notified");
+	}
 
 //	void notifyPreconditionChanged() {
 //		propertyChangeSupport.firePropertyChange("this", null, this);
 //
 //	}
 
-//	@Row(2)
-//	@ComponentWidth(150)
-//	public double getScore() {
-//		return score;
-//	}
+	@Row(2)
+	@ComponentWidth(150)
+	public double getScore() {
+		return score;
+	}
 
 //	void registerWithGradingFeatures() {
 //		if (projectDatabase == null)
@@ -377,10 +374,10 @@ public class AGradedProjectOverview  implements
 //		setScore(aScore);
 //	}
 
-//	@Visible(false)
-//	public SakaiProject getProject() {
-//		return project;
-//	}
+	@Visible(false)
+	public SakaiProject getProject() {
+		return project;
+	}
 
 //	public static void writeScores(ProjectStepper aProjectStepper) {
 //		ScoreFeedback scoreFeedback = aProjectStepper.getProjectDatabase().getScoreFeedback();
@@ -549,7 +546,7 @@ public class AGradedProjectOverview  implements
 //		internalSetComments(readComments(project));
 		
 		
-		studentPhoto = projectDatabase.getStudentPhoto(textOverview.getOnyen(), project);
+		studentPhoto = projectDatabase.getStudentPhoto(onyen, project);
 				
 //				projectDatabase.getPhotoReader().getIcon(onyen);
 //		photoLabelBeanModel.setIcon(studentPhoto);
@@ -561,7 +558,7 @@ public class AGradedProjectOverview  implements
 		}
 		settingUpProject = false;
 //		setScore();
-//		setColors();
+		setColors();
 //		if (!shouldVisit()) {
 //			return false;
 //		}
@@ -605,10 +602,10 @@ public class AGradedProjectOverview  implements
 //		setColor ( "GradingFeatures." + index, nextColors.get(index));
 //		currentColors.set(index, nextColors.get(index));		
 //	}
-//	void setColor(String aPath, Color aColor) {
-//		propertyChangeSupport.firePropertyChange(aPath, null, 
-//				new Attribute(AttributeNames.CONTAINER_BACKGROUND, aColor));
-//	}
+	void setColor(String aPath, Color aColor) {
+		propertyChangeSupport.firePropertyChange(aPath, null, 
+				new Attribute(AttributeNames.CONTAINER_BACKGROUND, aColor));
+	}
 //	public void computeNextColors() {
 ////		List<Color> colors = new ArrayList();
 //		int i = 0;
@@ -621,21 +618,21 @@ public class AGradedProjectOverview  implements
 //		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 //		
 //	}
-//	void setMultiplierColor() {
-//		if (settingUpProject) return;
-//		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
-//		if (currentMultiplierColor == nextMultiplierColor ) return;
-//		setColor("Multiplier",  nextMultiplierColor);
-//		currentMultiplierColor = nextMultiplierColor;
-//
-//	}
-//	void setScoreColor() {
-//		if (settingUpProject) return;
-//		nextScoreColor = projectDatabase.getScoreColorer().color(score);
-//		if (currentScoreColor == nextScoreColor ) return;
-//		setColor("Score",  nextScoreColor);
-//		currentScoreColor = nextScoreColor;
-//	}
+	void setMultiplierColor() {
+		if (settingUpProject) return;
+		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
+		if (currentMultiplierColor == nextMultiplierColor ) return;
+		setColor("Multiplier",  nextMultiplierColor);
+		currentMultiplierColor = nextMultiplierColor;
+
+	}
+	void setScoreColor() {
+		if (settingUpProject) return;
+		nextScoreColor = projectDatabase.getScoreColorer().color(score);
+		if (currentScoreColor == nextScoreColor ) return;
+		setColor("Score",  nextScoreColor);
+		currentScoreColor = nextScoreColor;
+	}
 	
 //	void setOverallNotesColor() {
 //		if (settingUpProject) return;
@@ -679,17 +676,17 @@ public class AGradedProjectOverview  implements
 //		
 //	}
 	
-//	void setColors() {
-//		// no incremental updates as score and other properties change during auto grade
-//		if (settingUpProject) 
-//		    return;
-////		computeNextColors();
-////		setGradingFeatureColors();
-//		setMultiplierColor();
-////		setOverallNotesColor();
-//		setScoreColor();
-//		
-//	}
+	void setColors() {
+		// no incremental updates as score and other properties change during auto grade
+		if (settingUpProject) 
+		    return;
+//		computeNextColors();
+//		setGradingFeatureColors();
+		setMultiplierColor();
+//		setOverallNotesColor();
+		setScoreColor();
+		
+	}
 	
 //	void displayColors() {
 //		for (int i = 0; i < gradingObjectAdapters.size(); i++) {
@@ -795,29 +792,29 @@ public class AGradedProjectOverview  implements
 //				.getCommentsFileName());
 //	}
 
-//	void setInternalScore(double newVal) {
-//		score = newVal;
-//		if (!settingUpProject) {
-//			setScoreColor();
-//			propertyChangeSupport.firePropertyChange("Score", null, newVal);
-//		}
-//	}
-//
-//	void setGrade(double newVal) {
-//		// This will be a spurious message to conglomerate as t serves as total
-//		// and feature recorder
-//		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
-//		totalScoreRecorder.setGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen(),
-//				newVal);
-//
-//	}
-//
-//	double getGrade() {
-//		return totalScoreRecorder.getGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen());
-//
-//	}
+	void setInternalScore(double newVal) {
+		score = newVal;
+		if (!settingUpProject) {
+			setScoreColor();
+			propertyChangeSupport.firePropertyChange("Score", null, newVal);
+		}
+	}
+
+	void setGrade(double newVal) {
+		// This will be a spurious message to conglomerate as t serves as total
+		// and feature recorder
+		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
+		totalScoreRecorder.setGrade(project.getStudentAssignment()
+				.getStudentName(), project.getStudentAssignment().getOnyen(),
+				newVal);
+
+	}
+
+	double getGrade() {
+		return totalScoreRecorder.getGrade(project.getStudentAssignment()
+				.getStudentName(), project.getStudentAssignment().getOnyen());
+
+	}
 
 //	void setGrade(String aFeature, double newVal) {
 //		if (!settingUpProject)
@@ -834,33 +831,33 @@ public class AGradedProjectOverview  implements
 //
 //	}
 
-//	@Override
-//	public void setScore(double newVal) {
-//		if (score == newVal) return;
-//		double oldVal = score;
-//		setInternalScore(newVal);
-//		if (totalScoreRecorder != null)
-//
-//			// if (gradeRecorder != null)
-//			setGrade(newVal);
-//		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
-//		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-//		projectStepper.setOverallNotes(notesGenerator.appendNotes(
-//				projectStepper.getOverallNotes(), 
-//				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
+	@Override
+	public void setScore(double newVal) {
+		if (score == newVal) return;
+		double oldVal = score;
+		setInternalScore(newVal);
+		if (totalScoreRecorder != null)
+
+			// if (gradeRecorder != null)
+			setGrade(newVal);
+		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		projectStepper.setOverallNotes(notesGenerator.appendNotes(
+				projectStepper.getOverallNotes(), 
+				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
+		
 //		
-////		
-////		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
-////		String oldOverallNotes = getOverallNotes();
-////		String newNotes = oldOverallNotes + " " + aNotes;
-////		setOverallNotes(newNotes);
-//		
-//		
-//		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
-//		// project.getStudentAssignment().getOnyen(), newVal);
-//		// score = newVal;
-//		// propertyChangeSupport.firePropertyChange("Score", null, newVal);
-//	}
+//		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
+//		String oldOverallNotes = getOverallNotes();
+//		String newNotes = oldOverallNotes + " " + aNotes;
+//		setOverallNotes(newNotes);
+		
+		
+		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
+		// project.getStudentAssignment().getOnyen(), newVal);
+		// score = newVal;
+		// propertyChangeSupport.firePropertyChange("Score", null, newVal);
+	}
 
 //	@Override
 //	public boolean preGetGradingFeatures() {
@@ -1112,34 +1109,34 @@ public class AGradedProjectOverview  implements
 //		runProjectsInteractively();
 //	}
 
-//	@Row(15)
-//	public double getMultiplier() {
-//		return multiplier;
-//	}
-//	
-//	public void internalSetMultiplier(double newValue) {
-//		double oldValue = multiplier;
-//		multiplier = newValue;
-//		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
-//				multiplier);
-//		setMultiplierColor();
-//		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
-//	}
-//	
-//	public void setMultiplier(double newValue) {
-//		double oldVal = multiplier;
-//		if (oldVal == newValue) return;
-//		internalSetMultiplier(newValue);
-//		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-//		projectStepper.setOverallNotes(notesGenerator.appendNotes(
-//				projectStepper.getOverallNotes(), 
-//				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
-////		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
-////		String oldOverallNotes = getOverallNotes();
-////		String newNotes = oldOverallNotes + " " + aNotes;
-////		setOverallNotes(newNotes);
-//		
-//	}
+	@Row(3)
+	public double getMultiplier() {
+		return multiplier;
+	}
+	
+	public void internalSetMultiplier(double newValue) {
+		double oldValue = multiplier;
+		multiplier = newValue;
+		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
+				multiplier);
+		setMultiplierColor();
+		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
+	}
+	
+	public void setMultiplier(double newValue) {
+		double oldVal = multiplier;
+		if (oldVal == newValue) return;
+		internalSetMultiplier(newValue);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		projectStepper.setOverallNotes(notesGenerator.appendNotes(
+				projectStepper.getOverallNotes(), 
+				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
+//		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
+//		String oldOverallNotes = getOverallNotes();
+//		String newNotes = oldOverallNotes + " " + aNotes;
+//		setOverallNotes(newNotes);
+		
+	}
 
 //	@Row(16)
 //	@ComponentWidth(400)
@@ -1241,13 +1238,13 @@ public class AGradedProjectOverview  implements
 //		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
 //	}
 	
-	@Column(0)
-	@ComponentHeight(80)
-	@ComponentWidth(80)
-	@Override
-	public LabelBeanModel getPhoto() {
-		return photoLabelBeanModel;
-	}
+//	@Row(19)
+//	@ComponentHeight(100)
+//	@ComponentWidth(100)
+//	@Override
+//	public LabelBeanModel getPhoto() {
+//		return photoLabelBeanModel;
+//	}
 //	@Row(20)
 //	@Override
 //	@ComponentWidth(600)
@@ -1714,70 +1711,22 @@ public class AGradedProjectOverview  implements
 //		return frame;
 //	}
 	
-//	@Override
-//	public void computeNextColors() {
-////		List<Color> colors = new ArrayList();
-////		int i = 0;
-////		for (GradingFeature aGradingFeature:projectDatabase.getGradingFeatures()) {
-////			nextColors.set(i, projectDatabase.getGradingFeatureColorer().color(aGradingFeature) );
-////			i++;
-////		}
-//		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
-//		nextScoreColor = projectDatabase.getScoreColorer().color(score);
-////		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
-//		
-//	}
-//	@Visible(true)
-	@Column(1)
-	public GradedProjectTextOverview getTextOverview() {
-		return textOverview;
-	}
-	public void setTextOverview(GradedProjectTextOverview textOverview) {
-		this.textOverview = textOverview;
-	}
-	
-	public void setOnyen(String anOnyen) throws MissingOnyenException {
-		textOverview.setOnyen(anOnyen);
-	}
-//	@Visible(false)
-	public SakaiProject getProject() {
-		return textOverview.getProject();
-	}
-	public String getName() {
-		return textOverview.getName();
-	}
-	public void setName(String newVal) {
-		textOverview.setName(newVal);
-	}
-	public void setScore(double newVal) {
-		textOverview.setScore(newVal);
-	}
-	public double getScore() {
-		return textOverview.getScore();
-	}
-	public double getMultiplier() {
-		return textOverview.getMultiplier();
-	}
-	public void internalSetMultiplier(double newValue) {
-		textOverview.internalSetMultiplier(newValue);
-	}
-	public void setMultiplier(double newValue) {
-		textOverview.setMultiplier(newValue);
-	}
-	public String getOnyen() {
-		return textOverview.getOnyen();
-	}
-	public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
-		textOverview.internalSetOnyen(anOnyen);
-	}
 	@Override
 	public void computeNextColors() {
-		textOverview.computeNextColors();
+//		List<Color> colors = new ArrayList();
+//		int i = 0;
+//		for (GradingFeature aGradingFeature:projectDatabase.getGradingFeatures()) {
+//			nextColors.set(i, projectDatabase.getGradingFeatureColorer().color(aGradingFeature) );
+//			i++;
+//		}
+		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
+		nextScoreColor = projectDatabase.getScoreColorer().color(score);
+//		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		
 	}
+
 	public static void main(String[] args) {
-		ObjectEditor.edit(new AGradedProjectOverview());
+		ObjectEditor.edit(new AGradedProjectTextOverview());
 	}
-	
 
 }
