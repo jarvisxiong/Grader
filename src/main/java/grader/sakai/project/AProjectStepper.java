@@ -1163,6 +1163,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 	@Row(17)
 	@ComponentWidth(400)
+	@PreferredWidgetClass(JTextArea.class)
 //	@Label("Manual Notes:")
 	public String getManualNotes() {
 		return manualNotes;
@@ -1394,6 +1395,7 @@ public class AProjectStepper extends AClearanceManager implements
 		manualNotes = getNotes(selectedGradingFeature);
 	}
 	@Override
+	@Visible(false)
 	public GradingFeature getSelectedGradingFeature() {
 		return selectedGradingFeature;
 	}
