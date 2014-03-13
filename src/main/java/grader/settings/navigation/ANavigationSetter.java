@@ -19,7 +19,7 @@ import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
 public class ANavigationSetter implements NavigationSetter {
-	NavigationKind navigationKind = NavigationKind.AUTOMATIC_THEN_MANUAL;
+	NavigationKind navigationKind = NavigationKind.MANUAL;
 	AutomaticNavigationSetter automaticNavigationSetter = new AnAutomaticNavigationSetter();
 	NavigationFilterSetter navigationFilterSetter = new ANavigationFilterSetter();
 //	DynamicEnum<String> navigationFilterEnum;

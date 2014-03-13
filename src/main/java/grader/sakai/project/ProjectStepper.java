@@ -6,6 +6,7 @@ import util.annotations.Visible;
 import util.misc.ClearanceManager;
 import util.models.LabelBeanModel;
 import util.models.PropertyListenerRegisterer;
+import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
 import grader.settings.navigation.NavigationSetter;
@@ -91,6 +92,36 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	String getName();
 
 	String getOnyen();
+
+	void setOverallNotes(String newVal);
+
+	String getOverallNotes();
+
+	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
+
+	boolean isProceedWhenDone();
+
+	void toggleProceedWhenDone();
+
+	void internalSetMultiplier(double newValue);
+
+	void setComputedFeedback();
+
+	void setStoredFeedback();
+
+	void setStoredOutput();
+
+	GradingFeature getSelectedGradingFeature();
+
+	void internalSetNotes(String newVal);
+
+	void internalSetResult(String newVal);
+
+	void internalSetAutoNotes(String newVal);
+
+	void internalSetComments(String newVal);
+
+	void setColors();
 	
 
 }

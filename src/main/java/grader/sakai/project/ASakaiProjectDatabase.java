@@ -751,7 +751,14 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 //		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
 
 		aProjectStepper.configureNavigationList();
-		boolean retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
+		boolean retVal = false;
+		try {
+		 retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
+		} catch (MissingOnyenException e) {
+			dispose(frame);
+			throw e;
+//			return false;// or could throw the exception to caller, header allows this to happen
+		}
 		if (!retVal  ) {
 			dispose(frame);
 		}

@@ -16,27 +16,27 @@ import grader.settings.navigation.NavigationSetter;
 import java.beans.PropertyChangeListener;
 
 
-public interface GradedProjectOverview  extends GradedProjectTextOverview, /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{
-//	public boolean setProject(SakaiProject newVal) ;
-////	
-////	public void output();
-////	
-////	public void sources() ;
-////	public double getScore() ;
-////	public void setScore(double newVal) ;
-////	public  void waitForClearance() ;
-//	public SakaiProjectDatabase getProjectDatabase() ;
-//
-//	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) ;
-//	public void setOnyen(String anOnyen) throws MissingOnyenException ;
-////	public boolean setProject(String anOnyen) ;
-////	public boolean isAutoRun() ;
-////    public void setAutoRun(boolean newVal);
-////    public void autoRun() ;
-////    public boolean hasMoreSteps();
+public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{
+	public boolean setProject(SakaiProject newVal) ;
 //	
-////	public void setHasMoreSteps(boolean newVal);
-//    public SakaiProject getProject();
+//	public void output();
+//	
+//	public void sources() ;
+//	public double getScore() ;
+//	public void setScore(double newVal) ;
+//	public  void waitForClearance() ;
+	public SakaiProjectDatabase getProjectDatabase() ;
+
+	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) ;
+	public void setOnyen(String anOnyen) throws MissingOnyenException ;
+//	public boolean setProject(String anOnyen) ;
+//	public boolean isAutoRun() ;
+//    public void setAutoRun(boolean newVal);
+//    public void autoRun() ;
+//    public boolean hasMoreSteps();
+	
+//	public void setHasMoreSteps(boolean newVal);
+    public SakaiProject getProject();
 //    boolean runProjectsInteractively();
 //    public void configureNavigationList();
 
@@ -77,27 +77,27 @@ public interface GradedProjectOverview  extends GradedProjectTextOverview, /*Cle
 //
 //	Object getFrame();
 
-	LabelBeanModel getPhoto();
+//	LabelBeanModel getPhoto();
 
-//	String getName();
-//
-//	void setName(String newVal);
-//
-//	void setScore(double newVal);
-//
-//	double getScore();
-//
-//	double getMultiplier();
-//
-//	void internalSetMultiplier(double newValue);
-//
-//	void setMultiplier(double newValue);
-//
-//	String getOnyen();
-//
-//	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
+	String getName();
 
-//	void computeNextColors();
+	void setName(String newVal);
+
+	void setScore(double newVal);
+
+	double getScore();
+
+	double getMultiplier();
+
+	void internalSetMultiplier(double newValue);
+
+	void setMultiplier(double newValue);
+
+	String getOnyen();
+
+	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
+
+	void computeNextColors();
 
 //	String getFeedback();
 //
