@@ -226,8 +226,9 @@ public class AGradedProjectTextOverview  implements
 //			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
 //			return;
 //		}
+		onyen = anOnyen;
 		// again this will void a getter call when properties are redisplayed
-		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+		propertyChangeSupport.firePropertyChange("onyen", oldOnyen, onyen);
 
 		// set project does most of this except the output files part
 //		projectDatabase.resetRunningProject(project);
@@ -477,7 +478,7 @@ public class AGradedProjectTextOverview  implements
 //			e.printStackTrace();
 //		}
 		// setName(project.getStudentAssignment().getStudentDescription());
-		setName(project.getStudentAssignment().getStudentName());
+//		setName(project.getStudentAssignment().getStudentName());
 
 //		documents = project.getStudentAssignment().getDocuments();
 //		resetGradingFeatures();
@@ -556,14 +557,14 @@ public class AGradedProjectTextOverview  implements
 		} else {
 			photoLabelBeanModel.set(APhotoReader.NO_PHOTO_TITLE, studentPhoto);
 		}
-		settingUpProject = false;
+//		settingUpProject = false;
 //		setScore();
 		setColors();
 //		if (!shouldVisit()) {
 //			return false;
 //		}
 		
-		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
+//		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
 
 //		boolean changed = setCurrentColors();
 //		if (changed)
@@ -618,16 +619,18 @@ public class AGradedProjectTextOverview  implements
 //		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 //		
 //	}
-	void setMultiplierColor() {
-		if (settingUpProject) return;
+	@Override
+	public void setMultiplierColor() {
+		if (projectStepper.isSettingUpProject()) return;
 		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
 		if (currentMultiplierColor == nextMultiplierColor ) return;
 		setColor("Multiplier",  nextMultiplierColor);
 		currentMultiplierColor = nextMultiplierColor;
 
 	}
-	void setScoreColor() {
-		if (settingUpProject) return;
+	@Override
+	public void setScoreColor() {
+		if (projectStepper.isSettingUpProject()) return;
 		nextScoreColor = projectDatabase.getScoreColorer().color(score);
 		if (currentScoreColor == nextScoreColor ) return;
 		setColor("Score",  nextScoreColor);
@@ -678,7 +681,7 @@ public class AGradedProjectTextOverview  implements
 	
 	void setColors() {
 		// no incremental updates as score and other properties change during auto grade
-		if (settingUpProject) 
+		if (projectStepper.isSettingUpProject()) 
 		    return;
 //		computeNextColors();
 //		setGradingFeatureColors();
@@ -791,10 +794,10 @@ public class AGradedProjectTextOverview  implements
 //		DocumentDisplayerRegistry.display(project.getStudentAssignment()
 //				.getCommentsFileName());
 //	}
-
-	void setInternalScore(double newVal) {
+@Override
+	public void setInternalScore(double newVal) {
 		score = newVal;
-		if (!settingUpProject) {
+		if (!projectStepper.isSettingUpProject()) {
 			setScoreColor();
 			propertyChangeSupport.firePropertyChange("Score", null, newVal);
 		}
@@ -872,7 +875,7 @@ public class AGradedProjectTextOverview  implements
 //		return /* project.runChecked() && project.canBeRun() && */preGetGradingFeatures();
 //
 //	}
-	boolean settingUpProject;
+//	boolean settingUpProject;
 	//
 //	@Row(8)
 //	@ComponentWidth(100)
@@ -1108,8 +1111,9 @@ public class AGradedProjectTextOverview  implements
 //		configureNavigationList();
 //		runProjectsInteractively();
 //	}
-
+	
 	@Row(3)
+	@Visible(true)
 	public double getMultiplier() {
 		return multiplier;
 	}

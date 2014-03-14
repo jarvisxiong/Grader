@@ -87,6 +87,7 @@ public class AGradedProjectOverview  implements
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
 	GradedProjectTextOverview textOverview;
+	ProjectStepper projectStepper;
 //	public final static long UI_LOAD_TIME = 10 * 1000;
 //	boolean firstTime;
 //	String COMMENTS_FILE_PREFIX = "Comments";
@@ -559,14 +560,14 @@ public class AGradedProjectOverview  implements
 		} else {
 			photoLabelBeanModel.set(APhotoReader.NO_PHOTO_TITLE, studentPhoto);
 		}
-		settingUpProject = false;
+//		settingUpProject = false;
 //		setScore();
 //		setColors();
 //		if (!shouldVisit()) {
 //			return false;
 //		}
 		
-		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
+//		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
 
 //		boolean changed = setCurrentColors();
 //		if (changed)
@@ -621,21 +622,23 @@ public class AGradedProjectOverview  implements
 //		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 //		
 //	}
-//	void setMultiplierColor() {
-//		if (settingUpProject) return;
+//	@Override
+//	public void setMultiplierColor() {
+//		if (projectStepper.) return;
 //		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
 //		if (currentMultiplierColor == nextMultiplierColor ) return;
 //		setColor("Multiplier",  nextMultiplierColor);
 //		currentMultiplierColor = nextMultiplierColor;
 //
 //	}
-//	void setScoreColor() {
+//	@Override
+//	public void setScoreColor() {
 //		if (settingUpProject) return;
 //		nextScoreColor = projectDatabase.getScoreColorer().color(score);
 //		if (currentScoreColor == nextScoreColor ) return;
 //		setColor("Score",  nextScoreColor);
 //		currentScoreColor = nextScoreColor;
-//	}
+	
 	
 //	void setOverallNotesColor() {
 //		if (settingUpProject) return;
@@ -1775,9 +1778,25 @@ public class AGradedProjectOverview  implements
 		textOverview.computeNextColors();
 		
 	}
+	@Override
+	public void setInternalScore(double newVal) {
+		textOverview.setInternalScore(newVal);
+		
+	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectOverview());
 	}
+	@Override
+	public void setMultiplierColor() {
+		textOverview.setMultiplierColor();
+		
+	}
+	@Override
+	public void setScoreColor() {
+		textOverview.setScoreColor();
+		
+	}
+	
 	
 
 }

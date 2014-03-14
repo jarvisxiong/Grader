@@ -102,7 +102,7 @@ public class Driver {
 //            			frame.setSize(550, 250);
             			settingsFrame.setSize(550, 475);
             			settingsModel.awaitBegin();
-            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
+//            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 //            			settingsFrame.dispose();
             	 
             		 
@@ -139,12 +139,16 @@ public class Driver {
                 database.getOrCreateProjectStepper().setAutoAutoGrade(true);
 				while (true) {
 					try {
+						if (settingsModel != null)
+						goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 						boolean retVal = database.nonBlockingRunProjectsInteractively(goToOnyen);
 						if (retVal)
 							break;
+						else
+							Tracer.error("Did not find any entries matching filter. Try again.");
 						
 					} catch (MissingOnyenException moe) {
-						
+						Tracer.error("Student:" + goToOnyen + " not in specified range. Try again.");
 					}
 
 //					boolean retVal = database
@@ -162,7 +166,7 @@ public class Driver {
 //						}
 //						break;
 //					}
-					Tracer.error("Did not find any matching entries. Try again.");
+//					Tracer.error("Did not find any matching entries. Try again.");
 					if (settingsModel != null)
 						settingsModel.awaitBegin();
 //

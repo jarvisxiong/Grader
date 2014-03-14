@@ -156,8 +156,8 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	boolean runExecuted;
-
-	boolean runAttempted() {
+@Override
+	public boolean runAttempted() {
 		return runExecuted || isAutoRun() || isAutoAutoGrade();
 	}
 
@@ -354,13 +354,16 @@ public class AProjectStepper extends AClearanceManager implements
 
 		}
 	}
-
-	void setComputedScore() {
+	@Override
+	public void setComputedScore() {
 		List<GradingFeature> gradingFeatures = projectDatabase
 				.getGradingFeatures();
 		double aScore = 0;
 		for (GradingFeature aGradingFeature : gradingFeatures) {
 			aScore += aGradingFeature.getScore();
+		}
+		if (score < 0) {
+			Tracer.error("Negative computed Score!");
 		}
 		setScore(aScore);
 	}
@@ -442,7 +445,7 @@ public class AProjectStepper extends AClearanceManager implements
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
-		changed = false;
+		setChanged(false);
 		if (newVal == null) {
 			// Josh: Added event
 			propertyChangeSupport.firePropertyChange("Project", null, null);
@@ -562,8 +565,8 @@ public class AProjectStepper extends AClearanceManager implements
 
 		return true;
 	}
-	
-	boolean shouldVisit() {
+	@Override
+	public boolean shouldVisit() {
 		if (manualOnyen)
 			return true;
 		GraderSettingsModel graderSettingsModel = projectDatabase.getGraderSettings();
@@ -609,7 +612,8 @@ public class AProjectStepper extends AClearanceManager implements
 //		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 //		
 //	}
-	void setMultiplierColor() {
+	@Override
+	public void setMultiplierColor() {
 		if (settingUpProject) return;
 		nextMultiplierColor = projectDatabase.getMultiplierColorer().color(multiplier);
 		if (currentMultiplierColor == nextMultiplierColor ) return;
@@ -617,15 +621,16 @@ public class AProjectStepper extends AClearanceManager implements
 		currentMultiplierColor = nextMultiplierColor;
 
 	}
-	void setScoreColor() {
+	@Override
+	public void setScoreColor() {
 		if (settingUpProject) return;
 		nextScoreColor = projectDatabase.getScoreColorer().color(score);
 		if (currentScoreColor == nextScoreColor ) return;
 		setColor("Score",  nextScoreColor);
 		currentScoreColor = nextScoreColor;
 	}
-	
-	void setOverallNotesColor() {
+	@Override
+	public void setOverallNotesColor() {
 		if (settingUpProject) return;
 		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		if (currentOverallNotesColor == nextOverallNotesColor ) return;
@@ -782,8 +787,8 @@ public class AProjectStepper extends AClearanceManager implements
 		DocumentDisplayerRegistry.display(project.getStudentAssignment()
 				.getCommentsFileName());
 	}
-
-	void setInternalScore(double newVal) {
+@Override
+	public void setInternalScore(double newVal) {
 		score = newVal;
 		if (!settingUpProject) {
 			setScoreColor();
@@ -870,7 +875,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Override
 	public void autoGrade() {
 		project.setHasBeenRun(true);
-		changed = true;
+		setChanged (true);
 		project.clearOutput();
 		for (GradingFeature gradingFeature : projectDatabase
 				.getGradingFeatures()) {
@@ -1421,7 +1426,7 @@ public class AProjectStepper extends AClearanceManager implements
 			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
 //			setSelectedFeature(aGradingFeature);// auto select
 			if (!settingUpProject) {
-			changed = true;
+			setChanged(true);
 			setComputedFeedback();
 			setGradingFeatureColors();
 			aGradingFeature.setSelected(true); 
@@ -1458,7 +1463,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// will get even name and onyen changes - let us focus on the changes that really need to be saved in the setters
 			if (!settingUpProject)
 
-			changed = true;
+			setChanged(true);
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
 		} else if (evt.getSource() == getNavigationSetter().getNavigationFilterSetter()) {
@@ -1609,7 +1614,7 @@ public class AProjectStepper extends AClearanceManager implements
 	void maybeSaveState() {
 		// josh's code
 				// no serialization otherwise
-				if (changed || 
+				if (isChanged() || 
 						!featureGradeRecorder.logSaved()) 
 				featureGradeRecorder.finish();
 
@@ -1754,7 +1759,38 @@ public class AProjectStepper extends AClearanceManager implements
 		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		
 	}
-
+	@Override
+	public boolean isChanged() {
+		return changed;
+	}
+	@Override
+	public void setChanged(boolean changed) {
+		this.changed = changed;
+	}
+	@Override
+	public boolean isSettingUpProject() {
+		return settingUpProject;
+	}
+	@Override
+	public void setSettingUpProject(boolean settingUpProject) {
+		this.settingUpProject = settingUpProject;
+	}
+	@Override
+	public int getCurrentOnyenIndex() {
+		return currentOnyenIndex;
+	}
+	@Override
+	public void setCurrentOnyenIndex(int currentOnyenIndex) {
+		this.currentOnyenIndex = currentOnyenIndex;
+	}
+	@Override
+	public int getFilteredOnyenIndex() {
+		return filteredOnyenIndex;
+	}
+	@Override
+	public void setFilteredOnyenIndex(int filteredOnyenIndex) {
+		this.filteredOnyenIndex = filteredOnyenIndex;
+	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AProjectStepper());
 	}

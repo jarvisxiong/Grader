@@ -47,13 +47,13 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	// Josh's wrapper does
 	FeatureGradeRecorder featureGradeRecorder;
 //	double multiplier = 1;
-//	String onyen = "";
+	String onyen = "";
 //	String commentsFileName = "";
 
 	SakaiProject project;
 //	framework.project.Project wrappedProject;
 //	// FinalGradeRecorder gradeRecorder;
-//	boolean hasMoreSteps = true;
+	boolean hasMoreSteps = true;
 //	FinalGradeRecorder totalScoreRecorder;
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
@@ -88,10 +88,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
+		projectStepper = projectDatabase.getProjectStepper();
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
 //		
 		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
-//		graderSettfeatureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
+		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 //		registerWithGradingFeatures();
 		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
@@ -151,42 +152,43 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		manualOnyen = true;
 //	}
 //	
-//	 void internalSetOnyen(String anOnyen) throws MissingOnyenException {
-//		// project = projectDatabase.getProject(anOnyen);
-//		String oldOnyen = onyen;
-//		int onyenIndex = onyens.indexOf(anOnyen);
-//		if (onyenIndex < 0) {
-//			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-//			throw new MissingOnyenException(anOnyen);
-////			return;
-//		}
-//		currentOnyenIndex = onyenIndex;
-//		maybeSaveState();
-//		redirectProject();
-//		boolean retVal = setProject(anOnyen);
-//		if (!retVal) {
-//			onyen = oldOnyen;
-//			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
+	@Override
+	public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
+		// project = projectDatabase.getProject(anOnyen);
+		String oldOnyen = onyen;
+		int onyenIndex = onyens.indexOf(anOnyen);
+		if (onyenIndex < 0) {
+			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
+			throw new MissingOnyenException(anOnyen);
 //			return;
-//		}
-//		// again this will void a getter call when properties are redisplayed
-//		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+		}
+		currentOnyenIndex = onyenIndex;
+		maybeSaveState();
+		redirectProject();
+		boolean retVal = projectStepper.setProject(anOnyen);
+		if (!retVal) {
+			onyen = oldOnyen;
+			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
+			return;
+		}
+		// again this will void a getter call when properties are redisplayed
+		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
+
+		// set project does most of this except the output files part
+//		projectDatabase.resetRunningProject(project);
 //
-//		// set project does most of this except the output files part
-////		projectDatabase.resetRunningProject(project);
-////
-////		if (autoRun)
-////			projectDatabase.runProject(anOnyen, project);
-////		if (autoAutoGrade)
-////			autoGrade();
-////		manualOnyen = true;
-//
-//		// projectDatabase.runProjectInteractively(anOnyen, this);
-//		// onyen = anOnyen;
-//		// setProject( projectDatabase.getProject(anOnyen));
-//		// projectDatabase.
-//
-//	}
+//		if (autoRun)
+//			projectDatabase.runProject(anOnyen, project);
+//		if (autoAutoGrade)
+//			autoGrade();
+//		manualOnyen = true;
+
+		// projectDatabase.runProjectInteractively(anOnyen, this);
+		// onyen = anOnyen;
+		// setProject( projectDatabase.getProject(anOnyen));
+		// projectDatabase.
+
+	}
 
 //	public boolean setProject(String anOnyen) {
 //
@@ -513,8 +515,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //
 		return true;
 	}
-	
-	boolean shouldVisit() {
+	@Override
+	public boolean shouldVisit() {
 		if (manualOnyen)
 			return true;
 		GraderSettingsModel graderSettingsModel = projectDatabase.getGraderSettings();
@@ -1236,24 +1238,24 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		return //(hasMoreSteps || manualOnyen) && 
 				projectStepper.isAllGraded() || !proceedWhenDone;
 	}
-//	@Override
-//	@Visible(false)
-//	public boolean hasMoreSteps() {
-//		return hasMoreSteps;
-//	}
+	@Override
+	@Visible(false)
+	public boolean hasMoreSteps() {
+		return hasMoreSteps;
+	}
 
-//	@Override
-//	@Visible(false)
-//	public void setHasMoreSteps(boolean newVal) {
-//		if (hasMoreSteps == newVal)
-//			return;
-//		hasMoreSteps = newVal;
-//		if (hasMoreSteps == false)
-//			writeScores(projectStepper);
-//
-//		notifyPreconditionChanged();
-//
-//	}
+	@Override
+	@Visible(false)
+	public void setHasMoreSteps(boolean newVal) {
+		if (hasMoreSteps == newVal)
+			return;
+		hasMoreSteps = newVal;
+		if (hasMoreSteps == false)
+			writeScores(projectStepper);
+
+		notifyPreconditionChanged();
+
+	}
 
 	
 
@@ -1268,6 +1270,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
 		propertyChangeSupport.addPropertyChangeListener(aListener);
+	}
+	@Override
+	public void resetNoFilteredRecords() {
+		noNextFilteredRecords = false;
+		noPreviousFilteredRecords = false;
 	}
 
 //	CheckResult checkableToResult(Checkable aCheckable) {
@@ -1451,7 +1458,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	public void configureNavigationList() {
 		onyens = projectDatabase.getOnyenNavigationList();
 		currentOnyenIndex = 0;
-//		hasMoreSteps = true;
+		hasMoreSteps = true;
 	}
 //
 //	@Override
@@ -1589,13 +1596,13 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			currentOnyenIndex++;
 
 			if (currentOnyenIndex >= onyens.size()) {
-//				hasMoreSteps = false;
+				hasMoreSteps = false;
 				return false;
 			}
 		} else {
 			currentOnyenIndex--;
 			if (currentOnyenIndex < 0) {
-//				hasMoreSteps = false;
+				hasMoreSteps = false;
 				return false;
 			}
 
@@ -1657,6 +1664,23 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		move(true);
 	
 
+	}
+	@Override
+	public int getCurrentOnyenIndex() {
+		return currentOnyenIndex;
+	}
+	@Override
+	public void setCurrentOnyenIndex(int currentOnyenIndex) {
+		this.currentOnyenIndex = currentOnyenIndex;
+	}
+	
+	@Override
+	public int getFilteredOnyenIndex() {
+		return filteredOnyenIndex;
+	}
+	@Override
+	public void setFilteredOnyenIndex(int filteredOnyenIndex) {
+		this.filteredOnyenIndex = filteredOnyenIndex;
 	}
 
 //	@Visible(false)
