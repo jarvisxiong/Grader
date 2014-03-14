@@ -122,6 +122,36 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	void internalSetComments(String newVal);
 
 	void setColors();
+
+	boolean isChanged();
+
+	void setChanged(boolean changed);
+
+	void setComputedScore();
+
+	boolean isSettingUpProject();
+
+	void setSettingUpProject(boolean settingUpProject);
+
+	boolean shouldVisit();
+
+	void setInternalScore(double newVal);
+
+	void setMultiplierColor();
+
+	void setScoreColor();
+
+	void setOverallNotesColor();
+
+	boolean runAttempted();
+
+	int getCurrentOnyenIndex();
+
+	void setCurrentOnyenIndex(int currentOnyenIndex);
+
+	int getFilteredOnyenIndex();
+
+	void setFilteredOnyenIndex(int filteredOnyenIndex);
 	
 
 }

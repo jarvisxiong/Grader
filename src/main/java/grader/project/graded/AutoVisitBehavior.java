@@ -73,6 +73,8 @@ public interface AutoVisitBehavior  extends  PropertyListenerRegisterer{
     public void setAutoAutoGrade(boolean newVal) ;
     public void autoAutoGrade() ;
 
+	boolean runAttempted();
+
 //	void setFrame(Object aFrame);
 //
 //	Object getFrame();

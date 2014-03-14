@@ -77,6 +77,24 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 
 	void toggleProceedWhenDone();
 
+	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
+
+	boolean shouldVisit();
+
+	void resetNoFilteredRecords();
+
+	int getCurrentOnyenIndex();
+
+	void setCurrentOnyenIndex(int currentOnyenIndex);
+
+	void setHasMoreSteps(boolean newVal);
+
+	boolean hasMoreSteps();
+
+	int getFilteredOnyenIndex();
+
+	void setFilteredOnyenIndex(int filteredOnyenIndex);
+
 //	void setFrame(Object aFrame);
 //
 //	Object getFrame();

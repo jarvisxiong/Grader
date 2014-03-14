@@ -12,7 +12,7 @@ import bus.uigen.oadapters.ObjectAdapter;
 
 public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFrame> {
 	public uiFrame display(ProjectStepper aProjectStepper) {
-		ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary",  AttributeNames.SCROLLED, true);
+//		ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary",  AttributeNames.SCROLLED, true);
 
 		uiFrame oeFrame = ObjectEditor.edit(aProjectStepper);
 		GradingFeatureList gradingFeatures = aProjectStepper.getGradingFeatures();
