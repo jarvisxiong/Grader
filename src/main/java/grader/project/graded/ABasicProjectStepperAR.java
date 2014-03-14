@@ -12,13 +12,13 @@ public class ABasicProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setMethodAttribute(ABasicProjectStepper.class, "*", AttributeNames.VISIBLE, false);
 
 			
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "ManualNotes", AttributeNames.VISIBLE, true);
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "AutoNotes", AttributeNames.VISIBLE, true);
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
-//
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "Transcript", AttributeNames.VISIBLE, true);
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "GradingFeatures", AttributeNames.VISIBLE, true);
-//			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "GradedProjectNavigator", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "ManualNotes", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "AutoNotes", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
+
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "Transcript", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "GradingFeatures", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "GradedProjectNavigator", AttributeNames.VISIBLE, true);
 
 			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "GradedProjectOverview", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "AutoVisitBehavior", AttributeNames.VISIBLE, true);
