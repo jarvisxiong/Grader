@@ -796,6 +796,7 @@ public class AGradedProjectTextOverview  implements
 //	}
 @Override
 	public void setInternalScore(double newVal) {
+//		if (projectStepper.isChanged()) return;
 		score = newVal;
 		if (!projectStepper.isSettingUpProject()) {
 			setScoreColor();

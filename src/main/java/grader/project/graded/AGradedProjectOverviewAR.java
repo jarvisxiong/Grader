@@ -12,6 +12,8 @@ public class AGradedProjectOverviewAR implements ExecutableCommand{
 //		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "TextEditor", AttributeNames.LABEL_WIDTH, 90);
 
 		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "*", AttributeNames.VISIBLE, false);
+		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "*", AttributeNames.LABELLED, false);
+
 		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "textOverview", AttributeNames.VISIBLE, true);
 		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "photo", AttributeNames.VISIBLE, true);
 

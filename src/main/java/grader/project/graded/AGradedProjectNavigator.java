@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import util.annotations.Column;
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
@@ -40,6 +42,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	// Window[] oldWindows;
 //	String name = "";
 	SakaiProjectDatabase projectDatabase;
+	String navigationDepth = "0/0";
 //	double score;
 //	List<String> documents;
 //	int nextDocumentIndex = 0;
@@ -71,7 +74,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	Color currentScoreColor, currentMultiplierColor, currentOverallNotesColor;
 //	Color nextScoreColor, nextMultiplierColor, nextOverallNotesColor;
 
-	boolean changed;
+//	boolean changed;
 //	Icon studentPhoto;
 //	LabelBeanModel photoLabelBeanModel;
 //	String output = "";
@@ -100,6 +103,9 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				.getGradedIdFileName();
 		skippedFile = aProjectDatabase.getAssigmentDataFolder()
 				.getSkippedIdFileName();
+		// configuteNavigationList does this
+//		setCurrentOnyenIndex(0);
+
 //		ings.getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
 //		getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
 		
@@ -162,7 +168,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			throw new MissingOnyenException(anOnyen);
 //			return;
 		}
-		currentOnyenIndex = onyenIndex;
+//		currentOnyenIndex = onyenIndex;
+		setCurrentOnyenIndex( onyenIndex);
 		maybeSaveState();
 		redirectProject();
 		boolean retVal = projectStepper.setProject(anOnyen);
@@ -393,7 +400,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	// property change event here.
 	@Visible(false)
 	public boolean setProject(SakaiProject newVal) {
-		settingUpProject = true;
+//		settingUpProject = true;
+//		setCurrentOnyenIndex(0);
 //		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 //		changed = false;
 //		if (newVal == null) {
@@ -965,16 +973,20 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 
 	@Override
 	public boolean preNext() {
-		return !noNextFilteredRecords && preProceed() && currentOnyenIndex < onyens.size() - 1;
+		return !noNextFilteredRecords /*&& preProceed()*/ && currentOnyenIndex < onyens.size() - 1;
 		// this does not make sense, next is a stronger condition than next
 
 		// return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
 	}
-
+	@Row(0)
 	@Column(0)
 	@ComponentWidth(100)
 	@Override
 	public synchronized void next() {
+//		if (!preProceed()) {
+//			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the proceed when finished box if you do not want this check.");
+//			return ;
+//		}
 
 		try {
 			// Common.appendText(logFile, getOnyen() + " Skipped " +
@@ -985,7 +997,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 move(true);
+		 userMove(true);
 		// should put person in skipped list
 
 	}
@@ -993,13 +1005,16 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 
 	@Override
 	public boolean prePrevious() {
-		return !noPreviousFilteredRecords && preProceed() && currentOnyenIndex > 0;
+		return !noPreviousFilteredRecords && /*preProceed() &&*/ currentOnyenIndex > 0;
 	}
-
+	@Row(0)
 	@Column(1)
 	@ComponentWidth(100)
 	@Override
 	public synchronized void previous() {
+		
+		
+		// should have a user move
 
 		// try {
 		// Common.appendText(logFile, onyen + " Skipped " +
@@ -1010,7 +1025,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
-		 move(false);
+		 userMove(false);
 		// should put person in skipped list
 
 	}
@@ -1219,7 +1234,9 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	}
 	
 	boolean proceedWhenDone = true;
-	@Visible(false)
+//	@Visible(false)
+	@Row(1)
+	@Column(0)
 	@Override
 	public boolean isProceedWhenDone() {
 		return proceedWhenDone;
@@ -1449,7 +1466,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 
 	List<String> onyens;
-	int currentOnyenIndex = 0;
+	int currentOnyenIndex = -1; // negative so when it is set to zero a proeprty change is fired for navigation status
 	int filteredOnyenIndex = 0;
 //	String nextOnyen;
 //
@@ -1457,7 +1474,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Visible(false)
 	public void configureNavigationList() {
 		onyens = projectDatabase.getOnyenNavigationList();
-		currentOnyenIndex = 0;
+		setCurrentOnyenIndex( 0);
 		hasMoreSteps = true;
 	}
 //
@@ -1550,7 +1567,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	void maybeSaveState() {
 		// josh's code
 				// no serialization otherwise
-				if (changed || 
+				if (projectStepper.isChanged() || 
 						!featureGradeRecorder.logSaved()) 
 				featureGradeRecorder.finish();
 
@@ -1577,11 +1594,18 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			noPreviousFilteredRecords = false;
 	}
 	
-	
+	void userMove(boolean forward) {
+		if (!preProceed()) {
+			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the proceed when done checkbox if you do not want this check.");
+			return ;
+		}
+		move(forward);
+	}
 
 	@Override
 	@Visible(false)
 	public synchronized boolean move(boolean forward) {
+		
 		maybeSaveState();
 //		// josh's code
 //		// no serialization otherwise
@@ -1593,14 +1617,16 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		projectDatabase.resetIO();
 //		projectDatabase.clearWindows();
 		if (forward) {
-			currentOnyenIndex++;
+//			currentOnyenIndex++;
+			setCurrentOnyenIndex(currentOnyenIndex+1);
 
 			if (currentOnyenIndex >= onyens.size()) {
 				hasMoreSteps = false;
 				return false;
 			}
 		} else {
-			currentOnyenIndex--;
+//			currentOnyenIndex--;
+			setCurrentOnyenIndex(currentOnyenIndex-1);
 			if (currentOnyenIndex < 0) {
 				hasMoreSteps = false;
 				return false;
@@ -1617,7 +1643,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		if (!projectSet) {
 			boolean retVal = move(forward);
 			if (!retVal && filteredOnyenIndex != currentOnyenIndex) {
-				currentOnyenIndex = filteredOnyenIndex;
+//				currentOnyenIndex = filteredOnyenIndex;
+				setCurrentOnyenIndex(filteredOnyenIndex);
 				try {
 					projectStepper.internalSetOnyen(onyens.get(filteredOnyenIndex));
 				} catch (MissingOnyenException e) {
@@ -1626,12 +1653,14 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				Tracer.error("Cannot move as no more records that satisfy selection condition");
 				setFailedMoveFlags(forward);
 			} else {
-				filteredOnyenIndex = currentOnyenIndex;
+				setFilteredOnyenIndex(filteredOnyenIndex);
+//				filteredOnyenIndex = currentOnyenIndex;
 				setSuccessfulMoveFlags(forward);
 			}
 			return retVal;
 		}
-		filteredOnyenIndex = currentOnyenIndex;
+//		filteredOnyenIndex = currentOnyenIndex;
+		setFilteredOnyenIndex(filteredOnyenIndex);
 		return true;
 			
 		// these two steps should go into setProject unless there is something
@@ -1646,7 +1675,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 
 	@Override
-	@Column(2)
+//	@Column(2)
+	@Visible(false)
 	@ComponentWidth(100)
 	public synchronized void done() {
 
@@ -1670,8 +1700,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		return currentOnyenIndex;
 	}
 	@Override
-	public void setCurrentOnyenIndex(int currentOnyenIndex) {
-		this.currentOnyenIndex = currentOnyenIndex;
+	public void setCurrentOnyenIndex(int newValue) {
+		if (newValue == currentOnyenIndex) return;
+		this.currentOnyenIndex = newValue;
+		setNavigationDepth();
+		
 	}
 	
 	@Override
@@ -1713,7 +1746,27 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 //		
 //	}
-
+	
+	String computeNavigationDepth() {
+		return "" + (currentOnyenIndex + 1) + "/" + onyens.size();
+	}
+	void setNavigationDepth() {
+		String oldValue = navigationDepth;
+		String newValue = computeNavigationDepth() ;
+		navigationDepth = newValue;
+		propertyChangeSupport.firePropertyChange("navigationDepth", oldValue, newValue);
+		
+		
+	}
+	public void setProceedWhenDone(boolean proceedWhenDone) {
+		this.proceedWhenDone = proceedWhenDone;
+	}
+	@Override
+	@Row(2)
+	@Column(0)
+	public String getNavigationDepth() {
+		return navigationDepth;
+	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectNavigator());
 	}

@@ -95,6 +95,8 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 
 	void setFilteredOnyenIndex(int filteredOnyenIndex);
 
+	String getNavigationDepth();
+
 //	void setFrame(Object aFrame);
 //
 //	Object getFrame();
