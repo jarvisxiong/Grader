@@ -454,9 +454,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			} 
 			if (selectedGradingFeature != null) {
 //		 internalSetOutput( project.getCurrentOutput().toString());
-				internalSetOutput(selectedGradingFeature.getOutput());
+				internalSetTranscript(selectedGradingFeature.getOutput());
 			} else {
-				internalSetOutput(allOutput);
+				internalSetTranscript(allOutput);
 			}
 	}
 
@@ -526,7 +526,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// project.getStudentAssignment().getOnyen()));
 
 		// Josh: Added event
-		propertyChangeSupport.firePropertyChange("Project", null, project);
+		propertyChangeSupport.firePropertyChange("Project", AttributeNames.IGNORE_NOTIFICATION, project);
 
 		featureGradeRecorder.newSession(getOnyen());
 		gradedProjectOverview.setProject(newVal);
@@ -566,12 +566,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// gradePercentage);
 
 		if (selectedGradingFeature != null) {
-			internalSetNotes(getNotes(selectedGradingFeature));
+			internalSetManualNotes(getNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
 			internalSetResult(selectedGradingFeature.getResult());  
 
 		} else {
-			internalSetNotes("");
+			internalSetManualNotes("");
 			autoNotes = "";
 		}
 
@@ -986,7 +986,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	}
 
 	@Override
-	@Row(1)
+//	@Row(1)
+	@Visible(false)
 	public GradingFeatureList getGradingFeatures() {
 		if (projectDatabase != null)
 			return projectDatabase.getGradingFeatures();
@@ -1194,18 +1195,23 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@ComponentWidth(400)
 //	@Label("Auto Notes")
 
+	@Visible(false)
 	public String getAutoNotes() {
 		return autoNotes;
 	}
 	@Override
 	public void internalSetAutoNotes(String newVal) {
+		String oldVal = autoNotes;
 		autoNotes = newVal;
+		propertyChangeSupport.firePropertyChange("autoNotes", oldVal, newVal);
+
 	}
 
 	@Row(3)
 	@ComponentWidth(400)
 	@PreferredWidgetClass(JTextArea.class)
 //	@Label("Manual Notes:")
+	@Visible(false)
 	public String getManualNotes() {
 		return manualNotes;
 	}
@@ -1214,7 +1220,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		return selectedGradingFeature != null;
 	}
     @Override
-	public void internalSetNotes(String newVal) {
+	public void internalSetManualNotes(String newVal) {
 		String oldVal = manualNotes;
 
 		manualNotes = newVal;
@@ -1222,12 +1228,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		propertyChangeSupport.firePropertyChange("manualNotes", oldVal, newVal);
 	}
 	
-	void internalSetOutput(String newVal) {
+	void internalSetTranscript(String newVal) {
 		String oldVal = output;
 
 		output = newVal;
 
-		propertyChangeSupport.firePropertyChange("output", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("transcript", oldVal, newVal);
 	}
     @Override
 	public void internalSetResult(String newVal) {
@@ -1245,7 +1251,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 
 		setComputedFeedback();
-		internalSetNotes(newVal);
+		internalSetManualNotes(newVal);
 		setGradingFeatureColors();
 //		changed = true;
 		// notes = newVal;
@@ -1312,17 +1318,19 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@ComponentWidth(600)
 	@ComponentHeight(100)
 	@PreferredWidgetClass(JTextArea.class)
+	@Visible(false)
 	public String getFeedback() {
 		return feedback;
 
 	}
 	
-	@Visible(true)
+//	@Visible(true)
 	@Row(6)
 //	@Override
 	@ComponentWidth(600)
 	@ComponentHeight(100)
 	@PreferredWidgetClass(JTextArea.class)
+	@Visible(false)
 	public String getTranscript() {
 		return output;
 
@@ -1443,12 +1451,13 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		return selectedGradingFeature;
 	}
 	public void setSelectedFeature (GradingFeature gradingFeature) {
-		
-			manualNotes = getNotes(gradingFeature);
-			autoNotes = getInMemoryResult(gradingFeature);
+			internalSetManualNotes(getNotes(gradingFeature));
+			internalSetAutoNotes(getInMemoryResult(gradingFeature));
+//			manualNotes = getNotes(gradingFeature);
+//			autoNotes = getInMemoryResult(gradingFeature);
 			// log = gradingFeature.getFeature();
 			selectedGradingFeature = gradingFeature;
-			output = selectedGradingFeature.getOutput();
+			internalSetTranscript(selectedGradingFeature.getOutput());
 			unSelectOtherGradingFeatures(gradingFeature);
 		
 	}
@@ -1857,6 +1866,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void resetNoFilteredRecords() {
 		gradedProjectNavigator.resetNoFilteredRecords();
 	}
+	@Visible(false)
 	public int getCurrentOnyenIndex() {
 		return gradedProjectNavigator.getCurrentOnyenIndex();
 	}
@@ -1869,6 +1879,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public boolean hasMoreSteps() {
 		return gradedProjectNavigator.hasMoreSteps();
 	}
+	@Visible(false)	
 	public int getFilteredOnyenIndex() {
 		return gradedProjectNavigator.getFilteredOnyenIndex();
 	}
@@ -1887,6 +1898,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		gradedProjectOverview.setOnyen(anOnyen);
 	}
+	@Visible(false)
 	public String getName() {
 		return gradedProjectOverview.getName();
 	}
@@ -1896,9 +1908,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setScore(double newVal) {
 		gradedProjectOverview.setScore(newVal);
 	}
+	@Visible(false)
 	public double getScore() {
 		return gradedProjectOverview.getScore();
 	}
+	@Visible(false)
 	public double getMultiplier() {
 		return gradedProjectOverview.getMultiplier();
 	}
@@ -1908,6 +1922,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setMultiplier(double newValue) {
 		gradedProjectOverview.setMultiplier(newValue);
 	}
+	@Visible(false)
 	public String getOnyen() {
 		return gradedProjectOverview.getOnyen();
 	}
@@ -1958,6 +1973,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	@Row(0)
 	@Column(0)
+//	@Visible(true)
 	public GradedProjectOverview getGradedProjectOverview() {
 		return gradedProjectOverview;
 	}
@@ -1965,6 +1981,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setGradedProjectOverview(GradedProjectOverview gradedProjectOverview) {
 		this.gradedProjectOverview = gradedProjectOverview;
 	}
+	@Visible(false)
 	public AutoVisitBehavior getAutoVisitBehavior() {
 		return autoVisitBehavior;
 	}

@@ -89,12 +89,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	}
 	
 	public void recordGrade (String[] aRow, int aColumn, double aScore) {
-		if (aScore < 0) {
-			Message.error("negative score!");
-			JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
-			return;
-			
-		}
+		
 		String aGradeCell = aRow[aColumn];
 		aRow[aColumn] = Double.toString(aScore);
 		
@@ -186,6 +181,12 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	@Override
 	public void setGrade(String aStudentName, String anOnyen, double aScore) {
 		try {
+			if (aScore < 0) {
+				Message.error("negative score!");
+				JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
+				return;
+				
+			}
 //			InputStream input = gradeSpreadsheet.getInputStream();
 //			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
 //			List<String[]>  table = csvReader.readAll();

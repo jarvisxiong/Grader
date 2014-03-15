@@ -40,6 +40,7 @@ import grader.project.AProject;
 import grader.project.MainClassFinder;
 import grader.project.Project;
 import grader.project.graded.ABasicProjectStepper;
+import grader.project.graded.AMainProjectStepper;
 import grader.project.graded.AnOverviewProjectStepper;
 import grader.project.source.ClassesTextManager;
 import grader.sakai.ASakaiBulkAssignmentFolder;
@@ -657,7 +658,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public ProjectStepper getOrCreateProjectStepper() {
 		if (projectStepper == null) {
-			projectStepper = new AnOverviewProjectStepper();
+			projectStepper = new AMainProjectStepper();
+
+//			projectStepper = new AnOverviewProjectStepper();
 //		 projectStepper = new ABasicProjectStepper();
 		 
 //		 projectStepper = new AProjectStepper();

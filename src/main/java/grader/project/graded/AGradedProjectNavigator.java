@@ -20,6 +20,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import util.annotations.Column;
+import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -1595,7 +1596,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	
 	void userMove(boolean forward) {
-		if (!preProceed()) {
+		if (!preProceed() && !projectStepper.isSettingUpProject()) {
 			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the proceed when done checkbox if you do not want this check.");
 			return ;
 		}
@@ -1764,6 +1765,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Override
 	@Row(2)
 	@Column(0)
+	@ComponentWidth(30)
+	@ComponentHeight(27)
 	public String getNavigationDepth() {
 		return navigationDepth;
 	}

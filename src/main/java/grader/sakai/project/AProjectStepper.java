@@ -528,12 +528,12 @@ public class AProjectStepper extends AClearanceManager implements
 		// gradePercentage);
 
 		if (selectedGradingFeature != null) {
-			internalSetNotes(getNotes(selectedGradingFeature));
+			internalSetManualNotes(getNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
 			internalSetResult(selectedGradingFeature.getResult());  
 
 		} else {
-			internalSetNotes("");
+			internalSetManualNotes("");
 			autoNotes = "";
 		}
 
@@ -888,7 +888,7 @@ public class AProjectStepper extends AClearanceManager implements
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
-		setComputedScore(); // will trigger change occurred
+//		setComputedScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {
 			// Figure out the score for the feature/restriction
 			double score = (i < featureResults.size()) ? featureResults.get(i)
@@ -931,6 +931,7 @@ public class AProjectStepper extends AClearanceManager implements
 			featureGradeRecorder.setGrade(getName(), getOnyen(), features.get(i)
 					.getFeature(), score);
 		}
+		setComputedScore(); // will trigger change occurred
 		setComputedFeedback();
 		setStoredOutput();
 		// Josh's code from ProjectStepperDisplayerWrapper
@@ -1041,15 +1042,15 @@ public class AProjectStepper extends AClearanceManager implements
 	@Override
 	public synchronized void next() {
 
-		try {
-			// Common.appendText(logFile, getOnyen() + " Skipped " +
-			// Common.currentTimeAsDate() + "\n");
-			Common.appendText(skippedFile, getOnyen() + "\n");
-			List<String> list = FileProxyUtils.toList(new File(logFile));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			// Common.appendText(logFile, getOnyen() + " Skipped " +
+//			// Common.currentTimeAsDate() + "\n");
+//			Common.appendText(skippedFile, getOnyen() + "\n");
+//			List<String> list = FileProxyUtils.toList(new File(logFile));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		 move(true);
 		// should put person in skipped list
 
@@ -1157,7 +1158,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@Row(16)
 	@ComponentWidth(400)
 //	@Label("Auto Notes")
-
+	@Override
 	public String getAutoNotes() {
 		return autoNotes;
 	}
@@ -1170,6 +1171,7 @@ public class AProjectStepper extends AClearanceManager implements
 	@ComponentWidth(400)
 	@PreferredWidgetClass(JTextArea.class)
 //	@Label("Manual Notes:")
+	@Override
 	public String getManualNotes() {
 		return manualNotes;
 	}
@@ -1178,7 +1180,7 @@ public class AProjectStepper extends AClearanceManager implements
 		return selectedGradingFeature != null;
 	}
     @Override
-	public void internalSetNotes(String newVal) {
+	public void internalSetManualNotes(String newVal) {
 		String oldVal = manualNotes;
 
 		manualNotes = newVal;
@@ -1201,7 +1203,7 @@ public class AProjectStepper extends AClearanceManager implements
 
 		propertyChangeSupport.firePropertyChange("AutoNotes", oldVal, newVal);
 	}
-
+    @Override
 	public void setManualNotes(String newVal) {
 		if (preSetManualNotes()) {
 			setNotes(selectedGradingFeature, newVal);
@@ -1209,7 +1211,7 @@ public class AProjectStepper extends AClearanceManager implements
 		}
 
 		setComputedFeedback();
-		internalSetNotes(newVal);
+		internalSetManualNotes(newVal);
 		setGradingFeatureColors();
 //		changed = true;
 		// notes = newVal;

@@ -888,7 +888,7 @@ public class AnAutoVisitBehavior implements
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
-		projectStepper.setComputedScore(); // will trigger change occurred
+//		projectStepper.setComputedScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {
 			// Figure out the score for the feature/restriction
 			double score = (i < featureResults.size()) ? featureResults.get(i)
@@ -931,6 +931,7 @@ public class AnAutoVisitBehavior implements
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
 					.getFeature(), score);
 		}
+		projectStepper.setComputedScore(); // will trigger change occurred
 		projectStepper.setComputedFeedback();
 		projectStepper.setStoredOutput();
 		// Josh's code from ProjectStepperDisplayerWrapper
