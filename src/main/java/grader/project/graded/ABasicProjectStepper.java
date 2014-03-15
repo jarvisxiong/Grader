@@ -566,12 +566,12 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		// gradePercentage);
 
 		if (selectedGradingFeature != null) {
-			internalSetNotes(getNotes(selectedGradingFeature));
+			internalSetManualNotes(getNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
 			internalSetResult(selectedGradingFeature.getResult());  
 
 		} else {
-			internalSetNotes("");
+			internalSetManualNotes("");
 			autoNotes = "";
 		}
 
@@ -1214,7 +1214,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		return selectedGradingFeature != null;
 	}
     @Override
-	public void internalSetNotes(String newVal) {
+	public void internalSetManualNotes(String newVal) {
 		String oldVal = manualNotes;
 
 		manualNotes = newVal;
@@ -1245,7 +1245,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		}
 
 		setComputedFeedback();
-		internalSetNotes(newVal);
+		internalSetManualNotes(newVal);
 		setGradingFeatureColors();
 //		changed = true;
 		// notes = newVal;

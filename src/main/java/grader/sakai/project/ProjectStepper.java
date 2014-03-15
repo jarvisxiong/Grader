@@ -113,7 +113,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	GradingFeature getSelectedGradingFeature();
 
-	void internalSetNotes(String newVal);
+	void internalSetManualNotes(String newVal);
 
 	void internalSetResult(String newVal);
 
@@ -152,6 +152,12 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	int getFilteredOnyenIndex();
 
 	void setFilteredOnyenIndex(int filteredOnyenIndex);
+
+	String getAutoNotes();
+
+	String getManualNotes();
+
+	void setManualNotes(String newVal);
 	
 
 }

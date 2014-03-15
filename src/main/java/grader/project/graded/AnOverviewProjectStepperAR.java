@@ -33,6 +33,8 @@ public class AnOverviewProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setAttribute(AnOverviewProjectStepper.class,  AttributeNames.STRETCHABLE_BY_PARENT, true);
 //			ObjectEditor.setAttribute(AnOverviewProjectStepper.class,  AttributeNames.STRETCH_COLUMNS, true);
 			ObjectEditor.setAttribute(AnOverviewProjectStepper.class,  AttributeNames.STRETCH_ROWS, true);
+			ObjectEditor.setAttribute(AnOverviewProjectStepper.class,  AttributeNames.SHOW_BOUNDARY_LABELS, false);
+
 
 
 
