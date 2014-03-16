@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Label;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -43,7 +44,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	// Window[] oldWindows;
 //	String name = "";
 	SakaiProjectDatabase projectDatabase;
-	String navigationDepth = "0/0";
+	String sequenceNumber = "0/0";
 //	double score;
 //	List<String> documents;
 //	int nextDocumentIndex = 0;
@@ -1704,7 +1705,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	public void setCurrentOnyenIndex(int newValue) {
 		if (newValue == currentOnyenIndex) return;
 		this.currentOnyenIndex = newValue;
-		setNavigationDepth();
+		setSequenceNumber();
 		
 	}
 	
@@ -1748,14 +1749,14 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		
 //	}
 	
-	String computeNavigationDepth() {
+	String computeSequenceNumber() {
 		return "" + (currentOnyenIndex + 1) + "/" + onyens.size();
 	}
-	void setNavigationDepth() {
-		String oldValue = navigationDepth;
-		String newValue = computeNavigationDepth() ;
-		navigationDepth = newValue;
-		propertyChangeSupport.firePropertyChange("navigationDepth", oldValue, newValue);
+	void setSequenceNumber() {
+		String oldValue = sequenceNumber;
+		String newValue = computeSequenceNumber() ;
+		sequenceNumber = newValue;
+		propertyChangeSupport.firePropertyChange("sequenceNumber", oldValue, newValue);
 		
 		
 	}
@@ -1767,8 +1768,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@ComponentWidth(30)
 	@ComponentHeight(27)
-	public String getNavigationDepth() {
-		return navigationDepth;
+	public String getSequenceNumber() {
+		return sequenceNumber;
 	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectNavigator());

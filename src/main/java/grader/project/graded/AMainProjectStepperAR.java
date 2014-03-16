@@ -1,5 +1,7 @@
 package grader.project.graded;
 
+import java.awt.GridBagConstraints;
+
 import javax.swing.JTextArea;
 
 import scala.collection.convert.Wrappers.SetWrapper;
@@ -22,6 +24,8 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "GradingFeatures", AttributeNames.VISIBLE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.LABELLED, false);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.ADD_ANCHOR_CONSTRAINT, GridBagConstraints.PAGE_START);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 0.0);
 
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.VISIBLE, true);
 
@@ -31,11 +35,11 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 
 //			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary", AttributeNames.LABELLED, false);
 //			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "Photo", AttributeNames.LABELLED, false);
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.ACTION_MODE, true);
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);
-
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.ACTION_MODE, true);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);
+//
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
 			
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.PREFERRED_WIDGET, true);
 			
@@ -43,8 +47,12 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.VISIBLE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.SCROLLED, true);			
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.COMPONENT_WIDTH, 600);
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.COMPONENT_HEIGHT, 400);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.COMPONENT_WIDTH, 650);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.COMPONENT_HEIGHT, 240);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_ANCHOR_CONSTRAINT, GridBagConstraints.PAGE_END);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.VERTICAL);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.STRETCHABLE_BY_PARENT, true);
 
 			return null;
 		}

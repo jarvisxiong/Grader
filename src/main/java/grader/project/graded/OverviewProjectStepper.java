@@ -4,4 +4,8 @@ import grader.sakai.project.ProjectStepper;
 
 public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNavigator, GradedProjectOverview{
 
+	String getSource();
+
+	void internalSetSource(String newValue);
+
 }

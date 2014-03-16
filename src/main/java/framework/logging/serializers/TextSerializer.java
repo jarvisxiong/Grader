@@ -116,8 +116,9 @@ public class TextSerializer implements RecordingSessionSerializer {
         	 }
          
              String note = gradingFeature.getNotes();
-             if (!note.isEmpty())
-                 log += note + "\n";
+             if (!note.isEmpty()) {
+                 log += gradingFeature.getFeature() + ": "+  note + "\n";
+             }
          }
          if (hasRestrictions) {
 
