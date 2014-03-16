@@ -91,4 +91,8 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	void setFullCredit(boolean newVal);
 
+	void setValidate(boolean newVal);
+
+	void pureSetValidate(boolean newVal);
+
 }

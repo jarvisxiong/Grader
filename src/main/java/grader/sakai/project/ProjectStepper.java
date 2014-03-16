@@ -158,6 +158,8 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	String getManualNotes();
 
 	void setManualNotes(String newVal);
+
+	void run();
 	
 
 }

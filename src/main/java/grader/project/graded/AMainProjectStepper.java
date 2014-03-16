@@ -15,14 +15,20 @@ import util.annotations.Row;
 import util.annotations.Visible;
 import util.models.LabelBeanModel;
 
-public class AMainProjectStepper implements OverviewProjectStepper {
+public class AMainProjectStepper implements MainProjectStepper {
 	OverviewProjectStepper overviewProjectStepper;
+
+	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
+		overviewProjectStepper = new AnOverviewProjectStepper();
+		overviewProjectStepper.setProjectDatabase(aProjectDatabase);
+	}
 	@Row(0)
 //	@Visible(true)
+	@Override
 	public OverviewProjectStepper getOverviewProjectStepper() {
 		return overviewProjectStepper;
 	}
-
+	@Override
 	public void setOverviewProjectStepper(
 			OverviewProjectStepper overviewProjectStepper) {
 		this.overviewProjectStepper = overviewProjectStepper;
@@ -66,10 +72,7 @@ public class AMainProjectStepper implements OverviewProjectStepper {
 		return overviewProjectStepper.getProjectDatabase();
 	}
 
-	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
-		overviewProjectStepper = new AnOverviewProjectStepper();
-		overviewProjectStepper.setProjectDatabase(aProjectDatabase);
-	}
+	
 
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		overviewProjectStepper.setOnyen(anOnyen);
@@ -275,8 +278,8 @@ public class AMainProjectStepper implements OverviewProjectStepper {
 	}
 
 	@Visible(false) 
-	public String getNavigationDepth() {
-		return overviewProjectStepper.getNavigationDepth();
+	public String getSequenceNumber() {
+		return overviewProjectStepper.getSequenceNumber();
 	}
 
 	public void computeNextColors() {
@@ -404,6 +407,21 @@ public class AMainProjectStepper implements OverviewProjectStepper {
 	@Override
 	public boolean preGetGradingFeatures() {
 		return overviewProjectStepper.preGetGradingFeatures();
+	}
+	@Override
+	@Visible(false)
+	public String getSource() {
+		return overviewProjectStepper.getSource();
+	}
+	@Override
+	public void internalSetSource(String newValue) {
+		
+		overviewProjectStepper.internalSetSource(newValue);
+	}
+	@Override
+	@Visible(true)
+	public void run() {
+		overviewProjectStepper.run();
 	}
 
 }

@@ -170,7 +170,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 
 	}
 
-//	boolean runExecuted;
+	boolean runExecuted;
 //
 //	boolean runAttempted() {
 //		return runExecuted || isAutoRun() || isAutoAutoGrade();
@@ -755,18 +755,18 @@ public class ABasicProjectStepper extends AClearanceManager implements
 
 //	@Row(3)
 //	@ComponentWidth(100)
-//	public void run() {
-//		runExecuted = true;
-//		projectDatabase.runProject(getOnyen(), project);
-//		project.setHasBeenRun(true);
-//		for (GradingFeature gradingFeature : projectDatabase
-//				.getGradingFeatures()) {
-//			if (gradingFeature.isAutoGradable()) {
-//				gradingFeature.firePropertyChange("this", null, gradingFeature);
-//			}
-//		}
-//
-//	}
+	public void run() {
+		runExecuted = true;
+		projectDatabase.runProject(getOnyen(), project);
+		project.setHasBeenRun(true);
+		for (GradingFeature gradingFeature : projectDatabase
+				.getGradingFeatures()) {
+			if (gradingFeature.isAutoGradable()) {
+				gradingFeature.firePropertyChange("this", null, gradingFeature);
+			}
+		}
+
+	}
 
 	void unSelectOtherGradingFeatures(GradingFeature currentGradingFeature) {
 		for (GradingFeature gradingFeature : projectDatabase
@@ -1964,5 +1964,6 @@ public class ABasicProjectStepper extends AClearanceManager implements
 	public static void main(String[] args) {
 		ObjectEditor.edit(new ABasicProjectStepper());
 	}
+	
 
 }

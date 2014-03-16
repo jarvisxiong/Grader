@@ -716,9 +716,10 @@ public class AProjectStepper extends AClearanceManager implements
 		// && !runExecuted
 		;
 	}
-
+	
 	@Row(3)
 	@ComponentWidth(100)
+	@Override
 	public void run() {
 		runExecuted = true;
 		projectDatabase.runProject(getOnyen(), project);

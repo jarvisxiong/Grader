@@ -131,6 +131,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	Icon studentPhoto;
 	LabelBeanModel photoLabelBeanModel;
 	String output = "";
+	String source = "";
 
 	// FinalGradeRecorder gradeRecorder() {
 	// return projectDatabase.getGradeRecorder();
@@ -157,6 +158,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 		registerWithGradingFeatures();
 		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
+//		source = aProjectDatabase.getSourceDisplayer().getAll
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
 //				.getGradedIdFileName();
 //		skippedFile = aProjectDatabase.getAssigmentDataFolder()
@@ -170,7 +172,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	}
 
-//	boolean runExecuted;
+	boolean runExecuted;
 //
 //	boolean runAttempted() {
 //		return runExecuted || isAutoRun() || isAutoAutoGrade();
@@ -261,7 +263,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// TODO Auto-generated catch block
 			e.printStackTrace(); // not sure we will ever come here
 		}
-		return setProject(projectDatabase.getProject(anOnyen));
+		Boolean retVal = setProject(projectDatabase.getProject(anOnyen));
+		internalSetSource(
+				projectDatabase.
+					getProjectStepper().
+						getProject().
+							getClassesTextManager().
+								getAllSourcesText().toString());
+		
+		return retVal;
 
 	}
 
@@ -365,6 +375,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			String result = getSavedResult(aGradingFeature);
 			if (result != "")
 				aGradingFeature.setResult(result);
+			aGradingFeature.pureSetValidate(false);
 
 			// aGradingFeature.initScore(lastScore);
 			// aGradingFeature.setProject(project);
@@ -755,18 +766,19 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 //	@Row(3)
 //	@ComponentWidth(100)
-//	public void run() {
-//		runExecuted = true;
-//		projectDatabase.runProject(getOnyen(), project);
-//		project.setHasBeenRun(true);
-//		for (GradingFeature gradingFeature : projectDatabase
-//				.getGradingFeatures()) {
-//			if (gradingFeature.isAutoGradable()) {
-//				gradingFeature.firePropertyChange("this", null, gradingFeature);
-//			}
-//		}
-//
-//	}
+	@Visible(true)
+	public void run() {
+		runExecuted = true;
+		projectDatabase.runProject(getOnyen(), project);
+		project.setHasBeenRun(true);
+		for (GradingFeature gradingFeature : projectDatabase
+				.getGradingFeatures()) {
+			if (gradingFeature.isAutoGradable()) {
+				gradingFeature.firePropertyChange("this", null, gradingFeature);
+			}
+		}
+
+	}
 
 	void unSelectOtherGradingFeatures(GradingFeature currentGradingFeature) {
 		for (GradingFeature gradingFeature : projectDatabase
@@ -784,6 +796,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		projectDatabase.displayOutput();
 
+	}
+	@Override
+	public void internalSetSource(String newValue) {
+		String oldValue = source;
+		source = newValue;
+		propertyChangeSupport.firePropertyChange("source", oldValue, newValue);
+	}
+	@Override
+	public String getSource() {
+		return source;
 	}
 
 	public boolean preSources() {
@@ -1887,8 +1909,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectNavigator.setFilteredOnyenIndex(filteredOnyenIndex);
 	}
 	@Override
-	public String getNavigationDepth() {
-		return gradedProjectNavigator.getNavigationDepth();
+	public String getSequenceNumber() {
+		return gradedProjectNavigator.getSequenceNumber();
 	}
 
 	@Visible(false)
@@ -1963,11 +1985,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		return autoVisitBehavior.runAttempted();
 	}
 	@Row(0)
-	@Column(1)
+	@Column(21)
 	public GradedProjectNavigator getGradedProjectNavigator() {
 		return gradedProjectNavigator;
 	}
-	public void setGradedProjectNavigator(
+	public void setGadedProjectNavigator(
 			GradedProjectNavigator gradedProjectNavigator) {
 		this.gradedProjectNavigator = gradedProjectNavigator;
 	}

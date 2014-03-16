@@ -335,10 +335,19 @@ public class AGradingFeature implements GradingFeature {
 	public boolean isValidate() {
 		return validate;
 	}
-	
+	@Override
 	public void setValidate(boolean newVal) {		
-		validate = newVal;
+		if (newVal) // let true remain true as once validated, always validated. 
+			validate = newVal;
 		propertyChangeSupport.firePropertyChange("Validate", false, true);
+
+	}
+	
+	@Override
+	public void pureSetValidate(boolean newVal) {
+		boolean oldVal = validate;
+		validate = newVal;
+		propertyChangeSupport.firePropertyChange("Validate", oldVal, newVal);
 
 	}
 	
