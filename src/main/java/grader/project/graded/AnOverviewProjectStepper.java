@@ -67,6 +67,7 @@ import scala.Option;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.ComponentsVisible;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -82,6 +83,7 @@ import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@ComponentsVisible(false)
 public class AnOverviewProjectStepper extends AClearanceManager implements
 		OverviewProjectStepper {
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
@@ -132,6 +134,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	LabelBeanModel photoLabelBeanModel;
 	String output = "";
 	String source = "";
+//	GraderSettingsModel graderSettings;
 
 	// FinalGradeRecorder gradeRecorder() {
 	// return projectDatabase.getGradeRecorder();
@@ -264,12 +267,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			e.printStackTrace(); // not sure we will ever come here
 		}
 		Boolean retVal = setProject(projectDatabase.getProject(anOnyen));
+		SakaiProject project = getProject();
 		internalSetSource(
-				projectDatabase.
-					getProjectStepper().
 						getProject().
-							getClassesTextManager().
-								getAllSourcesText().toString());
+							getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
 		
 		return retVal;
 
@@ -718,8 +719,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 		
 	}
+
+
 	@Override
 	public void setColors() {
+		if (frame == null)
+			return;
 		// no incremental updates as score and other properties change during auto grade
 		if (settingUpProject) 
 		    return;
@@ -807,6 +812,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public String getSource() {
 		return source;
 	}
+	@Override
+	public void setSource(String newVal) {
+		source = newVal;
+		getProject().getClassesTextManager().setEditedAllSourcesText(getProject().getSourceFileName(), newVal);
+		
+	}
 
 	public boolean preSources() {
 		// return project.canBeRun();
@@ -815,8 +826,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	}
 
-	@Row(5)
-	@ComponentWidth(100)
+//	@Row(5)
+//	@ComponentWidth(100)
+	@Visible(true)
 	public void sources() {
 		project.setHasBeenRun(true);
 
@@ -1281,7 +1293,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 
 	}
-
+//	@Visible(true)
 	@Row(1)
 //	@Label("Overall Notes")
 	@PreferredWidgetClass(JTextArea.class)
@@ -1810,6 +1822,18 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			oeFrame = (uiFrame) aFrame;
 //		oeFrame = aFrame;
 //			setObjectAdapters();
+			if (project != null) {
+				projectDatabase.recordWindows();
+				currentColors.clear();
+				nextColors.clear();
+				currentOverallNotesColor = null;
+				for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {
+					currentColors.add(null);
+					nextColors.add(null);
+				}
+				setColors();
+				gradedProjectOverview.setFrame(aFrame);
+			}
 		}
 	}
 
@@ -1876,6 +1900,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public boolean isProceedWhenDone() {
 		return gradedProjectNavigator.isProceedWhenDone();
 	}
+	public boolean preTogglePlayPause() {
+		return gradedProjectNavigator.preTogglePlayPause();
+	}
+	@Override
 	public void toggleProceedWhenDone() {
 		gradedProjectNavigator.toggleProceedWhenDone();
 	}
@@ -1984,18 +2012,19 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public boolean runAttempted() {
 		return autoVisitBehavior.runAttempted();
 	}
+	@Visible(true)
 	@Row(0)
-	@Column(21)
+	@Column(1)
 	public GradedProjectNavigator getGradedProjectNavigator() {
 		return gradedProjectNavigator;
 	}
-	public void setGadedProjectNavigator(
+	public void setGradedProjectNavigator(
 			GradedProjectNavigator gradedProjectNavigator) {
 		this.gradedProjectNavigator = gradedProjectNavigator;
 	}
 	@Row(0)
 	@Column(0)
-//	@Visible(true)
+	@Visible(true)
 	public GradedProjectOverview getGradedProjectOverview() {
 		return gradedProjectOverview;
 	}
@@ -2012,6 +2041,20 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AnOverviewProjectStepper());
+	}
+	@Override
+	public boolean isPlayMode() {
+		// TODO Auto-generated method stub
+		return gradedProjectNavigator.isPlayMode();
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		gradedProjectNavigator.setPlayMode(playMode);
+		
+	}
+	@Override
+	public void togglePlayPause() {
+		gradedProjectNavigator.togglePlayPause();
 	}
 	
 }

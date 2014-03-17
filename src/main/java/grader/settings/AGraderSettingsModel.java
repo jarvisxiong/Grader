@@ -11,10 +11,12 @@ import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGraderSettingsModel implements GraderSettingsModel{
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
 	NavigationSetter navigationSetter = new ANavigationSetter();

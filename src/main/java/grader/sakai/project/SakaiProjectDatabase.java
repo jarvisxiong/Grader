@@ -22,8 +22,15 @@ import java.util.Set;
 
 
 
+
+
+
+
+
+
 import javax.swing.Icon;
 
+import util.misc.ClearanceManager;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
@@ -35,7 +42,10 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
+import grader.navigation.ProjectNavigator;
+import grader.navigation.automatic.AutomaticProjectNavigator;
 import grader.navigation.filter.BasicNavigationFilter;
+import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.PhotoReader;
 import grader.project.Project;
 import grader.sakai.BulkAssignmentFolder;
@@ -152,6 +162,29 @@ public interface SakaiProjectDatabase {
 	boolean nonBlockingRunProjectsInteractively(String aGoToOnyen)
 			throws MissingOnyenException;
 
+	String getSourceSuffix();
+
+	void setSourceSuffix(String sourceSuffix);
+
+	ClearanceManager getClearanceManager();
+
+	void setClearanceManager(ClearanceManager clearanceManager);
+
+	AutomaticProjectNavigator getAutomaticProjectNavigator();
+
+	public void setAutomaticProjectNavigator(
+			AutomaticProjectNavigator automaticProjectNavigator);
+
+	public ManualProjectNavigator getManualProjectNavigator() ;
+
+	public void setManualProjectNavigator(
+			ManualProjectNavigator manualProjectNavigator) ;
+
+	public ProjectNavigator getProjectNavigator() ;
+
+	public void setProjectNavigator(ProjectNavigator projectNavigator) ;
+
+	boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException;
 
 
 

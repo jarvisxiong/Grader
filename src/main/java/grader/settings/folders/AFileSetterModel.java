@@ -9,9 +9,11 @@ import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.models.LabelBeanModel;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AFileSetterModel extends ALabelSetterModel implements FileSetterModel {
 	
 	JFileChooser fileChooser = new JFileChooser();

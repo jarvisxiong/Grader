@@ -137,47 +137,28 @@ public class Driver {
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
                 database.getOrCreateProjectStepper().setAutoAutoGrade(true);
-				while (true) {
-					try {
-						if (settingsModel != null)
-						goToOnyen = settingsModel.getOnyens().getGoToOnyen();
-						boolean retVal = database.nonBlockingRunProjectsInteractively(goToOnyen);
-						if (retVal)
-							break;
-						else
-							Tracer.error("Did not find any entries matching filter. Try again.");
-						
-					} catch (MissingOnyenException moe) {
-						Tracer.error("Student:" + goToOnyen + " not in specified range. Try again.");
-					}
-
-//					boolean retVal = database
-//							.nonBlockingRunProjectsInteractively();
-//					if (retVal) {
-//						if (!goToOnyen.isEmpty()) {
-//							try {
-//								// ASakaiProjectDatabase.setVisible(database.getProjectStepper().getFrame(),
-//								// false);
-//								database.getProjectStepper()
-//										.setOnyen(goToOnyen);
-//							} catch (MissingOnyenException moe) {
-//								continue;
-//							}
-//						}
-//						break;
+                database.getProjectNavigator().navigate(settingsModel, settingsFrame);                
+//				while (true) {
+//					try {
+//						if (settingsModel != null)
+//						goToOnyen = settingsModel.getOnyens().getGoToOnyen();
+//						boolean retVal = database.nonBlockingRunProjectsInteractively(goToOnyen);
+//						if (retVal)
+//							break;
+//						else
+//							Tracer.error("Did not find any entries matching filter. Try again.");
+//						
+//					} catch (MissingOnyenException moe) {
+//						Tracer.error("Student:" + goToOnyen + " not in specified range. Try again.");
 //					}
-//					Tracer.error("Did not find any matching entries. Try again.");
-					if (settingsModel != null)
-						settingsModel.awaitBegin();
+//
+//
+//					if (settingsModel != null)
+//						settingsModel.awaitBegin();
 //
 //				}
-//				// if (!goToOnyen.isEmpty()) {
-//				//
-//				// ASakaiProjectDatabase.setVisible(database.getProjectStepper().getFrame(),
-//				// true);
-				}
-				if (settingsFrame != null)
-					settingsFrame.dispose();
+//				if (settingsFrame != null)
+//					settingsFrame.dispose();
 			}
 
 

@@ -14,7 +14,7 @@ public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStat
 	
 	public AGradingStatusFilter() {
 		name = NAME;
-		parameter =  GradingStatus.NOT_FULLY_GRADED;
+		parameter =  GradingStatus.ALL;
 
 	}
 

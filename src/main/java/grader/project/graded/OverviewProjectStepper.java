@@ -8,4 +8,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	void internalSetSource(String newValue);
 
+	void setSource(String newVal);
+
 }

@@ -14,13 +14,14 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 	
 		public Object execute(Object theFrame) {
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "*", AttributeNames.VISIBLE, false);
-			ObjectEditor.setMethodAttribute(AMainProjectStepper.class, "*", AttributeNames.VISIBLE, false);
+//			ObjectEditor.setMethodAttribute(AMainProjectStepper.class, "*", AttributeNames.VISIBLE, false);
 			ObjectEditor.setAttribute(AMainProjectStepper.class, AttributeNames.LAYOUT, AttributeNames.GRID_BAG_LAYOUT);
 			
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "AutoNotes", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.VISIBLE, true);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);			
 
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "GradingFeatures", AttributeNames.VISIBLE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverviewProjectStepper", AttributeNames.LABELLED, false);
@@ -36,11 +37,16 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 //			ObjectEditor.setPropertyAttribute(AProjectStepper.class, "summary", AttributeNames.LABELLED, false);
 //			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "Photo", AttributeNames.LABELLED, false);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.ACTION_MODE, true);
-//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);
 //
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
-			
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.STRETCHABLE_BY_PARENT, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.SCROLLED, true);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.ACTION_MODE, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
+
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.PREFERRED_WIDGET, true);
 			
 			ObjectEditor.setPreferredWidget(AMainProjectStepper.class, "Transcript", JTextArea.class);

@@ -30,10 +30,14 @@ import util.annotations.Visible;
 import util.misc.Common;
 import util.trace.Tracer;
 import bus.uigen.ObjectEditor;
+import bus.uigen.attributes.AttributeNames;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		GradedProjectNavigator {
+	boolean playMode;
+	
+
 	ProjectStepper projectStepper;
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
@@ -105,6 +109,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				.getGradedIdFileName();
 		skippedFile = aProjectDatabase.getAssigmentDataFolder()
 				.getSkippedIdFileName();
+		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
+
 		// configuteNavigationList does this
 //		setCurrentOnyenIndex(0);
 
@@ -115,6 +121,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// record here
 
 	}
+	@Override
+	public void setFrame(Object aFrame) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 //	boolean runExecuted;
 //
@@ -527,7 +539,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	@Override
 	public boolean shouldVisit() {
-		if (manualOnyen)
+		if (manualOnyen )
 			return true;
 		GraderSettingsModel graderSettingsModel = projectDatabase.getGraderSettings();
 		if (graderSettingsModel == null) return true;
@@ -1030,6 +1042,31 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		 userMove(false);
 		// should put person in skipped list
 
+	}
+	String computeTogglePlayPauseLabel() {
+		return playMode?"Pause":"Play";	
+	}
+	@Override
+	@Visible(false)
+	public boolean isPlayMode() {
+		return playMode;
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		this.playMode = playMode;
+	}
+	@Override
+	public boolean preTogglePlayPause() {
+		return projectDatabase.getGraderSettings().getNavigationSetter().getNavigationKind() != NavigationKind.MANUAL;
+	}
+	@Row(0)
+	@Column(2)
+	@ComponentWidth(100)
+	@Override
+	public void togglePlayPause() {
+		playMode = !playMode;	
+		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
+		
 	}
 	
 //	void validate (GradingFeature aGradingFeature) {
@@ -1771,8 +1808,9 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	public String getSequenceNumber() {
 		return sequenceNumber;
 	}
+	
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectNavigator());
 	}
-
+	
 }

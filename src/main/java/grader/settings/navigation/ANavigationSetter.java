@@ -13,11 +13,13 @@ import javax.swing.JRadioButton;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ANavigationSetter implements NavigationSetter {
 	NavigationKind navigationKind = NavigationKind.MANUAL;
 	AutomaticNavigationSetter automaticNavigationSetter = new AnAutomaticNavigationSetter();

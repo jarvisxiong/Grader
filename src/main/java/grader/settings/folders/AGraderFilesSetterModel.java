@@ -3,10 +3,12 @@ package grader.settings.folders;
 import javax.swing.JFrame;
 
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGraderFilesSetterModel implements GraderFilesSetterModel {
 	FileSetterModel downloadPathModel = new AFileSetterModel();
 	FileSetterModel textEditorPathModel = new AFileSetterModel();

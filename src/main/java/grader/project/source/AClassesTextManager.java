@@ -9,10 +9,13 @@ import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import util.misc.Common;
 
 
 public class AClassesTextManager implements ClassesTextManager {
@@ -31,6 +34,8 @@ public class AClassesTextManager implements ClassesTextManager {
     @Override
     public void writeAllSourcesText(String aFileName) {
         try {
+        	File sourceFile = new File(aFileName);
+        	if (sourceFile.exists()) return;
             PrintWriter out = new PrintWriter(aFileName);
             String allText = getAllSourcesText().toString();
             out.print(allText);
@@ -38,6 +43,24 @@ public class AClassesTextManager implements ClassesTextManager {
         } catch (Exception e) {
 //            e.printStackTrace(); // Commented out by Josh
         }
+    }
+    
+    @Override
+    public void setEditedAllSourcesText(String aFileName, String newValue) {
+        try {
+        	
+            PrintWriter out = new PrintWriter(aFileName);
+            out.print(newValue);
+            out.close();
+        } catch (Exception e) {
+//            e.printStackTrace(); // Commented out by Josh
+        }
+    }
+    @Override
+    public String getEditedAllSourcesText(String aFileName) {
+    	File sourceFile = new File(aFileName);
+    	if (!sourceFile.exists()) writeAllSourcesText(aFileName);
+    	return Common.toText(aFileName).toString();
     }
 
     @Override

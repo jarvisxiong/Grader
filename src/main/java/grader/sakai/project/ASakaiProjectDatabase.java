@@ -31,8 +31,14 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
+import grader.navigation.AProjectNavigator;
+import grader.navigation.ProjectNavigator;
+import grader.navigation.automatic.AnAutomaticProjectNavigator;
+import grader.navigation.automatic.AutomaticProjectNavigator;
 import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
+import grader.navigation.manual.AManualProjectNavigator;
+import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
@@ -53,6 +59,7 @@ import grader.sakai.GenericStudentAssignmentDatabase;
 import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
 import grader.settings.GraderSettingsModel;
+import grader.settings.navigation.AnAutomaticNavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -80,6 +87,8 @@ import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 
+import util.misc.AClearanceManager;
+import util.misc.ClearanceManager;
 import util.misc.Common;
 import util.models.AListenableVector;
 import util.models.Hashcodetable;
@@ -104,6 +113,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	BulkAssignmentFolder bulkFolder;
 //	String assignmentsDataFolderName = DEFAULT_ASSIGNMENT_DATA_FOLDER;
 	String assignmentsDataFolderName;
+	ClearanceManager clearanceManager;
+	ProjectNavigator projectNavigator;
+	ManualProjectNavigator manualProjectNavigator;
+	AutomaticProjectNavigator automaticProjectNavigator;
 
 	AssignmentDataFolder assignmentDataFolder;
 	// String outputFileName;
@@ -206,6 +219,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			multiplierColorer = createMultiplierColorer();
 			overallNotesColorer = createOverallNotesColorer();
 			notesGenerator = createNotesGenerator();
+			clearanceManager = createClearanceManager();
+			projectNavigator = createProjectNavigator();
+			manualProjectNavigator = createManualProjectNavigator();
+			automaticProjectNavigator = createAutomaticProjectNavigator();
 			
 
 			
@@ -217,6 +234,18 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		}
 
 
+
+	private AutomaticProjectNavigator createAutomaticProjectNavigator() {
+		return new AnAutomaticProjectNavigator(this);
+	}
+
+	private ManualProjectNavigator createManualProjectNavigator() {
+		return new AManualProjectNavigator(this);
+	}
+
+	private ProjectNavigator createProjectNavigator() {
+		return new AProjectNavigator(this);
+	}
 
 	public static SakaiProjectDatabase getCurrentSakaiProjectDatabase() {
 		return currentSakaiProjectDatabase;
@@ -786,6 +815,39 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	}
 	@Override
+	public boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException {
+		maybeMakeProjects();
+		ProjectStepper aProjectStepper = getOrCreateProjectStepper();
+//		Object frame = aProjectStepper.getFrame();
+//		setVisible(frame, false);
+		
+//		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
+
+		aProjectStepper.configureNavigationList();
+		boolean retVal = false;
+		try {
+		 retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
+		} catch (MissingOnyenException e) {
+//			dispose(frame);
+			throw e;
+//			return false;// or could throw the exception to caller, header allows this to happen
+		}
+//		if (!retVal  ) {
+//			dispose(frame);
+//		}
+		return retVal;
+//		aProjectStepper.setProjectDatabase(this);
+//		Set<String> onyens = new HashSet(onyenToProject.keySet());
+//		aProjectStepper.setHasMoreSteps(true);
+//		List<String> onyens = getOnyenNavigationList(this);
+//
+//		for (String anOnyen : onyens) {
+//			runProjectInteractively(anOnyen, aProjectStepper);
+//		}
+//		aProjectStepper.setHasMoreSteps(false);
+
+	}
+	@Override
 	public void startProjectStepper() {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
@@ -1238,6 +1300,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected NotesGenerator createNotesGenerator() {
 		return new ANotesGenerator(this);
 	}
+	
+	protected ClearanceManager createClearanceManager() {
+		return new AClearanceManager();
+	}
 
 	@Override
 	public NotesGenerator getNotesGenerator() {
@@ -1246,5 +1312,47 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
     @Override
 	public void setNotesGenerator(NotesGenerator notesGenerator) {
 		this.notesGenerator = notesGenerator;
+	}
+    @Override
+	public String getSourceSuffix() {
+		return sourceSuffix;
+	}
+    @Override
+	public void setSourceSuffix(String sourceSuffix) {
+		this.sourceSuffix = sourceSuffix;
+	}
+    @Override
+	public ClearanceManager getClearanceManager() {
+		return clearanceManager;
+	}
+    @Override
+	public void setClearanceManager(ClearanceManager clearanceManager) {
+		this.clearanceManager = clearanceManager;
+	}
+    @Override
+	public AutomaticProjectNavigator getAutomaticProjectNavigator() {
+		return automaticProjectNavigator;
+	}
+
+	public void setAutomaticProjectNavigator(
+			AutomaticProjectNavigator automaticProjectNavigator) {
+		this.automaticProjectNavigator = automaticProjectNavigator;
+	}
+
+	public ManualProjectNavigator getManualProjectNavigator() {
+		return manualProjectNavigator;
+	}
+
+	public void setManualProjectNavigator(
+			ManualProjectNavigator manualProjectNavigator) {
+		this.manualProjectNavigator = manualProjectNavigator;
+	}
+
+	public ProjectNavigator getProjectNavigator() {
+		return projectNavigator;
+	}
+
+	public void setProjectNavigator(ProjectNavigator projectNavigator) {
+		this.projectNavigator = projectNavigator;
 	}
 }
