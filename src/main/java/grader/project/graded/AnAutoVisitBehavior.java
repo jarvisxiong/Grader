@@ -910,11 +910,11 @@ public class AnAutoVisitBehavior implements
 					.setFeatureResults((i < featureResults.size()) ? featureResults
 							.get(i).getResults() : restrictionResults.get(
 							i - featureResults.size()).getResults());
-			
-			features.get(i).setNotes(
-					(i < featureResults.size()) ? featureResults.get(i)
-							.getNotes() : restrictionResults.get(
-							i - featureResults.size()).getNotes());
+			// do not reset notes read from files
+//			features.get(i).setNotes(
+//					(i < featureResults.size()) ? featureResults.get(i)
+//							.getNotes() : restrictionResults.get(
+//							i - featureResults.size()).getNotes());
 			
 			String result = (i < featureResults.size()) ? featureResults.get(i)
 					.getTarget().getSummary() : restrictionResults

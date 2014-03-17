@@ -106,6 +106,8 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 
 	boolean preTogglePlayPause();
 
+	void save();
+
 
 //	void setFrame(Object aFrame);
 //
