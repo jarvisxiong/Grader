@@ -9,6 +9,15 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 	public void open(GradingFeature element) {
 		element.comment();
 	}
+	@Override
+	public boolean hasASelection() {
+		for (GradingFeature gradingFeature:this) {
+			if (gradingFeature.isSelected())				
+					return true;
+			
+		}
+		return false;
+	}
 	@Visible(false)
 	public boolean isAllGraded() {
 		for (GradingFeature gradingFeature:this) {

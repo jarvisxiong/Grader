@@ -453,23 +453,34 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		return stringBuffer;
 //
 //	}
+	String allOutput;
 	@Override
 	public void setStoredOutput () {
 		StringBuffer currentOutput = Common.toText(project.getOutputFileName());		
 		 project.setCurrentOutput(currentOutput);
 		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
-		 String allOutput = currentOutput.toString();
+		  allOutput = currentOutput.toString();
 
 			for (GradingFeature aGradingFeature : gradingFeatures) {
 				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeature(), allOutput);
 				aGradingFeature.setOutput(output);			
 			} 
-			if (selectedGradingFeature != null) {
-//		 internalSetOutput( project.getCurrentOutput().toString());
-				internalSetTranscript(selectedGradingFeature.getOutput());
-			} else {
-				internalSetTranscript(allOutput);
-			}
+			refreshTranscript();
+//			if (selectedGradingFeature != null) {
+////		 internalSetOutput( project.getCurrentOutput().toString());
+//				internalSetTranscript(selectedGradingFeature.getOutput());
+//			} else {
+//				internalSetTranscript(allOutput);
+//			}
+	}
+	
+	void refreshTranscript() {
+		if (selectedGradingFeature != null) {
+//			 internalSetOutput( project.getCurrentOutput().toString());
+					internalSetTranscript(selectedGradingFeature.getOutput());
+				} else {
+					internalSetTranscript(allOutput);
+				}
 	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
@@ -1478,6 +1489,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void refreshSelectedFeature() {
 		if (selectedGradingFeature != null)
 		manualNotes = getNotes(selectedGradingFeature);
+		else 
+			manualNotes = "";
 	}
 	@Override
 	@Visible(false)
@@ -1527,6 +1540,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //				output = selectedGradingFeature.getOutput();
 //				unSelectOtherGradingFeatures(gradingFeature);
 			} else {
+				if (!projectDatabase.getGradingFeatures().hasASelection()) {
+					setSelectedFeature(null);
+				}
+					
 				// this may be a bounced feature
 				// selectedGradingFeature = null;
 				// unSelectOtherGradingFeatures(null);
