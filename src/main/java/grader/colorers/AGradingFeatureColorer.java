@@ -12,6 +12,7 @@ public class AGradingFeatureColorer implements Colorer<GradingFeature>{
 	Color notGradedExtraCreditColor = Color.BLUE;
 	Color notGradedColor = Color.RED;
 	Color gradedNonFullCreditColor = Color.PINK;
+	Color autoGradableNotGraded = Color.RED;
 
 	public AGradingFeatureColorer(SakaiProjectDatabase aSakaiProjectDatabase) {
 		database = aSakaiProjectDatabase;
@@ -19,7 +20,9 @@ public class AGradingFeatureColorer implements Colorer<GradingFeature>{
 	@Override
 	public Color color(GradingFeature aGradingFeature) {
 		if (!aGradingFeature.getNotes().isEmpty())
-			return hasNotesColor;	
+			return hasNotesColor;
+		if (aGradingFeature.isAutoGradable() && !aGradingFeature.isGraded())
+			return autoGradableNotGraded;
 		// most manual extra credit will not be graded 
 		if (!aGradingFeature.isGraded() && aGradingFeature.isExtraCredit())
 			return notGradedExtraCreditColor;

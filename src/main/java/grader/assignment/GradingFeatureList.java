@@ -7,5 +7,6 @@ public interface GradingFeatureList extends ListenableVector<GradingFeature> {
     public boolean isAllGraded();
     public boolean isAllAutoGraded();
 	boolean hasSomeNotes();
+	boolean hasASelection();
 
 }
