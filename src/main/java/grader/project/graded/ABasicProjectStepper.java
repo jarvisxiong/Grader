@@ -1964,6 +1964,21 @@ public class ABasicProjectStepper extends AClearanceManager implements
 	public static void main(String[] args) {
 		ObjectEditor.edit(new ABasicProjectStepper());
 	}
+	@Override
+	public boolean isPlayMode() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void togglePlayPause() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

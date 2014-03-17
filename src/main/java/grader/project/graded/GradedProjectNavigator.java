@@ -97,6 +97,16 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 
 	String getSequenceNumber();
 
+	boolean isPlayMode();
+
+	void setPlayMode(boolean playMode);
+
+	void togglePlayPause();
+	public void setFrame(Object aFrame);
+
+	boolean preTogglePlayPause();
+
+
 //	void setFrame(Object aFrame);
 //
 //	Object getFrame();

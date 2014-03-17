@@ -1,8 +1,10 @@
 package grader.settings.folders;
 
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import bus.uigen.ObjectEditor;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AnOnyenRangeModel implements OnyenRangeModel{
 	String startingOnyen = "", endingOnyen = "", goToOnyen = "";
     @Row(0)

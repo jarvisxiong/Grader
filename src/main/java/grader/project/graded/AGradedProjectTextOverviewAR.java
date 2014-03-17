@@ -11,7 +11,7 @@ public class AGradedProjectTextOverviewAR implements ExecutableCommand{
 //		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "DownloadFolder", AttributeNames.LABEL_WIDTH, 90);
 //		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "TextEditor", AttributeNames.LABEL_WIDTH, 90);
 
-//		ObjectEditor.setPropertyAttribute(AGradedProjectTextOverview.class, "*", AttributeNames.COMPONENT_WIDTH, 200);
+		ObjectEditor.setPropertyAttribute(AGradedProjectTextOverview.class, "*", AttributeNames.COMPONENT_WIDTH, 200);
 //		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "*", AttributeNames.LABELLED, false);
 //
 //		ObjectEditor.setPropertyAttribute(AGradedProjectOverview.class, "textOverview", AttributeNames.VISIBLE, true);

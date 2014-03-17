@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface ClassesTextManager {
     public static final String DEFAULT_SOURCES_FILE_PREFIX = "sources";
 
-    public static final String DEFAULT_SOURCES_FILE_SUFFIX = ".doc";
+    public static final String DEFAULT_SOURCES_FILE_SUFFIX = ".java";
 
     public static final String DEFAULT_SOURCES_FILE_NAME = DEFAULT_SOURCES_FILE_PREFIX + DEFAULT_SOURCES_FILE_SUFFIX;
 
@@ -27,5 +27,9 @@ public interface ClassesTextManager {
     public void setAllSourcesText(StringBuffer anAllSourcesText);
 
     void writeAllSourcesText(String aFileName);
+
+	void setEditedAllSourcesText(String aFileName, String newValue);
+
+	String getEditedAllSourcesText(String aFileName);
 
 }

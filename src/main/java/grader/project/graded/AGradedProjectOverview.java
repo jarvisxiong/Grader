@@ -1783,12 +1783,15 @@ public class AGradedProjectOverview  implements
 		textOverview.setInternalScore(newVal);
 		
 	}
-	public static void main(String[] args) {
-		ObjectEditor.edit(new AGradedProjectOverview());
-	}
+	
 	@Override
 	public void setMultiplierColor() {
 		textOverview.setMultiplierColor();
+		
+	}
+	@Override
+	public void setFrame(Object aFrame) {
+		textOverview.setFrame(aFrame);
 		
 	}
 	@Override
@@ -1797,6 +1800,9 @@ public class AGradedProjectOverview  implements
 		
 	}
 	
+	public static void main(String[] args) {
+		ObjectEditor.edit(new AGradedProjectOverview());
+	}
 	
 
 }

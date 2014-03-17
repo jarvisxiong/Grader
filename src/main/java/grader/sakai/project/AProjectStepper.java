@@ -1738,9 +1738,12 @@ public class AProjectStepper extends AClearanceManager implements
 		frame = aFrame;
 		if (aFrame instanceof uiFrame) {
 			oeFrame = (uiFrame) aFrame;
+			
 //		oeFrame = aFrame;
 //			setObjectAdapters();
 		}
+		if (project != null)
+			setColors();
 	}
 
 	@Visible(false)
@@ -1796,6 +1799,21 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AProjectStepper());
+	}
+	@Override
+	public boolean isPlayMode() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void togglePlayPause() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

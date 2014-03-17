@@ -16,9 +16,12 @@ import util.annotations.ComponentsVisible;
 import util.annotations.Position;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.models.LabelBeanModel;
 @ComponentsVisible(false)
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AComplexProjectStepper implements ComplexProjectStepper{
 	MainProjectStepper mainProjectStepper;
 	
@@ -89,7 +92,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void propertyChange(PropertyChangeEvent arg0) {
 		mainProjectStepper.propertyChange(arg0);
 	}
-
+	@Visible(true)
 	public void sources() {
 		mainProjectStepper.sources();
 	}
@@ -410,6 +413,28 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void run() {
 		mainProjectStepper.run();
 		
+	}
+	@Override
+	public boolean isPlayMode() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.isPlayMode();
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		mainProjectStepper.setPlayMode(playMode);
+	}
+	@Override
+	public void togglePlayPause() {
+		mainProjectStepper.togglePlayPause();
+	}
+	@Override
+	public void setSource(String newVal) {
+		mainProjectStepper.setSource(newVal);
+		
+	}
+	@Override
+	public boolean preTogglePlayPause() {
+		return mainProjectStepper.preTogglePlayPause();
 	}
 
 }

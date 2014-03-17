@@ -8,8 +8,8 @@ import bus.uigen.undo.ExecutableCommand;
 public class AnOverviewProjectStepperAR implements ExecutableCommand {
 	
 		public Object execute(Object theFrame) {
-			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.VISIBLE, false);
-			ObjectEditor.setMethodAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.VISIBLE, false);
+//			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.VISIBLE, false);
+//			ObjectEditor.setMethodAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.VISIBLE, false);
 //			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABELLED, false);
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABEL, "");
@@ -20,6 +20,7 @@ public class AnOverviewProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "OverallNotes", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 
 
+			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.STRETCHABLE_BY_PARENT, true);
 
 
 //			

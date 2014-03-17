@@ -10,11 +10,18 @@ import grader.settings.navigation.NavigationSetter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JTextArea;
+
+import util.annotations.ComponentHeight;
+import util.annotations.ComponentWidth;
 import util.annotations.Label;
+import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.models.LabelBeanModel;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AMainProjectStepper implements MainProjectStepper {
 	OverviewProjectStepper overviewProjectStepper;
 
@@ -49,7 +56,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void output() {
 		overviewProjectStepper.output();
 	}
-
+	@Visible(true)
 	public void sources() {
 		overviewProjectStepper.sources();
 	}
@@ -136,7 +143,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void autoGrade() {
 		overviewProjectStepper.autoGrade();
 	}
-	@Row(1)
+	@Row(2)
 	public GradingFeatureList getGradingFeatures() {
 		return overviewProjectStepper.getGradingFeatures();
 	}
@@ -205,7 +212,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public String getFeedback() {
 		return overviewProjectStepper.getFeedback();
 	}
-	@Row(4)
+	@Row(5)
 	public String getTranscript() {
 		return overviewProjectStepper.getTranscript();
 	}
@@ -251,7 +258,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.getMultiplier();
 	}
 
-	@Visible(false) 
+	@Visible(true) 
+	@PreferredWidgetClass(JTextArea.class)
+	@ComponentWidth(700)
+	@ComponentHeight(50)
+	@Row(1)
 	public String getOverallNotes() {
 		return overviewProjectStepper.getOverallNotes();
 	}
@@ -386,12 +397,14 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void setFilteredOnyenIndex(int filteredOnyenIndex) {
 		overviewProjectStepper.setFilteredOnyenIndex(filteredOnyenIndex);
 	}
-	@Row(2)
+	@Row(3)
 	@Override
 	public String getAutoNotes() {
 		return overviewProjectStepper.getAutoNotes();
 	}
-	@Row(3)
+	@Row(4)
+	@PreferredWidgetClass(JTextArea.class)
+	@ComponentHeight(30)
 	@Override
 	public String getManualNotes() {
 		// TODO Auto-generated method stub
@@ -422,6 +435,30 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@Visible(true)
 	public void run() {
 		overviewProjectStepper.run();
+	}
+	@Visible(false)
+	@Override
+	public boolean isPlayMode() {
+		return overviewProjectStepper.isPlayMode();
+	}
+	@Override
+	public void setPlayMode(boolean playMode) {
+		overviewProjectStepper.setPlayMode(playMode);
+		
+	}
+	@Override
+	public void togglePlayPause() {
+		overviewProjectStepper.togglePlayPause();
+		
+	}
+	@Override
+	public void setSource(String newVal) {
+		overviewProjectStepper.setSource(newVal);
+		
+	}
+	@Override
+	public boolean preTogglePlayPause() {
+		return overviewProjectStepper.preTogglePlayPause();
 	}
 
 }

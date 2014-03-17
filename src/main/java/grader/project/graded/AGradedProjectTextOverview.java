@@ -142,6 +142,7 @@ public class AGradedProjectTextOverview  implements
 		photoLabelBeanModel = new ALabelBeanModel("");
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
+	
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
@@ -161,6 +162,15 @@ public class AGradedProjectTextOverview  implements
 		// recordWindows(); // the first project does not wait so we need to
 		// record here
 
+	}
+	@Override
+	public void setFrame(Object aFrame) {
+		if (projectStepper.getProject() != null) {
+			currentMultiplierColor = null;
+			currentScoreColor = null;
+			setMultiplierColor();
+			setScoreColor();
+		}
 	}
 
 //	boolean runExecuted;
@@ -1733,5 +1743,6 @@ public class AGradedProjectTextOverview  implements
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectTextOverview());
 	}
+	
 
 }

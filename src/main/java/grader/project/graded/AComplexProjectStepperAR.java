@@ -19,6 +19,8 @@ public class AComplexProjectStepperAR implements ExecutableCommand {
 
 			ObjectEditor.setAttribute(AComplexProjectStepper.class, AttributeNames.STRETCH_ROWS, true);
 			ObjectEditor.setPreferredWidget(AComplexProjectStepper.class, JTabbedPane.class);
+			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "Source", AttributeNames.SCROLLED, true);			
+
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "AutoNotes", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
