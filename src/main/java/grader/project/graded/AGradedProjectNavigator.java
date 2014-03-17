@@ -109,7 +109,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				.getGradedIdFileName();
 		skippedFile = aProjectDatabase.getAssigmentDataFolder()
 				.getSkippedIdFileName();
-		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
+//		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
 
 		// configuteNavigationList does this
 //		setCurrentOnyenIndex(0);
@@ -123,6 +123,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	@Override
 	public void setFrame(Object aFrame) {
+//		computeTogglePlayPauseLabel();
 		// TODO Auto-generated method stub
 		
 	}
@@ -1052,8 +1053,13 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		return playMode;
 	}
 	@Override
-	public void setPlayMode(boolean playMode) {
-		this.playMode = playMode;
+	public void setPlayMode(boolean newValue) {
+		if (newValue == playMode) return;
+		if (!preTogglePlayPause()) return;
+		this.playMode = newValue;
+		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
+
+		
 	}
 	@Override
 	public boolean preTogglePlayPause() {
@@ -1062,10 +1068,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Row(0)
 	@Column(2)
 	@ComponentWidth(100)
+	@Label("Pause") // initially play mode will be true for manual
 	@Override
 	public void togglePlayPause() {
-		playMode = !playMode;	
-		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
+		setPlayMode(!playMode);
+//		playMode = !playMode;	
+//		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
 		
 	}
 	
@@ -1277,6 +1285,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Row(1)
 	@Column(0)
 	@Override
+	@Label("Stop If Not Done")
 	public boolean isProceedWhenDone() {
 		return proceedWhenDone;
 		
@@ -1292,7 +1301,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// why check for manualOnyen?
 		// removing first clause
 		return //(hasMoreSteps || manualOnyen) && 
-				projectStepper.isAllGraded() || !proceedWhenDone;
+				projectStepper.isAllGraded() || !proceedWhenDone || projectDatabase.getGraderSettings().getNavigationSetter().getNavigationKind() != NavigationKind.MANUAL;
 	}
 	@Override
 	@Visible(false)
@@ -1635,7 +1644,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 	void userMove(boolean forward) {
 		if (!preProceed() && !projectStepper.isSettingUpProject()) {
-			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the proceed when done checkbox if you do not want this check.");
+			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the Stop-If-Not-Done checkbox if you do not want this check.");
 			return ;
 		}
 		move(forward);
@@ -1805,8 +1814,16 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@ComponentWidth(30)
 	@ComponentHeight(27)
+	@Label("Onyen Number:")
 	public String getSequenceNumber() {
 		return sequenceNumber;
+	}
+	@ComponentWidth(100)
+	@Row(0)
+	@Column(3)
+	@Override
+	public void save() {
+//		System.exit(0);
 	}
 	
 	public static void main(String[] args) {

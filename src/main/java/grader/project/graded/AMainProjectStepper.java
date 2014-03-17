@@ -460,5 +460,9 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public boolean preTogglePlayPause() {
 		return overviewProjectStepper.preTogglePlayPause();
 	}
+	@Override
+	public void save() {
+		overviewProjectStepper.save();		
+	}
 
 }

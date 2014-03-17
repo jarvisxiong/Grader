@@ -1833,6 +1833,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 				}
 				setColors();
 				gradedProjectOverview.setFrame(aFrame);
+				gradedProjectNavigator.setFrame(aFrame);
 			}
 		}
 	}
@@ -2055,6 +2056,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public void togglePlayPause() {
 		gradedProjectNavigator.togglePlayPause();
+	}
+	@Override
+	public void save() {
+		gradedProjectNavigator.save();
+		
 	}
 	
 }

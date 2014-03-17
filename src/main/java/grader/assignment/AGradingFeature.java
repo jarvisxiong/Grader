@@ -473,12 +473,22 @@ public class AGradingFeature implements GradingFeature {
 	public String getNotes() {
 		return notes;
 	}
+	
+	public static boolean maybeDeleteFile(String fileName) {
+		File file = new File(fileName);
+		if (!file.exists()) return true; // equivalent to deleted file		 
+		return file.delete();
+		
+	}
 
 	void recordNotes() {
-		if (notes.equals("")) // why create file?
+		String fileName = getNotesFileName();
+		if (notes.equals("") && maybeDeleteFile(fileName)) {// why create file on empty notes? 
+			
 			return;
+		}
 		try {
-			FileUtils.writeStringToFile(new File(getNotesFileName()), notes);
+			FileUtils.writeStringToFile(new File(fileName), notes);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

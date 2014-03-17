@@ -436,5 +436,10 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public boolean preTogglePlayPause() {
 		return mainProjectStepper.preTogglePlayPause();
 	}
+	@Override
+	public void save() {
+		mainProjectStepper.save();
+		
+	}
 
 }
