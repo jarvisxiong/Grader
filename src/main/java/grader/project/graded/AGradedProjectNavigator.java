@@ -1814,7 +1814,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@ComponentWidth(30)
 	@ComponentHeight(27)
-	@Label("Onyen Number:")
+	@Label("Navigation Distance:")
 	public String getSequenceNumber() {
 		return sequenceNumber;
 	}

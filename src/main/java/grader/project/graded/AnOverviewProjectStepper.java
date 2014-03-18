@@ -126,8 +126,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	ClassAdapter stepperViewAdapter;
 //	ObjectAdapter multiplierAdapter, scoreAdapter, gradingFeaturesAdapter, overallNotesAdapter; 
 	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
-	Color /*currentScoreColor, currentMultiplierColor,*/ currentOverallNotesColor;
-	Color /*nextScoreColor, nextMultiplierColor,*/ nextOverallNotesColor;
+	Color /*currentScoreColor, currentMultiplierColor,*/ currentOverallNotesColor, currentManualNotesColor;
+	Color /*nextScoreColor, nextMultiplierColor,*/ nextOverallNotesColor, nextManualNotesColor;
 
 	boolean changed;
 //	Icon studentPhoto;
@@ -648,14 +648,34 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		
 //	}
 	
+	void refreshManualNotesColor() {
+		if (currentManualNotesColor != nextManualNotesColor) {
+			setColor ( "ManualNotes", nextManualNotesColor);
+			currentManualNotesColor = nextManualNotesColor;
+		}
+	}
+	
 	void setGradingFeatureColor(int index) {
 		if (settingUpProject) return;
+		Color nextFeatureColor = projectDatabase.getGradingFeatureColorer().color(projectDatabase.getGradingFeatures().get(index));
+		nextColors.set(index,nextFeatureColor );
 
-		nextColors.set(index, projectDatabase.getGradingFeatureColorer().color(projectDatabase.getGradingFeatures().get(index)) );
-
-		if (currentColors.get(index) == nextColors.get(index)) return;
+		if (currentColors.get(index) != nextFeatureColor) {
 		setColor ( "GradingFeatures." + index, nextColors.get(index));
-		currentColors.set(index, nextColors.get(index));		
+		currentColors.set(index, nextFeatureColor);	
+		}
+		if (selectedGradingFeature == projectDatabase.getGradingFeatures().get(index))
+			nextManualNotesColor = nextFeatureColor;
+		
+	}
+	
+	void setSelectedGradingFeatureColor() {
+		if (selectedGradingFeature == null) {
+//			nextManualNotesColor = null; // will we ever hit this code?
+			return;
+		}
+		int index = projectDatabase.getGradingFeatures().indexOf(selectedGradingFeature);
+		setGradingFeatureColor(index);
 	}
 	void setColor(String aPath, Color aColor) {
 		propertyChangeSupport.firePropertyChange(aPath, null, 
@@ -1269,7 +1289,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldVal = manualNotes;
 
 		manualNotes = newVal;
+		setSelectedGradingFeatureColor();
 
+//		if (currentManualNotesColor != nextManualNotesColor) {
+//			refreshManualNotesColor(); // this will trigger a full refresh
+//		}
+//		else
 		propertyChangeSupport.firePropertyChange("manualNotes", oldVal, newVal);
 	}
 	
@@ -1277,6 +1302,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldVal = output;
 
 		output = newVal;
+		
 
 		propertyChangeSupport.firePropertyChange("transcript", oldVal, newVal);
 	}
@@ -1297,7 +1323,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		setComputedFeedback();
 		internalSetManualNotes(newVal);
-		setGradingFeatureColors();
+//		refreshManualNotesColor();
+//		setGradingFeatureColors();
 //		changed = true;
 		// notes = newVal;
 
@@ -1498,12 +1525,14 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		return selectedGradingFeature;
 	}
 	public void setSelectedFeature (GradingFeature gradingFeature) {
+			selectedGradingFeature = gradingFeature;
+
 			internalSetManualNotes(getNotes(gradingFeature));
 			internalSetAutoNotes(getInMemoryResult(gradingFeature));
 //			manualNotes = getNotes(gradingFeature);
 //			autoNotes = getInMemoryResult(gradingFeature);
 			// log = gradingFeature.getFeature();
-			selectedGradingFeature = gradingFeature;
+//			selectedGradingFeature = gradingFeature;
 			internalSetTranscript(selectedGradingFeature.getOutput());
 			unSelectOtherGradingFeatures(gradingFeature);
 		
@@ -1533,6 +1562,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
 			if ((Boolean) evt.getNewValue()) {
 				setSelectedFeature(gradingFeature);
+				refreshManualNotesColor();
 //				manualNotes = getNotes(gradingFeature);
 //				autoNotes = getInMemoryResult(gradingFeature);
 //				// log = gradingFeature.getFeature();
@@ -1541,7 +1571,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //				unSelectOtherGradingFeatures(gradingFeature);
 			} else {
 				if (!projectDatabase.getGradingFeatures().hasASelection()) {
-					setSelectedFeature(null);
+					selectedGradingFeature = null;
+					refreshTranscript();
+					internalSetManualNotes("");
+					nextManualNotesColor = null;
+					refreshManualNotesColor();
 				}
 					
 				// this may be a bounced feature
