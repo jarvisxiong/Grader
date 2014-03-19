@@ -172,6 +172,17 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		
 		// recordWindows(); // the first project does not wait so we need to
 		// record here
+		
+		// code moved from run projects interactively
+		projectDatabase.initIO();
+
+		projectDatabase.recordWindows();
+		featureGradeRecorder.setGradingFeatures(projectDatabase
+				.getGradingFeatures());
+		for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {
+			currentColors.add(null);
+			nextColors.add(null);
+		}
 
 	}
 
@@ -1714,15 +1725,20 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			gradedProjectNavigator.setCurrentOnyenIndex(currentOnyenIndex);
 		}
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);
-		projectDatabase.initIO();
-
-		projectDatabase.recordWindows();
-		featureGradeRecorder.setGradingFeatures(projectDatabase
-				.getGradingFeatures());
-		for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {
-			currentColors.add(null);
-			nextColors.add(null);
-		}
+		
+// moved to setProjectDatabase		
+//		projectDatabase.initIO();
+//
+//		projectDatabase.recordWindows();
+//		featureGradeRecorder.setGradingFeatures(projectDatabase
+//				.getGradingFeatures());
+//		for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {
+//			currentColors.add(null);
+//			nextColors.add(null);
+//		}
+//		
+		
+		
 //		setObjectAdapters();
 		boolean retVal = setProject(anOnyen);
 		if (!retVal) {

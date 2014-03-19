@@ -1,5 +1,7 @@
 package grader.settings.navigation;
 
+import grader.settings.GraderSettingsModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -22,24 +24,29 @@ import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ANavigationSetter implements NavigationSetter {
 	NavigationKind navigationKind = NavigationKind.MANUAL;
-	AutomaticNavigationSetter automaticNavigationSetter = new AnAutomaticNavigationSetter();
-	NavigationFilterSetter navigationFilterSetter = new ANavigationFilterSetter();
+	AutomaticNavigationSetter automaticNavigationSetter ;
+	NavigationFilterSetter navigationFilterSetter; 
 //	DynamicEnum<String> navigationFilterEnum;
 //	NavigationFilter currentNavigationFilter;
 //	String currentNavigationFilterName;
 //	Object navigationParameters;
 //	PropertyChangeSupport propertyChangeSupport =  new PropertyChangeSupport(this);
 //	
+	GraderSettingsModel graderSettings;
 	
-	
-	public ANavigationSetter() {
-//		constructNavigationFilterTypes();
+	public ANavigationSetter(GraderSettingsModel aGraderSettings) {
+		graderSettings = aGraderSettings;
+		navigationFilterSetter = new ANavigationFilterSetter(aGraderSettings);
+		automaticNavigationSetter = new AnAutomaticNavigationSetter(aGraderSettings);
 	}
 	@Row(0)
 	@PreferredWidgetClass(JRadioButton.class)
 	@Override
 	public NavigationKind getNavigationKind() {
 		return navigationKind;
+	}
+	public boolean preSetNavigationKind() {
+		return graderSettings == null || !graderSettings.isGraderStarted();
 	}
 	@Override
 	public void setNavigationKind(NavigationKind navigationKind) {
@@ -126,7 +133,7 @@ public class ANavigationSetter implements NavigationSetter {
 //     	NavigationFilterRepository.register(notesStatusFilter);
 //     	NavigationFilter letterStatusFilter = new ALetterGradeBasedFilter();
 //     	NavigationFilterRepository.register(letterStatusFilter);
-		NavigationSetter navigationSetter = new ANavigationSetter();		
+		NavigationSetter navigationSetter = new ANavigationSetter(null);		
 		OEFrame frame = ObjectEditor.edit(navigationSetter);
 		frame.setSize(600, 300);
 	}

@@ -12,17 +12,17 @@ public class AProjectNavigator implements ProjectNavigator {
 	}
 	@Override
 	public void navigate(GraderSettingsModel settingsModel,
-			OEFrame settingsFrame) {
+			OEFrame settingsFrame, boolean exitOnompletion) {
 		NavigationKind navigationKind = settingsModel.getNavigationSetter().getNavigationKind();
 		switch (navigationKind) {
 		case MANUAL: 
-			database.getManualProjectNavigator().navigate(settingsModel, settingsFrame);
+			database.getManualProjectNavigator().navigate(settingsModel, settingsFrame, true);
 			break;
 		case AUTOMATIC:
-			database.getAutomaticProjectNavigator().navigate(settingsModel, settingsFrame);
+			database.getAutomaticProjectNavigator().navigate(settingsModel, settingsFrame, true);
 			break;
-		default:
-				database.getManualProjectNavigator().navigate(settingsModel, settingsFrame);
+		case AUTOMATIC_THEN_MANUAL:
+				database.getHybridProjectNavigator().navigate(settingsModel, settingsFrame, true);
 				break;			
 		}
 		

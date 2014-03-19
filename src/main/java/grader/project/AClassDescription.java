@@ -37,7 +37,7 @@ public class AClassDescription  implements ClassDescription {
 	JavaClass qdoxClass;
 	JavaSource javaSource;
 	Project project;
-	FileProxy fileProxy;
+	FileProxy sourceFile;
 	SourceClass javacSourceClass;
 
     private CompilationUnit compilationUnit;
@@ -45,7 +45,7 @@ public class AClassDescription  implements ClassDescription {
 	
 	public AClassDescription( String aClassName, StringBuffer aText, long aSourceTime, ProxyClassLoader aClassLoader, Project aProject, FileProxy aFileProxy) {
 //		text = Common.toText(aClassName);
-		fileProxy = aFileProxy;
+		sourceFile = aFileProxy;
 		project = aProject;
 		text = aText;
 		sourceTime = aSourceTime;
@@ -157,7 +157,7 @@ public class AClassDescription  implements ClassDescription {
 	
 	public void initializeQdoxData() {
 		JavaDocBuilder builder = project.getJavaDocBuilder();
-		javaSource = builder.addSource( new InputStreamReader(fileProxy.getInputStream()));
+		javaSource = builder.addSource( new InputStreamReader(sourceFile.getInputStream()));
 		qdoxClass = builder.getClassByName(className);
 	}
 
@@ -182,9 +182,15 @@ public class AClassDescription  implements ClassDescription {
     @Override
     public CompilationUnit getCompilationUnit() throws IOException {
         if (compilationUnit == null)
-            compilationUnit = JavaParser.parse(fileProxy.getInputStream());
+            compilationUnit = JavaParser.parse(sourceFile.getInputStream());
         return compilationUnit;
     }
+	public FileProxy getSourceFile() {
+		return sourceFile;
+	}
+	public void setSourceFile(FileProxy sourceFile) {
+		this.sourceFile = sourceFile;
+	}
 	
 
 }

@@ -1,7 +1,11 @@
 package grader.settings;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
 import grader.settings.folders.GraderFilesSetterModel;
@@ -19,11 +23,15 @@ import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGraderSettingsModel implements GraderSettingsModel{
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
-	NavigationSetter navigationSetter = new ANavigationSetter();
-	OnyenRangeModel onyens = new AnOnyenRangeModel();
-	BeginActionModel beginActionModel = new ABeginActionModel();
+	NavigationSetter navigationSetter = new ANavigationSetter(this);
+	OnyenRangeModel onyens = new AnOnyenRangeModel(this);
+//	BeginActionModel beginActionModel = new ABeginActionModel();
+	boolean graderStarted;
+	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+	SakaiProjectDatabase database;
 	
-	public AGraderSettingsModel() {
+	public AGraderSettingsModel(SakaiProjectDatabase aDatabase) {
+		database = aDatabase;
 		loadSettings();
 	}
 	
@@ -88,6 +96,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	public void setNavigationSetter(NavigationSetter navigationSetter) {
 		this.navigationSetter = navigationSetter;
 	}
+	
+	public boolean preBegin() {
+		return !isGraderStarted();
+	}
 
 	@Row(3)
 	@ComponentHeight(25)
@@ -99,9 +111,13 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	
 	@Visible(false)
 	public synchronized void awaitBegin() {
+		graderStarted = false;
+		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 		try {
 			wait();
 			saveSettings();
+			graderStarted = true;
+			propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,12 +129,32 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //	public void setBeginActionModel(BeginActionModel beginActionModel) {
 //		this.beginActionModel = beginActionModel;
 //	}
+	@Visible(false)
+	@Override
+	public boolean isGraderStarted() {
+		return graderStarted;
+	}
+	@Override
+	@Visible(false)
+	public void setGraderStarted(boolean graderStarted) {
+		this.graderStarted = graderStarted;
+	}
+	
+	public void clearAutoGradingResults() {
+		
+	}
 
 	public static void main (String[] args) {
-		AGraderSettingsModel startModel = new AGraderSettingsModel();
+		AGraderSettingsModel startModel = new AGraderSettingsModel(null);
 		OEFrame frame = ObjectEditor.edit(startModel);
 		frame.setTitle("Grader Settings");
 		frame.setSize(550, 475);
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener aListener) {
+		propertyChangeSupport.addPropertyChangeListener(aListener);
+		
 	}
 	
 

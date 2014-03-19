@@ -22,7 +22,7 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 	}
 	@Override
 	public void navigate(GraderSettingsModel settingsModel,
-			OEFrame settingsFrame) {
+			OEFrame settingsFrame, boolean exitOnCompletion) {
 		boolean animate = settingsModel.getNavigationSetter().getAutomaticNavigationSetter().getAnimateGrades();
 		if (animate && settingsFrame != null)
 			settingsFrame.dispose(); // keep only one frame around at a time
@@ -64,6 +64,7 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 		String automaticExitMessage = "Automatic grading complete.";
 		System.out.println(automaticExitMessage);
 //		JOptionPane.showMessageDialog(null, "Automatic grading complete.");
+		if (exitOnCompletion)
 		System.exit(0);
 		
 	}

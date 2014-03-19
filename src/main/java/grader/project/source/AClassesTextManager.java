@@ -19,7 +19,9 @@ import util.misc.Common;
 
 
 public class AClassesTextManager implements ClassesTextManager {
-    public static final String SOURCE_SEPARATOR = "\n";
+    public static final String SOURCE_SUFFIX = "//END OF FILE\n";
+    public static final String SOURCE_PREFIX = "//START OF FILE: ";
+    public static final int MAX_FILE_NAME_LENGTH = 100;
     Map<String, StringBuffer> views = new HashMap();
     StringBuffer allSourcesText;
     ClassViewManager classesManager;
@@ -79,11 +81,14 @@ public class AClassesTextManager implements ClassesTextManager {
 
     @Override
     public StringBuffer toStringBuffer(Collection<ViewableClassDescription> sourceClasses) {
-        int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * SOURCE_SEPARATOR.length();
+        int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * (SOURCE_SUFFIX.length() + SOURCE_PREFIX.length() + MAX_FILE_NAME_LENGTH);
         StringBuffer retVal = new StringBuffer(totalTextSize);
         for (ViewableClassDescription viewable : sourceClasses) {
+        	String fileName = viewable.getClassDescription().getSourceFile().getLocalName();
+        	String prefix = SOURCE_PREFIX + fileName + "\n";
+        	retVal.append(prefix);
             retVal.append(viewable.getClassDescription().getText());
-            retVal.append(SOURCE_SEPARATOR);
+            retVal.append(SOURCE_SUFFIX);
         }
         return retVal;
     }
