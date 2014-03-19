@@ -38,16 +38,20 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 //			ObjectEditor.setPropertyAttribute(ABasicProjectStepper.class, "Photo", AttributeNames.LABELLED, false);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.ACTION_MODE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.SCROLLED, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "AutoNotes", AttributeNames.SCROLLED, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.ACTION_MODE, true);
+
+
 //
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Feedback", AttributeNames.SCROLLED, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.VISIBLE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.STRETCHABLE_BY_PARENT, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.SCROLLED, true);
-//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.ACTION_MODE, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.ACTION_MODE, true);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "OverallNotes", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 
-			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.PREFERRED_WIDGET, true);
+//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.PREFERRED_WIDGET, true);
 			
 			ObjectEditor.setPreferredWidget(AMainProjectStepper.class, "Transcript", JTextArea.class);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.VISIBLE, true);

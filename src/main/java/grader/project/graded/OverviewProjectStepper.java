@@ -10,4 +10,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	void setSource(String newVal);
 
+	boolean preSetManualNotes();
+
 }

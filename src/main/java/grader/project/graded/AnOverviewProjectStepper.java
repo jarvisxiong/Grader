@@ -339,10 +339,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		// System.out.println("precondition notified");
 //	}
 //
-//	void notifyPreconditionChanged() {
-//		propertyChangeSupport.firePropertyChange("this", null, this);
-//
-//	}
+	void notifyPreconditionChanged() {
+		propertyChangeSupport.firePropertyChange("this", null, this);
+
+	}
 //
 //	@Row(2)
 //	@ComponentWidth(150)
@@ -691,6 +691,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void setColor(String aPath, Color aColor) {
 		propertyChangeSupport.firePropertyChange(aPath, null, 
 				new Attribute(AttributeNames.CONTAINER_BACKGROUND, aColor));
+	}
+	void setLabel(String aPath, String aLabel) {
+		propertyChangeSupport.firePropertyChange(aPath, null, 
+				new Attribute(AttributeNames.LABEL, aLabel));
 	}
 //	public void computeNextColors() {
 ////		List<Color> colors = new ArrayList();
@@ -1291,7 +1295,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public String getManualNotes() {
 		return manualNotes;
 	}
-
+@Override
 	public boolean preSetManualNotes() {
 		return selectedGradingFeature != null;
 	}
@@ -1529,6 +1533,18 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		manualNotes = getNotes(selectedGradingFeature);
 		else 
 			manualNotes = "";
+//		propertyChangeSupport.firePropertyChange("this", null, this); // an
+//		// event
+//		// from
+//		// grading
+//		// features,
+//		// perhaps
+//		// our
+//		// precondition
+//		// chnaged
+//		// such
+//		// as
+//		// auoGraded or manualnotes
 	}
 	@Override
 	@Visible(false)
@@ -1571,7 +1587,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		} else if (evt.getSource() instanceof GradingFeature
 				&& evt.getPropertyName().equalsIgnoreCase("selected") && !settingUpProject) {
 			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
+			GradingFeature oldSelectedFeature = selectedGradingFeature;
 			if ((Boolean) evt.getNewValue()) {
+				
 				setSelectedFeature(gradingFeature);
 				refreshManualNotesColor();
 //				manualNotes = getNotes(gradingFeature);
@@ -1594,6 +1612,28 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 				// unSelectOtherGradingFeatures(null);
 				// setNotes("");
 			}
+			if (!settingUpProject) { 
+				refreshSelectedFeature(); // we know a user action occurred
+				// check if editability of manual notes changes
+				if ((oldSelectedFeature == null && selectedGradingFeature != null) 
+						|| (oldSelectedFeature != null && selectedGradingFeature == null))
+					notifyPreconditionChanged();
+				// let us be more efficient
+				// manual notes pre condition needs to be reevaluated
+			
+//				propertyChangeSupport.firePropertyChange("this", null, this); // an
+//																				// event
+//																				// from
+//																				// grading
+//																				// features,
+//																				// perhaps
+//																				// our
+//																				// precondition
+//																				// chnaged
+//																				// such
+//																				// as
+//																				// auoGraded
+				}
 
 		} else if (evt.getSource() instanceof GradingFeature
 				&& evt.getPropertyName().equalsIgnoreCase("validate") && !settingUpProject) {
@@ -1612,23 +1652,25 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		} else if (evt.getSource() == getNavigationSetter().getNavigationFilterSetter()) {
 			gradedProjectNavigator.resetNoFilteredRecords();
 		}
-		if (!settingUpProject) { 
-		refreshSelectedFeature(); // we know a user action occurred
-		// let us be more efficient
-	
+		// we will refresh only on selection changes
+//		if (!settingUpProject) { 
+//		refreshSelectedFeature(); // we know a user action occurred
+//		// let us be more efficient
+//		// manual notes pre condition needs to be reevaluated
+//	
 //		propertyChangeSupport.firePropertyChange("this", null, this); // an
-																		// event
-																		// from
-																		// grading
-																		// features,
-																		// perhaps
-																		// our
-																		// precondition
-																		// chnaged
-																		// such
-																		// as
-																		// auoGraded
-		}
+//																		// event
+//																		// from
+//																		// grading
+//																		// features,
+//																		// perhaps
+//																		// our
+//																		// precondition
+//																		// chnaged
+//																		// such
+//																		// as
+//																		// auoGraded
+//		}
 
 	}
 
