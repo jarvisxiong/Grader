@@ -37,6 +37,8 @@ import grader.navigation.automatic.AnAutomaticProjectNavigator;
 import grader.navigation.automatic.AutomaticProjectNavigator;
 import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
+import grader.navigation.hybrid.AHybridProjectNavigator;
+import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.APhotoReader;
@@ -117,6 +119,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	ProjectNavigator projectNavigator;
 	ManualProjectNavigator manualProjectNavigator;
 	AutomaticProjectNavigator automaticProjectNavigator;
+	HybridProjectNavigator hybridProjectNavigator;
 
 	AssignmentDataFolder assignmentDataFolder;
 	// String outputFileName;
@@ -223,6 +226,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			projectNavigator = createProjectNavigator();
 			manualProjectNavigator = createManualProjectNavigator();
 			automaticProjectNavigator = createAutomaticProjectNavigator();
+			hybridProjectNavigator = createHybridProjectNavigator();
 			
 
 			
@@ -237,6 +241,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	private AutomaticProjectNavigator createAutomaticProjectNavigator() {
 		return new AnAutomaticProjectNavigator(this);
+	}
+	
+	private HybridProjectNavigator createHybridProjectNavigator() {
+		return new AHybridProjectNavigator(this);
 	}
 
 	private ManualProjectNavigator createManualProjectNavigator() {
@@ -1333,11 +1341,21 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public AutomaticProjectNavigator getAutomaticProjectNavigator() {
 		return automaticProjectNavigator;
 	}
-
+    @Override
 	public void setAutomaticProjectNavigator(
 			AutomaticProjectNavigator automaticProjectNavigator) {
 		this.automaticProjectNavigator = automaticProjectNavigator;
 	}
+	
+	 @Override
+		public HybridProjectNavigator getHybridProjectNavigator() {
+			return hybridProjectNavigator;
+		}
+	 @Override
+		public void setHybridProjectNavigator(
+				HybridProjectNavigator hybridProjectNavigator) {
+			this.hybridProjectNavigator = hybridProjectNavigator;
+		}
 
 	public ManualProjectNavigator getManualProjectNavigator() {
 		return manualProjectNavigator;

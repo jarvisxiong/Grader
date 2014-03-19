@@ -6,8 +6,9 @@ import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
 import util.annotations.Row;
 import util.annotations.Visible;
+import util.models.PropertyListenerRegisterer;
 
-public interface GraderSettingsModel {
+public interface GraderSettingsModel extends PropertyListenerRegisterer{
 	public GraderFilesSetterModel getFileBrowsing() ;
 	public void setFileBrowsing(GraderFilesSetterModel fileBrowsing);
 	public OnyenRangeModel getOnyens() ;
@@ -16,5 +17,7 @@ public interface GraderSettingsModel {
 	public  void awaitBegin() ;
 	NavigationSetter getNavigationSetter();
 	void setNavigationSetter(NavigationSetter navigationSetter);
+	boolean isGraderStarted();
+	void setGraderStarted(boolean graderStarted);
 
 }

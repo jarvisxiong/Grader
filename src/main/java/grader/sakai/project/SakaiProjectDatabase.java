@@ -28,6 +28,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 
 import util.misc.ClearanceManager;
@@ -45,6 +46,7 @@ import grader.feedback.SourceDisplayer;
 import grader.navigation.ProjectNavigator;
 import grader.navigation.automatic.AutomaticProjectNavigator;
 import grader.navigation.filter.BasicNavigationFilter;
+import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.PhotoReader;
 import grader.project.Project;
@@ -185,6 +187,11 @@ public interface SakaiProjectDatabase {
 	public void setProjectNavigator(ProjectNavigator projectNavigator) ;
 
 	boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException;
+
+	HybridProjectNavigator getHybridProjectNavigator();
+
+	void setHybridProjectNavigator(HybridProjectNavigator hybridProjectNavigator);
+	
 
 
 

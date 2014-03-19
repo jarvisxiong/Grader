@@ -1,5 +1,6 @@
 package grader.settings.folders;
 
+import grader.settings.GraderSettingsModel;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -7,6 +8,10 @@ import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AnOnyenRangeModel implements OnyenRangeModel{
 	String startingOnyen = "", endingOnyen = "", goToOnyen = "";
+	GraderSettingsModel graderSettings;
+	public AnOnyenRangeModel(GraderSettingsModel aGraderSettings) {
+		graderSettings = aGraderSettings;
+	}
     @Row(0)
 	public String getStartingOnyen() {
 		return startingOnyen;
@@ -34,7 +39,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	}
 
 	public static void main (String[] args) {
-		AnOnyenRangeModel onyenRangeModel = new AnOnyenRangeModel();
+		AnOnyenRangeModel onyenRangeModel = new AnOnyenRangeModel(null);
 		ObjectEditor.edit(onyenRangeModel);
 	}
 	

@@ -1,9 +1,12 @@
 package grader.project;
 
+import grader.file.FileProxy;
+
 import java.io.IOException;
 import java.util.Date;
 
 import com.github.antlrjavaparser.api.CompilationUnit;
+
 import util.javac.SourceClass;
 
 import com.thoughtworks.qdox.model.JavaClass;
@@ -29,5 +32,7 @@ public interface ClassDescription {
     Class<?> getJavaClass();
 
     CompilationUnit getCompilationUnit() throws IOException;
+    public FileProxy getSourceFile() ;
+	public void setSourceFile(FileProxy sourceFile) ;
 
 }

@@ -1,6 +1,7 @@
 package grader.settings.navigation;
 
 import grader.navigation.filter.NavigationFilter;
+import grader.settings.GraderSettingsModel;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -30,9 +31,10 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	String currentNavigationFilterName;
 	Object navigationParameters;
 	PropertyChangeSupport propertyChangeSupport =  new PropertyChangeSupport(this);
+	GraderSettingsModel graderSettings;
 	
-	
-	public ANavigationFilterSetter() {
+	public ANavigationFilterSetter(GraderSettingsModel aGraderSettings) {
+		graderSettings = aGraderSettings;
 		constructNavigationFilterTypes();
 	}
 	
@@ -64,6 +66,14 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	public DynamicEnum getNavigationFilterType() {
 		return navigationFilterEnum;
 	}
+	public boolean preSetNavigationFilterType() {
+		return graderSettings == null || !graderSettings.isGraderStarted();
+//		return false;
+
+	}
+	public void setNavigationFilterType(DynamicEnum newVal) {
+		navigationFilterEnum = newVal;
+	}
 	
 	@Override
 	@Row(3)
@@ -71,6 +81,9 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	@Label("Filter Options")
 	public Object getParameter() {
 		return currentNavigationFilter.getParameter();
+	}
+	public boolean preSetParameter() {
+		return graderSettings == null || !graderSettings.isGraderStarted();
 	}
 	@Override
 	public void setParameter(Object newVal) {
@@ -107,7 +120,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 //     	NavigationFilterRepository.register(gradingStatusFilter);
 //     	NavigationFilter notesStatusFilter = new ANotesStatusFilter();
 //     	NavigationFilterRepository.register(notesStatusFilter);
-		NavigationFilterSetter navigationFilterSetter = new ANavigationFilterSetter();
+		NavigationFilterSetter navigationFilterSetter = new ANavigationFilterSetter(null);
 		OEFrame frame = ObjectEditor.edit(navigationFilterSetter);
 		frame.setSize(600, 300);
 	}

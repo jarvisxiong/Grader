@@ -17,7 +17,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 		database = aDatabase;
 	}
 	
-	public void navigate(GraderSettingsModel settingsModel, OEFrame settingsFrame) {
+	public void navigate(GraderSettingsModel settingsModel, OEFrame settingsFrame, boolean exitOnompletion) {
 		if (settingsModel == null) return;
 		while (true) {
 		String goToOnyen = settingsModel.getOnyens().getGoToOnyen();

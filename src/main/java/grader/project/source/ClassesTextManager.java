@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface ClassesTextManager {
     public static final String DEFAULT_SOURCES_FILE_PREFIX = "sources";
 
-    public static final String DEFAULT_SOURCES_FILE_SUFFIX = ".java";
+    public static final String DEFAULT_SOURCES_FILE_SUFFIX = ".txt";
 
     public static final String DEFAULT_SOURCES_FILE_NAME = DEFAULT_SOURCES_FILE_PREFIX + DEFAULT_SOURCES_FILE_SUFFIX;
 
