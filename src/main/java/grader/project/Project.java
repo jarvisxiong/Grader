@@ -84,4 +84,6 @@ public interface Project {
 
 	void setCurrentArgs(String[] currentArgs);
 
+	String getSourceSuffix();
+
 }

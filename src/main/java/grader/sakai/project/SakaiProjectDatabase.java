@@ -164,9 +164,9 @@ public interface SakaiProjectDatabase {
 	boolean nonBlockingRunProjectsInteractively(String aGoToOnyen)
 			throws MissingOnyenException;
 
-	String getSourceSuffix();
+	String getSourceFileNameSuffix();
 
-	void setSourceSuffix(String sourceSuffix);
+	void setSourceFileNameSuffix(String sourceSuffix);
 
 	ClearanceManager getClearanceManager();
 

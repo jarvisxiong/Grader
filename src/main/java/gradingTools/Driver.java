@@ -101,7 +101,7 @@ public class Driver {
 
             		  settingsModel = new AGraderSettingsModel(database);
             			settingsFrame = ObjectEditor.edit(settingsModel);
-            			settingsFrame.setTitle("Grader Settings");
+            			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
             			settingsFrame.setSize(550, 475);
             			settingsModel.awaitBegin();

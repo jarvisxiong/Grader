@@ -1,5 +1,7 @@
 package grader.project.graded;
 
+import java.awt.GridBagConstraints;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
@@ -19,7 +21,11 @@ public class AComplexProjectStepperAR implements ExecutableCommand {
 
 			ObjectEditor.setAttribute(AComplexProjectStepper.class, AttributeNames.STRETCH_ROWS, true);
 			ObjectEditor.setPreferredWidget(AComplexProjectStepper.class, JTabbedPane.class);
-			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "Source", AttributeNames.SCROLLED, true);			
+			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "Source", AttributeNames.SCROLLED, true);
+//			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "NavigationSetter", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.BOTH);	
+//			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "NavigationSetter", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);			
+
+
 
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "ManualNotes", AttributeNames.VISIBLE, true);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "AutoNotes", AttributeNames.VISIBLE, true);

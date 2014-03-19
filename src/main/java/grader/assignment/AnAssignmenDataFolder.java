@@ -23,12 +23,18 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
     public static final String DEFAULT_INPUT_FOLDER_NAME = "input";
     public static final String DEFAULT_FEATURE_GRADE_FILE_NAME = "FeatureGrades.csv";
+    public static final String DEFAULT_BACKUP_FEATURE_GRADE_FILE_NAME = "BackupFeatureGrades.csv";
     String idFileName = ID_FILE_NAME;
     String gradedIdFileName;
     String skippedIdFileName;
     String logFileName;
     String inputFolderName = DEFAULT_INPUT_FOLDER_NAME;
     String featureGradeFileName = DEFAULT_FEATURE_GRADE_FILE_NAME;
+    String backupFeatureGradeFileName = DEFAULT_BACKUP_FEATURE_GRADE_FILE_NAME;
+    
+    File originalFeatureGradeFile, backupFeatureGradeFile;
+    
+
     String idText;
     Set<String> inputFiles;
     List<String> studentIDs;
@@ -56,21 +62,44 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
         skippedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_SKIPPED_FILE_NAME;
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
-        if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {
-            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
-            File featureFile = new File(fullFeatureGradeFileName);
+        initFeatureGradeFiles();
+//        if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {
+//            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
+//            File featureFile = new File(fullFeatureGradeFileName);
+//            File aFinalGradeFile = new File(finalGradeFile.getAbsoluteName());
+//
+//            try {
+//                Files.copy(aFinalGradeFile.toPath(), featureFile.toPath(), REPLACE_EXISTING);
+//                featureGradeFile = new AFileSystemFileProxy(this, new File(fullFeatureGradeFileName), this.getAbsoluteName());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+        studentIDs = FileProxyUtils.toList(idFileProxy);
+
+    }
+     void initFeatureGradeFiles() {
+         String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
+
+    	if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {
+//            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
+//             originalFeatureGradeFile = new File(fullFeatureGradeFileName);
+             
             File aFinalGradeFile = new File(finalGradeFile.getAbsoluteName());
 
             try {
-                Files.copy(aFinalGradeFile.toPath(), featureFile.toPath(), REPLACE_EXISTING);
+                Files.copy(aFinalGradeFile.toPath(), originalFeatureGradeFile.toPath(), REPLACE_EXISTING);
                 featureGradeFile = new AFileSystemFileProxy(this, new File(fullFeatureGradeFileName), this.getAbsoluteName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
-        studentIDs = FileProxyUtils.toList(idFileProxy);
+        backupFeatureGradeFile = new File(rootFolder.getAbsolutePath() + "/" + backupFeatureGradeFileName);
+        originalFeatureGradeFile = new File(fullFeatureGradeFileName);
 
+    	
     }
 
     public Set<String> getInputFiles() {
@@ -161,6 +190,75 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     public void setFeatureGradeFile(FileProxy featureGradeFile) {
         this.featureGradeFile = featureGradeFile;
     }
+
+
+    @Override
+	public String getBackupFeatureGradeFileName() {
+		return backupFeatureGradeFileName;
+	}
+
+
+    @Override
+	public void setBackupFeatureGradeFileName(String backupFeatureGradeFileName) {
+		this.backupFeatureGradeFileName = backupFeatureGradeFileName;
+	}
+    // throw exception instead?
+    public boolean removeBackupFeatureGradeFile() {
+//    	String fullBackupName = getAbsoluteName() + "/" + backupFeatureGradeFileName;
+//    	File backup = new File(fullBackupName);
+    	if (!backupFeatureGradeFile.exists()) return true;    	
+    	return backupFeatureGradeFile.delete();
+    }
+    @Override
+    public boolean removeFeatureGradeFile() {
+    	boolean retVal = removeBackupFeatureGradeFile();
+    	if (!retVal) return false;
+//    	String fullFeatureName = getAbsoluteName() + "/" + featureGradeFileName;
+//    	File original = new File (fullFeatureName);
+//    	String fullBackupName = getAbsoluteName() + "/" + backupFeatureGradeFileName;
+//    	File backup = new File(fullBackupName);    	
+    	originalFeatureGradeFile.renameTo(backupFeatureGradeFile);
+    	initFeatureGradeFiles();
+    	return true;   	
+    	
+    }
+    @Override
+    public boolean restoreFeatureGradeFile() {
+    	if (!backupExists())
+    		return false;
+    	boolean retVal;
+    	retVal = originalFeatureGradeFile.delete();
+    	if (!retVal)
+    		return false;
+    	 retVal =  backupFeatureGradeFile.renameTo(originalFeatureGradeFile);
+    	if (!retVal) 
+    		return false;
+    	initFeatureGradeFiles();
+    	return true;
+    	
+    	
+    }
+    @Override
+    public boolean backupExists() {
+//    	String fullBackupName = getAbsoluteName() + "/" + backupFeatureGradeFileName;
+//    	File backup = new File(fullBackupName);
+    	return backupFeatureGradeFile.exists();
+    	
+    }
+//    public boolean restoreFeatureGradeFile() {
+//    	if (!backupExists)
+//    		return;
+//    	String fullBackupName = getAbsoluteName() + "/" + backupFeatureGradeFileName;
+//    	File backup = new File(fullBackupName); 
+//    	if (!retVal) return false;
+//    	String fullFeatureName = getAbsoluteName() + "/" + featureGradeFileName;
+//    	File original = new File (fullFeatureName);
+//    	   	
+//    	original.renameTo(backup);
+//    	return true;   	
+//    	
+//    }
+    
 
 
 }
