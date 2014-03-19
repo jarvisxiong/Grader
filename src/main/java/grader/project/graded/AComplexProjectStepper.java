@@ -441,5 +441,9 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.save();
 		
 	}
+	@Override
+	public boolean preSetManualNotes() {
+		return mainProjectStepper.preSetManualNotes();
+	}
 
 }

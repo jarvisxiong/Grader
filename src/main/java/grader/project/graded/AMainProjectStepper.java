@@ -398,18 +398,25 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.setFilteredOnyenIndex(filteredOnyenIndex);
 	}
 	@Row(3)
+	@PreferredWidgetClass(JTextArea.class)
+	@ComponentHeight(35)
 	@Override
 	public String getAutoNotes() {
 		return overviewProjectStepper.getAutoNotes();
 	}
 	@Row(4)
 	@PreferredWidgetClass(JTextArea.class)
-	@ComponentHeight(30)
+	@ComponentHeight(35)
 	@Override
 	public String getManualNotes() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getManualNotes();
 	}
+	
+//	public boolean preSetManualNotes() {
+//		return getSelectedGradingFeature() != null;
+//		
+//	}
 
 	@Override
 	public void setManualNotes(String newVal) {
@@ -463,6 +470,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@Override
 	public void save() {
 		overviewProjectStepper.save();		
+	}
+	@Override
+	public boolean preSetManualNotes() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.preSetManualNotes();
 	}
 
 }
