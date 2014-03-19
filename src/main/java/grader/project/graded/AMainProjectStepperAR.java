@@ -1,5 +1,7 @@
 package grader.project.graded;
 
+import grader.settings.AGraderSettingsModel;
+
 import java.awt.GridBagConstraints;
 
 import javax.swing.JTextArea;
@@ -61,8 +63,10 @@ public class AMainProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.COMPONENT_HEIGHT, 240);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_ANCHOR_CONSTRAINT, GridBagConstraints.PAGE_END);
 //			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);
-//			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.VERTICAL);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.BOTH);
 			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.STRETCHABLE_BY_PARENT, true);
+			ObjectEditor.setPropertyAttribute(AMainProjectStepper.class, "Transcript", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);
+
 
 			return null;
 		}

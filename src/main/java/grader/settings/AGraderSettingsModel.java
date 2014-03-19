@@ -14,6 +14,7 @@ import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
+import util.annotations.Label;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -21,6 +22,7 @@ import util.annotations.Visible;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@Label("Starter")
 public class AGraderSettingsModel implements GraderSettingsModel{
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
 	NavigationSetter navigationSetter = new ANavigationSetter(this);
@@ -140,7 +142,17 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		this.graderStarted = graderStarted;
 	}
 	
-	public void clearAutoGradingResults() {
+	public void removeFeatureSpreadsheet() {
+		boolean retVal = database.getAssigmentDataFolder().removeFeatureGradeFile();
+		
+	}
+	
+	public boolean preRestoreFeatureSpreadsheet() {
+		return database.getAssigmentDataFolder().backupExists();
+	}
+	
+	public void restoreFeatureSpreadsheet() {
+		boolean retVal = database.getAssigmentDataFolder().restoreFeatureGradeFile();
 		
 	}
 

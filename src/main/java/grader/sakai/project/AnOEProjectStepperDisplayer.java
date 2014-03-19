@@ -25,7 +25,8 @@ public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFr
 //		uiFrame oeFrame = ObjectEditor.tabEdit(aProjectStepper);
 
 		GradingFeatureList gradingFeatures = aProjectStepper.getGradingFeatures();
-		oeFrame.setTitle("Grading Assistant");
+		String assignmentName = aProjectStepper.getProjectDatabase().getBulkAssignmentFolder().getAssignmentName();
+		oeFrame.setTitle("Grading Assistant for " + assignmentName);
 		oeFrame.setLocation(0, 0);
 		oeFrame.setSize(850, 790);
 		return oeFrame;

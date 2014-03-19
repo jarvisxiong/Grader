@@ -13,7 +13,7 @@ public interface ClassesTextManager {
 
     public static final String PROJECT_DIRECTORY = ".";
 
-    public void writeAllSourcesText();
+//    public void writeAllSourcesText();
 
     public void initializeAllSourcesText();
 

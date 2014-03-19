@@ -127,7 +127,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	FinalGradeRecorder totalScoreRecorder;
 	protected FeatureGradeRecorder featureGradeRecorder;
 	GradingFeatureList gradingFeatures = new AGradingFeatureList();
-	String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
+	String sourceFileNameSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
+	String sourceFileNamePrefix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
+
 	String outputSuffix = AProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 	ScoreFeedback scoreFeedback;
 	AutoFeedback autoFeedback;
@@ -195,7 +197,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 public void init(String aBulkAssignmentsFolderName,
 				String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
 		 	assignmentRoot = anAssigmentRoot;
-			sourceSuffix = sourceSuffix();
+			sourceFileNameSuffix = sourceSuffix();
 			outputSuffix = outputSuffix();
 			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
 			assignmentsDataFolderName = anAssignmentsDataFolderName;
@@ -436,7 +438,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		//
 		SakaiProject aProject;
 		try {
-			aProject = new ASakaiProject(anAssignment, sourceSuffix,
+			aProject = new ASakaiProject(anAssignment, sourceFileNameSuffix,
 					outputSuffix);
 			return aProject;
 		} catch (Exception e) {
@@ -1293,6 +1295,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (graderSettings != null) {
 			BasicNavigationFilter dispatcher = new ADispatchingFilter(graderSettings.getNavigationSetter().getNavigationFilterSetter());
 			setNavigationFilter(dispatcher);
+			bulkAssignmentsFolderName = graderSettings.getFileBrowsing().getDownloadFolder().getText(); // update in case user changed the name
 		}
 	}
 	@Override
@@ -1322,12 +1325,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		this.notesGenerator = notesGenerator;
 	}
     @Override
-	public String getSourceSuffix() {
-		return sourceSuffix;
+	public String getSourceFileNameSuffix() {
+		return sourceFileNameSuffix;
 	}
     @Override
-	public void setSourceSuffix(String sourceSuffix) {
-		this.sourceSuffix = sourceSuffix;
+	public void setSourceFileNameSuffix(String sourceSuffix) {
+		this.sourceFileNameSuffix = sourceSuffix;
 	}
     @Override
 	public ClearanceManager getClearanceManager() {
@@ -1372,5 +1375,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public void setProjectNavigator(ProjectNavigator projectNavigator) {
 		this.projectNavigator = projectNavigator;
+	}
+
+	public String getSourceFileNamePrefix() {
+		return sourceFileNamePrefix;
+	}
+
+	public void setSourceFileNamePrefix(String sourceFileNamePrefix) {
+		this.sourceFileNamePrefix = sourceFileNamePrefix;
 	}
 }

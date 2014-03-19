@@ -51,5 +51,15 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 
     public void setFeatureGradeFile(FileProxy featureGradeFile);
 
+	String getBackupFeatureGradeFileName();
+
+	void setBackupFeatureGradeFileName(String backupFeatureGradeFileName);
+
+	boolean removeFeatureGradeFile();
+
+	boolean restoreFeatureGradeFile();
+
+	boolean backupExists();
+
 
 }

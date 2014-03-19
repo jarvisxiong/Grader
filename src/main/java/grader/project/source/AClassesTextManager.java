@@ -25,9 +25,15 @@ public class AClassesTextManager implements ClassesTextManager {
     Map<String, StringBuffer> views = new HashMap();
     StringBuffer allSourcesText;
     ClassViewManager classesManager;
+//    String sourceFileNamePrefix = SOURCE_PREFIX;
+//    String sourceFileNameSuffix = SOURCE_SUFFIX;
+//    String sourceFileName = sourceFileNamePrefix + sourceFileNameSuffix; 
+//    Project project;
+
 
     public AClassesTextManager(ClassViewManager aClassesManager) {
         classesManager = aClassesManager;
+//        sourceFileNameSuffix = aProject.getSourceSuffix();
     }
 
     /* (non-Javadoc)
@@ -65,10 +71,12 @@ public class AClassesTextManager implements ClassesTextManager {
     	return Common.toText(aFileName).toString();
     }
 
-    @Override
-    public void writeAllSourcesText() {
-        writeAllSourcesText(DEFAULT_SOURCES_FILE_NAME);
-    }
+//    @Override
+//    public void writeAllSourcesText() {
+////        writeAllSourcesText(DEFAULT_SOURCES_FILE_NAME);
+//        writeAllSourcesText(sourceFileName);
+//
+//    }
 
     /* (non-Javadoc)
      * @see grader.project.ClassesSourceManager#initializeAllSourcesText()

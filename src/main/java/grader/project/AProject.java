@@ -394,5 +394,9 @@ public class AProject implements Project {
 	public void setCurrentArgs(String[] currentArgs) {
 		this.currentArgs = currentArgs;
 	}
+    @Override
+	public String getSourceSuffix() {
+		return sourceSuffix;
+	}
 
 }
