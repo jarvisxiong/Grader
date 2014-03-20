@@ -1093,6 +1093,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			e.printStackTrace();
 		}
 	}
+	
+//	void initAssignmentDataAndFolder() {
+//		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot);
+//	}
 
 	public void maybeMakeProjects() {
 		if (projectsMade)
@@ -1295,9 +1299,16 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (graderSettings != null) {
 			BasicNavigationFilter dispatcher = new ADispatchingFilter(graderSettings.getNavigationSetter().getNavigationFilterSetter());
 			setNavigationFilter(dispatcher);
-			bulkAssignmentsFolderName = graderSettings.getFileBrowsing().getDownloadFolder().getText(); // update in case user changed the name
+//			maybeReinit();
+			
 		}
 	}
+	
+//	void maybeReinit() {
+//		String aBulkAssignmentsFolderName = graderSettings.getFileBrowsing().getDownloadFolder().getText(); // update in case user changed the name
+//		if (bulkAssignmentsFolderName.equals(aBulkAssignmentsFolderName)) return;
+//		init(aBulkAssignmentsFolderName, assignmentsDataFolderName, assignmentRoot);
+//	}
 	@Override
 	public BasicNavigationFilter getNavigationFilter() {
 		return navigationFilter;

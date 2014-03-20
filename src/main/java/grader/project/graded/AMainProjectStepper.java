@@ -476,5 +476,19 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.preSetManualNotes();
 	}
+	@Override
+	public void resetFeatureSpreadsheet() {
+		overviewProjectStepper.resetFeatureSpreadsheet();
+		
+	}
+	@Override
+	public boolean preRestoreFeatureSpreadsheet() {		
+		return overviewProjectStepper.preRestoreFeatureSpreadsheet();
+	}
+	@Override
+	public void restoreFeatureSpreadsheet() {
+		 overviewProjectStepper.restoreFeatureSpreadsheet();
+		
+	}
 
 }
