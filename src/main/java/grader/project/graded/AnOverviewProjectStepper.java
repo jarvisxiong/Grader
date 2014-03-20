@@ -2171,5 +2171,27 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectNavigator.save();
 		
 	}
+	@Visible(false)
+	@Override
+	public void resetFeatureSpreadsheet() {
+		boolean retVal = projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		if (retVal)
+		System.exit(0);
+		
+		
+	}
+	@Visible(false)
+	@Override
+	public boolean preRestoreFeatureSpreadsheet() {
+		return projectDatabase.getAssigmentDataFolder().backupExists();
+	}
+	@Visible(false)
+	@Override
+	public void restoreFeatureSpreadsheet() {
+		boolean retVal = projectDatabase.getAssigmentDataFolder().restoreFeatureGradeFile();
+		if (retVal)
+			System.exit(0);
+		
+	}
 	
 }

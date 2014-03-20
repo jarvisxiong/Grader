@@ -90,16 +90,16 @@ public class Driver {
                 manager.run();
 
             } else if (controller.equals("SakaiProjectDatabase")) {
-            	 // Logging/results saving
-                FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
-                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
-            	 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+//            	 // Logging/results saving
+//                FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
+//                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
+//            	 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
             	 String settings = configuration.getString("grader.settings", "oe");
             	 if (settings.equalsIgnoreCase("oe")) {
                  	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
-            		  settingsModel = new AGraderSettingsModel(database);
+            		  settingsModel = new AGraderSettingsModel(null);
             			settingsFrame = ObjectEditor.edit(settingsModel);
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
@@ -117,12 +117,12 @@ public class Driver {
 //                ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
             	 }
 
-//                // Logging/results saving
-//                FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
-//                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
-//
-//                // Create the database
-//                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+                // Logging/results saving
+                FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
+                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
+
+                // Create the database
+                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);

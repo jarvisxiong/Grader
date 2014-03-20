@@ -445,5 +445,21 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public boolean preSetManualNotes() {
 		return mainProjectStepper.preSetManualNotes();
 	}
+	@Visible(true)
+	public void resetFeatureSpreadsheet() {
+		mainProjectStepper.resetFeatureSpreadsheet();
+		
+	}
+	@Override
+	
+	public boolean preRestoreFeatureSpreadsheet() {		
+		return mainProjectStepper.preRestoreFeatureSpreadsheet();
+	}
+	@Override
+	@Visible(true)
+	public void restoreFeatureSpreadsheet() {
+		mainProjectStepper.restoreFeatureSpreadsheet();
+		
+	}
 
 }

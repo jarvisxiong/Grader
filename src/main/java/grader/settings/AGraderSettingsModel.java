@@ -36,6 +36,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		database = aDatabase;
 		loadSettings();
 	}
+	public AGraderSettingsModel() {
+//		database = aDatabase;
+		loadSettings();
+	}
 	
 	void loadSettings() {
 		String editor;
@@ -141,20 +145,20 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	public void setGraderStarted(boolean graderStarted) {
 		this.graderStarted = graderStarted;
 	}
-	
-	public void removeFeatureSpreadsheet() {
-		boolean retVal = database.getAssigmentDataFolder().removeFeatureGradeFile();
-		
-	}
-	
-	public boolean preRestoreFeatureSpreadsheet() {
-		return database.getAssigmentDataFolder().backupExists();
-	}
-	
-	public void restoreFeatureSpreadsheet() {
-		boolean retVal = database.getAssigmentDataFolder().restoreFeatureGradeFile();
-		
-	}
+//	
+//	public void removeFeatureSpreadsheet() {
+//		boolean retVal = database.getAssigmentDataFolder().removeFeatureGradeFile();
+//		
+//	}
+//	
+//	public boolean preRestoreFeatureSpreadsheet() {
+//		return database.getAssigmentDataFolder().backupExists();
+//	}
+//	
+//	public void restoreFeatureSpreadsheet() {
+//		boolean retVal = database.getAssigmentDataFolder().restoreFeatureGradeFile();
+//		
+//	}
 
 	public static void main (String[] args) {
 		AGraderSettingsModel startModel = new AGraderSettingsModel(null);
