@@ -26,6 +26,13 @@ public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<CoarseLe
 		CoarseLetterGrade grade = gradeComputer.toCoarseLetterGrade(aProjectState.getScore());
 		return grade == parameter;
 	}
+
+
+	@Override
+	public Object fromString(String aString) {
+		// TODO Auto-generated method stub
+		return CoarseLetterGrade.fromString(aString);
+	}
 	
 //	@Override
 //	public String getName() {

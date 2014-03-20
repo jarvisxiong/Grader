@@ -9,5 +9,6 @@ public interface NavigationFilter<ParameterType> extends BasicNavigationFilter<P
 //	boolean includeProject (ProjectStepper aProjectState, SakaiProjectDatabase aDatabase);
 	ParameterType getParameter();
 	public void setParameter(ParameterType newVal);
+	Object fromString(String newVal);
 
 }

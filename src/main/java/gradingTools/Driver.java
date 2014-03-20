@@ -103,7 +103,9 @@ public class Driver {
             			settingsFrame = ObjectEditor.edit(settingsModel);
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
-            			settingsFrame.setSize(550, 475);
+//            			settingsFrame.setSize(550, 475);
+            			settingsFrame.setSize(550, 530);
+
             			settingsModel.awaitBegin();
 //            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 //            			settingsFrame.dispose();

@@ -2,6 +2,7 @@ package grader.settings;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
@@ -10,6 +11,8 @@ import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
 import grader.settings.folders.GraderFilesSetterModel;
 import grader.settings.folders.OnyenRangeModel;
+import grader.settings.moduleproblems.AModuleProblemSelector;
+import grader.settings.moduleproblems.ModuleProblemSelector;
 import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
@@ -19,6 +22,7 @@ import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
+import util.misc.Common;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
@@ -27,21 +31,31 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
 	NavigationSetter navigationSetter = new ANavigationSetter(this);
 	OnyenRangeModel onyens = new AnOnyenRangeModel(this);
-//	BeginActionModel beginActionModel = new ABeginActionModel();
+	ModuleProblemSelector moduleProblemSelector; 
+
+
+	//	BeginActionModel beginActionModel = new ABeginActionModel();
 	boolean graderStarted;
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	SakaiProjectDatabase database;
 	
 	public AGraderSettingsModel(SakaiProjectDatabase aDatabase) {
 		database = aDatabase;
+		
 		loadSettings();
 	}
 	public AGraderSettingsModel() {
 //		database = aDatabase;
+		
+//		AModuleProblemSelector moduleProblem = new AModuleProblemSelector(modules, problems);
+		
 		loadSettings();
 	}
 	
 	void loadSettings() {
+		List<String> modules = Common.arrayToArrayList(new String[] {"Comp110", "Comp401"});
+		List<String> problems = Common.arrayToArrayList(new String[] {"A1", "A2"});
+		moduleProblemSelector = new AModuleProblemSelector(modules, problems);
 		String editor;
 		if (GraderSettings.get().has("editor")) {
 			editor = GraderSettings.get().get("editor");
@@ -77,22 +91,29 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         GraderSettings.get().set("editor", editor);
         GraderSettings.get().save();
 	}
-	
 	@Row(0)
+	public ModuleProblemSelector getModuleProblemSelector() {
+		return moduleProblemSelector;
+	}
+	public void setModuleProblemSelector(ModuleProblemSelector moduleProblemSelector) {
+		this.moduleProblemSelector = moduleProblemSelector;
+	}
+	
+	@Row(1)
 	public GraderFilesSetterModel getFileBrowsing() {
 		return fileBrowsing;
 	}
 	public void setFileBrowsing(GraderFilesSetterModel fileBrowsing) {
 		this.fileBrowsing = fileBrowsing;
 	}
-	@Row(1)
+	@Row(2)
 	public OnyenRangeModel getOnyens() {
 		return onyens;
 	}
 	public void setOnyens(OnyenRangeModel onyens) {
 		this.onyens = onyens;
 	}	
-//	@Row(2)
+	@Row(3)
 	@Override
 //	@Visible(false)
 	public NavigationSetter getNavigationSetter() {
@@ -107,7 +128,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		return !isGraderStarted();
 	}
 
-	@Row(3)
+	@Row(4)
 	@ComponentHeight(25)
 	public synchronized void begin() {
 		notify();

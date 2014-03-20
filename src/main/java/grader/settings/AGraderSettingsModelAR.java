@@ -12,7 +12,7 @@ public class AGraderSettingsModelAR implements ExecutableCommand {
 
 		ObjectEditor.setAttribute(AGraderSettingsModel.class,  AttributeNames.LAYOUT, AttributeNames.GRID_BAG_LAYOUT);
 		ObjectEditor.setPropertyAttribute(AGraderSettingsModel.class, "NavigationSetter", AttributeNames.VISIBLE, true);
-		ObjectEditor.setPropertyAttribute(AGraderSettingsModel.class, "NavigationSetter", AttributeNames.ROW, 2);
+//		ObjectEditor.setPropertyAttribute(AGraderSettingsModel.class, "NavigationSetter", AttributeNames.ROW, 2);
 //		ObjectEditor.setPropertyAttribute(AGraderSettingsModel.class, "FileBrowsing", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.HORIZONTAL);
 
 		ObjectEditor.setMethodAttribute(AGraderSettingsModel.class, "Begin", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);

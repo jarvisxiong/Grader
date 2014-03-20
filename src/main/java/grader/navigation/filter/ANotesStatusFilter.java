@@ -49,4 +49,9 @@ public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>i
 //		parameter = newVal;		
 //	}
 
+	@Override
+	public Object fromString(String aString) {
+		return NotesStatus.fromString(aString);
+	}
+
 }
