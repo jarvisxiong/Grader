@@ -18,5 +18,17 @@ public enum NotesStatus {
 	public String toString() {
 		return name;
 	}
+	
+	public static NotesStatus fromString(String aString) {
+		if (aString.equals("Needs Notes"))
+			return NEEDS_NOTES;
+		else if (aString.equals("Has Some Notes"))
+			return HAS_NOTES;
+		else if (aString.equals("Has No Notes"))
+			return NotesStatus.NO_NOTES;
+		else if (aString.equals("ALL"))
+			return ALL;
+		return null;
+	}
 
 }

@@ -38,6 +38,12 @@ public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStat
 			return GradingStatus.NOT_FULLY_AUTO_GRADED;
 		return GradingStatus.NOT_FULLY_GRADED;
 	}
+
+	@Override
+	public Object fromString(String aString) {
+		// TODO Auto-generated method stub
+		return GradingStatus.fromString(aString);
+	}
 	
 //	@Override
 //	public String getName() {
