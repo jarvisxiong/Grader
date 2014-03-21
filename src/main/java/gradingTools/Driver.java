@@ -1,5 +1,8 @@
 package gradingTools;
 
+import java.io.File;
+import java.io.IOException;
+
 import framework.grading.FrameworkProjectRequirements;
 import framework.grading.GradingManager;
 import framework.grading.ProjectRequirements;
@@ -7,11 +10,13 @@ import framework.gui.SettingsWindow;
 import framework.logging.loggers.*;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.logging.recorder.ConglomerateRecorderFactory;
+import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import util.misc.Common;
 import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
+import grader.config.ConfigurationHolder;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -40,6 +45,16 @@ public class Driver {
         try {
             // Load the config file
             PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
+            ConfigurationHolder.setStaticConfiguration(configuration);
+            String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
+            File file = new File(dynamicConfigurationHolder);
+            if (!file.exists()) {
+            	file.createNewFile();
+            }
+            PropertiesConfiguration dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationHolder);
+            ConfigurationHolder.setDynamicConfiguration(dynamicConfiguration);
+
+            GraderSettings.get().convertToDynamicConfiguration();
 
             // Get the project name
             String projectName = configuration.getString("project.name");
@@ -95,7 +110,7 @@ public class Driver {
 //                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
 //            	 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
             	 String settings = configuration.getString("grader.settings", "oe");
-            	 String settingsTry = configuration.getString("Grader.Settings");
+//            	 String settingsTry = configuration.getString("Grader.Settings");
             	 if (settings.equalsIgnoreCase("oe")) {
                  	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
                  	NavigationFilterRepository.register(gradingBasedFilterer);
@@ -180,6 +195,9 @@ public class Driver {
         } catch (IllegalAccessException e) {
             System.err.println("Could not create project requirements.");
             System.err.println(e.getMessage());
-        }
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
