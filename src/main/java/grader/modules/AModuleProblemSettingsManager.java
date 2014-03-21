@@ -1,4 +1,4 @@
-package grader.settings.moduleproblems;
+package grader.modules;
 
 import grader.navigation.filter.NavigationFilter;
 import grader.settings.navigation.NavigationKind;

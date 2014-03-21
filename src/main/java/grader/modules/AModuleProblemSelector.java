@@ -1,9 +1,10 @@
-package grader.settings.moduleproblems;
+package grader.modules;
 
 import java.util.List;
 
 import bus.uigen.ObjectEditor;
 import edu.emory.mathcs.backport.java.util.Arrays;
+import framework.utils.GradingEnvironment;
 import util.annotations.Column;
 import util.misc.Common;
 import util.models.ADynamicEnum;
@@ -12,10 +13,13 @@ import util.models.DynamicEnum;
 public class AModuleProblemSelector implements ModuleProblemSelector {
 	DynamicEnum<String> module;
 	DynamicEnum<String> problem;
+	
 	public AModuleProblemSelector(List<String> aModules, List<String> aProblems) {
 		module = new ADynamicEnum(aModules);
 		problem = new ADynamicEnum(aProblems);		
 	}
+	
+	
 	@Column(0)
 	public DynamicEnum<String> getModule() {
 		return module;

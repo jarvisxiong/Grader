@@ -1,4 +1,4 @@
-package grader.settings.moduleproblems;
+package grader.modules;
 
 import java.util.List;
 
