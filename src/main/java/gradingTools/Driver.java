@@ -16,7 +16,7 @@ import util.misc.Common;
 import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
-import grader.config.ConfigurationHolder;
+import grader.config.AConfigurationManager;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -44,20 +44,24 @@ public class Driver {
 
         try {
             // Load the config file
-            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
-            ConfigurationHolder.setStaticConfiguration(configuration);
-            String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
-            File file = new File(dynamicConfigurationHolder);
-            if (!file.exists()) {
-            	file.createNewFile();
-            }
-            PropertiesConfiguration dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationHolder);
-            ConfigurationHolder.setDynamicConfiguration(dynamicConfiguration);
-
-            GraderSettings.get().convertToDynamicConfiguration();
-
+        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
+        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
+//            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
+//            GradingEnvironment.get().getConfigurationManager().setStaticConfiguration(configuration);
+//            String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
+//            File file = new File(dynamicConfigurationHolder);
+//            if (!file.exists()) {
+//            	file.createNewFile();
+//            }
+//            PropertiesConfiguration dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationHolder);
+//            AConfigurationManager.setDynamicConfiguration(dynamicConfiguration);
+//
+//            GraderSettings.get().convertToDynamicConfiguration();
+//        	GraderSettings.get().convertToDynamicConfiguration();
+       	   
             // Get the project name
             String projectName = configuration.getString("project.name");
+//            Object projectProperty = configuration.getProperty("project.name");
             GradingEnvironment.get().setAssignmentName(projectName);
             
                         
@@ -195,9 +199,10 @@ public class Driver {
         } catch (IllegalAccessException e) {
             System.err.println("Could not create project requirements.");
             System.err.println(e.getMessage());
-        } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        }
+//        catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     }
 }

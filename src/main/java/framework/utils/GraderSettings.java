@@ -1,6 +1,6 @@
 package framework.utils;
 
-import grader.config.ConfigurationHolder;
+import grader.config.AConfigurationManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,6 +36,11 @@ public class GraderSettings {
             System.out.println("No settings file found.");
         }
     }
+    
+    public  Map<String, String> getSettings() {
+    	return settings;
+    }
+    
 
     /**
      * Returns a setting associated with the key
@@ -64,18 +69,7 @@ public class GraderSettings {
         return settings.containsKey(key);
     }
     
-    public void convertToDynamicConfiguration() {
-    	PropertiesConfiguration dynamicConfiguration = ConfigurationHolder.getDynamicConfiguration();
-    	for (String key : settings.keySet())
-            dynamicConfiguration.setProperty(key, settings.get(key));
-    	try {
-			dynamicConfiguration.save();
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    }
+   
 
     /**
      * Saves the settings to the file, making it hidden.
@@ -105,4 +99,5 @@ public class GraderSettings {
             singleton = new GraderSettings();
         return singleton;
     }
+  
 }

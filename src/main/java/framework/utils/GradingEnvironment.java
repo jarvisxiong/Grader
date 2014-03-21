@@ -1,5 +1,8 @@
 package framework.utils;
 
+import grader.config.AConfigurationManager;
+import grader.config.ConfigurationManager;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -39,6 +42,9 @@ public class GradingEnvironment {
     private String classpath;
     private String assignmentName;
     private String defaulAssignmentsDataFolderName;
+    ConfigurationManager configurationManager;  // maybe it does not belong here
+
+	
 
 	public String getDefaultAssignmentsDataFolderName() {
 		return defaulAssignmentsDataFolderName;
@@ -160,5 +166,12 @@ public class GradingEnvironment {
             singleton = new GradingEnvironment();
         return singleton;
     }
+    public ConfigurationManager getConfigurationManager() {
+		return configurationManager;
+	}
+
+	public void setConfigurationManager(ConfigurationManager configurationManager) {
+		this.configurationManager = configurationManager;
+	}
 
 }
