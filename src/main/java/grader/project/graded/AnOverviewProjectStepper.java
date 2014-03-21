@@ -675,8 +675,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		setColor ( "GradingFeatures." + index, nextColors.get(index));
 		currentColors.set(index, nextFeatureColor);	
 		}
-		if (selectedGradingFeature == projectDatabase.getGradingFeatures().get(index))
+		if (selectedGradingFeature == projectDatabase.getGradingFeatures().get(index)) {
 			nextManualNotesColor = nextFeatureColor;
+			refreshManualNotesColor();
+		}
 		
 	}
 	

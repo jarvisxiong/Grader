@@ -139,12 +139,14 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Visible(false)
 	public synchronized void awaitBegin() {
 		graderStarted = false;
-		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
+		// see comment about race conditions
+//		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 		try {
 			wait();
 			saveSettings();
 			graderStarted = true;
-			propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
+			// this can cause concurrent changed to object editor  leading to race conditions
+//			propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
