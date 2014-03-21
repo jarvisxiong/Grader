@@ -14,7 +14,6 @@ import gradingTools.comp110.assignment3.testCases.IsPalindromeTestCase;
 import gradingTools.comp110.assignment3.testCases.PromptStringTestCase;
 import gradingTools.comp110.assignment3.testCases.ReverseWordCharacters;
 import gradingTools.sharedTestCase.MultipleRestrictedStringOutsideComments;
-import gradingTools.sharedTestCase.RestrictedStringOutsideComments;
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
 	public Assignment3Requirements() {
@@ -54,9 +53,12 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 						"[0-9]+[^.0-9]", palindromeOutputs), new InfiniteLoopComputationTestCase(
 						"abcdefg", "check if palindrome", "0.1 1.2 0.3", "compute rounded sum"));
 
-		// Deduct points for using StringBuffer
-		addRestriction("No StringBuffer allowed", 30, new RestrictedStringOutsideComments(
-				"StringBuffer"));
+		// Deduct points for using StringBuffer or StringBuilder
+		Set<String> restrictedStringClasses = new TreeSet<String>();
+		restrictedStringClasses.add("StringBuffer");
+		restrictedStringClasses.add("StringBuilder");
+		addRestriction("No StringBuffer or StringBuilder allowed", 30,
+				new MultipleRestrictedStringOutsideComments(restrictedStringClasses));
 
 		// Deduct points for using Map, HashMap, TreeMap, Set, HashSet, or
 		// TreeSet
