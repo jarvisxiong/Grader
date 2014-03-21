@@ -95,6 +95,7 @@ public class Driver {
 //                BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
 //            	 ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
             	 String settings = configuration.getString("grader.settings", "oe");
+            	 String settingsTry = configuration.getString("Grader.Settings");
             	 if (settings.equalsIgnoreCase("oe")) {
                  	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
                  	NavigationFilterRepository.register(gradingBasedFilterer);
