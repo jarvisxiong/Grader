@@ -1,5 +1,7 @@
 package framework.utils;
 
+import grader.config.ConfigurationHolder;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -29,7 +33,7 @@ public class GraderSettings {
                     settings.put(parts[0], parts[1]);
             }
         } catch (Exception e) {
-            System.out.println("Error reading settings file.");
+            System.out.println("No settings file found.");
         }
     }
 
@@ -58,6 +62,19 @@ public class GraderSettings {
      */
     public boolean has(String key) {
         return settings.containsKey(key);
+    }
+    
+    public void convertToDynamicConfiguration() {
+    	PropertiesConfiguration dynamicConfiguration = ConfigurationHolder.getDynamicConfiguration();
+    	for (String key : settings.keySet())
+            dynamicConfiguration.setProperty(key, settings.get(key));
+    	try {
+			dynamicConfiguration.save();
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     }
 
     /**
