@@ -66,7 +66,7 @@ public class AConfigurationManager implements ConfigurationManager {
 	
 	 public void convertToDynamicConfiguration() {
 		 	Map<String, String> settings = GraderSettings.get().getSettings();
-	    	PropertiesConfiguration dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
+//	    	PropertiesConfiguration dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
 	    	for (String key : settings.keySet())
 	            dynamicConfiguration.setProperty(key, settings.get(key));
 	    	try {
