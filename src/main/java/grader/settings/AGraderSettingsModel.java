@@ -12,7 +12,10 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.config.ConfigurationManagerSelector;
 import grader.modules.AModuleProblemSelector;
+import grader.modules.ModuleProblemManager;
+import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
@@ -43,8 +46,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	List<String> problems = new ArrayList();
 	String currentModule;
 	List<String> currentProblems;
+	String currentProblem;
 	String currentModulePrefix;
-	PropertiesConfiguration configuration, dynamicConfiguration;
+//	PropertiesConfiguration configuration, dynamicConfiguration;
+	PropertiesConfiguration dynamicConfiguration;
+
+	ModuleProblemManager moduleProblemManager;
 	String downloadPath;
 	
 
@@ -56,8 +63,11 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	
 	public AGraderSettingsModel(SakaiProjectDatabase aDatabase) {
 		database = aDatabase;
-		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
-		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
+//		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
+//		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
+		moduleProblemManager = ModuleProblemManagerSelector.getModuleProblemManager();
+//		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
 		
 //		loadSettings();
 		loadDynamicConfigurationSettings();
@@ -73,30 +83,31 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	void setCurrentModule(String newValue) {
 		
 		 currentModule = newValue;
-		 currentModulePrefix = configuration.getString(currentModule + ".problems.prefix")	;
-		if (currentModulePrefix == null)
-			currentModulePrefix = configuration.getString("default.problems.prefix", "Assignment");
-		problems.clear();
-		if (downloadPath == null) {
-			;
-		} else {
-			File folder = new File(downloadPath);
-			if (!folder.exists()) {
-				Tracer.error("No folder found for:" + downloadPath);				
-			} else {
-				File gradesFile = new File(downloadPath + "/grades.csv");
-				if (gradesFile.exists()) 
-					folder = folder.getParentFile();
-				File[] children = folder.listFiles();
-				for (File child:children) {
-					if (child.getName().startsWith(currentModulePrefix))
-						problems.add(child.getName());
-				}
-			}
-		}
+////		 currentModulePrefix = configuration.getString(currentModule + ".problems.prefix")	;
+////		if (currentModulePrefix == null)
+////			currentModulePrefix = configuration.getString("default.problems.prefix", "Assignment");
+//		 currentModulePrefix = moduleProblemManager.getModulePrefix(currentModule);
+//		problems.clear();
+//		if (downloadPath != null) {
+//			File folder = new File(downloadPath);
+//			if (!folder.exists()) {
+//				Tracer.error("No folder found for:" + downloadPath);				
+//			} else {
+//				File gradesFile = new File(downloadPath + "/grades.csv"); // is this a sakai assignment folder
+//				if (gradesFile.exists()) 
+//					folder = folder.getParentFile();
+//				File[] children = folder.listFiles();
+//				for (File child:children) {
+//					if (child.getName().startsWith(currentModulePrefix))
+//						problems.add(child.getName());
+//				}
+//			}
+//		}
+		 currentProblem = moduleProblemManager.getProblemsAndCurrentProblem(currentModule, downloadPath, problems);
 		
 		if (moduleProblemSelector != null) {
 			moduleProblemSelector.getProblem().setChoices(problems); // it is the same object but we need to fire property change
+			moduleProblemSelector.getProblem().setValue(currentProblem);
 		}
 		
 		
@@ -141,7 +152,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	   void maybeConvertToDynamicConfiguration() {
 		 	Map<String, String> settings = GraderSettings.get().getSettings();
-	    	PropertiesConfiguration dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
+//	    	PropertiesConfiguration dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
 	    	if (!dynamicConfiguration.isEmpty()) return;
 	    	for (String key : settings.keySet())
 	            dynamicConfiguration.setProperty(key, settings.get(key));
@@ -183,21 +194,26 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         if (endingOnyen != null) {
         	onyens.setEndingOnyen(endingOnyen);
         }
-        List objectModules = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getList("modules");
-		modules = objectModules;
-		if (objectModules.size() == 0) {
-			Tracer.error("No modules specified in configuration file!");
-			System.exit(-1);
-		}
-		 currentModulePrefix =  GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getString(currentModule + ".problems.prefix")	;
-
-		if (currentModulePrefix == null)
-			currentModulePrefix = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getString("default.problems.prefix", "Assignment");
+//        List objectModules = configuration.getList("modules");
+//        
+//		modules = objectModules;
+//		if (objectModules.size() == 0) {
+//			Tracer.error("No modules specified in configuration file!");
+//			System.exit(-1);
+//		}
+        modules = moduleProblemManager.getModules();
+//		 currentModulePrefix =  configuration.getString(currentModule + ".problems.prefix")	;
+//
+//		if (currentModulePrefix == null)
+//			currentModulePrefix = configuration.getString("default.problems.prefix", "Assignment");
 //				Common.arrayToArrayList(new String[] {"Comp110", "Comp401"});
 //		List<String> problems = Common.arrayToArrayList(new String[] {"A1", "A2"});
-		setCurrentModule(GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration().getString("currentModule", modules.get(0)));
+		setCurrentModule(dynamicConfiguration.getString("currentModule", modules.get(0)));
+//		setCurrentModule(dynamicConfiguration.getString("currentModule", modules.get(0)));
+
 
 		moduleProblemSelector = new AModuleProblemSelector(modules, problems);
+		moduleProblemSelector.getProblem().setValue(currentProblem);
 	}
 	
 	

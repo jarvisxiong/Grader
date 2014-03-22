@@ -17,6 +17,7 @@ import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
+import grader.config.ConfigurationManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -44,8 +45,10 @@ public class Driver {
 
         try {
             // Load the config file
-        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
-        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
+//        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
+        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+
+//        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
 //            GradingEnvironment.get().getConfigurationManager().setStaticConfiguration(configuration);
 //            String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");

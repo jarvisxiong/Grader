@@ -28,7 +28,7 @@ public class AModuleProblemSelector implements ModuleProblemSelector {
 	public void setModule(DynamicEnum<String> module) {
 		this.module = module;
 //		problem.addChoice("15");
-		problem.setChoices(Common.arrayToArrayList(new String[] {"one", "two"}));
+//		problem.setChoices(Common.arrayToArrayList(new String[] {"one", "two"}));
 	}
 	@Column(1)
 	public DynamicEnum<String> getProblem() {

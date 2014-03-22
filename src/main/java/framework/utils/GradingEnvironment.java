@@ -42,7 +42,7 @@ public class GradingEnvironment {
     private String classpath;
     private String assignmentName;
     private String defaulAssignmentsDataFolderName;
-    ConfigurationManager configurationManager;  // maybe it does not belong here
+//    ConfigurationManager configurationManager;  // maybe it does not belong here
 
 	
 
@@ -166,12 +166,12 @@ public class GradingEnvironment {
             singleton = new GradingEnvironment();
         return singleton;
     }
-    public ConfigurationManager getConfigurationManager() {
-		return configurationManager;
-	}
-
-	public void setConfigurationManager(ConfigurationManager configurationManager) {
-		this.configurationManager = configurationManager;
-	}
+//    public ConfigurationManager getConfigurationManager() {
+//		return configurationManager;
+//	}
+//
+//	public void setConfigurationManager(ConfigurationManager configurationManager) {
+//		this.configurationManager = configurationManager;
+//	}
 
 }
