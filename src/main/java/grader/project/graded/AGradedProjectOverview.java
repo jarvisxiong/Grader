@@ -1779,8 +1779,8 @@ public class AGradedProjectOverview  implements
 		
 	}
 	@Override
-	public void setInternalScore(double newVal) {
-		textOverview.setInternalScore(newVal);
+	public void internalSetScore(double newVal) {
+		textOverview.internalSetScore(newVal);
 		
 	}
 	

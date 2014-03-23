@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import au.com.bytecode.opencsv.CSVReader;
+import framework.grading.GradingManager;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
@@ -23,6 +24,7 @@ import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.assignment.GradingFeature;
 import grader.modules.ModuleProblemManagerSelector;
+import grader.settings.GraderSettingsManagerSelector;
 
 /**
  * This maintains a spreadsheet of all students and their grades
@@ -46,7 +48,9 @@ public class SpreadsheetLogger implements Logger {
 				"./config/config.properties");
 		String spreadsheetPath = configuration.getString("grader.logger.spreadsheetFilename")
 				.replace("{projectName}", GradingEnvironment.get().getAssignmentName());
-		spreadsheetPath = ModuleProblemManagerSelector.getModuleProblemManager().replaceModuleProblemVars(spreadsheetPath);
+//		spreadsheetPath = ModuleProblemManagerSelector.getModuleProblemManager().replaceModuleProblemVars(spreadsheetPath);
+		spreadsheetPath = GraderSettingsManagerSelector.getGraderSettingsManager().replaceModuleProblemVars(spreadsheetPath);
+
 		spreadsheetFile = new File(spreadsheetPath);
 
 		// Load or create the workbook
@@ -118,6 +122,7 @@ public class SpreadsheetLogger implements Logger {
 
 		// Save the final scores
 		row.getCell(4).setCellValue(rawScore);
+		System.out.println("Saving score:" + rawScore);
 		row.getCell(5).setCellValue(recordingSession.getLatePenalty());
 		row.getCell(6).setCellFormula("E" + rowNum + "*F" + rowNum);
 
@@ -130,13 +135,14 @@ public class SpreadsheetLogger implements Logger {
 
 			FileOutputStream outputStream = new FileOutputStream(spreadsheetFile);
 			workbook.write(outputStream);
+			outputStream.flush();
 			outputStream.close();
 
 			// Reload the workbook. We have to do this to avoid issues.
 			// See:
 			// http://stackoverflow.com/questions/18261152/org-apache-xmlbeans-impl-values-xmlvaluedisconnectedexception-when-write-workboo
 			loadWorkbook();
-			System.out.println("Spreadsheet grades saved to " + spreadsheetFile.getCanonicalPath());
+			System.out.println("Spreadsheet grades for " + recordingSession.getUserId() + " saved to " + spreadsheetFile.getCanonicalPath());
 		} catch (IOException e) {
 			e.printStackTrace(); // To change body of catch statement use File |
 									// Settings | File Templates.
@@ -188,10 +194,12 @@ public class SpreadsheetLogger implements Logger {
 		row.createCell(5).setCellValue("Early/Late modifier");
 		row.createCell(6).setCellValue("Final score");
 		int columnCounter = 7;
+		if (projectRequirements != null) {
 		for (Feature feature : projectRequirements.getFeatures())
 			row.createCell(columnCounter++).setCellValue(feature.getName());
 		for (Restriction restriction : projectRequirements.getRestrictions())
 			row.createCell(columnCounter++).setCellValue(restriction.getName());
+		}
 
 		// Load the Sakai grades file to get the list of students
 		try {

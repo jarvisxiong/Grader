@@ -155,9 +155,11 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 
         // Create empty results. Don't worry, they'll be filled in later
         List<CheckResult> featureResults = new ArrayList<CheckResult>();
+        if (projectRequirements != null)
         for (Feature feature : projectRequirements.getFeatures())
             featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, feature));
         List<CheckResult> restrictionResults = new ArrayList<CheckResult>();
+        if (projectRequirements != null)
         for (Restriction restriction : projectRequirements.getRestrictions())
             featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, restriction));
 

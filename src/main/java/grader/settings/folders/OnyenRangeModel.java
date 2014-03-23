@@ -1,6 +1,10 @@
 package grader.settings.folders;
 
-public interface OnyenRangeModel {
+import java.beans.PropertyChangeListener;
+
+import util.models.PropertyListenerRegisterer;
+
+public interface OnyenRangeModel extends PropertyListenerRegisterer{
 	public String getStartingOnyen() ;
 	public void setStartingOnyen(String startingOnyen) ;
 	public String getEndingOnyen();

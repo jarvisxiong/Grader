@@ -98,7 +98,7 @@ public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ Proper
 	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
 
 	void computeNextColors();
-	void setInternalScore(double newVal);
+	void internalSetScore(double newVal);
 	void setMultiplierColor();
 	void setScoreColor();
 	void setFrame (Object aFrame);

@@ -38,7 +38,8 @@ public interface GraderSettingsManager {
 	void save();
 	String getProblem(String aModule);
 	void setProblem(String aModule, String aNewValue);
-	void init(ModuleProblemManager initValue);
+//	void init(ModuleProblemManager initValue);
+	String replaceModuleProblemVars(String original);
 	
 
 }

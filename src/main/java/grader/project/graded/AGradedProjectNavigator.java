@@ -1005,7 +1005,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 
 	@Override
 	public boolean preNext() {
-		return !noNextFilteredRecords /*&& preProceed()*/ && currentOnyenIndex < onyens.size() - 1;
+		return /*!noNextFilteredRecords /*&& preProceed()* && */
+				currentOnyenIndex < onyens.size() - 1;
 		// this does not make sense, next is a stronger condition than next
 
 		// return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
@@ -1664,11 +1665,20 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			noPreviousFilteredRecords = false;
 	}
 	
-	void userMove(boolean forward) {
+	boolean checkLeave() {
 		if (!preProceed() && !projectStepper.isSettingUpProject()) {
 			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the Stop-If-Not-Done checkbox if you do not want this check.");
-			return ;
+			return false;
 		}
+		return true;
+	}
+	
+	void userMove(boolean forward) {
+//		if (!preProceed() && !projectStepper.isSettingUpProject()) {
+//			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the Stop-If-Not-Done checkbox if you do not want this check.");
+//			return ;
+//		}
+		if (!checkLeave()) return;
 		move(forward);
 	}
 
@@ -1720,7 +1730,9 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				} catch (MissingOnyenException e) {
 					e.printStackTrace(); // this should never be executed
 				}
-				Tracer.error("Cannot move as no more records that satisfy selection condition");
+				String message = "Cannot move as no more records that satisfy selection condition. You can change the filter settings.";
+				Tracer.error(message);
+				JOptionPane.showMessageDialog(null, message);
 				setFailedMoveFlags(forward);
 			} else {
 				setFilteredOnyenIndex(filteredOnyenIndex);
@@ -1862,6 +1874,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+		if (!checkLeave()) return;
 		save();
 		System.exit(0);
 		

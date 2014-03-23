@@ -16,7 +16,7 @@ public class AProjectNavigator implements ProjectNavigator {
 		NavigationKind navigationKind = settingsModel.getNavigationSetter().getNavigationKind();
 		switch (navigationKind) {
 		case MANUAL: 
-			database.getManualProjectNavigator().navigate(settingsModel, settingsFrame, true);
+			database.getManualProjectNavigator().navigate(settingsModel, settingsFrame, false);
 			break;
 		case AUTOMATIC:
 			database.getAutomaticProjectNavigator().navigate(settingsModel, settingsFrame, true);

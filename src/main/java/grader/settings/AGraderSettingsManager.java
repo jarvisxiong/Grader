@@ -24,15 +24,15 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 	   public static final String END_ONYEN = "end";
 	   PropertiesConfiguration dynamicConfiguration = 
 			   ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
-	   ModuleProblemManager moduleProblemManager;// = ModuleProblemManagerSelector.getModuleProblemManager();
+	   ModuleProblemManager moduleProblemManager= ModuleProblemManagerSelector.getModuleProblemManager();
 	   
 	   public AGraderSettingsManager() {
 		   maybeConvertToDynamicConfiguration();
 	   }
-	   @Override
-	   public void init (ModuleProblemManager initValue) {
-		   moduleProblemManager = initValue;
-	   }
+//	   @Override
+//	   public void init (ModuleProblemManager initValue) {
+//		   moduleProblemManager = initValue;
+//	   }
 
 	   void maybeConvertToDynamicConfiguration() {
 		 	Map<String, String> settings = GraderSettings.get().getSettings();
@@ -171,9 +171,25 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 
 	@Override
 	public void setProblem(String aModule, String aNewValue) {
-		dynamicConfiguration.setProperty(aModule + "." + PROBLEM_NAME, aNewValue);
+		dynamicConfiguration.setProperty(aModule + "." + PROBLEM_NAME, aNewValue.replaceAll("\\s+", ""));		
+	}
+	@Override
+	public String replaceModuleProblemVars(String  original) {
+		String moduleName = getModule();
+		String problemName = getProblem(moduleName);
+		String retVal = original;
+//		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
+		retVal = retVal.replace("{moduleName}", moduleName);
+		retVal = retVal.replace("{ModuleName}", moduleName);
+		retVal = retVal.replace("{modulename}", moduleName.toLowerCase());
+		
+		retVal = retVal.replace("{problemName}", problemName);
+		retVal = retVal.replace("{ProblemName}", problemName);
+		retVal = retVal.replace("{problemname}", problemName.toLowerCase());
+		return retVal;
 		
 	}
+    
 	@Override
 	public void save() {
       try {

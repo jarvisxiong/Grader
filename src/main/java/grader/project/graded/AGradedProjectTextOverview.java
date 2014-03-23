@@ -805,15 +805,16 @@ public class AGradedProjectTextOverview  implements
 //				.getCommentsFileName());
 //	}
 @Override
-	public void setInternalScore(double newVal) {
+	public void internalSetScore(double newVal) {
 //		if (projectStepper.isChanged()) return;
 		if (score == newVal) return;
 		score = newVal;
 		if (!projectStepper.isSettingUpProject()) {
 			setScoreColor();
 			propertyChangeSupport.firePropertyChange("Score", null, newVal);
+//			featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+
 		}
-		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 
 		
 	}
@@ -853,12 +854,13 @@ public class AGradedProjectTextOverview  implements
 	public void setScore(double newVal) {
 		if (score == newVal) return;
 		double oldVal = score;
-		setInternalScore(newVal);
+		internalSetScore(newVal);
 		if (totalScoreRecorder != null)
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
-//		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+		
+		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(), 

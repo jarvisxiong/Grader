@@ -48,6 +48,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import org.antlr.runtime.EarlyExitException;
@@ -550,8 +551,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		double savedScore = featureGradeRecorder.getGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
-		if (savedScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE)
-		gradedProjectOverview.setInternalScore(savedScore);
+		if (savedScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+			gradedProjectOverview.internalSetScore(savedScore);
+			// propagate to other recorders
+			// cannot do this, recording session not created
+//			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
+		}
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
 		}
@@ -563,6 +568,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		propertyChangeSupport.firePropertyChange("Project", AttributeNames.IGNORE_NOTIFICATION, project);
 
 		featureGradeRecorder.newSession(getOnyen());
+		featureGradeRecorder.setGrade(getName(), getOnyen(), getScore()); // pass the first score to recording session
 		gradedProjectOverview.setProject(newVal);
 		autoVisitBehavior.setProject(newVal);
 		gradedProjectNavigator.setProject(newVal);
@@ -1749,13 +1755,18 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	@Override
 	public boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException {
-		
+		List<String> onyens = projectDatabase.getOnyenNavigationList();
+		if (onyens.size() == 0) {
+			JOptionPane.showMessageDialog(null, "No onyens found in specified range.");
+			return false;
+		}
+
 		if (!preRunProjectsInteractively()) {
 			Tracer.error("Projects not configured");
 //			hasMoreSteps = false;
 			return false;
 		}
-		List<String> onyens = projectDatabase.getOnyenNavigationList();
+//		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		
 		String anOnyen = aGoToOnyen;
 		if (aGoToOnyen.isEmpty()) {
@@ -2088,8 +2099,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public String getOnyen() {
 		return gradedProjectOverview.getOnyen();
 	}
-	public void setInternalScore(double newVal) {
-		gradedProjectOverview.setInternalScore(newVal);
+	public void internalSetScore(double newVal) {
+		gradedProjectOverview.internalSetScore(newVal);
 	}
 	public void setMultiplierColor() {
 		gradedProjectOverview.setMultiplierColor();

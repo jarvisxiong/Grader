@@ -42,7 +42,7 @@ public interface ModuleProblemManager {
 	public Object getFilterOption(String aModule, String aProblem) ;
 
 	public void setFilterOption(String aModule, String aProblem, Object newVal ) ;
-	String replaceModuleProblemVars(String original);
-	void init(GraderSettingsManager aGraderSettingsManager);
+//	String replaceModuleProblemVars(String original);
+//	void init(GraderSettingsManager aGraderSettingsManager);
 
 }

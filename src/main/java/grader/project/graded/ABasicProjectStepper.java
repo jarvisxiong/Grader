@@ -517,7 +517,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 //			setInternalScore(getGrade());
 		double savedScore = featureGradeRecorder.getGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
 		
-		gradedProjectOverview.setInternalScore(savedScore);
+		gradedProjectOverview.internalSetScore(savedScore);
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
 		}
@@ -1903,8 +1903,8 @@ public class ABasicProjectStepper extends AClearanceManager implements
 	public String getOnyen() {
 		return gradedProjectOverview.getOnyen();
 	}
-	public void setInternalScore(double newVal) {
-		gradedProjectOverview.setInternalScore(newVal);
+	public void internalSetScore(double newVal) {
+		gradedProjectOverview.internalSetScore(newVal);
 	}
 	public void setMultiplierColor() {
 		gradedProjectOverview.setMultiplierColor();
