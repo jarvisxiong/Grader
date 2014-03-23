@@ -18,11 +18,15 @@ import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
+import grader.modules.ModuleProblemManager;
+import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.MissingOnyenException;
 import grader.settings.AGraderSettingsModel;
+import grader.settings.GraderSettingsManager;
+import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.GraderSettingsModel;
 import grader.settings.navigation.NavigationFilterRepository;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
@@ -40,14 +44,71 @@ import bus.uigen.ObjectEditor;
  * Use config.properties to configure what gets run.
  */
 public class Driver {
+	
+	public static void initLoggers(ProjectRequirements requirements, PropertiesConfiguration configuration) {
+		try {
+		// Logging
+        ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
+        recorder.setProjectRequirements(requirements);
+
+        String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
+       //lazy coding means feedback should be the last step so that isSaved works correctly
+
+        for (String method :loggingMethods) {
+
+            // Add loggers
+            if (method.equals("local") || method.equals("local-txt"))
+                recorder.addLogger(new LocalTextSummaryLogger());
+            if (method.equals("local") || method.equals("local-json"))
+                recorder.addLogger(new LocalJsonLogger());
+            if (method.equals("feedback") || method.equals("feedback-txt"))
+                recorder.addLogger(new FeedbackTextSummaryLogger());
+            if (method.equals("feedback") || method.equals("feedback-json"))
+                recorder.addLogger(new FeedbackJsonLogger());
+            if (method.equals("spreadsheet"))
+                recorder.addLogger(new SpreadsheetLogger(requirements));
+            if (method.equals("csv"))
+                recorder.addLogger(new CsvLogger());
+        }
+		} catch (ConfigurationException e) {
+            System.err.println("Error loading config file.");
+            System.err.println(e.getMessage());
+		}
+		
+	}
+	
+	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration) {
+		ProjectRequirements requirements = null;
+		try {
+		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
+            requirements = (ProjectRequirements) _class.newInstance();
+	} catch (ClassNotFoundException e) {
+        System.err.println("Could not find project requirements.");
+        System.err.println(e.getMessage());
+	}  catch (InstantiationException e) {
+        System.err.println("Could not create project requirements.");
+        System.err.println(e.getMessage());
+    } catch (IllegalAccessException e) {
+        System.err.println("Could not create project requirements.");
+        System.err.println(e.getMessage());
+    }
+		return requirements;
+		
+		
+	}
 
     public static void main(String[] args) {
 
-        try {
+//        try {
+        
+        	
             // Load the config file
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
         	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-
+        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
+        	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+        	moduleProgramManager.init(graderSettingsManager);
+        	graderSettingsManager.init(moduleProgramManager);
 //        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
 //            GradingEnvironment.get().getConfigurationManager().setStaticConfiguration(configuration);
@@ -67,37 +128,41 @@ public class Driver {
 //            Object projectProperty = configuration.getProperty("project.name");
             GradingEnvironment.get().setAssignmentName(projectName);
             
-                        
-            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+//                        
+//            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+//            defaultAssignmentsDataFolderName = moduleProgramManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+//            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
             // Get the project requirements
-            Class<?> _class = Class.forName(configuration.getString("project.requirements"));
-            ProjectRequirements requirements = (ProjectRequirements) _class.newInstance();
-
-            // Logging
+//            Class<?> _class = Class.forName(configuration.getString("project.requirements"));
+//            ProjectRequirements requirements = (ProjectRequirements) _class.newInstance();
+//            ProjectRequirements requirements = getProjectRequirements(configuration);
+            ProjectRequirements requirements = null;
+//
+//            // Logging
             ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
-            recorder.setProjectRequirements(requirements);
+//            recorder.setProjectRequirements(requirements);
+//            initLoggers(requirements, configuration);
 
-            String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
-           //lazy coding means feedback should be the last step so that isSaved works correctly
-
-            for (String method :loggingMethods) {
-
-                // Add loggers
-                if (method.equals("local") || method.equals("local-txt"))
-                    recorder.addLogger(new LocalTextSummaryLogger());
-                if (method.equals("local") || method.equals("local-json"))
-                    recorder.addLogger(new LocalJsonLogger());
-                if (method.equals("feedback") || method.equals("feedback-txt"))
-                    recorder.addLogger(new FeedbackTextSummaryLogger());
-                if (method.equals("feedback") || method.equals("feedback-json"))
-                    recorder.addLogger(new FeedbackJsonLogger());
-                if (method.equals("spreadsheet"))
-                    recorder.addLogger(new SpreadsheetLogger(requirements));
-                if (method.equals("csv"))
-                    recorder.addLogger(new CsvLogger());
-            }
+//            String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
+//           //lazy coding means feedback should be the last step so that isSaved works correctly
+//
+//            for (String method :loggingMethods) {
+//
+//                // Add loggers
+//                if (method.equals("local") || method.equals("local-txt"))
+//                    recorder.addLogger(new LocalTextSummaryLogger());
+//                if (method.equals("local") || method.equals("local-json"))
+//                    recorder.addLogger(new LocalJsonLogger());
+//                if (method.equals("feedback") || method.equals("feedback-txt"))
+//                    recorder.addLogger(new FeedbackTextSummaryLogger());
+//                if (method.equals("feedback") || method.equals("feedback-json"))
+//                    recorder.addLogger(new FeedbackJsonLogger());
+//                if (method.equals("spreadsheet"))
+//                    recorder.addLogger(new SpreadsheetLogger(requirements));
+//                if (method.equals("csv"))
+//                    recorder.addLogger(new CsvLogger());
+//            }
 
             // Run the grading process
             String controller = configuration.getString("grader.controller", "GradingManager");
@@ -106,6 +171,12 @@ public class Driver {
             String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
+            	  requirements = getProjectRequirements(configuration);
+
+                 // Logging
+//                 ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
+                 recorder.setProjectRequirements(requirements);
+            	initLoggers(requirements, configuration);
 
                 // Run the GraderManager
                 GradingManager manager = new GradingManager(projectName, requirements);
@@ -130,6 +201,17 @@ public class Driver {
             			settingsFrame.setSize(550, 530);
 
             			settingsModel.awaitBegin();
+            			projectName = settingsModel.getCurrentProblem(); // get the current one
+            			  requirements = getProjectRequirements(configuration);
+
+                         // Logging
+//                         ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
+                         recorder.setProjectRequirements(requirements);
+                      initLoggers(requirements, configuration);
+                      String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+                      defaultAssignmentsDataFolderName = moduleProgramManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+                      GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+
 //            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 //            			settingsFrame.dispose();
             	 
@@ -141,6 +223,10 @@ public class Driver {
                 settingsWindow.awaitBegin();
 //                ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
             	 }
+//            	 String projectName = configuration.getString("project.name");
+////               Object projectProperty = configuration.getProperty("project.name");
+//               GradingEnvironment.get().setAssignmentName(projectName);
+               
 
                 // Logging/results saving
                 FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
@@ -190,22 +276,22 @@ public class Driver {
 			}
 
 
-        } catch (ConfigurationException e) {
-            System.err.println("Error loading config file.");
-            System.err.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.err.println("Could not find project requirements.");
-            System.err.println(e.getMessage());
-        } catch (InstantiationException e) {
-            System.err.println("Could not create project requirements.");
-            System.err.println(e.getMessage());
-        } catch (IllegalAccessException e) {
-            System.err.println("Could not create project requirements.");
-            System.err.println(e.getMessage());
-        }
-//        catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//        } catch (ConfigurationException e) {
+//            System.err.println("Error loading config file.");
+//            System.err.println(e.getMessage());
+//        } catch (ClassNotFoundException e) {
+//            System.err.println("Could not find project requirements.");
+//            System.err.println(e.getMessage());
+//        } catch (InstantiationException e) {
+//            System.err.println("Could not create project requirements.");
+//            System.err.println(e.getMessage());
+//        } catch (IllegalAccessException e) {
+//            System.err.println("Could not create project requirements.");
+//            System.err.println(e.getMessage());
+//        }
+////        catch (IOException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
     }
 }

@@ -550,7 +550,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		double savedScore = featureGradeRecorder.getGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
-		
+		if (savedScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE)
 		gradedProjectOverview.setInternalScore(savedScore);
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
@@ -914,15 +914,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		}
 //	}
 //
-	void setGrade(double newVal) {
-		// This will be a spurious message to conglomerate as t serves as total
-		// and feature recorder
-		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
-		totalScoreRecorder.setGrade(project.getStudentAssignment()
-				.getStudentName(), project.getStudentAssignment().getOnyen(),
-				newVal);
-
-	}
+//	void setGrade(double newVal) {
+//		// This will be a spurious message to conglomerate as t serves as total
+//		// and feature recorder
+//		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
+//		totalScoreRecorder.setGrade(project.getStudentAssignment()
+//				.getStudentName(), project.getStudentAssignment().getOnyen(),
+//				newVal);
+//
+//	}
 //
 	double getGrade() {
 		return totalScoreRecorder.getGrade(project.getStudentAssignment()

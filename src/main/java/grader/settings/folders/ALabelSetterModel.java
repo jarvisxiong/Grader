@@ -12,8 +12,9 @@ public abstract class ALabelSetterModel implements LabelSetterModel{
 	LabelBeanModel labelModel = new ALabelBeanModel(" A Label", null);
 	String text;
 	
-	
-	 void setText(String newValue) {		 
+	@Override
+	@Visible(false)
+	 public void setText(String newValue) {		 
 		labelModel.set(newValue, null);
 	}
 	

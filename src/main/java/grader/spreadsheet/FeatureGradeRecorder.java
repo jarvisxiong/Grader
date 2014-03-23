@@ -13,7 +13,9 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	String getNotes(String aStudentName, String anOnyen, String aFeature);
 	// making all feature grade recorders have the same functionality as Josh's ConglomerateRecorder
 	public void newSession(final String onyen);
-	public void save(double gradePercentage);
+	public void saveMultiplier(double gradePercentage);
+//	public void saveScore(double score);
+
 	public void save(String comments) ;
 	
 	// these two should be combined

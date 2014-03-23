@@ -16,7 +16,10 @@ public class RecordingSession {
     private List<CheckResult> restrictionResults;
     private String comments;
     private double latePenalty;
-    List<GradingFeature> gradingFeatures;
+    double score;
+    
+
+	List<GradingFeature> gradingFeatures;
 
     
 	public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
@@ -75,6 +78,13 @@ public class RecordingSession {
 
 	public void setGradingFeatures(List<GradingFeature> gradingFeatures) {
 		this.gradingFeatures = gradingFeatures;
+	}
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
 	}
 
 }

@@ -11,12 +11,16 @@ import grader.settings.GraderSettingsModel;
 import grader.settings.navigation.NavigationKind;
 import grader.spreadsheet.FeatureGradeRecorder;
 
+import java.awt.Frame;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import util.annotations.Column;
@@ -29,12 +33,14 @@ import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.misc.Common;
 import util.trace.Tracer;
+import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
+import bus.uigen.uiFrame;
 import bus.uigen.attributes.AttributeNames;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
-		GradedProjectNavigator {
+		GradedProjectNavigator, WindowListener {
 	boolean playMode;
 	
 
@@ -121,11 +127,22 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// record here
 
 	}
+	public static void addWindowListener(Object aFrame, WindowListener aListener) {
+		if (aFrame instanceof Frame) {
+			((Frame) aFrame).addWindowListener(aListener);
+		} else if (aFrame instanceof JFrame) {
+			((JFrame) aFrame).addWindowListener(aListener);
+		} else if (aFrame instanceof uiFrame) {
+			
+			((OEFrame) aFrame).addWindowListener(aListener);
+			((OEFrame) aFrame).setAutoExitEnabled(false);
+		}
+		
+	}
 	@Override
 	public void setFrame(Object aFrame) {
-//		computeTogglePlayPauseLabel();
-		// TODO Auto-generated method stub
 		
+		addWindowListener(aFrame, this);
 	}
 
 
@@ -1003,15 +1020,18 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //			return ;
 //		}
 
-		try {
-			// Common.appendText(logFile, getOnyen() + " Skipped " +
-			// Common.currentTimeAsDate() + "\n");
-			Common.appendText(skippedFile, projectStepper.getOnyen() + "\n");
-			List<String> list = FileProxyUtils.toList(new File(logFile));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			// Common.appendText(logFile, getOnyen() + " Skipped " +
+//			// Common.currentTimeAsDate() + "\n");
+//			Common.appendText(skippedFile, projectStepper.getOnyen() + "\n");
+//			File file = new File(logFile);
+//			if (file.exists())
+//				file.createNewFile();
+//			List<String> list = FileProxyUtils.toList(file);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		 userMove(true);
 		// should put person in skipped list
 
@@ -1616,8 +1636,10 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// josh's code
 				// no serialization otherwise
 				if (projectStepper.isChanged() || 
-						!featureGradeRecorder.logSaved()) 
+						!featureGradeRecorder.logSaved()) {
 				featureGradeRecorder.finish();
+				projectStepper.setChanged(false);
+				}
 
 				// my original code
 				projectDatabase.resetIO();
@@ -1823,11 +1845,48 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(3)
 	@Override
 	public void save() {
+		maybeSaveState();
 //		System.exit(0);
 	}
 	
+	
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		save();
+		System.exit(0);
+		
+	}
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectNavigator());
 	}
-	
 }

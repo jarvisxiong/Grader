@@ -2,6 +2,9 @@ package grader.modules;
 
 import grader.config.ConfigurationManagerSelector;
 import grader.navigation.filter.NavigationFilter;
+import grader.settings.AGraderSettingsModel;
+import grader.settings.GraderSettingsManager;
+import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.navigation.NavigationKind;
 
 import java.io.File;
@@ -14,21 +17,48 @@ import util.trace.Tracer;
 
 public class AModuleProblemManager implements ModuleProblemManager{
 	PropertiesConfiguration configuration, dynamicConfiguration;
+	GraderSettingsManager graderSettingsManager;// = GraderSettingsManagerSelector.getGraderSettingsManager();
 	List<String> modules;
 	public AModuleProblemManager() {
+		
+				
+//				GraderSettingsManagerSelector.getGraderSettingsManager();
 		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+	}
+	@Override
+	public void init(GraderSettingsManager aGraderSettingsManager) {
+		graderSettingsManager = aGraderSettingsManager;
 	}
 	public List<String> getModules() {
 		if (modules != null) return modules;
 		
 		 List objectModules = configuration.getList("modules");
 		 List<String> 	modules = objectModules;
-			if (objectModules.size() == 0) {
-				Tracer.error("No modules specified in configuration file!");
-				System.exit(-1);
+			if (modules == null || objectModules.size() == 0) {
+				modules = new ArrayList();
+//				Tracer.error("No modules specified in configuration file!");
+				modules.add("GenericCourse");
+//				Tracer.error("No modules specified in configuration file!");
+//				System.exit(-1);
 			}
 		return modules;
+		
+	}
+	@Override
+	public String replaceModuleProblemVars(String  original) {
+		String moduleName = graderSettingsManager.getModule();
+		String problemName = graderSettingsManager.getProblem(moduleName);
+		String retVal = original;
+//		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
+		retVal = retVal.replace("{moduleName}", moduleName);
+		retVal = retVal.replace("{ModuleName}", moduleName);
+		retVal = retVal.replace("{modulename}", moduleName.toLowerCase());
+		
+		retVal = retVal.replace("{problemName}", problemName);
+		retVal = retVal.replace("{ProblemName}", problemName);
+		retVal = retVal.replace("{problemname}", problemName.toLowerCase());
+		return retVal;
 		
 	}
     public String getModulePrefix(String aModule) {
@@ -45,33 +75,33 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //    	
 //    }
 
-	public String getProblemsAndCurrentProblem(String aModule, String downloadPath, List<String> problems) {
-		problems.clear();
-//		List<String> problems = new ArrayList();
-		String currentModulePrefix =getModulePrefix(aModule);
-		problems.clear();
-		if (downloadPath != null) {
-			File folder = new File(downloadPath);
-			if (!folder.exists()) {
-				Tracer.error("No folder found for:" + downloadPath);				
-			} else {
-				File gradesFile = new File(downloadPath + "/grades.csv"); // is this a sakai assignment folder
-				if (gradesFile.exists()) 
-					folder = folder.getParentFile();
-				File[] children = folder.listFiles();
-				for (File child:children) {
-					if (child.getName().startsWith(currentModulePrefix)) {
-						problems.add(child.getName());
-					}
-				}
-			}
-		}
-		if (problems.size() > 0)
-			return problems.get(problems.size() - 1);
-		else
-			return null;
-//		return problems;
-	}
+//	public String getProblemsAndCurrentProblem(String aModule, String downloadPath, List<String> problems) {
+//		problems.clear();
+////		List<String> problems = new ArrayList();
+//		String currentModulePrefix =getModulePrefix(aModule);
+//		problems.clear();
+//		if (downloadPath != null) {
+//			File folder = new File(downloadPath);
+//			if (!folder.exists()) {
+//				Tracer.error("No folder found for:" + downloadPath);				
+//			} else {
+//				File gradesFile = new File(downloadPath + "/grades.csv"); // is this a sakai assignment folder
+//				if (gradesFile.exists()) 
+//					folder = folder.getParentFile();
+//				File[] children = folder.listFiles();
+//				for (File child:children) {
+//					if (child.getName().startsWith(currentModulePrefix)) {
+//						problems.add(child.getName());
+//					}
+//				}
+//			}
+//		}
+//		if (problems.size() > 0)
+//			return problems.get(problems.size() - 1);
+//		else
+//			return null;
+////		return problems;
+//	}
 	
 	
 	

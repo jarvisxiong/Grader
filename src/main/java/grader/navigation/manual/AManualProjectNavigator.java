@@ -17,7 +17,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 		database = aDatabase;
 	}
 	
-	public void navigate(GraderSettingsModel settingsModel, OEFrame settingsFrame, boolean exitOnompletion) {
+	public void navigate(GraderSettingsModel settingsModel, OEFrame settingsFrame, boolean exitOnCompletion) {
 		if (settingsModel == null) return;
 		while (true) {
 		String goToOnyen = settingsModel.getOnyens().getGoToOnyen();
@@ -29,9 +29,16 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 			if (retVal)
 				break;
 			else {
-				String message = "Did not find any entries matching filter. Try again.";
+				String message = "";
+				if (!exitOnCompletion)
+						
+						message = "Did not find any entries matching filter. Try again.";
+				else
+					message = "Did not find any entries  matching filter for manual mode. Exiting";
 				Tracer.error(message);
 				JOptionPane.showMessageDialog(null, message);
+				if (exitOnCompletion)
+					System.exit(0);
 //				ASakaiProjectDatabase.dispose(aFrame);
 			}
 			

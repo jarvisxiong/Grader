@@ -6,10 +6,12 @@ import bus.uigen.ObjectEditor;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GradingEnvironment;
 import util.annotations.Column;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.misc.Common;
 import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AModuleProblemSelector implements ModuleProblemSelector {
 	DynamicEnum<String> module;
 	DynamicEnum<String> problem;
