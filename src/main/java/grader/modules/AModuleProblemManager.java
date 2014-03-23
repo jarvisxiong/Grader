@@ -17,7 +17,7 @@ import util.trace.Tracer;
 
 public class AModuleProblemManager implements ModuleProblemManager{
 	PropertiesConfiguration configuration, dynamicConfiguration;
-	GraderSettingsManager graderSettingsManager;// = GraderSettingsManagerSelector.getGraderSettingsManager();
+//	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 	List<String> modules;
 	public AModuleProblemManager() {
 		
@@ -25,11 +25,12 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //				GraderSettingsManagerSelector.getGraderSettingsManager();
 		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+		
 	}
-	@Override
-	public void init(GraderSettingsManager aGraderSettingsManager) {
-		graderSettingsManager = aGraderSettingsManager;
-	}
+//	@Override
+//	public void init(GraderSettingsManager aGraderSettingsManager) {
+//		graderSettingsManager = aGraderSettingsManager;
+//	}
 	public List<String> getModules() {
 		if (modules != null) return modules;
 		
@@ -45,22 +46,22 @@ public class AModuleProblemManager implements ModuleProblemManager{
 		return modules;
 		
 	}
-	@Override
-	public String replaceModuleProblemVars(String  original) {
-		String moduleName = graderSettingsManager.getModule();
-		String problemName = graderSettingsManager.getProblem(moduleName);
-		String retVal = original;
-//		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
-		retVal = retVal.replace("{moduleName}", moduleName);
-		retVal = retVal.replace("{ModuleName}", moduleName);
-		retVal = retVal.replace("{modulename}", moduleName.toLowerCase());
-		
-		retVal = retVal.replace("{problemName}", problemName);
-		retVal = retVal.replace("{ProblemName}", problemName);
-		retVal = retVal.replace("{problemname}", problemName.toLowerCase());
-		return retVal;
-		
-	}
+//	@Override
+//	public String replaceModuleProblemVars(String  original) {
+//		String moduleName = graderSettingsManager.getModule();
+//		String problemName = graderSettingsManager.getProblem(moduleName);
+//		String retVal = original;
+////		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
+//		retVal = retVal.replace("{moduleName}", moduleName);
+//		retVal = retVal.replace("{ModuleName}", moduleName);
+//		retVal = retVal.replace("{modulename}", moduleName.toLowerCase());
+//		
+//		retVal = retVal.replace("{problemName}", problemName);
+//		retVal = retVal.replace("{ProblemName}", problemName);
+//		retVal = retVal.replace("{problemname}", problemName.toLowerCase());
+//		return retVal;
+//		
+//	}
     public String getModulePrefix(String aModule) {
     	String retVal =  configuration.getString(aModule + ".problems.prefix")	;
 

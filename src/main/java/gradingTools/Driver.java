@@ -77,10 +77,36 @@ public class Driver {
 		
 	}
 	
-	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration) {
+	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
+			ModuleProblemManager moduleProgramManager,
+			GraderSettingsManager graderSettingsManager ) {
 		ProjectRequirements requirements = null;
+		
 		try {
-		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
+			// compatibility with Josh's spec
+//			String requirementsSpec = configuration.getString("project.requirements");
+//			if (requirementsSpec == null) {
+//				Comp401.requirements = gradingTools.{problemname}
+				String module = graderSettingsManager.getModule();
+				String requirementsSpec = configuration.getString(module + ".requirements");
+				if (requirementsSpec == null) {
+					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
+					if (requirementsSpec == null) {
+						requirementsSpec = configuration.getString("default.requirements");
+						if (requirementsSpec == null) {
+							requirementsSpec = configuration.getString("project.requirements"); // upward compatibilty
+						}
+					}
+				}
+				
+				requirementsSpec = graderSettingsManager.replaceModuleProblemVars(requirementsSpec);
+					
+//			}
+			
+			
+//		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
+		   Class<?> _class = Class.forName(requirementsSpec);
+
             requirements = (ProjectRequirements) _class.newInstance();
 	} catch (ClassNotFoundException e) {
         System.err.println("Could not find project requirements.");
@@ -107,8 +133,8 @@ public class Driver {
         	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
-        	moduleProgramManager.init(graderSettingsManager);
-        	graderSettingsManager.init(moduleProgramManager);
+//        	moduleProgramManager.init(graderSettingsManager);
+//        	graderSettingsManager.init(moduleProgramManager);
 //        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
 //            GradingEnvironment.get().getConfigurationManager().setStaticConfiguration(configuration);
@@ -171,7 +197,7 @@ public class Driver {
             String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
-            	  requirements = getProjectRequirements(configuration);
+            	  requirements = getProjectRequirements(configuration, moduleProgramManager, graderSettingsManager);
 
                  // Logging
 //                 ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
@@ -202,14 +228,14 @@ public class Driver {
 
             			settingsModel.awaitBegin();
             			projectName = settingsModel.getCurrentProblem(); // get the current one
-            			  requirements = getProjectRequirements(configuration);
+            			  requirements = getProjectRequirements(configuration, moduleProgramManager, graderSettingsManager);
 
                          // Logging
 //                         ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
                          recorder.setProjectRequirements(requirements);
                       initLoggers(requirements, configuration);
                       String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-                      defaultAssignmentsDataFolderName = moduleProgramManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+                      defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
                       GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
 //            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();

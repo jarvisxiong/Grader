@@ -482,7 +482,7 @@ public class AProjectStepper extends AClearanceManager implements
 //			setInternalScore(getGrade());
 		double savedScore = featureGradeRecorder.getGrade(getName(), onyen);
 		
-		setInternalScore(savedScore);
+		internalSetScore(savedScore);
 		if (!shouldVisit()) {
 			return false;
 		}
@@ -789,7 +789,7 @@ public class AProjectStepper extends AClearanceManager implements
 				.getCommentsFileName());
 	}
 @Override
-	public void setInternalScore(double newVal) {
+	public void internalSetScore(double newVal) {
 		score = newVal;
 		if (!settingUpProject) {
 			setScoreColor();
@@ -832,7 +832,7 @@ public class AProjectStepper extends AClearanceManager implements
 	public void setScore(double newVal) {
 		if (score == newVal) return;
 		double oldVal = score;
-		setInternalScore(newVal);
+		internalSetScore(newVal);
 		if (totalScoreRecorder != null)
 
 			// if (gradeRecorder != null)

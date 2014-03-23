@@ -340,8 +340,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.shouldVisit();
 	}
 
-	public void setInternalScore(double newVal) {
-		mainProjectStepper.setInternalScore(newVal);
+	public void internalSetScore(double newVal) {
+		mainProjectStepper.internalSetScore(newVal);
 	}
 
 	public void setMultiplierColor() {

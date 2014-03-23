@@ -88,6 +88,7 @@ import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
@@ -754,6 +755,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 //		Set<String> onyens = new HashSet(onyenToProject.keySet());
 //		aProjectStepper.setHasMoreSteps(true);
 		List<String> onyens = getOnyenNavigationList(this);
+		if (onyens.size() == 0) {
+			JOptionPane.showMessageDialog(null, "No onyens matching specification found");
+		}
 
 		for (String anOnyen : onyens) {
 			runProjectInteractively(anOnyen, aProjectStepper);
@@ -1210,7 +1214,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
     public void addProjectRequirements(ProjectRequirements requirements) {
         projectRequirements = requirements;
         List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
-
+        if (requirements != null) {
         // Add the features
         for (Feature feature : requirements.getFeatures()) {
         	GradingFeature gradingFeature = new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit());
@@ -1223,6 +1227,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
         	GradingFeature gradingFeature = new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction));
             gradingFeatures.add(gradingFeature);
             featureToCheckable.put(gradingFeature, restriction);
+        }
         }
 
         addGradingFeatures(gradingFeatures);

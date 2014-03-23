@@ -360,8 +360,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.shouldVisit();
 	}
 
-	public void setInternalScore(double newVal) {
-		overviewProjectStepper.setInternalScore(newVal);
+	public void internalSetScore(double newVal) {
+		overviewProjectStepper.internalSetScore(newVal);
 	}
 
 	public void setMultiplierColor() {

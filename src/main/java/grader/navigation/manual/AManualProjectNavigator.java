@@ -30,10 +30,11 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 				break;
 			else {
 				String message = "";
-				if (!exitOnCompletion)
+				if (!exitOnCompletion) {
 						
 						message = "Did not find any entries matching filter. Try again.";
-				else
+						settingsModel.setGraderStarted(false);
+				} else
 					message = "Did not find any entries  matching filter for manual mode. Exiting";
 				Tracer.error(message);
 				JOptionPane.showMessageDialog(null, message);

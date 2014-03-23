@@ -93,7 +93,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	void setCurrentModule(String newValue) {
 		
 		 currentModule = newValue;
-		 setProblemsCurrentProblemAndDownloadPaths();
+		 refreshAll();
 ////		 currentModulePrefix = configuration.getString(currentModule + ".problems.prefix")	;
 ////		if (currentModulePrefix == null)
 ////			currentModulePrefix = configuration.getString("default.problems.prefix", "Assignment");
@@ -123,11 +123,14 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
 
 	}
-	public void setProblemsCurrentProblemAndDownloadPaths() {
+	public void refreshAll() {
+		refreshOnyens(currentModule);
 		problems.clear();
 //		List<String> problems = new ArrayList();
 		String currentModulePrefix = moduleProblemManager.getModulePrefix(currentModule);
 		problems.clear();
+		problemDownloadPath = graderSettingsManager.getDownloadPath(currentModule);
+//		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		if (problemDownloadPath != null) {
 			File folder = new File(problemDownloadPath);
 			if (!folder.exists()) {
@@ -150,9 +153,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				currentProblem;
 				for (File child:children) {
 					if (child.getName().startsWith(currentModulePrefix) && !child.getName().equals("AssignmentsData")) {
-						problems.add(child.getName());
+						String normalizedName = child.getName().replaceAll("\\s+", "");
+						problems.add(normalizedName);
 						if (child.lastModified() > latestTime) {
-							currentProblem = child.getName();
+							currentProblem = normalizedName;
 //							try {
 								problemDownloadPath = child.getAbsolutePath();
 //							} catch (IOException e) {
@@ -168,6 +172,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		fileBrowsing.getDownloadFolder().setText(problemDownloadPath);
 		refreshProblemDownloadPath();
 			if (moduleProblemSelector != null) {
+				moduleProblemSelector.getModule().setValue(currentModule);
 				moduleProblemSelector.getProblem().setChoices(problems); // it is the same object but we need to fire property change
 				moduleProblemSelector.getProblem().setValue(currentProblem);
 				
@@ -242,6 +247,20 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	   public static final String START_ONYEN = "start";
 	   public static final String END_ONYEN = "end";
 
+	void refreshOnyens(String aModule) {
+		String startingOnyen =  graderSettingsManager.getStartingOnyen(aModule);
+        
+        if (startingOnyen != null) {
+//        	String startingOnyen = GraderSettings.get().get("start");
+        	onyens.setStartingOnyen(startingOnyen);
+        }
+//        String endingOnyen = dynamicConfiguration.getString(aModule + "." + END_ONYEN,
+//        		dynamicConfiguration.getString(END_ONYEN));
+        String endingOnyen = graderSettingsManager.getEndingOnyen(aModule);
+        if (endingOnyen != null) {
+        	onyens.setEndingOnyen(endingOnyen);
+        }
+	}
 
 	void loadDynamicConfigurationSettings() {
 		
@@ -289,18 +308,19 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //        String startingOnyen =  dynamicConfiguration.getString(aModule + "." + START_ONYEN,     	
 //        		
 //        		dynamicConfiguration.getString(START_ONYEN));
-        String startingOnyen =  graderSettingsManager.getStartingOnyen(aModule);
-        
-        if (startingOnyen != null) {
-//        	String startingOnyen = GraderSettings.get().get("start");
-        	onyens.setStartingOnyen(startingOnyen);
-        }
-//        String endingOnyen = dynamicConfiguration.getString(aModule + "." + END_ONYEN,
-//        		dynamicConfiguration.getString(END_ONYEN));
-        String endingOnyen = graderSettingsManager.getEndingOnyen(aModule);
-        if (endingOnyen != null) {
-        	onyens.setEndingOnyen(endingOnyen);
-        }
+//        refreshOnyens(aModule);
+//        String startingOnyen =  graderSettingsManager.getStartingOnyen(aModule);
+//        
+//        if (startingOnyen != null) {
+////        	String startingOnyen = GraderSettings.get().get("start");
+//        	onyens.setStartingOnyen(startingOnyen);
+//        }
+////        String endingOnyen = dynamicConfiguration.getString(aModule + "." + END_ONYEN,
+////        		dynamicConfiguration.getString(END_ONYEN));
+//        String endingOnyen = graderSettingsManager.getEndingOnyen(aModule);
+//        if (endingOnyen != null) {
+//        	onyens.setEndingOnyen(endingOnyen);
+//        }
 //        List objectModules = configuration.getList("modules");
 //        
 //		modules = objectModules;
@@ -320,8 +340,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 
 		moduleProblemSelector = new AModuleProblemSelector(modules, problems);
 		moduleProblemSelector.getProblem().setValue(currentProblem);
+		moduleProblemSelector.getModule().setValue(currentModule);
 		moduleProblemSelector.getModule().addPropertyChangeListener(this);
 		moduleProblemSelector.getProblem().addPropertyChangeListener(this);
+		fileBrowsing.getDownloadFolder().getLabel().addPropertyChangeListener(this);
 
 		
 	}
@@ -444,6 +466,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Visible(false)
 	public void setGraderStarted(boolean graderStarted) {
 		this.graderStarted = graderStarted;
+		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
+
 	}
 //	
 //	public void removeFeatureSpreadsheet() {
@@ -478,13 +502,20 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getSource() == moduleProblemSelector.getProblem()) {
+			if (currentProblem.equals(moduleProblemSelector.getProblem().getValue())) return;
 			setCurrentProblem(moduleProblemSelector.getProblem().getValue());
 //			currentProblem = moduleProblemSelector.getProblem().getValue();
 //			problemDownloadPath = moduleDownloadPath + "/" +  currentModule;
 //			refreshProblemDownloadPath();
 		} else if (evt.getSource() == moduleProblemSelector.getModule()) {
+			if (currentModule.equals(moduleProblemSelector.getModule().getValue())) return;
 			setCurrentModule(moduleProblemSelector.getModule().getValue());
 			
+		} else if (evt.getSource() == fileBrowsing.getDownloadFolder().getLabel()) {
+			String newPath = fileBrowsing.getDownloadFolder().getLabel().getText();
+			if (problemDownloadPath.equals(newPath)) return; // bounce back
+			graderSettingsManager.setDownloadPath(currentModule, newPath);
+			refreshAll();
 		}
 		
 	}

@@ -135,7 +135,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	boolean shouldVisit();
 
-	void setInternalScore(double newVal);
+	void internalSetScore(double newVal);
 
 	void setMultiplierColor();
 
