@@ -171,12 +171,18 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 
 	@Override
 	public void setProblem(String aModule, String aNewValue) {
-		dynamicConfiguration.setProperty(aModule + "." + PROBLEM_NAME, aNewValue.replaceAll("\\s+", ""));		
+//		dynamicConfiguration.setProperty(aModule + "." + PROBLEM_NAME, aNewValue.replaceAll("\\s+", ""));		
+		dynamicConfiguration.setProperty(aModule + "." + PROBLEM_NAME, aNewValue);		
+
+	}
+	@Override
+	public String getNormalizedProblem(String aModule) {
+		return getProblem(aModule).replaceAll("\\s+", "");
 	}
 	@Override
 	public String replaceModuleProblemVars(String  original) {
 		String moduleName = getModule();
-		String problemName = getProblem(moduleName);
+		String problemName = getNormalizedProblem(moduleName);
 		String retVal = original;
 //		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
 		retVal = retVal.replace("{moduleName}", moduleName);

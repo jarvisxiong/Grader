@@ -125,7 +125,7 @@ public class ProjectClassesManager implements ClassesManager {
 	private File getClassFile(String className) {
 
 		File classFolder = buildFolder;
-		String[] splitClassName = className.split(".");
+		String[] splitClassName = className.split("\\.");
 		for (int i = 0; i < splitClassName.length - 1; i++) {
 			String packagePart = splitClassName[i];
 			classFolder = new File(classFolder, packagePart);

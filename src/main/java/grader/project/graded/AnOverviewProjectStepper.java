@@ -1958,6 +1958,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 				gradedProjectNavigator.setFrame(aFrame);
 			}
 		}
+		autoVisitBehavior.setFrame(aFrame);
 	}
 
 	@Visible(false)

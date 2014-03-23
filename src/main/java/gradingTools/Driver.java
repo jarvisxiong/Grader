@@ -2,6 +2,8 @@ package gradingTools;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import framework.grading.FrameworkProjectRequirements;
 import framework.grading.GradingManager;
@@ -77,8 +79,24 @@ public class Driver {
 		
 	}
 	
+	public static String VISIT_ACTIONS = "visitActions";
+	public static String AUTO_GRADE = "autoGrade";
+	public static String AUTO_RUN = "autoRun";
+	
+	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+		String module = graderSettingsManager.getModule();
+		String problem = graderSettingsManager.getNormalizedProblem(module);
+		List retVal = configuration.getList(module+"." + problem + "." + VISIT_ACTIONS);
+		if (retVal.isEmpty())
+			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
+		if (retVal.isEmpty())
+			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
+		
+		return retVal;
+		
+	}
+	
 	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
-			ModuleProblemManager moduleProgramManager,
 			GraderSettingsManager graderSettingsManager ) {
 		ProjectRequirements requirements = null;
 		
@@ -124,6 +142,9 @@ public class Driver {
 	}
 
     public static void main(String[] args) {
+//    	String[] retVal = "main.foo".split(".");
+//    	retVal = "main:foo".split(":");
+//    	retVal = "main.foo.foo".split("\\.");
 
 //        try {
         
@@ -197,7 +218,7 @@ public class Driver {
             String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
-            	  requirements = getProjectRequirements(configuration, moduleProgramManager, graderSettingsManager);
+            	  requirements = getProjectRequirements(configuration, graderSettingsManager);
 
                  // Logging
 //                 ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
@@ -228,7 +249,8 @@ public class Driver {
 
             			settingsModel.awaitBegin();
             			projectName = settingsModel.getCurrentProblem(); // get the current one
-            			  requirements = getProjectRequirements(configuration, moduleProgramManager, graderSettingsManager);
+            			  GradingEnvironment.get().setAssignmentName(projectName);
+            			  requirements = getProjectRequirements(configuration, graderSettingsManager);
 
                          // Logging
 //                         ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
@@ -276,7 +298,12 @@ public class Driver {
                 // Feedback
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
-                database.getOrCreateProjectStepper().setAutoAutoGrade(true);
+                List<String> visitActions = autoVisitActions(configuration, graderSettingsManager);
+                if (visitActions.contains(AUTO_GRADE))                	
+                	database.getOrCreateProjectStepper().setAutoAutoGrade(true);
+                if (visitActions.contains(AUTO_RUN))  
+                	database.getOrCreateProjectStepper().setAutoRun(true);
+
                 database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);                
 //				while (true) {
 //					try {

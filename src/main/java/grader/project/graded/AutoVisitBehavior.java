@@ -75,6 +75,8 @@ public interface AutoVisitBehavior  extends  PropertyListenerRegisterer{
 
 	boolean runAttempted();
 
+	void setFrame(Object aFrame);
+
 //	void setFrame(Object aFrame);
 //
 //	Object getFrame();
