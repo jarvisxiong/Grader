@@ -807,11 +807,15 @@ public class AGradedProjectTextOverview  implements
 @Override
 	public void setInternalScore(double newVal) {
 //		if (projectStepper.isChanged()) return;
+		if (score == newVal) return;
 		score = newVal;
 		if (!projectStepper.isSettingUpProject()) {
 			setScoreColor();
 			propertyChangeSupport.firePropertyChange("Score", null, newVal);
 		}
+		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+
+		
 	}
 
 	void setGrade(double newVal) {
@@ -854,11 +858,12 @@ public class AGradedProjectTextOverview  implements
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
-		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+//		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(), 
 				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
+		projectStepper.setChanged(true);
 		
 //		
 //		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
@@ -1130,6 +1135,7 @@ public class AGradedProjectTextOverview  implements
 	}
 	
 	public void internalSetMultiplier(double newValue) {
+		if (newValue == multiplier) return;
 		double oldValue = multiplier;
 		multiplier = newValue;
 		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
@@ -1146,6 +1152,8 @@ public class AGradedProjectTextOverview  implements
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(), 
 				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
+		featureGradeRecorder.saveMultiplier(newValue);
+		projectStepper.setChanged(true);
 //		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
 //		String oldOverallNotes = getOverallNotes();
 //		String newNotes = oldOverallNotes + " " + aNotes;

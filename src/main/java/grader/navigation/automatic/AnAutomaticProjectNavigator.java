@@ -53,8 +53,10 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 			}
 			if (projectStepper.getCurrentOnyenIndex() < onyensSize - 1)
 			   projectStepper.move(true);
-			else
+			else {
+				projectStepper.save();
 				break;
+			}
 			
 		}
 		if (frame != null)

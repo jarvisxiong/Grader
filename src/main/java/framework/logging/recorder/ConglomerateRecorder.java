@@ -92,10 +92,15 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         recordingSession.setComments(comments);
     }
 
-    public void save(double gradePercentage) {
+    public void saveMultiplier(double gradePercentage) {
         recordingSession.setLatePenalty(gradePercentage);
 //        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
     }
+    
+//    public void saveScore(double aScore) {
+//        recordingSession.setScore(aScore);
+////        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
+//    }
 
     public void save(String featureName, double score) {
         for (CheckResult r : recordingSession.getFeatureResults())
@@ -227,6 +232,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setGrade(String aStudentName, String anOnyen, double aScore) {
         checkSession(anOnyen);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore);
+        recordingSession.setScore(aScore);
     }
 
     /**

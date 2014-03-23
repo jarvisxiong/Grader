@@ -81,6 +81,8 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     }
      void initFeatureGradeFiles() {
          String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
+         backupFeatureGradeFile = new File(rootFolder.getAbsolutePath() + "/" + backupFeatureGradeFileName);
+         originalFeatureGradeFile = new File(fullFeatureGradeFileName);
 
     	if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {
 //            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
@@ -96,8 +98,8 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
             }
 
         }
-        backupFeatureGradeFile = new File(rootFolder.getAbsolutePath() + "/" + backupFeatureGradeFileName);
-        originalFeatureGradeFile = new File(fullFeatureGradeFileName);
+//        backupFeatureGradeFile = new File(rootFolder.getAbsolutePath() + "/" + backupFeatureGradeFileName);
+//        originalFeatureGradeFile = new File(fullFeatureGradeFileName);
 
     	
     }
@@ -218,7 +220,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 //    	String fullBackupName = getAbsoluteName() + "/" + backupFeatureGradeFileName;
 //    	File backup = new File(fullBackupName);    	
     	originalFeatureGradeFile.renameTo(backupFeatureGradeFile);
-    	initFeatureGradeFiles();
+//    	initFeatureGradeFiles();
     	return true;   	
     	
     }

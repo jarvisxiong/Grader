@@ -21,6 +21,8 @@ import framework.grading.testing.Restriction;
 import framework.logging.recorder.RecordingSession;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.assignment.GradingFeature;
+import grader.modules.ModuleProblemManagerSelector;
 
 /**
  * This maintains a spreadsheet of all students and their grades
@@ -44,6 +46,7 @@ public class SpreadsheetLogger implements Logger {
 				"./config/config.properties");
 		String spreadsheetPath = configuration.getString("grader.logger.spreadsheetFilename")
 				.replace("{projectName}", GradingEnvironment.get().getAssignmentName());
+		spreadsheetPath = ModuleProblemManagerSelector.getModuleProblemManager().replaceModuleProblemVars(spreadsheetPath);
 		spreadsheetFile = new File(spreadsheetPath);
 
 		// Load or create the workbook
@@ -51,6 +54,40 @@ public class SpreadsheetLogger implements Logger {
 			loadWorkbook();
 		else
 			createWorkbook();
+	}
+	
+	int resultsBasedSave(XSSFRow row, RecordingSession recordingSession) {
+		int rawScore = 0;
+		int columnCounter = 7;
+		for (CheckResult result : recordingSession.getFeatureResults()) {
+			rawScore += result.getScore();
+			row.getCell(columnCounter++).setCellValue(result.getScore());
+		}
+		for (CheckResult result : recordingSession.getRestrictionResults()) {
+			rawScore += result.getScore();
+			row.getCell(columnCounter++).setCellValue(result.getScore());
+		}
+		return rawScore;
+	}
+	
+	double featuresBasedSave(XSSFRow row, RecordingSession recordingSession) {
+//		int rawScore = 0;
+		int columnCounter = 7;
+		for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+       	 if (!gradingFeature.isRestriction()) {
+//       		rawScore += gradingFeature.getScore();
+			row.getCell(columnCounter++).setCellValue(gradingFeature.getScore());       		
+       	 }
+		}
+		for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+	       	 if (gradingFeature.isRestriction()) {
+//	       		rawScore += gradingFeature.getScore();
+				row.getCell(columnCounter++).setCellValue(gradingFeature.getScore());
+	       		
+	       	 }
+			}
+		 
+		return recordingSession.getScore();
 	}
 
 	@Override
@@ -63,16 +100,21 @@ public class SpreadsheetLogger implements Logger {
 		// Get the row and save the feature and restriction results
 		XSSFRow row = findRow(recordingSession);
 		double rawScore = 0;
+		if (recordingSession.getGradingFeatures() == null)
+			rawScore = resultsBasedSave(row, recordingSession);
+		else
+			rawScore = featuresBasedSave(row, recordingSession);
+		
 		int rowNum = row.getRowNum() + 1;
-		int columnCounter = 7;
-		for (CheckResult result : recordingSession.getFeatureResults()) {
-			rawScore += result.getScore();
-			row.getCell(columnCounter++).setCellValue(result.getScore());
-		}
-		for (CheckResult result : recordingSession.getRestrictionResults()) {
-			rawScore += result.getScore();
-			row.getCell(columnCounter++).setCellValue(result.getScore());
-		}
+//		int columnCounter = 7;
+//		for (CheckResult result : recordingSession.getFeatureResults()) {
+//			rawScore += result.getScore();
+//			row.getCell(columnCounter++).setCellValue(result.getScore());
+//		}
+//		for (CheckResult result : recordingSession.getRestrictionResults()) {
+//			rawScore += result.getScore();
+//			row.getCell(columnCounter++).setCellValue(result.getScore());
+//		}
 
 		// Save the final scores
 		row.getCell(4).setCellValue(rawScore);

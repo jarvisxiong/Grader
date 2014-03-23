@@ -122,7 +122,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
             // Figure out the late penalty
             Option<DateTime> timestamp = studentFolder.getTimestamp();
             double gradePercentage = timestamp.isDefined() ? requirements.checkDueDate(timestamp.get()) : 0;
-            ConglomerateRecorder.getInstance().save(gradePercentage);
+            ConglomerateRecorder.getInstance().saveMultiplier(gradePercentage);
 
             // Save the comments
             String comments = window.getComments();

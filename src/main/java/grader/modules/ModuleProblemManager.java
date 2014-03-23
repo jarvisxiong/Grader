@@ -1,6 +1,7 @@
 package grader.modules;
 
 import grader.navigation.filter.NavigationFilter;
+import grader.settings.GraderSettingsManager;
 import grader.settings.navigation.NavigationKind;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ModuleProblemManager {
     
 //    public String getCurrentModule() ;
 
-	public String getProblemsAndCurrentProblem(String aModule, String aDownloadPath, List<String> problems);
+//	public String getProblemsAndCurrentProblem(String aModule, String aDownloadPath, List<String> problems);
 //	public void setProblems(String aModule, String aProblemDirectory, List<String> aProblems) {
 //		
 //		
@@ -41,5 +42,7 @@ public interface ModuleProblemManager {
 	public Object getFilterOption(String aModule, String aProblem) ;
 
 	public void setFilterOption(String aModule, String aProblem, Object newVal ) ;
+	String replaceModuleProblemVars(String original);
+	void init(GraderSettingsManager aGraderSettingsManager);
 
 }

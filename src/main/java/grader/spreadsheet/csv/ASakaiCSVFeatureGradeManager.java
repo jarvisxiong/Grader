@@ -282,7 +282,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	@Override
-	public void save(double gradePercentage) {
+	public void saveMultiplier(double gradePercentage) {
 		// TODO Auto-generated method stub
 		
 	}
