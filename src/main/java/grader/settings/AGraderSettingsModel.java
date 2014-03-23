@@ -173,8 +173,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		refreshProblemDownloadPath();
 			if (moduleProblemSelector != null) {
 				moduleProblemSelector.getModule().setValue(currentModule);
+				String savedProblem = currentProblem;
 				moduleProblemSelector.getProblem().setChoices(problems); // it is the same object but we need to fire property change
-				moduleProblemSelector.getProblem().setValue(currentProblem);
+				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
 				
 			}
 //		if (problems.size() > 0) {
