@@ -153,7 +153,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				currentProblem;
 				for (File child:children) {
 					if (child.getName().startsWith(currentModulePrefix) && !child.getName().equals("AssignmentsData")) {
-						String normalizedName = child.getName().replaceAll("\\s+", "");
+//						String normalizedName = child.getName().replaceAll("\\s+", "");
+						String normalizedName = child.getName();
+
 						problems.add(normalizedName);
 						if (child.lastModified() > latestTime) {
 							currentProblem = normalizedName;
@@ -173,9 +175,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		refreshProblemDownloadPath();
 			if (moduleProblemSelector != null) {
 				moduleProblemSelector.getModule().setValue(currentModule);
-				String savedProblem = currentProblem;
-				moduleProblemSelector.getProblem().setChoices(problems); // it is the same object but we need to fire property change
-				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
+//				String savedProblem = currentProblem;
+				moduleProblemSelector.getProblem().setChoices(problems, currentProblem); // it is the same object but we need to fire property change
+//				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
 				
 			}
 //		if (problems.size() > 0) {

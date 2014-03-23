@@ -84,6 +84,7 @@ import wrappers.framework.project.ProjectWrapper;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AnAutoVisitBehavior implements
 		AutoVisitBehavior {
+	public static int PAUSE_AFTER_RUN = 3000;
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
 //	public final static long UI_LOAD_TIME = 10 * 1000;
@@ -116,6 +117,7 @@ public class AnAutoVisitBehavior implements
 	List<CheckResult> restrictionResults;
 //	GradingFeature selectedGradingFeature;
 	StudentFolder studentFolder;
+	boolean autoRunDeferred = false;
 //	Object frame;
 //	uiFrame oeFrame;
 //	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
@@ -501,8 +503,14 @@ public class AnAutoVisitBehavior implements
 //		// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
 //		// : 0;
 
-		if (isAutoRun() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
-			projectDatabase.runProject(projectStepper.getOnyen(), project);
+		if (isAutoRun() && (!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
+//			projectDatabase.runProject(projectStepper.getOnyen(), project);
+			if (frame == null) {
+				autoRunDeferred = true;
+			} else {
+				run();
+//				ThreadSupport.sleep(PAUSE_AFTER_RUN);
+			}
 		}
 		
 		
@@ -1691,16 +1699,17 @@ public class AnAutoVisitBehavior implements
 //
 //	}
 //
-//	@Visible(false)
-//	@Override
-//	public void setFrame(Object aFrame) {
-//		frame = aFrame;
-//		if (aFrame instanceof uiFrame) {
-//			oeFrame = (uiFrame) aFrame;
-////		oeFrame = aFrame;
-////			setObjectAdapters();
-//		}
-//	}
+	Object frame;
+	@Visible(false)
+	@Override
+	public void setFrame(Object aFrame) {
+		frame = aFrame;
+		if (autoRunDeferred) {
+			run();
+			autoRunDeferred = false;
+		}
+		
+	}
 //
 //	@Visible(false)
 //	@Override

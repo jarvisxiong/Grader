@@ -40,6 +40,7 @@ public interface GraderSettingsManager {
 	void setProblem(String aModule, String aNewValue);
 //	void init(ModuleProblemManager initValue);
 	String replaceModuleProblemVars(String original);
+	String getNormalizedProblem(String aModule);
 	
 
 }

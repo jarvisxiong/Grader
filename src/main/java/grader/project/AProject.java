@@ -112,6 +112,8 @@ public class AProject implements Project {
     public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
         rootFolder = aRootFolder;
         projectFolderName = aRootFolder.getAbsoluteName();
+//        if (projectFolderName.contains("bluong"))
+//        	System.out.println("bluoing");
         outputFolder = anOutputFolder;
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
         if (rootCodeFolder.hasValidBinaryFolder())
