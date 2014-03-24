@@ -23,5 +23,6 @@ public interface FileProxy extends RootFolderProxy {
     Set<String> getChildrenNames();
 
     public FileProxy getParentFolder();
+    String getParentRelativeName();
 
 }

@@ -411,7 +411,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (aScore < 0) {
 			Tracer.error("Negative computed Score!");
 		}
-		setScore(aScore);
+//		setScore(aScore);
+		internalSetScore(aScore);
+
 	}
 
 	@Visible(false)
