@@ -154,11 +154,12 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 //	
 //	}
 	@Override
-	public Object getNavigationFilterOption(String aModule, String aNavigationFilter) {
+	public String getNavigationFilterOption(String aModule, String aNavigationFilter) {
 		String aString = dynamicConfiguration.getString(aModule + "." + aNavigationFilter + "." + FILTER_OPTION,     	
         		
         		dynamicConfiguration.getString(aNavigationFilter + "." + FILTER_OPTION));
-		return Common.fromString(aNavigationFilter.getClass(), aString);
+//		return Common.fromString(aNavigationFilter.getClass(), aString);
+		return aString;
 	
 	}
 	@Override

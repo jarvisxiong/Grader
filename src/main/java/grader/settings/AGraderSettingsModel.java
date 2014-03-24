@@ -82,7 +82,21 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
 		
 //		loadSettings();
-		loadDynamicConfigurationSettings();
+		  String aModule = graderSettingsManager.getModule();
+	        modules = moduleProblemManager.getModules();
+	        problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
+//			if (problemDownloadPath == null)
+//	        
+////	        String downloadPath;
+//	        problemDownloadPath =  ;
+	        if (problemDownloadPath != null) {
+//	            String downloadPath = GraderSettings.get().get("path");
+	            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
+	        } else {
+	        	noDownloadPath();
+	        }
+	        setCurrentModule(aModule);
+//		loadDynamicConfigurationSettings();
 	}
 	public AGraderSettingsModel() {
 //		database = aDatabase;
@@ -126,6 +140,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 
 	}
 	public void refreshAll() {
+		loadDynamicConfigurationSettings();
 		refreshOnyens(currentModule);
 		problems.clear();
 //		List<String> problems = new ArrayList();
@@ -159,16 +174,18 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 						String normalizedName = child.getName();
 
 						problems.add(normalizedName);
-						if (child.lastModified() > latestTime) {
+						if (child.getAbsolutePath().equals(problemDownloadPath))
 							currentProblem = normalizedName;
-//							try {
-								problemDownloadPath = child.getAbsolutePath();
-//							} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-							
-						}
+//						if (child.lastModified() > latestTime) {
+//							currentProblem = normalizedName;
+////							try {
+//								problemDownloadPath = child.getAbsolutePath();
+////							} catch (IOException e) {
+////								// TODO Auto-generated catch block
+////								e.printStackTrace();
+////							}
+//							
+//						}
 					}
 				}
 			}
@@ -279,8 +296,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //        } else
 //            editor = GradingEnvironment.get().getEditor();
         fileBrowsing.getTextEditor().getLabel().setText(editor);
-        String aModule = graderSettingsManager.getModule();
-        modules = moduleProblemManager.getModules();
+        String aModule = currentModule;
+//        String aModule = graderSettingsManager.getModule();
+//        modules = moduleProblemManager.getModules();
 //
 //		String aModule = dynamicConfiguration.getString(MODULE, modules.get(0));
 //		setCurrentModule(dynamicConfiguration.getString("currentModule", modules.get(0)));
@@ -296,7 +314,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //
 //		problemDownloadPath =  dynamicConfiguration.getString(aModule + "." + PROBLEM_PATH,
 //				dynamicConfiguration.getString(PROBLEM_PATH));
-		problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
+//		problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
 //		if (problemDownloadPath == null)
 //        
 ////        String downloadPath;
@@ -318,8 +336,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         String aNavigationFilter = graderSettingsManager.getNavigationFilter(aModule);
         if (aNavigationFilter != null) {
         navigationSetter.getNavigationFilterSetter().getNavigationFilterType().setValue(aNavigationFilter);
-        Object option = graderSettingsManager.getNavigationFilterOption(aModule, aNavigationFilter);
-        navigationSetter.getNavigationFilterSetter().setParameter(option);
+        String optionString = graderSettingsManager.getNavigationFilterOption(aModule, aNavigationFilter);
+        Object currentOption = navigationSetter.getNavigationFilterSetter().getParameter();
+        Object newOption = Common.fromString(currentOption.getClass(), optionString);
+        navigationSetter.getNavigationFilterSetter().setParameter(newOption);
         }
         
         
@@ -358,7 +378,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		List<String> problems = Common.arrayToArrayList(new String[] {"A1", "A2"});
 //		setCurrentModule(dynamicConfiguration.getString("currentModule", modules.get(0)));
 
-		setCurrentModule(aModule);
+//		setCurrentModule(aModule);
+        
+        if (moduleProblemSelector == null) {
 
 		moduleProblemSelector = new AModuleProblemSelector(modules, problems);
 		moduleProblemSelector.getProblem().setValue(currentProblem);
@@ -366,6 +388,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		moduleProblemSelector.getModule().addPropertyChangeListener(this);
 		moduleProblemSelector.getProblem().addPropertyChangeListener(this);
 		fileBrowsing.getDownloadFolder().getLabel().addPropertyChangeListener(this);
+        }
 
 		
 	}
