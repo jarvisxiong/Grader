@@ -458,6 +458,10 @@ public class AnAutoVisitBehavior implements
 //		writeScores(this);
 		runExecuted = false;
 		project = newVal;
+		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
+			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
+			return false;
+		}
 
 		// not needed because of Josh's addition
 		// if (project == null) {
