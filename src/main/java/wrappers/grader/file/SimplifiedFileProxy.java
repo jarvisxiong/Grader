@@ -165,4 +165,10 @@ public class SimplifiedFileProxy implements FileProxy {
     public File getFile() {
         return file;
     }
+
+	@Override
+	public String getParentRelativeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

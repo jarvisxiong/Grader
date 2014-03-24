@@ -4,6 +4,8 @@ import framework.project.Project;
 
 import java.util.List;
 
+import util.trace.Tracer;
+
 /**
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
  */
@@ -31,7 +33,8 @@ public abstract class Checkable implements Gradable {
             return result;
         } catch (NotAutomatableException e) {
             return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
-        } catch (Exception e) {
+        } catch (NotGradableException e) {
+        	Tracer.error("Could not grade because did not find classes ");
 //            e.printStackTrace();
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
         }

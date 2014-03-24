@@ -815,6 +815,8 @@ public class AGradedProjectTextOverview  implements
 //			featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 
 		}
+		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+
 
 		
 	}
@@ -860,7 +862,7 @@ public class AGradedProjectTextOverview  implements
 			// if (gradeRecorder != null)
 			setGrade(newVal);
 		
-		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+//		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(), 

@@ -116,13 +116,14 @@ public class CsvLogger implements Logger {
  			String onyen = id.substring(id.lastIndexOf('(')+1, id.lastIndexOf(')'));
  			
  			//Get the rawScore
- 			double rawScore = 0;
+// 			double rawScore = 0;
  			
  			
- 	         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
- 	        	rawScore += gradingFeature.getScore();
- 	            
- 	         }
+// 	         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+// 	        	rawScore += gradingFeature.getScore();
+// 	            
+// 	         }
+ 			double rawScore = recordingSession.getScore();
  			
  			List<String> lines = FileUtils.readLines(file);
  			FileWriter writer = new FileWriter(file);			

@@ -35,8 +35,10 @@ public class GradingEnvironment {
         "C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
         "notepad"
     };
+    String userName;
+   
 
-    private String osName;
+	private String osName;
     private String editor;
     private String browser;
     private String classpath;
@@ -57,6 +59,7 @@ public class GradingEnvironment {
 
 	private GradingEnvironment() {
         osName = System.getProperty("os.name");
+        userName = System.getProperty("user.name");
         if (osName.equals("Mac OS X")) {
             osName = "Mac";
             browser = "open";
@@ -106,6 +109,13 @@ public class GradingEnvironment {
     public String getOsName() {
         return osName;
     }
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
     /**
      * Opens a directory in the file browser

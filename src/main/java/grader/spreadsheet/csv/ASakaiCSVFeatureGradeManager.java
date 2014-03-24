@@ -43,8 +43,10 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
 	 Map<String, Integer> resultToColumnNumber = new HashMap();
 	 public static final int EARLY_LATE_COLUMN = GRADE_COLUMN + 1;
+	 public static final int TOTAL_COLUMN = EARLY_LATE_COLUMN+ 1;
 	 public static final String LATE_TITLE = "Early/Late";
-	 public static final int PRE_FEATURE_COLUMN = EARLY_LATE_COLUMN;
+	 public static final String TOTAL_TITLE = "Weighted Grade";
+	 public static final int PRE_FEATURE_COLUMN = TOTAL_COLUMN ;
 
 	public ASakaiCSVFeatureGradeManager(FileProxy aGradeSpreadsheet, List<GradingFeature> aGradingFeatures) {
 		super(aGradeSpreadsheet);
@@ -77,6 +79,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	void makeTitles() {
 		String[] titleRow = table.get(TITLE_ROW);
 		titleRow[EARLY_LATE_COLUMN] = LATE_TITLE;
+		titleRow[TOTAL_COLUMN] = TOTAL_TITLE;
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
@@ -106,7 +109,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 
 	String[] extendedRow(String[] anExistinRow) {
 		// adding late penalty column also and results column
-		String[] retVal = new String[anExistinRow.length + 1 + 2*gradingFeatures.size()];
+//		String[] retVal = new String[anExistinRow.length + 1 + 2*gradingFeatures.size()];
+		String[] retVal = new String[anExistinRow.length + 2 + 2*gradingFeatures.size()];
+
 		for (int index = 0; index < anExistinRow.length; index++) {
 			retVal[index] = anExistinRow[index];
 		}
@@ -231,7 +236,12 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			
 		}		
 	}
-	
+	public void setGrade(String aStudentName, String anOnyen, double aScore) {
+		super.setGrade(aStudentName, anOnyen, aScore);
+		String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
+
+	}
 
 	@Override
 	public void setEarlyLatePoints(String aStudentName, String anOnyen,
@@ -245,6 +255,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	    }
 	    
 	    recordGrade(row, EARLY_LATE_COLUMN, aScore);
+	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
 	    writeTable();
 
 		

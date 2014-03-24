@@ -23,7 +23,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	}
 
 	public void setStartingOnyen(String newValue) {
-		String oldValue = newValue;
+		String oldValue = startingOnyen;
 		this.startingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("startingOnyen", oldValue, newValue);
 	}

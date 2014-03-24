@@ -84,17 +84,17 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		loadSettings();
 		  String aModule = graderSettingsManager.getModule();
 	        modules = moduleProblemManager.getModules();
-	        problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
-//			if (problemDownloadPath == null)
-//	        
-////	        String downloadPath;
-//	        problemDownloadPath =  ;
-	        if (problemDownloadPath != null) {
-//	            String downloadPath = GraderSettings.get().get("path");
-	            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
-	        } else {
-	        	noDownloadPath();
-	        }
+//	        problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
+////			if (problemDownloadPath == null)
+////	        
+//////	        String downloadPath;
+////	        problemDownloadPath =  ;
+//	        if (problemDownloadPath != null) {
+////	            String downloadPath = GraderSettings.get().get("path");
+//	            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
+//	        } else {
+//	        	noDownloadPath();
+//	        }
 	        setCurrentModule(aModule);
 //		loadDynamicConfigurationSettings();
 	}
@@ -136,7 +136,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	
 	void noDownloadPath() {
-		JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
+		JOptionPane.showMessageDialog(null, "When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
 	public void refreshAll() {
@@ -286,6 +286,17 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 
 	void loadDynamicConfigurationSettings() {
 		
+		problemDownloadPath = graderSettingsManager.getDownloadPath(currentModule);
+//		if (problemDownloadPath == null)
+//        
+////        String downloadPath;
+//        problemDownloadPath =  ;
+        if (problemDownloadPath != null) {
+//            String downloadPath = GraderSettings.get().get("path");
+            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
+        } else {
+        	noDownloadPath();
+        }
 //		maybeConvertToDynamicConfiguration();
 		editor = graderSettingsManager.getEditor();
 
