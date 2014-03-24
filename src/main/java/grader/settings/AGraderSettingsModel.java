@@ -21,6 +21,7 @@ import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
+import grader.navigation.filter.NavigationFilter;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
@@ -28,6 +29,7 @@ import grader.settings.folders.GraderFilesSetterModel;
 import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
+import grader.settings.navigation.NavigationKind;
 import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
 import util.annotations.Label;
@@ -305,6 +307,23 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         } else {
         	noDownloadPath();
         }
+        NavigationKind aNavigationKind = graderSettingsManager.getNavigationKind(aModule);
+        if (aNavigationKind != null)
+        	navigationSetter.setNavigationKind(aNavigationKind);
+        navigationSetter.getAutomaticNavigationSetter().setAnimateGrades(
+        		graderSettingsManager.getAnimateGrades(aModule));
+        
+        navigationSetter.getAutomaticNavigationSetter().setAnimationPauseTime(
+        		graderSettingsManager.getAnimationPauseTime(aModule));
+        String aNavigationFilter = graderSettingsManager.getNavigationFilter(aModule);
+        if (aNavigationFilter != null) {
+        navigationSetter.getNavigationFilterSetter().getNavigationFilterType().setValue(aNavigationFilter);
+        Object option = graderSettingsManager.getNavigationFilterOption(aModule, aNavigationFilter);
+        navigationSetter.getNavigationFilterSetter().setParameter(option);
+        }
+        
+        
+        
 //        else {
 //        	 fileBrowsing.getDownloadFolder().getLabel().setText("Please enter  folder");
 //        }
@@ -370,7 +389,18 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         graderSettingsManager.setStartingOnyen(currentModule, startingOnyen);
         graderSettingsManager.setEndingOnyen(currentModule, endingOnyen);
         graderSettingsManager.setProblem(currentModule, currentProblem);
-        graderSettingsManager.save();
+        
+       graderSettingsManager.setNavigationKind(currentModule, navigationSetter.getNavigationKind());
+       graderSettingsManager.setAnimateGrades(currentModule, navigationSetter.getAutomaticNavigationSetter().getAnimateGrades());
+       
+       graderSettingsManager.setAnimationPauseTime(currentModule, navigationSetter.getAutomaticNavigationSetter().getAnimationPauseTime());
+
+       String navigationFilter = navigationSetter.getNavigationFilterSetter().getNavigationFilterType().getValue().toString();
+       graderSettingsManager.setNavigationFilter(currentModule,
+    		   navigationFilter);
+       graderSettingsManager.setNavigationFilterOption(currentModule, navigationFilter, navigationSetter.getNavigationFilterSetter().getParameter());
+    
+       graderSettingsManager.save();
         
 
         

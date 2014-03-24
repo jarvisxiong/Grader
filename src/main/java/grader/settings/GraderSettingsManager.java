@@ -32,7 +32,6 @@ public interface GraderSettingsManager {
 	
 	public Integer getAnimationPauseTime(String aModule) ;
 	
-	public NavigationFilter getAnimatePauseTime(String aModule) ;
 	String getModule();
 	void setModule(String newValue);
 	void save();
@@ -41,6 +40,20 @@ public interface GraderSettingsManager {
 //	void init(ModuleProblemManager initValue);
 	String replaceModuleProblemVars(String original);
 	String getNormalizedProblem(String aModule);
+	void setAnimationPauseTime(String aModule, Integer newVal);
+//	NavigationFilter getNavigationFilter(String aModule);
+//	void setNavigationFilter(String aModule, NavigationFilter aNavigationFilter);
+//	
+	String getNavigationFilter(String aModule);
+	void setNavigationFilter(String aModule, String aNavigationFilter);
+	Object getNavigationFilterOption(String aModule,
+			String aNavigationFilter);
+	void setNavigationFilterOption(String aModule,
+			String aNavigationFilter, Object anOption);
+//	Object getNavigationFilterOption(String aModule,
+//			NavigationFilter aNavigationFilter);
+//	void setNavigationFilterOption(String aModule,
+//			NavigationFilter aNavigationFilter, Object anOption);
 	
 
 }
