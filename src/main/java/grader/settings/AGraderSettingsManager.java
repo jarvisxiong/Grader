@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import util.misc.Common;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
@@ -80,43 +81,124 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 		dynamicConfiguration.setProperty(END_ONYEN, anEndOnyen); 
 		
 	}
-
+	public static final String NAVIGATION_KIND = "navigationKind";
 	@Override
 	public NavigationKind getNavigationKind(String aModule) {
-		// TODO Auto-generated method stub
-		return null;
+		String aString = dynamicConfiguration.getString(aModule + "." + NAVIGATION_KIND,     	
+        		
+        		dynamicConfiguration.getString(NAVIGATION_KIND));
+		return (NavigationKind) Common.fromString(NavigationKind.class, aString);
+	
 	}
 
 	@Override
 	public void setNavigationKind(String aModule,
 			NavigationKind aNavigationKind) {
-		// TODO Auto-generated method stub
+		dynamicConfiguration.setProperty(aModule + "." + NAVIGATION_KIND, aNavigationKind.toString());
+		dynamicConfiguration.setProperty(NAVIGATION_KIND, aNavigationKind.toString()); 
+		
+	}
+	
+	public static final String NAVIGATION_FILTER = "navigationFilter";
+//	@Override
+//	public NavigationFilter getNavigationFilter(String aModule) {
+//		String aString = dynamicConfiguration.getString(aModule + "." + NAVIGATION_FILTER,     	
+//        		
+//        		dynamicConfiguration.getString(NAVIGATION_FILTER));
+//		return (NavigationFilter) Common.fromString(NavigationFilter.class, aString);
+//	
+//	}
+//	@Override
+//	public void setNavigationFilter(String aModule,
+//			NavigationFilter aNavigationFilter) {
+//		dynamicConfiguration.setProperty(aModule + "." + NAVIGATION_FILTER, aNavigationFilter.toString());
+//		dynamicConfiguration.setProperty(NAVIGATION_FILTER, aNavigationFilter.toString()); 
+//		
+//	}
+	
+	@Override
+	public String getNavigationFilter(String aModule) {
+		String aString = dynamicConfiguration.getString(aModule + "." + NAVIGATION_FILTER,     	
+        		
+        		dynamicConfiguration.getString(NAVIGATION_FILTER));
+		return aString;
+	
+	}
+	@Override
+	public void setNavigationFilter(String aModule,
+			String aNavigationFilter) {
+		dynamicConfiguration.setProperty(aModule + "." + NAVIGATION_FILTER, aNavigationFilter);
+		dynamicConfiguration.setProperty(NAVIGATION_FILTER, aNavigationFilter); 
 		
 	}
 
+	
+	public static final String FILTER_OPTION = "filterOption";
+
+	
+//	@Override
+//	public void setNavigationFilterOption(String aModule,
+//			NavigationFilter aNavigationFilter, Object anOption) {
+//		dynamicConfiguration.setProperty(aModule + "." + aNavigationFilter + "." + FILTER_OPTION, anOption.toString());
+//		dynamicConfiguration.setProperty(aNavigationFilter + "." + FILTER_OPTION, anOption.toString()); 
+//		
+//	}
+//	
+//	@Override
+//	public Object getNavigationFilterOption(String aModule, NavigationFilter aNavigationFilter) {
+//		String aString = dynamicConfiguration.getString(aModule + "." + aNavigationFilter + "." + FILTER_OPTION,     	
+//        		
+//        		dynamicConfiguration.getString(aNavigationFilter + "." + FILTER_OPTION));
+//		return Common.fromString(aNavigationFilter.getClass(), aString);
+//	
+//	}
+	@Override
+	public Object getNavigationFilterOption(String aModule, String aNavigationFilter) {
+		String aString = dynamicConfiguration.getString(aModule + "." + aNavigationFilter + "." + FILTER_OPTION,     	
+        		
+        		dynamicConfiguration.getString(aNavigationFilter + "." + FILTER_OPTION));
+		return Common.fromString(aNavigationFilter.getClass(), aString);
+	
+	}
+	@Override
+	public void setNavigationFilterOption(String aModule,
+			String aNavigationFilter, Object anOption) {
+		dynamicConfiguration.setProperty(aModule + "." + aNavigationFilter + "." + FILTER_OPTION, anOption.toString());
+		dynamicConfiguration.setProperty(aNavigationFilter + "." + FILTER_OPTION, anOption.toString()); 
+		
+	}
+	
+	
+	public static final String ANIMATE_GRADES = "animateGrades";
+
 	@Override
 	public Boolean getAnimateGrades(String aModule) {
-		// TODO Auto-generated method stub
-		return null;
+		return dynamicConfiguration.getBoolean(aModule + "." + ANIMATE_GRADES,     	
+        		
+        		dynamicConfiguration.getBoolean(ANIMATE_GRADES, false));
 	}
 
 	@Override
 	public void setAnimateGrades(String aModule, boolean newVal) {
-		// TODO Auto-generated method stub
-		
+		dynamicConfiguration.setProperty(aModule + "." + ANIMATE_GRADES, newVal);
+		dynamicConfiguration.setProperty(ANIMATE_GRADES, newVal); 		
 	}
+	
+	public static final String ANIMATION_PAUSE_TIME = "animatePauseTime";
 
 	@Override
 	public Integer getAnimationPauseTime(String aModule) {
-		// TODO Auto-generated method stub
-		return null;
+		return dynamicConfiguration.getInteger(aModule + "." +ANIMATION_PAUSE_TIME,     	
+        		
+        		dynamicConfiguration.getInteger(ANIMATION_PAUSE_TIME, 2));
 	}
 
 	@Override
-	public NavigationFilter getAnimatePauseTime(String aModule) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setAnimationPauseTime(String aModule, Integer newVal) {
+		dynamicConfiguration.setProperty(aModule + "." + ANIMATION_PAUSE_TIME, newVal);
+		dynamicConfiguration.setProperty(ANIMATION_PAUSE_TIME, newVal); 		
 	}
+	
 
 
 	@Override
