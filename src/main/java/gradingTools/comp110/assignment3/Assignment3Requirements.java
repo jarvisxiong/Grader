@@ -1,5 +1,7 @@
 package gradingTools.comp110.assignment3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,7 +15,7 @@ import gradingTools.comp110.assignment3.testCases.InfiniteLoopComputationTestCas
 import gradingTools.comp110.assignment3.testCases.IsPalindromeTestCase;
 import gradingTools.comp110.assignment3.testCases.PromptStringTestCase;
 import gradingTools.comp110.assignment3.testCases.ReverseWordCharacters;
-import gradingTools.sharedTestCase.MultipleRestrictedStringOutsideComments;
+import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
 	public Assignment3Requirements() {
@@ -58,10 +60,11 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		restrictedStringClasses.add("StringBuffer");
 		restrictedStringClasses.add("StringBuilder");
 		addRestriction("No StringBuffer or StringBuilder allowed", 30,
-				new MultipleRestrictedStringOutsideComments(restrictedStringClasses));
+				new MultipleRestrictedValsOutsideComments(restrictedStringClasses,
+						new ArrayList<String>(), new ArrayList<String>()));
 
 		// Deduct points for using Map, HashMap, TreeMap, Set, HashSet, or
-		// TreeSet
+		// TreeSet, or other advanced javaClasses
 		Set<String> restrictedClasses = new TreeSet<String>();
 		restrictedClasses.add("Map");
 		restrictedClasses.add("HashMap");
@@ -69,8 +72,13 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		restrictedClasses.add("Set");
 		restrictedClasses.add("HashSet");
 		restrictedClasses.add("TreeSet");
+		List<String> restrictedRegexes = new ArrayList<String>();
+		List<String> regexLabels = new ArrayList<String>();
+		restrictedRegexes.add("java[.]util[.](?!Scanner)");
+		regexLabels.add("advanced java classes");
 		addRestriction("No advanced Java classes allowed", 30,
-				new MultipleRestrictedStringOutsideComments(restrictedClasses));
+				new MultipleRestrictedValsOutsideComments(restrictedClasses, restrictedRegexes,
+						regexLabels));
 
 		String reverseWordInput = "Computer programming can be a difficult task or it can be as easy as 123";
 		String[] reverseWordOutputs = { "retupmoC gnimmargorp nac eb a tluciffid ksat ro ti nac eb sa ysae sa 321" };

@@ -37,6 +37,10 @@ public class RestrictedStringOutsideComments extends BasicTestCase {
 		this.restrictedString = restrictedString;
 	}
 
+	protected boolean containsRestrictedString(String str) {
+		return str.contains(restrictedString);
+	}
+
 	protected TestCaseResult restrictedStringOccurred() {
 		return fail(restrictedString + " not allowed");
 	}
@@ -46,14 +50,14 @@ public class RestrictedStringOutsideComments extends BasicTestCase {
 	}
 
 	private boolean containsRestrictedString(ImportDeclaration importDecl) {
-		return importDecl.getName().toString().contains(restrictedString);
+		return containsRestrictedString(importDecl.getName().toString());
 	}
 
 	private boolean containsRestrictedString(Expression expression) {
 		if (expression == null) {
 			return false;
 		}
-		return expression.toString().contains(restrictedString);
+		return containsRestrictedString(expression.toString());
 	}
 
 	private boolean containsRestrictedString(List<Expression> expressions) {

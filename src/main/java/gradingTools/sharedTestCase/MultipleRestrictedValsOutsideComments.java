@@ -1,6 +1,7 @@
 package gradingTools.sharedTestCase;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
@@ -9,13 +10,18 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 
-public class MultipleRestrictedStringOutsideComments extends BasicTestCase {
+public class MultipleRestrictedValsOutsideComments extends BasicTestCase {
 
 	private final Set<String> restrictedStrings;
+	private final List<String> restrictedRegexes;
+	private final List<String> regexLabels;
 
-	public MultipleRestrictedStringOutsideComments(Set<String> restrictedStrings) {
+	public MultipleRestrictedValsOutsideComments(Set<String> restrictedStrings,
+			List<String> restirctedRegexes, List<String> regexLabels) {
 		super("No " + restrictedStrings + " Restriction");
 		this.restrictedStrings = restrictedStrings;
+		this.restrictedRegexes = restirctedRegexes;
+		this.regexLabels = regexLabels;
 	}
 
 	@Override
@@ -47,6 +53,19 @@ public class MultipleRestrictedStringOutsideComments extends BasicTestCase {
 				restrictionsList += next;
 			}
 			return fail("Contains " + restrictionsList);
+		}
+
+		for (int i = 0; i < restrictedRegexes.size(); i++) {
+			String restrictedRegex = restrictedRegexes.get(i);
+			String regexLabel = regexLabels.get(i);
+
+			RestrictedRegexOutsideComments testCase = new RestrictedRegexOutsideComments(
+					restrictedRegex, regexLabel);
+
+			TestCaseResult result = testCase.test(project, autoGrade);
+			if (result.getPercentage() < 1.0) {
+				return fail("Contains " + regexLabel);
+			}
 		}
 
 		return pass();
