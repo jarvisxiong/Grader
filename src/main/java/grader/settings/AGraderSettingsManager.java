@@ -87,6 +87,7 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 		String aString = dynamicConfiguration.getString(aModule + "." + NAVIGATION_KIND,     	
         		
         		dynamicConfiguration.getString(NAVIGATION_KIND));
+		if (aString == null) return null;
 		return (NavigationKind) Common.fromString(NavigationKind.class, aString);
 	
 	}
