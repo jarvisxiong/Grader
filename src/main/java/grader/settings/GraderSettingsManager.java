@@ -46,7 +46,7 @@ public interface GraderSettingsManager {
 //	
 	String getNavigationFilter(String aModule);
 	void setNavigationFilter(String aModule, String aNavigationFilter);
-	Object getNavigationFilterOption(String aModule,
+	String getNavigationFilterOption(String aModule,
 			String aNavigationFilter);
 	void setNavigationFilterOption(String aModule,
 			String aNavigationFilter, Object anOption);
