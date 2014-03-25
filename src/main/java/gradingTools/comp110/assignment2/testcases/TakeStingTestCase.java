@@ -21,7 +21,8 @@ public class TakeStingTestCase extends BasicTestCase {
 		try {
 			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
 			String output = runningProject.await();
-			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3, input);
+			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3,
+					input);
 			String outputAfterInput = runningProjectWithInput.await();
 
 			// Now you can test the output for certain things

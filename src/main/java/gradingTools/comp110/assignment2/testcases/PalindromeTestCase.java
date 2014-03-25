@@ -20,7 +20,6 @@ public class PalindromeTestCase extends BasicTestCase {
 	static {
 		for (int i = 0; i < 26; i++) {
 			possibleChars.add((char) ((int) 'a' + i));
-			possibleChars.add((char) ((int) 'A' + i));
 		}
 	}
 
@@ -28,13 +27,13 @@ public class PalindromeTestCase extends BasicTestCase {
 		super("Palindrome Test Case");
 	}
 
-	protected boolean resultOfInputContains(Project project, String input, String requiredResultPart)
-			throws NotRunnableException, NotAutomatableException {
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
-		String prompt = runningProject.await();
-		if (prompt.endsWith("\n")) {
-			prompt = prompt.substring(0, prompt.length() - 1);
-		}
+	public PalindromeTestCase(String message) {
+		super(message);
+	}
+
+	protected boolean resultOfInputMatches(Project project, String prompt, String input,
+			String[] requiredParts, String[] missingParts) throws NotRunnableException,
+			NotAutomatableException {
 
 		RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
 		String output = runningProjectWithInput.await();
@@ -43,18 +42,32 @@ public class PalindromeTestCase extends BasicTestCase {
 			throw new NotAutomatableException();
 		}
 
-		return output.substring(prompt.length()).toLowerCase()
-				.contains(requiredResultPart.toLowerCase());
+		for (String requiredPart : requiredParts) {
+			if (!output.substring(prompt.length()).toLowerCase()
+					.contains(requiredPart.toLowerCase())) {
+				return false;
+			}
+		}
+
+		for (String missingPart : missingParts) {
+			if (output.substring(prompt.length()).toLowerCase().contains(missingPart.toLowerCase())) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	private boolean correctlyChecksForPalindrome(Project project, String palindrome,
-			String nonPalindrome) throws NotAutomatableException, NotGradableException {
+	private boolean correctlyChecksForPalindrome(Project project, String prompt, String palindrome,
+			String nonPalindrome, String[] isPalindrome, String[] isNotPalindrome)
+			throws NotAutomatableException, NotGradableException {
 
 		try {
-			return resultOfInputContains(project, palindrome + "\n", "is a palindrome")
-					&& !resultOfInputContains(project, palindrome + "\n", "is not a palindrome")
-					&& resultOfInputContains(project, nonPalindrome + "\n", "is not a palindrome")
-					&& !resultOfInputContains(project, nonPalindrome + "\n", "is a palindrome");
+
+			return resultOfInputMatches(project, prompt, palindrome + "\n", isPalindrome,
+					isNotPalindrome)
+					&& resultOfInputMatches(project, prompt, nonPalindrome + "\n", isNotPalindrome,
+							isPalindrome);
 
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
@@ -67,7 +80,6 @@ public class PalindromeTestCase extends BasicTestCase {
 	}
 
 	private String createPalindrome(int length) {
-		Random rand = new Random();
 		String result = "";
 		if (length % 2 == 1) {
 			char randomChar = getRandomCharacter();
@@ -81,7 +93,6 @@ public class PalindromeTestCase extends BasicTestCase {
 	}
 
 	private String createNonPalindrome(int length) {
-		Random rand = new Random();
 		String result = "";
 		for (int i = 0; i < length; i++) {
 			char randomChar = getRandomCharacter();
@@ -101,13 +112,25 @@ public class PalindromeTestCase extends BasicTestCase {
 		try {
 			String message = "";
 			double score = 1.0;
-			if (!resultOfInputContains(project, createPalindrome(1), "is a palindrome")) {
+
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
+			String prompt = runningProject.await();
+			if (prompt.endsWith("\n")) {
+				prompt = prompt.substring(0, prompt.length() - 1);
+			}
+
+			String[] isPalindrome = { "is a palindrome" };
+			String[] isNotPalindrome = { "is not a palindrome" };
+
+			if (!resultOfInputMatches(project, prompt, createPalindrome(1), isPalindrome,
+					isNotPalindrome)) {
 				message += "Does not properly check palindromes of length 1\n";
 				score -= 0.125;
 			}
 			for (int length = 2; length <= 8; length++) {
-				if (!correctlyChecksForPalindrome(project, createPalindrome(length).toLowerCase(),
-						createNonPalindrome(length).toLowerCase())) {
+				if (!correctlyChecksForPalindrome(project, prompt, createPalindrome(length)
+						.toLowerCase(), createNonPalindrome(length).toLowerCase(), isPalindrome,
+						isNotPalindrome)) {
 					message += "Does not properly check palindromes of length " + length + "\n";
 					score -= 0.125;
 				}

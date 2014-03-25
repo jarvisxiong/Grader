@@ -25,7 +25,8 @@ public class TakeNumberTestCase extends BasicTestCase {
 			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 3, input1);
 			String output2 = runningProject2.await();
 			int run2 = output2.length();
-			RunningProject runningProject3 = RunningProjectUtils.runProject(project, 3, input1, input2);
+			RunningProject runningProject3 = RunningProjectUtils.runProject(project, 3, input1,
+					input2);
 			String output3 = runningProject3.await();
 			int run3 = output3.length();
 
