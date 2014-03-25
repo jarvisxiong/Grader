@@ -4,13 +4,13 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class GradingStarted extends TraceableInfo {
+public class GradingStarted extends StarterInfo {
 	GraderSettingsModel gradingSettingsModel; 
 
 	
 	public GradingStarted(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		super(aMessage, aFinder);
-		 gradingSettingsModel = aGradingSettingsModel;
+		super(aMessage, aGradingSettingsModel, aFinder);
+//		 gradingSettingsModel = aGradingSettingsModel;
 	}
 	public static GradingStarted newCaseObject(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "Grading Started";
@@ -18,8 +18,9 @@ public class GradingStarted extends TraceableInfo {
 		retVal.announce();		
 		return retVal;
 	}
-	public GraderSettingsModel getGradingSettingsModel() {
-		return gradingSettingsModel;
-	}
+//	public GraderSettingsModel getGradingSettingsModel() {
+//		return gradingSettingsModel;
+//	}
+	
 
 }

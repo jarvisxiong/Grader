@@ -7,36 +7,44 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectStepStarted extends TraceableInfo {
-	SakaiProjectDatabase sakaiProjectDatabase; 	
-	OverviewProjectStepper overviewProjectStepper;
-	SakaiProject sakaiProject;
-	public ProjectStepStarted(String aMessage, 
-			SakaiProjectDatabase aSakaiProjectDatabase, 
-			OverviewProjectStepper aProjectStepper,
-			SakaiProject aProject,
+public class ProjectStepStarted extends StepperInfo {
+public ProjectStepStarted(String aMessage,
+			SakaiProjectDatabase aSakaiProjectDatabase,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
-		super(aMessage, aFinder);
-		sakaiProjectDatabase = aSakaiProjectDatabase;
-		overviewProjectStepper = aProjectStepper;
-		sakaiProject = aProject;
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		// TODO Auto-generated constructor stub
 	}
+
+//	SakaiProjectDatabase sakaiProjectDatabase; 	
+//	OverviewProjectStepper overviewProjectStepper;
+//	SakaiProject sakaiProject;
+//	public ProjectStepStarted(String aMessage, 
+//			SakaiProjectDatabase aSakaiProjectDatabase, 
+//			OverviewProjectStepper aProjectStepper,
+//			SakaiProject aProject,
+//			Object aFinder) {
+//		super(aMessage, aFinder);
+//		sakaiProjectDatabase = aSakaiProjectDatabase;
+//		overviewProjectStepper = aProjectStepper;
+//		sakaiProject = aProject;
+//	}
+//	
 	
-	
 
-	public SakaiProject getSakaiProject() {
-		return sakaiProject;
-	}
-
-
-
-	public SakaiProjectDatabase getSakaiProjectDatabase() {
-		return sakaiProjectDatabase;
-	}
-
-	public OverviewProjectStepper getOverviewProjectStepper() {
-		return overviewProjectStepper;
-	}
+//	public SakaiProject getSakaiProject() {
+//		return sakaiProject;
+//	}
+//
+//
+//
+//	public SakaiProjectDatabase getSakaiProjectDatabase() {
+//		return sakaiProjectDatabase;
+//	}
+//
+//	public OverviewProjectStepper getOverviewProjectStepper() {
+//		return overviewProjectStepper;
+//	}
 	
 	public static ProjectStepStarted newCaseObject(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 

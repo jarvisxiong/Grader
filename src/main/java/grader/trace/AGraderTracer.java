@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import util.trace.TraceableBus;
+
 public class AGraderTracer implements GraderTracer {
 	File logFile;
 	Logger logger;
@@ -40,7 +42,9 @@ public class AGraderTracer implements GraderTracer {
 
 		if (userName == null || userName.isEmpty())
 			userName = "";
-		fileName = interactionLogFolder + "/" + LOG_FILE_PREFIX + suffix + userName + ".csv";
+		else
+			userName = userName + "_";
+		fileName = interactionLogFolder + "/" + userName + LOG_FILE_PREFIX + suffix + ".csv";
 		
 //		logFile = new File(fileName);
 //		if (!logFile.exists())
@@ -67,12 +71,13 @@ public class AGraderTracer implements GraderTracer {
 	    	e.printStackTrace();
 	    	//Oh, no! Failed to create PrintWriter
 	    }
+//	    TraceableBus.addTraceableListener(this);
 
-	    //After successful creation of PrintWriter
-	    out.println("Text to be appended, more text");
-	    out.flush();
-	    out.println("Text to be appended, more text");
-	    out.flush();
+//	    //After successful creation of PrintWriter
+//	    out.println("Text to be appended, more text");
+//	    out.flush();
+//	    out.println("Text to be appended, more text");
+//	    out.flush();
 
 
 	    //After done writing, remember to close!
@@ -81,9 +86,16 @@ public class AGraderTracer implements GraderTracer {
 	@Override
 	public void newEvent(Exception aTraceable) {
 		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
+		if (!(aTraceable instanceof CSVSerializable)) return;
+		out.println(((CSVSerializable) aTraceable).toCSVRow());
+		out.flush();
+		if (aTraceable instanceof ProjectStepperEnded) 
+			out.close();
 		
 	}
-	
+//	public void startTracing() {
+//		
+//	}
 	public static void main (String[] args) {
 		new AGraderTracer();
 	}
