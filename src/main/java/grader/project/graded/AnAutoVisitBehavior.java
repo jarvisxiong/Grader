@@ -886,7 +886,7 @@ public class AnAutoVisitBehavior implements
 	@ComponentWidth(100)
 	@Override
 	public void autoGrade() {
-		project.setHasBeenRun(true);
+//		project.setHasBeenRun(true);
 		projectStepper.setChanged (true);
 		project.clearOutput();
 		for (GradingFeature gradingFeature : projectDatabase
