@@ -199,7 +199,7 @@ public class AProject implements Project {
     public void setHasBeenRun(boolean newVal) {
         hasBeenRun = newVal;
         runChecked = true;
-        if (hasBeenRun) {
+        if (hasBeenRun && proxyClassLoader != null) {
             classesImplicitlyLoaded = new ArrayList(proxyClassLoader.getClassesLoaded());
         }
     }
