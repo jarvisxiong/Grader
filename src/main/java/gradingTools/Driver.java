@@ -15,6 +15,7 @@ import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import util.misc.Common;
+import util.trace.TraceableBus;
 import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
@@ -34,6 +35,7 @@ import grader.settings.navigation.NavigationFilterRepository;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
+import grader.trace.GraderTracerSelector;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -151,6 +153,8 @@ public class Driver {
         	
             // Load the config file
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
+    		TraceableBus.addTraceableListener(GraderTracerSelector.getGraderTracer());
+
         	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();

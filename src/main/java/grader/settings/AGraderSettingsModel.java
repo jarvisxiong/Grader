@@ -31,6 +31,9 @@ import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
+import grader.trace.GraderTracerSelector;
+import grader.trace.GradingStarted;
+import grader.trace.NavigationInitiated;
 import util.annotations.ComponentHeight;
 import util.annotations.Label;
 import util.annotations.Row;
@@ -39,6 +42,7 @@ import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.misc.Common;
 import util.models.DynamicEnum;
+import util.trace.TraceableBus;
 import util.trace.Tracer;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
@@ -72,7 +76,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	SakaiProjectDatabase database;
 	
-	public AGraderSettingsModel(SakaiProjectDatabase aDatabase) {
+	public AGraderSettingsModel(SakaiProjectDatabase aDatabase) {		
 		database = aDatabase;
 //		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
@@ -96,6 +100,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //	        	noDownloadPath();
 //	        }
 	        setCurrentModule(aModule);
+	        GradingStarted.newCaseObject(this, this);
 //		loadDynamicConfigurationSettings();
 	}
 	public AGraderSettingsModel() {
@@ -497,6 +502,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Row(4)
 	@ComponentHeight(25)
 	public synchronized void begin() {
+        NavigationInitiated.newCaseObject(this, this);
 		notify();
 		
 	}
