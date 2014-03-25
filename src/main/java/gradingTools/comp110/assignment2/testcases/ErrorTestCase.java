@@ -2,32 +2,41 @@ package gradingTools.comp110.assignment2.testcases;
 
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
+import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
-public class ErrorTestCase extends PalindromeTestCase {
+public class ErrorTestCase extends BasicTestCase {
 
 	public ErrorTestCase() {
 		super("Error Message Test Case");
 	}
 
-	private boolean hasErrorMessage(Project project, String input) throws NotGradableException,
-			NotAutomatableException {
+	private boolean hasErrorMessage(Project project, String input) throws NotGradableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
-			String prompt = runningProject.await();
-			if (prompt.endsWith("\n")) {
-				prompt = prompt.substring(0, prompt.length() - 1);
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
+			String output = runningProject.await();
+			if (output.endsWith("\n")) {
+				output = output.substring(0, output.length() - 1);
 			}
+			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3, input);
+			String outputAfterInput = runningProjectWithInput.await();
 
-			String[] isError = { "Error" };
-			String[] isNotError = {};
-
-			return resultOfInputMatches(project, prompt, input, isError, isNotError);
+			// Now you can test that the output has an error message
+			if (outputAfterInput.length() > output.length() && outputAfterInput.startsWith(output)) {
+				String errorMessage = outputAfterInput.substring(output.length());
+				if (errorMessage.toLowerCase().contains("error")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
 
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
@@ -47,4 +56,3 @@ public class ErrorTestCase extends PalindromeTestCase {
 
 	}
 }
-
