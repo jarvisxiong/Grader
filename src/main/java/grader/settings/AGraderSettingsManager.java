@@ -13,8 +13,8 @@ import grader.config.ConfigurationManagerSelector;
 import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
+import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
-import grader.settings.navigation.NavigationKind;
 
 public class AGraderSettingsManager implements GraderSettingsManager{
 	 public static final String EDITOR = "editor";	   

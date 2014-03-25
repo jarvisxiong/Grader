@@ -1,10 +1,10 @@
 package grader.navigation.hybrid;
 
 import bus.uigen.OEFrame;
+import grader.navigation.NavigationKind;
 import grader.navigation.ProjectNavigator;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.settings.navigation.NavigationKind;
 
 public class AHybridProjectNavigator implements HybridProjectNavigator{
 	SakaiProjectDatabase database;

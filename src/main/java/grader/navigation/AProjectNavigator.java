@@ -3,7 +3,6 @@ package grader.navigation;
 import bus.uigen.OEFrame;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.settings.navigation.NavigationKind;
 
 public class AProjectNavigator implements ProjectNavigator {
 	SakaiProjectDatabase database;
@@ -21,7 +20,7 @@ public class AProjectNavigator implements ProjectNavigator {
 		case AUTOMATIC:
 			database.getAutomaticProjectNavigator().navigate(settingsModel, settingsFrame, true);
 			break;
-		case AUTOMATIC_THEN_MANUAL:
+		case HYBRID:
 				database.getHybridProjectNavigator().navigate(settingsModel, settingsFrame, true);
 				break;			
 		}

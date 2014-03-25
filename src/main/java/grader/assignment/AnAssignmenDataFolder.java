@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import framework.utils.GradingEnvironment;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
 import grader.file.filesystem.AFileSystemFileProxy;
@@ -43,6 +44,9 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
     public AnAssignmenDataFolder(String aRootFolderName, FileProxy aFinalGradeFile) {
         super(aRootFolderName);
+        String userName = GradingEnvironment.get().getUserName();
+        if (userName != null && !userName.isEmpty())
+        	featureGradeFileName =  userName + "_" + featureGradeFileName;
         finalGradeFile = aFinalGradeFile;
         if (rootFolder != null)
             initGraderData();

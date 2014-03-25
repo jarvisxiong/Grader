@@ -47,6 +47,8 @@ public class ProjectWrapper extends StandardProject {
             if (path.getName().endsWith(".zip")) {
                 // A zip file, so unzip
                 File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
+                if (dir.exists())
+                	return dir;
                 dir.mkdir();
 
                 try {
