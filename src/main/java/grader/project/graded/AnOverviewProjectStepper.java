@@ -34,6 +34,7 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
+import grader.trace.ProjectStepperStarted;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -153,6 +154,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
+		ProjectStepperStarted.newCase(aProjectDatabase, this, this);
+
 		gradedProjectOverview.setProjectDatabase(aProjectDatabase);
 		autoVisitBehavior.setProjectDatabase(aProjectDatabase);
 		gradedProjectNavigator.setProjectDatabase(aProjectDatabase);

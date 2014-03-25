@@ -10,6 +10,7 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.trace.ProjectStepperStarted;
 
 import java.awt.Frame;
 import java.awt.event.WindowEvent;
@@ -102,6 +103,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
+
+
 		projectDatabase = aProjectDatabase;
 		projectStepper = projectDatabase.getProjectStepper();
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
