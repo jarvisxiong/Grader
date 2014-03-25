@@ -1,9 +1,9 @@
-package grader.settings.navigation;
+package grader.navigation;
 
 public enum NavigationKind  {
 	AUTOMATIC ("Automatic"),
 	MANUAL ("Manual"),
-	AUTOMATIC_THEN_MANUAL ("Hybrid");
+	HYBRID ("Hybrid");
 	
 	// display name constructor and variable
 	

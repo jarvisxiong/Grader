@@ -2,13 +2,13 @@ package grader.project.graded;
 
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxyUtils;
+import grader.navigation.NavigationKind;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.settings.navigation.NavigationKind;
 import grader.spreadsheet.FeatureGradeRecorder;
 
 import java.awt.Frame;

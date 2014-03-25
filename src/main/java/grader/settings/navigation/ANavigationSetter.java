@@ -1,5 +1,6 @@
 package grader.settings.navigation;
 
+import grader.navigation.NavigationKind;
 import grader.settings.GraderSettingsModel;
 
 import java.beans.PropertyChangeEvent;
@@ -23,7 +24,7 @@ import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ANavigationSetter implements NavigationSetter {
-	NavigationKind navigationKind = NavigationKind.MANUAL;
+	NavigationKind navigationKind = NavigationKind.HYBRID;
 	AutomaticNavigationSetter automaticNavigationSetter ;
 	NavigationFilterSetter navigationFilterSetter; 
 //	DynamicEnum<String> navigationFilterEnum;

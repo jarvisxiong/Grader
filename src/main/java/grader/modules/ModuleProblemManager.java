@@ -1,8 +1,8 @@
 package grader.modules;
 
+import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
 import grader.settings.GraderSettingsManager;
-import grader.settings.navigation.NavigationKind;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package grader.modules;
 
 import grader.config.ConfigurationManagerSelector;
+import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
-import grader.settings.navigation.NavigationKind;
 
 import java.io.File;
 import java.util.ArrayList;
