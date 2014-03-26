@@ -151,7 +151,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	public void refreshAll() {
 		loadDynamicConfigurationSettings();
 		refreshOnyens(currentModule);
-		problems.clear();
+//		problems.clear();
 //		List<String> problems = new ArrayList();
 		String currentModulePrefix = moduleProblemManager.getModulePrefix(currentModule);
 		problems.clear();
@@ -166,8 +166,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				Tracer.error("No folder found for:" + downloadPath);				
 			} else {
 				File gradesFile = new File(problemDownloadPath + "/grades.csv"); // is this a sakai assignment folder
-				if (gradesFile.exists()) 
+
+				if (gradesFile.exists())  {
+					if (currentProblem == null)
+						currentProblem = folder.getName();
 					folder = folder.getParentFile();
+				}
 //				try {
 					moduleDownloadPath = folder.getAbsolutePath();
 //				} catch (IOException e) {
@@ -176,6 +180,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				}
 				File[] children = folder.listFiles();
 				long latestTime = 0;
+				boolean noSetProblem = currentProblem  == null;
+
 //				currentProblem;
 				for (File child:children) {
 					if (child.getName().startsWith(currentModulePrefix) && !child.getName().equals("AssignmentsData")) {
@@ -185,16 +191,16 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 						problems.add(normalizedName);
 						if (child.getAbsolutePath().equals(problemDownloadPath))
 							currentProblem = normalizedName;
-//						if (child.lastModified() > latestTime) {
-//							currentProblem = normalizedName;
-////							try {
-//								problemDownloadPath = child.getAbsolutePath();
-////							} catch (IOException e) {
-////								// TODO Auto-generated catch block
-////								e.printStackTrace();
-////							}
-//							
-//						}
+						if (noSetProblem && child.lastModified() > latestTime ) {
+							currentProblem = normalizedName;
+//							try {
+								problemDownloadPath = child.getAbsolutePath();
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+							
+						}
 					}
 				}
 			}
