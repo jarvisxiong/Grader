@@ -37,7 +37,7 @@ public class AGraderTracer implements GraderTracer {
 					getStaticConfiguration().getString("grader.logger.interactionLogDirectory");
 		File folder = new File(interactionLogFolder);
 		if (!folder.exists())
-			folder.mkdir();
+			folder.mkdirs();
 		String userName = GradingEnvironment.get().getUserName();
 
 		if (userName == null || userName.isEmpty())
