@@ -67,7 +67,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 
 	//			ASakaiProjectDatabase.dispose(aFrame);
 		} catch (InvalidOnyenRangeException e) {
-			String message = e.getMessage() + ". Try again.";
+			String message = e.getMessage() + " Try again.";
 			maybeTryAgain(settingsModel, false, message);
 			
 //			continue;
