@@ -141,7 +141,11 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	
 	void noDownloadPath() {
-		JOptionPane.showMessageDialog(null, "When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+		JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+
+	}
+	void noValidDownloadPath() {
+		JOptionPane.showMessageDialog(null, "No folder found for download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
 	public void refreshAll() {
@@ -157,7 +161,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			File folder = new File(problemDownloadPath);
 			if (!folder.exists()) {
 //				JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
-				noDownloadPath();
+				noValidDownloadPath();
 				return;
 //				Tracer.error("No folder found for:" + downloadPath);				
 			} else {
@@ -301,9 +305,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //            String downloadPath = GraderSettings.get().get("path");
             fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
         } 
-//        else {
-//        	noDownloadPath();
-//        }
+        else {
+        	noDownloadPath();
+        }
 //		maybeConvertToDynamicConfiguration();
 		editor = graderSettingsManager.getEditor();
 
