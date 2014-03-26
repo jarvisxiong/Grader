@@ -337,12 +337,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //        
 ////        String downloadPath;
 //        problemDownloadPath =  ;
-        if (problemDownloadPath != null) {
-//            String downloadPath = GraderSettings.get().get("path");
-            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
-        } else {
-        	noDownloadPath();
-        }
+//        if (problemDownloadPath != null) {
+////            String downloadPath = GraderSettings.get().get("path");
+//            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
+//        } else {
+//        	noDownloadPath();
+//        }
         NavigationKind aNavigationKind = graderSettingsManager.getNavigationKind(aModule);
         if (aNavigationKind != null)
         	navigationSetter.setNavigationKind(aNavigationKind);
