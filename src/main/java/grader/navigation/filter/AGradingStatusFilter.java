@@ -3,10 +3,12 @@ package grader.navigation.filter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import util.annotations.Explanation;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 
+@Explanation("Filters which students you review during the manual process")
 public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStatus> implements NavigationFilter<GradingStatus>{
 	public static final String NAME = "Grading Status";
 //	GradingStatus parameter = GradingStatus.NOT_FULLY_GRADED;

@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import grader.settings.GraderSettingsModel;
+import util.annotations.Explanation;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -40,6 +41,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	}
 	@Row(2)
 	@Override
+	@Explanation("The onyen you will start at when you review grades")
 	public String getGoToOnyen() {
 		return goToOnyen;
 	}

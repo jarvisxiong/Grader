@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javax.swing.JRadioButton;
 
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -43,6 +44,7 @@ public class ANavigationSetter implements NavigationSetter {
 	@Row(0)
 	@PreferredWidgetClass(JRadioButton.class)
 	@Override
+	@Explanation("Automatic runs auto-grader without review.  Manual autogrades incremently before each student.  Hybrid does automatic first and then manual")
 	public NavigationKind getNavigationKind() {
 		return navigationKind;
 	}
