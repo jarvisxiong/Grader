@@ -5,6 +5,7 @@ import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
 import framework.grading.FrameworkProjectRequirements;
 import framework.utils.GradingEnvironment;
+import grader.sakai.project.InvalidOnyenRangeException;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
@@ -34,7 +35,12 @@ public class GraderWithFrameworkExample {
         database.addProjectRequirements(requirements);
 
         database.setProjectStepperDisplayer(new ProjectStepperDisplayerWrapper());
-        database.nonBlockingRunProjectsInteractively();
+        try {
+			database.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
 }

@@ -786,7 +786,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			((OEFrame) aFrame).getFrame().dispose();;
 		}
 	}
-	public boolean nonBlockingRunProjectsInteractively() {
+	public boolean nonBlockingRunProjectsInteractively() throws InvalidOnyenRangeException {
 		try {
 			return nonBlockingRunProjectsInteractively("");
 		} catch (MissingOnyenException e) {
@@ -796,7 +796,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		}
 	}
 	@Override
-	public boolean nonBlockingRunProjectsInteractively(String aGoToOnyen) throws MissingOnyenException {
+	public boolean nonBlockingRunProjectsInteractively(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
 		Object frame = aProjectStepper.getFrame();
@@ -829,7 +829,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	}
 	@Override
-	public boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException {
+	public boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = getOrCreateProjectStepper();
 //		Object frame = aProjectStepper.getFrame();
@@ -1172,7 +1172,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				"C:/Users/dewan/Downloads/GraderData", false);
 		// projectDatabase.runProjectInteractively("mkcolema");
 //		projectDatabase.runProjectsInteractively();
-		projectDatabase.nonBlockingRunProjectsInteractively();
+		try {
+			projectDatabase.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
 	}

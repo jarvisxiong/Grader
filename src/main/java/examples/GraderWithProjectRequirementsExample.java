@@ -1,6 +1,7 @@
 package examples;
 
 import framework.grading.FrameworkProjectRequirements;
+import grader.sakai.project.InvalidOnyenRangeException;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;
@@ -27,6 +28,11 @@ public class GraderWithProjectRequirementsExample {
         database.addProjectRequirements(requirements);
 
         // You can still run it as normal
-        database.nonBlockingRunProjectsInteractively();
+        try {
+			database.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

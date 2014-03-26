@@ -21,6 +21,7 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.sakai.project.InvalidOnyenRangeException;
 import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
@@ -1746,7 +1747,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //
 //	}
 	
-	public boolean runProjectsInteractively() {
+	public boolean runProjectsInteractively() throws InvalidOnyenRangeException {
 	
 			try {
 				return runProjectsInteractively("");
@@ -1759,11 +1760,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	
 
 	@Override
-	public boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException {
+	public boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
 		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		if (onyens.size() == 0) {
-			JOptionPane.showMessageDialog(null, "No onyens found in specified range.");
-			return false;
+			String message = "No onyens found in specified range.";
+//			JOptionPane.showMessageDialog(null, message);
+			throw new InvalidOnyenRangeException(message);
 		}
 
 		if (!preRunProjectsInteractively()) {

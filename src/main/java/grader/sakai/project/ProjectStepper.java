@@ -35,7 +35,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	
 	public void setHasMoreSteps(boolean newVal);
     public SakaiProject getProject();
-    boolean runProjectsInteractively();
+    boolean runProjectsInteractively() throws InvalidOnyenRangeException;
     public void configureNavigationList();
 
 	boolean preDone();
@@ -85,7 +85,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	void validate();
 
-	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException;
+	boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException;
 
 	void setName(String newVal);
 

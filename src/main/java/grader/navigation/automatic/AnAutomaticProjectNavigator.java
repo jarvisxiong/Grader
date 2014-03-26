@@ -5,7 +5,9 @@ import javax.swing.JOptionPane;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
+import grader.navigation.manual.AManualProjectNavigator;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.InvalidOnyenRangeException;
 import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -24,14 +26,22 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 	public void navigate(GraderSettingsModel settingsModel,
 			OEFrame settingsFrame, boolean exitOnCompletion) {
 		boolean animate = settingsModel.getNavigationSetter().getAutomaticNavigationSetter().getAnimateGrades();
-		if (animate && settingsFrame != null)
-			settingsFrame.dispose(); // keep only one frame around at a time
+		while (true) {
+//		if (animate && settingsFrame != null)
+//			settingsFrame.dispose(); // keep only one frame around at a time
 		try {
 			database.startProjectStepper("");
+			if (animate && settingsFrame != null)
+				settingsFrame.dispose(); // keep only one frame around at a time
 			projectStepper = database.getProjectStepper();
+			break;
 			
 		} catch (MissingOnyenException e) {
 			e.printStackTrace(); // should never come here
+		} catch (InvalidOnyenRangeException e) {
+			AManualProjectNavigator.maybeTryAgain(settingsModel, false, e.getMessage() + ". Try again.");
+			continue;
+		} 
 		}
 //		if (settingsFrame != null)
 //			settingsFrame.dispose();

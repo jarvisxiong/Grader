@@ -102,7 +102,7 @@ public interface SakaiProjectDatabase {
 	void clearWindows();
 	public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase);
 	public List<String> getOnyenNavigationList();
-	boolean nonBlockingRunProjectsInteractively();
+	boolean nonBlockingRunProjectsInteractively() throws InvalidOnyenRangeException;
 //	public String getNavigationFilter() ;
 //
 //	public void setNavigationFilter(String navigationFilter) ;
@@ -162,7 +162,7 @@ public interface SakaiProjectDatabase {
 	void setNotesGenerator(NotesGenerator notesGenerator);
 
 	boolean nonBlockingRunProjectsInteractively(String aGoToOnyen)
-			throws MissingOnyenException;
+			throws MissingOnyenException, InvalidOnyenRangeException;
 
 	String getSourceFileNameSuffix();
 
@@ -186,7 +186,7 @@ public interface SakaiProjectDatabase {
 
 	public void setProjectNavigator(ProjectNavigator projectNavigator) ;
 
-	boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException;
+	boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException;
 
 	HybridProjectNavigator getHybridProjectNavigator();
 

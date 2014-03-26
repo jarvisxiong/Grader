@@ -2,6 +2,7 @@ package grader.project.graded;
 
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.sakai.project.InvalidOnyenRangeException;
 import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -115,7 +116,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.getProject();
 	}
 
-	public boolean runProjectsInteractively() {
+	public boolean runProjectsInteractively() throws InvalidOnyenRangeException {
 		return overviewProjectStepper.runProjectsInteractively();
 	}
 
@@ -227,7 +228,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	}
 
 	public boolean runProjectsInteractively(String aGoToOnyen)
-			throws MissingOnyenException {
+			throws MissingOnyenException, InvalidOnyenRangeException {
 		return overviewProjectStepper.runProjectsInteractively(aGoToOnyen);
 	}
 

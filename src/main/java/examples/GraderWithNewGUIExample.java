@@ -4,6 +4,7 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.InvalidOnyenRangeException;
 import examples.checkers.featureCheckers.ErrorFeatureChecker;
 import examples.checkers.featureCheckers.FailingFeatureChecker;
 import examples.checkers.featureCheckers.PassingFeatureChecker;
@@ -34,6 +35,11 @@ public class GraderWithNewGUIExample {
         database.setProjectStepperDisplayer(new ProjectStepperDisplayerWrapper());
 
         // And go!
-        database.nonBlockingRunProjectsInteractively();
+        try {
+			database.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
