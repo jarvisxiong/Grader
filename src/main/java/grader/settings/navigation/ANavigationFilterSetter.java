@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javax.swing.JRadioButton;
 
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -22,6 +23,8 @@ import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
+import bus.uigen.introspect.Attribute;
+import bus.uigen.attributes.AttributeNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ANavigationFilterSetter implements NavigationFilterSetter {
 //	NavigationKind navigationKind = NavigationKind.AUTOMATIC_THEN_MANUAL;
@@ -32,6 +35,9 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	Object navigationParameters;
 	PropertyChangeSupport propertyChangeSupport =  new PropertyChangeSupport(this);
 	GraderSettingsModel graderSettings;
+	
+	String currentFilterExplanation = "";
+	
 	
 	public ANavigationFilterSetter(GraderSettingsModel aGraderSettings) {
 		graderSettings = aGraderSettings;
@@ -52,6 +58,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 		  currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
 		  currentNavigationFilter.addPropertyChangeListener(this);
 		}
+//		announceExplanation();
 	}
 	
 //	public boolean preGetNavigationFilterTypes() {
@@ -63,6 +70,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	@Override
 	@Row(2)	
 	@Label("Filter Type")
+	@Explanation("A list of filters to select which student records are displayed in manual navigation.")
 	public DynamicEnum getNavigationFilterType() {
 		return navigationFilterEnum;
 	}
@@ -92,6 +100,25 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 //		propertyChangeSupport.firePropertyChange("FilterParameter", oldVal, newVal);
 
 	}
+	
+	public static String getExplanation(Object object) {
+		if (object == "") return null;
+		return getExplanation(object.getClass());
+		
+	}
+	
+	public static String getExplanation(Class aClass) {
+		Explanation explanation = (Explanation) aClass.getAnnotation(Explanation.class);
+		return explanation.value();
+		
+	}
+	
+	void announceExplanation() {
+//		String oldExplanation = currentFilterExplanation;
+		currentFilterExplanation = getExplanation(currentNavigationFilter);
+		propertyChangeSupport.firePropertyChange("Parameter", null, new Attribute(AttributeNames.EXPLANATION, currentFilterExplanation ));
+
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent anEvent) {
@@ -101,6 +128,8 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 			currentNavigationFilter = NavigationFilterRepository.getFilter(currentNavigationFilterName);
 			Object newParameters = currentNavigationFilter.getParameter();
 			propertyChangeSupport.firePropertyChange("Parameter", oldParameters, newParameters);
+			announceExplanation();
+			
 		} else if (anEvent.getSource() == currentNavigationFilter) {
 			// assuming the property names are the same in both objects, maybe bad idea
 			propertyChangeSupport.firePropertyChange(anEvent.getPropertyName(), anEvent.getOldValue(), anEvent.getNewValue());
@@ -111,6 +140,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
 		propertyChangeSupport.addPropertyChangeListener(aListener);
+//		announceExplanation();
 		
 	}
 	

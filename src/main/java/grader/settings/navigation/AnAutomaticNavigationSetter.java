@@ -2,6 +2,7 @@ package grader.settings.navigation;
 
 import grader.settings.GraderSettingsModel;
 import util.annotations.Column;
+import util.annotations.Explanation;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -20,6 +21,7 @@ public class AnAutomaticNavigationSetter implements AutomaticNavigationSetter{
 //	@Row(0)
 	@Column(0)
 	@Override
+	@Explanation("Should the student records be displayed during automatic navigation")
 	public boolean getAnimateGrades() {
 		return animateGrades;
 	}
@@ -30,6 +32,7 @@ public class AnAutomaticNavigationSetter implements AutomaticNavigationSetter{
 //	@Row(1)
 	@Column(1)
 	@Override
+	@Explanation("Time, in seconds, to wait, before automatically moving to the next student record")
 	public int getAnimationPauseTime() {
 		return animationPauseTime;
 	}

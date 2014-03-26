@@ -6,6 +6,7 @@ import bus.uigen.ObjectEditor;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GradingEnvironment;
 import util.annotations.Column;
+import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.misc.Common;
@@ -23,6 +24,7 @@ public class AModuleProblemSelector implements ModuleProblemSelector {
 	
 	
 	@Column(0)
+	@Explanation("The set of modules that can be graded. Usually you will work on a single module.")
 	public DynamicEnum<String> getModule() {
 		return module;
 	}
@@ -33,6 +35,8 @@ public class AModuleProblemSelector implements ModuleProblemSelector {
 //		problem.setChoices(Common.arrayToArrayList(new String[] {"one", "two"}));
 	}
 	@Column(1)
+	@Explanation("The set of problems in the selected module for which folders have been downloaded. Changing the problem automatically selects the corresponding download folder provided a valid folder has been slected for one of the problems in the module once.")
+
 	public DynamicEnum<String> getProblem() {
 		return problem;
 	}

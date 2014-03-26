@@ -59,6 +59,7 @@ public class ANavigationSetter implements NavigationSetter {
 	@Row(1)
 	@Label("Automatic Navigation Options")
 	@Override
+	@Explanation("Determines if and how fast automatically navigated records are displayed")
 	public AutomaticNavigationSetter getAutomaticNavigationSetter() {
 		return automaticNavigationSetter;
 	}
@@ -70,6 +71,7 @@ public class ANavigationSetter implements NavigationSetter {
 	@Row(2)
 	@Label("Manual Navigation Filter") // theoretically this could be used also for automatic navigation
 	@Override
+	@Explanation("Provides a way to manually browse through only selected records in the range based on filter type")
 	public NavigationFilterSetter getNavigationFilterSetter() {
 		return navigationFilterSetter;
 	}

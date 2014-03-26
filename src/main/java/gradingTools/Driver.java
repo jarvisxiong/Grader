@@ -42,6 +42,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
+import bus.uigen.attributes.AttributeNames;
 
 /**
  * This is the entry class for the grading tools that Maven will reference.
@@ -144,6 +145,8 @@ public class Driver {
 	}
 
     public static void main(String[] args) {
+		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
+
 //    	String[] retVal = "main.foo".split(".");
 //    	retVal = "main:foo".split(":");
 //    	retVal = "main.foo.foo".split("\\.");

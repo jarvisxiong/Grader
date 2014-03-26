@@ -1,5 +1,6 @@
 package grader.settings.navigation;
 
+import grader.navigation.filter.AGradingStatusFilter;
 import grader.settings.folders.AnOnyenRangeModel;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
@@ -12,6 +13,8 @@ public class ANavigationFilterSetterAR implements ExecutableCommand{
 		ObjectEditor.setAttribute(ANavigationFilterSetter.class,  AttributeNames.LAYOUT, AttributeNames.GRID_BAG_LAYOUT);
 		ObjectEditor.setPropertyAttribute(ANavigationFilterSetter.class, "Parameter",  AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 		ObjectEditor.setPropertyAttribute(ANavigationFilterSetter.class, "Parameter",  AttributeNames.DIRECTION, AttributeNames.HORIZONTAL);
+		ObjectEditor.setPropertyAttribute(ANavigationFilterSetter.class, "Parameter",  AttributeNames.EXPLANATION, 
+				ANavigationFilterSetter.getExplanation(AGradingStatusFilter.class));
 
 //		ObjectEditor.setAttribute(AnOnyenRangeModel.class,  AttributeNames.STRETCHABLE_BY_PARENT, true);
 

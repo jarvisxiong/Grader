@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import util.annotations.Explanation;
 import util.trace.Tracer;
 
 public class AModuleProblemManager implements ModuleProblemManager{
@@ -111,53 +112,53 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //		
 //		
 //	}
-	public String getStartingOnyen(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public void setStartingOnyen(String aModule, String aProblem, String aStartOnyen) {
-		;
-	}
-	
-	public String getEndingOnyen(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public void setEndingOnyen(String aModule, String aProblem, String anEndOnyen) {
-		;
-	}
-	
-	public NavigationKind getNavigationKind(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public void setNavigationKind(String aModule, String aProblem, NavigationKind aNavigationKind) {
-		;
-	}
-	
-	public Boolean getAnimateGrades(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public void setAnimateGrades(String aModule, String aProblem, boolean newVal) {
-		;
-	}
-	
-	public Integer getAnimationPauseTime(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public NavigationFilter getAnimatePauseTime(String aModule, String aProblem) {
-		return null;
-	}
-	
-	public Object getFilterOption(String aModule, String aProblem) {
-		return null;
-	}
-
-	public void setFilterOption(String aModule, String aProblem, Object newVal ) {
-		;
-	}
+//	public String getStartingOnyen(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public void setStartingOnyen(String aModule, String aProblem, String aStartOnyen) {
+//		;
+//	}
+//	
+//	public String getEndingOnyen(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public void setEndingOnyen(String aModule, String aProblem, String anEndOnyen) {
+//		;
+//	}
+//	
+//	public NavigationKind getNavigationKind(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public void setNavigationKind(String aModule, String aProblem, NavigationKind aNavigationKind) {
+//		;
+//	}
+//	
+//	public Boolean getAnimateGrades(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public void setAnimateGrades(String aModule, String aProblem, boolean newVal) {
+//		;
+//	}
+//	
+//	public Integer getAnimationPauseTime(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public NavigationFilter getAnimatePauseTime(String aModule, String aProblem) {
+//		return null;
+//	}
+//	
+//	public Object getFilterOption(String aModule, String aProblem) {
+//		return null;
+//	}
+//
+//	public void setFilterOption(String aModule, String aProblem, Object newVal ) {
+//		;
+//	}
 
 
 }

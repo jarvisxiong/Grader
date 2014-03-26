@@ -8,7 +8,7 @@ import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 
-@Explanation("Filters which students you review during the manual process")
+@Explanation("Can select student records based on whether they have been been graded fully or automatically.")
 public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStatus> implements NavigationFilter<GradingStatus>{
 	public static final String NAME = "Grading Status";
 //	GradingStatus parameter = GradingStatus.NOT_FULLY_GRADED;

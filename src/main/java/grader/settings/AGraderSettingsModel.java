@@ -35,6 +35,7 @@ import grader.trace.GraderTracerSelector;
 import grader.trace.GradingStarted;
 import grader.trace.NavigationInitiated;
 import util.annotations.ComponentHeight;
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -483,6 +484,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	
 	@Row(1)
+	@Explanation("Editor and assignment folder.")
 	public GraderFilesSetterModel getFileBrowsing() {
 		return fileBrowsing;
 	}
@@ -490,6 +492,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		this.fileBrowsing = fileBrowsing;
 	}
 	@Row(2)
+	@Explanation("Specification of alphabetically sorted list of student onyens.")
 	public OnyenRangeModel getOnyens() {
 		return onyens;
 	}
@@ -499,6 +502,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Row(3)
 	@Override
 //	@Visible(false)
+	@Explanation("Automatic and manual navigation settings.")
 	public NavigationSetter getNavigationSetter() {
 		return navigationSetter;
 	}
@@ -513,6 +517,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 
 	@Row(4)
 	@ComponentHeight(25)
+	@Explanation("Start navigation through the projects of the selected onyens.")
 	public synchronized void begin() {
         NavigationInitiated.newCaseObject(this, this);
 		notify();
