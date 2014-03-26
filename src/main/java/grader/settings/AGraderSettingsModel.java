@@ -577,7 +577,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getSource() == moduleProblemSelector.getProblem()) {
-			if (currentProblem.equals(moduleProblemSelector.getProblem().getValue())) return;
+			String newProblem = (String) moduleProblemSelector.getProblem().getValue();
+			if (newProblem == null) {
+				return;
+			}
+				
+			if (currentProblem != null && currentProblem.equals(moduleProblemSelector.getProblem().getValue())) return;
 			setCurrentProblem(moduleProblemSelector.getProblem().getValue());
 //			currentProblem = moduleProblemSelector.getProblem().getValue();
 //			problemDownloadPath = moduleDownloadPath + "/" +  currentModule;
