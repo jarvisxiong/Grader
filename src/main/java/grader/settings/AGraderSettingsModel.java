@@ -212,6 +212,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	}
 	
 	void refreshProblemDownloadPath() {
+		if (problemDownloadPath != null)
 		fileBrowsing.getDownloadFolder().setText(problemDownloadPath);
 
 	}
@@ -586,7 +587,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			
 		} else if (evt.getSource() == fileBrowsing.getDownloadFolder().getLabel()) {
 			String newPath = fileBrowsing.getDownloadFolder().getLabel().getText();
-			if (problemDownloadPath.equals(newPath)) return; // bounce back
+			if (newPath == null) return;
+			if (problemDownloadPath != null && problemDownloadPath.equals(newPath)) return; // bounce back
 			graderSettingsManager.setDownloadPath(currentModule, newPath);
 			refreshAll();
 		}
