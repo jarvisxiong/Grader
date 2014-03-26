@@ -300,9 +300,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         if (problemDownloadPath != null) {
 //            String downloadPath = GraderSettings.get().get("path");
             fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
-        } else {
-        	noDownloadPath();
-        }
+        } 
+//        else {
+//        	noDownloadPath();
+//        }
 //		maybeConvertToDynamicConfiguration();
 		editor = graderSettingsManager.getEditor();
 
