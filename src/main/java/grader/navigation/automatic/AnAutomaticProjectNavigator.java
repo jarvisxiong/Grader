@@ -40,8 +40,9 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 			e.printStackTrace(); // should never come here
 		} catch (InvalidOnyenRangeException e) {
 			AManualProjectNavigator.maybeTryAgain(settingsModel, false, e.getMessage() + ". Try again.");
-			continue;
+//			continue;
 		} 
+		settingsModel.awaitBegin();
 		}
 //		if (settingsFrame != null)
 //			settingsFrame.dispose();

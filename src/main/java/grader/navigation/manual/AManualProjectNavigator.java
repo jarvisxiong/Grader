@@ -70,7 +70,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 			String message = e.getMessage() + ". Try again.";
 			maybeTryAgain(settingsModel, false, message);
 			
-			continue;
+//			continue;
 
 		}
 		
