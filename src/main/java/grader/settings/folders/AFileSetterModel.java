@@ -31,7 +31,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 //	@Row(1)
 //	@ComponentWidth(80)
 	@ComponentHeight(25)
-	public void change() {
+	public void browse() {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int returnValue = fileChooser.showOpenDialog(frame);
         if (returnValue == JFileChooser.APPROVE_OPTION) {

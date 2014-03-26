@@ -237,7 +237,7 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 	@Override
 	public String getDownloadPath(String aModule) {
 		String problemDownloadPath =  dynamicConfiguration.getString(aModule + "." + PROBLEM_PATH,
-				dynamicConfiguration.getString(PROBLEM_PATH));
+				dynamicConfiguration.getString(PROBLEM_PATH, "Browse to a valid download path"));
 		return problemDownloadPath;
 	}
 
