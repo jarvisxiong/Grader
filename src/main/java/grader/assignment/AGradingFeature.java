@@ -321,7 +321,7 @@ public class AGradingFeature implements GradingFeature {
 	
 	
 
-	@util.annotations.Explanation("is graded tooltip")
+	@util.annotations.Explanation("Setting property to true (re)grades the feature")
 	@Position(5)
 	@ComponentWidth(70)
 	public boolean isGraded() {
@@ -333,7 +333,7 @@ public class AGradingFeature implements GradingFeature {
 		return isAutoGradable() && !isFullCredit();
 	}
 	@Override
-	@util.annotations.Explanation("is full credit tooltip")
+	@util.annotations.Explanation("Setting property to true gives full credit for feature")
 	@Position(6)
 	@ComponentWidth(90)
 	public boolean isFullCredit() {
@@ -349,7 +349,7 @@ public class AGradingFeature implements GradingFeature {
 	}
 	boolean validate;
 	@Override
-	@util.annotations.Explanation("is validated credit tooltip")
+	@util.annotations.Explanation("Setting property to true indicates in manual notes that feature has been manually checked. To invalidate, felete text in manual notes.")
 	@Position(7)
 	@ComponentWidth(90)
 	public boolean isValidate() {
@@ -454,7 +454,7 @@ public class AGradingFeature implements GradingFeature {
 
 	boolean isSelected;
 
-	@util.annotations.Explanation("test")
+	@util.annotations.Explanation("Setting this property to true shows  auto and manual notes and transcript of this feature.")
 	@Position(8)
 	@ComponentWidth(80)
 	public boolean isSelected() {
@@ -600,6 +600,7 @@ public class AGradingFeature implements GradingFeature {
 		this.feature = feature;
 	}
 	@Override
+	@Visible(false)
 	public String getResultFormat() {
 		return resultFormat;
 	}

@@ -67,6 +67,7 @@ import scala.Option;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -1248,6 +1249,7 @@ public class AGradedProjectOverview  implements
 	@ComponentHeight(80)
 	@ComponentWidth(80)
 	@Override
+	@Explanation("If no photo, you need to populate photo directory in AssignmentsData folder")
 	public LabelBeanModel getPhoto() {
 		return photoLabelBeanModel;
 	}

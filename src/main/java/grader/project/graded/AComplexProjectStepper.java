@@ -14,6 +14,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JTextArea;
 
 import util.annotations.ComponentsVisible;
+import util.annotations.Explanation;
 import util.annotations.Position;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -212,6 +213,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Override
 	@Visible(true)
 	@Position(3)
+	@Explanation("Changes to filter settings will be used in subsequent navigation commands.")
 	public NavigationSetter getNavigationSetter() {
 		return mainProjectStepper.getNavigationSetter();
 	}
@@ -401,6 +403,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Visible(true)
 	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("Comment on the source code by editing it")
 	public String getSource() {
 		return mainProjectStepper.getSource();
 	}

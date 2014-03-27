@@ -1096,6 +1096,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(2)
 	@ComponentWidth(100)
 	@Label("Pause") // initially play mode will be true for manual
+	@Visible(false)
 	@Override
 	public void togglePlayPause() {
 		setPlayMode(!playMode);

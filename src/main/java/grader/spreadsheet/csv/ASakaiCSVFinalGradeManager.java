@@ -183,7 +183,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		try {
 			if (aScore < 0) {
 				Message.error("negative score!");
-				JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
+//				JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
 				return;
 				
 			}

@@ -183,6 +183,7 @@ public class AGradedProjectTextOverview  implements
 	@ComponentWidth(150)
 	@Row(0)
 	@Override
+	@Explanation("Editing onyen will navigate to corresponding project")
 	public String getOnyen() {
 		return onyen;
 	}
@@ -216,6 +217,7 @@ public class AGradedProjectTextOverview  implements
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		internalSetOnyen(anOnyen);
 		manualOnyen = true;
+		projectStepper.setProject(anOnyen);
 	}
 	@Override
 	 public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
@@ -307,6 +309,7 @@ public class AGradedProjectTextOverview  implements
 		return name;
 	}
 	@Override
+	@Visible(false)
 	public void setName(String newVal) {
 		name = newVal;
 		// System.out.println("name changed to" + newVal);

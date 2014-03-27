@@ -22,6 +22,8 @@ import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.AManualFeedbackManager;
+import grader.feedback.APrintingAutoFeedbackManager;
+import grader.feedback.APrintingManualFeedbackManager;
 import grader.feedback.AScoreFeedbackFileWriter;
 import grader.feedback.AnAllTextSourceDisplayer;
 import grader.feedback.AnAutoFeedbackManager;
@@ -288,11 +290,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 	
 	protected AutoFeedback createAutoFeedback() {
-		return new AnAutoFeedbackManager();
+//		return new AnAutoFeedbackManager();
+		return new APrintingAutoFeedbackManager();
 	}
 	
 	protected ManualFeedback createManualFeedback() {
-		return new AManualFeedbackManager();
+//		return new AManualFeedbackManager();
+		return new APrintingManualFeedbackManager();
 	}
 	
 	protected ScoreFeedback createScoreFeedback() {

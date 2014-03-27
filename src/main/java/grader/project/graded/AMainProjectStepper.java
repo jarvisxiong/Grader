@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -214,6 +215,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.getFeedback();
 	}
 	@Row(5)
+	@Explanation("Shows the console transcript associated with selected feature or all transcript if no selected feature.")
 	public String getTranscript() {
 		return overviewProjectStepper.getTranscript();
 	}
@@ -264,6 +266,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@ComponentWidth(700)
 	@ComponentHeight(50)
 	@Row(1)
+	@Explanation ("Summary, feature independent notes.")
 	public String getOverallNotes() {
 		return overviewProjectStepper.getOverallNotes();
 	}
@@ -402,6 +405,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@PreferredWidgetClass(JTextArea.class)
 	@ComponentHeight(35)
 	@Override
+	@Explanation("Shows automatically generated explanation for point deduction for selected feature")
 	public String getAutoNotes() {
 		return overviewProjectStepper.getAutoNotes();
 	}
@@ -409,6 +413,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@PreferredWidgetClass(JTextArea.class)
 	@ComponentHeight(35)
 	@Override
+	@Explanation("Shows manually entered explanation for selected feature")
+
 	public String getManualNotes() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getManualNotes();
