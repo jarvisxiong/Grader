@@ -3,7 +3,7 @@ package grader.navigation;
 public enum NavigationKind  {
 	AUTOMATIC ("Automatic"),
 	MANUAL ("Manual"),
-	HYBRID ("Hybrid");
+	HYBRID ("Automatic and then manual");
 	
 	// display name constructor and variable
 	

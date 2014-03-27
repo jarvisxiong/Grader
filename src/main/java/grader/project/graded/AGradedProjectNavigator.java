@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -1018,6 +1019,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@ComponentWidth(100)
 	@Override
+	@Explanation("Go to next student after saving current student changes.")
 	public synchronized void next() {
 //		if (!preProceed()) {
 //			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the proceed when finished box if you do not want this check.");
@@ -1050,6 +1052,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(1)
 	@ComponentWidth(100)
 	@Override
+	@Explanation("Go to previous student after saving current student changes.")
 	public synchronized void previous() {
 		
 		
@@ -1310,6 +1313,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@Override
 	@Label("Stop If Not Done")
+	@Explanation("Determines if next or previous command is allowed if current student is not completely graded")
 	public boolean isProceedWhenDone() {
 		return proceedWhenDone;
 		
@@ -1852,9 +1856,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@ComponentWidth(30)
 	@ComponentHeight(27)
 	@Label("Navigation Distance:")
+	@Explanation("How far into onyen range have you travelled - the sequence number of the current record.")
 	public String getSequenceNumber() {
 		return sequenceNumber;
 	}
+	@Visible(false)
 	@ComponentWidth(100)
 	@Row(0)
 	@Column(3)

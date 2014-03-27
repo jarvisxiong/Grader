@@ -252,7 +252,9 @@ public class Driver {
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
 //            			settingsFrame.setSize(550, 475);
-            			settingsFrame.setSize(550, 530);
+//            			settingsFrame.setSize(550, 530);
+            			settingsFrame.setSize(600, 550);
+
 
             			settingsModel.awaitBegin();
             			projectName = settingsModel.getCurrentProblem(); // get the current one
