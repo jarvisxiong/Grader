@@ -339,10 +339,10 @@ public class AProjectStepper extends AClearanceManager implements
 			// featureGradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 			// project.getStudentAssignment().getOnyen(),
 			// aGradingFeature.getFeature());
-			double lastScore = getGrade(aGradingFeature.getFeature());
+			double lastScore = getGrade(aGradingFeature.getFeatureName());
 			String result = getSavedResult(aGradingFeature);
 			if (result != "")
-				aGradingFeature.setResult(result);
+				aGradingFeature.setAutoNotes(result);
 
 			// aGradingFeature.initScore(lastScore);
 			// aGradingFeature.setProject(project);
@@ -427,7 +427,7 @@ public class AProjectStepper extends AClearanceManager implements
 		 String allOutput = currentOutput.toString();
 
 			for (GradingFeature aGradingFeature : gradingFeatures) {
-				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeature(), allOutput);
+				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeatureName(), allOutput);
 				aGradingFeature.setOutput(output);			
 			} 
 			if (selectedGradingFeature != null) {
@@ -530,7 +530,7 @@ public class AProjectStepper extends AClearanceManager implements
 		if (selectedGradingFeature != null) {
 			internalSetManualNotes(getNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
-			internalSetResult(selectedGradingFeature.getResult());  
+			internalSetResult(selectedGradingFeature.getAutoNotes());  
 
 		} else {
 			internalSetManualNotes("");
@@ -912,7 +912,7 @@ public class AProjectStepper extends AClearanceManager implements
 							.get(i).getResults() : restrictionResults.get(
 							i - featureResults.size()).getResults());
 			
-			features.get(i).setNotes(
+			features.get(i).setManualNotes(
 					(i < featureResults.size()) ? featureResults.get(i)
 							.getNotes() : restrictionResults.get(
 							i - featureResults.size()).getNotes());
@@ -922,15 +922,15 @@ public class AProjectStepper extends AClearanceManager implements
 					.get(i - featureResults.size()).getTarget()
 					.getSummary();
 			// in memory save
-			features.get(i).setResult(result);
+			features.get(i).setAutoNotes(result);
 			// save to the excel file so we can read it later
-			featureGradeRecorder.setResult(getName(), getOnyen(), features.get(i).getFeature(), 
+			featureGradeRecorder.setResult(getName(), getOnyen(), features.get(i).getFeatureName(), 
 					result);			
 			features.get(i).setScore(score);
 
 			// Save the score
 			featureGradeRecorder.setGrade(getName(), getOnyen(), features.get(i)
-					.getFeature(), score);
+					.getFeatureName(), score);
 		}
 		setComputedScore(); // will trigger change occurred
 		setComputedFeedback();
@@ -1085,9 +1085,9 @@ public class AProjectStepper extends AClearanceManager implements
 	void validate (GradingFeature aGradingFeature) {
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		String newNotes = notesGenerator.appendNotes(
-				aGradingFeature.getNotes(), 
+				aGradingFeature.getManualNotes(), 
 				notesGenerator.validationNotes(this, aGradingFeature));
-		aGradingFeature.setNotes(newNotes);
+		aGradingFeature.setManualNotes(newNotes);
 		if (selectedGradingFeature == aGradingFeature) {
 			setManualNotes(newNotes);
 		}
@@ -1361,11 +1361,11 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 	
 	String getSavedResult(GradingFeature aGradingFeature) {
-		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeature());
+		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeatureName());
 	}
 
 	String getInMemoryResult(GradingFeature aGradingFeature) {
-		return aGradingFeature.getResult();
+		return aGradingFeature.getAutoNotes();
 //		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
 //		if (checkResult != null) {
 //			return checkResult.getMessage();
@@ -1377,7 +1377,7 @@ public class AProjectStepper extends AClearanceManager implements
 	void setNotes(GradingFeature aGradingFeature, String aNotes) {
 		featureGradeRecorder.setFeatureComments(aNotes);
 		featureGradeRecorder.comment(aGradingFeature);
-		aGradingFeature.setNotes(aNotes);
+		aGradingFeature.setManualNotes(aNotes);
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
 		// if (checkResult != null) {
@@ -1387,7 +1387,7 @@ public class AProjectStepper extends AClearanceManager implements
 	}
 
 	String getNotes(GradingFeature aGradingFeature) {
-		String retVal = aGradingFeature.getNotes();
+		String retVal = aGradingFeature.getManualNotes();
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
 		// if (checkResult != null) {
@@ -1426,7 +1426,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// setInternalScore(aGradingFeature.getScore());
 			if (!settingUpProject)
 			setComputedScore();
-			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
+			setGrade(aGradingFeature.getFeatureName(), aGradingFeature.getScore());
 //			setSelectedFeature(aGradingFeature);// auto select
 			if (!settingUpProject) {
 			setChanged(true);

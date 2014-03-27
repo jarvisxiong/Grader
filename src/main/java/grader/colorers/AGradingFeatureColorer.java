@@ -19,7 +19,7 @@ public class AGradingFeatureColorer implements Colorer<GradingFeature>{
 	}
 	@Override
 	public Color color(GradingFeature aGradingFeature) {
-		if (!aGradingFeature.getNotes().isEmpty())
+		if (!aGradingFeature.getManualNotes().isEmpty())
 			return hasNotesColor;
 		if (aGradingFeature.isAutoGradable() && !aGradingFeature.isGraded())
 			return autoGradableNotGraded;

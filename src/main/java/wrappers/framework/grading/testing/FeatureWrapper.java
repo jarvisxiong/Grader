@@ -9,6 +9,6 @@ import grader.assignment.GradingFeature;
 public class FeatureWrapper extends Feature {
 
     public FeatureWrapper(GradingFeature gradingFeature) {
-        super(gradingFeature.getFeature(), gradingFeature.getMax(), gradingFeature.isExtraCredit(), new TestCaseWrapper(gradingFeature));
+        super(gradingFeature.getFeatureName(), gradingFeature.getMax(), gradingFeature.isExtraCredit(), new TestCaseWrapper(gradingFeature));
     }
 }

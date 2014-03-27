@@ -932,16 +932,22 @@ public class AnAutoVisitBehavior implements
 					.getTarget().getSummary() : restrictionResults
 					.get(i - featureResults.size()).getTarget()
 					.getSummary();
+//			// in memory save
+			features.get(i).setResultFormat(result);
+			String autoNotes = (i < featureResults.size()) ? featureResults.get(i).getAutoNotes() : restrictionResults
+					.get(i - featureResults.size()).getAutoNotes();
+//			// in memory save
 			// in memory save
-			features.get(i).setResult(result);
+			features.get(i).setAutoNotes(autoNotes);
+			
 			// save to the excel file so we can read it later
-			featureGradeRecorder.setResult(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeature(), 
+			featureGradeRecorder.setResult(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(), 
 					result);			
 			features.get(i).setScore(score);
 
 			// Save the score
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
-					.getFeature(), score);
+					.getFeatureName(), score);
 		}
 		projectStepper.setComputedScore(); // will trigger change occurred
 		projectStepper.setComputedFeedback();
@@ -1343,18 +1349,18 @@ public class AnAutoVisitBehavior implements
 	}
 	
 	String getSavedResult(GradingFeature aGradingFeature) {
-		return featureGradeRecorder.getResult(projectStepper.getName(), projectStepper.getOnyen(), aGradingFeature.getFeature());
+		return featureGradeRecorder.getResult(projectStepper.getName(), projectStepper.getOnyen(), aGradingFeature.getFeatureName());
 	}
 
-	String getInMemoryResult(GradingFeature aGradingFeature) {
-		return aGradingFeature.getResult();
-//		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
-//		if (checkResult != null) {
-//			return checkResult.getMessage();
-//		}
-//
-//		return "";
-	}
+//	String getInMemoryResult(GradingFeature aGradingFeature) {
+//		return aGradingFeature.getAutoNotes();
+////		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
+////		if (checkResult != null) {
+////			return checkResult.getMessage();
+////		}
+////
+////		return "";
+//	}
 
 //	void setNotes(GradingFeature aGradingFeature, String aNotes) {
 //		featureGradeRecorder.setFeatureComments(aNotes);
@@ -1369,7 +1375,7 @@ public class AnAutoVisitBehavior implements
 //	}
 
 	String getNotes(GradingFeature aGradingFeature) {
-		String retVal = aGradingFeature.getNotes();
+		String retVal = aGradingFeature.getManualNotes();
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
 		// if (checkResult != null) {

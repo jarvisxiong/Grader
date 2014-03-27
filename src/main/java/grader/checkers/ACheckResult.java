@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ACheckResult implements CheckResult{
 	List<String> log = new ArrayList();
+	String autoNotes = "";
+	
 	double score;
 
 	public double getScore() {
@@ -19,5 +21,12 @@ public class ACheckResult implements CheckResult{
 	public List<String> getLog() {
 		return log;
 	}
-
+	@Override
+	public String getAutoNotes() {
+		return autoNotes;
+	}
+	@Override
+	public void setAutoNotes(String autoNotes) {
+		this.autoNotes = autoNotes;
+	}
 }

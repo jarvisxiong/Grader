@@ -54,7 +54,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
             else {
                 requirements = new FrameworkProjectRequirements();
                 for (GradingFeature feature : projectStepper.getProjectDatabase().getGradingFeatures()) {
-                    requirements.addFeature(feature.getFeature(), feature.getMax(), feature.isExtraCredit(), new TestCaseWrapper(feature));
+                    requirements.addFeature(feature.getFeatureName(), feature.getMax(), feature.isExtraCredit(), new TestCaseWrapper(feature));
                 }
             }
         }
@@ -141,7 +141,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                 features.get(i).setScore(score);
 
                 // Save the score
-                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeature(), score);
+                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeatureName(), score);
             }
 
             // Finish up

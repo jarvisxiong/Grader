@@ -22,8 +22,11 @@ public class CheckResult implements Describable {
     // Values for grading, not needed later
     private CheckStatus status;
     private double pointWeight;
+    String autoNotes = "";
 
-    /**
+    
+
+	/**
      * Use this constructor before processing any test results.
      * If you are going to change the values, use the setters.
      * @param pointWeight How many points each test case is worth.
@@ -126,6 +129,9 @@ public class CheckResult implements Describable {
      * @param result The result to save and process
      */
     public void save(TestCaseResult result) {
+    	String testNotes =  result.getNotes();
+    	if (!testNotes.isEmpty())
+    		autoNotes += "  -- " + result.getNotes() + "\n";
         score += result.getPercentage() * pointWeight;
         results.add(result);
     }
@@ -154,5 +160,13 @@ public class CheckResult implements Describable {
         else
             return "Notes about " + target.getName() + ":" + summary;
     }
+    
+    public String getAutoNotes() {
+		return autoNotes;
+	}
+
+	public void setAutoNotes(String autoNotes) {
+		this.autoNotes = autoNotes;
+	}
 
 }

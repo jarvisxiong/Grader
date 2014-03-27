@@ -371,7 +371,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			aGradingFeature.setProjectDatabase(this);
 			if (aGradingFeature.isAutoGradable() && aGradingFeature.getFeatureChecker().isOverridable()) {
 				GradingFeature manualFeature = new AGradingFeature(
-						"Override" + aGradingFeature.getFeature(), aGradingFeature.getMax(), aGradingFeature.isExtraCredit());
+						"Override" + aGradingFeature.getFeatureName(), aGradingFeature.getMax(), aGradingFeature.isExtraCredit());
 				manualFeature.setProjectDatabase(this);
 				gradingFeatures.add(manualFeature);
 				aGradingFeature.setLinkedFeature(manualFeature);
@@ -1224,6 +1224,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
         for (Feature feature : requirements.getFeatures()) {
         	GradingFeature gradingFeature = new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit());
             gradingFeatures.add(gradingFeature);
+            gradingFeature.setFeature(feature);
             featureToCheckable.put(gradingFeature, feature);
         }
 

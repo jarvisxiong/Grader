@@ -17,7 +17,7 @@ public class ANotesGenerator implements NotesGenerator{
 	public String validationNotes (ProjectStepper aProjectStepper, GradingFeature aGradingFeature) {
 //		return " " + aGradingFeature.getFeature() + " auto grading validated.";
 		String retVal = "Validated by instructor.";
-		if (aGradingFeature.getNotes().contains(retVal)) return "";
+		if (aGradingFeature.getManualNotes().contains(retVal)) return "";
 		return retVal;
 	}
 	

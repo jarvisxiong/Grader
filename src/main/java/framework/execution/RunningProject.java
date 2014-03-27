@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
+import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
 /**
@@ -113,6 +114,7 @@ public class RunningProject {
 	
 	String createFeatureTranscript() {
 		transcript.setLength(0);
+		if (project.getCurrentGradingFeature() == null) return "";
 		String featureName = project.getCurrentGradingFeature().getName();
 
 		transcript.append(featureHeader(featureName) + "\n");
@@ -138,6 +140,10 @@ public class RunningProject {
 			}
 			transcript.append("[");
 
+		}
+		if (output == null) {
+			Tracer.error("Null output!");
+			return "";
 		}
 		if (!output.isEmpty()) {
 		transcript.append("OUTPUT(" + featureName + ")\n");

@@ -275,9 +275,9 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void comment(GradingFeature aGradingFeature) {
         // Instead of asking the user, pull it from a variable which is updated.
-        save(aGradingFeature.getFeature(), featureComments);
+        save(aGradingFeature.getFeatureName(), featureComments);
         if (featureResults != null)
-            save(aGradingFeature.getFeature(), featureResults);
+            save(aGradingFeature.getFeatureName(), featureResults);
     }
 
     public void setFeatureComments(String comments) {

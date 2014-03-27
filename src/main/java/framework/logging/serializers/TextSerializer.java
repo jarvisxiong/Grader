@@ -85,7 +85,7 @@ public class TextSerializer implements RecordingSessionSerializer {
         		 continue;
         	 }
              awarded += gradingFeature.getScore();
-             log += String.format(gradingFeature.getResult(), gradingFeature.getScore()) + "\n";
+             log += String.format(gradingFeature.getResultFormat(), gradingFeature.getScore()) + "\n";
          }
          log += "----------------------------------\n";
          log += "  Points Awarded: " + awarded + "\n\n";
@@ -100,7 +100,7 @@ public class TextSerializer implements RecordingSessionSerializer {
             		 continue;
             	 }
                  deducted += gradingFeature.getScore();
-                 log += String.format(gradingFeature.getResult(), gradingFeature.getScore()) + "\n";
+                 log += String.format(gradingFeature.getResultFormat(), gradingFeature.getScore()) + "\n";
              }
              log += "----------------------------------\n";
              log += "  Points Deducted: " + deducted + "\n\n";
@@ -114,11 +114,24 @@ public class TextSerializer implements RecordingSessionSerializer {
         	 if (gradingFeature.isRestriction()) {
         		 continue;
         	 }
+        	 String autoNote = gradingFeature.getAutoNotes();
+             String manualNote = gradingFeature.getManualNotes();
+             if (autoNote.isEmpty() && manualNote.isEmpty())
+            	 continue;
+             log += gradingFeature.getFeatureName() + ":" + "\n";
+             if (!autoNote.isEmpty())
+            	 log +=  autoNote + "\n";
+             if (!manualNote.isEmpty())
+            	 log +=  manualNote + "\n";
+//             if (!autoNote.isEmpty()) {
+//                 log += gradingFeature.getFeatureName() + ": "+  autoNote + "\n";
+//             }
          
-             String note = gradingFeature.getNotes();
-             if (!note.isEmpty()) {
-                 log += gradingFeature.getFeature() + ": "+  note + "\n";
-             }
+//             String manualNote = gradingFeature.getManualNotes();
+//             if (!manualNote.isEmpty()) {
+//                 log += gradingFeature.getFeatureName() + ": "+  manualNote + "\n";
+//             }
+             
          }
          if (hasRestrictions) {
 
@@ -128,10 +141,19 @@ public class TextSerializer implements RecordingSessionSerializer {
         	 if (!gradingFeature.isRestriction()) {
         		 continue;
         	 }
+        	 String autoNote = gradingFeature.getAutoNotes();
+             String manualNote = gradingFeature.getManualNotes();
+             if (autoNote.isEmpty() && manualNote.isEmpty())
+            	 continue;
+             log += gradingFeature.getFeatureName() + ":" + "\n";
+             if (!autoNote.isEmpty())
+            	 log +=  autoNote + "\n";
+             if (!manualNote.isEmpty())
+            	 log +=  manualNote + "\n";
          
-             String note = gradingFeature.getNotes();
-             if (!note.isEmpty())
-                 log += note + "\n";
+//             String note = gradingFeature.getManualNotes();
+//             if (!note.isEmpty())
+//                 log += note + "\n";
          }
          }
 
@@ -140,7 +162,7 @@ public class TextSerializer implements RecordingSessionSerializer {
          if (recordingSession.getLatePenalty()> 1)
              log += "\nEarly benefit: " + (recordingSession.getLatePenalty() * 100) + "%\n";
 
-         log += "\nTA Comments:\n";
+         log += "\nOverall Comments:\n";
          log += "----------------------------------\n";
          log += recordingSession.getComments();
          return log;

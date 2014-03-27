@@ -11,4 +11,8 @@ public interface CheckResult {
 
     public List<String> getLog();
 
+	String getAutoNotes();
+
+	void setAutoNotes(String autoNotes);
+
 }

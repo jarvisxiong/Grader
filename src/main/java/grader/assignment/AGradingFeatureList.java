@@ -22,7 +22,7 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 	public boolean isAllGraded() {
 		for (GradingFeature gradingFeature:this) {
 			if (! (gradingFeature.isGraded()) 
-					|| (!gradingFeature.isFullCredit() && gradingFeature.getNotes().isEmpty())	
+					|| (!gradingFeature.isFullCredit() && gradingFeature.getManualNotes().isEmpty())	
 					
 					)
 					return false;
@@ -35,7 +35,7 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 	@Override
 	public boolean hasSomeNotes() {
 		for (GradingFeature gradingFeature:this) {
-			if (!gradingFeature.getNotes().isEmpty())				
+			if (!gradingFeature.getManualNotes().isEmpty())				
 					return true;
 			
 		}

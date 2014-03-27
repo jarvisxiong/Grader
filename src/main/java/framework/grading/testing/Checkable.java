@@ -37,6 +37,10 @@ public abstract class Checkable implements Gradable {
         	Tracer.error("Could not grade because did not find classes ");
 //            e.printStackTrace();
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
+
         }
     }
 

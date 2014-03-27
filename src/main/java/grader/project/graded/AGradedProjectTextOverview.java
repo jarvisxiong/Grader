@@ -67,6 +67,7 @@ import scala.Option;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
+import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -815,7 +816,8 @@ public class AGradedProjectTextOverview  implements
 //			featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 
 		}
-		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
+		// do not save it in Josh's spreadsheet
+//		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 
 
 		
@@ -861,6 +863,8 @@ public class AGradedProjectTextOverview  implements
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
+		featureGradeRecorder.setGrade(getName(), getOnyen(), newVal);
+
 		
 //		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
@@ -1134,6 +1138,7 @@ public class AGradedProjectTextOverview  implements
 	
 	@Row(3)
 	@Visible(true)
+	@Explanation("Weight based on early or late submission")
 	public double getMultiplier() {
 		return multiplier;
 	}

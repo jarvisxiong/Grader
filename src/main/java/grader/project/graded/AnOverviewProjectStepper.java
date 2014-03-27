@@ -388,10 +388,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// featureGradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 			// project.getStudentAssignment().getOnyen(),
 			// aGradingFeature.getFeature());
-			double lastScore = getGrade(aGradingFeature.getFeature());
+			double lastScore = getGrade(aGradingFeature.getFeatureName());
 			String result = getSavedResult(aGradingFeature);
 			if (result != "")
-				aGradingFeature.setResult(result);
+				aGradingFeature.setResultFormat(result);
 			aGradingFeature.pureSetValidate(false);
 
 			// aGradingFeature.initScore(lastScore);
@@ -417,6 +417,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 //		setScore(aScore);
 		internalSetScore(aScore);
+		featureGradeRecorder.setGrade(getName(), getOnyen(), aScore);
+
 
 	}
 
@@ -480,7 +482,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		  allOutput = currentOutput.toString();
 
 			for (GradingFeature aGradingFeature : gradingFeatures) {
-				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeature(), allOutput);
+				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeatureName(), allOutput);
 				aGradingFeature.setOutput(output);			
 			} 
 			refreshTranscript();
@@ -614,7 +616,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (selectedGradingFeature != null) {
 			internalSetManualNotes(getNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
-			internalSetResult(selectedGradingFeature.getResult());  
+			internalSetResult(selectedGradingFeature.getAutoNotes());  
 
 		} else {
 			internalSetManualNotes("");
@@ -1214,9 +1216,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void validate (GradingFeature aGradingFeature) {
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 		String newNotes = notesGenerator.appendNotes(
-				aGradingFeature.getNotes(), 
+				aGradingFeature.getManualNotes(), 
 				notesGenerator.validationNotes(this, aGradingFeature));
-		aGradingFeature.setNotes(newNotes);
+		aGradingFeature.setManualNotes(newNotes);
 		if (selectedGradingFeature == aGradingFeature) {
 			setManualNotes(newNotes);
 		}
@@ -1505,11 +1507,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	}
 	
 	String getSavedResult(GradingFeature aGradingFeature) {
-		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeature());
+		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeatureName());
 	}
 //
 	String getInMemoryResult(GradingFeature aGradingFeature) {
-		return aGradingFeature.getResult();
+		return aGradingFeature.getAutoNotes();
 //		CheckResult checkResult = gradingFeatureToCheckResult(aGradingFeature);
 //		if (checkResult != null) {
 //			return checkResult.getMessage();
@@ -1521,7 +1523,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void setNotes(GradingFeature aGradingFeature, String aNotes) {
 		featureGradeRecorder.setFeatureComments(aNotes);
 		featureGradeRecorder.comment(aGradingFeature);
-		aGradingFeature.setNotes(aNotes);
+		aGradingFeature.setManualNotes(aNotes);
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
 		// if (checkResult != null) {
@@ -1531,7 +1533,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 
 	String getNotes(GradingFeature aGradingFeature) {
-		String retVal = aGradingFeature.getNotes();
+		String retVal = aGradingFeature.getManualNotes();
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
 		// if (checkResult != null) {
@@ -1587,7 +1589,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// setInternalScore(aGradingFeature.getScore());
 			if (!settingUpProject)
 			setComputedScore();
-			setGrade(aGradingFeature.getFeature(), aGradingFeature.getScore());
+			setGrade(aGradingFeature.getFeatureName(), aGradingFeature.getScore());
 //			setSelectedFeature(aGradingFeature);// auto select
 			if (!settingUpProject) {
 			setChanged(true);
@@ -1656,7 +1658,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			setGradingFeatureColors();
 			gradingFeature.setSelected(true); 
 		
-		} else if (evt.getSource() == this) {
+//		} else if (evt.getSource() instanceof GradingFeature
+//				&& evt.getPropertyName().equalsIgnoreCase("autograde") && !settingUpProject) {
+//			GradingFeature gradingFeature = (GradingFeature) evt.getSource();			
+//			gradingFeature.setSelected(true); 
+//		
+		} 	else if (evt.getSource() == this) {
 			// will get even name and onyen changes - let us focus on the changes that really need to be saved in the setters
 			if (!settingUpProject)
 

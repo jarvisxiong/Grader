@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import framework.grading.testing.Feature;
 import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -10,7 +11,7 @@ import java.awt.Color;
 import java.beans.PropertyChangeListener;
 
 public interface GradingFeature extends PropertyListenerRegisterer {
-    public String getFeature();
+    public String getFeatureName();
 
     public double getMax();
 
@@ -61,13 +62,13 @@ public interface GradingFeature extends PropertyListenerRegisterer {
     public void setLinkedFeature(GradingFeature aGradingFeature);
 
     public void pureSetGraded(boolean newValue);
-    String getNotes();
-    public void setNotes(String notes);
+    String getManualNotes();
+    public void setManualNotes(String notes);
     public boolean isSelected() ;
     public void setSelected(boolean newVal) ;
-    public String getResult() ;
+    public String getAutoNotes() ;
 
-	public void setResult(String result) ;
+	public void setAutoNotes(String result) ;
 
 	boolean isRestriction();
 
@@ -94,5 +95,13 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 	void setValidate(boolean newVal);
 
 	void pureSetValidate(boolean newVal);
+
+	Feature getFeature();
+
+	void setFeature(Feature feature);
+
+	String getResultFormat();
+
+	void setResultFormat(String resultFormat);
 
 }

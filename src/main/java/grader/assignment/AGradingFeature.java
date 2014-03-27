@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import framework.grading.testing.Feature;
 import grader.auto_notes.NotesGenerator;
 import grader.checkers.CheckResult;
 import grader.checkers.FeatureChecker;
@@ -24,7 +25,9 @@ import org.apache.commons.io.FileUtils;
 public class AGradingFeature implements GradingFeature {
 	public static final String FEEDBACK_FILE_PREFIX = "Score-";
 	public static final String RESULTS_FILE_PREFIX = "Results-";
-	public static final String NOTES_FILE_PREFIX = "Notes-";
+	public static final String MANUAL_NOTES_FILE_PREFIX = "ManualNotes-";
+	public static final String AUTO_NOTES_FILE_PREFIX = "AutoNotes-";
+
 
 	public static final String FEEDBACK_FILE_SUFFIX = ".txt";
 	Color color;
@@ -40,17 +43,19 @@ public class AGradingFeature implements GradingFeature {
 	FileProxy feedbackFolder;
 	String feedbackFolderName;
 	FeatureChecker featureChecker;
-	String feedbackFileName, resultsFileName, notesFileName;
+	String feedbackFileName, resultsFileName, manualNotesFileName, autoNotesFileName;
 	SakaiProject project;
 	SakaiProjectDatabase projectDatabase;
 	String[] outputFiles;
 	String[] inputFiles;
 	GradingFeature linkedFeature;
 	boolean cannotAutoGrade;
-	String notes = "";
-	String result = "";
+	String manualNotes = "";
+	String autoNotes = "";
+	String resultFormat = "";
 	boolean isRestriction;
 	String output = "";
+	Feature feature;
 
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
@@ -175,13 +180,16 @@ public class AGradingFeature implements GradingFeature {
 //		resultsFileName = feedbackFolder.getAbsoluteName() + "/"
 //				+ RESULTS_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
 		feedbackFileName = feedbackFolderName + featureName + FEEDBACK_FILE_SUFFIX;
-		notesFileName = feedbackFolderName
-				+ NOTES_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
+		manualNotesFileName = feedbackFolderName
+				+ MANUAL_NOTES_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
+		autoNotesFileName = feedbackFolderName
+				+ AUTO_NOTES_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
 		resultsFileName = feedbackFolderName
 				+ RESULTS_FILE_PREFIX + featureName + FEEDBACK_FILE_SUFFIX;
 		graded = false;
 		cannotAutoGrade = false;
-		notes = retrieveNotes();
+		manualNotes = retrieveManualNotes();
+		autoNotes = retrieveAutoNotes();
 		// will let project stepper worry abput this
 //		result = retrieveResult();
 		firePropertyChange("this", null, this);
@@ -197,8 +205,13 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	@Visible(false)
-	public String getNotesFileName() {
-		return notesFileName;
+	public String getManualNotesFileName() {
+		return manualNotesFileName;
+	}
+	
+	@Visible(false)
+	public String getAutoNotesFileName() {
+		return autoNotesFileName;
 	}
 
 	@Visible(false)
@@ -209,16 +222,22 @@ public class AGradingFeature implements GradingFeature {
 	public void autoGrade() {
 		if (cannotAutoGrade)
 			return;
+//		propertyChangeSupport.firePropertyChange("AutoGrade", false, true); // change the selected feature before autograding
+		
+		project.setCurrentGradingFeature(feature); // change the selected feature before autograding
 
 		CheckResult result = featureChecker.check();
+		setAutoNotes(result.getAutoNotes());
 		if (result == null) {
-			Tracer.error("Could not autograde:" + this.getFeature());
+			Tracer.error("Could not autograde:" + this.getFeatureName());
 			cannotAutoGrade = true;
 			pureSetScore(0);
 			return;
 		}
 		pureSetScore(result.getScore());
 		projectDatabase.getAutoFeedback().recordAutoGrade(this, result);
+		setSelected(true); 
+
 	}
 
 	@Override
@@ -228,7 +247,8 @@ public class AGradingFeature implements GradingFeature {
 
 	@Position(0)
 	@ComponentWidth(250)
-	public String getFeature() {
+	@Label("Feature")
+	public String getFeatureName() {
 		return featureName;
 	}
 
@@ -267,8 +287,8 @@ public class AGradingFeature implements GradingFeature {
 		// piggyback this notification on score notfication to project stepper
 		if (!isManual()) {
 			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-			setNotes(notesGenerator.appendNotes(
-					getNotes(), 
+			setManualNotes(notesGenerator.appendNotes(
+					getManualNotes(), 
 					notesGenerator.autoFeatureScoreOverrideNotes(projectDatabase.getProjectStepper(), this, oldVal, newVal)));
 		}
 		pureSetScore(newVal);
@@ -455,23 +475,24 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	@Visible(false)
-	public String getResult() {
-		return result;
+	public String getAutoNotes() {
+		return autoNotes;
 	}
 
 	@Visible(false)
-	public void setResult(String result) {
+	public void setAutoNotes(String result) {
 		String oldVal = result;
-		this.result = result;
+		this.autoNotes = result;
+		recordAutoNotes();
 		// let project stepper get this value from feature recorder
 //		recordResult();
-		propertyChangeSupport.firePropertyChange("result", oldVal, result);
+		propertyChangeSupport.firePropertyChange("autoNotes", oldVal, result);
 
 	}
 
 	@Visible(false)
-	public String getNotes() {
-		return notes;
+	public String getManualNotes() {
+		return manualNotes;
 	}
 	
 	public static boolean maybeDeleteFile(String fileName) {
@@ -481,14 +502,28 @@ public class AGradingFeature implements GradingFeature {
 		
 	}
 
-	void recordNotes() {
-		String fileName = getNotesFileName();
-		if (notes.equals("") && maybeDeleteFile(fileName)) {// why create file on empty notes? 
+	void recordManualNotes() {
+		String fileName = getManualNotesFileName();
+		if (manualNotes.equals("") && maybeDeleteFile(fileName)) {// why create file on empty notes? 
 			
 			return;
 		}
 		try {
-			FileUtils.writeStringToFile(new File(fileName), notes);
+			FileUtils.writeStringToFile(new File(fileName), manualNotes);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void recordAutoNotes() {
+		String fileName = getAutoNotesFileName();
+		if (autoNotes.equals("") && maybeDeleteFile(fileName)) {// why create file on empty notes? 
+			
+			return;
+		}
+		try {
+			FileUtils.writeStringToFile(new File(fileName), autoNotes);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -504,29 +539,37 @@ public class AGradingFeature implements GradingFeature {
 	}
 	
 	void recordResult() {
-		if (result.equals("")) // why create file?
+		if (autoNotes.equals("")) // why create file?
 			return;
 		try {
-			FileUtils.writeStringToFile(new File(getResultFileName()), result);
+			FileUtils.writeStringToFile(new File(getResultFileName()), autoNotes);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	String retrieveNotes() {
+	String retrieveManualNotes() {
 		try {
-			return FileUtils.readFileToString(new File(getNotesFileName()));
+			return FileUtils.readFileToString(new File(getManualNotesFileName()));
+		} catch (IOException e) {
+			return "";
+		}
+	}
+	
+	String retrieveAutoNotes() {
+		try {
+			return FileUtils.readFileToString(new File(getAutoNotesFileName()));
 		} catch (IOException e) {
 			return "";
 		}
 	}
 
 	@Visible(false)
-	public void setNotes(String newVal) {
-		String oldVal = notes;
-		this.notes = newVal;
-		recordNotes();
+	public void setManualNotes(String newVal) {
+		String oldVal = manualNotes;
+		this.manualNotes = newVal;
+		recordManualNotes();
 //		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
 	
@@ -546,6 +589,25 @@ public class AGradingFeature implements GradingFeature {
 			Object aNewValue) {
 		propertyChangeSupport.firePropertyChange(aName, anOldValue, aNewValue);
 	}
+	@Visible(false)
+	@Override
+	public Feature getFeature() {
+		return feature;
+	}
+	@Override
+	@Visible(false)
+	public void setFeature(Feature feature) {
+		this.feature = feature;
+	}
+	@Override
+	public String getResultFormat() {
+		return resultFormat;
+	}
+	@Override
+	public void setResultFormat(String newValue) {
+		this.resultFormat = newValue;
+	}
+	
 //	@Override
 //	public Color computeColor() {
 //		if (!getNotes().isEmpty())

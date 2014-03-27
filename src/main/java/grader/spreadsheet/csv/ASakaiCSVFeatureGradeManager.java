@@ -83,9 +83,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
-			titleRow[featureColumn] = gradingFeatures.get(i).getFeature();
+			titleRow[featureColumn] = gradingFeatures.get(i).getFeatureName();
 			int resultsColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
-			titleRow[resultsColumn] = gradingFeatures.get(i).getFeature();
+			titleRow[resultsColumn] = gradingFeatures.get(i).getFeatureName();
 
 			
 		}
@@ -94,9 +94,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	void makeMap() {
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
-			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
+			featureToColumnNumber.put(gradingFeatures.get(i).getFeatureName(), featureColumn);
 			int resultColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
-			resultToColumnNumber.put(gradingFeatures.get(i).getFeature(), resultColumn);
+			resultToColumnNumber.put(gradingFeatures.get(i).getFeatureName(), resultColumn);
 			
 		}
 	}
