@@ -1219,6 +1219,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 				aGradingFeature.getManualNotes(), 
 				notesGenerator.validationNotes(this, aGradingFeature));
 		aGradingFeature.setManualNotes(newNotes);
+		setComputedFeedback(); // it is not yet selected
 		if (selectedGradingFeature == aGradingFeature) {
 			setManualNotes(newNotes);
 		}
