@@ -1389,6 +1389,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
     @Override
 	public void setOverallNotes(String newVal) {
+    	setChanged(true);
 		internalSetComments(newVal);
 		// String oldVal = newVal;
 		// comments = newVal;
