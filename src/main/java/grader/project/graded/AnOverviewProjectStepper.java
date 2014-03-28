@@ -1379,6 +1379,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldVal = overallNotes;
 
 		overallNotes = newVal;
+		featureGradeRecorder.save(overallNotes);
+
+		
+		
 
 		propertyChangeSupport.firePropertyChange("OverallNotes", oldVal, newVal);
 		
@@ -1389,7 +1393,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-		featureGradeRecorder.save(overallNotes);
+//		featureGradeRecorder.save(overallNotes);
 		writeComments(project, newVal);
 		setComputedFeedback();
 		
