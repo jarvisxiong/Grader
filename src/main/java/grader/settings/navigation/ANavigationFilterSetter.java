@@ -109,6 +109,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	
 	public static String getExplanation(Class aClass) {
 		Explanation explanation = (Explanation) aClass.getAnnotation(Explanation.class);
+		if (explanation == null) return "";
 		return explanation.value();
 		
 	}
