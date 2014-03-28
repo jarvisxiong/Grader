@@ -84,7 +84,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		String[] reverseWordOutputs = { "retupmoC gnimmargorp nac eb a tluciffid ksat ro ti nac eb sa ysae sa 321" };
 		String[] incorrectReverseWordOutputs = {};
 		addFeature("EXTRA CREDIT: reverseWordCharacters", 20, true, new ReverseWordCharacters(
-				ReverseWordCharacters.getRandomInputs(10, 30, 10), 3),
+				ReverseWordCharacters.getRandomInputs(10, 30, 10), methodsTimeout),
 				new CorrectOutputTypeOnComputationChoice(reverseWordInput,
 						"reverse word characters", reverseWordOutputs, incorrectReverseWordOutputs));
 	}
