@@ -123,7 +123,7 @@ public class ProcessRunner implements Runner {
 
 			// Start the process
 			TimedProcess process = new TimedProcess(builder, timeout);
-			process.start();
+			Process processObj = process.start();
 
 			// Print output to the console
 			InputStream processOut = process.getInputStream();
@@ -179,6 +179,8 @@ public class ProcessRunner implements Runner {
 				errorSemaphore.release();
 				System.out.println("*** Timed out waiting for process to finish ***");
 			}
+			
+			processObj.destroy();
 
 			// Wait for the output to finish
 			outputSemaphore.acquire();
