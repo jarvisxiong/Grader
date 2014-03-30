@@ -1,15 +1,19 @@
 package grader.sakai;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.FileProxy;
 import grader.file.RootFolderFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
@@ -103,10 +107,10 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     }
 
     Set<String> extractStudentFolderNames() {
-        Set<String> retVal = new HashSet(
+        Set<String> children = new HashSet(
                 assignmentFolder.getChildrenNames());
         List<String> fileChildren = new ArrayList();
-        for (String childName : retVal) {
+        for (String childName : children) {
             FileProxy fileProxy = rootBulkDownloadFolder.getFileEntry(childName);
             
             if (!fileProxy.isDirectory() || !hasOnyenSyntax(fileProxy.getLocalName())) { // can add grader data or other info to downloaded folder
@@ -114,9 +118,22 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
             }
         }
         for (String fileChild : fileChildren) {
-            retVal.remove(fileChild);
+            children.remove(fileChild);
         }
-        return retVal;
+        
+        Set<String> sortedStudentFiles = new TreeSet<String>(new Comparator<String>() {
+
+			@Override
+			public int compare(String s1, String s2) {
+				String onyen1 = s1.substring(s1.lastIndexOf('(') + 1,
+						s1.lastIndexOf(')'));
+				String onyen2 = s2.substring(s2.lastIndexOf('(') + 1,
+						s2.lastIndexOf(')'));
+				return onyen1.compareTo(onyen2);
+			}
+        }); 
+        sortedStudentFiles.addAll(children);
+        return sortedStudentFiles;
     }
 
     void setStudentFolderNames() {

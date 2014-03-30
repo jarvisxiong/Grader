@@ -1,11 +1,13 @@
 package wrappers.grader.sakai.project;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GraderSettings;
 import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProjectDatabase;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,7 +23,28 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         List<String> onyens = new ArrayList<String>();
         File directory = new File(GraderSettings.get().get("path"));
         boolean include = false;
-        for (File file : directory.listFiles()) {
+        File[] files = directory.listFiles();
+		Arrays.sort(files, new Comparator<Object>() {
+
+			@Override
+			public int compare(Object o1, Object o2) {
+				if (!(o1 instanceof File && o2 instanceof File)) {
+					throw new RuntimeException("Invalid Type.  Must be of type File.");
+				}
+				File f1 = (File) o1;
+				File f2 = (File) o2;
+				if (!f1.isDirectory() || !f2.isDirectory()) {
+					return f1.getName().compareTo(f2.getName());
+				}
+				String onyen1 = f1.getName().substring(f1.getName().lastIndexOf('(') + 1,
+						f1.getName().lastIndexOf(')'));
+				String onyen2 = f2.getName().substring(f2.getName().lastIndexOf('(') + 1,
+						f2.getName().lastIndexOf(')'));
+				return onyen1.compareTo(onyen2);
+			}
+		});
+        
+        for (File file : files) {
             if (file.isDirectory()) {
                 if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
                     include = true;
