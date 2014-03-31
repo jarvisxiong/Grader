@@ -15,7 +15,7 @@ public class APhotoReader implements PhotoReader{
 	public  static final String PHOTO_FOLDER = "photos";
 	public  static final String NO_PHOTO_FILE_NAME = "nophoto.jpg";
 	static String[] pictureSuffixes =  {".jpg", ".gif", ".png"};
-	public static final String NO_PHOTO_TITLE = "No Photo";
+	public static final String NO_PHOTO_TITLE = "No Photo"; // when the no photo file is not found
 	public static final double PHOTO_HEIGHT = 100;
 
 	String photosFolderFullName;

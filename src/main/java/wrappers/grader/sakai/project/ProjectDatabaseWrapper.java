@@ -1,29 +1,19 @@
 package wrappers.grader.sakai.project;
 
 import framework.grading.ProjectRequirements;
-import framework.grading.testing.Feature;
-import framework.grading.testing.Restriction;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
-import util.misc.Common;
-import wrappers.grader.checkers.FeatureCheckerWrapper;
-import wrappers.grader.sakai.NonNestedBulkAssignmentFolder;
-import grader.assignment.AGradingFeature;
-import grader.assignment.AnAssignmenDataFolder;
-import grader.assignment.GradingFeature;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
-import grader.sakai.BulkAssignmentFolder;
-import grader.sakai.GenericStudentAssignmentDatabase;
-import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.SakaiProject;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.io.FileUtils;
+
+import util.misc.Common;
 
 /**
  * This extends the project database class to support adding FrameworkProjectRequirements
@@ -162,17 +152,21 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             // Make sure the onyens.txt file exists
             String onyens = "";
             Boolean include = false;
+            Set<String> onyenSet = new TreeSet<String>();
             for (File file : new File(GraderSettings.get().get("path")).listFiles()) {
                 if (file.isDirectory()) {
                     String name = file.getName();
                     String onyen = name.substring(name.indexOf("(") + 1, name.indexOf(")"));
-                    if (onyen.equals(GraderSettings.get().get("start")))
-                        include = true;
-                    if (include)
-                        onyens += (onyens.isEmpty() ? "" : "\n") + onyen;
-                    if (onyen.equals(GraderSettings.get().get("end")))
-                        include = false;
+                    onyenSet.add(onyen);
                 }
+            }
+            for (String onyen: onyenSet) {
+            	if (onyen.equals(GraderSettings.get().get("start")))
+                    include = true;
+                if (include)
+                    onyens += (onyens.isEmpty() ? "" : "\n") + onyen;
+                if (onyen.equals(GraderSettings.get().get("end")))
+                    include = false;
             }
             try {
                 FileUtils.writeStringToFile(new File(dataFolder, "onyens.txt"), onyens);
