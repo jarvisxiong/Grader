@@ -34,11 +34,13 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     Set<Project> studentFolders;
     FileProxy submissionFolder;
     FileProxy gradeSpreadsheet;
+    Comparator<String> fileNameComparator;
 
-    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, String anAssignmentName) {
+    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, String anAssignmentName,  Comparator<String> aFileNameComparator) {
         bulkDownloadDirectory = aBulkDownloadFolder;
         assignmentName = anAssignmentName;
         isAssignmentRoot = true;
+        fileNameComparator = aFileNameComparator;
         initializeBullkDownloadChidren();
     }
 
@@ -49,9 +51,10 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 ////        assignmentName = assignmentFolder.getLocalName();
 ////        mixedCaseAssignmentName = assignmentFolder.getMixedCaseLocalName();
 //    }
-    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, boolean assignmentRoot) {
+    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, boolean assignmentRoot, Comparator<String> aFileNameComparator) {
     	isAssignmentRoot = assignmentRoot;
         bulkDownloadDirectory = aBulkDownloadFolder;
+        fileNameComparator = aFileNameComparator;
         initializeBullkDownloadChidren();
         assignmentName = assignmentFolder.getLocalName();
         mixedCaseAssignmentName = assignmentFolder.getMixedCaseLocalName();
@@ -121,17 +124,18 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
             children.remove(fileChild);
         }
         
-        Set<String> sortedStudentFiles = new TreeSet<String>(new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				String onyen1 = s1.substring(s1.lastIndexOf('(') + 1,
-						s1.lastIndexOf(')'));
-				String onyen2 = s2.substring(s2.lastIndexOf('(') + 1,
-						s2.lastIndexOf(')'));
-				return onyen1.compareTo(onyen2);
-			}
-        }); 
+//        Set<String> sortedStudentFiles = new TreeSet<String>(new Comparator<String>() {
+//
+//			@Override
+//			public int compare(String s1, String s2) {
+//				String onyen1 = s1.substring(s1.lastIndexOf('(') + 1,
+//						s1.lastIndexOf(')'));
+//				String onyen2 = s2.substring(s2.lastIndexOf('(') + 1,
+//						s2.lastIndexOf(')'));
+//				return onyen1.compareTo(onyen2);
+//			}
+//        }); 
+        Set<String> sortedStudentFiles = new TreeSet<String>(fileNameComparator);
         sortedStudentFiles.addAll(children);
         return sortedStudentFiles;
     }

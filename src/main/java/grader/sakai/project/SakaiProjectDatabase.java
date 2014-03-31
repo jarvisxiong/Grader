@@ -1,8 +1,11 @@
 package grader.sakai.project;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+
 
 
 
@@ -195,6 +198,10 @@ public interface SakaiProjectDatabase {
 	HybridProjectNavigator getHybridProjectNavigator();
 
 	void setHybridProjectNavigator(HybridProjectNavigator hybridProjectNavigator);
+
+	Comparator<String> getFileNameSorter();
+
+	void setFileNameSorter(Comparator<String> fileNameSorter);
 	
 
 

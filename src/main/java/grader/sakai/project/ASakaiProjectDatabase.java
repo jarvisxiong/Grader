@@ -43,6 +43,7 @@ import grader.navigation.hybrid.AHybridProjectNavigator;
 import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
+import grader.navigation.sorter.AnAlphabeticFileNameSorter;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
@@ -84,6 +85,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -152,9 +154,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 GraderSettingsModel graderSettings;
 	 BasicNavigationFilter navigationFilter;
 	 NotesGenerator notesGenerator;
+	 Comparator<String> fileNameSorter;
 
 	 
 	
+	
+
 	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
 				String anAssignmentsDataFolderName, String aStartStudentID, String anEndStudentID, boolean anAssignmentRoot) {
 		 
@@ -206,6 +211,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			outputSuffix = outputSuffix();
 			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
 			assignmentsDataFolderName = anAssignmentsDataFolderName;
+			fileNameSorter = createFileNameSorter();
 			maybeMakeProjects();
 			// gradeRecorder = new
 			// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
@@ -260,6 +266,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	private ProjectNavigator createProjectNavigator() {
 		return new AProjectNavigator(this);
+	}
+	
+	Comparator<String> createFileNameSorter() {
+		return new AnAlphabeticFileNameSorter();
 	}
 
 	public static SakaiProjectDatabase getCurrentSakaiProjectDatabase() {
@@ -1112,7 +1122,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (projectsMade)
 			return;
 		projectsMade = true;
-		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot);
+		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot, fileNameSorter);
 		String assignmentName = bulkFolder.getAssignmentName();
 		if (assignmentsDataFolderName == null)
 			assignmentsDataFolderName = GradingEnvironment.get().getDefaultAssignmentsDataFolderName();		
@@ -1411,5 +1421,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public void setSourceFileNamePrefix(String sourceFileNamePrefix) {
 		this.sourceFileNamePrefix = sourceFileNamePrefix;
+	}
+	@Override
+	public Comparator<String> getFileNameSorter() {
+		return fileNameSorter;
+	}
+	@Override
+	public void setFileNameSorter(Comparator<String> fileNameSorter) {
+		this.fileNameSorter = fileNameSorter;
 	}
 }
