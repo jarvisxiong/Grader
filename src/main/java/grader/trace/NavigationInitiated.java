@@ -4,7 +4,7 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class NavigationInitiated extends StarterInfo {
+public class NavigationInitiated extends GraderSettingsInfo {
 	GraderSettingsModel gradingSettingsModel; 	
 	public NavigationInitiated(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);

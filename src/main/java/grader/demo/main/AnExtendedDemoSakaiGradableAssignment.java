@@ -30,13 +30,13 @@ import grader.file.FileProxy;
 import grader.project.AProject;
 import grader.sakai.ASakaiBulkAssignmentFolder;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.InvalidOnyenRangeException;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderSelector;
 import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.trace.InvalidOnyenRangeException;
 
 public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAssignment {
 

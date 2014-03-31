@@ -21,15 +21,21 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         List<String> onyens = new ArrayList<String>();
         File directory = new File(GraderSettings.get().get("path"));
         boolean include = false;
-        for (File file : directory.listFiles()) {
+        for (File file : directory.listFiles()) { // assumption seems to be that this is alphabetical
             if (file.isDirectory()) {
                 if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
                     include = true;
                 if (include)
                     onyens.add(file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")")));
-                if (file.getName().contains("(" + GraderSettings.get().get("end") + ")"))
+                if (file.getName().contains("(" + GraderSettings.get().get("end") + ")")) {
                     include = false;
+                    break; // no more needed
+                }
             }
+            
+        }
+        if (include) { // did not find ending onyen
+        	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
         return onyens;
     }

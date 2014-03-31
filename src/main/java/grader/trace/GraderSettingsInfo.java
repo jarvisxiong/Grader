@@ -4,11 +4,11 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class StarterInfo extends GraderInfo {
+public class GraderSettingsInfo extends SerializableGraderInfo {
 	GraderSettingsModel gradingSettingsModel; 
 
 	
-	public StarterInfo(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public GraderSettingsInfo(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aFinder);
 		 gradingSettingsModel = aGradingSettingsModel;
 	}

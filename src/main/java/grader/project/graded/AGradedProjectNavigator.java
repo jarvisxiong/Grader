@@ -4,12 +4,13 @@ import grader.feedback.ScoreFeedback;
 import grader.file.FileProxyUtils;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.BasicNavigationFilter;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.trace.MissingOnyenException;
+import grader.trace.ProjectStepperEnded;
 import grader.trace.ProjectStepperStarted;
 
 import java.awt.Frame;
@@ -46,7 +47,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	boolean playMode;
 	
 
-	ProjectStepper projectStepper;
+	OverviewProjectStepper projectStepper;
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
 //	public final static long UI_LOAD_TIME = 10 * 1000;
@@ -107,7 +108,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 
 
 		projectDatabase = aProjectDatabase;
-		projectStepper = projectDatabase.getProjectStepper();
+		// ouch, cast should change once we get rid of old stepper
+		projectStepper = (OverviewProjectStepper) projectDatabase.getProjectStepper();
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
 //		
 		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
@@ -201,7 +203,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		int onyenIndex = onyens.indexOf(anOnyen);
 		if (onyenIndex < 0) {
 			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-			throw new MissingOnyenException(anOnyen);
+			throw new MissingOnyenException(anOnyen, this);
 //			return;
 		}
 //		currentOnyenIndex = onyenIndex;
@@ -1314,7 +1316,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@Override
 	@Label("Stop If Not Done")
-	@Explanation("Determines if next or previous command is allowed if current student is not completely graded")
+	@Explanation("Determines if next or previous command is allowed when current student is not completely graded")
 	public boolean isProceedWhenDone() {
 		return proceedWhenDone;
 		
@@ -1886,6 +1888,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	public void windowClosing(WindowEvent arg0) {
 		if (!checkLeave()) return;
 		save();
+		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
 		System.exit(0);
 		
 	}

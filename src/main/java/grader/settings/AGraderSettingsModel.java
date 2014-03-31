@@ -31,8 +31,9 @@ import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
+import grader.trace.GraderSettingsEnded;
 import grader.trace.GraderTracerSelector;
-import grader.trace.GradingStarted;
+import grader.trace.GraderSettingsStarted;
 import grader.trace.NavigationInitiated;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
@@ -101,7 +102,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //	        	noDownloadPath();
 //	        }
 	        setCurrentModule(aModule);
-	        GradingStarted.newCaseObject(this, this);
+//	        GradingSettingsStarted.newCase(this, this);
 //		loadDynamicConfigurationSettings();
 	}
 	public AGraderSettingsModel() {
@@ -475,10 +476,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //			e.printStackTrace();
 //		}
 	}
+	@Override
 	@Row(0)
 	public ModuleProblemSelector getModuleProblemSelector() {
 		return moduleProblemSelector;
 	}
+	@Override
 	public void setModuleProblemSelector(ModuleProblemSelector moduleProblemSelector) {
 		this.moduleProblemSelector = moduleProblemSelector;
 	}
@@ -527,6 +530,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	
 	@Visible(false)
 	public synchronized void awaitBegin() {
+        GraderSettingsStarted.newCase(this, this);
+
 		graderStarted = false;
 		// see comment about race conditions
 //		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
@@ -534,6 +539,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			wait();
 			saveSettings();
 			graderStarted = true;
+	        GraderSettingsEnded.newCase(this, this);
+
 			// this can cause concurrent changed to object editor  leading to race conditions
 //			propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 		} catch (InterruptedException e) {

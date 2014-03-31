@@ -8,10 +8,10 @@ import util.models.LabelBeanModel;
 import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
+import grader.trace.MissingOnyenException;
 
 import java.beans.PropertyChangeListener;
 

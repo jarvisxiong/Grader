@@ -178,6 +178,10 @@ public class ProcessRunner implements Runner {
 				outputSemaphore.release();
 				errorSemaphore.release();
 				System.out.println("*** Timed out waiting for process to finish ***");
+				// avoiding hanging processes
+				processIn.flush();
+				processIn.close();
+				process.getProcess().destroy();
 			}
 
 			// Wait for the output to finish

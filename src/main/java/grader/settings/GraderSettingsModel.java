@@ -2,6 +2,7 @@ package grader.settings;
 
 import java.beans.PropertyChangeListener;
 
+import grader.modules.ModuleProblemSelector;
 import grader.settings.folders.GraderFilesSetterModel;
 import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.NavigationSetter;
@@ -22,5 +23,7 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	boolean isGraderStarted();
 	void setGraderStarted(boolean graderStarted);
 	String getCurrentProblem();
+	ModuleProblemSelector getModuleProblemSelector();
+	void setModuleProblemSelector(ModuleProblemSelector moduleProblemSelector);
 
 }

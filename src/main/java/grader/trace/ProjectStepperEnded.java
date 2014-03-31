@@ -25,7 +25,7 @@ public class ProjectStepperEnded extends TraceableInfo {
 		return overviewProjectStepper;
 	}
 	
-	public static ProjectStepperEnded newCaseObject(SakaiProjectDatabase aSakaiProjectDatabase, OverviewProjectStepper aProjectStepper, Object aFinder) {
+	public static ProjectStepperEnded newCase(SakaiProjectDatabase aSakaiProjectDatabase, OverviewProjectStepper aProjectStepper, Object aFinder) {
 		String aMessage = "Navigation Terminated";
 		ProjectStepperEnded retVal = new ProjectStepperEnded(aMessage, aSakaiProjectDatabase, aProjectStepper, aFinder);
 		retVal.announce();		

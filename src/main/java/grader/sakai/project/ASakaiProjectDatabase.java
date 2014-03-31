@@ -72,6 +72,8 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
+import grader.trace.InvalidOnyenRangeException;
+import grader.trace.MissingOnyenException;
 
 import java.awt.Component;
 import java.awt.Frame;

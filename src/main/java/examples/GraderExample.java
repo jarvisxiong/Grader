@@ -3,7 +3,7 @@ package examples;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.InvalidOnyenRangeException;
+import grader.trace.InvalidOnyenRangeException;
 import examples.checkers.featureCheckers.ErrorFeatureChecker;
 import examples.checkers.featureCheckers.FailingFeatureChecker;
 import examples.checkers.featureCheckers.PassingFeatureChecker;

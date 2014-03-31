@@ -7,11 +7,13 @@ import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.InvalidOnyenRangeException;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.AutomaticNavigationEnded;
+import grader.trace.AutomaticNavigationStarted;
+import grader.trace.InvalidOnyenRangeException;
+import grader.trace.MissingOnyenException;
 
 public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 	SakaiProjectDatabase database;
@@ -26,6 +28,8 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 	public void navigate(GraderSettingsModel settingsModel,
 			OEFrame settingsFrame, boolean exitOnCompletion) {
 		boolean animate = settingsModel.getNavigationSetter().getAutomaticNavigationSetter().getAnimateGrades();
+		AutomaticNavigationStarted.newCase(settingsModel, database, this);
+
 		while (true) {
 //		if (animate && settingsFrame != null)
 //			settingsFrame.dispose(); // keep only one frame around at a time
@@ -74,6 +78,8 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 			ASakaiProjectDatabase.dispose(frame);
 		else if (settingsFrame != null)
 			settingsFrame.dispose(); // visual indication things are complete
+		AutomaticNavigationEnded.newCase(settingsModel, database, this);
+
 		String automaticExitMessage = "Automatic grading complete.";
 		System.out.println(automaticExitMessage);
 //		JOptionPane.showMessageDialog(null, "Automatic grading complete.");

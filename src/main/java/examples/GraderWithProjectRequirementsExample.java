@@ -1,7 +1,7 @@
 package examples;
 
 import framework.grading.FrameworkProjectRequirements;
-import grader.sakai.project.InvalidOnyenRangeException;
+import grader.trace.InvalidOnyenRangeException;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;

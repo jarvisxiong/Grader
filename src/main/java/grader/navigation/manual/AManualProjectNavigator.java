@@ -6,10 +6,12 @@ import javax.swing.JOptionPane;
 import bus.uigen.OEFrame;
 import framework.execution.reflectionObjects.ManualProject;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.InvalidOnyenRangeException;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.InvalidOnyenRangeException;
+import grader.trace.ManualNavigationEnded;
+import grader.trace.ManualNavigationStarted;
+import grader.trace.MissingOnyenException;
 import util.trace.Tracer;
 
 public class AManualProjectNavigator implements ManualProjectNavigator {
@@ -34,6 +36,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 	}
 	
 	public void navigate(GraderSettingsModel settingsModel, OEFrame settingsFrame, boolean exitOnCompletion) {
+		ManualNavigationStarted.newCase(settingsModel, database, this);
 		if (settingsModel == null) return;
 		while (true) {
 		String goToOnyen = settingsModel.getOnyens().getGoToOnyen();
@@ -85,6 +88,8 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 	}
 	if (settingsFrame != null)
 		settingsFrame.dispose();
+	ManualNavigationEnded.newCase(settingsModel, database, this);
+
 	database.displayProjectStepper(database.getProjectStepper());
 
 	}

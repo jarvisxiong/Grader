@@ -21,7 +21,6 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -34,6 +33,7 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
+import grader.trace.MissingOnyenException;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -1612,7 +1612,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		} else {
 			int currentOnyenIndex = onyens.indexOf(anOnyen);
 			if (currentOnyenIndex == -1) {
-				throw new MissingOnyenException(anOnyen);
+				throw new MissingOnyenException(anOnyen, this);
 			}
 			gradedProjectNavigator.setCurrentOnyenIndex(currentOnyenIndex);
 		}

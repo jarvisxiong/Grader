@@ -30,6 +30,7 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
+import grader.trace.MissingOnyenException;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -205,7 +206,7 @@ public class AProjectStepper extends AClearanceManager implements
 		int onyenIndex = onyens.indexOf(anOnyen);
 		if (onyenIndex < 0) {
 			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-			throw new MissingOnyenException(anOnyen);
+			throw new MissingOnyenException(anOnyen, this);
 //			return;
 		}
 		currentOnyenIndex = onyenIndex;
@@ -1579,7 +1580,7 @@ public class AProjectStepper extends AClearanceManager implements
 		} else {
 			currentOnyenIndex = onyens.indexOf(anOnyen);
 			if (currentOnyenIndex == -1) {
-				throw new MissingOnyenException(anOnyen);
+				throw new MissingOnyenException(anOnyen, this);
 			}
 		}
 		SakaiProject aProject = projectDatabase.getProject(anOnyen);

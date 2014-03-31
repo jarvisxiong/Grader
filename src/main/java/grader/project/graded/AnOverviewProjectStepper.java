@@ -21,8 +21,6 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
-import grader.sakai.project.InvalidOnyenRangeException;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -35,6 +33,9 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
+import grader.trace.InvalidOnyenRangeException;
+import grader.trace.MissingOnyenException;
+import grader.trace.ProjectStepStarted;
 import grader.trace.ProjectStepperStarted;
 
 import java.awt.Color;
@@ -508,7 +509,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public boolean setProject(SakaiProject newVal) {
-
+		ProjectStepStarted.newCase(projectDatabase, this, project, this);
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 		setChanged(false);
@@ -1778,7 +1779,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (onyens.size() == 0) {
 			String message = "No onyens found in specified range.";
 //			JOptionPane.showMessageDialog(null, message);
-			throw new InvalidOnyenRangeException(message);
+			InvalidOnyenRangeException invalidOnyenRangeException = InvalidOnyenRangeException.newCase(message, this);
+//			throw new InvalidOnyenRangeException(message);
+			throw invalidOnyenRangeException;
+
 		}
 
 		if (!preRunProjectsInteractively()) {
@@ -1795,7 +1799,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		} else {
 			int currentOnyenIndex = onyens.indexOf(anOnyen);
 			if (currentOnyenIndex == -1) {
-				throw new MissingOnyenException(anOnyen);
+				MissingOnyenException missingOnyenException = MissingOnyenException.newCase(anOnyen, this);
+//				throw new MissingOnyenException(anOnyen, this);
+				throw missingOnyenException;
 			}
 			gradedProjectNavigator.setCurrentOnyenIndex(currentOnyenIndex);
 		}

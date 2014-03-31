@@ -2,11 +2,11 @@ package grader.project.graded;
 
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
-import grader.sakai.project.InvalidOnyenRangeException;
-import grader.sakai.project.MissingOnyenException;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
+import grader.trace.InvalidOnyenRangeException;
+import grader.trace.MissingOnyenException;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

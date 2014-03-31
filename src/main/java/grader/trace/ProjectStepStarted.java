@@ -16,37 +16,9 @@ public ProjectStepStarted(String aMessage,
 		// TODO Auto-generated constructor stub
 	}
 
-//	SakaiProjectDatabase sakaiProjectDatabase; 	
-//	OverviewProjectStepper overviewProjectStepper;
-//	SakaiProject sakaiProject;
-//	public ProjectStepStarted(String aMessage, 
-//			SakaiProjectDatabase aSakaiProjectDatabase, 
-//			OverviewProjectStepper aProjectStepper,
-//			SakaiProject aProject,
-//			Object aFinder) {
-//		super(aMessage, aFinder);
-//		sakaiProjectDatabase = aSakaiProjectDatabase;
-//		overviewProjectStepper = aProjectStepper;
-//		sakaiProject = aProject;
-//	}
-//	
-	
 
-//	public SakaiProject getSakaiProject() {
-//		return sakaiProject;
-//	}
-//
-//
-//
-//	public SakaiProjectDatabase getSakaiProjectDatabase() {
-//		return sakaiProjectDatabase;
-//	}
-//
-//	public OverviewProjectStepper getOverviewProjectStepper() {
-//		return overviewProjectStepper;
-//	}
 	
-	public static ProjectStepStarted newCaseObject(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectStepStarted newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
