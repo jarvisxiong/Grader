@@ -17,6 +17,7 @@ public OverallNotesLoaded(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			String anOvervewFileName,
+			String aNotes,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		overviewNotesFileName = anOvervewFileName;
@@ -38,9 +39,10 @@ public void setOverviewNotesFileName(String overviewNotesFileName) {
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			String anOverviewFileName,
+			String aNotes,
 			Object aFinder) {
-		String aMessage = "Overview Notes Loaded from File:" + anOverviewFileName;
-		OverallNotesLoaded retVal = new OverallNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aFinder);
+		String aMessage = "Overview Notes Loaded from File:" + anOverviewFileName + ". Notes:" + aNotes;
+		OverallNotesLoaded retVal = new OverallNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

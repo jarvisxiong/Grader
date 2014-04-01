@@ -8,8 +8,8 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallNotesChanged extends SerializableStepperInfo {
-String manualNotes;
+public class OverallNotesChanged extends SerializableOverallNotesInfo {
+//String overallNotes;
 
 
 
@@ -18,20 +18,26 @@ public OverallNotesChanged(String aMessage,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		manualNotes = aNotes;
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		overallNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getManualNotes() {
-	return manualNotes;
-}
+//public String getOverallNotes() {
+//	return overallNotes;
+//}
+//
+//
+//
+//public void setOverallNotes(String overallNotes) {
+//	this.overallNotes = overallNotes;
+//}
 
-
-
-public void setManualNotes(String manualNotes) {
-	this.manualNotes = manualNotes;
-}
+//@Override
+//public String toCSVRow() {
+//	return super.toCSVRow() 
+//			+ "," + overallNotes;
+//}
 
 	
 	public static OverallNotesChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
@@ -39,7 +45,7 @@ public void setManualNotes(String manualNotes) {
 			SakaiProject aProject,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Overview Notes Manually Changed";
+		String aMessage = "Overview Notes Manually Changed to:" + aNotes;
 		OverallNotesChanged retVal = new OverallNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

@@ -35,8 +35,11 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.InvalidOnyenRangeException;
 import grader.trace.MissingOnyenException;
+import grader.trace.overallNotes.OverallNotesChanged;
 import grader.trace.overallNotes.OverallNotesColored;
 import grader.trace.overallNotes.OverallNotesIncludedInFeedback;
+import grader.trace.overallNotes.OverallNotesLoaded;
+import grader.trace.overallNotes.OverallNotesSaved;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
 
@@ -215,19 +218,29 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	String readComments(SakaiProject aProject) {
 		try {
-			return FileUtils.readFileToString(new File(
-					getCommentsFileName(aProject)));
+			String fileName = getCommentsFileName(aProject);
+//			return FileUtils.readFileToString(new File(
+//					getCommentsFileName(aProject)));
+			String retVal = FileUtils.readFileToString(new File(
+					fileName));
+			OverallNotesLoaded.newCase(projectDatabase, this, project, fileName, retVal, this);
+			return retVal;
+			
 		} catch (IOException e) {
 			return "";
 		}
 	}
 
 	void writeComments(SakaiProject aProject, String newVal) {
-		if (newVal.equals("")) // why create file?
+		if (newVal.equals("")) // no need to create file
 			return;
 		try {
+			String fileName = getCommentsFileName(aProject);
+			OverallNotesSaved.newCase(projectDatabase, this, project, fileName, newVal, this);
+//			FileUtils.writeStringToFile(
+//					new File(getCommentsFileName(aProject)), newVal);
 			FileUtils.writeStringToFile(
-					new File(getCommentsFileName(aProject)), newVal);
+					new File(fileName), newVal);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -748,7 +761,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		if (currentOverallNotesColor == nextOverallNotesColor ) return;
 		setColor("OverallNotes",  nextOverallNotesColor);
-		OverallNotesColored.newCase(projectDatabase, this, project, nextOverallNotesColor, this);
+		OverallNotesColored.newCase(projectDatabase, this, project, nextOverallNotesColor, overallNotes, this);
 		currentOverallNotesColor = nextOverallNotesColor;
 	}
 	
@@ -1384,14 +1397,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		overallNotes = newVal;		
 		featureGradeRecorder.save(overallNotes);
-		OverallNotesIncludedInFeedback.newCase(projectDatabase, this, project, this);
+		OverallNotesIncludedInFeedback.newCase(projectDatabase, this, project, overallNotes, this);
 		propertyChangeSupport.firePropertyChange("OverallNotes", oldVal, newVal);
 		
 	}
     @Override
 	public void setOverallNotes(String newVal) {
     	setChanged(true);
+    	OverallNotesChanged.newCase(projectDatabase, this, project, newVal, this);
 		internalSetComments(newVal);
+		
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);

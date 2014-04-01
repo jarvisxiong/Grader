@@ -36,6 +36,7 @@ import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.GraderTracerSelector;
 import grader.trace.MissingOnyenException;
+import grader.trace.overallNotes.OverallNotesChanged;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -49,6 +50,11 @@ import bus.uigen.attributes.AttributeNames;
  * Use config.properties to configure what gets run.
  */
 public class Driver {
+	
+	public static void setTracing() {
+		Tracer.showInfo(true);
+		Tracer.setKeywordPrintStatus(OverallNotesChanged.class, true);
+	}
 	
 	public static void initLoggers(ProjectRequirements requirements, PropertiesConfiguration configuration) {
 		try {
@@ -145,6 +151,7 @@ public class Driver {
 	}
 
     public static void main(String[] args) {
+    	setTracing();
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 
 //    	String[] retVal = "main.foo".split(".");

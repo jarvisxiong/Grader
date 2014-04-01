@@ -8,7 +8,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallNotesSaved extends StepperInfo {
+public class OverallNotesSaved extends OverallNotesInfo {
 	String overviewNotesFileName;
 
 
@@ -17,8 +17,9 @@ public OverallNotesSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			String anOvervewFileName,
+			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 		overviewNotesFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -38,9 +39,10 @@ public void setOverviewNotesFileName(String overviewNotesFileName) {
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			String anOverviewFileName,
+			String aNotes,
 			Object aFinder) {
-		String aMessage = "Overview Notes Loaded from File:" + anOverviewFileName;
-		OverallNotesSaved retVal = new OverallNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aFinder);
+		String aMessage = "Overview Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		OverallNotesSaved retVal = new OverallNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}
