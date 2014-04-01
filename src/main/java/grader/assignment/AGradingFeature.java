@@ -5,8 +5,12 @@ import grader.auto_notes.NotesGenerator;
 import grader.checkers.CheckResult;
 import grader.checkers.FeatureChecker;
 import grader.file.FileProxy;
+import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.feature_manual_notes.FeatureManualNotesChanged;
+import grader.trace.feature_manual_notes.FeatureManualNotesSaved;
+import grader.trace.feature_manual_notes.FeatureManualNotesLoaded;
 import util.annotations.*;
 import util.misc.Common;
 import util.trace.Tracer;
@@ -510,6 +514,7 @@ public class AGradingFeature implements GradingFeature {
 		}
 		try {
 			FileUtils.writeStringToFile(new File(fileName), manualNotes);
+			FeatureManualNotesSaved.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, fileName, manualNotes, this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -550,18 +555,26 @@ public class AGradingFeature implements GradingFeature {
 	}
 	
 	String retrieveManualNotes() {
+		String fileName = getManualNotesFileName();
 		try {
-			return FileUtils.readFileToString(new File(getManualNotesFileName()));
+//			return FileUtils.readFileToString(new File(getManualNotesFileName()));
+			String retVal = FileUtils.readFileToString(new File(fileName));
+			FeatureManualNotesLoaded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, fileName, retVal, this);
+			return retVal;
+
 		} catch (IOException e) {
 			return "";
 		}
 	}
 	
 	String retrieveAutoNotes() {
+		String fileName = getAutoNotesFileName();
 		try {
-			return FileUtils.readFileToString(new File(getAutoNotesFileName()));
+			String retVal = FileUtils.readFileToString(new File(fileName));
+			return retVal;
+//			return FileUtils.readFileToString(new File(getAutoNotesFileName()));
 		} catch (IOException e) {
-			return "";
+			return ""; // not really an exception, bad programming
 		}
 	}
 
@@ -569,6 +582,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setManualNotes(String newVal) {
 		String oldVal = manualNotes;
 		this.manualNotes = newVal;
+		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, newVal, this);
 		recordManualNotes();
 //		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}

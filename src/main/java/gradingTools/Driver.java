@@ -36,7 +36,7 @@ import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.GraderTracerSelector;
 import grader.trace.MissingOnyenException;
-import grader.trace.overallNotes.OverallNotesChanged;
+import grader.trace.overall_notes.OverallNotesChanged;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;

@@ -1,4 +1,4 @@
-package grader.trace.overallNotes;
+package grader.trace.overall_notes;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;

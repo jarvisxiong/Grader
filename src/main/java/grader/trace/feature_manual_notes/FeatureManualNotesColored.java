@@ -1,4 +1,4 @@
-package grader.trace.overallNotes;
+package grader.trace.feature_manual_notes;
 
 import java.awt.Color;
 
@@ -11,41 +11,41 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallNotesColored extends OverallNotesInfo {
-	Color overviewNotesColor;
+public class FeatureManualNotesColored extends FeatureManualNotesInfo {
+	Color featureManualNotesColor;
 
 
 
-public OverallNotesColored(String aMessage,
+public FeatureManualNotesColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
-		overviewNotesColor = aColor;
+		featureManualNotesColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
 
-public Color getOverviewNotesColor() {
-	return overviewNotesColor;
+public Color getFeatureManualNotesColor() {
+	return featureManualNotesColor;
 }
 
 
 
-public void setOverviewNotesColor(Color overviewNotesColor) {
-	this.overviewNotesColor = overviewNotesColor;
+public void setFeatureManualNotesColor(Color featureManualNotesColor) {
+	this.featureManualNotesColor = featureManualNotesColor;
 }
 
 	
-	public static OverallNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureManualNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Overview Notes Colored:" + aColor;
-		OverallNotesColored retVal = new OverallNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aNotes, aFinder);
+		String aMessage = "Feature Manual Notes Colored:" + aColor;
+		FeatureManualNotesColored retVal = new FeatureManualNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

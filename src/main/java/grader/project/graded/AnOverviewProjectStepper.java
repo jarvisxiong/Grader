@@ -35,11 +35,12 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.InvalidOnyenRangeException;
 import grader.trace.MissingOnyenException;
-import grader.trace.overallNotes.OverallNotesChanged;
-import grader.trace.overallNotes.OverallNotesColored;
-import grader.trace.overallNotes.OverallNotesIncludedInFeedback;
-import grader.trace.overallNotes.OverallNotesLoaded;
-import grader.trace.overallNotes.OverallNotesSaved;
+import grader.trace.feature_manual_notes.FeatureManualNotesColored;
+import grader.trace.overall_notes.OverallNotesChanged;
+import grader.trace.overall_notes.OverallNotesColored;
+import grader.trace.overall_notes.OverallNotesIncludedInFeedback;
+import grader.trace.overall_notes.OverallNotesLoaded;
+import grader.trace.overall_notes.OverallNotesSaved;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
 
@@ -693,6 +694,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (currentManualNotesColor != nextManualNotesColor) {
 			setColor ( "ManualNotes", nextManualNotesColor);
 			currentManualNotesColor = nextManualNotesColor;
+			FeatureManualNotesColored.newCase(projectDatabase, this, project, nextManualNotesColor, manualNotes, this);
 		}
 	}
 	

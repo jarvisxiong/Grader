@@ -1,4 +1,4 @@
-package grader.trace.overallNotes;
+package grader.trace.overall_score;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
@@ -9,45 +9,45 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallNotesInfo extends StepperInfo {
-String overallNotes;
+public class OverallScoreInfo extends StepperInfo {
+double featureAutoScore;
 
 
 
-public OverallNotesInfo(String aMessage,
+public OverallScoreInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			String aNotes,
+			double aScore,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		overallNotes = aNotes;
+		featureAutoScore = aScore;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getOverallNotes() {
-	return overallNotes;
+public double getFeatureAutoScore() {
+	return featureAutoScore;
 }
 
 
 
-public void setOverallNotes(String overallNotes) {
-	this.overallNotes = overallNotes;
+public void setFeatureAutoScore(double featureAutoScore) {
+	this.featureAutoScore = featureAutoScore;
 }
 
 //@Override
 //public String toCSVRow() {
 //	return super.toCSVRow() 
-//			+ "," + overallNotes;
+//			+ "," + featureAutoScore;
 //}
 
 	
-//	public static SerializableOverallNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureAutoScoreInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject,
-//			String aNotes,
+//			String aScore,
 //			Object aFinder) {
-//		String aMessage = "Overview Notes Manually Changed to:" + aNotes;
-//		SerializableOverallNotesInfo retVal = new SerializableOverallNotesInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+//		String aMessage = "Overview Score Autoly Changed to:" + aScore;
+//		SerializableFeatureAutoScoreInfo retVal = new SerializableFeatureAutoScoreInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}
