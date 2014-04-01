@@ -7,8 +7,11 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectStepStarted extends SerializableStepperInfo {
-public ProjectStepStarted(String aMessage,
+public class OverallNotesIncludedInFeedback extends StepperInfo {
+
+
+
+public OverallNotesIncludedInFeedback(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -17,13 +20,14 @@ public ProjectStepStarted(String aMessage,
 	}
 
 
+
 	
-	public static ProjectStepStarted newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static OverallNotesIncludedInFeedback newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Navigation Initiated";
-		ProjectStepStarted retVal = new ProjectStepStarted(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Overview Notes Recorded for Inclusion in Feedback File";
+		OverallNotesIncludedInFeedback retVal = new OverallNotesIncludedInFeedback(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject,  aFinder);
 		retVal.announce();		
 		return retVal;
 	}

@@ -9,11 +9,11 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class StepperInfo extends GraderInfo {
+public class SerializableStepperInfo extends SerializableGraderInfo {
 	SakaiProjectDatabase sakaiProjectDatabase; 	
 	OverviewProjectStepper overviewProjectStepper;
 	SakaiProject sakaiProject;
-	public StepperInfo(String aMessage, 
+	public SerializableStepperInfo(String aMessage, 
 			SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper,
 			SakaiProject aProject,
@@ -36,7 +36,11 @@ public class StepperInfo extends GraderInfo {
 	public OverviewProjectStepper getOverviewProjectStepper() {
 		return overviewProjectStepper;
 	}
-	
+	@Override
+	public String toCSVRow() {
+		return super.toCSVRow() 
+				+ "," + overviewProjectStepper.getOnyen();
+	}
 	
 
 	

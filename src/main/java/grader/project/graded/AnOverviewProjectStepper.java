@@ -35,6 +35,8 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.InvalidOnyenRangeException;
 import grader.trace.MissingOnyenException;
+import grader.trace.OverallNotesColored;
+import grader.trace.OverallNotesIncludedInFeedback;
 import grader.trace.ProjectStepStarted;
 import grader.trace.ProjectStepperStarted;
 
@@ -746,6 +748,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		nextOverallNotesColor = projectDatabase.getOverallNotesColorer().color(overallNotes);
 		if (currentOverallNotesColor == nextOverallNotesColor ) return;
 		setColor("OverallNotes",  nextOverallNotesColor);
+		OverallNotesColored.newCase(projectDatabase, this, project, nextOverallNotesColor, this);
 		currentOverallNotesColor = nextOverallNotesColor;
 	}
 	
@@ -1379,12 +1382,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void internalSetComments(String newVal) {
 		String oldVal = overallNotes;
 
-		overallNotes = newVal;
+		overallNotes = newVal;		
 		featureGradeRecorder.save(overallNotes);
-
-		
-		
-
+		OverallNotesIncludedInFeedback.newCase(projectDatabase, this, project, this);
 		propertyChangeSupport.firePropertyChange("OverallNotes", oldVal, newVal);
 		
 	}
