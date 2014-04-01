@@ -35,10 +35,10 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.InvalidOnyenRangeException;
 import grader.trace.MissingOnyenException;
-import grader.trace.OverallNotesColored;
-import grader.trace.OverallNotesIncludedInFeedback;
-import grader.trace.ProjectStepStarted;
-import grader.trace.ProjectStepperStarted;
+import grader.trace.overallNotes.OverallNotesColored;
+import grader.trace.overallNotes.OverallNotesIncludedInFeedback;
+import grader.trace.stepper.ProjectStepStarted;
+import grader.trace.stepper.ProjectStepperStarted;
 
 import java.awt.Color;
 import java.awt.Window;

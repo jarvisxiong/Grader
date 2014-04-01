@@ -1,9 +1,10 @@
-package grader.trace;
+package grader.trace.overallNotes;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 

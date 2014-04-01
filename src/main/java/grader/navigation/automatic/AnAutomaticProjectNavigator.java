@@ -10,10 +10,10 @@ import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.AutomaticNavigationEnded;
-import grader.trace.AutomaticNavigationStarted;
 import grader.trace.InvalidOnyenRangeException;
 import grader.trace.MissingOnyenException;
+import grader.trace.navigation.AutomaticNavigationEnded;
+import grader.trace.navigation.AutomaticNavigationStarted;
 
 public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 	SakaiProjectDatabase database;

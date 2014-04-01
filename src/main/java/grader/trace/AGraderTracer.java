@@ -3,6 +3,7 @@ package grader.trace;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.modules.ModuleProblemManagerSelector;
+import grader.trace.stepper.ProjectStepperEnded;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -10,8 +10,8 @@ import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.trace.MissingOnyenException;
-import grader.trace.ProjectStepperEnded;
-import grader.trace.ProjectStepperStarted;
+import grader.trace.stepper.ProjectStepperEnded;
+import grader.trace.stepper.ProjectStepperStarted;
 
 import java.awt.Frame;
 import java.awt.event.WindowEvent;

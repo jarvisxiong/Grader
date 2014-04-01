@@ -1,33 +1,21 @@
-package grader.trace;
-
-import java.util.Date;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
-import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class StepperInfo extends GraderInfo {
+public class ProjectStepperStarted extends TraceableInfo {
 	SakaiProjectDatabase sakaiProjectDatabase; 	
 	OverviewProjectStepper overviewProjectStepper;
-	SakaiProject sakaiProject;
-	public StepperInfo(String aMessage, 
-			SakaiProjectDatabase aSakaiProjectDatabase, 
-			OverviewProjectStepper aProjectStepper,
-			SakaiProject aProject,
-			Object aFinder) {
+	public ProjectStepperStarted(String aMessage, SakaiProjectDatabase aSakaiProjectDatabase, OverviewProjectStepper aProjectStepper, Object aFinder) {
 		super(aMessage, aFinder);
 		sakaiProjectDatabase = aSakaiProjectDatabase;
 		overviewProjectStepper = aProjectStepper;
-		sakaiProject = aProject;
 	}
-		
-	public SakaiProject getSakaiProject() {
-		return sakaiProject;
-	}
-
+	
+	
 
 	public SakaiProjectDatabase getSakaiProjectDatabase() {
 		return sakaiProjectDatabase;
@@ -37,8 +25,12 @@ public class StepperInfo extends GraderInfo {
 		return overviewProjectStepper;
 	}
 	
-	
-
+	public static ProjectStepperStarted newCase(SakaiProjectDatabase aSakaiProjectDatabase, OverviewProjectStepper aProjectStepper, Object aFinder) {
+		String aMessage = "Navigation Initiated";
+		ProjectStepperStarted retVal = new ProjectStepperStarted(aMessage, aSakaiProjectDatabase, aProjectStepper, aFinder);
+		retVal.announce();		
+		return retVal;
+	}
 	
 
 }

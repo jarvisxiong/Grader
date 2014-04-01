@@ -1,4 +1,4 @@
-package grader.trace;
+package grader.trace.settings;
 
 import java.util.Date;
 
@@ -6,19 +6,19 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class GraderSettingsStep extends GraderSettingsInfo {
+public class GraderSettingsStarted extends GraderSettingsInfo {
 
 	
-	public GraderSettingsStep(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public GraderSettingsStarted(String aMessage, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 //		 gradingSettingsModel = aGradingSettingsModel;
 	}
-//	public static GraderSettingsStep newCase(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-//		String aMessage = "Grading Settings Started";
-//		GraderSettingsStep retVal = new GraderSettingsStep(aMessage, aGradingSettingsModel, aFinder);
-//		retVal.announce();		
-//		return retVal;
-//	}
+	public static GraderSettingsStarted newCase(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+		String aMessage = "Grading Settings Started";
+		GraderSettingsStarted retVal = new GraderSettingsStarted(aMessage, aGradingSettingsModel, aFinder);
+		retVal.announce();		
+		return retVal;
+	}
 	@Override
 	public String toCSVRow() {
 		String moduleName = gradingSettingsModel.getModuleProblemSelector().getModule().getValue();

@@ -1,9 +1,10 @@
-package grader.trace;
+package grader.trace.navigation;
 
 import java.util.Date;
 
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.settings.GraderSettingsInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 

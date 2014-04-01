@@ -1,6 +1,7 @@
-package grader.trace;
+package grader.trace.settings;
 
 import grader.settings.GraderSettingsModel;
+import grader.trace.SerializableGraderInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 

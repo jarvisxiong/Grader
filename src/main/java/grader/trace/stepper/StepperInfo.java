@@ -1,4 +1,4 @@
-package grader.trace;
+package grader.trace.stepper;
 
 import java.util.Date;
 
@@ -6,14 +6,15 @@ import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.GraderInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableStepperInfo extends SerializableGraderInfo {
+public class StepperInfo extends GraderInfo {
 	SakaiProjectDatabase sakaiProjectDatabase; 	
 	OverviewProjectStepper overviewProjectStepper;
 	SakaiProject sakaiProject;
-	public SerializableStepperInfo(String aMessage, 
+	public StepperInfo(String aMessage, 
 			SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper,
 			SakaiProject aProject,
@@ -36,11 +37,7 @@ public class SerializableStepperInfo extends SerializableGraderInfo {
 	public OverviewProjectStepper getOverviewProjectStepper() {
 		return overviewProjectStepper;
 	}
-	@Override
-	public String toCSVRow() {
-		return super.toCSVRow() 
-				+ "," + overviewProjectStepper.getOnyen();
-	}
+	
 	
 
 	

@@ -1,4 +1,4 @@
-package grader.trace;
+package grader.trace.settings;
 
 import java.util.Date;
 
