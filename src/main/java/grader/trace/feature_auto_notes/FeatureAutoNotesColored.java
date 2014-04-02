@@ -2,6 +2,7 @@ package grader.trace.feature_auto_notes;
 
 import java.awt.Color;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -18,11 +19,11 @@ public class FeatureAutoNotesColored extends FeatureAutoNotesInfo {
 
 public FeatureAutoNotesColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureAutoNotesColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
@@ -40,12 +41,12 @@ public void setFeatureAutoNotesColor(Color featureAutoNotesColor) {
 	
 	public static FeatureAutoNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Auto Notes Colored:" + aColor;
-		FeatureAutoNotesColored retVal = new FeatureAutoNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aNotes, aFinder);
+		FeatureAutoNotesColored retVal = new FeatureAutoNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

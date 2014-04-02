@@ -514,7 +514,7 @@ public class AGradingFeature implements GradingFeature {
 		}
 		try {
 			FileUtils.writeStringToFile(new File(fileName), manualNotes);
-			FeatureManualNotesSaved.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, fileName, manualNotes, this);
+			FeatureManualNotesSaved.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, fileName, manualNotes, this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -559,7 +559,7 @@ public class AGradingFeature implements GradingFeature {
 		try {
 //			return FileUtils.readFileToString(new File(getManualNotesFileName()));
 			String retVal = FileUtils.readFileToString(new File(fileName));
-			FeatureManualNotesLoaded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, fileName, retVal, this);
+			FeatureManualNotesLoaded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, fileName, retVal, this);
 			return retVal;
 
 		} catch (IOException e) {
@@ -582,7 +582,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setManualNotes(String newVal) {
 		String oldVal = manualNotes;
 		this.manualNotes = newVal;
-		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, newVal, this);
+		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
 		recordManualNotes();
 //		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}

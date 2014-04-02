@@ -1,5 +1,6 @@
 package grader.trace.feature_auto_result_format;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,17 +16,17 @@ public class FeatureAutoResultFormatChanged extends SerializableFeatureAutoResul
 
 public FeatureAutoResultFormatChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String aResults,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aResults, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		// TODO Auto-generated constructor stub
 	}
 
 //public String getOverallResults() {
 //	return overallResults;
 //}
-//
+//s
 //
 //
 //public void setOverallResults(String overallResults) {
@@ -41,11 +42,11 @@ public FeatureAutoResultFormatChanged(String aMessage,
 	
 	public static FeatureAutoResultFormatChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String aResults,
 			Object aFinder) {
 		String aMessage = "Feature Auto Results Changed to:" + aResults;
-		FeatureAutoResultFormatChanged retVal = new FeatureAutoResultFormatChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aResults, aFinder);
+		FeatureAutoResultFormatChanged retVal = new FeatureAutoResultFormatChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

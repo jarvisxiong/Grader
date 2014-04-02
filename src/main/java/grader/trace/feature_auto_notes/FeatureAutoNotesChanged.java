@@ -1,5 +1,6 @@
 package grader.trace.feature_auto_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,10 +16,10 @@ public class FeatureAutoNotesChanged extends SerializableFeatureAutoScoreInfo {
 
 public FeatureAutoNotesChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -41,11 +42,11 @@ public FeatureAutoNotesChanged(String aMessage,
 	
 	public static FeatureAutoNotesChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Auto Notes Changed to:" + aNotes;
-		FeatureAutoNotesChanged retVal = new FeatureAutoNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		FeatureAutoNotesChanged retVal = new FeatureAutoNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature,aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

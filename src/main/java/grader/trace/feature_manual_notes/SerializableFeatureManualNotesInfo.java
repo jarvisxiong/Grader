@@ -1,14 +1,16 @@
 package grader.trace.feature_manual_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureManualNotesInfo extends SerializableStepperInfo {
+public class SerializableFeatureManualNotesInfo extends SerializableFeatureInfo {
 String featureManualNotes;
 
 
@@ -16,9 +18,9 @@ String featureManualNotes;
 public SerializableFeatureManualNotesInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			String aNotes,
-			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+			GradingFeature aFeature,
+			String aNotes, Object aFinder) {
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
 		featureManualNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}

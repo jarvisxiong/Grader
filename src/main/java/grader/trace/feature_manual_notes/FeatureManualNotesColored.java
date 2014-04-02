@@ -2,6 +2,7 @@ package grader.trace.feature_manual_notes;
 
 import java.awt.Color;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -18,11 +19,11 @@ public class FeatureManualNotesColored extends FeatureManualNotesInfo {
 
 public FeatureManualNotesColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureManualNotesColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
@@ -40,12 +41,12 @@ public void setFeatureManualNotesColor(Color featureManualNotesColor) {
 	
 	public static FeatureManualNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Manual Notes Colored:" + aColor;
-		FeatureManualNotesColored retVal = new FeatureManualNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aNotes, aFinder);
+		FeatureManualNotesColored retVal = new FeatureManualNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

@@ -1,5 +1,6 @@
 package grader.trace.feature_manual_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -8,7 +9,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureManualNotesLoaded extends StepperInfo {
+public class FeatureManualNotesLoaded extends FeatureManualNotesInfo {
 	String featureManualNotesFileName;
 
 
@@ -16,10 +17,11 @@ public class FeatureManualNotesLoaded extends StepperInfo {
 public FeatureManualNotesLoaded(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureManualNotesFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,12 +39,12 @@ public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
 	
 	public static FeatureManualNotesLoaded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String anFeatureManualFileName,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Manual Notes Loaded from File:" + anFeatureManualFileName + ". Notes:" + aNotes;
-		FeatureManualNotesLoaded retVal = new FeatureManualNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anFeatureManualFileName, aNotes, aFinder);
+		FeatureManualNotesLoaded retVal = new FeatureManualNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureManualFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

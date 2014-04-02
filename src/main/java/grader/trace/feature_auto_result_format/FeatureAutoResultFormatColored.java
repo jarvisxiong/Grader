@@ -2,6 +2,7 @@ package grader.trace.feature_auto_result_format;
 
 import java.awt.Color;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -18,11 +19,11 @@ public class FeatureAutoResultFormatColored extends FeatureAutoResultFomatInfo {
 
 public FeatureAutoResultFormatColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aResults,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aResults, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		featureAutoResultsColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
@@ -40,12 +41,12 @@ public void setFeatureAutoResultsColor(Color featureAutoResultsColor) {
 	
 	public static FeatureAutoResultFormatColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aResults,
 			Object aFinder) {
 		String aMessage = "Feature Auto Results Colored:" + aColor;
-		FeatureAutoResultFormatColored retVal = new FeatureAutoResultFormatColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aResults, aFinder);
+		FeatureAutoResultFormatColored retVal = new FeatureAutoResultFormatColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aResults, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

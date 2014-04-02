@@ -694,7 +694,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (currentManualNotesColor != nextManualNotesColor) {
 			setColor ( "ManualNotes", nextManualNotesColor);
 			currentManualNotesColor = nextManualNotesColor;
-			FeatureManualNotesColored.newCase(projectDatabase, this, project, nextManualNotesColor, manualNotes, this);
+			FeatureManualNotesColored.newCase(projectDatabase, this, project,  selectedGradingFeature, nextManualNotesColor, manualNotes, this);
 		}
 	}
 	

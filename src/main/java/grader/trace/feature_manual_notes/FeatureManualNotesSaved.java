@@ -1,5 +1,6 @@
 package grader.trace.feature_manual_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,11 +16,11 @@ public class FeatureManualNotesSaved extends FeatureManualNotesInfo {
 
 public FeatureManualNotesSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureManualNotesFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,12 +38,12 @@ public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
 	
 	public static FeatureManualNotesSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Manual Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
-		FeatureManualNotesSaved retVal = new FeatureManualNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
+		FeatureManualNotesSaved retVal = new FeatureManualNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

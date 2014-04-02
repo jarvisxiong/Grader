@@ -1,5 +1,6 @@
 package grader.trace.feature_auto_result_format;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,11 +16,11 @@ public class FeatureAutoResultFormatSaved extends FeatureAutoResultFomatInfo {
 
 public FeatureAutoResultFormatSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aResults,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aResults, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		featureAutoResultsFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,12 +38,12 @@ public void setFeatureAutoResultsFileName(String featureAutoResultsFileName) {
 	
 	public static FeatureAutoResultFormatSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String anOverviewFileName,
 			String aResults,
 			Object aFinder) {
 		String aMessage = "Feature Auto Results Saved to File:" + anOverviewFileName + ". Results:" + aResults;
-		FeatureAutoResultFormatSaved retVal = new FeatureAutoResultFormatSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aResults, aFinder);
+		FeatureAutoResultFormatSaved retVal = new FeatureAutoResultFormatSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aResults, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

@@ -1,25 +1,27 @@
 package grader.trace.feature_auto_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.feature.FeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoNotesInfo extends StepperInfo {
+public class FeatureAutoNotesInfo extends FeatureInfo {
 String featureAutoNotes;
 
 
 
 public FeatureAutoNotesInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
 		featureAutoNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}

@@ -1,5 +1,6 @@
 package grader.trace.feature;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -8,35 +9,35 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureIInfo extends SerializableStepperInfo {
-String featureAutoNotes;
+public class SerializableFeatureInfo extends SerializableStepperInfo {
+GradingFeature feature;
 
 
 
-public SerializableFeatureIInfo(String aMessage,
+
+public SerializableFeatureInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			String aNotes,
+			GradingFeature aFeature,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		featureAutoNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getFeatureAutoNotes() {
-	return featureAutoNotes;
+public GradingFeature getGradingFeature() {
+	return feature;
 }
 
 
 
-public void setFeatureAutoNotes(String featureAutoNotes) {
-	this.featureAutoNotes = featureAutoNotes;
+public void setGradingFeature(GradingFeature aFeature) {
+	this.feature = aFeature;
 }
 
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + featureAutoNotes;
+			+ "," + feature.getFeatureName();
 }
 
 	

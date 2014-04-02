@@ -1,5 +1,6 @@
 package grader.trace.feature_score;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,10 +16,10 @@ public class FeatureScoreChanged extends SerializableFeatureAutoScoreInfo {
 
 public FeatureScoreChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			double aScore,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -41,11 +42,11 @@ public FeatureScoreChanged(String aMessage,
 	
 	public static FeatureScoreChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			double aScore,
 			Object aFinder) {
 		String aMessage = "Feature Auto Score Changed to:" + aScore;
-		FeatureScoreChanged retVal = new FeatureScoreChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
+		FeatureScoreChanged retVal = new FeatureScoreChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

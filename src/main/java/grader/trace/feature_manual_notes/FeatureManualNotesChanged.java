@@ -1,5 +1,6 @@
 package grader.trace.feature_manual_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,10 +16,10 @@ public class FeatureManualNotesChanged extends SerializableFeatureManualNotesInf
 
 public FeatureManualNotesChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -41,11 +42,11 @@ public FeatureManualNotesChanged(String aMessage,
 	
 	public static FeatureManualNotesChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Manual Notes Manually Changed to:" + aNotes;
-		FeatureManualNotesChanged retVal = new FeatureManualNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		FeatureManualNotesChanged retVal = new FeatureManualNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

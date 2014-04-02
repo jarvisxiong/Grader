@@ -1,5 +1,6 @@
 package grader.trace.feature_auto_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -15,11 +16,11 @@ public class FeatureAutoNotesSaved extends FeatureAutoNotesInfo {
 
 public FeatureAutoNotesSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureAutoNotesFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,12 +38,12 @@ public void setFeatureAutoNotesFileName(String featureAutoNotesFileName) {
 	
 	public static FeatureAutoNotesSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, GradingFeature aFeature,
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Feature Auto Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
-		FeatureAutoNotesSaved retVal = new FeatureAutoNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
+		FeatureAutoNotesSaved retVal = new FeatureAutoNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

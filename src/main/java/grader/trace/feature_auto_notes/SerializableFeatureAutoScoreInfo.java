@@ -1,24 +1,26 @@
 package grader.trace.feature_auto_notes;
 
+import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureAutoScoreInfo extends SerializableStepperInfo {
+public class SerializableFeatureAutoScoreInfo extends SerializableFeatureInfo {
 String featureAutoNotes;
 
 
 
 public SerializableFeatureAutoScoreInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
 		featureAutoNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}
@@ -42,7 +44,7 @@ public String toCSVRow() {
 	
 //	public static SerializableFeatureAutoNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
-//			SakaiProject aProject,
+//			SakaiProject aProject, GradingFeature aFeature,
 //			String aNotes,
 //			Object aFinder) {
 //		String aMessage = "Overview Notes Autoly Changed to:" + aNotes;
