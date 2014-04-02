@@ -34,6 +34,7 @@ import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.MissingOnyenException;
+import grader.trace.multiplier.MultiplierColored;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -130,7 +131,7 @@ public class AGradedProjectTextOverview  implements
 //	boolean changed;
 	Icon studentPhoto;
 	LabelBeanModel photoLabelBeanModel;
-	ProjectStepper projectStepper;
+	OverviewProjectStepper projectStepper;
 //	String output = "";
 
 	// FinalGradeRecorder gradeRecorder() {
@@ -149,7 +150,7 @@ public class AGradedProjectTextOverview  implements
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
-		projectStepper = projectDatabase.getProjectStepper();
+		projectStepper = (OverviewProjectStepper) projectDatabase.getProjectStepper();
 //		registerWithGradingFeatures();
 //		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
@@ -188,31 +189,7 @@ public class AGradedProjectTextOverview  implements
 		return onyen;
 	}
 
-//	String getCommentsFileName(SakaiProject aProject) {
-//		return AGradingFeature.getFeedbackFolderName(aProject)
-//				+ COMMENTS_FILE_PREFIX + AGradingFeature.FEEDBACK_FILE_SUFFIX;
-//
-//	}
-//
-//	String readComments(SakaiProject aProject) {
-//		try {
-//			return FileUtils.readFileToString(new File(
-//					getCommentsFileName(aProject)));
-//		} catch (IOException e) {
-//			return "";
-//		}
-//	}
-//
-//	void writeComments(SakaiProject aProject, String newVal) {
-//		if (newVal.equals("")) // why create file?
-//			return;
-//		try {
-//			FileUtils.writeStringToFile(
-//					new File(getCommentsFileName(aProject)), newVal);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 	@Override
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		internalSetOnyen(anOnyen);
@@ -221,86 +198,17 @@ public class AGradedProjectTextOverview  implements
 	}
 	@Override
 	 public void internalSetOnyen(String anOnyen) throws MissingOnyenException {
-		// project = projectDatabase.getProject(anOnyen);
 		String oldOnyen = onyen;
-		// this stuff will go into basic project or project stepper
-//		int onyenIndex = onyens.indexOf(anOnyen);
-//		if (onyenIndex < 0) {
-//			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-//			throw new MissingOnyenException(anOnyen);
-////			return;
-////		}
-//		currentOnyenIndex = onyenIndex;
-//		maybeSaveState();
-//		redirectProject();
-//		boolean retVal = setProject(anOnyen);
-//		if (!retVal) {
-//			onyen = oldOnyen;
-//			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
-//			return;
-//		}
+		
 		onyen = anOnyen;
 		// again this will void a getter call when properties are redisplayed
 		propertyChangeSupport.firePropertyChange("onyen", oldOnyen, onyen);
 
-		// set project does most of this except the output files part
-//		projectDatabase.resetRunningProject(project);
-//
-//		if (autoRun)
-//			projectDatabase.runProject(anOnyen, project);
-//		if (autoAutoGrade)
-//			autoGrade();
-//		manualOnyen = true;
 
-		// projectDatabase.runProjectInteractively(anOnyen, this);
-		// onyen = anOnyen;
-		// setProject( projectDatabase.getProject(anOnyen));
-		// projectDatabase.
 
 	}
 
-//	public void setProject(String anOnyen) {
-//
-//		onyen = anOnyen;
-//		return setProject(projectDatabase.getProject(anOnyen));
-//
-//	}
-//
-//	boolean autoRun = false;
-//
-//	public boolean isAutoRun() {
-//		return autoRun;
-//
-//	}
-//
-//	public void setAutoRun(boolean newVal) {
-//		autoRun = newVal;
-//
-//	}
-//
-//	public void autoRun() {
-//		autoRun = !autoRun;
-//	}
-//
-//	boolean autoAutoGrade = false; // should we automatically do all the auto
-//									// grade
-//
-//	public boolean isAutoAutoGrade() {
-//		return autoAutoGrade;
-//
-//	}
-//
-//	public void setAutoAutoGrade(boolean newVal) {
-//		boolean oldVal = autoAutoGrade;
-//		autoAutoGrade = newVal;
-//		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, getOnyen());
-//
-//
-//	}
-//
-//	public void autoAutoGrade() {
-//		autoAutoGrade = !autoAutoGrade;
-//	}
+
 
 	@Row(1)
 	@ComponentWidth(150)
@@ -640,6 +548,7 @@ public class AGradedProjectTextOverview  implements
 		if (currentMultiplierColor == nextMultiplierColor ) return;
 		setColor("Multiplier",  nextMultiplierColor);
 		currentMultiplierColor = nextMultiplierColor;
+		MultiplierColored.newCase(projectDatabase, projectStepper, project, nextMultiplierColor, multiplier, this);
 
 	}
 	@Override

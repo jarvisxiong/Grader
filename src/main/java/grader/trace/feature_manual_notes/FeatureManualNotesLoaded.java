@@ -43,7 +43,7 @@ public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
 			String anFeatureManualFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Manual Notes Loaded from File:" + anFeatureManualFileName + ". Notes:" + aNotes;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Loaded from File:" + anFeatureManualFileName + ". Notes:" + aNotes;
 		FeatureManualNotesLoaded retVal = new FeatureManualNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureManualFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

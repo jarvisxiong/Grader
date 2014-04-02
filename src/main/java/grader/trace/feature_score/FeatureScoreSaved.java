@@ -42,7 +42,7 @@ public void setFeatureAutoScoreFileName(String featureAutoScoreFileName) {
 			String anOverviewFileName,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Feature Auto Score Saved to File:" + anOverviewFileName + ". Score:" + aScore;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Score Saved to File:" + anOverviewFileName + ". Score:" + aScore;
 		FeatureScoreSaved retVal = new FeatureScoreSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aScore, aFinder);
 		retVal.announce();		
 		return retVal;

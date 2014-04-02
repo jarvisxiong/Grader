@@ -43,7 +43,7 @@ public void setFeatureAutoNotesFileName(String featureAutoNotesFileName) {
 			String anFeatureAutoFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Auto Notes Loaded from File:" + anFeatureAutoFileName + ". Notes:" + aNotes;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Loaded from File:" + anFeatureAutoFileName + ". Notes:" + aNotes;
 		FeatureAutoNotesLoaded retVal = new FeatureAutoNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureAutoFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

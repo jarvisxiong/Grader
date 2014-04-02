@@ -45,7 +45,7 @@ public FeatureManualNotesChanged(String aMessage,
 			SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Manual Notes Manually Changed to:" + aNotes;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Manually Changed to:" + aNotes;
 		FeatureManualNotesChanged retVal = new FeatureManualNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

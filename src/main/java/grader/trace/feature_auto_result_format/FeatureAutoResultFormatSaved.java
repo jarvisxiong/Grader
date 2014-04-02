@@ -42,7 +42,7 @@ public void setFeatureAutoResultsFileName(String featureAutoResultsFileName) {
 			String anOverviewFileName,
 			String aResults,
 			Object aFinder) {
-		String aMessage = "Feature Auto Results Saved to File:" + anOverviewFileName + ". Results:" + aResults;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Saved to File:" + anOverviewFileName + ". Results:" + aResults;
 		FeatureAutoResultFormatSaved retVal = new FeatureAutoResultFormatSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aResults, aFinder);
 		retVal.announce();		
 		return retVal;

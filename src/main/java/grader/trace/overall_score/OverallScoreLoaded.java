@@ -41,7 +41,7 @@ public void setFeatureAutoScoreFileName(String featureAutoScoreFileName) {
 			String anFeatureAutoFileName,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Feature Auto Score Loaded from File:" + anFeatureAutoFileName + ". Score:" + aScore;
+		String aMessage = "Overall Score Loaded from File:" + anFeatureAutoFileName + ". Score:" + aScore;
 		OverallScoreLoaded retVal = new OverallScoreLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anFeatureAutoFileName, aScore, aFinder);
 		retVal.announce();		
 		return retVal;

@@ -45,7 +45,7 @@ public void setFeatureManualNotesColor(Color featureManualNotesColor) {
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Manual Notes Colored:" + aColor;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Colored:" + aColor;
 		FeatureManualNotesColored retVal = new FeatureManualNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

@@ -8,6 +8,9 @@ import grader.file.FileProxy;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.feature_auto_notes.FeatureAutoNotesLoaded;
+import grader.trace.feature_auto_notes.FeatureAutoNotesSaved;
+import grader.trace.feature_auto_result_format.FeatureAutoResultFormatLoaded;
 import grader.trace.feature_manual_notes.FeatureManualNotesChanged;
 import grader.trace.feature_manual_notes.FeatureManualNotesSaved;
 import grader.trace.feature_manual_notes.FeatureManualNotesLoaded;
@@ -529,20 +532,29 @@ public class AGradingFeature implements GradingFeature {
 		}
 		try {
 			FileUtils.writeStringToFile(new File(fileName), autoNotes);
+			FeatureAutoNotesSaved.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, fileName, autoNotes, this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	// not called currently
 	String retrieveResult() {		
 		try {
-			return FileUtils.readFileToString(new File(getResultFileName()));
+			String fileName = getResultFileName();
+			String retVal = FileUtils.readFileToString(new File(fileName));
+			FeatureAutoResultFormatLoaded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, fileName, retVal, this);
+
+//			return FileUtils.readFileToString(new File(getResultFileName()));
+//			return FileUtils.readFileToString(new File(fileName));
+			return retVal;
+
+
 		} catch (IOException e) {
 			return "";
 		}
 	}
-	
+	// not called currently
 	void recordResult() {
 		if (autoNotes.equals("")) // why create file?
 			return;
@@ -571,6 +583,8 @@ public class AGradingFeature implements GradingFeature {
 		String fileName = getAutoNotesFileName();
 		try {
 			String retVal = FileUtils.readFileToString(new File(fileName));
+			FeatureAutoNotesLoaded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, fileName, retVal, this);
+
 			return retVal;
 //			return FileUtils.readFileToString(new File(getAutoNotesFileName()));
 		} catch (IOException e) {

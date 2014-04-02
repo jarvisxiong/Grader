@@ -46,7 +46,7 @@ public void setFeatureAutoScoreColor(Color featureAutoScoreColor) {
 			Color aColor,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Feature Auto Score Colored:" + aColor;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Score Colored:" + aColor;
 		FeatureScoreColored retVal = new FeatureScoreColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aScore, aFinder);
 		retVal.announce();		
 		return retVal;

@@ -1,4 +1,4 @@
-package grader.trace.overall_score;
+package grader.trace.multiplier;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
@@ -8,12 +8,12 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallScoreChanged extends SerializableOverallScoreInfo {
+public class MultiplierChanged extends SerializableMultiplierInfo {
 //String overallScore;
 
 
 
-public OverallScoreChanged(String aMessage,
+public MultiplierChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			double aScore,
@@ -39,13 +39,13 @@ public OverallScoreChanged(String aMessage,
 //}
 
 	
-	public static OverallScoreChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static MultiplierChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Overall Score Changed to:" + aScore;
-		OverallScoreChanged retVal = new OverallScoreChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
+		String aMessage = "Multiplier Changed to:" + aScore;
+		MultiplierChanged retVal = new MultiplierChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

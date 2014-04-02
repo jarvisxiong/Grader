@@ -42,7 +42,7 @@ public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Manual Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
 		FeatureManualNotesSaved retVal = new FeatureManualNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

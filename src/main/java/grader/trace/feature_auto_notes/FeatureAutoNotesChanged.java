@@ -45,7 +45,7 @@ public FeatureAutoNotesChanged(String aMessage,
 			SakaiProject aProject, GradingFeature aFeature,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Auto Notes Changed to:" + aNotes;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Changed to:" + aNotes;
 		FeatureAutoNotesChanged retVal = new FeatureAutoNotesChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature,aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

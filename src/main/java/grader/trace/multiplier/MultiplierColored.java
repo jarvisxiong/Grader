@@ -1,4 +1,4 @@
-package grader.trace.overall_score;
+package grader.trace.multiplier;
 
 import java.awt.Color;
 
@@ -11,12 +11,12 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallScoreColored extends OverallScoreInfo {
+public class MultiplierColored extends MultiplierInfo {
 	Color featureAutoScoreColor;
 
 
 
-public OverallScoreColored(String aMessage,
+public MultiplierColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Color aColor,
@@ -38,14 +38,14 @@ public void setFeatureAutoScoreColor(Color featureAutoScoreColor) {
 }
 
 	
-	public static OverallScoreColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static MultiplierColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Color aColor,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Overall Score Colored:" + aColor;
-		OverallScoreColored retVal = new OverallScoreColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aScore, aFinder);
+		String aMessage = "Multiplier Colored:" + aColor;
+		MultiplierColored retVal = new MultiplierColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aColor, aScore, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

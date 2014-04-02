@@ -497,5 +497,15 @@ public class AMainProjectStepper implements MainProjectStepper {
 		 overviewProjectStepper.restoreFeatureSpreadsheet();
 		
 	}
+	@Override
+	public void quit() {
+		overviewProjectStepper.quit();
+		
+	}
+	@Override
+	public void setProceedWhenDone(boolean proceedWhenDone) {
+		overviewProjectStepper.setProceedWhenDone(proceedWhenDone);
+		
+	}
 
 }

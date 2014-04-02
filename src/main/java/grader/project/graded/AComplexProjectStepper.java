@@ -465,5 +465,14 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.restoreFeatureSpreadsheet();
 		
 	}
+	@Override
+	public void quit() {
+		mainProjectStepper.quit();		
+	}
+	@Override
+	public void setProceedWhenDone(boolean proceedWhenDone) {
+		mainProjectStepper.setProceedWhenDone(proceedWhenDone);
+		
+	}
 
 }

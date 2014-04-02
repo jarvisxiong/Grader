@@ -45,7 +45,7 @@ public void setFeatureAutoResultsColor(Color featureAutoResultsColor) {
 			Color aColor,
 			String aResults,
 			Object aFinder) {
-		String aMessage = "Feature Auto Results Colored:" + aColor;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Colored:" + aColor;
 		FeatureAutoResultFormatColored retVal = new FeatureAutoResultFormatColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aResults, aFinder);
 		retVal.announce();		
 		return retVal;

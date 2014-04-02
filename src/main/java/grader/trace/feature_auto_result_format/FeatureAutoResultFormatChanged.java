@@ -45,7 +45,7 @@ public FeatureAutoResultFormatChanged(String aMessage,
 			SakaiProject aProject, GradingFeature aFeature,
 			String aResults,
 			Object aFinder) {
-		String aMessage = "Feature Auto Results Changed to:" + aResults;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Changed to:" + aResults;
 		FeatureAutoResultFormatChanged retVal = new FeatureAutoResultFormatChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		retVal.announce();		
 		return retVal;

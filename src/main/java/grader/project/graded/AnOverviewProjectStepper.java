@@ -2250,5 +2250,14 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			System.exit(0);
 		
 	}
+	@Override
+	public void quit() {
+		gradedProjectNavigator.quit();
+	}
+	@Override
+	public void setProceedWhenDone(boolean proceedWhenDone) {
+		gradedProjectNavigator.setProceedWhenDone(proceedWhenDone);
+		
+	}
 	
 }

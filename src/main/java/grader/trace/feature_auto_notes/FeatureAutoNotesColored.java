@@ -45,7 +45,7 @@ public void setFeatureAutoNotesColor(Color featureAutoNotesColor) {
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature Auto Notes Colored:" + aColor;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Colored:" + aColor;
 		FeatureAutoNotesColored retVal = new FeatureAutoNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

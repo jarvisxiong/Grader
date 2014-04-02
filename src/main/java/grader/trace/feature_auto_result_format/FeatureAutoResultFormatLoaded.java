@@ -43,7 +43,7 @@ public void setFeatureAutoResultsFileName(String featureAutoResultsFileName) {
 			String anFeatureAutoFileName,
 			String aResults,
 			Object aFinder) {
-		String aMessage = "Feature Auto Results Loaded from File:" + anFeatureAutoFileName + ". Results:" + aResults;
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Loaded from File:" + anFeatureAutoFileName + ". Results:" + aResults;
 		FeatureAutoResultFormatLoaded retVal = new FeatureAutoResultFormatLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject,  aFeature, anFeatureAutoFileName, aResults, aFinder);
 		retVal.announce();		
 		return retVal;
