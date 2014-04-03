@@ -33,9 +33,9 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
-import grader.trace.MissingOnyenException;
-import grader.trace.multiplier.MultiplierColored;
-import grader.trace.stepper.UserOnyenChange;
+import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.multiplier.MultiplierColored;
+import grader.trace.stepper.navigation.UserOnyenSet;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -170,7 +170,7 @@ public class AGradedProjectTextOverview  implements
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
 		internalSetOnyen(anOnyen);
 		manualOnyen = true;
-		UserOnyenChange.newCase(projectDatabase, projectStepper, anOnyen, this);
+		UserOnyenSet.newCase(projectDatabase, projectStepper, anOnyen, this);
 		projectStepper.setProject(anOnyen);
 	}
 	@Override

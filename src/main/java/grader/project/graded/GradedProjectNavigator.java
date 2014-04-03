@@ -11,7 +11,7 @@ import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.MissingOnyenException;
 
 import java.beans.PropertyChangeListener;
 

@@ -10,8 +10,8 @@ import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
 import grader.settings.navigation.NavigationSetter;
-import grader.trace.InvalidOnyenRangeException;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.InvalidOnyenRangeException;
+import grader.trace.settings.MissingOnyenException;
 
 import java.beans.PropertyChangeListener;
 

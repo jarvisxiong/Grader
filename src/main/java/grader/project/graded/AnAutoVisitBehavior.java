@@ -33,7 +33,9 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.auto_visit.AutoAutoGradeSet;
+import grader.trace.stepper.auto_visit.AutoVisitFailedException;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -87,79 +89,33 @@ public class AnAutoVisitBehavior implements
 	public static int PAUSE_AFTER_RUN = 3000;
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
-//	public final static long UI_LOAD_TIME = 10 * 1000;
-//	boolean firstTime;
+
 	String COMMENTS_FILE_PREFIX = "Comments";
-//	// List<OEFrame> oldList;
-//	// Window[] oldWindows;
-//	String name = "";
+;
 	SakaiProjectDatabase projectDatabase;
-//	double score;
-//	List<String> documents;
-//	int nextDocumentIndex = 0;
+
 	// ideally this stuff should really be done through property change as
 	// Josh's wrapper does
 	FeatureGradeRecorder featureGradeRecorder;
-//	double multiplier = 1;
-//	String onyen = "";
-//	String commentsFileName = "";
+
 
 	SakaiProject project;
-	ProjectStepper projectStepper;
+	OverviewProjectStepper projectStepper;
 	framework.project.Project wrappedProject;
-//	// FinalGradeRecorder gradeRecorder;
-//	boolean hasMoreSteps = true;
-//	FinalGradeRecorder totalScoreRecorder;
-//	boolean manualOnyen;
-//	String logFile, gradedFile, skippedFile;
-//	String manualNotes = "", autoNotes = "", feedback = "", overallNotes = "";
+
 	List<CheckResult> featureResults;
 	List<CheckResult> restrictionResults;
-//	GradingFeature selectedGradingFeature;
 	StudentFolder studentFolder;
 	boolean autoRunDeferred = false;
-//	Object frame;
-//	uiFrame oeFrame;
-//	List<ObjectAdapter> gradingObjectAdapters = new ArrayList();
-//	ClassAdapter stepperViewAdapter;
-//	ObjectAdapter multiplierAdapter, scoreAdapter, gradingFeaturesAdapter, overallNotesAdapter; 
-//	List<Color> currentColors = new ArrayList(), nextColors = new ArrayList();
-//	Color currentScoreColor, currentMultiplierColor, currentOverallNotesColor;
-//	Color nextScoreColor, nextMultiplierColor, nextOverallNotesColor;
-//
-//	boolean changed;
-//	Icon studentPhoto;
-//	LabelBeanModel photoLabelBeanModel;
-//	String output = "";
 
-	// FinalGradeRecorder gradeRecorder() {
-	// return projectDatabase.getGradeRecorder();
-	// }
-	// FinalGradeRecorder totalScoreRecorder() {
-	// return projectDatabase.getTotalScoreRecorder();
-	// }
 	public AnAutoVisitBehavior() {
-//		photoLabelBeanModel = new ALabelBeanModel("");
-//		addPropertyChangeListener(this); // listen to yourself to see if you have changed
+
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		projectDatabase = aProjectDatabase;
-		projectStepper = aProjectDatabase.getProjectStepper();
-		// gradeRecorder = aProjectDatabase.getGradeRecorder();
+		projectStepper = (OverviewProjectStepper) aProjectDatabase.getProjectStepper();
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
-//		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
-//		registerWithGradingFeatures();
-//		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
-//		gradedFile = aProjectDatabase.getAssigmentDataFolder()
-//				.getGradedIdFileName();
-//		skippedFile = aProjectDatabase.getAssigmentDataFolder()
-//				.getSkippedIdFileName();
-//		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
-////		graderSettings.getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
-//		getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);
-		
-		// recordWindows(); // the first project does not wait so we need to
-		// record here
+
 
 	}
 
@@ -169,12 +125,6 @@ public class AnAutoVisitBehavior implements
 		return runExecuted || isAutoRun() || isAutoAutoGrade();
 	}
 
-//	@ComponentWidth(150)
-//	@Row(0)
-//	public String getOnyen() {
-//		return onyen;
-//	}
-//
 	String getCommentsFileName(SakaiProject aProject) {
 		return AGradingFeature.getFeedbackFolderName(aProject)
 				+ COMMENTS_FILE_PREFIX + AGradingFeature.FEEDBACK_FILE_SUFFIX;
@@ -189,66 +139,8 @@ public class AnAutoVisitBehavior implements
 			return "";
 		}
 	}
-//
-//	void writeComments(SakaiProject aProject, String newVal) {
-//		if (newVal.equals("")) // why create file?
-//			return;
-//		try {
-//			FileUtils.writeStringToFile(
-//					new File(getCommentsFileName(aProject)), newVal);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	public void setOnyen(String anOnyen) throws MissingOnyenException {
-//		internalSetOnyen(anOnyen);
-//		manualOnyen = true;
-//	}
-//	
-//	 void internalSetOnyen(String anOnyen) throws MissingOnyenException {
-//		// project = projectDatabase.getProject(anOnyen);
-//		String oldOnyen = onyen;
-//		int onyenIndex = onyens.indexOf(anOnyen);
-//		if (onyenIndex < 0) {
-//			Tracer.error("Student:" + anOnyen + " does not exist in specified onyen range");
-//			throw new MissingOnyenException(anOnyen);
-////			return;
-//		}
-//		currentOnyenIndex = onyenIndex;
-//		maybeSaveState();
-//		redirectProject();
-//		boolean retVal = setProject(anOnyen);
-//		if (!retVal) {
-//			onyen = oldOnyen;
-//			propertyChangeSupport.firePropertyChange("onyen", null, onyen);
-//			return;
-//		}
-//		// again this will void a getter call when properties are redisplayed
-//		propertyChangeSupport.firePropertyChange(oldOnyen, null, onyen);
-//
-//		// set project does most of this except the output files part
-////		projectDatabase.resetRunningProject(project);
-////
-////		if (autoRun)
-////			projectDatabase.runProject(anOnyen, project);
-////		if (autoAutoGrade)
-////			autoGrade();
-////		manualOnyen = true;
-//
-//		// projectDatabase.runProjectInteractively(anOnyen, this);
-//		// onyen = anOnyen;
-//		// setProject( projectDatabase.getProject(anOnyen));
-//		// projectDatabase.
-//
-//	}
-//
-//	public boolean setProject(String anOnyen) {
-//
-//		onyen = anOnyen;
-//		return setProject(projectDatabase.getProject(anOnyen));
-//
-//	}
+
+
 
 	boolean autoRun = false;
 
@@ -278,6 +170,7 @@ public class AnAutoVisitBehavior implements
 		boolean oldVal = autoAutoGrade;
 		autoAutoGrade = newVal;
 		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, projectStepper);
+		AutoAutoGradeSet.newCase(projectDatabase, projectStepper, project, autoAutoGrade, this);
 
 
 	}
@@ -286,160 +179,14 @@ public class AnAutoVisitBehavior implements
 		autoAutoGrade = !autoAutoGrade;
 	}
 
-//	@Row(1)
-//	@ComponentWidth(150)
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String newVal) {
-//		name = newVal;
-//		// System.out.println("name changed to" + newVal);
-//		// as we are postponing notfications, sending the name change is useful
-//		 propertyChangeSupport.firePropertyChange("Name", null, newVal);
-//		notifyPreconditionChanged();
-//		// System.out.println("precondition notified");
-//	}
-//
-//	void notifyPreconditionChanged() {
-//		propertyChangeSupport.firePropertyChange("this", null, this);
-//
-//	}
-//
-//	@Row(2)
-//	@ComponentWidth(150)
-//	public double getScore() {
-//		return score;
-//	}
-//
-//	void registerWithGradingFeatures() {
-//		if (projectDatabase == null)
-//			return;
-//		List<GradingFeature> gradingFeatures = projectDatabase
-//				.getGradingFeatures();
-//		for (GradingFeature aGradingFeature : gradingFeatures) {
-//			aGradingFeature.addPropertyChangeListener(this);
-//		}
-//	}
-//
-//	void resetGradingFeatures() {
-//		if (projectDatabase == null)
-//			return;
-//
-//		GradingFeatureList gradingFeatures = projectDatabase
-//				.getGradingFeatures();
-//		for (GradingFeature aGradingFeature : gradingFeatures) {
-//			// double lastScore =
-//			// featureGradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
-//			// project.getStudentAssignment().getOnyen(),
-//			// aGradingFeature.getFeature());
-//			// double lastScore = getGrade(aGradingFeature.getFeature());
-//
-//			// aGradingFeature.initScore(lastScore);
-//			aGradingFeature.setProject(project);
-//			// aGradingFeature.initScore(lastScore); // this resets
-//
-//		}
-//		for (GradingFeature aGradingFeature : gradingFeatures) {
-//			// double lastScore =
-//			// featureGradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
-//			// project.getStudentAssignment().getOnyen(),
-//			// aGradingFeature.getFeature());
-//			double lastScore = getGrade(aGradingFeature.getFeature());
-//			String result = getSavedResult(aGradingFeature);
-//			if (result != "")
-//				aGradingFeature.setResult(result);
-//
-//			// aGradingFeature.initScore(lastScore);
-//			// aGradingFeature.setProject(project);
-//			// initScore was not firing updates
-//			// aGradingFeature.initScore(lastScore);
-//			if (lastScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE)
-//
-//				aGradingFeature.pureSetScore(lastScore);
-//
-//		}
-//	}
-//
-//	void setComputedScore() {
-//		List<GradingFeature> gradingFeatures = projectDatabase
-//				.getGradingFeatures();
-//		double aScore = 0;
-//		for (GradingFeature aGradingFeature : gradingFeatures) {
-//			aScore += aGradingFeature.getScore();
-//		}
-//		projectStepper.setScore(aScore);
-//	}
+
 
 	@Visible(false)
 	public SakaiProject getProject() {
 		return project;
 	}
 
-//	public static void writeScores(ProjectStepper aProjectStepper) {
-//		ScoreFeedback scoreFeedback = aProjectStepper.getProjectDatabase().getScoreFeedback();
-//		if (scoreFeedback != null)
-//		    scoreFeedback
-//				.writeScores(aProjectStepper);
-//		// if (aProjectStepper.getProject() == null) return;
-//		// FileProxy feedbackFolder =
-//		// aProjectStepper.getProject().getStudentAssignment().getFeedbackFolder();
-//		// String totalScoresFile = feedbackFolder.getAbsoluteName() + "/" +
-//		// ASakaiProjectDatabase.DEFAULT_SCORE_FILE_NAME;
-//		// try {
-//		// Common.writeFile(totalScoresFile,
-//		// scoresText(aProjectStepper).toString());
-//		// } catch (Exception e) {
-//		// e.printStackTrace();
-//		// }
-//
-//	}
 
-	// public static void writeScores(ProjectStepper aProjectStepper) {
-	// if (project == null) return;
-	// FileProxy feedbackFolder =
-	// project.getStudentAssignment().getFeedbackFolder();
-	// String totalScoresFile = feedbackFolder.getAbsoluteName() + "/" +
-	// ASakaiProjectDatabase.DEFAULT_SCORE_FILE_NAME;
-	// try {
-	// Common.writeFile(totalScoresFile, scoresText().toString());
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// }
-
-//	public static StringBuffer scoresText(ProjectStepper aProjectStepper) {
-//		StringBuffer stringBuffer = new StringBuffer();
-//		stringBuffer.append("Total Score:" + aProjectStepper.getScore());
-//		List<GradingFeature> gradingFeatures = aProjectStepper
-//				.getProjectDatabase().getGradingFeatures();
-//
-//		for (GradingFeature aGradingFeature : gradingFeatures) {
-//			stringBuffer.append("\n");
-//			stringBuffer.append(aGradingFeature.toString());
-//		}
-//		return stringBuffer;
-//
-//	}
-//	
-//	void setStoredOutput () {
-//		StringBuffer currentOutput = Common.toText(project.getOutputFileName());		
-//		 project.setCurrentOutput(currentOutput);
-//		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
-//		 String allOutput = currentOutput.toString();
-//
-//			for (GradingFeature aGradingFeature : gradingFeatures) {
-//				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeature(), allOutput);
-//				aGradingFeature.setOutput(output);			
-//			} 
-//			if (selectedGradingFeature != null) {
-////		 internalSetOutput( project.getCurrentOutput().toString());
-//				internalSetOutput(selectedGradingFeature.getOutput());
-//			} else {
-//				internalSetOutput(allOutput);
-//			}
-//	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
 	// property change event here.
@@ -447,27 +194,16 @@ public class AnAutoVisitBehavior implements
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
-//		changed = false;
-//		if (newVal == null) {
-//			// Josh: Added event
-//			propertyChangeSupport.firePropertyChange("Project", null, null);
-//			settingUpProject = false;
-//			// not sending anything to feature recorder
-//			return false;
-//		}
-//		writeScores(this);
+
 		runExecuted = false;
 		project = newVal;
 		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
-			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
+			AutoVisitFailedException.newCase("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen(), this);
+//			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
 			return false;
 		}
 
-		// not needed because of Josh's addition
-		// if (project == null) {
-		// System.out.println("No project submitted ");
-		// return false;
-		// }
+	
 		try {
 			wrappedProject = new ProjectWrapper(project, GradingEnvironment
 					.get().getAssignmentName());
@@ -476,36 +212,6 @@ public class AnAutoVisitBehavior implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		// setName(project.getStudentAssignment().getStudentDescription());
-//		setName(project.getStudentAssignment().getStudentName());
-//
-//		documents = project.getStudentAssignment().getDocuments();
-//		resetGradingFeatures();
-//		// documents.remove(project.getOutputFileName());
-//		// documents.remove(project.getSourceFileName());
-//		nextDocumentIndex = 0;
-////		if (totalScoreRecorder != null)
-////			setInternalScore(getGrade());
-//		double savedScore = featureGradeRecorder.getGrade(name, onyen);
-//		
-//		setInternalScore(savedScore);
-//		if (!shouldVisit()) {
-//			return false;
-//		}
-//
-//		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
-//		// project.getStudentAssignment().getOnyen()));
-//
-//		// Josh: Added event
-//		propertyChangeSupport.firePropertyChange("Project", null, project);
-//
-//		featureGradeRecorder.newSession(onyen);
-//		// Josh's code from ProjectStepperDisplayerWrapper
-//		// Figure out the late penalty
-//		Option<DateTime> timestamp = studentFolder.getTimestamp();
-//		// double gradePercentage = timestamp.isDefined() ?
-//		// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-//		// : 0;
 
 		if (isAutoRun() && (!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
 //			projectDatabase.runProject(projectStepper.getOnyen(), project);
@@ -520,10 +226,7 @@ public class AnAutoVisitBehavior implements
 		
 		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
 			autoGrade();
-			// setComputedSummary();
-			// gradePercentage = timestamp.isDefined() ?
-			// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-			// : 0;
+			
 		} else {
 			double aMultiplier = featureGradeRecorder.getEarlyLatePoints(projectStepper.getName(),
 					projectStepper.getOnyen());
@@ -743,135 +446,7 @@ public class AnAutoVisitBehavior implements
 		}
 
 	}
-//
-//	void unSelectOtherGradingFeatures(GradingFeature currentGradingFeature) {
-//		for (GradingFeature gradingFeature : projectDatabase
-//				.getGradingFeatures()) {
-//			if (currentGradingFeature == gradingFeature)
-//				continue;
-//			gradingFeature.setSelected(false);
-//		}
-//	}
-//
-//	@Row(4)
-//	@ComponentWidth(100)
-//	public void output() {
-//		project.setHasBeenRun(true);
-//
-//		projectDatabase.displayOutput();
-//
-//	}
-//
-//	public boolean preSources() {
-//		// return project.canBeRun();
-//		return project.runChecked() || project.hasBeenRun();
-//		// return true;
-//
-//	}
-//
-//	@Row(5)
-//	@ComponentWidth(100)
-//	public void sources() {
-//		project.setHasBeenRun(true);
-//
-//		project.displaySource(projectDatabase);
-//
-//	}
-//
-//	@Row(6)
-//	@ComponentWidth(100)
-//	public void nextDocument() {
-//		if (nextDocumentIndex >= documents.size()) {
-//			System.out.println("No documents to display");
-//			return;
-//		}
-//		String nextDocument = documents.get(nextDocumentIndex);
-//		nextDocumentIndex++;
-//		if (nextDocumentIndex == documents.size())
-//			nextDocumentIndex = 0;
-//		DocumentDisplayerRegistry.display(nextDocument);
-//
-//	}
-//
-//	@Row(7)
-//	@ComponentWidth(100)
-//	public void comments() {
-//		DocumentDisplayerRegistry.display(project.getStudentAssignment()
-//				.getCommentsFileName());
-//	}
-//
-//	void setInternalScore(double newVal) {
-//		score = newVal;
-//		if (!settingUpProject) {
-//			setScoreColor();
-//			propertyChangeSupport.firePropertyChange("Score", null, newVal);
-//		}
-//	}
-//
-//	void setGrade(double newVal) {
-//		// This will be a spurious message to conglomerate as t serves as total
-//		// and feature recorder
-//		if (! (totalScoreRecorder instanceof ConglomerateRecorder))
-//		totalScoreRecorder.setGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen(),
-//				newVal);
-//
-//	}
-//
-//	double getGrade() {
-//		return totalScoreRecorder.getGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen());
-//
-//	}
-//
-//	void setGrade(String aFeature, double newVal) {
-//		if (!settingUpProject)
-//		featureGradeRecorder.setGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen(),
-//				aFeature, newVal);
-//
-//	}
-//
-//	double getGrade(String aFeature) {
-//		return featureGradeRecorder.getGrade(project.getStudentAssignment()
-//				.getStudentName(), project.getStudentAssignment().getOnyen(),
-//				aFeature);
-//
-//	}
-//
-//	@Override
-//	public void setScore(double newVal) {
-//		if (score == newVal) return;
-//		double oldVal = score;
-//		setInternalScore(newVal);
-//		if (totalScoreRecorder != null)
-//
-//			// if (gradeRecorder != null)
-//			setGrade(newVal);
-//		featureGradeRecorder.setGrade(name, onyen, newVal);
-//		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-//		setOverallNotes(notesGenerator.appendNotes(
-//				getOverallNotes(), 
-//				notesGenerator.totalScoreOverrideNotes(this, oldVal, newVal)));
-//		
-////		
-////		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
-////		String oldOverallNotes = getOverallNotes();
-////		String newNotes = oldOverallNotes + " " + aNotes;
-////		setOverallNotes(newNotes);
-//		
-//		
-//		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
-//		// project.getStudentAssignment().getOnyen(), newVal);
-//		// score = newVal;
-//		// propertyChangeSupport.firePropertyChange("Score", null, newVal);
-//	}
-//
-//	@Override
-//	public boolean preGetGradingFeatures() {
-//		return projectDatabase != null
-//				&& projectDatabase.getGradingFeatures().size() > 0;
-//	}
+
 
 	@Override
 	public boolean preAutoGrade() {
@@ -967,355 +542,6 @@ public class AnAutoVisitBehavior implements
 		
 
 	}
-//
-//	@Override
-//	@Row(9)
-//	public GradingFeatureList getGradingFeatures() {
-//		if (projectDatabase != null)
-//			return projectDatabase.getGradingFeatures();
-//		else
-//			return null;
-//
-//	}
-//
-//	public boolean preProceed() {
-//		// if manuelOnyen then we will go to next step
-//		// cannot proceed if it is not all graded
-//		// why check for manualOnyen?
-//		return (hasMoreSteps || manualOnyen) && isAllGraded();
-//	}
-//
-//	public boolean preSkip() {
-//		return !preProceed();
-//	}
-//
-//	@Row(10)
-//	@Override
-//	public boolean isAllGraded() {
-//		return getGradingFeatures().isAllGraded();
-//	}
-//
-//	// @Row(11)
-//	// @ComponentWidth(100)
-//	@Visible(false)
-//	public synchronized void proceed() {
-//		super.proceed();
-//		if (manualOnyen)
-//			writeScores(this);
-//		manualOnyen = false;
-//		try {
-//			// Common.appendText(logFile, onyen + " Skipped " +
-//			// Common.currentTimeAsDate() + "\n\r");
-//			Common.appendText(gradedFile, onyen + "\n");
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
-
-	// @Row(12)
-	// @ComponentWidth(100)
-	// public synchronized void skip() {
-	// proceed();
-	// try {
-	// Common.appendText(logFile, onyen + " Skipped " +
-	// Common.currentTimeAsDate() + "\n");
-	// Common.appendText(skippedFile, onyen + "\n");
-	// List<String> list = FileProxyUtils.toList(new File(logFile));
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// // should put person in skipped list
-	//
-	// }
-	
-//	boolean noNextFilteredRecords;
-//
-//	@Override
-//	public boolean preNext() {
-//		return !noNextFilteredRecords && preProceed() && currentOnyenIndex < onyens.size() - 1;
-//		// this does not make sense, next is a stronger condition than next
-//
-//		// return !preDone() && nextOnyenIndex < onyens.size() - 1 ;
-//	}
-//
-//	@Row(12)
-//	@ComponentWidth(100)
-//	@Override
-//	public synchronized void next() {
-//
-//		try {
-//			// Common.appendText(logFile, onyen + " Skipped " +
-//			// Common.currentTimeAsDate() + "\n");
-//			Common.appendText(skippedFile, onyen + "\n");
-//			List<String> list = FileProxyUtils.toList(new File(logFile));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		 move(true);
-//		// should put person in skipped list
-//
-//	}
-//	boolean noPreviousFilteredRecords;
-//
-//	@Override
-//	public boolean prePrevious() {
-//		return !noPreviousFilteredRecords && currentOnyenIndex > 0;
-//	}
-//
-//	@Row(13)
-//	@ComponentWidth(100)
-//	@Override
-//	public synchronized void previous() {
-//
-//		// try {
-//		// Common.appendText(logFile, onyen + " Skipped " +
-//		// Common.currentTimeAsDate() + "\n");
-//		// Common.appendText(skippedFile, onyen + "\n");
-//		// List<String> list = FileProxyUtils.toList(new File(logFile));
-//		// } catch (IOException e) {
-//		// // TODO Auto-generated catch block
-//		// e.printStackTrace();
-//		// }
-//		 move(false);
-//		// should put person in skipped list
-//
-//	}
-	
-//	void validate (GradingFeature aGradingFeature) {
-//		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-//		setManualNotes(notesGenerator.appendNotes(
-//				getManualNotes(), 
-//				notesGenerator.validationNotes(this, aGradingFeature)));
-//		
-////		
-////		String aNotes = projectDatabase.getNotesGenerator().validationNotes(this, aGradingFeature);
-////		setManualNotes(aNotes);
-//		
-////		setNotes(aGradingFeature, aNotes);;
-//	}
-//	@Row(14)
-//	@Override
-//	@ComponentWidth(100)
-//	public void validate() {
-//		if (selectedGradingFeature != null) {
-//			validate(selectedGradingFeature);
-//		}
-//		
-//	}
-
-//	String filter = "";
-
-//	@Row(14)
-//	@ComponentWidth(150)
-//	@Override
-//	public String getNavigationFilter() {
-//		return projectDatabase.getNavigationFilter();
-//	}
-//
-//	@Override
-//	public void setNavigationFilter(String newVal) {
-//		projectDatabase.setNavigationFilter(newVal);
-//		configureNavigationList();
-//		runProjectsInteractively();
-//	}
-
-//	@Row(15)
-//	public double getMultiplier() {
-//		return multiplier;
-//	}
-//	
-//	public void internalSetMultiplier(double newValue) {
-//		double oldValue = multiplier;
-//		multiplier = newValue;
-//		featureGradeRecorder.setEarlyLatePoints(name, onyen,
-//				multiplier);
-//		setMultiplierColor();
-//		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
-//	}
-//	
-//	public void setMultiplier(double newValue) {
-//		double oldVal = multiplier;
-//		if (oldVal == newValue) return;
-//		internalSetMultiplier(newValue);
-//		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
-//		setOverallNotes(notesGenerator.appendNotes(
-//				getOverallNotes(), 
-//				notesGenerator.multiplierOverrideNotes(this, oldVal, newValue)));
-////		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
-////		String oldOverallNotes = getOverallNotes();
-////		String newNotes = oldOverallNotes + " " + aNotes;
-////		setOverallNotes(newNotes);
-//		
-//	}
-//
-//	@Row(16)
-//	@ComponentWidth(400)
-////	@Label("Auto Notes")
-//
-//	public String getAutoNotes() {
-//		return autoNotes;
-//	}
-//
-//	@Row(17)
-//	@ComponentWidth(400)
-////	@Label("Manual Notes:")
-//	public String getManualNotes() {
-//		return manualNotes;
-//	}
-//
-//	public boolean preSetManualNotes() {
-//		return selectedGradingFeature != null;
-//	}
-//
-//	void internalSetNotes(String newVal) {
-//		String oldVal = manualNotes;
-//
-//		manualNotes = newVal;
-//
-//		propertyChangeSupport.firePropertyChange("manualNotes", oldVal, newVal);
-//	}
-//	
-//	void internalSetOutput(String newVal) {
-//		String oldVal = output;
-//
-//		output = newVal;
-//
-//		propertyChangeSupport.firePropertyChange("output", oldVal, newVal);
-//	}
-//
-//	void internalSetResult(String newVal) {
-//		String oldVal = autoNotes;
-//
-//		autoNotes = newVal;
-//
-//		propertyChangeSupport.firePropertyChange("AutoNotes", oldVal, newVal);
-//	}
-//
-//	public void setManualNotes(String newVal) {
-//		if (preSetManualNotes()) {
-//			setNotes(selectedGradingFeature, newVal);
-//			featureGradeRecorder.setFeatureComments(newVal);
-//		}
-//
-//		setComputedFeedback();
-//		internalSetNotes(newVal);
-//		setGradingFeatureColors();
-////		changed = true;
-//		// notes = newVal;
-//
-//		// propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
-//
-//	}
-//
-//	@Row(18)
-////	@Label("Overall Notes")
-//	@ComponentWidth(800)
-//	public String getOverallNotes() {
-//		return overallNotes;
-//
-//	}
-//
-//	void internalSetComments(String newVal) {
-//		String oldVal = overallNotes;
-//
-//		overallNotes = newVal;
-//
-//		propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-//		
-//	}
-
-//	public void setOverallNotes(String newVal) {
-//		internalSetComments(newVal);
-//		// String oldVal = newVal;
-//		// comments = newVal;
-//		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-//		featureGradeRecorder.save(overallNotes);
-//		writeComments(project, newVal);
-//		setComputedFeedback();
-//		
-//
-//	}
-//
-//	void setComputedFeedback() {
-//		String oldVal = feedback;
-//		feedback = featureGradeRecorder.computeSummary();
-//		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
-//	}
-//
-//	void setStoredFeedback() {
-//		String oldVal = feedback;
-//		feedback = featureGradeRecorder.getStoredSummary();
-//		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
-//	}
-//	
-//	@Row(19)
-////	@ComponentHeight(100)
-////	@ComponentWidth(100)
-//	@Override
-//	public LabelBeanModel getPhoto() {
-//		return photoLabelBeanModel;
-//	}
-//	@Row(20)
-//	@Override
-//	@ComponentWidth(600)
-//	@ComponentHeight(100)
-//	@PreferredWidgetClass(JTextArea.class)
-//	public String getFeedback() {
-//		return feedback;
-//
-//	}
-//	
-//	@Visible(true)
-//	@Row(21)
-////	@Override
-//	@ComponentWidth(600)
-//	@ComponentHeight(100)
-//	@PreferredWidgetClass(JTextArea.class)
-//	public String getTranscript() {
-//		return output;
-//
-//	}
-//	public boolean preGetNavigationSetter() {
-//		return projectDatabase.getGraderSettings() != null;
-//	}
-//	@Row(22)
-//	@Override
-//	public NavigationSetter getNavigationSetter() {
-//		return projectDatabase.getGraderSettings().getNavigationSetter();
-//	}
-//	
-//
-//	@Override
-//	public boolean hasMoreSteps() {
-//		return hasMoreSteps;
-//	}
-//
-//	@Override
-//	public void setHasMoreSteps(boolean newVal) {
-//		if (hasMoreSteps == newVal)
-//			return;
-//		hasMoreSteps = newVal;
-//		if (hasMoreSteps == false)
-//			writeScores(this);
-//
-//		notifyPreconditionChanged();
-//
-//	}
-//
-//	
-//
-//	@Override
-//	public synchronized void waitForClearance() {
-//
-//		super.waitForClearance();
-//		
-//
-//	}
 
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {

@@ -36,7 +36,7 @@ import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderSelector;
 import grader.spreadsheet.TotalScoreRecorderSelector;
-import grader.trace.InvalidOnyenRangeException;
+import grader.trace.settings.InvalidOnyenRangeException;
 
 public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAssignment {
 

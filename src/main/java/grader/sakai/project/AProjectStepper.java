@@ -30,7 +30,7 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.MissingOnyenException;
 
 import java.awt.Color;
 import java.awt.Window;

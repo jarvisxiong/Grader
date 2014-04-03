@@ -33,8 +33,11 @@ import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
 import grader.trace.GraderTracerSelector;
 import grader.trace.navigation.NavigationInitiated;
+import grader.trace.settings.UserDownloadPathChange;
 import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.GraderSettingsStarted;
+import grader.trace.settings.UserModuleChange;
+import grader.trace.settings.UserProblemChange;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
 import util.annotations.Label;
@@ -117,27 +120,9 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		
 		 currentModule = newValue;
 		 refreshAll();
-////		 currentModulePrefix = configuration.getString(currentModule + ".problems.prefix")	;
-////		if (currentModulePrefix == null)
-////			currentModulePrefix = configuration.getString("default.problems.prefix", "Assignment");
-//		 currentModulePrefix = moduleProblemManager.getModulePrefix(currentModule);
-//		problems.clear();
-//		if (downloadPath != null) {
-//			File folder = new File(downloadPath);
-//			if (!folder.exists()) {
-//				Tracer.error("No folder found for:" + downloadPath);				
-//			} else {
-//				File gradesFile = new File(downloadPath + "/grades.csv"); // is this a sakai assignment folder
-//				if (gradesFile.exists()) 
-//					folder = folder.getParentFile();
-//				File[] children = folder.listFiles();
-//				for (File child:children) {
-//					if (child.getName().startsWith(currentModulePrefix))
-//						problems.add(child.getName());
-//				}
-//			}
-//		}
-		
+		 UserModuleChange.newCase(currentModule, this, this);
+
+
 		
 		
 	}
@@ -585,6 +570,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		currentProblem = aProblem;
 		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		refreshProblemDownloadPath();
+		UserProblemChange.newCase(currentProblem, this, this);
+
 	}
 	@Override
 	@Visible(false)
@@ -619,6 +606,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			if (problemDownloadPath != null && problemDownloadPath.equals(newPath)) return; // bounce back
 			graderSettingsManager.setDownloadPath(currentModule, newPath);
 			refreshAll();
+			UserDownloadPathChange.newCase(newPath, this, this);
 		}
 		
 	}

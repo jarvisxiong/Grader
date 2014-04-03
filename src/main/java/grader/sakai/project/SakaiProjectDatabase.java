@@ -34,6 +34,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 
 import util.misc.ClearanceManager;
@@ -61,8 +62,8 @@ import grader.sakai.StudentCodingAssignment;
 import grader.settings.GraderSettingsModel;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
-import grader.trace.InvalidOnyenRangeException;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.InvalidOnyenRangeException;
+import grader.trace.settings.MissingOnyenException;
 
 public interface SakaiProjectDatabase {
 	public BulkAssignmentFolder getBulkAssignmentFolder();

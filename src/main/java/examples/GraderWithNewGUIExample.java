@@ -4,7 +4,7 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.trace.InvalidOnyenRangeException;
+import grader.trace.settings.InvalidOnyenRangeException;
 import examples.checkers.featureCheckers.ErrorFeatureChecker;
 import examples.checkers.featureCheckers.FailingFeatureChecker;
 import examples.checkers.featureCheckers.PassingFeatureChecker;

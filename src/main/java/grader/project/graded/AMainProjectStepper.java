@@ -5,8 +5,8 @@ import grader.assignment.GradingFeatureList;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
-import grader.trace.InvalidOnyenRangeException;
-import grader.trace.MissingOnyenException;
+import grader.trace.settings.InvalidOnyenRangeException;
+import grader.trace.settings.MissingOnyenException;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
