@@ -1,4 +1,4 @@
-package grader.trace.feature_manual_notes;
+package grader.trace.feature.manual_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -9,15 +9,14 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureManualNotesLoaded extends FeatureManualNotesInfo {
+public class FeatureManualNotesSaved extends FeatureManualNotesInfo {
 	String featureManualNotesFileName;
 
 
 
-public FeatureManualNotesLoaded(String aMessage,
+public FeatureManualNotesSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			GradingFeature aFeature,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
@@ -37,14 +36,14 @@ public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
 }
 
 	
-	public static FeatureManualNotesLoaded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureManualNotesSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
-			String anFeatureManualFileName,
+			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Loaded from File:" + anFeatureManualFileName + ". Notes:" + aNotes;
-		FeatureManualNotesLoaded retVal = new FeatureManualNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureManualFileName, aNotes, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		FeatureManualNotesSaved retVal = new FeatureManualNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

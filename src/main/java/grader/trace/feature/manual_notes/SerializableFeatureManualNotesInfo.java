@@ -1,4 +1,4 @@
-package grader.trace.feature_manual_notes;
+package grader.trace.feature.manual_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,17 +6,16 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
-import grader.trace.stepper.StepperInfo;
-import grader.trace.stepper.feature.FeatureInfo;
+import grader.trace.stepper.feature.SerializableFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureManualNotesInfo extends FeatureInfo {
+public class SerializableFeatureManualNotesInfo extends SerializableFeatureInfo {
 String featureManualNotes;
 
 
 
-public FeatureManualNotesInfo(String aMessage,
+public SerializableFeatureManualNotesInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			GradingFeature aFeature,
@@ -36,11 +35,11 @@ public void setFeatureManualNotes(String featureManualNotes) {
 	this.featureManualNotes = featureManualNotes;
 }
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + featureManualNotes;
-//}
+@Override
+public String toCSVRow() {
+	return super.toCSVRow() 
+			+ "," + featureManualNotes;
+}
 
 	
 //	public static SerializableFeatureManualNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 

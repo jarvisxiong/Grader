@@ -31,7 +31,7 @@ public class UserNavigationKindChange extends GraderSettingsInfo {
 	
 	
 	public static UserNavigationKindChange newCase(NavigationKind aNavigationKind, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "NavigationKind Changed";
+		String aMessage = "NavigationKind Changed:" + aNavigationKind;
 		UserNavigationKindChange retVal = new UserNavigationKindChange(aMessage, aNavigationKind,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

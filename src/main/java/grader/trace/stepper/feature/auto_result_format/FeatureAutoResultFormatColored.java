@@ -1,4 +1,4 @@
-package grader.trace.stepper.feature_auto_result_format;
+package grader.trace.stepper.feature.auto_result_format;
 
 import java.awt.Color;
 

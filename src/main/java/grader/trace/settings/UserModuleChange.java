@@ -29,7 +29,7 @@ public class UserModuleChange extends GraderSettingsInfo {
 	
 	
 	public static UserModuleChange newCase(String aModule, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "Module Changed";
+		String aMessage = "Module Changed:" + aModule;
 		UserModuleChange retVal = new UserModuleChange(aMessage, aModule,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

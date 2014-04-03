@@ -29,7 +29,7 @@ public class UserEndOnyenChange extends GraderSettingsInfo {
 	
 	
 	public static UserEndOnyenChange newCase(String anEndOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "EndOnyen Changed";
+		String aMessage = "EndOnyen Changed:" + anEndOnyen;
 		UserEndOnyenChange retVal = new UserEndOnyenChange( aMessage, anEndOnyen, aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

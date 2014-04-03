@@ -1,4 +1,4 @@
-package grader.trace.stepper.feature_auto_notes;
+package grader.trace.stepper.feature.auto_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,22 +6,21 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.StepperInfo;
-import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoNotesLoaded extends FeatureInfo {
+public class FeatureAutoNotesSaved extends FeatureAutoNotesInfo {
 	String featureAutoNotesFileName;
 
 
 
-public FeatureAutoNotesLoaded(String aMessage,
+public FeatureAutoNotesSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
 		featureAutoNotesFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,14 +36,14 @@ public void setFeatureAutoNotesFileName(String featureAutoNotesFileName) {
 }
 
 	
-	public static FeatureAutoNotesLoaded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureAutoNotesSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
-			String anFeatureAutoFileName,
+			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Loaded from File:" + anFeatureAutoFileName + ". Notes:" + aNotes;
-		FeatureAutoNotesLoaded retVal = new FeatureAutoNotesLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureAutoFileName, aNotes, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		FeatureAutoNotesSaved retVal = new FeatureAutoNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

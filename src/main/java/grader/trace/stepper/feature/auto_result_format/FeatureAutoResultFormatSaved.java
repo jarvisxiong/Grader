@@ -1,4 +1,4 @@
-package grader.trace.stepper.feature_auto_result_format;
+package grader.trace.stepper.feature.auto_result_format;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,22 +6,21 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.StepperInfo;
-import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoResultFormatLoaded extends FeatureInfo {
+public class FeatureAutoResultFormatSaved extends FeatureAutoResultFomatInfo {
 	String featureAutoResultsFileName;
 
 
 
-public FeatureAutoResultFormatLoaded(String aMessage,
+public FeatureAutoResultFormatSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aResults,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 		featureAutoResultsFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,14 +36,14 @@ public void setFeatureAutoResultsFileName(String featureAutoResultsFileName) {
 }
 
 	
-	public static FeatureAutoResultFormatLoaded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureAutoResultFormatSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
-			String anFeatureAutoFileName,
+			String anOverviewFileName,
 			String aResults,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Loaded from File:" + anFeatureAutoFileName + ". Results:" + aResults;
-		FeatureAutoResultFormatLoaded retVal = new FeatureAutoResultFormatLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject,  aFeature, anFeatureAutoFileName, aResults, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Results Saved to File:" + anOverviewFileName + ". Results:" + aResults;
+		FeatureAutoResultFormatSaved retVal = new FeatureAutoResultFormatSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aResults, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

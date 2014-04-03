@@ -1,4 +1,4 @@
-package grader.trace.feature_score;
+package grader.trace.feature.score;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,21 +6,22 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.StepperInfo;
+import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureScoreSaved extends FeatureScoreInfo {
+public class FeatureScoreLoaded extends FeatureInfo {
 	String featureAutoScoreFileName;
 
 
 
-public FeatureScoreSaved(String aMessage,
+public FeatureScoreLoaded(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			double aScore,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
 		featureAutoScoreFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
@@ -36,14 +37,14 @@ public void setFeatureAutoScoreFileName(String featureAutoScoreFileName) {
 }
 
 	
-	public static FeatureScoreSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureScoreLoaded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
-			String anOverviewFileName,
+			String anFeatureAutoFileName,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Score Saved to File:" + anOverviewFileName + ". Score:" + aScore;
-		FeatureScoreSaved retVal = new FeatureScoreSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aScore, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Score Loaded from File:" + anFeatureAutoFileName + ". Score:" + aScore;
+		FeatureScoreLoaded retVal = new FeatureScoreLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anFeatureAutoFileName, aScore, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

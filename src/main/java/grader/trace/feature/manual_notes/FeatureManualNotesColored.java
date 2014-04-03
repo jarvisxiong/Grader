@@ -1,4 +1,4 @@
-package grader.trace.stepper.feature_auto_notes;
+package grader.trace.feature.manual_notes;
 
 import java.awt.Color;
 
@@ -12,41 +12,41 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoNotesColored extends FeatureAutoNotesInfo {
-	Color featureAutoNotesColor;
+public class FeatureManualNotesColored extends FeatureManualNotesInfo {
+	Color featureManualNotesColor;
 
 
 
-public FeatureAutoNotesColored(String aMessage,
+public FeatureManualNotesColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
-		featureAutoNotesColor = aColor;
+		featureManualNotesColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
 
-public Color getFeatureAutoNotesColor() {
-	return featureAutoNotesColor;
+public Color getFeatureManualNotesColor() {
+	return featureManualNotesColor;
 }
 
 
 
-public void setFeatureAutoNotesColor(Color featureAutoNotesColor) {
-	this.featureAutoNotesColor = featureAutoNotesColor;
+public void setFeatureManualNotesColor(Color featureManualNotesColor) {
+	this.featureManualNotesColor = featureManualNotesColor;
 }
 
 	
-	public static FeatureAutoNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureManualNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
 			Color aColor,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Auto Notes Colored:" + aColor;
-		FeatureAutoNotesColored retVal = new FeatureAutoNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Colored:" + aColor;
+		FeatureManualNotesColored retVal = new FeatureManualNotesColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

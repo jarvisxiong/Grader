@@ -1,4 +1,4 @@
-package grader.trace.stepper.feature_auto_result_format;
+package grader.trace.stepper.feature.auto_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -11,45 +11,45 @@ import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoResultFomatInfo extends FeatureInfo {
-String featureAutoResults;
+public class FeatureAutoNotesInfo extends FeatureInfo {
+String featureAutoNotes;
 
 
 
-public FeatureAutoResultFomatInfo(String aMessage,
+public FeatureAutoNotesInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
-			String aResults,
+			String aNotes,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
-		featureAutoResults = aResults;
+		featureAutoNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getFeatureAutoResults() {
-	return featureAutoResults;
+public String getFeatureAutoNotes() {
+	return featureAutoNotes;
 }
 
 
 
-public void setFeatureAutoResults(String featureAutoResults) {
-	this.featureAutoResults = featureAutoResults;
+public void setFeatureAutoNotes(String featureAutoNotes) {
+	this.featureAutoNotes = featureAutoNotes;
 }
 
 //@Override
 //public String toCSVRow() {
 //	return super.toCSVRow() 
-//			+ "," + featureAutoResults;
+//			+ "," + featureAutoNotes;
 //}
 
 	
-//	public static SerializableFeatureAutoResultsInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureAutoNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject,
-//			String aResults,
+//			String aNotes,
 //			Object aFinder) {
-//		String aMessage = "Overview Results Autoly Changed to:" + aResults;
-//		SerializableFeatureAutoResultsInfo retVal = new SerializableFeatureAutoResultsInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aResults, aFinder);
+//		String aMessage = "Overview Notes Autoly Changed to:" + aNotes;
+//		SerializableFeatureAutoNotesInfo retVal = new SerializableFeatureAutoNotesInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}

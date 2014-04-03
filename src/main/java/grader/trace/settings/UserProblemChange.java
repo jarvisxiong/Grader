@@ -29,7 +29,7 @@ public class UserProblemChange extends GraderSettingsInfo {
 	
 	
 	public static UserProblemChange newCase(String aProblem, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "Problem Changed";
+		String aMessage = "Problem Changed:" + aProblem;
 		UserProblemChange retVal = new UserProblemChange(aMessage, aProblem,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

@@ -29,7 +29,7 @@ public class UserStartOnyenChange extends GraderSettingsInfo {
 	
 	
 	public static UserStartOnyenChange newCase(String aStartOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "StartOnyen Changed";
+		String aMessage = "StartOnyen Changed:" + aStartOnyen;
 		UserStartOnyenChange retVal = new UserStartOnyenChange(aMessage, aStartOnyen, aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

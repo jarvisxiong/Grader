@@ -29,7 +29,7 @@ public class UserDownloadPathChange extends GraderSettingsInfo {
 	
 	
 	public static UserDownloadPathChange newCase(String aDownLoadPath, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "DownLoadPath Changed";
+		String aMessage = "DownLoadPath Changed:" + aDownLoadPath;
 		UserDownloadPathChange retVal = new UserDownloadPathChange(aMessage, aDownLoadPath,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;

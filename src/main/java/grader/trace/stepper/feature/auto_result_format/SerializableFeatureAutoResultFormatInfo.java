@@ -1,4 +1,4 @@
-package grader.trace.feature_score;
+package grader.trace.stepper.feature.auto_result_format;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -10,45 +10,45 @@ import grader.trace.stepper.feature.SerializableFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureAutoScoreInfo extends SerializableFeatureInfo {
-double featureAutoScore;
+public class SerializableFeatureAutoResultFormatInfo extends SerializableFeatureInfo {
+String featureAutoResults;
 
 
 
-public SerializableFeatureAutoScoreInfo(String aMessage,
+public SerializableFeatureAutoResultFormatInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
-			double aScore,
+			String aResults,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
-		featureAutoScore = aScore;
+		featureAutoResults = aResults;
 		// TODO Auto-generated constructor stub
 	}
 
-public double getFeatureAutoScore() {
-	return featureAutoScore;
+public String getFeatureAutoResults() {
+	return featureAutoResults;
 }
 
 
 
-public void setFeatureAutoScore(double featureAutoScore) {
-	this.featureAutoScore = featureAutoScore;
+public void setFeatureAutoResults(String featureAutoResults) {
+	this.featureAutoResults = featureAutoResults;
 }
 
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + featureAutoScore;
+			+ "," + featureAutoResults;
 }
 
 	
-//	public static SerializableFeatureAutoScoreInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureAutoResultsInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject, GradingFeature aFeature,
-//			String aScore,
+//			String aResults,
 //			Object aFinder) {
-//		String aMessage = "Overview Score Autoly Changed to:" + aScore;
-//		SerializableFeatureAutoScoreInfo retVal = new SerializableFeatureAutoScoreInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
+//		String aMessage = "Overview Results Autoly Changed to:" + aResults;
+//		SerializableFeatureAutoResultsInfo retVal = new SerializableFeatureAutoResultsInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aResults, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}
