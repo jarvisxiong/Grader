@@ -2,6 +2,7 @@ package grader.settings.navigation;
 
 import grader.navigation.filter.NavigationFilter;
 import grader.settings.GraderSettingsModel;
+import grader.trace.settings.navigation.NavigationFilterUserChange;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -130,6 +131,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 			Object newParameters = currentNavigationFilter.getParameter();
 			propertyChangeSupport.firePropertyChange("Parameter", oldParameters, newParameters);
 			announceExplanation();
+			NavigationFilterUserChange.newCase(currentNavigationFilter, graderSettings, this);
 			
 		} else if (anEvent.getSource() == currentNavigationFilter) {
 			// assuming the property names are the same in both objects, maybe bad idea

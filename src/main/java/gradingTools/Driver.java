@@ -53,7 +53,9 @@ public class Driver {
 	
 	public static void setTracing() {
 		Tracer.showInfo(true);
-		Tracer.setKeywordPrintStatus(OverallNotesChanged.class, true);
+//		Tracer.setKeywordPrintStatus(OverallNotesChanged.class, true);
+		Tracer.setKeywordPrintStatus(Tracer.ALL_KEYWORDS, true);
+
 	}
 	
 	public static void initLoggers(ProjectRequirements requirements, PropertiesConfiguration configuration) {

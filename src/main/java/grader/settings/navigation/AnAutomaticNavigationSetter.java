@@ -1,6 +1,8 @@
 package grader.settings.navigation;
 
 import grader.settings.GraderSettingsModel;
+import grader.trace.settings.navigation.AnimateGradesUserChange;
+import grader.trace.settings.navigation.AnimationPauseTimeUserChange;
 import util.annotations.Column;
 import util.annotations.Explanation;
 import util.annotations.Row;
@@ -26,8 +28,10 @@ public class AnAutomaticNavigationSetter implements AutomaticNavigationSetter{
 		return animateGrades;
 	}
 	@Override
-	public void setAnimateGrades(boolean animateGrades) {
-		this.animateGrades = animateGrades;
+	public void setAnimateGrades(boolean newVal) {
+		if (animateGrades == newVal) return;
+		this.animateGrades = newVal;
+		AnimateGradesUserChange.newCase(newVal, graderSettings, this);
 	}
 //	@Row(1)
 	@Column(1)
@@ -37,8 +41,11 @@ public class AnAutomaticNavigationSetter implements AutomaticNavigationSetter{
 		return animationPauseTime;
 	}
 	@Override
-	public void setAnimationPauseTime(int animationPauseTime) {
-		this.animationPauseTime = animationPauseTime;
+	public void setAnimationPauseTime(int newVal) {
+		if (animationPauseTime == newVal) return;
+		this.animationPauseTime = newVal;
+		AnimationPauseTimeUserChange.newCase(newVal, graderSettings, this);
+
 	}
 	
 	public static void main (String[] args) {

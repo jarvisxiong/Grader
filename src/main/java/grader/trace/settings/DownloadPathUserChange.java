@@ -6,12 +6,12 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserDownloadPathChange extends GraderSettingsInfo {
+public class DownloadPathUserChange extends GraderSettingsInfo {
 	
 	String downLoadPath;
 	
 	
-	public UserDownloadPathChange(String aMessage, String aDownLoadPath, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public DownloadPathUserChange(String aMessage, String aDownLoadPath, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		downLoadPath = aDownLoadPath;
 //		 gradingSettingsModel = aGradingSettingsModel;
@@ -28,9 +28,9 @@ public class UserDownloadPathChange extends GraderSettingsInfo {
 	}
 	
 	
-	public static UserDownloadPathChange newCase(String aDownLoadPath, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static DownloadPathUserChange newCase(String aDownLoadPath, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "DownLoadPath Changed:" + aDownLoadPath;
-		UserDownloadPathChange retVal = new UserDownloadPathChange(aMessage, aDownLoadPath,  aGradingSettingsModel, aFinder);
+		DownloadPathUserChange retVal = new DownloadPathUserChange(aMessage, aDownLoadPath,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

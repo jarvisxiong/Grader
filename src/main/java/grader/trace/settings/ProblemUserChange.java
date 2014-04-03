@@ -6,12 +6,12 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserProblemChange extends GraderSettingsInfo {
+public class ProblemUserChange extends GraderSettingsInfo {
 	
 	String problem;
 	
 	
-	public UserProblemChange(String aMessage, String aProblem, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public ProblemUserChange(String aMessage, String aProblem, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		problem = aProblem;
 //		 gradingSettingsModel = aGradingSettingsModel;
@@ -28,9 +28,9 @@ public class UserProblemChange extends GraderSettingsInfo {
 	}
 	
 	
-	public static UserProblemChange newCase(String aProblem, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static ProblemUserChange newCase(String aProblem, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "Problem Changed:" + aProblem;
-		UserProblemChange retVal = new UserProblemChange(aMessage, aProblem,  aGradingSettingsModel, aFinder);
+		ProblemUserChange retVal = new ProblemUserChange(aMessage, aProblem,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

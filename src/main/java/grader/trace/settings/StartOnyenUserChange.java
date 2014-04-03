@@ -6,12 +6,12 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserStartOnyenChange extends GraderSettingsInfo {
+public class StartOnyenUserChange extends GraderSettingsInfo {
 	
 	String startOnyen;
 	
 	
-	public UserStartOnyenChange(String aMessage, String aStartOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public StartOnyenUserChange(String aMessage, String aStartOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		startOnyen = aStartOnyen;
 //		 gradingSettingsModel = aGradingSettingsModel;
@@ -28,9 +28,9 @@ public class UserStartOnyenChange extends GraderSettingsInfo {
 	}
 	
 	
-	public static UserStartOnyenChange newCase(String aStartOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static StartOnyenUserChange newCase(String aStartOnyen, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "StartOnyen Changed:" + aStartOnyen;
-		UserStartOnyenChange retVal = new UserStartOnyenChange(aMessage, aStartOnyen, aGradingSettingsModel, aFinder);
+		StartOnyenUserChange retVal = new StartOnyenUserChange(aMessage, aStartOnyen, aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

@@ -8,12 +8,12 @@ import grader.trace.settings.GraderSettingsInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserNavigationFilterChange extends GraderSettingsInfo {
+public class NavigationFilterUserChange extends GraderSettingsInfo {
 	
 	NavigationFilter navigationFilter;
 	
 	
-	public UserNavigationFilterChange(String aMessage, NavigationFilter aNavigationFilter, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public NavigationFilterUserChange(String aMessage, NavigationFilter aNavigationFilter, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		navigationFilter = aNavigationFilter;
 //		 gradingSettingsModel = aGradingSettingsModel;
@@ -30,9 +30,9 @@ public class UserNavigationFilterChange extends GraderSettingsInfo {
 	}
 	
 	
-	public static UserNavigationFilterChange newCase(NavigationFilter aNavigationFilter, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static NavigationFilterUserChange newCase(NavigationFilter aNavigationFilter, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "NavigationFilter Changed:" + aNavigationFilter;
-		UserNavigationFilterChange retVal = new UserNavigationFilterChange(aMessage, aNavigationFilter,  aGradingSettingsModel, aFinder);
+		NavigationFilterUserChange retVal = new NavigationFilterUserChange(aMessage, aNavigationFilter,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

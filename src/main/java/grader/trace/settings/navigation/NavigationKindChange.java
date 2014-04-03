@@ -8,12 +8,12 @@ import grader.trace.settings.GraderSettingsInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserNavigationKindChange extends GraderSettingsInfo {
+public class NavigationKindChange extends GraderSettingsInfo {
 	
 	NavigationKind navigationKind;
 	
 	
-	public UserNavigationKindChange(String aMessage, NavigationKind aNavigationKind, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public NavigationKindChange(String aMessage, NavigationKind aNavigationKind, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		navigationKind = aNavigationKind;
 //		 gradingSettingsModel = aGradingSettingsModel;
@@ -30,9 +30,9 @@ public class UserNavigationKindChange extends GraderSettingsInfo {
 	}
 	
 	
-	public static UserNavigationKindChange newCase(NavigationKind aNavigationKind, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static NavigationKindChange newCase(NavigationKind aNavigationKind, GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "NavigationKind Changed:" + aNavigationKind;
-		UserNavigationKindChange retVal = new UserNavigationKindChange(aMessage, aNavigationKind,  aGradingSettingsModel, aFinder);
+		NavigationKindChange retVal = new NavigationKindChange(aMessage, aNavigationKind,  aGradingSettingsModel, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

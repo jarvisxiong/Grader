@@ -33,11 +33,11 @@ import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
 import grader.trace.GraderTracerSelector;
 import grader.trace.navigation.NavigationInitiated;
-import grader.trace.settings.UserDownloadPathChange;
+import grader.trace.settings.DownloadPathUserChange;
 import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.GraderSettingsStarted;
-import grader.trace.settings.UserModuleChange;
-import grader.trace.settings.UserProblemChange;
+import grader.trace.settings.ModuleUserChange;
+import grader.trace.settings.ProblemUserChange;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
 import util.annotations.Label;
@@ -120,7 +120,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		
 		 currentModule = newValue;
 		 refreshAll();
-		 UserModuleChange.newCase(currentModule, this, this);
+		 ModuleUserChange.newCase(currentModule, this, this);
 
 
 		
@@ -570,7 +570,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		currentProblem = aProblem;
 		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		refreshProblemDownloadPath();
-		UserProblemChange.newCase(currentProblem, this, this);
+		ProblemUserChange.newCase(currentProblem, this, this);
 
 	}
 	@Override
@@ -606,7 +606,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			if (problemDownloadPath != null && problemDownloadPath.equals(newPath)) return; // bounce back
 			graderSettingsManager.setDownloadPath(currentModule, newPath);
 			refreshAll();
-			UserDownloadPathChange.newCase(newPath, this, this);
+			DownloadPathUserChange.newCase(newPath, this, this);
 		}
 		
 	}

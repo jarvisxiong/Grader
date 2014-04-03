@@ -2,9 +2,9 @@ package grader.colorers;
 
 import java.awt.Color;
 
-import grader.letter_grade.AScoreToCoarseLetterGradeMapper;
-import grader.letter_grade.CoarseLetterGrade;
-import grader.letter_grade.ScoreToCoarseLetterGradeMapper;
+import grader.letter_grade.AScoreToLetterGradeMapper;
+import grader.letter_grade.LetterGrade;
+import grader.letter_grade.ScoreToLetterGradeMapper;
 import grader.sakai.project.SakaiProjectDatabase;
 
 public class AScoreColorer implements Colorer<Double>{
@@ -29,7 +29,7 @@ public class AScoreColorer implements Colorer<Double>{
 	Color notAColor = Color.PINK;
 	Color moreThanFullCreditColor = Color.GREEN;
 	Color failColor = Color.RED;
-	ScoreToCoarseLetterGradeMapper mapper = new AScoreToCoarseLetterGradeMapper(); // use a factory to unite it with navigation?
+	ScoreToLetterGradeMapper mapper = new AScoreToLetterGradeMapper(); // use a factory to unite it with navigation?
 	
 	public AScoreColorer(SakaiProjectDatabase aDatabase, double aMaxValue) {
 		database = aDatabase;
@@ -37,7 +37,7 @@ public class AScoreColorer implements Colorer<Double>{
 	}
 	@Override
 	public Color color(Double aNum) {
-		CoarseLetterGrade grade = mapper.toCoarseLetterGrade(aNum, maxValue);
+		LetterGrade grade = mapper.toCoarseLetterGrade(aNum, maxValue);
 		switch (grade) {
 		case A: return Color.GREEN;
 		case B: return MY_HYBRID_GREEN;

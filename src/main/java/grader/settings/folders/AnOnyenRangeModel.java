@@ -5,7 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import grader.settings.GraderSettingsModel;
-import grader.trace.settings.UserStartOnyenChange;
+import grader.trace.settings.EndOnyenUserChange;
+import grader.trace.settings.StartOnyenUserChange;
 import util.annotations.Explanation;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -28,7 +29,8 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 		String oldValue = startingOnyen;
 		this.startingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("startingOnyen", oldValue, newValue);
-		UserStartOnyenChange.newCase(newValue, graderSettings, this);
+		if (!oldValue.equals(newValue))
+		StartOnyenUserChange.newCase(newValue, graderSettings, this);
 	}
 	@Row(1)
 	public String getEndingOnyen() {
@@ -39,6 +41,8 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 		String oldValue = endingOnyen;
 		this.endingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("endingOnyen", oldValue, newValue);
+		if (!oldValue.equals(newValue))
+			EndOnyenUserChange.newCase(newValue, graderSettings, this);
 
 	}
 	@Row(2)

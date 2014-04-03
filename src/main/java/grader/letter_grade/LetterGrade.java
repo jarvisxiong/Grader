@@ -2,13 +2,13 @@ package grader.letter_grade;
 
 import grader.navigation.filter.NotesStatus;
 
-public enum CoarseLetterGrade {
+public enum LetterGrade {
 	A,
 	B,
 	C,
 	D,
 	F;
-	public static CoarseLetterGrade fromString(String aString) {
+	public static LetterGrade fromString(String aString) {
 		if (aString.equals("A"))
 			return A;
 		else if (aString.equals("B"))
