@@ -135,14 +135,14 @@ public class AnAutoVisitBehavior implements
 
 	}
 
-	String readComments(SakaiProject aProject) {
-		try {
-			return FileUtils.readFileToString(new File(
-					getCommentsFileName(aProject)));
-		} catch (IOException e) {
-			return "";
-		}
-	}
+//	String readComments(SakaiProject aProject) {
+//		try {
+//			return FileUtils.readFileToString(new File(
+//					getCommentsFileName(aProject)));
+//		} catch (IOException e) {
+//			return "";
+//		}
+//	}
 
 
 

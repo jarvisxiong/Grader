@@ -34,6 +34,7 @@ import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.feature.manual_notes.FeatureManualNotesColored;
+import grader.trace.feature.transcript.FeatureTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.ProjectStepStarted;
@@ -344,16 +345,20 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	String allOutput;
 	@Override
 	public void setStoredOutput () {
-		StringBuffer currentOutput = Common.toText(project.getOutputFileName());		
+		String fileName = project.getOutputFileName();
+//		StringBuffer currentOutput = Common.toText(project.getOutputFileName());	
+		StringBuffer currentOutput = Common.toText(fileName);
 		 project.setCurrentOutput(currentOutput);
 		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
 		  allOutput = currentOutput.toString();
 
 			for (GradingFeature aGradingFeature : gradingFeatures) {
 				String output = RunningProject.extractFeatureTranscript(aGradingFeature.getFeatureName(), allOutput);
-				aGradingFeature.setOutput(output);			
+				aGradingFeature.setOutput(output);	
+				FeatureTranscriptLoaded.newCase(projectDatabase, this, project, aGradingFeature, fileName, output, this);
 			} 
 			refreshTranscript();
+			
 
 	}
 	
