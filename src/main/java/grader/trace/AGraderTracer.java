@@ -86,7 +86,7 @@ public class AGraderTracer implements GraderTracer {
 	}
 	@Override
 	public void newEvent(Exception aTraceable) {
-		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
+//		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
 		if (!(aTraceable instanceof CSVSerializable)) return;
 		out.println(((CSVSerializable) aTraceable).toCSVRow());
 		out.flush();

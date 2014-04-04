@@ -21,6 +21,7 @@ public SerializableFeatureInfo(String aMessage,
 			GradingFeature aFeature,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		feature = aFeature;
 		// TODO Auto-generated constructor stub
 	}
 
