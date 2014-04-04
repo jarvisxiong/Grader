@@ -8,12 +8,12 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class MultiplierChanged extends SerializableMultiplierInfo {
+public class MultiplierUserChange extends SerializableMultiplierInfo {
 //String overallScore;
 
 
 
-public MultiplierChanged(String aMessage,
+public MultiplierUserChange(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			double aScore,
@@ -39,13 +39,13 @@ public MultiplierChanged(String aMessage,
 //}
 
 	
-	public static MultiplierChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static MultiplierUserChange newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			double aScore,
 			Object aFinder) {
-		String aMessage = "Multiplier Changed to:" + aScore;
-		MultiplierChanged retVal = new MultiplierChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
+		String aMessage = "Multiplier Manually Changed to:" + aScore;
+		MultiplierUserChange retVal = new MultiplierUserChange(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

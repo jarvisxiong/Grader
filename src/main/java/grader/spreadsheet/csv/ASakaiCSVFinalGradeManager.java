@@ -35,6 +35,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 //	InputStream input; // this may have to be reinitialized each time
 //	OutputStream output; // may have to reinitialized and closed each time
 	FileProxy gradeSpreadsheet;
+	
 	List<String[]>  table;
   
 
@@ -247,7 +248,13 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	}
 	
 	
+	public FileProxy getGradeSpreadsheet() {
+		return gradeSpreadsheet;
+	}
 
+	public String getFileName() {
+		return gradeSpreadsheet.getAbsoluteName();
+	}
 	
 
 }

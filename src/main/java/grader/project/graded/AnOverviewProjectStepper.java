@@ -38,11 +38,13 @@ import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
+import grader.trace.stepper.auto_visit.ProjectRun;
 import grader.trace.stepper.overall_notes.OverallNotesChanged;
 import grader.trace.stepper.overall_notes.OverallNotesColored;
 import grader.trace.stepper.overall_notes.OverallNotesIncludedInFeedback;
 import grader.trace.stepper.overall_notes.OverallNotesLoaded;
 import grader.trace.stepper.overall_notes.OverallNotesSaved;
+import grader.trace.stepper.overall_score.OverallScoreAutoChange;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -327,6 +329,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		setScore(aScore);
 		internalSetScore(aScore);
 		featureGradeRecorder.setGrade(getName(), getOnyen(), aScore);
+		OverallScoreAutoChange.newCase(projectDatabase, this, project, getScore(), this);
+
 
 
 	}
@@ -602,6 +606,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void run() {
 		runExecuted = true;
 		projectDatabase.runProject(getOnyen(), project);
+		// should this go in the code doing the running?
+		ProjectRun.newCase(projectDatabase, this, project, this);
 		project.setHasBeenRun(true);
 		for (GradingFeature gradingFeature : projectDatabase
 				.getGradingFeatures()) {
@@ -620,7 +626,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			gradingFeature.setSelected(false);
 		}
 	}
-
+	@Visible(false)
 	@Row(4)
 	@ComponentWidth(100)
 	public void output() {

@@ -36,6 +36,10 @@ import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.auto_visit.AutoAutoGradeSet;
 import grader.trace.stepper.auto_visit.AutoVisitFailedException;
+import grader.trace.stepper.auto_visit.FeaturesAutoGraded;
+import grader.trace.stepper.multiplier.MultiplierAutoChange;
+import grader.trace.stepper.multiplier.MultiplierLoaded;
+import grader.trace.stepper.overall_score.OverallScoreAutoChange;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -234,6 +238,14 @@ public class AnAutoVisitBehavior implements
 			if (aMultiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
 				aMultiplier = 1;
 			projectStepper.internalSetMultiplier(aMultiplier);
+			//have a method for getting the file name from featureGradeRecorder
+			MultiplierLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), aMultiplier, this);
+			
+			
+			// not sure we need the next step, perhaps to let the other loggers to know this information
+			// problem is that only one unparsers is a parser, so we transmit info from the unique parser
+			// to all unparsers
+			
 			featureGradeRecorder.setEarlyLatePoints(projectStepper.getName(), projectStepper.getOnyen(),
 					aMultiplier);
 
@@ -472,8 +484,10 @@ public class AnAutoVisitBehavior implements
 		}
 		featureResults = projectDatabase.getProjectRequirements()
 				.checkFeatures(wrappedProject);
+		
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
+		FeaturesAutoGraded.newCase(projectDatabase, projectStepper, project, this);
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
 //		projectStepper.setComputedScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {
@@ -489,6 +503,9 @@ public class AnAutoVisitBehavior implements
 			// correcting josh's code to separate feature comments and results
 			// featureGradeRecorder.setFeatureComments(featureResults.get(i).getNotes());
 			// featureGradeRecorder.setFeatureResults(featureResults.get(i).getResults());
+					
+			//not sure why we are doing the following two steps as previous feature data are overridden by the next one
+			// a bit of investigation tells me these steps are useless but leaving the code around
 			featureGradeRecorder
 					.setFeatureComments((i < featureResults.size()) ? featureResults
 							.get(i).getNotes() : restrictionResults.get(
@@ -525,6 +542,7 @@ public class AnAutoVisitBehavior implements
 					.getFeatureName(), score);
 		}
 		projectStepper.setComputedScore(); // will trigger change occurred
+
 		projectStepper.setComputedFeedback();
 		projectStepper.setStoredOutput();
 		// Josh's code from ProjectStepperDisplayerWrapper
@@ -537,6 +555,8 @@ public class AnAutoVisitBehavior implements
 				 projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
 				 : 0;
 		projectStepper.internalSetMultiplier(aMultiplier);
+		MultiplierAutoChange.newCase(projectDatabase, projectStepper, project, projectStepper.getScore(), this);
+
 //		featureGradeRecorder.setEarlyLatePoints(name, onyen, aMultiplier);
 		// setSummary();
 		

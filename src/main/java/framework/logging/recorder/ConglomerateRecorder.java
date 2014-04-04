@@ -14,6 +14,7 @@ import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
+import grader.file.FileProxy;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import tools.DirectoryUtils;
@@ -347,5 +348,15 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getFileName() {
+		return basicFeatureGradeRecorder.getFileName();
+	}
+
+	@Override
+	public FileProxy getGradeSpreadsheet() {
+		return basicFeatureGradeRecorder.getGradeSpreadsheet();
 	}
 }
