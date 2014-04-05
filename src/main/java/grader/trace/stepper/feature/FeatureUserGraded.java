@@ -12,7 +12,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureUserGraded extends SerializableFeatureInfo {
+public class FeatureUserGraded extends SerializableGradingFeatureInfo {
 
 
 

@@ -54,6 +54,7 @@ import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
 import grader.project.graded.AMainProjectStepper;
 import grader.project.graded.AnOverviewProjectStepper;
+import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ClassesTextManager;
 import grader.sakai.ASakaiBulkAssignmentFolder;
 import grader.sakai.ASakaiStudentCodingAssignment;
@@ -75,6 +76,9 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.overview.ProjectIORedirected;
+import grader.trace.stepper.overview.ProjectWindowsDisposed;
+import grader.trace.stepper.overview.ProjectWindowsRecorded;
 
 import java.awt.Component;
 import java.awt.Frame;
@@ -702,6 +706,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			projectStepper.setFrame(retVal);
 //		}
 		recordWindows(); // make sure this frame is not disposed on next
+//		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+
 //		frame = (uiFrame) displayProjectStepper(projectStepper);
 //		projectStepper.setOEFrame(retVal);
 		return retVal;
@@ -905,6 +911,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void recordWindows() {
 		oldList = new ArrayList( uiFrameList.getList());
 		oldWindows =	Window.getWindows();
+		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+
 	}
 	public void clearWindows() {
 		if (oldWindows != null && oldList != null) {// somebody went before me, get rid of their windows
@@ -928,6 +936,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				frame.dispose();
 			}
 		}
+		ProjectWindowsDisposed.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+
 	}
 	
 	public void initIO() {
@@ -950,6 +960,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 		
 		recordWindows();
+//		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+
 		if (aProjectStepper.isAutoRun()) {
 			runProject(anOnyen, aProject);
 		}
@@ -975,6 +987,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			System.out.close();
 			System.setOut(origOut);
 		}
+		ProjectIORedirected.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
 
 	}
 

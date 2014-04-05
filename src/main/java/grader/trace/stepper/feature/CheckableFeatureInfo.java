@@ -1,6 +1,7 @@
 package grader.trace.stepper.feature;
 
-import framework.grading.testing.Feature;
+import framework.grading.testing.Checkable;
+import framework.grading.testing.Checkable;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -10,29 +11,29 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureInfo extends StepperInfo {
-Feature feature;
+public class CheckableFeatureInfo extends StepperInfo {
+Checkable checkable;
 
 
 
-public FeatureInfo(String aMessage,
+public CheckableFeatureInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			Feature aFeature,
+			Checkable aCheckable,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		feature = aFeature;
+		checkable = aCheckable;
 		// TODO Auto-generated constructor stub
 	}
 
-public Feature getFeature() {
-	return feature;
+public Checkable getCheckable() {
+	return checkable;
 }
 
 
 
-public void setFeature(Feature aFeature) {
-	this.feature = aFeature;
+public void setCheckable(Checkable aCheckable) {
+	this.checkable = aCheckable;
 }
 
 

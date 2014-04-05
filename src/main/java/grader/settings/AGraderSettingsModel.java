@@ -507,7 +507,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@ComponentHeight(25)
 	@Explanation("Start navigation through the projects of the selected onyens.")
 	public synchronized void begin() {
-        NavigationInitiated.newCaseObject(this, this);
+        NavigationInitiated.newCase(this, this);
 		notify();
 		
 	}

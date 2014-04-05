@@ -3,6 +3,8 @@ package grader.navigation.filter;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.settings.navigation.GradingStatusUserChange;
+import grader.trace.settings.navigation.NotesStatusUserChange;
 
 public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>implements NavigationFilter<NotesStatus>{
 	public static final String NAME = "Notes Status";
@@ -25,11 +27,7 @@ public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>i
 		return parameter == actualStatus;		
 	}
 	
-//	@Override
-//	public String getName() {
-//		return NAME;
-//	}
-//	
+
 	public static NotesStatus calculateNotesStatus (SakaiProjectDatabase aDatabase) {
 		GradingFeatureList gradingFeatures = aDatabase.getGradingFeatures();
 		if (AGradingStatusFilter.calculateGradingStatus(aDatabase) == GradingStatus.NOT_FULLY_GRADED)
@@ -38,20 +36,17 @@ public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>i
 			return NotesStatus.HAS_NOTES;
 		return NotesStatus.NO_NOTES;
 	}
-//
-//	@Override
-//	public NotesStatus getParameter() {
-//		return parameter;
-//	}
-//
-//	@Override
-//	public void setParameter(NotesStatus newVal) {
-//		parameter = newVal;		
-//	}
+
 
 	@Override
 	public Object fromString(String aString) {
 		return NotesStatus.fromString(aString);
+	}
+	
+	@Override
+	public void setParameter(NotesStatus newValue) {
+		super.setParameter(newValue);
+		NotesStatusUserChange.newCase(newValue, null, this);		
 	}
 
 }

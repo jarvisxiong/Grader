@@ -38,7 +38,7 @@ public void setFeatureAutoResultsColor(Color featureAutoResultsColor) {
 	this.featureAutoResultsColor = featureAutoResultsColor;
 }
 
-	
+	// step not currently performed
 	public static FeatureAutoResultFormatColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,

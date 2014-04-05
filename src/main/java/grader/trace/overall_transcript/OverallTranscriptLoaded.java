@@ -42,7 +42,7 @@ public void setTranscriptFileName(String transcriptFileName) {
 			String anFeatureManualFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage =  "Transcript Loaded from File:" + anFeatureManualFileName + ". Notes:" + aNotes;
+		String aMessage =  "Transcript Loaded from File:" + anFeatureManualFileName + ". Transcript:" + aNotes;
 		OverallTranscriptLoaded retVal = new OverallTranscriptLoaded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject,  anFeatureManualFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

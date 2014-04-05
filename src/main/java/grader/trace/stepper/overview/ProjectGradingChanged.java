@@ -1,14 +1,15 @@
-package grader.trace.stepper;
+package grader.trace.stepper.overview;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectWindowsRecorded extends StepperInfo {
-public ProjectWindowsRecorded(String aMessage,
+public class ProjectGradingChanged extends SerializableStepperInfo {
+public ProjectGradingChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -18,12 +19,12 @@ public ProjectWindowsRecorded(String aMessage,
 
 
 	
-	public static ProjectWindowsRecorded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectGradingChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Windows Recorded";
-		ProjectWindowsRecorded retVal = new ProjectWindowsRecorded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Project grading changed";
+		ProjectGradingChanged retVal = new ProjectGradingChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

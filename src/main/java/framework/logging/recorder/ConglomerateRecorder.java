@@ -89,7 +89,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             }
     }
 
-    public void save(String comments) {
+    public void saveOverallNotes(String comments) {
         recordingSession.setComments(comments);
     }
 
@@ -329,9 +329,9 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	}
 	// this should be integrated with whatever method saves results here
 	@Override
-	public void setResult(String aStudentName, String anOnyen, String aFeature,
+	public void setResultFormat(String aStudentName, String anOnyen, String aFeature,
 			String aResult) {
-		basicFeatureGradeRecorder.setResult(aStudentName, anOnyen, aFeature, aResult);
+		basicFeatureGradeRecorder.setResultFormat(aStudentName, anOnyen, aFeature, aResult);
 		
 	}
 

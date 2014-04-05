@@ -9,7 +9,13 @@ import util.trace.Tracer;
 public class CheckedTraceableException extends TraceableError {
 
 	public CheckedTraceableException(String aMessage, Object aFinder) {
-		super(aMessage, aFinder);
+		super("", CheckedTraceableException.class);
+	}
+	public CheckedTraceableException(String aMessage) {
+		this(aMessage, null);
+	}
+	public CheckedTraceableException() {
+		this("", null);
 	}
 	
 	protected

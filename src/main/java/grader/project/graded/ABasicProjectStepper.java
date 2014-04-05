@@ -1277,7 +1277,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-		featureGradeRecorder.save(overallNotes);
+		featureGradeRecorder.saveOverallNotes(overallNotes);
 		writeComments(project, newVal);
 		setComputedFeedback();
 		

@@ -35,7 +35,7 @@ public void setTranscriptFileName(String TranscriptFileName) {
 	this.TranscriptFileName = TranscriptFileName;
 }
 
-	
+	// feature transcript is not saved individually currently, so this step does not happens
 	public static FeatureTranscriptSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,

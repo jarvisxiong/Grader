@@ -169,7 +169,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 	
 	@Override
-	public void setResult(String aStudentName, String anOnyen, String aFeature,
+	public void setResultFormat(String aStudentName, String anOnyen, String aFeature,
 			String aResult) {
 		try {
 
@@ -299,7 +299,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	@Override
-	public void save(String comments) {
+	public void saveOverallNotes(String comments) {
 		// TODO Auto-generated method stub
 		
 	}

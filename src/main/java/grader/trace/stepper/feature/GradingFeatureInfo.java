@@ -6,16 +6,16 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
+import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureInfo extends SerializableStepperInfo {
+public class GradingFeatureInfo extends StepperInfo {
 GradingFeature feature;
 
 
 
-
-public SerializableFeatureInfo(String aMessage,
+public GradingFeatureInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			GradingFeature aFeature,
@@ -35,11 +35,11 @@ public void setGradingFeature(GradingFeature aFeature) {
 	this.feature = aFeature;
 }
 
-@Override
-public String toCSVRow() {
-	return super.toCSVRow() 
-			+ "," + feature.getFeatureName();
-}
+//@Override
+//public String toCSVRow() {
+//	return super.toCSVRow() 
+//			+ "," + featureAutoNotes;
+//}
 
 	
 //	public static SerializableFeatureAutoNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 

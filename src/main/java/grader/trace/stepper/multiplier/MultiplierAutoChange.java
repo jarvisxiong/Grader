@@ -22,21 +22,6 @@ public MultiplierAutoChange(String aMessage,
 		// TODO Auto-generated constructor stub
 	}
 
-//public String getOverallScore() {
-//	return overallScore;
-//}
-//
-//
-//
-//public void setOverallScore(String overallScore) {
-//	this.overallScore = overallScore;
-//}
-
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + overallScore;
-//}
 
 	
 	public static MultiplierAutoChange newCase(SakaiProjectDatabase aSakaiProjectDatabase, 

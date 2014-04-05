@@ -925,7 +925,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// in memory save
 			features.get(i).setAutoNotes(result);
 			// save to the excel file so we can read it later
-			featureGradeRecorder.setResult(getName(), getOnyen(), features.get(i).getFeatureName(), 
+			featureGradeRecorder.setResultFormat(getName(), getOnyen(), features.get(i).getFeatureName(), 
 					result);			
 			features.get(i).setScore(score);
 
@@ -1245,7 +1245,7 @@ public class AProjectStepper extends AClearanceManager implements
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
-		featureGradeRecorder.save(overallNotes);
+		featureGradeRecorder.saveOverallNotes(overallNotes);
 		writeComments(project, newVal);
 		setComputedFeedback();
 		

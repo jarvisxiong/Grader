@@ -23,21 +23,7 @@ public FeatureAutoResultFormatChanged(String aMessage,
 		// TODO Auto-generated constructor stub
 	}
 
-//public String getOverallResults() {
-//	return overallResults;
-//}
-//s
-//
-//
-//public void setOverallResults(String overallResults) {
-//	this.overallResults = overallResults;
-//}
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + overallResults;
-//}
 
 	
 	public static FeatureAutoResultFormatChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 

@@ -38,7 +38,7 @@ public void setFeatureAutoNotesColor(Color featureAutoNotesColor) {
 	this.featureAutoNotesColor = featureAutoNotesColor;
 }
 
-	
+	// this step is not currently implemented, auto notes are not colored
 	public static FeatureAutoNotesColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,

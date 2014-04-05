@@ -16,7 +16,7 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	public void saveMultiplier(double gradePercentage);
 //	public void saveScore(double score);
 
-	public void save(String comments) ;
+	public void saveOverallNotes(String comments) ;
 	
 	// these two should be combined
 	 public void setFeatureComments(String comments) ;
@@ -33,7 +33,7 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	void setEarlyLatePoints(String aStudentName, String anOnyen, double aScore);
 	double getEarlyLatePoints(String aStudentName, String anOnyen);
 	String getStoredSummary();
-	void setResult(String aStudentName, String anOnyen, String aFeature,
+	void setResultFormat(String aStudentName, String anOnyen, String aFeature,
 			String aResult);
 	String getResult(String aStudentName, String anOnyen, String aFeature);
 //	boolean logSaved(String aUserId);

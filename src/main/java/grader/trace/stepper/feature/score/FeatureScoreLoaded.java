@@ -6,11 +6,11 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.StepperInfo;
-import grader.trace.stepper.feature.FeatureInfo;
+import grader.trace.stepper.feature.GradingFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureScoreLoaded extends FeatureInfo {
+public class FeatureScoreLoaded extends GradingFeatureInfo {
 	String featureAutoScoreFileName;
 
 

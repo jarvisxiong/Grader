@@ -1,21 +1,25 @@
 package grader.trace.stepper.feature;
 
+import java.awt.Color;
+
+import framework.grading.testing.Checkable;
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
+import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureRetargetedToNewProject extends SerializableGradingFeatureInfo {
-//String overallNotes;
+public class FeatureChecked extends CheckableFeatureInfo {
 
 
-public FeatureRetargetedToNewProject(String aMessage,
+
+public FeatureChecked(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, Checkable aFeature,			
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
 		// TODO Auto-generated constructor stub
@@ -24,12 +28,12 @@ public FeatureRetargetedToNewProject(String aMessage,
 
 
 	
-	public static FeatureRetargetedToNewProject newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureChecked newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject, GradingFeature aFeature,
+			SakaiProject aProject, Checkable aFeature,
 			Object aFinder) {
-		String aMessage = "Feature: " + aFeature.getFeatureName() + " retargeted to project of student:" + aProjectStepper.getOnyen();
-		FeatureRetargetedToNewProject retVal = new FeatureRetargetedToNewProject(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature,aFinder);
+		String aMessage = "Feature: "  + aFeature.getName() + "Checked.";
+		FeatureChecked retVal = new FeatureChecked(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature,  aFinder);
 		retVal.announce();		
 		return retVal;
 	}

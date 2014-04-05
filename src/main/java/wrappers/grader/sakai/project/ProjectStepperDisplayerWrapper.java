@@ -126,7 +126,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
 
             // Save the comments
             String comments = window.getComments();
-            ConglomerateRecorder.getInstance().save(comments);
+            ConglomerateRecorder.getInstance().saveOverallNotes(comments);
 
             // Save the results (grades + notes)
             GradingFeatureList features = projectDatabase.getGradingFeatures();

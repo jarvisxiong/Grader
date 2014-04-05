@@ -12,7 +12,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureColored extends FeatureInfo {
+public class FeatureColored extends GradingFeatureInfo {
 	Color featureAutoNotesColor;
 
 

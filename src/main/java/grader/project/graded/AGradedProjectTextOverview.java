@@ -35,6 +35,8 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.multiplier.MultiplierColored;
+import grader.trace.stepper.multiplier.MultiplierLoaded;
+import grader.trace.stepper.multiplier.MultiplierSaved;
 import grader.trace.stepper.multiplier.MultiplierUserChange;
 import grader.trace.stepper.navigation.UserOnyenSet;
 import grader.trace.stepper.overall_score.OverallScoreColored;
@@ -43,6 +45,7 @@ import grader.trace.stepper.overall_score.OverallScoreSaved;
 
 import java.awt.Color;
 import java.awt.Window;
+import java.awt.image.MultiPixelPackedSampleModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -378,6 +381,7 @@ public class AGradedProjectTextOverview  implements
 		multiplier = newValue;
 		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
 				multiplier);
+		MultiplierSaved.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), multiplier, this);
 		setMultiplierColor();
 		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
 	}

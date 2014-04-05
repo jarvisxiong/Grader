@@ -37,6 +37,11 @@ import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.auto_visit.AutoAutoGradeSet;
 import grader.trace.stepper.auto_visit.AutoVisitFailedException;
 import grader.trace.stepper.auto_visit.FeaturesAutoGraded;
+import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatChanged;
+import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatLoaded;
+import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatSaved;
+import grader.trace.stepper.feature.score.FeatureScoreLoaded;
+import grader.trace.stepper.feature.score.FeatureScoreSaved;
 import grader.trace.stepper.multiplier.MultiplierAutoChange;
 import grader.trace.stepper.multiplier.MultiplierLoaded;
 import grader.trace.stepper.overall_score.OverallScoreAutoChange;
@@ -520,12 +525,12 @@ public class AnAutoVisitBehavior implements
 //							.getNotes() : restrictionResults.get(
 //							i - featureResults.size()).getNotes());
 			
-			String result = (i < featureResults.size()) ? featureResults.get(i)
+			String resultFormat = (i < featureResults.size()) ? featureResults.get(i)
 					.getTarget().getSummary() : restrictionResults
 					.get(i - featureResults.size()).getTarget()
 					.getSummary();
 //			// in memory save
-			features.get(i).setResultFormat(result);
+			features.get(i).setResultFormat(resultFormat);
 			String autoNotes = (i < featureResults.size()) ? featureResults.get(i).getAutoNotes() : restrictionResults
 					.get(i - featureResults.size()).getAutoNotes();
 //			// in memory save
@@ -533,13 +538,17 @@ public class AnAutoVisitBehavior implements
 			features.get(i).setAutoNotes(autoNotes);
 			
 			// save to the excel file so we can read it later
-			featureGradeRecorder.setResult(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(), 
-					result);			
+			featureGradeRecorder.setResultFormat(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(), 
+					resultFormat);
+			FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
 			features.get(i).setScore(score);
 
 			// Save the score
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
 					.getFeatureName(), score);
+			FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
+
+			
 		}
 		projectStepper.setComputedScore(); // will trigger change occurred
 
@@ -554,8 +563,9 @@ public class AnAutoVisitBehavior implements
 		double aMultiplier = timestamp.isDefined() ?
 				 projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
 				 : 0;
-		projectStepper.internalSetMultiplier(aMultiplier);
 		MultiplierAutoChange.newCase(projectDatabase, projectStepper, project, projectStepper.getScore(), this);
+
+		projectStepper.internalSetMultiplier(aMultiplier);
 
 //		featureGradeRecorder.setEarlyLatePoints(name, onyen, aMultiplier);
 		// setSummary();

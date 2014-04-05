@@ -7,11 +7,11 @@ import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
 import grader.trace.stepper.StepperInfo;
-import grader.trace.stepper.feature.FeatureInfo;
+import grader.trace.stepper.feature.GradingFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureManualNotesInfo extends FeatureInfo {
+public class FeatureManualNotesInfo extends GradingFeatureInfo {
 String featureManualNotes;
 
 

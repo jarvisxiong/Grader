@@ -8,14 +8,18 @@ import grader.file.FileProxy;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.stepper.feature.FeatureSelected;
 import grader.trace.stepper.feature.FeatureUserGraded;
 import grader.trace.stepper.feature.FeatureValidated;
+import grader.trace.stepper.feature.auto_notes.FeatureAutoNotesChanged;
 import grader.trace.stepper.feature.auto_notes.FeatureAutoNotesLoaded;
 import grader.trace.stepper.feature.auto_notes.FeatureAutoNotesSaved;
+import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatChanged;
 import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatLoaded;
-import grader.trace.stepper.feature.manual_notes.FeatureManualNotesChanged;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesUserChange;
 import grader.trace.stepper.feature.manual_notes.FeatureManualNotesLoaded;
 import grader.trace.stepper.feature.manual_notes.FeatureManualNotesSaved;
+import grader.trace.stepper.feature.score.FeatureScoreUserChange;
 import util.annotations.*;
 import util.misc.Common;
 import util.trace.Tracer;
@@ -302,6 +306,7 @@ public class AGradingFeature implements GradingFeature {
 		}
 		pureSetScore(newVal);
 		scoreSetManually = true;
+		FeatureScoreUserChange.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
 //		if (!isManual()) {
 //			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 //			setNotes(notesGenerator.appendNotes(
@@ -485,6 +490,8 @@ public class AGradingFeature implements GradingFeature {
 //		}
 		propertyChangeSupport
 				.firePropertyChange("Selected", oldVal, isSelected);
+		if (newVal)
+			FeatureSelected.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, this);
 
 	}
 
@@ -497,6 +504,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setAutoNotes(String result) {
 		String oldVal = result;
 		this.autoNotes = result;
+		FeatureAutoNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, autoNotes, this);
 		recordAutoNotes();
 		// let project stepper get this value from feature recorder
 //		recordResult();
@@ -603,7 +611,7 @@ public class AGradingFeature implements GradingFeature {
 	public void setManualNotes(String newVal) {
 		String oldVal = manualNotes;
 		this.manualNotes = newVal;
-		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
+//		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
 		recordManualNotes();
 //		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
 	}
@@ -642,6 +650,7 @@ public class AGradingFeature implements GradingFeature {
 	@Override
 	public void setResultFormat(String newValue) {
 		this.resultFormat = newValue;
+		FeatureAutoResultFormatChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newValue, this);
 	}
 	
 //	@Override

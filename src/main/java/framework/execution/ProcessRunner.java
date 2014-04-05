@@ -13,6 +13,9 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.sakai.project.SakaiProject;
+import grader.trace.execution.ProcessExecutionFinished;
+import grader.trace.execution.ProcessExecutionStarted;
+import grader.trace.execution.ProcessExecutionTimedOut;
 
 /**
  * This runs the program in a new process.
@@ -114,16 +117,22 @@ public class ProcessRunner implements Runner {
 			runner.start();
 
 			// Prepare to run the process
-			ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get()
-					.getClasspath(), entryPoint);
+			String classPath = GradingEnvironment.get()
+					.getClasspath();
+//			ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get()
+//					.getClasspath(), entryPoint);
+			ProcessBuilder builder = new ProcessBuilder("java", "-cp", classPath, entryPoint);
 			builder.directory(folder);
+//			System.out.println("Running process: java -cp \""
+//					+ GradingEnvironment.get().getClasspath() + "\" " + entryPoint);
 			System.out.println("Running process: java -cp \""
-					+ GradingEnvironment.get().getClasspath() + "\" " + entryPoint);
+					+ classPath + "\" " + entryPoint);
 			System.out.println("Running in folder: " + folder.getAbsolutePath());
 
 			// Start the process
 			TimedProcess process = new TimedProcess(builder, timeout);
 			Process processObj = process.start();
+			ProcessExecutionStarted.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 
 			// Print output to the console
 			InputStream processOut = process.getInputStream();
@@ -174,9 +183,12 @@ public class ProcessRunner implements Runner {
 			// Wait for it to finish
 			try {
 				process.waitFor();
+				ProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 			} catch (Exception e) {
 				outputSemaphore.release();
 				errorSemaphore.release();
+				ProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
+
 				System.out.println("*** Timed out waiting for process to finish ***");
 				// avoiding hanging processes 
 //				processIn.flush();

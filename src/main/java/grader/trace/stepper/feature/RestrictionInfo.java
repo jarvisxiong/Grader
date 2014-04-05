@@ -10,12 +10,12 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureInfo extends StepperInfo {
+public class RestrictionInfo extends StepperInfo {
 Feature feature;
 
 
 
-public FeatureInfo(String aMessage,
+public RestrictionInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Feature aFeature,

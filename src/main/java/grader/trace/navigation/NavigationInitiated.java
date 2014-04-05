@@ -12,7 +12,7 @@ public class NavigationInitiated extends GraderSettingsInfo {
 		 gradingSettingsModel = aGradingSettingsModel;
 	}
 	
-	public static NavigationInitiated newCaseObject(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+	public static NavigationInitiated newCase(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
 		String aMessage = "Navigation Initiated";
 		NavigationInitiated retVal = new NavigationInitiated(aMessage, aGradingSettingsModel, aFinder);
 		retVal.announce();		

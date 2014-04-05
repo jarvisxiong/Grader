@@ -42,7 +42,7 @@ public void setTranscriptFileName(String TranscriptFileName) {
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "  Transcript Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		String aMessage = "Transcript Saved to File:" + anOverviewFileName + ". Transcript:" + aNotes;
 		OverallTranscriptSaved retVal = new OverallTranscriptSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;

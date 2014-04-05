@@ -1,6 +1,7 @@
 package framework.grading.testing;
 
 import framework.project.Project;
+import grader.trace.stepper.feature.FeatureChecked;
 
 import java.util.List;
 
@@ -30,14 +31,18 @@ public abstract class Checkable implements Gradable {
                 result.save(testResult);
             }
             result.setStatus(CheckResult.CheckStatus.Successful);
+            FeatureChecked.newCase(null, null, null, this, this);
             return result;
         } catch (NotAutomatableException e) {
+        	e.announce();
             return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
         } catch (NotGradableException e) {
+        	e.announce();
         	Tracer.error("Could not grade because did not find classes ");
 //            e.printStackTrace();
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
         } catch (Exception e) {
+        	NotGradableException.newCase(e.getMessage(), this);
         	e.printStackTrace();
             return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
 

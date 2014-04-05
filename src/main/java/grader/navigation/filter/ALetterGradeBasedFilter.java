@@ -8,6 +8,8 @@ import grader.letter_grade.LetterGrade;
 import grader.letter_grade.ScoreToLetterGradeMapper;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.settings.navigation.GradingStatusUserChange;
+import grader.trace.settings.navigation.LetterGradeUserChange;
 
 public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<LetterGrade>implements NavigationFilter<LetterGrade>{
 	public static final String NAME = "Letter Grade";
@@ -34,33 +36,12 @@ public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<LetterGr
 		return LetterGrade.fromString(aString);
 	}
 	
-//	@Override
-//	public String getName() {
-//		return NAME;
-//	}
-//
-//	@Override
-//	public CoarseLetterGrade getParameter() {
-//		return parameter;
-//	}
-//
-//	@Override
-//	public void setParameter(CoarseLetterGrade newValue) {
-//		parameter = newValue;
-//		
-//	}
-//	@Override
-//	public void setParameter(GradingStatus newValue) {
-//		Object oldValue = parameter;
-//		parameter = newValue;
-//		propertyChangeSupport.firePropertyChange("parameter", oldValue, newValue);
-//		
-//	}
+	@Override
+	public void setParameter(LetterGrade newValue) {
+		super.setParameter(newValue);
+		LetterGradeUserChange.newCase(newValue, null, this);
+		
+	}
 
-//	@Override
-//	public void addPropertyChangeListener(PropertyChangeListener aListener) {
-//		propertyChangeSupport.addPropertyChangeListener(aListener);
-//		
-//	}
 
 }

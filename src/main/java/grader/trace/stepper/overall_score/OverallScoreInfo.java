@@ -34,23 +34,7 @@ public void setFeatureAutoScore(double featureAutoScore) {
 	this.featureAutoScore = featureAutoScore;
 }
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + featureAutoScore;
-//}
 
-	
-//	public static SerializableFeatureAutoScoreInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
-//			OverviewProjectStepper aProjectStepper, 
-//			SakaiProject aProject,
-//			String aScore,
-//			Object aFinder) {
-//		String aMessage = "Overview Score Autoly Changed to:" + aScore;
-//		SerializableFeatureAutoScoreInfo retVal = new SerializableFeatureAutoScoreInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aScore, aFinder);
-//		retVal.announce();		
-//		return retVal;
-//	}
 	
 
 }

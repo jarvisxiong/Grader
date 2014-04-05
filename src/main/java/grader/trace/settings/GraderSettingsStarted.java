@@ -13,12 +13,7 @@ public class GraderSettingsStarted extends GraderSettingsInfo {
 		super(aMessage, aGradingSettingsModel, aFinder);
 //		 gradingSettingsModel = aGradingSettingsModel;
 	}
-	public static GraderSettingsStarted newCase(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
-		String aMessage = "Grading Settings Started";
-		GraderSettingsStarted retVal = new GraderSettingsStarted(aMessage, aGradingSettingsModel, aFinder);
-		retVal.announce();		
-		return retVal;
-	}
+	
 	@Override
 	public String toCSVRow() {
 		String moduleName = gradingSettingsModel.getModuleProblemSelector().getModule().getValue();
@@ -36,6 +31,12 @@ public class GraderSettingsStarted extends GraderSettingsInfo {
 				navigationKind + "," +
 				navigationFilter + "," +
 				navigationParameter;
+	}
+	public static GraderSettingsStarted newCase(GraderSettingsModel aGradingSettingsModel, Object aFinder) {
+		String aMessage = "Grading Settings Started";
+		GraderSettingsStarted retVal = new GraderSettingsStarted(aMessage, aGradingSettingsModel, aFinder);
+		retVal.announce();		
+		return retVal;
 	}
 //	public GraderSettingsModel getGradingSettingsModel() {
 //		return gradingSettingsModel;

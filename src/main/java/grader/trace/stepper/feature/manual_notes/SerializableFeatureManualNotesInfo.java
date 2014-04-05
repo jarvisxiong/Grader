@@ -6,11 +6,11 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
-import grader.trace.stepper.feature.SerializableFeatureInfo;
+import grader.trace.stepper.feature.SerializableGradingFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureManualNotesInfo extends SerializableFeatureInfo {
+public class SerializableFeatureManualNotesInfo extends SerializableGradingFeatureInfo {
 String featureManualNotes;
 
 

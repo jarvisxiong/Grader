@@ -75,6 +75,7 @@ public class RunningProject {
 
 	public void error() {
 		this.exception = new NotRunnableException();
+		exception.announce();
 	}
 	
 	public static final String FEATURE_HEADER_PREFIX = "*****************************(";

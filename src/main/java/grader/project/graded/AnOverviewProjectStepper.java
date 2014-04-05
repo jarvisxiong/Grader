@@ -36,15 +36,15 @@ import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
-import grader.trace.stepper.ProjectGradingChanged;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
-import grader.trace.stepper.ProjectWindowsRecorded;
 import grader.trace.stepper.auto_visit.ProjectRun;
 import grader.trace.stepper.feature.FeatureColored;
 import grader.trace.stepper.feature.FeatureRetargetedToNewProject;
-import grader.trace.stepper.feature.manual_notes.FeatureManualNotesChanged;
+import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatLoaded;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesUserChange;
 import grader.trace.stepper.feature.manual_notes.FeatureManualNotesColored;
+import grader.trace.stepper.feature.score.FeatureScoreLoaded;
 import grader.trace.stepper.feature.transcript.FeatureTranscriptLoaded;
 import grader.trace.stepper.feedback.FeedbackComputed;
 import grader.trace.stepper.feedback.FeedbackLoaded;
@@ -54,6 +54,9 @@ import grader.trace.stepper.overall_notes.OverallNotesIncludedInFeedback;
 import grader.trace.stepper.overall_notes.OverallNotesLoaded;
 import grader.trace.stepper.overall_notes.OverallNotesSaved;
 import grader.trace.stepper.overall_score.OverallScoreAutoChange;
+import grader.trace.stepper.overall_score.OverallScoreLoaded;
+import grader.trace.stepper.overview.ProjectGradingChanged;
+import grader.trace.stepper.overview.ProjectWindowsRecorded;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -309,9 +312,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// project.getStudentAssignment().getOnyen(),
 			// aGradingFeature.getFeature());
 			double lastScore = getGrade(aGradingFeature.getFeatureName());
-			String result = getSavedResult(aGradingFeature);
-			if (result != "")
-				aGradingFeature.setResultFormat(result);
+			FeatureScoreLoaded.newCase(projectDatabase, this, project, aGradingFeature, featureGradeRecorder.getFileName(), lastScore, this);
+
+			String resultFormat = getSavedResultFormat(aGradingFeature);
+
+			if (resultFormat != "") {
+				FeatureAutoResultFormatLoaded.newCase(projectDatabase, this, project, aGradingFeature, featureGradeRecorder.getFileName(), resultFormat, this);
+
+				aGradingFeature.setResultFormat(resultFormat);
+			}
 			aGradingFeature.pureSetValidate(false);
 
 			// aGradingFeature.initScore(lastScore);
@@ -420,6 +429,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		if (totalScoreRecorder != null)
 //			setInternalScore(getGrade());
 		double savedScore = featureGradeRecorder.getGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
+		OverallScoreLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedScore, this);
 		if (savedScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
 			gradedProjectOverview.internalSetScore(savedScore);
 			// propagate to other recorders
@@ -441,41 +451,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectOverview.setProject(newVal);
 		autoVisitBehavior.setProject(newVal);
 		gradedProjectNavigator.setProject(newVal);
-		// Josh's code from ProjectStepperDisplayerWrapper
-		// Figure out the late penalty
-//		Option<DateTime> timestamp = studentFolder.getTimestamp();
-//		// double gradePercentage = timestamp.isDefined() ?
-//		// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-//		// : 0;
-//
-//		if (isAutoRun() && !getGradingFeatures().isAllAutoGraded()) {
-//			projectDatabase.runProject(onyen, project);
-//		}
-//		
-//		
-//		if (isAutoAutoGrade() && !getGradingFeatures().isAllAutoGraded()) {
-//			autoGrade();
-//			// setComputedSummary();
-//			// gradePercentage = timestamp.isDefined() ?
-//			// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-//			// : 0;
-//		} else {
-//			multiplier = featureGradeRecorder.getEarlyLatePoints(name,
-//					onyen);
-//			if (multiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
-//				multiplier = 1;
-//			featureGradeRecorder.setEarlyLatePoints(name, onyen,
-//					multiplier);
-//
-//			setStoredFeedback();
-//
-//			setStoredOutput();
-//		}
+	
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
 
 		if (selectedGradingFeature != null) {
-			internalSetManualNotes(getNotes(selectedGradingFeature));
+			internalSetManualNotes(getManualNotes(selectedGradingFeature));
 //			internalSetResult(getSavedResult(selectedGradingFeature));  // could  use cached result in selected feature
 			internalSetResult(selectedGradingFeature.getAutoNotes());  
 
@@ -487,16 +468,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		internalSetOverallNotes(readOverallNotes(project));
 		
 		
-//		studentPhoto = projectDatabase.getStudentPhoto(onyen, project);
-				
-//				projectDatabase.getPhotoReader().getIcon(onyen);
-//		photoLabelBeanModel.setIcon(studentPhoto);
 
-//		if (studentPhoto != null){
-//			photoLabelBeanModel.set("", studentPhoto);
-//		} else {
-//			photoLabelBeanModel.set(APhotoReader.NO_PHOTO_TITLE, studentPhoto);
-//		}
 		settingUpProject = false;
 //		setScore();
 		setColors();
@@ -725,10 +697,14 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		featureGradeRecorder.setGrade(project.getStudentAssignment()
 				.getStudentName(), project.getStudentAssignment().getOnyen(),
 				aFeature, newVal);
-
+		
 	}
 
 	double getGrade(String aFeature) {
+//		double retVal = featureGradeRecorder.getGrade(project.getStudentAssignment()
+//				.getStudentName(), project.getStudentAssignment().getOnyen(),
+//				aFeature);
+//		return retVal;
 		return featureGradeRecorder.getGrade(project.getStudentAssignment()
 				.getStudentName(), project.getStudentAssignment().getOnyen(),
 				aFeature);
@@ -851,10 +827,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	public void setManualNotes(String newVal) {
 		if (preSetManualNotes()) {
-			setNotes(selectedGradingFeature, newVal);
-			FeatureManualNotesChanged.newCase(projectDatabase, this, project, selectedGradingFeature, newVal, this);
+			setManualNotes(selectedGradingFeature, newVal);
+			FeatureManualNotesUserChange.newCase(projectDatabase, this, project, selectedGradingFeature, newVal, this);
 
 			featureGradeRecorder.setFeatureComments(newVal);
+			
 		}
 
 		setComputedFeedback();
@@ -883,7 +860,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldVal = overallNotes;
 
 		overallNotes = newVal;		
-		featureGradeRecorder.save(overallNotes);
+		featureGradeRecorder.saveOverallNotes(overallNotes);
 		OverallNotesIncludedInFeedback.newCase(projectDatabase, this, project, overallNotes, this);
 		propertyChangeSupport.firePropertyChange("OverallNotes", oldVal, newVal);
 		
@@ -979,7 +956,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 
 	
-	String getSavedResult(GradingFeature aGradingFeature) {
+	String getSavedResultFormat(GradingFeature aGradingFeature) {
 		return featureGradeRecorder.getResult(getName(), getOnyen(), aGradingFeature.getFeatureName());
 	}
 //
@@ -993,7 +970,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		return "";
 	}
 
-	void setNotes(GradingFeature aGradingFeature, String aNotes) {
+	void setManualNotes(GradingFeature aGradingFeature, String aNotes) {
 		featureGradeRecorder.setFeatureComments(aNotes);
 		featureGradeRecorder.comment(aGradingFeature);
 		aGradingFeature.setManualNotes(aNotes);
@@ -1005,7 +982,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	}
 
-	String getNotes(GradingFeature aGradingFeature) {
+	String getManualNotes(GradingFeature aGradingFeature) {
 		String retVal = aGradingFeature.getManualNotes();
 		// CheckResult checkResult =
 		// gradingFeatureToCheckResult(aGradingFeature);
@@ -1019,7 +996,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	
 	void refreshSelectedFeature() {
 		if (selectedGradingFeature != null)
-		manualNotes = getNotes(selectedGradingFeature);
+		manualNotes = getManualNotes(selectedGradingFeature);
 		else 
 			manualNotes = "";
 //		propertyChangeSupport.firePropertyChange("this", null, this); // an
@@ -1043,7 +1020,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setSelectedFeature (GradingFeature gradingFeature) {
 			selectedGradingFeature = gradingFeature;
 
-			internalSetManualNotes(getNotes(gradingFeature));
+			internalSetManualNotes(getManualNotes(gradingFeature));
 			internalSetAutoNotes(getInMemoryResult(gradingFeature));
 //			manualNotes = getNotes(gradingFeature);
 //			autoNotes = getInMemoryResult(gradingFeature);
@@ -1253,7 +1230,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void redirectProject() {
 		projectDatabase.initIO();
 		projectDatabase.recordWindows();
-		ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
+//		ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
 	}
 	
 
@@ -1269,7 +1246,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //			setObjectAdapters();
 			if (project != null) {
 				projectDatabase.recordWindows();
-				ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
+//				ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
 				currentColors.clear();
 				nextColors.clear();
 				currentOverallNotesColor = null;

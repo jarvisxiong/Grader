@@ -18,17 +18,18 @@ public class AutomaticNavigationStarted extends GraderSettingsInfo {
 
 //		 gradingSettingsModel = aGradingSettingsModel;
 	}
-	public static AutomaticNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
-		String aMessage = "Automatic Navigation Started";
-		AutomaticNavigationStarted retVal = new AutomaticNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
-		retVal.announce();		
-		return retVal;
-	}
+	
 	public SakaiProjectDatabase getProjectDatabase() {
 		return projectDatabase;
 	}
 	public void setProjectDatabase(SakaiProjectDatabase projectDatabase) {
 		this.projectDatabase = projectDatabase;
+	}
+	public static AutomaticNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
+		String aMessage = "Automatic Navigation Started";
+		AutomaticNavigationStarted retVal = new AutomaticNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
+		retVal.announce();		
+		return retVal;
 	}
 
 }

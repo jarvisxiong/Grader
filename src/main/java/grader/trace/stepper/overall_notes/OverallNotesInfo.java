@@ -34,23 +34,7 @@ public void setOverallNotes(String overallNotes) {
 	this.overallNotes = overallNotes;
 }
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + overallNotes;
-//}
 
-	
-//	public static SerializableOverallNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
-//			OverviewProjectStepper aProjectStepper, 
-//			SakaiProject aProject,
-//			String aNotes,
-//			Object aFinder) {
-//		String aMessage = "Overview Notes Manually Changed to:" + aNotes;
-//		SerializableOverallNotesInfo retVal = new SerializableOverallNotesInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
-//		retVal.announce();		
-//		return retVal;
-//	}
 	
 
 }

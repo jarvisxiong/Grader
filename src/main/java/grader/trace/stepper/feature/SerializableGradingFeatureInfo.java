@@ -1,4 +1,4 @@
-package grader.trace.overall_transcript;
+package grader.trace.stepper.feature;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,48 +6,49 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
-import grader.trace.stepper.feature.SerializableGradingFeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableOverallTranscriptInfo extends SerializableStepperInfo {
-String transcript;
+public class SerializableGradingFeatureInfo extends SerializableStepperInfo {
+GradingFeature feature;
 
 
 
-public SerializableOverallTranscriptInfo(String aMessage,
+
+public SerializableGradingFeatureInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			String aNotes, Object aFinder) {
+			GradingFeature aFeature,
+			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		transcript = aNotes;
+		feature = aFeature;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getTranscript() {
-	return transcript;
+public GradingFeature getGradingFeature() {
+	return feature;
 }
 
 
 
-public void setTranscript(String transcript) {
-	this.transcript = transcript;
+public void setGradingFeature(GradingFeature aFeature) {
+	this.feature = aFeature;
 }
 
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + transcript;
+			+ "," + feature.getFeatureName();
 }
 
 	
-//	public static SerializableTranscriptInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureAutoNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject,
 //			String aNotes,
 //			Object aFinder) {
-//		String aMessage = "Overview Notes Manually Changed to:" + aNotes;
-//		SerializableTranscriptInfo retVal = new SerializableTranscriptInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+//		String aMessage = "Overview Notes Autoly Changed to:" + aNotes;
+//		SerializableFeatureAutoNotesInfo retVal = new SerializableFeatureAutoNotesInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}

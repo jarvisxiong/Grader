@@ -23,21 +23,7 @@ public OverallNotesChanged(String aMessage,
 		// TODO Auto-generated constructor stub
 	}
 
-//public String getOverallNotes() {
-//	return overallNotes;
-//}
-//
-//
-//
-//public void setOverallNotes(String overallNotes) {
-//	this.overallNotes = overallNotes;
-//}
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + overallNotes;
-//}
 
 	
 	public static OverallNotesChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 

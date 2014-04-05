@@ -18,17 +18,18 @@ public class ManualNavigationStarted extends GraderSettingsInfo {
 
 //		 gradingSettingsModel = aGradingSettingsModel;
 	}
-	public static ManualNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
-		String aMessage = "Manual Navigation Started";
-		ManualNavigationStarted retVal = new ManualNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
-		retVal.announce();		
-		return retVal;
-	}
+	
 	public SakaiProjectDatabase getProjectDatabase() {
 		return projectDatabase;
 	}
 	public void setProjectDatabase(SakaiProjectDatabase projectDatabase) {
 		this.projectDatabase = projectDatabase;
+	}
+	public static ManualNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
+		String aMessage = "Manual Navigation Started";
+		ManualNavigationStarted retVal = new ManualNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
+		retVal.announce();		
+		return retVal;
 	}
 
 }
