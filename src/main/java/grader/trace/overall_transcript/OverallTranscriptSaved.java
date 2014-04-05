@@ -1,0 +1,52 @@
+package grader.trace.overall_transcript;
+
+import grader.assignment.GradingFeature;
+import grader.project.graded.OverviewProjectStepper;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsModel;
+import grader.trace.stepper.StepperInfo;
+import bus.uigen.trace.ConstantsMenuAdditionEnded;
+import util.trace.TraceableInfo;
+
+public class OverallTranscriptSaved extends OverallTranscriptInfo {
+	String TranscriptFileName;
+
+
+
+public OverallTranscriptSaved(String aMessage,
+			SakaiProjectDatabase aSakaiProjectDatabase,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
+			String anOvervewFileName,
+			String aNotes,
+			Object aFinder) {
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+		TranscriptFileName = anOvervewFileName;
+		// TODO Auto-generated constructor stub
+	}
+
+public String getTranscriptFileName() {
+	return TranscriptFileName;
+}
+
+
+
+public void setTranscriptFileName(String TranscriptFileName) {
+	this.TranscriptFileName = TranscriptFileName;
+}
+
+	
+	public static OverallTranscriptSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+			OverviewProjectStepper aProjectStepper, 
+			SakaiProject aProject,
+			String anOverviewFileName,
+			String aNotes,
+			Object aFinder) {
+		String aMessage = "  Transcript Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		OverallTranscriptSaved retVal = new OverallTranscriptSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
+		retVal.announce();		
+		return retVal;
+	}
+	
+
+}

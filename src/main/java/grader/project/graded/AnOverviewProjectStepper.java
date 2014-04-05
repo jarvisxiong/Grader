@@ -33,13 +33,21 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
-import grader.trace.feature.manual_notes.FeatureManualNotesColored;
-import grader.trace.feature.transcript.FeatureTranscriptLoaded;
+import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.ProjectGradingChanged;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
+import grader.trace.stepper.ProjectWindowsRecorded;
 import grader.trace.stepper.auto_visit.ProjectRun;
+import grader.trace.stepper.feature.FeatureColored;
+import grader.trace.stepper.feature.FeatureRetargetedToNewProject;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesChanged;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesColored;
+import grader.trace.stepper.feature.transcript.FeatureTranscriptLoaded;
+import grader.trace.stepper.feedback.FeedbackComputed;
+import grader.trace.stepper.feedback.FeedbackLoaded;
 import grader.trace.stepper.overall_notes.OverallNotesChanged;
 import grader.trace.stepper.overall_notes.OverallNotesColored;
 import grader.trace.stepper.overall_notes.OverallNotesIncludedInFeedback;
@@ -210,7 +218,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	}
 
-	String readComments(SakaiProject aProject) {
+	String readOverallNotes(SakaiProject aProject) {
 		try {
 			String fileName = getCommentsFileName(aProject);
 //			return FileUtils.readFileToString(new File(
@@ -230,11 +238,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			return;
 		try {
 			String fileName = getCommentsFileName(aProject);
-			OverallNotesSaved.newCase(projectDatabase, this, project, fileName, newVal, this);
 //			FileUtils.writeStringToFile(
 //					new File(getCommentsFileName(aProject)), newVal);
 			FileUtils.writeStringToFile(
 					new File(fileName), newVal);
+			OverallNotesSaved.newCase(projectDatabase, this, project, fileName, newVal, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -313,6 +321,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			if (lastScore != ASakaiCSVFinalGradeManager.DEFAULT_VALUE)
 
 				aGradingFeature.pureSetScore(lastScore);
+			FeatureRetargetedToNewProject.newCase(projectDatabase, this, project, aGradingFeature, this);
 
 		}
 	}
@@ -349,6 +358,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		StringBuffer currentOutput = Common.toText(project.getOutputFileName());	
 		StringBuffer currentOutput = Common.toText(fileName);
 		 project.setCurrentOutput(currentOutput);
+			OverallTranscriptLoaded.newCase(projectDatabase, this, project,  fileName, output, this);
+
 		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
 		  allOutput = currentOutput.toString();
 
@@ -473,7 +484,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			autoNotes = "";
 		}
 
-		internalSetComments(readComments(project));
+		internalSetOverallNotes(readOverallNotes(project));
 		
 		
 //		studentPhoto = projectDatabase.getStudentPhoto(onyen, project);
@@ -514,12 +525,18 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	
 	void setGradingFeatureColor(int index) {
 		if (settingUpProject) return;
-		Color nextFeatureColor = projectDatabase.getGradingFeatureColorer().color(projectDatabase.getGradingFeatures().get(index));
+		GradingFeature gradingFeature = projectDatabase.getGradingFeatures().get(index);
+//		Color nextFeatureColor = projectDatabase.getGradingFeatureColorer().color(projectDatabase.getGradingFeatures().get(index));
+		Color nextFeatureColor = projectDatabase.getGradingFeatureColorer().color(gradingFeature);
+
 		nextColors.set(index,nextFeatureColor );
 
 		if (currentColors.get(index) != nextFeatureColor) {
-		setColor ( "GradingFeatures." + index, nextColors.get(index));
-		currentColors.set(index, nextFeatureColor);	
+			setColor ( "GradingFeatures." + index, nextFeatureColor);
+
+//		setColor ( "GradingFeatures." + index, nextColors.get(index));
+		currentColors.set(index, nextFeatureColor);
+		FeatureColored.newCase(projectDatabase, this, project, gradingFeature, nextFeatureColor, this);
 		}
 		if (selectedGradingFeature == projectDatabase.getGradingFeatures().get(index)) {
 			nextManualNotesColor = nextFeatureColor;
@@ -835,6 +852,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setManualNotes(String newVal) {
 		if (preSetManualNotes()) {
 			setNotes(selectedGradingFeature, newVal);
+			FeatureManualNotesChanged.newCase(projectDatabase, this, project, selectedGradingFeature, newVal, this);
+
 			featureGradeRecorder.setFeatureComments(newVal);
 		}
 
@@ -860,7 +879,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 	}
 @Override
-	public void internalSetComments(String newVal) {
+	public void internalSetOverallNotes(String newVal) {
 		String oldVal = overallNotes;
 
 		overallNotes = newVal;		
@@ -873,7 +892,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setOverallNotes(String newVal) {
     	setChanged(true);
     	OverallNotesChanged.newCase(projectDatabase, this, project, newVal, this);
-		internalSetComments(newVal);
+		internalSetOverallNotes(newVal);
 		
 		// String oldVal = newVal;
 		// comments = newVal;
@@ -889,12 +908,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldVal = feedback;
 		feedback = featureGradeRecorder.computeSummary();
 		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
+		if (!oldVal.equals(feedback))
+			FeedbackComputed.newCase(projectDatabase, this, project, null, feedback, this);
 	}
     @Override
 	public void setStoredFeedback() {
 		String oldVal = feedback;
-		feedback = featureGradeRecorder.getStoredSummary();
+		feedback = featureGradeRecorder.getStoredSummary();		
 		propertyChangeSupport.firePropertyChange("feedback", oldVal, feedback);
+		FeedbackLoaded.newCase(projectDatabase, this, project, null, feedback, this);
 	}
 	
 //	@Row(19)
@@ -1231,6 +1253,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	void redirectProject() {
 		projectDatabase.initIO();
 		projectDatabase.recordWindows();
+		ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
 	}
 	
 
@@ -1246,6 +1269,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //			setObjectAdapters();
 			if (project != null) {
 				projectDatabase.recordWindows();
+				ProjectWindowsRecorded.newCase(projectDatabase, this, project, this);
 				currentColors.clear();
 				nextColors.clear();
 				currentOverallNotesColor = null;
@@ -1288,6 +1312,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public void setChanged(boolean changed) {
 		this.changed = changed;
+		if (changed)
+			ProjectGradingChanged.newCase(projectDatabase, this, project, this);
 	}
 	@Override
 	public boolean isSettingUpProject() {

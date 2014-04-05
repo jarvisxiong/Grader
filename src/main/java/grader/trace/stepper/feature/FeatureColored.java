@@ -1,49 +1,50 @@
 package grader.trace.stepper.feature;
 
+import java.awt.Color;
+
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
+import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureRetargetedToNewProject extends SerializableFeatureInfo {
-//String overallNotes;
+public class FeatureColored extends FeatureInfo {
+	Color featureAutoNotesColor;
 
 
-public FeatureRetargetedToNewProject(String aMessage,
+
+public FeatureColored(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
+			Color aColor,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
+		featureAutoNotesColor = aColor;
 		// TODO Auto-generated constructor stub
 	}
 
-//public String getOverallNotes() {
-//	return overallNotes;
-//}
-//
-//
-//
-//public void setOverallNotes(String overallNotes) {
-//	this.overallNotes = overallNotes;
-//}
+public Color getFeatureAutoNotesColor() {
+	return featureAutoNotesColor;
+}
 
-//@Override
-//public String toCSVRow() {
-//	return super.toCSVRow() 
-//			+ "," + overallNotes;
-//}
+
+
+public void setFeatureAutoNotesColor(Color featureAutoNotesColor) {
+	this.featureAutoNotesColor = featureAutoNotesColor;
+}
 
 	
-	public static FeatureRetargetedToNewProject newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureColored newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
+			Color aColor,
 			Object aFinder) {
-		String aMessage = "Feature: " + aFeature.getFeatureName() + " retargeted to project of student:" + aProjectStepper.getOnyen();
-		FeatureRetargetedToNewProject retVal = new FeatureRetargetedToNewProject(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature,aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "Colored:" + aColor;
+		FeatureColored retVal = new FeatureColored(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aColor, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

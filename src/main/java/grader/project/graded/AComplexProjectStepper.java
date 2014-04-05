@@ -311,8 +311,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.internalSetAutoNotes(newVal);
 	}
 
-	public void internalSetComments(String newVal) {
-		mainProjectStepper.internalSetComments(newVal);
+	public void internalSetOverallNotes(String newVal) {
+		mainProjectStepper.internalSetOverallNotes(newVal);
 	}
 
 	public void setColors() {

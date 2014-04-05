@@ -1,4 +1,4 @@
-package grader.trace.feature.transcript;
+package grader.trace.stepper.feature.manual_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -6,49 +6,50 @@ import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.stepper.SerializableStepperInfo;
-import grader.trace.stepper.feature.SerializableFeatureInfo;
+import grader.trace.stepper.StepperInfo;
+import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFatureTranscriptInfo extends SerializableFeatureInfo {
-String transcript;
+public class FeatureManualNotesInfo extends FeatureInfo {
+String featureManualNotes;
 
 
 
-public SerializableFatureTranscriptInfo(String aMessage,
+public FeatureManualNotesInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			GradingFeature aFeature,
 			String aNotes, Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
-		transcript = aNotes;
+		featureManualNotes = aNotes;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getTranscript() {
-	return transcript;
+public String getFeatureManualNotes() {
+	return featureManualNotes;
 }
 
 
 
-public void setTranscript(String transcript) {
-	this.transcript = transcript;
+public void setFeatureManualNotes(String featureManualNotes) {
+	this.featureManualNotes = featureManualNotes;
 }
 
-@Override
-public String toCSVRow() {
-	return super.toCSVRow() 
-			+ "," + transcript;
-}
+//@Override
+//public String toCSVRow() {
+//	return super.toCSVRow() 
+//			+ "," + featureManualNotes;
+//}
 
 	
-//	public static SerializableTranscriptInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureManualNotesInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject,
 //			String aNotes,
 //			Object aFinder) {
 //		String aMessage = "Overview Notes Manually Changed to:" + aNotes;
-//		SerializableTranscriptInfo retVal = new SerializableTranscriptInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
+//		SerializableFeatureManualNotesInfo retVal = new SerializableFeatureManualNotesInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}

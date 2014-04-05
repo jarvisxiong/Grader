@@ -330,8 +330,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.internalSetAutoNotes(newVal);
 	}
 
-	public void internalSetComments(String newVal) {
-		overviewProjectStepper.internalSetComments(newVal);
+	public void internalSetOverallNotes(String newVal) {
+		overviewProjectStepper.internalSetOverallNotes(newVal);
 	}
 
 	public void setColors() {

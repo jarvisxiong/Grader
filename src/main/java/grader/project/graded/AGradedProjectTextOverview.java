@@ -35,7 +35,11 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.multiplier.MultiplierColored;
+import grader.trace.stepper.multiplier.MultiplierUserChange;
 import grader.trace.stepper.navigation.UserOnyenSet;
+import grader.trace.stepper.overall_score.OverallScoreColored;
+import grader.trace.stepper.overall_score.OverallScoreManualChange;
+import grader.trace.stepper.overall_score.OverallScoreSaved;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -270,6 +274,7 @@ public class AGradedProjectTextOverview  implements
 		if (currentScoreColor == nextScoreColor ) return;
 		setColor("Score",  nextScoreColor);
 		currentScoreColor = nextScoreColor;
+		OverallScoreColored.newCase(projectDatabase, projectStepper, project, nextScoreColor, score, this);
 	}
 	
 
@@ -330,11 +335,13 @@ public class AGradedProjectTextOverview  implements
 		if (score == newVal) return;
 		double oldVal = score;
 		internalSetScore(newVal);
+		OverallScoreManualChange.newCase (projectDatabase, projectStepper, project, score, this);
 		if (totalScoreRecorder != null)
 
 			// if (gradeRecorder != null)
 			setGrade(newVal);
 		featureGradeRecorder.setGrade(getName(), getOnyen(), newVal);
+		OverallScoreSaved.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), score, this);
 
 		
 //		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
@@ -385,6 +392,7 @@ public class AGradedProjectTextOverview  implements
 				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
 		featureGradeRecorder.saveMultiplier(newValue);
 		projectStepper.setChanged(true);
+		MultiplierUserChange.newCase(projectDatabase, projectStepper, project, newValue, this);
 //		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
 //		String oldOverallNotes = getOverallNotes();
 //		String newNotes = oldOverallNotes + " " + aNotes;

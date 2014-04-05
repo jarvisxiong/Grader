@@ -8,12 +8,14 @@ import grader.file.FileProxy;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.feature.manual_notes.FeatureManualNotesChanged;
-import grader.trace.feature.manual_notes.FeatureManualNotesLoaded;
-import grader.trace.feature.manual_notes.FeatureManualNotesSaved;
+import grader.trace.stepper.feature.FeatureUserGraded;
+import grader.trace.stepper.feature.FeatureValidated;
 import grader.trace.stepper.feature.auto_notes.FeatureAutoNotesLoaded;
 import grader.trace.stepper.feature.auto_notes.FeatureAutoNotesSaved;
 import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatLoaded;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesChanged;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesLoaded;
+import grader.trace.stepper.feature.manual_notes.FeatureManualNotesSaved;
 import util.annotations.*;
 import util.misc.Common;
 import util.trace.Tracer;
@@ -367,6 +369,7 @@ public class AGradingFeature implements GradingFeature {
 		if (newVal) // let true remain true as once validated, always validated. 
 			validate = newVal;
 		propertyChangeSupport.firePropertyChange("Validate", false, true);
+		FeatureValidated.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, this);
 
 	}
 	
@@ -424,15 +427,18 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public void setGraded(boolean newValue) {
-		if (graded == newValue)
-			return;
+//		if (graded == newValue)
+//			return;
 		graded = newValue;
-
+		
 		if (featureChecker != null) {
 			autoGrade();
 		} else {
 			correct();
 		}
+		graded = true;
+		FeatureUserGraded.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, this);
+		setSelected(true);
 	}
 
 	// this is not displayed
@@ -473,9 +479,10 @@ public class AGradingFeature implements GradingFeature {
 			return;
 		boolean oldVal = isSelected;
 		isSelected = newVal;
-		if (newVal) {
-			setGraded(true);
-		}
+		// why set graded to true?
+//		if (newVal) {
+//			setGraded(true);
+//		}
 		propertyChangeSupport
 				.firePropertyChange("Selected", oldVal, isSelected);
 

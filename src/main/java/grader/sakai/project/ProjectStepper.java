@@ -121,7 +121,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 
 	void internalSetAutoNotes(String newVal);
 
-	void internalSetComments(String newVal);
+	void internalSetOverallNotes(String newVal);
 
 	void setColors();
 

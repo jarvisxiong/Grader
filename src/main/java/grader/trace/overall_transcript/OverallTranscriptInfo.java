@@ -1,4 +1,4 @@
-package grader.trace.feature.transcript;
+package grader.trace.overall_transcript;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -11,17 +11,16 @@ import grader.trace.stepper.feature.FeatureInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureTranscriptInfo extends FeatureInfo {
+public class OverallTranscriptInfo extends StepperInfo {
 String transcript;
 
 
 
-public FeatureTranscriptInfo(String aMessage,
+public OverallTranscriptInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
-			GradingFeature aFeature,
 			String aNotes, Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		transcript = aNotes;
 		// TODO Auto-generated constructor stub
 	}

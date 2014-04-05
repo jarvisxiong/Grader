@@ -1,4 +1,4 @@
-package grader.trace.feature.manual_notes;
+package grader.trace.stepper.feature.manual_notes;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;

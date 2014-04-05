@@ -3,6 +3,7 @@ package framework.logging.loggers;
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
+import grader.trace.stepper.feedback.FeedbackSaved;
 
 import org.apache.commons.io.FileUtils;
 
@@ -24,6 +25,7 @@ public class FeedbackTextSummaryLogger implements Logger {
 
         try {
             FileUtils.writeStringToFile(file, text);
+            FeedbackSaved.newCase(null, null, null, file.getAbsolutePath(), text, this);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

@@ -1,6 +1,9 @@
 package grader.project;
 
 import util.misc.TeePrintStream;
+import grader.sakai.project.SakaiProject;
+import grader.trace.overall_transcript.OverallTranscriptSaved;
+import grader.trace.stepper.feature.transcript.FeatureTranscriptSaved;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,6 +22,8 @@ public class AReflectionBasedProjectRunner implements Runnable {
     String[] inputFiles;
     Method mainMethod;
     Class mainClass;
+    boolean appendedToTranscript;
+
 
     public AReflectionBasedProjectRunner(String aMainClassName, String[][] aMainArgs, Project aProject, String[] anInputFiles, String[] anOutputFiles, Class aMainClass, Method aMainMethod) {
         projectName = aProject.getProjectFolderName();
@@ -43,6 +48,7 @@ public class AReflectionBasedProjectRunner implements Runnable {
 
             if (outputFiles.length == 0) {
                 outputFiles = new String[]{project.getOutputFileName()};
+                appendedToTranscript = true;
             }
             if (mainArgs.length == 0) {
                 mainArgs = new String[1][];
@@ -81,6 +87,8 @@ public class AReflectionBasedProjectRunner implements Runnable {
                 project.setHasBeenRun(true);
 
                 System.out.println("terminated main method");
+                if (appendedToTranscript)
+                	OverallTranscriptSaved.newCase(null, null,   (SakaiProject) project, project.getOutputFileName(), "???", this);
             }
 
         } catch (Exception e) {

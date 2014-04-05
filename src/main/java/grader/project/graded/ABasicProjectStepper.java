@@ -575,7 +575,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 			autoNotes = "";
 		}
 
-		internalSetComments(readComments(project));
+		internalSetOverallNotes(readComments(project));
 		
 		
 //		studentPhoto = projectDatabase.getStudentPhoto(onyen, project);
@@ -1263,7 +1263,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 
 	}
 @Override
-	public void internalSetComments(String newVal) {
+	public void internalSetOverallNotes(String newVal) {
 		String oldVal = overallNotes;
 
 		overallNotes = newVal;
@@ -1273,7 +1273,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 	}
     @Override
 	public void setOverallNotes(String newVal) {
-		internalSetComments(newVal);
+		internalSetOverallNotes(newVal);
 		// String oldVal = newVal;
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);

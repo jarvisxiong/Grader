@@ -1,4 +1,4 @@
-package grader.trace.feature.manual_notes;
+package grader.trace.stepper.feature.transcript;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -9,41 +9,41 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureManualNotesSaved extends FeatureManualNotesInfo {
-	String featureManualNotesFileName;
+public class FeatureTranscriptSaved extends FeatureTranscriptInfo {
+	String TranscriptFileName;
 
 
 
-public FeatureManualNotesSaved(String aMessage,
+public FeatureTranscriptSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aNotes, aFinder);
-		featureManualNotesFileName = anOvervewFileName;
+		TranscriptFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}
 
-public String getFeatureManualNotesFileName() {
-	return featureManualNotesFileName;
+public String getTranscriptFileName() {
+	return TranscriptFileName;
 }
 
 
 
-public void setFeatureManualNotesFileName(String featureManualNotesFileName) {
-	this.featureManualNotesFileName = featureManualNotesFileName;
+public void setTranscriptFileName(String TranscriptFileName) {
+	this.TranscriptFileName = TranscriptFileName;
 }
 
 	
-	public static FeatureManualNotesSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeatureTranscriptSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, GradingFeature aFeature,
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
-		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Manual Notes Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
-		FeatureManualNotesSaved retVal = new FeatureManualNotesSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
+		String aMessage = "Feature: "  + aFeature.getFeatureName() + "  Transcript Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
+		FeatureTranscriptSaved retVal = new FeatureTranscriptSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}
