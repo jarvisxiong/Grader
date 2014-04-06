@@ -53,9 +53,9 @@ import bus.uigen.attributes.AttributeNames;
 public class Driver {
 	
 	public static void setTracing() {
-		Tracer.showInfo(true);
+//		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(OverallNotesChanged.class, true);
-		Tracer.setKeywordPrintStatus(Tracer.ALL_KEYWORDS, true);
+//		Tracer.setKeywordPrintStatus(Tracer.ALL_KEYWORDS, true);
 
 	}
 	
@@ -152,8 +152,14 @@ public class Driver {
 		
 		
 	}
+	static GraderSettingsModel settingsModel;
+    static OEFrame settingsFrame = null;
+    static ProjectDatabaseWrapper database = null;
+
 
     public static void main(String[] args) {
+		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
+
     	setTracing();
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 
@@ -230,8 +236,10 @@ public class Driver {
 
             // Run the grading process
             String controller = configuration.getString("grader.controller", "GradingManager");
-            GraderSettingsModel settingsModel = null;
-            OEFrame settingsFrame = null;
+//            GraderSettingsModel settingsModel = null;
+             settingsModel = null;
+
+//            OEFrame settingsFrame = null;
             String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
@@ -301,7 +309,8 @@ public class Driver {
                 BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
 
                 // Create the database
-                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+//                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+                 database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
@@ -325,46 +334,24 @@ public class Driver {
                 	database.getOrCreateProjectStepper().setAutoRun(true);
 
                 database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);                
-//				while (true) {
-//					try {
-//						if (settingsModel != null)
-//						goToOnyen = settingsModel.getOnyens().getGoToOnyen();
-//						boolean retVal = database.nonBlockingRunProjectsInteractively(goToOnyen);
-//						if (retVal)
-//							break;
-//						else
-//							Tracer.error("Did not find any entries matching filter. Try again.");
-//						
-//					} catch (MissingOnyenException moe) {
-//						Tracer.error("Student:" + goToOnyen + " not in specified range. Try again.");
-//					}
-//
-//
-//					if (settingsModel != null)
-//						settingsModel.awaitBegin();
-//
-//				}
-//				if (settingsFrame != null)
-//					settingsFrame.dispose();
-			}
-
-
-//        } catch (ConfigurationException e) {
-//            System.err.println("Error loading config file.");
-//            System.err.println(e.getMessage());
-//        } catch (ClassNotFoundException e) {
-//            System.err.println("Could not find project requirements.");
-//            System.err.println(e.getMessage());
-//        } catch (InstantiationException e) {
-//            System.err.println("Could not create project requirements.");
-//            System.err.println(e.getMessage());
-//        } catch (IllegalAccessException e) {
-//            System.err.println("Could not create project requirements.");
-//            System.err.println(e.getMessage());
-//        }
-////        catch (IOException e) {
-////			// TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
+}
     }
+
+	public static GraderSettingsModel getSettingsModel() {
+		return settingsModel;
+	}
+
+	
+
+	public static OEFrame getSettingsFrame() {
+		return settingsFrame;
+	}
+
+	
+
+	public static ProjectDatabaseWrapper getDatabase() {
+		return database;
+	}
+
+	
 }

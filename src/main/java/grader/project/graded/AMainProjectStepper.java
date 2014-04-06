@@ -266,7 +266,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@ComponentWidth(700)
 	@ComponentHeight(50)
 	@Row(1)
-	@Explanation ("Summary, feature independent notes.")
+	@Explanation ("Summary, feature independent notes. Press return to see color change immediately. Otherwise the notes will be processed when you press some button.")
 	public String getOverallNotes() {
 		return overviewProjectStepper.getOverallNotes();
 	}

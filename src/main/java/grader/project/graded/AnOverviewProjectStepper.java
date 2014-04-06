@@ -869,6 +869,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
     @Override
 	public void setOverallNotes(String newVal) {
+    	if (newVal.equals(overallNotes)) return;
     	setChanged(true);
     	OverallNotesChanged.newCase(projectDatabase, this, project, newVal, this);
 		internalSetOverallNotes(newVal);
@@ -877,6 +878,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// comments = newVal;
 		// propertyChangeSupport.firePropertyChange("comments", oldVal, newVal);
 //		featureGradeRecorder.save(overallNotes);
+		setOverallNotesColor();
 		writeComments(project, newVal);
 		setComputedFeedback();
 		
@@ -1122,7 +1124,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			setChanged(true);
 			return; // do not want to execute the statement below as it  will cause infinite recursion
 			
-		} else if (evt.getSource() == getNavigationSetter().getNavigationFilterSetter()) {
+		} else if (evt.getSource() instanceof GradingFeature
+				&& evt.getPropertyName().equalsIgnoreCase("manualNotes") && !settingUpProject) {
+//			GradingFeature gradingFeature = (GradingFeature) evt.getSource();
+//			validate(gradingFeature);
+			setGradingFeatureColors();
+//			gradingFeature.setSelected(true); 
+		}
+		
+		else if (evt.getSource() == getNavigationSetter().getNavigationFilterSetter()) {
 			gradedProjectNavigator.resetNoFilteredRecords();
 		}
 		// we will refresh only on selection changes

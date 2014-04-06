@@ -6,8 +6,10 @@ import grader.trace.file.sakai_bulk_folder.student.CommentsFileLoaded;
 import grader.trace.file.sakai_bulk_folder.student.DocumentFileLoaded;
 import grader.trace.file.sakai_bulk_folder.student.FeedbackFolderLoaded;
 import grader.trace.file.sakai_bulk_folder.student.SubmissionFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.student.SubmissionFolderNotFound;
 import grader.trace.file.sakai_bulk_folder.student.TimestampFileLoaded;
 import util.misc.Common;
+import util.trace.Tracer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -39,7 +41,11 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             onyen = aStudentDescription.substring(parenIndex + 1, studentDescription.length() - 1);
             studentFolder = aFileProxy;
             submissionFolder = aFileProxy.getFileEntryFromLocalName(SUBMISSION_LOCAL_NAME);
+            if (submissionFolder != null)
             SubmissionFolderLoaded.newCase(submissionFolder.getAbsoluteName(), this);
+            else {
+            	throw SubmissionFolderNotFound.newCase(onyen, this);
+            }
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
             FeedbackFolderLoaded.newCase(feedbackFolder.getAbsoluteName(), this);
 
@@ -61,7 +67,12 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             }
             submitted = timeStamp != null && date != null;
             findDocuments();
-        } catch (Exception e) {
+        } catch (SubmissionFolderNotFound sfnf) {
+        	Tracer.error(sfnf.getMessage());
+
+        }
+        catch (Exception e) {
+//        	System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

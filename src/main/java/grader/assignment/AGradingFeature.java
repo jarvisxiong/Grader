@@ -613,7 +613,7 @@ public class AGradingFeature implements GradingFeature {
 		this.manualNotes = newVal;
 //		FeatureManualNotesChanged.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
 		recordManualNotes();
-//		propertyChangeSupport.firePropertyChange("notes", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("ManualNotes", oldVal, newVal);
 	}
 	
 	
