@@ -7,7 +7,7 @@ import framework.utils.GraderSettings;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.file.load.RootZipFileFolderLoaded;
-import grader.trace.file.load.ZipFileUnzipped;
+import grader.trace.file.load.FileUnzipped;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import tools.DirectoryUtils;
@@ -56,7 +56,7 @@ public class ProjectWrapper extends StandardProject {
                 try {
                     ZipFile zip = new ZipFile(path);
                     zip.extractAll(dir.getAbsolutePath());
-                    ZipFileUnzipped.newCase(path.getName(), ProjectWrapper.class);
+                    FileUnzipped.newCase(path.getName(), ProjectWrapper.class);
                     return dir;
                 } catch (ZipException e) {
                     throw new FileNotFoundException();

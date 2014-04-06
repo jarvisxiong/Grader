@@ -4,6 +4,8 @@ import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
+import grader.trace.file.sakai_bulk_folder.student.project.ProjectFolderNotFound;
+import grader.trace.file.sakai_bulk_folder.student.project.RubrickFileLoaded;
 
 import java.util.Set;
 
@@ -78,6 +80,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
         for (String childName : childrenNames) {
             FileProxy childProxy = submissionFolder.getFileEntry(childName);
             if (childName.toLowerCase().indexOf(RUBRICK_SUBSTRING) > -1) {
+            	RubrickFileLoaded.newCase(childName, this);
                 return childProxy;
             }
         }
@@ -100,8 +103,10 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     		}	
     	
     	}
-    	if (projectFolder == null)
-    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
+    	if (projectFolder == null) {
+    		ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this);
+//    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
+    	}
         
     }
 //    void findRubrickAndProjectOld() {

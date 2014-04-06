@@ -8,7 +8,13 @@ import java.io.InputStreamReader;
 
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
+
 import grader.file.FileProxy;
+import grader.trace.file.compilation.ClassFileNotFound;
+import grader.trace.file.compilation.ClassLoaded;
+import grader.trace.file.compilation.CompilationUnitCreated;
+import grader.trace.file.compilation.JavacSourceClassCreated;
+import grader.trace.file.compilation.QDoxClassCreated;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -54,21 +60,26 @@ public class AClassDescription  implements ClassDescription {
 //			javaClass = Class.forName(aClassName);
 			javaClass = aClassLoader.loadClass(aClassName);
 			if (javaClass == null) {
-				Tracer.error("Missing class file for:" + aClassName);
+				ClassFileNotFound.newCase(aClassName, this);
+
+//				Tracer.error("Missing class file for:" + aClassName);
 
 			} else {
 
-
+			ClassLoaded.newCase(aClassName, this);
 //			javaClass = Class.forName(aClassName);
 //			javaClass = aClassLoader.findClass(aClassName);
 			classProxy = AClassProxy.classProxy(javaClass);
 			}
 			
 		} catch (Exception e) {
-			Tracer.error("Missing class file for:" + aClassName);
+			ClassFileNotFound.newCase(aClassName, this);
+//			Tracer.error("Missing class file for:" + aClassName);
 //			e.printStackTrace();
 		} catch (Error e) { // Added by Josh, the loadClass method may throw a IncompatibleClassChangeError
-            Tracer.error("Missing class file for:" + aClassName);
+			ClassFileNotFound.newCase(aClassName, this);
+
+//			Tracer.error("Missing class file for:" + aClassName);
         }
 
 		className = aClassName;
@@ -159,12 +170,14 @@ public class AClassDescription  implements ClassDescription {
 		JavaDocBuilder builder = project.getJavaDocBuilder();
 		javaSource = builder.addSource( new InputStreamReader(sourceFile.getInputStream()));
 		qdoxClass = builder.getClassByName(className);
+		QDoxClassCreated.newCase(className, this);
 	}
 
 	@Override
 	public SourceClass getJavacSourceClass() {
 		if (javacSourceClass == null) {
 			javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className);
+			JavacSourceClassCreated.newCase(className, this);
 
 		}
 		return javacSourceClass;
@@ -181,8 +194,10 @@ public class AClassDescription  implements ClassDescription {
 
     @Override
     public CompilationUnit getCompilationUnit() throws IOException {
-        if (compilationUnit == null)
+        if (compilationUnit == null) {
             compilationUnit = JavaParser.parse(sourceFile.getInputStream());
+            CompilationUnitCreated.newCase(sourceFile.getAbsoluteName(), this);
+        }
         return compilationUnit;
     }
 	public FileProxy getSourceFile() {
