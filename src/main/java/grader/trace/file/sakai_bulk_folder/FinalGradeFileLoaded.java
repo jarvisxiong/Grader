@@ -1,8 +1,8 @@
 package grader.trace.file.sakai_bulk_folder;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class FinalGradeFileLoaded extends SerializableFileInfo {
+public class FinalGradeFileLoaded extends FileInfo {
 
 	public FinalGradeFileLoaded(String aMessage, String aFileName,
 			Object aFinder) {

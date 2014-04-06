@@ -1,8 +1,8 @@
 package grader.trace.file.compilation;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class JavacSourceClassCreated extends SerializableFileInfo {
+public class JavacSourceClassCreated extends FileInfo {
 
 	public JavacSourceClassCreated(String aMessage, String aFileName,
 			Object aFinder) {

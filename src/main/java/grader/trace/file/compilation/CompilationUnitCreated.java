@@ -1,8 +1,8 @@
 package grader.trace.file.compilation;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class CompilationUnitCreated extends SerializableFileInfo {
+public class CompilationUnitCreated extends FileInfo {
 
 	public CompilationUnitCreated(String aMessage, String aFileName,
 			Object aFinder) {

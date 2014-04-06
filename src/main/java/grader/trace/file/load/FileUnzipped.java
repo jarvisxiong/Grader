@@ -1,8 +1,8 @@
 package grader.trace.file.load;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class FileUnzipped extends SerializableFileInfo {
+public class FileUnzipped extends FileInfo {
 
 	public FileUnzipped(String aMessage, String aFileName,
 			Object aFinder) {

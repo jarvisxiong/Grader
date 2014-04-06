@@ -9,7 +9,7 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureAutoResultFormatChanged extends SerializableFeatureAutoResultFormatInfo {
+public class FeatureAutoResultFormatChanged extends FeatureAutoResultFomatInfo {
 //String overallResults;
 
 

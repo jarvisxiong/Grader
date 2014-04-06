@@ -4,6 +4,8 @@ import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.trace.stepper.ProjectStepperEnded;
+import grader.trace.trace.InteractionLogFileCreatedOrLoaded;
+import grader.trace.trace.InteractionLogFolderCreated;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,8 +39,10 @@ public class AGraderTracer implements GraderTracer {
 				ConfigurationManagerSelector.getConfigurationManager().
 					getStaticConfiguration().getString("grader.logger.interactionLogDirectory");
 		File folder = new File(interactionLogFolder);
-		if (!folder.exists())
+		if (!folder.exists()) {
 			folder.mkdirs();
+			InteractionLogFolderCreated.newCase(folder.getAbsolutePath(), this);
+		}
 		String userName = GradingEnvironment.get().getUserName();
 
 		if (userName == null || userName.isEmpty())
@@ -72,6 +76,8 @@ public class AGraderTracer implements GraderTracer {
 	    	e.printStackTrace();
 	    	//Oh, no! Failed to create PrintWriter
 	    }
+	    
+	    InteractionLogFileCreatedOrLoaded.newCase(fileName, this);
 //	    TraceableBus.addTraceableListener(this);
 
 //	    //After successful creation of PrintWriter

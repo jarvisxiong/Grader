@@ -1,8 +1,9 @@
 package grader.trace.file.compilation;
 
+import grader.trace.file.FileInfo;
 import grader.trace.file.SerializableFileInfo;
 
-public class ClassLoaded extends SerializableFileInfo {
+public class ClassLoaded extends FileInfo {
 
 	public ClassLoaded(String aMessage, String aFileName,
 			Object aFinder) {

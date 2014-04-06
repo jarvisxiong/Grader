@@ -1,8 +1,9 @@
 package grader.trace.file.assignment;
 
+import grader.trace.file.FileInfo;
 import grader.trace.file.SerializableFileInfo;
 
-public class InputFileFound extends SerializableFileInfo {
+public class InputFileFound extends FileInfo {
 
 	public InputFileFound(String aMessage, String aFileName,
 			Object aFinder) {

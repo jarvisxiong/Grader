@@ -1,8 +1,8 @@
 package grader.trace.file.compilation;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class QDoxClassCreated extends SerializableFileInfo {
+public class QDoxClassCreated extends FileInfo {
 
 	public QDoxClassCreated(String aMessage, String aFileName,
 			Object aFinder) {

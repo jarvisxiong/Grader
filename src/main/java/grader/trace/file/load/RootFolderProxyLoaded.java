@@ -1,8 +1,8 @@
 package grader.trace.file.load;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class RootFolderProxyLoaded extends SerializableFileInfo {
+public class RootFolderProxyLoaded extends FileInfo {
 
 	public RootFolderProxyLoaded(String aMessage, String aFileName,
 			Object aFinder) {

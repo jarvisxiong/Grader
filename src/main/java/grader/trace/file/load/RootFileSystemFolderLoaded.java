@@ -1,8 +1,8 @@
 package grader.trace.file.load;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class RootFileSystemFolderLoaded extends SerializableFileInfo {
+public class RootFileSystemFolderLoaded extends FileInfo {
 
 	public RootFileSystemFolderLoaded(String aMessage, String aFileName,
 			Object aFinder) {

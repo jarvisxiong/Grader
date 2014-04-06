@@ -1,8 +1,8 @@
 package grader.trace.file.project;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class SourceFolderIdentified extends SerializableFileInfo {
+public class SourceFolderIdentified extends FileInfo {
 
 	public SourceFolderIdentified(String aMessage, String aFileName,
 			Object aFinder) {

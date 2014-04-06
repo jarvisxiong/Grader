@@ -9,7 +9,7 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureRetargetedToNewProject extends SerializableGradingFeatureInfo {
+public class FeatureRetargetedToNewProject extends GradingFeatureInfo {
 //String overallNotes;
 
 

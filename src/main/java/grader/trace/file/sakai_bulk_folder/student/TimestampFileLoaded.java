@@ -1,8 +1,8 @@
 package grader.trace.file.sakai_bulk_folder.student;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.trace.file.FileInfo;
 
-public class TimestampFileLoaded extends SerializableFileInfo {
+public class TimestampFileLoaded extends FileInfo {
 
 	public TimestampFileLoaded(String aMessage, String aFileName,
 			Object aFinder) {

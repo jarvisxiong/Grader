@@ -1,8 +1,9 @@
 package grader.trace.file.assignment;
 
+import grader.trace.file.FileInfo;
 import grader.trace.file.SerializableFileInfo;
 
-public class FeatureGradeFileCreatedFromFinalGradeFile extends SerializableFileInfo {
+public class FeatureGradeFileCreatedFromFinalGradeFile extends FileInfo {
 	String finalGradeFile;
 	public FeatureGradeFileCreatedFromFinalGradeFile(String aMessage, String aFileName, String aFinalGradeFile,
 			Object aFinder) {
