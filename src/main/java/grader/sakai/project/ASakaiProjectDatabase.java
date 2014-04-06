@@ -18,6 +18,10 @@ import grader.colorers.ANotesColorer;
 import grader.colorers.AScoreColorer;
 import grader.colorers.Colorer;
 import grader.colorers.GradingFeatureColorer;
+import grader.colorers.GradingFeatureColorerSelector;
+import grader.colorers.MultiplierColorerSelector;
+import grader.colorers.NotesColorerSelector;
+import grader.colorers.OverallScoreColorerSelector;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
@@ -49,6 +53,7 @@ import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
 import grader.project.AProject;
 import grader.project.MainClassFinder;
+import grader.project.MainClassFinderSelector;
 import grader.project.Project;
 import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
@@ -78,6 +83,7 @@ import grader.trace.file.assignment.AssignmentDataFolderCreated;
 import grader.trace.file.assignment.AssignmentDataFolderLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.ProjectStepperDisplayed;
 import grader.trace.stepper.overview.ProjectIORedirected;
 import grader.trace.stepper.overview.ProjectWindowsDisposed;
 import grader.trace.stepper.overview.ProjectWindowsRecorded;
@@ -320,19 +326,25 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	protected Colorer<GradingFeature> createGradingFeatureColorer() {
-		return new AGradingFeatureColorer(this);
+//		return new AGradingFeatureColorer(this);
+		return GradingFeatureColorerSelector.createColorer(this);
 	}
 
 	protected Colorer<Double> createScoreColorer() {
-		return new AScoreColorer(this, 100);
+//		return new AScoreColorer(this, 100);
+		return OverallScoreColorerSelector.createColorer(this);
+		
 	}
 
 	protected Colorer<Double> createMultiplierColorer() {
-		return new AScoreColorer(this, 1.0);
+//		return new AScoreColorer(this, 1.0);
+		return MultiplierColorerSelector.createColorer(this);
+
 	}
 
 	protected Colorer<String> createOverallNotesColorer() {
-		return new ANotesColorer(this);
+//		return new ANotesColorer(this);
+		return NotesColorerSelector.createColorer(this);
 	}
 
 	protected FinalGradeRecorder createFinalGradeRecorder() {
@@ -371,7 +383,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	protected MainClassFinder createMainClassFinder() {
-		return new AMainClassFinder();
+//		return new AMainClassFinder();
+		return MainClassFinderSelector.getMainClassFinder();
 	}
 
 	public void addGradingFeatures(List<GradingFeature> aGradingFeatures) {
@@ -686,7 +699,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	protected ProjectStepperDisplayer createProjectStepperDisplayer() {
-		return new AnOEProjectStepperDisplayer();
+//		return new AnOEProjectStepperDisplayer();
+		return ProjectStepperDisplayerSelector.getProjectStepperDisplayer();
 	}
 
 	public Object displayProjectStepper(ProjectStepper aProjectStepper) {
@@ -695,6 +709,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// if (retVal instanceof uiFrame) {
 		projectStepper.setFrame(retVal);
 		// }
+		ProjectStepperDisplayed.newCase(this, (OverviewProjectStepper) aProjectStepper, this);
 		recordWindows(); // make sure this frame is not disposed on next
 		// ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper)
 		// projectStepper, projectStepper.getProject(), this);
@@ -742,7 +757,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	NavigationListCreator createNavigationListCreator() {
-		return new AnUnsortedNavigationListCreator();
+//		return new AnUnsortedNavigationListCreator();
+		return NavigationListCreatorSelector.getNavigationListCreator();
 	}
 
 	public List<String> getOnyenNavigationList(

@@ -4,6 +4,8 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.trace.execution.MainClassFound;
+import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
 
 import java.io.*;
@@ -24,7 +26,9 @@ public class InteractiveConsoleProcessRunner implements Runner {
             entryPoint = getEntryPoint(aProject);
             folder = aProject.getBuildFolder(entryPoint);
             project = aProject;
+            MainClassFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
         } catch (Exception e) {
+        	MainClassNotFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
             throw new NotRunnableException();
         }
     }
@@ -34,6 +38,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
      * @throws framework.execution.NotRunnableException
+     * @see grader.project.AMainClassFinder which repeats this code (sigh)
      */
     private String getEntryPoint(Project project) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())

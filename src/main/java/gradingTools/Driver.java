@@ -35,6 +35,7 @@ import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.GraderTracerSelector;
+import grader.trace.settings.GraderSettingsDisplayed;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.overall_notes.OverallNotesChanged;
 
@@ -257,12 +258,13 @@ public class Driver {
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
             		  settingsModel = new AGraderSettingsModel(null);
-            			settingsFrame = ObjectEditor.edit(settingsModel);
+            			settingsFrame = ObjectEditor.edit(settingsModel);            			
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
 //            			settingsFrame.setSize(550, 475);
 //            			settingsFrame.setSize(550, 530);
             			settingsFrame.setSize(600, 550);
+            			GraderSettingsDisplayed.newCase(settingsModel, Driver.class);
 
 
             			settingsModel.awaitBegin();

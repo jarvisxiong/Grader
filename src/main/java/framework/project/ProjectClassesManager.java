@@ -1,5 +1,7 @@
 package framework.project;
 
+import grader.trace.file.compilation.SourceFileCompiled;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -179,6 +181,10 @@ public class ProjectClassesManager implements ClassesManager {
 			Iterable<? extends JavaFileObject> compilationUnits = fileManager
 					.getJavaFileObjectsFromFiles(javaFiles);
 			compiler.getTask(null, fileManager, null, optionList, null, compilationUnits).call();
+			for (File javaFile:javaFiles) {
+				SourceFileCompiled.newCase(javaFile.getAbsolutePath(), this);
+				
+			}
 		} else {
 			throw new RuntimeException("Compiler not accessible");
 		}

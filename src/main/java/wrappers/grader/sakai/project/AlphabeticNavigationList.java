@@ -3,8 +3,10 @@ package wrappers.grader.sakai.project;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GraderSettings;
 import grader.navigation.sorter.AFileObjectSorter;
+import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.trace.stepper.navigation.NavigationListSorted;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class AlphabeticNavigationList implements NavigationListCreator {
 //			}
 //		});
 		Arrays.sort(files, new AFileObjectSorter(aSakaiProjectDatabase.getFileNameSorter())) ;
+		
         
         for (File file : files) {
             if (file.isDirectory()) {
@@ -61,6 +64,8 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         if (include) { // did not find ending onyen
         	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
+		NavigationListSorted.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), onyens, this);
+
         return onyens;
     }
 }

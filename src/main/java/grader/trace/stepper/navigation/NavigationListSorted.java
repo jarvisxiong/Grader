@@ -10,10 +10,23 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class NavigationListConfigured extends StepperInfo {
+public class NavigationListSorted extends StepperInfo {
 	List<String> onyens;
 
 
+
+
+
+
+
+public NavigationListSorted(String aMessage,
+			SakaiProjectDatabase aSakaiProjectDatabase,
+			OverviewProjectStepper aProjectStepper, SakaiProject aProject, List<String> newVal,
+			Object aFinder) {
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		onyens = newVal;
+		// TODO Auto-generated constructor stub
+	}
 
 
 public List<String> getOnyens() {
@@ -25,26 +38,13 @@ public List<String> getOnyens() {
 	public void setOnyens(List<String> onyens) {
 		this.onyens = onyens;
 	}
-
-
-
-public NavigationListConfigured(String aMessage,
-			SakaiProjectDatabase aSakaiProjectDatabase,
-			OverviewProjectStepper aProjectStepper, SakaiProject aProject, List<String> newVal,
-			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		onyens = newVal;
-		// TODO Auto-generated constructor stub
-	}
-
-
 	
-	public static NavigationListConfigured newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static NavigationListSorted newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, List<String> newVal,
 			Object aFinder) {
-		String aMessage = "Navigation list configured:" + newVal;
-		NavigationListConfigured retVal = new NavigationListConfigured(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, newVal, aFinder);
+		String aMessage = "Navigation list sorted:" + newVal;
+		NavigationListSorted retVal = new NavigationListSorted(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, newVal, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

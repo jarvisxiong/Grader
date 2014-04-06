@@ -14,6 +14,9 @@ import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.sakai.StudentCodingAssignment;
+import grader.trace.execution.MainClassFound;
+import grader.trace.execution.MainClassNotFound;
+import grader.trace.execution.MainMethodNotFound;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -216,17 +219,23 @@ public class AProject implements Project {
                 mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName, this);
             }
             if (mainClass == null) {
-                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());
+//                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());
                 setCanBeRun(false);
+                MainClassNotFound.newCase(mainClassName,  getProjectFolderName(), this);
                 return false;
             }
+            
 
             mainMethod = mainClass.getMethod("main", String[].class);
             if (mainMethod == null) {
-                System.out.println("Missing main method:" + "main");
+//                System.out.println("Missing main method:" + "main");
+                MainMethodNotFound.newCase(mainClassName,  getProjectFolderName(), this);
+
                 setCanBeRun(false);
                 return false;
             }
+            MainClassFound.newCase(mainClassName,  getProjectFolderName(), this);
+
             return true;
         } catch (Exception e) {
             System.out.println("cannot  run:" + getProjectFolderName());
