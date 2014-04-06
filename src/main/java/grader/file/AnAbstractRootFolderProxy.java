@@ -1,6 +1,7 @@
 package grader.file;
 
 import util.misc.Common;
+import grader.trace.file.load.RootFolderProxyLoaded;
 
 import java.util.*;
 
@@ -70,6 +71,7 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
             if (index == -1)
                 childrenNames.add(entry.getAbsoluteName());
         }
+        RootFolderProxyLoaded.newCase(getAbsoluteName(), this);
     }
 
     @Override

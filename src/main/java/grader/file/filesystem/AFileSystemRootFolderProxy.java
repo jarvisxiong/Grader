@@ -3,6 +3,8 @@ package grader.file.filesystem;
 import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.AnAbstractRootFolderProxy;
 import grader.file.RootFolderProxy;
+import grader.trace.file.load.RootFileSystemFolderLoaded;
+import grader.trace.file.load.RootFolderProxyLoaded;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,6 +36,8 @@ public class AFileSystemRootFolderProxy extends AnAbstractRootFolderProxy
         localName = Common.toCanonicalFileName(rootFolder.getName());
         initEntries(rootFolder);
         initChildrenRootData(); // I moved this out of init entries because it only needs to be called once and significantly reduces the loading time. --Josh
+        RootFileSystemFolderLoaded.newCase(getAbsoluteName(), this);
+
     }
     
     private boolean containsOnyen(File file ){

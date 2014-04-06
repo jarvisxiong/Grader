@@ -4,13 +4,11 @@ import framework.grading.testing.NotGradableException;
 import grader.trace.CheckedGraderException;
 import grader.trace.GraderInfo;
 
-/**
- * This exception means that the student's program failed to run
- */
-public class ProcessExecutionFinished extends  ProcessExecutionInfo {
+
+public class UserProcessExecutionTimedOut extends  UserProcessExecutionInfo {
 	
 	
-	public ProcessExecutionFinished(String aMessage, String aFolderName,
+	public UserProcessExecutionTimedOut(String aMessage, String aFolderName,
 			String anEntryPoint, 
 			String aClassPath,
 			Object aFinder)  {
@@ -19,14 +17,14 @@ public class ProcessExecutionFinished extends  ProcessExecutionInfo {
 	}
 
 	
-	public static ProcessExecutionFinished newCase(String aFolderName,
+	public static UserProcessExecutionTimedOut newCase(String aFolderName,
 			String anEntryPoint, 
 			String aClassPath,
 			Object aFinder) {
-		String aMessage = "Process finished; folder: " + aFolderName + 
+		String aMessage = "Process timed out; folder: " + aFolderName + 
 				" entry point: " + anEntryPoint + 
 				" class path: " + aClassPath;
-		ProcessExecutionFinished retVal = new ProcessExecutionFinished(aMessage, aFolderName, anEntryPoint,  aClassPath, aFinder);
+		UserProcessExecutionTimedOut retVal = new UserProcessExecutionTimedOut(aMessage, aFolderName, anEntryPoint,  aClassPath, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

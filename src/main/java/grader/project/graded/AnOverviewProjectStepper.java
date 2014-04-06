@@ -44,6 +44,7 @@ import grader.trace.stepper.feature.FeatureRetargetedToNewProject;
 import grader.trace.stepper.feature.auto_result_format.FeatureAutoResultFormatLoaded;
 import grader.trace.stepper.feature.manual_notes.FeatureManualNotesUserChange;
 import grader.trace.stepper.feature.manual_notes.FeatureManualNotesColored;
+import grader.trace.stepper.feature.manual_notes.FeatureValidationManualNotes;
 import grader.trace.stepper.feature.score.FeatureScoreLoaded;
 import grader.trace.stepper.feature.transcript.FeatureTranscriptLoaded;
 import grader.trace.stepper.feedback.FeedbackComputed;
@@ -747,6 +748,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String newNotes = notesGenerator.appendNotes(
 				aGradingFeature.getManualNotes(), 
 				notesGenerator.validationNotes(this, aGradingFeature));
+		FeatureValidationManualNotes.newCase(projectDatabase, this, project, aGradingFeature, newNotes, this);
 		aGradingFeature.setManualNotes(newNotes);
 		setComputedFeedback(); // it is not yet selected
 		if (selectedGradingFeature == aGradingFeature) {

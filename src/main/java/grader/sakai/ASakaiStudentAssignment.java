@@ -2,6 +2,11 @@ package grader.sakai;
 
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
+import grader.trace.file.sakai_bulk_folder.student.CommentsFileLoaded;
+import grader.trace.file.sakai_bulk_folder.student.DocumentFileLoaded;
+import grader.trace.file.sakai_bulk_folder.student.FeedbackFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.student.SubmissionFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.student.TimestampFileLoaded;
 import util.misc.Common;
 
 import java.io.FileNotFoundException;
@@ -34,15 +39,22 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             onyen = aStudentDescription.substring(parenIndex + 1, studentDescription.length() - 1);
             studentFolder = aFileProxy;
             submissionFolder = aFileProxy.getFileEntryFromLocalName(SUBMISSION_LOCAL_NAME);
+            SubmissionFolderLoaded.newCase(submissionFolder.getAbsoluteName(), this);
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
+            FeedbackFolderLoaded.newCase(feedbackFolder.getAbsoluteName(), this);
+
             commentsFile = aFileProxy.getFileEntryFromLocalName(COMMENTS_LOCAL_NAME);
-            if (commentsFile != null)
+            if (commentsFile != null) {
             commentsFileName = commentsFile.getAbsoluteName();
+            CommentsFileLoaded.newCase(commentsFileName, this);
+
+            }
             timeStampFile = aFileProxy.getFileEntryFromLocalName(TIMESTAMP_LOCAL_NAME);
             try {
                 timeStamp = FileProxyUtils.toText(timeStampFile);
                 if (timeStamp != null) {
                     date = Common.toDate(timeStamp);
+                    TimestampFileLoaded.newCase(timeStampFile.getAbsoluteName(), this);
                 }
             } catch (Exception e) {
                 // Don't stop here
@@ -57,8 +69,10 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     void findDocuments() {
         Set<String> entryNames = studentFolder.getDescendentEntryNames(feedbackFolder);
         for (String entryName : entryNames) {
-            if (Common.isDocumentName(entryName))
+            if (Common.isDocumentName(entryName)) {
                 documents.add(entryName);
+                DocumentFileLoaded.newCase(entryName, this);
+            }
         }
     }
 

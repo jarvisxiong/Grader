@@ -8,6 +8,9 @@ import grader.project.Project;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
+import grader.trace.file.source.SourceFileComputed;
+import grader.trace.file.source.SourceFileLoaded;
+import grader.trace.file.source.SourceFileSaved;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -48,6 +51,7 @@ public class AClassesTextManager implements ClassesTextManager {
             String allText = getAllSourcesText().toString();
             out.print(allText);
             out.close();
+            SourceFileComputed.newCase(aFileName, allText, this);
         } catch (Exception e) {
 //            e.printStackTrace(); // Commented out by Josh
         }
@@ -60,6 +64,8 @@ public class AClassesTextManager implements ClassesTextManager {
             PrintWriter out = new PrintWriter(aFileName);
             out.print(newValue);
             out.close();
+            SourceFileSaved.newCase(aFileName, newValue, this);
+
         } catch (Exception e) {
 //            e.printStackTrace(); // Commented out by Josh
         }
@@ -68,7 +74,12 @@ public class AClassesTextManager implements ClassesTextManager {
     public String getEditedAllSourcesText(String aFileName) {
     	File sourceFile = new File(aFileName);
     	if (!sourceFile.exists()) writeAllSourcesText(aFileName);
-    	return Common.toText(aFileName).toString();
+//    	return Common.toText(aFileName).toString();
+    	
+    	String retVal = Common.toText(aFileName).toString();
+        SourceFileLoaded.newCase(aFileName, retVal, this);
+        return retVal;
+
     }
 
 //    @Override

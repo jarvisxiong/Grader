@@ -74,6 +74,8 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
+import grader.trace.file.assignment.AssignmentDataFolderCreated;
+import grader.trace.file.assignment.AssignmentDataFolderLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.overview.ProjectIORedirected;
@@ -116,15 +118,15 @@ import bus.uigen.widgets.VirtualFrame;
 
 public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	static SakaiProjectDatabase currentSakaiProjectDatabase;
-	
 
-//	public static final String DEFAULT_ASSIGNMENT_DATA_FOLDER = "C:/Users/dewan/Downloads/GraderData";
-	public static final String DEFAULT_SCORE_FILE_NAME= "scores.txt";
+	// public static final String DEFAULT_ASSIGNMENT_DATA_FOLDER =
+	// "C:/Users/dewan/Downloads/GraderData";
+	public static final String DEFAULT_SCORE_FILE_NAME = "scores.txt";
 	boolean assignmentRoot;
 	Map<String, SakaiProject> onyenToProject = new HashMap();
 	String bulkAssignmentsFolderName;
 	BulkAssignmentFolder bulkFolder;
-//	String assignmentsDataFolderName = DEFAULT_ASSIGNMENT_DATA_FOLDER;
+	// String assignmentsDataFolderName = DEFAULT_ASSIGNMENT_DATA_FOLDER;
 	String assignmentsDataFolderName;
 	ClearanceManager clearanceManager;
 	ProjectNavigator projectNavigator;
@@ -146,120 +148,110 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	AutoFeedback autoFeedback;
 	ManualFeedback manualFeedback;
 	SourceDisplayer sourceDisplayer;
-	 MainClassFinder mainClassFinder;
-	 String startStudentID, endStudentID;
-	 ProjectStepper projectStepper;
-	 PhotoReader photoReader;
-	 Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
-	 protected ProjectRequirements projectRequirements;
-	 Colorer<GradingFeature> gradingFeatureColorer;
-	 Colorer<Double> scoreColorer, multiplierColorer;
-	 Colorer<String> overallNotesColorer;
-	 GraderSettingsModel graderSettings;
-	 BasicNavigationFilter navigationFilter;
-	 NotesGenerator notesGenerator;
-	 Comparator<String> fileNameSorter;
-
-	 
-	
-	
+	MainClassFinder mainClassFinder;
+	String startStudentID, endStudentID;
+	ProjectStepper projectStepper;
+	PhotoReader photoReader;
+	Hashcodetable<GradingFeature, Checkable> featureToCheckable = new Hashcodetable<>();
+	protected ProjectRequirements projectRequirements;
+	Colorer<GradingFeature> gradingFeatureColorer;
+	Colorer<Double> scoreColorer, multiplierColorer;
+	Colorer<String> overallNotesColorer;
+	GraderSettingsModel graderSettings;
+	BasicNavigationFilter navigationFilter;
+	NotesGenerator notesGenerator;
+	Comparator<String> fileNameSorter;
 
 	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
-				String anAssignmentsDataFolderName, String aStartStudentID, String anEndStudentID, boolean anAssignmentRoot) {
-		 
-		 startStudentID = aStartStudentID;
-		 endStudentID = anEndStudentID;
-		 init (aBulkAssignmentsFolderName, anAssignmentsDataFolderName , anAssignmentRoot);
-		 
-		 
-	 }
-	 
-		public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
-				String anAssignmentsDataFolderName, boolean anAssignmentRoot) {
-			init (aBulkAssignmentsFolderName, anAssignmentsDataFolderName, anAssignmentRoot );
-//			sourceSuffix = sourceSuffix();
-//			outputSuffix = outputSuffix();
-//			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
-//			assignmentsDataFolderName = anAssignmentsDataFolderName;
-//			maybeMakeProjects();
-//			// gradeRecorder = new
-//			// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
-//			// gradeRecorder = new
-//			// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
-//			// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
-//			featureGradeRecorder = createFeatureGradeRecorder();
-//			gradeRecorder = createFinalGradeRecorder();
-////			totalScoreRecorder = createTotalScoreRecorder();
-//			totalScoreRecorder = createTotalScoreRecorder();
-//			autoFeedback = createAutoFeedback();
-//			manualFeedback = createManualFeedback();
-//			scoreFeedback = createScoreFeedback();
-//			sourceDisplayer = createSourceDisplayer();
-//			mainClassFinder = createMainClassFinder();
-//			projectStepperDisplayer = createProjectStepperDisplayer();
-//			navigationListCreator = createNavigationListCreator();
-			
+			String anAssignmentsDataFolderName, String aStartStudentID,
+			String anEndStudentID, boolean anAssignmentRoot) {
 
-			
-//			maybeMakeProjects();
+		startStudentID = aStartStudentID;
+		endStudentID = anEndStudentID;
+		init(aBulkAssignmentsFolderName, anAssignmentsDataFolderName,
+				anAssignmentRoot);
 
+	}
 
-//			initInputFiles();
+	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
+			String anAssignmentsDataFolderName, boolean anAssignmentRoot) {
+		init(aBulkAssignmentsFolderName, anAssignmentsDataFolderName,
+				anAssignmentRoot);
+		// sourceSuffix = sourceSuffix();
+		// outputSuffix = outputSuffix();
+		// bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
+		// assignmentsDataFolderName = anAssignmentsDataFolderName;
+		// maybeMakeProjects();
+		// // gradeRecorder = new
+		// // ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
+		// // gradeRecorder = new
+		// // ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
+		// // gradeRecorder = new ASakaiCSVFinalGradeManager(this);
+		// featureGradeRecorder = createFeatureGradeRecorder();
+		// gradeRecorder = createFinalGradeRecorder();
+		// // totalScoreRecorder = createTotalScoreRecorder();
+		// totalScoreRecorder = createTotalScoreRecorder();
+		// autoFeedback = createAutoFeedback();
+		// manualFeedback = createManualFeedback();
+		// scoreFeedback = createScoreFeedback();
+		// sourceDisplayer = createSourceDisplayer();
+		// mainClassFinder = createMainClassFinder();
+		// projectStepperDisplayer = createProjectStepperDisplayer();
+		// navigationListCreator = createNavigationListCreator();
 
-		}
-	 
-	 public void init(String aBulkAssignmentsFolderName,
-				String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
-		 	assignmentRoot = anAssigmentRoot;
-			sourceFileNameSuffix = sourceSuffix();
-			outputSuffix = outputSuffix();
-			bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
-			assignmentsDataFolderName = anAssignmentsDataFolderName;
-			fileNameSorter = createFileNameSorter();
-			maybeMakeProjects();
-			// gradeRecorder = new
-			// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
-			// gradeRecorder = new
-			// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
-			// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
-			featureGradeRecorder = createFeatureGradeRecorder();
-			gradeRecorder = createFinalGradeRecorder();
-//			totalScoreRecorder = createTotalScoreRecorder();
-			totalScoreRecorder = createTotalScoreRecorder();
-			autoFeedback = createAutoFeedback();
-			manualFeedback = createManualFeedback();
-			scoreFeedback = createScoreFeedback();
-			sourceDisplayer = createSourceDisplayer();
-			mainClassFinder = createMainClassFinder();
-			projectStepperDisplayer = createProjectStepperDisplayer();
-			navigationListCreator = createNavigationListCreator();
-			photoReader = createPhotoReader();
-			gradingFeatureColorer = createGradingFeatureColorer();
-			scoreColorer = createScoreColorer();
-			multiplierColorer = createMultiplierColorer();
-			overallNotesColorer = createOverallNotesColorer();
-			notesGenerator = createNotesGenerator();
-			clearanceManager = createClearanceManager();
-			projectNavigator = createProjectNavigator();
-			manualProjectNavigator = createManualProjectNavigator();
-			automaticProjectNavigator = createAutomaticProjectNavigator();
-			hybridProjectNavigator = createHybridProjectNavigator();
-			
+		// maybeMakeProjects();
 
-			
-//			maybeMakeProjects();
+		// initInputFiles();
 
+	}
 
-			initInputFiles();
+	public void init(String aBulkAssignmentsFolderName,
+			String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
+		assignmentRoot = anAssigmentRoot;
+		sourceFileNameSuffix = sourceSuffix();
+		outputSuffix = outputSuffix();
+		bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
+		assignmentsDataFolderName = anAssignmentsDataFolderName;
+		fileNameSorter = createFileNameSorter();
+		maybeMakeProjects();
+		// gradeRecorder = new
+		// ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
+		// gradeRecorder = new
+		// ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
+		// gradeRecorder = new ASakaiCSVFinalGradeManager(this);
+		featureGradeRecorder = createFeatureGradeRecorder();
+		gradeRecorder = createFinalGradeRecorder();
+		// totalScoreRecorder = createTotalScoreRecorder();
+		totalScoreRecorder = createTotalScoreRecorder();
+		autoFeedback = createAutoFeedback();
+		manualFeedback = createManualFeedback();
+		scoreFeedback = createScoreFeedback();
+		sourceDisplayer = createSourceDisplayer();
+		mainClassFinder = createMainClassFinder();
+		projectStepperDisplayer = createProjectStepperDisplayer();
+		navigationListCreator = createNavigationListCreator();
+		photoReader = createPhotoReader();
+		gradingFeatureColorer = createGradingFeatureColorer();
+		scoreColorer = createScoreColorer();
+		multiplierColorer = createMultiplierColorer();
+		overallNotesColorer = createOverallNotesColorer();
+		notesGenerator = createNotesGenerator();
+		clearanceManager = createClearanceManager();
+		projectNavigator = createProjectNavigator();
+		manualProjectNavigator = createManualProjectNavigator();
+		automaticProjectNavigator = createAutomaticProjectNavigator();
+		hybridProjectNavigator = createHybridProjectNavigator();
 
-		}
+		// maybeMakeProjects();
 
+		initInputFiles();
 
+	}
 
 	private AutomaticProjectNavigator createAutomaticProjectNavigator() {
 		return new AnAutomaticProjectNavigator(this);
 	}
-	
+
 	private HybridProjectNavigator createHybridProjectNavigator() {
 		return new AHybridProjectNavigator(this);
 	}
@@ -271,7 +263,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	private ProjectNavigator createProjectNavigator() {
 		return new AProjectNavigator(this);
 	}
-	
+
 	Comparator<String> createFileNameSorter() {
 		return new AnAlphabeticFileNameSorter();
 	}
@@ -284,37 +276,37 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			SakaiProjectDatabase currentSakaiProjectDatabase) {
 		ASakaiProjectDatabase.currentSakaiProjectDatabase = currentSakaiProjectDatabase;
 	}
+
 	public AutoFeedback getAutoFeedback() {
 		return autoFeedback;
 	}
-	
+
 	public ManualFeedback getManualFeedback() {
 		return manualFeedback;
 	}
-	
+
 	public ScoreFeedback getScoreFeedback() {
 		return scoreFeedback;
 	}
-	
-	public void setScoreFeedback(ScoreFeedback newVal) {
-		 scoreFeedback = newVal;
-	}
 
+	public void setScoreFeedback(ScoreFeedback newVal) {
+		scoreFeedback = newVal;
+	}
 
 	public SourceDisplayer getSourceDisplayer() {
 		return sourceDisplayer;
 	}
-	
+
 	protected AutoFeedback createAutoFeedback() {
-//		return new AnAutoFeedbackManager();
+		// return new AnAutoFeedbackManager();
 		return new APrintingAutoFeedbackManager();
 	}
-	
+
 	protected ManualFeedback createManualFeedback() {
-//		return new AManualFeedbackManager();
+		// return new AManualFeedbackManager();
 		return new APrintingManualFeedbackManager();
 	}
-	
+
 	protected ScoreFeedback createScoreFeedback() {
 		return new AScoreFeedbackFileWriter();
 	}
@@ -322,30 +314,29 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected SourceDisplayer createSourceDisplayer() {
 		return new AnAllTextSourceDisplayer();
 	}
-	
+
 	protected PhotoReader createPhotoReader() {
 		return new APhotoReader(this);
 	}
+
 	protected Colorer<GradingFeature> createGradingFeatureColorer() {
 		return new AGradingFeatureColorer(this);
 	}
-	
+
 	protected Colorer<Double> createScoreColorer() {
 		return new AScoreColorer(this, 100);
 	}
-	
+
 	protected Colorer<Double> createMultiplierColorer() {
 		return new AScoreColorer(this, 1.0);
 	}
-	
+
 	protected Colorer<String> createOverallNotesColorer() {
 		return new ANotesColorer(this);
 	}
 
-
-
 	protected FinalGradeRecorder createFinalGradeRecorder() {
-//		return FinalGradeRecorderSelector.createFinalGradeRecorder(this);
+		// return FinalGradeRecorderSelector.createFinalGradeRecorder(this);
 		return featureGradeRecorder;
 
 	}
@@ -356,7 +347,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	protected FinalGradeRecorder createTotalScoreRecorder() {
 		return featureGradeRecorder;
-//		return TotalScoreRecorderSelector.createFinalGradeRecorder(this);
+		// return TotalScoreRecorderSelector.createFinalGradeRecorder(this);
 	}
 
 	public FinalGradeRecorder getTotalScoreRecorder() {
@@ -378,30 +369,30 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public GradingFeatureList getGradingFeatures() {
 		return gradingFeatures;
 	}
+
 	protected MainClassFinder createMainClassFinder() {
 		return new AMainClassFinder();
 	}
-	
-	 
 
 	public void addGradingFeatures(List<GradingFeature> aGradingFeatures) {
 		for (GradingFeature aGradingFeature : aGradingFeatures) {
 			aGradingFeature.setInputFiles(inputFiles);
 			gradingFeatures.add(aGradingFeature);
 			aGradingFeature.setProjectDatabase(this);
-			if (aGradingFeature.isAutoGradable() && aGradingFeature.getFeatureChecker().isOverridable()) {
-				GradingFeature manualFeature = new AGradingFeature(
-						"Override" + aGradingFeature.getFeatureName(), aGradingFeature.getMax(), aGradingFeature.isExtraCredit());
+			if (aGradingFeature.isAutoGradable()
+					&& aGradingFeature.getFeatureChecker().isOverridable()) {
+				GradingFeature manualFeature = new AGradingFeature("Override"
+						+ aGradingFeature.getFeatureName(),
+						aGradingFeature.getMax(),
+						aGradingFeature.isExtraCredit());
 				manualFeature.setProjectDatabase(this);
 				gradingFeatures.add(manualFeature);
 				aGradingFeature.setLinkedFeature(manualFeature);
 				manualFeature.setLinkedFeature(aGradingFeature);
-				
-				
+
 			}
 		}
-//		gradingFeatures.addAll(aGradingFeatures);
-		
+		// gradingFeatures.addAll(aGradingFeatures);
 
 	}
 
@@ -431,7 +422,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		return featureGradeRecorder;
 	}
 
-    // I changed this to protected so extending classes can call it. -- Josh
+	// I changed this to protected so extending classes can call it. -- Josh
 	protected SakaiProject makeProject(StudentCodingAssignment anAssignment) {
 		RootFolderProxy projectFolder = anAssignment.getProjectFolder();
 
@@ -503,10 +494,11 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 					.replaceAll("\\s", "");
 		return assignmentName;
 	}
+
 	protected String getMixedCaseAssignmentName() {
 		if (mixedCaseAssignmentName == null)
-			mixedCaseAssignmentName = this.getBulkAssignmentFolder().getMixedCaseAssignmentName()
-					.replaceAll("\\s", "");
+			mixedCaseAssignmentName = this.getBulkAssignmentFolder()
+					.getMixedCaseAssignmentName().replaceAll("\\s", "");
 		return mixedCaseAssignmentName;
 	}
 
@@ -567,7 +559,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public String[] getInputFiles() {
 		return inputFiles;
 	}
-	
+
 	protected void initInputFiles() {
 		Set<String> inputFilesSet = assignmentDataFolder.getInputFiles();
 		inputFiles = new String[inputFilesSet.size()];
@@ -589,25 +581,25 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			// outputFileName = //aProject.getOutputFileName();
 			// aProject.getOutputFolder() + "/" +
 			// AProject.DEFAULT_OUTPUT_FILE_NAME;
-//			System.out.println("Trying to run:" + anOnyen + " "
-//					+ aProject.getStudentAssignment().getStudentName());
-			System.out.println("Trying to run:" + anOnyen );
+			// System.out.println("Trying to run:" + anOnyen + " "
+			// + aProject.getStudentAssignment().getStudentName());
+			System.out.println("Trying to run:" + anOnyen);
 			// String assignmentName =
 			// this.getBulkAssignmentFolder().getAssignmentName().replaceAll("\\s","");
 			String assignmentName = getMixedCaseAssignmentName();
-			
+
 			String mainClassName = getClassName();
 			Set<String> inputFilesSet = assignmentDataFolder.getInputFiles();
-//			inputFiles = new String[inputFilesSet.size()];
-//			int nextFileIndex = 0;
-//			for (String inputFile : inputFilesSet) {
-//				inputFiles[nextFileIndex] = inputFile;
-//				nextFileIndex++;
-//
-//			}
+			// inputFiles = new String[inputFilesSet.size()];
+			// int nextFileIndex = 0;
+			// for (String inputFile : inputFilesSet) {
+			// inputFiles[nextFileIndex] = inputFile;
+			// nextFileIndex++;
+			//
+			// }
 			outputFiles = getOutputFileNames(aProject, inputFiles);
 			outputFileName = aProject.getOutputFileName();
-		
+
 			String[][] strings = getArgs(inputFiles);
 
 			aProject.setRunParameters(mainClassName, strings, inputFiles,
@@ -642,12 +634,11 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			// Thread thread = aProject.runProject();
 			// }
 
-//			resetRunningProject(aProject);
+			// resetRunningProject(aProject);
 			// return aProject;
 		}
 		return aProject;
 	}
-	
 
 	@Override
 	public void resetRunningProject(SakaiProject aProject) {
@@ -656,36 +647,35 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			gradingFeature.setOutputFiles(outputFiles);
 		}
 	}
-	
 
 	uiFrame frame;
+
 	public ProjectStepper createAndDisplayProjectStepper() {
-//		if (projectStepper != null) {
-//		ProjectStepper aProjectStepper = createProjectStepper();
-//		aProjectStepper.setProjectDatabase(this);
-//		projectStepper = aProjectStepper;
-//		}
+		// if (projectStepper != null) {
+		// ProjectStepper aProjectStepper = createProjectStepper();
+		// aProjectStepper.setProjectDatabase(this);
+		// projectStepper = aProjectStepper;
+		// }
 		// OEFrame oeFrame = ObjectEditor.edit(clearanceManager);
 		// oeFrame.setLocation(800, 500);
 		// oeFrame.setSize(400, 400);
 		ProjectStepper projectStepper = getOrCreateProjectStepper();
 		displayProjectStepper(projectStepper);
-//		projectStepper.setOEFrame(frame);
+		// projectStepper.setOEFrame(frame);
 		return projectStepper;
 	}
-	
-	 public ProjectStepper getProjectStepper() {
-		 
-			return projectStepper;
-		}
 
-		public void setProjectStepper(ProjectStepper projectStepper) {
-			this.projectStepper = projectStepper;
-		}
+	public ProjectStepper getProjectStepper() {
 
-	
+		return projectStepper;
+	}
+
+	public void setProjectStepper(ProjectStepper projectStepper) {
+		this.projectStepper = projectStepper;
+	}
+
 	ProjectStepperDisplayer projectStepperDisplayer;
-	
+
 	public ProjectStepperDisplayer getProjectStepperDisplayer() {
 		return projectStepperDisplayer;
 	}
@@ -700,38 +690,38 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	public Object displayProjectStepper(ProjectStepper aProjectStepper) {
-//		return projectStepperDisplayer.display(aProjectStepper);
+		// return projectStepperDisplayer.display(aProjectStepper);
 		Object retVal = projectStepperDisplayer.display(aProjectStepper);
-//		if (retVal instanceof uiFrame) {
-			projectStepper.setFrame(retVal);
-//		}
+		// if (retVal instanceof uiFrame) {
+		projectStepper.setFrame(retVal);
+		// }
 		recordWindows(); // make sure this frame is not disposed on next
-//		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+		// ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper)
+		// projectStepper, projectStepper.getProject(), this);
 
-//		frame = (uiFrame) displayProjectStepper(projectStepper);
-//		projectStepper.setOEFrame(retVal);
+		// frame = (uiFrame) displayProjectStepper(projectStepper);
+		// projectStepper.setOEFrame(retVal);
 		return retVal;
 
-
-//		OEFrame oeFrame = ObjectEditor.edit(aProjectStepper);
-//		oeFrame.setLocation(700, 500);
-//		oeFrame.setSize(500, 700);
-//		return oeFrame;
+		// OEFrame oeFrame = ObjectEditor.edit(aProjectStepper);
+		// oeFrame.setLocation(700, 500);
+		// oeFrame.setSize(500, 700);
+		// return oeFrame;
 	}
 
 	public ProjectStepper getOrCreateProjectStepper() {
 		if (projectStepper == null) {
 			projectStepper = new AComplexProjectStepper();
 
-//			projectStepper = new AMainProjectStepper();
+			// projectStepper = new AMainProjectStepper();
 
-//			projectStepper = new AnOverviewProjectStepper();
-//		 projectStepper = new ABasicProjectStepper();
-		 
-//		 projectStepper = new AProjectStepper();
-		 projectStepper.setProjectDatabase(this);
+			// projectStepper = new AnOverviewProjectStepper();
+			// projectStepper = new ABasicProjectStepper();
+
+			// projectStepper = new AProjectStepper();
+			projectStepper.setProjectDatabase(this);
 		}
-		
+
 		return projectStepper;
 	}
 
@@ -739,46 +729,47 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		runProjectInteractively(anOnyen, createAndDisplayProjectStepper());
 
 	}
+
 	NavigationListCreator navigationListCreator;
-	
+
 	public NavigationListCreator getNavigationListCreator() {
 		return navigationListCreator;
 	}
 
-	public void setNavigationListCreator(NavigationListCreator navigationListCreator) {
+	public void setNavigationListCreator(
+			NavigationListCreator navigationListCreator) {
 		this.navigationListCreator = navigationListCreator;
 	}
 
 	NavigationListCreator createNavigationListCreator() {
 		return new AnUnsortedNavigationListCreator();
 	}
-	
-	public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase) {
-//		Set<String> onyens = new HashSet(aSakaiProjectDatabase.getOnyens());
-//		return new ArrayList(aSakaiProjectDatabase.getOnyens());
-		return getNavigationListCreator().getOnyenNavigationList(aSakaiProjectDatabase);
-		
-		
+
+	public List<String> getOnyenNavigationList(
+			SakaiProjectDatabase aSakaiProjectDatabase) {
+		// Set<String> onyens = new HashSet(aSakaiProjectDatabase.getOnyens());
+		// return new ArrayList(aSakaiProjectDatabase.getOnyens());
+		return getNavigationListCreator().getOnyenNavigationList(
+				aSakaiProjectDatabase);
+
 	}
-	
-	
-	
+
 	public List<String> getOnyenNavigationList() {
-//		Set<String> onyens = new HashSet(aSakaiProjectDatabase.getOnyens());
+		// Set<String> onyens = new HashSet(aSakaiProjectDatabase.getOnyens());
 		return getOnyenNavigationList(this);
-		
-		
+
 	}
 
 	public void runProjectsInteractively() {
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
 		maybeMakeProjects();
-//		aProjectStepper.setProjectDatabase(this);
-//		Set<String> onyens = new HashSet(onyenToProject.keySet());
-//		aProjectStepper.setHasMoreSteps(true);
+		// aProjectStepper.setProjectDatabase(this);
+		// Set<String> onyens = new HashSet(onyenToProject.keySet());
+		// aProjectStepper.setHasMoreSteps(true);
 		List<String> onyens = getOnyenNavigationList(this);
 		if (onyens.size() == 0) {
-			JOptionPane.showMessageDialog(null, "No onyens matching specification found");
+			JOptionPane.showMessageDialog(null,
+					"No onyens matching specification found");
 		}
 
 		for (String anOnyen : onyens) {
@@ -787,7 +778,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		aProjectStepper.setHasMoreSteps(false);
 
 	}
-	public static void setVisible (Object aFrame, boolean newVal) {
+
+	public static void setVisible(Object aFrame, boolean newVal) {
 		if (aFrame instanceof Component) {
 			((Component) aFrame).setVisible(newVal);
 		} else if (aFrame instanceof VirtualComponent) {
@@ -796,19 +788,23 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			((OEFrame) aFrame).getFrame().setVisible(newVal);
 		}
 	}
-	public static void  dispose (Object aFrame) {
+
+	public static void dispose(Object aFrame) {
 		if (aFrame instanceof Frame) {
 			((Frame) aFrame).dispose();
 		} else if (aFrame instanceof VirtualFrame) {
 			((VirtualFrame) aFrame).dispose();
 		} else if (aFrame instanceof JFrame) {
 			((JFrame) aFrame).dispose();
-			
+
 		} else if (aFrame instanceof OEFrame) {
-			((OEFrame) aFrame).getFrame().dispose();;
+			((OEFrame) aFrame).getFrame().dispose();
+			;
 		}
 	}
-	public boolean nonBlockingRunProjectsInteractively() throws InvalidOnyenRangeException {
+
+	public boolean nonBlockingRunProjectsInteractively()
+			throws InvalidOnyenRangeException {
 		try {
 			return nonBlockingRunProjectsInteractively("");
 		} catch (MissingOnyenException e) {
@@ -817,88 +813,95 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			return false;
 		}
 	}
+
 	@Override
-	public boolean nonBlockingRunProjectsInteractively(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
+	public boolean nonBlockingRunProjectsInteractively(String aGoToOnyen)
+			throws MissingOnyenException, InvalidOnyenRangeException {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
 		Object frame = aProjectStepper.getFrame();
-//		setVisible(frame, false);
-		
-//		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
+		// setVisible(frame, false);
+
+		// ProjectStepper aProjectStepper = getOrCreateProjectStepper();
 
 		aProjectStepper.configureNavigationList();
 		boolean retVal = false;
 		try {
-		 retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
+			retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
 		} catch (MissingOnyenException e) {
 			dispose(frame);
 			throw e;
-//			return false;// or could throw the exception to caller, header allows this to happen
+			// return false;// or could throw the exception to caller, header
+			// allows this to happen
 		}
-		if (!retVal  ) {
+		if (!retVal) {
 			dispose(frame);
 		}
 		return retVal;
-//		aProjectStepper.setProjectDatabase(this);
-//		Set<String> onyens = new HashSet(onyenToProject.keySet());
-//		aProjectStepper.setHasMoreSteps(true);
-//		List<String> onyens = getOnyenNavigationList(this);
-//
-//		for (String anOnyen : onyens) {
-//			runProjectInteractively(anOnyen, aProjectStepper);
-//		}
-//		aProjectStepper.setHasMoreSteps(false);
+		// aProjectStepper.setProjectDatabase(this);
+		// Set<String> onyens = new HashSet(onyenToProject.keySet());
+		// aProjectStepper.setHasMoreSteps(true);
+		// List<String> onyens = getOnyenNavigationList(this);
+		//
+		// for (String anOnyen : onyens) {
+		// runProjectInteractively(anOnyen, aProjectStepper);
+		// }
+		// aProjectStepper.setHasMoreSteps(false);
 
 	}
+
 	@Override
-	public boolean startProjectStepper(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
+	public boolean startProjectStepper(String aGoToOnyen)
+			throws MissingOnyenException, InvalidOnyenRangeException {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = getOrCreateProjectStepper();
-//		Object frame = aProjectStepper.getFrame();
-//		setVisible(frame, false);
-		
-//		ProjectStepper aProjectStepper =   getOrCreateProjectStepper();
+		// Object frame = aProjectStepper.getFrame();
+		// setVisible(frame, false);
+
+		// ProjectStepper aProjectStepper = getOrCreateProjectStepper();
 
 		aProjectStepper.configureNavigationList();
 		boolean retVal = false;
 		try {
-		 retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
+			retVal = aProjectStepper.runProjectsInteractively(aGoToOnyen);
 		} catch (MissingOnyenException e) {
-//			dispose(frame);
+			// dispose(frame);
 			throw e;
-//			return false;// or could throw the exception to caller, header allows this to happen
+			// return false;// or could throw the exception to caller, header
+			// allows this to happen
 		}
-//		if (!retVal  ) {
-//			dispose(frame);
-//		}
+		// if (!retVal ) {
+		// dispose(frame);
+		// }
 		return retVal;
-//		aProjectStepper.setProjectDatabase(this);
-//		Set<String> onyens = new HashSet(onyenToProject.keySet());
-//		aProjectStepper.setHasMoreSteps(true);
-//		List<String> onyens = getOnyenNavigationList(this);
-//
-//		for (String anOnyen : onyens) {
-//			runProjectInteractively(anOnyen, aProjectStepper);
-//		}
-//		aProjectStepper.setHasMoreSteps(false);
+		// aProjectStepper.setProjectDatabase(this);
+		// Set<String> onyens = new HashSet(onyenToProject.keySet());
+		// aProjectStepper.setHasMoreSteps(true);
+		// List<String> onyens = getOnyenNavigationList(this);
+		//
+		// for (String anOnyen : onyens) {
+		// runProjectInteractively(anOnyen, aProjectStepper);
+		// }
+		// aProjectStepper.setHasMoreSteps(false);
 
 	}
+
 	@Override
 	public void startProjectStepper() {
 		maybeMakeProjects();
 		ProjectStepper aProjectStepper = createAndDisplayProjectStepper();
 		aProjectStepper.configureNavigationList();
 	}
-	
-//	String navigationFilter  = "";
-//
-//	public String getNavigationFilter() {
-//		return navigationFilter;
-//	}
-//
-//	public void setNavigationFilter(String navigationFilter) {
-//		this.navigationFilter = navigationFilter;
-//	}
+
+	// String navigationFilter = "";
+	//
+	// public String getNavigationFilter() {
+	// return navigationFilter;
+	// }
+	//
+	// public void setNavigationFilter(String navigationFilter) {
+	// this.navigationFilter = navigationFilter;
+	// }
 
 	PrintStream origOut;
 	InputStream origIn;
@@ -906,76 +909,77 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	// SakaiProject nextProject;
 	// String onyen;
 	// ProjectStepper projectStepper;
-	List<OEFrame>  oldList;
+	List<OEFrame> oldList;
 	Window[] oldWindows;
+
 	public void recordWindows() {
-		oldList = new ArrayList( uiFrameList.getList());
-		oldWindows =	Window.getWindows();
-		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+		oldList = new ArrayList(uiFrameList.getList());
+		oldWindows = Window.getWindows();
+		ProjectWindowsRecorded.newCase(this,
+				(OverviewProjectStepper) projectStepper,
+				projectStepper.getProject(), this);
 
 	}
+
 	public void clearWindows() {
-		if (oldWindows != null && oldList != null) {// somebody went before me, get rid of their windows
-//			System.out.println("dispoing old windows");
-			List<uiFrame> newList = new ArrayList( uiFrameList.getList());
-			
+		if (oldWindows != null && oldList != null) {// somebody went before me,
+													// get rid of their windows
+		// System.out.println("dispoing old windows");
+			List<uiFrame> newList = new ArrayList(uiFrameList.getList());
 
-
-			for (uiFrame frame:newList) {
+			for (uiFrame frame : newList) {
 				if (oldList.contains(frame))
 					continue;
 				frame.dispose(); // will this work
 			}
-			Window[] newWindows =	Window.getWindows();
-			
-			
-			for (Window frame:newWindows) {
+			Window[] newWindows = Window.getWindows();
+
+			for (Window frame : newWindows) {
 				if (Common.containsReference(oldWindows, frame)) {
 					continue;
 				}
 				frame.dispose();
 			}
 		}
-		ProjectWindowsDisposed.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+		ProjectWindowsDisposed.newCase(this,
+				(OverviewProjectStepper) projectStepper,
+				projectStepper.getProject(), this);
 
 	}
-	
+
 	public void initIO() {
 		origOut = System.out;
 		origIn = System.in;
 	}
-	
 
 	public void runProjectInteractively(String anOnyen,
 			ProjectStepper aProjectStepper) {
 		SakaiProject aProject = getProject(anOnyen);
 
-//		origOut = System.out;
-//		origIn = System.in;
+		// origOut = System.out;
+		// origIn = System.in;
 		initIO();
-		
-//		if (aProjectStepper.isAutoRun()) {
-//			runProject(anOnyen, aProject);
-//		}
 
-		
+		// if (aProjectStepper.isAutoRun()) {
+		// runProject(anOnyen, aProject);
+		// }
+
 		recordWindows();
-//		ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+		// ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper)
+		// projectStepper, projectStepper.getProject(), this);
 
 		if (aProjectStepper.isAutoRun()) {
 			runProject(anOnyen, aProject);
 		}
-		
+
 		aProjectStepper.setProject(anOnyen);
-		
+
 		aProjectStepper.waitForClearance();
 
 		resetIO();
 		clearWindows();
-		
 
 	}
-
 
 	public void resetIO() {
 		if (System.in != origIn) {
@@ -987,7 +991,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			System.out.close();
 			System.setOut(origOut);
 		}
-		ProjectIORedirected.newCase(this, (OverviewProjectStepper) projectStepper, projectStepper.getProject(), this);
+		ProjectIORedirected.newCase(this,
+				(OverviewProjectStepper) projectStepper,
+				projectStepper.getProject(), this);
 
 	}
 
@@ -1019,7 +1025,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		SakaiProject project = onyenToProject.get(aName);
 		if (project == null) {
 			StudentCodingAssignment aStudentAssignment = getStudentAssignment(aName);
-			if (aStudentAssignment ==  null) {
+			if (aStudentAssignment == null) {
 				Tracer.error("No project for student:" + aName);
 				return null;
 			}
@@ -1046,78 +1052,85 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	/**
-	 * replacing it with Josh's better version below that called getBulkAssignmentFolder()
+	 * replacing it with Josh's better version below that called
+	 * getBulkAssignmentFolder()
 	 */
-//	@Override
-//	public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
-//		if (studentAssignmentDatabase == null) {
-//			studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(
-//					bulkFolder);
-//
-//		}
-//		return studentAssignmentDatabase;
-//
-//	}
-	
-	 @Override
-	    public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
-	        if (studentAssignmentDatabase == null)
-	            studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(getBulkAssignmentFolder());
-	        return studentAssignmentDatabase;
-	    }
+	// @Override
+	// public GenericStudentAssignmentDatabase<StudentCodingAssignment>
+	// getStudentAssignmentDatabase() {
+	// if (studentAssignmentDatabase == null) {
+	// studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(
+	// bulkFolder);
+	//
+	// }
+	// return studentAssignmentDatabase;
+	//
+	// }
+
+	@Override
+	public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
+		if (studentAssignmentDatabase == null)
+			studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(
+					getBulkAssignmentFolder());
+		return studentAssignmentDatabase;
+	}
 
 	GenericStudentAssignmentDatabase<StudentCodingAssignment> studentAssignmentDatabase;
+
 	// duplicated fiunctinality in ProjectDatabaseWrapper
-	static File maybeCreateFolder(String aName) {
+	 File maybeCreateFolder(String aName) {
 		File theDir = new File(aName);
 
-		  // if the directory does not exist, create it
-		  if (!theDir.exists()) {
-//		    boolean result = theDir.mkdir();  
-		     theDir.mkdirs();
+		// if the directory does not exist, create it
+		if (!theDir.exists()) {
+			// boolean result = theDir.mkdir();
+			theDir.mkdirs();
+			AssignmentDataFolderCreated.newCase(theDir.getName(), this);
 
-		     
-		  }
-		  return theDir;
+		} else {
+			AssignmentDataFolderLoaded.newCase(theDir.getName(), this);
+		}
+		return theDir;
 	}
+
 	// duplicated functinality in ProjectDatabaseWrapper
 
-	  public static File maybeCreateFile(String aFileName) {
-	    	File theFile = new File(aFileName);
+	public static File maybeCreateFile(String aFileName) {
+		File theFile = new File(aFileName);
 
-			  // if the file does not exist, create it
-			  if (!theFile.exists()) {
-			    try {
-					boolean result = theFile.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}  
+		// if the file does not exist, create it
+		if (!theFile.exists()) {
+			try {
+				boolean result = theFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-			     
-			  }
-			  return theFile;
-	    }
-	  
+		}
+		return theFile;
+	}
+
 	// duplicated functinality in ProjectDatabaseWrapper
 
 	void maybeWriteStudentIDs(File file) {
-		if (startStudentID == null && endStudentID == null) 
+		if (startStudentID == null && endStudentID == null)
 			return;
 		StringBuffer stringBuffer = new StringBuffer();
 		Set<String> allStudentFolderNames = bulkFolder.getStudentFolderNames();
 		boolean first = true;
-		for (String studentFolderName:allStudentFolderNames) {
-			String studentID = ASakaiBulkAssignmentFolder.extractOnyen(studentFolderName);
-			if (startStudentID.compareToIgnoreCase(studentID) <= 0 && 
-					endStudentID.compareToIgnoreCase(studentID) >= 0) {
+		for (String studentFolderName : allStudentFolderNames) {
+			String studentID = ASakaiBulkAssignmentFolder
+					.extractOnyen(studentFolderName);
+			if (startStudentID.compareToIgnoreCase(studentID) <= 0
+					&& endStudentID.compareToIgnoreCase(studentID) >= 0) {
 				if (!first) {
 					stringBuffer.append("\n");
 				}
 				stringBuffer.append(studentID);
 				first = !first;
-			}			
-				
+			}
+
 		}
 		try {
 			Common.writeText(file, stringBuffer.toString());
@@ -1126,36 +1139,37 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			e.printStackTrace();
 		}
 	}
-	
-//	void initAssignmentDataAndFolder() {
-//		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot);
-//	}
+
+	// void initAssignmentDataAndFolder() {
+	// bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName,
+	// assignmentRoot);
+	// }
 
 	public void maybeMakeProjects() {
 		if (projectsMade)
 			return;
 		projectsMade = true;
-		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName, assignmentRoot, fileNameSorter);
+		bulkFolder = new ASakaiBulkAssignmentFolder(bulkAssignmentsFolderName,
+				assignmentRoot, fileNameSorter);
 		String assignmentName = bulkFolder.getAssignmentName();
 		if (assignmentsDataFolderName == null)
-			assignmentsDataFolderName = GradingEnvironment.get().getDefaultAssignmentsDataFolderName();		
+			assignmentsDataFolderName = GradingEnvironment.get()
+					.getDefaultAssignmentsDataFolderName();
 		String specificAssignmentDataFolderName = assignmentsDataFolderName
 				+ "/" + assignmentName;
 		maybeCreateFolder(specificAssignmentDataFolderName);
-        File idFile = maybeCreateFile(specificAssignmentDataFolderName + "/" + AnAssignmenDataFolder.ID_FILE_NAME);
+		File idFile = maybeCreateFile(specificAssignmentDataFolderName + "/"
+				+ AnAssignmenDataFolder.ID_FILE_NAME);
 
-        maybeWriteStudentIDs(idFile);
+		maybeWriteStudentIDs(idFile);
 		assignmentDataFolder = new AnAssignmenDataFolder(
 				specificAssignmentDataFolderName, bulkFolder.getSpreadsheet());
-		
-
 
 		if (!assignmentDataFolder.exists()) {
 			System.out.println("Expecting assignment data folder:"
 					+ specificAssignmentDataFolderName);
 		}
-		
-		
+
 		// GenericStudentAssignmentDatabase<StudentCodingAssignment>
 		// studentAssignmentDatabase = new
 		// ASakaiStudentCodingAssignmentsDatabase(bulkFolder);
@@ -1200,7 +1214,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				ASakaiBulkAssignmentFolder.DEFAULT_BULK_DOWNLOAD_FOLDER,
 				"C:/Users/dewan/Downloads/GraderData", false);
 		// projectDatabase.runProjectInteractively("mkcolema");
-//		projectDatabase.runProjectsInteractively();
+		// projectDatabase.runProjectsInteractively();
 		try {
 			projectDatabase.nonBlockingRunProjectsInteractively();
 		} catch (InvalidOnyenRangeException e) {
@@ -1208,103 +1222,125 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			e.printStackTrace();
 		}
 
-
 	}
 
+	// Added by Josh
+	public void setManualFeedback(ManualFeedback manualFeedback) {
+		this.manualFeedback = manualFeedback;
+	}
 
-    // Added by Josh
-    public void setManualFeedback(ManualFeedback manualFeedback) {
-        this.manualFeedback = manualFeedback;
-    }
+	// Added by Josh
+	public void setAutoFeedback(AutoFeedback autoFeedback) {
+		this.autoFeedback = autoFeedback;
+	}
 
-    // Added by Josh
-    public void setAutoFeedback(AutoFeedback autoFeedback) {
-        this.autoFeedback = autoFeedback;
-    }
+	// Added by Josh
+	public void setBulkFolder(BulkAssignmentFolder bulkFolder) {
+		this.bulkFolder = bulkFolder;
+	}
 
-    // Added by Josh
-    public void setBulkFolder(BulkAssignmentFolder bulkFolder) {
-        this.bulkFolder = bulkFolder;
-    }
+	// Added by Josh
+	public void setAssignmentDataFolder(
+			AssignmentDataFolder assignmentDataFolder) {
+		this.assignmentDataFolder = assignmentDataFolder;
+	}
 
-    // Added by Josh
-    public void setAssignmentDataFolder(AssignmentDataFolder assignmentDataFolder) {
-        this.assignmentDataFolder = assignmentDataFolder;
-    }
+	public void saveProject(String onyen, SakaiProject project) {
+		onyenToProject.put(onyen, project);
+	}
 
-    public void saveProject(String onyen, SakaiProject project) {
-        onyenToProject.put(onyen, project);
-    }
-    @Override
-    public Checkable getRequirement(GradingFeature aGradingFeature) {
-    	return featureToCheckable.get(aGradingFeature);
-    }
-    /**
-     * This generates grading features based on the project requirements
-     *
-     * @param requirements The FrameworkProjectRequirements to add to the project database
-     */
-    @Override
-    public void addProjectRequirements(ProjectRequirements requirements) {
-        projectRequirements = requirements;
-        List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
-        if (requirements != null) {
-        // Add the features
-        for (Feature feature : requirements.getFeatures()) {
-        	GradingFeature gradingFeature = new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit());
-            gradingFeatures.add(gradingFeature);
-            gradingFeature.setFeature(feature);
-            featureToCheckable.put(gradingFeature, feature);
-        }
+	@Override
+	public Checkable getRequirement(GradingFeature aGradingFeature) {
+		return featureToCheckable.get(aGradingFeature);
+	}
 
-        // Add the restrictions
-        for (Restriction restriction : requirements.getRestrictions()) {
-        	GradingFeature gradingFeature = new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction));
-            gradingFeatures.add(gradingFeature);
-            featureToCheckable.put(gradingFeature, restriction);
-        }
-        }
+	/**
+	 * This generates grading features based on the project requirements
+	 * 
+	 * @param requirements
+	 *            The FrameworkProjectRequirements to add to the project
+	 *            database
+	 */
+	@Override
+	public void addProjectRequirements(ProjectRequirements requirements) {
+		projectRequirements = requirements;
+		List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
+		if (requirements != null) {
+			// Add the features
+			for (Feature feature : requirements.getFeatures()) {
+				GradingFeature gradingFeature = new AGradingFeature(
+						feature.getName(), feature.getPoints(),
+						new FeatureCheckerWrapper(feature),
+						feature.isExtraCredit());
+				gradingFeatures.add(gradingFeature);
+				gradingFeature.setFeature(feature);
+				featureToCheckable.put(gradingFeature, feature);
+			}
 
-        addGradingFeatures(gradingFeatures);
-    }
-    @Override
-    public ProjectRequirements getProjectRequirements() {
-        return projectRequirements;
-    }
-    @Override
+			// Add the restrictions
+			for (Restriction restriction : requirements.getRestrictions()) {
+				GradingFeature gradingFeature = new AGradingFeature(
+						restriction.getName(), restriction.getPoints(),
+						new FeatureCheckerWrapper(restriction));
+				gradingFeatures.add(gradingFeature);
+				featureToCheckable.put(gradingFeature, restriction);
+			}
+		}
+
+		addGradingFeatures(gradingFeatures);
+	}
+
+	@Override
+	public ProjectRequirements getProjectRequirements() {
+		return projectRequirements;
+	}
+
+	@Override
 	public PhotoReader getPhotoReader() {
 		return photoReader;
 	}
-    @Override
+
+	@Override
 	public void setPhotoReader(PhotoReader pictureReader) {
 		this.photoReader = pictureReader;
 	}
-    @Override
+
+	@Override
 	public String getAssignmentsDataFolderName() {
 		return assignmentsDataFolderName;
 	}
-    @Override
+
+	@Override
 	public void setAssignmentsDataFolderName(String assignmentsDataFolderName) {
 		this.assignmentsDataFolderName = assignmentsDataFolderName;
 	}
-    @Override
+
+	@Override
 	public Colorer<GradingFeature> getGradingFeatureColorer() {
 		return gradingFeatureColorer;
 	}
-    @Override
+
+	@Override
 	public void setGradingFeatureColorer(
 			Colorer<GradingFeature> gradingFeatureColorComputer) {
 		this.gradingFeatureColorer = gradingFeatureColorComputer;
 	}
-    @Override
-    public Icon getStudentPhoto(String anOnyen, SakaiProject aProject ) { // so we do not lookup the project
-    	Icon retVal = aProject.getStudentPhoto();
-    	if (retVal == null) {
-    		retVal = getPhotoReader().getIcon(anOnyen);
-    		aProject.setStudentPhoto(retVal);
-    	}
-    	return retVal;
-    }
+
+	@Override
+	public Icon getStudentPhoto(String anOnyen, SakaiProject aProject) { // so
+																			// we
+																			// do
+																			// not
+																			// lookup
+																			// the
+																			// project
+		Icon retVal = aProject.getStudentPhoto();
+		if (retVal == null) {
+			retVal = getPhotoReader().getIcon(anOnyen);
+			aProject.setStudentPhoto(retVal);
+		}
+		return retVal;
+	}
 
 	public Colorer<Double> getScoreColorer() {
 		return scoreColorer;
@@ -1329,40 +1365,48 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void setOverallNotesColorer(Colorer<String> overallNotesColorer) {
 		this.overallNotesColorer = overallNotesColorer;
 	}
+
 	@Override
 	public GraderSettingsModel getGraderSettings() {
 		return graderSettings;
 	}
+
 	@Override
 	public void setGraderSettings(GraderSettingsModel graderSettings) {
 		this.graderSettings = graderSettings;
 		if (graderSettings != null) {
-			BasicNavigationFilter dispatcher = new ADispatchingFilter(graderSettings.getNavigationSetter().getNavigationFilterSetter());
+			BasicNavigationFilter dispatcher = new ADispatchingFilter(
+					graderSettings.getNavigationSetter()
+							.getNavigationFilterSetter());
 			setNavigationFilter(dispatcher);
-//			maybeReinit();
-			
+			// maybeReinit();
+
 		}
 	}
-	
-//	void maybeReinit() {
-//		String aBulkAssignmentsFolderName = graderSettings.getFileBrowsing().getDownloadFolder().getText(); // update in case user changed the name
-//		if (bulkAssignmentsFolderName.equals(aBulkAssignmentsFolderName)) return;
-//		init(aBulkAssignmentsFolderName, assignmentsDataFolderName, assignmentRoot);
-//	}
+
+	// void maybeReinit() {
+	// String aBulkAssignmentsFolderName =
+	// graderSettings.getFileBrowsing().getDownloadFolder().getText(); // update
+	// in case user changed the name
+	// if (bulkAssignmentsFolderName.equals(aBulkAssignmentsFolderName)) return;
+	// init(aBulkAssignmentsFolderName, assignmentsDataFolderName,
+	// assignmentRoot);
+	// }
 	@Override
 	public BasicNavigationFilter getNavigationFilter() {
 		return navigationFilter;
 	}
+
 	@Override
 	public void setNavigationFilter(BasicNavigationFilter navigationFilter) {
 		this.navigationFilter = navigationFilter;
-		
+
 	}
-	
+
 	protected NotesGenerator createNotesGenerator() {
 		return new ANotesGenerator(this);
 	}
-	
+
 	protected ClearanceManager createClearanceManager() {
 		return new AClearanceManager();
 	}
@@ -1371,45 +1415,53 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public NotesGenerator getNotesGenerator() {
 		return notesGenerator;
 	}
-    @Override
+
+	@Override
 	public void setNotesGenerator(NotesGenerator notesGenerator) {
 		this.notesGenerator = notesGenerator;
 	}
-    @Override
+
+	@Override
 	public String getSourceFileNameSuffix() {
 		return sourceFileNameSuffix;
 	}
-    @Override
+
+	@Override
 	public void setSourceFileNameSuffix(String sourceSuffix) {
 		this.sourceFileNameSuffix = sourceSuffix;
 	}
-    @Override
+
+	@Override
 	public ClearanceManager getClearanceManager() {
 		return clearanceManager;
 	}
-    @Override
+
+	@Override
 	public void setClearanceManager(ClearanceManager clearanceManager) {
 		this.clearanceManager = clearanceManager;
 	}
-    @Override
+
+	@Override
 	public AutomaticProjectNavigator getAutomaticProjectNavigator() {
 		return automaticProjectNavigator;
 	}
-    @Override
+
+	@Override
 	public void setAutomaticProjectNavigator(
 			AutomaticProjectNavigator automaticProjectNavigator) {
 		this.automaticProjectNavigator = automaticProjectNavigator;
 	}
-	
-	 @Override
-		public HybridProjectNavigator getHybridProjectNavigator() {
-			return hybridProjectNavigator;
-		}
-	 @Override
-		public void setHybridProjectNavigator(
-				HybridProjectNavigator hybridProjectNavigator) {
-			this.hybridProjectNavigator = hybridProjectNavigator;
-		}
+
+	@Override
+	public HybridProjectNavigator getHybridProjectNavigator() {
+		return hybridProjectNavigator;
+	}
+
+	@Override
+	public void setHybridProjectNavigator(
+			HybridProjectNavigator hybridProjectNavigator) {
+		this.hybridProjectNavigator = hybridProjectNavigator;
+	}
 
 	public ManualProjectNavigator getManualProjectNavigator() {
 		return manualProjectNavigator;
@@ -1435,10 +1487,12 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void setSourceFileNamePrefix(String sourceFileNamePrefix) {
 		this.sourceFileNamePrefix = sourceFileNamePrefix;
 	}
+
 	@Override
 	public Comparator<String> getFileNameSorter() {
 		return fileNameSorter;
 	}
+
 	@Override
 	public void setFileNameSorter(Comparator<String> fileNameSorter) {
 		this.fileNameSorter = fileNameSorter;

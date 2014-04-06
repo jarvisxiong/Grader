@@ -6,6 +6,11 @@ import grader.file.RootFolderFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
+import grader.trace.file.sakai_bulk_folder.AssignmentRootFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.FinalGradeFileLoaded;
+import grader.trace.file.sakai_bulk_folder.FinalGradeFileNotFound;
+import grader.trace.file.sakai_bulk_folder.StudentFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,7 +93,13 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     FileProxy extractGradeSpreadsheet() {
     	String gradeSpreadsheetFullName = assignmentFolder.getAbsoluteName().replace("\\", "/") + "/" + GRADES_SPREADSHEET_NAME;
-        return rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
+    	FileProxy retVal = rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
+    	if (retVal == null)
+    		FinalGradeFileNotFound.newCase(gradeSpreadsheetFullName, this);
+    	else 
+    		FinalGradeFileLoaded.newCase(gradeSpreadsheetFullName, this);
+    	return retVal;
+//    	return rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
     	
     	
     }
@@ -99,6 +110,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     void setAssignmentFolder() {
         assignmentFolder = extractAssignmentFolder();
+        AssignmentRootFolderLoaded.newCase(assignmentFolder.getAbsoluteName(), this);
     }
     
     public static boolean hasOnyenSyntax(String fileName) {
@@ -136,12 +148,15 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 //			}
 //        }); 
         Set<String> sortedStudentFiles = new TreeSet<String>(fileNameComparator);
+        StudentFolderNamesSorted.newCase(sortedStudentFiles, this);
         sortedStudentFiles.addAll(children);
         return sortedStudentFiles;
     }
 
     void setStudentFolderNames() {
         studentFolderNames = extractStudentFolderNames();
+        for (String folderName:studentFolderNames)
+        	StudentFolderLoaded.newCase(folderName, this);
     }
 
     void setGradeSpreadsheet() {

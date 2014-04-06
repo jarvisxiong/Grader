@@ -9,53 +9,44 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.trace.config.DynamicConfigurationFileCreated;
+import grader.trace.config.DynamicConfigurationFileRead;
+import grader.trace.config.StaticConfigurationFileNotRead;
+import grader.trace.config.StaticConfigurationFileRead;
 
 public class AConfigurationManager implements ConfigurationManager {
 	PropertiesConfiguration staticConfiguration;
+	public static final String STATIC_CONFIGURATION_FILE_NAME = "./config/config.properties";
 	
 	public AConfigurationManager() {
 		init();
-//		try {
-//		 PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
-//         setStaticConfiguration(configuration);
-//         String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
-//         File file = new File(dynamicConfigurationHolder);
-//         if (!file.exists()) {
-//         	file.createNewFile();
-//         	convertToDynamicConfiguration();
-//         }
-//        dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationHolder);
-//        setDynamicConfiguration(dynamicConfiguration);
-//
-////         GraderSettings.get().convertToDynamicConfiguration();
-//		}  catch (ConfigurationException e) {
-//            System.err.println("Error loading config file.");
-//            System.err.println(e.getMessage());
-//        
-//        } catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 	}
 	
 	public void init() {
 		try {
-			 PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
-	         setStaticConfiguration(configuration);
+//			 PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
+			 PropertiesConfiguration configuration = new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
+			 StaticConfigurationFileRead.newCase(STATIC_CONFIGURATION_FILE_NAME, this);
+			 setStaticConfiguration(configuration);
 	         String dynamicConfigurationName = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
 
 	         File file = new File(dynamicConfigurationName);
 	         if (!file.exists()) {
 	         	file.createNewFile();
+	         	DynamicConfigurationFileCreated.newCase(dynamicConfigurationName, this);
 //	         	convertToDynamicConfiguration();
 	         }
 		      dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationName);
+		      DynamicConfigurationFileRead.newCase(dynamicConfigurationName, this);
 
 
 //	         GraderSettings.get().convertToDynamicConfiguration();
 			}  catch (ConfigurationException e) {
+				StaticConfigurationFileNotRead.newCase(STATIC_CONFIGURATION_FILE_NAME, this);
 	            System.err.println("Error loading config file.");
 	            System.err.println(e.getMessage());
+	            e.printStackTrace();
 	        
 	        } catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -7,6 +7,8 @@ import util.misc.Common;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.project.file.RootCodeFolder;
+import grader.trace.file.project.BinaryFolderIdentified;
+import grader.trace.file.project.SourceFolderIdentified;
 //a root folder containing source and binary directories
 public class AJavaRootCodeFolder implements RootCodeFolder {
 	public static final String SOURCE = "/src";
@@ -29,7 +31,14 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	boolean hasBinary;
 	boolean hasSourceFile;
 	boolean hasBinaryFile;
-	
+	public AJavaRootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
+		root = aRoot;
+		sourceFolderName = aSourceFolder;
+		binaryFolderName = aBinaryFolder;
+		SourceFolderIdentified.newCase(sourceFolderName, this);
+		BinaryFolderIdentified.newCase(binaryFolderName, this);
+		
+	}
 
 	public AJavaRootCodeFolder(RootFolderProxy aRoot) {
 //		if (aRoot.getAbsoluteName().indexOf("erichman") != -1) {
@@ -74,7 +83,8 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 			sourceFolder = root;
 		}
 		
-		
+		SourceFolderIdentified.newCase(sourceFolderName, this);
+		BinaryFolderIdentified.newCase(binaryFolderName, this);
 		
 	}
 	public boolean hasValidBinaryFolder() {
@@ -123,12 +133,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		}
 		return null;
 	}
-	public AJavaRootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
-		root = aRoot;
-		sourceFolderName = aSourceFolder;
-		binaryFolderName = aBinaryFolder;
-		
-	}
+	
 	
 	@Override
 	public FileProxy sourceFile(String aClassName) {

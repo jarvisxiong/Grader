@@ -39,6 +39,8 @@ import grader.trace.stepper.multiplier.MultiplierLoaded;
 import grader.trace.stepper.multiplier.MultiplierSaved;
 import grader.trace.stepper.multiplier.MultiplierUserChange;
 import grader.trace.stepper.navigation.UserOnyenSet;
+import grader.trace.stepper.overall_notes.MultiplierOverrideNotes;
+import grader.trace.stepper.overall_notes.OverallScoreOverrideNotes;
 import grader.trace.stepper.overall_score.OverallScoreColored;
 import grader.trace.stepper.overall_score.OverallScoreManualChange;
 import grader.trace.stepper.overall_score.OverallScoreSaved;
@@ -349,22 +351,15 @@ public class AGradedProjectTextOverview  implements
 		
 //		featureGradeRecorder.setGrade(name, getOnyen(), newVal);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		String newNotes = notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal);
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(), 
-				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
+				newNotes));
+//				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
+		OverallScoreOverrideNotes.newCase(projectDatabase, projectStepper, project, newNotes, this);
 		projectStepper.setChanged(true);
 		
-//		
-//		String aNotes = projectDatabase.getNotesGenerator().totalScoreOverrideNotes(this, oldVal, newVal);
-//		String oldOverallNotes = getOverallNotes();
-//		String newNotes = oldOverallNotes + " " + aNotes;
-//		setOverallNotes(newNotes);
-		
-		
-		// gradeRecorder.setGrade(project.getStudentAssignment().getStudentName(),
-		// project.getStudentAssignment().getOnyen(), newVal);
-		// score = newVal;
-		// propertyChangeSupport.firePropertyChange("Score", null, newVal);
+
 	}
 
 	
@@ -391,12 +386,15 @@ public class AGradedProjectTextOverview  implements
 		if (oldVal == newValue) return;
 		internalSetMultiplier(newValue);
 		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		String newNotes = notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue);
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
-				projectStepper.getOverallNotes(), 
-				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
+				projectStepper.getOverallNotes(),
+				newNotes));
+//				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
 		featureGradeRecorder.saveMultiplier(newValue);
 		projectStepper.setChanged(true);
 		MultiplierUserChange.newCase(projectDatabase, projectStepper, project, newValue, this);
+		MultiplierOverrideNotes.newCase(projectDatabase, projectStepper, project, newNotes, this);
 //		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
 //		String oldOverallNotes = getOverallNotes();
 //		String newNotes = oldOverallNotes + " " + aNotes;

@@ -13,9 +13,9 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.sakai.project.SakaiProject;
-import grader.trace.execution.ProcessExecutionFinished;
-import grader.trace.execution.ProcessExecutionStarted;
-import grader.trace.execution.ProcessExecutionTimedOut;
+import grader.trace.execution.UserProcessExecutionFinished;
+import grader.trace.execution.UserProcessExecutionStarted;
+import grader.trace.execution.UserProcessExecutionTimedOut;
 
 /**
  * This runs the program in a new process.
@@ -132,7 +132,7 @@ public class ProcessRunner implements Runner {
 			// Start the process
 			TimedProcess process = new TimedProcess(builder, timeout);
 			Process processObj = process.start();
-			ProcessExecutionStarted.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
+			UserProcessExecutionStarted.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 
 			// Print output to the console
 			InputStream processOut = process.getInputStream();
@@ -183,11 +183,11 @@ public class ProcessRunner implements Runner {
 			// Wait for it to finish
 			try {
 				process.waitFor();
-				ProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
+				UserProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 			} catch (Exception e) {
 				outputSemaphore.release();
 				errorSemaphore.release();
-				ProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
+				UserProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 
 				System.out.println("*** Timed out waiting for process to finish ***");
 				// avoiding hanging processes 

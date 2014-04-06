@@ -2,12 +2,12 @@ package grader.trace.execution;
 
 import grader.trace.GraderInfo;
 
-public class ProcessExecutionInfo extends GraderInfo{
+public class UserProcessExecutionInfo extends GraderInfo{
 	String entryPoint;
 	String classPath;
 	String folderName;
 	
-	public ProcessExecutionInfo(String aMessage, 
+	public UserProcessExecutionInfo(String aMessage, 
 			String aFolderName,
 			String anEntryPoint, 
 			String aClassPath,

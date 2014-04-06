@@ -1,6 +1,8 @@
 package grader.documents;
 
 
+import grader.trace.file.view.DefaultProgramOpenedFile;
+import grader.trace.file.view.WordOpenedFile;
 import util.misc.Common;
 
 // TODO: There are x86 Windows-specific paths hard-coded here. That should probably be changed
@@ -29,6 +31,8 @@ public class AWordDocumentDisplayer implements DocumentDisplayer {
 
         String[] command = {wordPath, windowsName};
         Common.exec(command);
+       WordOpenedFile.newCase(aFileName, this);
+
     }
 
 }

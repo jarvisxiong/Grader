@@ -1,7 +1,10 @@
 package grader.project;
 
 import util.misc.TeePrintStream;
+import framework.execution.NotRunnableException;
 import grader.sakai.project.SakaiProject;
+import grader.trace.execution.UserThreadExecutionFinished;
+import grader.trace.execution.UserThreadExecutionStarted;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
 import grader.trace.stepper.feature.transcript.FeatureTranscriptSaved;
 
@@ -72,8 +75,10 @@ public class AReflectionBasedProjectRunner implements Runnable {
                     System.setOut(stdout);
                 }
                 try {
-
+                	UserThreadExecutionStarted.newCase(projectName, mainClassName, project, mainArgs, outputFiles, inputFiles, mainMethod, mainClass, this);
                     mainMethod.invoke(mainClass, args);
+                	UserThreadExecutionFinished.newCase(projectName, mainClassName, project, mainArgs, outputFiles, inputFiles, mainMethod, mainClass, this);
+
                     if (outputFile != null) {
                         stdout.close();
                     }
@@ -81,7 +86,12 @@ public class AReflectionBasedProjectRunner implements Runnable {
                         stdin.close();
                     }
                 } catch (Exception e) {
-                    System.out.println("Could not successfully run:" + projectName + "with input file:" + inputFile);
+                	String message = "Could not successfully run:" + projectName + "with input file:" + inputFile;
+                    System.out.println(message);
+                    NotRunnableException traceable = new NotRunnableException(message, this);
+                    traceable.announce();
+//                    System.out.println("Could not successfully run:" + projectName + "with input file:" + inputFile);
+
                     e.printStackTrace();
                 }
                 project.setHasBeenRun(true);
