@@ -25,5 +25,8 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	String getCurrentProblem();
 	ModuleProblemSelector getModuleProblemSelector();
 	void setModuleProblemSelector(ModuleProblemSelector moduleProblemSelector);
+	void cleanAllSubmissionFolders();
+	void resetFeatureSpreadsheet();
+	void cleanSlate();
 
 }

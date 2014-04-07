@@ -13,9 +13,9 @@ import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
 
-public class Tester implements Runnable{
+public class DemoerAndTester implements Runnable{
 	static String[] args ;
-	static TestingClearanceManager clearanceManager = new ATestingClearanceManager();
+	static DemoAndTestingClearanceManager clearanceManager = new ADemoAndTestingClearanceManager();
 //	static boolean autoProceed;
 //	static long autoProceedPauseTime = 4000;
 	public static void main (String[] anArgs) {
@@ -26,19 +26,26 @@ public class Tester implements Runnable{
 //		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
 //		clearanceFrame.setSize(420, 260);
 //		clearanceFrame.setLocation(0, 0);
-		startSession();
+		startFirstSession();
 
 		doSteps();
 //		waitForUserOrSleep();
 //		Driver.getSettingsModel().begin();
 	}
 	
-	static void startSession() {
-		Thread mainThread = new Thread(new Tester());
+	static void startFirstSession() {
+		Thread mainThread = new Thread(new DemoerAndTester());
 		mainThread.start();
 		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
 		clearanceFrame.setSize(420, 260);
 		clearanceFrame.setLocation(0, 0);
+
+	}
+	
+	static void startSecondSession() {
+		Thread mainThread = new Thread(new DemoerAndTester());
+		mainThread.start();
+		
 
 	}
 	
@@ -70,20 +77,22 @@ public class Tester implements Runnable{
 	}
 	
 	public static void waitForNavigator() {
-		clearanceManager.setStepDescription("Look at the console for missing submission folders.\n\n Now wait  until navigator UI comes up and then press proceed to go to first navigation step.");
+		clearanceManager.setStepDescription("Look at the console for output of autograded steps and missing submission folders. \n\nNow wait until the navigator UI comes up and then press proceed to go to first navigation step.");
 		waitForUserOrSleep();
 	}
 	
 	public static void changeProblem() {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
-		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3.");
+		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3 and cleanup any previous grading results for this assignment.");
 		waitForUserOrSleep();
-		if (clearanceManager.isAutoPerformStep())
+		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
+		Driver.getSettingsModel().cleanSlate();
+		}
 
 	}
 	public static void doBegin() {
-		clearanceManager.setStepDescription("Next step is to begin navigation.");
+		clearanceManager.setStepDescription("Next step is to begin navigation. \n\nThe settings window will remain on the screen while the auto grading phase is being performed and then the navigator window will appear.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getSettingsModel().begin();
@@ -91,14 +100,14 @@ public class Tester implements Runnable{
 	}
 	
 	public static void changeOverallNotes() {
-		clearanceManager.setStepDescription("Next step is to change the overall notes to congratulate the student. Its color should change to indicate the comment presence.");
-		Driver.getDatabase().getProjectStepper().setOverallNotes("");
+		clearanceManager.setStepDescription("Next step is to change the overall notes to congratulate the student. \n\nIts color should change to indicate the comment presence.");
+//		Driver.getDatabase().getProjectStepper().setOverallNotes("");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getDatabase().getProjectStepper().setOverallNotes("All correct!");
 	}
 	public static void doNext() {
-		clearanceManager.setStepDescription("Next step is to navigate to next student.\n\n Wait until the UI is refreshed before proceeding. There should be two pink items (6 and 7) for non-full points indicating attention.");
+		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nWait until the UI is refreshed before proceeding. \n\nThere should be two pink items (6 and 7) for non-full points indicating attention.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getDatabase().getProjectStepper().next();
@@ -107,10 +116,10 @@ public class Tester implements Runnable{
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 		GradingFeature gradingFeature = gradingFeatures.get(6);
 		GradingFeature prevGradingFeature = gradingFeatures.get(5);
-		gradingFeature.setManualNotes("");
-		prevGradingFeature.setManualNotes("");	
+//		gradingFeature.setManualNotes("");
+//		prevGradingFeature.setManualNotes("");	
 		Driver.getDatabase().getProjectStepper().setOverallNotes("");
-		clearanceManager.setStepDescription("Next step is check the select box in item 6 to select it.\n\n The auto notes box should show the reason for point deduction for the selected item. The transcript box should show the output for this feature. The manual notes will show the previous manual notes for this item, which should be empty.");
+		clearanceManager.setStepDescription("Next step is check the select box in item 7 to select it.\n\nThe auto notes box should show the reason for point deduction for the selected item. \n\nThe transcript box should show the output for this feature. \n\nThe manual notes will show the previous manual notes for this item, which should be empty.");
 		waitForUserOrSleep();
 //		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 //		GradingFeature gradingFeature = gradingFeatures.get(6);
@@ -118,7 +127,7 @@ public class Tester implements Runnable{
 		gradingFeature.setSelected(true);
 	}
 	public static void changeManualScore() {
-		clearanceManager.setStepDescription("Next step is to manually override the auto computed score.\n\n The item should remain pink to indicate no reason has been given for change.");
+		clearanceManager.setStepDescription("Next step is to manually override the auto computed score. \n\nThe item should remain pink to indicate no reason has been given for change.");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 		GradingFeature gradingFeature = gradingFeatures.get(6);
@@ -126,7 +135,7 @@ public class Tester implements Runnable{
 		gradingFeature.setScore(gradingFeature.getScore() * 1.1);
 	}
 	public static void changeManualNotes() {
-		clearanceManager.setStepDescription("Next step is to add manual notes for selected item.\n\n The manual notes and item should become green to indicate prsence of non empty comment."); 
+		clearanceManager.setStepDescription("Next step is to add manual notes for selected item. \n\nThe manual notes and item should become green to indicate prsence of non empty comment."); 
 		waitForUserOrSleep();
 //		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 //		GradingFeature gradingFeature = gradingFeatures.get(6);
@@ -135,7 +144,7 @@ public class Tester implements Runnable{
 //		gradingFeature.setManualNotes("The source code shows that indicated output syntax was misunderstood. Gave partial credit.");
 	}
 	public static void doValidate() {
-		clearanceManager.setStepDescription("Next step is to check the validate box in item 6 to indicate that the automantically computed non full score is correct.\n\n The item  color should change. In addition, the item should get selected. The auto notes box should indicate the reason for deduction. The manual notes box should contain notes indicating validation and change color to show presence of notes for selected item."); 
+		clearanceManager.setStepDescription("Next step is to check the validate box in item 6 to indicate that the automantically computed non full score is correct. \n\nThe item  color should change. \n\nIn addition, the item should get selected. \n\nThe auto notes box should indicate the reason for deduction. The manual notes box should contain notes indicating validation and change color to show presence of notes for selected item."); 
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 		GradingFeature gradingFeature = gradingFeatures.get(5);
@@ -145,20 +154,20 @@ public class Tester implements Runnable{
 	}
 	public static void commentOnCode() {
 		clearanceManager.setStepDescription("Go to feedback tab and confirm that changes you made are in the feedback.\n\n" +
-										"Go to source tab to see all of the source code.]\n\n" +
-										"Next step is to insert a comment at the start in the code congrulating the student on good style.");
+										"Go to source tab to see all of the source code.\n\n" +
+										"Next step is to insert a comment at the start in the code congratulating the student on good style.");
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
 			String oldSource =  ((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).getSource();
-			String newSource = "// Excellent style\n" + oldSource;
+			String newSource = "//Excellent style\n" + oldSource;
 			((ComplexProjectStepper) Driver.getDatabase().getProjectStepper()).setSource(newSource);
 		}
 
 	}
 	public static void changeOverallScore() {
 		clearanceManager.setStepDescription("Go to main tab \n\n" +
-										"Next step is to manually increase the overall score for good style as no gradng feature was created for it.");
+										"Next step is to manually increase the overall score for good style as no grading feature was created for it.");
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
@@ -172,7 +181,7 @@ public class Tester implements Runnable{
 //		Driver.getDatabase().getProjectStepper().setOverallNotes("");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
-		Driver.getDatabase().getProjectStepper().setOverallNotes(Driver.getDatabase().getProjectStepper().getOverallNotes() + "Extra credit for style.");
+		Driver.getDatabase().getProjectStepper().setOverallNotes(Driver.getDatabase().getProjectStepper().getOverallNotes() + "\nExtra credit for style.");
 		}
 	}
 	public static void quit1() {
@@ -197,9 +206,9 @@ public class Tester implements Runnable{
 	}
 	
 	public static void secondSession() {
-		clearanceManager.setStepDescription("Next step is to start new session.");
+		clearanceManager.setStepDescription("Next step is to start new session. \n\nThis time we will not clean previous slate; continuing from saved data about the first session.");
 		waitForUserOrSleep();
-		startSession();
+		startSecondSession();
 		
 	}
 	public static void changeOverallNotes3() {

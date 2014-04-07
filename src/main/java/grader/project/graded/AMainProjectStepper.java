@@ -518,5 +518,14 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void setExitOnQuit(boolean newVal) {
 		overviewProjectStepper.setExitOnQuit(newVal);
 	}
+	@Override
+	public void cleanAllFeedbackFolders() {
+		overviewProjectStepper.cleanAllFeedbackFolders();
+		
+	}
+	@Override
+	public void cleanFeedbackFolder() {
+		overviewProjectStepper.cleanFeedbackFolder();		
+	}
 
 }

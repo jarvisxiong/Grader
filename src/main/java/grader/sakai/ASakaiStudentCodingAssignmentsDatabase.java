@@ -8,6 +8,8 @@ import grader.project.AProject;
 import grader.project.Project;
 import grader.sakai.project.AProjectStepper;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -17,10 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
+
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrameList;
-
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.Common;
@@ -42,4 +45,11 @@ public class ASakaiStudentCodingAssignmentsDatabase extends AnAbstractSakaiStude
 	protected StudentCodingAssignment createAssignment(String aStudentDescription, String aFolderName) {
 		return new ASakaiStudentCodingAssignment(aStudentDescription, bulkAssignmentFolder.getStudentFolder(aFolderName));
 	}
+	@Override
+    public void cleanAllFeedbackFolders() {
+    	for (StudentAssignment studentAssignment:getStudentAssignments()) {
+    		studentAssignment.cleanFeedbackFolder();
+    	}
+    	
+    }
 }

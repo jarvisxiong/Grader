@@ -11,11 +11,15 @@ import grader.trace.file.sakai_bulk_folder.student.TimestampFileLoaded;
 import util.misc.Common;
 import util.trace.Tracer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
 
 public class ASakaiStudentAssignment implements StudentAssignment {
     public static String SUBMISSION_LOCAL_NAME = "Submission attachment(s)";
@@ -85,6 +89,19 @@ public class ASakaiStudentAssignment implements StudentAssignment {
                 DocumentFileLoaded.newCase(entryName, this);
             }
         }
+    }
+    @Override
+    public void cleanFeedbackFolder() {
+    	if (feedbackFolder ==null)
+    		return;
+    	String name = feedbackFolder.getMixedCaseAbsoluteName();
+    	if (name == null)
+    		return;
+    	try {
+			FileUtils.cleanDirectory(new File(name));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     public boolean isSubmitted() {

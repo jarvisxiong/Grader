@@ -1504,9 +1504,29 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public void resetFeatureSpreadsheet() {
 		boolean retVal = projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
-		if (retVal)
+		if (isExitOnQuit())
 		System.exit(0);
 		
+		
+	}
+	@Visible(false)
+	@Override
+	public void cleanAllFeedbackFolders() {
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		if (isExitOnQuit())
+			System.exit(0);
+			
+		//		System.exit
+		
+	}
+	@Visible(false)
+	@Override
+	public void cleanFeedbackFolder() {
+		project.getStudentAssignment().cleanFeedbackFolder();
+		if (isExitOnQuit())
+			System.exit(0);
+			
+		//		System.exit
 		
 	}
 	@Visible(false)

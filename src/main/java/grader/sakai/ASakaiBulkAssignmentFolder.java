@@ -37,7 +37,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     RootFolderProxy assignmentFolder;
     Set<String> studentFolderNames;
     Set<Project> studentFolders;
-    FileProxy submissionFolder;
+//    FileProxy submissionFolder;
     FileProxy gradeSpreadsheet;
     Comparator<String> fileNameComparator;
 
