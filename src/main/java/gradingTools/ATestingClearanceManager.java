@@ -17,12 +17,14 @@ import util.misc.ClearanceManager;
 public class ATestingClearanceManager extends AClearanceManager implements TestingClearanceManager{
 	
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+	boolean autoPerformStep = true;
+	
 	boolean autoProceed;
 	long autoPauseTime = 2;
 	
 	
 	String stepDescription = "";
-	@Row(2)
+	@Row(3)
 //	@Column(0)
 	public synchronized void proceed() {
 		super.proceed();
@@ -40,19 +42,17 @@ public class ATestingClearanceManager extends AClearanceManager implements Testi
 	public void setAutoProceed(boolean newVal) {
 		boolean oldValue = this.autoProceed;
 		this.autoProceed = newVal;
-		Tester.setAutoProceed(newVal);
 		propertyChangeSupport.firePropertyChange("AutoProceed", oldValue, newVal);
 	}
-	@Row(1)
+	@Row(2)
 //	@Column(1)
 	public long getAutoPauseTime() {
 		return autoPauseTime;
 	}
 	public void setAutoPauseTime(long autoPauseTime) {
 		this.autoPauseTime = autoPauseTime;
-		Tester.setAutoProceedPauseTime(autoPauseTime*1000);
 	}
-	@Row(3)
+	@Row(4)
 	@PreferredWidgetClass(JTextArea.class)
 	@ComponentWidth(380)
 	@Label("Next Step Description")
@@ -64,6 +64,14 @@ public class ATestingClearanceManager extends AClearanceManager implements Testi
 		this.stepDescription = newValue;
 		propertyChangeSupport.firePropertyChange("StepDescription", oldValue, newValue);
 
+	}
+	@Row(1)
+//	@Column(1)
+	public boolean isAutoPerformStep() {
+		return autoPerformStep;
+	}
+	public void setAutoPerformStep(boolean autoPerformStep) {
+		this.autoPerformStep = autoPerformStep;
 	}
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {

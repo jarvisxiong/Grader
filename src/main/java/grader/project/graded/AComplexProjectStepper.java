@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import util.annotations.ComponentsVisible;
 import util.annotations.Explanation;
+import util.annotations.Label;
 import util.annotations.Position;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
@@ -29,6 +30,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	
 	@Position(0)
 	@Visible(true)
+	@Label("Main")
 	@Override
 	public MainProjectStepper getMainProjectStepper() {
 		return mainProjectStepper;
@@ -473,6 +475,15 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void setProceedWhenDone(boolean proceedWhenDone) {
 		mainProjectStepper.setProceedWhenDone(proceedWhenDone);
 		
+	}
+	@Override
+	@Visible(false)
+	public boolean isExitOnQuit() {
+		return mainProjectStepper.isExitOnQuit();
+	}
+	@Override
+	public void setExitOnQuit(boolean newVal) {
+		mainProjectStepper.setExitOnQuit(newVal);
 	}
 
 }

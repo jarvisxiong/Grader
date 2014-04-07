@@ -12,6 +12,8 @@ public interface TestingClearanceManager extends ClearanceManager, PropertyListe
 	public void setStepDescription(String stepDescription) ;
 	public long getAutoPauseTime();
 	public void setAutoPauseTime(long autoPauseTime) ;
+	public boolean isAutoPerformStep() ;
+	public void setAutoPerformStep(boolean autoPerformStep) ;
 
 
 }

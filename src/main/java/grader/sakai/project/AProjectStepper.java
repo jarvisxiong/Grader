@@ -1821,5 +1821,20 @@ public class AProjectStepper extends AClearanceManager implements
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void quit() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public boolean isExitOnQuit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setExitOnQuit(boolean newVal) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

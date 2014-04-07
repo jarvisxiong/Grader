@@ -111,6 +111,8 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 	void quit();
 
 	void setProceedWhenDone(boolean proceedWhenDone);
+	public boolean isExitOnQuit();
+	public void setExitOnQuit(boolean newVal);
 
 
 //	void setFrame(Object aFrame);

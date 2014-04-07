@@ -169,6 +169,9 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	void setPlayMode(boolean playMode);
 
 	void togglePlayPause();
+	public void quit();
+	public boolean isExitOnQuit();
+	public void setExitOnQuit(boolean newVal);
 	
 
 }

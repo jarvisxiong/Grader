@@ -358,6 +358,7 @@ public class AGradedProjectTextOverview  implements
 //				notesGenerator.totalScoreOverrideNotes(projectStepper, oldVal, newVal)));
 		OverallScoreOverrideNotes.newCase(projectDatabase, projectStepper, project, newNotes, this);
 		projectStepper.setChanged(true);
+		projectStepper.setOverallNotesColor();
 		
 
 	}

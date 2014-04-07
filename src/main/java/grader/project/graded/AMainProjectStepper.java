@@ -507,5 +507,16 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.setProceedWhenDone(proceedWhenDone);
 		
 	}
+	@Override
+	@Visible(false)
+
+	public boolean isExitOnQuit() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.isExitOnQuit();
+	}
+	@Override
+	public void setExitOnQuit(boolean newVal) {
+		overviewProjectStepper.setExitOnQuit(newVal);
+	}
 
 }

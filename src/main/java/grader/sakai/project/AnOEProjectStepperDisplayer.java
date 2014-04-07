@@ -33,7 +33,7 @@ public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFr
 
 		} else
 			oeFrame.setTitle("Grading Assistant for " + assignmentName);
-		oeFrame.setLocation(0, 0);
+		oeFrame.setLocation(450, 0);
 		oeFrame.setSize(850, 790);
 		return oeFrame;
 	}

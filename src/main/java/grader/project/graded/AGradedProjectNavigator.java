@@ -4,6 +4,7 @@ import grader.feedback.ScoreFeedback;
 import grader.file.FileProxyUtils;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.BasicNavigationFilter;
+import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -52,6 +53,7 @@ import bus.uigen.attributes.AttributeNames;
 public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		GradedProjectNavigator, WindowListener {
 	boolean playMode;
+	boolean exitOnQuit = true;
 	
 
 	OverviewProjectStepper projectStepper;
@@ -119,8 +121,10 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		}
 		
 	}
+	Object frame;
 	@Override
 	public void setFrame(Object aFrame) {
+		frame = aFrame;
 		
 		addWindowListener(aFrame, this);
 	}
@@ -632,8 +636,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		maybeSaveState();
 		UserQuit.newCase(projectDatabase, projectStepper, project, this);
 		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
+		if (exitOnQuit)
 
 		System.exit(0);
+		else
+			ASakaiProjectDatabase.dispose(frame);
+			
 	}
 	
 	
@@ -680,5 +688,16 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectNavigator());
+	}
+	@Override
+	@Visible(false)
+	public boolean isExitOnQuit() {
+		// TODO Auto-generated method stub
+		return exitOnQuit;
+	}
+	@Override
+	public void setExitOnQuit(boolean newVal) {
+		exitOnQuit = newVal;
+		
 	}
 }

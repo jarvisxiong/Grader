@@ -642,7 +642,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	@Override
 	public void setSource(String newVal) {
-		source = newVal;
+		internalSetSource(newVal);
 		getProject().getClassesTextManager().setEditedAllSourcesText(getProject().getSourceFileName(), newVal);
 		
 	}
@@ -1530,6 +1530,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setProceedWhenDone(boolean proceedWhenDone) {
 		gradedProjectNavigator.setProceedWhenDone(proceedWhenDone);
 		
+	}
+	@Override
+	@Visible(false)
+
+	public boolean isExitOnQuit() {
+		return gradedProjectNavigator.isExitOnQuit();
+	}
+	@Override
+	public void setExitOnQuit(boolean newVal) {
+		gradedProjectNavigator.setExitOnQuit(newVal);
 	}
 	
 }
