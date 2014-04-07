@@ -145,7 +145,7 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
 
         // Make sure the appropriate folder exists
         File dataFolder = new File(GraderPath + GradingEnvironment.get().getAssignmentName());
-
+        if (GraderPath.startsWith("null")) return null;
         if (!graderDataMade) {
             dataFolder.mkdirs();
 

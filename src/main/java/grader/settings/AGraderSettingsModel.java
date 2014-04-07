@@ -23,6 +23,7 @@ import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
+import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
@@ -38,6 +39,7 @@ import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.GraderSettingsStarted;
 import grader.trace.settings.ModuleUserChange;
 import grader.trace.settings.ProblemUserChange;
+import gradingTools.Driver;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
 import util.annotations.Label;
@@ -49,6 +51,7 @@ import util.misc.Common;
 import util.models.DynamicEnum;
 import util.trace.TraceableBus;
 import util.trace.Tracer;
+import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
@@ -135,6 +138,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		JOptionPane.showMessageDialog(null, "No folder found for download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
+	@Visible(false)
 	public void refreshAll() {
 		loadDynamicConfigurationSettings();
 		refreshOnyens(currentModule);
@@ -583,6 +587,37 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		propertyChangeSupport.addPropertyChangeListener(aListener);
 		
 	}
+	SakaiProjectDatabase projectDatabase;
+	void maybeCreateProjectDatabase() {
+		saveSettings();
+		Driver.initAssignmentDataFolder();
+		projectDatabase = new ProjectDatabaseWrapper();
+		projectDatabase.setGraderSettings(this);
+	}
+	@Visible(false)
+	@Override
+	public void cleanAllSubmissionFolders() {
+//		saveSettings();
+//		Driver.initAssignmentDataFolder();
+//		projectDatabase = new ProjectDatabaseWrapper();
+//		projectDatabase.setGraderSettings(this);
+		maybeCreateProjectDatabase();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		
+	}
+	@Override
+	public void resetFeatureSpreadsheet() {
+		maybeCreateProjectDatabase();
+		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+	}
+	@Override
+	public void cleanSlate() {
+		maybeCreateProjectDatabase();
+		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+	}
+	
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getSource() == moduleProblemSelector.getProblem()) {

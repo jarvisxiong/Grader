@@ -155,6 +155,10 @@ public class Driver {
 	static GraderSettingsModel settingsModel;
     static OEFrame settingsFrame = null;
     static ProjectDatabaseWrapper database = null;
+    
+   static PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+   static ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
+   static GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 
 
     public static void main(String[] args) {
@@ -174,9 +178,16 @@ public class Driver {
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
     		TraceableBus.addTraceableListener(GraderTracerSelector.getGraderTracer());
 
-        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
-        	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+//        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+//        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
+//        	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+        	
+
+        	 configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+        	 moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
+        	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+        	
+        	
 //        	moduleProgramManager.init(graderSettingsManager);
 //        	graderSettingsManager.init(moduleProgramManager);
 //        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
@@ -284,9 +295,10 @@ public class Driver {
 //                         ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
                          recorder.setProjectRequirements(requirements);
                       initLoggers(requirements, configuration);
-                      String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-                      defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
-                      GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+                      initAssignmentDataFolder();
+//                      String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+//                      defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+//                      GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
 //            			goToOnyen = settingsModel.getOnyens().getGoToOnyen();
 //            			settingsFrame.dispose();
@@ -336,6 +348,14 @@ public class Driver {
                 database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);                
 }
     }
+
+	public static void initAssignmentDataFolder() {
+		String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+        defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+        GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+
+		
+	}
 
 	public static GraderSettingsModel getSettingsModel() {
 		return settingsModel;

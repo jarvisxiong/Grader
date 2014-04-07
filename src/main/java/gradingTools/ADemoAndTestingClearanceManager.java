@@ -14,7 +14,7 @@ import util.annotations.Visible;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 
-public class ATestingClearanceManager extends AClearanceManager implements TestingClearanceManager{
+public class ADemoAndTestingClearanceManager extends AClearanceManager implements DemoAndTestingClearanceManager{
 	
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	boolean autoPerformStep = true;

@@ -1171,6 +1171,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (assignmentsDataFolderName == null)
 			assignmentsDataFolderName = GradingEnvironment.get()
 					.getDefaultAssignmentsDataFolderName();
+//		if (assignmentsDataFolderName.startsWith("null")) 
+//			assignmentsDataFolderName = null;
+		if (assignmentsDataFolderName != null) { // we may be creating the database without folder name
 		String specificAssignmentDataFolderName = assignmentsDataFolderName
 				+ "/" + assignmentName;
 		maybeCreateFolder(specificAssignmentDataFolderName);
@@ -1184,6 +1187,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (!assignmentDataFolder.exists()) {
 			System.out.println("Expecting assignment data folder:"
 					+ specificAssignmentDataFolderName);
+		}
 		}
 
 		// GenericStudentAssignmentDatabase<StudentCodingAssignment>
@@ -1206,7 +1210,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// StudentAssignment lastAssignment = null;
 		for (StudentCodingAssignment anAssignment : studentAssignments) {
 			RootFolderProxy projectFolder = anAssignment.getProjectFolder();
-			if (!assignmentDataFolder.getStudentIDs().contains(
+			if (assignmentDataFolder != null && !assignmentDataFolder.getStudentIDs().contains(
 					anAssignment.getOnyen()))
 				continue;
 			SakaiProject project = makeProject(anAssignment);

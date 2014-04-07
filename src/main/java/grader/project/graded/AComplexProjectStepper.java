@@ -451,6 +451,17 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public boolean preSetManualNotes() {
 		return mainProjectStepper.preSetManualNotes();
 	}
+	@Override
+	@Visible(true)
+	public void cleanAllFeedbackFolders() {
+		mainProjectStepper.cleanAllFeedbackFolders();
+		
+	}
+	@Override
+	@Visible(true)
+	public void cleanFeedbackFolder() {
+		mainProjectStepper.cleanFeedbackFolder();		
+	}
 	@Visible(true)
 	public void resetFeatureSpreadsheet() {
 		mainProjectStepper.resetFeatureSpreadsheet();
@@ -467,6 +478,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.restoreFeatureSpreadsheet();
 		
 	}
+	
 	@Override
 	public void quit() {
 		mainProjectStepper.quit();		

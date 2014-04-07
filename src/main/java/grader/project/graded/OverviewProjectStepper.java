@@ -18,4 +18,8 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 	public boolean preRestoreFeatureSpreadsheet();
 	public void restoreFeatureSpreadsheet() ;
 
+	void cleanAllFeedbackFolders();
+
+	void cleanFeedbackFolder();
+
 }
