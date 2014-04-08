@@ -6,12 +6,15 @@ import grader.navigation.sorter.AFileObjectSorter;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.stepper.navigation.NavigationListSorted;
+import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
+import grader.trace.stepper.navigation.NavigationListCreated;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import util.misc.Common;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,6 +50,8 @@ public class AlphabeticNavigationList implements NavigationListCreator {
 //			}
 //		});
 		Arrays.sort(files, new AFileObjectSorter(aSakaiProjectDatabase.getFileNameSorter())) ;
+		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), this);
+		
 		
         
         for (File file : files) {
@@ -64,8 +69,8 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         if (include) { // did not find ending onyen
         	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
-		NavigationListSorted.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), onyens, this);
-
+		NavigationListCreated.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), onyens, this);
+		
         return onyens;
     }
 }

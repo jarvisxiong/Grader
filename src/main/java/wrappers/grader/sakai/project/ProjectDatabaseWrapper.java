@@ -1,10 +1,16 @@
 package wrappers.grader.sakai.project;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.ProjectRequirements;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.assignment.AnAssignmenDataFolder;
+import grader.navigation.sorter.AFileObjectSorter;
+import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
+import grader.trace.file.sakai_bulk_folder.StudentFolderNamesWrittenInOnyenFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -144,7 +150,10 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
     private static String getDataFolder() {
 
         // Make sure the appropriate folder exists
-        File dataFolder = new File(GraderPath + GradingEnvironment.get().getAssignmentName());
+    	String assignmentName = GradingEnvironment.get().getAssignmentName();
+//        File dataFolder = new File(GraderPath + GradingEnvironment.get().getAssignmentName());
+        File dataFolder = new File(GraderPath + assignmentName);
+
         if (GraderPath.startsWith("null")) return null;
         if (!graderDataMade) {
             dataFolder.mkdirs();
@@ -153,7 +162,15 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             String onyens = "";
             Boolean include = false;
             Set<String> onyenSet = new TreeSet<String>();
-            for (File file : new File(GraderSettings.get().get("path")).listFiles()) {
+            File files[] = new File(GraderSettings.get().get("path")).listFiles();
+        	Arrays.sort(files, new AFileObjectSorter(FileNameSorterSelector.getSorter())) ;
+        	
+        	//maybe this is the only sort we need now, at least we do not need it in getStudentIds, but will keep it for now
+    		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), ProjectDatabaseWrapper.class);
+    		
+//            for (File file : new File(GraderSettings.get().get("path")).listFiles()) {
+            for (File file : files) {
+
                 if (file.isDirectory()) {
                     String name = file.getName();
                     String onyen = name.substring(name.indexOf("(") + 1, name.indexOf(")"));
@@ -168,8 +185,15 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
                 if (onyen.equals(GraderSettings.get().get("end")))
                     include = false;
             }
+            if (include) { // did not find end
+            	onyens = "";
+            }
             try {
-                FileUtils.writeStringToFile(new File(dataFolder, "onyens.txt"), onyens);
+            	File file = new File(dataFolder, AnAssignmenDataFolder.ID_FILE_NAME);
+//                FileUtils.writeStringToFile(new File(dataFolder, "onyens.txt"), onyens);
+                FileUtils.writeStringToFile(file, onyens);
+
+                StudentFolderNamesWrittenInOnyenFile.newCase(onyenSet, file.getAbsolutePath(), ProjectDatabaseWrapper.class);
             } catch (IOException e) {
                 System.out.println("Error creating onyens.txt file.");
             }

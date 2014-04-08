@@ -1,8 +1,8 @@
 package grader.trace.project;
 
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
-public class ProjectFolderNotFound extends CheckedGraderException {
+public class ProjectFolderNotFound extends UncheckedGraderException {
 	String fileName;
 	
 	public ProjectFolderNotFound(String aMessage, String aFileName, Object aFinder) {

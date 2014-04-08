@@ -422,6 +422,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         GraderSettings.get().set(START_ONYEN, startingOnyen);
         GraderSettings.get().set(END_ONYEN, endingOnyen);
         GraderSettings.get().set(PROBLEM_PATH, downloadPath);
+        GradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
         GraderSettings.get().set("editor", editor);
         GraderSettings.get().save();

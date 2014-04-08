@@ -1,11 +1,11 @@
 package grader.trace.stepper.auto_visit;
 
 import grader.settings.GraderSettingsModel;
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
 import java.io.IOException;
 
-public class AutoVisitFailedException extends CheckedGraderException { // will be user error
+public class AutoVisitFailedException extends UncheckedGraderException { // will be user error
 	
 	
 	public AutoVisitFailedException (String aMessage, Object aFinder) {

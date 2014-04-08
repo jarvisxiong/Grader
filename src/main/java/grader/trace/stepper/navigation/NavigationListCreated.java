@@ -10,7 +10,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class NavigationListSorted extends StepperInfo {
+public class NavigationListCreated extends StepperInfo {
 	List<String> onyens;
 
 
@@ -19,7 +19,7 @@ public class NavigationListSorted extends StepperInfo {
 
 
 
-public NavigationListSorted(String aMessage,
+public NavigationListCreated(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, List<String> newVal,
 			Object aFinder) {
@@ -39,12 +39,12 @@ public List<String> getOnyens() {
 		this.onyens = onyens;
 	}
 	
-	public static NavigationListSorted newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static NavigationListCreated newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject, List<String> newVal,
 			Object aFinder) {
 		String aMessage = "Navigation list sorted:" + newVal;
-		NavigationListSorted retVal = new NavigationListSorted(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, newVal, aFinder);
+		NavigationListCreated retVal = new NavigationListCreated(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, newVal, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

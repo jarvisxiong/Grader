@@ -1,7 +1,7 @@
 package grader.trace.execution;
 
 import framework.grading.testing.NotGradableException;
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 import grader.trace.GraderInfo;
 
 

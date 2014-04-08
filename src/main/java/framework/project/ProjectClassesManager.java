@@ -22,6 +22,7 @@ import org.apache.commons.io.FileUtils;
 
 import scala.Option;
 import tools.DirectoryUtils;
+import util.trace.javac.CompilerNotFound;
 
 /**
  * @see ClassesManager
@@ -32,6 +33,9 @@ public class ProjectClassesManager implements ClassesManager {
 	private final File sourceFolder;
 	private final ClassLoader classLoader;
 	private final Set<ClassDescription> classDescriptions;
+	List<String> classNamesToCompile = new ArrayList();
+
+	
 
 	public ProjectClassesManager(File buildFolder, File sourceFolder) throws IOException,
 			ClassNotFoundException {
@@ -63,18 +67,19 @@ public class ProjectClassesManager implements ClassesManager {
 		});
 
 		// Check if any files need to be compiled
-		ArrayList<File> filesToCompile = new ArrayList<File>();
+		ArrayList<File> aFilesToCompile = new ArrayList<File>();
 		for (File file : javaFiles) {
 			String className = getClassName(file);
 			File classFile = getClassFile(className);
 			if (shouldCompile(file, classFile)) {
-				filesToCompile.add(file);
+				classNamesToCompile.add(className);
+				aFilesToCompile.add(file);
 			}
 		}
-		if (filesToCompile.size() > 0) {
+		if (aFilesToCompile.size() > 0) {
 			try {
 				System.out.println("Attempting to compile files.");
-				compile(filesToCompile);
+				compile(aFilesToCompile);
 				System.out.println("Compilation succeeded.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());
@@ -186,7 +191,8 @@ public class ProjectClassesManager implements ClassesManager {
 				
 			}
 		} else {
-			throw new RuntimeException("Compiler not accessible");
+//			throw new RuntimeException("Compiler not accessible");
+			throw CompilerNotFound.newCase(this);
 		}
 	}
 
@@ -244,5 +250,13 @@ public class ProjectClassesManager implements ClassesManager {
 	@Override
 	public Set<ClassDescription> getClassDescriptions() {
 		return classDescriptions;
+	}
+	@Override
+	public List<String> getClassNamesToCompile() {
+		return classNamesToCompile;
+	}
+	@Override
+	public void setClassNamesToCompile(List<String> classNamesToCompile) {
+		this.classNamesToCompile = classNamesToCompile;
 	}
 }

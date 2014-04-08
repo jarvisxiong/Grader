@@ -1,6 +1,7 @@
 package framework.project;
 
 import framework.execution.*;
+import grader.trace.project.BinaryFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
 import util.trace.TraceableLog;
@@ -59,9 +60,14 @@ public class StandardProject implements Project {
         Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
 
         // If there is no 'out' or 'bin' folder then give up
-        if (out.isEmpty() && bin.isEmpty())
-            throw new FileNotFoundException();
-        else {
+        if (out.isEmpty() && bin.isEmpty()) {
+//            throw new FileNotFoundException();
+        	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
+        	File retVal = new File(directory, "bin");
+        	retVal.mkdirs();
+        	return retVal.getAbsoluteFile();
+        	
+        } else {
             // There can be more folders under it, so look around some more
             // But first check the class name to see what we are looking for
             File dir = null;
