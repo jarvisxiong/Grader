@@ -48,6 +48,7 @@ import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
 import grader.navigation.sorter.AnAlphabeticFileNameSorter;
+import grader.navigation.sorter.FileNameSorterSelector;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
@@ -178,36 +179,14 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				anAssignmentRoot);
 
 	}
+	
+	
 
 	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
 			String anAssignmentsDataFolderName, boolean anAssignmentRoot) {
 		init(aBulkAssignmentsFolderName, anAssignmentsDataFolderName,
 				anAssignmentRoot);
-		// sourceSuffix = sourceSuffix();
-		// outputSuffix = outputSuffix();
-		// bulkAssignmentsFolderName = aBulkAssignmentsFolderName;
-		// assignmentsDataFolderName = anAssignmentsDataFolderName;
-		// maybeMakeProjects();
-		// // gradeRecorder = new
-		// // ASakaiSpreadsheetGradeRecorder(bulkFolder.getSpreadsheet());
-		// // gradeRecorder = new
-		// // ASakaiCSVFinalGradeManager(bulkFolder.getSpreadsheet());
-		// // gradeRecorder = new ASakaiCSVFinalGradeManager(this);
-		// featureGradeRecorder = createFeatureGradeRecorder();
-		// gradeRecorder = createFinalGradeRecorder();
-		// // totalScoreRecorder = createTotalScoreRecorder();
-		// totalScoreRecorder = createTotalScoreRecorder();
-		// autoFeedback = createAutoFeedback();
-		// manualFeedback = createManualFeedback();
-		// scoreFeedback = createScoreFeedback();
-		// sourceDisplayer = createSourceDisplayer();
-		// mainClassFinder = createMainClassFinder();
-		// projectStepperDisplayer = createProjectStepperDisplayer();
-		// navigationListCreator = createNavigationListCreator();
-
-		// maybeMakeProjects();
-
-		// initInputFiles();
+		
 
 	}
 
@@ -271,7 +250,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 	Comparator<String> createFileNameSorter() {
-		return new AnAlphabeticFileNameSorter();
+//		return new AnAlphabeticFileNameSorter();
+		return FileNameSorterSelector.getSorter();
 	}
 
 	public static SakaiProjectDatabase getCurrentSakaiProjectDatabase() {

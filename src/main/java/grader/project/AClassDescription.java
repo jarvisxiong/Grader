@@ -3,13 +3,20 @@
 
 package grader.project;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
 import grader.file.FileProxy;
+import grader.trace.compilation.ClassFileCompiledInMemory;
+import grader.trace.compilation.ClassFileCouldNotBeCompiled;
 import grader.trace.compilation.ClassFileNotFound;
 import grader.trace.compilation.ClassLoaded;
 import grader.trace.compilation.CompilationUnitCreated;
@@ -28,7 +35,9 @@ import util.javac.ParserMain;
 import util.javac.SourceClass;
 import util.javac.SourceClassManager;
 import util.misc.Common;
+import util.misc.TeePrintStream;
 import util.trace.Tracer;
+import util.trace.javac.CompilerNotFound;
 import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.local.AClassProxy;
 // gets the source from AClassesManager
@@ -46,6 +55,9 @@ public class AClassDescription  implements ClassDescription {
 	Project project;
 	FileProxy sourceFile;
 	SourceClass javacSourceClass;
+	List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
+	
+	List<String> classNamesCompiled = new ArrayList();
 
     private CompilationUnit compilationUnit;
 	
@@ -56,15 +68,48 @@ public class AClassDescription  implements ClassDescription {
 		project = aProject;
 		text = aText;
 		sourceTime = aSourceTime;
-		if (aClassLoader != null)
+		if (aClassLoader != null) {
+			PrintStream teeout = null;
+			PrintStream teeerr = null;
+			PrintStream stdout = System.out;
+			PrintStream stderr = System.err;
 		try {
 //			javaClass = Class.forName(aClassName);
 			javaClass = aClassLoader.loadClass(aClassName);
 			if (javaClass == null) {
 				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
+				
+				
+				String outputFile = aProject.getOutputFileName();
+				
+				if (outputFile != null) {
+					FileOutputStream outStream = new FileOutputStream(outputFile);
+                    teeout = new TeePrintStream(outStream, stdout);
+                    teeerr = new TeePrintStream(outStream, stderr);
+                    System.setOut(teeout);
+                    System.setErr(teeerr);
+                }
 				Tracer.error(classFileNotfound.getMessage());
+				Tracer.error("Attempting to compile class");
+				
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
-				javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
+				if (classBytes != null) {
+					ClassFileCompiledInMemory.newCase(aClassName, classBytes, this);
+					javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
+				}
+//				teeout.close();
+//				teeerr.close();
+//				System.setOut(stdout);
+//				System.setErr(stderr);
+				if (javaClass != null) {
+					ClassLoaded.newCase(aClassName, this);
+					classNamesCompiled.add(aClassName);
+				}  else {
+					Tracer.error(ClassFileCouldNotBeCompiled.newCase(aClassName, this).getMessage());
+					classNamesThatCouldNotBeCompiled.add(aClassName);
+
+//					Tracer.error("Could not compile");
+				}
 				
 				
 				
@@ -79,15 +124,31 @@ public class AClassDescription  implements ClassDescription {
 			classProxy = AClassProxy.classProxy(javaClass);
 			}
 			
-		} catch (Exception e) {
+		} catch (CompilerNotFound cnf) {
+			System.out.println(cnf.getMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 			ClassFileNotFound.newCase(aClassName, this);
+		
 //			Tracer.error("Missing class file for:" + aClassName);
 //			e.printStackTrace();
 		} catch (Error e) { // Added by Josh, the loadClass method may throw a IncompatibleClassChangeError
 			ClassFileNotFound.newCase(aClassName, this);
 
 //			Tracer.error("Missing class file for:" + aClassName);
+        } finally {
+        	if (teeout != null) {
+        		teeout.close();
+        		System.setOut(stdout);
+        	}
+        	if (teeerr != null) {
+        		teeerr.close();
+        		System.setErr(stderr);
+        	}
+        		
         }
+		}
 
 		className = aClassName;
 		packageName = Common.classNameToPackageName(aClassName);
@@ -213,6 +274,17 @@ public class AClassDescription  implements ClassDescription {
 	public void setSourceFile(FileProxy sourceFile) {
 		this.sourceFile = sourceFile;
 	}
-	
+	public List<String> getClassNamesThatCouldNotBeCompiled() {
+		return classNamesThatCouldNotBeCompiled;
+	}
+	public void setClassNamesThatCouldNotBeCompiled(List<String> classNamesToCompile) {
+		this.classNamesThatCouldNotBeCompiled = classNamesToCompile;
+	}
+	public List<String> getClassNamesCompiled() {
+		return classNamesCompiled;
+	}
+	public void setClassNamesCompiled(List<String> classNamesCompiled) {
+		this.classNamesCompiled = classNamesCompiled;
+	}
 
 }

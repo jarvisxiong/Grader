@@ -1,8 +1,8 @@
 package grader.trace.compilation;
 
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
-public class SourceFileCompiled extends CheckedGraderException {
+public class SourceFileCompiled extends UncheckedGraderException {
 	String fileName;
 	
 	public SourceFileCompiled(String aMessage, String aFileName, Object aFinder) {

@@ -2,6 +2,7 @@ package framework.project;
 
 import scala.Option;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,5 +35,9 @@ public interface ClassesManager {
      * @return All the {@link ClassDescription}
      */
     public Set<ClassDescription> getClassDescriptions();
+
+	List<String> getClassNamesToCompile();
+
+	void setClassNamesToCompile(List<String> classNamesToCompile);
 
 }

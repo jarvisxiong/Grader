@@ -4,6 +4,7 @@ import grader.file.FileProxy;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import com.github.antlrjavaparser.api.CompilationUnit;
 
@@ -34,5 +35,11 @@ public interface ClassDescription {
     CompilationUnit getCompilationUnit() throws IOException;
     public FileProxy getSourceFile() ;
 	public void setSourceFile(FileProxy sourceFile) ;
+	
+	
+	public List<String> getClassNamesThatCouldNotBeCompiled();
+	public void setClassNamesThatCouldNotBeCompiled(List<String> classNamesToCompile) ;
+	public List<String> getClassNamesCompiled();
+	public void setClassNamesCompiled(List<String> classNamesCompiled);
 
 }

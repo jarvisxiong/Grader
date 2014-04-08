@@ -480,7 +480,8 @@ public class AnAutoVisitBehavior implements
 	public void autoGrade() {
 //		project.setHasBeenRun(true);
 		projectStepper.setChanged (true);
-		project.clearOutput();
+		// we may have compile errors in output, so do not clear it
+//		project.clearOutput();
 		for (GradingFeature gradingFeature : projectDatabase
 				.getGradingFeatures()) {
 			if (gradingFeature.isAutoGradable()) {

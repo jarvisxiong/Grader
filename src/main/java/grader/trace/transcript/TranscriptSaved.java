@@ -1,4 +1,4 @@
-package grader.trace.overall_transcript;
+package grader.trace.transcript;
 
 import grader.assignment.GradingFeature;
 import grader.project.graded.OverviewProjectStepper;
@@ -9,12 +9,12 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class OverallTranscriptSaved extends OverallTranscriptInfo {
+public class TranscriptSaved extends TranscriptInfo {
 	String TranscriptFileName;
 
 
 
-public OverallTranscriptSaved(String aMessage,
+public TranscriptSaved(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			String anOvervewFileName,
@@ -36,14 +36,14 @@ public void setTranscriptFileName(String TranscriptFileName) {
 }
 
 	
-	public static OverallTranscriptSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static TranscriptSaved newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
 		String aMessage = "Transcript Saved to File:" + anOverviewFileName + ". Transcript:" + aNotes;
-		OverallTranscriptSaved retVal = new OverallTranscriptSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
+		TranscriptSaved retVal = new TranscriptSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

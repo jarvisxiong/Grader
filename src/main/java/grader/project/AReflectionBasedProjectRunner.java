@@ -5,8 +5,8 @@ import framework.execution.NotRunnableException;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserThreadExecutionFinished;
 import grader.trace.execution.UserThreadExecutionStarted;
-import grader.trace.overall_transcript.OverallTranscriptSaved;
 import grader.trace.stepper.feature.transcript.FeatureTranscriptSaved;
+import grader.trace.transcript.TranscriptSaved;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -98,7 +98,7 @@ public class AReflectionBasedProjectRunner implements Runnable {
 
                 System.out.println("terminated main method");
                 if (appendedToTranscript)
-                	OverallTranscriptSaved.newCase(null, null,   (SakaiProject) project, project.getOutputFileName(), "???", this);
+                	TranscriptSaved.newCase(null, null,   (SakaiProject) project, project.getOutputFileName(), "???", this);
             }
 
         } catch (Exception e) {

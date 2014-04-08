@@ -33,7 +33,6 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
-import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.ProjectStepStarted;
@@ -58,6 +57,7 @@ import grader.trace.stepper.overall_score.OverallScoreAutoChange;
 import grader.trace.stepper.overall_score.OverallScoreLoaded;
 import grader.trace.stepper.overview.ProjectGradingChanged;
 import grader.trace.stepper.overview.ProjectWindowsRecorded;
+import grader.trace.transcript.TranscriptLoaded;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -368,7 +368,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		StringBuffer currentOutput = Common.toText(project.getOutputFileName());	
 		StringBuffer currentOutput = Common.toText(fileName);
 		 project.setCurrentOutput(currentOutput);
-			OverallTranscriptLoaded.newCase(projectDatabase, this, project,  fileName, output, this);
+			TranscriptLoaded.newCase(projectDatabase, this, project,  fileName, output, this);
 
 		 List<GradingFeature> gradingFeatures = getProjectDatabase().getGradingFeatures();
 		  allOutput = currentOutput.toString();

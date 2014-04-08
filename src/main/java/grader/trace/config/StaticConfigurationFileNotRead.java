@@ -1,9 +1,9 @@
 package grader.trace.config;
 
-import grader.trace.CheckedTraceableException;
+import util.trace.UncheckedTraceableException;
 import grader.trace.execution.UserProcessExecutionStarted;
 
-public class StaticConfigurationFileNotRead extends CheckedTraceableException{
+public class StaticConfigurationFileNotRead extends UncheckedTraceableException{
 	String configurationFileName;
 	public StaticConfigurationFileNotRead(String aMessage,
 			String aConfigurationFileName, Object aFinder) {

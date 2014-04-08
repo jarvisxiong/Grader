@@ -1,6 +1,6 @@
 package framework.grading.testing;
 
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +9,7 @@ import grader.trace.CheckedGraderException;
  * Time: 9:49 AM
  * To change this template use File | Settings | File Templates.
  */
-public class NotGradableException extends CheckedGraderException {
+public class NotGradableException extends UncheckedGraderException {
 	public NotGradableException(String aMessage) {
 		super(aMessage);
 	}

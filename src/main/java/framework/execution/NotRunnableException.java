@@ -1,12 +1,12 @@
 package framework.execution;
 
 import framework.grading.testing.NotGradableException;
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
 /**
  * This exception means that the student's program failed to run
  */
-public class NotRunnableException extends  CheckedGraderException {
+public class NotRunnableException extends  UncheckedGraderException {
 	public NotRunnableException(String aMessage) {
 		super(aMessage);
 	}

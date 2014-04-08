@@ -1,7 +1,7 @@
 package framework.grading.testing;
 
 import util.trace.Tracer;
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 import grader.trace.settings.InvalidOnyenRangeException;
 
 /**
@@ -11,7 +11,7 @@ import grader.trace.settings.InvalidOnyenRangeException;
  * Time: 1:35 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NotAutomatableException extends CheckedGraderException {
+public class NotAutomatableException extends UncheckedGraderException {
 	public NotAutomatableException(String aMessage) {
 		super(aMessage);
 	}

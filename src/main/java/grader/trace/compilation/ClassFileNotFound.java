@@ -1,8 +1,8 @@
 package grader.trace.compilation;
 
-import grader.trace.CheckedGraderException;
+import grader.trace.UncheckedGraderException;
 
-public class ClassFileNotFound extends CheckedGraderException {
+public class ClassFileNotFound extends UncheckedGraderException {
 	String fileName;
 	
 	

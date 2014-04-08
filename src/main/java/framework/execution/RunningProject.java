@@ -6,8 +6,8 @@ import java.util.concurrent.Semaphore;
 
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.trace.overall_transcript.OverallTranscriptSaved;
 import grader.trace.stepper.feature.transcript.FeatureTranscriptSaved;
+import grader.trace.transcript.TranscriptSaved;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
@@ -170,7 +170,7 @@ public class RunningProject {
 		try {
 			FileWriter fileWriter = new FileWriter(outputFileName, true);
 			fileWriter.append(transcript);
-			OverallTranscriptSaved.newCase(null, null, project,  outputFileName, transcript, this);
+			TranscriptSaved.newCase(null, null, project,  outputFileName, transcript, this);
 			if (project.getCurrentGradingFeature() != null)
 //			FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
 			fileWriter.close();
