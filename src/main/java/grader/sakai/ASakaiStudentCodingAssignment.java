@@ -4,8 +4,8 @@ import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
-import grader.trace.file.sakai_bulk_folder.student.project.ProjectFolderNotFound;
-import grader.trace.file.sakai_bulk_folder.student.project.RubrickFileLoaded;
+import grader.trace.project.ProjectFolderNotFound;
+import grader.trace.project.RubrickFileLoaded;
 
 import java.util.Set;
 

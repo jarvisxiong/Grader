@@ -10,11 +10,11 @@ import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
 import grader.file.FileProxy;
-import grader.trace.file.compilation.ClassFileNotFound;
-import grader.trace.file.compilation.ClassLoaded;
-import grader.trace.file.compilation.CompilationUnitCreated;
-import grader.trace.file.compilation.JavacSourceClassCreated;
-import grader.trace.file.compilation.QDoxClassCreated;
+import grader.trace.compilation.ClassFileNotFound;
+import grader.trace.compilation.ClassLoaded;
+import grader.trace.compilation.CompilationUnitCreated;
+import grader.trace.compilation.JavacSourceClassCreated;
+import grader.trace.compilation.QDoxClassCreated;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -24,6 +24,7 @@ import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.Tags;
+import util.javac.ParserMain;
 import util.javac.SourceClass;
 import util.javac.SourceClassManager;
 import util.misc.Common;
@@ -60,7 +61,13 @@ public class AClassDescription  implements ClassDescription {
 //			javaClass = Class.forName(aClassName);
 			javaClass = aClassLoader.loadClass(aClassName);
 			if (javaClass == null) {
-				ClassFileNotFound.newCase(aClassName, this);
+				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
+				Tracer.error(classFileNotfound.getMessage());
+				byte[] classBytes = ParserMain.compile(aClassName, aText);
+				javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
+				
+				
+				
 
 //				Tracer.error("Missing class file for:" + aClassName);
 

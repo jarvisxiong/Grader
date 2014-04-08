@@ -1,6 +1,6 @@
 package framework.project;
 
-import grader.trace.file.compilation.SourceFileCompiled;
+import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
 import java.io.FileFilter;

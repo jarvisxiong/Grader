@@ -5,11 +5,11 @@ import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
 import grader.file.filesystem.AFileSystemFileProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
-import grader.trace.file.assignment.FeatureGradeFileCleared;
-import grader.trace.file.assignment.FeatureGradeFileCreatedFromFinalGradeFile;
-import grader.trace.file.assignment.FeatureGradeFileLoaded;
-import grader.trace.file.assignment.FeatureGradeFileRestored;
-import grader.trace.file.assignment.InputFileFound;
+import grader.trace.assignment_data.FeatureGradeFileCleared;
+import grader.trace.assignment_data.FeatureGradeFileCreatedFromFinalGradeFile;
+import grader.trace.assignment_data.FeatureGradeFileLoaded;
+import grader.trace.assignment_data.FeatureGradeFileRestored;
+import grader.trace.assignment_data.InputFileFound;
 import grader.trace.file.sakai_bulk_folder.FinalGradeFileNotFound;
 
 import java.io.File;

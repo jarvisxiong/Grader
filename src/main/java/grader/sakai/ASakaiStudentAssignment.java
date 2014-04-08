@@ -2,12 +2,12 @@ package grader.sakai;
 
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
-import grader.trace.file.sakai_bulk_folder.student.CommentsFileLoaded;
-import grader.trace.file.sakai_bulk_folder.student.DocumentFileLoaded;
-import grader.trace.file.sakai_bulk_folder.student.FeedbackFolderLoaded;
-import grader.trace.file.sakai_bulk_folder.student.SubmissionFolderLoaded;
-import grader.trace.file.sakai_bulk_folder.student.SubmissionFolderNotFound;
-import grader.trace.file.sakai_bulk_folder.student.TimestampFileLoaded;
+import grader.trace.file.sakai_bulk_folder.CommentsFileLoaded;
+import grader.trace.file.sakai_bulk_folder.DocumentFileLoaded;
+import grader.trace.file.sakai_bulk_folder.FeedbackFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.SubmissionFolderLoaded;
+import grader.trace.file.sakai_bulk_folder.SubmissionFolderNotFound;
+import grader.trace.file.sakai_bulk_folder.TimestampFileLoaded;
 import util.misc.Common;
 import util.trace.Tracer;
 

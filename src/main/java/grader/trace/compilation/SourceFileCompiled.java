@@ -1,4 +1,4 @@
-package grader.trace.file.compilation;
+package grader.trace.compilation;
 
 import grader.trace.CheckedGraderException;
 

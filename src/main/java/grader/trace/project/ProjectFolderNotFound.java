@@ -1,4 +1,4 @@
-package grader.trace.file.sakai_bulk_folder.student.project;
+package grader.trace.project;
 
 import grader.trace.CheckedGraderException;
 

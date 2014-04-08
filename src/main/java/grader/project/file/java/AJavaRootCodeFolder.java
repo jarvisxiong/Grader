@@ -7,9 +7,9 @@ import util.misc.Common;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.project.file.RootCodeFolder;
-import grader.trace.file.project.BinaryFolderIdentified;
-import grader.trace.file.project.BinaryFolderNotFound;
-import grader.trace.file.project.SourceFolderIdentified;
+import grader.trace.project.BinaryFolderIdentified;
+import grader.trace.project.BinaryFolderNotFound;
+import grader.trace.project.SourceFolderIdentified;
 //a root folder containing source and binary directories
 public class AJavaRootCodeFolder implements RootCodeFolder {
 	public static final String SOURCE = "/src";
@@ -59,7 +59,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 
 	
 		
-		if (sourceFolderName == null || binaryFolderName == null) {
+//		if (sourceFolderName == null || binaryFolderName == null) {
+		if (sourceFolderName == null && binaryFolderName == null) {
+
 		sourceFolderName = aRoot.getAbsoluteName();
 		binaryFolderName = sourceFolderName;
 		// this should go
@@ -70,7 +72,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		}
 		}
 		
+		
 		if (separateSourceBinary) {
+			if (hasValidBinaryFolder()) {
 			projectFolder = Common.getParentFileName(binaryFolderName);
 			sourceFolder = root.getFileEntry(sourceFolderName);
 //			if (sourceFolder ==null ) {
@@ -78,6 +82,11 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 //				System.out.println("not found:" + sourceFolderName);
 //			}
 			binaryFolder = root.getFileEntry(binaryFolderName);
+			} else {
+				binaryFolder = root; // will this cause problems?
+				binaryFolderName = root.getAbsoluteName();
+				projectFolder = binaryFolderName;
+			}
 		} else {
 			projectFolder = binaryFolderName;
 			//added this.
@@ -130,6 +139,8 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 			int index = name.indexOf(suffix);
 			if (index < 0)
 				continue;
+			if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
+				continue; // in case src and bin are not followed by / and are in intermediate directories
 //			if (name.charAt(0) == '_')
 //				continue;
 //			if (name.indexOf("_macos") != -1)
