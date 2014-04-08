@@ -1,4 +1,4 @@
-package grader.trace.file.sakai_bulk_folder.student;
+package grader.trace.file.sakai_bulk_folder;
 
 import grader.trace.file.FileInfo;
 

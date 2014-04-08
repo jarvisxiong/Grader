@@ -1,7 +1,7 @@
 package grader.trace.file.source;
 
 import grader.trace.file.FileInfo;
-import grader.trace.file.project.SourceFolderIdentified;
+import grader.trace.project.SourceFolderIdentified;
 
 public class SourceFileSaved extends SourceFileInfo {
 

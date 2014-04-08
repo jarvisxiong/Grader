@@ -1,4 +1,4 @@
-package grader.trace.file.assignment;
+package grader.trace.assignment_data;
 
 import grader.trace.file.SerializableFileInfo;
 
