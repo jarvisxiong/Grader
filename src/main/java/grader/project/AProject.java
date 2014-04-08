@@ -121,6 +121,8 @@ public class AProject implements Project {
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
+        else
+        	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
         sourceFileName = createFullSourceFileName();
         outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
