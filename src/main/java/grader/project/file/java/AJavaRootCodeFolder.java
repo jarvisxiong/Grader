@@ -8,6 +8,7 @@ import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.project.file.RootCodeFolder;
 import grader.trace.file.project.BinaryFolderIdentified;
+import grader.trace.file.project.BinaryFolderNotFound;
 import grader.trace.file.project.SourceFolderIdentified;
 //a root folder containing source and binary directories
 public class AJavaRootCodeFolder implements RootCodeFolder {
@@ -84,7 +85,10 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		}
 		
 		SourceFolderIdentified.newCase(sourceFolderName, this);
+		if (hasBinaryFile)
 		BinaryFolderIdentified.newCase(binaryFolderName, this);
+		else
+			BinaryFolderNotFound.newCase(root.getAbsoluteName(), this);
 		
 	}
 	public boolean hasValidBinaryFolder() {
@@ -101,10 +105,14 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 			if (!hasBinary && name.indexOf(binPattern) != -1) {
 				hasBinary = true;
 			}
-			if (!hasSourceFile && name.indexOf(SOURCE_FILE_SUFFIX) != -1) {
+//			if (!hasSourceFile && name.indexOf(SOURCE_FILE_SUFFIX) != -1) {
+			if (!hasSourceFile && name.endsWith(SOURCE_FILE_SUFFIX)) {
+
 				hasSourceFile = true;
 			}
-			if (!hasBinaryFile && name.indexOf(BINARY_FILE_SUFFIX) != -1) {
+//			if (!hasBinaryFile && name.indexOf(BINARY_FILE_SUFFIX) != -1) {// .classpath will fool this
+			if (!hasBinaryFile && name.endsWith(BINARY_FILE_SUFFIX)) {
+
 				hasBinaryFile = true;
 			}
 			if (hasSource && hasBinary && hasSourceFile && hasBinaryFile)
@@ -112,6 +120,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		}
 		separateSourceBinary = hasSource || hasBinary;
 		
+	}
+	public String toString() {
+		return root.getLocalName();
 	}
 	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
 		Set<String> nameSet = aRoot.getEntryNames();
