@@ -1,8 +1,8 @@
 package grader.settings.navigation;
 
 import grader.settings.GraderSettingsModel;
-import grader.trace.settings.navigation.AnimateGradesUserChange;
-import grader.trace.settings.navigation.AnimationPauseTimeUserChange;
+import grader.trace.settings.AnimateGradesUserChange;
+import grader.trace.settings.AnimationPauseTimeUserChange;
 import util.annotations.Column;
 import util.annotations.Explanation;
 import util.annotations.Row;

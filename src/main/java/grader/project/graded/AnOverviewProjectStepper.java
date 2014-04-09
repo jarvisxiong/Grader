@@ -53,11 +53,11 @@ import grader.trace.overall_score.OverallScoreLoaded;
 import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.ProjectGradingChanged;
+import grader.trace.stepper.ProjectRun;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
-import grader.trace.stepper.auto_visit.ProjectRun;
-import grader.trace.stepper.overview.ProjectGradingChanged;
-import grader.trace.stepper.overview.ProjectWindowsRecorded;
+import grader.trace.stepper.ProjectWindowsRecorded;
 
 import java.awt.Color;
 import java.awt.Window;

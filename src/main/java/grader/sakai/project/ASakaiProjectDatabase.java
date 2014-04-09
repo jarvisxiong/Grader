@@ -84,10 +84,10 @@ import grader.trace.assignment_data.AssignmentDataFolderCreated;
 import grader.trace.assignment_data.AssignmentDataFolderLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.ProjectIORedirected;
 import grader.trace.stepper.ProjectStepperDisplayed;
-import grader.trace.stepper.overview.ProjectIORedirected;
-import grader.trace.stepper.overview.ProjectWindowsDisposed;
-import grader.trace.stepper.overview.ProjectWindowsRecorded;
+import grader.trace.stepper.ProjectWindowsDisposed;
+import grader.trace.stepper.ProjectWindowsRecorded;
 
 import java.awt.Component;
 import java.awt.Frame;

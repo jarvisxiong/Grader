@@ -3,8 +3,8 @@ package grader.navigation.filter;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.settings.navigation.GradingStatusUserChange;
-import grader.trace.settings.navigation.NotesStatusUserChange;
+import grader.trace.settings.GradingStatusUserChange;
+import grader.trace.settings.NotesStatusUserChange;
 
 public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>implements NavigationFilter<NotesStatus>{
 	public static final String NAME = "Notes Status";

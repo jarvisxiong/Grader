@@ -1,15 +1,14 @@
-package grader.trace.stepper.navigation;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserPreviousStep extends SerializableStepperInfo {
-public UserPreviousStep(String aMessage,
+public class ProjectWindowsRecorded extends StepperInfo {
+public ProjectWindowsRecorded(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +18,12 @@ public UserPreviousStep(String aMessage,
 
 
 	
-	public static UserPreviousStep newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectWindowsRecorded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Previous Step, Current Onyen:" + aProjectStepper.getOnyen();
-		UserPreviousStep retVal = new UserPreviousStep(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Windows Recorded";
+		ProjectWindowsRecorded retVal = new ProjectWindowsRecorded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

@@ -1,15 +1,14 @@
-package grader.trace.stepper.overview;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectWindowsRecorded extends StepperInfo {
-public ProjectWindowsRecorded(String aMessage,
+public class UserWindowClose extends SerializableStepperInfo {
+public UserWindowClose(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +18,12 @@ public ProjectWindowsRecorded(String aMessage,
 
 
 	
-	public static ProjectWindowsRecorded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static UserWindowClose newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Windows Recorded";
-		ProjectWindowsRecorded retVal = new ProjectWindowsRecorded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Quit, Current Onyen:" + aProjectStepper.getOnyen();
+		UserWindowClose retVal = new UserWindowClose(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

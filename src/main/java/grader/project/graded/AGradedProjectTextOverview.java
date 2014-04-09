@@ -43,7 +43,7 @@ import grader.trace.overall_score.OverallScoreColored;
 import grader.trace.overall_score.OverallScoreManualChange;
 import grader.trace.overall_score.OverallScoreSaved;
 import grader.trace.settings.MissingOnyenException;
-import grader.trace.stepper.navigation.UserOnyenSet;
+import grader.trace.stepper.UserOnyenSet;
 
 import java.awt.Color;
 import java.awt.Window;

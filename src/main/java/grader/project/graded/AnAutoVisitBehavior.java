@@ -42,9 +42,9 @@ import grader.trace.multiplier.MultiplierAutoChange;
 import grader.trace.multiplier.MultiplierLoaded;
 import grader.trace.overall_score.OverallScoreAutoChange;
 import grader.trace.settings.MissingOnyenException;
-import grader.trace.stepper.auto_visit.AutoAutoGradeSet;
-import grader.trace.stepper.auto_visit.AutoVisitFailedException;
-import grader.trace.stepper.auto_visit.FeaturesAutoGraded;
+import grader.trace.stepper.AutoAutoGradeSet;
+import grader.trace.stepper.AutoVisitFailedException;
+import grader.trace.stepper.FeaturesAutoGraded;
 
 import java.awt.Color;
 import java.awt.Window;

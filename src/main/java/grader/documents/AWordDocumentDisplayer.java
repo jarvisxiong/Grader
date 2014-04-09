@@ -1,8 +1,8 @@
 package grader.documents;
 
 
-import grader.trace.file.view.DefaultProgramOpenedFile;
-import grader.trace.file.view.WordOpenedFile;
+import grader.trace.file.open.DefaultProgramOpenedFile;
+import grader.trace.file.open.WordOpenedFile;
 import util.misc.Common;
 
 // TODO: There are x86 Windows-specific paths hard-coded here. That should probably be changed

@@ -1,7 +1,7 @@
 package grader.documents;
 
 
-import grader.trace.file.view.DefaultProgramOpenedFile;
+import grader.trace.file.open.DefaultProgramOpenedFile;
 
 import java.awt.*;
 import java.io.BufferedWriter;

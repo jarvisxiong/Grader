@@ -1,4 +1,4 @@
-package grader.trace.stepper.auto_visit;
+package grader.trace.stepper;
 
 import grader.settings.GraderSettingsModel;
 import grader.trace.UncheckedGraderException;

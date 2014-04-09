@@ -1,10 +1,9 @@
-package grader.trace.settings.navigation;
+package grader.trace.settings;
 
 import java.util.Date;
 
 import grader.letter_grade.LetterGrade;
 import grader.settings.GraderSettingsModel;
-import grader.trace.settings.GraderSettingsInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
