@@ -9,7 +9,7 @@ import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeatureScoreUserChange extends SerializableFeatureAutoScoreInfo {
+public class FeatureScoreUserChange extends SerializableFeatureScoreInfo {
 //String overallScore;
 
 

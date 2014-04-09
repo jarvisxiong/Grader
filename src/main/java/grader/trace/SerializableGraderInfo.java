@@ -9,14 +9,16 @@ public class SerializableGraderInfo extends GraderInfo implements CSVSerializabl
 	public SerializableGraderInfo(String aMessage, Object aFinder) {
 		super(aMessage, aFinder);
 	}
+	
+	public static final int COLUMNS_USED = 3; 
 
 	@Override
 	public String toCSVRow() {
-		long timeStamp = getTmeStamp();
+		long timeStamp = getTimeStamp();
 		Date date = new Date(timeStamp);
 		String[] parts = date.toString().split(" ");
 		String time = parts[3];
-		return getTmeStamp() + ","  + time + "," + this.getClass().getSimpleName();
+		return getTimeStamp() + ","  + time + "," + this.getClass().getSimpleName();
 	}
 
 }

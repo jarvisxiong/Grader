@@ -1,4 +1,4 @@
-package grader.trace.trace;
+package grader.trace.logger;
 
 import grader.trace.file.SerializableFileInfo;
 

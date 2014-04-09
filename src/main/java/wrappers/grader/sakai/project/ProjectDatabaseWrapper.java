@@ -9,8 +9,8 @@ import grader.navigation.sorter.AFileObjectSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.trace.assignment_data.StudentFolderNamesWrittenInOnyenFile;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
-import grader.trace.sakai_bulk_folder.StudentFolderNamesWrittenInOnyenFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -200,7 +200,9 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
 
             // Make sure the log.txt file exits
             try {
-                new File(dataFolder, "log.txt").createNewFile();
+//                new File(dataFolder, "log.txt").createNewFile();
+                new File(dataFolder, AnAssignmenDataFolder.DEFAULT_LOG_FILE_NAME).createNewFile();
+
             } catch (IOException e) {
                 System.out.println("Error creating log.txt file.");
             }

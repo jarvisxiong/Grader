@@ -1,11 +1,11 @@
-package grader.trace;
+package grader.trace.logger;
 
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.modules.ModuleProblemManagerSelector;
+import grader.trace.CSVSerializable;
+import grader.trace.GraderTracer;
 import grader.trace.stepper.ProjectStepperEnded;
-import grader.trace.trace.InteractionLogFileCreatedOrLoaded;
-import grader.trace.trace.InteractionLogFolderCreated;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,7 +37,8 @@ public class AGraderTracer implements GraderTracer {
 		String suffix = parts[1] + parts[2] + parts[5];
 		String interactionLogFolder = 
 				ConfigurationManagerSelector.getConfigurationManager().
-					getStaticConfiguration().getString("grader.logger.interactionLogDirectory");
+					getStaticConfiguration().getString("grader.logger.interactionLogDirectory") + "/" + GradingEnvironment.get().getUserName();
+		
 		File folder = new File(interactionLogFolder);
 		if (!folder.exists()) {
 			folder.mkdirs();

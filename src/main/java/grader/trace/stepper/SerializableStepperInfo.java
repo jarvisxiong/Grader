@@ -37,13 +37,17 @@ public class SerializableStepperInfo extends SerializableGraderInfo {
 	public OverviewProjectStepper getOverviewProjectStepper() {
 		return overviewProjectStepper;
 	}
+	public static final int COLUMNS_USED = SerializableGraderInfo.COLUMNS_USED + 1; 
+
 	@Override
 	public String toCSVRow() {
 		return super.toCSVRow() 
 				+ "," + overviewProjectStepper.getOnyen();
 	}
 	
-
+	public static String onyenFromCSVRow(String[] aRow) {
+		return aRow[COLUMNS_USED-1];
+	}
 	
 
 }
