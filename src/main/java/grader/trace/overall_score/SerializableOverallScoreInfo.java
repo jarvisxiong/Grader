@@ -42,8 +42,8 @@ public String toCSVRow() {
 			+ "," + score;
 }
 
-public static String overallScoreFromCSVRow(String[] aRow) {
-	return aRow[COLUMNS_USED -1];
+public static double overallScoreFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED -1]);
 }
 
 	
