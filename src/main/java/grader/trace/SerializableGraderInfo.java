@@ -22,8 +22,7 @@ public class SerializableGraderInfo extends GraderInfo implements CSVSerializabl
 	}
 	
 	public static long timeStampFromCSVRow(String[] aRow) {
-		return Long.parseLong(aRow[0]);
-		
+		return Long.parseLong(aRow[0]);		
 	}
 	
 	public static String classNameFromCSVRow(String[] aRow) {

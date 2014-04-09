@@ -21,6 +21,7 @@ import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
+import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
@@ -34,7 +35,6 @@ import grader.settings.navigation.NavigationFilterRepository;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
-import grader.trace.GraderTracerSelector;
 import grader.trace.overall_notes.OverallNotesChanged;
 import grader.trace.settings.GraderSettingsDisplayed;
 import grader.trace.settings.MissingOnyenException;
@@ -176,7 +176,7 @@ public class Driver {
         	
             // Load the config file
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
-    		TraceableBus.addTraceableListener(GraderTracerSelector.getGraderTracer());
+    		TraceableBus.addTraceableListener(InteractionLogWriterSelector.getInteractionLogWriter());
 
 //        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 //        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
