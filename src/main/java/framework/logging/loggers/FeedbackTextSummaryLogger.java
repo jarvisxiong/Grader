@@ -3,7 +3,7 @@ package framework.logging.loggers;
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
-import grader.trace.stepper.feedback.FeedbackSaved;
+import grader.trace.feedback.FeedbackSaved;
 
 import org.apache.commons.io.FileUtils;
 

@@ -9,8 +9,8 @@ import grader.navigation.sorter.AFileObjectSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
-import grader.trace.file.sakai_bulk_folder.StudentFolderNamesWrittenInOnyenFile;
+import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
+import grader.trace.sakai_bulk_folder.StudentFolderNamesWrittenInOnyenFile;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package framework.grading.testing;
 
 import framework.project.Project;
-import grader.trace.stepper.feature.FeatureChecked;
+import grader.trace.feature.FeatureChecked;
 
 import java.util.List;
 

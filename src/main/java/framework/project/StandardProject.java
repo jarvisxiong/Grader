@@ -1,6 +1,7 @@
 package framework.project;
 
 import framework.execution.*;
+import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
@@ -65,6 +66,7 @@ public class StandardProject implements Project {
         	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
         	File retVal = new File(directory, "bin");
         	retVal.mkdirs();
+        	BinaryFolderMade.newCase(retVal.getAbsolutePath(), this);
         	return retVal.getAbsoluteFile();
         	
         } else {

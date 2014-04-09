@@ -6,7 +6,7 @@ import grader.navigation.sorter.AFileObjectSorter;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
+import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 import grader.trace.stepper.navigation.NavigationListCreated;
 
 import java.io.File;
