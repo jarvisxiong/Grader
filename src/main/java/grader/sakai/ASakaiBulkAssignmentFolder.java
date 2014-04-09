@@ -6,11 +6,11 @@ import grader.file.RootFolderFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
-import grader.trace.file.sakai_bulk_folder.AssignmentRootFolderLoaded;
-import grader.trace.file.sakai_bulk_folder.FinalGradeFileLoaded;
-import grader.trace.file.sakai_bulk_folder.FinalGradeFileNotFound;
-import grader.trace.file.sakai_bulk_folder.StudentFolderLoaded;
-import grader.trace.file.sakai_bulk_folder.StudentFolderNamesSorted;
+import grader.trace.sakai_bulk_folder.AssignmentRootFolderLoaded;
+import grader.trace.sakai_bulk_folder.FinalGradeFileLoaded;
+import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
+import grader.trace.sakai_bulk_folder.StudentFolderLoaded;
+import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 
 import java.io.File;
 import java.util.ArrayList;

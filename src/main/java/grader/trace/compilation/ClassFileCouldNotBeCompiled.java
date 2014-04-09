@@ -20,7 +20,7 @@ public class ClassFileCouldNotBeCompiled extends UncheckedGraderException {
 
 	
 	public static ClassFileCouldNotBeCompiled newCase(String aFileName, Object aFinder) {
-		String aMessage = "Class  file could not be compiled correctlty:" + aFileName;
+		String aMessage = "Class  file could not be compiled correctly:" + aFileName;
 		ClassFileCouldNotBeCompiled retVal = new ClassFileCouldNotBeCompiled(aMessage, aFileName, aFinder);
 		retVal.announce();
 		return retVal;

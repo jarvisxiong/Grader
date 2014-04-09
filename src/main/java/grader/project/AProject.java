@@ -14,9 +14,11 @@ import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.sakai.StudentCodingAssignment;
+import grader.sakai.project.SakaiProject;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import grader.trace.execution.MainMethodNotFound;
+import grader.trace.overall_transcript.OverallTranscriptCleared;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -371,6 +373,7 @@ public class AProject implements Project {
     	currentOutput.setLength(0);
     	try {
 			FileWriter fileWriter = new FileWriter(new File(outputFileName));
+			OverallTranscriptCleared.newCase(null, null,  (SakaiProject) this, outputFileName,  this);
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();

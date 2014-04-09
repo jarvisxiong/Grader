@@ -10,7 +10,7 @@ import grader.trace.assignment_data.FeatureGradeFileCreatedFromFinalGradeFile;
 import grader.trace.assignment_data.FeatureGradeFileLoaded;
 import grader.trace.assignment_data.FeatureGradeFileRestored;
 import grader.trace.assignment_data.InputFileFound;
-import grader.trace.file.sakai_bulk_folder.FinalGradeFileNotFound;
+import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
 
 import java.io.File;
 import java.io.IOException;
