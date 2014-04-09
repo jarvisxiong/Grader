@@ -8,9 +8,9 @@ import framework.execution.reflectionObjects.ManualProject;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.navigation.ManualNavigationEnded;
-import grader.trace.navigation.ManualNavigationStarted;
 import grader.trace.settings.InvalidOnyenRangeException;
+import grader.trace.settings.ManualNavigationEnded;
+import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.MissingOnyenException;
 import util.trace.Tracer;
 
