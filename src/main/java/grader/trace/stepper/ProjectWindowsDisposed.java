@@ -1,18 +1,14 @@
-package grader.trace.stepper.auto_visit;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeaturesAutoGraded extends StepperInfo {
-
-
-
-public FeaturesAutoGraded(String aMessage,
+public class ProjectWindowsDisposed extends StepperInfo {
+public ProjectWindowsDisposed(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -22,12 +18,12 @@ public FeaturesAutoGraded(String aMessage,
 
 
 	
-	public static FeaturesAutoGraded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectWindowsDisposed newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject, 
+			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Features autograded." ;
-		FeaturesAutoGraded retVal = new FeaturesAutoGraded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Windows Cleared";
+		ProjectWindowsDisposed retVal = new ProjectWindowsDisposed(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

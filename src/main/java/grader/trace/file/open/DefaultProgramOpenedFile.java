@@ -1,4 +1,4 @@
-package grader.trace.file.view;
+package grader.trace.file.open;
 
 import grader.trace.file.SerializableFileInfo;
 

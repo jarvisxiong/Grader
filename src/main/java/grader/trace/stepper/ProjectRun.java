@@ -1,15 +1,17 @@
-package grader.trace.stepper.navigation;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserNextStep extends SerializableStepperInfo {
-public UserNextStep(String aMessage,
+public class ProjectRun extends StepperInfo {
+
+
+
+public ProjectRun(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +21,12 @@ public UserNextStep(String aMessage,
 
 
 	
-	public static UserNextStep newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectRun newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, 
 			Object aFinder) {
-		String aMessage = "Next Step, Current Onyen:" + aProjectStepper.getOnyen();
-		UserNextStep retVal = new UserNextStep(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Project run." ;
+		ProjectRun retVal = new ProjectRun(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

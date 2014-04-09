@@ -8,8 +8,8 @@ import grader.letter_grade.LetterGrade;
 import grader.letter_grade.ScoreToLetterGradeMapper;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.settings.navigation.GradingStatusUserChange;
-import grader.trace.settings.navigation.LetterGradeUserChange;
+import grader.trace.settings.GradingStatusUserChange;
+import grader.trace.settings.LetterGradeUserChange;
 
 public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<LetterGrade>implements NavigationFilter<LetterGrade>{
 	public static final String NAME = "Letter Grade";

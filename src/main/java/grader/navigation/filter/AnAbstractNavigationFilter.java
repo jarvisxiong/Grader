@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.settings.navigation.NavigationParameterChange;
+import grader.trace.settings.NavigationParameterChange;
 
 public abstract class AnAbstractNavigationFilter<ParameterType> implements NavigationFilter<ParameterType>{
 //	public static final String NAME = "Grading Status";

@@ -1,15 +1,14 @@
-package grader.trace.stepper.overview;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectIORedirected extends StepperInfo {
-public ProjectIORedirected(String aMessage,
+public class UserPreviousStep extends SerializableStepperInfo {
+public UserPreviousStep(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +18,12 @@ public ProjectIORedirected(String aMessage,
 
 
 	
-	public static ProjectIORedirected newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static UserPreviousStep newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Windows Cleared";
-		ProjectIORedirected retVal = new ProjectIORedirected(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Previous Step, Current Onyen:" + aProjectStepper.getOnyen();
+		UserPreviousStep retVal = new UserPreviousStep(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

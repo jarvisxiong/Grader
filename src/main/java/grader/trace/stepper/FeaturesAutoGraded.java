@@ -1,15 +1,17 @@
-package grader.trace.stepper.navigation;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserQuit extends SerializableStepperInfo {
-public UserQuit(String aMessage,
+public class FeaturesAutoGraded extends StepperInfo {
+
+
+
+public FeaturesAutoGraded(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +21,12 @@ public UserQuit(String aMessage,
 
 
 	
-	public static UserQuit newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static FeaturesAutoGraded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject,
+			SakaiProject aProject, 
 			Object aFinder) {
-		String aMessage = "User Window Close, Current Onyen:" + aProjectStepper.getOnyen();
-		UserQuit retVal = new UserQuit(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Features autograded." ;
+		FeaturesAutoGraded retVal = new FeaturesAutoGraded(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

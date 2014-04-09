@@ -1,4 +1,4 @@
-package grader.trace.stepper.navigation;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;

@@ -1,18 +1,14 @@
-package grader.trace.stepper.auto_visit;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectRun extends StepperInfo {
-
-
-
-public ProjectRun(String aMessage,
+public class ProjectGradingChanged extends SerializableStepperInfo {
+public ProjectGradingChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -22,12 +18,12 @@ public ProjectRun(String aMessage,
 
 
 	
-	public static ProjectRun newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectGradingChanged newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
-			SakaiProject aProject, 
+			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Project run." ;
-		ProjectRun retVal = new ProjectRun(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Project grading changed";
+		ProjectGradingChanged retVal = new ProjectGradingChanged(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

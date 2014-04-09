@@ -34,7 +34,7 @@ import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
 import grader.trace.settings.MissingOnyenException;
-import grader.trace.stepper.overview.PhotoLabelSet;
+import grader.trace.stepper.PhotoLabelSet;
 
 import java.awt.Color;
 import java.awt.Window;

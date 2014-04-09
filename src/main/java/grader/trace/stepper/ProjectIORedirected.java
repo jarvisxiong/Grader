@@ -1,15 +1,14 @@
-package grader.trace.stepper.navigation;
+package grader.trace.stepper;
 
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class UserWindowClose extends SerializableStepperInfo {
-public UserWindowClose(String aMessage,
+public class ProjectIORedirected extends StepperInfo {
+public ProjectIORedirected(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,
 			Object aFinder) {
@@ -19,12 +18,12 @@ public UserWindowClose(String aMessage,
 
 
 	
-	public static UserWindowClose newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+	public static ProjectIORedirected newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 
 			SakaiProject aProject,
 			Object aFinder) {
-		String aMessage = "Quit, Current Onyen:" + aProjectStepper.getOnyen();
-		UserWindowClose retVal = new UserWindowClose(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		String aMessage = "Windows Cleared";
+		ProjectIORedirected retVal = new ProjectIORedirected(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

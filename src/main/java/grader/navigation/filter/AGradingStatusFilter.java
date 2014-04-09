@@ -7,8 +7,8 @@ import util.annotations.Explanation;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.trace.settings.navigation.GradingStatusUserChange;
-import grader.trace.settings.navigation.NavigationParameterChange;
+import grader.trace.settings.GradingStatusUserChange;
+import grader.trace.settings.NavigationParameterChange;
 
 @Explanation("Student record selection based on whether they have been been graded fully or automatically.")
 public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStatus> implements NavigationFilter<GradingStatus>{

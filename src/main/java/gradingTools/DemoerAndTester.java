@@ -135,7 +135,7 @@ public class DemoerAndTester implements Runnable{
 		gradingFeature.setScore(gradingFeature.getScore() * 1.1);
 	}
 	public static void changeManualNotes() {
-		clearanceManager.setStepDescription("Next step is to add manual notes for selected item. \n\nThe manual notes and item should become green to indicate prsence of non empty comment."); 
+		clearanceManager.setStepDescription("Next step is to add manual notes for selected item. \n\nThe manual notes and item should become green to indicate presence of non empty comment."); 
 		waitForUserOrSleep();
 //		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 //		GradingFeature gradingFeature = gradingFeatures.get(6);
@@ -202,7 +202,7 @@ public class DemoerAndTester implements Runnable{
 		if (clearanceManager.isAutoPerformStep()) {
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 		}
-//		System.exit(0);
+		System.exit(0);
 	}
 	
 	public static void secondSession() {

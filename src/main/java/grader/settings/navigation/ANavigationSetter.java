@@ -2,7 +2,7 @@ package grader.settings.navigation;
 
 import grader.navigation.NavigationKind;
 import grader.settings.GraderSettingsModel;
-import grader.trace.settings.navigation.NavigationKindChange;
+import grader.trace.settings.NavigationKindChange;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
