@@ -5,12 +5,13 @@ import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.feature.SerializableGradingFeatureInfo;
+import grader.trace.SerializableGraderInfo;
+import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureManualNotesInfo extends SerializableGradingFeatureInfo {
+public class SerializableFeatureManualNotesInfo extends SerializableFeatureInfo {
 String featureManualNotes;
 
 
@@ -39,6 +40,13 @@ public void setFeatureManualNotes(String featureManualNotes) {
 public String toCSVRow() {
 	return super.toCSVRow() 
 			+ "," + featureManualNotes;
+}
+
+public static final int COLUMNS_USED = SerializableFeatureInfo.COLUMNS_USED + 1; 
+
+
+public static String featureManualNotesFromCSVRow(String[] aRow) {
+	return aRow[COLUMNS_USED - 1];
 }
 
 	

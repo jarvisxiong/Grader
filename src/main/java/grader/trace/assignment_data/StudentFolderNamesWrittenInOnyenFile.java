@@ -1,4 +1,4 @@
-package grader.trace.sakai_bulk_folder;
+package grader.trace.assignment_data;
 
 import java.util.Collection;
 import java.util.Set;

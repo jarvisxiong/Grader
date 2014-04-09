@@ -5,50 +5,55 @@ import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
-import grader.trace.feature.SerializableGradingFeatureInfo;
+import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class SerializableFeatureAutoScoreInfo extends SerializableGradingFeatureInfo {
-double featureAutoScore;
+public class SerializableFeatureScoreInfo extends SerializableFeatureInfo {
+double featureScore;
 
 
 
-public SerializableFeatureAutoScoreInfo(String aMessage,
+public SerializableFeatureScoreInfo(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject, GradingFeature aFeature,
 			double aScore,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
-		featureAutoScore = aScore;
-		// TODO Auto-generated constructor stub
+		featureScore = aScore;
+		// TODO -generated constructor stub
 	}
 
-public double getFeatureAutoScore() {
-	return featureAutoScore;
+public double getFeatureScore() {
+	return featureScore;
 }
 
 
 
-public void setFeatureAutoScore(double featureAutoScore) {
-	this.featureAutoScore = featureAutoScore;
+public void setFeatureScore(double featureScore) {
+	this.featureScore = featureScore;
 }
+static final int COLUMNS_USED = SerializableFeatureInfo.COLUMNS_USED + 1; 
 
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + featureAutoScore;
+			+ "," + featureScore;
+}
+
+public static String featureScoreFromCSVRow(String[] aRow) {
+	return aRow[COLUMNS_USED - 1];
 }
 
 	
-//	public static SerializableFeatureAutoScoreInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
+//	public static SerializableFeatureScoreInfo newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 //			OverviewProjectStepper aProjectStepper, 
 //			SakaiProject aProject, GradingFeature aFeature,
 //			String aScore,
 //			Object aFinder) {
-//		String aMessage = "Overview Score Autoly Changed to:" + aScore;
-//		SerializableFeatureAutoScoreInfo retVal = new SerializableFeatureAutoScoreInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
+//		String aMessage = "Overview Score ly Changed to:" + aScore;
+//		SerializableFeatureScoreInfo retVal = new SerializableFeatureScoreInfo(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aScore, aFinder);
 //		retVal.announce();		
 //		return retVal;
 //	}

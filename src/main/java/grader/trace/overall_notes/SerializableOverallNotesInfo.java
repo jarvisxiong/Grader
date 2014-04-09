@@ -4,6 +4,7 @@ import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.stepper.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
@@ -33,10 +34,17 @@ public void setOverallNotes(String overallNotes) {
 	this.overallNotes = overallNotes;
 }
 
+public static final int COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 1; 
+
+
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
 			+ "," + overallNotes;
+}
+
+public static String overallNotesFromCSVRow(String[] aRow) {
+	return  aRow[COLUMNS_USED-1];
 }
 
 	

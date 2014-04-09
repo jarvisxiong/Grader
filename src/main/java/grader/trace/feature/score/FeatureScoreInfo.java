@@ -12,7 +12,7 @@ import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
 public class FeatureScoreInfo extends GradingFeatureInfo {
-double featureAutoScore;
+double featureScore;
 
 
 
@@ -22,18 +22,18 @@ public FeatureScoreInfo(String aMessage,
 			double aScore,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFeature, aFinder);
-		featureAutoScore = aScore;
+		featureScore = aScore;
 		// TODO Auto-generated constructor stub
 	}
 
-public double getFeatureAutoScore() {
-	return featureAutoScore;
+public double getFeatureScore() {
+	return featureScore;
 }
 
 
 
-public void setFeatureAutoScore(double featureAutoScore) {
-	this.featureAutoScore = featureAutoScore;
+public void setFeatureScore(double featureScore) {
+	this.featureScore = featureScore;
 }
 
 //@Override

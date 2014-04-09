@@ -8,7 +8,7 @@ import grader.trace.stepper.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class FeedbackComputed extends StepperInfo {
+public class FeedbackComputed extends FeedbackInfo {
 	String feedbackFileName;
 
 
@@ -19,7 +19,7 @@ public FeedbackComputed(String aMessage,
 			String anOvervewFileName,
 			String aNotes,
 			Object aFinder) {
-		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
+		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aNotes, aFinder);
 		feedbackFileName = anOvervewFileName;
 		// TODO Auto-generated constructor stub
 	}

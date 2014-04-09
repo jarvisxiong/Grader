@@ -1,5 +1,7 @@
 package grader.trace;
 
+import grader.trace.logger.AGraderTracer;
+
 public class GraderTracerSelector {
 	static GraderTracer graderTracer = new AGraderTracer();
 
