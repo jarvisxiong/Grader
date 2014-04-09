@@ -42,8 +42,8 @@ public String toCSVRow() {
 			+ "," + featureScore;
 }
 
-public static String featureScoreFromCSVRow(String[] aRow) {
-	return aRow[COLUMNS_USED - 1];
+public static double featureScoreFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED - 1]);
 }
 
 	

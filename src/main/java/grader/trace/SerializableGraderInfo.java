@@ -20,5 +20,14 @@ public class SerializableGraderInfo extends GraderInfo implements CSVSerializabl
 		String time = parts[3];
 		return getTimeStamp() + ","  + time + "," + this.getClass().getSimpleName();
 	}
+	
+	public static long timeStampFromCSVRow(String[] aRow) {
+		return Long.parseLong(aRow[0]);
+		
+	}
+	
+	public static String classNameFromCSVRow(String[] aRow) {
+		return aRow[2];
+	}
 
 }

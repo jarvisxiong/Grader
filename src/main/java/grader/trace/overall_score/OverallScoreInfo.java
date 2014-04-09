@@ -10,7 +10,7 @@ import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
 public class OverallScoreInfo extends StepperInfo {
-double featureScore;
+double score;
 
 
 
@@ -20,18 +20,18 @@ public OverallScoreInfo(String aMessage,
 			double aScore,
 			Object aFinder) {
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
-		featureScore = aScore;
+		score = aScore;
 		// TODO -generated constructor stub
 	}
 
-public double getFeatureScore() {
-	return featureScore;
+public double getScore() {
+	return score;
 }
 
 
 
-public void setFeatureScore(double featureScore) {
-	this.featureScore = featureScore;
+public void setScore(double score) {
+	this.score = score;
 }
 
 
