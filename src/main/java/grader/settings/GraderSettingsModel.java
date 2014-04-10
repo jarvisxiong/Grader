@@ -28,5 +28,7 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	void cleanAllSubmissionFolders();
 	void resetFeatureSpreadsheet();
 	void cleanSlate();
+	String getCurrentModule();
+	boolean isSettingsLoaded();
 
 }

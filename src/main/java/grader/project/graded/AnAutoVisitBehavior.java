@@ -542,7 +542,9 @@ public class AnAutoVisitBehavior implements
 			featureGradeRecorder.setResultFormat(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(), 
 					resultFormat);
 			FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
-			features.get(i).setScore(score);
+//			features.get(i).setScore(score);
+			features.get(i).internalSetScore(score);
+
 
 			// Save the score
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)

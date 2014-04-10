@@ -296,6 +296,23 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public void setScore(double newVal) {
+//		double oldVal = score;
+//		// piggyback this notification on score notfication to project stepper
+//		if (!isManual()) {
+//			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+//			setManualNotes(notesGenerator.appendNotes(
+//					getManualNotes(), 
+//					notesGenerator.autoFeatureScoreOverrideNotes(projectDatabase.getProjectStepper(), this, oldVal, newVal)));
+//		}
+//		pureSetScore(newVal);
+		internalSetScore(newVal);
+		scoreSetManually = true;
+		FeatureScoreUserChange.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
+
+
+	}
+	@Override
+	public void internalSetScore(double newVal) {
 		double oldVal = score;
 		// piggyback this notification on score notfication to project stepper
 		if (!isManual()) {
@@ -305,8 +322,8 @@ public class AGradingFeature implements GradingFeature {
 					notesGenerator.autoFeatureScoreOverrideNotes(projectDatabase.getProjectStepper(), this, oldVal, newVal)));
 		}
 		pureSetScore(newVal);
-		scoreSetManually = true;
-		FeatureScoreUserChange.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
+//		scoreSetManually = true;
+//		FeatureScoreUserChange.newCase(projectDatabase, (OverviewProjectStepper) projectDatabase.getProjectStepper(), project, this, newVal, this);
 //		if (!isManual()) {
 //			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
 //			setNotes(notesGenerator.appendNotes(

@@ -31,6 +31,7 @@ import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.settings.navigation.NavigationFilterRepository;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
@@ -274,9 +275,11 @@ public class Driver {
 //            	 String settingsTry = configuration.getString("Grader.Settings");
             	 if (settings.equalsIgnoreCase("oe")) {
                  	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
+                 	
                  	NavigationFilterRepository.register(gradingBasedFilterer);
 
-            		  settingsModel = new AGraderSettingsModel(null);
+//            		  settingsModel = new AGraderSettingsModel(null);
+                 	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
             			settingsFrame = ObjectEditor.edit(settingsModel);            			
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);

@@ -7,6 +7,8 @@ import util.annotations.Explanation;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.trace.settings.GradingStatusUserChange;
 import grader.trace.settings.NavigationParameterChange;
 
@@ -45,6 +47,8 @@ public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStat
 	@Override
 	public void setParameter(GradingStatus newValue) {
 		super.setParameter(newValue);
+		GraderSettingsModel settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
+		if (settingsModel != null && GraderSettingsModelSelector.getGraderSettingsModel().isSettingsLoaded())
 		GradingStatusUserChange.newCase(newValue, null, this);
 		
 	}

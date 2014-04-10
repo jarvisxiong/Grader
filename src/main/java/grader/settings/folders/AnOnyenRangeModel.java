@@ -29,7 +29,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 		String oldValue = startingOnyen;
 		this.startingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("startingOnyen", oldValue, newValue);
-		if (!oldValue.equals(newValue))
+		if (graderSettings.isGraderStarted() && !oldValue.equals(newValue))
 		StartOnyenUserChange.newCase(newValue, graderSettings, this);
 	}
 	@Row(1)
@@ -41,7 +41,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 		String oldValue = endingOnyen;
 		this.endingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("endingOnyen", oldValue, newValue);
-		if (!oldValue.equals(newValue))
+		if (graderSettings.isGraderStarted() &&  !oldValue.equals(newValue))
 			EndOnyenUserChange.newCase(newValue, graderSettings, this);
 
 	}

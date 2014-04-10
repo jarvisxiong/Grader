@@ -3,10 +3,11 @@ package grader.trace.stepper;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.trace.SerializableGraderInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectStepperEnded extends TraceableInfo {
+public class ProjectStepperEnded extends SerializableGraderInfo {
 	SakaiProjectDatabase sakaiProjectDatabase; 	
 	OverviewProjectStepper overviewProjectStepper;
 	public ProjectStepperEnded(String aMessage, SakaiProjectDatabase aSakaiProjectDatabase, OverviewProjectStepper aProjectStepper, Object aFinder) {
