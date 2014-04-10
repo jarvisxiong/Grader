@@ -1,5 +1,6 @@
 package grader.project.graded;
 
+import bus.uigen.models.PropertyFocusListener;
 import util.annotations.Visible;
 import grader.sakai.project.ProjectStepper;
 

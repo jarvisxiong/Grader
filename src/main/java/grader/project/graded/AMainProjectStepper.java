@@ -527,5 +527,9 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void cleanFeedbackFolder() {
 		overviewProjectStepper.cleanFeedbackFolder();		
 	}
+//	@Override
+//	public void newFocus(String aProperty) {
+//		overviewProjectStepper.newFocus(aProperty);		
+//	}
 
 }
