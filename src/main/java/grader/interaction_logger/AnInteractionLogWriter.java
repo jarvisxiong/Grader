@@ -7,7 +7,9 @@ import grader.trace.CSVSerializable;
 import grader.trace.interaction_logger.InteractionLogEntryAdded;
 import grader.trace.interaction_logger.InteractionLogFileCreatedOrLoaded;
 import grader.trace.interaction_logger.InteractionLogFolderCreated;
+import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.stepper.ProjectStepperEnded;
+import grader.trace.stepper.ProjectStepperStarted;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -29,10 +31,12 @@ import util.misc.Common;
 import util.trace.TraceableBus;
 
 public class AnInteractionLogWriter implements InteractionLogWriter {
-	File logFile;
+	File curentLogFile;
 	Logger logger;
 	public static final String LOG_FILE_PREFIX = "interactionLog";
 	String fileName;
+	String currentAssignment;
+	String currentModule;
 	
 	PrintWriter out = null;
     BufferedWriter bufWriter;
@@ -45,15 +49,20 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
     Set<Class> doNotLogEventsSet = Common.arrayToSet(staticDoNotLogEventsArray);
     
     String interactionLogFolder;
+    
+    GraderSettingsEnded lastGraderSettingsEnded;
+    
+    public static final String SEPARATOR = "_";
 	
 	
 	public AnInteractionLogWriter() {
-		long currentTime = System.currentTimeMillis();
-		Date currentDate = new Date(currentTime);
-//		String monthDay = currentDate.getMonth() + "" + currentDate.getDay();
-		String dateString = currentDate.toString();
-		String[] parts = dateString.split(" ");
-		String suffix = parts[1] + parts[2] + parts[5];
+//		long currentTime = System.currentTimeMillis();
+//		Date currentDate = new Date(currentTime);
+////		String monthDay = currentDate.getMonth() + "" + currentDate.getDay();
+//		String dateString = currentDate.toString();
+//		String[] parts = dateString.split(" ");
+//		String suffix = parts[1] + parts[2] + parts[5];
+		String suffix = getTimeStampSuffix();
 		interactionLogFolder = 
 				ConfigurationManagerSelector.getConfigurationManager().
 					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
@@ -67,20 +76,66 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 
 		if (userName == null || userName.isEmpty())
 			userName = "";
-		else
-			userName = userName + "_";
-		fileName = interactionLogFolder + "/" + userName + LOG_FILE_PREFIX + suffix + ".csv";
+//		else
+//			userName = userName + "_";
 		
-//		logFile = new File(fileName);
-//		if (!logFile.exists())
-//			try {
-//				logFile.createNewFile();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		logger = Logger.getLogger(fileName);
-//		logger.log(Level.INFO, "foo, bar, foobar");
+		createOrLoadAppendableFile(getSettingsSuffix());
+//		fileName = interactionLogFolder + "/" + userName + LOG_FILE_PREFIX + suffix + ".csv";
+//		
+//
+//		out = null;
+//	    
+//	    try{
+//	        bufWriter =
+//	            Files.newBufferedWriter(
+//	                Paths.get(fileName),
+//	                Charset.forName("UTF8"),
+//	                StandardOpenOption.WRITE, 
+//	                StandardOpenOption.APPEND,
+//	                StandardOpenOption.CREATE);
+//	        out = new PrintWriter(bufWriter, true);
+//	    }catch(IOException e){
+//	    	e.printStackTrace();
+//	    	//Oh, no! Failed to create PrintWriter
+//	    }
+//	    
+//	    InteractionLogFileCreatedOrLoaded.newCase(fileName, this);
+
+	}
+	
+	public static String getTimeStampSuffix() {
+		long currentTime = System.currentTimeMillis();
+		Date currentDate = new Date(currentTime);
+		String dateString = currentDate.toString();
+		String[] parts = dateString.split(" ");
+		String suffix = parts[1] + parts[2] + parts[5];
+		return suffix;
+		
+	}
+	
+	public static final String SETTINGS_SUFFIX = "Settings";
+	
+	 String getSettingsSuffix() {
+		
+		return SEPARATOR + SETTINGS_SUFFIX;
+		
+	}
+	 
+	 String getAssignmentProblemSuffix() {
+		 if (lastGraderSettingsEnded == null) return "";
+		 String aModuleName = lastGraderSettingsEnded.getGradingSettingsModel().getCurrentModule();
+		 String aProblemName = lastGraderSettingsEnded.getGradingSettingsModel().getCurrentProblem();
+		 return SEPARATOR + aModuleName + SEPARATOR + aProblemName;
+	 }
+	
+	 void createOrLoadAppendableFile(String suffix) {
+		String userName = GradingEnvironment.get().getUserName();
+
+		if (userName == null || userName.isEmpty())
+			userName = "";
+//		else
+//			userName = userName;
+		fileName = interactionLogFolder + "/" + userName + SEPARATOR + LOG_FILE_PREFIX + suffix + ".csv";
 		out = null;
 	    
 	    try{
@@ -98,18 +153,11 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	    }
 	    
 	    InteractionLogFileCreatedOrLoaded.newCase(fileName, this);
-//	    TraceableBus.addTraceableListener(this);
-
-//	    //After successful creation of PrintWriter
-//	    out.println("Text to be appended, more text");
-//	    out.flush();
-//	    out.println("Text to be appended, more text");
-//	    out.flush();
-
-
-	    //After done writing, remember to close!
-//	    out.close();
+		
 	}
+	
+	
+	
 	@Override
 	public void newEvent(Exception aTraceable) {
 //		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
@@ -124,6 +172,14 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		out.println(csvRow);
 
 		out.flush();
+		
+		if (aTraceable instanceof GraderSettingsEnded )
+			lastGraderSettingsEnded = (GraderSettingsEnded) aTraceable;
+		if (aTraceable instanceof ProjectStepperStarted) {
+			out.close();
+			createOrLoadAppendableFile(getAssignmentProblemSuffix());
+			out.println(csvRow);
+		}
 		if (aTraceable instanceof ProjectStepperEnded) 
 			out.close();
 		
@@ -148,10 +204,10 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	public String getInteractionLogFolder() {
 		return interactionLogFolder;
 	}
-	public String getFileName() {
+	public String getCurrentLogFileName() {
 		return fileName;
 	}
-	public void setFileName(String fileName) {
+	public void setCurrentLogFileName(String fileName) {
 		this.fileName = fileName;
 	}
 	public static void main (String[] args) {

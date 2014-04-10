@@ -75,6 +75,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	ModuleProblemManager moduleProblemManager;
 	String problemDownloadPath;
 	String moduleDownloadPath;
+	boolean settingsLoaded;
 //	DynamicEnum moduleEnum, problemEnum;
 	
 
@@ -117,13 +118,23 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		AModuleProblemSelector moduleProblem = new AModuleProblemSelector(modules, problems);
 		
 		loadSettings();
+		settingsLoaded = true;
+	}
+	@Override
+	public boolean isSettingsLoaded() {
+		return settingsLoaded;
+	}
+	@Override
+	@Visible(false)
+	public String getCurrentModule() {
+		return currentModule;
 	}
 	
 	void setCurrentModule(String newValue) {
 		
 		 currentModule = newValue;
 		 refreshAll();
-		 ModuleUserChange.newCase(currentModule, this, this);
+//		 ModuleUserChange.newCase(currentModule, this, this);
 
 
 		
@@ -575,7 +586,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		currentProblem = aProblem;
 		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		refreshProblemDownloadPath();
-		ProblemUserChange.newCase(currentProblem, this, this);
+//		ProblemUserChange.newCase(currentProblem, this, this);
 
 	}
 	@Override
@@ -629,12 +640,16 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 				
 			if (currentProblem != null && currentProblem.equals(moduleProblemSelector.getProblem().getValue())) return;
 			setCurrentProblem(moduleProblemSelector.getProblem().getValue());
+			ProblemUserChange.newCase(currentProblem, this, this);
+
 //			currentProblem = moduleProblemSelector.getProblem().getValue();
 //			problemDownloadPath = moduleDownloadPath + "/" +  currentModule;
 //			refreshProblemDownloadPath();
 		} else if (evt.getSource() == moduleProblemSelector.getModule()) {
 			if (currentModule.equals(moduleProblemSelector.getModule().getValue())) return;
 			setCurrentModule(moduleProblemSelector.getModule().getValue());
+			 ModuleUserChange.newCase(currentModule, this, this);
+
 			
 		} else if (evt.getSource() == fileBrowsing.getDownloadFolder().getLabel()) {
 			String newPath = fileBrowsing.getDownloadFolder().getLabel().getText();

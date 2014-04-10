@@ -104,4 +104,6 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	void setResultFormat(String resultFormat);
 
+	void internalSetScore(double newVal);
+
 }

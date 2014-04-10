@@ -2,6 +2,7 @@ package grader.settings.navigation;
 
 import grader.navigation.NavigationKind;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.trace.settings.NavigationKindChange;
 
 import java.beans.PropertyChangeEvent;
@@ -56,6 +57,8 @@ public class ANavigationSetter implements NavigationSetter {
 	public void setNavigationKind(NavigationKind newVal) {
 		if (navigationKind == newVal) return;
 		this.navigationKind = newVal;
+		if (graderSettings.isSettingsLoaded())
+
 		NavigationKindChange.newCase(newVal, graderSettings, this);
 	}
 	

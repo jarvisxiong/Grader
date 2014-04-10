@@ -7,7 +7,7 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ProjectGradingChanged extends SerializableStepperInfo {
+public class ProjectGradingChanged extends StepperInfo {
 public ProjectGradingChanged(String aMessage,
 			SakaiProjectDatabase aSakaiProjectDatabase,
 			OverviewProjectStepper aProjectStepper, SakaiProject aProject,

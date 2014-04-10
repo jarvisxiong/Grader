@@ -8,6 +8,8 @@ import grader.letter_grade.LetterGrade;
 import grader.letter_grade.ScoreToLetterGradeMapper;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.trace.settings.GradingStatusUserChange;
 import grader.trace.settings.LetterGradeUserChange;
 
@@ -39,6 +41,9 @@ public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<LetterGr
 	@Override
 	public void setParameter(LetterGrade newValue) {
 		super.setParameter(newValue);
+		GraderSettingsModel settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
+		if (settingsModel != null && GraderSettingsModelSelector.getGraderSettingsModel().isSettingsLoaded())
+
 		LetterGradeUserChange.newCase(newValue, null, this);
 		
 	}
