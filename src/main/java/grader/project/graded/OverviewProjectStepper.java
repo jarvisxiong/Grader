@@ -23,4 +23,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	void cleanFeedbackFolder();
 
+	String getTASourceCodeComments();
+
 }

@@ -8,9 +8,9 @@ import grader.project.Project;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
-import grader.trace.file.source.SourceFileComputed;
-import grader.trace.file.source.SourceFileLoaded;
-import grader.trace.file.source.SourceFileSaved;
+import grader.trace.source.SourceFileComputed;
+import grader.trace.source.SourceFileLoaded;
+import grader.trace.source.SourceFileSaved;
 
 import java.io.File;
 import java.io.PrintWriter;

@@ -21,6 +21,8 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.project.source.TACommentsExtractor;
+import grader.project.source.TACommentsExtractorSelector;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -53,6 +55,7 @@ import grader.trace.overall_score.OverallScoreLoaded;
 import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.source.SourceTACommentsChanged;
 import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProjectGradingChanged;
@@ -162,18 +165,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	LabelBeanModel photoLabelBeanModel;
 	String output = "";
 	String source = "";
-//	GraderSettingsModel graderSettings;
+	TACommentsExtractor taCommentsExtractor;
+	String taComments = "";
 
-	// FinalGradeRecorder gradeRecorder() {
-	// return projectDatabase.getGradeRecorder();
-	// }
-	// FinalGradeRecorder totalScoreRecorder() {
-	// return projectDatabase.getTotalScoreRecorder();
-	// }
+	
 	public AnOverviewProjectStepper() {
 		gradedProjectNavigator = new AGradedProjectNavigator();
 		gradedProjectOverview = new AGradedProjectOverview();
 		autoVisitBehavior = new AnAutoVisitBehavior();
+		taCommentsExtractor = TACommentsExtractorSelector.getTACommentExtractor();
 		
 //		photoLabelBeanModel = new ALabelBeanModel("");
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
@@ -643,12 +643,28 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public String getSource() {
 		return source;
 	}
+	
 	@Override
 	public void setSource(String newVal) {
-		internalSetSource(newVal);
+		if (newVal.equals(source)) return;
+		setChanged(true);
+		internalSetSource(newVal);		
 		getProject().getClassesTextManager().setEditedAllSourcesText(getProject().getSourceFileName(), newVal);
+		String oldTAComments = taComments;
+		taComments = taCommentsExtractor.extractTAComments(newVal);
+		if (taComments.equals(oldTAComments)) return;
+		featureGradeRecorder.saveSourceCodeComments(taComments);
+		setComputedFeedback();
+		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
+		
+		
 		
 	}
+	@Override
+	public String getTASourceCodeComments() {
+		return taComments;
+	}
+	
 
 	public boolean preSources() {
 		// return project.canBeRun();
@@ -1576,5 +1592,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 ////			MainVisited.newCase(projectDatabase, this, project, aProperty, this);
 //		
 //	}
+	@Override
+	public void refresh() {
+		gradedProjectNavigator.refresh();
+		
+	}
 	
 }

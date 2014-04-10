@@ -22,6 +22,8 @@ public class AComplexProjectStepperAR implements ExecutableCommand {
 			ObjectEditor.setAttribute(AComplexProjectStepper.class, AttributeNames.STRETCH_ROWS, true);
 			ObjectEditor.setPreferredWidget(AComplexProjectStepper.class, JTabbedPane.class);
 			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "Source", AttributeNames.SCROLLED, true);
+			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "Source", AttributeNames.ACTION_MODE, true);
+
 //			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "NavigationSetter", AttributeNames.ADD_FILL_CONSTRAINT, GridBagConstraints.BOTH);	
 //			ObjectEditor.setPropertyAttribute(AComplexProjectStepper.class, "NavigationSetter", AttributeNames.ADD_WEIGHT_Y_CONSTRAINT, 1.0);			
 

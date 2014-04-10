@@ -3,6 +3,7 @@ package gradingTools;
 import grader.assignment.GradingFeature;
 import grader.project.graded.ComplexProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
+import grader.project.source.ATACommentsExtractor;
 
 import java.util.List;
 
@@ -39,14 +40,11 @@ public class DemoerAndTester implements Runnable{
 		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
 		clearanceFrame.setSize(420, 260);
 		clearanceFrame.setLocation(0, 0);
-
 	}
 	
 	static void startSecondSession() {
 		Thread mainThread = new Thread(new DemoerAndTester());
 		mainThread.start();
-		
-
 	}
 	
 	public static void doSteps() {
@@ -60,9 +58,12 @@ public class DemoerAndTester implements Runnable{
 		changeManualScore();
 		changeManualNotes();
 		doValidate();
+//		explainSourceAndcommentOnCode();
+		showSource();
 		commentOnCode();
 		changeOverallScore();
 		changeOverallNotes2();
+		showFeedback();
 		quit1();
 		secondSession();
 		waitForStepper();		
@@ -152,7 +153,44 @@ public class DemoerAndTester implements Runnable{
 
 		gradingFeature.setValidate(true);
 	}
+	public static void showSource() {
+		clearanceManager.setStepDescription("Next step is to go the source tab to view all of the source code.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "source");			
+		}
+	}
 	public static void commentOnCode() {
+		clearanceManager.setStepDescription("Next step is to insert a comment at the start in the code congratulating the student on good style. TA Comments are preceded by:" + ATACommentsExtractor.TA_STRING);
+		waitForUserOrSleep();
+		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			
+			String oldSource =  projectStepper.getSource();
+			String newSource = "//TA:Excellent style\n" + oldSource;
+			projectStepper.setSource(newSource);
+			
+//			String oldSource =  ((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).getSource();
+//			String newSource = "//Excellent style\n" + oldSource;
+//			((ComplexProjectStepper) Driver.getDatabase().getProjectStepper()).setSource(newSource);
+		}
+
+	}
+	
+	public static void showFeedback() {
+		clearanceManager.setStepDescription("Next step is to go to the feedback tab and confirm that the manual and auto grading information about this student is in the feedback.\n\n");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "feedback");			
+		}
+	}
+	
+	public static void explainSourceAndcommentOnCode() {
 		clearanceManager.setStepDescription("Go to feedback tab and confirm that changes you made are in the feedback.\n\n" +
 										"Go to source tab to see all of the source code.\n\n" +
 										"Next step is to insert a comment at the start in the code congratulating the student on good style.");
@@ -173,16 +211,21 @@ public class DemoerAndTester implements Runnable{
 
 	}
 	public static void changeOverallScore() {
-		clearanceManager.setStepDescription("Go to main tab \n\n" +
-										"Next step is to manually increase the overall score for good style as no grading feature was created for it.");
+		clearanceManager.setStepDescription("Next step is to return to the main tab and manually increase the overall score for good style as no grading feature was created for it. \n\nThere will be a pause between these two actions so you can view each.");
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "mainprojectstepper");
+			ThreadSupport.sleep(clearanceManager.getAutoPauseTime()*1000);
+			
 			double oldScore = Driver.getDatabase().getProjectStepper().getScore();
 			 Driver.getDatabase().getProjectStepper().setScore(oldScore + 5);
 		}
 
 	}
+	
 	public static void changeOverallNotes2() {
 		clearanceManager.setStepDescription("Next step is to change the overall notes to explain the reason for increase. ");
 //		Driver.getDatabase().getProjectStepper().setOverallNotes("");
@@ -197,6 +240,7 @@ public class DemoerAndTester implements Runnable{
 
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
+			
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 		}
 //		System.exit(0);

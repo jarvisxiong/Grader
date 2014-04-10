@@ -1,4 +1,4 @@
-package grader.trace.file.source;
+package grader.trace.source;
 
 import grader.trace.file.FileInfo;
 
