@@ -38,5 +38,6 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	String getResult(String aStudentName, String anOnyen, String aFeature);
 //	boolean logSaved(String aUserId);
 	boolean logSaved();
+	void saveSourceCodeComments(String comments);
 	
 }

@@ -500,6 +500,13 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void setExitOnQuit(boolean newVal) {
 		mainProjectStepper.setExitOnQuit(newVal);
 	}
+	public String getTASourceCodeComments() {
+		return mainProjectStepper.getTASourceCodeComments();
+	}
+	public void refresh() {
+		mainProjectStepper.refresh();
+		
+	}
 	@Override
 	public void newFocus(String aProperty) {
 		
@@ -508,7 +515,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 				FeedbackVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			else if (aProperty.equals("source"))
 				SourceVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
-			else if (aProperty.equals("overview"))
+			else if (aProperty.equals("mainprojectstepper"))
 				MainVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			
 			

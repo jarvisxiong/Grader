@@ -161,6 +161,10 @@ public class TextSerializer implements RecordingSessionSerializer {
              log += "\nLate penalty: " + (recordingSession.getLatePenalty() * 100) + "%\n";
          if (recordingSession.getLatePenalty()> 1)
              log += "\nEarly benefit: " + (recordingSession.getLatePenalty() * 100) + "%\n";
+         
+         log += "\nSource Code Comments:\n";
+         log += "----------------------------------\n";
+         log += recordingSession.getSourceCodeTAComments() + "\n";
 
          log += "\nOverall Comments:\n";
          log += "----------------------------------\n";

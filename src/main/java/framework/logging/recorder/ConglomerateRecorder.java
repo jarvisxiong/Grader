@@ -92,6 +92,10 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void saveOverallNotes(String comments) {
         recordingSession.setComments(comments);
     }
+    @Override
+    public void saveSourceCodeComments(String comments) {
+        recordingSession.setSourceCodeComments(comments);
+    }
 
     public void saveMultiplier(double gradePercentage) {
         recordingSession.setLatePenalty(gradePercentage);

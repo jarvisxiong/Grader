@@ -358,6 +358,12 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		return true;
 	}
 
+	@Override
+	public void saveSourceCodeComments(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 

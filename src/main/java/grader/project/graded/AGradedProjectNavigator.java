@@ -630,6 +630,17 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Row(0)
 	@Column(2)
 	@Override
+	@Explanation("Save uncomitted changes in the text areas wihout hitting and entering a return.")
+	public void refresh() {		
+		
+		
+			
+	}
+	
+	@ComponentWidth(100)
+	@Row(0)
+	@Column(3)
+	@Override
 	@Explanation("Quit session after saving current student changes.")
 	public void quit() {
 		if (!checkLeave()) return;

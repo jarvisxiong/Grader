@@ -17,7 +17,10 @@ public class RecordingSession {
     private String comments;
     private double latePenalty;
     double score;
+    String sourceCodeComments;
     
+
+	
 
 	List<GradingFeature> gradingFeatures;
 
@@ -85,6 +88,14 @@ public class RecordingSession {
 
 	public void setScore(double score) {
 		this.score = score;
+	}
+	
+	public String getSourceCodeTAComments() {
+		return sourceCodeComments;
+	}
+	
+	public void setSourceCodeComments(String sourceCodeComments) {
+		this.sourceCodeComments = sourceCodeComments;
 	}
 
 }
