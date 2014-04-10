@@ -159,9 +159,16 @@ public class DemoerAndTester implements Runnable{
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
-			String oldSource =  ((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).getSource();
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "feedback");
+			String oldSource =  projectStepper.getSource();
 			String newSource = "//Excellent style\n" + oldSource;
-			((ComplexProjectStepper) Driver.getDatabase().getProjectStepper()).setSource(newSource);
+			projectStepper.setSource(newSource);
+			
+//			String oldSource =  ((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).getSource();
+//			String newSource = "//Excellent style\n" + oldSource;
+//			((ComplexProjectStepper) Driver.getDatabase().getProjectStepper()).setSource(newSource);
 		}
 
 	}

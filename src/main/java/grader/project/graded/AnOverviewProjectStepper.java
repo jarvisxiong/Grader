@@ -53,11 +53,14 @@ import grader.trace.overall_score.OverallScoreLoaded;
 import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.FeedbackVisited;
+import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProjectGradingChanged;
 import grader.trace.stepper.ProjectRun;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.ProjectWindowsRecorded;
+import grader.trace.stepper.SourceVisited;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -1561,5 +1564,17 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setExitOnQuit(boolean newVal) {
 		gradedProjectNavigator.setExitOnQuit(newVal);
 	}
+//	// does not make much sense here
+//	@Override
+//	public void newFocus(String aProperty) {
+////		if (aProperty == null) return;
+////		if (aProperty.equals("feedback"))
+////			FeedbackVisited.newCase(projectDatabase, this, project, aProperty, this);
+////		else if (aProperty.equals("source"))
+////			SourceVisited.newCase(projectDatabase, this, project, aProperty, this);
+////		else if (aProperty.equals("main"))
+////			MainVisited.newCase(projectDatabase, this, project, aProperty, this);
+//		
+//	}
 	
 }

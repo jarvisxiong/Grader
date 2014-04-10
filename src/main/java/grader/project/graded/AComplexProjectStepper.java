@@ -7,6 +7,9 @@ import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationSetter;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.stepper.FeedbackVisited;
+import grader.trace.stepper.MainVisited;
+import grader.trace.stepper.SourceVisited;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -497,5 +500,19 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void setExitOnQuit(boolean newVal) {
 		mainProjectStepper.setExitOnQuit(newVal);
 	}
+	@Override
+	public void newFocus(String aProperty) {
+		
+			if (aProperty == null) return;
+			if (aProperty.equals("feedback"))
+				FeedbackVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			else if (aProperty.equals("source"))
+				SourceVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			else if (aProperty.equals("overview"))
+				MainVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			
+			
+	}
+
 
 }
