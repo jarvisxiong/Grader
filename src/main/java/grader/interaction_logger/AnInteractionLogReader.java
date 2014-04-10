@@ -18,15 +18,18 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class AnInteractionLogReader implements InteractionLogReader{
 	
-	String fileName;
-
-	File file;
+//	String fileName;
+//
+//	File file;
 	List<String[]>  table;
 	
+	public AnInteractionLogReader(List<String[]> aTable) {
+		table = aTable;
+	}
 	
 	public AnInteractionLogReader(String aFileName) {
-		fileName = aFileName;
-		file = new File(aFileName);
+		String fileName = aFileName;
+		File file = new File(aFileName);
 		if (!file.exists())
 			throw InteractionLogFileNotFound.newCase(aFileName, this);
 		InputStream input;
@@ -111,24 +114,24 @@ public class AnInteractionLogReader implements InteractionLogReader{
 	}
 	
 	
-	public String getFileName() {
-		return fileName;
-	}
-
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-
-	public File getFile() {
-		return file;
-	}
-
-
-	public void setFile(File file) {
-		this.file = file;
-	}
+//	public String getFileName() {
+//		return fileName;
+//	}
+//
+//
+//	public void setFileName(String fileName) {
+//		this.fileName = fileName;
+//	}
+//
+//
+//	public File getFile() {
+//		return file;
+//	}
+//
+//
+//	public void setFile(File file) {
+//		this.file = file;
+//	}
 
 
 	public List<String[]> getTable() {

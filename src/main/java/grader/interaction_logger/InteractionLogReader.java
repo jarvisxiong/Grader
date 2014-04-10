@@ -39,16 +39,16 @@ public interface InteractionLogReader extends PropertyChangeListener{
 	public String[] lastRow(Class aTraceableClass) ;
 	
 	
-	public String getFileName() ;
-
-
-	public void setFileName(String fileName) ;
-
-
-	public File getFile() ;
-
-
-	public void setFile(File file) ;
+//	public String getFileName() ;
+//
+//
+//	public void setFileName(String fileName) ;
+//
+//
+//	public File getFile() ;
+//
+//
+//	public void setFile(File file) ;
 
 
 	public List<String[]> getTable();
