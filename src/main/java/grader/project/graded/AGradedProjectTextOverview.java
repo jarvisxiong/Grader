@@ -224,6 +224,7 @@ public class AGradedProjectTextOverview  implements
 
 	@Row(2)
 	@ComponentWidth(150)
+	@Label("Feature Total:")
 	public double getScore() {
 		return score;
 	}
@@ -368,7 +369,7 @@ public class AGradedProjectTextOverview  implements
 	}
 
 	
-	@Row(3)
+	@Row(4)
 	@Visible(true)
 	@Explanation("Weight based on early or late submission")
 	public double getMultiplier() {
@@ -376,7 +377,7 @@ public class AGradedProjectTextOverview  implements
 	}
 	
 	@Override
-	@Row(4)
+	@Row(3)
 	@Visible(true)
 	@Explanation("Points embedded in source code instructor critique")
 	public double getSourcePoints() {
