@@ -56,6 +56,7 @@ import grader.trace.overall_transcript.OverallTranscriptLoaded;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.source.SourceTACommentsChanged;
+import grader.trace.source_points.SourcePointsLoaded;
 import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProjectGradingChanged;
@@ -440,10 +441,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// cannot do this, recording session not created
 //			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
 		}
+		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
+		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
+			SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+		}
+
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
 		}
-
+		sourceHasBeenOpened = false;
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
 
@@ -672,7 +679,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// return true;
 
 	}
-
+	boolean sourceHasBeenOpened;
 //	@Row(5)
 //	@ComponentWidth(100)
 //	@Visible(true)
@@ -680,6 +687,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		project.setHasBeenRun(true);
 
 		project.displaySource(projectDatabase);
+		sourceHasBeenOpened = true;
+		setChanged(true);
 
 	}
 
@@ -1595,6 +1604,21 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public void sync() {
 		gradedProjectNavigator.sync();
+		
+	}
+	@Override
+	public double getSourcePoints() {
+		return gradedProjectOverview.getSourcePoints();
+	}
+	@Override
+	public void setSourcePoints(double newValue) {
+		gradedProjectOverview.setSourcePoints(newValue);
+		
+	}
+	
+	@Override
+	public void internalSetSourcePoints(double newValue) {
+		gradedProjectOverview.internalSetSourcePoints(newValue);
 		
 	}
 	

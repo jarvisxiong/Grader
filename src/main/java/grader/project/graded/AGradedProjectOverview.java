@@ -238,6 +238,20 @@ public class AGradedProjectOverview  implements
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AGradedProjectOverview());
 	}
+	@Override
+	public double getSourcePoints() {
+		// TODO Auto-generated method stub
+		return textOverview.getSourcePoints();
+	}
+	@Override
+	public void setSourcePoints(double newValue) {
+		textOverview.setSourcePoints(newValue);		
+	}
+	@Override
+	public void internalSetSourcePoints(double newValue) {
+		textOverview.internalSetSourcePoints(newValue);
+		
+	}
 	
 
 }

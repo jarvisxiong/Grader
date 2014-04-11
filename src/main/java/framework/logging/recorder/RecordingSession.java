@@ -16,7 +16,9 @@ public class RecordingSession {
     private List<CheckResult> restrictionResults;
     private String comments;
     private double latePenalty;
-    double score;
+    double sourcePoints;
+    
+	double score;
     String sourceCodeComments;
     
 
@@ -97,5 +99,13 @@ public class RecordingSession {
 	public void setSourceCodeComments(String sourceCodeComments) {
 		this.sourceCodeComments = sourceCodeComments;
 	}
+	public double getSourcePoints() {
+		return sourcePoints;
+	}
+
+	public void setSourcePoints(double sourcePoints) {
+		this.sourcePoints = sourcePoints;
+	}
+
 
 }

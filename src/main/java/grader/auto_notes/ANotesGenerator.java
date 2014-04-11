@@ -42,6 +42,12 @@ public class ANotesGenerator implements NotesGenerator{
 		return existingNotes + " " + newNotes;
 		
 	}
+
+	@Override
+	public String sourcePointsOverrideNotes(ProjectStepper aProjectStepper,
+			double oldVal, double newVal) {
+		return "Source points manually changed from " + oldVal + " to " + newVal + "." ;
+	}
 	
 
 }

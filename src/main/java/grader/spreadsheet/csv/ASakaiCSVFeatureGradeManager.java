@@ -42,7 +42,9 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	 List<GradingFeature> gradingFeatures;
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
 	 Map<String, Integer> resultToColumnNumber = new HashMap();
-	 public static final int EARLY_LATE_COLUMN = GRADE_COLUMN + 1;
+	 public static final int SOURCE_POINTS_COLUMN = GRADE_COLUMN + 1;
+	 public static final int EARLY_LATE_COLUMN = SOURCE_POINTS_COLUMN + 1;
+	 public static final String SOURCE_POINTS_TITLE = "Source Points";
 	 public static final int TOTAL_COLUMN = EARLY_LATE_COLUMN+ 1;
 	 public static final String LATE_TITLE = "Early/Late";
 	 public static final String TOTAL_TITLE = "Weighted Grade";
@@ -80,6 +82,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		String[] titleRow = table.get(TITLE_ROW);
 		titleRow[EARLY_LATE_COLUMN] = LATE_TITLE;
 		titleRow[TOTAL_COLUMN] = TOTAL_TITLE;
+		titleRow[SOURCE_POINTS_COLUMN] = SOURCE_POINTS_TITLE;
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
@@ -110,7 +113,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	String[] extendedRow(String[] anExistinRow) {
 		// adding late penalty column also and results column
 //		String[] retVal = new String[anExistinRow.length + 1 + 2*gradingFeatures.size()];
-		String[] retVal = new String[anExistinRow.length + 2 + 2*gradingFeatures.size()];
+		String[] retVal = new String[anExistinRow.length + PRE_FEATURE_COLUMN - GRADE_COLUMN + 2*gradingFeatures.size()];
 
 		for (int index = 0; index < anExistinRow.length; index++) {
 			retVal[index] = anExistinRow[index];
@@ -255,10 +258,25 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	    }
 	    
 	    recordGrade(row, EARLY_LATE_COLUMN, aScore);
-	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
+//	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
+	    refreshTotalGrade(row, aStudentName, anOnyen);
 	    writeTable();
 
 		
+	}
+	
+	void refreshTotalGrade(String[] row, String aStudentName, String anOnyen) {
+		
+		double featureScore = getGrade(aStudentName, anOnyen);
+		double multiplier =  getEarlyLatePoints(aStudentName, anOnyen);
+		double sourcePoints = getSourcePoints(aStudentName, anOnyen);
+		if (multiplier < 0)
+			multiplier = 0;
+		if (sourcePoints < 0)
+			sourcePoints = 0;
+		
+	    recordGrade(row, TOTAL_COLUMN, (featureScore + sourcePoints) * multiplier);
+
 	}
 
 	@Override
@@ -269,6 +287,35 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 				return -1;
 		    }
 		   return getGrade(row, EARLY_LATE_COLUMN);
+
+		
+	}
+	@Override
+	public void setSourcePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		maybeCreateTable();
+		
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return;
+	    }
+	    
+	    recordGrade(row, SOURCE_POINTS_COLUMN, aScore);
+	   
+	    writeTable();
+
+		
+	}
+
+	@Override
+	public double getSourcePoints(String aStudentName, String anOnyen) {
+		 String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return -1;
+		    }
+		   return getGrade(row, SOURCE_POINTS_COLUMN);
 
 		
 	}
