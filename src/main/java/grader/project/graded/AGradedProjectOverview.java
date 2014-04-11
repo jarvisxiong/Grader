@@ -143,7 +143,7 @@ public class AGradedProjectOverview  implements
 
 	
 	@Column(0)
-	@ComponentHeight(80)
+	@ComponentHeight(100)
 	@ComponentWidth(80)
 	@Override
 	@Explanation("If no photo, you need to populate photo directory in AssignmentsData folder")
