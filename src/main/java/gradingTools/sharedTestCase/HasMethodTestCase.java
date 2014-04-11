@@ -156,7 +156,7 @@ public class HasMethodTestCase extends BasicTestCase {
 					}
 					if (!correctReturnType) {
 						incorrectCount++;
-						message += "method does not return String, ";
+						message += "method does not return correct type, ";
 					}
 					if (!correctParameterTypes) {
 						incorrectCount++;
