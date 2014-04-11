@@ -520,6 +520,21 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 			
 			
 	}
+	@Override
+	public double getSourcePoints() {
+		return mainProjectStepper.getSourcePoints();
+	}
+	@Override
+	public void setSourcePoints(double newValue) {
+		mainProjectStepper.setSourcePoints(newValue);
+		
+	}
+	
+	@Override
+	public void internalSetSourcePoints(double newValue) {
+		mainProjectStepper.internalSetSourcePoints(newValue);
+		
+	}
 
 
 }

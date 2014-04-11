@@ -39,10 +39,13 @@ import grader.trace.multiplier.MultiplierSaved;
 import grader.trace.multiplier.MultiplierUserChange;
 import grader.trace.overall_notes.MultiplierOverrideNotes;
 import grader.trace.overall_notes.OverallScoreOverrideNotes;
+import grader.trace.overall_notes.SourcePointOverrideNotes;
 import grader.trace.overall_score.OverallScoreColored;
 import grader.trace.overall_score.OverallScoreManualChange;
 import grader.trace.overall_score.OverallScoreSaved;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.source_points.SourcePointsSaved;
+import grader.trace.source_points.SourcePointsUserChange;
 import grader.trace.stepper.UserOnyenSet;
 
 import java.awt.Color;
@@ -124,6 +127,7 @@ public class AGradedProjectTextOverview  implements
 	Icon studentPhoto;
 	LabelBeanModel photoLabelBeanModel;
 	OverviewProjectStepper projectStepper;
+	double sourcePoints;
 
 	public AGradedProjectTextOverview() {
 		photoLabelBeanModel = new ALabelBeanModel("");
@@ -371,12 +375,27 @@ public class AGradedProjectTextOverview  implements
 		return multiplier;
 	}
 	
+	@Override
 	@Row(4)
 	@Visible(true)
-	@Explanation("Weight based on early or late submission")
+	@Explanation("Points embedded in source code instructor critique")
 	public double getSourcePoints() {
-		return 0;
+		return sourcePoints;
 	}
+	@Override
+	public void internalSetSourcePoints(double newValue) {
+		if (newValue == sourcePoints) return;
+		double oldValue = sourcePoints;
+		sourcePoints = newValue;
+		featureGradeRecorder.setSourcePoints(getName(), getOnyen(),
+				multiplier);
+		SourcePointsSaved.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), sourcePoints, this);
+//		setMultiplierColor();
+	
+		propertyChangeSupport.firePropertyChange("sourcePoints", oldValue, newValue);
+
+	}
+	
 	
 	public void internalSetMultiplier(double newValue) {
 		if (newValue == multiplier) return;
@@ -388,6 +407,20 @@ public class AGradedProjectTextOverview  implements
 		setMultiplierColor();
 		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
 	}
+	public void setSourcePoints(double newValue) {
+		double oldVal = sourcePoints;
+		if (oldVal == newValue) return;
+		internalSetSourcePoints(newValue);
+		NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+		String newNotes = notesGenerator.sourcePointsOverrideNotes(projectStepper, oldVal, newValue);
+		projectStepper.setOverallNotes(notesGenerator.appendNotes(
+				projectStepper.getOverallNotes(),
+				newNotes));
+		projectStepper.setChanged(true);
+		SourcePointsUserChange.newCase(projectDatabase, projectStepper, project, newValue, this);
+		SourcePointOverrideNotes.newCase(projectDatabase, projectStepper, project, newNotes, this);
+
+	}
 	
 	public void setMultiplier(double newValue) {
 		double oldVal = multiplier;
@@ -398,17 +431,14 @@ public class AGradedProjectTextOverview  implements
 		projectStepper.setOverallNotes(notesGenerator.appendNotes(
 				projectStepper.getOverallNotes(),
 				newNotes));
-//				notesGenerator.multiplierOverrideNotes(projectStepper, oldVal, newValue)));
 		featureGradeRecorder.saveMultiplier(newValue);
 		projectStepper.setChanged(true);
 		MultiplierUserChange.newCase(projectDatabase, projectStepper, project, newValue, this);
 		MultiplierOverrideNotes.newCase(projectDatabase, projectStepper, project, newNotes, this);
-//		String aNotes = projectDatabase.getNotesGenerator().multiplierOverrideNotes(this, oldVal, newValue);
-//		String oldOverallNotes = getOverallNotes();
-//		String newNotes = oldOverallNotes + " " + aNotes;
-//		setOverallNotes(newNotes);
-		
+
 	}
+	
+	
 
 
 

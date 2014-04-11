@@ -96,6 +96,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void saveSourceCodeComments(String comments) {
         recordingSession.setSourceCodeComments(comments);
     }
+    
 
     public void saveMultiplier(double gradePercentage) {
         recordingSession.setLatePenalty(gradePercentage);
@@ -362,5 +363,18 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 	@Override
 	public FileProxy getGradeSpreadsheet() {
 		return basicFeatureGradeRecorder.getGradeSpreadsheet();
+	}
+
+	@Override
+	public double getSourcePoints(String aStudentName, String anOnyen) {
+		return basicFeatureGradeRecorder.getSourcePoints(aStudentName, anOnyen);
+	}
+
+	@Override
+	public void setSourcePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		basicFeatureGradeRecorder.setSourcePoints(aStudentName, anOnyen, aScore);
+		recordingSession.setSourcePoints(aScore);
+		
 	}
 }

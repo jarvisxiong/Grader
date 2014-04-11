@@ -534,6 +534,21 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.sync();
 		
 	}
+	@Override
+	public double getSourcePoints() {
+		return overviewProjectStepper.getSourcePoints();
+	}
+	@Override
+	public void setSourcePoints(double newValue) {
+		overviewProjectStepper.setSourcePoints(newValue);
+		
+	}
+	
+	@Override
+	public void internalSetSourcePoints(double newValue) {
+		overviewProjectStepper.internalSetSourcePoints(newValue);
+		
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

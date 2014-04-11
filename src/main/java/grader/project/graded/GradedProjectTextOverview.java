@@ -102,6 +102,9 @@ public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ Proper
 	void setMultiplierColor();
 	void setScoreColor();
 	void setFrame (Object aFrame);
+	double getSourcePoints();
+	void setSourcePoints(double newValue);
+	void internalSetSourcePoints(double newValue);
 
 //	String getFeedback();
 //

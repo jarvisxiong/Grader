@@ -13,6 +13,9 @@ public interface NotesGenerator {
 	
 	public String multiplierOverrideNotes (ProjectStepper aProjectStepper, double oldVal, double newVal) ;
 	
+	public String sourcePointsOverrideNotes (ProjectStepper aProjectStepper, double oldVal, double newVal) ;
+
+	
 	String appendNotes (String existingNotes, String newNotes);
 
 }
