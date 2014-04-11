@@ -14,6 +14,7 @@ import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.HasMoreStepsChanged;
 import grader.trace.stepper.NavigationListConfigured;
 import grader.trace.stepper.ProceedWhenDoneChanged;
+import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.UserNextStep;
@@ -438,6 +439,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				// my original code
 				projectDatabase.resetIO();
 				projectDatabase.clearWindows();
+				ProjectStepEnded.newCase(projectDatabase, projectStepper, project, this);
 	}
 	void redirectProject() {
 		projectDatabase.initIO();
