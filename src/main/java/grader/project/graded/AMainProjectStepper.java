@@ -59,8 +59,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.output();
 	}
 	@Visible(true)
-	public void sources() {
-		overviewProjectStepper.sources();
+	public void openSource() {
+		overviewProjectStepper.openSource();
 	}
 
 	@Visible(false) 
@@ -530,8 +530,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public String getTASourceCodeComments() {
 		return overviewProjectStepper.getTASourceCodeComments();
 	}
-	public void refresh() {
-		overviewProjectStepper.refresh();
+	public void sync() {
+		overviewProjectStepper.sync();
 		
 	}
 	

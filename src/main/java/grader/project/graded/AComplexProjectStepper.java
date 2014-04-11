@@ -100,8 +100,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.propertyChange(arg0);
 	}
 	@Visible(true)
-	public void sources() {
-		mainProjectStepper.sources();
+	public void openSource() {
+		mainProjectStepper.openSource();
 	}
 
 	public double getScore() {
@@ -503,8 +503,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public String getTASourceCodeComments() {
 		return mainProjectStepper.getTASourceCodeComments();
 	}
-	public void refresh() {
-		mainProjectStepper.refresh();
+	public void sync() {
+		mainProjectStepper.sync();
 		
 	}
 	@Override

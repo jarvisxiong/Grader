@@ -795,7 +795,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 
 	@Row(5)
 	@ComponentWidth(100)
-	public void sources() {
+	public void openSource() {
 		project.setHasBeenRun(true);
 
 		project.displaySource(projectDatabase);

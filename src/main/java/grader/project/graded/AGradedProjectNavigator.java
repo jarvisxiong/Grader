@@ -322,7 +322,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 	boolean proceedWhenDone = true;
 //	@Visible(false)
-	@Row(1)
+	@Row(2)
 	@Column(0)
 	@Override
 	@Label("Stop If Not Done")
@@ -609,7 +609,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 	@Override
 	@Row(2)
-	@Column(0)
+	@Column(1)
 	@ComponentWidth(30)
 	@ComponentHeight(27)
 	@Label("Navigation Distance:")
@@ -629,19 +629,34 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 //	@Visible(false)
 	@ComponentWidth(100)
-	@Row(0)
+	@Row(1)
 	@Column(2)
 	@Override
 	@Explanation("Save uncomitted changes in the text areas wihout hitting and entering a return.")
-	public void refresh() {		
+	public void sync() {		
 		
 		
 			
 	}
+	@Row(1)
+	@Column(0)
+	@ComponentWidth(100)
+	public void openSource() {
+		projectStepper.openSource();
+	}
+	
+	@Row(1)
+	@Column(1)
+	@ComponentWidth(100)
+	@Explanation("To be implemented.")
+	public void exploreSource() {
+		projectStepper.openSource();
+	}
+	
 	
 	@ComponentWidth(100)
 	@Row(0)
-	@Column(3)
+	@Column(2)
 	@Override
 	@Explanation("Quit session after saving current student changes.")
 	public void quit() {

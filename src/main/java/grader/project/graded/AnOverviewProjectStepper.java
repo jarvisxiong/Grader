@@ -675,8 +675,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 //	@Row(5)
 //	@ComponentWidth(100)
-	@Visible(true)
-	public void sources() {
+//	@Visible(true)
+	public void openSource() {
 		project.setHasBeenRun(true);
 
 		project.displaySource(projectDatabase);
@@ -1593,8 +1593,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		
 //	}
 	@Override
-	public void refresh() {
-		gradedProjectNavigator.refresh();
+	public void sync() {
+		gradedProjectNavigator.sync();
 		
 	}
 	

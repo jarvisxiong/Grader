@@ -21,7 +21,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	
 	public void output();
 	
-	public void sources() ;
+	public void openSource() ;
 	public double getScore() ;
 	public void setScore(double newVal) ;
 	public  void waitForClearance() ;

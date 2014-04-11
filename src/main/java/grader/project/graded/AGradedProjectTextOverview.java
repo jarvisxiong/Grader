@@ -371,6 +371,13 @@ public class AGradedProjectTextOverview  implements
 		return multiplier;
 	}
 	
+	@Row(4)
+	@Visible(true)
+	@Explanation("Weight based on early or late submission")
+	public double getSourcePoints() {
+		return 0;
+	}
+	
 	public void internalSetMultiplier(double newValue) {
 		if (newValue == multiplier) return;
 		double oldValue = multiplier;
