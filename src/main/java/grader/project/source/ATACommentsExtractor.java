@@ -8,10 +8,12 @@ public class ATACommentsExtractor implements TACommentsExtractor{
 		String[] lines = allSource.split("\n");
 		StringBuffer retVal =  new StringBuffer(EXPECTED_MAX_COMMENTS_LENGTH );
 		for (String line:lines) {
-			if (retVal.length() != 0)
-				retVal.append("\n");
-			if (line.contains(TA_STRING))
+			
+			if (line.contains(TA_STRING)) {
+				if (retVal.length() != 0)
+					retVal.append("\n");
 				retVal.append(line);
+			}
 		}
 			
 		return retVal.toString();
