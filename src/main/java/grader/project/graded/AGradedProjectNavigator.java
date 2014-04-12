@@ -432,6 +432,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				// no serialization otherwise
 				if (projectStepper.isChanged() || 
 						!featureGradeRecorder.logSaved()) {
+					sync(); // get ta comments from any un synced source files
 				featureGradeRecorder.finish();
 				projectStepper.setChanged(false);
 				}

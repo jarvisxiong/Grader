@@ -14,12 +14,12 @@ public class RecordingSession {
     private String userId;
     private List<CheckResult> featureResults;
     private List<CheckResult> restrictionResults;
-    private String comments;
+    private String comments = "";
     private double latePenalty;
     double sourcePoints;
     
 	double score;
-    String sourceCodeComments;
+    String sourceCodeComments = "";
     
 
 	

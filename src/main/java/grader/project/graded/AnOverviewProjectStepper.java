@@ -57,6 +57,7 @@ import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.source.SourceTACommentsChanged;
 import grader.trace.source_points.SourcePointsLoaded;
+import grader.trace.source_points.SourcePointsSaved;
 import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProjectGradingChanged;
@@ -273,7 +274,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 		Boolean retVal = setProject(projectDatabase.getProject(anOnyen));
 		SakaiProject project = getProject();
-		loadSourceFromFile();
+//		loadSourceFromFile();
 //		internalSetSource(
 //						getProject().
 //							getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
@@ -453,6 +454,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //			SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
 //		}
 		// the multiplier is not being loaded here, so cannot be used for filtering
+		
+		loadSourceFromFile();
 
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
@@ -656,8 +659,26 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		taComments = taCommentsExtractor.extractTAComments(newValue);
 		if (taComments.equals(oldTAComments)) return;
 		featureGradeRecorder.saveSourceCodeComments(taComments);
-		setComputedFeedback();
 		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
+		
+		double taPoints = 0;
+		if (!settingUpProject) 
+			taPoints = taCommentsExtractor.extractTAPoints(taComments);
+		else 
+			taPoints = featureGradeRecorder.getSourcePoints(getName(), getOnyen()); // get the saved values specially if they got manually changed
+		if (taPoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+//			featureGradeRecorder.setSourcePoints(getName(), getOnyen(), taPoints);
+//			SourcePointsSaved.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), taPoints, this);
+//		
+		
+			internalSetSourcePoints(taPoints);
+		}
+		
+//		featureGradeRecorder.saveSourceCodeComments(taComments);
+//		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
+//		featureGradeRecorder.setSourcePoints(getName(), getOnyen(), taPoints);
+//		SourcePointsSaved.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), taPoints, this);
+		setComputedFeedback();
 	}
 	@Override
 	public String getSource() {

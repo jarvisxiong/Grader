@@ -390,7 +390,7 @@ public class AGradedProjectTextOverview  implements
 		double oldValue = sourcePoints;
 		sourcePoints = newValue;
 		featureGradeRecorder.setSourcePoints(getName(), getOnyen(),
-				multiplier);
+				sourcePoints);
 		SourcePointsSaved.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), sourcePoints, this);
 //		setMultiplierColor();
 	

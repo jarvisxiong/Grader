@@ -61,8 +61,8 @@ public class DemoerAndTester implements Runnable{
 //		explainSourceAndcommentOnCode();
 		showSource();
 		commentOnCode();
-		changeOverallScore();
-		changeOverallNotes2();
+//		changeOverallScore();
+//		changeOverallNotes2();
 		showFeedback();
 		quit1();
 		secondSession();
@@ -163,14 +163,14 @@ public class DemoerAndTester implements Runnable{
 		}
 	}
 	public static void commentOnCode() {
-		clearanceManager.setStepDescription("Next step is to insert a comment at the start in the code congratulating the student on good style. TA Comments are preceded by:" + ATACommentsExtractor.TA_STRING);
+		clearanceManager.setStepDescription("Next step is to insert a comment at the start in the code congratulating the student on good style and giving him extra points. TA Comments can occur anywhere and are preceded by:" + ATACommentsExtractor.TA_STRING);
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
 			
 			String oldSource =  projectStepper.getSource();
-			String newSource = "//TA:Excellent style\n" + oldSource;
+			String newSource = "//TA:Excellent style +5\n" + oldSource;
 			projectStepper.setSource(newSource);
 			
 //			String oldSource =  ((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).getSource();

@@ -68,6 +68,20 @@ public class TextSerializer implements RecordingSessionSerializer {
         log += recordingSession.getComments();
         return log;
     }
+     
+    String headingFeatureNotes() {
+    	String retVal = "\nNotes from grading features:\n";
+        retVal += "----------------------------------\n";
+        return retVal;
+    	
+    }
+    
+    String headingRestrictionNotes() {
+    	String retVal = "\nNotes from grading restrictions:\n";
+        retVal += "----------------------------------\n";
+        return retVal;
+    	
+    }
      // need to change this
      String featuresBasedSerialize(RecordingSession recordingSession) {
          String log = "";
@@ -108,8 +122,10 @@ public class TextSerializer implements RecordingSessionSerializer {
 
          log += "  Total Score: " + (awarded + deducted) + "\n";
 
-         log += "\nNotes from grading features:\n";
-         log += "----------------------------------\n";
+//         log += "\nNotes from grading features:\n";
+//         log += "----------------------------------\n";
+         boolean headingFeatureNotesPrinted = false;
+//         log += headingFeatureNotes();
          for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
         	 if (gradingFeature.isRestriction()) {
         		 continue;
@@ -118,6 +134,10 @@ public class TextSerializer implements RecordingSessionSerializer {
              String manualNote = gradingFeature.getManualNotes();
              if (autoNote.isEmpty() && manualNote.isEmpty())
             	 continue;
+             if (!headingFeatureNotesPrinted) {
+            	 log += headingFeatureNotes();
+            	 headingFeatureNotesPrinted = true;
+             }
              log += gradingFeature.getFeatureName() + ":" + "\n";
              if (!autoNote.isEmpty())
             	 log +=  autoNote + "\n";
@@ -135,8 +155,10 @@ public class TextSerializer implements RecordingSessionSerializer {
          }
          if (hasRestrictions) {
 
-         log += "\nNotes from grading restrictions:\n";
-         log += "----------------------------------\n";
+//         log += "\nNotes from grading restrictions:\n";
+//         log += "----------------------------------\n";
+             boolean headingRestrictionNotesPrinted = false;
+//        	 log += headingRestrictionNotes();
          for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
         	 if (!gradingFeature.isRestriction()) {
         		 continue;
@@ -145,6 +167,11 @@ public class TextSerializer implements RecordingSessionSerializer {
              String manualNote = gradingFeature.getManualNotes();
              if (autoNote.isEmpty() && manualNote.isEmpty())
             	 continue;
+             if (!headingRestrictionNotesPrinted) {
+            	 log += headingRestrictionNotes();
+            	 headingRestrictionNotesPrinted = true;
+             }
+            	 
              log += gradingFeature.getFeatureName() + ":" + "\n";
              if (!autoNote.isEmpty())
             	 log +=  autoNote + "\n";
@@ -161,14 +188,22 @@ public class TextSerializer implements RecordingSessionSerializer {
              log += "\nLate penalty: " + (recordingSession.getLatePenalty() * 100) + "%\n";
          if (recordingSession.getLatePenalty()> 1)
              log += "\nEarly benefit: " + (recordingSession.getLatePenalty() * 100) + "%\n";
-         
+         if (!recordingSession.getSourceCodeTAComments().isEmpty()) {
          log += "\nSource Code Comments:\n";
          log += "----------------------------------\n";
          log += recordingSession.getSourceCodeTAComments() + "\n";
-
+         }
+         if (recordingSession.getSourcePoints() != 0) {
+             log += "\nSource Points:\n";
+             log += "----------------------------------\n";
+             log += recordingSession.getSourcePoints()+ "\n";
+             }
+         
+         if (!recordingSession.getComments().isEmpty()) {
          log += "\nOverall Comments:\n";
          log += "----------------------------------\n";
          log += recordingSession.getComments();
+         }
          return log;
      }
     @Override
