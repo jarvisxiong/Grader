@@ -30,6 +30,7 @@ import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderFactory;
 import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.spreadsheet.csv.AFeatureAndFinalGradeRecorder;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.csv.ASakaiFeatureGradeSheetMerger;
@@ -399,12 +400,15 @@ public class AGradedProjectTextOverview  implements
 	
 	
 	public void internalSetMultiplier(double newValue) {
-		if (newValue == multiplier) return;
+//		if (newValue == multiplier) return;
 		double oldValue = multiplier;
 		multiplier = newValue;
+		// save this value even if the newValue is == oldValue since the old value may be from previous project
+		// need to pass the value from one featur erecorder to another so this extra work may be needed
 		featureGradeRecorder.setEarlyLatePoints(getName(), getOnyen(),
 				multiplier);
 		MultiplierSaved.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), multiplier, this);
+		if (oldValue != newValue)
 		setMultiplierColor();
 		propertyChangeSupport.firePropertyChange("multiplier", oldValue, newValue);
 	}
