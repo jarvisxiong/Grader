@@ -535,6 +535,11 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.internalSetSourcePoints(newValue);
 		
 	}
+	@Override
+	public void loadSourceFromFile() {
+		mainProjectStepper.loadSourceFromFile();
+		
+	}
 
 
 }

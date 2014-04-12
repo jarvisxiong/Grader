@@ -42,6 +42,7 @@ import grader.trace.multiplier.MultiplierAutoChange;
 import grader.trace.multiplier.MultiplierLoaded;
 import grader.trace.overall_score.OverallScoreAutoChange;
 import grader.trace.settings.MissingOnyenException;
+import grader.trace.source_points.SourcePointsLoaded;
 import grader.trace.stepper.AutoAutoGradeSet;
 import grader.trace.stepper.AutoVisitFailedException;
 import grader.trace.stepper.FeaturesAutoGraded;
@@ -237,6 +238,8 @@ public class AnAutoVisitBehavior implements
 			autoGrade();
 			
 		} else {
+			
+			// in case the multiplier is to be used for navigation filter then we need to load it in the set project in project overviewer
 			double aMultiplier = featureGradeRecorder.getEarlyLatePoints(projectStepper.getName(),
 					projectStepper.getOnyen());
 			
@@ -250,9 +253,18 @@ public class AnAutoVisitBehavior implements
 			// not sure we need the next step, perhaps to let the other loggers to know this information
 			// problem is that only one unparsers is a parser, so we transmit info from the unique parser
 			// to all unparsers
+			// internalSetMultiplier is doing the saving
 			
-			featureGradeRecorder.setEarlyLatePoints(projectStepper.getName(), projectStepper.getOnyen(),
-					aMultiplier);
+//			featureGradeRecorder.setEarlyLatePoints(projectStepper.getName(), projectStepper.getOnyen(),
+//					aMultiplier);
+			
+			//
+			// cannot be used for filtering
+			double savedSourcePoints = featureGradeRecorder.getSourcePoints(projectStepper.getName(), projectStepper.getOnyen());
+			if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+				projectStepper.internalSetSourcePoints(savedSourcePoints);
+				SourcePointsLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+			}
 
 			projectStepper.setStoredFeedback();
 

@@ -255,8 +255,13 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
+	public void loadSourceFromFile() {
+		internalSetSource(
+				getProject().
+					getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
 
+	}
 
 	public boolean setProject(String anOnyen) {
 
@@ -268,9 +273,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 		Boolean retVal = setProject(projectDatabase.getProject(anOnyen));
 		SakaiProject project = getProject();
-		internalSetSource(
-						getProject().
-							getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
+		loadSourceFromFile();
+//		internalSetSource(
+//						getProject().
+//							getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
 		
 		return retVal;
 
@@ -441,11 +447,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// cannot do this, recording session not created
 //			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
 		}
-		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
-		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
-			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
-			SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
-		}
+//		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
+//		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+//			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
+//			SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+//		}
+		// the multiplier is not being loaded here, so cannot be used for filtering
 
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
@@ -645,6 +652,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		String oldValue = source;
 		source = newValue;
 		propertyChangeSupport.firePropertyChange("source", oldValue, newValue);
+		String oldTAComments = taComments;
+		taComments = taCommentsExtractor.extractTAComments(newValue);
+		if (taComments.equals(oldTAComments)) return;
+		featureGradeRecorder.saveSourceCodeComments(taComments);
+		setComputedFeedback();
+		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
 	}
 	@Override
 	public String getSource() {
@@ -657,17 +670,18 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		setChanged(true);
 		internalSetSource(newVal);		
 		getProject().getClassesTextManager().setEditedAllSourcesText(getProject().getSourceFileName(), newVal);
-		String oldTAComments = taComments;
-		taComments = taCommentsExtractor.extractTAComments(newVal);
-		if (taComments.equals(oldTAComments)) return;
-		featureGradeRecorder.saveSourceCodeComments(taComments);
-		setComputedFeedback();
-		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
+//		String oldTAComments = taComments;
+//		taComments = taCommentsExtractor.extractTAComments(newVal);
+//		if (taComments.equals(oldTAComments)) return;
+//		featureGradeRecorder.saveSourceCodeComments(taComments);
+//		setComputedFeedback();
+//		SourceTACommentsChanged.newCase(projectDatabase, this, project, taComments, this);
 		
 		
 		
 	}
 	@Override
+	@Visible(false)
 	public String getTASourceCodeComments() {
 		return taComments;
 	}

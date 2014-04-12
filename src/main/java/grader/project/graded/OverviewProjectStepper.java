@@ -25,4 +25,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	String getTASourceCodeComments();
 
+	void loadSourceFromFile();
+
 }

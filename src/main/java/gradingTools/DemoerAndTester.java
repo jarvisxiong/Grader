@@ -119,7 +119,7 @@ public class DemoerAndTester implements Runnable{
 		GradingFeature prevGradingFeature = gradingFeatures.get(5);
 //		gradingFeature.setManualNotes("");
 //		prevGradingFeature.setManualNotes("");	
-		Driver.getDatabase().getProjectStepper().setOverallNotes("");
+//		Driver.getDatabase().getProjectStepper().setOverallNotes("");
 		clearanceManager.setStepDescription("Next step is check the select box in item 7 to select it.\n\nThe auto notes box should show the reason for point deduction for the selected item. \n\nThe transcript box should show the output for this feature. \n\nThe manual notes will show the previous manual notes for this item, which should be empty.");
 		waitForUserOrSleep();
 //		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();

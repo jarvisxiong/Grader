@@ -634,7 +634,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Override
 	@Explanation("Save uncomitted changes in the text areas wihout hitting and entering a return.")
 	public void sync() {		
-		
+		projectStepper.loadSourceFromFile();
 		
 			
 	}

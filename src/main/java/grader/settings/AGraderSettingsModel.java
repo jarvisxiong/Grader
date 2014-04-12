@@ -121,6 +121,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		settingsLoaded = true;
 	}
 	@Override
+	@Visible(false)
 	public boolean isSettingsLoaded() {
 		return settingsLoaded;
 	}

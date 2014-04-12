@@ -527,6 +527,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 	public void cleanFeedbackFolder() {
 		overviewProjectStepper.cleanFeedbackFolder();		
 	}
+	@Visible(false)
 	public String getTASourceCodeComments() {
 		return overviewProjectStepper.getTASourceCodeComments();
 	}
@@ -535,6 +536,7 @@ public class AMainProjectStepper implements MainProjectStepper {
 		
 	}
 	@Override
+	@Visible(false)
 	public double getSourcePoints() {
 		return overviewProjectStepper.getSourcePoints();
 	}
@@ -547,6 +549,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@Override
 	public void internalSetSourcePoints(double newValue) {
 		overviewProjectStepper.internalSetSourcePoints(newValue);
+		
+	}
+	@Override
+	public void loadSourceFromFile() {
+		overviewProjectStepper.loadSourceFromFile();
 		
 	}
 	
