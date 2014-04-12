@@ -14,6 +14,7 @@ import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
+import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 public class CsvLogger implements Logger {
 
@@ -79,7 +80,10 @@ public class CsvLogger implements Logger {
 					for(int i=0; i<4; i++) {
 						writer.write(csvParts[i]+",");
 					}
-					writer.write("" + (rawScore * recordingSession.getLatePenalty()));
+//					writer.write("" + (rawScore * recordingSession.getLatePenalty()));
+					double total = ASakaiCSVFeatureGradeManager.getTotalGrade(rawScore, recordingSession.getLatePenalty(), recordingSession.getSourcePoints());
+					writer.write("" + total);
+
 					writer.write("\n");
 				}else{
 					writer.write(line+"\n");
@@ -133,7 +137,10 @@ public class CsvLogger implements Logger {
  					for(int i=0; i<4; i++) {
  						writer.write(csvParts[i]+",");
  					}
- 					writer.write("" + (rawScore * recordingSession.getLatePenalty()));
+// 					writer.write("" + (rawScore * recordingSession.getLatePenalty()));
+ 					double total = ASakaiCSVFeatureGradeManager.getTotalGrade(rawScore, recordingSession.getLatePenalty(), recordingSession.getSourcePoints());
+					writer.write("" + total);
+
  					writer.write("\n");
  				}else{
  					writer.write(line+"\n");

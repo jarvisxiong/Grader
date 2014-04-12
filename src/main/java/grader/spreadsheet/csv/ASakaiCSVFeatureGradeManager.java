@@ -266,17 +266,29 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		
 	}
 	
+    public static double getTotalGrade(double featureScore, double multiplier, double sourcePoints) {
+		
+		
+		return (featureScore + sourcePoints) * multiplier;
+
+	}
+	
 	void refreshTotalGrade(String[] row, String aStudentName, String anOnyen) {
 		
 		double featureScore = getGrade(aStudentName, anOnyen);
 		double multiplier =  getEarlyLatePoints(aStudentName, anOnyen);
 		double sourcePoints = getSourcePoints(aStudentName, anOnyen);
+		
 		if (multiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
 			multiplier = 1;
 		if (sourcePoints == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
 			sourcePoints = 0;
+		double total = getTotalGrade(featureScore, multiplier, sourcePoints);
+
 		
-	    recordGrade(row, TOTAL_COLUMN, (featureScore + sourcePoints) * multiplier);
+//	    recordGrade(row, TOTAL_COLUMN, (featureScore + sourcePoints) * multiplier);
+	    recordGrade(row, TOTAL_COLUMN, total);
+
 
 	}
 
@@ -303,6 +315,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	    }
 	    
 	    recordGrade(row, SOURCE_POINTS_COLUMN, aScore);
+	    refreshTotalGrade(row, aStudentName, anOnyen);
 	   
 	    writeTable();
 
