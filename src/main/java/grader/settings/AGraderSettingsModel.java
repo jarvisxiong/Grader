@@ -117,8 +117,36 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		
 //		AModuleProblemSelector moduleProblem = new AModuleProblemSelector(modules, problems);
 		
-		loadSettings();
-		settingsLoaded = true;
+//		loadSettings();
+//		settingsLoaded = true;
+	}
+	@Override
+	public void init() {
+		graderStarted = false;
+//		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
+//		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
+		moduleProblemManager = ModuleProblemManagerSelector.getModuleProblemManager();
+		
+//		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+//		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+		
+//		loadSettings();
+		  String aModule = graderSettingsManager.getModule();
+	        modules = moduleProblemManager.getModules();
+//	        problemDownloadPath = graderSettingsManager.getDownloadPath(aModule);
+////			if (problemDownloadPath == null)
+////	        
+//////	        String downloadPath;
+////	        problemDownloadPath =  ;
+//	        if (problemDownloadPath != null) {
+////	            String downloadPath = GraderSettings.get().get("path");
+//	            fileBrowsing.getDownloadFolder().getLabel().setText(problemDownloadPath);
+//	        } else {
+//	        	noDownloadPath();
+//	        }
+	        setCurrentModule(aModule);
+//		loadSettings();
+//		settingsLoaded = true;
 	}
 	@Override
 	@Visible(false)

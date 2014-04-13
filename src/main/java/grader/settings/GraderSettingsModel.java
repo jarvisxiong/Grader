@@ -30,5 +30,6 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	void cleanSlate();
 	String getCurrentModule();
 	boolean isSettingsLoaded();
+	void init();
 
 }

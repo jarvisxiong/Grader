@@ -1,11 +1,15 @@
 package grader.stats;
 
+import grader.trace.stats.SavedAllStudentsProblemGradingHistoryMerged;
+import grader.trace.stats.SavedStudentProblemGradingHistoryEntered;
+import grader.trace.stats.SavedStudentProblemGradingHistoryMerged;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AProblemManualGradingHistory implements ProblemManualGradingHistory{
+public class ASavedAllProblemsGradingHistory implements SavedAllStudentsProblemGradingHistory{
 	double elapsedAutoTime;
 	double elapsedManualTime;
 	double averageAutoTime;
@@ -24,10 +28,10 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 
 	
 	
-	Map<String, StudentManualGradingHistory> onyenToStudentHistory = new HashMap();
-	List<StudentManualGradingHistory> studentsHistory = new ArrayList();
+	Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory = new HashMap();
+//	List<SavedStudentProblemGradingHistory> studentsHistory = new ArrayList();
 	
-	public AProblemManualGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
+	public ASavedAllProblemsGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
 		graderName = aGraderName;
 		moduleName = aModuleName;
 		problemName = aProblemName;
@@ -108,19 +112,22 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 	public void setAverageManualOverallNotes(double averageManualOverallNotes) {
 		this.averageManualOverallNotes = averageManualOverallNotes;
 	}
-	public List<StudentManualGradingHistory> getStudentsHistory() {
-		return studentsHistory;
-	}
-	public void setStudentsHistory(List<StudentManualGradingHistory> studentsHistory) {
-		this.studentsHistory = studentsHistory;
-	}
-	public void newStudentHistory(String anOnyen, StudentManualGradingHistory aHistory) {
-		StudentManualGradingHistory existingHistory = onyenToStudentHistory.get(anOnyen);
-		if (existingHistory != null)
+//	public List<SavedStudentProblemGradingHistory> getStudentsHistory() {
+//		return studentsHistory;
+//	}
+//	public void setStudentsHistory(List<SavedStudentProblemGradingHistory> studentsHistory) {
+//		this.studentsHistory = studentsHistory;
+//	}
+	public void newStudentHistory(String anOnyen, SavedStudentProblemGradingHistory aHistory) {
+		SavedStudentProblemGradingHistory existingHistory = onyenToStudentHistory.get(anOnyen);
+		if (existingHistory != null) {
 			existingHistory.merge(aHistory);
-		else {
+			SavedStudentProblemGradingHistoryMerged.newCase(aHistory, this);
+
+		} else {
 			onyenToStudentHistory.put(anOnyen, aHistory);	
 			visitedStudents.add(anOnyen);
+			SavedStudentProblemGradingHistoryEntered.newCase(aHistory, this);
 		}
 	}
 	public List<String> getVisitedStudents() {
@@ -129,11 +136,11 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 	public void setVisitedStudents(List<String> visitedStudents) {
 		this.visitedStudents = visitedStudents;
 	}
-	public Map<String, StudentManualGradingHistory> getOnyenToStudentHistory() {
+	public Map<String, SavedStudentProblemGradingHistory> getOnyenToStudentHistory() {
 		return onyenToStudentHistory;
 	}
 	public void setOnyenToStudentHistory(
-			Map<String, StudentManualGradingHistory> onyenToStudentHistory) {
+			Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory) {
 		this.onyenToStudentHistory = onyenToStudentHistory;
 	}
 	public String getModuleName() {
@@ -159,13 +166,14 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 		this.graderName = graderName;
 	}
 	@Override
-	public void merge(ProblemManualGradingHistory other) {
+	public void merge(SavedAllStudentsProblemGradingHistory other) {
 		// TO DO the numerical statuses
 		List<String> otherOnyens = other.getVisitedStudents();
-		Map<String, StudentManualGradingHistory> otherMap = other.getOnyenToStudentHistory();
+		Map<String, SavedStudentProblemGradingHistory> otherMap = other.getOnyenToStudentHistory();
 		for (String onyen:otherOnyens) {
 			newStudentHistory(onyen, otherMap.get(onyen));
 		}
+		SavedAllStudentsProblemGradingHistoryMerged.newCase(other, this);
 	}
 	
 	

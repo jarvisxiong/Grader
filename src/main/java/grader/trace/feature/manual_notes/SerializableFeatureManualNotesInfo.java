@@ -36,17 +36,18 @@ public void setFeatureManualNotes(String featureManualNotes) {
 	this.featureManualNotes = featureManualNotes;
 }
 
+
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + featureManualNotes;
+			+ "," + normalize(featureManualNotes);
 }
 
 public static final int COLUMNS_USED = SerializableFeatureInfo.COLUMNS_USED + 1; 
 
 
 public static String featureManualNotesFromCSVRow(String[] aRow) {
-	return aRow[COLUMNS_USED - 1];
+	return unNormalize(aRow[COLUMNS_USED - 1]);
 }
 
 	

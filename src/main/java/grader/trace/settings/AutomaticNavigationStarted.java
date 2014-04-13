@@ -25,6 +25,7 @@ public class AutomaticNavigationStarted extends GraderSettingsInfo {
 		this.projectDatabase = projectDatabase;
 	}
 	public static AutomaticNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
+		NavigationStarted.newCase(aGradingSettingsModel, aProjectDatabase, aFinder);	
 		String aMessage = "Automatic Navigation Started";
 		AutomaticNavigationStarted retVal = new AutomaticNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
 		retVal.announce();		

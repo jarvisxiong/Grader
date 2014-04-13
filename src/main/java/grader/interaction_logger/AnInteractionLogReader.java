@@ -24,7 +24,7 @@ public class AnInteractionLogReader implements InteractionLogReader{
 	List<String[]>  table;
 	
 	public AnInteractionLogReader(List<String[]> aTable) {
-		table = aTable;
+		table = aTable;		
 	}
 	
 	public AnInteractionLogReader(String aFileName) {

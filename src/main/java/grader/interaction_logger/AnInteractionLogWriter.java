@@ -156,7 +156,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		
 	}
 	
-	
+	public static final String NEW_LINE_REPLACEMENT = "New Line";
 	
 	@Override
 	public void newEvent(Exception aTraceable) {
@@ -165,7 +165,10 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 				!(aTraceable instanceof CSVSerializable) ||
 				doNotLogEventsSet.contains(aTraceable.getClass()))
 			return;
-		String csvRow = ((CSVSerializable) aTraceable).toCSVRow();
+		String rawCSVRow = ((CSVSerializable) aTraceable).toCSVRow();
+//		String csvRow = rawCSVRow.replaceAll("\n", NEW_LINE_REPLACEMENT);
+		String csvRow = rawCSVRow;
+
 		InteractionLogEntryAdded.newCase(fileName, csvRow, this);
 		propertyChangeSupport.firePropertyChange("logAddition", null, csvRow);
 //		out.println(((CSVSerializable) aTraceable).toCSVRow());

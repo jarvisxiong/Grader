@@ -34,11 +34,15 @@ public class DemoerAndTester implements Runnable{
 //		Driver.getSettingsModel().begin();
 	}
 	
+	static final int CLEARANCE_WIDTH = 420;
+	static final int CLEARANCE_HEIGHT = 260;
+
+	
 	static void startFirstSession() {
 		Thread mainThread = new Thread(new DemoerAndTester());
 		mainThread.start();
 		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
-		clearanceFrame.setSize(420, 260);
+		clearanceFrame.setSize(CLEARANCE_WIDTH, CLEARANCE_HEIGHT);
 		clearanceFrame.setLocation(0, 0);
 	}
 	
@@ -79,7 +83,7 @@ public class DemoerAndTester implements Runnable{
 	
 	public static void waitForNavigator() {
 		clearanceManager.setStepDescription("Look at the console for output of autograded steps and missing submission folders. \n\nNow wait until the navigator UI comes up and then press proceed to go to first navigation step.");
-		waitForUserOrSleep();
+		waitForUserOrLongSleep();
 	}
 	
 	public static void changeProblem() {
@@ -293,10 +297,18 @@ public class DemoerAndTester implements Runnable{
 		else
 			clearanceManager.waitForClearance();
 	}
+	
+	static void waitForUserOrLongSleep() {
+		if (clearanceManager.isAutoProceed())
+			ThreadSupport.sleep(clearanceManager.getAutoPauseTime()*1000*20);
+		else
+			clearanceManager.waitForClearance();
+	}
 
 	@Override
 	public void run() {
-		Driver.main(args);
+		Driver.drive(CLEARANCE_WIDTH, 0);
+//		Driver.getSettingsFrame().setLocation(C);
 	}
 
 }

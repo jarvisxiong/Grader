@@ -161,8 +161,12 @@ public class Driver {
    static ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
    static GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 
+   public static void main(String[] args) {
+	   drive(0, 0);
+   }
 
-    public static void main(String[] args) {
+
+    public static void drive(int settingsFrameX, int settingsFrameY) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 
     	setTracing();
@@ -280,7 +284,9 @@ public class Driver {
 
 //            		  settingsModel = new AGraderSettingsModel(null);
                  	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
-            			settingsFrame = ObjectEditor.edit(settingsModel);            			
+                 	settingsModel.init();
+            			settingsFrame = ObjectEditor.edit(settingsModel); 
+            			settingsFrame.setLocation(settingsFrameX, settingsFrameY);
             			settingsFrame.setTitle("Grader Assistant Starter");
 //            			frame.setSize(550, 250);
 //            			settingsFrame.setSize(550, 475);

@@ -1,10 +1,20 @@
 package grader.trace;
 
+import grader.stats.SavedAllStudentsProblemGradingHistory;
+import grader.stats.SavedGradingHistoryParser;
+import grader.stats.SavedGradingHistoryParserSelector;
+import grader.stats.SavedGradingHistoryUnparser;
+import grader.stats.SavedGradingHistoryUnparserSelector;
+
 import java.util.Date;
 
 import util.trace.TraceableInfo;
 
 public class SerializableGraderInfo extends GraderInfo implements CSVSerializable {
+	
+	public static final String COMMA_REPLACEMENT = "COMMMA";
+	public static final String NEW_LINE_REPLACEMENT = "NEWLINE";
+
 
 	public SerializableGraderInfo(String aMessage, Object aFinder) {
 		super(aMessage, aFinder);
@@ -21,12 +31,31 @@ public class SerializableGraderInfo extends GraderInfo implements CSVSerializabl
 		return getTimeStamp() + ","  + time + "," + this.getClass().getSimpleName();
 	}
 	
+	public static String normalize(String aString) {
+		return (aString.replaceAll(",",  COMMA_REPLACEMENT)).replaceAll("\n", NEW_LINE_REPLACEMENT);
+	}
+	
+	public static String unNormalize(String aString) {
+		return (aString.replaceAll( COMMA_REPLACEMENT, ",")).replaceAll(NEW_LINE_REPLACEMENT, "\n");
+	}
+	
+	
 	public static long timeStampFromCSVRow(String[] aRow) {
 		return Long.parseLong(aRow[0]);		
 	}
 	
 	public static String classNameFromCSVRow(String[] aRow) {
 		return aRow[2];
+	}
+	
+	public static void main (String[] args) {
+		String normalized = normalize("Hell,World\nGoodye,World");
+		System.out.println(normalized);
+		System.out.println(unNormalize(normalized));
+				
+		
+		
+
 	}
 
 }

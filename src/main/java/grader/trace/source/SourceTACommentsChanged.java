@@ -38,11 +38,11 @@ public class SourceTACommentsChanged extends SerializableStepperInfo {
 	@Override
 	public String toCSVRow() {
 		return super.toCSVRow() 
-				+ "," + text;
+				+ "," + normalize(text);
 	}
 	
 	public static String taCommentsFromCSVRow(String[] aRow) {
-		return aRow[COLUMNS_USED-1];
+		return unNormalize(aRow[COLUMNS_USED-1]);
 	}
 
 	

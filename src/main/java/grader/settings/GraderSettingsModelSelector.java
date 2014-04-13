@@ -1,7 +1,7 @@
 package grader.settings;
 
 public class GraderSettingsModelSelector {
-	static GraderSettingsModel  graderSettingsModel = new AGraderSettingsModel(null);
+	static GraderSettingsModel  graderSettingsModel = new AGraderSettingsModel();
 
 	public static GraderSettingsModel getGraderSettingsModel() {
 		return graderSettingsModel;

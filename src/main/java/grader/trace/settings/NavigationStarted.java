@@ -7,11 +7,11 @@ import grader.settings.GraderSettingsModel;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
-public class ManualNavigationStarted extends GraderSettingsInfo {
+public class NavigationStarted extends GraderSettingsInfo {
 
 	SakaiProjectDatabase projectDatabase;
 	
-	public ManualNavigationStarted(String aMessage, GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
+	public NavigationStarted(String aMessage, GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
 		super(aMessage, aGradingSettingsModel, aFinder);
 		projectDatabase = aProjectDatabase;
 
@@ -24,10 +24,9 @@ public class ManualNavigationStarted extends GraderSettingsInfo {
 	public void setProjectDatabase(SakaiProjectDatabase projectDatabase) {
 		this.projectDatabase = projectDatabase;
 	}
-	public static ManualNavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
-		NavigationStarted.newCase(aGradingSettingsModel, aProjectDatabase, aFinder);		
-		String aMessage = "Manual Navigation Started";
-		ManualNavigationStarted retVal = new ManualNavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
+	public static NavigationStarted newCase(GraderSettingsModel aGradingSettingsModel, SakaiProjectDatabase aProjectDatabase, Object aFinder) {
+		String aMessage = "Navigation Started";
+		NavigationStarted retVal = new NavigationStarted(aMessage, aGradingSettingsModel, aProjectDatabase, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

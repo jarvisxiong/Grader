@@ -76,6 +76,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //	FinalGradeRecorder totalScoreRecorder;
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
+	boolean sourceHasBeenOpened;
 
 	public AGradedProjectNavigator() {
 
@@ -185,10 +186,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 
 
-	// Josh: We want to know when a project is set, so I'm adding the project
-	// property change event here.
+	
 	@Visible(false)
 	public boolean setProject(SakaiProject newVal) {
+		sourceHasBeenOpened = false;
+		project = newVal;
 
 		return true;
 	}
@@ -432,6 +434,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				// no serialization otherwise
 				if (projectStepper.isChanged() || 
 						!featureGradeRecorder.logSaved()) {
+					if (sourceHasBeenOpened)
 					sync(); // get ta comments from any un synced source files
 				featureGradeRecorder.finish();
 				projectStepper.setChanged(false);
@@ -642,8 +645,15 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Row(1)
 	@Column(0)
 	@ComponentWidth(100)
+	@Override
 	public void openSource() {
-		projectStepper.openSource();
+		
+		project.setHasBeenRun(true);
+
+		project.displaySource(projectDatabase);
+		sourceHasBeenOpened = true;
+		projectStepper.setChanged(true);
+//		projectStepper.openSource();
 	}
 	
 	@Row(1)

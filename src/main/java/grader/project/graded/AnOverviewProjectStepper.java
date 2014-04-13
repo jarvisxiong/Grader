@@ -408,7 +408,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public boolean setProject(SakaiProject newVal) {
-		ProjectStepStarted.newCase(projectDatabase, this, project, this);
+//		ProjectStepStarted.newCase(projectDatabase, this, newVal, this);
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 		setChanged(false);
@@ -420,6 +420,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			return false;
 		}
 
+		ProjectStepStarted.newCase(projectDatabase, this, newVal, this);
 
 		
 //		writeScores(this);
@@ -455,12 +456,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		}
 		// the multiplier is not being loaded here, so cannot be used for filtering
 		
-		loadSourceFromFile();
 
 		if (!gradedProjectNavigator.shouldVisit()) {
 			return false;
 		}
-		sourceHasBeenOpened = false;
+//		sourceHasBeenOpened = false;
 		// setInternalScore(gradeRecorder.getGrade(project.getStudentAssignment().getStudentName(),
 		// project.getStudentAssignment().getOnyen()));
 
@@ -472,6 +472,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectOverview.setProject(newVal);
 		autoVisitBehavior.setProject(newVal);
 		gradedProjectNavigator.setProject(newVal);
+		
+		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
+
 	
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
@@ -714,16 +717,17 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// return true;
 
 	}
-	boolean sourceHasBeenOpened;
+//	boolean sourceHasBeenOpened;
 //	@Row(5)
 //	@ComponentWidth(100)
 //	@Visible(true)
 	public void openSource() {
-		project.setHasBeenRun(true);
-
-		project.displaySource(projectDatabase);
-		sourceHasBeenOpened = true;
-		setChanged(true);
+		gradedProjectNavigator.openSource();
+//		project.setHasBeenRun(true);
+//
+//		project.displaySource(projectDatabase);
+//		sourceHasBeenOpened = true;
+//		setChanged(true);
 
 	}
 

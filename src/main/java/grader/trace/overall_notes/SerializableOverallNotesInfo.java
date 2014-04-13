@@ -40,11 +40,11 @@ public static final int COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 1;
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + overallNotes;
+			+ "," + normalize(overallNotes);
 }
 
 public static String overallNotesFromCSVRow(String[] aRow) {
-	return  aRow[COLUMNS_USED-1];
+	return  unNormalize(aRow[COLUMNS_USED-1]);
 }
 
 	

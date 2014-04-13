@@ -1,9 +1,10 @@
 package grader.stats;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public interface StudentManualGradingHistory {
+public interface SavedStudentProblemGradingHistory {
 	
 	
 	public String getModuleName() ;
@@ -20,14 +21,31 @@ public interface StudentManualGradingHistory {
 	public void setFeatureToManualScore(Map<String, Double> featureToManualScore) ;
 	public Map<String, String> getFeatureToManualNotes() ;
 	public void setFeatureToManualNotes(Map<String, String> featureToManualNotes);
-	public long getVisitPeriod() ;
-	public void setVisitPeriod(long visitPeriod) ;
-	void addVisitPeriod(long aNewPeriod);
+//	public long getVisitPeriod() ;
+//	public void setVisitPeriod(long visitPeriod) ;
+//	void addVisitPeriod(long aNewPeriod);
 	void incNumVisits();
-	void merge(StudentManualGradingHistory other);
+	void merge(SavedStudentProblemGradingHistory other);
 	public double getTotalScore() ;
 
 	public void setTotalScore(double totalScore) ;
+	public String getOnyen() ;
+
+	public void setOnyen(String onyen) ;
+	
+	public List<String> getGraderNames() ;
+	public void setGraderNames(List<String> newValue) ;
+	public long getVisitEndTime() ;
+	public void setVisitEndTime(long visitEndTime);
+	void addGraderName(String newName);
+	String getName();
+	void setName(String name);
+	public long getAutoVisitTime() ;
+
+	public void addAutoVisitTime(long autoVisitTime) ;
+	public long getManualVisitTime() ;
+
+	public void addManualVisitTime(long manualVisitTime) ;
 	
 	
 

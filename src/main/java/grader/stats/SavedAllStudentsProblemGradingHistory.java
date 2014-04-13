@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface ProblemManualGradingHistory {
+public interface SavedAllStudentsProblemGradingHistory {
 	public double getElapsedAutoTime() ;
 	public void setElapsedAutoTime(double elapsedAutoTime);
 	public double getElapsedManualTime() ;
@@ -32,15 +32,15 @@ public interface ProblemManualGradingHistory {
 	public void setAverageManualFeatureNotes(double averageManualFeatureNotes) ;
 	public double getAverageManualOverallNotes() ;
 	public void setAverageManualOverallNotes(double averageManualOverallNotes) ;
-	public List<StudentManualGradingHistory> getStudentsHistory() ;
-	public void setStudentsHistory(List<StudentManualGradingHistory> studentsHistory) ;
-	public void newStudentHistory(String anOnyen, StudentManualGradingHistory aHistory) ;
+//	public List<SavedStudentProblemGradingHistory> getStudentsHistory() ;
+//	public void setStudentsHistory(List<SavedStudentProblemGradingHistory> studentsHistory) ;
+	public void newStudentHistory(String anOnyen, SavedStudentProblemGradingHistory aHistory) ;
 	public List<String> getVisitedStudents() ;
 	public void setVisitedStudents(List<String> visitedStudents) ;
-	public Map<String, StudentManualGradingHistory> getOnyenToStudentHistory() ;
+	public Map<String, SavedStudentProblemGradingHistory> getOnyenToStudentHistory() ;
 	public void setOnyenToStudentHistory(
-			Map<String, StudentManualGradingHistory> onyenToStudentHistory) ;
-	void merge(ProblemManualGradingHistory other);
+			Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory) ;
+	void merge(SavedAllStudentsProblemGradingHistory other);
 	public String getModuleName() ;
 
 	public void setModuleName(String moduleName) ;
