@@ -25,6 +25,9 @@ public interface StudentManualGradingHistory {
 	void addVisitPeriod(long aNewPeriod);
 	void incNumVisits();
 	void merge(StudentManualGradingHistory other);
+	public double getTotalScore() ;
+
+	public void setTotalScore(double totalScore) ;
 	
 	
 

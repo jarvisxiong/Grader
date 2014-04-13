@@ -4,6 +4,7 @@ import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.trace.CSVDeSerializable;
 import grader.trace.SerializableGraderInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
@@ -22,11 +23,13 @@ public static final int COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 1;
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + overviewProjectStepper.getScore();
+			+ "," + 
+			ASakaiCSVFeatureGradeManager.getTotalGrade(overviewProjectStepper.getScore(), overviewProjectStepper.getMultiplier(), overviewProjectStepper.getSourcePoints());
+//			overviewProjectStepper.getScore();
 }
 
-public static String overallScoreFromCSVRow(String[] aRow) {
-	return aRow[COLUMNS_USED-1];
+public static double totalScoreFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED-1]);
 }
 
 	

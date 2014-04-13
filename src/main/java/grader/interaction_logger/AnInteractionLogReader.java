@@ -62,23 +62,52 @@ public class AnInteractionLogReader implements InteractionLogReader{
 	}
 	
 	public String[] nextRow (Class aTraceableClass, int fromIndex, int toIndex) {
-		if (fromIndex >= table.size()) return null;
+		int nextRowIndex = nextRowIndex(aTraceableClass, fromIndex, toIndex);
+		if (nextRowIndex < 0)
+			return null;
+		return table.get(nextRowIndex);
+//		if (fromIndex >= table.size()) return null;
+//		for (int rowIndex = fromIndex; rowIndex < toIndex; rowIndex++) {
+//			String[] row = table.get(rowIndex);
+//			if (aTraceableClass.getSimpleName().equals(SerializableGraderInfo.classNameFromCSVRow(row))) return row;
+//		}
+//		return null;		
+	}
+	@Override
+	public int nextRowIndex (Class aTraceableClass, int fromIndex, int toIndex) {
+		if (fromIndex >= table.size()) return -1;
 		for (int rowIndex = fromIndex; rowIndex < toIndex; rowIndex++) {
 			String[] row = table.get(rowIndex);
-			if (aTraceableClass.getSimpleName().equals(SerializableGraderInfo.classNameFromCSVRow(row))) return row;
+			if (aTraceableClass.getSimpleName().equals(SerializableGraderInfo.classNameFromCSVRow(row))) return rowIndex;
 		}
-		return null;		
+		return -1;		
 	}
 	
 	
 	
 	public String[] lastRow (Class aTraceableClass, int fromIndex, int toIndex) {
-		if (fromIndex >= table.size()) return null;
-		String[] retVal = null;
+		int index = lastRowIndex(aTraceableClass, fromIndex, toIndex);
+		if (index < 0) return null;
+		return table.get(index);
+		
+//		if (fromIndex >= table.size()) return null;
+//		String[] retVal = null;
+//		for (int rowIndex = fromIndex; rowIndex < toIndex; rowIndex++) {
+//			String[] row = table.get(rowIndex);
+//			if (aTraceableClass.getSimpleName().equals(SerializableGraderInfo.classNameFromCSVRow(row))) {
+//				retVal = row;
+//			}
+//		}
+//		return retVal;		
+	}
+	@Override
+	public int lastRowIndex (Class aTraceableClass, int fromIndex, int toIndex) {
+		if (fromIndex >= table.size()) return -1;
+		int retVal = -1;
 		for (int rowIndex = fromIndex; rowIndex < toIndex; rowIndex++) {
 			String[] row = table.get(rowIndex);
 			if (aTraceableClass.getSimpleName().equals(SerializableGraderInfo.classNameFromCSVRow(row))) {
-				retVal = row;
+				retVal = rowIndex;
 			}
 		}
 		return retVal;		
@@ -103,9 +132,26 @@ public class AnInteractionLogReader implements InteractionLogReader{
 	public String[] nextRow(Class aTraceableClass, int fromIndex) {
 		return nextRow(aTraceableClass, fromIndex, table.size());
 	}
+	@Override
+	public int nextRowIndex(Class aTraceableClass, int fromIndex) {
+		return nextRowIndex(aTraceableClass, fromIndex, table.size());
+	}
 	public String[] nextRow(Class aTraceableClass) {
 		return nextRow(aTraceableClass, 0);
 	}
+	@Override
+	public int nextRowIndex(Class aTraceableClass) {
+		return nextRowIndex(aTraceableClass, 0);
+	}
+	@Override
+	public int lastRowIndex(Class aTraceableClass, int fromIndex) {
+		return lastRowIndex(aTraceableClass, fromIndex, table.size());
+	}
+	@Override
+	public int lastRowIndex(Class aTraceableClass) {
+		return lastRowIndex(aTraceableClass, 0);
+	}
+	
 	public String[] lastRow(Class aTraceableClass, int fromIndex) {
 		return lastRow(aTraceableClass, fromIndex, table.size());
 	}

@@ -41,6 +41,15 @@ public interface ProblemManualGradingHistory {
 	public void setOnyenToStudentHistory(
 			Map<String, StudentManualGradingHistory> onyenToStudentHistory) ;
 	void merge(ProblemManualGradingHistory other);
+	public String getModuleName() ;
+
+	public void setModuleName(String moduleName) ;
+
+	public String getProblemName() ;
+
+	public void setProblemName(String problemName) ;
+	public String getGraderName();
+	public void setGraderName(String graderName) ;
 	
 	
 

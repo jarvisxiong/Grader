@@ -19,10 +19,20 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 	double averageManualFeatureNotes;
 	double averageManualOverallNotes;
 	List<String> visitedStudents = new ArrayList();
+	String graderName, moduleName, problemName;
 	
 
+	
+	
 	Map<String, StudentManualGradingHistory> onyenToStudentHistory = new HashMap();
 	List<StudentManualGradingHistory> studentsHistory = new ArrayList();
+	
+	public AProblemManualGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
+		graderName = aGraderName;
+		moduleName = aModuleName;
+		problemName = aProblemName;
+		
+	}
 	
 	public double getElapsedAutoTime() {
 		return elapsedAutoTime;
@@ -125,6 +135,28 @@ public class AProblemManualGradingHistory implements ProblemManualGradingHistory
 	public void setOnyenToStudentHistory(
 			Map<String, StudentManualGradingHistory> onyenToStudentHistory) {
 		this.onyenToStudentHistory = onyenToStudentHistory;
+	}
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
+	}
+
+	public String getProblemName() {
+		return problemName;
+	}
+
+	public void setProblemName(String problemName) {
+		this.problemName = problemName;
+	}
+	public String getGraderName() {
+		return graderName;
+	}
+
+	public void setGraderName(String graderName) {
+		this.graderName = graderName;
 	}
 	@Override
 	public void merge(ProblemManualGradingHistory other) {

@@ -7,12 +7,20 @@ import java.util.Set;
 public class AStudentManualGradingHistory  implements StudentManualGradingHistory{
 	String moduleName;
 	String problemName;
-	int numVisits;
+	int numVisits = 1;
 	Double manualOverallScore;
 	String manualOverallNotes = "";
 	Map<String, Double> featureToManualScore = new HashMap();
 	Map<String, String> featureToManualNotes = new HashMap();
 	long visitPeriod;
+	double totalScore;
+	
+	
+
+	public  AStudentManualGradingHistory(String aModuleName, String aProblemName) {
+		moduleName = aModuleName;
+		problemName = aProblemName;
+	}
 	
 	public String getModuleName() {
 		return moduleName;
@@ -69,6 +77,13 @@ public class AStudentManualGradingHistory  implements StudentManualGradingHistor
 	@Override
 	public void incNumVisits() {
 		numVisits++;
+	}
+	public double getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(double totalScore) {
+		this.totalScore = totalScore;
 	}
 	@Override
 	public void merge(StudentManualGradingHistory other) {

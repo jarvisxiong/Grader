@@ -55,6 +55,30 @@ public interface InteractionLogReader extends PropertyChangeListener{
 
 
 	public void setTable(List<String[]> table);
+
+
+
+	int nextRowIndex(Class aTraceableClass);
+
+
+
+	int nextRowIndex(Class aTraceableClass, int fromIndex);
+
+
+
+	int nextRowIndex(Class aTraceableClass, int fromIndex, int toIndex);
+
+
+
+	int lastRowIndex(Class aTraceableClass, int fromIndex, int toIndex);
+
+
+
+	int lastRowIndex(Class aTraceableClass, int fromIndex);
+
+
+
+	int lastRowIndex(Class aTraceableClass);
     
 	
 
