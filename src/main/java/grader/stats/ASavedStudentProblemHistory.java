@@ -26,11 +26,13 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	String sourceComments;
 	double multiplier;
 	double sourcePoints;
+	double featuresScore;
 	
 	
 
 	
 
+	
 	public  ASavedStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
 		moduleName = aModuleName;
 		problemName = aProblemName;
@@ -200,7 +202,15 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	public void setSourcePoints(double sourcePoints) {
 		this.sourcePoints = sourcePoints;
 	}
-	
+	@Override
+	public double getFeaturesScore() {
+		return featuresScore;
+	}
+	@Override
+	public void setFeaturesScore(double featuresScore) {
+		this.featuresScore = featuresScore;
+	}
+
 
 
 }

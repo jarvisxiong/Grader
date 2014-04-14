@@ -129,6 +129,7 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		String currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
 		currentStudentHistory = new ASavedStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
+		
 		if (endVisitIndex < 0) {
 			endVisitIndex = endPhaseIndex;
 			String[] endRow = table.get(endVisitIndex);
@@ -139,10 +140,13 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		} else {
 			String[] endRow = table.get(endVisitIndex);
 			double totalScore = ProjectStepEnded.totalScoreFromCSVRow(endRow);
-			double featureScore = ProjectStepEnded.featuresScoreFromCSVRow(endRow);
+			double featuresScore = ProjectStepEnded.featuresScoreFromCSVRow(endRow);
 			double multiplier = ProjectStepEnded.multiplierFromCSVRow(endRow);
 			double sourcePoints = ProjectStepEnded.sourcePointsFromCSVRow(endRow);
 			currentStudentHistory.setTotalScore(totalScore);
+			currentStudentHistory.setFeaturesScore(featuresScore);
+			currentStudentHistory.setMultiplier(multiplier);
+			currentStudentHistory.setSourcePoints(sourcePoints);
 			currentStudentHistory.setVisitEndTime(ProjectStepEnded.timeStampFromCSVRow(endRow));
 			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
 			String currentName = ProjectStepStarted.nameFromCSVRow(endRow);

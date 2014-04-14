@@ -57,6 +57,8 @@ public interface SavedStudentProblemGradingHistory {
 	public double getSourcePoints() ;
 
 	public void setSourcePoints(double sourcePoints) ;
+	double getFeaturesScore();
+	void setFeaturesScore(double featuresScore);
 	
 	
 	

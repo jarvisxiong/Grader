@@ -64,6 +64,22 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 		stringBuilder.append (aSingleStudentHistory.getName() + 
 				"(" + aSingleStudentHistory.getOnyen() + ")" +  
 				" TOTAL:" + aSingleStudentHistory.getTotalScore());
+		
+//		
+//				" FEATURES:" + aSingleStudentHistory.getFeaturesScore());
+		double sourcePoints = aSingleStudentHistory.getSourcePoints();
+		double multiplier = aSingleStudentHistory.getMultiplier();
+		double featuresScore = aSingleStudentHistory.getFeaturesScore();
+		
+		if (featuresScore != aSingleStudentHistory.getTotalScore() ) {
+			stringBuilder.append(" FEATURES:" + featuresScore);	
+
+		if (sourcePoints != 0)
+			stringBuilder.append(" SOURCE:" + sourcePoints);
+		if (multiplier != 1)
+			stringBuilder.append(" MULTIPLIER:" + multiplier);
+		}
+		
 		long autoVisit = aSingleStudentHistory.getAutoVisitTime();
 		if (autoVisit > 0)
 			stringBuilder.append(" AUTO:" + toHourMinSecString(autoVisit));
