@@ -46,6 +46,18 @@ public interface SavedStudentProblemGradingHistory {
 	public long getManualVisitTime() ;
 
 	public void addManualVisitTime(long manualVisitTime) ;
+	public String getSourceComments() ;
+
+	public void setSourceComments(String sourceComments);
+
+	public double getMultiplier() ;
+
+	public void setMultiplier(double multiplier) ;
+
+	public double getSourcePoints() ;
+
+	public void setSourcePoints(double sourcePoints) ;
+	
 	
 	
 

@@ -1,6 +1,9 @@
 package grader.stats;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import grader.interaction_logger.AnInteractionLogReader;
 import grader.interaction_logger.AnInteractionLogWriter;
@@ -42,8 +45,11 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 
 		stringBuilder.append(anAllStudentsHistory.getModuleName() + ":" + anAllStudentsHistory.getProblemName() + "\n");
 		for (String student:allStudents) {
+			stringBuilder.append("-------------------------------------------------\n");
 			SavedStudentProblemGradingHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
-			stringBuilder.append(unparseStudentProblemGradingHistory(savedStudentProblemGradingHistory) + "\n");
+			stringBuilder.append(unparseStudentProblemGradingHistory(savedStudentProblemGradingHistory));
+		
+
 		}
 		
 		return stringBuilder.toString();		
@@ -55,10 +61,49 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 	@Override
 	public String unparseStudentProblemGradingHistory(SavedStudentProblemGradingHistory aSingleStudentHistory) {
 		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
-		stringBuilder.append (aSingleStudentHistory.getName() + "(" + aSingleStudentHistory.getOnyen() + ")" + "\n");
-		stringBuilder.append ("Auto Visit Duration:" + toHourMinSecString(aSingleStudentHistory.getAutoVisitTime()) + "\n");
-		stringBuilder.append ("Manual Visit Duration:" + toHourMinSecString(aSingleStudentHistory.getManualVisitTime()) + "\n");
+		stringBuilder.append (aSingleStudentHistory.getName() + 
+				"(" + aSingleStudentHistory.getOnyen() + ")" +  
+				" TOTAL:" + aSingleStudentHistory.getTotalScore());
+		long autoVisit = aSingleStudentHistory.getAutoVisitTime();
+		if (autoVisit > 0)
+			stringBuilder.append(" AUTO:" + toHourMinSecString(autoVisit));
+		long manualVisit = aSingleStudentHistory.getManualVisitTime();
+		if (manualVisit > 0)
+			stringBuilder.append(" MANUAL:" + toHourMinSecString(manualVisit));
+		stringBuilder.append("\n");
+		String manualOverallNotes = aSingleStudentHistory.getManualOverallNotes();
+		if (!manualOverallNotes.isEmpty()) {
+			stringBuilder.append("OVERALL NOTES\n");
+			stringBuilder.append(manualOverallNotes);
+		}
+		Map<String, String> featureToManualNotes = aSingleStudentHistory.getFeatureToManualNotes();
+		
+		Map<String, Double> featureToManualScore = aSingleStudentHistory.getFeatureToManualScore();
+		Set<String> featuresWithManualNotes = featureToManualNotes.keySet();
+		Set<String> featuresWithManualScores = featureToManualScore.keySet();
+		Set<String> featuresWithManualIntervention = new HashSet(featuresWithManualNotes);
+		featuresWithManualIntervention.addAll(featuresWithManualScores);
+		if (featuresWithManualIntervention.size() > 0)
+			stringBuilder.append("FEATURES\n");
+		for (String feature:featuresWithManualIntervention) {
+			stringBuilder.append(feature);
+			Double featureScore = featureToManualScore.get(feature);
+			String featureNotes = featureToManualNotes.get(feature);
+			if ( featureScore != null) {
+				stringBuilder.append("(" + featureScore + ")\n");				
+			} else
+				stringBuilder.append("\n");
+			if (featureNotes != null) {
+				stringBuilder.append(featureNotes);				
+			}
+			stringBuilder.append("\n");
+		}
+//		if (!manualOverallNotes.isEmpty()) {
+//			stringBuilder.append("OVERALL NOTES\n");
+//			stringBuilder.append(manualOverallNotes);
+//		}
 
+			
 		return stringBuilder.toString();		
 	}
 	
@@ -66,9 +111,9 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 		long timeInSeconds = timeInMilliSeconds/1000;
 		long timeInMinutes = timeInSeconds/60;
 		long timeInHours = timeInMinutes/60;
-		long minuteRemainder = timeInMinutes%60;
-		long secondsRemainder = timeInSeconds%(60*60);
-		return timeInHours + ":" + timeInMinutes + ":" + secondsRemainder;
+		long minutesRemainder = timeInMinutes%60;
+		long secondsRemainder = timeInSeconds - (timeInHours*36000 + minutesRemainder*60);
+		return timeInHours + ":" + minutesRemainder + ":" + secondsRemainder;
 	}
 	
 	public static void main (String[] args) {

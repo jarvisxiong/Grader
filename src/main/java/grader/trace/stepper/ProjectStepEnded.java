@@ -18,20 +18,32 @@ public ProjectStepEnded(String aMessage,
 		super(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, aFinder);
 		// TODO Auto-generated constructor stub
 	}
-public static final int COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 1; 
+public static final int COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 4; 
 
 @Override
 public String toCSVRow() {
 	return super.toCSVRow() 
-			+ "," + 
-			ASakaiCSVFeatureGradeManager.getTotalGrade(overviewProjectStepper.getScore(), overviewProjectStepper.getMultiplier(), overviewProjectStepper.getSourcePoints());
+			+ "," +  ASakaiCSVFeatureGradeManager.getTotalGrade(overviewProjectStepper.getScore(), overviewProjectStepper.getMultiplier(), overviewProjectStepper.getSourcePoints())
+			+ "," + overviewProjectStepper.getScore()
+			+ "," + overviewProjectStepper.getSourcePoints()
+			+ "," + overviewProjectStepper.getMultiplier()
+			;
+
 //			overviewProjectStepper.getScore();
 }
 
 public static double totalScoreFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED-4]);
+}
+public static double featuresScoreFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED-3]);
+}
+public static double sourcePointsFromCSVRow(String[] aRow) {
+	return Double.parseDouble(aRow[COLUMNS_USED-2]);
+}
+public static double multiplierFromCSVRow(String[] aRow) {
 	return Double.parseDouble(aRow[COLUMNS_USED-1]);
 }
-
 	
 	public static ProjectStepEnded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 

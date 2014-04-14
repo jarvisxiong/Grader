@@ -18,10 +18,14 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	Map<String, String> featureToManualNotes = new HashMap();
 //	long visitPeriod;
 	double totalScore;
+	
 	long visitEndTime;
 	long autoVisitTime;
 	
 	long manualVisitTime;
+	String sourceComments;
+	double multiplier;
+	double sourcePoints;
 	
 	
 
@@ -172,6 +176,31 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	public void addManualVisitTime(long manualVisitTime) {
 		this.manualVisitTime += manualVisitTime;
 	}
+
+	public String getSourceComments() {
+		return sourceComments;
+	}
+
+	public void setSourceComments(String sourceComments) {
+		this.sourceComments = sourceComments;
+	}
+
+	public double getMultiplier() {
+		return multiplier;
+	}
+
+	public void setMultiplier(double multiplier) {
+		this.multiplier = multiplier;
+	}
+
+	public double getSourcePoints() {
+		return sourcePoints;
+	}
+
+	public void setSourcePoints(double sourcePoints) {
+		this.sourcePoints = sourcePoints;
+	}
+	
 
 
 }
