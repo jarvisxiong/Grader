@@ -90,7 +90,7 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 		String manualOverallNotes = aSingleStudentHistory.getManualOverallNotes();
 		if (!manualOverallNotes.isEmpty()) {
 			stringBuilder.append("OVERALL NOTES\n");
-			stringBuilder.append(manualOverallNotes);
+			stringBuilder.append(manualOverallNotes + "\n");
 		}
 		Map<String, String> featureToManualNotes = aSingleStudentHistory.getFeatureToManualNotes();
 		

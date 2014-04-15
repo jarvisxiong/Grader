@@ -27,7 +27,6 @@ public ProjectStepEnded(String aMessage,
 		// TODO Auto-generated constructor stub
 	}
 
-public static final int MIN_COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 6; 
 
 public static Map<String, String> getFeatureNotes(OverviewProjectStepper aProjectStepper) {
 	Map<String, String> retVal = new HashMap<>();
@@ -53,6 +52,7 @@ public static String toCSVRow(Map<String, String> aFeatureNotes) {
 	return stringBuilder.toString();
 	
 }
+public static final int MIN_COLUMNS_USED = SerializableStepperInfo.COLUMNS_USED + 7; 
 
 @Override
 public String toCSVRow() {
@@ -73,16 +73,23 @@ public String toCSVRow() {
 //			overviewProjectStepper.getScore();
 }
 
-public static Map<String, String> featureNotes(String[] aRow) {
+public static Map<String, String> featureNotesFromCSVRow(String[] aRow) {
 	Map<String, String> retVal = new HashMap();
 	int size = sizeFeatureNotesFromCSVRow(aRow);
-	for (int i =0 ; i < size -1; i++) {
+	for (int i =0 ; i < size; i++) {
 		String featureName = aRow[MIN_COLUMNS_USED + i*2];
 		String featureNotes = unNormalize(aRow[MIN_COLUMNS_USED + i*2 + 1]);
 		retVal.put(featureName, featureNotes);
 	}
 	return retVal;
 }
+//public static Map<String, String> featureNotesFromCSVRow(String[] aRow){
+//	int size = sizeFeatureNotesFromCSVRow(aRow);
+//	Map<String, String> retVal = new HashMap();
+//	for (int i = 0; i < size; i++) {
+//		
+//	}
+//}
 
 public static double totalScoreFromCSVRow(String[] aRow) {
 	return Double.parseDouble(aRow[SerializableStepperInfo.COLUMNS_USED]);
@@ -101,9 +108,14 @@ public static String overallNotesFromCSVRow(String[] aRow) {
 	return unNormalize(aRow[SerializableStepperInfo.COLUMNS_USED + 4]);
 }
 
-public static int sizeFeatureNotesFromCSVRow(String[] aRow) {
-	return Integer.parseInt(aRow[SerializableStepperInfo.COLUMNS_USED + 5]);
+public static String sourceNotesFromCSVRow(String[] aRow) {
+	return unNormalize(aRow[SerializableStepperInfo.COLUMNS_USED + 5]);
 }
+public static int sizeFeatureNotesFromCSVRow(String[] aRow) {
+	return Integer.parseInt(aRow[SerializableStepperInfo.COLUMNS_USED + 6]);
+}
+
+
 	
 	public static ProjectStepEnded newCase(SakaiProjectDatabase aSakaiProjectDatabase, 
 			OverviewProjectStepper aProjectStepper, 

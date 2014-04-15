@@ -1,6 +1,7 @@
 package grader.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import grader.interaction_logger.AnInteractionLogReader;
 import grader.interaction_logger.AnInteractionLogWriter;
@@ -16,6 +17,7 @@ import grader.trace.stats.SavedAllStudentsProblemGradingHistoryCreated;
 import grader.trace.stats.SavedAllStudentsProblemGradingHistoryFilled;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
+import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.UserQuit;
 
@@ -151,6 +153,15 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
 			String currentName = ProjectStepStarted.nameFromCSVRow(endRow);
 			currentStudentHistory.setName(currentName);
+			String overviewComments = ProjectStepEnded.overallNotesFromCSVRow(endRow);
+			String sourceComments = ProjectStepEnded.sourceNotesFromCSVRow(endRow);
+			Map<String, String> featureNotes = ProjectStepEnded.featureNotesFromCSVRow(endRow);
+			if (!overviewComments.isEmpty())
+				currentStudentHistory.setManualOverallNotes(overviewComments);
+			if (!sourceComments.isEmpty())
+				currentStudentHistory.setSourceComments(sourceComments);
+			if (featureNotes.size() > 0)
+				currentStudentHistory.setFeatureToManualNotes(featureNotes);
 		}
 		
 		long visitTime = endTime - beginTime;
