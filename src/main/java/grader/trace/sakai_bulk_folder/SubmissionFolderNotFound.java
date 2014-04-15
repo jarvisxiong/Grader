@@ -11,7 +11,7 @@ public class SubmissionFolderNotFound extends UncheckedGraderException {
 	}
 	
 	public static SubmissionFolderNotFound newCase(String aStudentName, Object aFinder) {
-		String aMessage = "Student folder not found for student:" + aStudentName;
+		String aMessage = "Submission folder not found for student:" + aStudentName;
 		SubmissionFolderNotFound retVal = new SubmissionFolderNotFound(aMessage, aStudentName, aFinder);
 		return retVal;
 	}

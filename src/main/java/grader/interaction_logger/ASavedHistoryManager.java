@@ -19,12 +19,24 @@ public class ASavedHistoryManager {
 		
 	}
 	
+	public  SavedAllStudentsProblemGradingHistory createSavedAllStudentsProblemGradingHistory(File aFile) {
+		return null;
+	}
+	
+	
+	
 	public void buildProblemHistories() {
+		
 		
 	}
 	
 	public void buildStudentHistories() {
 		
+	}
+	
+	public static void main(String[] args) {
+		ASavedHistoryManager manager = new ASavedHistoryManager();
+		manager.readInteractionDirectory();
 	}
 	
 	

@@ -14,7 +14,9 @@ import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.HasMoreStepsChanged;
 import grader.trace.stepper.NavigationListConfigured;
 import grader.trace.stepper.ProceedWhenDoneChanged;
+import grader.trace.stepper.ProjectStepAborted;
 import grader.trace.stepper.ProjectStepEnded;
+import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.UserNextStep;
@@ -518,6 +520,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		redirectProject();
 //		projectDatabase.initIO();
 //		projectDatabase.recordWindows();
+		if (aProject == null) {
+			ProjectStepStarted.newCase(projectDatabase, projectStepper, null, this);
+
+			ProjectStepAborted.newCase(projectDatabase, projectStepper, null, this);
+			return 	false;
+		}
 		boolean projectSet = projectStepper.setProject(anOnyen);
 		if (!projectSet) {
 			boolean retVal = move(forward);

@@ -11,6 +11,7 @@ import grader.trace.settings.GraderSettingsInfo;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.NavigationStarted;
+import grader.trace.stepper.ProjectStepAborted;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
@@ -129,10 +130,21 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		
 		if (endVisitIndex < 0) {
+			 endVisitIndex = logReader.nextRowIndex(ProjectStepAborted.class, currentRowIndex, endPhaseIndex);
+			 if (endVisitIndex >= 0)  { // aborted
+					String[] endRow = table.get(endVisitIndex);
+
+					 currentStudentHistory.setManualOverallNotes("Unable to  grade student");
+					 endTime = ProjectStepAborted.timeStampFromCSVRow(endRow);
+
+				 }
+			 else {
+
 			endVisitIndex = endPhaseIndex;
 			String[] endRow = table.get(endVisitIndex);
 			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
 			currentStudentHistory.setVisitEndTime(endTime);
+			 } 
 
 	
 		} else {

@@ -82,6 +82,7 @@ import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
 import grader.trace.assignment_data.AssignmentDataFolderCreated;
 import grader.trace.assignment_data.AssignmentDataFolderLoaded;
+import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.ProjectIORedirected;
@@ -418,11 +419,13 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	// I changed this to protected so extending classes can call it. -- Josh
 	protected SakaiProject makeProject(StudentCodingAssignment anAssignment) {
 		RootFolderProxy projectFolder = anAssignment.getProjectFolder();
+		
 
 		if (projectFolder == null) {
-			System.out.println("No project folder found for:"
-					+ anAssignment.getOnyen() + " "
-					+ anAssignment.getStudentName());
+//			System.out.println("No project folder found for:"
+//					+ anAssignment.getOnyen() + " "
+//					+ anAssignment.getStudentName());
+			ProjectFolderNotFound.newCase(anAssignment.getOnyen(), anAssignment.getStudentName(), this);
 			return null;
 		}
 		// List<OEFrame> oldList = new ArrayList( uiFrameList.getList());
