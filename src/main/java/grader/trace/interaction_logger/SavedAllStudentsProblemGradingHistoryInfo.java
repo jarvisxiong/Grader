@@ -1,9 +1,9 @@
-package grader.trace.stats;
+package grader.trace.interaction_logger;
 
+import grader.interaction_logger.SavedAllStudentsProblemGradingHistory;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.stats.SavedAllStudentsProblemGradingHistory;
 import grader.trace.GraderInfo;
 import grader.trace.stepper.AutoAutoGradeSet;
 

@@ -1,15 +1,15 @@
-package grader.trace.stats;
+package grader.trace.interaction_logger;
 
+import grader.interaction_logger.SavedAllStudentsProblemGradingHistory;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.stats.SavedAllStudentsProblemGradingHistory;
 import grader.trace.GraderInfo;
 import grader.trace.stepper.AutoAutoGradeSet;
 
-public class SavedAllStudentsProblemGradingHistoryMerged extends SavedAllStudentsProblemGradingHistoryInfo{
+public class SavedAllStudentsProblemGradingHistoryCreated extends SavedAllStudentsProblemGradingHistoryInfo{
 	
-	public SavedAllStudentsProblemGradingHistoryMerged(String aMessage, 
+	public SavedAllStudentsProblemGradingHistoryCreated(String aMessage, 
 			SavedAllStudentsProblemGradingHistory aSavedProblemGradingHistory,			
 			Object aFinder) {
 		super(aMessage, aSavedProblemGradingHistory, aFinder);
@@ -26,11 +26,11 @@ public class SavedAllStudentsProblemGradingHistoryMerged extends SavedAllStudent
 
 	
 	
-	public static SavedAllStudentsProblemGradingHistoryMerged newCase(
+	public static SavedAllStudentsProblemGradingHistoryCreated newCase(
 			SavedAllStudentsProblemGradingHistory aSavedProblemGradingHistory,			
 			Object aFinder) {
-		String aMessage = "Problem grading history merged for problem:" + aSavedProblemGradingHistory.getProblemName();
-		SavedAllStudentsProblemGradingHistoryMerged retVal = new SavedAllStudentsProblemGradingHistoryMerged(aMessage, aSavedProblemGradingHistory, aFinder);
+		String aMessage = "Problem grading history instantiated for problem:" + aSavedProblemGradingHistory.getProblemName();
+		SavedAllStudentsProblemGradingHistoryCreated retVal = new SavedAllStudentsProblemGradingHistoryCreated(aMessage, aSavedProblemGradingHistory, aFinder);
 		retVal.announce();		
 		return retVal;
 	}

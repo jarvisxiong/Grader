@@ -1,4 +1,4 @@
-package grader.stats;
+package grader.interaction_logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

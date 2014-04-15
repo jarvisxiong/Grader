@@ -48,6 +48,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
     };    
     Set<Class> doNotLogEventsSet = Common.arrayToSet(staticDoNotLogEventsArray);
     
+//    String interactionLogFolder;
     String interactionLogFolder;
     
     GraderSettingsEnded lastGraderSettingsEnded;
@@ -63,15 +64,16 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 //		String[] parts = dateString.split(" ");
 //		String suffix = parts[1] + parts[2] + parts[5];
 		String suffix = getTimeStampSuffix();
-		interactionLogFolder = 
-				ConfigurationManagerSelector.getConfigurationManager().
-					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
-		
-		File folder = new File(interactionLogFolder);
-		if (!folder.exists()) {
-			folder.mkdirs();
-			InteractionLogFolderCreated.newCase(folder.getAbsolutePath(), this);
-		}
+//		interactionLogFolder = 
+//				ConfigurationManagerSelector.getConfigurationManager().
+//					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
+//		
+//		File folder = new File(interactionLogFolder);
+//		if (!folder.exists()) {
+//			folder.mkdirs();
+//			InteractionLogFolderCreated.newCase(folder.getAbsolutePath(), this);
+//		}
+		interactionLogFolder = getOrCreateInteractionFolder();
 		String userName = GradingEnvironment.get().getUserName();
 
 		if (userName == null || userName.isEmpty())
@@ -101,6 +103,20 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 //	    
 //	    InteractionLogFileCreatedOrLoaded.newCase(fileName, this);
 
+	}
+	
+	public static String getOrCreateInteractionFolder() {
+		String interactionLogFolder = 
+				ConfigurationManagerSelector.getConfigurationManager().
+					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
+		
+		File folder = new File(interactionLogFolder);
+		if (!folder.exists()) {
+			folder.mkdirs();
+			InteractionLogFolderCreated.newCase(folder.getAbsolutePath(), AnInteractionLogWriter.class);
+		}
+		return interactionLogFolder;
+		
 	}
 	
 	public static String getTimeStampSuffix() {

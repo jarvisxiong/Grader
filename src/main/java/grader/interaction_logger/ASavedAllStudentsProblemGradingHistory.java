@@ -1,15 +1,15 @@
-package grader.stats;
+package grader.interaction_logger;
 
-import grader.trace.stats.SavedAllStudentsProblemGradingHistoryMerged;
-import grader.trace.stats.SavedStudentProblemGradingHistoryEntered;
-import grader.trace.stats.SavedStudentProblemGradingHistoryMerged;
+import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryMerged;
+import grader.trace.interaction_logger.SavedStudentProblemGradingHistoryEntered;
+import grader.trace.interaction_logger.SavedStudentProblemGradingHistoryMerged;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ASavedAllProblemsGradingHistory implements SavedAllStudentsProblemGradingHistory{
+public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsProblemGradingHistory{
 	double elapsedAutoTime;
 	double elapsedManualTime;
 	double averageAutoTime;
@@ -31,7 +31,7 @@ public class ASavedAllProblemsGradingHistory implements SavedAllStudentsProblemG
 	Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory = new HashMap();
 //	List<SavedStudentProblemGradingHistory> studentsHistory = new ArrayList();
 	
-	public ASavedAllProblemsGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
+	public ASavedAllStudentsProblemGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
 		graderName = aGraderName;
 		moduleName = aModuleName;
 		problemName = aProblemName;

@@ -1,21 +1,17 @@
-package grader.stats;
+package grader.interaction_logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import grader.interaction_logger.AnInteractionLogReader;
-import grader.interaction_logger.AnInteractionLogWriter;
-import grader.interaction_logger.InteractionLogReader;
-import grader.interaction_logger.InteractionLogWriter;
+import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryCreated;
+import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryFilled;
 import grader.trace.settings.AutomaticNavigationEnded;
 import grader.trace.settings.AutomaticNavigationStarted;
 import grader.trace.settings.GraderSettingsInfo;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
-import grader.trace.stats.SavedAllStudentsProblemGradingHistoryCreated;
-import grader.trace.stats.SavedAllStudentsProblemGradingHistoryFilled;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;

@@ -1,4 +1,4 @@
-package grader.stats;
+package grader.interaction_logger;
 
 public class SavedGradingHistoryParserSelector {
 	static SavedGradingHistoryParser savedGradingHistoryParser = new ASavedGradingHistoryParser();
