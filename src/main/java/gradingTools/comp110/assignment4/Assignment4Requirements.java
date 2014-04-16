@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
-import gradingTools.comp110.assignment4.testCases.HasMainMethodMultClasses;
+import gradingTools.sharedTestCase.HasMainMethodMultClasses;
 import gradingTools.sharedTestCase.HasMethodTestCase;
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {

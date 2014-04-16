@@ -1,4 +1,4 @@
-package gradingTools.comp110.assignment4.testCases;
+package gradingTools.sharedTestCase;
 
 
 import framework.grading.testing.NotAutomatableException;
@@ -7,7 +7,6 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
-import gradingTools.sharedTestCase.HasMethodTestCase;
 import gradingTools.sharedTestCase.utils.MethodPropertyChecker;
 
 import java.lang.reflect.Method;
