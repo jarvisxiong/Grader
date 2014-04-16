@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
+import gradingTools.comp110.assignment4.testCases.TestAverageOutput;
 import gradingTools.sharedTestCase.HasMainMethodMultClasses;
 import gradingTools.sharedTestCase.HasMethodTestCase;
 import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
@@ -35,6 +36,9 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		Class<?>[] searchForGerbilParameterTypes = { String.class };
 		addFeature("Has proper searchForGerbil method", 15, new HasMethodTestCase(
 				"searchForGerbil", badClasses, "gerbil", searchForGerbilParameterTypes));
+		
+		// Check result of user commands
+		addFeature("Correct output for user typing average", 20, new TestAverageOutput());
 		
 		// Deduct points for using advanced javaClasses
 		Set<String> restrictedClasses = new TreeSet<String>();
