@@ -12,7 +12,7 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 	
 	private static final String[] SYSTEM_SETUP_COMMANDS = { "5", "Cheese", "20", "Fava Beans", "50", "Bacon", "50", "Gerbil Food",
 			"60", "Gerbil", "120", "3", "SB329", "Hannibal", "0", "50", "0", "0", "120", "True",
-			"True", "SB2", "Malcom", "20", "25", "30", "20", "1", "False", "False", "SB1X3",
+			"True", "SB2", "Malcolm", "20", "25", "30", "20", "1", "False", "False", "SB1X3",
 			"Prince Firstly", "19", "25", "25", "30", "102", "False", "True" };
 
 	protected final String command;

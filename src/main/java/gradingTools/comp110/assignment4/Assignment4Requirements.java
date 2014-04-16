@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment4.testCases.TestAverageOutput;
+import gradingTools.comp110.assignment4.testCases.TestQuit;
 import gradingTools.comp110.assignment4.testCases.TestSearchOutput;
 import gradingTools.sharedTestCase.HasMainMethodMultClasses;
 import gradingTools.sharedTestCase.HasMethodTestCase;
@@ -41,6 +42,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		// Check result of user commands
 		addFeature("Correct output for user typing average", 20, new TestAverageOutput());
 		addFeature("Correct output for user typing search", 20, new TestSearchOutput());
+		addFeature("Correct output for user typing quit", 10, new TestQuit());
 		
 		// Deduct points for using advanced javaClasses
 		Set<String> restrictedClasses = new TreeSet<String>();

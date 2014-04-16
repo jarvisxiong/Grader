@@ -10,13 +10,13 @@ public class TestAverageOutput extends TestGerbilInputWithCommand {
 	
 	String[] correctResults = {
 		"SB1X3 (Prince Firstly) 67%",
-		"SB2 (Malcom) 32%",
+		"SB2 (Malcolm) 32%",
 		"SB329 (Hannibal) 57%",
 	};
 	
 	String[] wrongRoundingResults = {
 		"SB1X3 (Prince Firstly) 67%",
-		"SB2 (Malcom) 32%",
+		"SB2 (Malcolm) 32%",
 		"SB329 (Hannibal) 56%",
 	};
 
@@ -61,7 +61,7 @@ public class TestAverageOutput extends TestGerbilInputWithCommand {
 				} else if (testResult.contains(wrongRoundingResults[i])) {
 					correctRounding = false;
 				} else {
-					correctVals = true;
+					correctVals = false;
 					break;
 				}
 			}

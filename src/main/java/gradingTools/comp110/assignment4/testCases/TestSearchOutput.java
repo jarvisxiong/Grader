@@ -10,12 +10,12 @@ import gradingTools.utils.RunningProjectUtils;
 
 public class TestSearchOutput extends TestGerbilInputWithCommand {
 
-	public static final String CORRECT_OUTPUT_REGEX = ".*[nN][aA][mM][eE]:?\\s*Malcolm.*(.*will not escape,.*will not bite.*).*"
-			+ "Food:.*Cheese.*-.*20/20.*"
-			+ "Fava Beans.*-.*25/50.*"
-			+ "Bacon.*-.*30/50.*"
-			+ "Gerbil Food.*-.*20/60.*"
-			+ "Gerbil.*-.*1/120.*";
+	public static final String CORRECT_OUTPUT_REGEX = ".*Malcolm.*(.*will not escape,.*will not bite.*).*"
+			+ ".*Cheese.*20/20.*"
+			+ "Fava Beans.*25/50.*"
+			+ "Bacon.*30/50.*"
+			+ "Gerbil Food.*20/60.*"
+			+ "Gerbil.*1/120.*";
 
 	@Override
 	protected String getSetupInput() {
@@ -29,7 +29,9 @@ public class TestSearchOutput extends TestGerbilInputWithCommand {
 	@Override
 	protected TestCaseResult checkOutputString(String result) {
 		result = result.trim();
-		boolean containsCorrectResult= Pattern.compile(CORRECT_OUTPUT_REGEX).matcher(result).find();
+		boolean containsCorrectResult= Pattern.compile(CORRECT_OUTPUT_REGEX).matcher(result).find()
+				&& !result.toLowerCase().contains("hannibal")
+				&& !result.toLowerCase().contains("prince firstly");
 		boolean containsError = result.toLowerCase().contains("error");
 		if (containsCorrectResult && !containsError) {
 			return pass();
@@ -40,7 +42,10 @@ public class TestSearchOutput extends TestGerbilInputWithCommand {
 	
 	protected TestCaseResult checkErrorOutputString(String result) {
 		result = result.trim();
-		if (result.toLowerCase().contains("error")) {
+		if (result.toLowerCase().contains("error")
+				&& !result.toLowerCase().contains("malcolm")
+				&& !result.toLowerCase().contains("hannibal")
+				&& !result.toLowerCase().contains("prince firstly")) {
 			return pass();
 		} else {
 			return fail("Did not correctly print error for missing Gerbil");
