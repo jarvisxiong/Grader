@@ -1,12 +1,6 @@
 package gradingTools.sharedTestCase;
 
 
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
 import gradingTools.sharedTestCase.utils.MethodPropertyChecker;
 
 import java.lang.reflect.Method;
@@ -24,7 +18,7 @@ public class HasMainMethodMultClasses extends HasMethodTestCase {
 			
 			@Override
 			public String getMessageOnIncorrect(Method method) {
-				if (Modifier.isStatic(method.getModifiers())) {
+				if (!Modifier.isStatic(method.getModifiers())) {
 					return "main method not static";
 				} else {
 					return null;

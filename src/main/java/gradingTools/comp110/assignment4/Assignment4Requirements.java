@@ -1,11 +1,15 @@
 package gradingTools.comp110.assignment4;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.sharedTestCase.HasMainMethodMultClasses;
 import gradingTools.sharedTestCase.HasMethodTestCase;
+import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {
 	public Assignment4Requirements() {
@@ -30,7 +34,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		// Check for searchForGerbil method
 		Class<?>[] searchForGerbilParameterTypes = { String.class };
 		addFeature("Has proper searchForGerbil method", 15, new HasMethodTestCase(
-				"searchForGerbil", badClasses, String.class, searchForGerbilParameterTypes));
+				"searchForGerbil", badClasses, "gerbil", searchForGerbilParameterTypes));
 	}
 
 }

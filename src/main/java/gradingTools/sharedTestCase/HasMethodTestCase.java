@@ -86,9 +86,9 @@ public class HasMethodTestCase extends BasicTestCase {
 		Class<?>[] paramTypes = method.getParameterTypes();
 		if (paramTypes.length == 0) { // If there are no parameters
 			if (expectedParamTypes == null || expectedParamTypes.length == 0) {
-				return "method takes in a parameter when it should not";
-			} else {
 				return "";
+			} else {
+				return "method takes in a parameter when it should not";
 			}
 		} else {
 			if (expectedParamTypes == null || expectedParamTypes.length == 0) {
@@ -135,12 +135,12 @@ public class HasMethodTestCase extends BasicTestCase {
 				}
 			}
 			if (isIgnoredClass) {
-				break;
+				continue;
 			}
 
 			for (Method method : javaClass.getDeclaredMethods()) {
 				boolean correctName = method.getName().toLowerCase()
-						.equalsIgnoreCase(requiredClassName);// decided to
+						.equalsIgnoreCase(methodName);// decided to
 																// ignore case
 																// here
 				boolean correctVisibility = Modifier.isPublic(method.getModifiers()); // should
@@ -159,7 +159,7 @@ public class HasMethodTestCase extends BasicTestCase {
 					}
 				}
 
-				if (correctName && correctVisibility && correctReturnType && correctParameterTypes && checkersPass) {
+				if ((requiredClassName == null || requiredClassName.equals(javaClass.getName())) && correctName && correctVisibility && correctReturnType && correctParameterTypes && checkersPass) {
 					return pass();
 				} else if (correctName) {
 					int incorrectCount = 0;
@@ -190,6 +190,10 @@ public class HasMethodTestCase extends BasicTestCase {
 					double maxCount = 4.0 + propertyCheckers.size();
 					return partialPass((maxCount - incorrectCount) / (maxCount), message);
 				}
+			}
+			
+			if (requiredClassName != null && requiredClassName.endsWith(javaClass.getName())) {
+				return fail("No method " + methodName + " found in " + requiredClassName);
 			}
 		}
 		return fail("No method " + methodName + " found in program");

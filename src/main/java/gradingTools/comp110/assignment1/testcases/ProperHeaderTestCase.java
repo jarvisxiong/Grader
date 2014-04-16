@@ -32,6 +32,7 @@ public class ProperHeaderTestCase extends BasicTestCase {
 		if (project.getClassesManager().isEmpty())
 			throw new NotGradableException();
 
+		
 		for (ClassDescription description : project.getClassesManager().get()
 				.getClassDescriptions()) {
 			try {
@@ -65,6 +66,6 @@ public class ProperHeaderTestCase extends BasicTestCase {
 			}
 		}
 
-		return pass();
+		throw new NotAutomatableException();
 	}
 }
