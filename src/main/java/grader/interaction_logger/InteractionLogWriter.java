@@ -15,5 +15,7 @@ public interface InteractionLogWriter extends TraceableListener, PropertyListene
 	String getInteractionLogFolder();
 
 	String createModuleProblemInteractionLogName();
+	
+	void addLogListener(InteractionLogListener aListener);
 
 }

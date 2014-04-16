@@ -8,6 +8,8 @@ import grader.trace.interaction_logger.InteractionLogEntryAdded;
 import grader.trace.interaction_logger.InteractionLogFileCreatedOrLoaded;
 import grader.trace.interaction_logger.InteractionLogFolderCreated;
 import grader.trace.settings.GraderSettingsEnded;
+import grader.trace.stepper.ProjectStepEnded;
+import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 
@@ -21,8 +23,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,11 +40,11 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	public static final String LOG_FILE_PREFIX = "interactionLog";
 	String fileName;
 	String currentAssignment;
-	String currentModule;
-	
+	String currentModule;	
 	PrintWriter out = null;
     BufferedWriter bufWriter;
     PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    List<InteractionLogListener> listeners = new ArrayList();
     final Class[] staticDoNotLogEventsArray = {
     		InteractionLogEntryAdded.class, 
     		InteractionLogFileCreatedOrLoaded.class, 
@@ -51,57 +55,29 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 //    String interactionLogFolder;
     String interactionLogFolder;
     
+    
     GraderSettingsEnded lastGraderSettingsEnded;
     
     public static final String SEPARATOR = "_";
 	
+    boolean stepperEnded = false;
+    List<String> buffer = new ArrayList();
+
 	
 	public AnInteractionLogWriter() {
-//		long currentTime = System.currentTimeMillis();
-//		Date currentDate = new Date(currentTime);
-////		String monthDay = currentDate.getMonth() + "" + currentDate.getDay();
-//		String dateString = currentDate.toString();
-//		String[] parts = dateString.split(" ");
-//		String suffix = parts[1] + parts[2] + parts[5];
+		stepperEnded = false;
+
 		String suffix = getTimeStampSuffix();
-//		interactionLogFolder = 
-//				ConfigurationManagerSelector.getConfigurationManager().
-//					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
-//		
-//		File folder = new File(interactionLogFolder);
-//		if (!folder.exists()) {
-//			folder.mkdirs();
-//			InteractionLogFolderCreated.newCase(folder.getAbsolutePath(), this);
-//		}
+
 		interactionLogFolder = getOrCreateInteractionFolder();
 		String userName = GradingEnvironment.get().getUserName();
 
 		if (userName == null || userName.isEmpty())
 			userName = "";
-//		else
-//			userName = userName + "_";
+
 		
 		createOrLoadAppendableFile(getSettingsSuffix());
-//		fileName = interactionLogFolder + "/" + userName + LOG_FILE_PREFIX + suffix + ".csv";
-//		
-//
-//		out = null;
-//	    
-//	    try{
-//	        bufWriter =
-//	            Files.newBufferedWriter(
-//	                Paths.get(fileName),
-//	                Charset.forName("UTF8"),
-//	                StandardOpenOption.WRITE, 
-//	                StandardOpenOption.APPEND,
-//	                StandardOpenOption.CREATE);
-//	        out = new PrintWriter(bufWriter, true);
-//	    }catch(IOException e){
-//	    	e.printStackTrace();
-//	    	//Oh, no! Failed to create PrintWriter
-//	    }
-//	    
-//	    InteractionLogFileCreatedOrLoaded.newCase(fileName, this);
+
 
 	}
 	
@@ -207,11 +183,24 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		out.println(csvRow);
 
 		out.flush();
+//		if (aTraceable instanceof ProjectStepStarted) {
+//			buffer.clear();
+//		} else 
+		
+		if (stepperEnded) {
+			buffer.add(csvRow);
+		if (aTraceable instanceof ProjectStepEnded) {
+			notifyListeners();
+			buffer.clear();
+		}
+		}
+		
 		
 		if (aTraceable instanceof GraderSettingsEnded )
 			lastGraderSettingsEnded = (GraderSettingsEnded) aTraceable;
 		if (aTraceable instanceof ProjectStepperStarted) {
 			out.close();
+			stepperEnded = true;
 			createOrLoadAppendableFile(getAssignmentProblemSuffix());
 			out.println(csvRow);
 		}
@@ -245,9 +234,21 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	public void setCurrentLogFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	
+	void notifyListeners() {
+		String[] aRow = buffer.toArray(new String[0]);
+
+		for (InteractionLogListener listener:listeners) {
+			listener.newCSVRow(aRow);
+		}
+	}
+	@Override
+	public void addLogListener(InteractionLogListener aListener) {
+		listeners.add(aListener);		
+	}
+	
 	public static void main (String[] args) {
 		new AnInteractionLogWriter();
 	}
-	
 
 }

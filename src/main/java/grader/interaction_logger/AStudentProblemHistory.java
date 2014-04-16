@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingHistory{
+public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 	List<String> graderNames;	
 	String moduleName;
 	String problemName;
@@ -36,7 +36,7 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 
 	
 
-	public  ASavedStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
+	public  AStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
 		moduleName = aModuleName;
 		problemName = aProblemName;
 		onyen = anOnyen;
@@ -131,7 +131,7 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 		this.visitEndTime = visitEndTime;
 	}
 	@Override
-	public void merge(SavedStudentProblemGradingHistory other) {
+	public void merge(StudentProblemGradingHistory other) {
 		incNumVisits();
 		if (!other.getManualOverallNotes().isEmpty() && other.getVisitEndTime() > getVisitEndTime())
 			manualOverallNotes = other.getManualOverallNotes();

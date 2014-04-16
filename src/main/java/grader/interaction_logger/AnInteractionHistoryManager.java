@@ -10,23 +10,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ASavedHistoryManager {
+public class AnInteractionHistoryManager implements InteractionLogListener{
 	String interactionDirectory;
 	File[] interactionFiles;
-	List<SavedAllStudentsProblemGradingHistory> problemHistory = new ArrayList();
-	Map<String, SavedAllStudentsProblemGradingHistory> descriptionToHistory = new HashMap();
-	SavedGradingHistoryParser parser;
-	SavedGradingHistoryUnparser unparser;
+	List<AllStudentsProblemHistory> problemHistory = new ArrayList();
+	Map<String, AllStudentsProblemHistory> descriptionToHistory = new HashMap();
+	InteractionLogParser parser;
+	InteractionHistoryUnparser unparser;
 
-	SavedAllStudentsProblemGradingHistory currentProblemHistory;
+	AllStudentsProblemHistory currentProblemHistory;
 	InteractionLogWriter interactionLogWriter;
 	
 	public void readInteractionDirectory() {
 		interactionDirectory = AnInteractionLogWriter.getOrCreateInteractionFolder();
 		interactionFiles = FileTimeSorterAndComparator.sort(new File(interactionDirectory));
 		interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
-		parser = SavedGradingHistoryParserSelector.getSavedGradingHistoryParser();
-		unparser = SavedGradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+		parser = InteractionHistoryParserSelector.getSavedGradingHistoryParser();
+		unparser = InteractionHistoryUnparserSelector.getSavedGradingHistoryUnparser();
 
 	}
 	
@@ -56,10 +56,10 @@ public class ASavedHistoryManager {
 					!interactionFile.getName().endsWith(".csv") ||
 					interactionFile.getName().contains(AnInteractionLogWriter.SETTINGS_SUFFIX))
 				continue;
-			SavedAllStudentsProblemGradingHistory newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getAbsolutePath());
+			AllStudentsProblemHistory newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getAbsolutePath());
 			if (newVal != null) {
 				String description = newVal.getModuleName() + ":" + newVal.getProblemName();
-				SavedAllStudentsProblemGradingHistory oldProblemHistory = descriptionToHistory.get(description);
+				AllStudentsProblemHistory oldProblemHistory = descriptionToHistory.get(description);
 				if (oldProblemHistory != null) {
 					oldProblemHistory.merge(newVal);
 				} else {
@@ -71,7 +71,7 @@ public class ASavedHistoryManager {
 	}
 	
 	public void unparseProblemHistories() {
-		for (SavedAllStudentsProblemGradingHistory history:problemHistory) {
+		for (AllStudentsProblemHistory history:problemHistory) {
 			String unparsedValue = unparser.unparseAllStudentsProblemGradingHistory(history);
 			System.out.println(unparsedValue);
 		}
@@ -82,18 +82,24 @@ public class ASavedHistoryManager {
 		String fileName = interactionLogWriter.createModuleProblemInteractionLogName();
 		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
 	}
+	@Override
+	public void newCSVRow(String[] aRow) {
+		StudentProblemGradingHistory studentHistory;
+	}
 	
 	public void buildStudentHistories() {
 		
 	}
 	
 	public static void main(String[] args) {
-		ASavedHistoryManager manager = new ASavedHistoryManager();
+		AnInteractionHistoryManager manager = new AnInteractionHistoryManager();
 		manager.readInteractionDirectory();
 		manager.buildHistories();
 		manager.unparseProblemHistories();
 //		manager.buildCurrentProblemHistory();
 	}
+
+	
 	
 	
 

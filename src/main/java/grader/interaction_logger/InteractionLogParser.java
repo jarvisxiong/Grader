@@ -1,9 +1,9 @@
 package grader.interaction_logger;
 
-public interface SavedGradingHistoryParser {
+public interface InteractionLogParser {
 
 
-	public abstract SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFileName);
+	public abstract AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(String aFileName);
 
 	public abstract void parseNavigation();
 

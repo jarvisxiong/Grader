@@ -3,10 +3,10 @@ package grader.interaction_logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASavedStudentAllProblemsGradingHistory implements SavedStudentAllProblemsGradingHistory {
+public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	String onyen;
 	String name;
-	List<SavedStudentProblemGradingHistory> problemHistories = new ArrayList();
+	List<StudentProblemGradingHistory> problemHistories = new ArrayList();
 	/* (non-Javadoc)
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#getOnyen()
 	 */
@@ -39,7 +39,7 @@ public class ASavedStudentAllProblemsGradingHistory implements SavedStudentAllPr
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#getProblemHistories()
 	 */
 	@Override
-	public List<SavedStudentProblemGradingHistory> getProblemHistories() {
+	public List<StudentProblemGradingHistory> getProblemHistories() {
 		return problemHistories;
 	}
 	/* (non-Javadoc)
@@ -47,7 +47,7 @@ public class ASavedStudentAllProblemsGradingHistory implements SavedStudentAllPr
 	 */
 	@Override
 	public void setProblemHistories(
-			List<SavedStudentProblemGradingHistory> problemHistories) {
+			List<StudentProblemGradingHistory> problemHistories) {
 		this.problemHistories = problemHistories;
 	}
 	
@@ -55,7 +55,7 @@ public class ASavedStudentAllProblemsGradingHistory implements SavedStudentAllPr
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#addSavedStudentProblemGradingHistory(grader.stats.SavedStudentProblemGradingHistory)
 	 */
 	@Override
-	public void addSavedStudentProblemGradingHistory(SavedStudentProblemGradingHistory newValue) {
+	public void addSavedStudentProblemGradingHistory(StudentProblemGradingHistory newValue) {
 		problemHistories.add(newValue);
 	}
 	

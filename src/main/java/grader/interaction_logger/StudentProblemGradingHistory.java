@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface SavedStudentProblemGradingHistory {
+public interface StudentProblemGradingHistory {
 	public static final String SOURCE_TAB = "source";
 	public static final String FEEDBACK_TAB = "feedback";
 	public static final String NAVIGATION_TAB = "navigation";
@@ -30,7 +30,7 @@ public interface SavedStudentProblemGradingHistory {
 //	public void setVisitPeriod(long visitPeriod) ;
 //	void addVisitPeriod(long aNewPeriod);
 	void incNumVisits();
-	void merge(SavedStudentProblemGradingHistory other);
+	void merge(StudentProblemGradingHistory other);
 	public double getTotalScore() ;
 
 	public void setTotalScore(double totalScore) ;

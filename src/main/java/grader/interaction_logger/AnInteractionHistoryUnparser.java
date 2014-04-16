@@ -16,7 +16,7 @@ import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
 
-public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser  {
+public class AnInteractionHistoryUnparser implements InteractionHistoryUnparser  {
 	
 	public static final int EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE = 4096;
 	public static final int EXPECTED_NUMBER_STUDENTS = 80;
@@ -24,7 +24,7 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 	public static final int EXPECTED_UNPARSE_ALL_STUDENTS_SIZE = EXPECTED_NUMBER_STUDENTS*EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE;
 
 
-	public ASavedGradingHistoryUnparser() {
+	public AnInteractionHistoryUnparser() {
 		
 	
 	}
@@ -34,7 +34,7 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 	 * @see grader.stats.SavedGradingHistoryUnparser#unparseAllStudentsProblemGradingHistory(grader.stats.SavedAllStudentsProblemGradingHistory)
 	 */
 	@Override
-	public String unparseAllStudentsProblemGradingHistory(SavedAllStudentsProblemGradingHistory anAllStudentsHistory) {
+	public String unparseAllStudentsProblemGradingHistory(AllStudentsProblemHistory anAllStudentsHistory) {
 		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_ALL_STUDENTS_SIZE);
 //		List<SavedStudentProblemGradingHistory> allStudents = anAllStudentsHistory.getStudentsHistory();
 		List<String> allStudents = anAllStudentsHistory.getVisitedStudents();
@@ -42,7 +42,7 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 		stringBuilder.append(anAllStudentsHistory.getModuleName() + ":" + anAllStudentsHistory.getProblemName() + "\n");
 		for (String student:allStudents) {
 			stringBuilder.append("-------------------------------------------------\n");
-			SavedStudentProblemGradingHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
+			StudentProblemGradingHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
 			stringBuilder.append(unparseStudentProblemGradingHistory(savedStudentProblemGradingHistory));
 		
 
@@ -55,7 +55,7 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 	 * @see grader.stats.SavedGradingHistoryUnparser#unparseStudentProblemGradingHistory(grader.stats.SavedStudentProblemGradingHistory)
 	 */
 	@Override
-	public String unparseStudentProblemGradingHistory(SavedStudentProblemGradingHistory aSingleStudentHistory) {
+	public String unparseStudentProblemGradingHistory(StudentProblemGradingHistory aSingleStudentHistory) {
 		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
 		stringBuilder.append (aSingleStudentHistory.getName() + 
 				"(" + aSingleStudentHistory.getOnyen() + ")" +  
@@ -137,9 +137,9 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 //		System.out.println(
 //				
 //				"Hell,World\nGoodye,World".replaceAll(",", "COMMA"));
-		SavedGradingHistoryParser parser = SavedGradingHistoryParserSelector.getSavedGradingHistoryParser();
-		SavedAllStudentsProblemGradingHistory history = parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
-		SavedGradingHistoryUnparser unparser = SavedGradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+		InteractionLogParser parser = InteractionHistoryParserSelector.getSavedGradingHistoryParser();
+		AllStudentsProblemHistory history = parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
+		InteractionHistoryUnparser unparser = InteractionHistoryUnparserSelector.getSavedGradingHistoryUnparser();
 		String printString = unparser.unparseAllStudentsProblemGradingHistory(history);
 		System.out.println(printString);
 		

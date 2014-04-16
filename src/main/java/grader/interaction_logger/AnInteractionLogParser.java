@@ -22,7 +22,7 @@ import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.SourceVisited;
 import grader.trace.stepper.UserQuit;
 
-public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
+public class AnInteractionLogParser implements InteractionLogParser {
 	
 	InteractionLogReader logReader;
 	int currentRowIndex;
@@ -30,12 +30,12 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 	int endVisitIndex;
 //	String[] currentRow;
 	List<String[]> table;
-	SavedAllStudentsProblemGradingHistory history;
+	AllStudentsProblemHistory history;
 	String currentOnyen = "";
-	SavedStudentProblemGradingHistory currentStudentHistory;
+	StudentProblemGradingHistory currentStudentHistory;
 	boolean isAutomaticPhase;
 	
-	public ASavedGradingHistoryParser() {
+	public AnInteractionLogParser() {
 		
 	
 	}
@@ -45,17 +45,20 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 	 * @see grader.stats.SavedAllStudentsProblemGradingHistoryParser#parseHistory()
 	 */
 	@Override
-	public SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFullFileName) {
+	public AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(String aFullFileName) {
 		try {
+			currentRowIndex = 0;
+			endPhaseIndex = 0;
+			endVisitIndex = 0;
 		logReader = new AnInteractionLogReader(aFullFileName);
 		table = logReader.getTable();
 		File file = new File(aFullFileName);
 		String aFileName = file.getName();
 		String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
-		if (fileParts.length < PARTS_IN_LOG_FILE_NAME) return null;
+		if (fileParts.length != PARTS_IN_LOG_FILE_NAME) return null;
 		String[] csvParts = fileParts[fileParts.length - 1].split("\\.");
 		if (csvParts.length != 2) return null;
-		history = new ASavedAllStudentsProblemGradingHistory(fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
+		history = new AnAllStudentsProblemHistory(fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
 		SavedAllStudentsProblemGradingHistoryCreated.newCase(history, this);
 		while (hasMoreNavigations()) {
 			parseNavigation();
@@ -140,7 +143,7 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		long endTime;
 
 		String currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
-		currentStudentHistory = new ASavedStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
+		currentStudentHistory = new AStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		
 		if (endVisitIndex < 0) {
@@ -212,7 +215,7 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 	
 	
 	public static void main (String[] args) {
-		SavedGradingHistoryParser parser = new ASavedGradingHistoryParser();
+		InteractionLogParser parser = new AnInteractionLogParser();
 		parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
 	}
 	

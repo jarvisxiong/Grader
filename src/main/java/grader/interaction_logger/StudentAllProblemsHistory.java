@@ -2,7 +2,7 @@ package grader.interaction_logger;
 
 import java.util.List;
 
-public interface SavedStudentAllProblemsGradingHistory {
+public interface StudentAllProblemsHistory {
 
 	public abstract String getOnyen();
 
@@ -12,12 +12,12 @@ public interface SavedStudentAllProblemsGradingHistory {
 
 	public abstract void setName(String name);
 
-	public abstract List<SavedStudentProblemGradingHistory> getProblemHistories();
+	public abstract List<StudentProblemGradingHistory> getProblemHistories();
 
 	public abstract void setProblemHistories(
-			List<SavedStudentProblemGradingHistory> problemHistories);
+			List<StudentProblemGradingHistory> problemHistories);
 
 	public abstract void addSavedStudentProblemGradingHistory(
-			SavedStudentProblemGradingHistory newValue);
+			StudentProblemGradingHistory newValue);
 
 }
