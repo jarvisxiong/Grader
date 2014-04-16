@@ -1,8 +1,10 @@
 package grader.interaction_logger;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import grader.trace.file.open.DefaultProgramOpenedFile;
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryCreated;
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryFilled;
 import grader.trace.settings.AutomaticNavigationEnded;
@@ -11,11 +13,13 @@ import grader.trace.settings.GraderSettingsInfo;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.NavigationStarted;
+import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.ProjectStepAborted;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
+import grader.trace.stepper.SourceVisited;
 import grader.trace.stepper.UserQuit;
 
 public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
@@ -41,10 +45,12 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 	 * @see grader.stats.SavedAllStudentsProblemGradingHistoryParser#parseHistory()
 	 */
 	@Override
-	public SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFileName) {
+	public SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFullFileName) {
 		try {
-		logReader = new AnInteractionLogReader(aFileName);
+		logReader = new AnInteractionLogReader(aFullFileName);
 		table = logReader.getTable();
+		File file = new File(aFullFileName);
+		String aFileName = file.getName();
 		String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
 		if (fileParts.length < PARTS_IN_LOG_FILE_NAME) return null;
 		String[] csvParts = fileParts[fileParts.length - 1].split("\\.");
@@ -183,8 +189,21 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		long visitTime = endTime - beginTime;
 		if (isAutomaticPhase)
 			currentStudentHistory.addAutoVisitTime(visitTime);
-		else
+		else {
 			currentStudentHistory.addManualVisitTime(visitTime);
+			int index = logReader.nextRowIndex(SourceVisited.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				currentStudentHistory.setSourceVisited();
+			}
+			index = logReader.nextRowIndex(DefaultProgramOpenedFile.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				currentStudentHistory.setSourceOpened();
+			}
+			index = logReader.nextRowIndex(FeedbackVisited.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				currentStudentHistory.setFeedbackVisited();
+			}
+		}
 		
 		history.newStudentHistory(currentOnyen, currentStudentHistory);
 		currentRowIndex = endVisitIndex;

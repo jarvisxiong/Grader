@@ -1,18 +1,33 @@
 package grader.interaction_logger;
 
+import framework.utils.GradingEnvironment;
+import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ASavedHistoryManager {
 	String interactionDirectory;
 	File[] interactionFiles;
 	List<SavedAllStudentsProblemGradingHistory> problemHistory = new ArrayList();
-	SavedGradingHistoryParser parser = SavedGradingHistoryParserSelector.getSavedGradingHistoryParser();
+	Map<String, SavedAllStudentsProblemGradingHistory> descriptionToHistory = new HashMap();
+	SavedGradingHistoryParser parser;
+	SavedGradingHistoryUnparser unparser;
+
+	SavedAllStudentsProblemGradingHistory currentProblemHistory;
+	InteractionLogWriter interactionLogWriter;
 	
 	public void readInteractionDirectory() {
 		interactionDirectory = AnInteractionLogWriter.getOrCreateInteractionFolder();
 		interactionFiles = FileTimeSorterAndComparator.sort(new File(interactionDirectory));
+		interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
+		parser = SavedGradingHistoryParserSelector.getSavedGradingHistoryParser();
+		unparser = SavedGradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+
 	}
 	
 	public void buildHistories() {
@@ -37,12 +52,35 @@ public class ASavedHistoryManager {
 	
 	public void buildProblemHistories() {
 		for (File interactionFile:interactionFiles) {
+			if (interactionFile.isDirectory() || 
+					!interactionFile.getName().endsWith(".csv") ||
+					interactionFile.getName().contains(AnInteractionLogWriter.SETTINGS_SUFFIX))
+				continue;
 			SavedAllStudentsProblemGradingHistory newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getAbsolutePath());
-			if (newVal != null)
-				problemHistory.add(newVal);
+			if (newVal != null) {
+				String description = newVal.getModuleName() + ":" + newVal.getProblemName();
+				SavedAllStudentsProblemGradingHistory oldProblemHistory = descriptionToHistory.get(description);
+				if (oldProblemHistory != null) {
+					oldProblemHistory.merge(newVal);
+				} else {
+					problemHistory.add(newVal);
+					descriptionToHistory.put(description, newVal);
+				}
+			}
+		}		
+	}
+	
+	public void unparseProblemHistories() {
+		for (SavedAllStudentsProblemGradingHistory history:problemHistory) {
+			String unparsedValue = unparser.unparseAllStudentsProblemGradingHistory(history);
+			System.out.println(unparsedValue);
 		}
 		
-		
+	}
+	
+	public void buildCurrentProblemHistory() {
+		String fileName = interactionLogWriter.createModuleProblemInteractionLogName();
+		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
 	}
 	
 	public void buildStudentHistories() {
@@ -53,6 +91,8 @@ public class ASavedHistoryManager {
 		ASavedHistoryManager manager = new ASavedHistoryManager();
 		manager.readInteractionDirectory();
 		manager.buildHistories();
+		manager.unparseProblemHistories();
+//		manager.buildCurrentProblemHistory();
 	}
 	
 	

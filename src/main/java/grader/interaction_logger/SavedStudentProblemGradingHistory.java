@@ -3,9 +3,14 @@ package grader.interaction_logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface SavedStudentProblemGradingHistory {
-	
+	public static final String SOURCE_TAB = "source";
+	public static final String FEEDBACK_TAB = "feedback";
+	public static final String NAVIGATION_TAB = "navigation";
+	public static final String SOURCE_OPEN = "source_open";
+
 	
 	public String getModuleName() ;
 	public void setModuleName(String moduleName) ;
@@ -60,7 +65,16 @@ public interface SavedStudentProblemGradingHistory {
 	double getFeaturesScore();
 	void setFeaturesScore(double featuresScore);
 	
-	
+	public Set<String> getTabsVisited() ;
+
+	public void setTabsVisited(Set<String> tabsVisited);
+	public void isSourceVisited() ;
+	public void setSourceVisited() ;
+	public void isFeedbackVisited() ;
+	public void setFeedbackVisited() ;
+
+	public void isSourceOpened() ;
+	public void setSourceOpened() ;
 	
 
 }

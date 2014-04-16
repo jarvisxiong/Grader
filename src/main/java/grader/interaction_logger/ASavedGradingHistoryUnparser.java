@@ -82,8 +82,13 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 		long manualVisit = aSingleStudentHistory.getManualVisitTime();
 		if (manualVisit > 0)
 			stringBuilder.append(" MANUAL:" + toHourMinSecString(manualVisit));
-		stringBuilder.append("\n");
 		String manualOverallNotes = aSingleStudentHistory.getManualOverallNotes();
+		Set<String> tabsVisited = aSingleStudentHistory.getTabsVisited();
+		if (tabsVisited.size() != 0) {
+			stringBuilder.append(" SECTIONS:" + tabsVisited);
+
+		}
+		stringBuilder.append("\n");
 		if (!manualOverallNotes.isEmpty()) {
 			stringBuilder.append("OVERALL NOTES\n");
 			stringBuilder.append(manualOverallNotes + "\n");
@@ -129,9 +134,9 @@ public class ASavedGradingHistoryUnparser implements SavedGradingHistoryUnparser
 	}
 	
 	public static void main (String[] args) {
-		System.out.println(
-				
-				"Hell,World\nGoodye,World".replaceAll(",", "COMMA"));
+//		System.out.println(
+//				
+//				"Hell,World\nGoodye,World".replaceAll(",", "COMMA"));
 		SavedGradingHistoryParser parser = SavedGradingHistoryParserSelector.getSavedGradingHistoryParser();
 		SavedAllStudentsProblemGradingHistory history = parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
 		SavedGradingHistoryUnparser unparser = SavedGradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();

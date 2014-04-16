@@ -143,15 +143,31 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		 String aProblemName = lastGraderSettingsEnded.getGradingSettingsModel().getCurrentProblem();
 		 return SEPARATOR + aModuleName + SEPARATOR + aProblemName;
 	 }
+	 public String createLogFileName(String suffix) {
+		 String userName = GradingEnvironment.get().getUserName();
+
+			if (userName == null || userName.isEmpty())
+				userName = "";
+//			else
+//				userName = userName;
+			fileName = interactionLogFolder + "/" + userName + SEPARATOR + LOG_FILE_PREFIX + suffix + ".csv";
+			return fileName;
+	 }
+	
+	 @Override
+	 public String createModuleProblemInteractionLogName() {
+		 return createLogFileName(getAssignmentProblemSuffix());
+	 }
 	
 	 void createOrLoadAppendableFile(String suffix) {
 		String userName = GradingEnvironment.get().getUserName();
-
-		if (userName == null || userName.isEmpty())
-			userName = "";
-//		else
-//			userName = userName;
-		fileName = interactionLogFolder + "/" + userName + SEPARATOR + LOG_FILE_PREFIX + suffix + ".csv";
+//
+//		if (userName == null || userName.isEmpty())
+//			userName = "";
+////		else
+////			userName = userName;
+//		fileName = interactionLogFolder + "/" + userName + SEPARATOR + LOG_FILE_PREFIX + suffix + ".csv";
+		fileName = createLogFileName(suffix);
 		out = null;
 	    
 	    try{

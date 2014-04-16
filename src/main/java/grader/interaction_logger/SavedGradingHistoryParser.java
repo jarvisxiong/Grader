@@ -2,6 +2,7 @@ package grader.interaction_logger;
 
 public interface SavedGradingHistoryParser {
 
+
 	public abstract SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFileName);
 
 	public abstract void parseNavigation();

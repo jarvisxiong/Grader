@@ -1,6 +1,7 @@
 package grader.interaction_logger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,12 +28,14 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	double multiplier;
 	double sourcePoints;
 	double featuresScore;
+	Set<String> tabsVisited = new HashSet();
 	
 	
 
 	
 
 	
+
 	public  ASavedStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
 		moduleName = aModuleName;
 		problemName = aProblemName;
@@ -144,6 +147,7 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 		for (String onyen:otherFeatures) {
 			featureToManualNotes.put(onyen, otherFeatureToManualNotes.get(onyen));			
 		}
+		tabsVisited.addAll(other.getTabsVisited());
 //		visitPeriod += other.getVisitPeriod();	
 		manualVisitTime += other.getManualVisitTime();
 		autoVisitTime += other.getAutoVisitTime();
@@ -210,7 +214,33 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	public void setFeaturesScore(double featuresScore) {
 		this.featuresScore = featuresScore;
 	}
+	
+	public Set<String> getTabsVisited() {
+		return tabsVisited;
+	}
 
+	public void setTabsVisited(Set<String> tabsVisited) {
+		this.tabsVisited = tabsVisited;
+	}
+	
+	public void isSourceVisited() {
+		tabsVisited.contains(SOURCE_TAB);
+	}
+	public void setSourceVisited() {
+		tabsVisited.add(SOURCE_TAB);
+	}
+	public void isFeedbackVisited() {
+		tabsVisited.contains(FEEDBACK_TAB);
+	}
+	public void setFeedbackVisited() {
+		tabsVisited.add(FEEDBACK_TAB);
+	}
 
+	public void isSourceOpened() {
+		tabsVisited.contains(SOURCE_OPEN);
+	}
+	public void setSourceOpened() {
+		tabsVisited.add(SOURCE_OPEN);
+	}
 
 }
