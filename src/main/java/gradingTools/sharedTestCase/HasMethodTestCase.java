@@ -11,6 +11,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
+import gradingTools.sharedTestCase.utils.MethodPropertyChecker;
 
 public class HasMethodTestCase extends BasicTestCase {
 	private String methodName;
@@ -19,6 +20,7 @@ public class HasMethodTestCase extends BasicTestCase {
 	private Class<?> returnType;
 	private String returnTypeName;
 	private Class<?>[] expectedParamTypes;
+	private ArrayList<MethodPropertyChecker> propertyCheckers = new ArrayList<MethodPropertyChecker>();
 
 	// Class is not known, return type is standard class, and has parameters
 	public HasMethodTestCase(String methodName, ArrayList<String> ignoredClasses,
@@ -74,6 +76,10 @@ public class HasMethodTestCase extends BasicTestCase {
 		this.returnTypeName = returnTypeName;
 		this.expectedParamTypes = expectedParameters;
 
+	}
+	
+	public void addPropertyChecker(MethodPropertyChecker propertyChecker) {
+		propertyCheckers.add(propertyChecker);
 	}
 
 	private String getParametersMessage(Method method) {
@@ -144,8 +150,16 @@ public class HasMethodTestCase extends BasicTestCase {
 
 				String parameterTypesMessage = getParametersMessage(method);
 				boolean correctParameterTypes = parameterTypesMessage.length() == 0;
+				boolean checkersPass = true;
+				String[] checkerMessages = new String[propertyCheckers.size()];
+				for(int i=0; i<propertyCheckers.size(); i++) {
+					checkerMessages[i] = propertyCheckers.get(i).getMessageOnIncorrect(method);
+					if (checkerMessages[i] != null) {
+						checkersPass = false;
+					}
+				}
 
-				if (correctName && correctVisibility && correctReturnType && correctParameterTypes) {
+				if (correctName && correctVisibility && correctReturnType && correctParameterTypes && checkersPass) {
 					return pass();
 				} else if (correctName) {
 					int incorrectCount = 0;
@@ -162,9 +176,19 @@ public class HasMethodTestCase extends BasicTestCase {
 						incorrectCount++;
 						message += parameterTypesMessage + ", ";
 					}
+					
+					if (!checkersPass) {
+						for (String checkerMessage : checkerMessages) {
+							if (checkerMessage != null) {
+								incorrectCount++;
+								message += checkerMessage + ", ";
+							}
+						}
+					}
 
 					message = message.substring(0, message.length() - 2);
-					return partialPass((4.0 - incorrectCount) / 4.0, message);
+					double maxCount = 4.0 + propertyCheckers.size();
+					return partialPass((maxCount - incorrectCount) / (maxCount), message);
 				}
 			}
 		}

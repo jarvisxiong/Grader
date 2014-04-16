@@ -1,7 +1,10 @@
 package gradingTools.comp110.assignment4;
 
+import java.util.ArrayList;
+
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
+import gradingTools.comp110.assignment4.testCases.HasMainMethodMultClasses;
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {
 	public Assignment4Requirements() {
@@ -12,8 +15,10 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		addFeature("Has a proper header", 5, new ProperHeaderTestCase());
 
 		// Check for a main method
-		// addFeature("Contains a main method", 5, new
-		// HasMainMethodMultClasses());
+		ArrayList<String> badClasses = new ArrayList<String>();
+		badClasses.add("gerbil");
+		badClasses.add("food");
+		addFeature("Contains a main method", 5, new HasMainMethodMultClasses(badClasses));
 
 		// Classes not to check for our methods
 		/*
