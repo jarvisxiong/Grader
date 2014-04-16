@@ -1,6 +1,6 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
-public interface InteractionHistoryUnparser {
+public interface GradingHistoryUnparser {
 
 	public abstract String unparseAllStudentsProblemGradingHistory(
 			AllStudentsProblemHistory anAllStudentsHistory);

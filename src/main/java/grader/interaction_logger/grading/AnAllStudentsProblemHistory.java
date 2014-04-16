@@ -1,4 +1,4 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryMerged;
 import grader.trace.interaction_logger.SavedStudentProblemGradingHistoryEntered;

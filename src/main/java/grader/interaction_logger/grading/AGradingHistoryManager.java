@@ -1,6 +1,9 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
 import framework.utils.GradingEnvironment;
+import grader.interaction_logger.AnInteractionLogWriter;
+import grader.interaction_logger.InteractionLogWriter;
+import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
 
@@ -10,46 +13,52 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AnInteractionHistoryManager implements InteractionLogListener{
+public class AGradingHistoryManager implements  GradingHistoryManager{
 	String interactionDirectory;
 	File[] interactionFiles;
 	List<AllStudentsProblemHistory> problemHistory = new ArrayList();
 	Map<String, AllStudentsProblemHistory> descriptionToHistory = new HashMap();
-	InteractionLogParser parser;
-	InteractionHistoryUnparser unparser;
+	GradingHistoryParser parser;
+	GradingHistoryUnparser unparser;
 
 	AllStudentsProblemHistory currentProblemHistory;
 	InteractionLogWriter interactionLogWriter;
 	
-	public void readInteractionDirectory() {
-		interactionDirectory = AnInteractionLogWriter.getOrCreateInteractionFolder();
-		interactionFiles = FileTimeSorterAndComparator.sort(new File(interactionDirectory));
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#readInteractionDirectory()
+	 */
+	public AGradingHistoryManager() {
 		interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
-		parser = InteractionHistoryParserSelector.getSavedGradingHistoryParser();
-		unparser = InteractionHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+		parser = GradingHistoryParserSelector.getSavedGradingHistoryParser();
+		unparser = GradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+		interactionDirectory = AnInteractionLogWriter.getOrCreateInteractionFolder();
+
+		
+	}
+	@Override
+	public void readInteractionDirectory() {
+		interactionFiles = FileTimeSorterAndComparator.sort(new File(interactionDirectory));
+	
 
 	}
+	@Override
+	public void connectToCurrentHistory() {
+		buildCurrentProblemHistory();
+		InteractionLogWriterSelector.getInteractionLogWriter().addLogListener(this);
+	}
 	
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#buildHistories()
+	 */
+	@Override
 	public void buildHistories() {
 		buildProblemHistories();
 		
 	}
-	public static final int PARTS_IN_LOG_FILE_NAME = 4;
-//	public  SavedAllStudentsProblemGradingHistory createSavedAllStudentsProblemGradingHistory(File aFile) {
-//		String fileName = aFile.getName();
-//		String[] parts = fileName.split(AnInteractionLogWriter.SEPARATOR);
-//		if (parts.length != PARTS_IN_LOG_FILE_NAME)
-//			return null;
-//		String aGraderName = parts[0];
-//		String aModuleName = parts[2];
-//		String aProblemName = parts[3];
-//		return new ASavedAllStudentsProblemGradingHistory(aGraderName, aModuleName, aProblemName);
-//		
-//		
-//	}
-	
-	
-	
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#buildProblemHistories()
+	 */
+	@Override
 	public void buildProblemHistories() {
 		for (File interactionFile:interactionFiles) {
 			if (interactionFile.isDirectory() || 
@@ -70,6 +79,10 @@ public class AnInteractionHistoryManager implements InteractionLogListener{
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#unparseProblemHistories()
+	 */
+	@Override
 	public void unparseProblemHistories() {
 		for (AllStudentsProblemHistory history:problemHistory) {
 			String unparsedValue = unparser.unparseAllStudentsProblemGradingHistory(history);
@@ -78,21 +91,37 @@ public class AnInteractionHistoryManager implements InteractionLogListener{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#buildCurrentProblemHistory()
+	 */
+	@Override
 	public void buildCurrentProblemHistory() {
 		String fileName = interactionLogWriter.createModuleProblemInteractionLogName();
-		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
+//		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
+		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(fileName );
+
 	}
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#newCSVRow(java.lang.String[])
+	 */
+	
 	@Override
 	public void newCSVRow(String[] aRow) {
 		StudentProblemGradingHistory studentHistory;
+		
+		System.out.println(aRow);
 	}
 	
+	/* (non-Javadoc)
+	 * @see grader.interaction_logger.InteractionHistoryManager#buildStudentHistories()
+	 */
+	@Override
 	public void buildStudentHistories() {
 		
 	}
 	
 	public static void main(String[] args) {
-		AnInteractionHistoryManager manager = new AnInteractionHistoryManager();
+		GradingHistoryManager manager = new AGradingHistoryManager();
 		manager.readInteractionDirectory();
 		manager.buildHistories();
 		manager.unparseProblemHistories();

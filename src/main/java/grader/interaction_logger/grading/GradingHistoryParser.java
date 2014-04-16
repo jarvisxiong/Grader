@@ -1,6 +1,8 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
-public interface InteractionLogParser {
+import java.util.List;
+
+public interface GradingHistoryParser {
 
 
 	public abstract AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(String aFileName);
@@ -12,5 +14,7 @@ public interface InteractionLogParser {
 	public abstract boolean hasMoreVisits();
 
 	public abstract void processNextVisit();
+
+	StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable);
 
 }

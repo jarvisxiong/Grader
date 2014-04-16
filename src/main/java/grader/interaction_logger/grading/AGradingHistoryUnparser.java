@@ -1,4 +1,4 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +16,7 @@ import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperStarted;
 
-public class AnInteractionHistoryUnparser implements InteractionHistoryUnparser  {
+public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 	
 	public static final int EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE = 4096;
 	public static final int EXPECTED_NUMBER_STUDENTS = 80;
@@ -24,7 +24,7 @@ public class AnInteractionHistoryUnparser implements InteractionHistoryUnparser 
 	public static final int EXPECTED_UNPARSE_ALL_STUDENTS_SIZE = EXPECTED_NUMBER_STUDENTS*EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE;
 
 
-	public AnInteractionHistoryUnparser() {
+	public AGradingHistoryUnparser() {
 		
 	
 	}
@@ -103,13 +103,14 @@ public class AnInteractionHistoryUnparser implements InteractionHistoryUnparser 
 		if (featuresWithManualIntervention.size() > 0)
 			stringBuilder.append("FEATURES\n");
 		for (String feature:featuresWithManualIntervention) {
-			stringBuilder.append(feature);
+			stringBuilder.append(feature + ":");
 			Double featureScore = featureToManualScore.get(feature);
 			String featureNotes = featureToManualNotes.get(feature);
 			if ( featureScore != null) {
 				stringBuilder.append("(" + featureScore + ")\n");				
-			} else
-				stringBuilder.append("\n");
+			} 
+//			else
+//				stringBuilder.append("\n");
 			if (featureNotes != null) {
 				stringBuilder.append(featureNotes);				
 			}
@@ -137,9 +138,9 @@ public class AnInteractionHistoryUnparser implements InteractionHistoryUnparser 
 //		System.out.println(
 //				
 //				"Hell,World\nGoodye,World".replaceAll(",", "COMMA"));
-		InteractionLogParser parser = InteractionHistoryParserSelector.getSavedGradingHistoryParser();
+		GradingHistoryParser parser = GradingHistoryParserSelector.getSavedGradingHistoryParser();
 		AllStudentsProblemHistory history = parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
-		InteractionHistoryUnparser unparser = InteractionHistoryUnparserSelector.getSavedGradingHistoryUnparser();
+		GradingHistoryUnparser unparser = GradingHistoryUnparserSelector.getSavedGradingHistoryUnparser();
 		String printString = unparser.unparseAllStudentsProblemGradingHistory(history);
 		System.out.println(printString);
 		

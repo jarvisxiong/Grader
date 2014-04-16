@@ -2,6 +2,7 @@ package grader.interaction_logger;
 
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
+import grader.interaction_logger.grading.GradingHistoryManagerSelector;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.trace.CSVSerializable;
 import grader.trace.interaction_logger.InteractionLogEntryAdded;
@@ -202,6 +203,8 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 			out.close();
 			stepperEnded = true;
 			createOrLoadAppendableFile(getAssignmentProblemSuffix());
+    		GradingHistoryManagerSelector.getGradingHistoryManager().connectToCurrentHistory();
+
 			out.println(csvRow);
 		}
 		if (aTraceable instanceof ProjectStepperEnded) 

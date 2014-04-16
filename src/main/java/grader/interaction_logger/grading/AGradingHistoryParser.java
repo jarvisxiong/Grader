@@ -1,9 +1,12 @@
-package grader.interaction_logger;
+package grader.interaction_logger.grading;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import grader.interaction_logger.AnInteractionLogReader;
+import grader.interaction_logger.AnInteractionLogWriter;
+import grader.interaction_logger.InteractionLogReader;
 import grader.trace.file.open.DefaultProgramOpenedFile;
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryCreated;
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryFilled;
@@ -22,7 +25,7 @@ import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.SourceVisited;
 import grader.trace.stepper.UserQuit;
 
-public class AnInteractionLogParser implements InteractionLogParser {
+public class AGradingHistoryParser implements GradingHistoryParser {
 	
 	InteractionLogReader logReader;
 	int currentRowIndex;
@@ -35,7 +38,7 @@ public class AnInteractionLogParser implements InteractionLogParser {
 	StudentProblemGradingHistory currentStudentHistory;
 	boolean isAutomaticPhase;
 	
-	public AnInteractionLogParser() {
+	public AGradingHistoryParser() {
 		
 	
 	}
@@ -58,7 +61,30 @@ public class AnInteractionLogParser implements InteractionLogParser {
 		if (fileParts.length != PARTS_IN_LOG_FILE_NAME) return null;
 		String[] csvParts = fileParts[fileParts.length - 1].split("\\.");
 		if (csvParts.length != 2) return null;
-		history = new AnAllStudentsProblemHistory(fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
+		return parseAllStudentsProblemGradingHistory(table, fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
+//		history = new AnAllStudentsProblemHistory(fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
+//		SavedAllStudentsProblemGradingHistoryCreated.newCase(history, this);
+//		while (hasMoreNavigations()) {
+//			parseNavigation();
+//		}
+//		SavedAllStudentsProblemGradingHistoryFilled.newCase(history, this);
+//		return history;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		
+	}
+	public AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(List<String[]> aTable, String aUserName, String aModuleName, String aProblemName) {
+		try {
+//			currentRowIndex = 0;
+//			endPhaseIndex = 0;
+//			endVisitIndex = 0;
+//		logReader = new AnInteractionLogReader(aFullFileName);
+		table = aTable;
+		
+		history = new AnAllStudentsProblemHistory(aUserName, aModuleName, aProblemName);
 		SavedAllStudentsProblemGradingHistoryCreated.newCase(history, this);
 		while (hasMoreNavigations()) {
 			parseNavigation();
@@ -138,12 +164,97 @@ public class AnInteractionLogParser implements InteractionLogParser {
 	 */
 	@Override
 	public void processNextVisit() {
+//		String[] beginRow = table.get(currentRowIndex);
+//		long beginTime = ProjectStepStarted.timeStampFromCSVRow(beginRow);
+//		long endTime;
+//
+//		String currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
+//		currentStudentHistory = new AStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
+//		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
+//		
+//		if (endVisitIndex < 0) {
+//			 endVisitIndex = logReader.nextRowIndex(ProjectStepAborted.class, currentRowIndex, endPhaseIndex);
+//			 if (endVisitIndex >= 0)  { // aborted
+//					String[] endRow = table.get(endVisitIndex);
+//
+//					 currentStudentHistory.setManualOverallNotes("Unable to  grade student");
+//					 endTime = ProjectStepAborted.timeStampFromCSVRow(endRow);
+//
+//				 }
+//			 else {
+//
+//			endVisitIndex = endPhaseIndex;
+//			String[] endRow = table.get(endVisitIndex);
+//			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
+//			currentStudentHistory.setVisitEndTime(endTime);
+//			 } 
+//
+//	
+//		} else {
+//			String[] endRow = table.get(endVisitIndex);
+//			double totalScore = ProjectStepEnded.totalScoreFromCSVRow(endRow);
+//			double featuresScore = ProjectStepEnded.featuresScoreFromCSVRow(endRow);
+//			double multiplier = ProjectStepEnded.multiplierFromCSVRow(endRow);
+//			double sourcePoints = ProjectStepEnded.sourcePointsFromCSVRow(endRow);
+//			currentStudentHistory.setTotalScore(totalScore);
+//			currentStudentHistory.setFeaturesScore(featuresScore);
+//			currentStudentHistory.setMultiplier(multiplier);
+//			currentStudentHistory.setSourcePoints(sourcePoints);
+//			currentStudentHistory.setVisitEndTime(ProjectStepEnded.timeStampFromCSVRow(endRow));
+//			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
+//			String currentName = ProjectStepStarted.nameFromCSVRow(endRow);
+//			currentStudentHistory.setName(currentName);
+//			String overviewComments = ProjectStepEnded.overallNotesFromCSVRow(endRow);
+//			String sourceComments = ProjectStepEnded.sourceNotesFromCSVRow(endRow);
+//			Map<String, String> featureNotes = ProjectStepEnded.featureNotesFromCSVRow(endRow);
+//			if (!overviewComments.isEmpty())
+//				currentStudentHistory.setManualOverallNotes(overviewComments);
+//			if (!sourceComments.isEmpty())
+//				currentStudentHistory.setSourceComments(sourceComments);
+//			if (featureNotes.size() > 0)
+//				currentStudentHistory.setFeatureToManualNotes(featureNotes);
+//		}
+//		
+//		long visitTime = endTime - beginTime;
+//		if (isAutomaticPhase)
+//			currentStudentHistory.addAutoVisitTime(visitTime);
+//		else {
+//			currentStudentHistory.addManualVisitTime(visitTime);
+//			int index = logReader.nextRowIndex(SourceVisited.class, currentRowIndex, endPhaseIndex);
+//			if (index >= 0) {
+//				currentStudentHistory.setSourceVisited();
+//			}
+//			index = logReader.nextRowIndex(DefaultProgramOpenedFile.class, currentRowIndex, endPhaseIndex);
+//			if (index >= 0) {
+//				currentStudentHistory.setSourceOpened();
+//			}
+//			index = logReader.nextRowIndex(FeedbackVisited.class, currentRowIndex, endPhaseIndex);
+//			if (index >= 0) {
+//				currentStudentHistory.setFeedbackVisited();
+//			}
+//		}
+		currentStudentHistory = parseNextStudentHistory();
+		
+		history.newStudentHistory(currentOnyen, currentStudentHistory);
+		currentRowIndex = endVisitIndex;
+		
+	}
+	@Override
+	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
+		table = aTable;
+		currentRowIndex = 0;
+		return parseNextStudentHistory();
+		
+	}
+	
+	
+	 StudentProblemGradingHistory parseNextStudentHistory() {
 		String[] beginRow = table.get(currentRowIndex);
 		long beginTime = ProjectStepStarted.timeStampFromCSVRow(beginRow);
 		long endTime;
 
-		String currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
-		currentStudentHistory = new AStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
+		 currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
+		StudentProblemGradingHistory retVal = new AStudentProblemHistory(history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		
 		if (endVisitIndex < 0) {
@@ -151,7 +262,7 @@ public class AnInteractionLogParser implements InteractionLogParser {
 			 if (endVisitIndex >= 0)  { // aborted
 					String[] endRow = table.get(endVisitIndex);
 
-					 currentStudentHistory.setManualOverallNotes("Unable to  grade student");
+					 retVal.setManualOverallNotes("Unable to  grade student");
 					 endTime = ProjectStepAborted.timeStampFromCSVRow(endRow);
 
 				 }
@@ -160,7 +271,7 @@ public class AnInteractionLogParser implements InteractionLogParser {
 			endVisitIndex = endPhaseIndex;
 			String[] endRow = table.get(endVisitIndex);
 			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
-			currentStudentHistory.setVisitEndTime(endTime);
+			retVal.setVisitEndTime(endTime);
 			 } 
 
 	
@@ -170,52 +281,51 @@ public class AnInteractionLogParser implements InteractionLogParser {
 			double featuresScore = ProjectStepEnded.featuresScoreFromCSVRow(endRow);
 			double multiplier = ProjectStepEnded.multiplierFromCSVRow(endRow);
 			double sourcePoints = ProjectStepEnded.sourcePointsFromCSVRow(endRow);
-			currentStudentHistory.setTotalScore(totalScore);
-			currentStudentHistory.setFeaturesScore(featuresScore);
-			currentStudentHistory.setMultiplier(multiplier);
-			currentStudentHistory.setSourcePoints(sourcePoints);
-			currentStudentHistory.setVisitEndTime(ProjectStepEnded.timeStampFromCSVRow(endRow));
+			retVal.setTotalScore(totalScore);
+			retVal.setFeaturesScore(featuresScore);
+			retVal.setMultiplier(multiplier);
+			retVal.setSourcePoints(sourcePoints);
+			retVal.setVisitEndTime(ProjectStepEnded.timeStampFromCSVRow(endRow));
 			endTime = ProjectStepEnded.timeStampFromCSVRow(endRow);
 			String currentName = ProjectStepStarted.nameFromCSVRow(endRow);
-			currentStudentHistory.setName(currentName);
+			retVal.setName(currentName);
 			String overviewComments = ProjectStepEnded.overallNotesFromCSVRow(endRow);
 			String sourceComments = ProjectStepEnded.sourceNotesFromCSVRow(endRow);
 			Map<String, String> featureNotes = ProjectStepEnded.featureNotesFromCSVRow(endRow);
 			if (!overviewComments.isEmpty())
-				currentStudentHistory.setManualOverallNotes(overviewComments);
+				retVal.setManualOverallNotes(overviewComments);
 			if (!sourceComments.isEmpty())
-				currentStudentHistory.setSourceComments(sourceComments);
+				retVal.setSourceComments(sourceComments);
 			if (featureNotes.size() > 0)
-				currentStudentHistory.setFeatureToManualNotes(featureNotes);
+				retVal.setFeatureToManualNotes(featureNotes);
 		}
 		
 		long visitTime = endTime - beginTime;
 		if (isAutomaticPhase)
-			currentStudentHistory.addAutoVisitTime(visitTime);
+			retVal.addAutoVisitTime(visitTime);
 		else {
-			currentStudentHistory.addManualVisitTime(visitTime);
+			retVal.addManualVisitTime(visitTime);
 			int index = logReader.nextRowIndex(SourceVisited.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
-				currentStudentHistory.setSourceVisited();
+				retVal.setSourceVisited();
 			}
 			index = logReader.nextRowIndex(DefaultProgramOpenedFile.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
-				currentStudentHistory.setSourceOpened();
+				retVal.setSourceOpened();
 			}
 			index = logReader.nextRowIndex(FeedbackVisited.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
-				currentStudentHistory.setFeedbackVisited();
+				retVal.setFeedbackVisited();
 			}
 		}
 		
-		history.newStudentHistory(currentOnyen, currentStudentHistory);
-		currentRowIndex = endVisitIndex;
+		return retVal;
 		
 	}
 	
 	
 	public static void main (String[] args) {
-		InteractionLogParser parser = new AnInteractionLogParser();
+		GradingHistoryParser parser = new AGradingHistoryParser();
 		parser.parseAllStudentsProblemGradingHistory("log/AssignmentsData/interactionLogs/Dewan_interactionLog_Comp110_Assignment3.csv");
 	}
 	
