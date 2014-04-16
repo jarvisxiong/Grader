@@ -32,7 +32,7 @@ public class TestAverageOutput extends TestGerbilInputWithCommand {
 	}
 
 	@Override
-	protected TestCaseResult checkResult(String result) {
+	protected TestCaseResult checkOutputString(String result) {
 		result = result.trim();
 		if (result.startsWith(getAllCorrectResult())) {
 			return pass();

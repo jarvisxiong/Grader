@@ -15,14 +15,14 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 			"True", "SB2", "Malcom", "20", "25", "30", "20", "1", "False", "False", "SB1X3",
 			"Prince Firstly", "19", "25", "25", "30", "102", "False", "True" };
 
-	private final String command;
+	protected final String command;
 	
 	public TestGerbilInputWithCommand(String command) {
 		super("Test user entering "+command+" command");
 		this.command = command;
 	}
 	
-	private String getSetupInput() {
+	protected String getSetupInput() {
 		String retVal = "";
 		for (String setupCommand : SYSTEM_SETUP_COMMANDS) {
 			if (retVal.length() > 0) {
@@ -33,8 +33,18 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 		return retVal;
 	}
 	
-	protected abstract TestCaseResult checkResult(String result);
+	protected abstract TestCaseResult checkOutputString(String result);
 
+	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
+		String output = runningProject.await();
+		if (!output.startsWith(prompt)) {
+			throw new NotAutomatableException();
+		}
+		output = output.substring(prompt.length());
+		return checkOutputString(output);
+	}
+	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
@@ -46,14 +56,8 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 			prompt = prompt.substring(0, prompt.length() - 1);
 		}
 		
-		runningProject = RunningProjectUtils.runProject(project, 1, setupInput + "\n" + command);
-		String result = runningProject.await();
-		if (!result.startsWith(prompt)) {
-			throw new NotAutomatableException();
-		}
-		result = result.substring(prompt.length());
 		
-		return checkResult(result);
+		return checkOutput(prompt, command, project);
 	}
 
 }
