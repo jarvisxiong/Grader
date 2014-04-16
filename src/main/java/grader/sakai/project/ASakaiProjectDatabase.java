@@ -425,7 +425,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 //			System.out.println("No project folder found for:"
 //					+ anAssignment.getOnyen() + " "
 //					+ anAssignment.getStudentName());
-			ProjectFolderNotFound.newCase(anAssignment.getOnyen(), anAssignment.getStudentName(), this);
+			Tracer.error(ProjectFolderNotFound.newCase(anAssignment.getOnyen(), anAssignment.getStudentName(), this).getMessage()); // we will not throw this exception
 			return null;
 		}
 		// List<OEFrame> oldList = new ArrayList( uiFrameList.getList());
@@ -1024,8 +1024,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		SakaiProject project = onyenToProject.get(aName);
 		if (project == null) {
 			StudentCodingAssignment aStudentAssignment = getStudentAssignment(aName);
-			if (aStudentAssignment == null) {
-				Tracer.error("No project for student:" + aName);
+			if (aStudentAssignment == null || aStudentAssignment.getSubmissionFolder() == null) {
+//				Tracer.error("No project for student:" + aName);
 				return null;
 			}
 			project = makeProject(aStudentAssignment);
@@ -1196,6 +1196,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			if (assignmentDataFolder != null && !assignmentDataFolder.getStudentIDs().contains(
 					anAssignment.getOnyen()))
 				continue;
+			if (anAssignment.getStudentFolder() == null || anAssignment.getSubmissionFolder() == null)
+				continue; // assume a message has already been given
 			SakaiProject project = makeProject(anAssignment);
 			if (project != null) {
 				onyenToProject.put(anAssignment.getOnyen(), project);

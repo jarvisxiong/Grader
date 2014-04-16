@@ -35,23 +35,31 @@ public class ASavedGradingHistoryParser implements SavedGradingHistoryParser {
 		
 	
 	}
-	
+	public static final int PARTS_IN_LOG_FILE_NAME = 4;
+
 	/* (non-Javadoc)
 	 * @see grader.stats.SavedAllStudentsProblemGradingHistoryParser#parseHistory()
 	 */
 	@Override
 	public SavedAllStudentsProblemGradingHistory parseAllStudentsProblemGradingHistory(String aFileName) {
+		try {
 		logReader = new AnInteractionLogReader(aFileName);
 		table = logReader.getTable();
 		String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
-		String[] csvParts = fileParts[3].split("\\.");
-		history = new ASavedAllStudentsProblemGradingHistory(fileParts[0], fileParts[2], csvParts[0]);
+		if (fileParts.length < PARTS_IN_LOG_FILE_NAME) return null;
+		String[] csvParts = fileParts[fileParts.length - 1].split("\\.");
+		if (csvParts.length != 2) return null;
+		history = new ASavedAllStudentsProblemGradingHistory(fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
 		SavedAllStudentsProblemGradingHistoryCreated.newCase(history, this);
 		while (hasMoreNavigations()) {
 			parseNavigation();
 		}
 		SavedAllStudentsProblemGradingHistoryFilled.newCase(history, this);
 		return history;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
 		
 	}

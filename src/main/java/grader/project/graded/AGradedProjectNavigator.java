@@ -654,6 +654,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Column(0)
 	@ComponentWidth(100)
 	@Override
+	@Explanation("View and add comments to source using the text editor registered with the OS.")
 	public void openSource() {
 		
 		project.setHasBeenRun(true);

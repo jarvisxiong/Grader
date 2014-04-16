@@ -34,7 +34,7 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator{
 //		if (animate && settingsFrame != null)
 //			settingsFrame.dispose(); // keep only one frame around at a time
 		try {
-			database.startProjectStepper("");
+			database.startProjectStepper("");// first step
 			if (animate && settingsFrame != null)
 				settingsFrame.dispose(); // keep only one frame around at a time
 			projectStepper = database.getProjectStepper();
