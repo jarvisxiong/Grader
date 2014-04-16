@@ -59,8 +59,6 @@ public class ProperHeaderTestCase extends BasicTestCase {
 					}
 				}
 
-				throw new NotAutomatableException();
-
 			} catch (IOException e) {
 				throw new NotGradableException();
 			}

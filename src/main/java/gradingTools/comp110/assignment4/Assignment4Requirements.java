@@ -35,6 +35,16 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		Class<?>[] searchForGerbilParameterTypes = { String.class };
 		addFeature("Has proper searchForGerbil method", 15, new HasMethodTestCase(
 				"searchForGerbil", badClasses, "gerbil", searchForGerbilParameterTypes));
+		
+		// Deduct points for using advanced javaClasses
+		Set<String> restrictedClasses = new TreeSet<String>();
+		List<String> restrictedRegexes = new ArrayList<String>();
+		List<String> regexLabels = new ArrayList<String>();
+		restrictedRegexes.add("java[.]util[.](?!Scanner)");
+		regexLabels.add("advanced java classes");
+		addRestriction("No advanced Java classes allowed", 30,
+				new MultipleRestrictedValsOutsideComments(restrictedClasses, restrictedRegexes,
+						regexLabels));
 	}
 
 }
