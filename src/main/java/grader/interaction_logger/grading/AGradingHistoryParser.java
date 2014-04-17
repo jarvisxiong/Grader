@@ -243,7 +243,10 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
 		table = aTable;
 		currentRowIndex = 0;
+		if (hasMoreVisits()) // consume header info
 		return parseNextStudentHistory();
+		else
+			return null;
 		
 	}
 	

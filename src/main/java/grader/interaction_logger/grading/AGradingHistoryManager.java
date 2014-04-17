@@ -24,6 +24,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	AllStudentsProblemHistory currentProblemHistory;
 	InteractionLogWriter interactionLogWriter;
 	
+	
 	/* (non-Javadoc)
 	 * @see grader.interaction_logger.InteractionHistoryManager#readInteractionDirectory()
 	 */
@@ -105,11 +106,23 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	 * @see grader.interaction_logger.InteractionHistoryManager#newCSVRow(java.lang.String[])
 	 */
 	
+	public static String[] scanCSVRow(String aCSVRow) {
+		return aCSVRow.split(",");
+	}
+	
+	public static List<String[]> scanCSVRow(List<String> aCSVRows) {
+		List<String[]> retVal = new ArrayList(aCSVRows.size());
+		for (String aCSVRow: aCSVRows)
+			retVal.add(scanCSVRow(aCSVRow));
+		return retVal;
+	}
+	
 	@Override
-	public void newCSVRow(String[] aRow) {
-		StudentProblemGradingHistory studentHistory;
+	public void newStep(List<String> aRows) {
 		
-		System.out.println(aRow);
+//		System.out.println(aRows);
+//		System.out.println(scanCSVRow(aRows));
+		parser.parseStudentHistory(scanCSVRow(aRows));
 	}
 	
 	/* (non-Javadoc)
@@ -126,6 +139,11 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		manager.buildHistories();
 		manager.unparseProblemHistories();
 //		manager.buildCurrentProblemHistory();
+	}
+	@Override
+	public void newNavigation(List<String> aRows) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

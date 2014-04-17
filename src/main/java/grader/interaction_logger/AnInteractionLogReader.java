@@ -27,6 +27,9 @@ public class AnInteractionLogReader implements InteractionLogReader{
 		table = aTable;		
 	}
 	
+
+	
+	
 	public AnInteractionLogReader(String aFileName) {
 		String fileName = aFileName;
 		File file = new File(aFileName);

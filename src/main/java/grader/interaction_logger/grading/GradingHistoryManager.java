@@ -1,5 +1,7 @@
 package grader.interaction_logger.grading;
 
+import java.util.List;
+
 import grader.interaction_logger.InteractionLogListener;
 
 public interface GradingHistoryManager extends InteractionLogListener{
@@ -29,7 +31,7 @@ public interface GradingHistoryManager extends InteractionLogListener{
 
 	public abstract void buildCurrentProblemHistory();
 
-	public abstract void newCSVRow(String[] aRow);
+	public abstract void newStep(List<String> aRow);
 
 	public abstract void buildStudentHistories();
 

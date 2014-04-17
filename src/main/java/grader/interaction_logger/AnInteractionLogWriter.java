@@ -9,6 +9,7 @@ import grader.trace.interaction_logger.InteractionLogEntryAdded;
 import grader.trace.interaction_logger.InteractionLogFileCreatedOrLoaded;
 import grader.trace.interaction_logger.InteractionLogFolderCreated;
 import grader.trace.settings.GraderSettingsEnded;
+import grader.trace.settings.NavigationStarted;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
@@ -167,6 +168,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	
 	public static final String NEW_LINE_REPLACEMENT = "New Line";
 	
+	boolean navigationPhase;	
 	@Override
 	public void newEvent(Exception aTraceable) {
 //		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
@@ -188,13 +190,26 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 //			buffer.clear();
 //		} else 
 		
+		
+		
 		if (stepperEnded) {
-			buffer.add(csvRow);
-		if (aTraceable instanceof ProjectStepEnded) {
+			if (aTraceable instanceof NavigationStarted)
+				navigationPhase = true;
+//			buffer.add(csvRow);
+		if (aTraceable instanceof ProjectStepStarted) {
+			
 			notifyListeners();
 			buffer.clear();
+			navigationPhase = false;
 		}
+		else if (aTraceable instanceof ProjectStepEnded) {
+//			notifyListeners();
+//			buffer.clear();
 		}
+		buffer.add(csvRow);
+
+		}
+
 		
 		
 		if (aTraceable instanceof GraderSettingsEnded )
@@ -239,10 +254,14 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	}
 	
 	void notifyListeners() {
-		String[] aRow = buffer.toArray(new String[0]);
+//		String[] aRow = buffer.toArray(new String[0]);
+		
 
 		for (InteractionLogListener listener:listeners) {
-			listener.newCSVRow(aRow);
+			if (navigationPhase)
+				listener.newNavigation(buffer);
+			else
+			listener.newStep(buffer);
 		}
 	}
 	@Override
