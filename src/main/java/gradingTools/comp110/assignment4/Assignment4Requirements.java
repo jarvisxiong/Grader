@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment4.testCases.TestAverageOutput;
+import gradingTools.comp110.assignment4.testCases.TestFoodClass;
 import gradingTools.comp110.assignment4.testCases.TestQuit;
 import gradingTools.comp110.assignment4.testCases.TestRestart;
 import gradingTools.comp110.assignment4.testCases.TestSearchOutput;
@@ -55,6 +56,9 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		addRestriction("No advanced Java classes allowed", 30,
 				new MultipleRestrictedValsOutsideComments(restrictedClasses, restrictedRegexes,
 						regexLabels));
+		
+		// Extra credit
+		addFeature("EXTRA CREDIT: Food Class", 20, new TestFoodClass());;
 	}
 
 }
