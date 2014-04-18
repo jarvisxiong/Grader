@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AGradingHistoryManager implements  GradingHistoryManager{
+	public static final String PROBLEM_STATS = "problems";
+	public static final String STUDENT_STATS = "students";
+
 	String interactionDirectory;
 	File[] interactionFiles;
 	List<AllStudentsProblemHistory> problemHistory = new ArrayList();
@@ -23,6 +26,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 
 	AllStudentsProblemHistory currentProblemHistory;
 	InteractionLogWriter interactionLogWriter;
+	
 	
 	
 	/* (non-Javadoc)

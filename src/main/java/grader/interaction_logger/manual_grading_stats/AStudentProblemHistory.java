@@ -1,5 +1,6 @@
 package grader.interaction_logger.manual_grading_stats;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class AStudentProblemHistory  implements StudentProblemGradingHistory{
-	List<String> graderNames;	
+	List<String> graderNames = new ArrayList();	
 	String moduleName;
 	String problemName;
 	String onyen;
@@ -36,7 +37,8 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 
 	
 
-	public  AStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
+	public  AStudentProblemHistory(String aGraderName, String aModuleName, String aProblemName, String anOnyen) {
+		graderNames.add(aGraderName);
 		moduleName = aModuleName;
 		problemName = aProblemName;
 		onyen = anOnyen;
@@ -156,6 +158,10 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 		}
 		}
 		tabsVisited.addAll(other.getTabsVisited());
+		for (String grader:other.getGraderNames()) {
+			if (graderNames.contains(grader)) continue;
+			graderNames.add(grader);
+		}
 //		visitPeriod += other.getVisitPeriod();	
 		manualVisitTime += other.getManualVisitTime();
 		autoVisitTime += other.getAutoVisitTime();

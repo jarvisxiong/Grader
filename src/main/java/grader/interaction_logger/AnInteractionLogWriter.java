@@ -196,16 +196,22 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 			if (aTraceable instanceof NavigationStarted)
 				navigationPhase = true;
 //			buffer.add(csvRow);
-		if (aTraceable instanceof ProjectStepStarted) {
+		if (aTraceable instanceof ProjectStepStarted && navigationPhase) {
 			
 			notifyListeners();
 			buffer.clear();
 			navigationPhase = false;
+			buffer.add(csvRow);
+
 		}
 		else if (aTraceable instanceof ProjectStepEnded) {
+			buffer.add(csvRow);
+
+			notifyListeners();
+			buffer.clear();
 //			notifyListeners();
 //			buffer.clear();
-		}
+		} else
 		buffer.add(csvRow);
 
 		}

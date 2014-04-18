@@ -88,6 +88,14 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 			stringBuilder.append(" SECTIONS:" + tabsVisited);
 
 		}
+		List<String> graders = aSingleStudentHistory.getGraderNames();
+		if (graders.size() == 1) {
+			stringBuilder.append(" GRADER:" + graders.get(0));
+		} else if (graders.size() > 1) {
+			stringBuilder.append(" GRADERS:" + graders);
+
+		}
+		
 		stringBuilder.append("\n");
 		if (!manualOverallNotes.isEmpty()) {
 			stringBuilder.append("OVERALL NOTES\n");
