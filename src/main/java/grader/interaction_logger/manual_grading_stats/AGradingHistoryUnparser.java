@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.util.HashSet;
 import java.util.List;
@@ -130,7 +130,7 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		long timeInMinutes = timeInSeconds/60;
 		long timeInHours = timeInMinutes/60;
 		long minutesRemainder = timeInMinutes%60;
-		long secondsRemainder = timeInSeconds - (timeInHours*36000 + minutesRemainder*60);
+		long secondsRemainder = timeInSeconds - (timeInHours*3600 + minutesRemainder*60);
 		return timeInHours + ":" + minutesRemainder + ":" + secondsRemainder;
 	}
 	

@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.io.File;
 import java.util.List;
@@ -53,8 +53,9 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 			currentRowIndex = 0;
 			endPhaseIndex = 0;
 			endVisitIndex = 0;
-		logReader = new AnInteractionLogReader(aFullFileName);
-		table = logReader.getTable();
+//		logReader = new AnInteractionLogReader(aFullFileName);
+//		table = logReader.getTable();
+		table = AnInteractionLogReader.toCSVTable(aFullFileName);
 		File file = new File(aFullFileName);
 		String aFileName = file.getName();
 		String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
@@ -83,6 +84,8 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 //			endVisitIndex = 0;
 //		logReader = new AnInteractionLogReader(aFullFileName);
 		table = aTable;
+		logReader = new AnInteractionLogReader(aTable);
+
 		
 		history = new AnAllStudentsProblemHistory(aUserName, aModuleName, aProblemName);
 		SavedAllStudentsProblemGradingHistoryCreated.newCase(history, this);
@@ -111,6 +114,8 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 			
 		
 	}
+	
+	
 	
 	/* (non-Javadoc)
 	 * @see grader.stats.SavedAllStudentsProblemGradingHistoryParser#hasMoreNavigations()
@@ -239,10 +244,29 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 		currentRowIndex = endVisitIndex;
 		
 	}
-	@Override
-	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
+	
+	void setTable (List<String[]> aTable) {
 		table = aTable;
 		currentRowIndex = 0;
+		logReader.setTable(aTable);
+	}
+	@Override
+	public boolean initNewNavigation(List<String[]> aTable) {
+		setTable(aTable);
+//		table = aTable;
+//		currentRowIndex = 0;
+//		logReader.setTable(aTable);
+		return hasMoreNavigations();
+	}
+	
+	
+	@Override
+	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
+		setTable(aTable);
+		endPhaseIndex = aTable.size(); 
+//		table = aTable;
+//		currentRowIndex = 0;
+//		logReader.setTable(aTable);
 		if (hasMoreVisits()) // consume header info
 		return parseNextStudentHistory();
 		else

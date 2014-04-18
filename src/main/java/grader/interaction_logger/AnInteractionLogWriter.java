@@ -2,7 +2,7 @@ package grader.interaction_logger;
 
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
-import grader.interaction_logger.grading.GradingHistoryManagerSelector;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.trace.CSVSerializable;
 import grader.trace.interaction_logger.InteractionLogEntryAdded;

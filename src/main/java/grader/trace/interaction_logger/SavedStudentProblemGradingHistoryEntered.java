@@ -1,7 +1,7 @@
 package grader.trace.interaction_logger;
 
-import grader.interaction_logger.grading.AllStudentsProblemHistory;
-import grader.interaction_logger.grading.StudentProblemGradingHistory;
+import grader.interaction_logger.manual_grading_stats.AllStudentsProblemHistory;
+import grader.interaction_logger.manual_grading_stats.StudentProblemGradingHistory;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;

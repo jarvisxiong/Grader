@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.util.ArrayList;
 import java.util.List;

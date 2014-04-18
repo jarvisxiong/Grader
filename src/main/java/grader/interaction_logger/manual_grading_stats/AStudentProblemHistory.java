@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -133,10 +133,17 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 	@Override
 	public void merge(StudentProblemGradingHistory other) {
 		incNumVisits();
-		if (!other.getManualOverallNotes().isEmpty() && other.getVisitEndTime() > getVisitEndTime())
+		if (other.getVisitEndTime() > getVisitEndTime()) {
+//		if (!other.getManualOverallNotes().isEmpty())
 			manualOverallNotes = other.getManualOverallNotes();
-		if (other.getManualOverallScore() != null && other.getVisitEndTime() > getVisitEndTime())
+//		if (other.getManualOverallScore() != null)
 			manualOverallScore = other.getManualOverallScore();
+		totalScore = other.getTotalScore();
+		featuresScore = other.getFeaturesScore();
+		multiplier = other.getMultiplier();
+		sourcePoints = other.getSourcePoints();
+		sourceComments = other.getSourceComments();
+		
 		Map<String, Double> otherFeatureToManualScore = other.getFeatureToManualScore();
 		Set<String> otherFeatures = otherFeatureToManualScore.keySet();
 		for (String onyen:otherFeatures) {
@@ -146,6 +153,7 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 		otherFeatures = otherFeatureToManualNotes.keySet();
 		for (String onyen:otherFeatures) {
 			featureToManualNotes.put(onyen, otherFeatureToManualNotes.get(onyen));			
+		}
 		}
 		tabsVisited.addAll(other.getTabsVisited());
 //		visitPeriod += other.getVisitPeriod();	

@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 public class GradingHistoryUnparserSelector {
 	static GradingHistoryUnparser savedGradingHistoryUnparser = new AGradingHistoryUnparser();

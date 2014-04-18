@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import framework.utils.GradingEnvironment;
 import grader.interaction_logger.AnInteractionLogWriter;
@@ -100,6 +100,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		String fileName = interactionLogWriter.createModuleProblemInteractionLogName();
 //		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
 		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(fileName );
+		System.out.println(unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory));
 
 	}
 	/* (non-Javadoc)
@@ -122,7 +123,15 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		
 //		System.out.println(aRows);
 //		System.out.println(scanCSVRow(aRows));
-		parser.parseStudentHistory(scanCSVRow(aRows));
+		StudentProblemGradingHistory newVisit = parser.parseStudentHistory(scanCSVRow(aRows));
+		currentProblemHistory.newStudentHistory(newVisit.getOnyen(), newVisit);
+		String newState = unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory);
+		System.out.println(newState);
+	}
+	@Override
+	public void newNavigation(List<String> aRows) {
+		parser.initNewNavigation(scanCSVRow(aRows));
+		
 	}
 	
 	/* (non-Javadoc)
@@ -140,11 +149,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		manager.unparseProblemHistories();
 //		manager.buildCurrentProblemHistory();
 	}
-	@Override
-	public void newNavigation(List<String> aRows) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 	

@@ -29,18 +29,18 @@ public class AnInteractionLogReader implements InteractionLogReader{
 	
 
 	
-	
-	public AnInteractionLogReader(String aFileName) {
+	public static List<String[]> toCSVTable(String aFileName) {
+		List<String[]> retVal = null;
 		String fileName = aFileName;
 		File file = new File(aFileName);
 		if (!file.exists())
-			throw InteractionLogFileNotFound.newCase(aFileName, this);
+			throw InteractionLogFileNotFound.newCase(aFileName, AnInteractionLogReader.class);
 		InputStream input;
 		try {
 			input = new FileInputStream(file);
 		
 		CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
-		table = csvReader.readAll();
+		 retVal = csvReader.readAll();
 		csvReader.close();
 		input.close();
 		} catch (FileNotFoundException e) {
@@ -50,8 +50,32 @@ public class AnInteractionLogReader implements InteractionLogReader{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		InteractionLogWriter interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
-//		if (interactionLogWriter.get)
+		return retVal;
+		
+	}
+	public AnInteractionLogReader(String aFileName) {
+		table = toCSVTable(aFileName);
+//		String fileName = aFileName;
+//		File file = new File(aFileName);
+//		if (!file.exists())
+//			throw InteractionLogFileNotFound.newCase(aFileName, this);
+//		InputStream input;
+//		try {
+//			input = new FileInputStream(file);
+//		
+//		CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
+//		table = csvReader.readAll();
+//		csvReader.close();
+//		input.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+////		InteractionLogWriter interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
+////		if (interactionLogWriter.get)
 		
 	}
 

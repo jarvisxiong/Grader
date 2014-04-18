@@ -23,7 +23,7 @@ import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
-import grader.interaction_logger.grading.GradingHistoryManagerSelector;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;

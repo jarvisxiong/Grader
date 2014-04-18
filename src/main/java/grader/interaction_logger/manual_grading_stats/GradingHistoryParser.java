@@ -1,4 +1,4 @@
-package grader.interaction_logger.grading;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.util.List;
 
@@ -16,5 +16,7 @@ public interface GradingHistoryParser {
 	public abstract void processNextVisit();
 
 	StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable);
+
+	boolean initNewNavigation(List<String[]> aTable);
 
 }
