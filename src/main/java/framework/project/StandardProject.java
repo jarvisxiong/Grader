@@ -30,6 +30,7 @@ public class StandardProject implements Project {
      */
     public StandardProject(File directory, String name) throws FileNotFoundException {
         // Find the folder. We could be there or it could be in a different folder
+    	if (directory == null) return;
         Option<File> src = DirectoryUtils.locateFolder(directory, "src");
         if (src.isEmpty())
             throw new FileNotFoundException("No src folder");

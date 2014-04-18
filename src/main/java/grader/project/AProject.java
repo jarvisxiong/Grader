@@ -68,6 +68,8 @@ public class AProject implements Project {
     protected String mainClassName;
     protected String[] inputFiles;
     protected String[] outputFiles;
+    boolean noProjectFolder;
+
 
     public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -113,13 +115,28 @@ public class AProject implements Project {
         }
         init(rootFolder, anOutputFolder);
     }
+    @Override
+    public boolean isNoProjectFolder() {
+		return noProjectFolder;
+	}
+    @Override
+	public void setNoProjectFolder(boolean noProjectFolder) {
+		this.noProjectFolder = noProjectFolder;
+	}
 
-    public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
+	public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
+        outputFolder = anOutputFolder;
+
         rootFolder = aRootFolder;
+        if (aRootFolder == null)
+        	setNoProjectFolder(true);
+        else {
+        
         projectFolderName = aRootFolder.getAbsoluteName();
 //        if (projectFolderName.contains("bluong"))
 //        	System.out.println("bluoing");
-        outputFolder = anOutputFolder;
+//        outputFolder = anOutputFolder;
+        
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
@@ -129,6 +146,7 @@ public class AProject implements Project {
         outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
         mainClassFinder = createMainClassFinder();
+        }
     }
 
     public String createLocalSourceFileName() {
@@ -181,6 +199,8 @@ public class AProject implements Project {
     }
     
     public void makeClassDescriptions() {
+    	if (isNoProjectFolder())
+    		return;
     	
         try { // Added by Josh: Exceptions can occur when making class descriptions
             classesManager.makeClassDescriptions(this);

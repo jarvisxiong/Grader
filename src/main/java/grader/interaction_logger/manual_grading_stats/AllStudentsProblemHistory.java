@@ -50,6 +50,7 @@ public interface AllStudentsProblemHistory {
 	public void setProblemName(String problemName) ;
 	public String getGraderName();
 	public void setGraderName(String graderName) ;
+	void computeAggregateStats();
 	
 	
 

@@ -42,6 +42,7 @@ public class ProjectWrapper extends StandardProject {
      * @throws FileNotFoundException
      */
     private static File getDirectory(Project project) throws FileNotFoundException {
+    	if (project.isNoProjectFolder()) return null;
 
         // Can be a path or a directory
         File path = new File(project.getProjectFolderName());

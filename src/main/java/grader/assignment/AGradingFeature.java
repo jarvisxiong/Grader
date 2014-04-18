@@ -179,6 +179,7 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public void setProject(SakaiProject aProject) {
+		
 		project = aProject;
 		if (featureChecker != null)
 			featureChecker.setProject(aProject);
@@ -203,6 +204,12 @@ public class AGradingFeature implements GradingFeature {
 		cannotAutoGrade = false;
 		manualNotes = retrieveManualNotes();
 		autoNotes = retrieveAutoNotes();
+		
+		if (project.isNoProjectFolder()) {
+			internalSetScore(0);			
+		}
+		
+		
 		// will let project stepper worry abput this
 //		result = retrieveResult();
 		firePropertyChange("this", null, this);
@@ -233,8 +240,9 @@ public class AGradingFeature implements GradingFeature {
 	}
 
 	public void autoGrade() {
-		if (cannotAutoGrade)
+		if (cannotAutoGrade) {
 			return;
+		}
 //		propertyChangeSupport.firePropertyChange("AutoGrade", false, true); // change the selected feature before autograding
 		
 		project.setCurrentGradingFeature(feature); // change the selected feature before autograding

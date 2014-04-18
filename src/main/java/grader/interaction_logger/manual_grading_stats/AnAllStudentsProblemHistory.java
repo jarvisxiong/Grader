@@ -37,8 +37,29 @@ public class AnAllStudentsProblemHistory implements AllStudentsProblemHistory{
 		problemName = aProblemName;
 		
 	}
+	@Override
+	public void computeAggregateStats() {
+		elapsedAutoTime = 0;
+		elapsedManualTime = 0;
+		averageAutoTime = 0;
+		averageManualTime = 0;
+		totalManualFeatureScoreOverrides = 0;
+		totalOverallScoreOverrides = 0;
+		totalManualFeatureNotes = 0;
+		 totaleManualOverallNotes = 0;
+		 averagelManualFeatureScoreOverrides = 0;
+		 averageOverallScoreOverrides = 0;
+		 averageManualFeatureNotes = 0;
+		 averageManualOverallNotes = 0;
+//		 for (String onyen:visitedStudents) {
+//			 StudentProblemGradingHistory h
+//		 }
+		
+	}
+	
 	
 	public double getElapsedAutoTime() {
+		
 		return elapsedAutoTime;
 	}
 	public void setElapsedAutoTime(double elapsedAutoTime) {

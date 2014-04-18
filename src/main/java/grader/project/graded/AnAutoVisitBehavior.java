@@ -196,7 +196,10 @@ public class AnAutoVisitBehavior implements
 		return project;
 	}
 
-
+	boolean isNotRunnable() {
+		return project.getClassLoader() == null || project.getClassesManager() == null;
+		
+	}
 
 	// Josh: We want to know when a project is set, so I'm adding the project
 	// property change event here.
@@ -204,13 +207,22 @@ public class AnAutoVisitBehavior implements
 	public boolean setProject(SakaiProject newVal) {
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
-
+		
 		runExecuted = false;
+		boolean notRunnable = false;
 		project = newVal;
-		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
+//		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
+		if (isNotRunnable()) {
+
 			AutoVisitFailedException.newCase("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen(), this);
-//			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
+			notRunnable = true;
+			
+//			projectStepper.setScore(0);
+//			projectStepper.setMultiplier(0);
+			//			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
+			if (AGradedProjectNavigator.doNotVisitNullProjects)
 			return false;
+			
 		}
 
 	
@@ -464,6 +476,10 @@ public class AnAutoVisitBehavior implements
 //	@Row(3)
 	@ComponentWidth(100)
 	public void run() {
+		if (isNotRunnable()) {
+			notRunnableProjectFeedback();
+			return;
+		}
 		runExecuted = true;
 		projectDatabase.runProject(projectStepper.getOnyen(), project);
 		project.setHasBeenRun(true);
@@ -485,6 +501,18 @@ public class AnAutoVisitBehavior implements
 
 	}
 	boolean settingUpProject;
+	
+	void notRunnableProjectFeedback() {
+		
+			projectStepper.internalSetScore(0);
+			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+
+			String newNotes = notesGenerator.missingProjectNotes(projectStepper);
+			projectStepper.setOverallNotes(notesGenerator.appendNotes(
+					projectStepper.getOverallNotes(), 
+					newNotes));
+		
+	}
 	//
 	@Row(8)
 	@ComponentWidth(100)
@@ -492,6 +520,17 @@ public class AnAutoVisitBehavior implements
 	public void autoGrade() {
 //		project.setHasBeenRun(true);
 		projectStepper.setChanged (true);
+		if (isNotRunnable()) {
+			notRunnableProjectFeedback();
+//			for (GradingFeature gradingFeature : projectDatabase
+//					.getGradingFeatures()) {
+//				if (gradingFeature.isAutoGradable()) {
+//					gradingFeature.internalSetScore(0);
+//				}
+//			}
+			return;
+		}
+		
 		// we may have compile errors in output, so do not clear it
 //		project.clearOutput();
 		for (GradingFeature gradingFeature : projectDatabase
@@ -500,12 +539,25 @@ public class AnAutoVisitBehavior implements
 				gradingFeature.pureSetGraded(true);
 			}
 		}
+		if (isNotRunnable()) {
+			notRunnableProjectFeedback();
+//			for (GradingFeature gradingFeature : projectDatabase
+//					.getGradingFeatures()) {
+//				if (gradingFeature.isAutoGradable()) {
+//					gradingFeature.internalSetScore(0);
+//				}
+//			}
+			return;
+		}
+//		if (!isNotRunnable()) {
 		featureResults = projectDatabase.getProjectRequirements()
 				.checkFeatures(wrappedProject);
 		
 		restrictionResults = projectDatabase.getProjectRequirements()
 				.checkRestrictions(wrappedProject);
+		
 		FeaturesAutoGraded.newCase(projectDatabase, projectStepper, project, this);
+//		}
 		GradingFeatureList features = projectDatabase.getGradingFeatures();
 //		projectStepper.setComputedScore(); // will trigger change occurred
 		for (int i = 0; i < features.size(); i++) {

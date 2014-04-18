@@ -24,6 +24,13 @@ public class ANotesGenerator implements NotesGenerator{
 	public String totalScoreOverrideNotes (ProjectStepper aProjectStepper, double oldVal, double newVal) {
 		return  "Total score manually changed from " + oldVal + " to " + newVal + "." ;
 	}
+	@Override
+	public String missingProjectNotes (ProjectStepper aProjectStepper) {
+		String submissionFolder = aProjectStepper.getProject().getStudentAssignment().getSubmissionFolder().toString();
+		String retVal =  "Missing project in submission folder:" + submissionFolder;
+		if (aProjectStepper.getOverallNotes().contains(retVal)) return "";
+		return retVal;
+	}
 	
 	public String autoFeatureScoreOverrideNotes (ProjectStepper aProjectStepper, GradingFeature aGradingFeature, double oldVal, double newVal) {
 //		return  "Score manually changed from " + oldVal + " to " + newVal + "." ;

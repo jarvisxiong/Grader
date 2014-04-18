@@ -58,6 +58,7 @@ import grader.project.MainClassFinderSelector;
 import grader.project.Project;
 import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
+import grader.project.graded.AGradedProjectNavigator;
 import grader.project.graded.AMainProjectStepper;
 import grader.project.graded.AnOverviewProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
@@ -422,15 +423,14 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		
 
 		if (projectFolder == null) {
-//			System.out.println("No project folder found for:"
-//					+ anAssignment.getOnyen() + " "
-//					+ anAssignment.getStudentName());
+
 			Tracer.error(ProjectFolderNotFound.newCase(anAssignment.getOnyen(), anAssignment.getStudentName(), this).getMessage()); // we will not throw this exception
+			if (AGradedProjectNavigator.doNotVisitNullProjects)
 			return null;
 		}
 		// List<OEFrame> oldList = new ArrayList( uiFrameList.getList());
 
-		if (!anAssignment.isSubmitted()) {
+		if (!anAssignment.isSubmitted() && AGradedProjectNavigator.doNotVisitNullProjects) {
 			System.out.println("Assignment not submitted:"
 					+ anAssignment.getOnyen() + " "
 					+ anAssignment.getStudentName());
@@ -438,12 +438,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			return null;
 		}
 
-		// List<OEFrame> newList = new ArrayList( uiFrameList.getList());
-		// for (OEFrame frame:newList) {
-		// if (oldList.contains(frame))
-		// continue;
-		// frame.dispose(); // will this work
-		//
+		
 		SakaiProject aProject;
 		try {
 			aProject = new ASakaiProject(anAssignment, sourceFileNameSuffix,

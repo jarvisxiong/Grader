@@ -79,12 +79,13 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	boolean manualOnyen;
 	String logFile, gradedFile, skippedFile;
 	boolean sourceHasBeenOpened;
+	public static final boolean doNotVisitNullProjects = false; // we will make this a property if we ever want to set it to true
+
 
 	public AGradedProjectNavigator() {
 
 	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
-
 
 		projectDatabase = aProjectDatabase;
 		// ouch, cast should change once we get rid of old stepper
@@ -520,7 +521,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 //		redirectProject();
 //		projectDatabase.initIO();
 //		projectDatabase.recordWindows();
-		if (aProject == null) {
+		if (aProject == null && doNotVisitNullProjects) {
 			ProjectStepStarted.newCase(projectDatabase, projectStepper, null, this);
 
 			ProjectStepAborted.newCase(projectDatabase, projectStepper, null, this);
