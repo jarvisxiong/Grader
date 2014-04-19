@@ -1,6 +1,7 @@
 package tools;
 
 import scala.Option;
+import grader.project.file.java.AJavaRootCodeFolder;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -86,4 +87,16 @@ public class DirectoryUtils {
 
         return allFiles;
     }
+
+	public static Set<File> getSourceFiles(File sourceFolder) {
+	Set<File> javaFiles = getFiles(sourceFolder, new FileFilter() {
+		@Override
+		public boolean accept(File pathname) {
+//			return pathname.getName().endsWith(".java");
+			return pathname.getName().endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX);
+
+		}
+	});
+	return javaFiles;
+	}
 }
