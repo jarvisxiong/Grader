@@ -2,6 +2,7 @@ package grader.file;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Set;
 
 // unite file system and zip file interface
@@ -24,5 +25,9 @@ public interface FileProxy extends RootFolderProxy {
 
     public FileProxy getParentFolder();
     String getParentRelativeName();
+
+	String displayTree();
+
+	List<FileProxy> getChildren();
 
 }

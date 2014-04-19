@@ -204,10 +204,11 @@ public class AGradingFeature implements GradingFeature {
 		cannotAutoGrade = false;
 		manualNotes = retrieveManualNotes();
 		autoNotes = retrieveAutoNotes();
+		score = 0;
 		
-		if (project.isNoProjectFolder()) {
-			internalSetScore(0);			
-		}
+//		if (project.isNoProjectFolder()) {
+//			pureSetScore(0);			
+//		}
 		
 		
 		// will let project stepper worry abput this

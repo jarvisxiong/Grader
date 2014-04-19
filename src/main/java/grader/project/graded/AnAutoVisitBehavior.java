@@ -522,6 +522,14 @@ public class AnAutoVisitBehavior implements
 		projectStepper.setChanged (true);
 		if (isNotRunnable()) {
 			notRunnableProjectFeedback();
+			for (GradingFeature gradingFeature : projectDatabase
+					.getGradingFeatures()) {
+				if (gradingFeature.isAutoGradable()) {
+					double score = 0;
+					gradingFeature.internalSetScore(score);
+					featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), gradingFeature.getFeatureName(), score);
+				}
+			}
 //			for (GradingFeature gradingFeature : projectDatabase
 //					.getGradingFeatures()) {
 //				if (gradingFeature.isAutoGradable()) {
@@ -539,16 +547,7 @@ public class AnAutoVisitBehavior implements
 				gradingFeature.pureSetGraded(true);
 			}
 		}
-		if (isNotRunnable()) {
-			notRunnableProjectFeedback();
-//			for (GradingFeature gradingFeature : projectDatabase
-//					.getGradingFeatures()) {
-//				if (gradingFeature.isAutoGradable()) {
-//					gradingFeature.internalSetScore(0);
-//				}
-//			}
-			return;
-		}
+		
 //		if (!isNotRunnable()) {
 		featureResults = projectDatabase.getProjectRequirements()
 				.checkFeatures(wrappedProject);

@@ -26,7 +26,7 @@ public class ANotesGenerator implements NotesGenerator{
 	}
 	@Override
 	public String missingProjectNotes (ProjectStepper aProjectStepper) {
-		String submissionFolder = aProjectStepper.getProject().getStudentAssignment().getSubmissionFolder().toString();
+		String submissionFolder = aProjectStepper.getProject().getStudentAssignment().getSubmissionFolder().displayTree();
 		String retVal =  "Missing project in submission folder:" + submissionFolder;
 		if (aProjectStepper.getOverallNotes().contains(retVal)) return "";
 		return retVal;

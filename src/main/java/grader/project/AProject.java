@@ -128,6 +128,8 @@ public class AProject implements Project {
         outputFolder = anOutputFolder;
 
         rootFolder = aRootFolder;
+        outputFileName = createFullOutputFileName();
+
         if (aRootFolder == null)
         	setNoProjectFolder(true);
         else {
@@ -143,7 +145,7 @@ public class AProject implements Project {
         else
         	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
         sourceFileName = createFullSourceFileName();
-        outputFileName = createFullOutputFileName();
+//        outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
         mainClassFinder = createMainClassFinder();
         }

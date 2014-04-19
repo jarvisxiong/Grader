@@ -74,20 +74,30 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
        		return Common.toRelativeName(getParentFolder().getLocalName(), getLocalName());
    		
    	}
+    @Override
+    public List<FileProxy> getChildren() {
+    	return getChildrenOf(getAbsoluteName());
+    }
     
-    public String toString() {
+    @Override
+    public String displayTree() {
     	String retVal = getParentRelativeName();
     	if (!isDirectory()) return retVal;
-    	List<FileProxy> children = getChildrenOf(getLocalName());
+//    	String localName = getLocalName();
+//    	String absoluteName = getAbsoluteName();
+    	List<FileProxy> children = getChildren();
+    	if (children.size() == 0) return retVal;
     	retVal += "( ";
     	
     	for (int i = 0; i < children.size(); i++) {
-    		String childRepresentation = children.get(i).toString();
+    		String childRepresentation = children.get(i).displayTree();
     		if (i == 0)
     			retVal += childRepresentation;
     		else
     			retVal += ", " + childRepresentation;
     	}
+    	retVal += ")";
+
     	return retVal;
     }
 }

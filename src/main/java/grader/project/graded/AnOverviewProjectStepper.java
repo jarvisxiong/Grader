@@ -599,7 +599,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (settingUpProject) 
 		    return;
 //		computeNextColors();
+		if (!project.isNoProjectFolder())
 		setGradingFeatureColors();
+//		if (!project.isNoProjectFolder())
 		gradedProjectOverview.setMultiplierColor();
 		setOverallNotesColor();
 		gradedProjectOverview.setScoreColor();
@@ -809,7 +811,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Row(10)
 	@Override
 	public boolean isAllGraded() {
-		return getGradingFeatures().isAllGraded();
+		return project.isNoProjectFolder() || getGradingFeatures().isAllGraded();
 	}
 
 
