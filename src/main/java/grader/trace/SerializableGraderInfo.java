@@ -1,10 +1,10 @@
 package grader.trace;
 
-import grader.interaction_logger.SavedAllStudentsProblemGradingHistory;
-import grader.interaction_logger.SavedGradingHistoryParser;
-import grader.interaction_logger.SavedGradingHistoryParserSelector;
-import grader.interaction_logger.SavedGradingHistoryUnparser;
-import grader.interaction_logger.SavedGradingHistoryUnparserSelector;
+import grader.interaction_logger.manual_grading_stats.AllStudentsProblemHistory;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryParser;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryParserSelector;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryUnparser;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryUnparserSelector;
 
 import java.util.Date;
 

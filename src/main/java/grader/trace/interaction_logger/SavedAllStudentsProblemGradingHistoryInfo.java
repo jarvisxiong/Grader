@@ -1,6 +1,6 @@
 package grader.trace.interaction_logger;
 
-import grader.interaction_logger.SavedAllStudentsProblemGradingHistory;
+import grader.interaction_logger.manual_grading_stats.AllStudentsProblemHistory;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -8,20 +8,20 @@ import grader.trace.GraderInfo;
 import grader.trace.stepper.AutoAutoGradeSet;
 
 public class SavedAllStudentsProblemGradingHistoryInfo extends GraderInfo{
-	SavedAllStudentsProblemGradingHistory savedProblemGradingHistory;
+	AllStudentsProblemHistory savedProblemGradingHistory;
 	
 	public SavedAllStudentsProblemGradingHistoryInfo(String aMessage, 
-			SavedAllStudentsProblemGradingHistory aSavedProblemGradingHistory,			
+			AllStudentsProblemHistory aSavedProblemGradingHistory,			
 			Object aFinder) {
 		super(aMessage, aFinder);
 	}
 
-	public SavedAllStudentsProblemGradingHistory getSavedProblemGradingHistory() {
+	public AllStudentsProblemHistory getSavedProblemGradingHistory() {
 		return savedProblemGradingHistory;
 	}
 
 	public void setSavedProblemGradingHistory(
-			SavedAllStudentsProblemGradingHistory savedProblemGradingHistory) {
+			AllStudentsProblemHistory savedProblemGradingHistory) {
 		this.savedProblemGradingHistory = savedProblemGradingHistory;
 	}
 

@@ -3,7 +3,6 @@ package framework.project;
 import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -49,7 +48,7 @@ public class ProjectClassesManager implements ClassesManager {
 		classDescriptions = new HashSet<ClassDescription>();
 		loadClasses(sourceFolder);
 	}
-
+	
 	/**
 	 * This loads all the classes based on the source code files.
 	 * 
@@ -59,12 +58,13 @@ public class ProjectClassesManager implements ClassesManager {
 	 * @throws IOException
 	 */
 	private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
-		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
-			@Override
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".java");
-			}
-		});
+		Set<File> javaFiles = DirectoryUtils.getSourceFiles(sourceFolder);
+//		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
+//			@Override
+//			public boolean accept(File pathname) {
+//				return pathname.getName().endsWith(".java");
+//			}
+//		});
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -160,7 +160,8 @@ public class ProjectClassesManager implements ClassesManager {
 	 */
 	private boolean shouldCompile(File javaFile, File classFile) {
 
-		return !classFile.exists() || classFile.lastModified() < javaFile.lastModified();
+		return !classFile.exists() || 
+				classFile.lastModified() < javaFile.lastModified();
 	}
 
 	/**

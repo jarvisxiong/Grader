@@ -1,11 +1,11 @@
-package grader.interaction_logger;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface SavedAllStudentsProblemGradingHistory {
+public interface AllStudentsProblemHistory {
 	public double getElapsedAutoTime() ;
 	public void setElapsedAutoTime(double elapsedAutoTime);
 	public double getElapsedManualTime() ;
@@ -34,13 +34,13 @@ public interface SavedAllStudentsProblemGradingHistory {
 	public void setAverageManualOverallNotes(double averageManualOverallNotes) ;
 //	public List<SavedStudentProblemGradingHistory> getStudentsHistory() ;
 //	public void setStudentsHistory(List<SavedStudentProblemGradingHistory> studentsHistory) ;
-	public void newStudentHistory(String anOnyen, SavedStudentProblemGradingHistory aHistory) ;
+	public void newStudentHistory(String anOnyen, StudentProblemGradingHistory aHistory) ;
 	public List<String> getVisitedStudents() ;
 	public void setVisitedStudents(List<String> visitedStudents) ;
-	public Map<String, SavedStudentProblemGradingHistory> getOnyenToStudentHistory() ;
+	public Map<String, StudentProblemGradingHistory> getOnyenToStudentHistory() ;
 	public void setOnyenToStudentHistory(
-			Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory) ;
-	void merge(SavedAllStudentsProblemGradingHistory other);
+			Map<String, StudentProblemGradingHistory> onyenToStudentHistory) ;
+	void merge(AllStudentsProblemHistory other);
 	public String getModuleName() ;
 
 	public void setModuleName(String moduleName) ;
@@ -50,6 +50,7 @@ public interface SavedAllStudentsProblemGradingHistory {
 	public void setProblemName(String problemName) ;
 	public String getGraderName();
 	public void setGraderName(String graderName) ;
+	void computeAggregateStats();
 	
 	
 

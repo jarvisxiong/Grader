@@ -21,7 +21,9 @@ import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
+import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
@@ -165,6 +167,7 @@ public class Driver {
 	   drive(0, 0);
    }
 
+	static InteractionLogWriter interactionLogWriter;
 
     public static void drive(int settingsFrameX, int settingsFrameY) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
@@ -181,7 +184,10 @@ public class Driver {
         	
             // Load the config file
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
-    		TraceableBus.addTraceableListener(InteractionLogWriterSelector.getInteractionLogWriter());
+			interactionLogWriter = 	InteractionLogWriterSelector.getInteractionLogWriter();
+    		TraceableBus.addTraceableListener(interactionLogWriter);
+//    		TraceableBus.addTraceableListener(InteractionLogWriterSelector.getInteractionLogWriter());
+//    		interactionLogWriter.addLogListener(GradingHistoryManagerSelector.getGradingHistoryManager());
 
 //        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 //        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();

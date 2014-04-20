@@ -258,8 +258,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	@Override
 	public void loadSourceFromFile() {
+		if (project.isNoProjectFolder()) return;
 		internalSetSource(
-				getProject().
+//				getProject().
+					project.
 					getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
 
 	}
@@ -412,7 +414,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		settingUpProject = true;
 		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 		setChanged(false);
-		if (newVal == null) {
+		if (newVal == null && AGradedProjectNavigator.doNotVisitNullProjects) {
 			// Josh: Added event
 			propertyChangeSupport.firePropertyChange("Project", null, null);
 			settingUpProject = false;
@@ -428,11 +430,13 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		project = newVal;
 		// will do this before setProject in overview which has side effects and has to be done later
 		// onyen was set earlier in overview
+		if (project != null) {
 		gradedProjectOverview.setName(project.getStudentAssignment().getStudentName());
 
 
 
 		documents = project.getStudentAssignment().getDocuments();
+	}
 		resetGradingFeatures();
 
 //		autoVisitBehavior.setProject(newVal);
@@ -595,7 +599,9 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (settingUpProject) 
 		    return;
 //		computeNextColors();
+		if (!project.isNoProjectFolder())
 		setGradingFeatureColors();
+//		if (!project.isNoProjectFolder())
 		gradedProjectOverview.setMultiplierColor();
 		setOverallNotesColor();
 		gradedProjectOverview.setScoreColor();
@@ -805,7 +811,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Row(10)
 	@Override
 	public boolean isAllGraded() {
-		return getGradingFeatures().isAllGraded();
+		return project.isNoProjectFolder() || getGradingFeatures().isAllGraded();
 	}
 
 

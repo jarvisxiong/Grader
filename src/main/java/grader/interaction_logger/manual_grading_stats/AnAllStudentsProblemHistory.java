@@ -1,4 +1,4 @@
-package grader.interaction_logger;
+package grader.interaction_logger.manual_grading_stats;
 
 import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryMerged;
 import grader.trace.interaction_logger.SavedStudentProblemGradingHistoryEntered;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsProblemGradingHistory{
+public class AnAllStudentsProblemHistory implements AllStudentsProblemHistory{
 	double elapsedAutoTime;
 	double elapsedManualTime;
 	double averageAutoTime;
@@ -28,17 +28,38 @@ public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsP
 
 	
 	
-	Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory = new HashMap();
+	Map<String, StudentProblemGradingHistory> onyenToStudentHistory = new HashMap();
 //	List<SavedStudentProblemGradingHistory> studentsHistory = new ArrayList();
 	
-	public ASavedAllStudentsProblemGradingHistory(String aGraderName, String aModuleName, String aProblemName) {
+	public AnAllStudentsProblemHistory(String aGraderName, String aModuleName, String aProblemName) {
 		graderName = aGraderName;
 		moduleName = aModuleName;
 		problemName = aProblemName;
 		
 	}
+	@Override
+	public void computeAggregateStats() {
+		elapsedAutoTime = 0;
+		elapsedManualTime = 0;
+		averageAutoTime = 0;
+		averageManualTime = 0;
+		totalManualFeatureScoreOverrides = 0;
+		totalOverallScoreOverrides = 0;
+		totalManualFeatureNotes = 0;
+		 totaleManualOverallNotes = 0;
+		 averagelManualFeatureScoreOverrides = 0;
+		 averageOverallScoreOverrides = 0;
+		 averageManualFeatureNotes = 0;
+		 averageManualOverallNotes = 0;
+//		 for (String onyen:visitedStudents) {
+//			 StudentProblemGradingHistory h
+//		 }
+		
+	}
+	
 	
 	public double getElapsedAutoTime() {
+		
 		return elapsedAutoTime;
 	}
 	public void setElapsedAutoTime(double elapsedAutoTime) {
@@ -118,8 +139,8 @@ public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsP
 //	public void setStudentsHistory(List<SavedStudentProblemGradingHistory> studentsHistory) {
 //		this.studentsHistory = studentsHistory;
 //	}
-	public void newStudentHistory(String anOnyen, SavedStudentProblemGradingHistory aHistory) {
-		SavedStudentProblemGradingHistory existingHistory = onyenToStudentHistory.get(anOnyen);
+	public void newStudentHistory(String anOnyen, StudentProblemGradingHistory aHistory) {
+		StudentProblemGradingHistory existingHistory = onyenToStudentHistory.get(anOnyen);
 		if (existingHistory != null) {
 			existingHistory.merge(aHistory);
 			SavedStudentProblemGradingHistoryMerged.newCase(aHistory, this);
@@ -136,11 +157,11 @@ public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsP
 	public void setVisitedStudents(List<String> visitedStudents) {
 		this.visitedStudents = visitedStudents;
 	}
-	public Map<String, SavedStudentProblemGradingHistory> getOnyenToStudentHistory() {
+	public Map<String, StudentProblemGradingHistory> getOnyenToStudentHistory() {
 		return onyenToStudentHistory;
 	}
 	public void setOnyenToStudentHistory(
-			Map<String, SavedStudentProblemGradingHistory> onyenToStudentHistory) {
+			Map<String, StudentProblemGradingHistory> onyenToStudentHistory) {
 		this.onyenToStudentHistory = onyenToStudentHistory;
 	}
 	public String getModuleName() {
@@ -166,10 +187,10 @@ public class ASavedAllStudentsProblemGradingHistory implements SavedAllStudentsP
 		this.graderName = graderName;
 	}
 	@Override
-	public void merge(SavedAllStudentsProblemGradingHistory other) {
+	public void merge(AllStudentsProblemHistory other) {
 		// TO DO the numerical statuses
 		List<String> otherOnyens = other.getVisitedStudents();
-		Map<String, SavedStudentProblemGradingHistory> otherMap = other.getOnyenToStudentHistory();
+		Map<String, StudentProblemGradingHistory> otherMap = other.getOnyenToStudentHistory();
 		for (String onyen:otherOnyens) {
 			newStudentHistory(onyen, otherMap.get(onyen));
 		}

@@ -19,6 +19,7 @@ import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import grader.trace.execution.MainMethodNotFound;
 import grader.trace.overall_transcript.OverallTranscriptCleared;
+import grader.trace.project.ProjectFolderNotFound;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -68,6 +69,8 @@ public class AProject implements Project {
     protected String mainClassName;
     protected String[] inputFiles;
     protected String[] outputFiles;
+    boolean noProjectFolder;
+
 
     public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -113,22 +116,43 @@ public class AProject implements Project {
         }
         init(rootFolder, anOutputFolder);
     }
+    @Override
+    public boolean isNoProjectFolder() {
+		return noProjectFolder;
+	}
+    @Override
+	public void setNoProjectFolder(boolean noProjectFolder) {
+		this.noProjectFolder = noProjectFolder;
+	}
 
-    public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
+	public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
+        outputFolder = anOutputFolder;
+
         rootFolder = aRootFolder;
+        outputFileName = createFullOutputFileName();
+
+        if (aRootFolder == null)
+        	setNoProjectFolder(true);
+        else {
+        
         projectFolderName = aRootFolder.getAbsoluteName();
 //        if (projectFolderName.contains("bluong"))
 //        	System.out.println("bluoing");
-        outputFolder = anOutputFolder;
+//        outputFolder = anOutputFolder;
+        try {
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
+        } catch (ProjectFolderNotFound e) {
+        	setNoProjectFolder(true);
+        }
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
         else
         	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
         sourceFileName = createFullSourceFileName();
-        outputFileName = createFullOutputFileName();
+//        outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
         mainClassFinder = createMainClassFinder();
+        }
     }
 
     public String createLocalSourceFileName() {
@@ -181,6 +205,8 @@ public class AProject implements Project {
     }
     
     public void makeClassDescriptions() {
+    	if (isNoProjectFolder())
+    		return;
     	
         try { // Added by Josh: Exceptions can occur when making class descriptions
             classesManager.makeClassDescriptions(this);

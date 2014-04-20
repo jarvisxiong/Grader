@@ -22,8 +22,14 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
     }
 
     public FileProxy getParentFolder() {
-        String parentName = Common.getParentFileName(getAbsoluteName());
-        return this.getFileEntry(parentName);
+//        String parentName = Common.getParentFileName(getAbsoluteName());
+//        return this.getFileEntry(parentName);
+    	return this.getFileEntry(getParentFolderName());
+    }
+    @Override
+    public String getParentFolderName() {
+        return Common.getParentFileName(getAbsoluteName());
+//        return this.getFileEntry(parentName);
     }
 
     public void initRootData() {
@@ -74,4 +80,30 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
        		return Common.toRelativeName(getParentFolder().getLocalName(), getLocalName());
    		
    	}
+    @Override
+    public List<FileProxy> getChildren() {
+    	return getChildrenOf(getAbsoluteName());
+    }
+    
+    @Override
+    public String displayTree() {
+    	String retVal = getParentRelativeName();
+    	if (!isDirectory()) return retVal;
+//    	String localName = getLocalName();
+//    	String absoluteName = getAbsoluteName();
+    	List<FileProxy> children = getChildren();
+    	if (children.size() == 0) return retVal;
+    	retVal += "( ";
+    	
+    	for (int i = 0; i < children.size(); i++) {
+    		String childRepresentation = children.get(i).displayTree();
+    		if (i == 0)
+    			retVal += childRepresentation;
+    		else
+    			retVal += ", " + childRepresentation;
+    	}
+    	retVal += ")";
+
+    	return retVal;
+    }
 }

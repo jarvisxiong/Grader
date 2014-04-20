@@ -86,4 +86,8 @@ public interface Project {
 
 	String getSourceSuffix();
 
+	boolean isNoProjectFolder();
+
+	void setNoProjectFolder(boolean noProjectFolder);
+
 }

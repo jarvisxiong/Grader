@@ -1,6 +1,7 @@
 package grader.project;
 
 import grader.file.FileProxy;
+import grader.project.file.java.AJavaRootCodeFolder;
 import util.misc.Common;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
         for (FileProxy aFile : aFiles) {
             String locaName = aFile.getMixedCaseLocalName();
 
-            if (locaName != null && locaName.endsWith(SOURCE_FILE_SUFFIX)) {
+            if (locaName != null && locaName.endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX)) {
+//                if (locaName != null && locaName.endsWith(SOURCE_FILE_SUFFIX)) {
+
                 String relativeName = Common.toRelativeName(srcFolderName, aFile.getMixedCaseAbsoluteName());
                 String className = Common.projectRelativeNameToClassName(relativeName);
                 StringBuffer text = Common.toText(aFile.getInputStream());

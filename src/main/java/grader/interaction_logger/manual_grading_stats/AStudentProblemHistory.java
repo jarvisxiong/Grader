@@ -1,12 +1,14 @@
-package grader.interaction_logger;
+package grader.interaction_logger.manual_grading_stats;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingHistory{
-	List<String> graderNames;	
+public class AStudentProblemHistory  implements StudentProblemGradingHistory{
+	List<String> graderNames = new ArrayList();	
 	String moduleName;
 	String problemName;
 	String onyen;
@@ -27,13 +29,16 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	double multiplier;
 	double sourcePoints;
 	double featuresScore;
+	Set<String> tabsVisited = new HashSet();
 	
 	
 
 	
 
 	
-	public  ASavedStudentProblemHistory(String aModuleName, String aProblemName, String anOnyen) {
+
+	public  AStudentProblemHistory(String aGraderName, String aModuleName, String aProblemName, String anOnyen) {
+		graderNames.add(aGraderName);
 		moduleName = aModuleName;
 		problemName = aProblemName;
 		onyen = anOnyen;
@@ -128,12 +133,19 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 		this.visitEndTime = visitEndTime;
 	}
 	@Override
-	public void merge(SavedStudentProblemGradingHistory other) {
+	public void merge(StudentProblemGradingHistory other) {
 		incNumVisits();
-		if (!other.getManualOverallNotes().isEmpty() && other.getVisitEndTime() > getVisitEndTime())
+		if (other.getVisitEndTime() > getVisitEndTime()) {
+//		if (!other.getManualOverallNotes().isEmpty())
 			manualOverallNotes = other.getManualOverallNotes();
-		if (other.getManualOverallScore() != null && other.getVisitEndTime() > getVisitEndTime())
+//		if (other.getManualOverallScore() != null)
 			manualOverallScore = other.getManualOverallScore();
+		totalScore = other.getTotalScore();
+		featuresScore = other.getFeaturesScore();
+		multiplier = other.getMultiplier();
+		sourcePoints = other.getSourcePoints();
+		sourceComments = other.getSourceComments();
+		
 		Map<String, Double> otherFeatureToManualScore = other.getFeatureToManualScore();
 		Set<String> otherFeatures = otherFeatureToManualScore.keySet();
 		for (String onyen:otherFeatures) {
@@ -143,6 +155,12 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 		otherFeatures = otherFeatureToManualNotes.keySet();
 		for (String onyen:otherFeatures) {
 			featureToManualNotes.put(onyen, otherFeatureToManualNotes.get(onyen));			
+		}
+		}
+		tabsVisited.addAll(other.getTabsVisited());
+		for (String grader:other.getGraderNames()) {
+			if (graderNames.contains(grader)) continue;
+			graderNames.add(grader);
 		}
 //		visitPeriod += other.getVisitPeriod();	
 		manualVisitTime += other.getManualVisitTime();
@@ -210,7 +228,33 @@ public class ASavedStudentProblemHistory  implements SavedStudentProblemGradingH
 	public void setFeaturesScore(double featuresScore) {
 		this.featuresScore = featuresScore;
 	}
+	
+	public Set<String> getTabsVisited() {
+		return tabsVisited;
+	}
 
+	public void setTabsVisited(Set<String> tabsVisited) {
+		this.tabsVisited = tabsVisited;
+	}
+	
+	public void isSourceVisited() {
+		tabsVisited.contains(SOURCE_TAB);
+	}
+	public void setSourceVisited() {
+		tabsVisited.add(SOURCE_TAB);
+	}
+	public void isFeedbackVisited() {
+		tabsVisited.contains(FEEDBACK_TAB);
+	}
+	public void setFeedbackVisited() {
+		tabsVisited.add(FEEDBACK_TAB);
+	}
 
+	public void isSourceOpened() {
+		tabsVisited.contains(SOURCE_OPEN);
+	}
+	public void setSourceOpened() {
+		tabsVisited.add(SOURCE_OPEN);
+	}
 
 }

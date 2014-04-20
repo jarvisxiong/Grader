@@ -171,4 +171,22 @@ public class SimplifiedFileProxy implements FileProxy {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String displayTree() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FileProxy> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getParentFolderName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

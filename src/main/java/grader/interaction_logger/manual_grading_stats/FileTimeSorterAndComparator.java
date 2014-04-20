@@ -1,4 +1,4 @@
-package grader.interaction_logger;
+package grader.interaction_logger.manual_grading_stats;
 
 import java.io.File;
 import java.util.Arrays;
