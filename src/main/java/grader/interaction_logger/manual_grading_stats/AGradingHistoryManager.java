@@ -75,7 +75,9 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	}
 	@Override
 	public void setProblemHistoryTextOfCurrentModuleProblem() {
-		setProblemHistoryTextOfCurrentModuleProblem(getProblemHistoryTextOfCurrentModuleProblem());
+		String log = getProblemHistoryTextOfCurrentModuleProblem();
+		String aggregate = getAggregateProblemHistoryTextOfCurrentModuleProblem();
+		setProblemHistoryTextOfCurrentModuleProblem(aggregate + "\n" + log);
 	}
 	@Override
 	public String getProblemHistoryTextOfCurrentModuleProblem() {
