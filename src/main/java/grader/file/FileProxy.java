@@ -30,4 +30,6 @@ public interface FileProxy extends RootFolderProxy {
 
 	List<FileProxy> getChildren();
 
+	String getParentFolderName();
+
 }

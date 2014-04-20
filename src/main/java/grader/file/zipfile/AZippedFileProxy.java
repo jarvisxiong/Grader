@@ -33,8 +33,11 @@ public class AZippedFileProxy extends AnAbstractFileProxy implements FileProxy {
             name = mixedCaseName.toLowerCase();
     }
 
+//    public String toString() {
+//        return zipFile.toString();
+//    }
     public String toString() {
-        return zipFile.toString();
+    	return getLocalName();
     }
 
     public boolean exists() {
@@ -85,4 +88,5 @@ public class AZippedFileProxy extends AnAbstractFileProxy implements FileProxy {
     public String getMixedCaseLocalName() {
         return mixedCaseName;
     }
+    
 }

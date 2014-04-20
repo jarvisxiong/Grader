@@ -19,6 +19,7 @@ import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import grader.trace.execution.MainMethodNotFound;
 import grader.trace.overall_transcript.OverallTranscriptCleared;
+import grader.trace.project.ProjectFolderNotFound;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -138,8 +139,11 @@ public class AProject implements Project {
 //        if (projectFolderName.contains("bluong"))
 //        	System.out.println("bluoing");
 //        outputFolder = anOutputFolder;
-        
+        try {
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
+        } catch (ProjectFolderNotFound e) {
+        	setNoProjectFolder(true);
+        }
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
         else

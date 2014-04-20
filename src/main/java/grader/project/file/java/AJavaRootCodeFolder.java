@@ -3,12 +3,15 @@ package grader.project.file.java;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.project.MissingProjectException;
+
 import util.misc.Common;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.project.file.RootCodeFolder;
 import grader.trace.project.BinaryFolderIdentified;
 import grader.trace.project.BinaryFolderNotFound;
+import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderIdentified;
 //a root folder containing source and binary directories
 public class AJavaRootCodeFolder implements RootCodeFolder {
@@ -40,6 +43,18 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		BinaryFolderIdentified.newCase(binaryFolderName, this);
 		
 	}
+	
+	String findParentOfSomeSourceFile(RootFolderProxy aRoot) { // will  not work with packages
+		List<FileProxy> entries = aRoot.getFileEntries();
+		for (FileProxy aFile:entries) {
+			if (aFile.getAbsoluteName().endsWith(SOURCE_FILE_SUFFIX)) {
+				return aFile.getParentFolderName();
+			}
+		}
+		return null;
+		
+		
+	}
 
 	public AJavaRootCodeFolder(RootFolderProxy aRoot) {
 //		if (aRoot.getAbsoluteName().indexOf("erichman") != -1) {
@@ -61,14 +76,23 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		
 //		if (sourceFolderName == null || binaryFolderName == null) {
 		if (sourceFolderName == null && binaryFolderName == null) {
-
-		sourceFolderName = aRoot.getAbsoluteName();
-		binaryFolderName = sourceFolderName;
-		// this should go
-		if (separateSourceBinary) {
-			sourceFolderName +=  "/" + SOURCE;
-			binaryFolderName += "/" + BINARY;
+		 sourceFolderName = findParentOfSomeSourceFile(aRoot);
+		if (sourceFolderName != null) {
+//			sourceFolderName = sourceFolder.getAbsoluteName();
+			binaryFolderName = sourceFolderName;
+		} else {
+			throw ProjectFolderNotFound.newCase(aRoot.getLocalName(), this);
 			
+			
+
+//		sourceFolderName = aRoot.getAbsoluteName();
+//		binaryFolderName = sourceFolderName;
+//		// this should go
+//		if (separateSourceBinary) {
+//			sourceFolderName +=  "/" + SOURCE;
+//			binaryFolderName += "/" + BINARY;
+//			
+//		}
 		}
 		}
 		
@@ -90,7 +114,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		} else {
 			projectFolder = binaryFolderName;
 			//added this.
-			sourceFolder = root;
+			sourceFolder = root.getFileEntry(sourceFolderName + "/"); //no idea whey I need sometimes ending backslash, need to debu
+
+//			sourceFolder = root;
 		}
 		
 		SourceFolderIdentified.newCase(sourceFolderName, this);
