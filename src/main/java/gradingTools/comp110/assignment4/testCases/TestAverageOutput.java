@@ -68,7 +68,7 @@ public class TestAverageOutput extends TestGerbilInputWithCommand {
 		}
 		
 		if (!correctVals) {
-			return fail("==Did not print the correct values for average command");
+			return fail("Did not print the correct values for average command");
 		}
 		
 		double score = 1.0;
