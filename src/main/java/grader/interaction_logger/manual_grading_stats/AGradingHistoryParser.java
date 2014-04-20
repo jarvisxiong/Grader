@@ -17,6 +17,7 @@ import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.NavigationStarted;
 import grader.trace.stepper.FeedbackVisited;
+import grader.trace.stepper.ProblemHistoryVisited;
 import grader.trace.stepper.ProjectStepAborted;
 import grader.trace.stepper.ProjectStepEnded;
 import grader.trace.stepper.ProjectStepStarted;
@@ -345,6 +346,10 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 			index = logReader.nextRowIndex(FeedbackVisited.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
 				retVal.setFeedbackVisited();
+			}
+			index = logReader.nextRowIndex(ProblemHistoryVisited.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				retVal.setProblemHistoryVisited();
 			}
 		}
 		

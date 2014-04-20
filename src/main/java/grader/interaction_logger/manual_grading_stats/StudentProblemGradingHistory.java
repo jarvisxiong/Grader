@@ -8,6 +8,8 @@ import java.util.Set;
 public interface StudentProblemGradingHistory {
 	public static final String SOURCE_TAB = "source";
 	public static final String FEEDBACK_TAB = "feedback";
+	public static final String PROBLEM_HISTORY_TAB = "problem_history";
+
 	public static final String NAVIGATION_TAB = "navigation";
 	public static final String SOURCE_OPEN = "source_open";
 
@@ -72,9 +74,14 @@ public interface StudentProblemGradingHistory {
 	public void setSourceVisited() ;
 	public void isFeedbackVisited() ;
 	public void setFeedbackVisited() ;
+	
+	public void isProblemHistoryVisited() ;
+	public void setProblemHistoryVisited() ;
 
 	public void isSourceOpened() ;
 	public void setSourceOpened() ;
+	
+	
 	
 
 }

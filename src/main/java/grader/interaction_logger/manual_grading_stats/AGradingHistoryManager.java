@@ -8,14 +8,18 @@ import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.misc.Common;
+
 public class AGradingHistoryManager implements  GradingHistoryManager{
 	public static final String PROBLEM_STATS = "problems";
 	public static final String STUDENT_STATS = "students";
+	public static final String SUFFIUX = ".txt";
 
 	String interactionDirectory;
 	File[] interactionFiles;
@@ -26,8 +30,6 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 
 	AllStudentsProblemHistory currentProblemHistory;
 	InteractionLogWriter interactionLogWriter;
-	
-	
 	
 	/* (non-Javadoc)
 	 * @see grader.interaction_logger.InteractionHistoryManager#readInteractionDirectory()
@@ -40,6 +42,68 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 
 		
 	}
+	@Override
+	public  String getProblemHistoryFileName (String aModule, String aProblem ) {
+		return interactionDirectory + "/" + PROBLEM_STATS + "/" + aModule + "/" + aProblem + ".txt";
+		
+	}
+	@Override
+	public  File getOrCreateProblemHistoryFile(String aModule, String aProblem ) {
+		File file = new File (getProblemHistoryFileName(aModule, aProblem));
+		if (!file.exists()) {
+			boolean success = file.getParentFile().mkdirs();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return file;
+	}
+	@Override
+	public String getSavedProblemHistoryTextOfCurrentModuleProblem() {
+		String aModule = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule();
+		String aProblem = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentProblem();
+		return getProblemHistoryText(aModule, aProblem);
+	}
+	@Override
+	public void setProblemHistoryTextOfCurrentModuleProblem(String newVal) {
+		String aModule = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule();
+		String aProblem = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentProblem();
+		setProblemHistoryText(aModule, aProblem, newVal);
+	}
+	@Override
+	public void setProblemHistoryTextOfCurrentModuleProblem() {
+		setProblemHistoryTextOfCurrentModuleProblem(getProblemHistoryTextOfCurrentModuleProblem());
+	}
+	@Override
+	public String getProblemHistoryTextOfCurrentModuleProblem() {
+		return unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory);
+		
+	}
+	@Override
+	public String getAggregateProblemHistoryTextOfCurrentModuleProblem() {
+		return unparser.getAggregateStatistics(currentProblemHistory);
+		
+	}
+	@Override
+	public String getProblemHistoryText(String aModule, String aProblem) {
+		File file = getOrCreateProblemHistoryFile(aModule, aProblem);
+		return Common.toText(file);
+	}
+	@Override
+	public void setProblemHistoryText(String aModule, String aProblem, String aText) {
+		File file = getOrCreateProblemHistoryFile(aModule, aProblem);
+		try {
+			Common.writeText(file, aText);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@Override
 	public void readInteractionDirectory() {
 		interactionFiles = FileTimeSorterAndComparator.sort(new File(interactionDirectory));
@@ -129,8 +193,9 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 //		System.out.println(scanCSVRow(aRows));
 		StudentProblemGradingHistory newVisit = parser.parseStudentHistory(scanCSVRow(aRows));
 		currentProblemHistory.newStudentHistory(newVisit.getOnyen(), newVisit);
-		String newState = unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory);
-		System.out.println(newState);
+	
+//		String newState = unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory);
+//		System.out.println(newState);
 	}
 	@Override
 	public void newNavigation(List<String> aRows) {
@@ -151,6 +216,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		manager.readInteractionDirectory();
 		manager.buildHistories();
 		manager.unparseProblemHistories();
+		manager.getOrCreateProblemHistoryFile("comp110", "Assignment 3");
 //		manager.buildCurrentProblemHistory();
 	}
 	

@@ -505,7 +505,7 @@ public class AnAutoVisitBehavior implements
 	void notRunnableProjectFeedback() {
 		
 			projectStepper.internalSetScore(0);
-			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();			
 
 			String newNotes = notesGenerator.missingProjectNotes(projectStepper);
 			projectStepper.setOverallNotes(notesGenerator.appendNotes(
@@ -575,10 +575,21 @@ public class AnAutoVisitBehavior implements
 					
 			//not sure why we are doing the following two steps as previous feature data are overridden by the next one
 			// a bit of investigation tells me these steps are useless but leaving the code around
+			String notes = (i < featureResults.size()) ? featureResults
+					.get(i).getNotes() : restrictionResults.get(
+					i - featureResults.size()).getNotes();
+//			featureGradeRecorder
+//					.setFeatureComments((i < featureResults.size()) ? featureResults
+//							.get(i).getNotes() : restrictionResults.get(
+//							i - featureResults.size()).getNotes());
+			
 			featureGradeRecorder
-					.setFeatureComments((i < featureResults.size()) ? featureResults
-							.get(i).getNotes() : restrictionResults.get(
-							i - featureResults.size()).getNotes());
+			.setFeatureComments(notes);
+			
+			// this is a useful step
+			if (!notes.isEmpty())
+				features.get(i).setManualNotes(notes);
+			
 			featureGradeRecorder
 					.setFeatureResults((i < featureResults.size()) ? featureResults
 							.get(i).getResults() : restrictionResults.get(

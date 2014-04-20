@@ -51,6 +51,8 @@ public class CheckResult implements Describable {
     public CheckResult(double score, String notes, CheckStatus status, Gradable target) {
         this.score = score;
         this.notes = notes;
+//        if (!notes.isEmpty())
+//        	autoNotes += notes;
         this.status = status;
         this.target = target;
 

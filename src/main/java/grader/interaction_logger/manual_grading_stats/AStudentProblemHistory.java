@@ -257,4 +257,16 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 		tabsVisited.add(SOURCE_OPEN);
 	}
 
+	@Override
+	public void isProblemHistoryVisited() {
+		tabsVisited.contains(PROBLEM_HISTORY_TAB);
+		
+	}
+
+	@Override
+	public void setProblemHistoryVisited() {
+		tabsVisited.add(PROBLEM_HISTORY_TAB);
+		
+	}
+
 }

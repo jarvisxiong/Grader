@@ -441,6 +441,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.getSource();
 	}
 	@Override
+	@Visible(false)
+	public String getProblemHistory() {
+		return overviewProjectStepper.getProblemHistory();
+	}
+	@Override
 	public void internalSetSource(String newValue) {
 		
 		overviewProjectStepper.internalSetSource(newValue);

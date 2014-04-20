@@ -27,4 +27,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	void loadSourceFromFile();
 
+	String getProblemHistory();
+
 }

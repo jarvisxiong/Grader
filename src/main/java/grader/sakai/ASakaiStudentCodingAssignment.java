@@ -4,6 +4,7 @@ import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
+import grader.trace.project.ProjectFolderAssumed;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.RubrickFileLoaded;
 
@@ -53,6 +54,12 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     			else
     				folderChild = child;
     		}    		
+    	}
+    	if (folderChild == null) {
+    		ProjectFolderNotFound.newCase(submissionFolder.getLocalName(), this);
+    		folderChild = submissionFolder;
+    		ProjectFolderAssumed.newCase(submissionFolder.getLocalName(), this);
+    		
     	}
     	return folderChild;
 

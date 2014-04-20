@@ -70,6 +70,10 @@ public class AProject implements Project {
     protected String[] inputFiles;
     protected String[] outputFiles;
     boolean noProjectFolder;
+//    List<String> nonCompiledClasses = new ArrayList();
+    List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
+	
+	List<String> classNamesCompiled = new ArrayList();
 
 
     public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
@@ -440,5 +444,40 @@ public class AProject implements Project {
 	public String getSourceSuffix() {
 		return sourceSuffix;
 	}
+
+	@Override
+	public boolean hasUnCompiledClasses() {
+		// TODO Auto-generated method stub
+		return classNamesThatCouldNotBeCompiled.size() > 0;
+	}
+
+	@Override
+	public List<String> getNonCompiledClasses() {
+		return classNamesThatCouldNotBeCompiled;
+	}
+
+	@Override
+	public void addNonCompiledClass(String newVal) {
+		classNamesThatCouldNotBeCompiled.add(newVal);
+		
+	}
+	
+	@Override
+	public boolean hasCompiledClasses() {
+		// TODO Auto-generated method stub
+		return classNamesCompiled.size() > 0;
+	}
+
+	@Override
+	public List<String> getCompiledClasses() {
+		return classNamesCompiled;
+	}
+
+	@Override
+	public void addCompiledClass(String newVal) {
+		classNamesCompiled.add(newVal);
+		
+	}
+
 
 }

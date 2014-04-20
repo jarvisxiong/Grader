@@ -89,5 +89,14 @@ public interface Project {
 	boolean isNoProjectFolder();
 
 	void setNoProjectFolder(boolean noProjectFolder);
+	
+	boolean hasUnCompiledClasses();
+	public List<String> getNonCompiledClasses();
+	public void addNonCompiledClass(String newVal);
+	public boolean hasCompiledClasses() ;
+
+	public List<String> getCompiledClasses() ;
+
+	public void addCompiledClass(String newVal) ;
 
 }

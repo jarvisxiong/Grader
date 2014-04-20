@@ -12,7 +12,9 @@ import grader.project.file.RootCodeFolder;
 import grader.trace.project.BinaryFolderIdentified;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
+import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
+import grader.trace.project.SourceFolderNotFound;
 //a root folder containing source and binary directories
 public class AJavaRootCodeFolder implements RootCodeFolder {
 	public static final String SOURCE = "/src";
@@ -76,8 +78,11 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		
 //		if (sourceFolderName == null || binaryFolderName == null) {
 		if (sourceFolderName == null && binaryFolderName == null) {
+			System.out.println(SourceFolderNotFound.newCase(root.getLocalName(), this).getMessage());
 		 sourceFolderName = findParentOfSomeSourceFile(aRoot);
 		if (sourceFolderName != null) {
+			 SourceFolderAssumed.newCase(sourceFolderName, this);
+
 //			sourceFolderName = sourceFolder.getAbsoluteName();
 			binaryFolderName = sourceFolderName;
 		} else {

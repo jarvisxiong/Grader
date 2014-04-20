@@ -6,23 +6,23 @@ import java.util.List;
 import java.util.Map;
 
 public interface AllStudentsProblemHistory {
-	public double getElapsedAutoTime() ;
-	public void setElapsedAutoTime(double elapsedAutoTime);
-	public double getElapsedManualTime() ;
-	public void setElapsedManualTime(double elapsedManualTime);
-	public double getAverageAutoTime() ;
-	public void setAverageAutoTime(double averageAutoTime) ;
-	public double getAverageManualTime() ;
-	public void setAverageManualTime(double averageManualTime) ;
-	public double getTotalManualFeatureScoreOverrides() ;
+	public long getElapsedAutoTime() ;
+	public void setElapsedAutoTime(long elapsedAutoTime);
+	public long getElapsedManualTime() ;
+	public void setElapsedManualTime(long elapsedManualTime);
+	public long getAverageAutoTime() ;
+	public void setAverageAutoTime(long averageAutoTime) ;
+	public long getAverageManualTime() ;
+	public void setAverageManualTime(long averageManualTime) ;
+	public int getTotalManualFeatureScoreOverrides() ;
 	public void setTotalManualFeatureScoreOverrides(
-			double totalManualFeatureScoreOverrides) ;
-	public double getTotalOverallScoreOverrides() ;
-	public void setTotalOverallScoreOverrides(double totalOverallScoreOverrides) ;
-	public double getTotalManualFeatureNotes() ;
-	public void setTotalManualFeatureNotes(double totalManualFeatureNotes) ;
-	public double getTotaleManualOverallNotes() ;
-	public void setTotaleManualOverallNotes(double totaleManualOverallNotes) ;
+			int totalManualFeatureScoreOverrides) ;
+	public int getTotalOverallScoreOverrides() ;
+	public void setTotalOverallScoreOverrides(int totalOverallScoreOverrides) ;
+	public int getTotalManualFeatureNotes() ;
+	public void setTotalManualFeatureNotes(int totalManualFeatureNotes) ;
+	public int getTotalManualOverallNotes() ;
+	public void setTotaleManualOverallNotes(int totaleManualOverallNotes) ;
 	public double getAveragelManualFeatureScoreOverrides() ;
 	public void setAveragelManualFeatureScoreOverrides(
 			double averagelManualFeatureScoreOverrides) ;
@@ -51,6 +51,11 @@ public interface AllStudentsProblemHistory {
 	public String getGraderName();
 	public void setGraderName(String graderName) ;
 	void computeAggregateStats();
+
+	public int getTotalSourceNotes() ;
+	public void setTotalSourceNotes(int totalSourceNotes) ;
+	public double getAverageSourceNotes() ;
+	public void setAverageSourceNotes(double averageSourceNotes) ;
 	
 	
 

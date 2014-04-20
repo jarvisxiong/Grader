@@ -16,6 +16,7 @@ import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
@@ -167,6 +168,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	LabelBeanModel photoLabelBeanModel;
 	String output = "";
 	String source = "";
+	String problemHistory = "";
 	TACommentsExtractor taCommentsExtractor;
 	String taComments = "";
 
@@ -478,7 +480,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectNavigator.setProject(newVal);
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
-
+		problemHistory = GradingHistoryManagerSelector.getGradingHistoryManager().getProblemHistoryTextOfCurrentModuleProblem();
 	
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
@@ -688,6 +690,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		featureGradeRecorder.setSourcePoints(getName(), getOnyen(), taPoints);
 //		SourcePointsSaved.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), taPoints, this);
 		setComputedFeedback();
+	}
+	@Override
+	public String getProblemHistory() {
+		return problemHistory;
 	}
 	@Override
 	public String getSource() {
