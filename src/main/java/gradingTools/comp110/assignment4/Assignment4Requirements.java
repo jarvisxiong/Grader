@@ -18,8 +18,8 @@ import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {
 	public Assignment4Requirements() {
-		addDueDate("04/16/2014 23:55:59", 1.0);
-		addDueDate("04/17/2014 23:55:59", 0.5);
+		addDueDate("04/18/2014 23:55:59", 1.0);
+		addDueDate("04/19/2014 23:55:59", 0.5);
 
 		// Checks for proper header
 		addFeature("Has a proper header", 5, new ProperHeaderTestCase());
