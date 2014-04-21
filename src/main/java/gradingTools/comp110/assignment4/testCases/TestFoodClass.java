@@ -40,6 +40,7 @@ public class TestFoodClass extends BasicTestCase {
 
 		boolean containsClass = false;
 		boolean containsFields = false;
+		ArrayList<String> foundClasses = new ArrayList<String>();
 		for (ClassDescription description : manager.getClassDescriptions()) {
 			Class<?> javaClass = description.getJavaClass();
 			if (javaClass.getName().equalsIgnoreCase("food")) {
@@ -96,13 +97,15 @@ public class TestFoodClass extends BasicTestCase {
 				}
 				containsFields = containsName && containsColor && containsMaximumAmount;
 				break;
+			} else {
+				foundClasses.add(javaClass.getName());
 			}
 			
 		}
 		
 		
 		if (!containsClass) {
-			return fail("No Food class found");
+			return fail("No Food class found.  Only found: "+foundClasses);
 		}
 		if (!containsFields) {
 			return partialPass(0.5, "Food class does not contain fields for name, color, and maximum amount");
