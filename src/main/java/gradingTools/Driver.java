@@ -116,7 +116,7 @@ public class Driver {
 	public static boolean getMakeClassDescription(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 		String module = graderSettingsManager.getModule();
 		String problem = graderSettingsManager.getNormalizedProblem(module);
-		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION);
+		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
 			
 //		if (retVal.isEmpty())
 //			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
