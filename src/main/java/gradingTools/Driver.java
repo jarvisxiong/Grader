@@ -28,6 +28,7 @@ import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
+import grader.project.AProject;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsManager;
@@ -97,6 +98,7 @@ public class Driver {
 	public static String VISIT_ACTIONS = "visitActions";
 	public static String AUTO_GRADE = "autoGrade";
 	public static String AUTO_RUN = "autoRun";
+	public static String MAKE_CLASS_DESCRIPTION = "makeClassDescription";
 	
 	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 		String module = graderSettingsManager.getModule();
@@ -106,6 +108,20 @@ public class Driver {
 			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
 		if (retVal.isEmpty())
 			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
+		
+		return retVal;
+		
+	}
+	
+	public static boolean getMakeClassDescription(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+		String module = graderSettingsManager.getModule();
+		String problem = graderSettingsManager.getNormalizedProblem(module);
+		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION);
+			
+//		if (retVal.isEmpty())
+//			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
+//		if (retVal.isEmpty())
+//			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
 		
 		return retVal;
 		
@@ -197,6 +213,8 @@ public class Driver {
         	 configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         	 moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+        	 
+        	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
         	
         	
 //        	moduleProgramManager.init(graderSettingsManager);
@@ -359,6 +377,10 @@ public class Driver {
                 	database.getOrCreateProjectStepper().setAutoAutoGrade(true);
                 if (visitActions.contains(AUTO_RUN))  
                 	database.getOrCreateProjectStepper().setAutoRun(true);
+//                if (visitActions.contains(MAKE_CLASS_DESCRIPTION)) {
+//                	AProject.setMakeClassDescriptions(true);
+//                	
+//                }
 
                 database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);                
 }

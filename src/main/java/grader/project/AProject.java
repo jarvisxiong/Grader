@@ -74,9 +74,13 @@ public class AProject implements Project {
     List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
 	
 	List<String> classNamesCompiled = new ArrayList();
+	
+	static boolean makeClassDescriptions = false;
 
 
-    public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+    
+
+	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
@@ -183,6 +187,7 @@ public class AProject implements Project {
     public List<Class> getImplicitlyLoadedClasses() {
         return classesImplicitlyLoaded;
     }
+    
 
     public void maybeMakeClassDescriptions() {
     	// earlier it expected class descroptions to be fetched after running
@@ -190,7 +195,8 @@ public class AProject implements Project {
     	// so removing this check
 //        if (!runChecked && !hasBeenRun)
 //            return;
-
+    	if (!isMakeClassDescriptions())
+    		return;
         if (madeClassDescriptions)
             return;
         
@@ -481,5 +487,11 @@ public class AProject implements Project {
 		
 	}
 
+	public static boolean isMakeClassDescriptions() {
+		return makeClassDescriptions;
+	}
 
+	public static void setMakeClassDescriptions(boolean makeClassDescriptions) {
+		AProject.makeClassDescriptions = makeClassDescriptions;
+	}
 }
