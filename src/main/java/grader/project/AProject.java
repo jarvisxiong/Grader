@@ -135,9 +135,10 @@ public class AProject implements Project {
         rootFolder = aRootFolder;
         outputFileName = createFullOutputFileName();
 
-        if (aRootFolder == null)
+        if (aRootFolder == null) {
         	setNoProjectFolder(true);
-        else {
+        	return;
+        } else {
         
         projectFolderName = aRootFolder.getAbsoluteName();
 //        if (projectFolderName.contains("bluong"))
@@ -147,6 +148,7 @@ public class AProject implements Project {
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
         } catch (ProjectFolderNotFound e) {
         	setNoProjectFolder(true);
+        	return;
         }
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);

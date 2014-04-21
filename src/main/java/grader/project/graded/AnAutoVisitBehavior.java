@@ -536,8 +536,8 @@ public class AnAutoVisitBehavior implements
 //					gradingFeature.internalSetScore(0);
 //				}
 //			}
-			return;
-		}
+//			return;
+		} else {
 		
 		// we may have compile errors in output, so do not clear it
 //		project.clearOutput();
@@ -626,6 +626,7 @@ public class AnAutoVisitBehavior implements
 			FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
 
 			
+		}
 		}
 		projectStepper.setComputedScore(); // will trigger change occurred
 
