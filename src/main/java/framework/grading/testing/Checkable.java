@@ -35,16 +35,20 @@ public abstract class Checkable implements Gradable {
             return result;
         } catch (NotAutomatableException e) {
         	e.announce();
-            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
+//            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
+            return new CheckResult(0, "Not automatable", CheckResult.CheckStatus.NotGraded, this);
+
         } catch (NotGradableException e) {
         	e.announce();
-        	Tracer.error("Could not grade because did not find classes ");
+        	String msg = "Could not grade because did not find classes ";
+//        	Tracer.error("Could not grade because did not find classes ");
+        	Tracer.error(msg);
 //            e.printStackTrace();
-            return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
+            return new CheckResult(0, msg, CheckResult.CheckStatus.Failed, this);
         } catch (Exception e) {
         	NotGradableException.newCase(e.getMessage(), this);
         	e.printStackTrace();
-            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
+            return new CheckResult(0, "Not gradable", CheckResult.CheckStatus.NotGraded, this);
 
         }
     }

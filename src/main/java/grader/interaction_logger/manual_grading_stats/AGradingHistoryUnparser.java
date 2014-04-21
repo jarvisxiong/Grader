@@ -28,6 +28,39 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		
 	
 	}
+	@Override
+	public String getAggregateStatistics(AllStudentsProblemHistory anAllStudentsHistory) {
+		anAllStudentsHistory.computeAggregateStats();
+		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_ALL_STUDENTS_SIZE);
+		String totalManualTime = toHourMinSecString(anAllStudentsHistory.getElapsedManualTime());
+		String totalAutoTime =  toHourMinSecString(anAllStudentsHistory.getElapsedAutoTime());
+		String averageManualTime = toHourMinSecString(anAllStudentsHistory.getAverageManualTime());
+		String averageAutoTime = toHourMinSecString(anAllStudentsHistory.getAverageAutoTime());
+		int totalOverallNotes = anAllStudentsHistory.getTotalManualOverallNotes();
+		double averageOverallNotes = anAllStudentsHistory.getAverageManualOverallNotes();
+		int totalFeatureNotes = anAllStudentsHistory.getTotalManualFeatureNotes();
+		double averageFeatureNotes = anAllStudentsHistory.getAverageManualFeatureNotes();
+		
+		int totalSourceNotes = anAllStudentsHistory.getTotalSourceNotes();
+		double averageSourceNotes = anAllStudentsHistory.getAverageSourceNotes();
+		stringBuilder.append("Auto Grading Time:" + " Total: " + totalAutoTime + " Average: " + averageAutoTime + "\n");
+		
+		stringBuilder.append("Manual Grading Time:" + " Total: " + totalManualTime + " Average: " + averageManualTime + "\n");
+
+		if (totalOverallNotes > 0) {
+			stringBuilder.append("Number of Overall Notes:" + " Total: " + totalOverallNotes + " Average: " + averageOverallNotes + "\n");
+
+		}
+		if (totalFeatureNotes > 0) {
+			stringBuilder.append("Number of Feature Notes:" + " Total: " + totalFeatureNotes + " Average: " + averageFeatureNotes + "\n");
+
+		}
+		if (totalSourceNotes > 0) {
+			stringBuilder.append("Number of Source Notes:" + " Total: " + totalSourceNotes + " Average: " + averageSourceNotes + "\n");
+
+		}
+		return stringBuilder.toString();
+	}
 	
 	
 	/* (non-Javadoc)

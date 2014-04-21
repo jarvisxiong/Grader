@@ -10,18 +10,21 @@ import java.util.List;
 import java.util.Map;
 
 public class AnAllStudentsProblemHistory implements AllStudentsProblemHistory{
-	double elapsedAutoTime;
-	double elapsedManualTime;
-	double averageAutoTime;
-	double averageManualTime;
-	double totalManualFeatureScoreOverrides;
-	double totalOverallScoreOverrides;
-	double totalManualFeatureNotes;
-	double totaleManualOverallNotes;
+	long elapsedAutoTime;
+	long elapsedManualTime;
+	long averageAutoTime;
+	long averageManualTime;
+	int totalManualFeatureScoreOverrides;
+	int totalOverallScoreOverrides;
+	int totalManualFeatureNotes;
+	int totalManualOverallNotes;
 	double averagelManualFeatureScoreOverrides;
 	double averageOverallScoreOverrides;
 	double averageManualFeatureNotes;
 	double averageManualOverallNotes;
+	
+	int totalSourceNotes;
+	double averageSourceNotes;
 	List<String> visitedStudents = new ArrayList();
 	String graderName, moduleName, problemName;
 	
@@ -46,67 +49,85 @@ public class AnAllStudentsProblemHistory implements AllStudentsProblemHistory{
 		totalManualFeatureScoreOverrides = 0;
 		totalOverallScoreOverrides = 0;
 		totalManualFeatureNotes = 0;
-		 totaleManualOverallNotes = 0;
+		 totalManualOverallNotes = 0;
 		 averagelManualFeatureScoreOverrides = 0;
 		 averageOverallScoreOverrides = 0;
 		 averageManualFeatureNotes = 0;
 		 averageManualOverallNotes = 0;
-//		 for (String onyen:visitedStudents) {
-//			 StudentProblemGradingHistory h
-//		 }
+		 totalSourceNotes = 0;
+		 for (String onyen:visitedStudents) {
+			 StudentProblemGradingHistory history = onyenToStudentHistory.get(onyen);
+			 elapsedManualTime += history.getManualVisitTime();
+			 elapsedAutoTime += history.getAutoVisitTime();
+			 String sourceComments = history.getSourceComments();
+			 if (sourceComments != null)
+			 totalSourceNotes += history.getSourceComments().split("\n").length;
+			 if (!history.getManualOverallNotes().isEmpty()) {
+				 totalManualOverallNotes++;
+			 }
+			 totalManualFeatureNotes += history.getFeatureToManualNotes().size();
+		 }
+		 int numStudents = visitedStudents.size();
+		 averageManualTime = elapsedManualTime/numStudents;
+		 averageAutoTime = elapsedAutoTime/numStudents;
+		 averageManualOverallNotes = ((double) totalManualOverallNotes)/numStudents;
+		 averageManualFeatureNotes = ((double) totalManualFeatureNotes)/numStudents;
+		 averageSourceNotes = ((double) totalSourceNotes)/numStudents;
+		 
+		 
 		
 	}
 	
 	
-	public double getElapsedAutoTime() {
+	public long getElapsedAutoTime() {
 		
 		return elapsedAutoTime;
 	}
-	public void setElapsedAutoTime(double elapsedAutoTime) {
+	public void setElapsedAutoTime(long elapsedAutoTime) {
 		this.elapsedAutoTime = elapsedAutoTime;
 	}
-	public double getElapsedManualTime() {
+	public long getElapsedManualTime() {
 		return elapsedManualTime;
 	}
-	public void setElapsedManualTime(double elapsedManualTime) {
+	public void setElapsedManualTime(long elapsedManualTime) {
 		this.elapsedManualTime = elapsedManualTime;
 	}
-	public double getAverageAutoTime() {
+	public long getAverageAutoTime() {
 		return averageAutoTime;
 	}
-	public void setAverageAutoTime(double averageAutoTime) {
+	public void setAverageAutoTime(long averageAutoTime) {
 		this.averageAutoTime = averageAutoTime;
 	}
-	public double getAverageManualTime() {
+	public long getAverageManualTime() {
 		return averageManualTime;
 	}
-	public void setAverageManualTime(double averageManualTime) {
+	public void setAverageManualTime(long averageManualTime) {
 		this.averageManualTime = averageManualTime;
 	}
-	public double getTotalManualFeatureScoreOverrides() {
+	public int getTotalManualFeatureScoreOverrides() {
 		return totalManualFeatureScoreOverrides;
 	}
 	public void setTotalManualFeatureScoreOverrides(
-			double totalManualFeatureScoreOverrides) {
+			int totalManualFeatureScoreOverrides) {
 		this.totalManualFeatureScoreOverrides = totalManualFeatureScoreOverrides;
 	}
-	public double getTotalOverallScoreOverrides() {
+	public int getTotalOverallScoreOverrides() {
 		return totalOverallScoreOverrides;
 	}
-	public void setTotalOverallScoreOverrides(double totalOverallScoreOverrides) {
+	public void setTotalOverallScoreOverrides(int totalOverallScoreOverrides) {
 		this.totalOverallScoreOverrides = totalOverallScoreOverrides;
 	}
-	public double getTotalManualFeatureNotes() {
+	public int getTotalManualFeatureNotes() {
 		return totalManualFeatureNotes;
 	}
-	public void setTotalManualFeatureNotes(double totalManualFeatureNotes) {
+	public void setTotalManualFeatureNotes(int totalManualFeatureNotes) {
 		this.totalManualFeatureNotes = totalManualFeatureNotes;
 	}
-	public double getTotaleManualOverallNotes() {
-		return totaleManualOverallNotes;
+	public int getTotalManualOverallNotes() {
+		return totalManualOverallNotes;
 	}
-	public void setTotaleManualOverallNotes(double totaleManualOverallNotes) {
-		this.totaleManualOverallNotes = totaleManualOverallNotes;
+	public void setTotaleManualOverallNotes(int totaleManualOverallNotes) {
+		this.totalManualOverallNotes = totaleManualOverallNotes;
 	}
 	public double getAveragelManualFeatureScoreOverrides() {
 		return averagelManualFeatureScoreOverrides;
@@ -185,6 +206,20 @@ public class AnAllStudentsProblemHistory implements AllStudentsProblemHistory{
 
 	public void setGraderName(String graderName) {
 		this.graderName = graderName;
+	}
+	
+	
+	public int getTotalSourceNotes() {
+		return totalSourceNotes;
+	}
+	public void setTotalSourceNotes(int totalSourceNotes) {
+		this.totalSourceNotes = totalSourceNotes;
+	}
+	public double getAverageSourceNotes() {
+		return averageSourceNotes;
+	}
+	public void setAverageSourceNotes(double averageSourceNotes) {
+		this.averageSourceNotes = averageSourceNotes;
 	}
 	@Override
 	public void merge(AllStudentsProblemHistory other) {

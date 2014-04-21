@@ -19,5 +19,7 @@ public interface NotesGenerator {
 	String appendNotes (String existingNotes, String newNotes);
 
 	String missingProjectNotes(ProjectStepper aProjectStepper);
+	 String uncompiledFilesNotes (ProjectStepper aProjectStepper);
+
 
 }

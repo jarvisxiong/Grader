@@ -1,5 +1,7 @@
 package grader.auto_notes;
 
+import java.util.List;
+
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
@@ -28,6 +30,14 @@ public class ANotesGenerator implements NotesGenerator{
 	public String missingProjectNotes (ProjectStepper aProjectStepper) {
 		String submissionFolder = aProjectStepper.getProject().getStudentAssignment().getSubmissionFolder().displayTree();
 		String retVal =  "Missing project in submission folder:" + submissionFolder;
+		if (aProjectStepper.getOverallNotes().contains(retVal)) return "";
+		return retVal;
+	}
+	
+	@Override
+	public String uncompiledFilesNotes (ProjectStepper aProjectStepper) {
+		List<String> uncompiledFiles = aProjectStepper.getProject().getNonCompiledClasses();
+		String retVal =  "Uncompilable files in project:" + uncompiledFiles;
 		if (aProjectStepper.getOverallNotes().contains(retVal)) return "";
 		return retVal;
 	}

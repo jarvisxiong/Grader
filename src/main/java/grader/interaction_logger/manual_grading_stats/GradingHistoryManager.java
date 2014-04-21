@@ -1,5 +1,6 @@
 package grader.interaction_logger.manual_grading_stats;
 
+import java.io.File;
 import java.util.List;
 
 import grader.interaction_logger.InteractionLogListener;
@@ -36,5 +37,23 @@ public interface GradingHistoryManager extends InteractionLogListener{
 	public abstract void buildStudentHistories();
 
 	void connectToCurrentHistory();
+
+	String getProblemHistoryFileName(String aModule, String aProblem);
+
+	File getOrCreateProblemHistoryFile(String aModule, String aProblem);
+
+	String getProblemHistoryText(String aModule, String aProblem);
+
+	void setProblemHistoryText(String aModule, String aProblem, String aText);
+
+	String getSavedProblemHistoryTextOfCurrentModuleProblem();
+
+	void setProblemHistoryTextOfCurrentModuleProblem(String newVal);
+
+	String getProblemHistoryTextOfCurrentModuleProblem();
+
+	void setProblemHistoryTextOfCurrentModuleProblem();
+
+	String getAggregateProblemHistoryTextOfCurrentModuleProblem();
 
 }

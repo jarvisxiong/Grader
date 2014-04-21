@@ -9,6 +9,7 @@ import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
 import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
+import grader.trace.stepper.ProblemHistoryVisited;
 import grader.trace.stepper.SourceVisited;
 
 import java.beans.PropertyChangeEvent;
@@ -216,8 +217,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.getTranscript();
 	}
 	@Override
-	@Visible(true)
-	@Position(3)
+	@Visible(false)
+	@Position(4)
 	@Explanation("Changes to filter settings will be used in subsequent navigation commands.")
 	public NavigationSetter getNavigationSetter() {
 		return mainProjectStepper.getNavigationSetter();
@@ -408,10 +409,20 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Visible(true)
 	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
-	@Explanation("Comment on the source code by editing it")
+	@Explanation("Comment on the source code by editing it.")
 	public String getSource() {
 		return mainProjectStepper.getSource();
 	}
+	@Override
+	@Visible(true)
+	@Position(3)
+	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("History of manual interventions on this problem.")
+	public String getProblemHistory() {
+		return mainProjectStepper.getProblemHistory();
+	}
+	
+	
 	@Override
 	public void internalSetSource(String newValue) {
 		
@@ -517,6 +528,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 				SourceVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			else if (aProperty.equals("mainprojectstepper"))
 				MainVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			else if (aProperty.equals("problemhistory"))
+				ProblemHistoryVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			
 			
 	}

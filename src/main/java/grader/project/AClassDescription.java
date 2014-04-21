@@ -55,9 +55,9 @@ public class AClassDescription  implements ClassDescription {
 	Project project;
 	FileProxy sourceFile;
 	SourceClass javacSourceClass;
-	List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
-	
-	List<String> classNamesCompiled = new ArrayList();
+//	List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
+//	
+//	List<String> classNamesCompiled = new ArrayList();
 
     private CompilationUnit compilationUnit;
 	
@@ -103,10 +103,10 @@ public class AClassDescription  implements ClassDescription {
 //				System.setErr(stderr);
 				if (javaClass != null) {
 					ClassLoaded.newCase(aClassName, this);
-					classNamesCompiled.add(aClassName);
+					project.addCompiledClass(aClassName);
 				}  else {
 					Tracer.error(ClassFileCouldNotBeCompiled.newCase(aClassName, this).getMessage());
-					classNamesThatCouldNotBeCompiled.add(aClassName);
+					project.addNonCompiledClass(aClassName);
 
 //					Tracer.error("Could not compile");
 				}
@@ -274,17 +274,17 @@ public class AClassDescription  implements ClassDescription {
 	public void setSourceFile(FileProxy sourceFile) {
 		this.sourceFile = sourceFile;
 	}
-	public List<String> getClassNamesThatCouldNotBeCompiled() {
-		return classNamesThatCouldNotBeCompiled;
-	}
-	public void setClassNamesThatCouldNotBeCompiled(List<String> classNamesToCompile) {
-		this.classNamesThatCouldNotBeCompiled = classNamesToCompile;
-	}
-	public List<String> getClassNamesCompiled() {
-		return classNamesCompiled;
-	}
-	public void setClassNamesCompiled(List<String> classNamesCompiled) {
-		this.classNamesCompiled = classNamesCompiled;
-	}
+//	public List<String> getClassNamesThatCouldNotBeCompiled() {
+//		return classNamesThatCouldNotBeCompiled;
+//	}
+//	public void setClassNamesThatCouldNotBeCompiled(List<String> classNamesToCompile) {
+//		this.classNamesThatCouldNotBeCompiled = classNamesToCompile;
+//	}
+//	public List<String> getClassNamesCompiled() {
+//		return classNamesCompiled;
+//	}
+//	public void setClassNamesCompiled(List<String> classNamesCompiled) {
+//		this.classNamesCompiled = classNamesCompiled;
+//	}
 
 }

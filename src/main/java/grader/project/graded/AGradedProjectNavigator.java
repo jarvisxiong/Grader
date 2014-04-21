@@ -2,6 +2,7 @@ package grader.project.graded;
 
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxyUtils;
+import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -674,7 +675,16 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		projectStepper.openSource();
 	}
 	
-	
+	void doQuit() {
+		maybeSaveState();
+		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
+		GradingHistoryManagerSelector.getGradingHistoryManager().setProblemHistoryTextOfCurrentModuleProblem();
+		String aggregateStats = GradingHistoryManagerSelector.getGradingHistoryManager().getAggregateProblemHistoryTextOfCurrentModuleProblem();
+		System.out.println(aggregateStats);
+	}
+	void showAggregateStats() {
+		
+	}
 	@ComponentWidth(100)
 	@Row(0)
 	@Column(2)
@@ -682,9 +692,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Explanation("Quit session after saving current student changes.")
 	public void quit() {
 		if (!checkLeave()) return;
-		maybeSaveState();
+		doQuit();
 		UserQuit.newCase(projectDatabase, projectStepper, project, this);
-		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
+
+//		maybeSaveState();
+//		UserQuit.newCase(projectDatabase, projectStepper, project, this);
+//		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
 		if (exitOnQuit)
 
 		System.exit(0);
@@ -709,9 +722,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		if (!checkLeave()) return;
-		maybeSaveState();
+//		maybeSaveState();
+//		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
+		doQuit();
+
 		UserWindowClose.newCase(projectDatabase, projectStepper, project, this);
-		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
 		System.exit(0);
 		
 	}

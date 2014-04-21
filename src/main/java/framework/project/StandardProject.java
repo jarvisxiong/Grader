@@ -4,6 +4,7 @@ import framework.execution.*;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
+import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
@@ -74,6 +75,8 @@ public class StandardProject implements Project {
         		File aSourceFile = sourceFiles.iterator().next();
         		sourceFolder = aSourceFile.getParentFile(); // assuming no packages!
                 this.directory = sourceFolder.getParentFile();
+       		 SourceFolderAssumed.newCase(sourceFolder.getAbsolutePath(), this);
+
 
         	} else {
             	System.out.println(ProjectFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());

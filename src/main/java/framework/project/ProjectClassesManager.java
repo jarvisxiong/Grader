@@ -80,7 +80,7 @@ public class ProjectClassesManager implements ClassesManager {
 			try {
 				System.out.println("Attempting to compile files.");
 				compile(aFilesToCompile);
-				System.out.println("Compilation succeeded.");
+				System.out.println("Compilation attempt finished.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());
 			}

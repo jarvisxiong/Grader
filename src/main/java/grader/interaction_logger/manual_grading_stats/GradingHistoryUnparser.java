@@ -8,4 +8,6 @@ public interface GradingHistoryUnparser {
 	public abstract String unparseStudentProblemGradingHistory(
 			StudentProblemGradingHistory aSingleStudentHistory);
 
+	String getAggregateStatistics(AllStudentsProblemHistory anAllStudentsHistory);
+
 }
