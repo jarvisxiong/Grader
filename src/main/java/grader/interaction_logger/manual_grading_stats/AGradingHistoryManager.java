@@ -170,7 +170,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		String fileName = interactionLogWriter.createModuleProblemInteractionLogName();
 //		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(interactionDirectory + "/" + fileName );
 		currentProblemHistory =  parser.parseAllStudentsProblemGradingHistory(fileName );
-		System.out.println(unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory));
+//		System.out.println(unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory));
 
 	}
 	/* (non-Javadoc)
