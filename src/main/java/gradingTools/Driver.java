@@ -131,6 +131,7 @@ public class Driver {
 	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
 			GraderSettingsManager graderSettingsManager ) {
 		ProjectRequirements requirements = null;
+		String requirementsSpec = "";
 		
 		try {
 			// compatibility with Josh's spec
@@ -138,7 +139,7 @@ public class Driver {
 //			if (requirementsSpec == null) {
 //				Comp401.requirements = gradingTools.{problemname}
 				String module = graderSettingsManager.getModule();
-				String requirementsSpec = configuration.getString(module + ".requirements");
+				 requirementsSpec = configuration.getString(module + ".requirements");
 				if (requirementsSpec == null) {
 					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
 					if (requirementsSpec == null) {
@@ -159,13 +160,13 @@ public class Driver {
 
             requirements = (ProjectRequirements) _class.newInstance();
 	} catch (ClassNotFoundException e) {
-        System.err.println("Could not find project requirements.");
+        System.err.println("Could not find project requirements:" + requirementsSpec);
         System.err.println(e.getMessage());
 	}  catch (InstantiationException e) {
-        System.err.println("Could not create project requirements.");
+        System.err.println("Could not create project requirements." + requirements);
         System.err.println(e.getMessage());
     } catch (IllegalAccessException e) {
-        System.err.println("Could not create project requirements.");
+        System.err.println("Could not create project requirements." + requirements);
         System.err.println(e.getMessage());
     }
 		return requirements;

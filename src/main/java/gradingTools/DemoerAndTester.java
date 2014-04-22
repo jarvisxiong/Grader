@@ -58,11 +58,11 @@ public class DemoerAndTester implements Runnable{
 		doBegin();
 		waitForNavigator();
 		changeOverallNotes();
-		doNext();
+		doNext1();
 		doSelect();
 		changeManualScore();
 		changeManualNotes();
-		doValidate();
+		doValidate1();
 //		explainSourceAndcommentOnCode();
 		showSource();
 		commentOnCode();
@@ -70,16 +70,18 @@ public class DemoerAndTester implements Runnable{
 //		changeOverallNotes2();
 		showFeedback();
 		showMain();
-		doNext();
+		doNext2();
 		openSource();
 		showProblemHistory();
 		showMain();
 		syncSource();
 		quit1();
 		secondSession();
-		waitForStepper();		
+		waitForStepper();
+		changeToNotFullyGraded();
 		doBegin();
-		changeOverallNotes3();
+//		changeOverallNotes3();
+	
 		quit2();
 		
 	}
@@ -105,7 +107,7 @@ public class DemoerAndTester implements Runnable{
 		}
 
 	}
-	public static void change() {
+	public static void changeToNotFullyGraded() {
 		clearanceManager.setStepDescription("Next step is to automatically change navigation filter from ALL to NOT_FULLY_GRADED so that we go to the next student who needs attentin.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
@@ -130,8 +132,14 @@ public class DemoerAndTester implements Runnable{
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getDatabase().getProjectStepper().setOverallNotes("All correct!");
 	}
-	public static void doNext() {
+	public static void doNext1() {
 		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nWait until the UI is refreshed before proceeding. \n\nThere should be two pink items (6 and 7) for non-full points indicating attention.");
+		waitForUserOrSleep();
+		if (clearanceManager.isAutoPerformStep())
+		Driver.getDatabase().getProjectStepper().next();
+	}
+	public static void doNext2() {
+		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nAgain wait until the UI is refreshed before proceeding. ");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getDatabase().getProjectStepper().next();
@@ -167,8 +175,17 @@ public class DemoerAndTester implements Runnable{
 		Driver.getDatabase().getProjectStepper().setManualNotes("The transcript  shows that indicated output syntax was misunderstood. Gave partial credit.");
 //		gradingFeature.setManualNotes("The source code shows that indicated output syntax was misunderstood. Gave partial credit.");
 	}
-	public static void doValidate() {
+	public static void doValidate1() {
 		clearanceManager.setStepDescription("Next step is to check the validate box in item 6 to indicate that the automantically computed non full score is correct. \n\nThe item  color should change. \n\nIn addition, the item should get selected. \n\nThe auto notes box should indicate the reason for deduction. The manual notes box should contain notes indicating validation and change color to show presence of notes for selected item."); 
+		waitForUserOrSleep();
+		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
+		GradingFeature gradingFeature = gradingFeatures.get(5);
+		if (clearanceManager.isAutoPerformStep())
+
+		gradingFeature.setValidate(true);
+	}
+	public static void doValidate2() {
+		clearanceManager.setStepDescription("Next steps are to validate the pink items.");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 		GradingFeature gradingFeature = gradingFeatures.get(5);
