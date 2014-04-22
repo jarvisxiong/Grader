@@ -73,6 +73,7 @@ public class DemoerAndTester implements Runnable{
 		doNext();
 		openSource();
 		showProblemHistory();
+		showMain();
 		syncSource();
 		quit1();
 		secondSession();
