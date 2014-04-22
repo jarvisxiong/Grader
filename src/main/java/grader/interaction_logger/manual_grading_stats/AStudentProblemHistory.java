@@ -25,7 +25,7 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 	long autoVisitTime;
 	
 	long manualVisitTime;
-	String sourceComments;
+	String sourceComments = "";
 	double multiplier;
 	double sourcePoints;
 	double featuresScore;

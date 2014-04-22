@@ -115,7 +115,6 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		long manualVisit = aSingleStudentHistory.getManualVisitTime();
 		if (manualVisit > 0)
 			stringBuilder.append(" MANUAL:" + toHourMinSecString(manualVisit));
-		String manualOverallNotes = aSingleStudentHistory.getManualOverallNotes();
 		Set<String> tabsVisited = aSingleStudentHistory.getTabsVisited();
 		if (tabsVisited.size() != 0) {
 			stringBuilder.append(" SECTIONS:" + tabsVisited);
@@ -128,12 +127,22 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 			stringBuilder.append(" GRADERS:" + graders);
 
 		}
-		
 		stringBuilder.append("\n");
+
+		String manualOverallNotes = aSingleStudentHistory.getManualOverallNotes();
 		if (!manualOverallNotes.isEmpty()) {
+			
 			stringBuilder.append("OVERALL NOTES\n");
 			stringBuilder.append(manualOverallNotes + "\n");
 		}
+		
+		String sourceNotes = aSingleStudentHistory.getSourceComments();
+		if (!sourceNotes.isEmpty()) {
+			stringBuilder.append("\n");
+			stringBuilder.append("SOURCE NOTES\n");
+			stringBuilder.append(sourceNotes + "\n");
+		}
+		
 		Map<String, String> featureToManualNotes = aSingleStudentHistory.getFeatureToManualNotes();
 		
 		Map<String, Double> featureToManualScore = aSingleStudentHistory.getFeatureToManualScore();

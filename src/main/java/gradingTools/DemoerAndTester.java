@@ -69,6 +69,7 @@ public class DemoerAndTester implements Runnable{
 //		changeOverallScore();
 //		changeOverallNotes2();
 		showFeedback();
+		showMain();
 		doNext();
 		openSource();
 		showProblemHistory();
@@ -183,6 +184,16 @@ public class DemoerAndTester implements Runnable{
 			stepperFrame.focus(projectStepper, "source");			
 		}
 	}
+	
+	public static void showMain() {
+		clearanceManager.setStepDescription("Next step is to go the main tab.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "mainprojectstepper");					
+		}
+	}
 	public static void showProblemHistory() {
 		clearanceManager.setStepDescription("Next step is to go the problem history tab to see past source comments.");
 		waitForUserOrSleep();		
@@ -261,14 +272,14 @@ public class DemoerAndTester implements Runnable{
 
 	}
 	public static void changeOverallScore() {
-		clearanceManager.setStepDescription("Next step is to return to the main tab and manually increase the overall score for good style as no grading feature was created for it. \n\nThere will be a pause between these two actions so you can view each.");
+		clearanceManager.setStepDescription("Next step is to manually increase the overall score for good style as no grading feature was created for it. ");
 		waitForUserOrSleep();
 		
 		if (clearanceManager.isAutoPerformStep()) {
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
 			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
-			stepperFrame.focus(projectStepper, "mainprojectstepper");
-			ThreadSupport.sleep(clearanceManager.getAutoPauseTime()*1000);
+//			stepperFrame.focus(projectStepper, "mainprojectstepper");
+//			ThreadSupport.sleep(clearanceManager.getAutoPauseTime()*1000);
 			
 			double oldScore = Driver.getDatabase().getProjectStepper().getScore();
 			 Driver.getDatabase().getProjectStepper().setScore(oldScore + 5);
