@@ -98,7 +98,7 @@ public class ANavigationFilterSetter implements NavigationFilterSetter {
 	public void setParameter(Object newVal) {
 		Object oldVal = currentNavigationFilter.getParameter();
 		currentNavigationFilter.setParameter(newVal);
-//		propertyChangeSupport.firePropertyChange("FilterParameter", oldVal, newVal);
+		propertyChangeSupport.firePropertyChange("Parameter", oldVal, newVal);
 
 	}
 	

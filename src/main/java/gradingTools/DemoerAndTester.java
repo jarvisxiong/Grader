@@ -1,6 +1,7 @@
 package gradingTools;
 
 import grader.assignment.GradingFeature;
+import grader.navigation.filter.GradingStatus;
 import grader.project.graded.ComplexProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ATACommentsExtractor;
@@ -53,7 +54,7 @@ public class DemoerAndTester implements Runnable{
 	
 	public static void doSteps() {
 		waitForStepper();
-		changeProblem();
+		initializeAndChangeProblem();
 		doBegin();
 		waitForNavigator();
 		changeOverallNotes();
@@ -68,6 +69,10 @@ public class DemoerAndTester implements Runnable{
 //		changeOverallScore();
 //		changeOverallNotes2();
 		showFeedback();
+		doNext();
+		openSource();
+		showProblemHistory();
+		syncSource();
 		quit1();
 		secondSession();
 		waitForStepper();		
@@ -86,13 +91,25 @@ public class DemoerAndTester implements Runnable{
 		waitForUserOrLongSleep();
 	}
 	
-	public static void changeProblem() {
+	public static void initializeAndChangeProblem() {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
+		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
+
 		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3 and cleanup any previous grading results for this assignment.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
 		Driver.getSettingsModel().cleanSlate();
+		}
+
+	}
+	public static void change() {
+		clearanceManager.setStepDescription("Next step is to automatically change navigation filter from ALL to NOT_FULLY_GRADED so that we go to the next student who needs attentin.");
+		waitForUserOrSleep();
+		if (clearanceManager.isAutoPerformStep()) {
+			Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.NOT_FULLY_GRADED);
+
+		
 		}
 
 	}
@@ -164,6 +181,35 @@ public class DemoerAndTester implements Runnable{
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
 			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
 			stepperFrame.focus(projectStepper, "source");			
+		}
+	}
+	public static void showProblemHistory() {
+		clearanceManager.setStepDescription("Next step is to go the problem history tab to see past source comments.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "problemHistory");			
+		}
+	}
+	public static void openSource() {
+		clearanceManager.setStepDescription("Next step is to open source in registered editor.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+//			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+//			stepperFrame.focus(projectStepper, "source");	
+			projectStepper.openSource();
+		}
+	}
+	public static void syncSource() {
+		clearanceManager.setStepDescription("Next step is sync changes in external editor.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+//			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+//			stepperFrame.focus(projectStepper, "source");	
+			projectStepper.sync();
 		}
 	}
 	public static void commentOnCode() {
@@ -307,7 +353,9 @@ public class DemoerAndTester implements Runnable{
 
 	@Override
 	public void run() {
-		Driver.drive(CLEARANCE_WIDTH, 0);
+		Driver.drive(0,  CLEARANCE_HEIGHT);
+		OEFrame frame = (OEFrame) Driver.getDatabase().getProjectStepper().getFrame();
+		frame.setLocation(0, CLEARANCE_HEIGHT-100);
 //		Driver.getSettingsFrame().setLocation(C);
 	}
 

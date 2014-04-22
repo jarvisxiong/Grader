@@ -30,6 +30,7 @@ import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.project.AProject;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.ProjectStepper;
 import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
@@ -118,10 +119,10 @@ public class Driver {
 		String problem = graderSettingsManager.getNormalizedProblem(module);
 		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
 			
-//		if (retVal.isEmpty())
-//			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
-//		if (retVal.isEmpty())
-//			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
+		if (retVal == null)
+			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+		if (retVal == null)
+			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
 		
 		return retVal;
 		
@@ -215,6 +216,7 @@ public class Driver {
         	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
         	 
         	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
+        	 AProject.setMakeClassDescriptions(makeClassDescriptions);
         	
         	
 //        	moduleProgramManager.init(graderSettingsManager);
@@ -373,10 +375,12 @@ public class Driver {
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
                 List<String> visitActions = autoVisitActions(configuration, graderSettingsManager);
+                ProjectStepper projectStepper = database.getOrCreateProjectStepper();
+//                OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
                 if (visitActions.contains(AUTO_GRADE))                	
-                	database.getOrCreateProjectStepper().setAutoAutoGrade(true);
+                	projectStepper.setAutoAutoGrade(true);
                 if (visitActions.contains(AUTO_RUN))  
-                	database.getOrCreateProjectStepper().setAutoRun(true);
+                	projectStepper.setAutoRun(true);
 //                if (visitActions.contains(MAKE_CLASS_DESCRIPTION)) {
 //                	AProject.setMakeClassDescriptions(true);
 //                	
