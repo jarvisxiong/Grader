@@ -455,17 +455,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// cannot do this, recording session not created
 //			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
 		}
-		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
-		SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
-		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
-			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
-			// propagate to other recorders
-			// cannot do this, recording session not created
-//			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
-		}
-		else {
-			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
-		}
+		
 //		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
 //		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
 //			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
@@ -495,6 +485,17 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
+		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
+		SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
+			// propagate to other recorders
+			// cannot do this, recording session not created
+//			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
+		}
+		else {
+			gradedProjectOverview.internalSetSourcePoints(0);
+		}
 
 		if (selectedGradingFeature != null) {
 			internalSetManualNotes(getManualNotes(selectedGradingFeature));
