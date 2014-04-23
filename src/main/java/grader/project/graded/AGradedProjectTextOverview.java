@@ -25,6 +25,7 @@ import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -129,6 +130,7 @@ public class AGradedProjectTextOverview  implements
 	LabelBeanModel photoLabelBeanModel;
 	OverviewProjectStepper projectStepper;
 	double sourcePoints;
+	GraderSettingsModel graderSettings;
 
 	public AGradedProjectTextOverview() {
 		photoLabelBeanModel = new ALabelBeanModel("");
@@ -136,6 +138,7 @@ public class AGradedProjectTextOverview  implements
 	}
 	
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
+		graderSettings = GraderSettingsModelSelector.getGraderSettingsModel();
 		projectDatabase = aProjectDatabase;
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
@@ -171,14 +174,20 @@ public class AGradedProjectTextOverview  implements
 //		return runExecuted || isAutoRun() || isAutoAutoGrade();
 //	}
 
-	@ComponentWidth(150)
-	@Row(0)
-	@Override
+//	@ComponentWidth(150)
+//	@Row(0)
+//	@Override
 	@Explanation("Editing onyen will navigate to corresponding project")
-	public String getOnyen() {
+	public String getDisplayedOnyen() {
 		return onyen;
 	}
-
+//	@Visible(false)
+	@ComponentWidth(150)
+	@Row(0)
+	public String getOnyen() {
+		
+		return onyen;
+	}
 
 	@Override
 	public void setOnyen(String anOnyen) throws MissingOnyenException {

@@ -76,9 +76,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	String problemDownloadPath;
 	String moduleDownloadPath;
 	boolean settingsLoaded;
+	boolean privacyMode;
 //	DynamicEnum moduleEnum, problemEnum;
 	
 
+
+	
 
 	//	BeginActionModel beginActionModel = new ABeginActionModel();
 	boolean graderStarted;
@@ -690,6 +693,18 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			DownloadPathUserChange.newCase(newPath, this, this);
 		}
 		
+	}
+	@Visible(false)
+	public boolean isPrivacyMode() {
+		return privacyMode;
+	}
+	public void setPrivacyMode(boolean newValue) {
+		if (privacyMode = newValue) return;
+		this.privacyMode = newValue;
+		propertyChangeSupport.firePropertyChange("onyens", null, onyens);
+	}
+	public void togglePrivacyMode() {
+		setPrivacyMode(!privacyMode);
 	}
 	
 	public static void main (String[] args) {

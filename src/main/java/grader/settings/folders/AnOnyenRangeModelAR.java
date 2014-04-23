@@ -8,8 +8,8 @@ import bus.uigen.undo.ExecutableCommand;
 
 public class AnOnyenRangeModelAR implements ExecutableCommand{
 	public Object execute(Object theFrame) {
-		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "startingOnyen",  AttributeNames.STRETCHABLE_BY_PARENT, true);
-		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "endingOnyen",  AttributeNames.STRETCHABLE_BY_PARENT, true);
+		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "displayedStartingOnyen",  AttributeNames.STRETCHABLE_BY_PARENT, true);
+		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "displayedEndingOnyen",  AttributeNames.STRETCHABLE_BY_PARENT, true);
 		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "goToOnyen",  AttributeNames.STRETCHABLE_BY_PARENT, true);
 		ObjectEditor.setPropertyAttribute(AnOnyenRangeModel.class, "*",  AttributeNames.CONTAINER_BACKGROUND, Color.PINK);
 
