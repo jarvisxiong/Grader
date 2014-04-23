@@ -71,11 +71,12 @@ public class DemoerAndTester implements Runnable{
 		showFeedback();
 		showMain();
 		doNext2();
-		openSource();
+//		openSource();
 		showProblemHistory();
 		showMain();
 		syncSource();
 		quit1();
+//		System.exit(0);
 		secondSession();
 		waitForStepper();
 		changeToNotFullyGraded();
@@ -232,7 +233,7 @@ public class DemoerAndTester implements Runnable{
 		}
 	}
 	public static void syncSource() {
-		clearanceManager.setStepDescription("Next step is sync changes in external editor.");
+		clearanceManager.setStepDescription("Next step is to sync changes in external editor.");
 		waitForUserOrSleep();		
 		if (clearanceManager.isAutoPerformStep()) {
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();

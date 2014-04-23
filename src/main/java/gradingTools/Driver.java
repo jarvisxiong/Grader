@@ -305,9 +305,9 @@ public class Driver {
             	 String settings = configuration.getString("grader.settings", "oe");
 //            	 String settingsTry = configuration.getString("Grader.Settings");
             	 if (settings.equalsIgnoreCase("oe")) {
-                 	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
-                 	
-                 	NavigationFilterRepository.register(gradingBasedFilterer);
+//                 	NavigationFilter gradingBasedFilterer = new AGradingStatusFilter();
+//                 	
+//                 	NavigationFilterRepository.register(gradingBasedFilterer);
 
 //            		  settingsModel = new AGraderSettingsModel(null);
                  	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();

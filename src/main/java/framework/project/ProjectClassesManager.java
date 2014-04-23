@@ -1,5 +1,7 @@
 package framework.project;
 
+import grader.navigation.NavigationKind;
+import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
@@ -77,6 +79,9 @@ public class ProjectClassesManager implements ClassesManager {
 			}
 		}
 		if (aFilesToCompile.size() > 0) {
+			if (GraderSettingsModelSelector.getGraderSettingsModel() != null && 
+					GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC)
+				return;
 			try {
 				System.out.println("Attempting to compile files.");
 				compile(aFilesToCompile);

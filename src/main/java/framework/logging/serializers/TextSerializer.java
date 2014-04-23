@@ -4,6 +4,7 @@ import framework.grading.testing.CheckResult;
 import framework.logging.recorder.RecordingSession;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -119,8 +120,12 @@ public class TextSerializer implements RecordingSessionSerializer {
              log += "----------------------------------\n";
              log += "  Points Deducted: " + deducted + "\n\n";
          }
+         
+         double featureTotal = (awarded + deducted);
 
-         log += "  Total Score: " + (awarded + deducted) + "\n";
+//         log += "  Features Score: " + (awarded + deducted) + "\n";
+         log += "  Features Score: " + featureTotal + "\n";
+
 
 //         log += "\nNotes from grading features:\n";
 //         log += "----------------------------------\n";
@@ -194,16 +199,21 @@ public class TextSerializer implements RecordingSessionSerializer {
          log += recordingSession.getSourceCodeTAComments() + "\n";
          }
          if (recordingSession.getSourcePoints() != 0) {
-             log += "\nSource Points:\n";
-             log += "----------------------------------\n";
+             log += "\nSource Points: ";
+//             log += "----------------------------------\n";
              log += recordingSession.getSourcePoints()+ "\n";
+//             log += "----------------------------------\n";
+
              }
          
          if (!recordingSession.getComments().isEmpty()) {
          log += "\nOverall Comments:\n";
          log += "----------------------------------\n";
          log += recordingSession.getComments();
+         log += "----------------------------------\n";
          }
+         log += "  Total Score: " + ASakaiCSVFeatureGradeManager.getTotalGrade(featureTotal, recordingSession.getLatePenalty(), recordingSession.getSourcePoints()) + "\n";
+
          return log;
      }
     @Override
