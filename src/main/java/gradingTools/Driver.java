@@ -100,6 +100,7 @@ public class Driver {
 	public static String AUTO_GRADE = "autoGrade";
 	public static String AUTO_RUN = "autoRun";
 	public static String MAKE_CLASS_DESCRIPTION = "makeClassDescription";
+	public static String PRIVACY = "privacy";
 	
 	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 		String module = graderSettingsManager.getModule();
@@ -115,14 +116,44 @@ public class Driver {
 	}
 	
 	public static boolean getMakeClassDescription(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+//		String module = graderSettingsManager.getModule();
+//		String problem = graderSettingsManager.getNormalizedProblem(module);
+//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+//			
+//		if (retVal == null)
+//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+//		if (retVal == null)
+//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+//		
+//		return retVal;
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, MAKE_CLASS_DESCRIPTION, false);
+		
+	}
+	
+	public static boolean getPrivacy(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+//		String module = graderSettingsManager.getModule();
+//		String problem = graderSettingsManager.getNormalizedProblem(module);
+//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+//			
+//		if (retVal == null)
+//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+//		if (retVal == null)
+//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+//		
+//		return retVal;
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, PRIVACY, false);
+		
+	}
+	
+	public static Boolean getInheritedBooleanModuleProblemProperty(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager, String property, Boolean defaultValue) {
 		String module = graderSettingsManager.getModule();
 		String problem = graderSettingsManager.getNormalizedProblem(module);
-		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + property, null);
 			
 		if (retVal == null)
-			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+			retVal = configuration.getBoolean(module+"." + property, null);
 		if (retVal == null)
-			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+			retVal = configuration.getBoolean("default"+"." + property, defaultValue);
 		
 		return retVal;
 		
@@ -311,6 +342,7 @@ public class Driver {
 
 //            		  settingsModel = new AGraderSettingsModel(null);
                  	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
+                 	settingsModel.setPrivacyMode(getPrivacy(configuration, graderSettingsManager));
                  	settingsModel.init();
             			settingsFrame = ObjectEditor.edit(settingsModel); 
             			settingsFrame.setLocation(settingsFrameX, settingsFrameY);
