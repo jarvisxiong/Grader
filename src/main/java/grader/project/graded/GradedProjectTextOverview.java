@@ -105,7 +105,8 @@ public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ Proper
 	double getSourcePoints();
 	void setSourcePoints(double newValue);
 	void internalSetSourcePoints(double newValue);
-//	String getDisplayedOnyen();
+	String getDisplayedOnyen();
+	String getDisplayedName();
 
 //	String getFeedback();
 //

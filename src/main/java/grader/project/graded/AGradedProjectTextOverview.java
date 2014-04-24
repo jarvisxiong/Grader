@@ -24,8 +24,10 @@ import grader.project.Project;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
+import grader.settings.folders.AnOnyenRangeModel;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -174,14 +176,18 @@ public class AGradedProjectTextOverview  implements
 //		return runExecuted || isAutoRun() || isAutoAutoGrade();
 //	}
 
-//	@ComponentWidth(150)
-//	@Row(0)
-//	@Override
+	@ComponentWidth(150)
+	@Row(0)
+	@Override
 	@Explanation("Editing onyen will navigate to corresponding project")
+	@Label("Onyen")
 	public String getDisplayedOnyen() {
-		return onyen;
+		if (graderSettings.isPrivacyMode())
+			return AnOnyenRangeModel.ANONYMOUS;
+			else return getOnyen();
+//		return onyen;
 	}
-//	@Visible(false)
+	@Visible(false)
 	@ComponentWidth(150)
 	@Row(0)
 	public String getOnyen() {
@@ -209,13 +215,23 @@ public class AGradedProjectTextOverview  implements
 	}
 
 
-
+	@Visible(false)
 	@Row(1)
 	@ComponentWidth(150)
 	@Override
 	public String getName() {
 		return name;
 	}
+	@Row(1)
+	@ComponentWidth(150)
+	@Override
+	@Label("Name")
+	public String getDisplayedName() {
+		if (graderSettings.isPrivacyMode())
+		return AnOnyenRangeModel.ANONYMOUS;
+		else return getName();
+	}
+	
 	@Override
 	@Visible(false)
 	public void setName(String newVal) {

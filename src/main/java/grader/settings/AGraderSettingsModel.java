@@ -279,11 +279,11 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         }
         if (GraderSettings.get().has("start")) {
         	String startingOnyen = GraderSettings.get().get("start");
-        	onyens.setStartingOnyen(startingOnyen);
+        	onyens.setDisplayedStartingOnyen(startingOnyen);
         }
         if (GraderSettings.get().has("end")) {
         	String endingOnyen = GraderSettings.get().get("end");
-        	onyens.setEndingOnyen(endingOnyen);
+        	onyens.setDisplayedEndingOnyen(endingOnyen);
         }
 //        List objectModules = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getList("modules");
 //		modules = objectModules;
@@ -325,13 +325,13 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         
         if (startingOnyen != null) {
 //        	String startingOnyen = GraderSettings.get().get("start");
-        	onyens.setStartingOnyen(startingOnyen);
+        	onyens.setDisplayedStartingOnyen(startingOnyen);
         }
 //        String endingOnyen = dynamicConfiguration.getString(aModule + "." + END_ONYEN,
 //        		dynamicConfiguration.getString(END_ONYEN));
         String endingOnyen = graderSettingsManager.getEndingOnyen(aModule);
         if (endingOnyen != null) {
-        	onyens.setEndingOnyen(endingOnyen);
+        	onyens.setDisplayedEndingOnyen(endingOnyen);
         }
 	}
 

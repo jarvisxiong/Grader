@@ -1684,5 +1684,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		gradedProjectOverview.internalSetSourcePoints(newValue);
 		
 	}
+	@Override
+	public String getDisplayedOnyen() {
+		// TODO Auto-generated method stub
+		return gradedProjectOverview.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return gradedProjectOverview.getDisplayedName();
+	}
 	
 }

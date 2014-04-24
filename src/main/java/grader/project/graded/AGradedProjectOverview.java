@@ -252,6 +252,16 @@ public class AGradedProjectOverview  implements
 		textOverview.internalSetSourcePoints(newValue);
 		
 	}
+	@Override
+	public String getDisplayedOnyen() {
+		// TODO Auto-generated method stub
+		return textOverview.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return textOverview.getDisplayedName();
+	}
 	
 
 }

@@ -553,6 +553,15 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.loadSourceFromFile();
 		
 	}
+	@Override
+	public String getDisplayedOnyen() {
+		return mainProjectStepper.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.getDisplayedName();
+	}
 
 
 }

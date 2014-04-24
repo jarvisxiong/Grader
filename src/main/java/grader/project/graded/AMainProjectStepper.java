@@ -561,6 +561,16 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.loadSourceFromFile();
 		
 	}
+	@Override
+	public String getDisplayedOnyen() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.getDisplayedName();
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

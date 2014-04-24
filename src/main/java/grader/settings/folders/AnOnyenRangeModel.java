@@ -36,7 +36,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 //		return startingOnyen;
 	}
 
-	public void setStartingOnyen(String newValue) {
+	public void setDisplayedStartingOnyen(String newValue) {
 		String oldValue = startingOnyen;
 		this.startingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("startingOnyen", oldValue, newValue);
@@ -55,7 +55,7 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	    	else return getEndingOnyen();
 	}
 
-	public void setEndingOnyen(String newValue) {
+	public void setDisplayedEndingOnyen(String newValue) {
 		String oldValue = endingOnyen;
 		this.endingOnyen = newValue;
 		propertyChangeSupport.firePropertyChange("endingOnyen", oldValue, newValue);

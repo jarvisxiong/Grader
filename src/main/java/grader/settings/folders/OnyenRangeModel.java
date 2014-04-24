@@ -6,10 +6,10 @@ import util.models.PropertyListenerRegisterer;
 
 public interface OnyenRangeModel extends PropertyListenerRegisterer{
 	public String getStartingOnyen() ;
-	public void setStartingOnyen(String startingOnyen) ;
+	public void setDisplayedStartingOnyen(String startingOnyen) ;
 	public String getEndingOnyen();
 
-	public void setEndingOnyen(String endingOnyen) ;
+	public void setDisplayedEndingOnyen(String endingOnyen) ;
 	String getGoToOnyen();
 	void setGoToOnyen(String goToOnyen);
 
