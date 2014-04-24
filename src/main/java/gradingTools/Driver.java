@@ -21,6 +21,7 @@ import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
+import grader.config.StaticConfigurationUtils;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
@@ -96,114 +97,114 @@ public class Driver {
 		
 	}
 	
-	public static String VISIT_ACTIONS = "visitActions";
-	public static String AUTO_GRADE = "autoGrade";
-	public static String AUTO_RUN = "autoRun";
-	public static String MAKE_CLASS_DESCRIPTION = "makeClassDescription";
-	public static String PRIVACY = "privacy";
-	
-	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
-		String module = graderSettingsManager.getModule();
-		String problem = graderSettingsManager.getNormalizedProblem(module);
-		List retVal = configuration.getList(module+"." + problem + "." + VISIT_ACTIONS);
-		if (retVal.isEmpty())
-			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
-		if (retVal.isEmpty())
-			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
-		
-		return retVal;
-		
-	}
-	
-	public static boolean getMakeClassDescription(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+//	public static String VISIT_ACTIONS = "visitActions";
+//	public static String AUTO_GRADE = "autoGrade";
+//	public static String AUTO_RUN = "autoRun";
+//	public static String MAKE_CLASS_DESCRIPTION = "makeClassDescription";
+//	public static String PRIVACY = "privacy";
+//	
+//	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 //		String module = graderSettingsManager.getModule();
 //		String problem = graderSettingsManager.getNormalizedProblem(module);
-//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
-//			
-//		if (retVal == null)
-//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
-//		if (retVal == null)
-//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+//		List retVal = configuration.getList(module+"." + problem + "." + VISIT_ACTIONS);
+//		if (retVal.isEmpty())
+//			retVal = configuration.getList(module+"." + VISIT_ACTIONS);
+//		if (retVal.isEmpty())
+//			retVal = configuration.getList("default"+"." + VISIT_ACTIONS);
 //		
 //		return retVal;
-		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, MAKE_CLASS_DESCRIPTION, false);
-		
-	}
-	
-	public static boolean getPrivacy(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+//		
+//	}
+//	
+//	public static boolean getMakeClassDescription(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+////		String module = graderSettingsManager.getModule();
+////		String problem = graderSettingsManager.getNormalizedProblem(module);
+////		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+////			
+////		if (retVal == null)
+////			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+////		if (retVal == null)
+////			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+////		
+////		return retVal;
+//		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, MAKE_CLASS_DESCRIPTION, false);
+//		
+//	}
+//	
+//	public static boolean getPrivacy(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+////		String module = graderSettingsManager.getModule();
+////		String problem = graderSettingsManager.getNormalizedProblem(module);
+////		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+////			
+////		if (retVal == null)
+////			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+////		if (retVal == null)
+////			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+////		
+////		return retVal;
+//		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, PRIVACY, false);
+//		
+//	}
+//	
+//	public static Boolean getInheritedBooleanModuleProblemProperty(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager, String property, Boolean defaultValue) {
 //		String module = graderSettingsManager.getModule();
 //		String problem = graderSettingsManager.getNormalizedProblem(module);
-//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + property, null);
 //			
 //		if (retVal == null)
-//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+//			retVal = configuration.getBoolean(module+"." + property, null);
 //		if (retVal == null)
-//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+//			retVal = configuration.getBoolean("default"+"." + property, defaultValue);
 //		
 //		return retVal;
-		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, PRIVACY, false);
-		
-	}
-	
-	public static Boolean getInheritedBooleanModuleProblemProperty(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager, String property, Boolean defaultValue) {
-		String module = graderSettingsManager.getModule();
-		String problem = graderSettingsManager.getNormalizedProblem(module);
-		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + property, null);
-			
-		if (retVal == null)
-			retVal = configuration.getBoolean(module+"." + property, null);
-		if (retVal == null)
-			retVal = configuration.getBoolean("default"+"." + property, defaultValue);
-		
-		return retVal;
-		
-	}
-	
-	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
-			GraderSettingsManager graderSettingsManager ) {
-		ProjectRequirements requirements = null;
-		String requirementsSpec = "";
-		
-		try {
-			// compatibility with Josh's spec
-//			String requirementsSpec = configuration.getString("project.requirements");
-//			if (requirementsSpec == null) {
-//				Comp401.requirements = gradingTools.{problemname}
-				String module = graderSettingsManager.getModule();
-				 requirementsSpec = configuration.getString(module + ".requirements");
-				if (requirementsSpec == null) {
-					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
-					if (requirementsSpec == null) {
-						requirementsSpec = configuration.getString("default.requirements");
-						if (requirementsSpec == null) {
-							requirementsSpec = configuration.getString("project.requirements"); // upward compatibilty
-						}
-					}
-				}
-				
-				requirementsSpec = graderSettingsManager.replaceModuleProblemVars(requirementsSpec);
-					
-//			}
-			
-			
-//		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
-		   Class<?> _class = Class.forName(requirementsSpec);
-
-            requirements = (ProjectRequirements) _class.newInstance();
-	} catch (ClassNotFoundException e) {
-        System.err.println("Could not find project requirements:" + requirementsSpec);
-        System.err.println(e.getMessage());
-	}  catch (InstantiationException e) {
-        System.err.println("Could not create project requirements." + requirements);
-        System.err.println(e.getMessage());
-    } catch (IllegalAccessException e) {
-        System.err.println("Could not create project requirements." + requirements);
-        System.err.println(e.getMessage());
-    }
-		return requirements;
-		
-		
-	}
+//		
+//	}
+//	
+//	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
+//			GraderSettingsManager graderSettingsManager ) {
+//		ProjectRequirements requirements = null;
+//		String requirementsSpec = "";
+//		
+//		try {
+//			// compatibility with Josh's spec
+////			String requirementsSpec = configuration.getString("project.requirements");
+////			if (requirementsSpec == null) {
+////				Comp401.requirements = gradingTools.{problemname}
+//				String module = graderSettingsManager.getModule();
+//				 requirementsSpec = configuration.getString(module + ".requirements");
+//				if (requirementsSpec == null) {
+//					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
+//					if (requirementsSpec == null) {
+//						requirementsSpec = configuration.getString("default.requirements");
+//						if (requirementsSpec == null) {
+//							requirementsSpec = configuration.getString("project.requirements"); // upward compatibilty
+//						}
+//					}
+//				}
+//				
+//				requirementsSpec = graderSettingsManager.replaceModuleProblemVars(requirementsSpec);
+//					
+////			}
+//			
+//			
+////		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
+//		   Class<?> _class = Class.forName(requirementsSpec);
+//
+//            requirements = (ProjectRequirements) _class.newInstance();
+//	} catch (ClassNotFoundException e) {
+//        System.err.println("Could not find project requirements:" + requirementsSpec);
+//        System.err.println(e.getMessage());
+//	}  catch (InstantiationException e) {
+//        System.err.println("Could not create project requirements." + requirements);
+//        System.err.println(e.getMessage());
+//    } catch (IllegalAccessException e) {
+//        System.err.println("Could not create project requirements." + requirements);
+//        System.err.println(e.getMessage());
+//    }
+//		return requirements;
+//		
+//		
+//	}
 	static GraderSettingsModel settingsModel;
     static OEFrame settingsFrame = null;
     static ProjectDatabaseWrapper database = null;
@@ -247,8 +248,8 @@ public class Driver {
         	 moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
         	 
-        	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
-        	 AProject.setMakeClassDescriptions(makeClassDescriptions);
+//        	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
+//        	 AProject.setMakeClassDescriptions(makeClassDescriptions);
         	
         	
 //        	moduleProgramManager.init(graderSettingsManager);
@@ -317,7 +318,7 @@ public class Driver {
             String goToOnyen = "";
             
             if (controller.equals("GradingManager")) {
-            	  requirements = getProjectRequirements(configuration, graderSettingsManager);
+            	  requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
                  // Logging
 //                 ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
@@ -342,7 +343,7 @@ public class Driver {
 
 //            		  settingsModel = new AGraderSettingsModel(null);
                  	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
-                 	settingsModel.setPrivacyMode(getPrivacy(configuration, graderSettingsManager));
+                 	settingsModel.setPrivacyMode(StaticConfigurationUtils.getPrivacy(configuration, graderSettingsManager));
                  	settingsModel.init();
             			settingsFrame = ObjectEditor.edit(settingsModel); 
             			settingsFrame.setLocation(settingsFrameX, settingsFrameY);
@@ -357,7 +358,7 @@ public class Driver {
             			settingsModel.awaitBegin();
             			projectName = settingsModel.getCurrentProblem(); // get the current one
             			  GradingEnvironment.get().setAssignmentName(projectName);
-            			  requirements = getProjectRequirements(configuration, graderSettingsManager);
+            			  requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
                          // Logging
 //                         ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
@@ -390,6 +391,8 @@ public class Driver {
 
                 // Create the database
 //                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+                boolean makeClassDescriptions = StaticConfigurationUtils.getMakeClassDescription(configuration, graderSettingsManager);
+           	 AProject.setMakeClassDescriptions(makeClassDescriptions);
                  database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
@@ -407,12 +410,12 @@ public class Driver {
                 // Feedback
 //                database.setAutoFeedback(ConglomerateRecorder.getInstance());
                 database.setManualFeedback(ConglomerateRecorder.getInstance());
-                List<String> visitActions = autoVisitActions(configuration, graderSettingsManager);
+                List<String> visitActions = StaticConfigurationUtils.autoVisitActions(configuration, graderSettingsManager);
                 ProjectStepper projectStepper = database.getOrCreateProjectStepper();
 //                OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
-                if (visitActions.contains(AUTO_GRADE))                	
+                if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE))                	
                 	projectStepper.setAutoAutoGrade(true);
-                if (visitActions.contains(AUTO_RUN))  
+                if (visitActions.contains(StaticConfigurationUtils.AUTO_RUN))  
                 	projectStepper.setAutoRun(true);
 //                if (visitActions.contains(MAKE_CLASS_DESCRIPTION)) {
 //                	AProject.setMakeClassDescriptions(true);
