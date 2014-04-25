@@ -6,7 +6,7 @@ public interface GradingHistoryUnparser {
 			AllStudentsProblemHistory anAllStudentsHistory);
 
 	public abstract String unparseStudentProblemGradingHistory(
-			StudentProblemGradingHistory aSingleStudentHistory);
+			StudentProblemHistory aSingleStudentHistory);
 
 	String getAggregateStatistics(AllStudentsProblemHistory anAllStudentsHistory);
 

@@ -75,7 +75,7 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		stringBuilder.append(anAllStudentsHistory.getModuleName() + ":" + anAllStudentsHistory.getProblemName() + "\n");
 		for (String student:allStudents) {
 			stringBuilder.append("-------------------------------------------------\n");
-			StudentProblemGradingHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
+			StudentProblemHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
 			stringBuilder.append(unparseStudentProblemGradingHistory(savedStudentProblemGradingHistory));
 		
 
@@ -84,15 +84,51 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		return stringBuilder.toString();		
 	}
 	
+	
+	public String unparseAllProblemsStudentGradingHistory(StudentAllProblemsHistory anAllProblemsHistory) {
+		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_ALL_STUDENTS_SIZE);
+		String onyen = anAllProblemsHistory.getOnyen();
+		String studentName = anAllProblemsHistory.getName();
+		List<StudentProblemHistory> problems = anAllProblemsHistory.getProblemHistories();
+		for (StudentProblemHistory problem: problems) {
+			
+		}
+		
+		
+		
+		return stringBuilder.toString();		
+	}
+	
+	
+	public String unparseProblemStudentGradingHistory(StudentProblemHistory aSingleStudentHistory) {
+		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
+		stringBuilder.append (aSingleStudentHistory.getModuleName() + ":" + 
+				aSingleStudentHistory.getProblemName());
+		return unparseGradingHistory(aSingleStudentHistory, stringBuilder);
+
+	}
+
+	public String unparseStudentProblemGradingHistory(StudentProblemHistory aSingleStudentHistory) {
+		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
+		
+		stringBuilder.append (aSingleStudentHistory.getName() + 
+				"(" + aSingleStudentHistory.getOnyen() + ")" );
+		return unparseGradingHistory(aSingleStudentHistory, stringBuilder);
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see grader.stats.SavedGradingHistoryUnparser#unparseStudentProblemGradingHistory(grader.stats.SavedStudentProblemGradingHistory)
 	 */
-	@Override
-	public String unparseStudentProblemGradingHistory(StudentProblemGradingHistory aSingleStudentHistory) {
-		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
-		stringBuilder.append (aSingleStudentHistory.getName() + 
-				"(" + aSingleStudentHistory.getOnyen() + ")" +  
-				" TOTAL:" + aSingleStudentHistory.getTotalScore());
+	
+	 String unparseGradingHistory(StudentProblemHistory aSingleStudentHistory, StringBuilder stringBuilder) {
+		 stringBuilder.append (
+					" TOTAL:" + aSingleStudentHistory.getTotalScore());
+			;
+//		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
+//		stringBuilder.append (aSingleStudentHistory.getName() + 
+//				"(" + aSingleStudentHistory.getOnyen() + ")" +  
+//				" TOTAL:" + aSingleStudentHistory.getTotalScore());
 		
 //		
 //				" FEATURES:" + aSingleStudentHistory.getFeaturesScore());

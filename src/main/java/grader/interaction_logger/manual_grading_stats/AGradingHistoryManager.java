@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import util.misc.Common;
 
@@ -25,6 +26,8 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	File[] interactionFiles;
 	List<AllStudentsProblemHistory> problemHistory = new ArrayList();
 	Map<String, AllStudentsProblemHistory> descriptionToHistory = new HashMap();
+	Map<String, StudentAllProblemsHistory> onyenToAllProblemsHistory = new HashMap();
+
 	GradingHistoryParser parser;
 	GradingHistoryUnparser unparser;
 
@@ -124,6 +127,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	@Override
 	public void buildHistories() {
 		buildProblemHistories();
+		buildStudentHistories();
 		
 	}
 	/* (non-Javadoc)
@@ -148,6 +152,22 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 				}
 			}
 		}		
+	}
+	
+	public void buildStudentHistories() {
+		for (AllStudentsProblemHistory problem: problemHistory) {
+			Map<String, StudentProblemHistory> nameToStudentHistory = problem.getOnyenToStudentHistory();
+			Set<String> onyens = nameToStudentHistory.keySet();
+			for (String onyen:onyens) {
+				StudentAllProblemsHistory allProblemsHistory = onyenToAllProblemsHistory.get(onyen);
+				if (allProblemsHistory == null) {
+					allProblemsHistory = new AStudentAllProblemsHistory();
+					onyenToAllProblemsHistory.put(onyen,  allProblemsHistory);
+				}
+				allProblemsHistory.addSavedStudentProblemGradingHistory(nameToStudentHistory.get(onyen));
+			}
+			
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -193,7 +213,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		
 //		System.out.println(aRows);
 //		System.out.println(scanCSVRow(aRows));
-		StudentProblemGradingHistory newVisit = parser.parseStudentHistory(scanCSVRow(aRows));
+		StudentProblemHistory newVisit = parser.parseStudentHistory(scanCSVRow(aRows));
 		currentProblemHistory.newStudentHistory(newVisit.getOnyen(), newVisit);
 	
 //		String newState = unparser.unparseAllStudentsProblemGradingHistory(currentProblemHistory);
@@ -205,13 +225,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see grader.interaction_logger.InteractionHistoryManager#buildStudentHistories()
-	 */
-	@Override
-	public void buildStudentHistories() {
-		
-	}
+	
 	
 	public static void main(String[] args) {
 		GradingHistoryManager manager = new AGradingHistoryManager();

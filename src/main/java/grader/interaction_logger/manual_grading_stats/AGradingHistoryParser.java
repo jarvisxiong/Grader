@@ -36,7 +36,7 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	List<String[]> table;
 	AllStudentsProblemHistory history;
 	String currentOnyen = "";
-	StudentProblemGradingHistory currentStudentHistory;
+	StudentProblemHistory currentStudentHistory;
 	boolean isAutomaticPhase;
 	String graderName;
 	
@@ -264,7 +264,7 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	
 	
 	@Override
-	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
+	public StudentProblemHistory parseStudentHistory(List<String[]> aTable) {
 		setTable(aTable);
 		endPhaseIndex = aTable.size(); 
 //		table = aTable;
@@ -278,13 +278,13 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	}
 	
 	
-	 StudentProblemGradingHistory parseNextStudentHistory() {
+	 StudentProblemHistory parseNextStudentHistory() {
 		String[] beginRow = table.get(currentRowIndex);
 		long beginTime = ProjectStepStarted.timeStampFromCSVRow(beginRow);
 		long endTime;
 
 		 currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
-		StudentProblemGradingHistory retVal = new AStudentProblemHistory(graderName, history.getModuleName(), history.getProblemName(), currentOnyen);
+		StudentProblemHistory retVal = new AStudentProblemHistory(graderName, history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		
 		if (endVisitIndex < 0) {

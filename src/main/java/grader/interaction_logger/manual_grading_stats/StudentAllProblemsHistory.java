@@ -12,12 +12,12 @@ public interface StudentAllProblemsHistory {
 
 	public abstract void setName(String name);
 
-	public abstract List<StudentProblemGradingHistory> getProblemHistories();
+	public abstract List<StudentProblemHistory> getProblemHistories();
 
 	public abstract void setProblemHistories(
-			List<StudentProblemGradingHistory> problemHistories);
+			List<StudentProblemHistory> problemHistories);
 
 	public abstract void addSavedStudentProblemGradingHistory(
-			StudentProblemGradingHistory newValue);
+			StudentProblemHistory newValue);
 
 }

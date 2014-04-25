@@ -6,7 +6,7 @@ import java.util.List;
 public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	String onyen;
 	String name;
-	List<StudentProblemGradingHistory> problemHistories = new ArrayList();
+	List<StudentProblemHistory> problemHistories = new ArrayList();
 	/* (non-Javadoc)
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#getOnyen()
 	 */
@@ -39,7 +39,7 @@ public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#getProblemHistories()
 	 */
 	@Override
-	public List<StudentProblemGradingHistory> getProblemHistories() {
+	public List<StudentProblemHistory> getProblemHistories() {
 		return problemHistories;
 	}
 	/* (non-Javadoc)
@@ -47,7 +47,7 @@ public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	 */
 	@Override
 	public void setProblemHistories(
-			List<StudentProblemGradingHistory> problemHistories) {
+			List<StudentProblemHistory> problemHistories) {
 		this.problemHistories = problemHistories;
 	}
 	
@@ -55,7 +55,7 @@ public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	 * @see grader.stats.SavedStudentAllProblemsGradingHistory#addSavedStudentProblemGradingHistory(grader.stats.SavedStudentProblemGradingHistory)
 	 */
 	@Override
-	public void addSavedStudentProblemGradingHistory(StudentProblemGradingHistory newValue) {
+	public void addSavedStudentProblemGradingHistory(StudentProblemHistory newValue) {
 		problemHistories.add(newValue);
 	}
 	
