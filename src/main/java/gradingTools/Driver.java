@@ -343,7 +343,7 @@ public class Driver {
 
 //            		  settingsModel = new AGraderSettingsModel(null);
                  	settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
-                 	settingsModel.setPrivacyMode(StaticConfigurationUtils.getPrivacy(configuration, graderSettingsManager));
+//                 	settingsModel.setPrivacyMode(StaticConfigurationUtils.getPrivacy(configuration, graderSettingsManager));
                  	settingsModel.init();
             			settingsFrame = ObjectEditor.edit(settingsModel); 
             			settingsFrame.setLocation(settingsFrameX, settingsFrameY);

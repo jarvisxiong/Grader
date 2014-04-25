@@ -17,6 +17,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
+import grader.config.StaticConfigurationUtils;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
@@ -249,6 +250,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
 				
 			}
+			boolean isPrivacy = StaticConfigurationUtils.getPrivacy(
+					ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration(), 
+					currentModule, currentProblem);
+			setPrivacyMode(isPrivacy);
 //		if (problems.size() > 0) {
 //			currentProblem = problems.get(problems.size() - 1);
 //		else
@@ -699,7 +704,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		return privacyMode;
 	}
 	public void setPrivacyMode(boolean newValue) {
-		if (privacyMode = newValue) return;
+		if (privacyMode == newValue) return;
 		this.privacyMode = newValue;
 		propertyChangeSupport.firePropertyChange("onyens", null, onyens);
 	}

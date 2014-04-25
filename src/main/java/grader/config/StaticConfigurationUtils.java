@@ -57,9 +57,41 @@ public class StaticConfigurationUtils {
 		
 	}
 	
+	public static boolean getPrivacy(PropertiesConfiguration configuration, String aModule, String aProblem) {
+//		String module = graderSettingsManager.getModule();
+//		String problem = graderSettingsManager.getNormalizedProblem(module);
+//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
+//			
+//		if (retVal == null)
+//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
+//		if (retVal == null)
+//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
+//		
+//		return retVal;
+		return  getInheritedBooleanModuleProblemProperty(configuration, aModule, aProblem, PRIVACY, false);
+		
+	}
+	
 	public static Boolean getInheritedBooleanModuleProblemProperty(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager, String property, Boolean defaultValue) {
 		String module = graderSettingsManager.getModule();
 		String problem = graderSettingsManager.getNormalizedProblem(module);
+		
+		return getInheritedBooleanModuleProblemProperty(configuration, module, problem, property, defaultValue);
+//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + property, null);
+//			
+//		if (retVal == null)
+//			retVal = configuration.getBoolean(module+"." + property, null);
+//		if (retVal == null)
+//			retVal = configuration.getBoolean("default"+"." + property, defaultValue);
+//		
+//		return retVal;
+		
+	}
+	
+	
+	
+	public static Boolean getInheritedBooleanModuleProblemProperty(PropertiesConfiguration configuration, String module, String problem, String property, Boolean defaultValue) {
+		
 		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + property, null);
 			
 		if (retVal == null)
