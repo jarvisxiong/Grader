@@ -250,9 +250,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
 				
 			}
+			graderSettingsManager.setModule(currentModule);
+	        graderSettingsManager.setProblem(currentModule, currentProblem);
+
 			boolean isPrivacy = StaticConfigurationUtils.getPrivacy(
 					ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration(), 
-					currentModule, currentProblem);
+					graderSettingsManager);
 			setPrivacyMode(isPrivacy);
 //		if (problems.size() > 0) {
 //			currentProblem = problems.get(problems.size() - 1);
