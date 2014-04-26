@@ -1,6 +1,7 @@
 package framework.project;
 
 import framework.execution.*;
+import grader.project.AProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
@@ -96,6 +97,7 @@ public class StandardProject implements Project {
         try {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
+            if (AProject.isMakeClassDescriptions())
             classesManager = Option.apply((ClassesManager) new ProjectClassesManager(buildFolder, sourceFolder));
         } catch (Exception e) {
             classesManager = Option.empty();
