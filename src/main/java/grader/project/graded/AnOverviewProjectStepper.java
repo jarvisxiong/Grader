@@ -27,7 +27,9 @@ import grader.project.source.TACommentsExtractorSelector;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -169,6 +171,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	String output = "";
 	String source = "";
 	String problemHistory = "";
+	String studentHistory = "";
 	TACommentsExtractor taCommentsExtractor;
 	String taComments = "";
 
@@ -482,7 +485,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
 		problemHistory = GradingHistoryManagerSelector.getGradingHistoryManager().getProblemHistoryTextOfCurrentModuleProblem();
-	
+		studentHistory = GradingHistoryManagerSelector.getGradingHistoryManager().getStudentHistoryText(
+					GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule(), getOnyen());
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
 		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
@@ -706,6 +710,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public String getProblemHistory() {
 		return problemHistory;
+	}
+	@Override
+	public String getStudentHistory() {
+		return studentHistory;
 	}
 	@Override
 	public String getSource() {

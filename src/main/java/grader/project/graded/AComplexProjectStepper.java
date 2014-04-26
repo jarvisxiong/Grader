@@ -422,6 +422,15 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.getProblemHistory();
 	}
 	
+	@Override
+	@Visible(true)
+	@Position(4)
+	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("History of manual interventions for this student.")
+	public String getStudentHistory() {
+		return mainProjectStepper.getStudentHistory();
+	}
+	
 	
 	@Override
 	public void internalSetSource(String newValue) {
@@ -562,6 +571,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		// TODO Auto-generated method stub
 		return mainProjectStepper.getDisplayedName();
 	}
+	
 
 
 }

@@ -571,6 +571,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getDisplayedName();
 	}
+	@Override
+	public String getStudentHistory() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.getStudentHistory();
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

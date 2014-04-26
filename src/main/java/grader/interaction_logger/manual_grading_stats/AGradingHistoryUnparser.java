@@ -20,6 +20,7 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 	
 	public static final int EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE = 4096;
 	public static final int EXPECTED_NUMBER_STUDENTS = 80;
+	public static final String LINE_SEPARATOR = "--------------------------------------------------------------------------------------------------\n";
 
 	public static final int EXPECTED_UNPARSE_ALL_STUDENTS_SIZE = EXPECTED_NUMBER_STUDENTS*EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE;
 
@@ -74,7 +75,7 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 
 		stringBuilder.append(anAllStudentsHistory.getModuleName() + ":" + anAllStudentsHistory.getProblemName() + "\n");
 		for (String student:allStudents) {
-			stringBuilder.append("-------------------------------------------------\n");
+			stringBuilder.append(LINE_SEPARATOR);
 			StudentProblemHistory savedStudentProblemGradingHistory = anAllStudentsHistory.getOnyenToStudentHistory().get(student);
 			stringBuilder.append(unparseStudentProblemGradingHistory(savedStudentProblemGradingHistory));
 		
@@ -92,8 +93,10 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		List<StudentProblemHistory> problems = anAllProblemsHistory.getProblemHistories();
 		stringBuilder.append (studentName + 
 				"(" + onyen + ")\n" );
+		stringBuilder.append(LINE_SEPARATOR);
 		for (StudentProblemHistory problem: problems) {
 			unparseProblemStudentGradingHistory(problem, stringBuilder);
+			stringBuilder.append(LINE_SEPARATOR);
 			
 		}
 		
