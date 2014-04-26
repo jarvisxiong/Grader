@@ -84,13 +84,16 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 		return stringBuilder.toString();		
 	}
 	
-	
-	public String unparseAllProblemsStudentGradingHistory(StudentAllProblemsHistory anAllProblemsHistory) {
+	@Override
+	public String unparseAllProblemsStudentGradingHistory(AllProblemsStudentHistory anAllProblemsHistory) {
 		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_ALL_STUDENTS_SIZE);
 		String onyen = anAllProblemsHistory.getOnyen();
 		String studentName = anAllProblemsHistory.getName();
 		List<StudentProblemHistory> problems = anAllProblemsHistory.getProblemHistories();
+		stringBuilder.append (studentName + 
+				"(" + onyen + ")\n" );
 		for (StudentProblemHistory problem: problems) {
+			unparseProblemStudentGradingHistory(problem, stringBuilder);
 			
 		}
 		
@@ -102,6 +105,15 @@ public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 	
 	public String unparseProblemStudentGradingHistory(StudentProblemHistory aSingleStudentHistory) {
 		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
+		return unparseProblemStudentGradingHistory(aSingleStudentHistory, stringBuilder);
+//		stringBuilder.append (aSingleStudentHistory.getModuleName() + ":" + 
+//				aSingleStudentHistory.getProblemName());
+//		return unparseGradingHistory(aSingleStudentHistory, stringBuilder);
+
+	}
+	
+	 String unparseProblemStudentGradingHistory(StudentProblemHistory aSingleStudentHistory, StringBuilder stringBuilder) {
+//		StringBuilder stringBuilder = new StringBuilder(EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE);
 		stringBuilder.append (aSingleStudentHistory.getModuleName() + ":" + 
 				aSingleStudentHistory.getProblemName());
 		return unparseGradingHistory(aSingleStudentHistory, stringBuilder);

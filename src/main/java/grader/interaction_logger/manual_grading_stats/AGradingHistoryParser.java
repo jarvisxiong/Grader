@@ -284,6 +284,7 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 		long endTime;
 
 		 currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
+//		 String name = ProjectStepStarted.nameFromCSVRow(beginRow);
 		StudentProblemHistory retVal = new AStudentProblemHistory(graderName, history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		

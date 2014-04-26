@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import bus.uigen.undo.NameTokenizer;
 import util.misc.Common;
 
 public class AGradingHistoryManager implements  GradingHistoryManager{
@@ -26,7 +27,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	File[] interactionFiles;
 	List<AllStudentsProblemHistory> problemHistory = new ArrayList();
 	Map<String, AllStudentsProblemHistory> descriptionToHistory = new HashMap();
-	Map<String, StudentAllProblemsHistory> onyenToAllProblemsHistory = new HashMap();
+	Map<String, AllProblemsStudentHistory> onyenToAllProblemsHistory = new HashMap();
 
 	GradingHistoryParser parser;
 	GradingHistoryUnparser unparser;
@@ -159,9 +160,9 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 			Map<String, StudentProblemHistory> nameToStudentHistory = problem.getOnyenToStudentHistory();
 			Set<String> onyens = nameToStudentHistory.keySet();
 			for (String onyen:onyens) {
-				StudentAllProblemsHistory allProblemsHistory = onyenToAllProblemsHistory.get(onyen);
+				AllProblemsStudentHistory allProblemsHistory = onyenToAllProblemsHistory.get(onyen);
 				if (allProblemsHistory == null) {
-					allProblemsHistory = new AStudentAllProblemsHistory();
+					allProblemsHistory = new AnAllProblemsStudentHistory();
 					onyenToAllProblemsHistory.put(onyen,  allProblemsHistory);
 				}
 				allProblemsHistory.addSavedStudentProblemGradingHistory(nameToStudentHistory.get(onyen));
@@ -180,6 +181,15 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 			System.out.println(unparsedValue);
 		}
 		
+	}
+	
+	@Override
+	public void unparseStudentHistories() {
+		Set<String> students = onyenToAllProblemsHistory.keySet();
+		for (String student:students) {
+			AllProblemsStudentHistory history = onyenToAllProblemsHistory.get(student);
+			System.out.println(unparser.unparseAllProblemsStudentGradingHistory(history));
+		}		
 	}
 	
 	/* (non-Javadoc)
@@ -232,6 +242,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		manager.readInteractionDirectory();
 		manager.buildHistories();
 		manager.unparseProblemHistories();
+		manager.unparseStudentHistories();
 		manager.getOrCreateProblemHistoryFile("comp110", "Assignment 3");
 //		manager.buildCurrentProblemHistory();
 	}

@@ -3,7 +3,7 @@ package grader.interaction_logger.manual_grading_stats;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
+public class AnAllProblemsStudentHistory implements AllProblemsStudentHistory {
 	String onyen;
 	String name;
 	List<StudentProblemHistory> problemHistories = new ArrayList();
@@ -56,6 +56,10 @@ public class AStudentAllProblemsHistory implements StudentAllProblemsHistory {
 	 */
 	@Override
 	public void addSavedStudentProblemGradingHistory(StudentProblemHistory newValue) {
+		if (onyen == null) {
+			onyen = newValue.getOnyen();
+			name = newValue.getName();
+		}
 		problemHistories.add(newValue);
 	}
 	

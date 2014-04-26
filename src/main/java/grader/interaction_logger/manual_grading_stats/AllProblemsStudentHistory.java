@@ -2,7 +2,7 @@ package grader.interaction_logger.manual_grading_stats;
 
 import java.util.List;
 
-public interface StudentAllProblemsHistory {
+public interface AllProblemsStudentHistory {
 
 	public abstract String getOnyen();
 

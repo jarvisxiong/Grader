@@ -56,4 +56,6 @@ public interface GradingHistoryManager extends InteractionLogListener{
 
 	String getAggregateProblemHistoryTextOfCurrentModuleProblem();
 
+	void unparseStudentHistories();
+
 }

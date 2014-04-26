@@ -10,4 +10,7 @@ public interface GradingHistoryUnparser {
 
 	String getAggregateStatistics(AllStudentsProblemHistory anAllStudentsHistory);
 
+	String unparseAllProblemsStudentGradingHistory(
+			AllProblemsStudentHistory anAllProblemsHistory);
+
 }
