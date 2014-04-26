@@ -21,7 +21,7 @@ import util.misc.Common;
 public class AGradingHistoryManager implements  GradingHistoryManager{
 	public static final String PROBLEM_STATS = "problems";
 	public static final String STUDENT_STATS = "students";
-	public static final String SUFFIUX = ".txt";
+	public static final String SUFFIX = ".txt";
 
 	String interactionDirectory;
 	File[] interactionFiles;
@@ -48,7 +48,13 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	}
 	@Override
 	public  String getProblemHistoryFileName (String aModule, String aProblem ) {
-		return interactionDirectory + "/" + PROBLEM_STATS + "/" + aModule + "/" + aProblem + ".txt";
+		return interactionDirectory + "/" + PROBLEM_STATS + "/" + aModule + "/" + aProblem + SUFFIX;
+		
+	}
+	public  String getStudentHistoryFileName (String aModule, String anOnyen ) {
+//		return interactionDirectory + "/" + STUDENT_STATS + "/" + aModule + "/" + anOnyen + SUFFIX;
+		return interactionDirectory + "/" + STUDENT_STATS + "/" +  anOnyen + SUFFIX;
+
 		
 	}
 	@Override
@@ -66,6 +72,22 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		return file;
 	}
 	@Override
+	public  File getOrCreateStudentHistoryFile(String aModule, String anOnyen ) {
+		File file = new File (getStudentHistoryFileName(aModule, anOnyen));
+		if (!file.exists()) {
+			boolean success = file.getParentFile().mkdirs();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return file;
+	}
+
+	
+	@Override
 	public String getSavedProblemHistoryTextOfCurrentModuleProblem() {
 		String aModule = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule();
 		String aProblem = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentProblem();
@@ -77,6 +99,7 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		String aProblem = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentProblem();
 		setProblemHistoryText(aModule, aProblem, newVal);
 	}
+	
 	@Override
 	public void setProblemHistoryTextOfCurrentModuleProblem() {
 		String log = getProblemHistoryTextOfCurrentModuleProblem();
@@ -94,10 +117,33 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		
 	}
 	@Override
+	public  String getStudentHistoryText(String aModule, String anOnyen ) {
+		File file = getOrCreateStudentHistoryFile(aModule, anOnyen);
+		return Common.toText(file);
+	}
+	@Override
+	public  void setStudentHistoryText(String aModule, String anOnyen, String aText ) {
+		File file = getOrCreateStudentHistoryFile(aModule, anOnyen);
+		try {
+			Common.writeText(file, aText);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+	}
+	
+	public void saveStudentHistoryText(AllProblemsStudentHistory aHistory) {
+		String anOnyen = aHistory.getOnyen();
+		String aModule = GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule();
+		String text = unparser.unparseAllProblemsStudentGradingHistory(aHistory);
+		setStudentHistoryText(aModule, anOnyen, text);
+	}
+	@Override
 	public String getProblemHistoryText(String aModule, String aProblem) {
 		File file = getOrCreateProblemHistoryFile(aModule, aProblem);
 		return Common.toText(file);
 	}
+	
 	@Override
 	public void setProblemHistoryText(String aModule, String aProblem, String aText) {
 		File file = getOrCreateProblemHistoryFile(aModule, aProblem);
@@ -183,6 +229,8 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 		
 	}
 	
+	
+	
 	@Override
 	public void unparseStudentHistories() {
 		Set<String> students = onyenToAllProblemsHistory.keySet();
@@ -190,6 +238,21 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 			AllProblemsStudentHistory history = onyenToAllProblemsHistory.get(student);
 			System.out.println(unparser.unparseAllProblemsStudentGradingHistory(history));
 		}		
+	}
+	
+	@Override
+	public void saveLoadedStudentHistories() {
+		Set<String> students = onyenToAllProblemsHistory.keySet();
+		for (String student:students) {
+			AllProblemsStudentHistory history = onyenToAllProblemsHistory.get(student);
+			saveStudentHistoryText(history);
+		}		
+	}
+	@Override
+	public void saveStudentHistories() {
+		readInteractionDirectory();
+		buildHistories();
+		saveLoadedStudentHistories();
 	}
 	
 	/* (non-Javadoc)
@@ -239,11 +302,12 @@ public class AGradingHistoryManager implements  GradingHistoryManager{
 	
 	public static void main(String[] args) {
 		GradingHistoryManager manager = new AGradingHistoryManager();
-		manager.readInteractionDirectory();
-		manager.buildHistories();
-		manager.unparseProblemHistories();
-		manager.unparseStudentHistories();
-		manager.getOrCreateProblemHistoryFile("comp110", "Assignment 3");
+		manager.saveStudentHistories();
+//		manager.readInteractionDirectory();
+//		manager.buildHistories();
+//		manager.unparseProblemHistories();
+//		manager.unparseStudentHistories();
+//		manager.getOrCreateProblemHistoryFile("comp110", "Assignment 3");
 //		manager.buildCurrentProblemHistory();
 	}
 	

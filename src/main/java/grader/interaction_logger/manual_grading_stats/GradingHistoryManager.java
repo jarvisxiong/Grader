@@ -58,4 +58,14 @@ public interface GradingHistoryManager extends InteractionLogListener{
 
 	void unparseStudentHistories();
 
+	File getOrCreateStudentHistoryFile(String aModule, String anOnyen);
+
+	String getStudentHistoryText(String aModule, String anOnyen);
+
+	void setStudentHistoryText(String aModule, String anOnyen, String aText);
+
+	void saveLoadedStudentHistories();
+
+	void saveStudentHistories();
+
 }
