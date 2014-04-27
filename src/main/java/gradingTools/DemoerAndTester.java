@@ -1,6 +1,7 @@
 package gradingTools;
 
 import grader.assignment.GradingFeature;
+import grader.navigation.NavigationKind;
 import grader.navigation.filter.GradingStatus;
 import grader.project.graded.ComplexProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
@@ -100,13 +101,18 @@ public class DemoerAndTester implements Runnable{
 	
 	public static void initializeAndChangeProblem() {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
+		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText("Test Data/Test 110 F13 Assignments/Assignment1");
+
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
 
-		clearanceManager.setStepDescription("Next step is cleanup any previous grading results for this assignment" 
-				+ ", automatically change problem from Assignment1 to Assignment3"
+		clearanceManager.setStepDescription("Next steps are "
+				+ "automatically change problem to Assignment1"
+				+ ", set the download folder" 
 				+ " and cleanup any previous grading results for this assignment.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
+		Driver.getSettingsModel().getNavigationSetter().setNavigationKind(NavigationKind.HYBRID);
+
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
 		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("cwrong");
 		Driver.getSettingsModel().getOnyens().setDisplayedStartingOnyen("acorrect");
