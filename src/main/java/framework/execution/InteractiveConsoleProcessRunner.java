@@ -4,6 +4,7 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.config.StaticConfigurationUtils;
 import grader.project.MainClassFinderSelector;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
@@ -95,10 +96,18 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
         try {
 //            runner.start();
+        	
+        	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
+        	ProcessBuilder builder;
+        	if (command.length == 0)
 
             // Prepare to run the process
-            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-            builder.directory(folder);
+//            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+        	else
+        		builder = new ProcessBuilder(command);
+
+        	builder.directory(folder);
 
             // Start the process
             final TimedProcess process = new TimedProcess(builder, timeout);

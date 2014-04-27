@@ -12,6 +12,7 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;
@@ -121,7 +122,16 @@ public class ProcessRunner implements Runner {
 					.getClasspath();
 //			ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get()
 //					.getClasspath(), entryPoint);
-			ProcessBuilder builder = new ProcessBuilder("java", "-cp", classPath, entryPoint);
+		  	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
+        	ProcessBuilder builder;
+        	if (command.length == 0)
+
+            // Prepare to run the process
+//            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+        	else
+        		builder = new ProcessBuilder(command);
+//			ProcessBuilder builder = new ProcessBuilder("java", "-cp", classPath, entryPoint);
 			builder.directory(folder);
 //			System.out.println("Running process: java -cp \""
 //					+ GradingEnvironment.get().getClasspath() + "\" " + entryPoint);
