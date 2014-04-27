@@ -354,10 +354,12 @@ public class DemoerAndTester implements Runnable{
 	}
 	public static void quit2() {
 		clearanceManager.setStepDescription("Next step is to quit the second grader session and also this test/demo session, cleaning generated files.");
-		Driver.getDatabase().getProjectStepper().setExitOnQuit(true);
+		Driver.getDatabase().getProjectStepper().setExitOnQuit(false);
 
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
+		
+
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 			Driver.getSettingsModel().cleanSlate();
 
