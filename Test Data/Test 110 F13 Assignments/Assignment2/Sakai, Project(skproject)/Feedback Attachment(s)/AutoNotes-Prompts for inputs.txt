@@ -1,0 +1,2 @@
+  -- Does not tell the user how long the String should be 
+
