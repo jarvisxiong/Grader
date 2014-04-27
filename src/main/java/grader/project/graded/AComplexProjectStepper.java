@@ -210,6 +210,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Visible(true)
 	@Position(1)
 	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("The contents of the summary seen by the student.")
 	public String getFeedback() {
 		return mainProjectStepper.getFeedback();
 	}
