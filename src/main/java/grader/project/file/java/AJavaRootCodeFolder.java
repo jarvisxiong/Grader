@@ -1,6 +1,8 @@
 package grader.project.file.java;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.project.MissingProjectException;
@@ -21,9 +23,18 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	public static final String BINARY = "/bin";
 	public static final String BINARY_2 = "out";
 	public static final String BINARY_3 = "build"; // net beans
-	public static final String SOURCE_FILE_SUFFIX = ".java";
-	public static final String BINARY_FILE_SUFFIX = ".class";
+	 static  String sourceFileSuffix = ".java";
+	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
+	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
+	 static String language;
+		
+		public static String JAVA_LANGUAGE = "Java";
+		public static String C_LANGUAGE = "C";
 
+	
+	public static  String binaryFileSuffix = ".class";
+
+	
 	
 	String sourceFolderName = SOURCE;
 	String binaryFolderName = BINARY;
@@ -49,7 +60,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	String findParentOfSomeSourceFile(RootFolderProxy aRoot) { // will  not work with packages
 		List<FileProxy> entries = aRoot.getFileEntries();
 		for (FileProxy aFile:entries) {
-			if (aFile.getAbsoluteName().endsWith(SOURCE_FILE_SUFFIX)) {
+			if (aFile.getAbsoluteName().endsWith(sourceFileSuffix)) {
 				return aFile.getParentFolderName();
 			}
 		}
@@ -146,12 +157,12 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 				hasBinary = true;
 			}
 //			if (!hasSourceFile && name.indexOf(SOURCE_FILE_SUFFIX) != -1) {
-			if (!hasSourceFile && name.endsWith(SOURCE_FILE_SUFFIX)) {
+			if (!hasSourceFile && name.endsWith(sourceFileSuffix)) {
 
 				hasSourceFile = true;
 			}
 //			if (!hasBinaryFile && name.indexOf(BINARY_FILE_SUFFIX) != -1) {// .classpath will fool this
-			if (!hasBinaryFile && name.endsWith(BINARY_FILE_SUFFIX)) {
+			if (!hasBinaryFile && name.endsWith(getBinaryFileSuffix())) {
 
 				hasBinaryFile = true;
 			}
@@ -258,6 +269,43 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	public String getMixedCaseSourceProjectFolderName() {
 		// TODO Auto-generated method stub
 		return sourceFolder.getMixedCaseAbsoluteName();
+	}
+	public static String getSourceFileSuffix() {
+		return sourceFileSuffix;
+	}
+
+	public static void setSourceFileSuffix(String sourceFileSuffix) {
+		AJavaRootCodeFolder.sourceFileSuffix = sourceFileSuffix;
+	}
+	public static String getBinaryFileSuffix() {
+		return binaryFileSuffix;
+	}
+
+	public static void setBinaryFileSuffix(String binaryFileSuffix) {
+		AJavaRootCodeFolder.binaryFileSuffix = binaryFileSuffix;
+	}
+	static void setComputedSuffixes() {
+		
+		
+	}
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		AJavaRootCodeFolder.language = language;
+		sourceFileSuffix = languageToSourceFileSuffix.get(getLanguage());
+		binaryFileSuffix = languageToBinaryFileSuffix.get(getLanguage());
+		
+	}
+	static {
+		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
+		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
+		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
+		languageToBinaryFileSuffix.put(C_LANGUAGE, ".o");
+
+		
+		
 	}
 
 }

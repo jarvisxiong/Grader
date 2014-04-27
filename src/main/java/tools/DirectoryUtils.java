@@ -93,7 +93,7 @@ public class DirectoryUtils {
 		@Override
 		public boolean accept(File pathname) {
 //			return pathname.getName().endsWith(".java");
-			return pathname.getName().endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX);
+			return pathname.getName().endsWith(AJavaRootCodeFolder.getSourceFileSuffix());
 
 		}
 	});

@@ -30,6 +30,7 @@ import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.filter.AGradingStatusFilter;
 import grader.navigation.filter.NavigationFilter;
 import grader.project.AProject;
+import grader.project.file.java.AJavaRootCodeFolder;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.ProjectStepper;
 import grader.settings.AGraderSettingsModel;
@@ -393,6 +394,8 @@ public class Driver {
 //                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
                 boolean loadClasses = StaticConfigurationUtils.getLoadClasses(configuration, graderSettingsManager);
            	 AProject.setLoadClasses(loadClasses);
+           	 String language = StaticConfigurationUtils.getLanguage();
+           	 AJavaRootCodeFolder.setLanguage(language);
            	 AProject.setCompileClasses(StaticConfigurationUtils.getCompileClasses(configuration, graderSettingsManager));
                  database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);

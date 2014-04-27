@@ -3,6 +3,7 @@ package framework.project;
 import grader.compilation.ClassFilesCompilerSelector;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
+import grader.project.file.java.AJavaRootCodeFolder;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
@@ -133,7 +134,9 @@ public class ProjectClassesManager implements ClassesManager {
 		}
 
 		// Figure out the class name and combine it with the package
-		String className = file.getName().replace(".java", "");
+//		String className = file.getName().replace(".java", "");
+		String className = file.getName().replace(AJavaRootCodeFolder.getSourceFileSuffix(), "");
+
 		return packageName + className;
 	}
 

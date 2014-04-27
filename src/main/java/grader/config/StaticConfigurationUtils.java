@@ -17,6 +17,9 @@ public class StaticConfigurationUtils {
 	public static String COMPILE_CLASSES = "compileMissingClasses";
 	public static String PRIVACY = "privacy";
 	public static String EXECUTION_COMMAND = "execution";
+	public static String LANGUAGE = "language";
+
+	
 	
 	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 		String module = graderSettingsManager.getModule();
@@ -126,6 +129,12 @@ public static String getInheritedStringModuleProblemProperty( String property, S
 		
 	}
 
+public static String getLanguage() {
+	return getInheritedStringModuleProblemProperty(LANGUAGE, "Java");
+	
+}
+
+
 public static List<String> getInheritedListModuleProblemProperty( String property) {
 	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
@@ -135,6 +144,16 @@ public static List<String> getInheritedListModuleProblemProperty( String propert
 				aProblem, property);
 		
 	}
+
+//public static String getInheritedStringModuleProblemProperty( String property, String defaultValue) {
+//	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+//	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+//	String aModule = graderSettingsManager.getModule();
+//	String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
+//		return getInheritedStringModuleProblemProperty(configuration, aModule , 
+//				aProblem, property, null);
+//		
+//	}
 	
 public static String getInheritedStringModuleProblemProperty(PropertiesConfiguration configuration, String module, String problem, String property, String defaultValue) {
 		

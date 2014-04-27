@@ -39,7 +39,7 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
         for (FileProxy aFile : aFiles) {
             String locaName = aFile.getMixedCaseLocalName();
 
-            if (locaName != null && locaName.endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX)) {
+            if (locaName != null && locaName.endsWith(AJavaRootCodeFolder.getSourceFileSuffix())) {
 //                if (locaName != null && locaName.endsWith(SOURCE_FILE_SUFFIX)) {
 
                 String relativeName = Common.toRelativeName(srcFolderName, aFile.getMixedCaseAbsoluteName());
