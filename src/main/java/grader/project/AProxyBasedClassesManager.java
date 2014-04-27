@@ -23,12 +23,13 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
     public void makeClassDescriptions(Project aProject) {
         List<FileProxy> entries = aProject.getRootCodeFolder().getFileEntries();
         String projectPath = aProject.getRootCodeFolder().getAbsoluteName();
-        ProxyClassLoader classLoder = null;
+        ProxyClassLoader classLoader = null;
         // we no longer need this check as we are allowing classes to be loaded before running
 //        if (aProject.canBeRun() && aProject.hasBeenRun()) {
-            classLoder = aProject.getClassLoader();
+        if (AProject.isLoadClasses())
+            classLoader = aProject.getClassLoader();
 //        }
-        makeClassDescriptions(aProject.getSourceProjectFolderName(), entries, classLoder, aProject);
+        makeClassDescriptions(aProject.getSourceProjectFolderName(), entries, classLoader, aProject);
     }
 
     /* (non-Javadoc)

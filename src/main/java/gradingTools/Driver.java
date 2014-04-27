@@ -393,6 +393,7 @@ public class Driver {
 //                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
                 boolean loadClasses = StaticConfigurationUtils.getLoadClasses(configuration, graderSettingsManager);
            	 AProject.setLoadClasses(loadClasses);
+           	 AProject.setCompileClasses(StaticConfigurationUtils.getCompileClasses(configuration, graderSettingsManager));
                  database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete

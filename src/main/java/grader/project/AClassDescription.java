@@ -75,6 +75,7 @@ public class AClassDescription  implements ClassDescription {
 			PrintStream stderr = System.err;
 		try {
 //			javaClass = Class.forName(aClassName);
+			if (AProject.isLoadClasses()) {
 			javaClass = aClassLoader.loadClass(aClassName);
 			if (javaClass == null) {
 				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
@@ -90,6 +91,7 @@ public class AClassDescription  implements ClassDescription {
                     System.setErr(teeerr);
                 }
 				Tracer.error(classFileNotfound.getMessage());
+				if (AProject.isCompileClasses()) {
 				Tracer.error("Attempting to compile class");
 				
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
@@ -110,6 +112,7 @@ public class AClassDescription  implements ClassDescription {
 
 //					Tracer.error("Could not compile");
 				}
+				}
 				
 				
 				
@@ -122,6 +125,7 @@ public class AClassDescription  implements ClassDescription {
 //			javaClass = Class.forName(aClassName);
 //			javaClass = aClassLoader.findClass(aClassName);
 			classProxy = AClassProxy.classProxy(javaClass);
+			}
 			}
 			
 		} catch (CompilerNotFound cnf) {
@@ -151,6 +155,7 @@ public class AClassDescription  implements ClassDescription {
 		}
 
 		className = aClassName;
+		if (AProject.isLoadClasses())
 		packageName = Common.classNameToPackageName(aClassName);
 //		qdoxClass = getQdoxClass();
 	}

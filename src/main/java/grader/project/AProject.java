@@ -75,10 +75,13 @@ public class AProject implements Project {
 	
 	List<String> classNamesCompiled = new ArrayList();
 	
-	static boolean makeClassDescriptions = false;
+	static boolean loadClasses = false;
+	
+	static boolean compileClasses = false;
 
 
     
+
 
 	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -154,10 +157,12 @@ public class AProject implements Project {
         	setNoProjectFolder(true);
         	return;
         }
+        if (AProject.isLoadClasses()) {
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
         else
         	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+        }
         sourceFileName = createFullSourceFileName();
 //        outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
@@ -195,8 +200,8 @@ public class AProject implements Project {
     	// so removing this check
 //        if (!runChecked && !hasBeenRun)
 //            return;
-    	if (!isLoadClasses())
-    		return;
+//    	if (!isLoadClasses())
+//    		return;
         if (madeClassDescriptions)
             return;
         
@@ -488,10 +493,18 @@ public class AProject implements Project {
 	}
 
 	public static boolean isLoadClasses() {
-		return makeClassDescriptions;
+		return loadClasses;
 	}
 
 	public static void setLoadClasses(boolean makeClassDescriptions) {
-		AProject.makeClassDescriptions = makeClassDescriptions;
+		AProject.loadClasses = makeClassDescriptions;
+	}
+
+	public static boolean isCompileClasses() {
+		return compileClasses;
+	}
+
+	public static void setCompileClasses(boolean compileClasses) {
+		AProject.compileClasses = compileClasses;
 	}
 }

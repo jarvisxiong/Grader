@@ -101,10 +101,13 @@ public class DemoerAndTester implements Runnable{
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
 
-		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3 and cleanup any previous grading results for this assignment.");
+		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3 and cleanup any previous grading results for this assignment; and also set the onyens");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
+		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("cwrong");
+		Driver.getSettingsModel().getOnyens().setDisplayedStartingOnyen("acorrect");
+
 		Driver.getSettingsModel().cleanSlate();
 		}
 

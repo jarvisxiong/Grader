@@ -71,7 +71,7 @@ public class ProjectClassesManager implements ClassesManager {
 //			}
 //		});
 		
-		if (AProject.isLoadClasses()) {
+		if (AProject.isCompileClasses()) {
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();

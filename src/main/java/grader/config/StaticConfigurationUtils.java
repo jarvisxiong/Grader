@@ -12,6 +12,7 @@ public class StaticConfigurationUtils {
 	public static String AUTO_GRADE = "autoGrade";
 	public static String AUTO_RUN = "autoRun";
 	public static String LOAD_CLASSES = "loadClasses";
+	public static String COMPILE_CLASSES = "compileMissingClasses";
 	public static String PRIVACY = "privacy";
 	
 	public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
@@ -28,17 +29,14 @@ public class StaticConfigurationUtils {
 	}
 	
 	public static boolean getLoadClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
-//		String module = graderSettingsManager.getModule();
-//		String problem = graderSettingsManager.getNormalizedProblem(module);
-//		Boolean retVal = configuration.getBoolean(module+"." + problem + "." + MAKE_CLASS_DESCRIPTION, null);
-//			
-//		if (retVal == null)
-//			retVal = configuration.getBoolean(module+"." + MAKE_CLASS_DESCRIPTION, null);
-//		if (retVal == null)
-//			retVal = configuration.getBoolean("default"+"." + MAKE_CLASS_DESCRIPTION, false);
-//		
-//		return retVal;
+
 		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, LOAD_CLASSES, false);
+		
+	}
+	
+	public static boolean getCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, COMPILE_CLASSES, false);
 		
 	}
 	
