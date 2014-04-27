@@ -81,6 +81,7 @@ public class DemoerAndTester implements Runnable{
 		waitForStepper();
 		changeToNotFullyGraded();
 		doBegin();
+		doValidate2();
 //		changeOverallNotes3();
 	
 		quit2();
@@ -194,6 +195,7 @@ public class DemoerAndTester implements Runnable{
 
 		gradingFeature.setValidate(true);
 	}
+	
 	public static void showSource() {
 		clearanceManager.setStepDescription("Next step is to go the source tab to view all of the source code.");
 		waitForUserOrSleep();		
@@ -220,6 +222,15 @@ public class DemoerAndTester implements Runnable{
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
 			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
 			stepperFrame.focus(projectStepper, "problemHistory");			
+		}
+	}
+	public static void showStudentHistory() {
+		clearanceManager.setStepDescription("Next step is to go the source history tab to see past student performance.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			stepperFrame.focus(projectStepper, "studentHistory");			
 		}
 	}
 	public static void openSource() {

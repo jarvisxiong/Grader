@@ -9,6 +9,9 @@ public interface StudentProblemHistory {
 	public static final String SOURCE_TAB = "source";
 	public static final String FEEDBACK_TAB = "feedback";
 	public static final String PROBLEM_HISTORY_TAB = "problem_history";
+	
+	public static final String STUDENT_HISTORY_TAB = "student_history";
+
 
 	public static final String NAVIGATION_TAB = "navigation";
 	public static final String SOURCE_OPEN = "source_open";
@@ -77,6 +80,10 @@ public interface StudentProblemHistory {
 	
 	public void isProblemHistoryVisited() ;
 	public void setProblemHistoryVisited() ;
+	
+	public void isStudentHistoryVisited() ;
+	public void setStudentHistoryVisited() ;
+
 
 	public void isSourceOpened() ;
 	public void setSourceOpened() ;

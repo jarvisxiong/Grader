@@ -24,6 +24,7 @@ import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.SourceVisited;
+import grader.trace.stepper.StudentHistoryVisited;
 import grader.trace.stepper.UserQuit;
 
 public class AGradingHistoryParser implements GradingHistoryParser {
@@ -351,6 +352,10 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 			index = logReader.nextRowIndex(ProblemHistoryVisited.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
 				retVal.setProblemHistoryVisited();
+			}
+			index = logReader.nextRowIndex(StudentHistoryVisited.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				retVal.setStudentHistoryVisited();
 			}
 		}
 		

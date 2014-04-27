@@ -268,5 +268,17 @@ public class AStudentProblemHistory  implements StudentProblemHistory{
 		tabsVisited.add(PROBLEM_HISTORY_TAB);
 		
 	}
+	
+	@Override
+	public void isStudentHistoryVisited() {
+		tabsVisited.contains(STUDENT_HISTORY_TAB);
+		
+	}
+
+	@Override
+	public void setStudentHistoryVisited() {
+		tabsVisited.add(STUDENT_HISTORY_TAB);
+		
+	}
 
 }

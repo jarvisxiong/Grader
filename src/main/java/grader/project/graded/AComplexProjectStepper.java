@@ -11,6 +11,7 @@ import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProblemHistoryVisited;
 import grader.trace.stepper.SourceVisited;
+import grader.trace.stepper.StudentHistoryVisited;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -539,6 +540,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 				MainVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			else if (aProperty.equals("problemhistory"))
 				ProblemHistoryVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			else if (aProperty.equals("studenthistory"))
+				StudentHistoryVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			
 			
 	}
