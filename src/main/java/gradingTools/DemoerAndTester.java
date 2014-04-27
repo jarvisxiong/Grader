@@ -73,6 +73,7 @@ public class DemoerAndTester implements Runnable{
 		doNext2();
 //		openSource();
 		showProblemHistory();
+		showStudentHistory();
 		showMain();
 		syncSource();
 		quit1();
@@ -101,7 +102,9 @@ public class DemoerAndTester implements Runnable{
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
 
-		clearanceManager.setStepDescription("Next step is to automatically change problem from Assignment1 to Assignment3 and cleanup any previous grading results for this assignment; and also set the onyens");
+		clearanceManager.setStepDescription("Next step is cleanup any previous grading results for this assignment" 
+				+ ", automatically change problem from Assignment1 to Assignment3"
+				+ " and cleanup any previous grading results for this assignment.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
@@ -190,7 +193,7 @@ public class DemoerAndTester implements Runnable{
 		gradingFeature.setValidate(true);
 	}
 	public static void doValidate2() {
-		clearanceManager.setStepDescription("Next steps are to validate the pink items.");
+		clearanceManager.setStepDescription("Next steps is to validate the pink item (#6).");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 		GradingFeature gradingFeature = gradingFeatures.get(5);
@@ -399,7 +402,9 @@ public class DemoerAndTester implements Runnable{
 	public void run() {
 		Driver.drive(0,  CLEARANCE_HEIGHT);
 		OEFrame frame = (OEFrame) Driver.getDatabase().getProjectStepper().getFrame();
-		frame.setLocation(0, CLEARANCE_HEIGHT-100);
+//		frame.setLocation(0, CLEARANCE_HEIGHT-100);
+		frame.setLocation(CLEARANCE_WIDTH, 0);
+
 //		Driver.getSettingsFrame().setLocation(C);
 	}
 

@@ -4,6 +4,7 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.project.MainClassFinderSelector;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
@@ -23,7 +24,9 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
     public InteractiveConsoleProcessRunner(Project aProject) throws NotRunnableException {
         try {
-            entryPoint = getEntryPoint(aProject);
+//            entryPoint = getEntryPoint(aProject);
+            entryPoint = MainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
+
             folder = aProject.getBuildFolder(entryPoint);
             project = aProject;
             MainClassFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
@@ -33,27 +36,27 @@ public class InteractiveConsoleProcessRunner implements Runner {
         }
     }
 
-    /**
-     * This figures out what class is the "entry point", or, what class has main(args)
-     * @param project The project to run
-     * @return The class canonical name. i.e. "foo.bar.SomeClass"
-     * @throws framework.execution.NotRunnableException
-     * @see grader.project.AMainClassFinder which repeats this code (sigh)
-     */
-    private String getEntryPoint(Project project) throws NotRunnableException {
-        if (project.getClassesManager().isEmpty())
-            throw new NotRunnableException();
-
-        ClassesManager manager = project.getClassesManager().get();
-        for (ClassDescription description : manager.getClassDescriptions()) {
-            try {
-                description.getJavaClass().getMethod("main", String[].class);
-                return description.getJavaClass().getCanonicalName();
-            } catch (NoSuchMethodException e) {
-            }
-        }
-        throw new NotRunnableException();
-    }
+//    /**
+//     * This figures out what class is the "entry point", or, what class has main(args)
+//     * @param project The project to run
+//     * @return The class canonical name. i.e. "foo.bar.SomeClass"
+//     * @throws framework.execution.NotRunnableException
+//     * @see grader.project.AMainClassFinder which repeats this code (sigh)
+//     */
+//    private String getEntryPoint(Project project) throws NotRunnableException {
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotRunnableException();
+//
+//        ClassesManager manager = project.getClassesManager().get();
+//        for (ClassDescription description : manager.getClassDescriptions()) {
+//            try {
+//                description.getJavaClass().getMethod("main", String[].class);
+//                return description.getJavaClass().getCanonicalName();
+//            } catch (NoSuchMethodException e) {
+//            }
+//        }
+//        throw new NotRunnableException();
+//    }
 
     /**
      * This runs the project with no arguments

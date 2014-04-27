@@ -680,6 +680,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
 		GradingHistoryManagerSelector.getGradingHistoryManager().setProblemHistoryTextOfCurrentModuleProblem();
 		String aggregateStats = GradingHistoryManagerSelector.getGradingHistoryManager().getAggregateProblemHistoryTextOfCurrentModuleProblem();
+		GradingHistoryManagerSelector.getGradingHistoryManager().saveStudentHistories();
 		System.out.println(aggregateStats);
 	}
 	void showAggregateStats() {

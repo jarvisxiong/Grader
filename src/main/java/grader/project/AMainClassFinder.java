@@ -2,6 +2,9 @@ package grader.project;
 
 
 import framework.execution.NotRunnableException;
+//import framework.project.ClassDescription;
+//import framework.project.ClassesManager;
+//import framework.project.Project;
 import grader.file.FileProxy;
 import grader.project.file.RootCodeFolder;
 import util.misc.Common;
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class AMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
+    
     private String getEntryPoint(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
 		if (project.getClassesManager() == null)
 			throw new NotRunnableException();
@@ -25,6 +29,28 @@ public class AMainClassFinder implements MainClassFinder {
 		}
 		throw new NotRunnableException();
 	}
+    /**
+     * This figures out what class is the "entry point", or, what class has main(args)
+     * @param project The project to run
+     * @return The class canonical name. i.e. "foo.bar.SomeClass"
+     * @throws framework.execution.NotRunnableException
+     * @see grader.project.AMainClassFinder which repeats this code (sigh)
+     * Both need to be kept consistent
+     */
+    public String getEntryPoint(framework.project.Project project) throws NotRunnableException {
+        if (project.getClassesManager().isEmpty())
+            throw new NotRunnableException();
+
+        framework.project.ClassesManager manager = project.getClassesManager().get();
+        for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+            try {
+                description.getJavaClass().getMethod("main", String[].class);
+                return description.getJavaClass().getCanonicalName();
+            } catch (NoSuchMethodException e) {
+            }
+        }
+        throw new NotRunnableException();
+    }
     
     public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
     	try {
