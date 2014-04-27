@@ -1,2 +1,0 @@
-  -- - Method countUniqueCharacters does not generate the correct output.
-

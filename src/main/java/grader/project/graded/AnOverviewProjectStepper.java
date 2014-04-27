@@ -1611,7 +1611,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public void cleanAllFeedbackFolders() {
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 		if (isExitOnQuit())
 			System.exit(0);
 			

@@ -12,6 +12,6 @@ public interface GenericStudentAssignmentDatabase<GenericAssignment> {
 
     public GenericAssignment getStudentAssignment(String aStudentId);
 
-	void cleanAllFeedbackFolders();
+	void cleanAllFeedbackAndSubmissionFolders();
 
 }

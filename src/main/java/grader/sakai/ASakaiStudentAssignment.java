@@ -106,6 +106,27 @@ public class ASakaiStudentAssignment implements StudentAssignment {
 			e.printStackTrace();
 		}
     }
+    @Override
+    public void cleanSubmissionFolder() {
+    	if (submissionFolder ==null)
+    		return;
+    	String name = submissionFolder.getMixedCaseAbsoluteName();
+    	if (name == null)
+    		return;
+    	
+    	try {
+    		File submissionFile = new File(name);
+    		File[] children = submissionFile.listFiles();
+    		for (File child:children) {
+    			if (child.isDirectory()) {
+    				FileUtils.cleanDirectory(child); // generated directory
+    				child.delete();
+    			}
+    		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
     public boolean isSubmitted() {
         return submitted;

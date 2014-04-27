@@ -655,7 +655,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		projectDatabase = new ProjectDatabaseWrapper();
 //		projectDatabase.setGraderSettings(this);
 		maybeCreateProjectDatabase();
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 		
 	}
 	@Override
@@ -667,7 +667,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	public void cleanSlate() {
 		maybeCreateProjectDatabase();
 		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 	}
 	
 
