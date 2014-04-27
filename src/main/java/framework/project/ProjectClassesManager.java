@@ -1,6 +1,7 @@
 package framework.project;
 
 import grader.navigation.NavigationKind;
+import grader.project.AProject;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
@@ -32,7 +33,7 @@ public class ProjectClassesManager implements ClassesManager {
 
 	private final File buildFolder;
 	private final File sourceFolder;
-	private final ClassLoader classLoader;
+	private  ClassLoader classLoader;
 	private final Set<ClassDescription> classDescriptions;
 	List<String> classNamesToCompile = new ArrayList();
 
@@ -46,8 +47,10 @@ public class ProjectClassesManager implements ClassesManager {
 		this.sourceFolder = sourceFolder;
 
 		// Create the Class Loader and load the classes
+		if (AProject.isLoadClasses())
 		classLoader = new URLClassLoader(new URL[] { buildFolder.toURI().toURL() });
 		classDescriptions = new HashSet<ClassDescription>();
+		
 		loadClasses(sourceFolder);
 	}
 	
@@ -67,6 +70,8 @@ public class ProjectClassesManager implements ClassesManager {
 //				return pathname.getName().endsWith(".java");
 //			}
 //		});
+		
+		if (AProject.isLoadClasses()) {
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -90,11 +95,14 @@ public class ProjectClassesManager implements ClassesManager {
 				System.out.println("Compilation failed: " + e.toString());
 			}
 		}
+		}
 
 		for (File file : javaFiles) {
 			String className = getClassName(file);
 			try {
-				Class c = classLoader.loadClass(className);
+				Class c = null;
+				if (AProject.isLoadClasses())
+				 c = classLoader.loadClass(className);
 				classDescriptions.add(new BasicClassDescription(c, file));
 			} catch (Error e) {
 				throw new IOException(e.getMessage());

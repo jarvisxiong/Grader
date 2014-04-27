@@ -97,7 +97,7 @@ public class StandardProject implements Project {
         try {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
-            if (AProject.isMakeClassDescriptions())
+//            if (AProject.isMakeClassDescriptions())
             classesManager = Option.apply((ClassesManager) new ProjectClassesManager(buildFolder, sourceFolder));
         } catch (Exception e) {
             classesManager = Option.empty();

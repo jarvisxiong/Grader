@@ -195,7 +195,7 @@ public class AProject implements Project {
     	// so removing this check
 //        if (!runChecked && !hasBeenRun)
 //            return;
-    	if (!isMakeClassDescriptions())
+    	if (!isLoadClasses())
     		return;
         if (madeClassDescriptions)
             return;
@@ -487,11 +487,11 @@ public class AProject implements Project {
 		
 	}
 
-	public static boolean isMakeClassDescriptions() {
+	public static boolean isLoadClasses() {
 		return makeClassDescriptions;
 	}
 
-	public static void setMakeClassDescriptions(boolean makeClassDescriptions) {
+	public static void setLoadClasses(boolean makeClassDescriptions) {
 		AProject.makeClassDescriptions = makeClassDescriptions;
 	}
 }
