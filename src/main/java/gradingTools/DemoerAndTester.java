@@ -108,10 +108,14 @@ public class DemoerAndTester implements Runnable{
 		clearanceManager.setStepDescription("Next steps are "
 				+ "automatically change problem to Assignment1"
 				+ ", set the download folder" 
+				+ ", set the onyens"
+				+ ", set navigation filter parameter to ALL"
 				+ " and cleanup any previous grading results for this assignment.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getNavigationSetter().setNavigationKind(NavigationKind.HYBRID);
+		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
+
 
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
 		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("cwrong");

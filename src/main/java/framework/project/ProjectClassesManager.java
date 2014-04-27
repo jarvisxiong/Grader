@@ -1,5 +1,6 @@
 package framework.project;
 
+import grader.compilation.ClassFilesCompilerSelector;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
 import grader.settings.GraderSettingsModelSelector;
@@ -89,7 +90,8 @@ public class ProjectClassesManager implements ClassesManager {
 				return;
 			try {
 				System.out.println("Attempting to compile files.");
-				compile(aFilesToCompile);
+//				compile(aFilesToCompile);
+				ClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
 				System.out.println("Compilation attempt finished.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());
@@ -177,38 +179,38 @@ public class ProjectClassesManager implements ClassesManager {
 				classFile.lastModified() < javaFile.lastModified();
 	}
 
-	/**
-	 * Given an ArrayList of .javaFiles, returns whether the .java file needs to
-	 * be compiled or recompiled
-	 * 
-	 * @param javaFiles
-	 *            ArrayList of .java files
-	 * @throws IOException
-	 */
-	private void compile(ArrayList<File> javaFiles) throws IOException, IllegalStateException {
-
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		if (compiler != null) {
-			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-
-			List<String> optionList = new ArrayList<String>();
-			// set the output directory for the compiler
-			String buildFolderPath = buildFolder.getCanonicalPath();
-			optionList.addAll(Arrays.asList("-d", buildFolderPath));
-			System.out.println(buildFolderPath);
-
-			Iterable<? extends JavaFileObject> compilationUnits = fileManager
-					.getJavaFileObjectsFromFiles(javaFiles);
-			compiler.getTask(null, fileManager, null, optionList, null, compilationUnits).call();
-			for (File javaFile:javaFiles) {
-				SourceFileCompiled.newCase(javaFile.getAbsolutePath(), this);
-				
-			}
-		} else {
-//			throw new RuntimeException("Compiler not accessible");
-			throw CompilerNotFound.newCase(this);
-		}
-	}
+//	/**
+//	 * Given an ArrayList of .javaFiles, returns whether the .java file needs to
+//	 * be compiled or recompiled
+//	 * 
+//	 * @param javaFiles
+//	 *            ArrayList of .java files
+//	 * @throws IOException
+//	 */
+//	private void compile(ArrayList<File> javaFiles) throws IOException, IllegalStateException {
+//
+//		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+//		if (compiler != null) {
+//			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+//
+//			List<String> optionList = new ArrayList<String>();
+//			// set the output directory for the compiler
+//			String buildFolderPath = buildFolder.getCanonicalPath();
+//			optionList.addAll(Arrays.asList("-d", buildFolderPath));
+//			System.out.println(buildFolderPath);
+//
+//			Iterable<? extends JavaFileObject> compilationUnits = fileManager
+//					.getJavaFileObjectsFromFiles(javaFiles);
+//			compiler.getTask(null, fileManager, null, optionList, null, compilationUnits).call();
+//			for (File javaFile:javaFiles) {
+//				SourceFileCompiled.newCase(javaFile.getAbsolutePath(), this);
+//				
+//			}
+//		} else {
+////			throw new RuntimeException("Compiler not accessible");
+//			throw CompilerNotFound.newCase(this);
+//		}
+//	}
 
 	@Override
 	public ClassLoader getClassLoader() {

@@ -15,7 +15,7 @@ import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
 import grader.file.FileProxy;
-import grader.trace.compilation.ClassFileCompiledInMemory;
+import grader.trace.compilation.SourceTextCompiledInMemory;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;
 import grader.trace.compilation.ClassFileNotFound;
 import grader.trace.compilation.ClassLoaded;
@@ -96,7 +96,7 @@ public class AClassDescription  implements ClassDescription {
 				
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
 				if (classBytes != null) {
-					ClassFileCompiledInMemory.newCase(aClassName, classBytes, this);
+					SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
 					javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
 				}
 //				teeout.close();
