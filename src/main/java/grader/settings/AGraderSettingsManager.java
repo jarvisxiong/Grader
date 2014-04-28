@@ -23,6 +23,8 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 	   public static final String PROBLEM_NAME = "problem";
 	   public static final String START_ONYEN = "start";
 	   public static final String END_ONYEN = "end";
+	   public static final String WORD_PATH = "Word.path";
+	   public static final String C_COMPILER_PATH = "CCompiler.path";
 	   PropertiesConfiguration dynamicConfiguration = 
 			   ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
 	   ModuleProblemManager moduleProblemManager= ModuleProblemManagerSelector.getModuleProblemManager();
@@ -247,6 +249,28 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 		
 	}
 	@Override
+	public String getWordPath() {
+		String wordPath =  dynamicConfiguration.getString(WORD_PATH, "C:/Program Files/Microsoft Office/Office" + 14 + "/WINWORD");
+		return wordPath;
+	}
+
+	@Override
+	public void setWordPath(String aNewValue) {
+		dynamicConfiguration.setProperty(WORD_PATH, aNewValue);
+		
+	}
+	@Override
+	public String getCCompilerPath() {
+		String path =  dynamicConfiguration.getString(C_COMPILER_PATH, "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/bin/cl.exe");
+		return path;
+	}
+
+	@Override
+	public void setCCompilerPath(String aNewValue) {
+		dynamicConfiguration.setProperty(C_COMPILER_PATH, aNewValue);
+		
+	}
+	@Override
 	public String getProblem(String aModule) {
 		String problemDownloadPath =  dynamicConfiguration.getString(aModule + "." + PROBLEM_NAME,
 				dynamicConfiguration.getString(PROBLEM_NAME));
@@ -279,6 +303,7 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 		return retVal;
 		
 	}
+	
     
 	@Override
 	public void save() {
