@@ -250,7 +250,9 @@ public class AGraderSettingsManager implements GraderSettingsManager{
 	}
 	@Override
 	public String getWordPath() {
-		String wordPath =  dynamicConfiguration.getString(WORD_PATH, "C:/Program Files/Microsoft Office/Office" + 14 + "/WINWORD");
+		String wordPath =  dynamicConfiguration.getString(WORD_PATH);
+		if (wordPath == null || wordPath.isEmpty())
+			wordPath = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration().getString(WORD_PATH, "C:/Program Files/Microsoft Office/Office" + 14 + "/WINWORD");
 		return wordPath;
 	}
 
