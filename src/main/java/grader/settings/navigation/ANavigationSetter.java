@@ -30,6 +30,7 @@ public class ANavigationSetter implements NavigationSetter {
 	NavigationKind navigationKind = NavigationKind.HYBRID;
 	AutomaticNavigationSetter automaticNavigationSetter ;
 	NavigationFilterSetter navigationFilterSetter; 
+	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 //	DynamicEnum<String> navigationFilterEnum;
 //	NavigationFilter currentNavigationFilter;
 //	String currentNavigationFilterName;
@@ -56,10 +57,13 @@ public class ANavigationSetter implements NavigationSetter {
 	@Override
 	public void setNavigationKind(NavigationKind newVal) {
 		if (navigationKind == newVal) return;
+		NavigationKind oldVal = navigationKind;
 		this.navigationKind = newVal;
-		if (graderSettings.isSettingsLoaded())
+		if (graderSettings.isSettingsLoaded()) {
+			propertyChangeSupport.firePropertyChange("navigationKind", oldVal, newVal);	
 
-		NavigationKindChange.newCase(newVal, graderSettings, this);
+			NavigationKindChange.newCase(newVal, graderSettings, this);
+		}
 	}
 	
 	@Row(1)
@@ -136,6 +140,11 @@ public class ANavigationSetter implements NavigationSetter {
 //		
 //	}
 	
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener aListener) {
+		propertyChangeSupport.addPropertyChangeListener(aListener);
+		
+	}
 	
 	public static void main (String[] args) {
 //		NavigationFilter gradingStatusFilter = new AGradingStatusFilter();
@@ -148,5 +157,6 @@ public class ANavigationSetter implements NavigationSetter {
 		OEFrame frame = ObjectEditor.edit(navigationSetter);
 		frame.setSize(600, 300);
 	}
+	
 	
 }

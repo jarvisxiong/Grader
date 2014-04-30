@@ -638,6 +638,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
 		propertyChangeSupport.addPropertyChangeListener(aListener);
+
+        settingsLoaded = true; // OE has opened it
 		
 	}
 	SakaiProjectDatabase projectDatabase;

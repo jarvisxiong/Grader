@@ -30,9 +30,12 @@ public class AConfigurationManager implements ConfigurationManager {
 	   static File userPropsFile;
 
 	PropertiesConfiguration createStaticConfiguration(String[] args) {
+		
 	
 			userPropsFile = null;
 		       try {
+		    	   if (args.length == 0)
+		   			return new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
 //		           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());
 		           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get(CONFIG_DIR, CONFIG_FILE).toString());
 
@@ -62,13 +65,20 @@ public class AConfigurationManager implements ConfigurationManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}
+		}  finally {
+	           //System.out.println("run done");
+	           if (userPropsFile != null) {
+	               userPropsFile.delete();
+	           }
+	       }
 	}
 	
 	public void init(String args[]) {
 		try {
 //			 PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
-			 PropertiesConfiguration configuration = new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
+//			 PropertiesConfiguration configuration = new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
+			 PropertiesConfiguration configuration = createStaticConfiguration(args);
+
 			 StaticConfigurationFileRead.newCase(STATIC_CONFIGURATION_FILE_NAME, this);
 			 setStaticConfiguration(configuration);
 	         String dynamicConfigurationName = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");

@@ -218,46 +218,47 @@ public class Driver {
     static OEFrame settingsFrame = null;
     static ProjectDatabaseWrapper database = null;
     
-   static PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-   static ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
-   static GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+   static PropertiesConfiguration configuration; // = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+   static ModuleProblemManager moduleProgramManager; // = ModuleProblemManagerSelector.getModuleProblemManager();
+   static GraderSettingsManager graderSettingsManager; //  = GraderSettingsManagerSelector.getGraderSettingsManager();
+   
    static File userPropsFile;
    public static void main(String[] args) {
-	    userPropsFile = null;
-       try {
-           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());
-           userProperties.setUserProperties(args);
-           String name = "properties-" + Thread.currentThread().getId();
-           try {
-               userPropsFile = Files.createTempFile(name, ".config").toFile();
-           } catch (IOException e) {
-               e.printStackTrace();
-               userPropsFile = Paths.get("config", name + ".config").toFile();
-           }
-           if (userPropsFile.exists()) {
-               userPropsFile.delete();
-           }
-           try {
-               userPropsFile.createNewFile();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-
-           userProperties.writeUserProperties(userPropsFile);
-       // Load the default config file
-       PropertiesConfiguration configuration = new PropertiesConfiguration(userPropsFile);
+//	    userPropsFile = null;
+//       try {
+//           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());
+//           userProperties.setUserProperties(args);
+//           String name = "properties-" + Thread.currentThread().getId();
+//           try {
+//               userPropsFile = Files.createTempFile(name, ".config").toFile();
+//           } catch (IOException e) {
+//               e.printStackTrace();
+//               userPropsFile = Paths.get("config", name + ".config").toFile();
+//           }
+//           if (userPropsFile.exists()) {
+//               userPropsFile.delete();
+//           }
+//           try {
+//               userPropsFile.createNewFile();
+//           } catch (IOException e) {
+//               e.printStackTrace();
+//           }
+//
+//           userProperties.writeUserProperties(userPropsFile);
+//       // Load the default config file
+//       PropertiesConfiguration configuration = new PropertiesConfiguration(userPropsFile);
       
 	   drive(args, 0, 0);
-       } catch (ConfigurationException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} 
-       finally {
-           //System.out.println("run done");
-           if (userPropsFile != null) {
-               userPropsFile.delete();
-           }
-       }
+//       } catch (ConfigurationException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} 
+//       finally {
+//           //System.out.println("run done");
+//           if (userPropsFile != null) {
+//               userPropsFile.delete();
+//           }
+//       }
    }
 
 	static InteractionLogWriter interactionLogWriter;
@@ -277,8 +278,7 @@ public class Driver {
         	
             // Load the config file
 //        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
-			interactionLogWriter = 	InteractionLogWriterSelector.getInteractionLogWriter();
-    		TraceableBus.addTraceableListener(interactionLogWriter);
+			
 //    		TraceableBus.addTraceableListener(InteractionLogWriterSelector.getInteractionLogWriter());
 //    		interactionLogWriter.addLogListener(GradingHistoryManagerSelector.getGradingHistoryManager());
 
@@ -287,7 +287,11 @@ public class Driver {
 //        	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
         	
     		ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
+    		
         	 configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+        	 interactionLogWriter = 	InteractionLogWriterSelector.getInteractionLogWriter();
+     		TraceableBus.addTraceableListener(interactionLogWriter);
+     		
         	 moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
         	 
