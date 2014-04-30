@@ -48,3 +48,4 @@ public class SingleInterfaceTestCase extends BasicTestCase {
         return partialPass(score, notes, autoGrade);
     }
 }
+

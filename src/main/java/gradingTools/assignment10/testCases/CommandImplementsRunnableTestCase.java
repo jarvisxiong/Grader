@@ -48,3 +48,4 @@ public class CommandImplementsRunnableTestCase extends BasicTestCase {
         return partialPass(0, notes, autoGrade);
     }
 }
+

@@ -47,3 +47,4 @@ public class BeanClassTestCase extends BasicTestCase {
         return fail("Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).", autoGrade);
     }
 }
+

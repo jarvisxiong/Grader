@@ -38,3 +38,4 @@ public class IsLetterTestCase extends BasicTestCase {
         return fail("No boolean isLetter(char) method found.", autoGrade);
     }
 }
+

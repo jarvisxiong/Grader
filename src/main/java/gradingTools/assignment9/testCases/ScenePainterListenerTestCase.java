@@ -59,3 +59,4 @@ public class ScenePainterListenerTestCase extends BasicTestCase {
         }
     }
 }
+

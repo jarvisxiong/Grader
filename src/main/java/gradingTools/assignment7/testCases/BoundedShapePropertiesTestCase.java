@@ -62,3 +62,4 @@ public class BoundedShapePropertiesTestCase extends BasicTestCase {
         return partialPass(methodCount / 4, notes, autoGrade);
     }
 }
+

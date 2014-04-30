@@ -39,3 +39,4 @@ public class ProductTestCase extends BasicTestCase {
         }
     }
 }
+

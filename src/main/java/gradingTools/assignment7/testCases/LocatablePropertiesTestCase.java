@@ -63,3 +63,4 @@ public class LocatablePropertiesTestCase extends BasicTestCase {
         return partialPass(methodCount / 4, notes, autoGrade);
     }
 }
+

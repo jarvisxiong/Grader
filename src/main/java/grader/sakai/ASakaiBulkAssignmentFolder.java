@@ -1,47 +1,71 @@
 package grader.sakai;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.FileProxy;
 import grader.file.RootFolderFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
+import grader.trace.sakai_bulk_folder.AssignmentRootFolderLoaded;
+import grader.trace.sakai_bulk_folder.FinalGradeFileLoaded;
+import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
+import grader.trace.sakai_bulk_folder.StudentFolderLoaded;
+import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     public static String DEFAULT_BULK_DOWNLOAD_FOLDER = "C:/Users/dewan/Downloads/bulk_download";
+    public static String DEFAULT_GRADER_DATA_FOLDER= "-GraderData";
+
     public static String DEFAULT_ASSIGNMENT_NAME = "Assignment 11";
     public static String GRADES_SPREADSHEET_NAME = "grades.csv";
+    boolean isAssignmentRoot;
 
     String bulkDownloadDirectory;
     String assignmentName;
     String mixedCaseAssignmentName;
     RootFolderProxy rootBulkDownloadFolder;
     boolean isZippedRootFolder;
-    FileProxy assignmentFolder;
+    RootFolderProxy assignmentFolder;
     Set<String> studentFolderNames;
     Set<Project> studentFolders;
-    FileProxy submissionFolder;
+//    FileProxy submissionFolder;
     FileProxy gradeSpreadsheet;
+    Comparator<String> fileNameComparator;
 
-    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, String anAssignmentName) {
+    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, String anAssignmentName,  Comparator<String> aFileNameComparator) {
         bulkDownloadDirectory = aBulkDownloadFolder;
         assignmentName = anAssignmentName;
-        initializeAssignmentData();
+        isAssignmentRoot = true;
+        fileNameComparator = aFileNameComparator;
+        initializeBullkDownloadChidren();
     }
 
-    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder) {
+//    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder) {
+//    	this(aBulkDownloadFolder, true);
+////        bulkDownloadDirectory = aBulkDownloadFolder;
+////        initializeAssignmentData();
+////        assignmentName = assignmentFolder.getLocalName();
+////        mixedCaseAssignmentName = assignmentFolder.getMixedCaseLocalName();
+//    }
+    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, boolean assignmentRoot, Comparator<String> aFileNameComparator) {
+    	isAssignmentRoot = assignmentRoot;
         bulkDownloadDirectory = aBulkDownloadFolder;
-        initializeAssignmentData();
+        fileNameComparator = aFileNameComparator;
+        initializeBullkDownloadChidren();
         assignmentName = assignmentFolder.getLocalName();
         mixedCaseAssignmentName = assignmentFolder.getMixedCaseLocalName();
     }
 
-    void initializeAssignmentData() {
+    void initializeBullkDownloadChidren() {
         rootBulkDownloadFolder = RootFolderFactory.createRootFolder(bulkDownloadDirectory);
         isZippedRootFolder = rootBulkDownloadFolder instanceof AZippedRootFolderProxy;
         setAssignmentFolder();
@@ -57,7 +81,8 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
         return mixedCaseAssignmentName;
     }
 
-    FileProxy extractAssignmentFolder() {
+    RootFolderProxy extractAssignmentFolder() {
+    	if (isAssignmentRoot) return rootBulkDownloadFolder;
         Set<String> childrenNames = rootBulkDownloadFolder.getChildrenNames();
         for (String childName : childrenNames) {
             FileProxy fileProxy = rootBulkDownloadFolder.getFileEntry(childName);
@@ -67,35 +92,71 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     }
 
     FileProxy extractGradeSpreadsheet() {
-        return rootBulkDownloadFolder.getFileEntry(assignmentFolder.getAbsoluteName() + "/" + GRADES_SPREADSHEET_NAME);
+    	String gradeSpreadsheetFullName = assignmentFolder.getAbsoluteName().replace("\\", "/") + "/" + GRADES_SPREADSHEET_NAME;
+    	FileProxy retVal = rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
+    	if (retVal == null)
+    		FinalGradeFileNotFound.newCase(gradeSpreadsheetFullName, this);
+    	else 
+    		FinalGradeFileLoaded.newCase(gradeSpreadsheetFullName, this);
+    	return retVal;
+//    	return rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
+    	
+    	
     }
 
-    public FileProxy getAssignmentFolder() {
+    public RootFolderProxy getAssignmentFolder() {
         return assignmentFolder;
     }
 
     void setAssignmentFolder() {
         assignmentFolder = extractAssignmentFolder();
+        AssignmentRootFolderLoaded.newCase(assignmentFolder.getAbsoluteName(), this);
+    }
+    
+    public static boolean hasOnyenSyntax(String fileName) {
+    	return fileName.length() > 0 &&  Character.isLetter(fileName.charAt(0)) && fileName.matches("\\w.*, .*\\(.*\\).*");
+    }
+    
+    public static String extractOnyen(String fileName) {
+    	return fileName.replaceAll(".*\\((.*)\\).*", "$1");
     }
 
     Set<String> extractStudentFolderNames() {
-        Set<String> retVal = new HashSet(
+        Set<String> children = new HashSet(
                 assignmentFolder.getChildrenNames());
         List<String> fileChildren = new ArrayList();
-        for (String childName : retVal) {
+        for (String childName : children) {
             FileProxy fileProxy = rootBulkDownloadFolder.getFileEntry(childName);
-            if (!fileProxy.isDirectory()) {
+            
+            if (!fileProxy.isDirectory() || !hasOnyenSyntax(fileProxy.getLocalName())) { // can add grader data or other info to downloaded folder
                 fileChildren.add(childName);
             }
         }
         for (String fileChild : fileChildren) {
-            retVal.remove(fileChild);
+            children.remove(fileChild);
         }
-        return retVal;
+        
+//        Set<String> sortedStudentFiles = new TreeSet<String>(new Comparator<String>() {
+//
+//			@Override
+//			public int compare(String s1, String s2) {
+//				String onyen1 = s1.substring(s1.lastIndexOf('(') + 1,
+//						s1.lastIndexOf(')'));
+//				String onyen2 = s2.substring(s2.lastIndexOf('(') + 1,
+//						s2.lastIndexOf(')'));
+//				return onyen1.compareTo(onyen2);
+//			}
+//        }); 
+        Set<String> sortedStudentFiles = new TreeSet<String>(fileNameComparator);
+        StudentFolderNamesSorted.newCase(sortedStudentFiles, this);
+        sortedStudentFiles.addAll(children);
+        return sortedStudentFiles;
     }
 
     void setStudentFolderNames() {
         studentFolderNames = extractStudentFolderNames();
+        for (String folderName:studentFolderNames)
+        	StudentFolderLoaded.newCase(folderName, this);
     }
 
     void setGradeSpreadsheet() {

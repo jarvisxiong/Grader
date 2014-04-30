@@ -23,3 +23,4 @@ public class FailingTestCase extends BasicTestCase {
         return fail("Just for fun.", autoGrade);
     }
 }
+

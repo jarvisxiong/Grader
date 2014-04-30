@@ -43,3 +43,4 @@ public class ConsoleViewListenerTestCase extends BasicTestCase {
             return fail("Console scene view should implement PropertyChangeListener", autoGrade);
     }
 }
+

@@ -87,3 +87,4 @@ public class InterfaceTypeTestCase extends BasicTestCase {
         return partialPass(score, notes, autoGrade);
     }
 }
+

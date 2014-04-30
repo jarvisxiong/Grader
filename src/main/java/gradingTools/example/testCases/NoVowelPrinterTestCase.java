@@ -30,3 +30,4 @@ public class NoVowelPrinterTestCase extends BasicTestCase {
         }
     }
 }
+

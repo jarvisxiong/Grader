@@ -50,3 +50,4 @@ public class NoStringToolsTestCase extends BasicTestCase {
         }
     }
 }
+

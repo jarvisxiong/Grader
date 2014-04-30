@@ -8,6 +8,7 @@ import framework.utils.GradingEnvironment;
 import wrappers.framework.project.ProjectWrapper;
 import grader.checkers.ACheckResult;
 import grader.checkers.CheckResult;
+import grader.sakai.project.SakaiProject;
 
 /**
  * This wraps a {@link Checkable} in a feature checker so as to handle the exceptions.
@@ -36,8 +37,11 @@ public class FeatureCheckerWrapper extends ErrorHandlingFeatureChecker {
         result.setScore(checkResult.getScore());
 
         // Add general notes
-        if (!checkResult.getNotes().isEmpty())
-            result.getLog().add(checkResult.getNotes());
+        if (!checkResult.getNotes().isEmpty()) {
+        	String autoNotes = checkResult.getNotes();
+            result.getLog().add(autoNotes);
+            result.setAutoNotes(autoNotes);
+        }
 
         // Add notes from test case results
         for (TestCaseResult testCaseResult : checkResult.getResults()) {

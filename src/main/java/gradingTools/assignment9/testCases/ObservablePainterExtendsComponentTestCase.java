@@ -41,3 +41,4 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
             return fail("The observable painter should extend Component.", autoGrade);
     }
 }
+

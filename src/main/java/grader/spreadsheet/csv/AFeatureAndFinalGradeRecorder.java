@@ -23,6 +23,14 @@ public class AFeatureAndFinalGradeRecorder implements FinalGradeRecorder {
 	public double getGrade(String aStudentName, String anOnyen) {
 		return finalGradeRecorder.getGrade(aStudentName, anOnyen);
 	}
+	@Override
+	public String getFileName() {
+		return featureGradeRecorder.getFileName();
+	}
+	@Override
+	public FileProxy getGradeSpreadsheet() {
+		return featureGradeRecorder.getGradeSpreadsheet();
+	}
 	
 
 }

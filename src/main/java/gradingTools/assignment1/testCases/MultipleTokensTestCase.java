@@ -49,3 +49,4 @@ public class MultipleTokensTestCase extends BasicTestCase {
         return result;
     }
 }
+

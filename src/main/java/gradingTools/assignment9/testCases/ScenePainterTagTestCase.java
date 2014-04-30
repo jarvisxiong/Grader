@@ -29,3 +29,4 @@ public class ScenePainterTagTestCase extends BasicTestCase {
             return pass(autoGrade);
     }
 }
+

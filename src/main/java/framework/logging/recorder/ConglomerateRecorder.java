@@ -6,12 +6,17 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCaseResult;
+import framework.logging.loggers.FeedbackTextSummaryLogger;
 import framework.logging.loggers.Logger;
+import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
+import grader.file.FileProxy;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.spreadsheet.FeatureGradeRecorderSelector;
 import tools.DirectoryUtils;
 
 import java.io.File;
@@ -84,13 +89,24 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             }
     }
 
-    public void save(String comments) {
+    public void saveOverallNotes(String comments) {
         recordingSession.setComments(comments);
     }
-
-    public void save(double gradePercentage) {
-        recordingSession.setLatePenalty(gradePercentage);
+    @Override
+    public void saveSourceCodeComments(String comments) {
+        recordingSession.setSourceCodeComments(comments);
     }
+    
+
+    public void saveMultiplier(double gradePercentage) {
+        recordingSession.setLatePenalty(gradePercentage);
+//        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
+    }
+    
+//    public void saveScore(double aScore) {
+//        recordingSession.setScore(aScore);
+////        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
+//    }
 
     public void save(String featureName, double score) {
         for (CheckResult r : recordingSession.getFeatureResults())
@@ -145,13 +161,15 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 
         // Create empty results. Don't worry, they'll be filled in later
         List<CheckResult> featureResults = new ArrayList<CheckResult>();
+        if (projectRequirements != null)
         for (Feature feature : projectRequirements.getFeatures())
             featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, feature));
         List<CheckResult> restrictionResults = new ArrayList<CheckResult>();
+        if (projectRequirements != null)
         for (Restriction restriction : projectRequirements.getRestrictions())
             featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, restriction));
 
-        recordingSession = new RecordingSession(userId, featureResults, restrictionResults, "", 1);
+        recordingSession = new RecordingSession(userId, featureResults, restrictionResults, "", 1, gradingFeatures);
 
     }
 
@@ -161,6 +179,15 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         recordingSession = null;
         featureComments = "";
     }
+    @Override
+    public String getStoredSummary() {
+    	return FeedbackTextSummaryLogger.restore(recordingSession);
+    }
+    @Override
+    public String computeSummary() {
+        return SerializationUtils.getSerializer("text").serialize(recordingSession);
+
+    }
 
     /*
         The following was added so that the ConglomerateRecorder can work as the recorder within ASakaiProjectDatabase.
@@ -168,8 +195,19 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
             FeatureGradeRecorderSelector.setFactory(new ConglomerateRecorderFactory());
         Before creating the project database.
      */
+    
+    
+    FeatureGradeRecorder basicFeatureGradeRecorder; // this is the original factory-based recorder that this  dispatching conglomerate recorder replaces
 
-    /**
+    public FeatureGradeRecorder getBasicFeatureGradeRecorder() {
+		return basicFeatureGradeRecorder;
+	}
+
+	public void setBasicFeatureGradeRecorder(FeatureGradeRecorder featureGradeRecorder) {
+		this.basicFeatureGradeRecorder = featureGradeRecorder;
+	}
+
+	/**
      * Feature score setter.
      * This is needed so that when setScore or pureSetScore are called it comes here.
      */
@@ -177,16 +215,20 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore) {
         checkSession(anOnyen);
         save(aFeature, aScore);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
     }
 
     /**
      * The ConglomerateRecorder is for recording only. This will return 0 always.
      * @deprecated Don't use this. Write only
      */
+    /**
+     * Need the get method to allow browsing of past graded students
+     */
     @Override
-    @Deprecated
+//    @Deprecated
     public double getGrade(String aStudentName, String anOnyen, String aFeature) {
-        return 0;
+        return basicFeatureGradeRecorder.getGrade(aStudentName, anOnyen, aFeature);
     }
 
     /**
@@ -197,16 +239,21 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void setGrade(String aStudentName, String anOnyen, double aScore) {
         checkSession(anOnyen);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore);
+        recordingSession.setScore(aScore);
     }
 
     /**
      * The ConglomerateRecorder is for recording only. This will return 0 always.
      * @deprecated Don't use this. Write only
      */
+    /**
+     * Need the get method to allow browsing of past graded students
+     */
     @Override
-    @Deprecated
+//    @Deprecated
     public double getGrade(String aStudentName, String anOnyen) {
-        return 0;
+        return basicFeatureGradeRecorder.getGrade(aStudentName, anOnyen);
     }
 
     private void checkSession(String onyen) {
@@ -234,9 +281,9 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void comment(GradingFeature aGradingFeature) {
         // Instead of asking the user, pull it from a variable which is updated.
-        save(aGradingFeature.getFeature(), featureComments);
+        save(aGradingFeature.getFeatureName(), featureComments);
         if (featureResults != null)
-            save(aGradingFeature.getFeature(), featureResults);
+            save(aGradingFeature.getFeatureName(), featureResults);
     }
 
     public void setFeatureComments(String comments) {
@@ -246,4 +293,88 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setFeatureResults(List<TestCaseResult> results) {
         featureResults = results;
     }
+
+	@Override
+	public void setNotes(String aStudentName, String anOnyen, String aFeature,
+			String aNotes) {
+		save(aFeature, aNotes);		
+	}
+
+	@Override
+	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
+		// TODO Auto-generated method stub
+		return "";
+	}
+	
+    GradingFeatureList gradingFeatures;
+
+
+	@Override
+	public void setGradingFeatures(GradingFeatureList newVal) {
+		gradingFeatures = newVal;
+		
+	}
+
+	@Override
+	public GradingFeatureList getGradingFeatures() {
+		return gradingFeatures;
+	}
+	// version of save called by AProjectStepper, these two should be combined
+	@Override
+	public void setEarlyLatePoints(String aStudentName, String anOnyen,
+			double aScore) {
+        recordingSession.setLatePenalty(aScore);
+
+		basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);		
+	}
+
+	@Override
+	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
+		return basicFeatureGradeRecorder.getEarlyLatePoints(aStudentName, anOnyen);
+	}
+	// this should be integrated with whatever method saves results here
+	@Override
+	public void setResultFormat(String aStudentName, String anOnyen, String aFeature,
+			String aResult) {
+		basicFeatureGradeRecorder.setResultFormat(aStudentName, anOnyen, aFeature, aResult);
+		
+	}
+
+	@Override
+	public String getResult(String aStudentName, String anOnyen, String aFeature) {
+		return basicFeatureGradeRecorder.getResult(aStudentName, anOnyen, aFeature);
+	}
+
+	@Override
+	public boolean logSaved() {
+		for (Logger logger:loggers) {
+			// recordingSession is null if we are examining this entry to determine if we should visit
+			if (recordingSession != null && !logger.isSaved(recordingSession.getUserId()))
+				return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String getFileName() {
+		return basicFeatureGradeRecorder.getFileName();
+	}
+
+	@Override
+	public FileProxy getGradeSpreadsheet() {
+		return basicFeatureGradeRecorder.getGradeSpreadsheet();
+	}
+
+	@Override
+	public double getSourcePoints(String aStudentName, String anOnyen) {
+		return basicFeatureGradeRecorder.getSourcePoints(aStudentName, anOnyen);
+	}
+
+	@Override
+	public void setSourcePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		basicFeatureGradeRecorder.setSourcePoints(aStudentName, anOnyen, aScore);
+		recordingSession.setSourcePoints(aScore);
+		
+	}
 }

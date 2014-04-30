@@ -18,7 +18,8 @@ public class TestCaseWrapper extends BasicTestCase {
     private FeatureChecker featureChecker;
 
     public TestCaseWrapper(GradingFeature feature) {
-        super(feature.getFeature() + " test case");
+
+        super(feature.getFeatureName() + " test case");
         this.feature = feature;
         featureChecker = feature.getFeatureChecker();
     }
@@ -42,5 +43,6 @@ public class TestCaseWrapper extends BasicTestCase {
         for (String line : result.getLog())
             notes += (notes.isEmpty() ? "\n" : "") + line;
         return partialPass(result.getScore() / feature.getMax(), notes, true);
+
     }
 }

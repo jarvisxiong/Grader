@@ -89,4 +89,6 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
     public boolean exists() {
         return file.exists();
     }
+  
+	
 }

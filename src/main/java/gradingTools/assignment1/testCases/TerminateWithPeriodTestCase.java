@@ -47,3 +47,4 @@ public class TerminateWithPeriodTestCase extends BasicTestCase {
         }
     }
 }
+

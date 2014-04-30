@@ -5,6 +5,7 @@ import framework.project.ClassesManager;
 import scala.Option;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,4 +44,16 @@ public class ManualClassesManager implements ClassesManager {
     public Set<ClassDescription> getClassDescriptions() {
         return classDescriptions;
     }
+
+	@Override
+	public List<String> getClassNamesToCompile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setClassNamesToCompile(List<String> classNamesToCompile) {
+		// TODO Auto-generated method stub
+		
+	}
 }

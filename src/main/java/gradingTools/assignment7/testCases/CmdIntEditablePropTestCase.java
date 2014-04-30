@@ -47,3 +47,4 @@ public class CmdIntEditablePropTestCase extends BasicTestCase {
         return fail("Couldn't find an editable property", autoGrade);
     }
 }
+

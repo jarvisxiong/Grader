@@ -46,3 +46,4 @@ public class TaggedMethodTestCase extends BasicTestCase {
         return fail("No method is tagged: " + tag, autoGrade);
     }
 }
+

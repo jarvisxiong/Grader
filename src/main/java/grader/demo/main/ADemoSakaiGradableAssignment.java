@@ -19,7 +19,7 @@ import grader.sakai.project.SakaiProjectDatabase;
 public class ADemoSakaiGradableAssignment extends ASakaiProjectDatabase {
 
 	public ADemoSakaiGradableAssignment(String aBulkAssignmentsFolderName, String anAssignmentsDataFolderName) {
-		super(aBulkAssignmentsFolderName, anAssignmentsDataFolderName);
+		super(aBulkAssignmentsFolderName, anAssignmentsDataFolderName, false);
 		addFeatures();
 		
 	}

@@ -45,3 +45,4 @@ public class SystemExitTestCase extends BasicTestCase {
         return pass(autoGrade);
     }
 }
+

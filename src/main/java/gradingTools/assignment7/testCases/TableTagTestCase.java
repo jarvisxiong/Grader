@@ -31,3 +31,4 @@ public class TableTagTestCase extends BasicTestCase {
             return fail("There should be one class tagged with \"Table\".", autoGrade);
     }
 }
+

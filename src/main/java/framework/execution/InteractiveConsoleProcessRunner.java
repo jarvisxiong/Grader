@@ -4,6 +4,10 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
+import grader.config.StaticConfigurationUtils;
+import grader.project.MainClassFinderSelector;
+import grader.trace.execution.MainClassFound;
+import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
 
 import java.io.*;
@@ -17,36 +21,43 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
     private String entryPoint;
     private File folder;
+    Project project;
 
-    public InteractiveConsoleProcessRunner(Project project) throws NotRunnableException {
+    public InteractiveConsoleProcessRunner(Project aProject) throws NotRunnableException {
         try {
-            entryPoint = getEntryPoint(project);
-            folder = project.getBuildFolder(entryPoint);
+//            entryPoint = getEntryPoint(aProject);
+            entryPoint = MainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
+
+            folder = aProject.getBuildFolder(entryPoint);
+            project = aProject;
+            MainClassFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
         } catch (Exception e) {
+        	MainClassNotFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
             throw new NotRunnableException();
         }
     }
 
-    /**
-     * This figures out what class is the "entry point", or, what class has main(args)
-     * @param project The project to run
-     * @return The class canonical name. i.e. "foo.bar.SomeClass"
-     * @throws framework.execution.NotRunnableException
-     */
-    private String getEntryPoint(Project project) throws NotRunnableException {
-        if (project.getClassesManager().isEmpty())
-            throw new NotRunnableException();
-
-        ClassesManager manager = project.getClassesManager().get();
-        for (ClassDescription description : manager.getClassDescriptions()) {
-            try {
-                description.getJavaClass().getMethod("main", String[].class);
-                return description.getJavaClass().getCanonicalName();
-            } catch (NoSuchMethodException e) {
-            }
-        }
-        throw new NotRunnableException();
-    }
+//    /**
+//     * This figures out what class is the "entry point", or, what class has main(args)
+//     * @param project The project to run
+//     * @return The class canonical name. i.e. "foo.bar.SomeClass"
+//     * @throws framework.execution.NotRunnableException
+//     * @see grader.project.AMainClassFinder which repeats this code (sigh)
+//     */
+//    private String getEntryPoint(Project project) throws NotRunnableException {
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotRunnableException();
+//
+//        ClassesManager manager = project.getClassesManager().get();
+//        for (ClassDescription description : manager.getClassDescriptions()) {
+//            try {
+//                description.getJavaClass().getMethod("main", String[].class);
+//                return description.getJavaClass().getCanonicalName();
+//            } catch (NoSuchMethodException e) {
+//            }
+//        }
+//        throw new NotRunnableException();
+//    }
 
     /**
      * This runs the project with no arguments
@@ -81,68 +92,154 @@ public class InteractiveConsoleProcessRunner implements Runner {
      */
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-        final RunningProject runner = new RunningProject();
+    	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
+    	return run(command, input, args, timeout);
 
-        try {
-//            runner.start();
-
-            // Prepare to run the process
-            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-            builder.directory(folder);
-
-            // Start the process
-            final TimedProcess process = new TimedProcess(builder, timeout);
-            process.start();
-
-            // Print output to the console
-            InputStreamReader isr = new InputStreamReader(process.getInputStream());
-            final BufferedReader br = new BufferedReader(isr);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String line = null;
-                        while ((line = br.readLine()) != null)
-                            System.out.println(line);
-                    } catch (IOException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
-                }
-            }).start();
-
-            // Feed console input to the process
-            OutputStreamWriter osw = new OutputStreamWriter(process.getOutputStream());
-            final BufferedWriter bw = new BufferedWriter(osw);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    boolean loop = true;
-                    Scanner scanner = new Scanner(System.in);
-                    while (loop) {
-                        try {
-                            process.getProcess().exitValue();
-                            loop = false;
-                        } catch (IllegalThreadStateException e) {
-
-                            try {
-                                if (scanner.hasNextLine()) {
-                                    bw.write(scanner.nextLine());
-                                    bw.newLine();
-                                    bw.flush();
-                                }
-                                Thread.sleep(50);
-                            } catch (Exception e1) {
-                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                            }
-                        }
-                    }
-                }
-            }).start();
-
-        } catch (Exception e) {
-//            runner.error();
-//            runner.end();
-        }
-        return runner;
+//        final RunningProject runner = new RunningProject(project);
+//
+//        try {
+////            runner.start();
+//        	
+//        	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
+//        	ProcessBuilder builder;
+//        	if (command.length == 0)
+//
+//            // Prepare to run the process
+////            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+//             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+//        	else
+//        		builder = new ProcessBuilder(command);
+//
+//        	builder.directory(folder);
+//
+//            // Start the process
+//            final TimedProcess process = new TimedProcess(builder, timeout);
+//            process.start();
+//
+//            // Print output to the console
+//            InputStreamReader isr = new InputStreamReader(process.getInputStream());
+//            final BufferedReader br = new BufferedReader(isr);
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        String line = null;
+//                        while ((line = br.readLine()) != null)
+//                            System.out.println(line);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                    }
+//                }
+//            }).start();
+//
+//            // Feed console input to the process
+//            OutputStreamWriter osw = new OutputStreamWriter(process.getOutputStream());
+//            final BufferedWriter bw = new BufferedWriter(osw);
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    boolean loop = true;
+//                    Scanner scanner = new Scanner(System.in);
+//                    while (loop) {
+//                        try {
+//                            process.getProcess().exitValue();
+//                            loop = false;
+//                        } catch (IllegalThreadStateException e) {
+//
+//                            try {
+//                                if (scanner.hasNextLine()) {
+//                                    bw.write(scanner.nextLine());
+//                                    bw.newLine();
+//                                    bw.flush();
+//                                }
+//                                Thread.sleep(50);
+//                            } catch (Exception e1) {
+//                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                            }
+//                        }
+//                    }
+//                }
+//            }).start();
+//
+//        } catch (Exception e) {
+////            runner.error();
+////            runner.end();
+//        }
+//        return runner;
     }
+
+	@Override
+	public RunningProject run(String[] command, String input, String[] args,
+			int timeout) throws NotRunnableException {
+		 final RunningProject runner = new RunningProject(project);
+
+	        try {
+//	            runner.start();
+	        	
+	        	ProcessBuilder builder;
+	        	if (command.length == 0)
+
+	            // Prepare to run the process
+//	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+	        	else
+	        		builder = new ProcessBuilder(command);
+
+	        	builder.directory(folder);
+
+	            // Start the process
+	            final TimedProcess process = new TimedProcess(builder, timeout);
+	            process.start();
+
+	            // Print output to the console
+	            InputStreamReader isr = new InputStreamReader(process.getInputStream());
+	            final BufferedReader br = new BufferedReader(isr);
+	            new Thread(new Runnable() {
+	                @Override
+	                public void run() {
+	                    try {
+	                        String line = null;
+	                        while ((line = br.readLine()) != null)
+	                            System.out.println(line);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                    }
+	                }
+	            }).start();
+
+	            // Feed console input to the process
+	            OutputStreamWriter osw = new OutputStreamWriter(process.getOutputStream());
+	            final BufferedWriter bw = new BufferedWriter(osw);
+	            new Thread(new Runnable() {
+	                @Override
+	                public void run() {
+	                    boolean loop = true;
+	                    Scanner scanner = new Scanner(System.in);
+	                    while (loop) {
+	                        try {
+	                            process.getProcess().exitValue();
+	                            loop = false;
+	                        } catch (IllegalThreadStateException e) {
+
+	                            try {
+	                                if (scanner.hasNextLine()) {
+	                                    bw.write(scanner.nextLine());
+	                                    bw.newLine();
+	                                    bw.flush();
+	                                }
+	                                Thread.sleep(50);
+	                            } catch (Exception e1) {
+	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                            }
+	                        }
+	                    }
+	                }
+	            }).start();
+
+	        } catch (Exception e) {
+//	            runner.error();
+//	            runner.end();
+	        }
+	        return runner;
+	}
 }

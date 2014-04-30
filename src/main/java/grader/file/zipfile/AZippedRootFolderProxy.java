@@ -2,6 +2,7 @@ package grader.file.zipfile;
 
 import grader.file.AnAbstractRootFolderProxy;
 import grader.file.RootFolderProxy;
+import grader.trace.file.load.RootFileSystemFolderLoaded;
 import util.misc.Common;
 import util.trace.Tracer;
 
@@ -75,6 +76,8 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
             add(new AZippedFileProxy(this, nextEntry, zipFile, rootLocalName));
         }
         initChildrenRootData();
+        RootFileSystemFolderLoaded.newCase(getAbsoluteName(), this);
+
     }
 
     @Override

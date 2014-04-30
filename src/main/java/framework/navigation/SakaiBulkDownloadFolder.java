@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+//<<<<<<< HEAD
+//=======
+import java.util.TreeSet;
+//>>>>>>> working
 
 /**
  * This is a Sakai-specific implementation for handling bulk download folders.
@@ -26,6 +30,7 @@ public class SakaiBulkDownloadFolder implements BulkDownloadFolder {
         if (foundFiles.length == 0) {
             throw new NotValidDownloadFolderException();
         }
+
         grades = foundFiles[0];
     }
 
@@ -52,37 +57,64 @@ public class SakaiBulkDownloadFolder implements BulkDownloadFolder {
         for (File studentFolder : folders) {
             studentFolders.add(new SakaiStudentFolder(studentFolder));
         }
+
         return studentFolders;
     }
 
     /**
      * Gets a segment of the student folder list
+<<<<<<< HEAD
      *
+=======
+>>>>>>> working
      * @param start The onyen to start with
      * @param end The onyen to end with
      * @return The student folder that fall within the given onyen range
      */
     @Override
     public List<StudentFolder> getStudentFolders(String start, String end) {
+//<<<<<<< HEAD
+//        List<StudentFolder> filteredFolders = new ArrayList<StudentFolder>();
+//        boolean collect = false;
+//        for (StudentFolder studentFolder : getStudentFolders()) {
+//            if (studentFolder.getOnyen().equals(start)) {
+//                collect = true;
+//            }
+//            if (collect) {
+//                filteredFolders.add(studentFolder);
+//            }
+//            if (studentFolder.getOnyen().equals(end)) {
+//                collect = false;
+//            }
+//=======
+    	
+    	// Switch start and end if they are in reverse lexicographic order
+    	if (start.compareTo(end) > 0) {
+    		String temp = end;
+    		end = start;
+    		start = temp;
+    	}
+    	
         List<StudentFolder> filteredFolders = new ArrayList<StudentFolder>();
         boolean collect = false;
-        for (StudentFolder studentFolder : getStudentFolders()) {
-            if (studentFolder.getOnyen().equals(start)) {
+        for (StudentFolder studentFolder : new TreeSet<StudentFolder>(getStudentFolders())) {
+            if (studentFolder.getOnyen().equals(start))
                 collect = true;
-            }
-            if (collect) {
+            if (collect)
                 filteredFolders.add(studentFolder);
-            }
-            if (studentFolder.getOnyen().equals(end)) {
+            if (studentFolder.getOnyen().equals(end))
                 collect = false;
-            }
+//>>>>>>> working
         }
         return filteredFolders;
     }
 
     /**
      * Find's a particular student's folder
+<<<<<<< HEAD
      *
+=======
+>>>>>>> working
      * @param onyen The student's Onyen
      * @return The student folder associated with the given Onyen
      */

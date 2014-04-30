@@ -44,3 +44,4 @@ public class ScenePainterExtendsComponentTestCase extends BasicTestCase {
             return fail("The scene painter should extend Component.", autoGrade);
     }
 }
+

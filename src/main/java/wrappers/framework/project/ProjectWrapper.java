@@ -6,6 +6,8 @@ import framework.project.StandardProject;
 import framework.utils.GraderSettings;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
+import grader.trace.file.load.RootZipFileFolderLoaded;
+import grader.trace.file.load.FileUnzipped;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import tools.DirectoryUtils;
@@ -21,9 +23,9 @@ import java.io.FileNotFoundException;
  */
 public class ProjectWrapper extends StandardProject {
 
-    private Project project;
-
-    public ProjectWrapper(Project project, String name) throws FileNotFoundException {
+    private SakaiProject project;
+    // changed to SakaiProject
+    public ProjectWrapper(SakaiProject project, String name) throws FileNotFoundException {
         super(getDirectory(project), name);
         this.project = project;
     }
@@ -40,6 +42,7 @@ public class ProjectWrapper extends StandardProject {
      * @throws FileNotFoundException
      */
     private static File getDirectory(Project project) throws FileNotFoundException {
+    	if (project.isNoProjectFolder()) return null;
 
         // Can be a path or a directory
         File path = new File(project.getProjectFolderName());
@@ -47,11 +50,14 @@ public class ProjectWrapper extends StandardProject {
             if (path.getName().endsWith(".zip")) {
                 // A zip file, so unzip
                 File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
+                if (dir.exists())
+                	return dir;
                 dir.mkdir();
 
                 try {
                     ZipFile zip = new ZipFile(path);
                     zip.extractAll(dir.getAbsolutePath());
+                    FileUnzipped.newCase(path.getName(), ProjectWrapper.class);
                     return dir;
                 } catch (ZipException e) {
                     throw new FileNotFoundException();

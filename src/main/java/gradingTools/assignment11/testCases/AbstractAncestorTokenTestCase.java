@@ -40,3 +40,4 @@ public class AbstractAncestorTokenTestCase extends BasicTestCase {
         return fail("Ancestor token class is not abstract", autoGrade);
     }
 }
+

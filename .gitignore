@@ -20,3 +20,4 @@ target/
 GraderData
 log
 /bin
+config/dynamicconfig.properties

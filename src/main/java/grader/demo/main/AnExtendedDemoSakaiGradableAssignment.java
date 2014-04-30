@@ -6,7 +6,6 @@ import java.util.Set;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.checkers.AFailingChecker;
@@ -37,6 +36,7 @@ import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderSelector;
 import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.trace.settings.InvalidOnyenRangeException;
 
 public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAssignment {
 
@@ -118,7 +118,12 @@ public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAss
 		
 //		projectDatabase.runProjectInteractively("mkcolema");
 //		projectDatabase.runProjectsInteractively();
-        projectDatabase.nonBlockingRunProjectsInteractively();
+        try {
+			projectDatabase.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

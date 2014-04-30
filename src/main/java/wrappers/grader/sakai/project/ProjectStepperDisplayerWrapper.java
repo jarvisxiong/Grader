@@ -54,7 +54,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
             else {
                 requirements = new FrameworkProjectRequirements();
                 for (GradingFeature feature : projectStepper.getProjectDatabase().getGradingFeatures()) {
-                    requirements.addFeature(feature.getFeature(), feature.getMax(), feature.isExtraCredit(), new TestCaseWrapper(feature));
+                    requirements.addFeature(feature.getFeatureName(), feature.getMax(), feature.isExtraCredit(), new TestCaseWrapper(feature));
                 }
             }
         }
@@ -94,8 +94,9 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                     throw new FileNotFoundException();
 
                 // Attempt to get the student's project and check it
-                project.setCanBeRun(true);
-                project.setHasBeenRun(true);
+                // these are no longer needed
+//                project.setCanBeRun(true);
+//                project.setHasBeenRun(true);
                 project.maybeMakeClassDescriptions();
                 framework.project.Project wrappedProject = new ProjectWrapper(this.project, GradingEnvironment.get().getAssignmentName());
                 featureResults = requirements.checkFeatures(wrappedProject);
@@ -121,11 +122,11 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
             // Figure out the late penalty
             Option<DateTime> timestamp = studentFolder.getTimestamp();
             double gradePercentage = timestamp.isDefined() ? requirements.checkDueDate(timestamp.get()) : 0;
-            ConglomerateRecorder.getInstance().save(gradePercentage);
+            ConglomerateRecorder.getInstance().saveMultiplier(gradePercentage);
 
             // Save the comments
             String comments = window.getComments();
-            ConglomerateRecorder.getInstance().save(comments);
+            ConglomerateRecorder.getInstance().saveOverallNotes(comments);
 
             // Save the results (grades + notes)
             GradingFeatureList features = projectDatabase.getGradingFeatures();
@@ -140,7 +141,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                 features.get(i).setScore(score);
 
                 // Save the score
-                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeature(), score);
+                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeatureName(), score);
             }
 
             // Finish up

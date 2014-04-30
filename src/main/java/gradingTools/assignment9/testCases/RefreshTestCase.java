@@ -48,3 +48,4 @@ public class RefreshTestCase extends BasicTestCase {
         return pass(autoGrade);
     }
 }
+

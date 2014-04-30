@@ -29,3 +29,4 @@ public class BridgeSceneControllerTagTestCase extends BasicTestCase {
             return pass(autoGrade);
     }
 }
+

@@ -6,10 +6,14 @@ import grader.sakai.StudentCodingAssignment;
 
 import java.util.List;
 
+import javax.swing.Icon;
+
 public class ASakaiProject extends AProject implements SakaiProject {
     StudentCodingAssignment studentAssignment;
+    Icon studentPhoto;
+    
 
-    public ASakaiProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
+	public ASakaiProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
         super(aStudentCodingAssignment, aSourceSuffix, anOutputSuffix);
         studentAssignment = aStudentCodingAssignment;
         List<String> documents = studentAssignment.getDocuments();
@@ -25,4 +29,12 @@ public class ASakaiProject extends AProject implements SakaiProject {
         maybeMakeClassDescriptions();
         aSakaiProjectDatabase.getSourceDisplayer().displaySource(this);
     }
+    @Override
+    public Icon getStudentPhoto() {
+		return studentPhoto;
+	}
+    @Override
+	public void setStudentPhoto(Icon studentPhoto) {
+		this.studentPhoto = studentPhoto;
+	}
 }

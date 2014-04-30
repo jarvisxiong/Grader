@@ -42,3 +42,4 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
         }
     }
 }
+

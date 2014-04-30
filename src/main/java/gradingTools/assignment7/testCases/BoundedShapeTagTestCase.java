@@ -34,3 +34,4 @@ public class BoundedShapeTagTestCase extends BasicTestCase {
         return fail("No superclass tagged \"Bounded Shape\"", autoGrade);
     }
 }
+

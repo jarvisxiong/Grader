@@ -59,3 +59,4 @@ public class BoundedShapeInheritanceTestCase extends BasicTestCase {
         return partialPass(correctClassCount / classCount, notes, autoGrade);
     }
 }
+

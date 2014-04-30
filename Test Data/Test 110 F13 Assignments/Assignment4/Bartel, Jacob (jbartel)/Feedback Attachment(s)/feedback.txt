@@ -1,0 +1,22 @@
+Grading result for: Bartel, Jacob (jbartel)
+
+Grading features...
+----------------------------------
+Has a proper header                                    0.0 /  5.0
+Contains a main method                                 0.0 /  5.0
+Has proper averageFood method                          0.0 / 15.0
+Has proper searchForGerbil method                      0.0 / 15.0
+----------------------------------
+  Points Awarded: 0.0
+
+Grading restrictions...
+----------------------------------
+No advanced Java classes allowed            0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Total Score: 0.0
+
+Overall Comments:
+----------------------------------
+Missing project in submission folder:submission attachment(s)( desktop.ini)

@@ -33,4 +33,8 @@ public interface StudentAssignment {
 
     String getCommentsFileName();
 
+	void cleanFeedbackFolder();
+
+	void cleanSubmissionFolder();
+
 }

@@ -53,3 +53,4 @@ public class CommonInterfaceTestCase extends BasicTestCase {
         return partialPass(0.5, "Only found one class that implemented the interface", autoGrade);
     }
 }
+

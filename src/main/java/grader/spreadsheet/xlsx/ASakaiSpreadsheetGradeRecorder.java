@@ -183,4 +183,16 @@ public class ASakaiSpreadsheetGradeRecorder implements FinalGradeRecorder {
 		
 	}
 
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return gradeSpreadsheet.getAbsoluteName();
+	}
+
+	@Override
+	public FileProxy getGradeSpreadsheet() {
+		// TODO Auto-generated method stub
+		return gradeSpreadsheet;
+	}
+
 }

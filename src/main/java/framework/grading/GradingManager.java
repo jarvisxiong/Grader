@@ -5,4 +5,5 @@ package framework.grading;
  */
 public interface GradingManager {
     public void run();
+
 }

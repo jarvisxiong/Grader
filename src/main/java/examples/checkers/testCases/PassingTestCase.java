@@ -23,3 +23,4 @@ public class PassingTestCase extends BasicTestCase {
         return pass(autoGrade);
     }
 }
+

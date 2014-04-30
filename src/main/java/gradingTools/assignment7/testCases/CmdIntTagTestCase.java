@@ -34,3 +34,4 @@ public class CmdIntTagTestCase extends BasicTestCase {
         return fail("There should be one class tagged \"Command Interpreter\"", autoGrade);
     }
 }
+

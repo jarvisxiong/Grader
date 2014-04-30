@@ -29,3 +29,4 @@ public class ConsoleViewTagTestCase extends BasicTestCase {
             return pass(autoGrade);
     }
 }
+

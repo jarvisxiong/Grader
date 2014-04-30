@@ -54,3 +54,4 @@ public class ScenePainterPaintOnEventTestCase extends BasicTestCase {
         }
     }
 }
+

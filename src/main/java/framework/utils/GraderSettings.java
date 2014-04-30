@@ -1,6 +1,6 @@
 package framework.utils;
 
-import org.apache.commons.io.FileUtils;
+import grader.config.AConfigurationManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.FileUtils;
 
 /**
  * This is used to set, get, save, and load settings related to the grader.
@@ -29,9 +33,14 @@ public class GraderSettings {
                     settings.put(parts[0], parts[1]);
             }
         } catch (Exception e) {
-            System.out.println("Error reading settings file.");
+            System.out.println("No settings file found.");
         }
     }
+    
+    public  Map<String, String> getSettings() {
+    	return settings;
+    }
+    
 
     /**
      * Returns a setting associated with the key
@@ -59,6 +68,8 @@ public class GraderSettings {
     public boolean has(String key) {
         return settings.containsKey(key);
     }
+    
+   
 
     /**
      * Saves the settings to the file, making it hidden.
@@ -73,8 +84,8 @@ public class GraderSettings {
             writer.close();
 
             // Make sure the file is hidden
-            if (GradingEnvironment.get().getOsName().equals("Windows"))
-                Runtime.getRuntime().exec("attrib +H .gradersettings");
+            //if (GradingEnvironment.get().getOsName().equals("Windows"))
+            //    Runtime.getRuntime().exec("attrib +H .gradersettings");
         } catch (IOException e) {
             System.out.println("Error saving settings.");
         }
@@ -88,4 +99,5 @@ public class GraderSettings {
             singleton = new GraderSettings();
         return singleton;
     }
+  
 }

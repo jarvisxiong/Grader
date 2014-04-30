@@ -60,3 +60,4 @@ public class ConsoleViewConstructorAddListenerTestCase extends BasicTestCase {
         }
     }
 }
+

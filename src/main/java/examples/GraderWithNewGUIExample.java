@@ -4,6 +4,7 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.trace.settings.InvalidOnyenRangeException;
 import examples.checkers.featureCheckers.ErrorFeatureChecker;
 import examples.checkers.featureCheckers.FailingFeatureChecker;
 import examples.checkers.featureCheckers.PassingFeatureChecker;
@@ -22,7 +23,7 @@ public class GraderWithNewGUIExample {
         String bulkFolder = "/Users/josh/Downloads/a7";
         String dataFolder = "/Users/josh/Documents/School/Fall 2013/COMP401/Grader2/GraderData";
 
-        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder);
+        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder, false);
         List<GradingFeature> features = new ArrayList<GradingFeature>() {{
             add(new AGradingFeature("Test feature 1", 20, new PassingFeatureChecker()));
             add(new AGradingFeature("Test feature 2", 15, new FailingFeatureChecker()));
@@ -34,6 +35,11 @@ public class GraderWithNewGUIExample {
         database.setProjectStepperDisplayer(new ProjectStepperDisplayerWrapper());
 
         // And go!
-        database.nonBlockingRunProjectsInteractively();
+        try {
+			database.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

@@ -10,17 +10,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import bus.uigen.Message;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
+import framework.grading.testing.TestCaseResult;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
+import grader.assignment.GradingFeatureList;
 import grader.file.FileProxy;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -37,6 +41,14 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 //	List<String[]>  table;
 	 List<GradingFeature> gradingFeatures;
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
+	 Map<String, Integer> resultToColumnNumber = new HashMap();
+	 public static final int SOURCE_POINTS_COLUMN = GRADE_COLUMN + 1;
+	 public static final int EARLY_LATE_COLUMN = SOURCE_POINTS_COLUMN + 1;
+	 public static final String SOURCE_POINTS_TITLE = "Source Points";
+	 public static final int TOTAL_COLUMN = EARLY_LATE_COLUMN+ 1;
+	 public static final String LATE_TITLE = "Early/Late";
+	 public static final String TOTAL_TITLE = "Weighted Grade";
+	 public static final int PRE_FEATURE_COLUMN = TOTAL_COLUMN ;
 
 	public ASakaiCSVFeatureGradeManager(FileProxy aGradeSpreadsheet, List<GradingFeature> aGradingFeatures) {
 		super(aGradeSpreadsheet);
@@ -56,7 +68,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		super.createTable();
 		if (gradingFeatures == null) return;
 		String[] headers = table.get(TITLE_ROW);
-		if (headers.length < GRADE_COLUMN + gradingFeatures.size() + 1) {
+		if (headers.length < PRE_FEATURE_COLUMN + gradingFeatures.size() + 1) {
 			
 		extendTable();
 		makeTitles();
@@ -68,18 +80,26 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	
 	void makeTitles() {
 		String[] titleRow = table.get(TITLE_ROW);
+		titleRow[EARLY_LATE_COLUMN] = LATE_TITLE;
+		titleRow[TOTAL_COLUMN] = TOTAL_TITLE;
+		titleRow[SOURCE_POINTS_COLUMN] = SOURCE_POINTS_TITLE;
 		for (int i = 0; i < gradingFeatures.size(); i++) {
-			int featureColumn = GRADE_COLUMN + 1 + i;
+			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 //			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
-			titleRow[featureColumn] = gradingFeatures.get(i).getFeature();
+			titleRow[featureColumn] = gradingFeatures.get(i).getFeatureName();
+			int resultsColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
+			titleRow[resultsColumn] = gradingFeatures.get(i).getFeatureName();
+
 			
 		}
 	}
 	
 	void makeMap() {
 		for (int i = 0; i < gradingFeatures.size(); i++) {
-			int featureColumn = GRADE_COLUMN + 1 + i;
-			featureToColumnNumber.put(gradingFeatures.get(i).getFeature(), featureColumn);
+			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
+			featureToColumnNumber.put(gradingFeatures.get(i).getFeatureName(), featureColumn);
+			int resultColumn = PRE_FEATURE_COLUMN + 1 + gradingFeatures.size() + i;
+			resultToColumnNumber.put(gradingFeatures.get(i).getFeatureName(), resultColumn);
 			
 		}
 	}
@@ -91,12 +111,16 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	String[] extendedRow(String[] anExistinRow) {
-		String[] retVal = new String[anExistinRow.length + gradingFeatures.size()];
+		// adding late penalty column also and results column
+//		String[] retVal = new String[anExistinRow.length + 1 + 2*gradingFeatures.size()];
+		String[] retVal = new String[anExistinRow.length + PRE_FEATURE_COLUMN - GRADE_COLUMN + 2*gradingFeatures.size()];
+
 		for (int index = 0; index < anExistinRow.length; index++) {
 			retVal[index] = anExistinRow[index];
 		}
 		for (int index = anExistinRow.length; index < retVal.length; index++) {
-			retVal[index] = "0";
+//			retVal[index] = "0";
+			retVal[index] = DEFAULT_CHAR;
 		}
 		return retVal;
 		
@@ -106,8 +130,18 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 
 	}
 	
+	public String getResult (String[] aRow, String aFeatureName) {
+		return getResult(aRow, resultToColumnNumber.get(aFeatureName));
+
+	}
+	
 	public void recordGrade (String[] aRow, String aFeature, double aScore) {
 		recordGrade(aRow, featureToColumnNumber.get(aFeature), aScore);
+
+	}
+	
+	public void recordResult (String[] aRow, String aFeature, String aScore) {
+		recordResult(aRow, resultToColumnNumber.get(aFeature), aScore);
 
 	}
 
@@ -115,10 +149,8 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	public void setGrade(String aStudentName, String anOnyen, String aFeature,
 			double aScore) {
 		try {
-//			InputStream input = gradeSpreadsheet.getInputStream();
-//			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
-//			List<String[]>  table = csvReader.readAll();
-//			csvReader.close();
+			
+
 			maybeCreateTable();
 			
 		    String[] row = getStudentRow(table, aStudentName, anOnyen);
@@ -131,43 +163,32 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		    writeTable();
 
 
-//		OutputStream output = gradeSpreadsheet.getOutputStream();
-//		if (output == null) {
-//			System.out.println("Cannot write grade as null output stream");
-//			return;
-//		}
-//		CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(output));
-//		csvWriter.writeAll(table);
-//		csvWriter.close();
-	    
-    
 
-//
-//    Row row = sheet.getRow(2);
-//    Cell cell1 = row.getCell(4);
-//    if (cell1 == null)
-//    	cell1 = row.createCell(5);
-//    double doubleCell = cell1.getNumericCellValue();
-//    int i = 0;
-//    cell1.setCellValue (doubleCell + 2);
-//    Cell cell2 = row.getCell(0);
-//    if (cell2 != null) {
-//    	String stringCell = cell2.getStringCellValue();
-//    	System.out.println(stringCell);
-//    }
+	} catch (Exception e) {
+		e.printStackTrace();
+		
+	}
+		
+	}
+	
+	@Override
+	public void setResultFormat(String aStudentName, String anOnyen, String aFeature,
+			String aResult) {
+		try {
 
-    /*
-    if (cell == null)
-        cell = row.createCell(3);
-    cell.setCellType(Cell.CELL_TYPE_STRING);
-    cell.setCellValue("a test");
-    */
-    /*
-    // Write the output to a file
-    FileOutputStream fileOut = new FileOutputStream("workbook.xls");
-    wb.write(fileOut);
-    fileOut.close();
-    */
+			maybeCreateTable();
+			
+		    String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return;
+		    }
+		    
+		    recordResult(row, aFeature, aResult);
+		    writeTable();
+
+
+
 	} catch (Exception e) {
 		e.printStackTrace();
 		
@@ -178,10 +199,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	@Override
 	public double getGrade(String aStudentName, String anOnyen, String aFeature) {
 		try {
-//			InputStream input = gradeSpreadsheet.getInputStream();
-//			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
-//			List<String[]>  table = csvReader.readAll();
-//			csvReader.close();
+
 				maybeCreateTable();
 			
 		   
@@ -190,19 +208,223 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
 			return -1;
 	    }
-	   double retVal =  getGrade(row, aFeature);
-
-	//
-//	    input.close();
+	   double retVal =  getGrade(row, aFeature);	
 	    return retVal;
 	    
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
+			return DEFAULT_VALUE;
 			
-		}
+		}		
+	}
+	
+	@Override
+	public String getResult(String aStudentName, String anOnyen, String aFeature) {
+		try {
+
+				maybeCreateTable();
+			
+		   
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return "";
+	    }
+	   String retVal =  getResult(row, aFeature);	
+	    return retVal;
+	    
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+			
+		}		
+	}
+	public void setGrade(String aStudentName, String anOnyen, double aScore) {
+		super.setGrade(aStudentName, anOnyen, aScore);
+		String[] row = getStudentRow(table, aStudentName, anOnyen);
+		 refreshTotalGrade(row, aStudentName, anOnyen);
+//	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
+
+	}
+
+	@Override
+	public void setEarlyLatePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		maybeCreateTable();
+		
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return;
+	    }
+	    
+	    recordGrade(row, EARLY_LATE_COLUMN, aScore);
+//	    recordGrade(row, TOTAL_COLUMN, getGrade(aStudentName, anOnyen)*getEarlyLatePoints(aStudentName, anOnyen));
+	    refreshTotalGrade(row, aStudentName, anOnyen);
+	    writeTable();
+
 		
 	}
+	
+    public static double getTotalGrade(double featureScore, double multiplier, double sourcePoints) {
+		
+		
+		return  Math.max(0, (featureScore + sourcePoints) * multiplier);
+
+	}
+	
+	void refreshTotalGrade(String[] row, String aStudentName, String anOnyen) {
+		
+		double featureScore = getGrade(aStudentName, anOnyen);
+		double multiplier =  getEarlyLatePoints(aStudentName, anOnyen);
+		double sourcePoints = getSourcePoints(aStudentName, anOnyen);
+		
+		if (multiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
+			multiplier = 1;
+		if (sourcePoints == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
+			sourcePoints = 0;
+		double total = getTotalGrade(featureScore, multiplier, sourcePoints);
+
+		
+//	    recordGrade(row, TOTAL_COLUMN, (featureScore + sourcePoints) * multiplier);
+	    recordGrade(row, TOTAL_COLUMN, total);
+
+
+	}
+
+	@Override
+	public double getEarlyLatePoints(String aStudentName, String anOnyen) {
+		 String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return -1;
+		    }
+		   return getGrade(row, EARLY_LATE_COLUMN);
+
+		
+	}
+	@Override
+	public void setSourcePoints(String aStudentName, String anOnyen,
+			double aScore) {
+		maybeCreateTable();
+		
+	    String[] row = getStudentRow(table, aStudentName, anOnyen);
+	    if (row == null) {
+			System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+			return;
+	    }
+	    
+	    recordGrade(row, SOURCE_POINTS_COLUMN, aScore);
+	    refreshTotalGrade(row, aStudentName, anOnyen);
+	   
+	    writeTable();
+
+		
+	}
+
+	@Override
+	public double getSourcePoints(String aStudentName, String anOnyen) {
+		 String[] row = getStudentRow(table, aStudentName, anOnyen);
+		    if (row == null) {
+				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+				return -1;
+		    }
+		   return getGrade(row, SOURCE_POINTS_COLUMN);
+
+		
+	}
+
+	@Override
+	public void setNotes(String aStudentName, String anOnyen, String aFeature,
+			String aNotes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getNotes(String aStudentName, String anOnyen, String aFeature) {
+		// TODO Auto-generated method stub
+		return "";
+	}
+	String onyen;
+	@Override
+	public void newSession(String anOnyen) {
+		onyen = anOnyen;
+		
+	}
+
+	@Override
+	public void saveMultiplier(double gradePercentage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveOverallNotes(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFeatureComments(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFeatureResults(List<TestCaseResult> results) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String computeSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void comment(GradingFeature aGradingFeature) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGradingFeatures(GradingFeatureList newVal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public GradingFeatureList getGradingFeatures() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getStoredSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	// should really check that all grading features are non null for current onyen
+	public boolean logSaved() {
+		return true;
+	}
+
+	@Override
+	public void saveSourceCodeComments(String comments) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 

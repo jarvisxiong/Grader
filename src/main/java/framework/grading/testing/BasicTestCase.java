@@ -2,16 +2,25 @@ package framework.grading.testing;
 
 import framework.project.Project;
 
+
 /**
  * All test cases should extend this class.
  * Subclasses will implement the {@link TestCase#test(framework.project.Project, boolean)} method.
  * This method should call and return one of the following helper functions:
  * <ul>
+<<<<<<< HEAD
  *     <li>{@link framework.grading.testing.BasicTestCase#pass(boolean)}</li>
  *     <li>{@link framework.grading.testing.BasicTestCase#pass(String, boolean)}</li>
  *     <li>{@link framework.grading.testing.BasicTestCase#partialPass(double, boolean)}</li>
  *     <li>{@link framework.grading.testing.BasicTestCase#partialPass(double, String, boolean)}</li>
  *     <li>{@link framework.grading.testing.BasicTestCase#fail(String, boolean)}</li>
+=======
+ *     <li>{@link framework.grading.testing.BasicTestCase#pass()}</li>
+ *     <li>{@link framework.grading.testing.BasicTestCase#pass(String)}</li>
+ *     <li>{@link framework.grading.testing.BasicTestCase#partialPass(double)}</li>
+ *     <li>{@link framework.grading.testing.BasicTestCase#partialPass(double, String)}</li>
+ *     <li>{@link framework.grading.testing.BasicTestCase#fail(String)}</li>
+>>>>>>> working
  * </ul>
  *
  * An example:
@@ -32,6 +41,7 @@ public abstract class BasicTestCase implements TestCase {
 
 
 
+
     @Override
     public void setCheckable(Checkable checkable) {
         this.checkable = checkable;
@@ -48,6 +58,9 @@ public abstract class BasicTestCase implements TestCase {
 
     protected TestCaseResult partialPass(double percentage, String notes, boolean autograded) {
         return new TestCaseResult(percentage, notes, name, autograded);
+    }
+    protected TestCaseResult partialPass(double percentage, String notes) {
+        return partialPass(percentage, notes, true);
     }
 
     protected TestCaseResult pass() {
@@ -71,5 +84,6 @@ public abstract class BasicTestCase implements TestCase {
 
     protected TestCaseResult fail(String notes, boolean autograded) {
         return new TestCaseResult(false, notes, name, autograded);
+
     }
 }

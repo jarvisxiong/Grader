@@ -49,3 +49,4 @@ public class QuotedStringTestCase extends BasicTestCase {
         return result;
     }
 }
+

@@ -40,3 +40,4 @@ public class SingleTokenTestCase extends BasicTestCase {
         }
     }
 }
+

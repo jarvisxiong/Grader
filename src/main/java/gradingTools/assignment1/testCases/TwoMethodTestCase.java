@@ -35,3 +35,4 @@ public class TwoMethodTestCase extends BasicTestCase {
         return fail("There should be at least two meaningful methods.", autoGrade);
     }
 }
+

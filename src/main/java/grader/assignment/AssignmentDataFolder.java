@@ -15,7 +15,7 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 
     public String getIdFileName();
 
-    public void setIdFileName(String idFileName);
+//    public void setIdFileName(String idFileName);
 
     public String getGradedIdFileName();
 
@@ -50,6 +50,16 @@ public interface AssignmentDataFolder extends RootFolderProxy {
     public void setStudentIDs(List<String> studentIDs);
 
     public void setFeatureGradeFile(FileProxy featureGradeFile);
+
+	String getBackupFeatureGradeFileName();
+
+	void setBackupFeatureGradeFileName(String backupFeatureGradeFileName);
+
+	boolean removeFeatureGradeFile();
+
+	boolean restoreFeatureGradeFile();
+
+	boolean backupExists();
 
 
 }

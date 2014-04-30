@@ -1,6 +1,9 @@
 package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
+
+import framework.grading.testing.Feature;
+import grader.assignment.GradingFeature;
 import grader.project.file.RootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
@@ -62,5 +65,38 @@ public interface Project {
     Thread runProject();
 
     JavaDocBuilder getJavaDocBuilder();
+
+	StringBuffer getCurrentOutput();
+
+	void clearOutput();
+
+	void setCurrentOutput(StringBuffer currentOutput);
+
+	Feature getCurrentGradingFeature();
+
+	void setCurrentGradingFeature(Feature currentGradingFeature);
+
+	String getCurrentInput();
+
+	void setCurrentInput(String currentInput);
+
+	String[] getCurrentArgs();
+
+	void setCurrentArgs(String[] currentArgs);
+
+	String getSourceSuffix();
+
+	boolean isNoProjectFolder();
+
+	void setNoProjectFolder(boolean noProjectFolder);
+	
+	boolean hasUnCompiledClasses();
+	public List<String> getNonCompiledClasses();
+	public void addNonCompiledClass(String newVal);
+	public boolean hasCompiledClasses() ;
+
+	public List<String> getCompiledClasses() ;
+
+	public void addCompiledClass(String newVal) ;
 
 }

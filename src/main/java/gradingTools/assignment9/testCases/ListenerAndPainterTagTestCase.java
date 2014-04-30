@@ -40,3 +40,4 @@ public class ListenerAndPainterTagTestCase extends BasicTestCase {
         return pass(autoGrade);
     }
 }
+

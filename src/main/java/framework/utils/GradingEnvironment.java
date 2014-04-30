@@ -1,5 +1,8 @@
 package framework.utils;
 
+import grader.config.AConfigurationManager;
+import grader.config.ConfigurationManager;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -19,6 +22,12 @@ public class GradingEnvironment {
         "/usr/local/bin/edit"
     };
 
+    private static final String[] linuxEditors = new String[]{
+        "/usr/local/bin/gvim",
+        "/usr/local/bin/emacs",
+        "/usr/local/bin/gedit",
+    };
+
     private static final String[] windowsEditors = new String[]{
         "C:\\Program Files\\Sublime Text 2\\sublime_text.exe",
         "C:\\Program Files (x86)\\Sublime Text 2\\sublime_text.exe",
@@ -26,19 +35,39 @@ public class GradingEnvironment {
         "C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
         "notepad"
     };
+    String userName;
+   
 
-    private String osName;
+	private String osName;
     private String editor;
     private String browser;
     private String classpath;
     private String assignmentName;
+    private String defaulAssignmentsDataFolderName;
+//    ConfigurationManager configurationManager;  // maybe it does not belong here
 
-    private GradingEnvironment() {
+	
+
+	public String getDefaultAssignmentsDataFolderName() {
+		return defaulAssignmentsDataFolderName;
+	}
+
+	public void setDefaultAssignmentsDataFolderName(
+			String newVal) {
+		this.defaulAssignmentsDataFolderName = newVal;
+	}
+
+	private GradingEnvironment() {
         osName = System.getProperty("os.name");
+        userName = System.getProperty("user.name");
         if (osName.equals("Mac OS X")) {
             osName = "Mac";
             browser = "open";
             editor = findEditor(macEditors);
+            classpath = findClasspath(":");
+        } else if (osName.equals("Linux")) {
+            browser = "nautilus";
+            editor = findEditor(linuxEditors);
             classpath = findClasspath(":");
         } else {
             osName = "Windows";
@@ -80,6 +109,13 @@ public class GradingEnvironment {
     public String getOsName() {
         return osName;
     }
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
     /**
      * Opens a directory in the file browser
@@ -93,12 +129,29 @@ public class GradingEnvironment {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+    
+    private void editSubFiles(File folder) {
+    	File[] subFiles = folder.listFiles();
+    	for (File subFile: subFiles) {
+    		if (subFile.isDirectory()) {
+    			editSubFiles(subFile);
+    		} else {
+    			edit(subFile);
+    		}
+    	}
+    }
 
     /**
      * Edits a directory or file in the text editor
      * @param file The directory or file
      */
     public void edit(File file) {
+
+    	if (file.isDirectory() && osName.equals("Linux")) {
+    		editSubFiles(file);
+    		return;
+    	}
+    	
         try {
             new ProcessBuilder(editor, file.getAbsolutePath()).start();
         } catch (IOException e) {
@@ -123,5 +176,12 @@ public class GradingEnvironment {
             singleton = new GradingEnvironment();
         return singleton;
     }
+//    public ConfigurationManager getConfigurationManager() {
+//		return configurationManager;
+//	}
+//
+//	public void setConfigurationManager(ConfigurationManager configurationManager) {
+//		this.configurationManager = configurationManager;
+//	}
 
 }

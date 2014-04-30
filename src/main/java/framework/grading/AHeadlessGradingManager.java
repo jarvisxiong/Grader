@@ -99,7 +99,7 @@ public class AHeadlessGradingManager implements GradingManager {
                 ConglomerateRecorder.getInstance().save(featureResults);
                 ConglomerateRecorder.getInstance().save(restrictionResults);
                 //ConglomerateRecorder.getInstance().save(comments);
-                ConglomerateRecorder.getInstance().save(gradePercentage);
+                ConglomerateRecorder.getInstance().saveMultiplier(gradePercentage);
                 ConglomerateRecorder.getInstance().finish();
 
                 //if (!continueGrading)

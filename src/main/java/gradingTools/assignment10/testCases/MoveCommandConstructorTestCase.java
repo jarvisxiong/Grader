@@ -71,3 +71,4 @@ public class MoveCommandConstructorTestCase extends BasicTestCase {
         return true;
     }
 }
+

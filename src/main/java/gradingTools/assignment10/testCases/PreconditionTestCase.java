@@ -68,3 +68,4 @@ public class PreconditionTestCase extends BasicTestCase {
             return partialPass(0.5, "Precondition method should return a boolean", autoGrade);
     }
 }
+

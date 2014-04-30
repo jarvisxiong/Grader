@@ -4,6 +4,7 @@ import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import wrappers.grader.file.SimplifiedFileProxy;
 import grader.file.FileProxy;
+import grader.file.RootFolderProxy;
 import grader.sakai.BulkAssignmentFolder;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class NonNestedBulkAssignmentFolder implements BulkAssignmentFolder {
     }
 
     @Override
-    public FileProxy getAssignmentFolder() {
+    public RootFolderProxy getAssignmentFolder() {
         return rootProxy;
     }
 

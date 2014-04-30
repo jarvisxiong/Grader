@@ -50,3 +50,4 @@ public class ParserMethodTestCase extends BasicTestCase {
 
     }
 }
+

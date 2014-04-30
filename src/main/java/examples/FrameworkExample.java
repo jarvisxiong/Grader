@@ -7,6 +7,7 @@ import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
 import framework.grading.GradingManager;
 
+
 import java.io.IOException;
 
 /**
@@ -24,6 +25,7 @@ public class FrameworkExample {
 
         // The GraderManager is responsible for running the grading process
         GradingManager manager = new AGUIGradingManager("Example Assignment", requirements);
+
         manager.run();
 
     }

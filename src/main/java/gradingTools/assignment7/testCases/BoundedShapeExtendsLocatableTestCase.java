@@ -55,3 +55,4 @@ public class BoundedShapeExtendsLocatableTestCase extends BasicTestCase {
             return fail("Bounded shape should extend Locatable", autoGrade);
     }
 }
+

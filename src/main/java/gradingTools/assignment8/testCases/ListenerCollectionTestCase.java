@@ -44,3 +44,4 @@ public class ListenerCollectionTestCase extends BasicTestCase {
         return fail("No PropertyChangeListener collections found.", autoGrade);
     }
 }
+

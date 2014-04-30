@@ -77,3 +77,4 @@ public class PaintListenerPaintOnEventTestCase extends BasicTestCase {
         return partialPass(paintCount / count, notes, autoGrade);
     }
 }
+

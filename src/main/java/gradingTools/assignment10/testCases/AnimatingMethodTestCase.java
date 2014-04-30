@@ -49,3 +49,4 @@ public class AnimatingMethodTestCase extends BasicTestCase {
         return partialPass(0.5, tag + " method should be parameterless", autoGrade);
     }
 }
+

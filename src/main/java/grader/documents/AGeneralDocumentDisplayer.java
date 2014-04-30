@@ -1,6 +1,8 @@
 package grader.documents;
 
 
+import grader.trace.file.open.DefaultProgramOpenedFile;
+
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +21,7 @@ public class AGeneralDocumentDisplayer implements DocumentDisplayer {
                     output.close();
                 }
                 Desktop.getDesktop().open(aFile);
+                DefaultProgramOpenedFile.newCase(aFileName, this);
             } catch (IOException ex) {
                 // no application registered for PDFs
                 ex.printStackTrace();

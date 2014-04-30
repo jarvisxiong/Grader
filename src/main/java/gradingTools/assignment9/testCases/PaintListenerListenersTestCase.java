@@ -78,3 +78,4 @@ public class PaintListenerListenersTestCase extends BasicTestCase {
         return partialPass(listenerCount / count, notes, autoGrade);
     }
 }
+

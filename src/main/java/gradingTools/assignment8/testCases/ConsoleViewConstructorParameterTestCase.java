@@ -44,3 +44,4 @@ public class ConsoleViewConstructorParameterTestCase extends BasicTestCase {
         return fail("There should be a constructor that accepts parameters.", autoGrade);
     }
 }
+

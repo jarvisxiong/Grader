@@ -33,3 +33,4 @@ public class ForwardPrinterTestCase extends BasicTestCase {
         }
     }
 }
+

@@ -1,6 +1,9 @@
 package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
+
+import framework.grading.testing.Feature;
+import grader.assignment.GradingFeature;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
@@ -11,8 +14,15 @@ import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.sakai.StudentCodingAssignment;
+import grader.sakai.project.SakaiProject;
+import grader.trace.execution.MainClassFound;
+import grader.trace.execution.MainClassNotFound;
+import grader.trace.execution.MainMethodNotFound;
+import grader.trace.overall_transcript.OverallTranscriptCleared;
+import grader.trace.project.ProjectFolderNotFound;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,11 +33,11 @@ public class AProject implements Project {
     public static final String ZIP_SUFFIX = ".zip";
     public static final String DEFAULT_PROJECT_FOLDER = ".";
     public static final String DEFAULT_GRADING_FOLDER = "C:/Users/dewan/Downloads/GraderData";
-    public static final String DEFAULT_OUTPUT_FILE_PREFIX = "output";
-    public static final String DEFAULT_OUTPUT_FILE_SUFFIX = ".txt";
-    public static final String DEFAULT_OUTPUT_FILE_NAME = DEFAULT_OUTPUT_FILE_PREFIX + DEFAULT_OUTPUT_FILE_SUFFIX;
-    public static final String PROJECT_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated/Final";
-    public static final String PROJECT_ZIPPED_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated.zip";
+    public static final String DEFAULT_TRANSCRIPT_FILE_PREFIX = "transcript";
+    public static final String DEFAULT_TRANSCRIPT_FILE_SUFFIX = ".txt";
+    public static final String DEFAULT_TRASNCRIPT_FILE_NAME = DEFAULT_TRANSCRIPT_FILE_PREFIX + DEFAULT_TRANSCRIPT_FILE_SUFFIX;
+//    public static final String PROJECT_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated/Final";
+//    public static final String PROJECT_ZIPPED_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated.zip";
 
     String projectFolderName = DEFAULT_PROJECT_FOLDER;
     String gradingProjectFolderName = DEFAULT_GRADING_FOLDER;
@@ -42,20 +52,38 @@ public class AProject implements Project {
     String outputFolder = ".";
     String sourceFileName, outputFileName;
     String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
-    String outputSuffix = DEFAULT_OUTPUT_FILE_SUFFIX;
+    String outputSuffix = DEFAULT_TRANSCRIPT_FILE_SUFFIX;
     boolean hasBeenRun, canBeRun = true;
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
+    Feature currentGradingFeature; // ugly but do not want to change project runner code that has access to project and not grading feature
     String[][] args;
     boolean runChecked;
+    StringBuffer currentOutput = new StringBuffer();
+    String currentInput;
+    String[] currentArgs;
+//    FileWriter outputFile ;
 
     protected Class mainClass;
     protected Method mainMethod;
     protected String mainClassName;
     protected String[] inputFiles;
     protected String[] outputFiles;
+    boolean noProjectFolder;
+//    List<String> nonCompiledClasses = new ArrayList();
+    List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
+	
+	List<String> classNamesCompiled = new ArrayList();
+	
+	static boolean loadClasses = false;
+	
+	static boolean compileClasses = false;
 
-    public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+
+    
+
+
+	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
@@ -99,18 +127,47 @@ public class AProject implements Project {
         }
         init(rootFolder, anOutputFolder);
     }
+    @Override
+    public boolean isNoProjectFolder() {
+		return noProjectFolder;
+	}
+    @Override
+	public void setNoProjectFolder(boolean noProjectFolder) {
+		this.noProjectFolder = noProjectFolder;
+	}
 
-    public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
-        rootFolder = aRootFolder;
-        projectFolderName = aRootFolder.getAbsoluteName();
+	public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
         outputFolder = anOutputFolder;
+
+        rootFolder = aRootFolder;
+        outputFileName = createFullOutputFileName();
+
+        if (aRootFolder == null) {
+        	setNoProjectFolder(true);
+        	return;
+        } else {
+        
+        projectFolderName = aRootFolder.getAbsoluteName();
+//        if (projectFolderName.contains("bluong"))
+//        	System.out.println("bluoing");
+//        outputFolder = anOutputFolder;
+        try {
         rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
+        } catch (ProjectFolderNotFound e) {
+        	setNoProjectFolder(true);
+        	return;
+        }
+        if (AProject.isLoadClasses()) {
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
+        else
+        	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+        }
         sourceFileName = createFullSourceFileName();
-        outputFileName = createFullOutputFileName();
+//        outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
         mainClassFinder = createMainClassFinder();
+        }
     }
 
     public String createLocalSourceFileName() {
@@ -118,7 +175,7 @@ public class AProject implements Project {
     }
 
     public String createLocalOutputFileName() {
-        return DEFAULT_OUTPUT_FILE_PREFIX + outputSuffix;
+        return DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
     }
 
     public String createFullSourceFileName() {
@@ -135,20 +192,45 @@ public class AProject implements Project {
     public List<Class> getImplicitlyLoadedClasses() {
         return classesImplicitlyLoaded;
     }
+    
 
     public void maybeMakeClassDescriptions() {
-        if (!runChecked && !hasBeenRun)
-            return;
-
+    	// earlier it expected class descroptions to be fetched after running
+    	// but we need the class descriptions to find the main method sometimes
+    	// so removing this check
+//        if (!runChecked && !hasBeenRun)
+//            return;
+//    	if (!isLoadClasses())
+//    		return;
         if (madeClassDescriptions)
             return;
+        
+        makeClassDescriptions();
+        madeClassDescriptions = true;
 
+//        try { // Added by Josh: Exceptions can occur when making class descriptions
+//            classesManager.makeClassDescriptions(this);
+//            classViewManager = new AClassViewManager(classesManager);
+//            classesTextManager = new AClassesTextManager(classViewManager);
+//            classesTextManager.initializeAllSourcesText();
+//            System.out.println("Write sources to:" + sourceFileName);
+//            classesTextManager.writeAllSourcesText(sourceFileName);
+//            madeClassDescriptions = true;
+//        } catch (Exception e) {
+//            System.out.println("Error making class descriptions");
+//        }
+    }
+    
+    public void makeClassDescriptions() {
+    	if (isNoProjectFolder())
+    		return;
+    	
         try { // Added by Josh: Exceptions can occur when making class descriptions
             classesManager.makeClassDescriptions(this);
             classViewManager = new AClassViewManager(classesManager);
             classesTextManager = new AClassesTextManager(classViewManager);
             classesTextManager.initializeAllSourcesText();
-            System.out.println("Write sources to:" + sourceFileName);
+//            System.out.println("Write sources to:" + sourceFileName);
             classesTextManager.writeAllSourcesText(sourceFileName);
             madeClassDescriptions = true;
         } catch (Exception e) {
@@ -167,7 +249,7 @@ public class AProject implements Project {
     public void setHasBeenRun(boolean newVal) {
         hasBeenRun = newVal;
         runChecked = true;
-        if (hasBeenRun) {
+        if (hasBeenRun && proxyClassLoader != null) {
             classesImplicitlyLoaded = new ArrayList(proxyClassLoader.getClassesLoaded());
         }
     }
@@ -181,20 +263,26 @@ public class AProject implements Project {
             inputFiles = anInputFiles;
             outputFiles = anOutputFiles;
             if (mainClass == null) {
-                mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName);
+                mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName, this);
             }
             if (mainClass == null) {
-                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());
+//                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());
                 setCanBeRun(false);
+                MainClassNotFound.newCase(mainClassName,  getProjectFolderName(), this);
                 return false;
             }
+            
 
             mainMethod = mainClass.getMethod("main", String[].class);
             if (mainMethod == null) {
-                System.out.println("Missing main method:" + "main");
+//                System.out.println("Missing main method:" + "main");
+                MainMethodNotFound.newCase(mainClassName,  getProjectFolderName(), this);
+
                 setCanBeRun(false);
                 return false;
             }
+            MainClassFound.newCase(mainClassName,  getProjectFolderName(), this);
+
             return true;
         } catch (Exception e) {
             System.out.println("cannot  run:" + getProjectFolderName());
@@ -319,5 +407,104 @@ public class AProject implements Project {
         }
         return javaDocBuilder;
     }
+    @Override
+	public StringBuffer getCurrentOutput() {
+		return currentOutput;
+	}
+    @Override
+    public void clearOutput() {
+    	currentOutput.setLength(0);
+    	try {
+			FileWriter fileWriter = new FileWriter(new File(outputFileName));
+			OverallTranscriptCleared.newCase(null, null,  (SakaiProject) this, outputFileName,  this);
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    
+  
+    @Override
+	public void setCurrentOutput(StringBuffer currentOutput) {
+		this.currentOutput = currentOutput;
+	}
+    @Override
+	public Feature getCurrentGradingFeature() {
+		return currentGradingFeature;
+	}
+    @Override
+	public void setCurrentGradingFeature(Feature currentGradingFeature) {
+		this.currentGradingFeature = currentGradingFeature;
+	}
+    @Override
+	public String getCurrentInput() {
+		return currentInput;
+	}
+    @Override
+	public void setCurrentInput(String currentInput) {
+		this.currentInput = currentInput;
+	}
+    @Override
+	public String[] getCurrentArgs() {
+		return currentArgs;
+	}
+    @Override
+	public void setCurrentArgs(String[] currentArgs) {
+		this.currentArgs = currentArgs;
+	}
+    @Override
+	public String getSourceSuffix() {
+		return sourceSuffix;
+	}
 
+	@Override
+	public boolean hasUnCompiledClasses() {
+		// TODO Auto-generated method stub
+		return classNamesThatCouldNotBeCompiled.size() > 0;
+	}
+
+	@Override
+	public List<String> getNonCompiledClasses() {
+		return classNamesThatCouldNotBeCompiled;
+	}
+
+	@Override
+	public void addNonCompiledClass(String newVal) {
+		classNamesThatCouldNotBeCompiled.add(newVal);
+		
+	}
+	
+	@Override
+	public boolean hasCompiledClasses() {
+		// TODO Auto-generated method stub
+		return classNamesCompiled.size() > 0;
+	}
+
+	@Override
+	public List<String> getCompiledClasses() {
+		return classNamesCompiled;
+	}
+
+	@Override
+	public void addCompiledClass(String newVal) {
+		classNamesCompiled.add(newVal);
+		
+	}
+
+	public static boolean isLoadClasses() {
+		return loadClasses;
+	}
+
+	public static void setLoadClasses(boolean makeClassDescriptions) {
+		AProject.loadClasses = makeClassDescriptions;
+	}
+
+	public static boolean isCompileClasses() {
+		return compileClasses;
+	}
+
+	public static void setCompileClasses(boolean compileClasses) {
+		AProject.compileClasses = compileClasses;
+	}
 }

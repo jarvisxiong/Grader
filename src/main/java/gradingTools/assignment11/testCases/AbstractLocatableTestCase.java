@@ -39,3 +39,4 @@ public class AbstractLocatableTestCase extends BasicTestCase {
         return fail("Locatable is not abstract.", autoGrade);
     }
 }
+

@@ -3,6 +3,7 @@ package examples;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
+import grader.trace.settings.InvalidOnyenRangeException;
 import examples.checkers.featureCheckers.ErrorFeatureChecker;
 import examples.checkers.featureCheckers.FailingFeatureChecker;
 import examples.checkers.featureCheckers.PassingFeatureChecker;
@@ -21,7 +22,7 @@ public class GraderExample {
         String dataFolder = "/Users/josh/Documents/School/Fall 2013/COMP401/Grader2/GraderData";
 
         // Create a project database, which will contain the project grading criteria
-        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder);
+        ASakaiProjectDatabase database = new ASakaiProjectDatabase(bulkFolder, dataFolder, false);
         List<GradingFeature> features = new ArrayList<GradingFeature>() {{
             add(new AGradingFeature("Test feature 1", 20, new PassingFeatureChecker()));
             add(new AGradingFeature("Test feature 2", 15, new FailingFeatureChecker()));
@@ -30,6 +31,11 @@ public class GraderExample {
         database.addGradingFeatures(features);
 
         // The project database is responsible for running the grading process
-        database.nonBlockingRunProjectsInteractively();
+        try {
+			database.nonBlockingRunProjectsInteractively();
+		} catch (InvalidOnyenRangeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

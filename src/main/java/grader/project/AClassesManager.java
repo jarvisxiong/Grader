@@ -1,6 +1,7 @@
 package grader.project;
 
 import util.misc.Common;
+import grader.project.file.java.AJavaRootCodeFolder;
 
 import java.io.File;
 import java.util.*;
@@ -13,7 +14,7 @@ public class AClassesManager implements ClassesManager {
 
     List<ClassDescription> classDescriptions = new ArrayList();
     final int ESTIMATED_SOURCES_LENGTH = 20;
-    final String SOURCE_FILE_SUFFIX = ".java";
+//    final String SOURCE_FILE_SUFFIX = ".java";
 
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#getClassNameToDescription()
@@ -142,7 +143,9 @@ public class AClassesManager implements ClassesManager {
         String[] fileNames = aFolder.list();
         File[] files = aFolder.listFiles();
         for (File aFile : files) {
-            if (aFile.getName().endsWith(SOURCE_FILE_SUFFIX)) {
+            if (aFile.getName().endsWith(AJavaRootCodeFolder.getSourceFileSuffix())) {
+
+//            if (aFile.getName().endsWith(SOURCE_FILE_SUFFIX)) {
                 String relativeName = Common.toRelativeName(aProjectFolder.getAbsolutePath(), aFile.getAbsolutePath());
                 String className = Common.projectRelativeNameToClassName(relativeName);
                 StringBuffer text = Common.toText(aFile.getAbsolutePath());

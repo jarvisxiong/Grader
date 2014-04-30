@@ -39,3 +39,4 @@ public class AbstractBoundedShapeTestCase extends BasicTestCase {
         return fail("Bounded Shape is not abstract.", autoGrade);
     }
 }
+

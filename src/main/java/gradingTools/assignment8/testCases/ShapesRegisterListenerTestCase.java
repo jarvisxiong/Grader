@@ -43,3 +43,4 @@ public class ShapesRegisterListenerTestCase extends BasicTestCase {
             return fail("All atomic shapes should extend/implement PropertyListenerRegisterer", autoGrade);
     }
 }
+

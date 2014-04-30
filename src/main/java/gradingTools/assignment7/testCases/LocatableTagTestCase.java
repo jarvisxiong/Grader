@@ -34,3 +34,4 @@ public class LocatableTagTestCase extends BasicTestCase {
         return fail("No superclass tagged \"Locatable\"", autoGrade);
     }
 }
+

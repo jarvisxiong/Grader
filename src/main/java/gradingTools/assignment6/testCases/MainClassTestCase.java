@@ -48,3 +48,4 @@ public class MainClassTestCase extends BasicTestCase {
         throw new NotAutomatableException();
     }
 }
+

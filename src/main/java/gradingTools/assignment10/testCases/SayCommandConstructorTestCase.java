@@ -63,3 +63,4 @@ public class SayCommandConstructorTestCase extends BasicTestCase {
         return true;
     }
 }
+

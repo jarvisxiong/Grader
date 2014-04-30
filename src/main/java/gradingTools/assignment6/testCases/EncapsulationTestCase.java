@@ -48,3 +48,4 @@ public class EncapsulationTestCase extends BasicTestCase {
         return partialPass(fractionalScore, notes, autoGrade);
     }
 }
+

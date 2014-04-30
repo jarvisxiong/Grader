@@ -60,3 +60,4 @@ public class AnimatingMethodNewThreadTestCase extends BasicTestCase {
         }
     }
 }
+

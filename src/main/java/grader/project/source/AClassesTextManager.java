@@ -8,21 +8,35 @@ import grader.project.Project;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
+import grader.trace.source.SourceFileComputed;
+import grader.trace.source.SourceFileLoaded;
+import grader.trace.source.SourceFileSaved;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.misc.Common;
+
 
 public class AClassesTextManager implements ClassesTextManager {
-    public static final String SOURCE_SEPARATOR = "\n";
+    public static final String SOURCE_SUFFIX = "//END OF FILE\n";
+    public static final String SOURCE_PREFIX = "//START OF FILE: ";
+    public static final int MAX_FILE_NAME_LENGTH = 100;
     Map<String, StringBuffer> views = new HashMap();
     StringBuffer allSourcesText;
     ClassViewManager classesManager;
+//    String sourceFileNamePrefix = SOURCE_PREFIX;
+//    String sourceFileNameSuffix = SOURCE_SUFFIX;
+//    String sourceFileName = sourceFileNamePrefix + sourceFileNameSuffix; 
+//    Project project;
+
 
     public AClassesTextManager(ClassViewManager aClassesManager) {
         classesManager = aClassesManager;
+//        sourceFileNameSuffix = aProject.getSourceSuffix();
     }
 
     /* (non-Javadoc)
@@ -31,19 +45,49 @@ public class AClassesTextManager implements ClassesTextManager {
     @Override
     public void writeAllSourcesText(String aFileName) {
         try {
+        	File sourceFile = new File(aFileName);
+        	if (sourceFile.exists()) return;
             PrintWriter out = new PrintWriter(aFileName);
             String allText = getAllSourcesText().toString();
             out.print(allText);
             out.close();
+            SourceFileComputed.newCase(aFileName, allText, this);
         } catch (Exception e) {
 //            e.printStackTrace(); // Commented out by Josh
         }
     }
-
+    
     @Override
-    public void writeAllSourcesText() {
-        writeAllSourcesText(DEFAULT_SOURCES_FILE_NAME);
+    public void setEditedAllSourcesText(String aFileName, String newValue) {
+        try {
+        	
+            PrintWriter out = new PrintWriter(aFileName);
+            out.print(newValue);
+            out.close();
+            SourceFileSaved.newCase(aFileName, newValue, this);
+
+        } catch (Exception e) {
+//            e.printStackTrace(); // Commented out by Josh
+        }
     }
+    @Override
+    public String getEditedAllSourcesText(String aFileName) {
+    	File sourceFile = new File(aFileName);
+    	if (!sourceFile.exists()) writeAllSourcesText(aFileName);
+//    	return Common.toText(aFileName).toString();
+    	
+    	String retVal = Common.toText(aFileName).toString();
+        SourceFileLoaded.newCase(aFileName, retVal, this);
+        return retVal;
+
+    }
+
+//    @Override
+//    public void writeAllSourcesText() {
+////        writeAllSourcesText(DEFAULT_SOURCES_FILE_NAME);
+//        writeAllSourcesText(sourceFileName);
+//
+//    }
 
     /* (non-Javadoc)
      * @see grader.project.ClassesSourceManager#initializeAllSourcesText()
@@ -56,11 +100,14 @@ public class AClassesTextManager implements ClassesTextManager {
 
     @Override
     public StringBuffer toStringBuffer(Collection<ViewableClassDescription> sourceClasses) {
-        int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * SOURCE_SEPARATOR.length();
+        int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * (SOURCE_SUFFIX.length() + SOURCE_PREFIX.length() + MAX_FILE_NAME_LENGTH);
         StringBuffer retVal = new StringBuffer(totalTextSize);
         for (ViewableClassDescription viewable : sourceClasses) {
+        	String fileName = viewable.getClassDescription().getSourceFile().getLocalName();
+        	String prefix = SOURCE_PREFIX + fileName + "\n";
+        	retVal.append(prefix);
             retVal.append(viewable.getClassDescription().getText());
-            retVal.append(SOURCE_SEPARATOR);
+            retVal.append(SOURCE_SUFFIX);
         }
         return retVal;
     }

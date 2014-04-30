@@ -9,15 +9,18 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import bus.uigen.Message;
+import scala.xml.dtd.DEFAULT;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
 import grader.file.FileProxy;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -26,9 +29,13 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;
 	public static final int GRADE_COLUMN = 4;
 	public static final int TITLE_ROW = 2;
+	 public static final String DEFAULT_CHAR = "";
+	 public static final double  DEFAULT_VALUE = -1;
+
 //	InputStream input; // this may have to be reinitialized each time
 //	OutputStream output; // may have to reinitialized and closed each time
 	FileProxy gradeSpreadsheet;
+	
 	List<String[]>  table;
   
 
@@ -83,19 +90,38 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	}
 	
 	public void recordGrade (String[] aRow, int aColumn, double aScore) {
+		
 		String aGradeCell = aRow[aColumn];
 		aRow[aColumn] = Double.toString(aScore);
+		
+	}
+	
+	public void recordResult (String[] aRow, int aColumn, String aResult) {
+		String aGradeCell = aRow[aColumn];
+		aRow[aColumn] = aResult;
 		
 	}
 	
 	public double getGrade (String[] aRow, int aColumn) {
 		try {
 		String aGradeCell = aRow[aColumn];
+		if (aGradeCell.equals(DEFAULT_CHAR))
+			return DEFAULT_VALUE; 
 		
 		return Double.parseDouble(aGradeCell);
 		} catch (Exception e) {
 //			e.printStackTrace();
-			return 0;
+			return DEFAULT_VALUE;
+		}
+	}
+	
+	public String getResult (String[] aRow, int aColumn) {
+		try {
+		return aRow[aColumn];
+		
+		} catch (Exception e) {
+//			e.printStackTrace();
+			return "";
 		}
 	}
 	
@@ -156,6 +182,12 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	@Override
 	public void setGrade(String aStudentName, String anOnyen, double aScore) {
 		try {
+			if (aScore < 0) {
+				Message.error("negative score!");
+//				JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
+				return;
+				
+			}
 //			InputStream input = gradeSpreadsheet.getInputStream();
 //			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
 //			List<String[]>  table = csvReader.readAll();
@@ -216,7 +248,13 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	}
 	
 	
+	public FileProxy getGradeSpreadsheet() {
+		return gradeSpreadsheet;
+	}
 
+	public String getFileName() {
+		return gradeSpreadsheet.getAbsoluteName();
+	}
 	
 
 }

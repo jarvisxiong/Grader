@@ -1,8 +1,11 @@
 package framework.grading.testing;
 
 import framework.project.Project;
+import grader.trace.feature.FeatureChecked;
 
 import java.util.List;
+
+import util.trace.Tracer;
 
 /**
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
@@ -28,12 +31,25 @@ public abstract class Checkable implements Gradable {
                 result.save(testResult);
             }
             result.setStatus(CheckResult.CheckStatus.Successful);
+            FeatureChecked.newCase(null, null, null, this, this);
             return result;
         } catch (NotAutomatableException e) {
-            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
-        } catch (Exception e) {
+        	e.announce();
+//            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
+            return new CheckResult(0, "Not automatable", CheckResult.CheckStatus.NotGraded, this);
+
+        } catch (NotGradableException e) {
+        	e.announce();
+        	String msg = "Could not grade because did not find classes ";
+//        	Tracer.error("Could not grade because did not find classes ");
+        	Tracer.error(msg);
 //            e.printStackTrace();
-            return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
+            return new CheckResult(0, msg, CheckResult.CheckStatus.Failed, this);
+        } catch (Exception e) {
+        	NotGradableException.newCase(e.getMessage(), this);
+        	e.printStackTrace();
+            return new CheckResult(0, "Not gradable", CheckResult.CheckStatus.NotGraded, this);
+
         }
     }
 

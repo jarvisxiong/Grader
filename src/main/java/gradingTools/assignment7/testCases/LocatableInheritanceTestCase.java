@@ -59,3 +59,4 @@ public class LocatableInheritanceTestCase extends BasicTestCase {
         return partialPass(correctClassCount / classCount, notes, autoGrade);
     }
 }
+
