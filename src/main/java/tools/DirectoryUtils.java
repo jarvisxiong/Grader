@@ -1,12 +1,15 @@
 package tools;
 
 import scala.Option;
+import util.misc.Common;
+import util.trace.Tracer;
 import grader.project.file.java.AJavaRootCodeFolder;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -98,5 +101,55 @@ public class DirectoryUtils {
 		}
 	});
 	return javaFiles;
+	}
+	
+	public static boolean hasSuffix (String name, List<String> ignoreSuffixes) {
+		for (String suffix:ignoreSuffixes) {
+			if (name.endsWith(suffix))
+				return true;
+			
+		}
+		return false;
+		
+	}
+	
+	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
+				
+		if (!correctDir.isDirectory() || ! testDir.isDirectory()) {
+			Tracer.error("test or corect dir not really directories");
+			return false;
+		}
+		File[] correctChildren = correctDir.listFiles();
+		File[] testChildren = testDir.listFiles();
+		if (correctChildren.length != testChildren.length) {
+			Tracer.error(" test and correct dir not same size");
+			return false;
+			
+		}
+		for (File correctChild:correctChildren) {
+			File testChild = new File (testDir,  correctChild.getName());
+			if (!testChild.exists()) {
+				Tracer.error("test file does not exist:" + testChild.getName());
+				return false;
+			}
+			if (correctChild.isDirectory()) {
+				if (!testChild.isDirectory()) {
+					Tracer.error("Test file is not a directory:" + testChild.getName());
+					if (!compare(correctChild, testChild, ignoreSuffixes))
+						return false;
+				}
+			}
+			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
+				continue;
+			if (!Common.toText(correctChild).equals(Common.toText(testChild))) {
+				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
+				return false;
+			}
+			
+			
+		}
+		
+			
+		return true;
 	}
 }
