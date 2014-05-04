@@ -7,6 +7,7 @@ import grader.project.file.java.AJavaRootCodeFolder;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -114,6 +115,12 @@ public class DirectoryUtils {
 		
 	}
 	
+	public static boolean compare (File correctDir, File testDir) {
+		List<String> suffixes = new ArrayList();
+		return compare(correctDir, testDir, suffixes);
+		
+	}
+	
 	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
 				
 		if (!correctDir.isDirectory() || ! testDir.isDirectory()) {
@@ -123,7 +130,7 @@ public class DirectoryUtils {
 		File[] correctChildren = correctDir.listFiles();
 		File[] testChildren = testDir.listFiles();
 		if (correctChildren.length != testChildren.length) {
-			Tracer.error(" test and correct dir not same size");
+			Tracer.error("correct and test dir not same size:" + correctDir.getName() + " , " + testDir.getName());
 			return false;
 			
 		}
@@ -136,21 +143,36 @@ public class DirectoryUtils {
 			if (correctChild.isDirectory()) {
 				if (!testChild.isDirectory()) {
 					Tracer.error("Test file is not a directory:" + testChild.getName());
+					return false;
+				}
 					if (!compare(correctChild, testChild, ignoreSuffixes))
 						return false;
-				}
+					else
+						continue;
+				
 			}
 			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 				continue;
-			if (!Common.toText(correctChild).equals(Common.toText(testChild))) {
-				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
+			String correctText = Common.toText(correctChild);
+			String testText = Common.toText(testChild);
+			if (!correctText.equals(testText)) {
+				Tracer.error("Not equal to test file:" + correctChild.getName() + ", " + testChild.getName());
+				System.out.println("Correct Text:" + correctText);
+				System.out.println("Test Text:" + testText);
 				return false;
 			}
 			
 			
-		}
-		
-			
+		}			
 		return true;
+	}
+	
+	public static void main (String[] args) {
+		File correctDir = new File ("Test Data/Correct 110 F13 Results/Assignment3");
+		File testDir = new File ("Test Data/Test 110 F13 Assignments/Assignment3");
+		String[] ignoreSuffixesArray = {".zip", ".ini", ".json"};
+		List<String> ignoreSuffixesList = Arrays.asList(ignoreSuffixesArray);
+		compare (correctDir, testDir, ignoreSuffixesList);
+		
 	}
 }

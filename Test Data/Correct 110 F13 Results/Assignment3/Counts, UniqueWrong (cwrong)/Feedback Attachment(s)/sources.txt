@@ -1,4 +1,4 @@
-//START OF FILE: counts, uniquewrong (cwrong)/submission attachment(s)/cwrong_assignment3/assignment3/src/program3.java
+//START OF FILE: src/program3.java
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *

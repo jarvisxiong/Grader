@@ -1,4 +1,4 @@
-//START OF FILE: class, missing (classmiss)/submission attachment(s)/classmiss_program3/classmiss_program3/assignment3/src/program3.java
+//START OF FILE: assignment3/src/program3.java
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *

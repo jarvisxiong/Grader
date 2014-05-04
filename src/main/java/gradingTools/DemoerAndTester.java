@@ -7,17 +7,29 @@ import grader.project.graded.ComplexProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ATACommentsExtractor;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
+import tools.DirectoryUtils;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
 
 public class DemoerAndTester implements Runnable{
 	static String[] args ;
+	public final static String TEST_DIR = "Test Data/Test 110 F13 Assignments";
+	public final static String CORRECT_DIR = "Test Data/Correct 110 F13 Results";
+	
+	static String directory;
+	
+	static boolean  generatingCorrectDir = false;
+//	static boolean  generatingCorrectDir = true;
+
+	
 	static DemoAndTestingClearanceManager clearanceManager = new ADemoAndTestingClearanceManager();
 //	static boolean autoProceed;
 //	static long autoProceedPauseTime = 4000;
@@ -54,6 +66,10 @@ public class DemoerAndTester implements Runnable{
 	}
 	
 	public static void doSteps() {
+		if (generatingCorrectDir)
+			directory = CORRECT_DIR;
+		else
+			directory = TEST_DIR;
 		waitForStepper1();
 		initializeAndChangeProblem();
 		doBegin1();
@@ -86,7 +102,8 @@ public class DemoerAndTester implements Runnable{
 		waitForNavigator2();
 		doValidate2();
 //		changeOverallNotes3();
-	
+		if (!generatingCorrectDir)
+		checkWithCorrectResults();
 		quit2();
 		
 	}
@@ -112,7 +129,9 @@ public class DemoerAndTester implements Runnable{
 	
 	public static void initializeAndChangeProblem() {
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
-		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText("Test Data/Test 110 F13 Assignments/Assignment1");
+//		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText("Test Data/Test 110 F13 Assignments/Assignment1");
+		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText(directory + "/Assignment1");
+
 
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
 
@@ -380,6 +399,7 @@ public class DemoerAndTester implements Runnable{
 		
 
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
+			if (!generatingCorrectDir)
 			Driver.getSettingsModel().cleanSlate();
 
 		}
@@ -399,6 +419,18 @@ public class DemoerAndTester implements Runnable{
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getDatabase().getProjectStepper().setOverallNotes(Driver.getDatabase().getProjectStepper().getOverallNotes() + "\nExcellent - best performace!");
 		}
+	}
+	
+	public static void checkWithCorrectResults() {
+//		File correctDir = new File ("Test Data/Correct 110 F13 Results/Assignment3");
+		File correctDir = new File (CORRECT_DIR + "/Assignment3");
+
+//		File testDir = new File ("Test Data/Test 110 F13 Assignments/Assignment3");
+		File testDir = new File (TEST_DIR + "/Assignment3");
+
+		String[] ignoreSuffixesArray = {".zip", ".ini", ".json"};
+		List<String> ignoreSuffixesList = Arrays.asList(ignoreSuffixesArray);
+		System.out.println(DirectoryUtils.compare (correctDir, testDir, ignoreSuffixesList));
 	}
 	
 //	public static boolean isAutoProceed() {

@@ -1,3 +1,5 @@
+E***Class  file not found:Program3
+E***Attempting to compile class
 *****************************(Prompts for String and computation input)*****************************
 INPUT(Prompts for String and computation input)
 hello

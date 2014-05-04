@@ -1,4 +1,4 @@
-//START OF FILE: compile, no (compileno)/submission attachment(s)/compileno_program3/compileno_program3/assignment3/src/program3.java
+//START OF FILE: assignment3/src/program3.java
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *

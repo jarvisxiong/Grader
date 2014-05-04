@@ -1,4 +1,4 @@
-//START OF FILE: bin, missing (binmiss)/submission attachment(s)/binmiss_program3/binmiss_program3/assignment3/src/program3.java
+//START OF FILE: assignment3/src/program3.java
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *

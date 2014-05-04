@@ -1,5 +1,5 @@
 //TA:Excellent style +5
-//START OF FILE: ask, once (aonce)/submission attachment(s)/jbartel_assignment3/assignment3/src/program3.java
+//START OF FILE: src/program3.java
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *
