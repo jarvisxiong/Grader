@@ -93,6 +93,19 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             }
         }
     }
+//    @Override
+//    public void cleanFeedbackFolder() {
+//    	if (feedbackFolder ==null)
+//    		return;
+//    	String name = feedbackFolder.getMixedCaseAbsoluteName();
+//    	if (name == null)
+//    		return;
+//    	try {
+//			FileUtils.cleanDirectory(new File(name));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//    }
     @Override
     public void cleanFeedbackFolder() {
     	if (feedbackFolder ==null)
@@ -101,7 +114,19 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     	if (name == null)
     		return;
     	try {
-			FileUtils.cleanDirectory(new File(name));
+//			FileUtils.cleanDirectory(new File(name));
+    		File feedbackFile = new File(name);
+    		File[] children = feedbackFile.listFiles();
+    		for (File child:children) {
+    			if (child.isDirectory()) {
+    				FileUtils.cleanDirectory(child); // generated directory
+    				child.delete();
+    			}
+    			else {
+    				if (child.getName().endsWith(".ini")) continue; // keep desktop.ini file around for git
+    				else child.delete();
+    			}
+    		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -119,7 +144,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     		File[] children = submissionFile.listFiles();
     		for (File child:children) {
     			if (child.isDirectory()) {
-    				FileUtils.cleanDirectory(child); // generated directory
+    				FileUtils.cleanDirectory(child); // generated  directory
     				child.delete();
     			}
     		}
