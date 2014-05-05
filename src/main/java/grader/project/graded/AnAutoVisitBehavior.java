@@ -21,6 +21,7 @@ import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.project.file.java.AJavaRootCodeFolder;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -197,7 +198,7 @@ public class AnAutoVisitBehavior implements
 	}
 
 	boolean isNotRunnable() {
-		return project.getClassLoader() == null || project.getClassesManager() == null;
+		return AJavaRootCodeFolder.isJava() && (project.getClassLoader() == null || project.getClassesManager() == null);
 		
 	}
 

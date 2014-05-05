@@ -298,6 +298,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		binaryFileSuffix = languageToBinaryFileSuffix.get(getLanguage());
 		
 	}
+	public static boolean isJava() {
+		return getLanguage() == JAVA_LANGUAGE;
+	}
 	static {
 		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");

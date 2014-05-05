@@ -18,6 +18,7 @@ public class StaticConfigurationUtils {
 	public static String PRIVACY = "privacy";
 	public static String EXECUTION_COMMAND = "execution";
 	public static String LANGUAGE = "language";
+	public static String REQUIREMENTS = "requirements";
 
 	
 	
@@ -183,33 +184,36 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 	
 	public  static ProjectRequirements  getProjectRequirements(PropertiesConfiguration configuration,
 			GraderSettingsManager graderSettingsManager ) {
+		
+		
 		ProjectRequirements requirements = null;
+		
 		String requirementsSpec = "";
 		
 		try {
+			 requirementsSpec = getInheritedStringModuleProblemProperty(REQUIREMENTS, configuration.getString("project.requirements"));
+
 			// compatibility with Josh's spec
-//			String requirementsSpec = configuration.getString("project.requirements");
-//			if (requirementsSpec == null) {
-//				Comp401.requirements = gradingTools.{problemname}
-				String module = graderSettingsManager.getModule();
-				 requirementsSpec = configuration.getString(module + ".requirements");
-				if (requirementsSpec == null) {
-					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
-					if (requirementsSpec == null) {
-						requirementsSpec = configuration.getString("default.requirements");
-						if (requirementsSpec == null) {
-							requirementsSpec = configuration.getString("project.requirements"); // upward compatibilty
-						}
-					}
-				}
+
+//				String module = graderSettingsManager.getModule();
+//				 requirementsSpec = configuration.getString(module + ".requirements");
+//				if (requirementsSpec == null) {
+//					requirementsSpec = configuration.getString(module.toLowerCase() + ".requirements");
+//					if (requirementsSpec == null) {
+//						requirementsSpec = configuration.getString("default.requirements");
+//						if (requirementsSpec == null) {
+//							requirementsSpec = configuration.getString("project.requirements"); // upward compatibilty
+//						}
+//					}
+//				}
 				
-				requirementsSpec = graderSettingsManager.replaceModuleProblemVars(requirementsSpec);
+			String	normalizedRequirementsSpec = graderSettingsManager.replaceModuleProblemVars(requirementsSpec);
 					
 //			}
 			
 			
 //		   Class<?> _class = Class.forName(configuration.getString("project.requirements"));
-		   Class<?> _class = Class.forName(requirementsSpec);
+		   Class<?> _class = Class.forName(normalizedRequirementsSpec);
 
             requirements = (ProjectRequirements) _class.newInstance();
 	} catch (ClassNotFoundException e) {
