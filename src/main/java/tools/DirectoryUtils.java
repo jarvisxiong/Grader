@@ -4,6 +4,7 @@ import scala.Option;
 import util.misc.Common;
 import util.trace.Tracer;
 import grader.project.file.java.AJavaRootCodeFolder;
+import gradingTools.DemoerAndTester;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -156,10 +157,12 @@ public class DirectoryUtils {
 			String correctText = Common.toText(correctChild);
 			String testText = Common.toText(testChild);
 			if (!correctText.equals(testText)) {
-				Tracer.error("Not equal to test file:" + correctChild.getName() + ", " + testChild.getName());
-				System.out.println("Correct Text:" + correctText);
-				System.out.println("Test Text:" + testText);
+				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
+				Tracer.info(DemoerAndTester.class, "Correct Text:" + correctText);
+				Tracer.info(DemoerAndTester.class,"Test Text:" + testText);
 				return false;
+			} else {
+				Tracer.info(DemoerAndTester.class, "Equal to test file:" + correctChild.getAbsolutePath());
 			}
 			
 			

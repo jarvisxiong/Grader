@@ -18,6 +18,7 @@ import tools.DirectoryUtils;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
+import util.trace.Tracer;
 
 public class DemoerAndTester implements Runnable{
 	static String[] args ;
@@ -35,7 +36,10 @@ public class DemoerAndTester implements Runnable{
 //	static long autoProceedPauseTime = 4000;
 	public static void main (String[] anArgs) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
+		Tracer.showInfo(true);
+		Tracer.setKeywordPrintStatus(DemoerAndTester.class, true);
 		args = anArgs;
+		Tracer.info(DemoerAndTester.class, "test");
 //		Thread mainThread = new Thread(new Tester());
 //		mainThread.start();
 //		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
