@@ -14,7 +14,8 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
-import grader.project.MainClassFinderSelector;
+import grader.project.JavaMainClassFinderSelector;
+import grader.project.file.java.AJavaRootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;
@@ -32,8 +33,10 @@ public class ProcessRunner implements Runner {
 	public ProcessRunner(Project aProject) throws NotRunnableException {
 		try {
 //			entryPoint = getEntryPoint(aProject);
-			 entryPoint = MainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-			folder = aProject.getBuildFolder(entryPoint);
+//			 entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
+	            entryPoint = AJavaRootCodeFolder.getMainClassFinder().getEntryPoint(aProject);
+
+			 folder = aProject.getBuildFolder(entryPoint);
 			project = aProject;
 		} catch (Exception e) {
 			throw new NotRunnableException();

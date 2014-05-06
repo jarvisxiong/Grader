@@ -12,7 +12,6 @@ import grader.assignment.AnAssignmenDataFolder;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
-
 import grader.auto_notes.ANotesGenerator;
 import grader.auto_notes.NotesGenerator;
 import grader.colorers.AGradingFeatureColorer;
@@ -28,7 +27,6 @@ import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.AManualFeedbackManager;
-
 import grader.feedback.APrintingAutoFeedbackManager;
 import grader.feedback.APrintingManualFeedbackManager;
 import grader.feedback.AScoreFeedbackFileWriter;
@@ -38,7 +36,6 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
-
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
 import grader.navigation.AProjectNavigator;
@@ -58,8 +55,9 @@ import grader.photos.PhotoReader;
 import grader.project.AMainClassFinder;
 import grader.project.AProject;
 import grader.project.MainClassFinder;
-import grader.project.MainClassFinderSelector;
+import grader.project.JavaMainClassFinderSelector;
 import grader.project.Project;
+import grader.project.file.java.AJavaRootCodeFolder;
 import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
 import grader.project.graded.AGradedProjectNavigator;
@@ -75,7 +73,6 @@ import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
 import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
-
 import grader.settings.GraderSettingsModel;
 import grader.settings.navigation.AnAutomaticNavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
@@ -86,7 +83,6 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
-
 import grader.trace.assignment_data.AssignmentDataFolderCreated;
 import grader.trace.assignment_data.AssignmentDataFolderLoaded;
 import grader.trace.project.ProjectFolderNotFound;
@@ -106,14 +102,13 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.Comparator;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 import javax.swing.Icon;
@@ -386,7 +381,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	protected MainClassFinder createMainClassFinder() {
 //		return new AMainClassFinder();
-		return MainClassFinderSelector.getMainClassFinder();
+//		return JavaMainClassFinderSelector.getMainClassFinder();
+        return AJavaRootCodeFolder.getMainClassFinder();
+
 	}
 
 	public void addGradingFeatures(List<GradingFeature> aGradingFeatures) {

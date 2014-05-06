@@ -10,6 +10,10 @@ import org.apache.maven.project.MissingProjectException;
 import util.misc.Common;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
+import grader.project.AMainClassFinder;
+import grader.project.ExecutableFinderSelector;
+import grader.project.JavaMainClassFinderSelector;
+import grader.project.MainClassFinder;
 import grader.project.file.RootCodeFolder;
 import grader.trace.project.BinaryFolderIdentified;
 import grader.trace.project.BinaryFolderNotFound;
@@ -26,6 +30,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	 static  String sourceFileSuffix = ".java";
 	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
 	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
+	 static Map<String, MainClassFinder> languageToMainClassFinder = new HashMap();
 	 static String language;
 		
 		public static String JAVA_LANGUAGE = "Java";
@@ -298,6 +303,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		binaryFileSuffix = languageToBinaryFileSuffix.get(getLanguage());
 		
 	}
+	public static MainClassFinder getMainClassFinder() {
+		return languageToMainClassFinder.get(getLanguage());
+	}
 	public static boolean isJava() {
 		return getLanguage() == JAVA_LANGUAGE;
 	}
@@ -306,8 +314,10 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
 		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
 		languageToBinaryFileSuffix.put(C_LANGUAGE, ".o");
+		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
 
-		
+		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());
+
 		
 	}
 

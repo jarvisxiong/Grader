@@ -116,7 +116,10 @@ public class AProject implements Project {
     }
 
     protected MainClassFinder createMainClassFinder() {
-        return new AMainClassFinder();
+//        return new AMainClassFinder();
+//    	return JavaMainClassFinderSelector.getMainClassFinder();
+        return AJavaRootCodeFolder.getMainClassFinder();
+
     }
 
     public void init(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
