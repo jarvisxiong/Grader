@@ -4,8 +4,6 @@ import scala.Option;
 import util.misc.Common;
 import util.trace.Tracer;
 import grader.project.file.java.AJavaRootCodeFolder;
-import gradingTools.DemoerAndTester;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
@@ -131,7 +129,8 @@ public class DirectoryUtils {
 		File[] correctChildren = correctDir.listFiles();
 		File[] testChildren = testDir.listFiles();
 		if (correctChildren.length != testChildren.length) {
-			Tracer.error("correct and test dir not same size:" + correctDir.getName() + " , " + testDir.getName());
+			Tracer.error("correct and test dir not same size:" + correctDir.getAbsolutePath() + "(" + correctChildren.length + "," + testChildren.length + ")");
+			Tracer.info(DirectoryUtils.class, "Correct:" +  Common.toString(correctChildren) + " Test:" + Common.toString(testChildren));
 			return false;
 			
 		}
@@ -141,6 +140,8 @@ public class DirectoryUtils {
 				Tracer.error("test file does not exist:" + testChild.getName());
 				return false;
 			}
+			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
+				continue;
 			if (correctChild.isDirectory()) {
 				if (!testChild.isDirectory()) {
 					Tracer.error("Test file is not a directory:" + testChild.getName());
@@ -152,17 +153,17 @@ public class DirectoryUtils {
 						continue;
 				
 			}
-			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
-				continue;
+//			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
+//				continue;
 			String correctText = Common.toText(correctChild);
 			String testText = Common.toText(testChild);
 			if (!correctText.equals(testText)) {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
-				Tracer.info(DemoerAndTester.class, "Correct Text:" + correctText);
-				Tracer.info(DemoerAndTester.class,"Test Text:" + testText);
+				Tracer.info(DirectoryUtils.class, "Correct Text\n:" + correctText);
+				Tracer.info(DirectoryUtils.class,"Test Text\n:" + testText);
 				return false;
 			} else {
-				Tracer.info(DemoerAndTester.class, "Equal to test file:" + correctChild.getAbsolutePath());
+				Tracer.info(DirectoryUtils.class, "Equal to test file:" + correctChild.getAbsolutePath());
 			}
 			
 			

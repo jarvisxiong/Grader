@@ -3,9 +3,13 @@
 
 package grader.project;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ import grader.trace.compilation.ClassLoaded;
 import grader.trace.compilation.CompilationUnitCreated;
 import grader.trace.compilation.JavacSourceClassCreated;
 import grader.trace.compilation.QDoxClassCreated;
+import grader.trace.overall_transcript.OverallTranscriptSaved;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -81,10 +86,13 @@ public class AClassDescription  implements ClassDescription {
 				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
 				
 				
-				String outputFile = aProject.getOutputFileName();
-				
-				if (outputFile != null) {
-					FileOutputStream outStream = new FileOutputStream(outputFile);
+				String outputFileName = aProject.getOutputFileName();
+				ByteArrayOutputStream outStream = null;
+				if (outputFileName != null) {
+					outStream = new ByteArrayOutputStream();
+//					FileOutputStream outStream = new FileOutputStream(outputFile, true);
+//					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
                     teeout = new TeePrintStream(outStream, stdout);
                     teeerr = new TeePrintStream(outStream, stderr);
                     System.setOut(teeout);
@@ -112,7 +120,22 @@ public class AClassDescription  implements ClassDescription {
 
 //					Tracer.error("Could not compile");
 				}
+				String transcript = outStream.toString();
+				outStream.close();
+				try {
+					String original = Common.toText(new File(outputFileName));
+					FileWriter fileWriter = new FileWriter(outputFileName);
+					fileWriter.append(transcript + "\n" + "----------------------------------------\n" + original);
+					OverallTranscriptSaved.newCase(null, null, null,  outputFileName, transcript, this);
+					if (project.getCurrentGradingFeature() != null)
+//					FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
+					fileWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				}
+				
 				
 				
 				

@@ -37,7 +37,7 @@ public class DemoerAndTester implements Runnable{
 	public static void main (String[] anArgs) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 		Tracer.showInfo(true);
-		Tracer.setKeywordPrintStatus(DemoerAndTester.class, true);
+		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
 		args = anArgs;
 		Tracer.info(DemoerAndTester.class, "test");
 //		Thread mainThread = new Thread(new Tester());
@@ -432,7 +432,9 @@ public class DemoerAndTester implements Runnable{
 //		File testDir = new File ("Test Data/Test 110 F13 Assignments/Assignment3");
 		File testDir = new File (TEST_DIR + "/Assignment3");
 
-		String[] ignoreSuffixesArray = {".zip", ".ini", ".json"};
+		String[] ignoreSuffixesArray = {".zip", ".ini", ".json", "Submission attachment(s)"};
+//		String[] ignoreSuffixesArray = {".zip", ".ini", ".json"};
+
 		List<String> ignoreSuffixesList = Arrays.asList(ignoreSuffixesArray);
 		System.out.println(DirectoryUtils.compare (correctDir, testDir, ignoreSuffixesList));
 	}
