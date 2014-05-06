@@ -28,16 +28,36 @@ public class DemoerAndTester implements Runnable{
 	static String directory;
 	
 	static boolean  generatingCorrectDir = false;
+	
+	static boolean autoProceed = false;
 //	static boolean  generatingCorrectDir = true;
 
 	
+	
+
 	static DemoAndTestingClearanceManager clearanceManager = new ADemoAndTestingClearanceManager();
 //	static boolean autoProceed;
 //	static long autoProceedPauseTime = 4000;
+	public static boolean isAutoProceed() {
+		return autoProceed;
+	}
+
+	public static void setAutoProceed(boolean autoProceed) {
+		DemoerAndTester.autoProceed = autoProceed;
+	}
+	public static boolean isGeneratingCorrectDir() {
+		return generatingCorrectDir;
+	}
+
+	public static void setGeneratingCorrectDir(boolean generatingCorrectDir) {
+		DemoerAndTester.generatingCorrectDir = generatingCorrectDir;
+	}
+	
+
 	public static void main (String[] anArgs) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
-		Tracer.showInfo(true);
-		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
+//		Tracer.showInfo(true);
+//		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
 		args = anArgs;
 		Tracer.info(DemoerAndTester.class, "test");
 //		Thread mainThread = new Thread(new Tester());
@@ -74,6 +94,7 @@ public class DemoerAndTester implements Runnable{
 			directory = CORRECT_DIR;
 		else
 			directory = TEST_DIR;
+		clearanceManager.setAutoProceed(autoProceed);
 		waitForStepper1();
 		initializeAndChangeProblem();
 		doBegin1();

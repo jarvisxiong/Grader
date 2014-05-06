@@ -99,8 +99,10 @@ public class AClassDescription  implements ClassDescription {
                     System.setErr(teeerr);
                 }
 				Tracer.error(classFileNotfound.getMessage());
+			
 				if (AProject.isCompileClasses()) {
-				Tracer.error("Attempting to compile class");
+					String compileClassMessage = "Attempting to compile class:" + aClassName;
+				Tracer.error(compileClassMessage);
 				
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
 				if (classBytes != null) {
@@ -124,12 +126,14 @@ public class AClassDescription  implements ClassDescription {
 				outStream.close();
 				try {
 					String original = Common.toText(new File(outputFileName));
+					if (!original.contains(compileClassMessage)) { // otherwise we have already put the text in a previous pass
 					FileWriter fileWriter = new FileWriter(outputFileName);
 					fileWriter.append(transcript + "\n" + "----------------------------------------\n" + original);
 					OverallTranscriptSaved.newCase(null, null, null,  outputFileName, transcript, this);
-					if (project.getCurrentGradingFeature() != null)
+//					if (project.getCurrentGradingFeature() != null)
 //					FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
 					fileWriter.close();
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -1,7 +1,18 @@
 E***Class  file not found:Program3
-E***Attempting to compile class
+E***Attempting to compile class:Program3
 /Program3.java:44: error: 'else' without 'if'
 			} else if (option.equalsIgnoreCase("compute rounded sum")) {
 			  ^
 1 error
 E***Class  file could not be compiled correctly:Program3
+
+----------------------------------------
+E***Class  file not found:Program3
+E***Attempting to compile class:Program3
+/Program3.java:44: error: 'else' without 'if'
+            } else if (option.equalsIgnoreCase("compute rounded sum")) {
+              ^
+1 error
+E***Class  file could not be compiled correctly:Program3
+
+----------------------------------------
