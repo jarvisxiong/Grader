@@ -159,8 +159,8 @@ public class DirectoryUtils {
 			String testText = Common.toText(testChild);
 			if (!correctText.equals(testText)) {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
-				Tracer.info(DirectoryUtils.class, "Correct Text\n:" + correctText);
-				Tracer.info(DirectoryUtils.class,"Test Text\n:" + testText);
+				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
+				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
 				return false;
 			} else {
 				Tracer.info(DirectoryUtils.class, "Equal to test file:" + correctChild.getAbsolutePath());
