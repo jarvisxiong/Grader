@@ -1,0 +1,16 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Contains a main method                                 0.0 / 10.0
+Prompts for inputs                                     0.0 / 10.0
+Takes in Double and Integer                            0.0 / 10.0
+Adds and multiplies the numbers                        0.0 / 10.0
+Displays results of addition and multiplication        0.0 / 40.0
+Has a proper header                                    0.0 / 10.0
+Messages with output                                   0.0 / 10.0
+----------------------------------
+  Points Awarded: 0.0
+
+  Features Score: 0.0
+  Total Score: 0.0
