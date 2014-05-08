@@ -153,6 +153,8 @@ public class DemoerAndTester implements Runnable{
 	}
 	
 	public static void initializeAndChangeProblem() {
+		Driver.getSettingsModel().getModuleProblemSelector().getModule().setValue("Comp110");
+
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
 //		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText("Test Data/Test 110 F13 Assignments/Assignment1");
 		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText(directory + "/Assignment1");
