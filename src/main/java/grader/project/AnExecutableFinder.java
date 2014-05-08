@@ -6,6 +6,7 @@ import framework.execution.NotRunnableException;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
 import grader.file.FileProxy;
+import grader.file.RootFolderProxy;
 import grader.project.file.RootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import util.misc.Common;
@@ -26,12 +27,16 @@ public class AnExecutableFinder implements MainClassFinder {
     		ProjectWrapper projectWrapper = (ProjectWrapper) frameworkProject;
     		SakaiProject sakaiProject = projectWrapper.getProject();
     		RootCodeFolder aRootCodeFolder = sakaiProject.getRootCodeFolder();
-    		String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
-            List<FileProxy> binaryChildren = aRootCodeFolder.getRootFolder().getChildrenOf(
-            		binaryFolderName);
+    		RootFolderProxy binaryFolder = aRootCodeFolder.getBinaryFolder();
+//    		String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
+            List<FileProxy> binaryChildren =  aRootCodeFolder.getRootFolder().getChildrenOf(
+            		binaryFolder.getAbsoluteName());
+//            List<FileProxy> binaryChildren =  binaryFolder.getC
             for ( FileProxy child:binaryChildren) {
-            	if (child.getMixedCaseLocalName().endsWith(EXECUTABLE_SUFFIX))
-            		return child.getMixedCaseLocalName();
+            	if (child.getMixedCaseLocalName().endsWith(EXECUTABLE_SUFFIX)) {
+            		String localName = child.getParentRelativeMixedCaseName();
+            		return localName;
+            	}
             	
             }
             

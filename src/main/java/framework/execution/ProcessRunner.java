@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import tools.TimedProcess;
 import util.misc.Common;
+import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
@@ -35,8 +36,10 @@ public class ProcessRunner implements Runner {
 //			entryPoint = getEntryPoint(aProject);
 //			 entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
 	            entryPoint = AJavaRootCodeFolder.getMainClassFinder().getEntryPoint(aProject);
+	            
 
 			 folder = aProject.getBuildFolder(entryPoint);
+//			 entryPoint = folder + "\\" + entryPoint;
 			project = aProject;
 		} catch (Exception e) {
 			throw new NotRunnableException();
@@ -117,7 +120,7 @@ public class ProcessRunner implements Runner {
 	 */
 	@Override
 	public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-	  	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
+	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoint);
 	  	return run(command, input, args, timeout);
 //
 //		final RunningProject runner = new RunningProject(project);
@@ -347,6 +350,7 @@ public class ProcessRunner implements Runner {
 			runner.end();
 
 		} catch (Exception e) {
+			Tracer.error(e.getMessage());
 			runner.error();
 			runner.end();
 		}

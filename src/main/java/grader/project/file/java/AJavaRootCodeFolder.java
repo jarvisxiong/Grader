@@ -11,6 +11,7 @@ import util.misc.Common;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.project.AMainClassFinder;
+import grader.project.AnExecutableFinder;
 import grader.project.ExecutableFinderSelector;
 import grader.project.JavaMainClassFinderSelector;
 import grader.project.MainClassFinder;
@@ -47,6 +48,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	String projectFolder; 
 	// changing sourceFolder to rootfolderproxy from FileProxy as we do not need the more general type
 	RootFolderProxy sourceFolder, binaryFolder;
+//	FileProxy sourceFolder, binaryFolder;
 	
 	boolean separateSourceBinary = true;
 	boolean hasSource;
@@ -285,6 +287,19 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	public static String getBinaryFileSuffix() {
 		return binaryFileSuffix;
 	}
+	
+	
+@Override
+	public RootFolderProxy getSourceFolder() {
+		return sourceFolder;
+	}
+
+@Override	
+	public RootFolderProxy getBinaryFolder() {
+		return binaryFolder;
+	}
+
+	
 
 	public static void setBinaryFileSuffix(String binaryFileSuffix) {
 		AJavaRootCodeFolder.binaryFileSuffix = binaryFileSuffix;
@@ -313,7 +328,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
 		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
-		languageToBinaryFileSuffix.put(C_LANGUAGE, ".o");
+		languageToBinaryFileSuffix.put(C_LANGUAGE, AnExecutableFinder.EXECUTABLE_SUFFIX);
 		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
 
 		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());

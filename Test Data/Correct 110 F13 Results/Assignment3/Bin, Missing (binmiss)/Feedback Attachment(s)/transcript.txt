@@ -2,10 +2,6 @@ E***Class  file not found:Program3
 E***Attempting to compile class:Program3
 
 ----------------------------------------
-E***Class  file not found:Program3
-E***Attempting to compile class:Program3
-
-----------------------------------------
 *****************************(Prompts for String and computation input)*****************************
 INPUT(Prompts for String and computation input)
 hello

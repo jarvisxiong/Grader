@@ -5,6 +5,7 @@ import framework.utils.GradingEnvironment;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -108,13 +109,14 @@ public class StaticConfigurationUtils {
 		
 	}
 	
-	public static String[] getExecutionCommand(String entryPoint) {
+	public static String[] getExecutionCommand(File buildFolder, String entryPoint) {
 		List<String> basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
 		String[] retVal = new String[basicCommand.size()];
 		for (int i = 0; i < basicCommand.size(); i++) {
 		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
 		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
-		retVal[i] = withEntryPoint;
+		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
+		retVal[i] = withBuildFolder;
 		}
 		return retVal;
 		

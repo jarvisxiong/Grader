@@ -1,0 +1,8 @@
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+This is a native C program.
+
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+This is a native C program.
+
