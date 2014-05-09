@@ -42,7 +42,19 @@
 
 int main()
 {
-    printf("This is a native C program.\n");
+  		int num1;
+		double num2;
+		printf("Please input an integer\n");
+		
+		scanf("%d", &num1);
+		printf("Please input a decimal\n");
+		
+		scanf ("%lf", &num2);
+		printf("The int addition:%d\n", (num1 + (int) num2));
+		printf("The double addition:%f\n", ( (double) num1 + num2));
+		printf("The int multiplication:%d\n", (num1 * (int) num2));
+		printf("The double multiplication:%f\n", ( (double) num1 * num2));
+    
     return 0;
 } 
 //END OF FILE

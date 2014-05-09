@@ -562,16 +562,19 @@ public class AMainProjectStepper implements MainProjectStepper {
 		
 	}
 	@Override
+	@Visible(false)
 	public String getDisplayedOnyen() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getDisplayedOnyen();
 	}
 	@Override
+	@Visible(false)
 	public String getDisplayedName() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getDisplayedName();
 	}
 	@Override
+	@Visible(false)
 	public String getStudentHistory() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getStudentHistory();
