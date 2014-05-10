@@ -49,6 +49,12 @@ public class ProcessRunner implements Runner {
 	public ProcessRunner() throws NotRunnableException {
 		
 	}
+	
+	// use it without project
+		public ProcessRunner(File aFolder) throws NotRunnableException {
+			folder = aFolder;
+			
+		}
 
 //	/**
 //	 * This figures out what class is the "entry point", or, what class has
