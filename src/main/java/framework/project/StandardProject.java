@@ -138,6 +138,8 @@ public class StandardProject implements Project {
                 dir = out.get();
             if (bin.isDefined())
                 dir = bin.get();
+            if (preferredClass == null || preferredClass.isEmpty())
+            	return dir;
 
             if (preferredClass.contains(".")) {
                 Option<File> packageDir = DirectoryUtils.locateFolder(dir, preferredClass.split("\\.")[0]);

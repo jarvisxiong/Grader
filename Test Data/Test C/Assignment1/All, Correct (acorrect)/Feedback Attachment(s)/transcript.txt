@@ -102,3 +102,395 @@ The double addition:17519849.000000
 The int multiplication:0
 The double multiplication:0.000000
 
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:14898409
+The double addition:14898409.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:14898409
+The double addition:14898409.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+2.5
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:3
+The double addition:3.500000
+The int multiplication:2
+The double multiplication:2.500000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+5.213025
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+5.213025
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:13456617
+The double addition:13456617.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:13456617
+The double addition:13456617.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+2.5
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:3
+The double addition:3.500000
+The int multiplication:2
+The double multiplication:2.500000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+5.213025
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+5.213025
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:14570729
+The double addition:14570729.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:14570729
+The double addition:14570729.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+2.5
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:3
+The double addition:3.500000
+The int multiplication:2
+The double multiplication:2.500000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+5.213025
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+5.213025
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:1397993
+The double addition:1397993.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1
+OUTPUT(Prompts for inputs)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:1397993
+The double addition:1397993.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:1
+The double addition:1.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+2.5
+OUTPUT(Takes in Double and Integer)
+Please input an integer
+Please input a decimal
+The int addition:3
+The double addition:3.500000
+The int multiplication:2
+The double multiplication:2.500000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+5.213025
+OUTPUT(Adds and multiplies the numbers)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:4
+The double addition:4.000000
+The int multiplication:0
+The double multiplication:0.000000
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+5.213025
+OUTPUT(Displays results of addition and multiplication)
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.852100
+

@@ -12,6 +12,7 @@ import grader.sakai.project.SakaiProject;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 
+import java.io.File;
 import java.util.List;
 
 public class AnExecutableFinder implements MainClassFinder {
@@ -22,25 +23,40 @@ public class AnExecutableFinder implements MainClassFinder {
     
 
     public String getEntryPoint(framework.project.Project frameworkProject) throws NotRunnableException {
-        
-    	if (frameworkProject instanceof ProjectWrapper) {
-    		ProjectWrapper projectWrapper = (ProjectWrapper) frameworkProject;
-    		SakaiProject sakaiProject = projectWrapper.getProject();
-    		RootCodeFolder aRootCodeFolder = sakaiProject.getRootCodeFolder();
-    		RootFolderProxy binaryFolder = aRootCodeFolder.getBinaryFolder();
-//    		String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
-            List<FileProxy> binaryChildren =  aRootCodeFolder.getRootFolder().getChildrenOf(
-            		binaryFolder.getAbsoluteName());
-//            List<FileProxy> binaryChildren =  binaryFolder.getC
-            for ( FileProxy child:binaryChildren) {
-            	if (child.getMixedCaseLocalName().endsWith(EXECUTABLE_SUFFIX)) {
-            		String localName = child.getParentRelativeMixedCaseName();
-            		return localName;
-            	}
-            	
-            }
-            
-    	}
+        try {
+    	File binaryFolder = frameworkProject.getBuildFolder("");
+    	File[] binaryChildren =  binaryFolder.listFiles();
+//        List<FileProxy> binaryChildren =  binaryFolder.getC
+        for ( File child:binaryChildren) {
+        	if (child.getName().endsWith(EXECUTABLE_SUFFIX)) {
+        		return child.getName();
+        	}
+        	
+        }
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return null;
+        }
+    	
+//    	if (frameworkProject instanceof ProjectWrapper) {
+//    		ProjectWrapper projectWrapper = (ProjectWrapper) frameworkProject;
+//    		SakaiProject sakaiProject = projectWrapper.getProject();
+//    		
+//    		RootCodeFolder aRootCodeFolder = sakaiProject.getRootCodeFolder();
+//    		RootFolderProxy binaryFolder = aRootCodeFolder.getBinaryFolder();
+////    		String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
+//            List<FileProxy> binaryChildren =  aRootCodeFolder.getRootFolder().getChildrenOf(
+//            		binaryFolder.getAbsoluteName());
+////            List<FileProxy> binaryChildren =  binaryFolder.getC
+//            for ( FileProxy child:binaryChildren) {
+//            	if (child.getMixedCaseLocalName().endsWith(EXECUTABLE_SUFFIX)) {
+//            		String localName = child.getParentRelativeMixedCaseName();
+//            		return localName;
+//            	}
+//            	
+//            }
+//            
+//    	}
     	return null;
     }
 

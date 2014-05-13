@@ -1,6 +1,6 @@
 package framework.project;
 
-import grader.compilation.ClassFilesCompilerSelector;
+import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
 import grader.project.file.java.AJavaRootCodeFolder;
@@ -73,7 +73,7 @@ public class ProjectClassesManager implements ClassesManager {
 //			}
 //		});
 		
-		if (AProject.isCompileClasses()) {
+		if (AProject.isCompileMissingObjectCode() || AProject.isForceCompile()) {
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -92,7 +92,8 @@ public class ProjectClassesManager implements ClassesManager {
 			try {
 				System.out.println("Attempting to compile files.");
 //				compile(aFilesToCompile);
-				ClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
+//				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
+				AJavaRootCodeFolder.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
 				System.out.println("Compilation attempt finished.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());
@@ -178,7 +179,7 @@ public class ProjectClassesManager implements ClassesManager {
 	 */
 	private boolean shouldCompile(File javaFile, File classFile) {
 
-		return !classFile.exists() || 
+		return AProject.isForceCompile() || !classFile.exists() || 
 				classFile.lastModified() < javaFile.lastModified();
 	}
 

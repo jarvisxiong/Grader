@@ -450,7 +450,7 @@ public class Driver {
            	 AProject.setLoadClasses(loadClasses);
            	 String language = StaticConfigurationUtils.getLanguage();
            	 AJavaRootCodeFolder.setLanguage(language);
-           	 AProject.setCompileClasses(StaticConfigurationUtils.getCompileClasses(configuration, graderSettingsManager));
+           	 AProject.setCompileMissingObjectCode(StaticConfigurationUtils.getAllowCompileClasses(configuration, graderSettingsManager));
                  database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete

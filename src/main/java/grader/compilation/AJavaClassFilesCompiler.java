@@ -24,7 +24,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 	 *            ArrayList of .java files
 	 * @throws IOException
 	 */
-	public void compile(File buildFolder, ArrayList<File> sourceFiles) throws IOException, IllegalStateException {
+	public void compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		if (compiler != null) {

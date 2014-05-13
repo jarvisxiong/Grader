@@ -40,7 +40,9 @@ public abstract class Checkable implements Gradable {
 
         } catch (NotGradableException e) {
         	e.announce();
-        	String msg = "Could not grade because did not find classes ";
+        	String msg = "Grading failed";
+
+//        	String msg = "Could not grade because did not find classes ";
 //        	Tracer.error("Could not grade because did not find classes ");
         	Tracer.error(msg);
 //            e.printStackTrace();

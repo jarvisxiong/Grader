@@ -77,11 +77,14 @@ public class AProject implements Project {
 	
 	static boolean loadClasses = false;
 	
-	static boolean compileClasses = false;
+	static boolean compileMissingObjectCode = false;
+	static boolean forceCompile = false;
 
 
     
 
+
+	
 
 	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -503,11 +506,18 @@ public class AProject implements Project {
 		AProject.loadClasses = makeClassDescriptions;
 	}
 
-	public static boolean isCompileClasses() {
-		return compileClasses;
+	public static boolean isCompileMissingObjectCode() {
+		return compileMissingObjectCode;
 	}
 
-	public static void setCompileClasses(boolean compileClasses) {
-		AProject.compileClasses = compileClasses;
+	public static void setCompileMissingObjectCode(boolean newVal) {
+		AProject.compileMissingObjectCode = newVal;
+	}
+	public static boolean isForceCompile() {
+		return forceCompile;
+	}
+
+	public static void setForceCompile(boolean forceCompile) {
+		AProject.forceCompile = forceCompile;
 	}
 }

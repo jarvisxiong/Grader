@@ -15,7 +15,9 @@ public class StaticConfigurationUtils {
 	public static String AUTO_GRADE = "autoGrade";
 	public static String AUTO_RUN = "autoRun";
 	public static String LOAD_CLASSES = "loadClasses";
-	public static String COMPILE_CLASSES = "compileMissingClasses";
+	public static String ALLOW_COMPILE_CLASSES = "compileMissingObjectCode";
+	public static String FORCE_COMPILE_CLASSES = "forceCompile";
+
 	public static String PRIVACY = "privacy";
 	public static String EXECUTION_COMMAND = "execution";
 	public static String LANGUAGE = "language";
@@ -42,12 +44,16 @@ public class StaticConfigurationUtils {
 		
 	}
 	
-	public static boolean getCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+	public static boolean getAllowCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 
-		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, COMPILE_CLASSES, false);
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, ALLOW_COMPILE_CLASSES, false);
 		
 	}
-	
+	public static boolean getForceCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, FORCE_COMPILE_CLASSES, false);
+		
+	}
 	public static boolean getPrivacy(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 //		String module = graderSettingsManager.getModule();
 //		String problem = graderSettingsManager.getNormalizedProblem(module);

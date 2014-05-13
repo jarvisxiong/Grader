@@ -100,7 +100,7 @@ public class AClassDescription  implements ClassDescription {
                 }
 				Tracer.error(classFileNotfound.getMessage());
 			
-				if (AProject.isCompileClasses()) {
+				if (AProject.isCompileMissingObjectCode()) {
 					String compileClassMessage = "Attempting to compile class:" + aClassName;
 				Tracer.error(compileClassMessage);
 				

@@ -1,6 +1,6 @@
 package grader.compilation;
 
-public class ClassFilesCompilerSelector {
+public class JavaClassFilesCompilerSelector {
 	static ClassFilesCompiler classFilesCompiler = new AJavaClassFilesCompiler();
 
 	public static ClassFilesCompiler getClassFilesCompiler() {
@@ -8,7 +8,7 @@ public class ClassFilesCompilerSelector {
 	}
 
 	public static void setClassFilesCompiler(ClassFilesCompiler classFilesCompiler) {
-		ClassFilesCompilerSelector.classFilesCompiler = classFilesCompiler;
+		JavaClassFilesCompilerSelector.classFilesCompiler = classFilesCompiler;
 	}
 
 }
