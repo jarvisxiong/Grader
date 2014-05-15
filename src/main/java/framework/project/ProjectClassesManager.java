@@ -65,7 +65,7 @@ public class ProjectClassesManager implements ClassesManager {
 	 * @throws IOException
 	 */
 	private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
-		Set<File> javaFiles = DirectoryUtils.getSourceFiles(sourceFolder);
+		Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder);
 //		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
 //			@Override
 //			public boolean accept(File pathname) {
@@ -77,7 +77,7 @@ public class ProjectClassesManager implements ClassesManager {
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();
-		for (File file : javaFiles) {
+		for (File file : sourceFiles) {
 			String className = getClassName(file);
 			File classFile = getClassFile(className);
 			if (shouldCompile(file, classFile)) {
@@ -101,7 +101,7 @@ public class ProjectClassesManager implements ClassesManager {
 		}
 		}
 
-		for (File file : javaFiles) {
+		for (File file : sourceFiles) {
 			String className = getClassName(file);
 			try {
 				Class c = null;
@@ -159,7 +159,10 @@ public class ProjectClassesManager implements ClassesManager {
 
 		String classFileName;
 		if (splitClassName.length > 0) {
-			classFileName = splitClassName[splitClassName.length - 1] + ".class";
+//			classFileName = splitClassName[splitClassName.length - 1] + ".class";
+			classFileName = splitClassName[splitClassName.length - 1] + AJavaRootCodeFolder.getBinaryFileSuffix();
+
+			
 		} else {
 			classFileName = className + ".class";
 		}
@@ -179,7 +182,8 @@ public class ProjectClassesManager implements ClassesManager {
 	 */
 	private boolean shouldCompile(File javaFile, File classFile) {
 
-		return AProject.isForceCompile() || !classFile.exists() || 
+		return AProject.isForceCompile() ||
+				!classFile.exists() || 
 				classFile.lastModified() < javaFile.lastModified();
 	}
 

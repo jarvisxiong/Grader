@@ -337,7 +337,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
 		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
-		languageToBinaryFileSuffix.put(C_LANGUAGE, AnExecutableFinder.EXECUTABLE_SUFFIX);
+		languageToBinaryFileSuffix.put(C_LANGUAGE, ".obj");
 		
 		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
 		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());
