@@ -76,6 +76,7 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 	boolean isProceedWhenDone();
 
 	void toggleProceedWhenDone();
+	
 
 	void internalSetOnyen(String anOnyen) throws MissingOnyenException;
 

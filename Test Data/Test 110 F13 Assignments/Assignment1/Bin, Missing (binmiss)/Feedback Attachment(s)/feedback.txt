@@ -20,5 +20,5 @@ Has a proper header:
   -- Did not fill in all parts of the header
 
 Messages with output:
-Could not grade because did not find classes 
+Grading failed
   Total Score: 85.0

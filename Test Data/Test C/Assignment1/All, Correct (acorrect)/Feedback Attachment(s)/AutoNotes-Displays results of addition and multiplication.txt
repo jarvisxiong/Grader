@@ -1,5 +1,0 @@
-  -- Does not output the correct integer sum of the numbers
-Does not output the correct double sum of the numbers
-Does not output the correct integer product of the numbers
-Does not output the correct double product of the numbers
-

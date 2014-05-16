@@ -56,7 +56,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 ////        assignmentName = assignmentFolder.getLocalName();
 ////        mixedCaseAssignmentName = assignmentFolder.getMixedCaseLocalName();
 //    }
-    public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, boolean assignmentRoot, Comparator<String> aFileNameComparator) {
+     public ASakaiBulkAssignmentFolder(String aBulkDownloadFolder, boolean assignmentRoot, Comparator<String> aFileNameComparator) {
     	isAssignmentRoot = assignmentRoot;
         bulkDownloadDirectory = aBulkDownloadFolder;
         fileNameComparator = aFileNameComparator;
@@ -68,6 +68,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     void initializeBullkDownloadChidren() {
         rootBulkDownloadFolder = RootFolderFactory.createRootFolder(bulkDownloadDirectory);
         isZippedRootFolder = rootBulkDownloadFolder instanceof AZippedRootFolderProxy;
+        bulkDownloadDirectory = rootBulkDownloadFolder.getAbsoluteName(); // normalize name
         setAssignmentFolder();
         setGradeSpreadsheet();
         setStudentFolderNames();
@@ -95,7 +96,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     	String gradeSpreadsheetFullName = assignmentFolder.getAbsoluteName().replace("\\", "/") + "/" + GRADES_SPREADSHEET_NAME;
     	FileProxy retVal = rootBulkDownloadFolder.getFileEntry(gradeSpreadsheetFullName);
     	if (retVal == null)
-    		FinalGradeFileNotFound.newCase(gradeSpreadsheetFullName, this);
+    		System.out.println(FinalGradeFileNotFound.newCase(gradeSpreadsheetFullName, this).getMessage());
     	else 
     		FinalGradeFileLoaded.newCase(gradeSpreadsheetFullName, this);
     	return retVal;

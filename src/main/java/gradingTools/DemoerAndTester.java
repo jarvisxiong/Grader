@@ -17,6 +17,7 @@ import bus.uigen.attributes.AttributeNames;
 import tools.DirectoryUtils;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
+import util.misc.Common;
 import util.misc.ThreadSupport;
 import util.trace.Tracer;
 
@@ -89,12 +90,21 @@ public class DemoerAndTester implements Runnable{
 		mainThread.start();
 	}
 	
-	public static void doSteps() {
+	static void initializeDirectoryAndAutoProceed() {
 		if (generatingCorrectDir)
 			directory = CORRECT_DIR;
 		else
 			directory = TEST_DIR;
 		clearanceManager.setAutoProceed(autoProceed);
+	}
+	
+	public static void doSteps() {
+		initializeDirectoryAndAutoProceed();
+//		if (generatingCorrectDir)
+//			directory = CORRECT_DIR;
+//		else
+//			directory = TEST_DIR;
+//		clearanceManager.setAutoProceed(autoProceed);
 		waitForStepper1();
 		initializeAndChangeProblem();
 		doBegin1();
@@ -449,6 +459,7 @@ public class DemoerAndTester implements Runnable{
 	}
 	
 	public static void checkWithCorrectResults() {
+//		String assignmentName = Common.absoluteNameToLocalName(directory);
 //		File correctDir = new File ("Test Data/Correct 110 F13 Results/Assignment3");
 		File correctDir = new File (CORRECT_DIR + "/Assignment3");
 
