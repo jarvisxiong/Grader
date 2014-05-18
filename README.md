@@ -4,9 +4,20 @@ Grading framework by Prasun Dewan and Joshua Monson.
 
 The purpose of this project is to provide a framework and tools to allow for the automatic and assisted grading of
 Java-based programs. It employs several methods to check code validity including reflection-based invocation,
-abstract syntax tree inspection, output parsing, source code validation, and JVM modification.
+abstract syntax tree inspection, output parsing, source code validation, JVM modification, and 
+manual inspection of source code and user-interface.
 
-It also uses a GUI to display a grading rubric The instructor running the program can input grades into the GUI.  Grades can then be stored and uploaded to Sakai
+Output parsing and manual inspection can work for any language, so recently this work has been extended to allow these actions to be performed also for C/C++.
+To use this extension, the system path, include and lib must be set to allow dynamic compilation and execution of C/C++ programs.
+
+Supporting these features for other languages is a matter of writing some "simple" plug-ins.
+
+The grader  uses a GUI to display a grading rubric and the results of automatic grading.  The instructor running the program can view these data and input grades into the GUI to override auto grading steps and do manual grading.  Grades can then be stored and uploaded to Sakai
+
+The grader evolved in a bottom up fashion by integrating two different projects, framework and grader, which insipred each other but were separate. These two projects were then glued together through some wrappers. Because of this history, there is substantial duplication of functionality.
+It was used originally for Fall 2013 Comp 401. Then two branches of it were created, one by Josh and the other by Prasun. The former was used for grading Spring 2014 Comp 410 and the latter for grading Spring 2014 Comp 110. We hope to merge these branches in Fall 2014. This is the Comp 110 branch.
+
+
 
 **Table of Contents**
 
@@ -141,4 +152,21 @@ There is, somewhat, an order to them.
 * FrameworkExample.java
 * GraderWithProjectRequirementsExample.java
 * GraderWithNewGUIExample.java
+* DemoAndTest.java
+* CDemoAndTest.java (for C programs)
+
+To run CDemoAndTest, you need to set the path, include and lib variables.
+
+Here are example values:
+64 bit Windows 8.1 
+Include=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include
+Lib=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib;C:\Program Files(x86)\Microsoft Visual Studio 11.0\VC\atlmfc\lib;C:\Program Files (x86)\Windows
+Kits\8.0\Lib\win8\um\x86
+Path=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin
+
+32 bit Windows 7 machine:
+Include=C:\Program Files\Microsoft Visual Studio 10.0\VC\include
+Lib=C:\Program Files\Microsoft Visual Studio 10.0\VC\lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib;C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib
+Path=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin;D:\Program Files\Java\jdk1.7.0_21\bin
+
 
