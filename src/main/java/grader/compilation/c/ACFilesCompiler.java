@@ -12,7 +12,8 @@ import framework.utils.GradingEnvironment;
 import grader.compilation.ClassFilesCompiler;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 import grader.settings.GraderSettingsManagerSelector;
 import grader.trace.file.open.WordOpenedFile;
 
@@ -38,7 +39,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 	
 	public void compileFile(String aFileName, String workingDirectory) {
         String windowsName = Common.toWindowsFileName(aFileName);
-        int extensionIndex = aFileName.indexOf(AJavaRootCodeFolder.getSourceFileSuffix());
+        int extensionIndex = aFileName.indexOf(LanguageDependencyManager.getSourceFileSuffix());
         if (extensionIndex < 1)
         	return;
         String baseName = aFileName.substring(0, extensionIndex);

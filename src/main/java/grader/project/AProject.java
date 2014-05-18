@@ -7,8 +7,9 @@ import grader.assignment.GradingFeature;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 import grader.project.file.RootCodeFolder;
-import grader.project.file.java.AJavaRootCodeFolder;
 import grader.project.source.AClassesTextManager;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
@@ -121,7 +122,7 @@ public class AProject implements Project {
     protected MainClassFinder createMainClassFinder() {
 //        return new AMainClassFinder();
 //    	return JavaMainClassFinderSelector.getMainClassFinder();
-        return AJavaRootCodeFolder.getMainClassFinder();
+        return LanguageDependencyManager.getMainClassFinder();
 
     }
 
@@ -158,7 +159,7 @@ public class AProject implements Project {
 //        	System.out.println("bluoing");
 //        outputFolder = anOutputFolder;
         try {
-        rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
+        rootCodeFolder = new ARootCodeFolder(rootFolder);
         } catch (ProjectFolderNotFound e) {
         	setNoProjectFolder(true);
         	return;

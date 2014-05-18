@@ -5,8 +5,9 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
+import grader.language.LanguageDependencyManager;
 import grader.project.JavaMainClassFinderSelector;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.project.file.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
@@ -28,7 +29,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
         try {
 //            entryPoint = getEntryPoint(aProject);
 //            entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-            entryPoint = AJavaRootCodeFolder.getMainClassFinder().getEntryPoint(aProject);
+            entryPoint = LanguageDependencyManager.getMainClassFinder().getEntryPoint(aProject);
 
             folder = aProject.getBuildFolder(entryPoint);
             project = aProject;

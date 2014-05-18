@@ -3,7 +3,9 @@ package tools;
 import scala.Option;
 import util.misc.Common;
 import util.trace.Tracer;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
@@ -96,7 +98,7 @@ public class DirectoryUtils {
 		@Override
 		public boolean accept(File pathname) {
 //			return pathname.getName().endsWith(".java");
-			return pathname.getName().endsWith(AJavaRootCodeFolder.getSourceFileSuffix());
+			return pathname.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix());
 
 		}
 	});

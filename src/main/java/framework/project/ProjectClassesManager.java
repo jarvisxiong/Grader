@@ -1,9 +1,10 @@
 package framework.project;
 
 import grader.compilation.JavaClassFilesCompilerSelector;
+import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.project.file.ARootCodeFolder;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
@@ -93,7 +94,7 @@ public class ProjectClassesManager implements ClassesManager {
 				System.out.println("Attempting to compile files.");
 //				compile(aFilesToCompile);
 //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-				AJavaRootCodeFolder.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+				LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
 				System.out.println("Compilation attempt finished.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());
@@ -136,7 +137,7 @@ public class ProjectClassesManager implements ClassesManager {
 
 		// Figure out the class name and combine it with the package
 //		String className = file.getName().replace(".java", "");
-		String className = file.getName().replace(AJavaRootCodeFolder.getSourceFileSuffix(), "");
+		String className = file.getName().replace(LanguageDependencyManager.getSourceFileSuffix(), "");
 
 		return packageName + className;
 	}
@@ -160,7 +161,7 @@ public class ProjectClassesManager implements ClassesManager {
 		String classFileName;
 		if (splitClassName.length > 0) {
 //			classFileName = splitClassName[splitClassName.length - 1] + ".class";
-			classFileName = splitClassName[splitClassName.length - 1] + AJavaRootCodeFolder.getBinaryFileSuffix();
+			classFileName = splitClassName[splitClassName.length - 1] + LanguageDependencyManager.getBinaryFileSuffix();
 
 			
 		} else {

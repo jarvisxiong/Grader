@@ -2,7 +2,8 @@ package wrappers.grader.sakai.project;
 
 import framework.project.Project;
 import wrappers.grader.file.SimplifiedFileProxy;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProject;
@@ -22,7 +23,7 @@ public class SakaiProjectWrapper extends ASakaiProject {
     public SakaiProjectWrapper(Project project) {
     
 //        super(getCodingAssignment(project), ".java", ".txt");
-        super(getCodingAssignment(project), AJavaRootCodeFolder.getSourceFileSuffix(), ".txt");
+        super(getCodingAssignment(project), LanguageDependencyManager.getSourceFileSuffix(), ".txt");
 
 
         // Set it as run so we can do stuff without actually running it

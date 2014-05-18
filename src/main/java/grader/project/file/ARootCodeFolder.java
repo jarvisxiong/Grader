@@ -1,4 +1,4 @@
-package grader.project.file.java;
+package grader.project.file;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +13,12 @@ import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.compilation.c.CFilesCompilerSelector;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
+import grader.language.LanguageDependencyManager;
 import grader.project.AMainClassFinder;
 import grader.project.AnExecutableFinder;
 import grader.project.ExecutableFinderSelector;
 import grader.project.JavaMainClassFinderSelector;
 import grader.project.MainClassFinder;
-import grader.project.file.RootCodeFolder;
 import grader.trace.project.BinaryFolderIdentified;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
@@ -26,24 +26,24 @@ import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
 import grader.trace.project.SourceFolderNotFound;
 //a root folder containing source and binary directories
-public class AJavaRootCodeFolder implements RootCodeFolder {
+public class ARootCodeFolder implements RootCodeFolder {
 	public static final String SOURCE = "/src";
 	public static final String BINARY = "/bin";
 	public static final String BINARY_2 = "out";
 	public static final String BINARY_3 = "build"; // net beans
-	 static  String sourceFileSuffix = ".java";
-	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
-	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
-	 static Map<String, MainClassFinder> languageToMainClassFinder = new HashMap();
-	 static Map<String, ClassFilesCompiler> languageToCompiler = new HashMap();
-
-	 static String language;
-		
-		public static String JAVA_LANGUAGE = "Java";
-		public static String C_LANGUAGE = "C";
-
-	
-	public static  String binaryFileSuffix = ".class";
+//	 static  String sourceFileSuffix = ".java";
+//	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
+//	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
+//	 static Map<String, MainClassFinder> languageToMainClassFinder = new HashMap();
+//	 static Map<String, ClassFilesCompiler> languageToCompiler = new HashMap();
+//
+//	 static String language;
+//		
+//		public static String JAVA_LANGUAGE = "Java";
+//		public static String C_LANGUAGE = "C";
+//
+//	
+//	public static  String binaryFileSuffix = ".class";
 
 	
 	
@@ -60,7 +60,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	boolean hasBinary;
 	boolean hasSourceFile;
 	boolean hasBinaryFile;
-	public AJavaRootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
+	public ARootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
 		root = aRoot;
 		sourceFolderName = aSourceFolder;
 		binaryFolderName = aBinaryFolder;
@@ -72,7 +72,9 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 	String findParentOfSomeSourceFile(RootFolderProxy aRoot) { // will  not work with packages
 		List<FileProxy> entries = aRoot.getFileEntries();
 		for (FileProxy aFile:entries) {
-			if (aFile.getAbsoluteName().endsWith(sourceFileSuffix)) {
+//			if (aFile.getAbsoluteName().endsWith(sourceFileSuffix)) {
+			if (aFile.getAbsoluteName().endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
+
 				return aFile.getParentFolderName();
 			}
 		}
@@ -81,7 +83,7 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		
 	}
 
-	public AJavaRootCodeFolder(RootFolderProxy aRoot) {
+	public ARootCodeFolder(RootFolderProxy aRoot) {
 //		if (aRoot.getAbsoluteName().indexOf("erichman") != -1) {
 //			System.out.println (" found erichman");
 //		}
@@ -169,12 +171,12 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 				hasBinary = true;
 			}
 //			if (!hasSourceFile && name.indexOf(SOURCE_FILE_SUFFIX) != -1) {
-			if (!hasSourceFile && name.endsWith(sourceFileSuffix)) {
+			if (!hasSourceFile && name.endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 
 				hasSourceFile = true;
 			}
 //			if (!hasBinaryFile && name.indexOf(BINARY_FILE_SUFFIX) != -1) {// .classpath will fool this
-			if (!hasBinaryFile && name.endsWith(getBinaryFileSuffix())) {
+			if (!hasBinaryFile && name.endsWith(LanguageDependencyManager.getBinaryFileSuffix())) {
 
 				hasBinaryFile = true;
 			}
@@ -282,16 +284,16 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 		// TODO Auto-generated method stub
 		return sourceFolder.getMixedCaseAbsoluteName();
 	}
-	public static String getSourceFileSuffix() {
-		return sourceFileSuffix;
-	}
-
-	public static void setSourceFileSuffix(String sourceFileSuffix) {
-		AJavaRootCodeFolder.sourceFileSuffix = sourceFileSuffix;
-	}
-	public static String getBinaryFileSuffix() {
-		return binaryFileSuffix;
-	}
+//	public static String getSourceFileSuffix() {
+//		return LanguageDependencyManager.getSourceFileSuffix();
+//	}
+//
+//	public static void setSourceFileSuffix(String sourceFileSuffix) {
+//		LanguageDependencyManager.setSourceFileSuffix(sourceFileSuffix);
+//	}
+//	public static String getBinaryFileSuffix() {
+//		return LanguageDependencyManager.getBinaryFileSuffix();
+//	}
 	
 	
 @Override
@@ -306,46 +308,50 @@ public class AJavaRootCodeFolder implements RootCodeFolder {
 
 	
 
-	public static void setBinaryFileSuffix(String binaryFileSuffix) {
-		AJavaRootCodeFolder.binaryFileSuffix = binaryFileSuffix;
-	}
-	static void setComputedSuffixes() {
-		
-		
-	}
-	public static String getLanguage() {
-		return language;
-	}
+//	public static void setBinaryFileSuffix(String binaryFileSuffix) {
+//		LanguageDependencyManager.setBinaryFileSuffix(binaryFileSuffix);
+//	}
+//	static void setComputedSuffixes() {
+//		
+//		
+//	}
+//	public static String getLanguage() {
+//		return LanguageDependencyManager.getLanguage();
+//	}
 
-	public static void setLanguage(String language) {
-		AJavaRootCodeFolder.language = language;
-		sourceFileSuffix = languageToSourceFileSuffix.get(getLanguage());
-		binaryFileSuffix = languageToBinaryFileSuffix.get(getLanguage());
-		
-	}
-	public static MainClassFinder getMainClassFinder() {
-		return languageToMainClassFinder.get(getLanguage());
-	}
+//	public static void setLanguage(String language) {
+////		ARootCodeFolder.language = language;
+////		sourceFileSuffix = languageToSourceFileSuffix.get(getLanguage());
+////		binaryFileSuffix = languageToBinaryFileSuffix.get(getLanguage());
+//		LanguageDependencyManager.setLanguage(language);
+//		
+//	}
+//	public static MainClassFinder getMainClassFinder() {
+////		return languageToMainClassFinder.get(getLanguage());
+//		return LanguageDependencyManager.getMainClassFinder();
+//	}
 	
-	public static ClassFilesCompiler getSourceFilesCompiler() {
-		return languageToCompiler.get(getLanguage());
-	}
-	public static boolean isJava() {
-		return getLanguage() == JAVA_LANGUAGE;
-	}
-	static {
-		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
-		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
-		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
-		languageToBinaryFileSuffix.put(C_LANGUAGE, ".obj");
-		
-		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
-		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());
-		
-		languageToCompiler.put(JAVA_LANGUAGE, JavaClassFilesCompilerSelector.getClassFilesCompiler() );
-		languageToCompiler.put(C_LANGUAGE, CFilesCompilerSelector.getClassFilesCompiler());
-
-		
-	}
+//	public static ClassFilesCompiler getSourceFilesCompiler() {
+////		return languageToCompiler.get(getLanguage());
+//		return LanguageDependencyManager.getSourceFilesCompiler();
+//	}
+//	public static boolean isJava() {
+////		return getLanguage() == JAVA_LANGUAGE;
+//		return LanguageDependencyManager.isJava();
+//	}
+//	static {
+//		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
+//		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
+//		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
+//		languageToBinaryFileSuffix.put(C_LANGUAGE, ".obj");
+//		
+//		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
+//		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());
+//		
+//		languageToCompiler.put(JAVA_LANGUAGE, JavaClassFilesCompilerSelector.getClassFilesCompiler() );
+//		languageToCompiler.put(C_LANGUAGE, CFilesCompilerSelector.getClassFilesCompiler());
+//
+//		
+//	}
 
 }

@@ -25,33 +25,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 	public final static String TEST_DIR = "Test Data/Test C";
 	public final static String CORRECT_DIR = "Test Data/Correct C";
 	
-//	static String directory;
-//	
-//	static boolean  generatingCorrectDir = false;
-//	
-//	static boolean autoProceed = false;
-////	static boolean  generatingCorrectDir = true;
-//
-//	
-//	
-//
-//	static DemoAndTestingClearanceManager clearanceManager = new ADemoAndTestingClearanceManager();
-////	static boolean autoProceed;
-////	static long autoProceedPauseTime = 4000;
-//	public static boolean isAutoProceed() {
-//		return autoProceed;
-//	}
-//
-//	public static void setAutoProceed(boolean autoProceed) {
-//		CDemoerAndTester.autoProceed = autoProceed;
-//	}
-//	public static boolean isGeneratingCorrectDir() {
-//		return generatingCorrectDir;
-//	}
-//
-//	public static void setGeneratingCorrectDir(boolean generatingCorrectDir) {
-//		CDemoerAndTester.generatingCorrectDir = generatingCorrectDir;
-//	}
+
 	
 
 	public static void main (String[] anArgs) {
@@ -60,20 +34,14 @@ public class CDemoerAndTester extends DemoerAndTester {
 //		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
 		args = anArgs;
 		Tracer.info(CDemoerAndTester.class, "test");
-//		Thread mainThread = new Thread(new Tester());
-//		mainThread.start();
-//		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
-//		clearanceFrame.setSize(420, 260);
-//		clearanceFrame.setLocation(0, 0);
+
 		startFirstSession();
 
 		doSteps();
-//		waitForUserOrSleep();
-//		Driver.getSettingsModel().begin();
+
 	}
 	
-//	static final int CLEARANCE_WIDTH = 420;
-//	static final int CLEARANCE_HEIGHT = 260;
+
 
 	
 
@@ -96,10 +64,9 @@ public class CDemoerAndTester extends DemoerAndTester {
 		ignoreUngraded();
 		showSource();
 		showMain();
-		doNext1();
-		doNext1();
+		doNext();
+		doNext();
 		
-//		changeOverallNotes3();
 		if (!generatingCorrectDir)
 		checkWithCorrectResults();
 		quit2();
@@ -129,14 +96,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 
 
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
-//
-//		clearanceManager.setStepDescription("Next steps are "
-//				+ "automatically change problem to Assignment1"
-//				+ ", set the download folder" 
-//				+ ", set the onyens"
-//				+ ", set navigation filter parameter to ALL"
-//				+ " and cleanup any previous grading results for this assignment.");
-//		waitForUserOrSleep();
+
 		if (clearanceManager.isAutoPerformStep()) {
 		Driver.getSettingsModel().getNavigationSetter().setNavigationKind(NavigationKind.HYBRID);
 		Driver.getSettingsModel().getNavigationSetter().getNavigationFilterSetter().setParameter(GradingStatus.ALL);
@@ -167,7 +127,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 	}
 	
 	
-	public static void doNext1() {
+	public static void doNext() {
 		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nWait until the UI is refreshed before proceeding. \n\nThere should be two pink items (6 and 7) for non-full points indicating attention.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
@@ -175,25 +135,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 	}
 	
 	
-//	public static void showSource() {
-//		clearanceManager.setStepDescription("Next step is to go the source tab to view all of the source code.");
-//		waitForUserOrSleep();		
-//		if (clearanceManager.isAutoPerformStep()) {
-//			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
-//			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
-//			stepperFrame.focus(projectStepper, "source");			
-//		}
-//	}
-	
-//	public static void showMain() {
-//		clearanceManager.setStepDescription("Next step is to go the main tab.");
-//		waitForUserOrSleep();		
-//		if (clearanceManager.isAutoPerformStep()) {
-//			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
-//			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
-//			stepperFrame.focus(projectStepper, "mainprojectstepper");					
-//		}
-//	}
+
 	
 	
 	public static void quit2() {
@@ -214,21 +156,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 	
 	
 	
-//	public static boolean isAutoProceed() {
-//		return autoProceed;
-//	}
-//
-//	public static void setAutoProceed(boolean autoProceed) {
-//		Tester.autoProceed = autoProceed;
-//	}
-//
-//	public static long getAutoProceedPauseTime() {
-//		return autoProceedPauseTime;
-//	}
-//
-//	public static void setAutoProceedPauseTime(long autoProceedPauseTime) {
-//		Tester.autoProceedPauseTime = autoProceedPauseTime;
-//	}
+
 
 	
 

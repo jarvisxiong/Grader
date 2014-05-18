@@ -38,6 +38,7 @@ import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
+import grader.language.LanguageDependencyManager;
 import grader.navigation.AProjectNavigator;
 import grader.navigation.ProjectNavigator;
 import grader.navigation.automatic.AnAutomaticProjectNavigator;
@@ -57,7 +58,7 @@ import grader.project.AProject;
 import grader.project.MainClassFinder;
 import grader.project.JavaMainClassFinderSelector;
 import grader.project.Project;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.project.file.ARootCodeFolder;
 import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
 import grader.project.graded.AGradedProjectNavigator;
@@ -108,6 +109,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+
 
 
 
@@ -382,7 +385,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	protected MainClassFinder createMainClassFinder() {
 //		return new AMainClassFinder();
 //		return JavaMainClassFinderSelector.getMainClassFinder();
-        return AJavaRootCodeFolder.getMainClassFinder();
+        return LanguageDependencyManager.getMainClassFinder();
 
 	}
 

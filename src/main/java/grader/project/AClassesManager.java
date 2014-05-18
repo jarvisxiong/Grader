@@ -1,7 +1,8 @@
 package grader.project;
 
 import util.misc.Common;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 
 import java.io.File;
 import java.util.*;
@@ -143,7 +144,7 @@ public class AClassesManager implements ClassesManager {
         String[] fileNames = aFolder.list();
         File[] files = aFolder.listFiles();
         for (File aFile : files) {
-            if (aFile.getName().endsWith(AJavaRootCodeFolder.getSourceFileSuffix())) {
+            if (aFile.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 
 //            if (aFile.getName().endsWith(SOURCE_FILE_SUFFIX)) {
                 String relativeName = Common.toRelativeName(aProjectFolder.getAbsolutePath(), aFile.getAbsolutePath());
