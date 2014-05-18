@@ -160,13 +160,17 @@ To run CDemoAndTest, you need to set the path, include and lib variables.
 Here are example values:
 64 bit Windows 8.1 
 Include=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include
+
 Lib=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib;C:\Program Files(x86)\Microsoft Visual Studio 11.0\VC\atlmfc\lib;C:\Program Files (x86)\Windows
 Kits\8.0\Lib\win8\um\x86
+
 Path=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin
 
 32 bit Windows 7 machine:
 Include=C:\Program Files\Microsoft Visual Studio 10.0\VC\include
+
 Lib=C:\Program Files\Microsoft Visual Studio 10.0\VC\lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib;C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib
+
 Path=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin;D:\Program Files\Java\jdk1.7.0_21\bin
 
 
