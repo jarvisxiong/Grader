@@ -1,3 +1,12 @@
+Microsoft (R) C/C++ Optimizing Compiler Version 17.00.50727.1 for x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+InputAndOutput.c
+Microsoft (R) Incremental Linker Version 11.00.50727.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:InputAndOutput.exe 
+InputAndOutput.obj 
 *****************************(Prompts for inputs)*****************************
 OUTPUT(Prompts for inputs)
 Please input an integer

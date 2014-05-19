@@ -1,5 +1,6 @@
 package grader.compilation;
 
+import framework.execution.RunningProject;
 import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 	 *            ArrayList of .java files
 	 * @throws IOException
 	 */
-	public void compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
+	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		if (compiler != null) {
@@ -47,6 +48,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 //			throw new RuntimeException("Compiler not accessible");
 			throw CompilerNotFound.newCase(this);
 		}
+		return null;
 	}
 
 }

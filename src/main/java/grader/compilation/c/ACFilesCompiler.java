@@ -8,6 +8,7 @@ import java.util.List;
 import util.misc.Common;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
+import framework.execution.RunningProject;
 import framework.utils.GradingEnvironment;
 import grader.compilation.ClassFilesCompiler;
 import grader.documents.AWordDocumentDisplayer;
@@ -37,11 +38,11 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 		compilerPath = COMPILER_COMMAND;
 	}
 	
-	public void compileFile(String aFileName, String workingDirectory) {
+	public RunningProject compileFile(String aFileName, String workingDirectory) {
         String windowsName = Common.toWindowsFileName(aFileName);
         int extensionIndex = aFileName.indexOf(LanguageDependencyManager.getSourceFileSuffix());
         if (extensionIndex < 1)
-        	return;
+        	return null;
         String baseName = aFileName.substring(0, extensionIndex);
         String shortBaseName = Common.absoluteNameToLocalName(baseName);
         String shortObjName = shortBaseName + OBJECT_SUFFIX;
@@ -69,7 +70,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 
 //        String[] command = {"Test Data/Test C/Assignment1/All, Correct (acorrect)/Submission attachment(s)/program1/Program1/src/Simple.exe"};
         Runner processRunner = new ProcessRunner(new File(workingDirectory));
-        processRunner.run(command, "", args, 3000);
+        return processRunner.run(command, "", args, 3000);
 //		Common.exec(command);
 
 //        Common.exec(command);
@@ -95,7 +96,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
     }
 
 	@Override
-	public void compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
+	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
 			throws IOException, IllegalStateException {
 		List<String> commandList= new ArrayList(sourceFiles.size() + 1);
 		commandList.add(compilerPath);
@@ -116,7 +117,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
        Runner processRunner = new ProcessRunner(buildFolder);
        String[] args = {};
        String[] command =  commandList.toArray(args);
-       processRunner.run(command, "", args, 3000);
+       return processRunner.run(command, "", args, 3000);
 		
 //		int extensionIndex = aFileName.indexOf(AJavaRootCodeFolder.getSourceFileSuffix());
 //        if (extensionIndex < 1)

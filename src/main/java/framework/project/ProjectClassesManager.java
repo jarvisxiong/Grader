@@ -1,10 +1,12 @@
 package framework.project;
 
+import framework.execution.RunningProject;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
 import grader.project.file.ARootCodeFolder;
+import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
@@ -39,12 +41,13 @@ public class ProjectClassesManager implements ClassesManager {
 	private  ClassLoader classLoader;
 	private final Set<ClassDescription> classDescriptions;
 	List<String> classNamesToCompile = new ArrayList();
+	SakaiProject project;
 
 	
 
-	public ProjectClassesManager(File buildFolder, File sourceFolder) throws IOException,
+	public ProjectClassesManager(SakaiProject aProject, File buildFolder, File sourceFolder) throws IOException,
 			ClassNotFoundException {
-
+		project = aProject;
 		// Set the build and source folders for the project
 		this.buildFolder = buildFolder;
 		this.sourceFolder = sourceFolder;
@@ -94,7 +97,12 @@ public class ProjectClassesManager implements ClassesManager {
 				System.out.println("Attempting to compile files.");
 //				compile(aFilesToCompile);
 //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-				LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+				RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+				if (runningProject != null) {
+//					String outputAndErrors = runningProject.getOutputAndErrors();
+					runningProject.appendOutputAndErrorsToTranscriptFile(project);
+					
+				}
 				System.out.println("Compilation attempt finished.");
 			} catch (Exception e) {
 				System.out.println("Compilation failed: " + e.toString());

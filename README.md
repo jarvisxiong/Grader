@@ -15,7 +15,7 @@ Supporting these features for other languages is a matter of writing some "simpl
 The grader  uses a GUI to display a grading rubric and the results of automatic grading.  The instructor running the program can view these data and input grades into the GUI to override auto grading steps and do manual grading.  Grades can then be stored and uploaded to Sakai
 
 The grader evolved in a bottom up fashion by integrating two different projects, framework and grader, which insipred each other but were separate. These two projects were then glued together through some wrappers. Because of this history, there is substantial duplication of functionality.
-It was used originally for Fall 2013 Comp 401. Then two branches of it were created, one by Josh and the other by Prasun. The former was used for grading Spring 2014 Comp 410 and the latter for grading Spring 2014 Comp 110. We hope to merge these branches in Fall 2014. This is the Comp 110 branch.
+It was used originally for Fall 2013 Comp 401 by Josh. Then two branches of it were created, one for Spring Comp 110 and the other for Spring Comp 410. The former was used by Josh and the latter by Jacob. We hope to merge these branches in Fall 2014. This is the Comp 110 branch owned by Jacob.
 
 
 

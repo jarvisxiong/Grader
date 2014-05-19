@@ -79,7 +79,7 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
         });
         if (projectFolder.isDefined())
             try {
-                return Option.apply(new StandardProject(projectFolder.get(), name));
+                return Option.apply(new StandardProject(null, projectFolder.get(), name));
             } catch (Exception e) {
                 return Option.empty();
             }
@@ -109,7 +109,7 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
             });
             if (projectFolder2.isDefined())
                 try {
-                    return Option.apply(new StandardProject(projectFolder2.get(), name));
+                    return Option.apply(new StandardProject(null, projectFolder2.get(), name));
                 } catch (Exception e) {
                     return Option.empty();
                 }

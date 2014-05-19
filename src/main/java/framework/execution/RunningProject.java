@@ -21,6 +21,7 @@ public class RunningProject {
 	private Semaphore runningState = new Semaphore(1);
 	private String output = "";
 	private String errorOutput = "";
+	String outputAndErrors = "";
 	private NotRunnableException exception;
 //	Project project;
 	ProjectWrapper projectWrapper;
@@ -49,22 +50,34 @@ public class RunningProject {
 		runningState.release();
 	}
 
-	public void appendOutput(String output) {
-		if (this.output == null && output != null) {
+	public void appendOutput(String newVal) {
+		if (this.output == null && newVal != null) {
 			this.output = "";
 		}
-		this.output += output;
+		this.output += newVal;
+		outputAndErrors += newVal;
+		
 	}
 
 	public void setOutput(String output) {
 		this.output = output;
 	}
+	
+	public String getOutput() {
+		return output;
+	}
+	
+	public String getOutputAndErrors() {
+		return outputAndErrors;
+	}
 
-	public void appendErrorOutput(String errorOutput) {
-		if (this.errorOutput == null && errorOutput != null) {
+	public void appendErrorOutput(String anErrorOutput) {
+		if (this.errorOutput == null && anErrorOutput != null) {
 			this.errorOutput = "";
 		}
-		this.errorOutput += errorOutput;
+		this.errorOutput += anErrorOutput;
+		outputAndErrors += anErrorOutput;
+
 	}
 
 	public void setErrorOutput(String errorOutput) {
@@ -169,11 +182,28 @@ public class RunningProject {
 		projectOutput.append(transcript);
 		if (outputFileName == null)
 			return;
+		appendToTranscriptFile(project, transcript);
+//		try {
+//			FileWriter fileWriter = new FileWriter(outputFileName, true);
+//			fileWriter.append(transcript);
+//			OverallTranscriptSaved.newCase(null, null, project,  outputFileName, transcript, this);
+////			if (project.getCurrentGradingFeature() != null)
+////			FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
+//			fileWriter.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+	}
+	
+	void appendToTranscriptFile(SakaiProject aProject, String aText) {
 		try {
-			FileWriter fileWriter = new FileWriter(outputFileName, true);
-			fileWriter.append(transcript);
-			OverallTranscriptSaved.newCase(null, null, project,  outputFileName, transcript, this);
-			if (project.getCurrentGradingFeature() != null)
+			String anOutputFileName = aProject.getOutputFileName();
+			FileWriter fileWriter = new FileWriter(anOutputFileName, true);
+			fileWriter.append(aText);
+			OverallTranscriptSaved.newCase(null, null, aProject,  anOutputFileName, aText, this);
+//			if (project.getCurrentGradingFeature() != null)
 //			FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
 			fileWriter.close();
 		} catch (IOException e) {
@@ -181,6 +211,10 @@ public class RunningProject {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void appendOutputAndErrorsToTranscriptFile(SakaiProject aProject) {
+		appendToTranscriptFile(aProject, getOutputAndErrors());
 	}
 
 	public String await() throws NotRunnableException {

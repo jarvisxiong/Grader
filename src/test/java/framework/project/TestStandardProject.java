@@ -31,14 +31,14 @@ public class TestStandardProject {
 
     @Test
     public void testCreation() throws FileNotFoundException {
-        Project project = new StandardProject(directory, name);
+        Project project = new StandardProject(null, directory, name);
         assertTrue("Creation succeeds", true);
     }
 
     @Test
     public void testCreationFail() throws FileNotFoundException {
         try {
-            Project project = new StandardProject(new File("/"), name);
+            Project project = new StandardProject(null, new File("/"), name);
             assertTrue("Creation should fail", false);
         } catch (Exception e) {
             assertTrue(true);
@@ -47,7 +47,7 @@ public class TestStandardProject {
 
     @Test
     public void testGetClassesManager() throws FileNotFoundException {
-        StandardProject project = new StandardProject(directory, name);
+        StandardProject project = new StandardProject(null, directory, name);
         assertTrue("ClassesManager should exist", project.getClassesManager().isDefined());
         assertFalse("ClassesManager should have class descriptions", project.getClassesManager().get().getClassDescriptions().isEmpty());
     }

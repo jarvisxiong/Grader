@@ -23,11 +23,10 @@ import java.io.FileNotFoundException;
  */
 public class ProjectWrapper extends StandardProject {
 
-    private SakaiProject project;
     // changed to SakaiProject
     public ProjectWrapper(SakaiProject project, String name) throws FileNotFoundException {
-        super(getDirectory(project), name);
-        this.project = project;
+        super(project, getDirectory(project), name);
+//        this.project = project;
     }
 
     public SakaiProject getProject() {

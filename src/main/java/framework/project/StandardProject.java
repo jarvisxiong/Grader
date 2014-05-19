@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.*;
 import grader.project.AProject;
+import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
@@ -26,6 +27,7 @@ public class StandardProject implements Project {
     private Option<ClassesManager> classesManager;
     private TraceableLog traceableLog;
     boolean noSrc;
+	protected SakaiProject project;
 
     /**
      * Basic constructor
@@ -61,11 +63,14 @@ public class StandardProject implements Project {
 //        traceableLog = TraceableLogFactory.getTraceableLog();
 //
 //    }
-    
+//	public StandardProject(SakaiProject project, File aDirectory, String name) throws FileNotFoundException {
+//		
+//	}
     // rewriting Josh's code
-    public StandardProject(File aDirectory, String name) throws FileNotFoundException {
+    public StandardProject(SakaiProject aProject, File aDirectory, String name) throws FileNotFoundException {
         // Find the folder. We could be there or it could be in a different folder
     	if (aDirectory == null) return;
+    	project = aProject;
     	directory = aDirectory;
         Option<File> src = DirectoryUtils.locateFolder(aDirectory, "src");
         if (src.isEmpty()) {
@@ -98,7 +103,7 @@ public class StandardProject implements Project {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
 //            if (AProject.isMakeClassDescriptions())
-            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(buildFolder, sourceFolder));
+            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
         } catch (Exception e) {
             classesManager = Option.empty();
         }
