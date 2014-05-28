@@ -25,11 +25,11 @@ No advanced Java classes allowed            -30.0 /  -30.0
 Notes from grading features:
 ----------------------------------
 Has a proper header:
-Could not grade because did not find classes 
+Grading failed
 Contains a main method:
-Could not grade because did not find classes 
+Grading failed
 Prompts for String and computation input:
-Could not grade because did not find classes 
+Grading failed
 Has proper isPalindromeMethod method:
 Not automatable
 Has proper computeRoundedSum method:
@@ -44,7 +44,7 @@ Not automatable
 Notes from grading restrictions:
 ----------------------------------
 No StringBuffer or StringBuilder allowed:
-Could not grade because did not find classes 
+Grading failed
 No advanced Java classes allowed:
-Could not grade because did not find classes 
+Grading failed
   Total Score: 0.0

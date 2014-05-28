@@ -288,46 +288,99 @@ public class ProcessRunner implements Runner {
 			UserProcessExecutionStarted.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
 
 			// Print output to the console
-			InputStream processOut = process.getInputStream();
-			final Scanner scanner = new Scanner(processOut);
-			final Semaphore outputSemaphore = new Semaphore(1);
-			outputSemaphore.acquire();
+//			InputStream processOut = process.getInputStream();
+//			final Scanner scanner = new Scanner(processOut);
+//			final Semaphore outputSemaphore = new Semaphore(1);
+//			outputSemaphore.acquire();
+//
+//			new Thread(new Runnable() {
+//				@Override
+//				public void run() {
+//					while (scanner.hasNextLine()) {
+//						String line = scanner.nextLine();
+//						System.out.println(line);
+//						runner.appendOutput(line + "\n");
+//					}
+//					scanner.close();
+//					outputSemaphore.release();
+//				}
+//			}).start();
+			
+			// Print output to the console
+//						InputStream processOut = process.getInputStream();
+//						final Scanner scanner = new Scanner(processOut);
+						final Semaphore outputSemaphore = new Semaphore(1);
+						Runnable outRunnable = new  ARunnerOutputStreamProcessor(process.getInputStream(), runner, outputSemaphore);
+						Thread outThread = new Thread(outRunnable);
+						outThread.setName("Out Stream Runnable");
+						outThread.start();
+//						outputSemaphore.acquire();
 
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (scanner.hasNextLine()) {
-						String line = scanner.nextLine();
-						System.out.println(line);
-						runner.appendOutput(line + "\n");
-					}
-					scanner.close();
-					outputSemaphore.release();
-				}
-			}).start();
+//						new Thread(new Runnable() {
+//							@Override
+//							public void run() {
+//								while (scanner.hasNextLine()) {
+//									String line = scanner.nextLine();
+//									System.out.println(line);
+//									runner.appendOutput(line + "\n");
+//								}
+//								scanner.close();
+//								outputSemaphore.release();
+//							}
+//						}).start();
 
+
+//			// Print error output to the console
+//			InputStream processErrorOut = process.getErrorStream();
+//			final Scanner errorScanner = new Scanner(processErrorOut);
+//			final Semaphore errorSemaphore = new Semaphore(1);
+//			errorSemaphore.acquire();
+//
+//			new Thread(new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					while (errorScanner.hasNextLine()) {
+//						String line = errorScanner.nextLine();
+//						System.err.println(line);
+//						runner.appendErrorOutput(line + "\n");
+//					}
+//					errorScanner.close();
+//					errorSemaphore.release();
+//				}
+//			}).start();
+//			;
+			
 			// Print error output to the console
-			InputStream processErrorOut = process.getErrorStream();
-			final Scanner errorScanner = new Scanner(processErrorOut);
-			final Semaphore errorSemaphore = new Semaphore(1);
-			errorSemaphore.acquire();
+//						InputStream processErrorOut = process.getErrorStream();
+//						final Scanner errorScanner = new Scanner(processErrorOut);
+						final Semaphore errorSemaphore = new Semaphore(1);
+//						errorSemaphore.acquire();
+						Runnable errorRunnable = new  ARunnerErrorStreamProcessor(process.getErrorStream(), runner, errorSemaphore);
+						Thread errorThread = new Thread(errorRunnable);
+						errorThread.setName("Error Stream Runnable");
+						errorThread.start();
+//						(new Thread (new AnErrorStreamProcessor(process, runner)).start();
 
-			new Thread(new Runnable() {
+//						new Thread(new Runnable() {
+//
+//							@Override
+//							public void run() {
+//								while (errorScanner.hasNextLine()) {
+//									String line = errorScanner.nextLine();
+//									System.err.println(line);
+//									runner.appendErrorOutput(line + "\n");
+//								}
+//								errorScanner.close();
+//								errorSemaphore.release();
+//							}
+//						}).start();
+//						;
 
-				@Override
-				public void run() {
-					while (errorScanner.hasNextLine()) {
-						String line = errorScanner.nextLine();
-						System.err.println(line);
-						runner.appendErrorOutput(line + "\n");
-					}
-					errorScanner.close();
-					errorSemaphore.release();
-				}
-			}).start();
-			;
 
 			// Write to the process
+			// This can be done after the process is started, so one can create a coordinator of various processes
+			// using the output of one process to influence the input of another
 			OutputStreamWriter processIn = new OutputStreamWriter(process.getOutputStream());
 			processIn.write(input);
 			processIn.flush();
@@ -357,6 +410,7 @@ public class ProcessRunner implements Runner {
 			runner.end();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			Tracer.error(e.getMessage());
 			runner.error();
 			runner.end();
