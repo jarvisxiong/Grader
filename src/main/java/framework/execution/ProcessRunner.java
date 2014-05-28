@@ -36,6 +36,8 @@ public class ProcessRunner implements Runner {
 		try {
 //			entryPoint = getEntryPoint(aProject);
 //			 entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
+			
+			//need to make this entry points so that we can execute distributed programs
 	            entryPoint = LanguageDependencyManager.getMainClassFinder().getEntryPoint(aProject);
 	            
 
