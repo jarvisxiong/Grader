@@ -13,6 +13,7 @@ import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
 
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -21,7 +22,7 @@ import java.util.concurrent.Semaphore;
  */
 public class InteractiveConsoleProcessRunner implements Runner {
 
-    private String entryPoint;
+    private List<String> entryPoints;
     private File folder;
     Project project;
 
@@ -29,13 +30,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
         try {
 //            entryPoint = getEntryPoint(aProject);
 //            entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-            entryPoint = LanguageDependencyManager.getMainClassFinder().getEntryPoint(aProject);
+            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject);
 
-            folder = aProject.getBuildFolder(entryPoint);
+            folder = aProject.getBuildFolder(entryPoints.get(0));
             project = aProject;
-            MainClassFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
+            MainClassFound.newCase(entryPoints.get(0), project.getSourceFolder().getName(), this);
         } catch (Exception e) {
-        	MainClassNotFound.newCase(entryPoint, project.getSourceFolder().getName(), this);
+        	MainClassNotFound.newCase(entryPoints.get(0), project.getSourceFolder().getName(), this);
             throw new NotRunnableException();
         }
     }
@@ -95,7 +96,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      */
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoint);
+    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
     	return run(command, input, args, timeout);
 
 //        final RunningProject runner = new RunningProject(project);
@@ -184,7 +185,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(0));
 	        	else
 	        		builder = new ProcessBuilder(command);
 

@@ -9,20 +9,26 @@ import grader.file.FileProxy;
 import grader.project.file.RootCodeFolder;
 import util.misc.Common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
-    private String getEntryPoint(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
+    private List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
 		if (project.getClassesManager() == null)
 			throw new NotRunnableException();
+		List<String> entryPoints = new ArrayList();
 
 		ClassesManager manager = project.getClassesManager();
 		for (ClassDescription description : manager.getClassDescriptions()) {
 			try {
 				description.getJavaClass().getMethod("main", String[].class);
-				return description.getJavaClass().getCanonicalName();
+				entryPoints.add(description.getJavaClass().getCanonicalName());
+				return entryPoints;
+//				return description.getJavaClass().getCanonicalName();
+//				return description.getJavaClass().getCanonicalName();
+
 			} catch (NoSuchMethodException e) {
 				// Move along
 			}
@@ -37,15 +43,18 @@ public class AMainClassFinder implements MainClassFinder {
      * @see grader.project.AMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
-    public String getEntryPoint(framework.project.Project project) throws NotRunnableException {
+    public List<String> getEntryPoints(framework.project.Project project) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
+		List<String> entryPoints = new ArrayList();
 
         framework.project.ClassesManager manager = project.getClassesManager().get();
         for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
-                return description.getJavaClass().getCanonicalName();
+                entryPoints.add(description.getJavaClass().getCanonicalName());
+                return entryPoints;
+//                return description.getJavaClass().getCanonicalName();
             } catch (NoSuchMethodException e) {
             }
         }
@@ -54,7 +63,7 @@ public class AMainClassFinder implements MainClassFinder {
     
     public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
     	try {
-			return  aProxyClassLoader.loadClass(getEntryPoint(aProxyClassLoader, aProject));
+			return  aProxyClassLoader.loadClass(getEntryPoints(aProxyClassLoader, aProject).get(0));
 		} catch (ClassNotFoundException e1) {
 			
 			e1.printStackTrace();

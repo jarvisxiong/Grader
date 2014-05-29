@@ -13,6 +13,7 @@ import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnExecutableFinder implements MainClassFinder {
@@ -22,17 +23,20 @@ public class AnExecutableFinder implements MainClassFinder {
     }
     
 
-    public String getEntryPoint(framework.project.Project frameworkProject) throws NotRunnableException {
+    public List<String> getEntryPoints(framework.project.Project frameworkProject) throws NotRunnableException {
         try {
     	File binaryFolder = frameworkProject.getBuildFolder("");
     	File[] binaryChildren =  binaryFolder.listFiles();
 //        List<FileProxy> binaryChildren =  binaryFolder.getC
+    	List retVal = new ArrayList();
         for ( File child:binaryChildren) {
         	if (child.getName().endsWith(EXECUTABLE_SUFFIX)) {
-        		return child.getName();
+        		retVal.add(child.getName());
+//        		return child.getName();
         	}
         	
         }
+        return retVal;
         } catch (Exception e) {
         	e.printStackTrace();
         	return null;
@@ -57,7 +61,6 @@ public class AnExecutableFinder implements MainClassFinder {
 //            }
 //            
 //    	}
-    	return null;
     }
 
 
