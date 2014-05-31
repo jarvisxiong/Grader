@@ -140,4 +140,11 @@ public class ReflectionRunner implements Runner {
 		return null;
 	}
 
+	@Override
+	public RunningProject run(String anEntryPoint, String input, String[] args,
+			int timeout) throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

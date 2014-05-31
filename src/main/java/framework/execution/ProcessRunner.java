@@ -130,120 +130,16 @@ public class ProcessRunner implements Runner {
 	 */
 	@Override
 	public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+//	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+//	  	return run(command, input, args, timeout);
+		return run (entryPoints.get(0), input, args, timeout);
+
+	}
+	@Override
+	public RunningProject run(String anEntryPoint, String input, String[] args, int timeout) throws NotRunnableException {
+	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
 	  	return run(command, input, args, timeout);
-//
-//		final RunningProject runner = new RunningProject(project);
-//		if (project instanceof ProjectWrapper) {
-//			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
-//			sakaiProject.setCurrentInput(input);
-//			sakaiProject.setCurrentArgs(args);			
-//		}
-//
-//		try {
-//			runner.start();
-//
-//			// Prepare to run the process
-//			String classPath = GradingEnvironment.get()
-//					.getClasspath();
-////			ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get()
-////					.getClasspath(), entryPoint);
-//		  	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
-//        	ProcessBuilder builder;
-//        	if (command.length == 0)
-//
-//            // Prepare to run the process
-////            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-//             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-//        	else
-//        		builder = new ProcessBuilder(command);
-////			ProcessBuilder builder = new ProcessBuilder("java", "-cp", classPath, entryPoint);
-//			builder.directory(folder);
-////			System.out.println("Running process: java -cp \""
-////					+ GradingEnvironment.get().getClasspath() + "\" " + entryPoint);
-//			System.out.println("Running process: java -cp \""
-//					+ classPath + "\" " + entryPoint);
-//			System.out.println("Running in folder: " + folder.getAbsolutePath());
-//
-//			// Start the process
-//			TimedProcess process = new TimedProcess(builder, timeout);
-//			Process processObj = process.start();
-//			UserProcessExecutionStarted.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
-//
-//			// Print output to the console
-//			InputStream processOut = process.getInputStream();
-//			final Scanner scanner = new Scanner(processOut);
-//			final Semaphore outputSemaphore = new Semaphore(1);
-//			outputSemaphore.acquire();
-//
-//			new Thread(new Runnable() {
-//				@Override
-//				public void run() {
-//					while (scanner.hasNextLine()) {
-//						String line = scanner.nextLine();
-//						System.out.println(line);
-//						runner.appendOutput(line + "\n");
-//					}
-//					scanner.close();
-//					outputSemaphore.release();
-//				}
-//			}).start();
-//
-//			// Print error output to the console
-//			InputStream processErrorOut = process.getErrorStream();
-//			final Scanner errorScanner = new Scanner(processErrorOut);
-//			final Semaphore errorSemaphore = new Semaphore(1);
-//			errorSemaphore.acquire();
-//
-//			new Thread(new Runnable() {
-//
-//				@Override
-//				public void run() {
-//					while (errorScanner.hasNextLine()) {
-//						String line = errorScanner.nextLine();
-//						System.err.println(line);
-//						runner.appendErrorOutput(line + "\n");
-//					}
-//					errorScanner.close();
-//					errorSemaphore.release();
-//				}
-//			}).start();
-//			;
-//
-//			// Write to the process
-//			OutputStreamWriter processIn = new OutputStreamWriter(process.getOutputStream());
-//			processIn.write(input);
-//			processIn.flush();
-//			processIn.close();
-//
-//			// Wait for it to finish
-//			try {
-//				process.waitFor();
-//				UserProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
-//			} catch (Exception e) {
-//				outputSemaphore.release();
-//				errorSemaphore.release();
-//				UserProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoint, classPath, this);
-//
-//				System.out.println("*** Timed out waiting for process to finish ***");
-//				// avoiding hanging processes 
-////				processIn.flush();
-////				processIn.close();
-////				process.getProcess().destroy();
-//			}
-//			
-//			processObj.destroy();
-//
-//			// Wait for the output to finish
-//			outputSemaphore.acquire();
-//			errorSemaphore.acquire();
-//			runner.end();
-//
-//		} catch (Exception e) {
-//			runner.error();
-//			runner.end();
-//		}
-//		return runner;
+
 	}
 	@Override
 	public RunningProject run(String[] command, String input, String[] args, int timeout) throws NotRunnableException {

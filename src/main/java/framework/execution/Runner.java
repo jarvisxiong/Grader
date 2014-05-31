@@ -14,4 +14,7 @@ public interface Runner {
 	RunningProject run(String[] command, String input, String[] args,
 			int timeout) throws NotRunnableException;
 
+	RunningProject run(String anEntryPoint, String input, String[] args,
+			int timeout) throws NotRunnableException;
+
 }

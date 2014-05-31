@@ -95,9 +95,17 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-    public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+	public RunningProject run(String anEntryPoint, String input, String[] args,
+			int timeout) throws NotRunnableException {
+    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
     	return run(command, input, args, timeout);
+	}
+    @Override
+    public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
+    	return run (entryPoints.get(0), input, args, timeout);
+//    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+//    	return run(command, input, args, timeout);
+    	
 
 //        final RunningProject runner = new RunningProject(project);
 //
@@ -246,4 +254,6 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	        }
 	        return runner;
 	}
+
+	
 }
