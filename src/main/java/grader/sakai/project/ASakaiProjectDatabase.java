@@ -26,6 +26,9 @@ import grader.colorers.OverallScoreColorerSelector;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
+import grader.execution.AMainClassFinder;
+import grader.execution.JavaMainClassFinderSelector;
+import grader.execution.MainClassFinder;
 import grader.feedback.AManualFeedbackManager;
 import grader.feedback.APrintingAutoFeedbackManager;
 import grader.feedback.APrintingManualFeedbackManager;
@@ -53,10 +56,7 @@ import grader.navigation.sorter.AnAlphabeticFileNameSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
-import grader.project.AMainClassFinder;
 import grader.project.AProject;
-import grader.project.MainClassFinder;
-import grader.project.JavaMainClassFinderSelector;
 import grader.project.Project;
 import grader.project.file.ARootCodeFolder;
 import grader.project.graded.ABasicProjectStepper;
@@ -109,6 +109,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 

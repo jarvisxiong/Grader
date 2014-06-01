@@ -4,6 +4,11 @@ import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
 import grader.assignment.GradingFeature;
+import grader.execution.AProxyProjectClassLoader;
+import grader.execution.MainClassFinder;
+import grader.execution.ProjectRunnerSelector;
+import grader.execution.ProxyBasedClassesManager;
+import grader.execution.ProxyClassLoader;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;

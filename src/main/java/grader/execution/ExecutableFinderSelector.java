@@ -1,4 +1,4 @@
-package grader.project;
+package grader.execution;
 
 public class ExecutableFinderSelector {
 	static MainClassFinder mainClassFinder = new AnExecutableFinder();

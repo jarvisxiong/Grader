@@ -18,6 +18,7 @@ import java.util.Set;
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
+import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.trace.compilation.SourceTextCompiledInMemory;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;

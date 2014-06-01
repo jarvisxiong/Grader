@@ -1,5 +1,7 @@
 package grader.project;
 
+import grader.execution.ProxyBasedClassesManager;
+import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.language.LanguageDependencyManager;
 import grader.project.file.ARootCodeFolder;

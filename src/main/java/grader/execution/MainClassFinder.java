@@ -1,9 +1,10 @@
-package grader.project;
+package grader.execution;
 
 import java.util.List;
 import java.util.Map;
 
 import framework.execution.NotRunnableException;
+import grader.project.Project;
 import grader.project.file.RootCodeFolder;
 
 public interface MainClassFinder {

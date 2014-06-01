@@ -1,4 +1,6 @@
-package grader.project;
+package grader.execution;
+
+import grader.project.Project;
 
 import java.lang.reflect.Method;
 

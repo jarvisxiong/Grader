@@ -1,4 +1,4 @@
-package grader.project;
+package grader.execution;
 
 public class JavaMainClassFinderSelector {
 	static MainClassFinder mainClassFinder = new AMainClassFinder();

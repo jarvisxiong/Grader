@@ -1,7 +1,8 @@
-package grader.project;
+package grader.execution;
 
 import util.misc.TeePrintStream;
 import framework.execution.NotRunnableException;
+import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserThreadExecutionFinished;
 import grader.trace.execution.UserThreadExecutionStarted;

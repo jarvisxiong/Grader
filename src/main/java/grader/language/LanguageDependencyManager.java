@@ -3,9 +3,9 @@ package grader.language;
 import grader.compilation.ClassFilesCompiler;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.compilation.c.CFilesCompilerSelector;
-import grader.project.ExecutableFinderSelector;
-import grader.project.JavaMainClassFinderSelector;
-import grader.project.MainClassFinder;
+import grader.execution.ExecutableFinderSelector;
+import grader.execution.JavaMainClassFinderSelector;
+import grader.execution.MainClassFinder;
 
 import java.util.HashMap;
 import java.util.Map;

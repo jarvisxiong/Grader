@@ -14,7 +14,7 @@ import java.lang.reflect.Modifier;
 
 /**
  * Runs a project in the same JVM using reflection to invoke the main method.
- * @see {@link grader.project.AReflectionBasedProjectRunner}
+ * @see {@link grader.execution.AReflectionBasedProjectRunner}
  */
 public class ReflectionRunner implements Runner {
 

@@ -1,4 +1,4 @@
-package grader.project;
+package grader.execution;
 
 
 import framework.execution.NotRunnableException;
@@ -6,6 +6,9 @@ import framework.execution.NotRunnableException;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
 import grader.file.FileProxy;
+import grader.project.ClassDescription;
+import grader.project.ClassesManager;
+import grader.project.Project;
 import grader.project.file.RootCodeFolder;
 import util.misc.Common;
 
@@ -42,7 +45,7 @@ public class AMainClassFinder implements MainClassFinder {
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
      * @throws framework.execution.NotRunnableException
-     * @see grader.project.AMainClassFinder which repeats this code (sigh)
+     * @see grader.execution.AMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
     public Map<String, String> getEntryPoints(framework.project.Project project) throws NotRunnableException {

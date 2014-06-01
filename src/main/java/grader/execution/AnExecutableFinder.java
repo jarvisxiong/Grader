@@ -1,4 +1,4 @@
-package grader.project;
+package grader.execution;
 
 
 import framework.execution.NotRunnableException;
@@ -7,6 +7,7 @@ import framework.execution.NotRunnableException;
 //import framework.project.Project;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
+import grader.project.Project;
 import grader.project.file.RootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import util.misc.Common;
