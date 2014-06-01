@@ -7,6 +7,7 @@ import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.language.LanguageDependencyManager;
 import grader.project.JavaMainClassFinderSelector;
+import grader.project.MainClassFinder;
 import grader.project.file.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
@@ -14,6 +15,7 @@ import tools.TimedProcess;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -22,7 +24,7 @@ import java.util.concurrent.Semaphore;
  */
 public class InteractiveConsoleProcessRunner implements Runner {
 
-    private List<String> entryPoints;
+    private Map<String, String> entryPoints;
     private File folder;
     Project project;
 
@@ -32,11 +34,11 @@ public class InteractiveConsoleProcessRunner implements Runner {
 //            entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
             entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject);
 
-            folder = aProject.getBuildFolder(entryPoints.get(0));
+            folder = aProject.getBuildFolder(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
             project = aProject;
-            MainClassFound.newCase(entryPoints.get(0), project.getSourceFolder().getName(), this);
+            MainClassFound.newCase(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
         } catch (Exception e) {
-        	MainClassNotFound.newCase(entryPoints.get(0), project.getSourceFolder().getName(), this);
+        	MainClassNotFound.newCase(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
             throw new NotRunnableException();
         }
     }
@@ -102,8 +104,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	return run (entryPoints.get(0), input, args, timeout);
-//    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+    	return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
+//    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //    	return run(command, input, args, timeout);
     	
 
@@ -193,7 +195,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(0));
+	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 	        	else
 	        		builder = new ProcessBuilder(command);
 

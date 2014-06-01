@@ -10,7 +10,9 @@ import grader.project.file.RootCodeFolder;
 import util.misc.Common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
@@ -43,16 +45,16 @@ public class AMainClassFinder implements MainClassFinder {
      * @see grader.project.AMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
-    public List<String> getEntryPoints(framework.project.Project project) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(framework.project.Project project) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
-		List<String> entryPoints = new ArrayList();
+		Map<String, String> entryPoints = new HashMap();
 
         framework.project.ClassesManager manager = project.getClassesManager().get();
         for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
-                entryPoints.add(description.getJavaClass().getCanonicalName());
+                entryPoints.put(MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());
                 return entryPoints;
 //                return description.getJavaClass().getCanonicalName();
             } catch (NoSuchMethodException e) {

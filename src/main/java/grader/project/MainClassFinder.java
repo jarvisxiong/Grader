@@ -1,13 +1,16 @@
 package grader.project;
 
 import java.util.List;
+import java.util.Map;
 
 import framework.execution.NotRunnableException;
 import grader.project.file.RootCodeFolder;
 
 public interface MainClassFinder {
+	public static final String MAIN_ENTRY_POINT = "main";
+
     public Class mainClass(RootCodeFolder aRootCodeFolder, ProxyClassLoader aProxyClassLoader, String expectedName, Project aProject);
-    public List<String> getEntryPoints(framework.project.Project project) throws NotRunnableException;
+    public Map<String, String> getEntryPoints(framework.project.Project project) throws NotRunnableException;
 
 
 }

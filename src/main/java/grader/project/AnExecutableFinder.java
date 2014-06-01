@@ -14,7 +14,9 @@ import wrappers.framework.project.ProjectWrapper;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AnExecutableFinder implements MainClassFinder {
 	public static String EXECUTABLE_SUFFIX = ".exe";
@@ -23,15 +25,16 @@ public class AnExecutableFinder implements MainClassFinder {
     }
     
 
-    public List<String> getEntryPoints(framework.project.Project frameworkProject) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(framework.project.Project frameworkProject) throws NotRunnableException {
         try {
     	File binaryFolder = frameworkProject.getBuildFolder("");
     	File[] binaryChildren =  binaryFolder.listFiles();
 //        List<FileProxy> binaryChildren =  binaryFolder.getC
-    	List retVal = new ArrayList();
+    	Map<String, String> retVal = new HashMap();
         for ( File child:binaryChildren) {
         	if (child.getName().endsWith(EXECUTABLE_SUFFIX)) {
-        		retVal.add(child.getName());
+        		retVal.put(MAIN_ENTRY_POINT, child.getName());
+        		return retVal;
 //        		return child.getName();
         	}
         	

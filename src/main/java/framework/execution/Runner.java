@@ -4,6 +4,7 @@ package framework.execution;
  * The interface for different runners to use
  */
 public interface Runner {
+	
 
     public RunningProject run(String input) throws NotRunnableException;
 

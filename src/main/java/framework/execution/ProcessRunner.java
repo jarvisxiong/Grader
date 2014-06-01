@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -18,6 +19,7 @@ import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.language.LanguageDependencyManager;
 import grader.project.JavaMainClassFinderSelector;
+import grader.project.MainClassFinder;
 import grader.project.file.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
@@ -28,8 +30,9 @@ import grader.trace.execution.UserProcessExecutionTimedOut;
  * This runs the program in a new process.
  */
 public class ProcessRunner implements Runner {
+	
 
-	private List<String> entryPoints;
+	private Map<String,String> entryPoints;
 	private File folder;
 	Project project;
 
@@ -42,7 +45,7 @@ public class ProcessRunner implements Runner {
 	            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject);
 	            
 	            // throw an exception if no entry point)
-			 folder = aProject.getBuildFolder(entryPoints.get(0));
+			 folder = aProject.getBuildFolder(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //			 entryPoint = folder + "\\" + entryPoint;
 			project = aProject;
 		} catch (Exception e) {
@@ -132,7 +135,7 @@ public class ProcessRunner implements Runner {
 	public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
 //	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
 //	  	return run(command, input, args, timeout);
-		return run (entryPoints.get(0), input, args, timeout);
+		return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
 
 	}
 	@Override
@@ -164,9 +167,9 @@ public class ProcessRunner implements Runner {
 
             // Prepare to run the process
 //            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(0));
+             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
          	System.out.println("Running process: java -cp \""
-					+ classPath + "\" " + entryPoints.get(0));
+					+ classPath + "\" " + entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
         	}   	else {
         		builder = new ProcessBuilder(command);
         		System.out.println("Running command:" + Common.toString(command, " "));
@@ -184,7 +187,7 @@ public class ProcessRunner implements Runner {
 			TimedProcess process = new TimedProcess(builder, timeout);
 			Process processObj = process.start();
 			if (folder != null)
-			UserProcessExecutionStarted.newCase(folder.getAbsolutePath(), (entryPoints != null)?entryPoints.get(0): null, classPath, this);
+			UserProcessExecutionStarted.newCase(folder.getAbsolutePath(), (entryPoints != null)?entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT): null, classPath, this);
 
 			// Print output to the console
 //			InputStream processOut = process.getInputStream();
@@ -288,11 +291,11 @@ public class ProcessRunner implements Runner {
 			// Wait for it to finish
 			try {
 				process.waitFor();
-				UserProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoints.get(0), classPath, this);
+				UserProcessExecutionFinished.newCase(folder.getAbsolutePath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), classPath, this);
 			} catch (Exception e) {
 				outputSemaphore.release();
 				errorSemaphore.release();
-				UserProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoints.get(0), classPath, this);
+				UserProcessExecutionTimedOut.newCase(folder.getAbsolutePath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), classPath, this);
 
 				System.out.println("*** Timed out waiting for process to finish ***");
 				// avoiding hanging processes 
