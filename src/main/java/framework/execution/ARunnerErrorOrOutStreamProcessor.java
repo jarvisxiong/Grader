@@ -11,12 +11,14 @@ public abstract class ARunnerErrorOrOutStreamProcessor implements Runnable {
 	protected InputStream errorOrOut;
 	protected RunningProject runner;
 	protected Semaphore semaphore;
-	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, Semaphore aSemaphore) {
+	protected String processName;
+	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, Semaphore aSemaphore, String aProcessName) {
 		// Print error output to the console
 		errorOrOut = aProcessErrorOrOut;
 		scanner = new Scanner(errorOrOut);
 		runner = aRunner;
 		semaphore = aSemaphore;
+		processName = aProcessName;
 	}
 		
 

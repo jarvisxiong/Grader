@@ -2,6 +2,8 @@ package framework.execution;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 import framework.project.Project;
@@ -19,6 +21,11 @@ import wrappers.framework.project.ProjectWrapper;
 public class RunningProject {
 
 	private Semaphore runningState = new Semaphore(1);
+	protected Map<String, String> processToOutput = new HashMap();
+	protected Map<String, String> processToErrors = new HashMap();
+
+	protected Map<String, String> processToOutputAndErrors = new HashMap();
+
 	private String output = "";
 	private String errorOutput = "";
 	String outputAndErrors = "";
@@ -53,9 +60,38 @@ public class RunningProject {
 	public void appendOutput(String newVal) {
 		if (this.output == null && newVal != null) {
 			this.output = "";
-		}
+		} 
 		this.output += newVal;
+		
 		outputAndErrors += newVal;
+		
+	}
+	
+	public void appendOutput(String aProcess, String newVal) {
+		String processOutput = processToOutput.get(aProcess);
+		if (processOutput == null && newVal != null) {
+			processOutput = "";
+		} 
+		
+		processOutput  += newVal;		
+		processToOutput.put(aProcess, processOutput);
+		appendErrorAndOutput(aProcess, newVal);		
+	}
+	public void appendErrorOutput(String aProcess, String newVal) {
+		String processErrors = processToErrors.get(aProcess);
+		if (processErrors == null && newVal != null) {
+			processErrors = "";
+		} 
+		processErrors  += newVal;
+		
+		processToErrors.put(aProcess, processErrors);
+		appendErrorAndOutput(aProcess, newVal);		
+	}
+	public void appendErrorAndOutput(String aProcess, String newVal) {
+		String processOutputAndErrors = processToOutputAndErrors.get(aProcess);
+		processOutputAndErrors += newVal;
+		
+		processToOutputAndErrors.put(aProcess, processOutputAndErrors);
 		
 	}
 

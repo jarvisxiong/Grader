@@ -22,8 +22,12 @@ public interface ExecutionSpecification {
 	public abstract String getEntrytag(String aProcess);
 
 	public abstract void setEntryTag(String aProcess, String anEntryTag);
+	
+	public abstract String getEntryPoint(String aProcess);
 
-	public abstract String getArgs(String aProcess);
+	public abstract void setEntryPoint(String aProcess, String anEntryPoint);
+
+	public abstract List<String> getArgs(String aProcess);
 
 	public abstract void setArgs(String aProcess, List<String> anEntryArgs);
 

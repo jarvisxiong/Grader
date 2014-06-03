@@ -13,6 +13,7 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	Map<String, List<String>> processTeamToProcesses = new HashMap();
 	Map<String, Integer> processToSleepTime = new HashMap();
 	Map<String, String> processToEntryTag = new HashMap();
+	Map<String, String> processToEntryPoint = new HashMap();
 	Map<String, List<String>> processToArgs = new HashMap();
 	
 	public AnExecutionSpecification() {
@@ -111,8 +112,8 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	 * @see grader.execution.ExecutionSpecification#getArgs(java.lang.String)
 	 */
 	@Override
-	public String getArgs(String aProcess) {
-		return processToEntryTag.get(aProcess);
+	public List<String> getArgs(String aProcess) {
+		return processToArgs.get(aProcess);
 	}
 	/* (non-Javadoc)
 	 * @see grader.execution.ExecutionSpecification#setArgs(java.lang.String, java.util.List)
@@ -120,6 +121,16 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	@Override
 	public void setArgs(String aProcess, List<String> anEntryArgs) {
 		 processToArgs.put(aProcess, anEntryArgs);
+	}
+
+	@Override
+	public String getEntryPoint(String aProcess) {
+		return processToEntryPoint.get(aProcess);
+	}
+
+	@Override
+	public void setEntryPoint(String aProcess, String anEntryPoint) {
+		processToEntryPoint.put(aProcess, anEntryPoint);
 	}
 
 }

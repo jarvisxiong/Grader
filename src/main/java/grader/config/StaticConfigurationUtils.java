@@ -162,18 +162,59 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 //		return retVal;
 //		
 //	}
-	public static String[] getExecutionCommand(File buildFolder, String entryPoint) {
-		List<String> basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+	public static String[] getExecutionCommand(File aBuildFolder) {
+		String anEntryPoint = getInheritedStringModuleProblemProperty(toVariable(ENTRY_POINT), null);
+		
+		 return getExecutionCommand(aBuildFolder, anEntryPoint);
+	}
+
+	public static String[] getExecutionCommand(File aBuildFolder, String anEntryPoint) {
+		
+		return getExecutionCommand(null, aBuildFolder, anEntryPoint, "", new String[0]);
+//		List<String> basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+//		List<String> retVal = new ArrayList(basicCommand.size());
+//		for (int i = 0; i < basicCommand.size(); i++) {
+////		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
+////		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
+////		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
+//		
+//		String withClassPath = basicCommand.get(i).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
+//		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), entryPoint);
+//		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), buildFolder.getAbsolutePath());
+//		retVal.add(i, withBuildFolder);
+//		}
+//		return retVal.toArray(new String[0]);
+		
+	}
+	
+	public static String[] getExecutionCommand(String aProcessName, File aBuildFolder, String anEntryPoint, String anEntryTagTarget, String[] anArgs) {
+		
+		List<String> basicCommand = null;
+		if (aProcessName == null || aProcessName.isEmpty()) {		
+			basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+		} else {
+			basicCommand = getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+		}
 		List<String> retVal = new ArrayList(basicCommand.size());
-		for (int i = 0; i < basicCommand.size(); i++) {
+		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
 //		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
 //		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
 //		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
 		
-		String withClassPath = basicCommand.get(i).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
-		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), entryPoint);
-		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), buildFolder.getAbsolutePath());
-		retVal.add(i, withBuildFolder);
+		String withClassPath = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
+		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), anEntryPoint);
+		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
+		String withEntryTag = withBuildFolder.replace(toVariable(ENTRY_TAG), anEntryTagTarget);		
+
+		retVal.add(withEntryTag);
+		}
+		int argsIndex = retVal.indexOf(toVariable(ARGS));
+		if (argsIndex >= 0) {
+			retVal.remove(argsIndex);
+			for (int i = 0; i < anArgs.length; i++ ) {
+				retVal.add(argsIndex + i, anArgs[i] );
+			}
+		
 		}
 		return retVal.toArray(new String[0]);
 		
@@ -323,6 +364,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 	
 	public static String getEntryTag(String aProcess) {
 		return getInheritedStringModuleProblemProperty(aProcess + "." + ENTRY_TAG , null);		
+	}
+	
+	public static String getEntryPoint(String aProcess) {
+		return getInheritedStringModuleProblemProperty(aProcess + "." + ENTRY_POINT , null);		
 	}
 	public static List<String> getProcesses(String aProcessTeam) {
 		return getInheritedListModuleProblemProperty(aProcessTeam);

@@ -10,13 +10,16 @@ public class ARunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcess
 //	protected Scanner scanner ;
 //	protected InputStream out;
 //	protected RunningProject runner;
-	public ARunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, Semaphore aSemaphore) {
-		super(aProcessErrorOut, aRunner, aSemaphore);
+	public ARunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, Semaphore aSemaphore, String aProcessName) {
+		super(aProcessErrorOut, aRunner, aSemaphore, aProcessName);
 	}
 
 @Override
 void append(String s) {
 	runner.appendOutput(s);
+	if (processName != null) {
+		runner.appendOutput(processName, s);
+	}
 	
 }
 		

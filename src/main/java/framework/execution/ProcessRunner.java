@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import tools.TimedProcess;
@@ -17,9 +18,13 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
+import grader.execution.ExecutionSpecification;
+import grader.execution.ExecutionSpecificationSelector;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.language.LanguageDependencyManager;
+import grader.project.MultipleClassesWithTag;
+import grader.project.NoClassWithTag;
 import grader.project.file.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
@@ -138,15 +143,68 @@ public class ProcessRunner implements Runner {
 		return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
 
 	}
+	public String classWithEntryTagTarget(String anEntryTag){
+		if (anEntryTag == null) return "";
+		if (project instanceof ProjectWrapper) {
+			grader.project.Project graderProject = ( (ProjectWrapper) project).getProject();
+			grader.project.ClassDescription aClassDescription = graderProject.getClassesManager().tagToUniqueClassDescription(anEntryTag);
+			return aClassDescription.getClassName();
+//			if (aClassDescriptions.size() == 0) {
+//				throw NoClassWithTag.newCase(this, anEntryTag);				 
+//			} else if (aClassDescriptions.size() > 0) {
+//				throw MultipleClassesWithTag.newCase(this, anEntryTag);
+//			}
+//			for (grader.project.ClassDescription aClassDescription:aClassDescriptions) {
+//				return aClassDescription.getClassName();
+//				
+//			}
+		}
+		return null; // this should never be executed
+	}
+	public RunningProject run(String aProcessTeam, Map<String, String> processToInput,  int timeout) throws NotRunnableException {
+		ExecutionSpecification anExecutionSpecification = ExecutionSpecificationSelector.getExecutionSpecification();
+		List<String> aProcesses = anExecutionSpecification.getProcesses(aProcessTeam);
+		RunningProject aRunner = new RunningProject(project);
+		for (String aProcess:aProcesses) {		
+			String anEntryPoint = anExecutionSpecification.getEntryPoint(aProcess);
+			String anEntryTag = anExecutionSpecification.getEntrytag(aProcess);
+			String aClassWithEntryTag = classWithEntryTagTarget(anEntryTag);
+			String[] anArgs = anExecutionSpecification.getArgs(aProcess).toArray(new String[0]);
+			int aSleepTime = anExecutionSpecification.getSleepTime(aProcess);			
+			String[] command =  StaticConfigurationUtils.getExecutionCommand(
+					aProcess,
+					folder, 
+					anEntryPoint, 
+					aClassWithEntryTag, 
+					anArgs);
+			run(aRunner, command, processToInput.get(aProcess), anArgs, timeout, aProcess);
+			
+			
+		
+		}
+		return aRunner;
+//	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(0));
+//	  	return run(command, input, args, timeout);
+//		return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
+
+	}
 	@Override
-	public RunningProject run(String anEntryPoint, String input, String[] args, int timeout) throws NotRunnableException {
+	public RunningProject run(String anEntryPoint, String input, String[] args, int timeout) 
+			throws NotRunnableException {
 	  	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
 	  	return run(command, input, args, timeout);
 
 	}
-	@Override
 	public RunningProject run(String[] command, String input, String[] args, int timeout) throws NotRunnableException {
-		final RunningProject runner = new RunningProject(project);
+		return run(new RunningProject(project), command, input, args, timeout, MainClassFinder.MAIN_ENTRY_POINT);
+	}
+
+	
+	
+	@Override
+	public RunningProject run(RunningProject runner, String[] command, String input, String[] args, int timeout, String aProcessName)
+			throws NotRunnableException {
+//		final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
 			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
 			sakaiProject.setCurrentInput(input);
@@ -163,7 +221,7 @@ public class ProcessRunner implements Runner {
 ////					.getClasspath(), entryPoint);
 //		  	String[] command = StaticConfigurationUtils.getExecutionCommand(entryPoint);
         	ProcessBuilder builder;
-        	if (command.length == 0) {
+        	if (command.length == 0) { // this part should not execute, onlyif command is null
 
             // Prepare to run the process
 //            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
@@ -212,7 +270,7 @@ public class ProcessRunner implements Runner {
 //						InputStream processOut = process.getInputStream();
 //						final Scanner scanner = new Scanner(processOut);
 						final Semaphore outputSemaphore = new Semaphore(1);
-						Runnable outRunnable = new  ARunnerOutputStreamProcessor(process.getInputStream(), runner, outputSemaphore);
+						Runnable outRunnable = new  ARunnerOutputStreamProcessor(process.getInputStream(), runner, outputSemaphore, aProcessName);
 						Thread outThread = new Thread(outRunnable);
 						outThread.setName("Out Stream Runnable");
 						outThread.start();
@@ -258,7 +316,7 @@ public class ProcessRunner implements Runner {
 //						final Scanner errorScanner = new Scanner(processErrorOut);
 						final Semaphore errorSemaphore = new Semaphore(1);
 //						errorSemaphore.acquire();
-						Runnable errorRunnable = new  ARunnerErrorStreamProcessor(process.getErrorStream(), runner, errorSemaphore);
+						Runnable errorRunnable = new  ARunnerErrorStreamProcessor(process.getErrorStream(), runner, errorSemaphore, aProcessName);
 						Thread errorThread = new Thread(errorRunnable);
 						errorThread.setName("Error Stream Runnable");
 						errorThread.start();

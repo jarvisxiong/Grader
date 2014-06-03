@@ -77,6 +77,24 @@ public class AClassesManager implements ClassesManager {
     public Set<ClassDescription> tagToClassDescriptions(String aTag) {
         return tagToDescription.get(aTag);
     }
+    
+    @Override
+    public ClassDescription tagToUniqueClassDescription(String aTag) {
+        Set<ClassDescription>  aClassDescriptions = tagToDescription.get(aTag);
+        if (aClassDescriptions.size() == 0) {
+			throw NoClassWithTag.newCase(this, aTag);				 
+		} else if (aClassDescriptions.size() > 0) {
+			throw MultipleClassesWithTag.newCase(this, aTag);
+		}
+		for (ClassDescription aClassDescription:aClassDescriptions) {
+			return aClassDescription;
+			
+		}
+		
+		return null;
+        
+    }
+
 
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#tagsToClassDescriptions(java.lang.String[])
