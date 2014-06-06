@@ -1,5 +1,7 @@
 package framework.execution;
 
+import tools.TimedProcess;
+
 /**
  * The interface for different runners to use
  */
@@ -18,7 +20,7 @@ public interface Runner {
 	RunningProject run(String anEntryPoint, String input, String[] args,
 			int timeout) throws NotRunnableException;
 
-	RunningProject run(RunningProject aRunner, String[] command, String input, String[] args,
-			int timeout, String aProcess) throws NotRunnableException;
+	TimedProcess run(RunningProject aRunner, String[] command, String input, String[] args,
+			int timeout, String aProcess, boolean wait) throws NotRunnableException;
 
 }

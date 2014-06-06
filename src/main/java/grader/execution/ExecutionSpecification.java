@@ -30,5 +30,8 @@ public interface ExecutionSpecification {
 	public abstract List<String> getArgs(String aProcess);
 
 	public abstract void setArgs(String aProcess, List<String> anEntryArgs);
-
+	public List<String> getStartTags(String aProcess) ;
+	public void setStartTags(String aProcess, List<String> aStartTags) ;
+	public List<String> getTerminatingProcesses(String aProcessTeam) ;
+	public void setTerminatingProcesses(String aProcessTeam, List<String> aProcesses) ;
 }

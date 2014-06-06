@@ -11,10 +11,12 @@ import java.util.List;
 public class AnExecutionSpecification implements ExecutionSpecification {
 	List<String> processTeams = new ArrayList();
 	Map<String, List<String>> processTeamToProcesses = new HashMap();
+	Map<String, List<String>> processTeamToTerminatingProcesses = new HashMap();
 	Map<String, Integer> processToSleepTime = new HashMap();
 	Map<String, String> processToEntryTag = new HashMap();
 	Map<String, String> processToEntryPoint = new HashMap();
 	Map<String, List<String>> processToArgs = new HashMap();
+	Map<String, List<String>> processToStartTags = new HashMap();
 	
 	public AnExecutionSpecification() {
 		
@@ -26,9 +28,13 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	@Override
 	public void loadFromConfiguration() {
 		processTeams = StaticConfigurationUtils.getProcessTeams();
+
 		for (String aProcessTeam:processTeams) {
 			List<String> aProcesses =  StaticConfigurationUtils.getProcesses(aProcessTeam);
 			processTeamToProcesses.put(aProcessTeam, aProcesses);
+			List<String> aTerminatingProcesses =  StaticConfigurationUtils.getTerminatingProcesses(aProcessTeam);
+			processTeamToTerminatingProcesses.put(aProcessTeam, aTerminatingProcesses);
+
 			for (String aProcess:aProcesses) {
 				Integer sleepTime = StaticConfigurationUtils.getSleepTime(aProcess);
 				if (sleepTime != null)
@@ -39,6 +45,9 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 				List<String> args = StaticConfigurationUtils.getProcessArgs(aProcess);
 				if (args != null)
 					processToArgs.put(aProcess, args);
+				List<String> startTags = StaticConfigurationUtils.getProcessStartTags(aProcess);
+				if (startTags != null)
+					processToStartTags.put(aProcess, args);
 				
 			}
 		}
@@ -77,7 +86,18 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 		 processTeamToProcesses.put(aProcessTeam, aProcesses);
 	}
 	
-
+	@Override
+	public List<String> getTerminatingProcesses(String aProcessTeam) {
+		return processTeamToTerminatingProcesses.get(aProcessTeam);
+	}
+	
+	/* (non-Javadoc)
+	 * @see grader.execution.ExecutionSpecification#setProcesses(java.lang.String, java.util.List)
+	 */
+	@Override
+	public void setTerminatingProcesses(String aProcessTeam, List<String> aProcesses) {
+		processTeamToTerminatingProcesses.put(aProcessTeam, aProcesses);
+	}
 	/* (non-Javadoc)
 	 * @see grader.execution.ExecutionSpecification#getSleepTime(java.lang.String)
 	 */
@@ -121,6 +141,18 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	@Override
 	public void setArgs(String aProcess, List<String> anEntryArgs) {
 		 processToArgs.put(aProcess, anEntryArgs);
+	}
+	
+	@Override
+	public List<String> getStartTags(String aProcess) {
+		return processToStartTags.get(aProcess);
+	}
+	/* (non-Javadoc)
+	 * @see grader.execution.ExecutionSpecification#setArgs(java.lang.String, java.util.List)
+	 */
+	@Override
+	public void setStartTags(String aProcess, List<String> aStartTags) {
+		processToStartTags.put(aProcess, aStartTags);
 	}
 
 	@Override

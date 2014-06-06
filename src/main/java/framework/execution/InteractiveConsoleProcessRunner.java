@@ -258,8 +258,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(RunningProject aRunner, String[] command,
-			String input, String[] args, int timeout, String aProcess)
+	public TimedProcess run(RunningProject aRunner, String[] command,
+			String input, String[] args, int timeout, String aProcess, boolean wait)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;

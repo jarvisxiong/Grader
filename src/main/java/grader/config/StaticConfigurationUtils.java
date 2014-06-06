@@ -36,6 +36,8 @@ public class StaticConfigurationUtils {
 	public static final String ENTRY_TAG = "entryTag";
 	public static final String SLEEP_TIME = "entryTag";
 	public static final String ARGS = "args";
+	public static final String START_TAGS = "startTags";
+	public static final String TERMINATING = "waitFor";
 	
 	public static final String JAVA = "Java";
 
@@ -187,13 +189,40 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 		
 	}
 	
+	public static List<String> getBasicCommand() {
+		return getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+	}
+	
+	public static List<String> getBasicCommand(String aProcessName) {
+		return getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+	}
+	
+	public static boolean hasEntryPoint (List<String> aCommand) {
+		return hasSubString(aCommand, ENTRY_POINT);
+	}
+	public static boolean hasSubString (List<String> aCommand, String aSubString) {
+		for (String aCommmandComponent:aCommand)
+			if (aCommand.contains(aSubString)) return true;
+		return false;
+	}
+	public static boolean hasEntryTag (List<String> aProcessCommand) {
+		return hasSubString(aProcessCommand, ENTRY_TAG);
+	}
+	
+	public static boolean haArgs (String aProcessCommand) {
+		return aProcessCommand.contains(ARGS);
+	}
+	
 	public static String[] getExecutionCommand(String aProcessName, File aBuildFolder, String anEntryPoint, String anEntryTagTarget, String[] anArgs) {
 		
 		List<String> basicCommand = null;
 		if (aProcessName == null || aProcessName.isEmpty()) {		
-			basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+//			basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+			basicCommand = getBasicCommand();
 		} else {
-			basicCommand = getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+//			basicCommand = getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+			basicCommand = getBasicCommand(aProcessName);
+
 		}
 		List<String> retVal = new ArrayList(basicCommand.size());
 		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
@@ -201,12 +230,21 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 //		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
 //		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
 		
-		String withClassPath = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
-		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), anEntryPoint);
-		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
-		String withEntryTag = withBuildFolder.replace(toVariable(ENTRY_TAG), anEntryTagTarget);		
+//		String withClassPath = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
+//		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), anEntryPoint);
+//		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
+//		String withEntryTag = withBuildFolder.replace(toVariable(ENTRY_TAG), anEntryTagTarget);		
+		
+		String command = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
+		if (anEntryPoint != null)
+		    command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
+		if (anEntryTagTarget != null)
+			command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);	
 
-		retVal.add(withEntryTag);
+//		if (anEntryTagTarget != null)
+		command = command.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
+
+		retVal.add(command);
 		}
 		int argsIndex = retVal.indexOf(toVariable(ARGS));
 		if (argsIndex >= 0) {
@@ -358,6 +396,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 		return getInheritedListModuleProblemProperty(aProcess + "." + ARGS);
 	}
 	
+	public static List<String> getProcessStartTags(String aProcess) {
+		return getInheritedListModuleProblemProperty(aProcess + "." + START_TAGS);
+	}
+	
 	public static Integer getSleepTime(String aProcess) {
 		return getInheritedIntegerModuleProblemProperty(aProcess + "." + SLEEP_TIME, null);		
 	}
@@ -371,6 +413,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 	}
 	public static List<String> getProcesses(String aProcessTeam) {
 		return getInheritedListModuleProblemProperty(aProcessTeam);
+	}
+	
+	public static List<String> getTerminatingProcesses(String aProcessTeam) {
+		return getInheritedListModuleProblemProperty(aProcessTeam + "." + TERMINATING);
 	}
 
 
