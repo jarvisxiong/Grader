@@ -27,6 +27,7 @@ import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
+import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.language.LanguageDependencyManager;
 import grader.project.MultipleClassesWithTag;
@@ -48,6 +49,8 @@ public class ProcessRunner implements Runner {
 
 	public ProcessRunner(Project aProject) throws NotRunnableException {
 		try {
+			executionSpecification = ExecutionSpecificationSelector
+					.getExecutionSpecification();
 			// entryPoint = getEntryPoint(aProject);
 			// entryPoint =
 			// JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
@@ -182,10 +185,30 @@ public class ProcessRunner implements Runner {
 		// StaticConfigurationUtils.getExecutionCommand(folder,
 		// entryPoints.get(0));
 		// return run(command, input, args, timeout);
-		return run(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT),
+		List<String> aProcessTeams = executionSpecification.getProcessTeams();
+		if (aProcessTeams.isEmpty())		
+			return run(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT),
 				input, args, timeout);
-
+		else
+			return runDefaultProcessTeam(aProcessTeams, input, args, timeout);
 	}
+	
+	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout)
+			throws NotRunnableException {
+	
+		String firstTeam = aProcessTeams.get(0);
+		// provide input to the first terminating process
+		List<String> aTerminatingProcesses = executionSpecification.getTerminatingProcesses(firstTeam);
+		if (aTerminatingProcesses.isEmpty()) {
+			throw NoTerminatingProcessSpecified.newCase(this);
+		}
+		Map<String, String> aProcessToInput = new HashMap();
+		aProcessToInput.put(aTerminatingProcesses.get(0), input);
+		return run(firstTeam, aProcessToInput, timeout); //ignoring args, should have processToArgs in this method
+		
+	}
+	
+	
 
 	public String classWithEntryTagTarget(String anEntryTag) {
 		if (anEntryTag == null)
@@ -225,22 +248,21 @@ public class ProcessRunner implements Runner {
 	List<String> processes;
 	RunningProject runner;
 	List<String> processesWithStartTags;
-	ExecutionSpecification anExecutionSpecification;
 
 	public RunningProject run(String aProcessTeam,
 			Map<String, String> aProcessToInput, int aTimeout)
 			throws NotRunnableException {
-		anExecutionSpecification = ExecutionSpecificationSelector
-				.getExecutionSpecification();
+//		executionSpecification = ExecutionSpecificationSelector
+//				.getExecutionSpecification();
 		processTeam = aProcessTeam;
 		processToInput = aProcessToInput;
 		timeout = aTimeout;
 
-		processes = anExecutionSpecification.getProcesses(aProcessTeam);
+		processes = executionSpecification.getProcesses(aProcessTeam);
 
 		runner = new RunningProject(project);
 		for (String aProcess : processes) {
-			List<String> startTags = anExecutionSpecification
+			List<String> startTags = executionSpecification
 					.getStartTags(aProcess);
 			if (startTags == null || startTags.isEmpty()) {
 				processesWithStartTags.add(aProcess);
@@ -327,7 +349,7 @@ public class ProcessRunner implements Runner {
 		if (StaticConfigurationUtils.hasEntryPoint(basicCommand))
 			;
 		{
-			anEntryPoint = anExecutionSpecification.getEntryPoint(aProcess);
+			anEntryPoint = executionSpecification.getEntryPoint(aProcess);
 			if (anEntryPoint == null)
 				throw EntryPointNotFound.newCase(this);
 		}
@@ -336,7 +358,7 @@ public class ProcessRunner implements Runner {
 		}
 		String anEntryTag = null;
 		if (StaticConfigurationUtils.hasEntryTag(basicCommand))
-			anEntryTag = anExecutionSpecification.getEntrytag(aProcess);
+			anEntryTag = executionSpecification.getEntrytag(aProcess);
 		// if (anEntryTag != null ) {
 		// getFolder(anEntryTag);
 		// }
@@ -350,9 +372,9 @@ public class ProcessRunner implements Runner {
 
 			getFolder(aClassWithEntryTag);
 		}
-		String[] anArgs = anExecutionSpecification.getArgs(aProcess).toArray(
+		String[] anArgs = executionSpecification.getArgs(aProcess).toArray(
 				new String[0]);
-		int aSleepTime = anExecutionSpecification.getSleepTime(aProcess);
+		int aSleepTime = executionSpecification.getSleepTime(aProcess);
 		String[] command = StaticConfigurationUtils.getExecutionCommand(
 				aProcess, folder, anEntryPoint, aClassWithEntryTag, anArgs);
 		TimedProcess aTimedProcess = run(runner, command,
@@ -384,7 +406,7 @@ public class ProcessRunner implements Runner {
 	}
 
 	void waitForStartedProcesses() {
-		for (String aTerminatingProcess : anExecutionSpecification
+		for (String aTerminatingProcess : executionSpecification
 				.getTerminatingProcesses(processTeam)) {
 			TimedProcess aTimedProcess = nameToProcess.get(aTerminatingProcess);
 			try {

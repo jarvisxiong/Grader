@@ -34,10 +34,10 @@ public class StaticConfigurationUtils {
 	public static final String PROCESS_TEAMS = "processTeams";
 
 	public static final String ENTRY_TAG = "entryTag";
-	public static final String SLEEP_TIME = "entryTag";
+	public static final String SLEEP_TIME = "sleepTime";
 	public static final String ARGS = "args";
 	public static final String START_TAGS = "startTags";
-	public static final String TERMINATING = "waitFor";
+	public static final String TERMINATING = "terminating";
 	
 	public static final String JAVA = "Java";
 
@@ -400,8 +400,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 		return getInheritedListModuleProblemProperty(aProcess + "." + START_TAGS);
 	}
 	
+	public static final int DEFAULT_SLEEP_TIME = 2000;
+	
 	public static Integer getSleepTime(String aProcess) {
-		return getInheritedIntegerModuleProblemProperty(aProcess + "." + SLEEP_TIME, null);		
+		return getInheritedIntegerModuleProblemProperty(aProcess + "." + SLEEP_TIME, DEFAULT_SLEEP_TIME);		
 	}
 	
 	public static String getEntryTag(String aProcess) {
