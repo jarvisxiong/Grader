@@ -83,7 +83,7 @@ public class AClassesManager implements ClassesManager {
         Set<ClassDescription>  aClassDescriptions = tagToDescription.get(aTag);
         if (aClassDescriptions.size() == 0) {
 			throw NoClassWithTag.newCase(this, aTag);				 
-		} else if (aClassDescriptions.size() > 0) {
+		} else if (aClassDescriptions.size() > 1) {
 			throw MultipleClassesWithTag.newCase(this, aTag);
 		}
 		for (ClassDescription aClassDescription:aClassDescriptions) {

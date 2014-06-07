@@ -59,12 +59,12 @@ public class ProcessRunner implements Runner {
 			// but need the entry point to find execution folder
 			// need to make this entry points so that we can execute distributed
 			// programs
-			entryPoints = LanguageDependencyManager.getMainClassFinder()
-					.getEntryPoints(aProject);
-
-			// throw an exception if no entry point)
-			folder = aProject.getBuildFolder(entryPoints
-					.get(MainClassFinder.MAIN_ENTRY_POINT));
+//			entryPoints = LanguageDependencyManager.getMainClassFinder()
+//					.getEntryPoints(aProject);
+//
+//			// throw an exception if no entry point)
+//			folder = aProject.getBuildFolder(entryPoints
+//					.get(MainClassFinder.MAIN_ENTRY_POINT));
 			// entryPoint = folder + "\\" + entryPoint;
 			project = aProject;
 		} catch (Exception e) {
@@ -199,10 +199,13 @@ public class ProcessRunner implements Runner {
 		String firstTeam = aProcessTeams.get(0);
 		// provide input to the first terminating process
 		List<String> aTerminatingProcesses = executionSpecification.getTerminatingProcesses(firstTeam);
+		List<String> aProcesses = executionSpecification.getProcesses(firstTeam);
 		if (aTerminatingProcesses.isEmpty()) {
 			throw NoTerminatingProcessSpecified.newCase(this);
 		}
 		Map<String, String> aProcessToInput = new HashMap();
+		for (String aProcess:aProcesses)
+			aProcessToInput.put(aProcess, "");
 		aProcessToInput.put(aTerminatingProcesses.get(0), input);
 		return run(firstTeam, aProcessToInput, timeout); //ignoring args, should have processToArgs in this method
 		
@@ -261,10 +264,16 @@ public class ProcessRunner implements Runner {
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
 		runner = new RunningProject(project);
+		try {
+			runner.start();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (String aProcess : processes) {
 			List<String> startTags = executionSpecification
 					.getStartTags(aProcess);
-			if (startTags == null || startTags.isEmpty()) {
+			if (startTags != null && !startTags.isEmpty()) {
 				processesWithStartTags.add(aProcess);
 				pendingProcesses.add(aProcess);
 				continue;
@@ -320,6 +329,7 @@ public class ProcessRunner implements Runner {
 		}
 		waitForDynamicProcesses();
 		waitForStartedProcesses();
+		runner.end();
 		// for (String
 		// aTerminatingProcess:anExecutionSpecification.getTerminatingProcesses(aProcessTeam))
 		// {
@@ -345,9 +355,9 @@ public class ProcessRunner implements Runner {
 	void runTeamProcess(String aProcess) {
 		List<String> basicCommand = StaticConfigurationUtils
 				.getBasicCommand(aProcess);
-		String anEntryPoint;
+		String anEntryPoint = null;
 		if (StaticConfigurationUtils.hasEntryPoint(basicCommand))
-			;
+			
 		{
 			anEntryPoint = executionSpecification.getEntryPoint(aProcess);
 			if (anEntryPoint == null)
@@ -456,7 +466,8 @@ public class ProcessRunner implements Runner {
 	@Override
 	public RunningProject run(String anEntryPoint, String input, String[] args,
 			int timeout) throws NotRunnableException {
-		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
+//		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
+		String[] command = StaticConfigurationUtils.getExecutionCommand(getFolder(),
 				anEntryPoint);
 		return run(command, input, args, timeout);
 
@@ -486,6 +497,7 @@ public class ProcessRunner implements Runner {
 		}
 		TimedProcess process = null;
 		try {
+			if (wait)
 			runner.start();
 
 			// // Prepare to run the process
@@ -643,9 +655,10 @@ public class ProcessRunner implements Runner {
 					process.getOutputStream());
 			processIn.write(input);
 			processIn.flush();
-			processIn.close();
+//			processIn.close();
 
 			if (wait) {
+				processIn.close(); // single team process, we need to fix this later
 
 				// Wait for it to finish
 				try {

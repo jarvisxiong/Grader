@@ -194,7 +194,11 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 	}
 	
 	public static List<String> getBasicCommand(String aProcessName) {
-		return getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+		List<String> retVal = getInheritedListModuleProblemProperty(aProcessName + "." + EXECUTION_COMMAND);
+		if (retVal.isEmpty())
+			return getBasicCommand();
+		else
+			return retVal;
 	}
 	
 	public static boolean hasEntryPoint (List<String> aCommand) {
@@ -202,7 +206,7 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 	}
 	public static boolean hasSubString (List<String> aCommand, String aSubString) {
 		for (String aCommmandComponent:aCommand)
-			if (aCommand.contains(aSubString)) return true;
+			if (aCommmandComponent.contains(aSubString)) return true;
 		return false;
 	}
 	public static boolean hasEntryTag (List<String> aProcessCommand) {
