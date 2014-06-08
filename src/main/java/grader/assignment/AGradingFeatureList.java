@@ -51,4 +51,13 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 		return true;
 	}
 
+	@Visible(false)
+	@Override
+	public boolean isSomeAutoGraded() {
+		for (GradingFeature gradingFeature:this) {
+			if ( (gradingFeature.isGraded() && gradingFeature.isAutoGradable()))
+					return true;
+		}
+		return false;
+	}
 }

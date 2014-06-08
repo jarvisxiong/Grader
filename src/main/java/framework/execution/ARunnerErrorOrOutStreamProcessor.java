@@ -6,31 +6,34 @@ import java.util.concurrent.Semaphore;
 
 import tools.TimedProcess;
 
-public abstract class ARunnerErrorOrOutStreamProcessor implements Runnable {
+public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrOutStreamProcessor {
 	protected Scanner scanner ;
 	protected InputStream errorOrOut;
 	protected RunningProject runner;
 	protected Semaphore semaphore;
 	protected String processName;
-	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, Semaphore aSemaphore, String aProcessName) {
+	protected Boolean onlyProcess;
+	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		// Print error output to the console
 		errorOrOut = aProcessErrorOrOut;
 		scanner = new Scanner(errorOrOut);
 		runner = aRunner;
-		semaphore = aSemaphore;
+		semaphore = new Semaphore(1);
 		processName = aProcessName;
+		onlyProcess = anOnlyProcess;
 	}
 		
 
 			@Override
 			public void run() {
 				try {
+					if (onlyProcess)
 				semaphore.acquire();
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					System.err.println(line);
+//					System.err.println(line);
 //					runner.appendErrorOutput(line + "\n");
-					append(line + "\n");
+					processLine(line);
 				}
 				scanner.close();
 				semaphore.release();
@@ -38,5 +41,36 @@ public abstract class ARunnerErrorOrOutStreamProcessor implements Runnable {
 					e.printStackTrace();
 				}
 			}
-		abstract void append(String s);
+//		abstract void processLine(String s);
+
+
+		public Scanner getScanner() {
+			return scanner;
+		}
+
+
+		public InputStream getErrorOrOut() {
+			return errorOrOut;
+		}
+
+
+		public RunningProject getRunner() {
+			return runner;
+		}
+
+
+		public Semaphore getSemaphore() {
+			return semaphore;
+		}
+
+
+		public String getProcessName() {
+			return processName;
+		}
+
+
+		public Boolean getOnlyProcess() {
+			return onlyProcess;
+		}
+		
 	}

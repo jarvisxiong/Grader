@@ -248,7 +248,9 @@ public class AnAutoVisitBehavior implements
 		}
 		
 		
-		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
+//		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
+		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isSomeAutoGraded()) { // auto attempt was made
+
 			autoGrade();
 			
 		} else {
@@ -619,6 +621,7 @@ public class AnAutoVisitBehavior implements
 					resultFormat);
 			FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
 //			features.get(i).setScore(score);
+			if (!features.get(i).isManual()) {
 			features.get(i).internalSetScore(score);
 
 
@@ -626,6 +629,7 @@ public class AnAutoVisitBehavior implements
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
 					.getFeatureName(), score);
 			FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
+			}
 
 			
 		}

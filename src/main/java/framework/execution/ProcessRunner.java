@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeoutException;
 
 import tools.TimedProcess;
 import util.misc.Common;
@@ -44,8 +46,25 @@ import grader.trace.execution.UserProcessExecutionTimedOut;
 public class ProcessRunner implements Runner {
 
 	private Map<String, String> entryPoints;
+	protected Map<String, RunnerErrorOrOutStreamProcessor> processToOut = new HashMap();
+	protected Map<String, RunnerErrorOrOutStreamProcessor> processToErr = new HashMap();
+	protected Map<String, RunnerInputStreamProcessor> processToIn = new HashMap();
 	private File folder;
 	Project project;
+	// make them global variables so while waiting someone can query them,
+	// probbaly breaks least privelege
+	// these are needed to allow asynchronous start of new processes
+	Map<String, TimedProcess> nameToProcess = new HashMap();
+	List<String> startedProcesses = new ArrayList();
+	List<String> pendingProcesses = new ArrayList();
+	List<String> receivedTags = new ArrayList();
+	int timeout = 0;
+	ExecutionSpecification executionSpecification;
+	Map<String, String> processToInput;
+	String processTeam;
+	List<String> processes;
+	RunningProject runner;
+	List<String> processesWithStartTags;
 
 	public ProcessRunner(Project aProject) throws NotRunnableException {
 		try {
@@ -237,20 +256,39 @@ public class ProcessRunner implements Runner {
 		return null; // this should never be executed
 	}
 
-	// make them global variables so while waiting someone can query them,
-	// probbaly breaks least privelege
-	// these are needed to allow asynchronous start of new processes
-	Map<String, TimedProcess> nameToProcess = new HashMap();
-	List<String> startedProcesses = new ArrayList();
-	List<String> pendingProcesses = new ArrayList();
-	List<String> receivedTags = new ArrayList();
-	int timeout = 0;
-	ExecutionSpecification executionSpecification;
-	Map<String, String> processToInput;
-	String processTeam;
-	List<String> processes;
-	RunningProject runner;
-	List<String> processesWithStartTags;
+	
+	void acquireTeamLocks() {
+		try {
+			runner.start();
+			Set<String> aProcesses = processToOut.keySet();
+			for (String aProcess:aProcesses) {
+				processToOut.get(aProcess).getSemaphore().acquire();
+				processToErr.get(aProcess).getSemaphore().acquire();
+				
+			}
+//			outputSemaphore.acquire(); // share once for all processes
+//			errorSemaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	void releaseTeamLocks() {
+//		try {
+//			outputSemaphore.release(); // share once for all processes
+//			errorSemaphore.release();
+		Set<String> aProcesses = processToOut.keySet();
+		for (String aProcess:aProcesses) {
+			processToOut.get(aProcess).getSemaphore().release();;
+			processToErr.get(aProcess).getSemaphore().release();
+			
+		}
+			runner.end();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
 
 	public RunningProject run(String aProcessTeam,
 			Map<String, String> aProcessToInput, int aTimeout)
@@ -264,12 +302,15 @@ public class ProcessRunner implements Runner {
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
 		runner = new RunningProject(project);
-		try {
-			runner.start();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		acquireTeamLocks();
+//		try {
+//			runner.start();
+//			outputSemaphore.acquire(); // share once for all processes
+//			errorSemaphore.acquire();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		for (String aProcess : processes) {
 			List<String> startTags = executionSpecification
 					.getStartTags(aProcess);
@@ -329,7 +370,8 @@ public class ProcessRunner implements Runner {
 		}
 		waitForDynamicProcesses();
 		waitForStartedProcesses();
-		runner.end();
+		terminateTeam();
+//		releaseTeamLocks();
 		// for (String
 		// aTerminatingProcess:anExecutionSpecification.getTerminatingProcesses(aProcessTeam))
 		// {
@@ -415,13 +457,19 @@ public class ProcessRunner implements Runner {
 		this.notify();
 	}
 
-	void waitForStartedProcesses() {
+	synchronized void waitForStartedProcesses() {
 		for (String aTerminatingProcess : executionSpecification
 				.getTerminatingProcesses(processTeam)) {
 			TimedProcess aTimedProcess = nameToProcess.get(aTerminatingProcess);
 			try {
-				aTimedProcess.wait(timeout);
+				aTimedProcess.waitFor();
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TimeoutException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -452,14 +500,14 @@ public class ProcessRunner implements Runner {
 	void terminateRunner() {
 		try {
 			// Wait for the output to finish
-			outputSemaphore.acquire();
-			errorSemaphore.acquire();
-			runner.end();
+			acquireTeamLocks();
+			releaseTeamLocks();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Tracer.error(e.getMessage());
 			runner.error();
-			runner.end();
+			releaseTeamLocks();
+//			runner.end();
 		}
 	}
 
@@ -482,13 +530,13 @@ public class ProcessRunner implements Runner {
 		return retVal;
 	}
 
-	final Semaphore outputSemaphore = new Semaphore(1);
-	final Semaphore errorSemaphore = new Semaphore(1);
+//	final Semaphore outputSemaphore = new Semaphore(1);
+//	final Semaphore errorSemaphore = new Semaphore(1);
 
 	@Override
 	public TimedProcess run(RunningProject runner, String[] command,
 			String input, String[] args, int timeout, String aProcessName,
-			boolean wait) throws NotRunnableException {
+			boolean anOnlyProcess) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
 			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
@@ -497,7 +545,7 @@ public class ProcessRunner implements Runner {
 		}
 		TimedProcess process = null;
 		try {
-			if (wait)
+			if (anOnlyProcess)
 			runner.start();
 
 			// // Prepare to run the process
@@ -572,9 +620,9 @@ public class ProcessRunner implements Runner {
 			// final Scanner scanner = new Scanner(processOut);
 			// making this a global variable
 			// final Semaphore outputSemaphore = new Semaphore(1);
-			Runnable outRunnable = new ARunnerOutputStreamProcessor(
-					process.getInputStream(), runner, outputSemaphore,
-					aProcessName);
+			RunnerErrorOrOutStreamProcessor outRunnable = new ARunnerOutputStreamProcessor(
+					process.getInputStream(), runner, /*outputSemaphore,*/
+					aProcessName, anOnlyProcess);
 
 			Thread outThread = new Thread(outRunnable);
 			outThread.setName("Out Stream Runnable");
@@ -623,9 +671,9 @@ public class ProcessRunner implements Runner {
 			// final Semaphore errorSemaphore = new Semaphore(1);
 
 			// errorSemaphore.acquire();
-			Runnable errorRunnable = new ARunnerErrorStreamProcessor(
-					process.getErrorStream(), runner, errorSemaphore,
-					aProcessName);
+			RunnerErrorOrOutStreamProcessor errorRunnable = new ARunnerErrorStreamProcessor(
+					process.getErrorStream(), runner, /*errorSemaphore,*/
+					aProcessName, anOnlyProcess);
 			Thread errorThread = new Thread(errorRunnable);
 			errorThread.setName("Error Stream Runnable");
 			errorThread.start();
@@ -651,14 +699,19 @@ public class ProcessRunner implements Runner {
 			// This can be done after the process is started, so one can create
 			// a coordinator of various processes
 			// using the output of one process to influence the input of another
-			OutputStreamWriter processIn = new OutputStreamWriter(
-					process.getOutputStream());
-			processIn.write(input);
-			processIn.flush();
-//			processIn.close();
+			
+			RunnerInputStreamProcessor processIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
+			processIn.nextInput(input);
+			processIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
+//			OutputStreamWriter processIn = new OutputStreamWriter(
+//					process.getOutputStream());
+//			
+//			processIn.write(input);
+//			processIn.flush();
+//			processIn.close(); // for incremental input, allow it to be given afterwards and do not close
 
-			if (wait) {
-				processIn.close(); // single team process, we need to fix this later
+			if (anOnlyProcess) {
+//				processIn.close(); // single team process, we need to fix this later
 
 				// Wait for it to finish
 				try {
@@ -668,8 +721,10 @@ public class ProcessRunner implements Runner {
 							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),
 							classPath, this);
 				} catch (Exception e) {
-					outputSemaphore.release();
-					errorSemaphore.release();
+//					outputSemaphore.release();
+//					errorSemaphore.release();
+					outRunnable.getSemaphore().release();
+					errorRunnable.getSemaphore().release();
 					UserProcessExecutionTimedOut.newCase(
 							folder.getAbsolutePath(),
 							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),
@@ -687,8 +742,10 @@ public class ProcessRunner implements Runner {
 				processObj.destroy();
 				// if (wait) {
 				// Wait for the output to finish
-				outputSemaphore.acquire();
-				errorSemaphore.acquire();
+				outRunnable.getSemaphore().acquire();
+				errorRunnable.getSemaphore().acquire();
+//				outputSemaphore.acquire();
+//				errorSemaphore.acquire();
 				runner.end();
 			}
 			// }

@@ -1,4 +1,4 @@
-//START OF FILE: inputandoutput.java
+//START OF FILE: src/inputandoutput.java
 import java.util.Scanner;
 /******************************************************************
  * Program or Assignment #: Assignment1

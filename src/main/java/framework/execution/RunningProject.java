@@ -176,7 +176,7 @@ public class RunningProject {
 //		String featureName = project.getCurrentGradingFeature().getName();
 //		transcript.append(featureName);
 //		transcript.append(")*****************************\n");
-		String input = project.getCurrentInput();
+		String input = project.getCurrentInput(); // this changes with process team, there can be multiple inputs and they can be given incrementally
 		if (!input.isEmpty()) {
 			transcript.append("INPUT(" + featureName + ")\n");
 			transcript.append(input + "\n");

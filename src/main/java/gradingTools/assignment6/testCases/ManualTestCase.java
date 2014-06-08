@@ -19,6 +19,8 @@ public class ManualTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotGradableException {
-        throw new NotGradableException();
+//        throw new NotGradableException();
+        throw new NotGradableException("Manual test cannot be auto graded, why was it even tried?");
+
     }
 }

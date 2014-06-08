@@ -10,15 +10,21 @@ public class ARunnerErrorStreamProcessor extends ARunnerErrorOrOutStreamProcesso
 //	protected Scanner scanner ;
 //	protected InputStream out;
 //	protected RunningProject runner;
-	public ARunnerErrorStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, Semaphore aSemaphore, String aProcessName) {
-		super(aProcessErrorOut, aRunner, aSemaphore, aProcessName);
+	public ARunnerErrorStreamProcessor(InputStream aProcessErrorOut, 
+			RunningProject aRunner, 
+			/*Semaphore aSemaphore, */
+			String aProcessName,
+			Boolean anOnlyProcess) {
+		super(aProcessErrorOut, aRunner, /*aSemaphore,*/ aProcessName, anOnlyProcess);
 	}
 
 @Override
-void append(String s) {
-	runner.appendErrorOutput(s);
+public void processLine(String s) {
+	runner.appendErrorOutput(s + "\n"); // cumulative
 	if (processName != null) {
-		runner.appendErrorOutput(processName, s);
+		System.err.println(s);
+
+		runner.appendErrorOutput(processName, s + "\n"); // per process
 	}
 	
 }

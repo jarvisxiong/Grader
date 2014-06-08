@@ -33,7 +33,11 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		addFeature("Has a proper header", 10, new ProperHeaderTestCase());
 
 		// Check for the messages with the outputs
-		addFeature("Messages with output", 10, new ManualTestCase(
-				"Prints clear messages for each of the outputs"));
+		// manual feature, not extra credit
+//		addManualFeature(true, "Messages with output", 10, false, new ManualTestCase(
+//				"Prints clear messages for each of the outputs"));
+		addManualFeature("Clear messages with output", 10, false);
+//		addFeature("Messages with output", 10,  new ManualTestCase(
+//				"Prints clear messages for each of the outputs"));
 	}
 }

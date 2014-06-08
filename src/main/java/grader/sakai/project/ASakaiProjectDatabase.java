@@ -1341,6 +1341,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 			// Add the features
 			for (Feature feature : requirements.getFeatures()) {
 				GradingFeature gradingFeature = new AGradingFeature(
+						feature.isManual(),
 						feature.getName(), feature.getPoints(),
 						new FeatureCheckerWrapper(feature),
 						feature.isExtraCredit());

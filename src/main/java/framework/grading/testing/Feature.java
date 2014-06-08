@@ -14,6 +14,7 @@ public class Feature extends Checkable {
     private String name;
     private double points;
     private boolean extraCredit;
+//    public boolean manual; // added by pd
     private List<TestCase> testCases;
 
     public Feature(String name, double points, List<TestCase> testCases) {
@@ -29,6 +30,15 @@ public class Feature extends Checkable {
         this.extraCredit = extraCredit;
         this.testCases = testCases;
     }
+    
+    public Feature(boolean anIsManual, String name, double points, boolean extraCredit, List<TestCase> testCases) {
+      this(name, points, extraCredit, testCases);
+      manual = anIsManual;
+    }
+    public Feature(boolean anIsManual, String name, double points, boolean extraCredit, TestCase ... testCases) {
+        this(name, points, extraCredit, testCases);
+        manual = anIsManual;
+      }
 
     public Feature(String name, double points, TestCase ... testCases) {
         this.name = name;
@@ -57,6 +67,8 @@ public class Feature extends Checkable {
     public boolean isExtraCredit() {
         return extraCredit;
     }
+    
+   
 
     @Override
     public CheckResult check(Project project, boolean autoMode) {
