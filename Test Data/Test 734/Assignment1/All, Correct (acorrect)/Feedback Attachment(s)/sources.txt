@@ -1,4 +1,4 @@
-//START OF FILE: amixedtypeairthmeticclientlauncher.java
+//START OF FILE: src/examples/rmi/arithmetic/amixedtypeairthmeticclientlauncher.java
 package examples.rmi.arithmetic;
 
 import java.rmi.registry.LocateRegistry;
@@ -6,7 +6,7 @@ import java.rmi.registry.Registry;
 import java.util.Scanner;
 
 import util.annotations.Tags;
-@Tags({"RMIClient"})
+@Tags({"RMIClient", "Client"})
 public class AMixedTypeAirthmeticClientLauncher {
 	public static void main (String[] args) {	
 		try {
@@ -29,7 +29,7 @@ public class AMixedTypeAirthmeticClientLauncher {
 
 }
 //END OF FILE
-//START OF FILE: amixedtypearithmeticserverlauncher.java
+//START OF FILE: src/examples/rmi/arithmetic/amixedtypearithmeticserverlauncher.java
 package examples.rmi.arithmetic;
 
 
@@ -38,7 +38,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import util.annotations.Tags;
-@Tags({"RMIServer"})
+@Tags({"RMIServer", "Server"})
 public class AMixedTypeArithmeticServerLauncher implements MixedTypeAirthmeticServer {	
 	public static void main (String[] args) {
 		try {
@@ -55,7 +55,7 @@ public class AMixedTypeArithmeticServerLauncher implements MixedTypeAirthmeticSe
 	}
 }
 //END OF FILE
-//START OF FILE: amixedtypeprocessor.java
+//START OF FILE: src/examples/rmi/arithmetic/amixedtypeprocessor.java
 package examples.rmi.arithmetic;
 
 public class AMixedTypeProcessor implements RemoteMixedTypeProcessor {
@@ -87,7 +87,7 @@ public class AMixedTypeProcessor implements RemoteMixedTypeProcessor {
 
 }
 //END OF FILE
-//START OF FILE: demoerofmixedtypearithmetic.java
+//START OF FILE: src/examples/rmi/arithmetic/demoerofmixedtypearithmetic.java
 package examples.rmi.arithmetic;
 
 import bus.uigen.models.MainClassLaunchingUtility;
@@ -115,34 +115,36 @@ public class DemoerOfMixedTypeArithmetic {
 
 }
 //END OF FILE
-//START OF FILE: distributedrmiregistrystarter.java
+//START OF FILE: src/examples/rmi/arithmetic/distributedrmiregistrystarter.java
 package examples.rmi.arithmetic;
 import java.rmi.registry.LocateRegistry;
 import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 
 import util.annotations.Tags;
 
-@Tags({"RMIRegistry"})
+@Tags({"RMIRegistry", "Registry"})
 public class DistributedRMIRegistryStarter {
 	public static void main (String[] args) {
 		try {
 			LocateRegistry.createRegistry(1099);
-			Scanner scanner = new Scanner(System.in);
-			scanner.nextLine();
+			(new Semaphore(0)).acquire(); // wait for ever to avoid temination
+//			Scanner scanner = new Scanner(System.in);
+//			scanner.nextLine();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 }
 //END OF FILE
-//START OF FILE: mixedtypeairthmeticserver.java
+//START OF FILE: src/examples/rmi/arithmetic/mixedtypeairthmeticserver.java
 package examples.rmi.arithmetic;
 
 public interface MixedTypeAirthmeticServer {
 	public static final String SERVER_NAME = "Remote Mixed Type Arithmetic";
 }
 //END OF FILE
-//START OF FILE: remotemixedtypeprocessor.java
+//START OF FILE: src/examples/rmi/arithmetic/remotemixedtypeprocessor.java
 package examples.rmi.arithmetic;
 
 import java.rmi.Remote;

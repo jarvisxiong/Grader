@@ -257,7 +257,7 @@ public class ProcessRunner implements Runner {
 	}
 
 	
-	void acquireTeamLocks() {
+	void acquireIOLocks() {
 		try {
 			runner.start();
 			Set<String> aProcesses = processToOut.keySet();
@@ -277,12 +277,12 @@ public class ProcessRunner implements Runner {
 //		try {
 //			outputSemaphore.release(); // share once for all processes
 //			errorSemaphore.release();
-		Set<String> aProcesses = processToOut.keySet();
-		for (String aProcess:aProcesses) {
-			processToOut.get(aProcess).getSemaphore().release();;
-			processToErr.get(aProcess).getSemaphore().release();
-			
-		}
+//		Set<String> aProcesses = processToOut.keySet();
+//		for (String aProcess:aProcesses) {
+//			processToOut.get(aProcess).getSemaphore().release();;
+//			processToErr.get(aProcess).getSemaphore().release();
+//			
+//		}
 			runner.end();
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
@@ -302,7 +302,7 @@ public class ProcessRunner implements Runner {
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
 		runner = new RunningProject(project);
-		acquireTeamLocks();
+		acquireIOLocks();
 //		try {
 //			runner.start();
 //			outputSemaphore.acquire(); // share once for all processes
@@ -480,6 +480,18 @@ public class ProcessRunner implements Runner {
 	void terminateTeam() {
 		Set<String> aProcesses = nameToProcess.keySet();
 		for (String aProcess : aProcesses) {
+			try {
+				processToOut.get(aProcess).getSemaphore().acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				processToErr.get(aProcess).getSemaphore().acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			TimedProcess timedProcess = nameToProcess.get(aProcess);
 			timedProcess.getProcess().destroy();
 		}
@@ -500,7 +512,7 @@ public class ProcessRunner implements Runner {
 	void terminateRunner() {
 		try {
 			// Wait for the output to finish
-			acquireTeamLocks();
+//			acquireIOLocks();
 			releaseTeamLocks();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -626,6 +638,8 @@ public class ProcessRunner implements Runner {
 
 			Thread outThread = new Thread(outRunnable);
 			outThread.setName("Out Stream Runnable");
+			processToOut.put(aProcessName, outRunnable);
+
 			outThread.start();
 			// outputSemaphore.acquire();
 
@@ -676,6 +690,8 @@ public class ProcessRunner implements Runner {
 					aProcessName, anOnlyProcess);
 			Thread errorThread = new Thread(errorRunnable);
 			errorThread.setName("Error Stream Runnable");
+			processToErr.put(aProcessName, errorRunnable);
+
 			errorThread.start();
 			// (new Thread (new AnErrorStreamProcessor(process,
 			// runner)).start();
@@ -701,6 +717,7 @@ public class ProcessRunner implements Runner {
 			// using the output of one process to influence the input of another
 			
 			RunnerInputStreamProcessor processIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
+			processToIn.put(aProcessName, processIn);
 			processIn.nextInput(input);
 			processIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
 //			OutputStreamWriter processIn = new OutputStreamWriter(
