@@ -19,7 +19,11 @@ import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
 import util.trace.Tracer;
-
+/*
+ * This is different from DemoerAndTester as it uses Assignment 1 rather than Assignment 3
+ * The steps and grading criteria are hardwired
+ * I suppose the test and correct directories could be made as parameters
+ */
 public class CDemoerAndTester extends DemoerAndTester {
 //	static String[] args ;
 	public final static String TEST_DIR = "Test Data/Test C";

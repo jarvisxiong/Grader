@@ -20,7 +20,14 @@ import util.misc.ClearanceManager;
 import util.misc.Common;
 import util.misc.ThreadSupport;
 import util.trace.Tracer;
-
+/*
+ * This is different from Driver in that it has a particular assignment hardwired.
+ * This is assignment 3 from Jacob's 110. It would have been better to do Assignment 1
+ * for all of the demo cases (C, Java, distriuted) in retrospect.
+ * The file and test directories are also hardwired
+ * Problem is that these entries are static
+ * How to override them, unless from configuration file
+ */
 public class DemoerAndTester implements Runnable{
 	static String[] args ;
 	public final static String TEST_DIR = "Test Data/Test 110 F13 Assignments";
