@@ -28,7 +28,7 @@ import util.trace.Tracer;
  * Problem is that these entries are static
  * How to override them, unless from configuration file
  */
-public class DemoerAndTester implements Runnable{
+public class StaticDemoerAndTester implements Runnable{
 	static String[] args ;
 	public final static String TEST_DIR = "Test Data/Test 110 F13 Assignments";
 	public final static String CORRECT_DIR = "Test Data/Correct 110 F13 Results";
@@ -51,14 +51,14 @@ public class DemoerAndTester implements Runnable{
 	}
 
 	public static void setAutoProceed(boolean autoProceed) {
-		DemoerAndTester.autoProceed = autoProceed;
+		StaticDemoerAndTester.autoProceed = autoProceed;
 	}
 	public static boolean isGeneratingCorrectDir() {
 		return generatingCorrectDir;
 	}
 
 	public static void setGeneratingCorrectDir(boolean generatingCorrectDir) {
-		DemoerAndTester.generatingCorrectDir = generatingCorrectDir;
+		StaticDemoerAndTester.generatingCorrectDir = generatingCorrectDir;
 	}
 	
 
@@ -67,7 +67,7 @@ public class DemoerAndTester implements Runnable{
 //		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
 		args = anArgs;
-		Tracer.info(DemoerAndTester.class, "test");
+		Tracer.info(StaticDemoerAndTester.class, "test");
 //		Thread mainThread = new Thread(new Tester());
 //		mainThread.start();
 //		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
@@ -85,7 +85,7 @@ public class DemoerAndTester implements Runnable{
 
 	
 	static void startFirstSession() {
-		Thread mainThread = new Thread(new DemoerAndTester());
+		Thread mainThread = new Thread(new StaticDemoerAndTester());
 		mainThread.start();
 		OEFrame clearanceFrame = ObjectEditor.edit(clearanceManager);
 		clearanceFrame.setSize(CLEARANCE_WIDTH, CLEARANCE_HEIGHT);
@@ -93,7 +93,7 @@ public class DemoerAndTester implements Runnable{
 	}
 	
 	static void startSecondSession() {
-		Thread mainThread = new Thread(new DemoerAndTester());
+		Thread mainThread = new Thread(new StaticDemoerAndTester());
 		mainThread.start();
 	}
 	

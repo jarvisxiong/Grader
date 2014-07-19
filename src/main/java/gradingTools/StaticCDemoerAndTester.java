@@ -24,7 +24,7 @@ import util.trace.Tracer;
  * The steps and grading criteria are hardwired
  * I suppose the test and correct directories could be made as parameters
  */
-public class CDemoerAndTester extends DemoerAndTester {
+public class StaticCDemoerAndTester extends StaticDemoerAndTester {
 //	static String[] args ;
 	public final static String TEST_DIR = "Test Data/Test C";
 	public final static String CORRECT_DIR = "Test Data/Correct C";
@@ -37,7 +37,7 @@ public class CDemoerAndTester extends DemoerAndTester {
 //		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
 		args = anArgs;
-		Tracer.info(CDemoerAndTester.class, "test");
+		Tracer.info(StaticCDemoerAndTester.class, "test");
 
 		startFirstSession();
 
