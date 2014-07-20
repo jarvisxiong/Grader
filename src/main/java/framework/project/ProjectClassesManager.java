@@ -77,7 +77,7 @@ public class ProjectClassesManager implements ClassesManager {
 //			}
 //		});
 		
-		if (AProject.isCompileMissingObjectCode() || AProject.isForceCompile()) {
+		if (AProject.isCompileMissingObjectCode() || AProject.isForceCompile() || AProject.isPreCompileMissingObjectCode()) {
 
 		// Check if any files need to be compiled
 		ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -91,7 +91,8 @@ public class ProjectClassesManager implements ClassesManager {
 		}
 		if (aFilesToCompile.size() > 0) {
 			if (GraderSettingsModelSelector.getGraderSettingsModel() != null && 
-					GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC)
+					GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC &&
+					 !AProject.isPreCompileMissingObjectCode() )
 				return;
 			try {
 				System.out.println("Attempting to compile files.");

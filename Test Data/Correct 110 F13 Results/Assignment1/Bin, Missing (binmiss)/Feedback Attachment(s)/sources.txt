@@ -1,4 +1,4 @@
-//START OF FILE: bin, missing (binmiss)/submission attachment(s)/program1/program1/src/inputandoutput.java
+//START OF FILE: src/inputandoutput.java
 import java.util.Scanner;
 /******************************************************************
  * Program or Assignment #: Assignment1

@@ -34,5 +34,7 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	public boolean isPrivacyMode() ;
 	public void setPrivacyMode(boolean newValue) ;
 	public void togglePrivacyMode() ;
+	boolean getCompileMode();
+	boolean maybePreCompile();
 
 }

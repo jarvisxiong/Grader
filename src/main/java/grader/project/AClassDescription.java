@@ -104,7 +104,13 @@ public class AClassDescription  implements ClassDescription {
 				if (AProject.isCompileMissingObjectCode()) {
 					String compileClassMessage = "Attempting to compile class:" + aClassName;
 				Tracer.error(compileClassMessage);
-				
+				// need to compile multiple files in one shot because of dependencies
+				// in any case am duplicating work of Josh's compilation
+				// better to have Josh's code run through the directory, unzipping and compiling things, and then 
+				// read the entire directory
+				// compilation errors
+				// for now letting it be
+				// so as long as we have one class programs, we are fine it seems
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
 				if (classBytes != null) {
 					SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);

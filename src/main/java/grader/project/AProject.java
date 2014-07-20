@@ -84,6 +84,12 @@ public class AProject implements Project {
 	static boolean loadClasses = false;
 	
 	static boolean compileMissingObjectCode = false;
+	static boolean preCompileMissingObjectCode = false;
+	static boolean filesCompiled = false;
+
+	
+	
+
 	static boolean forceCompile = false;
 
 
@@ -526,4 +532,20 @@ public class AProject implements Project {
 	public static void setForceCompile(boolean forceCompile) {
 		AProject.forceCompile = forceCompile;
 	}
+	public static boolean isPreCompileMissingObjectCode() {
+		return preCompileMissingObjectCode;
+	}
+
+	public static void setPrecompileMissingObjectCode(
+			boolean preCompileMissingObjectCode) {
+		AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
+	}
+	public static boolean isFilesCompiled() {
+		return filesCompiled;
+	}
+
+	public static void setFilesCompiled(boolean filesCompiled) {
+		AProject.filesCompiled = filesCompiled;
+	}
+
 }

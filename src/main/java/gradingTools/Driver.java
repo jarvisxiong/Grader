@@ -2,6 +2,7 @@ package gradingTools;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,6 +24,7 @@ import framework.utils.UserPropertyWriter;
 import util.misc.Common;
 import util.trace.TraceableBus;
 import util.trace.Tracer;
+import wrappers.framework.project.ProjectWrapper;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import grader.config.AConfigurationManager;
@@ -45,6 +47,7 @@ import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
+import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.NavigationFilterRepository;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
@@ -263,12 +266,15 @@ public class Driver {
    }
 
 	static InteractionLogWriter interactionLogWriter;
+	
+	
 
     public static void drive(String[] args, int settingsFrameX, int settingsFrameY) {
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 
     	setTracing();
 		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
+		
 
 //    	String[] retVal = "main.foo".split(".");
 //    	retVal = "main:foo".split(":");
@@ -295,6 +301,8 @@ public class Driver {
      		
         	 moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
         	 graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+           	 AProject.setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
+
         	 
 //        	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
 //        	 AProject.setMakeClassDescriptions(makeClassDescriptions);
@@ -410,6 +418,7 @@ public class Driver {
 
 
             			settingsModel.awaitBegin();
+//            			settingsModel.maybePreCompile();
             			projectName = settingsModel.getCurrentProblem(); // get the current one
             			  GradingEnvironment.get().setAssignmentName(projectName);
             			  requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
@@ -452,7 +461,10 @@ public class Driver {
            	 String language = StaticConfigurationUtils.getLanguage();
            	 LanguageDependencyManager.setLanguage(language);
            	 AProject.setCompileMissingObjectCode(StaticConfigurationUtils.getAllowCompileClasses(configuration, graderSettingsManager));
-                 database = new ProjectDatabaseWrapper();
+           	 // before we load the database, see if we need to precompile
+           	 settingsModel.maybePreCompile();
+ 
+           	 database = new ProjectDatabaseWrapper();
                 database.setGraderSettings(settingsModel);
                 database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //             ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);

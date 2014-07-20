@@ -189,28 +189,77 @@ public class ARootCodeFolder implements RootCodeFolder {
 	public String toString() {
 		return root.getLocalName();
 	}
-	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
-		Set<String> nameSet = aRoot.getEntryNames();
-		for (String name:nameSet) {
-			int index = name.indexOf(suffix);
-			if (index < 0)
-				continue;
-			if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
-				continue; // in case src and bin are not followed by / and are in intermediate directories
-//			if (name.charAt(0) == '_')
+//	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
+//		Set<String> nameSet = aRoot.getEntryNames();
+//		for (String name:nameSet) {
+//			int index = name.indexOf(suffix);
+//			if (index < 0)
 //				continue;
-//			if (name.indexOf("_macos") != -1)
-//				continue;
-			FileProxy proxy = aRoot.getFileEntry(name);
-			String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
-//			return name.substring(0, index + suffix.length());
-			return mixedCaseProxy.substring(0, index + suffix.length());
-
+//			
+//			// if name ends with suffix we should proceed, or if suffix/ is an intermediate directory in zip file path we should proceed
+//			if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
+////			if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
+//
+//				continue; // in case src and bin are not followed by / and are in intermediate directories
+////			if (name.charAt(0) == '_')
+////				continue;
+////			if (name.indexOf("_macos") != -1)
+////				continue;
+//			FileProxy proxy = aRoot.getFileEntry(name);
+//			String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
 //			if (name.endsWith(suffix))
-//				return name;
+////			return name.substring(0, index + suffix.length());
+//			return mixedCaseProxy.substring(0, index + suffix.length());
+//			else {
+//				return mixedCaseProxy.substring(0, index + suffix.length());
+//
+////			if (name.endsWith(suffix))
+////				return name;
+//		}
+//		return null;
+//	}
+		/*
+		 * We get names of files, not directories, for zips
+		 * for file system, we get both
+		 * So a bin must be extracted from file names.
+		 * Two cases: b
+		 */
+	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
+			Set<String> nameSet = aRoot.getEntryNames();
+			for (String name:nameSet) {
+				int index = name.indexOf(suffix);
+				if (index < 0)
+					continue;
+				int intermediateIndex = name.indexOf(suffix + "/");
+				boolean nameEndsWithSuffix = name.length() == index + suffix.length();
+								
+				// if name ends with suffix we should proceed, or if suffix/ is an intermediate directory in zip file path we should proceed
+//				if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
+//				if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
+				if (
+						intermediateIndex < 0 // not an intermediate directory)
+						&& !nameEndsWithSuffix // not an end name
+						)
+
+					continue; // in case src and bin are not followed by / and are in intermediate directories
+//				if (name.charAt(0) == '_')
+//					continue;
+//				if (name.indexOf("_macos") != -1)
+//					continue;
+				FileProxy proxy = aRoot.getFileEntry(name);
+				String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
+				if (nameEndsWithSuffix)
+			
+//				return name.substring(0, index + suffix.length());
+					return mixedCaseProxy.substring(0, index + suffix.length());
+				else 
+					return mixedCaseProxy.substring(0, intermediateIndex + suffix.length());
+
+//				if (name.endsWith(suffix))
+//					return name;
+			}
+			return null;
 		}
-		return null;
-	}
 	
 	
 	@Override

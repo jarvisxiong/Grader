@@ -20,6 +20,8 @@ public class StaticConfigurationUtils {
 	public static final String AUTO_RUN = "autoRun";
 	public static final String LOAD_CLASSES = "loadClasses";
 	public static final String ALLOW_COMPILE_CLASSES = "compileMissingObjectCode";
+	public static final String PRE_COMPILE_CLASSES = "precompileMissingObjectCode";
+
 	public static final String FORCE_COMPILE_CLASSES = "forceCompile";
 
 	public static final String PRIVACY = "privacy";
@@ -67,6 +69,11 @@ public class StaticConfigurationUtils {
 	public static boolean getAllowCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 
 		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, ALLOW_COMPILE_CLASSES, false);
+		
+	}
+	public static boolean getPrecompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+
+		return  getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, PRE_COMPILE_CLASSES, false);
 		
 	}
 	public static boolean getForceCompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
