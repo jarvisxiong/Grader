@@ -152,10 +152,26 @@ There is, somewhat, an order to them.
 * FrameworkExample.java
 * GraderWithProjectRequirementsExample.java
 * GraderWithNewGUIExample.java
-* DemoAndTest.java
-* CDemoAndTest.java (for C programs)
 
-To run CDemoAndTest, you need to set the path, include and lib variables.
+# Demo and Test
+
+The examples have been suprseeded by demo and test programs. 
+The demo programs show the various features of the grader using Java, C and distributed programs.
+The test programs are for the grader developer, they validate that chages made to the grader have
+not broken the demos. Thus, for each example, there are three kinds of programs: One that simply demos
+the example and is called a demoer and tester, 
+one that generates correct state for the example (after say the example has been changed) and is called a correct state generator, 
+and one that tests to see if some change to the grader is consistent with the correct state generated befoe
+the change and is called a tester. 
+
+In demoAndTest.basic package are the three versions for an example based on Palindrome checking. 
+In demoAndTest.multiparadigm package are three subpackages, each of which takes the same basic example (computing mixed arithmetic)
+and grades, Java and distributed implementations of the example. As the grading code looks at the I/O, it is shared
+by the three implementations.
+
+The subpakages have "obvious" names. For example, the C subpackage is: demoAndTest.multiparadigm.C.
+
+To run the C examples, you need to set the path, include and lib variables.
 
 Here are example values:
 64 bit Windows 8.1 
