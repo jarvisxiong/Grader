@@ -195,10 +195,12 @@ public class ProcessRunner implements Runner {
 	 *            The timeout, in seconds. Set to -1 for no timeout
 	 * @return A RunningProject object which you can use for synchronization and
 	 *         acquiring output
+	 * @param aDynamicInputProvider
+	 *            An object that provides input       
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public RunningProject run(String input, String[] args, int timeout)
+	public RunningProject run(String input, String[] args, int timeout, OutputBasedInputGenerator aDynamicInputProvider )
 			throws NotRunnableException {
 		// String[] command =
 		// StaticConfigurationUtils.getExecutionCommand(folder,
@@ -210,6 +212,15 @@ public class ProcessRunner implements Runner {
 				input, args, timeout);
 		else
 			return runDefaultProcessTeam(aProcessTeams, input, args, timeout);
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see framework.execution.Runner#run(java.lang.String, java.lang.String[], int)
+	 */
+	@Override
+	public RunningProject run(String input, String[] args, int timeout)
+			throws NotRunnableException {
+		return run(input, args, timeout, null);
 	}
 	
 	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout)

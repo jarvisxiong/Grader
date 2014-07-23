@@ -23,4 +23,8 @@ public interface Runner {
 	TimedProcess run(RunningProject aRunner, String[] command, String input, String[] args,
 			int timeout, String aProcess, boolean wait) throws NotRunnableException;
 
+	RunningProject run(String input,
+			String[] args,
+			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException;
+
 }

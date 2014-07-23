@@ -265,5 +265,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
 		return null;
 	}
 
+	@Override
+	public RunningProject run(String input, String[] args, int timeout,
+			OutputBasedInputGenerator aDynamicInputProvider)
+			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
