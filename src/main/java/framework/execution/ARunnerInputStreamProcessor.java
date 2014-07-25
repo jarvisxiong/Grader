@@ -25,7 +25,7 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 		onlyProcess = anOnlyProcess;
 	}
 	
-	public void nextInput(String anInput) {
+	public void newInput(String anInput) {
 		try {
 			inputWriter.write(anInput);
 			inputWriter.flush();

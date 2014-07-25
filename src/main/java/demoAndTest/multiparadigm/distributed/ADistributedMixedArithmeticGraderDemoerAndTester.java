@@ -36,7 +36,7 @@ public class ADistributedMixedArithmeticGraderDemoerAndTester extends ACMixedAri
 	public static final  String TEST_DIR = "Test Data/Test 734";
 	public static final  String CORRECT_DIR = "Test Data/Correct 734";
 	public static final String COURSE_NO = "Comp734";
-	public static final int LONG_PAUSE_SECONDS = 120; // distributed, takes along time
+	public static final int LONG_PAUSE_SECONDS = 160; // distributed, takes along time
 
 
 

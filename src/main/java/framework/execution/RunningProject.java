@@ -18,7 +18,7 @@ import wrappers.framework.project.ProjectWrapper;
  * execution. This provides support for synchronization via semaphores and
  * output manipulation.
  */
-public class RunningProject {
+public class RunningProject implements ProcessInputListener {
 
 	private Semaphore runningState = new Semaphore(1);
 	protected Map<String, String> processToOutput = new HashMap();
@@ -35,8 +35,14 @@ public class RunningProject {
 	String outputFileName;
 	StringBuffer projectOutput;
 	SakaiProject project;
+	OutputBasedInputGenerator outputBasedInputGeneraor; // actuall all we need is an output consumer
+	RunnerInputStreamProcessor processIn;
 
-	public RunningProject(Project aProject) {
+	
+
+
+
+	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator) {
 		exception = null;
 		output = null;
 		if (aProject != null && aProject instanceof ProjectWrapper) {
@@ -44,6 +50,10 @@ public class RunningProject {
 			project = projectWrapper.getProject();
 			outputFileName = project.getOutputFileName();
 			projectOutput = project.getCurrentOutput();
+		}
+		outputBasedInputGeneraor = anOutputBasedInputGenerator;
+		if (outputBasedInputGeneraor != null) {
+			outputBasedInputGeneraor.addProcessInputListener(this); // maybe this should be in another class
 		}
 	}
 	
@@ -62,6 +72,9 @@ public class RunningProject {
 			this.output = "";
 		} 
 		this.output += newVal;
+		if (outputBasedInputGeneraor != null) {
+			outputBasedInputGeneraor.newOutputLine(null, newVal);
+		}
 		
 		outputAndErrors += newVal;
 		
@@ -75,6 +88,9 @@ public class RunningProject {
 		
 		processOutput  += newVal;		
 		processToOutput.put(aProcess, processOutput);
+		if (outputBasedInputGeneraor != null) {
+			outputBasedInputGeneraor.newOutputLine(aProcess, newVal);
+		}
 		appendErrorAndOutput(aProcess, newVal);		
 	}
 	public void appendErrorOutput(String aProcess, String newVal) {
@@ -263,6 +279,31 @@ public class RunningProject {
 		}
 		appendCumulativeOutput();
 		return output;
+	}
+
+
+
+	@Override
+	public void newInput(String aProcessName, String anInput) {
+		processIn.newInput(anInput);
+		
+	}
+
+
+
+	@Override
+	public void inputTerminated(String aProcessName) {
+		processIn.terminateInput();
+		
+	}
+	public RunnerInputStreamProcessor getProcessIn() {
+		return processIn;
+	}
+
+
+
+	public void setProcessIn(RunnerInputStreamProcessor processIn) {
+		this.processIn = processIn;
 	}
 
 }

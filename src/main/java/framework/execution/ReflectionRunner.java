@@ -51,7 +51,7 @@ public class ReflectionRunner implements Runner {
      */
     @Override
     public RunningProject run(final String input, final String[] args, int timeout) throws NotRunnableException {
-        final RunningProject runner = new RunningProject(project);
+        final RunningProject runner = new RunningProject(project, null);
         try {
             runner.start();
         } catch (InterruptedException e) {
@@ -136,21 +136,21 @@ public class ReflectionRunner implements Runner {
 
 	@Override
 	public RunningProject run(String[] command, String input, String[] args,
-			int timeout) throws NotRunnableException {
+			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout) throws NotRunnableException {
+			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public TimedProcess run(RunningProject aRunner, String[] command,
-			String input, String[] args, int timeout, String aProcess, boolean wait)
+			String input, String[] args, int timeout, String aProcess, boolean wait, OutputBasedInputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;

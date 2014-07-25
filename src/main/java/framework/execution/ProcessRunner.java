@@ -44,7 +44,7 @@ import grader.trace.execution.UserProcessExecutionTimedOut;
  * This runs the program in a new process.
  */
 public class ProcessRunner implements Runner {
-
+	public static final int PORT_RELEASE_TIME = 3000;
 	private Map<String, String> entryPoints;
 	protected Map<String, RunnerErrorOrOutStreamProcessor> processToOut = new HashMap();
 	protected Map<String, RunnerErrorOrOutStreamProcessor> processToErr = new HashMap();
@@ -195,12 +195,12 @@ public class ProcessRunner implements Runner {
 	 *            The timeout, in seconds. Set to -1 for no timeout
 	 * @return A RunningProject object which you can use for synchronization and
 	 *         acquiring output
-	 * @param aDynamicInputProvider
+	 * @param anOutputBasedInputGenerator
 	 *            An object that provides input       
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public RunningProject run(String input, String[] args, int timeout, OutputBasedInputGenerator aDynamicInputProvider )
+	public RunningProject run(String input, String[] args, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator )
 			throws NotRunnableException {
 		// String[] command =
 		// StaticConfigurationUtils.getExecutionCommand(folder,
@@ -209,9 +209,9 @@ public class ProcessRunner implements Runner {
 		List<String> aProcessTeams = executionSpecification.getProcessTeams();
 		if (aProcessTeams.isEmpty())		
 			return run(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT),
-				input, args, timeout);
+				input, args, timeout, anOutputBasedInputGenerator);
 		else
-			return runDefaultProcessTeam(aProcessTeams, input, args, timeout);
+			return runDefaultProcessTeam(aProcessTeams, input, args, timeout, anOutputBasedInputGenerator);
 	}
 	/*
 	 * (non-Javadoc)
@@ -223,7 +223,7 @@ public class ProcessRunner implements Runner {
 		return run(input, args, timeout, null);
 	}
 	
-	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout)
+	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 	
 		String firstTeam = aProcessTeams.get(0);
@@ -237,7 +237,7 @@ public class ProcessRunner implements Runner {
 		for (String aProcess:aProcesses)
 			aProcessToInput.put(aProcess, "");
 		aProcessToInput.put(aTerminatingProcesses.get(0), input);
-		return run(firstTeam, aProcessToInput, timeout); //ignoring args, should have processToArgs in this method
+		return run(firstTeam, aProcessToInput, timeout, anOutputBasedInputGenerator); //ignoring args, should have processToArgs in this method
 		
 	}
 	
@@ -302,7 +302,7 @@ public class ProcessRunner implements Runner {
 	}
 
 	public RunningProject run(String aProcessTeam,
-			Map<String, String> aProcessToInput, int aTimeout)
+			Map<String, String> aProcessToInput, int aTimeout, OutputBasedInputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 //		executionSpecification = ExecutionSpecificationSelector
 //				.getExecutionSpecification();
@@ -312,7 +312,7 @@ public class ProcessRunner implements Runner {
 
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
-		runner = new RunningProject(project);
+		runner = new RunningProject(project, anOutputBasedInputGenerator);
 		acquireIOLocks();
 //		try {
 //			runner.start();
@@ -330,7 +330,7 @@ public class ProcessRunner implements Runner {
 				pendingProcesses.add(aProcess);
 				continue;
 			}
-			runTeamProcess(aProcess);
+			runTeamProcess(aProcess, anOutputBasedInputGenerator);
 
 			// List<String> basicCommand =
 			// StaticConfigurationUtils.getBasicCommand(aProcess);
@@ -382,6 +382,7 @@ public class ProcessRunner implements Runner {
 		waitForDynamicProcesses();
 		waitForStartedProcesses();
 		terminateTeam();
+		waitForPortsOfTerminatedProcessesToBeReleased();
 //		releaseTeamLocks();
 		// for (String
 		// aTerminatingProcess:anExecutionSpecification.getTerminatingProcesses(aProcessTeam))
@@ -404,8 +405,12 @@ public class ProcessRunner implements Runner {
 		// args, timeout);
 
 	}
+	
+	protected void waitForPortsOfTerminatedProcessesToBeReleased() {
+		ThreadSupport.sleep(PORT_RELEASE_TIME);
+	}
 
-	void runTeamProcess(String aProcess) {
+	protected void runTeamProcess(String aProcess, OutputBasedInputGenerator anOutputBasedInputGenerator) {
 		List<String> basicCommand = StaticConfigurationUtils
 				.getBasicCommand(aProcess);
 		String anEntryPoint = null;
@@ -441,7 +446,7 @@ public class ProcessRunner implements Runner {
 		String[] command = StaticConfigurationUtils.getExecutionCommand(
 				aProcess, folder, anEntryPoint, aClassWithEntryTag, anArgs);
 		TimedProcess aTimedProcess = run(runner, command,
-				processToInput.get(aProcess), anArgs, timeout, aProcess, false); // do
+				processToInput.get(aProcess), anArgs, timeout, aProcess, false, anOutputBasedInputGenerator); // do
 																					// not
 																					// wait
 																					// for
@@ -449,7 +454,7 @@ public class ProcessRunner implements Runner {
 																					// to
 																					// finish
 		nameToProcess.put(aProcess, aTimedProcess);
-		ThreadSupport.sleep(aSleepTime);
+		ThreadSupport.sleep(aSleepTime); // should be before and not after., so ports can be released, or maybe before and after
 		// some processes may be added dynamically on firing of events, will
 		// support them later
 	}
@@ -536,20 +541,20 @@ public class ProcessRunner implements Runner {
 
 	@Override
 	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout) throws NotRunnableException {
+			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
 		String[] command = StaticConfigurationUtils.getExecutionCommand(getFolder(),
 				anEntryPoint);
-		return run(command, input, args, timeout);
+		return run(command, input, args, timeout, aDynamicInputProvider);
 
 	}
 
 	public RunningProject run(String[] command, String input, String[] args,
-			int timeout) throws NotRunnableException {
-		RunningProject retVal = new RunningProject(project);
+			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+		RunningProject retVal = new RunningProject(project, null);
 
 		TimedProcess process = run(retVal, command, input, args, timeout,
-				MainClassFinder.MAIN_ENTRY_POINT, true);
+				MainClassFinder.MAIN_ENTRY_POINT, true, null);
 		return retVal;
 	}
 
@@ -559,7 +564,7 @@ public class ProcessRunner implements Runner {
 	@Override
 	public TimedProcess run(RunningProject runner, String[] command,
 			String input, String[] args, int timeout, String aProcessName,
-			boolean anOnlyProcess) throws NotRunnableException {
+			boolean anOnlyProcess, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
 			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
@@ -727,10 +732,12 @@ public class ProcessRunner implements Runner {
 			// a coordinator of various processes
 			// using the output of one process to influence the input of another
 			
-			RunnerInputStreamProcessor processIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
-			processToIn.put(aProcessName, processIn);
-			processIn.nextInput(input);
-			processIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
+			RunnerInputStreamProcessor aProcessIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
+			runner.setProcessIn(aProcessIn);
+			processToIn.put(aProcessName, aProcessIn);
+			aProcessIn.newInput(input);
+			if (anOutputBasedInputGenerator == null)
+			aProcessIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
 //			OutputStreamWriter processIn = new OutputStreamWriter(
 //					process.getOutputStream());
 //			

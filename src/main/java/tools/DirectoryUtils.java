@@ -123,7 +123,7 @@ public class DirectoryUtils {
 	}
 	
 	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
-				
+		boolean retVal = true;		
 		if (!correctDir.isDirectory() || ! testDir.isDirectory()) {
 			Tracer.error("test or corect dir not really directories");
 			return false;
@@ -133,25 +133,30 @@ public class DirectoryUtils {
 		if (correctChildren.length != testChildren.length) {
 			Tracer.error("correct and test dir not same size:" + correctDir.getAbsolutePath() + "(" + correctChildren.length + "," + testChildren.length + ")");
 			Tracer.info(DirectoryUtils.class, "Correct:" +  Common.toString(correctChildren) + " Test:" + Common.toString(testChildren));
-			return false;
+			retVal = false;
+//			return false;
 			
 		}
 		for (File correctChild:correctChildren) {
 			File testChild = new File (testDir,  correctChild.getName());
 			if (!testChild.exists()) {
 				Tracer.error("test file does not exist:" + testChild.getName());
-				return false;
+				retVal = false;
+//				return false;
 			}
 			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 				continue;
 			if (correctChild.isDirectory()) {
 				if (!testChild.isDirectory()) {
 					Tracer.error("Test file is not a directory:" + testChild.getName());
-					return false;
+					retVal = false;
+//					return false;
 				}
-					if (!compare(correctChild, testChild, ignoreSuffixes))
-						return false;
-					else
+					if (!compare(correctChild, testChild, ignoreSuffixes)) {
+						retVal = false;
+						continue;
+//						return false;
+					} else
 						continue;
 				
 			}
@@ -163,14 +168,16 @@ public class DirectoryUtils {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
 				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
 				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
-				return false;
+				retVal = false;
+//				return false;
 			} else {
 				Tracer.info(DirectoryUtils.class, "Equal to test file:" + correctChild.getAbsolutePath());
 			}
 			
 			
-		}			
-		return true;
+		}		
+		return retVal;
+//		return true;
 	}
 	
 	public static void main (String[] args) {

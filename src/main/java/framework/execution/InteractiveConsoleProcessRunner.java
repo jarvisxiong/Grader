@@ -98,13 +98,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
      */
     @Override
 	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout) throws NotRunnableException {
+			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
     	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
-    	return run(command, input, args, timeout);
+    	return run(command, input, args, timeout, null);
 	}
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
+    	return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout, null);
 //    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //    	return run(command, input, args, timeout);
     	
@@ -184,8 +184,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	@Override
 	public RunningProject run(String[] command, String input, String[] args,
-			int timeout) throws NotRunnableException {
-		 final RunningProject runner = new RunningProject(project);
+			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+		 final RunningProject runner = new RunningProject(project, null);
 
 	        try {
 //	            runner.start();
@@ -259,7 +259,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	@Override
 	public TimedProcess run(RunningProject aRunner, String[] command,
-			String input, String[] args, int timeout, String aProcess, boolean wait)
+			String input, String[] args, int timeout, String aProcess, boolean wait, OutputBasedInputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
