@@ -8,6 +8,7 @@ import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
+import gradingTools.comp110_inc.assignment1.testcases.IncrementalInputPromptTestCase;
 
 public class IncrementalInputAssignment1Requirements extends FrameworkProjectRequirements {
 	public IncrementalInputAssignment1Requirements() {
@@ -18,7 +19,7 @@ public class IncrementalInputAssignment1Requirements extends FrameworkProjectReq
 		addFeature("Contains a main method", 10, new MainMethodTestCase());
 
 		// Checks for prompts
-		addFeature("Prompts for inputs", 10, new PromptTestCase());
+		addFeature("Prompts for inputs", 10, new IncrementalInputPromptTestCase());
 
 		// Combines Taking in Int and Double together into one test case
 		addFeature("Takes in Double and Integer", 10, new TakeNumberTestCase());

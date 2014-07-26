@@ -1,7 +1,6 @@
-package gradingTools.comp110_inc.assignment1;
+package gradingTools.comp110_inc.assignment1.testcases;
 
 import framework.execution.AnAbstractOutputBasedInputGenerator;
-import gradingTools.comp110_2.assignment1.testcases.IncrementalInputPromptTestCase;
 
 public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutputBasedInputGenerator implements OutputBasedMixedArithmeticInputGenerator{
 	protected Integer intInput;

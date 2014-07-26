@@ -1,4 +1,4 @@
-package gradingTools.comp110_2.assignment1.testcases;
+package gradingTools.comp110_inc.assignment1.testcases;
 
 import framework.execution.NotRunnableException;
 import framework.execution.OutputBasedInputGenerator;
@@ -8,8 +8,6 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import gradingTools.comp110_inc.assignment1.AnOutputBasedMixedArithmeticInputGenerator;
-import gradingTools.comp110_inc.assignment1.OutputBasedMixedArithmeticInputGenerator;
 import gradingTools.utils.RunningProjectUtils;
 
 public class IncrementalInputPromptTestCase extends BasicTestCase {
