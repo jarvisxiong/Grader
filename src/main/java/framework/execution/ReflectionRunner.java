@@ -135,31 +135,39 @@ public class ReflectionRunner implements Runner {
     }
 
 	@Override
-	public RunningProject run(String[] command, String input, String[] args,
-			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+			String[] args, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+			String[] args, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public TimedProcess run(RunningProject aRunner, String[] command,
-			String input, String[] args, int timeout, String aProcess, boolean wait, OutputBasedInputGenerator anOutputBasedInputGenerator)
+	public TimedProcess run(RunningProject aRunner, OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String[] command, String input, String[] args, int timeout, String aProcess, boolean wait)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RunningProject run(String input, String[] args, int timeout,
-			OutputBasedInputGenerator aDynamicInputProvider)
+	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String input, String[] args,
+			int timeout)
 			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RunningProject run(
+			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}

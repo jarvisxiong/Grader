@@ -1,6 +1,7 @@
-package gradingTools.comp110_2.assignment1;
+package gradingTools.comp110_inc.assignment1;
 
 import framework.execution.AnAbstractOutputBasedInputGenerator;
+import gradingTools.comp110_2.assignment1.testcases.IncrementalInputPromptTestCase;
 
 public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutputBasedInputGenerator implements OutputBasedMixedArithmeticInputGenerator{
 	protected Integer intInput;
@@ -8,6 +9,7 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 //	protected StringBuilder output;
 	protected boolean foundIntPrompt;
 	protected boolean foundDoublePrompt;
+	protected boolean foundOutput;
 	public AnOutputBasedMixedArithmeticInputGenerator(Integer anIntInput, Double aDoubleInput) {
 		intInput = anIntInput;
 		doubleInput = aDoubleInput;
@@ -19,10 +21,29 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 		return (intInput == null || foundIntPrompt()) &&
 				(doubleInput == null) || foundDoublePrompt();
 	}
+	protected void maybeTerminate(String aProcessName) {
+		setTerminatedSuccessfully(terminationConditionMet());
+		if (isTerminatedSuccessfully()) {
+			notifyTermination(aProcessName);
+		}
+	}
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
-//		if (Prompot)
-//		output.append(anOutputLine);
+		foundOutput = true;
+		if (IncrementalInputPromptTestCase.hasIntegerPrompt(anOutputLine)) {
+			foundIntPrompt = true;
+			if (intInput != null)
+				notifyNewInput(aProcessName, ""+intInput);
+			
+		} else if (IncrementalInputPromptTestCase.hasDoublePrompt(anOutputLine)) {
+			foundDoublePrompt = true;
+			if (doubleInput != null)
+				notifyNewInput(aProcessName, ""+doubleInput);
+			
+		}
+		maybeTerminate(aProcessName);
+		
+
 		
 	}
 	@Override
@@ -32,6 +53,10 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 	@Override
 	public boolean foundDoublePrompt() {
 		return foundDoublePrompt;
+	}
+	@Override
+	public boolean foundOutput() {
+		return foundOutput;
 	}
 	
 

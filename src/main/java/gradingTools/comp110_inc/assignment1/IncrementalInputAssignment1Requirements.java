@@ -1,4 +1,4 @@
-package gradingTools.comp110_2.assignment1;
+package gradingTools.comp110_inc.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.ManualTestCase;

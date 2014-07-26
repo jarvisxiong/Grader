@@ -1,6 +1,7 @@
 package gradingTools.utils;
 
 import framework.execution.NotRunnableException;
+import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.project.Project;
 
@@ -17,13 +18,22 @@ public class RunningProjectUtils {
 			throws NotRunnableException {
 		return runProject(project, "\n", timeout, inputs);
 	}
+	
+	public static RunningProject runProject(Project project, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String... inputs)
+			throws NotRunnableException {
+		return runProject(project, "\n", timeout, anOutputBasedInputGenerator, inputs);
+	}
+	public static RunningProject runProject(Project project, String inputSeparator, int timeout, String... inputs) throws NotRunnableException {
+		return runProject(project, timeout, null, inputs);
+	}
 
 	/*
 	 * Runs the project with the inputs separated by the given separator string
 	 * 
 	 * The running project also timesout based on the given timeout
 	 */
-	public static RunningProject runProject(Project project, String inputSeparator, int timeout, String... inputs) throws NotRunnableException {
+	public static RunningProject runProject(Project project, String inputSeparator, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator, String... inputs) throws NotRunnableException {
 		String allInputsStr = "";
 		for (int i = 0; i < inputs.length; i++) {
 			if (i > 0) {
@@ -31,7 +41,7 @@ public class RunningProjectUtils {
 			}
 			allInputsStr += inputs[i];
 		}
-		return project.launch(allInputsStr, timeout);
+		return project.launch(anOutputBasedInputGenerator, allInputsStr, timeout);
 	}
 
 }

@@ -1,8 +1,11 @@
 package framework.project;
 
 import framework.execution.NotRunnableException;
+import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
+
 import org.joda.time.DateTime;
+
 import scala.Option;
 import util.trace.TraceableLog;
 
@@ -32,8 +35,9 @@ public interface Project {
     /**
      * Attempts to launch the project in a new process
      */
-    public RunningProject launch(String input, int timeout) throws NotRunnableException;
+    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
+    public RunningProject launch(String input, int timeout) throws NotRunnableException;
 
     public RunningProject launchInteractive() throws NotRunnableException;
 

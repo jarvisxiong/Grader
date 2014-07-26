@@ -70,7 +70,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 
 //        String[] command = {"Test Data/Test C/Assignment1/All, Correct (acorrect)/Submission attachment(s)/program1/Program1/src/Simple.exe"};
         Runner processRunner = new ProcessRunner(new File(workingDirectory));
-        return processRunner.run(command, "", args, 3000, null);
+        return processRunner.run(null, command, "", args, 3000);
 //		Common.exec(command);
 
 //        Common.exec(command);
@@ -117,7 +117,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
        Runner processRunner = new ProcessRunner(buildFolder);
        String[] args = {};
        String[] command =  commandList.toArray(args);
-       return processRunner.run(command, "", args, 3000, null);
+       return processRunner.run(null, command, "", args, 3000);
 		
 //		int extensionIndex = aFileName.indexOf(AJavaRootCodeFolder.getSourceFileSuffix());
 //        if (extensionIndex < 1)

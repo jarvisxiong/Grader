@@ -183,24 +183,30 @@ public class ProcessRunner implements Runner {
 			throws NotRunnableException {
 		return run(input, new String[] {}, timeout);
 	}
+	
+	@Override
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout)
+			throws NotRunnableException {
+		return run(anOutputBasedInputGenerator, input, new String[] {}, timeout);
+	}
 
 	/**
 	 * This runs the project providing input and arguments
-	 * 
 	 * @param input
 	 *            The input to use as standard in for the process
 	 * @param args
 	 *            The arguments to pass in
 	 * @param timeout
 	 *            The timeout, in seconds. Set to -1 for no timeout
-	 * @return A RunningProject object which you can use for synchronization and
-	 *         acquiring output
 	 * @param anOutputBasedInputGenerator
 	 *            An object that provides input       
+	 * 
+	 * @return A RunningProject object which you can use for synchronization and
+	 *         acquiring output
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public RunningProject run(String input, String[] args, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator )
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, String[] args, int timeout )
 			throws NotRunnableException {
 		// String[] command =
 		// StaticConfigurationUtils.getExecutionCommand(folder,
@@ -208,8 +214,8 @@ public class ProcessRunner implements Runner {
 		// return run(command, input, args, timeout);
 		List<String> aProcessTeams = executionSpecification.getProcessTeams();
 		if (aProcessTeams.isEmpty())		
-			return run(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT),
-				input, args, timeout, anOutputBasedInputGenerator);
+			return run(anOutputBasedInputGenerator,
+				getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
 		else
 			return runDefaultProcessTeam(aProcessTeams, input, args, timeout, anOutputBasedInputGenerator);
 	}
@@ -220,7 +226,7 @@ public class ProcessRunner implements Runner {
 	@Override
 	public RunningProject run(String input, String[] args, int timeout)
 			throws NotRunnableException {
-		return run(input, args, timeout, null);
+		return run(null, input, args, timeout);
 	}
 	
 	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator)
@@ -445,8 +451,8 @@ public class ProcessRunner implements Runner {
 		int aSleepTime = executionSpecification.getSleepTime(aProcess);
 		String[] command = StaticConfigurationUtils.getExecutionCommand(
 				aProcess, folder, anEntryPoint, aClassWithEntryTag, anArgs);
-		TimedProcess aTimedProcess = run(runner, command,
-				processToInput.get(aProcess), anArgs, timeout, aProcess, false, anOutputBasedInputGenerator); // do
+		TimedProcess aTimedProcess = run(runner, anOutputBasedInputGenerator,
+				command, processToInput.get(aProcess), anArgs, timeout, aProcess, false); // do
 																					// not
 																					// wait
 																					// for
@@ -540,21 +546,21 @@ public class ProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+			String[] args, int timeout) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
 		String[] command = StaticConfigurationUtils.getExecutionCommand(getFolder(),
 				anEntryPoint);
-		return run(command, input, args, timeout, aDynamicInputProvider);
+		return run(aDynamicInputProvider, command, input, args, timeout);
 
 	}
 
-	public RunningProject run(String[] command, String input, String[] args,
-			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+			String[] args, int timeout) throws NotRunnableException {
 		RunningProject retVal = new RunningProject(project, null);
 
-		TimedProcess process = run(retVal, command, input, args, timeout,
-				MainClassFinder.MAIN_ENTRY_POINT, true, null);
+		TimedProcess process = run(retVal, null, command, input, args,
+				timeout, MainClassFinder.MAIN_ENTRY_POINT, true);
 		return retVal;
 	}
 
@@ -562,9 +568,9 @@ public class ProcessRunner implements Runner {
 //	final Semaphore errorSemaphore = new Semaphore(1);
 
 	@Override
-	public TimedProcess run(RunningProject runner, String[] command,
-			String input, String[] args, int timeout, String aProcessName,
-			boolean anOnlyProcess, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+	public TimedProcess run(RunningProject runner, OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String[] command, String input, String[] args, int timeout,
+			String aProcessName, boolean anOnlyProcess) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
 			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();

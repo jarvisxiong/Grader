@@ -32,7 +32,7 @@ public abstract class AnAbstractOutputBasedInputGenerator implements OutputBased
 		}
 	}
 	
-	public void notifyTermination(String aProcessName, String anInput) {
+	public void notifyTermination(String aProcessName) {
 		for (ProcessInputListener aListener:processInputListeners) {
 			aListener.inputTerminated(aProcessName);
 		}

@@ -178,7 +178,12 @@ public class StandardProject implements Project {
     }
 
     @Override
-    public RunningProject launch(String input, int timeout) throws NotRunnableException {
+    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
+    }
+    
+    @Override
+    public RunningProject launch( String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, timeout);
     }
 

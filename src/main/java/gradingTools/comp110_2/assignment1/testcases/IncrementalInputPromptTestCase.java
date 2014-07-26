@@ -1,12 +1,15 @@
 package gradingTools.comp110_2.assignment1.testcases;
 
 import framework.execution.NotRunnableException;
+import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
+import gradingTools.comp110_inc.assignment1.AnOutputBasedMixedArithmeticInputGenerator;
+import gradingTools.comp110_inc.assignment1.OutputBasedMixedArithmeticInputGenerator;
 import gradingTools.utils.RunningProjectUtils;
 
 public class IncrementalInputPromptTestCase extends BasicTestCase {
@@ -22,9 +25,22 @@ public class IncrementalInputPromptTestCase extends BasicTestCase {
 		return output.toLowerCase().contains("decimal") || output.toLowerCase().contains("double");
 	}
 
-	private TestCaseResult testForIntegerPrompt(String output) {
+	private TestCaseResult testForIntegerPrompt(OutputBasedMixedArithmeticInputGenerator anOutputBasedInputGenerator) {
 //		if (output.trim().toLowerCase().contains("int"))
-		if (hasIntegerPrompt(output))
+		if (anOutputBasedInputGenerator.foundIntPrompt())
+			return pass();
+		else
+			return fail("Program does not contain prompt for integer");
+	}
+
+	private TestCaseResult testForDoublePrompt(OutputBasedMixedArithmeticInputGenerator anOutputBasedInputGenerator) {
+		if (anOutputBasedInputGenerator.foundDoublePrompt())
+			return pass();
+		else
+			return fail("Program does not contain prompt for double");
+	}
+	private TestCaseResult testForIntegerPrompt(String output) {
+		if (output.trim().toLowerCase().contains("int"))
 			return pass();
 		else
 			return fail("Program does not contain prompt for integer");
@@ -43,34 +59,58 @@ public class IncrementalInputPromptTestCase extends BasicTestCase {
 		try {
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			String noInputPrompt = noInputRunningProject.await();
-
-			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1");
-			String integerInputPrompt = integerInputRunningProject.await();
-			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
-
-			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1.4");
-			String doubleInputPrompt = doubleInputRunningProject.await();
-			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
+//			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			OutputBasedMixedArithmeticInputGenerator anOutputBasedInputGenerator = new AnOutputBasedMixedArithmeticInputGenerator(1, 1.4);
+			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 1,
+					anOutputBasedInputGenerator);
+//			String noInputPrompt = noInputRunningProject.await();
+//
+//			// Get the output when we have integer input from the user
+//			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
+//					"1");
+//			String integerInputPrompt = integerInputRunningProject.await();
+//			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
+//
+//			// Get the output when we have double input from the user
+//			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
+//					"1.4");
+//			String doubleInputPrompt = doubleInputRunningProject.await();
+//			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
 
 			// See if the initial prompt is an int or double prompt
-			boolean hasIntPrompt = testForIntegerPrompt(noInputPrompt).getPercentage() > 0;
-			boolean hasDoublePrompt = testForDoublePrompt(noInputPrompt).getPercentage() > 0;
+			boolean hasIntPrompt = testForIntegerPrompt(anOutputBasedInputGenerator).getPercentage() > 0;
+			boolean hasDoublePrompt = testForDoublePrompt(anOutputBasedInputGenerator).getPercentage() > 0;
 			boolean samePromptForBoth = hasIntPrompt && hasDoublePrompt;
-
+			String noInputPrompt = "";
+			String integerInputPrompt = "";
+			String doubleInputPrompt = "";
 			// If we have not seen prompts for ints or doubles, check if they
 			// show up after giving input
+			if (!hasIntPrompt || !hasDoublePrompt) {
+				// Get the output when we have no input from the user
+				RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+				 noInputPrompt = noInputRunningProject.await();
+			}
+			
 			if (!hasIntPrompt) {
+				// Get the output when we have double input from the user
+				RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
+						"1.4");
+				 doubleInputPrompt = doubleInputRunningProject.await();
+				doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
+
 				hasIntPrompt = testForIntegerPrompt(doubleInputPrompt).getPercentage() > 0;
 			}
 			if (!hasDoublePrompt) {
+				// Get the output when we have integer input from the user
+				RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
+						"1");
+				 integerInputPrompt = integerInputRunningProject.await();
+				integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
 				hasDoublePrompt = testForDoublePrompt(integerInputPrompt).getPercentage() > 0;
+
 			}
+			
 
 			// Create an error message based on our findings
 			String errorMessage = "";
@@ -94,8 +134,11 @@ public class IncrementalInputPromptTestCase extends BasicTestCase {
 
 			if (credit == 1.0) {
 				return pass();
-			} else if ((noInputPrompt.length()) > 0
-					&& ((integerInputPrompt.length() > 0) || (doubleInputPrompt.length() > 0))) {
+//			} else if ((noInputPrompt.length()) > 0
+//					&& ((integerInputPrompt.length() > 0) || (doubleInputPrompt.length() > 0))) {
+//				throw new NotAutomatableException();
+//			} else {
+			} else if ((noInputPrompt.length() <= 0 && integerInputPrompt.length() <= 0 && doubleInputPrompt.length() <=0) ) {
 				throw new NotAutomatableException();
 			} else {
 				return partialPass(credit, errorMessage);

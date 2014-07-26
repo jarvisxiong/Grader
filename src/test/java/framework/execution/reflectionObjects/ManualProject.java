@@ -1,6 +1,7 @@
 package framework.execution.reflectionObjects;
 
 import framework.execution.NotRunnableException;
+import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.project.ClassesManager;
 import framework.project.Project;
@@ -71,4 +72,12 @@ public class ManualProject implements Project {
     public TraceableLog getTraceableLog() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+	@Override
+	public RunningProject launch(
+			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String input, int timeout) throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

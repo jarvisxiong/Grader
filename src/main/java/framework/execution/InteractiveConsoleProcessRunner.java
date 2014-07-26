@@ -97,14 +97,14 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-	public RunningProject run(String anEntryPoint, String input, String[] args,
-			int timeout, OutputBasedInputGenerator aDynamicInputProvider) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+			String[] args, int timeout) throws NotRunnableException {
     	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
-    	return run(command, input, args, timeout, null);
+    	return run(null, command, input, args, timeout);
 	}
     @Override
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	return run (entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout, null);
+    	return run (null, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
 //    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //    	return run(command, input, args, timeout);
     	
@@ -183,8 +183,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
     }
 
 	@Override
-	public RunningProject run(String[] command, String input, String[] args,
-			int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator) throws NotRunnableException {
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+			String[] args, int timeout) throws NotRunnableException {
 		 final RunningProject runner = new RunningProject(project, null);
 
 	        try {
@@ -258,17 +258,25 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public TimedProcess run(RunningProject aRunner, String[] command,
-			String input, String[] args, int timeout, String aProcess, boolean wait, OutputBasedInputGenerator anOutputBasedInputGenerator)
+	public TimedProcess run(RunningProject aRunner, OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String[] command, String input, String[] args, int timeout, String aProcess, boolean wait)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RunningProject run(String input, String[] args, int timeout,
-			OutputBasedInputGenerator aDynamicInputProvider)
+	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String input, String[] args,
+			int timeout)
 			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RunningProject run(
+			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
