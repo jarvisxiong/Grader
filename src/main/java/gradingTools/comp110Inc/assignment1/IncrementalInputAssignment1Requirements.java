@@ -1,4 +1,4 @@
-package gradingTools.comp110_inc.assignment1;
+package gradingTools.comp110Inc.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.ManualTestCase;
@@ -8,7 +8,7 @@ import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
-import gradingTools.comp110_inc.assignment1.testcases.IncrementalInputPromptTestCase;
+import gradingTools.comp110Inc.assignment1.testcases.IncrementalInputPromptTestCase;
 
 public class IncrementalInputAssignment1Requirements extends FrameworkProjectRequirements {
 	public IncrementalInputAssignment1Requirements() {

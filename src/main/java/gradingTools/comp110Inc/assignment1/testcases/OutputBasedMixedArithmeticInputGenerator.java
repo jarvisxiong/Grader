@@ -1,4 +1,4 @@
-package gradingTools.comp110_inc.assignment1.testcases;
+package gradingTools.comp110Inc.assignment1.testcases;
 
 import framework.execution.OutputBasedInputGenerator;
 

@@ -26,7 +26,9 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	}
 	
 	public void newInput(String anInput) {
+		
 		try {
+			System.out.println("Writing anInput:" + anInput);
 			inputWriter.write(anInput);
 			inputWriter.flush();
 		} catch (IOException e) {

@@ -1,4 +1,4 @@
-package gradingTools.comp110_inc.assignment1.testcases;
+package gradingTools.comp110Inc.assignment1.testcases;
 
 import framework.execution.AnAbstractOutputBasedInputGenerator;
 
@@ -17,8 +17,8 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 	}
 	
 	protected boolean terminationConditionMet() {
-		return (intInput == null || foundIntPrompt()) &&
-				(doubleInput == null) || foundDoublePrompt();
+		return ((intInput == null || foundIntPrompt())) &&
+				((doubleInput == null) || foundDoublePrompt());
 	}
 	protected void maybeTerminate(String aProcessName) {
 		setTerminatedSuccessfully(terminationConditionMet());
@@ -28,16 +28,19 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 	}
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
+		if (isTerminatedSuccessfully())
+			return; //ignore additional input
+		System.out.println("Got output" + anOutputLine );
 		foundOutput = true;
 		if (IncrementalInputPromptTestCase.hasIntegerPrompt(anOutputLine)) {
 			foundIntPrompt = true;
 			if (intInput != null)
-				notifyNewInput(aProcessName, ""+intInput);
+				notifyNewInput(aProcessName, intInput + "\n");
 			
 		} else if (IncrementalInputPromptTestCase.hasDoublePrompt(anOutputLine)) {
 			foundDoublePrompt = true;
 			if (doubleInput != null)
-				notifyNewInput(aProcessName, ""+doubleInput);
+				notifyNewInput(aProcessName, doubleInput + "\n");
 			
 		}
 		maybeTerminate(aProcessName);

@@ -102,4 +102,6 @@ public interface Project {
 
 	public void addCompiledClass(String newVal) ;
 
+	void appendCurrentInput(String aCurrentInput);
+
 }

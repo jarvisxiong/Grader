@@ -66,7 +66,7 @@ public class AProject implements Project {
     String[][] args;
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
-    String currentInput;
+    StringBuffer currentInput = new StringBuffer();
     String[] currentArgs;
 //    FileWriter outputFile ;
 
@@ -457,12 +457,18 @@ public class AProject implements Project {
 	}
     @Override
 	public String getCurrentInput() {
-		return currentInput;
+		return currentInput.toString();
 	}
     @Override
-	public void setCurrentInput(String currentInput) {
-		this.currentInput = currentInput;
+	public void setCurrentInput(String aCurrentInput) {
+		currentInput.setLength(0);
+		appendCurrentInput(aCurrentInput);
 	}
+    @Override
+  	public void appendCurrentInput(String aCurrentInput) {
+  		currentInput.append(aCurrentInput);
+    }
+  	
     @Override
 	public String[] getCurrentArgs() {
 		return currentArgs;

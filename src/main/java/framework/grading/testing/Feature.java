@@ -82,4 +82,7 @@ public class Feature extends Checkable {
         String ec = extraCredit ? " (Extra credit)" : "";
         return name + spaces.substring(name.length()) + "%.1f / " + score + ec;
     }
+    public String toString() {
+    	return name;
+    }
 }

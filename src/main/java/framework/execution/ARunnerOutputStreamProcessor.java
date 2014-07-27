@@ -16,13 +16,14 @@ public class ARunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcess
 
 @Override
 public void processLine(String s) {
-	runner.appendOutput(s + "\n"); // append cumulative output
-	if (processName != null) {
-		System.out.println(s);
+	System.out.println("Process line:" + s);
+	runner.appendCumulativeOutput(s + "\n"); // append cumulative output
+//	if (processName != null) {
+//		System.out.println(s);
 
 //		runner.appendErrorOutput(processName, s + "\n");
-		runner.appendOutput(processName, s + "\n"); // append this process output
-	}
+		runner.appendProcessOutput(processName, s + "\n"); // append this process output
+//	}
 	
 }
 		

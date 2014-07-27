@@ -557,9 +557,9 @@ public class ProcessRunner implements Runner {
 
 	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		RunningProject retVal = new RunningProject(project, null);
+		RunningProject retVal = new RunningProject(project, anOutputBasedInputGenerator);
 
-		TimedProcess process = run(retVal, null, command, input, args,
+		TimedProcess process = run(retVal, anOutputBasedInputGenerator, command, input, args,
 				timeout, MainClassFinder.MAIN_ENTRY_POINT, true);
 		return retVal;
 	}
@@ -741,10 +741,14 @@ public class ProcessRunner implements Runner {
 			RunnerInputStreamProcessor aProcessIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
 			runner.setProcessIn(aProcessIn);
 			processToIn.put(aProcessName, aProcessIn);
-			aProcessIn.newInput(input);
-			if (anOutputBasedInputGenerator == null)
-			aProcessIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
-//			OutputStreamWriter processIn = new OutputStreamWriter(
+			if (anOutputBasedInputGenerator == null) {
+				aProcessIn.newInput(input);
+				aProcessIn.terminateInput(); // for incremental input, allow it to be given afterwards and do not close
+			} else if (!input.isEmpty()) {
+				aProcessIn.newInput(input); // not sure an empty input makes a difference but just in case
+			}
+			
+			//			OutputStreamWriter processIn = new OutputStreamWriter(
 //					process.getOutputStream());
 //			
 //			processIn.write(input);

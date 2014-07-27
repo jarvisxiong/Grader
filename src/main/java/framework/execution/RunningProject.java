@@ -67,20 +67,23 @@ public class RunningProject implements ProcessInputListener {
 		runningState.release();
 	}
 
-	public void appendOutput(String newVal) {
+	public void appendCumulativeOutput(String newVal) {
 		if (this.output == null && newVal != null) {
 			this.output = "";
 		} 
 		this.output += newVal;
-		if (outputBasedInputGeneraor != null) {
-			outputBasedInputGeneraor.newOutputLine(null, newVal);
-		}
+//		if (outputBasedInputGeneraor != null) {
+//			outputBasedInputGeneraor.newOutputLine(null, newVal);
+//		}
 		
 		outputAndErrors += newVal;
 		
 	}
 	
-	public void appendOutput(String aProcess, String newVal) {
+	public void appendProcessOutput(String aProcess, String newVal) {
+//		if (aProcess == null) { // it will never be null
+//			return;
+//		}
 		String processOutput = processToOutput.get(aProcess);
 		if (processOutput == null && newVal != null) {
 			processOutput = "";
@@ -293,6 +296,7 @@ public class RunningProject implements ProcessInputListener {
 
 	@Override
 	public void inputTerminated(String aProcessName) {
+		System.out.println("Terminating input");
 		processIn.terminateInput();
 		
 	}
