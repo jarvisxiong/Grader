@@ -1,6 +1,7 @@
 package grader.project;
 
 import util.misc.Common;
+import wrappers.framework.project.ProjectWrapper;
 import grader.language.LanguageDependencyManager;
 import grader.project.file.ARootCodeFolder;
 
@@ -94,6 +95,38 @@ public class AClassesManager implements ClassesManager {
 		return null;
         
     }
+    @Override
+    public ClassDescription tagsToUniqueClassDescription(List<String> aTags) {
+		if (aTags == null)
+			return null;		
+		
+			Set<ClassDescription> aClassDescriptions = new HashSet();
+			aClassDescriptions.addAll(getClassDescriptions());
+			for (String aTag:aTags) {
+				Set<ClassDescription> aCurrentSet = tagToClassDescriptions(aTag);
+				aClassDescriptions.retainAll(aCurrentSet);
+			}			
+		
+			if (aClassDescriptions == null || aClassDescriptions.size() == 0) {
+				throw NoClassWithTag.newCase(this, aTags);				 
+			} else if (aClassDescriptions.size() > 1) {
+				 MultipleClassesWithTag.newCase(this, aTags); // do not give up
+			}
+			
+			int minTags = Integer.MAX_VALUE;
+			ClassDescription retVal = null;
+			// find the class with fewest tags that matches aTags
+			for (ClassDescription aClassDescription:aClassDescriptions) {
+				String[] aCurrentTags = aClassDescription.getTags();
+				if (aCurrentTags.length < minTags) {
+				 retVal = aClassDescription;
+				 minTags = aCurrentTags.length;
+				}				
+			}
+			
+			return retVal;
+	}
+    
 
 
     /* (non-Javadoc)

@@ -14,12 +14,43 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	Map<String, List<String>> processTeamToTerminatingProcesses = new HashMap();
 	Map<String, Integer> processToSleepTime = new HashMap();
 	Map<String, String> processToEntryTag = new HashMap();
+	Map<String, List<String>> processToEntryTags = new HashMap();
 	Map<String, String> processToEntryPoint = new HashMap();
 	Map<String, List<String>> processToArgs = new HashMap();
 	Map<String, List<String>> processToStartTags = new HashMap();
 	
 	public AnExecutionSpecification() {
 		
+	}
+	
+	protected void loadEntryTag(String aProcess) {
+		String entryTag = StaticConfigurationUtils.getEntryTag(aProcess);
+		if (entryTag != null)
+			processToEntryTag.put(aProcess, StaticConfigurationUtils.getEntryTag(aProcess));
+	}
+	
+	protected void loadStartTags(String aProcess) {
+		List<String> startTags = StaticConfigurationUtils.getProcessStartTags(aProcess);
+		if (startTags != null)
+			processToStartTags.put(aProcess, startTags);
+	}
+	
+	protected void loadEntryTags(String aProcess) {
+		List<String> entryTags = StaticConfigurationUtils.getEntryTags(aProcess);
+		if (entryTags  != null)
+			processToEntryTags.put(aProcess, entryTags);
+	}
+	
+	protected void loadSleepTime(String aProcess) {
+		Integer sleepTime = StaticConfigurationUtils.getSleepTime(aProcess);
+		if (sleepTime != null)
+			processToSleepTime.put(aProcess, sleepTime);
+	}
+	
+	protected void loadArgs(String aProcess) {
+		List<String> args = StaticConfigurationUtils.getProcessArgs(aProcess);
+		if (args != null)
+			processToArgs.put(aProcess, args);
 	}
 	
 	/* (non-Javadoc)
@@ -36,18 +67,27 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 			processTeamToTerminatingProcesses.put(aProcessTeam, aTerminatingProcesses);
 
 			for (String aProcess:aProcesses) {
-				Integer sleepTime = StaticConfigurationUtils.getSleepTime(aProcess);
-				if (sleepTime != null)
-					processToSleepTime.put(aProcess, sleepTime);
-				String entryTag = StaticConfigurationUtils.getEntryTag(aProcess);
-				if (entryTag != null)
-					processToEntryTag.put(aProcess, StaticConfigurationUtils.getEntryTag(aProcess));
-				List<String> args = StaticConfigurationUtils.getProcessArgs(aProcess);
-				if (args != null)
-					processToArgs.put(aProcess, args);
-				List<String> startTags = StaticConfigurationUtils.getProcessStartTags(aProcess);
-				if (startTags != null)
-					processToStartTags.put(aProcess, args);
+				loadSleepTime(aProcess);
+				loadEntryTag(aProcess);
+				loadEntryTags(aProcess);
+				loadStartTags(aProcess);
+				loadArgs(aProcess);
+//				Integer sleepTime = StaticConfigurationUtils.getSleepTime(aProcess);
+//				if (sleepTime != null)
+//					processToSleepTime.put(aProcess, sleepTime);
+				
+				
+//				
+//				String entryTag = StaticConfigurationUtils.getEntryTag(aProcess);
+//				if (entryTag != null)
+//					processToEntryTag.put(aProcess, StaticConfigurationUtils.getEntryTag(aProcess));
+				
+//				List<String> args = StaticConfigurationUtils.getProcessArgs(aProcess);
+//				if (args != null)
+//					processToArgs.put(aProcess, args);
+//				List<String> startTags = StaticConfigurationUtils.getProcessStartTags(aProcess);
+//				if (startTags != null)
+//					processToStartTags.put(aProcess, args);
 				
 			}
 		}
@@ -118,7 +158,7 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	 * @see grader.execution.ExecutionSpecification#getEntrytag(java.lang.String)
 	 */
 	@Override
-	public String getEntrytag(String aProcess) {
+	public String getEntryTag(String aProcess) {
 		return processToEntryTag.get(aProcess);
 	}
 	/* (non-Javadoc)
@@ -163,6 +203,17 @@ public class AnExecutionSpecification implements ExecutionSpecification {
 	@Override
 	public void setEntryPoint(String aProcess, String anEntryPoint) {
 		processToEntryPoint.put(aProcess, anEntryPoint);
+	}
+
+	@Override
+	public List<String> getEntryTags(String aProcess) {
+		return processToEntryTags.get(aProcess);
+	}
+
+	@Override
+	public void setEntryTags(String aProcess, List<String> anEntryTags) {
+		processToEntryTags.put(aProcess, anEntryTags);
+		
 	}
 
 }

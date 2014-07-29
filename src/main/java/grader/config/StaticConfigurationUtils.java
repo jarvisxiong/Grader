@@ -36,6 +36,7 @@ public class StaticConfigurationUtils {
 	public static final String PROCESS_TEAMS = "processTeams";
 
 	public static final String ENTRY_TAG = "entryTag";
+	public static final String ENTRY_TAGS = "entryTags";
 	public static final String SLEEP_TIME = "sleepTime";
 	public static final String ARGS = "args";
 	public static final String START_TAGS = "startTags";
@@ -220,6 +221,10 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 		return hasSubString(aProcessCommand, ENTRY_TAG);
 	}
 	
+	public static boolean hasEntryTags (List<String> aProcessCommand) {
+		return hasSubString(aProcessCommand, ENTRY_TAGS);
+	}
+	
 	public static boolean haArgs (String aProcessCommand) {
 		return aProcessCommand.contains(ARGS);
 	}
@@ -249,8 +254,11 @@ public static Integer getInheritedIntegerModuleProblemProperty(PropertiesConfigu
 		String command = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
 		if (anEntryPoint != null)
 		    command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
-		if (anEntryTagTarget != null)
-			command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);	
+		if (anEntryTagTarget != null) {
+			command = command.replace(toVariable(ENTRY_TAGS), anEntryTagTarget);
+			command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);	// will match tags also
+
+		}
 
 //		if (anEntryTagTarget != null)
 		command = command.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
@@ -419,6 +427,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 	
 	public static String getEntryTag(String aProcess) {
 		return getInheritedStringModuleProblemProperty(aProcess + "." + ENTRY_TAG , null);		
+	}
+	
+	public static List<String> getEntryTags(String aProcess) {
+		return getInheritedListModuleProblemProperty(aProcess + "." + ENTRY_TAGS);		
 	}
 	
 	public static String getEntryPoint(String aProcess) {

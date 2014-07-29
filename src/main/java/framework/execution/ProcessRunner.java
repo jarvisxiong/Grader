@@ -272,6 +272,30 @@ public class ProcessRunner implements Runner {
 		}
 		return null; // this should never be executed
 	}
+	
+	public String classWithEntryTagsTarget(List<String> anEntryTag) {
+		if (anEntryTag == null)
+			return "";
+		if (project instanceof ProjectWrapper) {
+			grader.project.Project graderProject = ((ProjectWrapper) project)
+					.getProject();
+			grader.project.ClassDescription aClassDescription = graderProject
+					.getClassesManager()
+					.tagsToUniqueClassDescription(anEntryTag);
+			return aClassDescription.getClassName();
+			// if (aClassDescriptions.size() == 0) {
+			// throw NoClassWithTag.newCase(this, anEntryTag);
+			// } else if (aClassDescriptions.size() > 0) {
+			// throw MultipleClassesWithTag.newCase(this, anEntryTag);
+			// }
+			// for (grader.project.ClassDescription
+			// aClassDescription:aClassDescriptions) {
+			// return aClassDescription.getClassName();
+			//
+			// }
+		}
+		return null; // this should never be executed
+	}
 
 	
 	void acquireIOLocks() {
@@ -434,8 +458,12 @@ public class ProcessRunner implements Runner {
 			getFolder(anEntryPoint);
 		}
 		String anEntryTag = null;
-		if (StaticConfigurationUtils.hasEntryTag(basicCommand))
-			anEntryTag = executionSpecification.getEntrytag(aProcess);
+		List<String> anEntryTags = null;
+		if (StaticConfigurationUtils.hasEntryTags(basicCommand))
+			anEntryTags = executionSpecification.getEntryTags(aProcess);
+		else if (StaticConfigurationUtils.hasEntryTag(basicCommand))
+			anEntryTag = executionSpecification.getEntryTag(aProcess); // this will match entryTag also, fix at some pt
+		
 		// if (anEntryTag != null ) {
 		// getFolder(anEntryTag);
 		// }
@@ -444,6 +472,10 @@ public class ProcessRunner implements Runner {
 			aClassWithEntryTag = classWithEntryTagTarget(anEntryTag);
 			if (aClassWithEntryTag == null)
 				throw TagNotFound.newCase(anEntryTag, this);
+		} else if (anEntryTags != null) {
+			aClassWithEntryTag = classWithEntryTagsTarget(anEntryTags);
+			if (aClassWithEntryTag == null)
+				throw TagNotFound.newCase(anEntryTags, this);
 		}
 		if (aClassWithEntryTag != null && folder == null) {
 

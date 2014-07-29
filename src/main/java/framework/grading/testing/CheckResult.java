@@ -131,6 +131,7 @@ public class CheckResult implements Describable {
      * @param result The result to save and process
      */
     public void save(TestCaseResult result) {
+    	if (result == null) return;
     	String testNotes =  result.getNotes();
     	if (!testNotes.isEmpty())
     		autoNotes += "  -- " + result.getNotes() + "\n";

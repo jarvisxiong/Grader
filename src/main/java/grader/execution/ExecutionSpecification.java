@@ -19,9 +19,15 @@ public interface ExecutionSpecification {
 
 	public abstract void setSleepTime(String aProcess, int aSleepTime);
 
-	public abstract String getEntrytag(String aProcess);
+	public abstract String getEntryTag(String aProcess);
 
 	public abstract void setEntryTag(String aProcess, String anEntryTag);
+	
+	public abstract List<String> getEntryTags(String aProcess);
+
+	public abstract void setEntryTags(String aProcess, List<String> anEntryTags);
+	
+	
 	
 	public abstract String getEntryPoint(String aProcess);
 

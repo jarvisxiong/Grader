@@ -33,4 +33,6 @@ public interface ClassesManager {
 
 	ClassDescription tagToUniqueClassDescription(String aTag);
 
+	ClassDescription tagsToUniqueClassDescription(List<String> aTags);
+
 }
