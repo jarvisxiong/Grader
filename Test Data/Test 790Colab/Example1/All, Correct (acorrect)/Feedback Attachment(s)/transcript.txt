@@ -1,0 +1,26 @@
+*****************************(Test IM)*****************************
+OUTPUT(Test IM)
+Tracer: showInfo = true
+Tracer: showInfo = true
+Tracer: showInfo = true
+Tracer: showInfo = true
+Tracer: showInfo = true
+
+ERRORS(Test IM)
+Exception in thread "main" java.lang.NoSuchMethodError: util.trace.TraceableInfo.setPrintSource(Z)V
+	at trace.echo.modular.EchoTracerSetter.setTraceParameters(EchoTracerSetter.java:32)
+	at trace.im.IMTracerSetter.traceIM(IMTracerSetter.java:24)
+	at im.SessionManagerServerStarter.main(SessionManagerServerStarter.java:22)
+Exception in thread "main" java.lang.NoSuchMethodError: util.trace.TraceableInfo.setPrintSource(Z)V
+	at trace.echo.modular.EchoTracerSetter.setTraceParameters(EchoTracerSetter.java:32)
+	at trace.im.IMTracerSetter.traceIM(IMTracerSetter.java:24)
+	at im.AliceIM.main(AliceIM.java:19)
+Exception in thread "main" java.lang.NoSuchMethodError: util.trace.TraceableInfo.setPrintSource(Z)V
+	at trace.echo.modular.EchoTracerSetter.setTraceParameters(EchoTracerSetter.java:32)
+	at trace.im.IMTracerSetter.traceIM(IMTracerSetter.java:24)
+	at im.BobIM.main(BobIM.java:20)
+Exception in thread "main" java.lang.NoSuchMethodError: util.trace.TraceableInfo.setPrintSource(Z)V
+	at trace.echo.modular.EchoTracerSetter.setTraceParameters(EchoTracerSetter.java:32)
+	at trace.im.IMTracerSetter.traceIM(IMTracerSetter.java:24)
+	at im.CathyIM.main(CathyIM.java:18)
+
