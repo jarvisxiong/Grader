@@ -21,8 +21,10 @@ import wrappers.framework.project.ProjectWrapper;
 public class RunningProject implements ProcessInputListener {
 
 	private Semaphore runningState = new Semaphore(1);
-	protected Map<String, String> processToOutput = new HashMap();
+//	protected Map<String, String> processToInput = new HashMap();
 	protected Map<String, String> processToErrors = new HashMap();
+	protected Map<String, String> processToOutput = new HashMap();
+
 
 	protected Map<String, String> processToOutputAndErrors = new HashMap();
 
@@ -37,12 +39,14 @@ public class RunningProject implements ProcessInputListener {
 	SakaiProject project;
 	OutputBasedInputGenerator outputBasedInputGeneraor; // actuall all we need is an output consumer
 	RunnerInputStreamProcessor processIn;
+	StringBuffer input = new StringBuffer();
+	Map<String, StringBuffer> processToInput = new HashMap();
 
 	
 
 
 
-	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator) {
+	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) {
 		exception = null;
 		output = null;
 		if (aProject != null && aProject instanceof ProjectWrapper) {
@@ -50,11 +54,41 @@ public class RunningProject implements ProcessInputListener {
 			project = projectWrapper.getProject();
 			outputFileName = project.getOutputFileName();
 			projectOutput = project.getCurrentOutput();
+//			input.append(project.getCurrentInput());
 		}
 		outputBasedInputGeneraor = anOutputBasedInputGenerator;
 		if (outputBasedInputGeneraor != null) {
 			outputBasedInputGeneraor.addProcessInputListener(this); // maybe this should be in another class
 		}
+//		processToInput = aProcessToInput;
+		if (aProcessToInput != null)
+		for (String aProcess:aProcessToInput.keySet()) {
+			String anInput = aProcessToInput.get(aProcess);
+//			if (anInput != null)
+			processToInput.put(aProcess, new StringBuffer(anInput));
+			input.append(anInput);
+		}
+
+	}
+	
+	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator, String anInput) {
+		this(aProject, anOutputBasedInputGenerator,  (Map) null);
+//		exception = null;
+//		output = null;
+//		if (aProject != null && aProject instanceof ProjectWrapper) {
+//			projectWrapper = (ProjectWrapper) aProject;
+//			project = projectWrapper.getProject();
+//			outputFileName = project.getOutputFileName();
+//			projectOutput = project.getCurrentOutput();
+////			input.append(project.getCurrentInput());
+//		}
+//		outputBasedInputGeneraor = anOutputBasedInputGenerator;
+//		if (outputBasedInputGeneraor != null) {
+//			outputBasedInputGeneraor.addProcessInputListener(this); // maybe this should be in another class
+		
+		input.setLength(0);
+		input.append(anInput);
+
 	}
 	
 	
@@ -176,11 +210,7 @@ public class RunningProject implements ProcessInputListener {
 			}
 			
 		}
-		return allOutput.substring(startIndex, endIndex);
-		
-		
-		
-		
+		return allOutput.substring(startIndex, endIndex);		
 	}
 	
 	StringBuffer transcript = new StringBuffer(); // reusing the buffer
@@ -195,10 +225,11 @@ public class RunningProject implements ProcessInputListener {
 //		String featureName = project.getCurrentGradingFeature().getName();
 //		transcript.append(featureName);
 //		transcript.append(")*****************************\n");
-		String input = project.getCurrentInput(); // this changes with process team, there can be multiple inputs and they can be given incrementally
-		if (!input.isEmpty()) {
+//		String anInput = project.getCurrentInput(); // this changes with process team, there can be multiple inputs and they can be given incrementally
+		String anInput = input.toString();
+		if (!anInput.isEmpty()) {
 			transcript.append("INPUT(" + featureName + ")\n");
-			transcript.append(input + "\n");
+			transcript.append(anInput + "\n");
 		}
 		String[] args = project.getCurrentArgs();
 
@@ -287,8 +318,15 @@ public class RunningProject implements ProcessInputListener {
 
 
 	@Override
-	public void newInput(String aProcessName, String anInput) {
+	public void newInput(String aProcessName, String anInput) {		
 		processIn.newInput(anInput);
+		project.appendCurrentInput(anInput);// this should go, 
+		if (aProcessName != null && processToInput != null) {
+			StringBuffer aProcessStringBuffer = processToInput.get(aProcessName);
+			if (aProcessStringBuffer != null)
+				aProcessStringBuffer.append(anInput);
+		}
+		input.append(anInput);
 		
 	}
 

@@ -1,0 +1,51 @@
+Grading result for: Sakai, Project(skproject)
+
+Grading features...
+----------------------------------
+Contains a main method                                 10.0 / 10.0
+Has a proper header                                    0.0 / 10.0
+Prompts for inputs                                     5.0 / 10.0
+Takes in a String                                      10.0 / 10.0
+Prints an error message                                0.0 / 10.0
+Correctly checks for palindrome                        0.0 / 40.0
+Ignores case when checking for palindromes             0.0 / 10.0
+----------------------------------
+  Points Awarded: 25.0
+
+Grading restrictions...
+----------------------------------
+No StringBuffer allowed                     0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Total Score: 25.0
+
+Notes from grading features:
+----------------------------------
+Prompts for inputs:
+  -- Does not tell the user how long the String should be 
+
+
+Prints an error message:
+  -- Does not print error when string is longer than 8 characters
+
+Correctly checks for palindrome:
+  -- Does not properly check palindromes of length 1
+Does not properly check palindromes of length 2
+Does not properly check palindromes of length 3
+Does not properly check palindromes of length 4
+Does not properly check palindromes of length 5
+Does not properly check palindromes of length 6
+Does not properly check palindromes of length 7
+Does not properly check palindromes of length 8
+
+
+Ignores case when checking for palindromes:
+  -- Does not ignore case when detecting palindromes
+
+
+Notes from grading restrictions:
+----------------------------------
+
+Overall Comments:
+----------------------------------

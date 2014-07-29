@@ -375,12 +375,22 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		gradingFeature.setValidate(true);
 	}
 	
+	public boolean navigatorReady() {
+		ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+		if (projectStepper == null) return false;
+		OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+		if (stepperFrame == null) return false;
+		return true;
+	}
 	public  void showSource() {
 		clearanceManager.setStepDescription("Next step is to go the source tab to view all of the source code, which may be non distriuted Java or C, or distributed Java, depending on which directory this program is bound to.");
 		waitForUserOrSleep();		
 		if (clearanceManager.isAutoPerformStep()) {
 			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
 			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			if (stepperFrame == null) {
+				System.err.println("Oops, proceed occurred before auto grading completed");
+			}
 			stepperFrame.focus(projectStepper, "source");			
 		}
 	}
@@ -589,10 +599,15 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 	}
 	
 	protected void waitForUserOrLongSleep() {
-		if (clearanceManager.isAutoProceed())
+		if (clearanceManager.isAutoProceed()) {
 			ThreadSupport.sleep(clearanceManager.getAutoPauseTime()*1000*getLongAutoPauseSeconds());
-		else
+			
+		} else
 			clearanceManager.waitForClearance();
+		if (! navigatorReady()) {
+			System.out.println("Premature proceed to navigator, redoing the wait.");
+			waitForUserOrLongSleep();
+		}
 	}
 	
 	protected void waitForUserOrMediumSleep() {

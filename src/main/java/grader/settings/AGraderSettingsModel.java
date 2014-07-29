@@ -186,8 +186,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
-	void noValidDownloadPath() {
-		JOptionPane.showMessageDialog(null, "No folder found for download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+	void noValidDownloadPath(String aPath) {
+		JOptionPane.showMessageDialog(null, "No folder found for download path:" + problemDownloadPath + " . When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
 	@Visible(false)
@@ -204,7 +204,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			File folder = new File(problemDownloadPath);
 			if (!folder.exists()) {
 //				JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
-				noValidDownloadPath();
+				noValidDownloadPath(problemDownloadPath);
 				return;
 //				Tracer.error("No folder found for:" + downloadPath);				
 			} else {

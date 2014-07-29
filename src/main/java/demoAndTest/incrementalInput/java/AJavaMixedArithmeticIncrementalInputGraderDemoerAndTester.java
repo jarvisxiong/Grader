@@ -31,8 +31,8 @@ import util.trace.Tracer;
 public class AJavaMixedArithmeticIncrementalInputGraderDemoerAndTester extends AJavaMixedArithmeticGraderDemoerAndTester {
 	
 	//	 String[] args ;
-//	public final  String TEST_DIR = "Test Data/Test Java";
-//	public final  String CORRECT_DIR = "Test Data/Correct C";
+	public final  String INC_TEST_DIR = "Test Data/Test 110Inc";
+	public final  String INC_CORRECT_DIR = "Test Data/Correct 110Inc";
 //	public final String COURSE_NO = "Comp411";
 	public final String INC_COURSE_NO = "Comp110Inc";
 
@@ -41,14 +41,14 @@ public class AJavaMixedArithmeticIncrementalInputGraderDemoerAndTester extends A
 	public AJavaMixedArithmeticIncrementalInputGraderDemoerAndTester(String[] anArgs) {
 		super(anArgs);
 	}
-//	@Override
-//	protected String testDir() {
-//		return AJavaPalindromeBasedGraderDemoerAndTester.TEST_DIR;
-//	}
-//	@Override
-//	protected String correctDir() {
-//		return AJavaPalindromeBasedGraderDemoerAndTester.CORRECT_DIR;
-//	}
+	@Override
+	protected String testDir() {
+		return INC_TEST_DIR;
+	}
+	@Override
+	protected String correctDir() {
+		return INC_CORRECT_DIR;
+	}
 	@Override
 	protected String courseNo() {
 		return INC_COURSE_NO;

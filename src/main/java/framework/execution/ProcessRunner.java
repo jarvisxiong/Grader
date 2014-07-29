@@ -243,7 +243,7 @@ public class ProcessRunner implements Runner {
 		for (String aProcess:aProcesses)
 			aProcessToInput.put(aProcess, "");
 		aProcessToInput.put(aTerminatingProcesses.get(0), input);
-		return run(firstTeam, aProcessToInput, timeout, anOutputBasedInputGenerator); //ignoring args, should have processToArgs in this method
+		return run(firstTeam, timeout, anOutputBasedInputGenerator, aProcessToInput); //ignoring args, should have processToArgs in this method
 		
 	}
 	
@@ -308,17 +308,20 @@ public class ProcessRunner implements Runner {
 	}
 
 	public RunningProject run(String aProcessTeam,
-			Map<String, String> aProcessToInput, int aTimeout, OutputBasedInputGenerator anOutputBasedInputGenerator)
+			int aTimeout, OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput)
 			throws NotRunnableException {
 //		executionSpecification = ExecutionSpecificationSelector
 //				.getExecutionSpecification();
 		processTeam = aProcessTeam;
+//		for (String aProcess:aProcessToInput.keySet()) {
+//			processToInput.put(aProcess, new StringBuffer(aProcessToInput.get(aProcess)));
+//		}
 		processToInput = aProcessToInput;
 		timeout = aTimeout;
 
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
-		runner = new RunningProject(project, anOutputBasedInputGenerator);
+		runner = new RunningProject(project, anOutputBasedInputGenerator, aProcessToInput);
 		acquireIOLocks();
 //		try {
 //			runner.start();
@@ -557,7 +560,7 @@ public class ProcessRunner implements Runner {
 
 	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		RunningProject retVal = new RunningProject(project, anOutputBasedInputGenerator);
+		RunningProject retVal = new RunningProject(project, anOutputBasedInputGenerator, input);
 
 		TimedProcess process = run(retVal, anOutputBasedInputGenerator, command, input, args,
 				timeout, MainClassFinder.MAIN_ENTRY_POINT, true);
@@ -574,7 +577,7 @@ public class ProcessRunner implements Runner {
 		// final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
 			SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
-			sakaiProject.setCurrentInput(input);
+			sakaiProject.setCurrentInput(input); // this should go or be append for subsequent input
 			sakaiProject.setCurrentArgs(args);
 		}
 		TimedProcess process = null;

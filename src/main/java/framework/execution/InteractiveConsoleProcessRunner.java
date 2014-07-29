@@ -185,7 +185,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	@Override
 	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		 final RunningProject runner = new RunningProject(project, null);
+		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
 
 	        try {
 //	            runner.start();

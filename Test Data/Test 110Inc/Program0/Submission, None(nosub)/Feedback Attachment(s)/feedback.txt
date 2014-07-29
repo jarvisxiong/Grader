@@ -1,0 +1,22 @@
+Grading result for: Submission, None(nosub)
+
+Grading features...
+----------------------------------
+Contains the HelloWorld class                          0.0 / 30.0
+Contains a main method                                 0.0 / 30.0
+Prints Hello World                                     0.0 / 40.0
+----------------------------------
+  Points Awarded: 0.0
+
+  Total Score: 0.0
+
+Notes from grading features:
+----------------------------------
+
+Notes from grading restrictions:
+----------------------------------
+
+Late penalty: 0.0%
+
+TA Comments:
+----------------------------------

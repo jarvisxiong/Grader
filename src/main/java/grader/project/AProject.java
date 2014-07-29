@@ -32,7 +32,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AProject implements Project {
 
@@ -67,6 +69,8 @@ public class AProject implements Project {
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
     StringBuffer currentInput = new StringBuffer();
+//    Map<String, String> processToOutput = new HashMap();
+//    Map<String, String> processToInput = new HashMap();
     String[] currentArgs;
 //    FileWriter outputFile ;
 
@@ -468,6 +472,11 @@ public class AProject implements Project {
   	public void appendCurrentInput(String aCurrentInput) {
   		currentInput.append(aCurrentInput);
     }
+    
+//    @Override
+//  	public void appendCurrentInput(String aProcess, String aCurrentInput) {
+////  		currentInput.append(aCurrentInput);
+//    }
   	
     @Override
 	public String[] getCurrentArgs() {

@@ -1,0 +1,9 @@
+  -- Does not properly check palindromes of length 1
+Does not properly check palindromes of length 2
+Does not properly check palindromes of length 3
+Does not properly check palindromes of length 4
+Does not properly check palindromes of length 5
+Does not properly check palindromes of length 6
+Does not properly check palindromes of length 7
+Does not properly check palindromes of length 8
+
