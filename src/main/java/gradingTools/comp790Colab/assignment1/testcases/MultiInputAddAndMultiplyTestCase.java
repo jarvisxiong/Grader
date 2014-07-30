@@ -5,7 +5,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 
-public class AddAndMultiplyTestCase extends PrintAddAndMultiplyTestCase {
+public class MultiInputAddAndMultiplyTestCase extends MultiInputPrintAddAndMultiplyTestCase {
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,

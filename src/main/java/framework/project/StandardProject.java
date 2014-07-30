@@ -15,6 +15,7 @@ import util.trace.TraceableLogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -180,6 +181,10 @@ public class StandardProject implements Project {
     @Override
     public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
+    }
+    @Override
+    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
     }
     
     @Override

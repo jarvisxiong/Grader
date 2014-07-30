@@ -12,9 +12,9 @@ package gradingTools.comp790Colab.assignment1.testcases;
 	import framework.project.ClassesManager;
 	import framework.project.Project;
 
-	public class MainMethodTestCase extends BasicTestCase {
+	public class MultiInputMainMethodTestCase extends BasicTestCase {
 
-	    public MainMethodTestCase() {
+	    public MultiInputMainMethodTestCase() {
 	        super("Class contains a working main method test case");
 	    }
 

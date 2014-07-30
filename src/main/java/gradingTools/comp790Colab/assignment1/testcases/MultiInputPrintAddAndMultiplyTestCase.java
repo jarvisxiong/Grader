@@ -11,9 +11,9 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
-public class PrintAddAndMultiplyTestCase extends BasicTestCase {
+public class MultiInputPrintAddAndMultiplyTestCase extends BasicTestCase {
 
-	public PrintAddAndMultiplyTestCase() {
+	public MultiInputPrintAddAndMultiplyTestCase() {
 		super("Add and Multiply Test Case");
 	}
 

@@ -1,5 +1,9 @@
 package gradingTools.comp790Colab.assignment1.testcases;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import util.tags.DistributedTags;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -9,8 +13,8 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
-public class PromptTestCase extends BasicTestCase {
-	public PromptTestCase() {
+public class MultiInputPromptTestCase extends BasicTestCase {
+	public MultiInputPromptTestCase() {
 		super("Prompt printer test case");
 	}
 
@@ -26,6 +30,28 @@ public class PromptTestCase extends BasicTestCase {
 			return pass();
 		else
 			return fail("Program does not contain prompt for double");
+	}
+	
+	public static RunningProject runAliceBobProject(Project project, int timeout, Integer anInteger, Double aDouble) {
+		Map<String, String> processToInput = new HashMap();
+		if (anInteger != null)
+			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(anInteger.toString()));
+		if (aDouble != null)
+			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(aDouble.toString()));
+		return RunningProjectUtils.runProject(project, timeout, processToInput);
+		
+	}
+	public static RunningProject runAliceBobProject(Project project, int timeout,  Double aDouble) {
+		return runAliceBobProject(project, timeout, null, aDouble);
+		
+	}
+	public static RunningProject runAliceBobProject(Project project, int timeout,  Integer anInteger) {
+		return runAliceBobProject(project, timeout, anInteger, null);
+		
+	}
+	public static RunningProject runAliceBobProject(Project project, int timeout) {
+		return runAliceBobProject(project, timeout, null, null);
+		
 	}
 
 	@Override

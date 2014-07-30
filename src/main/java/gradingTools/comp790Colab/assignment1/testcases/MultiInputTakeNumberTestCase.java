@@ -9,9 +9,9 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
-public class TakeNumberTestCase extends BasicTestCase {
+public class MultiInputTakeNumberTestCase extends BasicTestCase {
 
-	public TakeNumberTestCase() {
+	public MultiInputTakeNumberTestCase() {
 		super("TakeNumber Test Case");
 	}
 

@@ -189,6 +189,15 @@ public class ProcessRunner implements Runner {
 			throws NotRunnableException {
 		return run(anOutputBasedInputGenerator, input, new String[] {}, timeout);
 	}
+	
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> processToInput, int timeout)
+			throws NotRunnableException {
+		return run(anOutputBasedInputGenerator, processToInput, new String[] {}, timeout);
+	}
+	public RunningProject run( Map<String, String> processToInput, int timeout)
+			throws NotRunnableException {
+		return run(null, processToInput, timeout);
+	}
 
 	/**
 	 * This runs the project providing input and arguments
@@ -219,6 +228,26 @@ public class ProcessRunner implements Runner {
 		else
 			return runDefaultProcessTeam(aProcessTeams, input, args, timeout, anOutputBasedInputGenerator);
 	}
+	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, String[] args, int timeout )
+			throws NotRunnableException {
+		// String[] command =
+		// StaticConfigurationUtils.getExecutionCommand(folder,
+		// entryPoints.get(0));
+		// return run(command, input, args, timeout);
+		List<String> aProcessTeams = executionSpecification.getProcessTeams();
+		if (aProcessTeams.isEmpty()) {
+			Set<String> aProcesses = aProcessToInput.keySet();
+			String anInput = "";
+			for (String aProcess:aProcesses) {
+				anInput += aProcessToInput.get(aProcess);
+				
+			}
+			
+			return run(anOutputBasedInputGenerator,
+				getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT), anInput, args, timeout);
+		} else
+			return runDefaultProcessTeam(aProcessTeams, aProcessToInput, args, timeout, anOutputBasedInputGenerator);
+	}
 	/*
 	 * (non-Javadoc)
 	 * @see framework.execution.Runner#run(java.lang.String, java.lang.String[], int)
@@ -243,6 +272,15 @@ public class ProcessRunner implements Runner {
 		for (String aProcess:aProcesses)
 			aProcessToInput.put(aProcess, "");
 		aProcessToInput.put(aTerminatingProcesses.get(0), input);
+		return run(firstTeam, timeout, anOutputBasedInputGenerator, aProcessToInput); //ignoring args, should have processToArgs in this method
+		
+	}
+	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, Map<String, String> aProcessToInput, String[] args, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator)
+			throws NotRunnableException {
+	
+		String firstTeam = aProcessTeams.get(0);
+		// provide input to the first terminating process
+		
 		return run(firstTeam, timeout, anOutputBasedInputGenerator, aProcessToInput); //ignoring args, should have processToArgs in this method
 		
 	}

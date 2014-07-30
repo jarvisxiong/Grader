@@ -11,6 +11,7 @@ import util.trace.TraceableLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Based on {@link grader.project.Project}
@@ -61,4 +62,9 @@ public interface Project {
      * @return The traceable log of events.
      */
     public TraceableLog getTraceableLog();
+
+	RunningProject launch(
+			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			Map<String, String> aProcessToInput, int timeout)
+			throws NotRunnableException;
 }
