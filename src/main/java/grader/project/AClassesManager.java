@@ -104,7 +104,10 @@ public class AClassesManager implements ClassesManager {
 			aClassDescriptions.addAll(getClassDescriptions());
 			for (String aTag:aTags) {
 				Set<ClassDescription> aCurrentSet = tagToClassDescriptions(aTag);
-				aClassDescriptions.retainAll(aCurrentSet);
+				if (aCurrentSet == null)
+					aClassDescriptions.clear();
+				else
+				    aClassDescriptions.retainAll(aCurrentSet);
 			}			
 		
 			if (aClassDescriptions == null || aClassDescriptions.size() == 0) {

@@ -7,7 +7,7 @@ import util.trace.Tracer;
 /*
  * This is a test not of the student programs but of the grader on Java non distributed programs
  */
-public class ADistributedMixedArithmeticGraderCorrectStateGenerator {
+public class ADistributedMixedArithmeticIncrementalInputGraderCorrectStateGenerator {
 	public static void main (String[] anArgs) {
 		GraderDemoerAndTester demoerAndTester = new ADistributedMixedArithmeticIncrementalInputGraderDemoerAndTester(anArgs);
 
