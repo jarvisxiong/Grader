@@ -15,17 +15,22 @@ public class MultiInputTakeNumberTestCase extends BasicTestCase {
 		super("TakeNumber Test Case");
 	}
 
-	private TestCaseResult testAcceptingTwoInputs(Project project, String input1, String input2)
+	private TestCaseResult testAcceptingTwoInputs(Project project, int input1, double input2, boolean input1First)
 			throws NotGradableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
+			RunningProject runningProject = MultiInputPromptTestCase.runAliceBobProject(project, 3);
 			String output = runningProject.await();
 			int run1 = output.length();
-			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 3, input1);
-			String output2 = runningProject2.await();
+			String output2 = null;			
+			RunningProject runningProject2 = null;
+			if (input1First)
+			runningProject2 = MultiInputPromptTestCase.runAliceBobProject(project, 3, input1);
+			else
+				runningProject2 = MultiInputPromptTestCase.runAliceBobProject(project, 3, input2);	
+			 output2 = runningProject2.await();
 			int run2 = output2.length();
-			RunningProject runningProject3 = RunningProjectUtils.runProject(project, 3, input1,
+			RunningProject runningProject3 = MultiInputPromptTestCase.runAliceBobProject(project, 3, input1,
 					input2);
 			String output3 = runningProject3.await();
 			int run3 = output3.length();
@@ -47,19 +52,20 @@ public class MultiInputTakeNumberTestCase extends BasicTestCase {
 			throw new NotGradableException();
 		}
 	}
+	
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 
 		// First run with int then double input
-		TestCaseResult result = testAcceptingTwoInputs(project, "1", "2.5");
+		TestCaseResult result = testAcceptingTwoInputs(project, 1, 2.5, true);
 		if (result != null) {
 			return result;
 		}
 
 		// Then run with double then int input
-		result = testAcceptingTwoInputs(project, "1.5", "2");
+		result = testAcceptingTwoInputs(project, 2, 1.5, false);
 		if (result != null) {
 			return result;
 		}

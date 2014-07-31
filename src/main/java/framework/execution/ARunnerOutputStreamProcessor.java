@@ -12,6 +12,7 @@ public class ARunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcess
 //	protected RunningProject runner;
 	public ARunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		super(aProcessErrorOut, aRunner, /*aSemaphore,*/ aProcessName, anOnlyProcess);
+		
 	}
 
 @Override
@@ -19,7 +20,9 @@ public void processLine(String s) {
 //	System.out.println("Process line:" + s);
 	runner.appendCumulativeOutput(s + "\n"); // append cumulative output
 //	if (processName != null) {
-//		System.out.println(s);
+	
+		System.out.println(outPrefix + s);
+	
 
 //		runner.appendErrorOutput(processName, s + "\n");
 		runner.appendProcessOutput(processName, s + "\n"); // append this process output

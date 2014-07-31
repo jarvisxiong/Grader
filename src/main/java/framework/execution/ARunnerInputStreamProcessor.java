@@ -14,6 +14,8 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	protected String processName;
 	protected Boolean onlyProcess;
 	OutputStreamWriter inputWriter;
+	String inPrefix = "";
+	
 	public ARunnerInputStreamProcessor(OutputStream anInput, RunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
 		input = anInput;
 		 inputWriter = new OutputStreamWriter(
@@ -23,12 +25,14 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 		semaphore = new Semaphore(1);
 		processName = aProcessName;
 		onlyProcess = anOnlyProcess;
+		if (onlyProcess)
+			inPrefix = aProcessName + "$";
 	}
 	
 	public void newInput(String anInput) {
-		
+		if (anInput == null) return;
 		try {
-//			System.out.println("Writing anInput:" + anInput);
+			System.out.println(inPrefix + anInput); // echo input for display
 			inputWriter.write(anInput);
 			inputWriter.flush();
 		} catch (IOException e) {

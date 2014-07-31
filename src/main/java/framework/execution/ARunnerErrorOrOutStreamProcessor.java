@@ -13,6 +13,8 @@ public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrO
 	protected Semaphore semaphore;
 	protected String processName;
 	protected Boolean onlyProcess;
+	protected String outPrefix = "";
+
 	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		// Print error output to the console
 		errorOrOut = aProcessErrorOrOut;
@@ -21,6 +23,8 @@ public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrO
 		semaphore = new Semaphore(1);
 		processName = aProcessName;
 		onlyProcess = anOnlyProcess;
+		if (!onlyProcess)
+			outPrefix = "(" + aProcessName + ")";
 	}
 		
 

@@ -37,7 +37,7 @@ public class MultiInputPromptTestCase extends BasicTestCase {
 		if (anInteger != null)
 			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(anInteger.toString()));
 		if (aDouble != null)
-			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(aDouble.toString()));
+			processToInput.put(DistributedTags.CLIENT_2, RunningProjectUtils.toInputString(aDouble.toString()));
 		return RunningProjectUtils.runProject(project, timeout, processToInput);
 		
 	}
@@ -60,18 +60,18 @@ public class MultiInputPromptTestCase extends BasicTestCase {
 		try {
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			RunningProject noInputRunningProject = runAliceBobProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
 
 			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1");
+			RunningProject integerInputRunningProject = runAliceBobProject(project, 1,
+					1);
 			String integerInputPrompt = integerInputRunningProject.await();
 			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
 
 			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
-					"1.4");
+			RunningProject doubleInputRunningProject = runAliceBobProject(project, 1,
+					1.4);
 			String doubleInputPrompt = doubleInputRunningProject.await();
 			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
 

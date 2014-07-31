@@ -22,7 +22,7 @@ public class ARunnerErrorStreamProcessor extends ARunnerErrorOrOutStreamProcesso
 public void processLine(String s) {
 	runner.appendErrorOutput(s + "\n"); // cumulative
 	if (processName != null) {
-		System.err.println(s);
+		System.err.println(outPrefix + s);
 
 		runner.appendErrorOutput(processName, s + "\n"); // per process
 	}

@@ -10,6 +10,7 @@ import util.trace.TraceableLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -77,6 +78,15 @@ public class ManualProject implements Project {
 	public RunningProject launch(
 			OutputBasedInputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RunningProject launch(
+			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			Map<String, String> aProcessToInput, int timeout)
+			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}

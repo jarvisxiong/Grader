@@ -43,7 +43,7 @@ public class RunningProjectUtils {
 		return allInputsStr;
 	}
 	
-	public static String toInputString(String inputSeparator, String... inputs) {
+	public static String toInputString(String... inputs) {
 		return toString(DEFAULT_INPUT_SEPARATOR, inputs);
 	}
 
