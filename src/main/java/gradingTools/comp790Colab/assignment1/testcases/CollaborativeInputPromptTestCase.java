@@ -14,6 +14,13 @@ import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class CollaborativeInputPromptTestCase extends BasicTestCase {
+	boolean client1HasInitialIntPrompt;
+	boolean client2HasInitialDoublePrompt ;
+	boolean client1HasInitialDoublePrompt ;
+	boolean client2HasInitialIntPrompt ;
+	StringBuffer client1NoInputOutput, client2NoInputOutput;
+	RunningProject noInputRunningProject;
+	
 	public CollaborativeInputPromptTestCase() {
 		super("Prompt printer test case");
 	}
@@ -62,15 +69,15 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
 		try {
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = runAliceBobProject(project, 1);
+			 noInputRunningProject = runAliceBobProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
 			Map<String, StringBuffer> aProcessToOutput = noInputRunningProject.getProcessOutput();
-			StringBuffer aClient1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
-			StringBuffer aClient2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
-			boolean client1HasInitialIntPrompt = testForIntegerPrompt(aClient1NoInputOutput).getPercentage() > 0;
-			boolean client2HasInitialDoublePrompt = testForDoublePrompt(aClient2NoInputOutput).getPercentage() > 0;
-			boolean client1HasInitialDoublePrompt = testForDoublePrompt(aClient1NoInputOutput).getPercentage() > 0;
-			boolean client2HasInitialIntPrompt = testForIntegerPrompt(aClient2NoInputOutput).getPercentage() > 0;
+			 client1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
+			client2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
+			client1HasInitialIntPrompt = testForIntegerPrompt(client1NoInputOutput).getPercentage() > 0;
+			client2HasInitialDoublePrompt = testForDoublePrompt(client2NoInputOutput).getPercentage() > 0;
+			client1HasInitialDoublePrompt = testForDoublePrompt(client1NoInputOutput).getPercentage() > 0;
+			client2HasInitialIntPrompt = testForIntegerPrompt(client2NoInputOutput).getPercentage() > 0;
 			boolean samePromptForBoth = (client1HasInitialIntPrompt && client1HasInitialDoublePrompt) ||
 					(client2HasInitialIntPrompt && client2HasInitialDoublePrompt);
 			boolean hasInitialIntPrompt = client1HasInitialIntPrompt || client2HasInitialIntPrompt;

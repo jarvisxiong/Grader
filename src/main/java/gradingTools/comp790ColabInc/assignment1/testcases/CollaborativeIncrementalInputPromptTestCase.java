@@ -10,9 +10,10 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110Inc.assignment1.testcases.OutputBasedMixedArithmeticInputGenerator;
+import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class CollaborativeIncrementalInputPromptTestCase extends PromptTestCase {
+public class CollaborativeIncrementalInputPromptTestCase extends CollaborativeInputPromptTestCase {
 	public CollaborativeIncrementalInputPromptTestCase() {
 //		super("Prompt printer test case");
 		super();
