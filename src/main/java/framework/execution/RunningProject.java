@@ -23,7 +23,7 @@ public class RunningProject implements ProcessInputListener {
 	private Semaphore runningState = new Semaphore(1);
 //	protected Map<String, String> processToInput = new HashMap();
 	protected Map<String, String> processToErrors = new HashMap();
-	protected Map<String, String> processToOutput = new HashMap();
+	protected Map<String, StringBuffer> processToOutput = new HashMap();
 
 
 	protected Map<String, String> processToOutputAndErrors = new HashMap();
@@ -114,17 +114,26 @@ public class RunningProject implements ProcessInputListener {
 		
 	}
 	
+	public Map<String, StringBuffer> getProcessOutput() {
+		return processToOutput;
+	}
+	
 	public void appendProcessOutput(String aProcess, String newVal) {
 //		if (aProcess == null) { // it will never be null
 //			return;
 //		}
-		String processOutput = processToOutput.get(aProcess);
-		if (processOutput == null && newVal != null) {
-			processOutput = "";
+		// wonder why did not have this before
+		if (newVal == null) 
+			return;
+		StringBuffer aProcessOutput = processToOutput.get(aProcess);
+//		if (processOutput == null && newVal != null) {
+		if (aProcessOutput == null && newVal != null) {
+			aProcessOutput = new StringBuffer();
+			processToOutput.put(aProcess, aProcessOutput);
 		} 
 		
-		processOutput  += newVal;		
-		processToOutput.put(aProcess, processOutput);
+		aProcessOutput.append (newVal);		
+//		processToOutput.put(aProcess, aProcessOutput);
 		if (outputBasedInputGeneraor != null) {
 			outputBasedInputGeneraor.newOutputLine(aProcess, newVal);
 		}

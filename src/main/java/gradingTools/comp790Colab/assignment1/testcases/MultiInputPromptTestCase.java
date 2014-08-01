@@ -18,15 +18,17 @@ public class MultiInputPromptTestCase extends BasicTestCase {
 		super("Prompt printer test case");
 	}
 
-	private TestCaseResult testForIntegerPrompt(String output) {
-		if (output.trim().toLowerCase().contains("int"))
+	private TestCaseResult testForIntegerPrompt(StringBuffer output) {
+		
+		if (output != null && output.toString().trim().toLowerCase().contains("int"))
 			return pass();
 		else
 			return fail("Program does not contain prompt for integer");
 	}
 
-	private TestCaseResult testForDoublePrompt(String output) {
-		if (output.toLowerCase().contains("decimal") || output.toLowerCase().contains("double"))
+	private TestCaseResult testForDoublePrompt(StringBuffer output) {
+		// converting twice to lower case!
+		if (output != null && output.toString().toLowerCase().contains("decimal") || output.toString().toLowerCase().contains("double"))
 			return pass();
 		else
 			return fail("Program does not contain prompt for double");
@@ -62,41 +64,59 @@ public class MultiInputPromptTestCase extends BasicTestCase {
 			// Get the output when we have no input from the user
 			RunningProject noInputRunningProject = runAliceBobProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
-
-			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = runAliceBobProject(project, 1,
-					1);
-			String integerInputPrompt = integerInputRunningProject.await();
-			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
-
-			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = runAliceBobProject(project, 1,
-					1.4);
-			String doubleInputPrompt = doubleInputRunningProject.await();
-			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
-
-			// See if the initial prompt is an int or double prompt
-			boolean hasIntPrompt = testForIntegerPrompt(noInputPrompt).getPercentage() > 0;
-			boolean hasDoublePrompt = testForDoublePrompt(noInputPrompt).getPercentage() > 0;
-			boolean samePromptForBoth = hasIntPrompt && hasDoublePrompt;
-
+			Map<String, StringBuffer> aProcessToOutput = noInputRunningProject.getProcessOutput();
+			StringBuffer aClient1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
+			StringBuffer aClient2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
+			boolean client1HasInitialIntPrompt = testForIntegerPrompt(aClient1NoInputOutput).getPercentage() > 0;
+			boolean client2HasInitialDoublePrompt = testForDoublePrompt(aClient2NoInputOutput).getPercentage() > 0;
+			boolean client1HasInitialDoublePrompt = testForDoublePrompt(aClient1NoInputOutput).getPercentage() > 0;
+			boolean client2HasInitialIntPrompt = testForIntegerPrompt(aClient2NoInputOutput).getPercentage() > 0;
+			boolean samePromptForBoth = (client1HasInitialIntPrompt && client1HasInitialDoublePrompt) ||
+					(client2HasInitialIntPrompt && client2HasInitialDoublePrompt);
+			boolean hasInitialIntPrompt = client1HasInitialIntPrompt || client2HasInitialIntPrompt;
+			boolean hasInitialDoublePrompt = client1HasInitialDoublePrompt || client2HasInitialDoublePrompt;
 			// If we have not seen prompts for ints or doubles, check if they
-			// show up after giving input
-			if (!hasIntPrompt) {
-				hasIntPrompt = testForIntegerPrompt(doubleInputPrompt).getPercentage() > 0;
+			// show up after giving input	
+			// forget this,too tedious, and no penalty for prompts appearing late in Jacob's test
+			if (!client1HasInitialIntPrompt && !client2HasInitialDoublePrompt && !client1HasInitialDoublePrompt && !client2HasInitialIntPrompt) {
+				
 			}
-			if (!hasDoublePrompt) {
-				hasDoublePrompt = testForDoublePrompt(integerInputPrompt).getPercentage() > 0;
-			}
+			
+//
+//			// Get the output when we have integer input from the user
+//			RunningProject integerInputRunningProject = runAliceBobProject(project, 1,
+//					1);
+//			String integerInputPrompt = integerInputRunningProject.await();
+//			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
+//
+//			// Get the output when we have double input from the user
+//			RunningProject doubleInputRunningProject = runAliceBobProject(project, 1,
+//					1.4);
+//			String doubleInputPrompt = doubleInputRunningProject.await();
+//			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());
+//
+//			// See if the initial prompt is an int or double prompt
+//			boolean hasInitialIntPrompt = testForIntegerPrompt(noInputPrompt).getPercentage() > 0;
+//			boolean hasInitialDoublePrompt = testForDoublePrompt(noInputPrompt).getPercentage() > 0;
+//			boolean samePromptForBoth = hasInitialIntPrompt && hasInitialDoublePrompt;
+//
+//			// If we have not seen prompts for ints or doubles, check if they
+//			// show up after giving input
+//			if (!hasInitialIntPrompt) {
+//				hasInitialIntPrompt = testForIntegerPrompt(doubleInputPrompt).getPercentage() > 0;
+//			}
+//			if (!hasInitialDoublePrompt) {
+//				hasInitialDoublePrompt = testForDoublePrompt(integerInputPrompt).getPercentage() > 0;
+//			}
 
 			// Create an error message based on our findings
 			String errorMessage = "";
 			double credit = 1.0;
-			if (!hasIntPrompt) {
+			if (!hasInitialIntPrompt) {
 				errorMessage += "Program does not prompt for integer inputs\n";
 				credit = 0.5;
 			}
-			if (!hasDoublePrompt) {
+			if (!hasInitialDoublePrompt) {
 				errorMessage += "Program does not prompt for double inputs\n";
 				if (credit == 0.5) {
 					credit = 0;
@@ -111,8 +131,8 @@ public class MultiInputPromptTestCase extends BasicTestCase {
 
 			if (credit == 1.0) {
 				return pass();
-			} else if ((noInputPrompt.length()) > 0
-					&& ((integerInputPrompt.length() > 0) || (doubleInputPrompt.length() > 0))) {
+			} else if (noInputPrompt.length() == 0) {
+					
 				throw new NotAutomatableException();
 			} else {
 				return partialPass(credit, errorMessage);

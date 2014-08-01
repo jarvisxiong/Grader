@@ -1,4 +1,4 @@
-package demoAndTest.multiInput;
+package demoAndTest.colabIncrementalInput;
 
 import grader.assignment.GradingFeature;
 import grader.navigation.NavigationKind;
@@ -29,30 +29,30 @@ import util.trace.Tracer;
  * 
 
  */
-public class ADistributedMixedArithmeticMultiInputGraderDemoerAndTester extends ADistributedMixedArithmeticGraderDemoerAndTester {
+public class ADistributedMixedArithmeticColabIncrementalInputGraderDemoerAndTester extends ADistributedMixedArithmeticGraderDemoerAndTester {
 	
 	//	 String[] args ;
-	public final  String MULTI_TEST_DIR = "Test Data/Test 790Colab";
-	public final  String MULTI_CORRECT_DIR = "Test Data/Correct 790Colab";
+	public static final  String COLAB_INC_TEST_DIR = "Test Data/Test 790ColabInc";
+	public final  String COLAB_INC_CORRECT_DIR = "Test Data/Correct 790ColabInc";
 //	public final String COURSE_NO = "Comp411";
-	public final String MULTI_COURSE_NO = "Comp790Colab";
+	public static final String COLAB_INC_COURSE_NO = "Comp790ColabInc";
 
 
 
-	public ADistributedMixedArithmeticMultiInputGraderDemoerAndTester(String[] anArgs) {
+	public ADistributedMixedArithmeticColabIncrementalInputGraderDemoerAndTester(String[] anArgs) {
 		super(anArgs);
 	}
 	@Override
 	protected String testDir() {
-		return MULTI_TEST_DIR;
+		return COLAB_INC_TEST_DIR;
 	}
 	@Override
 	protected String correctDir() {
-		return MULTI_CORRECT_DIR;
+		return COLAB_INC_CORRECT_DIR;
 	}
 	@Override
 	protected String courseNo() {
-		return MULTI_COURSE_NO;
+		return COLAB_INC_COURSE_NO;
 	}
 	
 	
@@ -61,9 +61,9 @@ public class ADistributedMixedArithmeticMultiInputGraderDemoerAndTester extends 
 //		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 //		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
-		GraderDemoerAndTester aDemoerAndTester = new ADistributedMixedArithmeticMultiInputGraderDemoerAndTester(anArgs);
+		GraderDemoerAndTester aDemoerAndTester = new ADistributedMixedArithmeticColabIncrementalInputGraderDemoerAndTester(anArgs);
 //		args = anArgs;
-		Tracer.info(ADistributedMixedArithmeticMultiInputGraderDemoerAndTester.class, "test");
+		Tracer.info(ADistributedMixedArithmeticColabIncrementalInputGraderDemoerAndTester.class, "test");
 		aDemoerAndTester.demoAndTest();
 		
 //		aDemoerAndTester.demoAndTest();
