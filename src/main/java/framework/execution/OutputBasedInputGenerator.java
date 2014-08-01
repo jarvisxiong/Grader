@@ -12,7 +12,7 @@ public interface OutputBasedInputGenerator extends ProcessOutputListener {
 	 void notifyNewInput(String aProcessName, String aNewInput);
 	 void addProcessInputListener(ProcessInputListener aListener);	 
 	 void removeProcessInputListener(ProcessInputListener aListener);
-	  boolean isTerminatedSuccessfully();
-	 void setTerminatedSuccessfully(boolean terminatedSuccessfully) ;
+	  boolean isTerminatedSuccessfully(String aProcess);
+	 void setTerminatedSuccessfully(String aProcess, boolean terminatedSuccessfully) ;
 
 }

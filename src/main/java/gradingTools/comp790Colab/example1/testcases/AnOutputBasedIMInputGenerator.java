@@ -20,14 +20,14 @@ public class AnOutputBasedIMInputGenerator extends AnAbstractOutputBasedInputGen
 		return false;
 	}
 	protected void maybeTerminate(String aProcessName) {
-		setTerminatedSuccessfully(terminationConditionMet());
-		if (isTerminatedSuccessfully()) {
+		setTerminatedSuccessfully(null, terminationConditionMet());
+		if (isTerminatedSuccessfully(null)) {
 			notifyTermination(aProcessName);
 		}
 	}
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
-		if (isTerminatedSuccessfully())
+		if (isTerminatedSuccessfully(null))
 			return; //ignore additional input
 		System.out.println("Got output" + anOutputLine );
 		

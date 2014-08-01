@@ -4,13 +4,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import util.models.ConsoleModel;
 
 public abstract class AnAbstractOutputBasedInputGenerator implements OutputBasedInputGenerator {
 	protected List<ProcessInputListener> processInputListeners = new ArrayList();
-	protected boolean terminatedSuccessfully;
+	protected Map<String, Boolean> processToTerminatedSucessfully = new HashMap();
+//	protected boolean terminatedSuccessfully;
 
 //	@Override
 //	public void propertyChange(PropertyChangeEvent evt) {
@@ -53,14 +56,25 @@ public abstract class AnAbstractOutputBasedInputGenerator implements OutputBased
 	public void removeProcessInputListener(ProcessInputListener aListener) {
 		processInputListeners.remove(aListener);		
 	}
-
-
-	public boolean isTerminatedSuccessfully() {
-		return terminatedSuccessfully;
+	
+	public static boolean getValue(Map<String, Boolean> aMap, String aKey) {
+		if (aKey == null)
+			aKey = "";
+		Boolean retVal = aMap.get(aKey);
+		if (retVal == null)
+			return false;
+		return retVal;
+		
+	}
+	
+	public boolean isTerminatedSuccessfully(String aProcess) {
+		return getValue(processToTerminatedSucessfully, aProcess);
 	}
 
-	public void setTerminatedSuccessfully(boolean terminatedSuccessfully) {
-		this.terminatedSuccessfully = terminatedSuccessfully;
+	public void setTerminatedSuccessfully(String aProcess, boolean terminatedSuccessfully) {
+		if (aProcess == null)
+			aProcess = "";
+		processToTerminatedSucessfully.put(aProcess, terminatedSuccessfully);
 	}
 	
 

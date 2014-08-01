@@ -16,29 +16,39 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractOutput
 		
 	}
 	
-	protected boolean terminationConditionMet() {
+	protected boolean terminationConditionMet(String aProcessName) {
 		return ((intInput == null || foundIntPrompt())) &&
 				((doubleInput == null) || foundDoublePrompt());
 	}
 	protected void maybeTerminate(String aProcessName) {
-		setTerminatedSuccessfully(terminationConditionMet());
-		if (isTerminatedSuccessfully()) {
+		setTerminatedSuccessfully(aProcessName, terminationConditionMet(aProcessName));
+		if (isTerminatedSuccessfully(aProcessName)) {
 			notifyTermination(aProcessName);
 		}
 	}
+	protected void setFoundIntPrompt(String aProcessName, boolean newVal) {
+		foundIntPrompt = newVal;
+	}
+	protected void setFoundDoublePrompt(String aProcessName, boolean newVal) {
+		foundDoublePrompt = newVal;
+	}
+	protected void setFoundOutput(String aProcessName, boolean newVal) {
+		foundOutput = newVal;
+	}
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
-		if (isTerminatedSuccessfully())
+		if (isTerminatedSuccessfully(aProcessName))
 			return; //ignore additional input
 		System.out.println("Got output" + anOutputLine );
-		foundOutput = true;
+		setFoundOutput(aProcessName, true);
 		if (IncrementalInputPromptTestCase.hasIntegerPrompt(anOutputLine)) {
-			foundIntPrompt = true;
+//			foundIntPrompt = true;
+			setFoundIntPrompt(aProcessName, true);
 			if (intInput != null)
 				notifyNewInput(aProcessName, intInput + "\n");
 			
 		} else if (IncrementalInputPromptTestCase.hasDoublePrompt(anOutputLine)) {
-			foundDoublePrompt = true;
+			setFoundDoublePrompt(aProcessName, true);
 			if (doubleInput != null)
 				notifyNewInput(aProcessName, doubleInput + "\n");
 			

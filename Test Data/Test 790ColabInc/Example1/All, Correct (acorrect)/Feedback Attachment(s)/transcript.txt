@@ -1,0 +1,17 @@
+*****************************(Test IM)*****************************
+OUTPUT(Test IM)
+I***Tracer: showInfo = true
+Registered Session Manager with RMI Server (dewan-t431s, 1099)
+I***Tracer: showInfo = true
+Please enter an input line or quit or history
+I***EvtType(util.trace.session.ServerClientJoined) EvtSrc(util.session.ASession)  Thread(Session Manager Message Receiver) Process(Session Manager) User(Alice), App(IM), Session(FrostySession)
+I***Tracer: showInfo = true
+I***EvtType(util.trace.session.ServerClientJoined) EvtSrc(util.session.ASession)  Thread(Session Manager Message Receiver) Process(Session Manager) User(Bob), App(IM), Session(FrostySession)
+Please enter an input line or quit or history
+I***Tracer: showInfo = true
+I***EvtType(util.trace.session.ServerClientJoined) EvtSrc(util.session.ASession)  Thread(Session Manager Message Receiver) Process(Session Manager) User(Cathy), App(IM), Session(FrostySession)
+Please enter an input line or quit or history
+
+ERRORS(Test IM)
+SessionRegistry: STARTING ...
+
