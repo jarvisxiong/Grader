@@ -20,18 +20,26 @@ public class ACollaborativeOutputBasedMixedArithmeticInputGenerator
 	@Override
 	protected boolean terminationConditionMet(String aProcessName) {
 		if (aProcessName == null) aProcessName ="";
-		return ((intInput == null || foundIntPrompt())) ||
-				((doubleInput == null) || foundDoublePrompt());
+		boolean retVal = ((intInput == null || foundIntPrompt(aProcessName))) ||
+				((doubleInput == null) || foundDoublePrompt(aProcessName));
+		if (retVal)
+			System.out.println("Termination condition met:" + aProcessName);
+		return retVal;
 	}
 	
 	protected void setFoundIntPrompt(String aProcessName, boolean newVal) {
 		processToFoundIntPrompt.put(aProcessName, newVal);
+		System.out.println("found int prompt:" + aProcessName);
 	}
 	protected void setFoundDoublePrompt(String aProcessName, boolean newVal) {
 		processToFoundDoublePrompt.put(aProcessName, newVal);
+		System.out.println("found double prompt:" + aProcessName);
+
 	}
 	protected void setFoundOutput(String aProcessName, boolean newVal) {
 		processToFoundOutput.put(aProcessName, newVal);
+		System.out.println("found output:" + newVal + "process name" + aProcessName);
+
 	}
 	@Override
 	public boolean foundIntPrompt(String aProcessName) {

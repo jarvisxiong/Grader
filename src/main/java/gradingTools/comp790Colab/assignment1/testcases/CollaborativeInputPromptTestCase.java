@@ -14,12 +14,13 @@ import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class CollaborativeInputPromptTestCase extends BasicTestCase {
-	boolean client1HasInitialIntPrompt;
-	boolean client2HasInitialDoublePrompt ;
-	boolean client1HasInitialDoublePrompt ;
-	boolean client2HasInitialIntPrompt ;
-	StringBuffer client1NoInputOutput, client2NoInputOutput;
-	RunningProject noInputRunningProject;
+	protected boolean client1HasInitialIntPrompt;
+	protected boolean client2HasInitialDoublePrompt ;
+    protected boolean client1HasInitialDoublePrompt ;
+    protected boolean client2HasInitialIntPrompt ;
+    protected StringBuffer client1NoInputOutput, client2NoInputOutput;
+    protected RunningProject noInputRunningProject;
+    protected String noInputPrompt;
 	
 	public CollaborativeInputPromptTestCase() {
 		super("Prompt printer test case");
@@ -62,22 +63,36 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
 		return runAliceBobProject(project, timeout, null, null);
 		
 	}
+	
+	protected void runProjectAndGatherOutputStats(Project project) {
+		// Get the output when we have no input from the user
+		 noInputRunningProject = runAliceBobProject(project, 1);
+		 noInputPrompt = noInputRunningProject.await();
+		Map<String, StringBuffer> aProcessToOutput = noInputRunningProject.getProcessOutput();
+		 client1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
+		client2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
+		client1HasInitialIntPrompt = testForIntegerPrompt(client1NoInputOutput).getPercentage() > 0;
+		client2HasInitialDoublePrompt = testForDoublePrompt(client2NoInputOutput).getPercentage() > 0;
+		client1HasInitialDoublePrompt = testForDoublePrompt(client1NoInputOutput).getPercentage() > 0;
+		client2HasInitialIntPrompt = testForIntegerPrompt(client2NoInputOutput).getPercentage() > 0;
+	}
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 		try {
+			runProjectAndGatherOutputStats(project);
 
-			// Get the output when we have no input from the user
-			 noInputRunningProject = runAliceBobProject(project, 1);
-			String noInputPrompt = noInputRunningProject.await();
-			Map<String, StringBuffer> aProcessToOutput = noInputRunningProject.getProcessOutput();
-			 client1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
-			client2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
-			client1HasInitialIntPrompt = testForIntegerPrompt(client1NoInputOutput).getPercentage() > 0;
-			client2HasInitialDoublePrompt = testForDoublePrompt(client2NoInputOutput).getPercentage() > 0;
-			client1HasInitialDoublePrompt = testForDoublePrompt(client1NoInputOutput).getPercentage() > 0;
-			client2HasInitialIntPrompt = testForIntegerPrompt(client2NoInputOutput).getPercentage() > 0;
+//			// Get the output when we have no input from the user
+//			 noInputRunningProject = runAliceBobProject(project, 1);
+//			String noInputPrompt = noInputRunningProject.await();
+//			Map<String, StringBuffer> aProcessToOutput = noInputRunningProject.getProcessOutput();
+//			 client1NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_1);
+//			client2NoInputOutput = aProcessToOutput.get(DistributedTags.CLIENT_2);
+//			client1HasInitialIntPrompt = testForIntegerPrompt(client1NoInputOutput).getPercentage() > 0;
+//			client2HasInitialDoublePrompt = testForDoublePrompt(client2NoInputOutput).getPercentage() > 0;
+//			client1HasInitialDoublePrompt = testForDoublePrompt(client1NoInputOutput).getPercentage() > 0;
+//			client2HasInitialIntPrompt = testForIntegerPrompt(client2NoInputOutput).getPercentage() > 0;
 			boolean samePromptForBoth = (client1HasInitialIntPrompt && client1HasInitialDoublePrompt) ||
 					(client2HasInitialIntPrompt && client2HasInitialDoublePrompt);
 			boolean hasInitialIntPrompt = client1HasInitialIntPrompt || client2HasInitialIntPrompt;

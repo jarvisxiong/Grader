@@ -14,9 +14,10 @@ import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputMainMet
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPrintAddAndMultiplyTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeiInputTakeNumberTestCase;
+import gradingTools.comp790ColabInc.assignment1.testcases.CollaborativeIncrementalInputPromptTestCase;
 
-public class CollaborativeIncrementalInputAssignment1Requirements extends FrameworkProjectRequirements {
-	public CollaborativeIncrementalInputAssignment1Requirements() {
+public class Assignment1Requirements extends FrameworkProjectRequirements {
+	public Assignment1Requirements() {
 			addDueDate("02/4/2014 23:55:59", 1.0);
 			addDueDate("02/5/2014 23:55:59", 0.5);
 
@@ -24,7 +25,7 @@ public class CollaborativeIncrementalInputAssignment1Requirements extends Framew
 			addFeature("Contains a main method", 10, new CollaborativeInputMainMethodTestCase());
 
 			// Checks for prompts
-			addFeature("Prompts for inputs", 10, new CollaborativeInputPromptTestCase());
+			addFeature("Prompts for inputs", 10, new CollaborativeIncrementalInputPromptTestCase());
 
 			// Combines Taking in Int and Double together into one test case
 			addFeature("Takes in Double and Integer", 10, new CollaborativeiInputTakeNumberTestCase());
