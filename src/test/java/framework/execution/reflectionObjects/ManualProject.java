@@ -5,7 +5,7 @@ import framework.execution.RunningProject;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import scala.Option;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;
@@ -76,7 +76,7 @@ public class ManualProject implements Project {
 
 	@Override
 	public RunningProject launch(
-			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			InputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
@@ -84,7 +84,7 @@ public class ManualProject implements Project {
 
 	@Override
 	public RunningProject launch(
-			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub

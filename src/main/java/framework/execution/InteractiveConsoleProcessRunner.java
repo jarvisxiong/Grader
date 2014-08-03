@@ -12,7 +12,7 @@ import grader.project.file.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 
 import java.io.*;
 import java.util.List;
@@ -98,7 +98,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
     	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
     	return run(null, command, input, args, timeout);
@@ -184,7 +184,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
     }
 
 	@Override
-	public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
 		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
 
@@ -259,7 +259,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public TimedProcess run(RunningProject aRunner, OutputBasedInputGenerator anOutputBasedInputGenerator,
+	public TimedProcess run(RunningProject aRunner, InputGenerator anOutputBasedInputGenerator,
 			String[] command, String input, String[] args, int timeout, String aProcess, boolean wait)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
@@ -267,7 +267,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String input, String[] args,
+	public RunningProject run(InputGenerator aDynamicInputProvider, String input, String[] args,
 			int timeout)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
@@ -276,7 +276,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	@Override
 	public RunningProject run(
-			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			InputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;

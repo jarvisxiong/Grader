@@ -6,7 +6,7 @@ import framework.execution.RunningProject;
 import org.joda.time.DateTime;
 
 import scala.Option;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public interface Project {
     /**
      * Attempts to launch the project in a new process
      */
-    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
     public RunningProject launch(String input, int timeout) throws NotRunnableException;
 
@@ -64,7 +64,7 @@ public interface Project {
     public TraceableLog getTraceableLog();
 
 	RunningProject launch(
-			OutputBasedInputGenerator anOutputBasedInputGenerator,
+			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException;
 }

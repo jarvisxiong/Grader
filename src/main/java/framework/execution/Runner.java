@@ -1,7 +1,7 @@
 package framework.execution;
 
 import tools.TimedProcess;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 
 /**
  * The interface for different runners to use
@@ -13,21 +13,21 @@ public interface Runner {
 
     public RunningProject run(String input, int timeout) throws NotRunnableException;
     
-    public RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
+    public RunningProject run(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
 
     public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException;
 
-	RunningProject run(OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException;
 
-	RunningProject run(OutputBasedInputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException;
 
-	TimedProcess run(RunningProject aRunner, OutputBasedInputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	TimedProcess run(RunningProject aRunner, InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout, String aProcess, boolean wait) throws NotRunnableException;
 
-	RunningProject run(OutputBasedInputGenerator aDynamicInputProvider,
+	RunningProject run(InputGenerator aDynamicInputProvider,
 			String input,
 			String[] args, int timeout) throws NotRunnableException;
 

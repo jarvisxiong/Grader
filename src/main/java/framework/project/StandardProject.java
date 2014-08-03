@@ -10,7 +10,7 @@ import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
 
@@ -180,11 +180,11 @@ public class StandardProject implements Project {
     }
 
     @Override
-    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
     }
     @Override
-    public RunningProject launch(OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
     }
     

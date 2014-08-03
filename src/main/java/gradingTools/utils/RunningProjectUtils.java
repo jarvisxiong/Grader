@@ -2,7 +2,7 @@ package gradingTools.utils;
 
 import java.util.Map;
 
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.project.Project;
@@ -23,7 +23,7 @@ public class RunningProjectUtils {
 	
 	public static final String DEFAULT_INPUT_SEPARATOR = "\n";
 	
-	public static RunningProject runProject(Project project, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator,
+	public static RunningProject runProject(Project project, int timeout, InputGenerator anOutputBasedInputGenerator,
 			String... inputs)
 			throws NotRunnableException {
 		return runProject(project, DEFAULT_INPUT_SEPARATOR, timeout, anOutputBasedInputGenerator, inputs);
@@ -52,7 +52,7 @@ public class RunningProjectUtils {
 	 * 
 	 * The running project also timesout based on the given timeout
 	 */
-	public static RunningProject runProject(Project project, String inputSeparator, int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator, String... inputs) throws NotRunnableException {
+	public static RunningProject runProject(Project project, String inputSeparator, int timeout, InputGenerator anOutputBasedInputGenerator, String... inputs) throws NotRunnableException {
 //		String allInputsStr = "";
 //		for (int i = 0; i < inputs.length; i++) {
 //			if (i > 0) {
@@ -62,7 +62,7 @@ public class RunningProjectUtils {
 //		}
 		return project.launch(anOutputBasedInputGenerator, toString(inputSeparator, inputs), timeout);
 	}
-	public static RunningProject runProject(Project project,  int timeout, OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) throws NotRunnableException {
+	public static RunningProject runProject(Project project,  int timeout, InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) throws NotRunnableException {
 //		String allInputsStr = "";
 //		for (int i = 0; i < inputs.length; i++) {
 //			if (i > 0) {

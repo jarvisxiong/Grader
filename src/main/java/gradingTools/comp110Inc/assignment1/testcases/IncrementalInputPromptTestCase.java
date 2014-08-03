@@ -1,6 +1,6 @@
 package gradingTools.comp110Inc.assignment1.testcases;
 
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;

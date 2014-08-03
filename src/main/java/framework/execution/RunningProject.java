@@ -10,7 +10,7 @@ import framework.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import util.pipe.ProcessInputListener;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
@@ -39,7 +39,7 @@ public class RunningProject implements ProcessInputListener {
 	String outputFileName;
 	StringBuffer projectOutput;
 	SakaiProject project;
-	OutputBasedInputGenerator outputBasedInputGeneraor; // actuall all we need is an output consumer
+	InputGenerator outputBasedInputGeneraor; // actuall all we need is an output consumer
 	RunnerInputStreamProcessor processIn;
 	StringBuffer input = new StringBuffer();
 	Map<String, StringBuffer> processToInput = new HashMap();
@@ -48,7 +48,7 @@ public class RunningProject implements ProcessInputListener {
 
 
 
-	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) {
+	public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) {
 		exception = null;
 		output = null;
 		if (aProject != null && aProject instanceof ProjectWrapper) {
@@ -73,7 +73,7 @@ public class RunningProject implements ProcessInputListener {
 
 	}
 	
-	public RunningProject(Project aProject, OutputBasedInputGenerator anOutputBasedInputGenerator, String anInput) {
+	public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
 		this(aProject, anOutputBasedInputGenerator,  (Map) null);
 //		exception = null;
 //		output = null;

@@ -2,7 +2,7 @@ package gradingTools.comp790ColabInc.assignment1.testcases;
 
 import java.util.Map;
 
-import util.pipe.OutputBasedInputGenerator;
+import util.pipe.InputGenerator;
 import util.tags.DistributedTags;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
