@@ -12,6 +12,7 @@ import grader.project.file.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
+import util.pipe.OutputBasedInputGenerator;
 
 import java.io.*;
 import java.util.List;

@@ -10,6 +10,8 @@ import framework.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
+import util.pipe.OutputBasedInputGenerator;
+import util.pipe.ProcessInputListener;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 

@@ -2,9 +2,9 @@ package gradingTools.comp790ColabInc.assignment1.testcases;
 
 import java.util.Map;
 
+import util.pipe.OutputBasedInputGenerator;
 import util.tags.DistributedTags;
 import framework.execution.NotRunnableException;
-import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;

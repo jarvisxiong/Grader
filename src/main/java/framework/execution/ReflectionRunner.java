@@ -5,6 +5,7 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 import tools.TimedProcess;
 import util.misc.TeePrintStream;
+import util.pipe.OutputBasedInputGenerator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

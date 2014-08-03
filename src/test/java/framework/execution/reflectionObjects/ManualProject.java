@@ -1,11 +1,11 @@
 package framework.execution.reflectionObjects;
 
 import framework.execution.NotRunnableException;
-import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import scala.Option;
+import util.pipe.OutputBasedInputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;

@@ -1,12 +1,12 @@
 package framework.project;
 
 import framework.execution.NotRunnableException;
-import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 
 import org.joda.time.DateTime;
 
 import scala.Option;
+import util.pipe.OutputBasedInputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;

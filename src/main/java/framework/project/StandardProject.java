@@ -10,6 +10,7 @@ import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
+import util.pipe.OutputBasedInputGenerator;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
 

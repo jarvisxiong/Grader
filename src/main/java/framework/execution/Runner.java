@@ -1,6 +1,7 @@
 package framework.execution;
 
 import tools.TimedProcess;
+import util.pipe.OutputBasedInputGenerator;
 
 /**
  * The interface for different runners to use

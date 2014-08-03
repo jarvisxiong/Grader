@@ -17,7 +17,7 @@ import demoAndTest.basic.AJavaPalindromeBasedGraderDemoerAndTester;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-import bus.uigen.models.DemoerAndTester;
+import bus.uigen.pipes.DemoerAndTester;
 import tools.DirectoryUtils;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;

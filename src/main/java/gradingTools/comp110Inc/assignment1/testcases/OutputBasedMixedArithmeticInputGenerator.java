@@ -1,6 +1,6 @@
 package gradingTools.comp110Inc.assignment1.testcases;
 
-import framework.execution.OutputBasedInputGenerator;
+import util.pipe.OutputBasedInputGenerator;
 
 public interface OutputBasedMixedArithmeticInputGenerator extends OutputBasedInputGenerator{
 	 boolean foundIntPrompt();

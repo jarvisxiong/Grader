@@ -2,8 +2,8 @@ package gradingTools.utils;
 
 import java.util.Map;
 
+import util.pipe.OutputBasedInputGenerator;
 import framework.execution.NotRunnableException;
-import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.project.Project;
 

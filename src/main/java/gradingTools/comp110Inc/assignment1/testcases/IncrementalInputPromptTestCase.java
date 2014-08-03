@@ -1,7 +1,7 @@
 package gradingTools.comp110Inc.assignment1.testcases;
 
+import util.pipe.OutputBasedInputGenerator;
 import framework.execution.NotRunnableException;
-import framework.execution.OutputBasedInputGenerator;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;

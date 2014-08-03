@@ -17,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 import tools.TimedProcess;
 import util.misc.Common;
 import util.misc.ThreadSupport;
+import util.pipe.OutputBasedInputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import framework.project.ClassDescription;

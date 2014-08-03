@@ -1,6 +1,6 @@
 package gradingTools.comp790Colab.example1.testcases;
 
-import framework.execution.OutputBasedInputGenerator;
+import util.pipe.OutputBasedInputGenerator;
 
 public interface OutputBasedIMInputGenerator extends OutputBasedInputGenerator{
 //	 boolean foundIntPrompt();

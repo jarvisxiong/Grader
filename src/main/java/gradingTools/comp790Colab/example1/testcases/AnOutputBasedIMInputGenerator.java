@@ -1,6 +1,6 @@
 package gradingTools.comp790Colab.example1.testcases;
 
-import framework.execution.AnAbstractOutputBasedInputGenerator;
+import util.pipe.AnAbstractOutputBasedInputGenerator;
 
 public class AnOutputBasedIMInputGenerator extends AnAbstractOutputBasedInputGenerator implements OutputBasedIMInputGenerator{
 	protected Integer intInput;
