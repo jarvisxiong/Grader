@@ -72,6 +72,8 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		String suffix = getTimeStampSuffix();
 
 		interactionLogFolder = getOrCreateInteractionFolder();
+		if (interactionLogFolder == null) 
+			return;
 		String userName = GradingEnvironment.get().getUserName();
 
 		if (userName == null || userName.isEmpty())
@@ -87,7 +89,10 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 		String interactionLogFolder = 
 				ConfigurationManagerSelector.getConfigurationManager().
 					getStaticConfiguration().getString("grader.logger.interactionLogDirectory"); // + "/" + GradingEnvironment.get().getUserName();
-		
+		if (interactionLogFolder == null) {
+			System.err.println("Null interaction log folder");
+			return null;
+		}
 		File folder = new File(interactionLogFolder);
 		if (!folder.exists()) {
 			folder.mkdirs();
@@ -171,6 +176,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
 	boolean navigationPhase;	
 	@Override
 	public void newEvent(Exception aTraceable) {
+		if (interactionLogFolder == null) return;
 //		if (aTraceable.getClass().getPackage() != AGraderTracer.class.getPackage()) return;
 		if (
 				!(aTraceable instanceof CSVSerializable) ||
