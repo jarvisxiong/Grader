@@ -1,6 +1,7 @@
 package grader.compilation;
 
 import framework.execution.RunningProject;
+import framework.utils.GradingEnvironment;
 import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
@@ -34,7 +35,9 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			List<String> optionList = new ArrayList<String>();
 			// set the output directory for the compiler
 			String buildFolderPath = buildFolder.getCanonicalPath();
-			optionList.addAll(Arrays.asList("-d", buildFolderPath));
+//			optionList.addAll(Arrays.asList("-d", buildFolderPath));
+			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
+					.get().getClasspath()));
 			System.out.println(buildFolderPath);
 
 			Iterable<? extends JavaFileObject> compilationUnits = fileManager

@@ -3,16 +3,21 @@ package framework.execution;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 import framework.project.Project;
+import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
+import util.models.ALocalGlobalTranscriptManager;
+import util.models.LocalGlobalTranscriptManager;
 import util.pipe.InputGenerator;
 import util.pipe.ProcessInputListener;
 import util.trace.Tracer;
+import util.trace.console.ConsoleInput;
 import wrappers.framework.project.ProjectWrapper;
 
 /**
@@ -26,6 +31,9 @@ public class RunningProject implements ProcessInputListener {
 //	protected Map<String, String> processToInput = new HashMap();
 	protected Map<String, String> processToErrors = new HashMap();
 	protected Map<String, StringBuffer> processToOutput = new HashMap();
+	protected Map<String, LocalGlobalTranscriptManager> 
+		processToTranscriptManager = new HashMap();
+
 
 
 	protected Map<String, String> processToOutputAndErrors = new HashMap();
@@ -39,18 +47,20 @@ public class RunningProject implements ProcessInputListener {
 	String outputFileName;
 	StringBuffer projectOutput;
 	SakaiProject project;
-	InputGenerator outputBasedInputGeneraor; // actuall all we need is an output consumer
+	InputGenerator outputBasedInputGenerator; // actuall all we need is an output consumer
 	RunnerInputStreamProcessor processIn;
 	StringBuffer input = new StringBuffer();
 	Map<String, StringBuffer> processToInput = new HashMap();
+	List<String> processes;
 
 	
 
 
 
-	public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput) {
+	public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, List<String> aProcesses, Map<String, String> aProcessToInput) {
 		exception = null;
 		output = null;
+		processes = aProcesses;
 		if (aProject != null && aProject instanceof ProjectWrapper) {
 			projectWrapper = (ProjectWrapper) aProject;
 			project = projectWrapper.getProject();
@@ -58,23 +68,42 @@ public class RunningProject implements ProcessInputListener {
 			projectOutput = project.getCurrentOutput();
 //			input.append(project.getCurrentInput());
 		}
-		outputBasedInputGeneraor = anOutputBasedInputGenerator;
-		if (outputBasedInputGeneraor != null) {
-			outputBasedInputGeneraor.addProcessInputListener(this); // maybe this should be in another class
+		outputBasedInputGenerator = anOutputBasedInputGenerator;
+		if (outputBasedInputGenerator != null) {
+			outputBasedInputGenerator.addProcessInputListener(this); // maybe this should be in another class
 		}
 //		processToInput = aProcessToInput;
 		if (aProcessToInput != null)
-		for (String aProcess:aProcessToInput.keySet()) {
-			String anInput = aProcessToInput.get(aProcess);
-//			if (anInput != null)
-			processToInput.put(aProcess, new StringBuffer(anInput));
-			input.append(anInput);
+			for (String aProcess : aProcessToInput.keySet()) {
+				String anInput = aProcessToInput.get(aProcess);
+				// if (anInput != null)
+				processToInput.put(aProcess, new StringBuffer(anInput));
+//				processToOutput.put(aProcess, new StringBuffer());
+				input.append(anInput);
+			}
+		if (aProcesses != null) {
+			for (int i = 0; i < aProcesses.size(); i++) {
+				String aProcess = aProcesses.get(i);
+				if (StaticConfigurationUtils.getTrace()) {
+				LocalGlobalTranscriptManager aTranscriptManager = new ALocalGlobalTranscriptManager();
+				processToTranscriptManager.put(aProcess, aTranscriptManager);
+				aTranscriptManager.setIndexAndLogDirectory(i, project.getStudentAssignment().getFeedbackFolder().getAbsoluteName());
+				aTranscriptManager.setProcessName(aProcess);
+				}
+				if (outputBasedInputGenerator != null) {
+					outputBasedInputGenerator.addProcessName(aProcess);
+
+				}
+			}
+			if (outputBasedInputGenerator != null)
+			   outputBasedInputGenerator.processNamesAdded();
+
 		}
 
 	}
 	
 	public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
-		this(aProject, anOutputBasedInputGenerator,  (Map) null);
+		this(aProject, anOutputBasedInputGenerator,  null, (Map) null);
 //		exception = null;
 //		output = null;
 //		if (aProject != null && aProject instanceof ProjectWrapper) {
@@ -128,19 +157,36 @@ public class RunningProject implements ProcessInputListener {
 		if (newVal == null) 
 			return;
 		StringBuffer aProcessOutput = processToOutput.get(aProcess);
+//		boolean newProcess = processToTranscriptManager.get(aProcess) == null;
 //		if (processOutput == null && newVal != null) {
 		if (aProcessOutput == null && newVal != null) {
 			aProcessOutput = new StringBuffer();
 			processToOutput.put(aProcess, aProcessOutput);
 		} 
 		
+		
 		aProcessOutput.append (newVal);		
 //		processToOutput.put(aProcess, aProcessOutput);
-		if (outputBasedInputGeneraor != null) {
-			outputBasedInputGeneraor.newOutputLine(aProcess, newVal);
+		if (outputBasedInputGenerator != null) {
+			outputBasedInputGenerator.newOutputLine(aProcess, newVal);
+//			if (newProcess) {
+//				outputBasedInputGenerator.addProcessName(aProcess);
+//			}
 		}
+		
+//		if (newProcess) {
+//			LocalGlobalTranscriptManager aTranscriptManager = new ALocalGlobalTranscriptManager();
+//			processToTranscriptManager.put(aProcess, aTranscriptManager );
+//			aTranscriptManager.setProcessName(aProcess);
+//			
+//		}
+		
+		
 		appendErrorAndOutput(aProcess, newVal);		
+		
 	}
+	
+	
 	public void appendErrorOutput(String aProcess, String newVal) {
 		String processErrors = processToErrors.get(aProcess);
 		if (processErrors == null && newVal != null) {
@@ -338,6 +384,17 @@ public class RunningProject implements ProcessInputListener {
 				aProcessStringBuffer.append(anInput);
 		}
 		input.append(anInput);
+		// why would this be info ever?
+		if (Tracer.isInfo(anInput))
+				return;
+		if (!StaticConfigurationUtils.getTrace())
+			return;
+				
+		ConsoleInput consoleInput = ConsoleInput.newCase(anInput, this);
+		String infoString = Tracer.toInfo(consoleInput, consoleInput.getMessage());
+		if (infoString != null)
+			appendProcessOutput(aProcessName, infoString);
+		
 		
 	}
 

@@ -1,4 +1,4 @@
-package gradingTools.comp790Colab.example1.testcases;
+package gradingTools.comp790ColabInc.example1.testcases;
 
 import util.pipe.AnAbstractInputGenerator;
 

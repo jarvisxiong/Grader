@@ -45,7 +45,7 @@ import grader.trace.execution.UserProcessExecutionTimedOut;
  * This runs the program in a new process.
  */
 public class ProcessRunner implements Runner {
-	public static final int PORT_RELEASE_TIME = 3000;
+	public static final int PORT_RELEASE_TIME = 5000;
 	private Map<String, String> entryPoints;
 	protected Map<String, RunnerErrorOrOutStreamProcessor> processToOut = new HashMap();
 	protected Map<String, RunnerErrorOrOutStreamProcessor> processToErr = new HashMap();
@@ -384,7 +384,7 @@ public class ProcessRunner implements Runner {
 
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
-		runner = new RunningProject(project, anOutputBasedInputGenerator, aProcessToInput);
+		runner = new RunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
 		acquireIOLocks();
 //		try {
 //			runner.start();

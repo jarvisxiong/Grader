@@ -1,10 +1,14 @@
 package framework.execution;
 
+import grader.config.StaticConfigurationUtils;
+
 import java.io.InputStream;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 import tools.TimedProcess;
+import util.trace.Tracer;
+import util.trace.console.ConsoleOutput;
 
 public class ARunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcessor implements Runnable {
 //	protected Scanner scanner ;
@@ -27,7 +31,12 @@ public void processLine(String s) {
 //		runner.appendErrorOutput(processName, s + "\n");
 		runner.appendProcessOutput(processName, s + "\n"); // append this process output
 //	}
-	
+		if (StaticConfigurationUtils.getTrace()) {
+		ConsoleOutput consoleOutput = ConsoleOutput.newCase(s, this);
+		String infoString = Tracer.toInfo(consoleOutput, consoleOutput.getMessage());
+		if (infoString != null)
+			runner.appendProcessOutput(processName, infoString);
+		}
 }
 		
 

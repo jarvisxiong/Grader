@@ -1,4 +1,4 @@
-package gradingTools.comp790Colab.example1;
+package gradingTools.comp790ColabInc.example1;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.ManualTestCase;
@@ -9,7 +9,7 @@ import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
 import gradingTools.comp110Inc.assignment1.testcases.IncrementalInputPromptTestCase;
-import gradingTools.comp790Colab.example1.testcases.IMTestCase;
+import gradingTools.comp790ColabInc.example1.testcases.IMTestCase;
 
 public class Example1Requirements extends FrameworkProjectRequirements {
 	public Example1Requirements() {

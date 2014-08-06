@@ -41,6 +41,7 @@ public class StaticConfigurationUtils {
 	public static final String ARGS = "args";
 	public static final String START_TAGS = "startTags";
 	public static final String TERMINATING = "terminating";
+	public static final String GENERATE_TRACE_FILES = "trace";
 	
 	public static final String JAVA = "Java";
 
@@ -417,6 +418,10 @@ public static List<String> getInheritedListModuleProblemProperty(PropertiesConfi
 	
 	public static List<String> getProcessStartTags(String aProcess) {
 		return getInheritedListModuleProblemProperty(aProcess + "." + START_TAGS);
+	}
+	
+	public static Boolean getTrace() {
+		return getInheritedBooleanModuleProblemProperty(GENERATE_TRACE_FILES, false);
 	}
 	
 	public static final int DEFAULT_SLEEP_TIME = 2000;
