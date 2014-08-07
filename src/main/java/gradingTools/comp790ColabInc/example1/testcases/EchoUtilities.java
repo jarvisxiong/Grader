@@ -1,6 +1,7 @@
 package gradingTools.comp790ColabInc.example1.testcases;
 
 import java.beans.PropertyChangeEvent;
+import java.util.List;
 
 public class EchoUtilities {
 	public static final String QUIT = "quit";
@@ -34,6 +35,15 @@ public class EchoUtilities {
 
 	public static final String echo(String anInput) {
 		return anInput + ECHO_INDICATOR;
+	}
+
+	public static String toString(List aList) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int index = 0; index < aList.size(); index++) {
+			stringBuilder.append(aList.get(index));			
+			stringBuilder.append((index == aList.size() - 1)? "\n":", ");
+		}		
+		return stringBuilder.toString();
 	}
 
 	
