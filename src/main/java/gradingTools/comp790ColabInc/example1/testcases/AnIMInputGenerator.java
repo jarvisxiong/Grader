@@ -1,6 +1,6 @@
 package gradingTools.comp790ColabInc.example1.testcases;
 
-import static im.IMUtililties.remoteEchoOf;
+import static gradingTools.comp790ColabInc.example1.testcases.IMUtililties.*;
 import static util.trace.session.SessionTraceUtility.clientJoined;
 
 import java.util.ArrayList;
@@ -11,10 +11,6 @@ import util.pipe.AConsoleModel;
 import util.trace.Traceable;
 import util.trace.Tracer;
 import bus.uigen.trace.TraceUtility;
-import echo.modular.AModularEchoInputGenerator;
-import echo.modular.AnEchoInteractor;
-import echo.modular.EchoerInteractor;
-import echo.monolithic.EchoUtilities;
 
 public class AnIMInputGenerator extends AModularEchoInputGenerator 
 	implements IMInputGenerator {
@@ -384,17 +380,17 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 
 	void enterAliceHistory() {
 		aliceInputOver = true; // set it before property changed
-		notifyNewInput(aliceProcess, EchoerInteractor.HISTORY);
+		notifyNewInput(aliceProcess, EchoUtilities.HISTORY);
 	}
 
 	void enterBobHistory() {
 		bobInputOver = true;
-		notifyNewInput(bobProcess, EchoerInteractor.HISTORY);
+		notifyNewInput(bobProcess, EchoUtilities.HISTORY);
 	}
 
 	void enterCathyHistory() {
 		cathyInputOver = true;
-		notifyNewInput(cathyProcess, EchoerInteractor.HISTORY);
+		notifyNewInput(cathyProcess, EchoUtilities.HISTORY);
 	}
 
 	/*
@@ -403,7 +399,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 	 */
 	
 	
-	static final String aPromptWithNewLine = AnEchoInteractor.PROMPT + "\n";
+	static final String aPromptWithNewLine = EchoUtilities.PROMPT + "\n";
 
 	public static boolean isApplicationOutput(String aStringWithNewLine) {
 		return !aStringWithNewLine.equals(aPromptWithNewLine)

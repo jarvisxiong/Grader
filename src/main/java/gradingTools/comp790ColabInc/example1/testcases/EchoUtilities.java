@@ -1,5 +1,7 @@
 package gradingTools.comp790ColabInc.example1.testcases;
 
+import static util.pipe.ConsoleModelUtility.isOutputLine;
+
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
@@ -45,6 +47,30 @@ public class EchoUtilities {
 		}		
 		return stringBuilder.toString();
 	}
+
+	public static String echoOf(String anInput) {
+		return echo(anInput);
+	}
+
+	public static boolean echoOf(String aProcessName, String anOutputLine, String anInput) {
+	
+	//		return aText.contains(MonolithicEchoer.echo(anInput));
+			return anOutputLine.contains(echoOf(anInput));
+	
+			
+		}
+
+	public static boolean echoOf(PropertyChangeEvent aConsoleModelEvent, String anInput) {
+			if (!isOutputLine(aConsoleModelEvent)) return false;
+			String aText = aConsoleModelEvent.getNewValue().toString();
+	//		return aText.contains(MonolithicEchoer.echo(anInput));
+			return aText.contains(echoOf(anInput));
+	
+			
+		}
+
+	public static final String PROMPT = "Please enter an input line or " +
+	 QUIT + " or " + HISTORY;
 
 	
 

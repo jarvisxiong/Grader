@@ -1,6 +1,7 @@
 package gradingTools.comp790ColabInc.example1.testcases;
 
 import util.pipe.InputGenerator;
+import util.trace.console.ConsoleTraceSetter;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -25,8 +26,9 @@ public class IMTestCase extends PromptTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			OutputBasedIMInputGenerator anOutputBasedInputGenerator = new AnOutputBasedIMInputGenerator();
-			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 1,
+			IMInputGenerator anOutputBasedInputGenerator = new AnIMInputGenerator();
+			ConsoleTraceSetter.traceConsole();
+			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 5,
 					anOutputBasedInputGenerator);
 			String incOutput = interactiveInputProject.await();
 			return null;
