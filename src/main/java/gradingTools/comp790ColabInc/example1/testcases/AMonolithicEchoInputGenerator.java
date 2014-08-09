@@ -33,12 +33,12 @@ public class AMonolithicEchoInputGenerator extends ADemoer {
 	public void executionStarted() {
 		echoProcess = processNames.get(0);
 		
-		notifyNewInput(echoProcess, POEM[0]);
+		notifyNewInputLine(echoProcess, POEM[0]);
 		// replace these with wait for clearance etc
 		ThreadSupport.sleep(1000);
-		notifyNewInput(echoProcess, POEM[1]);
+		notifyNewInputLine(echoProcess, POEM[1]);
 		ThreadSupport.sleep(1000);
-		notifyNewInput(echoProcess, POEM[2]);
+		notifyNewInputLine(echoProcess, POEM[2]);
 //		ThreadSupport.sleep(1000);
 		ThreadSupport.sleep(1000);
 		notifyInteractionTermination();

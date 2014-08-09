@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import framework.project.Project;
@@ -12,6 +13,7 @@ import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
+import tools.TimedProcess;
 import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
 import util.pipe.InputGenerator;
@@ -33,6 +35,12 @@ public class RunningProject implements ProcessInputListener {
 	protected Map<String, StringBuffer> processToOutput = new HashMap();
 	protected Map<String, LocalGlobalTranscriptManager> 
 		processToTranscriptManager = new HashMap();
+	// duplicates the mapping in Process Runner
+	protected Map<String, RunnerInputStreamProcessor> processToIn = new HashMap();
+	protected Map<String, TimedProcess> nameToProcess = new HashMap();
+	
+
+
 
 
 
@@ -48,9 +56,11 @@ public class RunningProject implements ProcessInputListener {
 	StringBuffer projectOutput;
 	SakaiProject project;
 	InputGenerator outputBasedInputGenerator; // actuall all we need is an output consumer
-	RunnerInputStreamProcessor processIn;
+//	RunnerInputStreamProcessor processIn;
 	StringBuffer input = new StringBuffer();
-	Map<String, StringBuffer> processToInput = new HashMap();
+	protected Map<String, StringBuffer> processToInput = new HashMap();
+	protected Map<String, RunnerErrorOrOutStreamProcessor> processToOut = new HashMap();
+	protected Map<String, RunnerErrorOrOutStreamProcessor> processToErr = new HashMap();
 	List<String> processes;
 
 	
@@ -375,8 +385,8 @@ public class RunningProject implements ProcessInputListener {
 
 
 	@Override
-	public void newInput(String aProcessName, String anInput) {		
-		processIn.newInput(anInput);
+	public void newInputLine(String aProcessName, String anInput) {		
+		processToIn.get(aProcessName).newInput(anInput + "\n");
 		project.appendCurrentInput(anInput);// this should go, 
 		if (aProcessName != null && processToInput != null) {
 			StringBuffer aProcessStringBuffer = processToInput.get(aProcessName);
@@ -397,23 +407,128 @@ public class RunningProject implements ProcessInputListener {
 		
 		
 	}
-
-
+	public void terminateTeam() {
+		Set<String> aProcesses = nameToProcess.keySet();
+		for (String aProcess : aProcesses) {
+			terminateProcess(aProcess);
+//			try {
+//				processToOut.get(aProcess).getSemaphore().acquire();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			try {
+//				processToErr.get(aProcess).getSemaphore().acquire();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			TimedProcess timedProcess = nameToProcess.get(aProcess);
+//			timedProcess.getProcess().destroy();
+		}
+		terminateRunner();
+		// try {
+		// // Wait for the output to finish
+		// outputSemaphore.acquire();
+		// errorSemaphore.acquire();
+		// runner.end();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// Tracer.error(e.getMessage());
+		// runner.error();
+		// runner.end();
+		// }
+	}
+	void terminateRunner() {
+		try {
+			// Wait for the output to finish
+//			acquireIOLocks();
+			releaseTeamLocks();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Tracer.error(e.getMessage());
+			error();
+			releaseTeamLocks();
+//			runner.end();
+		}
+	}
+	void releaseTeamLocks() {
+//		try {
+//			outputSemaphore.release(); // share once for all processes
+//			errorSemaphore.release();
+//		Set<String> aProcesses = processToOut.keySet();
+//		for (String aProcess:aProcesses) {
+//			processToOut.get(aProcess).getSemaphore().release();;
+//			processToErr.get(aProcess).getSemaphore().release();
+//			
+//		}
+			end();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
 
 	@Override
 	public void inputTerminated(String aProcessName) {
-		System.out.println("Terminating input");
-		processIn.terminateInput();
+//		System.out.println("Terminating input");
+		terminateProcess(aProcessName);
+//		processToIn.get(aProcessName).terminateInput();
 		
 	}
-	public RunnerInputStreamProcessor getProcessIn() {
-		return processIn;
+	public void terminateProcess(String aProcess) {
+		System.out.println("Terminating:" + aProcess);
+//
+		try {
+			processToOut.get(aProcess).getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			processToErr.get(aProcess).getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TimedProcess timedProcess = nameToProcess.get(aProcess);
+		timedProcess.getProcess().destroy();
 	}
-
-
-
-	public void setProcessIn(RunnerInputStreamProcessor processIn) {
-		this.processIn = processIn;
+	public RunnerInputStreamProcessor getProcessIn(String aProcessName) {
+		return processToIn.get(aProcessName);
+	}
+	// the mapping could be passed to this object rather than the individual processIn's
+	public void setProcessIn(String aProcess, RunnerInputStreamProcessor processIn) {
+//		this.processIn = processIn;
+		processToIn.put(aProcess, processIn);
+	}
+	
+	public RunnerErrorOrOutStreamProcessor getProcessOut(String aProcessName) {
+		return processToOut.get(aProcessName);
+	}
+	// the mapping could be passed to this object rather than the individual processIn's
+	public void setProcessOut(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
+//		this.processIn = processIn;
+		processToOut.put(aProcess, newVal);
+	}
+	
+	public RunnerErrorOrOutStreamProcessor getProcessErr(String aProcessName) {
+		return processToErr.get(aProcessName);
+	}
+	// the mapping could be passed to this object rather than the individual processIn's
+	public void setProcessErr(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
+//		this.processIn = processIn;
+		processToErr.put(aProcess, newVal);
+	}
+	
+	
+	public TimedProcess getProcess(String aProcessName) {
+		return nameToProcess.get(aProcessName);
+	}
+	
+	public void setProcess(String aProcessName, TimedProcess aTimedProcess) {
+//		this.processIn = processIn;
+		nameToProcess.put(aProcessName, aTimedProcess);
 	}
 
 }

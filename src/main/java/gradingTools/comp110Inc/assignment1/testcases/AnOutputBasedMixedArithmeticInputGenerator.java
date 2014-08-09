@@ -45,12 +45,12 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractInputG
 //			foundIntPrompt = true;
 			setFoundIntPrompt(aProcessName, true);
 			if (intInput != null)
-				notifyNewInput(aProcessName, intInput + "\n");
+				notifyNewInputLine(aProcessName, intInput + "");
 			
 		} else if (IncrementalInputPromptTestCase.hasDoublePrompt(anOutputLine)) {
 			setFoundDoublePrompt(aProcessName, true);
 			if (doubleInput != null)
-				notifyNewInput(aProcessName, doubleInput + "\n");
+				notifyNewInputLine(aProcessName, doubleInput + "");
 			
 		}
 		maybeTerminate(aProcessName);

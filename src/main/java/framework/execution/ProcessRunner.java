@@ -55,7 +55,7 @@ public class ProcessRunner implements Runner {
 	// make them global variables so while waiting someone can query them,
 	// probbaly breaks least privelege
 	// these are needed to allow asynchronous start of new processes
-	Map<String, TimedProcess> nameToProcess = new HashMap();
+	protected Map<String, TimedProcess> nameToProcess = new HashMap();
 	List<String> startedProcesses = new ArrayList();
 	List<String> pendingProcesses = new ArrayList();
 	List<String> receivedTags = new ArrayList();
@@ -453,8 +453,8 @@ public class ProcessRunner implements Runner {
 		}
 		waitForDynamicProcesses();
 		waitForStartedProcesses();
-		terminateTeam();
-		waitForPortsOfTerminatedProcessesToBeReleased();
+//		terminateTeam();
+//		waitForPortsOfTerminatedProcessesToBeReleased();
 //		releaseTeamLocks();
 		// for (String
 		// aTerminatingProcess:anExecutionSpecification.getTerminatingProcesses(aProcessTeam))
@@ -534,6 +534,7 @@ public class ProcessRunner implements Runner {
 																					// to
 																					// finish
 		nameToProcess.put(aProcess, aTimedProcess);
+		runner.setProcess(aProcess, aTimedProcess);
 		ThreadSupport.sleep(aSleepTime); // should be before and not after., so ports can be released, or maybe before and after
 		// some processes may be added dynamically on firing of events, will
 		// support them later
@@ -554,42 +555,67 @@ public class ProcessRunner implements Runner {
 	}
 
 	synchronized void waitForStartedProcesses() {
+		try {
 		for (String aTerminatingProcess : executionSpecification
 				.getTerminatingProcesses(processTeam)) {
 			TimedProcess aTimedProcess = nameToProcess.get(aTerminatingProcess);
-			try {
+		
 				aTimedProcess.waitFor();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TimeoutException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+		}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			runner.terminateTeam();
+			waitForPortsOfTerminatedProcessesToBeReleased();
 		}
 
 	}
+	
+	void terminateProcess(String aProcess) {
+		try {
+			processToOut.get(aProcess).getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			processToErr.get(aProcess).getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TimedProcess timedProcess = nameToProcess.get(aProcess);
+		timedProcess.getProcess().destroy();
+	}
+	
+	
 
 	void terminateTeam() {
 		Set<String> aProcesses = nameToProcess.keySet();
 		for (String aProcess : aProcesses) {
-			try {
-				processToOut.get(aProcess).getSemaphore().acquire();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				processToErr.get(aProcess).getSemaphore().acquire();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			TimedProcess timedProcess = nameToProcess.get(aProcess);
-			timedProcess.getProcess().destroy();
+			terminateProcess(aProcess);
+//			try {
+//				processToOut.get(aProcess).getSemaphore().acquire();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			try {
+//				processToErr.get(aProcess).getSemaphore().acquire();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			TimedProcess timedProcess = nameToProcess.get(aProcess);
+//			timedProcess.getProcess().destroy();
 		}
 		terminateRunner();
 		// try {
@@ -735,6 +761,7 @@ public class ProcessRunner implements Runner {
 			Thread outThread = new Thread(outRunnable);
 			outThread.setName("Out Stream Runnable");
 			processToOut.put(aProcessName, outRunnable);
+			runner.setProcessOut(aProcessName, outRunnable);
 
 			outThread.start();
 			// outputSemaphore.acquire();
@@ -787,6 +814,7 @@ public class ProcessRunner implements Runner {
 			Thread errorThread = new Thread(errorRunnable);
 			errorThread.setName("Error Stream Runnable");
 			processToErr.put(aProcessName, errorRunnable);
+			runner.setProcessErr(aProcessName, errorRunnable);
 
 			errorThread.start();
 			// (new Thread (new AnErrorStreamProcessor(process,
@@ -813,7 +841,7 @@ public class ProcessRunner implements Runner {
 			// using the output of one process to influence the input of another
 			
 			RunnerInputStreamProcessor aProcessIn = new ARunnerInputStreamProcessor(process.getOutputStream(), runner, aProcessName,  anOnlyProcess);
-			runner.setProcessIn(aProcessIn);
+			runner.setProcessIn(aProcessName, aProcessIn);
 			processToIn.put(aProcessName, aProcessIn);
 			if (anOutputBasedInputGenerator == null) {
 				aProcessIn.newInput(input);

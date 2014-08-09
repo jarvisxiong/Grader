@@ -33,10 +33,10 @@ import util.trace.Tracer;
 public class AnIMGraderDemoerAndTester extends ADistributedMixedArithmeticIncrementalInputGraderDemoerAndTester {
 	
 	//	 String[] args ;
-	public final  String COLAB_TEST_DIR = "Test Data/Test 790Colab";
-	public final  String COLAB_CORRECT_DIR = "Test Data/Correct 790Colab";
+	public final  String COLAB_TEST_DIR = "Test Data/Test 790ColabInc";
+	public final  String COLAB_CORRECT_DIR = "Test Data/Correct 790ColabInc";
 //	public final String COURSE_NO = "Comp411";
-	public final String COLAB_COURSE_NO = "Comp790Colab";
+	public final String COLAB_COURSE_NO = "Comp790ColabInc";
 
 
 

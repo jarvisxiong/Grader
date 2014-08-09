@@ -31,7 +31,11 @@ public void processLine(String s) {
 //		runner.appendErrorOutput(processName, s + "\n");
 		runner.appendProcessOutput(processName, s + "\n"); // append this process output
 //	}
+		
 		if (StaticConfigurationUtils.getTrace()) {
+			
+			if (Tracer.isInfo(s))
+				return; // do not create console output info for an info event
 		ConsoleOutput consoleOutput = ConsoleOutput.newCase(s, this);
 		String infoString = Tracer.toInfo(consoleOutput, consoleOutput.getMessage());
 		if (infoString != null)

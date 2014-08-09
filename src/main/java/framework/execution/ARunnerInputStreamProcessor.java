@@ -14,7 +14,8 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	protected String processName;
 	protected Boolean onlyProcess;
 	OutputStreamWriter inputWriter;
-	String inPrefix = "";
+	public static final String IN_PROMPT = "$";
+	String inPrefix = IN_PROMPT;
 	
 	public ARunnerInputStreamProcessor(OutputStream anInput, RunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
 		input = anInput;
@@ -25,7 +26,7 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 		semaphore = new Semaphore(1);
 		processName = aProcessName;
 		onlyProcess = anOnlyProcess;
-		if (onlyProcess)
+		if (!onlyProcess)
 			inPrefix = aProcessName + "$";
 	}
 	

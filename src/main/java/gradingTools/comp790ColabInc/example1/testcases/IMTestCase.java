@@ -28,7 +28,7 @@ public class IMTestCase extends PromptTestCase {
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 			IMInputGenerator anOutputBasedInputGenerator = new AnIMInputGenerator();
 			ConsoleTraceSetter.traceConsole();
-			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 5,
+			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 50,
 					anOutputBasedInputGenerator);
 			String incOutput = interactiveInputProject.await();
 			return null;

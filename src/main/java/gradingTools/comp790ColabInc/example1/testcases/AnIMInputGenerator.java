@@ -154,7 +154,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 		if (enterDummyStrings)
 		enterAliceDummyString();
 		aliceInput = POEM[0];
-		notifyNewInput(aliceProcess, aliceInput);
+		notifyNewInputLine(aliceProcess, aliceInput);
 		history.add(aliceInput);
 	}
 
@@ -164,7 +164,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 		String aDummyString = processNames.get(1) + nextDummy;
 		history.add(aDummyString);
 		System.out.println("Alice process:" + aliceProcess);
-		notifyNewInput(aliceProcess, aDummyString);
+		notifyNewInputLine(aliceProcess, aDummyString);
 		nextDummy++;
 		if (waitBeforeDummy)
 		ThreadSupport.sleep(100);
@@ -173,7 +173,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 	protected void enterBobDummyString() {
 		String aDummyString = processNames.get(2) + nextDummy;
 		history.add(aDummyString);
-		notifyNewInput(bobProcess, aDummyString);
+		notifyNewInputLine(bobProcess, aDummyString);
 		nextDummy++;
 		if (waitBeforeDummy)
 
@@ -184,7 +184,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 	protected void enterCathyDummyString() {
 		String aDummyString = processNames.get(3) + nextDummy;
 		history.add(aDummyString);
-		notifyNewInput(cathyProcess, aDummyString);
+		notifyNewInputLine(cathyProcess, aDummyString);
 		nextDummy++;
 		if (waitBeforeDummy)
 
@@ -197,7 +197,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 
 		enterBobDummyString();
 		bobInput = POEM[1];
-		notifyNewInput(bobProcess, bobInput);
+		notifyNewInputLine(bobProcess, bobInput);
 		history.add(bobInput);
 	}
 
@@ -206,7 +206,7 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 
 		enterCathyDummyString();
 		cathyInput = POEM[2];
-		notifyNewInput(cathyProcess, cathyInput);
+		notifyNewInputLine(cathyProcess, cathyInput);
 		history.add(cathyInput);
 
 	}
@@ -380,17 +380,17 @@ public class AnIMInputGenerator extends AModularEchoInputGenerator
 
 	void enterAliceHistory() {
 		aliceInputOver = true; // set it before property changed
-		notifyNewInput(aliceProcess, EchoUtilities.HISTORY);
+		notifyNewInputLine(aliceProcess, EchoUtilities.HISTORY);
 	}
 
 	void enterBobHistory() {
 		bobInputOver = true;
-		notifyNewInput(bobProcess, EchoUtilities.HISTORY);
+		notifyNewInputLine(bobProcess, EchoUtilities.HISTORY);
 	}
 
 	void enterCathyHistory() {
 		cathyInputOver = true;
-		notifyNewInput(cathyProcess, EchoUtilities.HISTORY);
+		notifyNewInputLine(cathyProcess, EchoUtilities.HISTORY);
 	}
 
 	/*
