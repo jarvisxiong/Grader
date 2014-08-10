@@ -1,5 +1,7 @@
 package gradingTools.comp790ColabInc.example1.testcases;
 
+import im.AnIMInputGenerator;
+import im.IMInputGenerator;
 import util.pipe.InputGenerator;
 import util.trace.console.ConsoleTraceSetter;
 import framework.execution.NotRunnableException;
