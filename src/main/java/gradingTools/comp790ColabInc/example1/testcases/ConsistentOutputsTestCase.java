@@ -14,10 +14,12 @@ import framework.project.Project;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class IMTestCase extends PromptTestCase {
-	public IMTestCase() {
+public class ConsistentOutputsTestCase extends BasicTestCase {
+	IMInputGenerator imInputGenerator;
+	public ConsistentOutputsTestCase(IMInputGenerator anOutputBasedInputGenerator) {
 //		super("Prompt printer test case");
-		super();
+		super("");
+		imInputGenerator = anOutputBasedInputGenerator;
 	}
 	
 
@@ -26,14 +28,16 @@ public class IMTestCase extends PromptTestCase {
 			NotGradableException {
 		try {
 
-			// Get the output when we have no input from the user
-//			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			IMInputGenerator anOutputBasedInputGenerator = new AnIMInputGenerator();
-			ConsoleTraceSetter.traceConsole();
-			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 50,
-					anOutputBasedInputGenerator);
-			String incOutput = interactiveInputProject.await();
-			return null;
+			
+			if (imInputGenerator.getNumCausalPhasesFinished() == 2)
+				return pass();
+			double credit = imInputGenerator.getNumCausalPhasesFinished()/2.0;
+			if (credit == 0)
+				return fail("None of the 2 causal phases finished");
+			return partialPass(credit, imInputGenerator.getNumCausalPhasesFinished() + " phased finished rather than " + 2);
+
+
+					
 //			if (anOutputBasedInputGenerator.foundDoublePrompt() && anOutputBasedInputGenerator.foundIntPrompt())
 //				return pass();
 //			else
