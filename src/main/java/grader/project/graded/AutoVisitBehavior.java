@@ -5,7 +5,7 @@ import util.annotations.Row;
 import util.annotations.Visible;
 import util.misc.ClearanceManager;
 import util.models.LabelBeanModel;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
@@ -16,7 +16,7 @@ import grader.trace.settings.MissingOnyenException;
 import java.beans.PropertyChangeListener;
 
 
-public interface AutoVisitBehavior  extends  PropertyListenerRegisterer{
+public interface AutoVisitBehavior  extends  PropertyListenerRegistrar{
 	public boolean setProject(SakaiProject newVal) ;
 	
 //	public void output();

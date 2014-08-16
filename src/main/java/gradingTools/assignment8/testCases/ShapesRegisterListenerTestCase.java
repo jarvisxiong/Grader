@@ -7,7 +7,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,7 +32,7 @@ public class ShapesRegisterListenerTestCase extends BasicTestCase {
         ClassesManager manager = project.getClassesManager().get();
         int count = 0;
         for (ClassDescription description : manager.getClassDescriptions()) {
-            if (PropertyListenerRegisterer.class.isAssignableFrom(description.getJavaClass()))
+            if (PropertyListenerRegistrar.class.isAssignableFrom(description.getJavaClass()))
                 count++;
         }
 

@@ -3,9 +3,9 @@ package demoAndTest;
 import java.beans.PropertyChangeListener;
 
 import util.misc.ClearanceManager;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public interface DemoAndTestingClearanceManager extends ClearanceManager, PropertyListenerRegisterer{
+public interface DemoAndTestingClearanceManager extends ClearanceManager, PropertyListenerRegistrar{
 	public boolean isAutoProceed();
 	public void setAutoProceed(boolean autoProceed) ;
 	public String getStepDescription() ;

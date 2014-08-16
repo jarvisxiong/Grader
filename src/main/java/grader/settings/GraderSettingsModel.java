@@ -9,9 +9,9 @@ import grader.settings.navigation.NavigationSetter;
 import util.annotations.ComponentHeight;
 import util.annotations.Row;
 import util.annotations.Visible;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public interface GraderSettingsModel extends PropertyListenerRegisterer, PropertyChangeListener{
+public interface GraderSettingsModel extends PropertyListenerRegistrar, PropertyChangeListener{
 	public GraderFilesSetterModel getFileBrowsing() ;
 	public void setFileBrowsing(GraderFilesSetterModel fileBrowsing);
 	public OnyenRangeModel getOnyens() ;
