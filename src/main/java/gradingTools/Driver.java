@@ -266,36 +266,32 @@ public class Driver {
    }
 
 	static InteractionLogWriter interactionLogWriter;
+	static String controller;
 	
+	static boolean isHeadless() {
+		return controller.equals("AHeadlessGradingManager");
+	}
 	
 
     public static void drive(String[] args, int settingsFrameX, int settingsFrameY) {
-		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
+//		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 
     	setTracing();
-		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
+//		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 		
 
-//    	String[] retVal = "main.foo".split(".");
-//    	retVal = "main:foo".split(":");
-//    	retVal = "main.foo.foo".split("\\.");
 
-//        try {
-        
-        	
-            // Load the config file
-//        	GradingEnvironment.get().setConfigurationManager(new AConfigurationManager());
-			
-//    		TraceableBus.addTraceableListener(InteractionLogWriterSelector.getInteractionLogWriter());
-//    		interactionLogWriter.addLogListener(GradingHistoryManagerSelector.getGradingHistoryManager());
-
-//        	PropertiesConfiguration configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-//        	ModuleProblemManager moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
-//        	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
         	
     		ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
     		
         	 configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+             // moved
+        	  controller = configuration.getString("grader.controller", "GradingManager");
+//        	 if (!controller.equals("AHeadlessGradingManager")) {
+        	  if (!isHeadless()) {
+        			ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
+        			ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
+        	 }
         	 interactionLogWriter = 	InteractionLogWriterSelector.getInteractionLogWriter();
      		TraceableBus.addTraceableListener(interactionLogWriter);
      		
@@ -304,73 +300,24 @@ public class Driver {
            	 AProject.setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
 
         	 
-//        	 boolean makeClassDescriptions = getMakeClassDescription(configuration, graderSettingsManager);
-//        	 AProject.setMakeClassDescriptions(makeClassDescriptions);
-        	
-        	
-//        	moduleProgramManager.init(graderSettingsManager);
-//        	graderSettingsManager.init(moduleProgramManager);
-//        	PropertiesConfiguration configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
-//            PropertiesConfiguration configuration = new PropertiesConfiguration("./config/config.properties");
-//            GradingEnvironment.get().getConfigurationManager().setStaticConfiguration(configuration);
-//            String dynamicConfigurationHolder = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
-//            File file = new File(dynamicConfigurationHolder);
-//            if (!file.exists()) {
-//            	file.createNewFile();
-//            }
-//            PropertiesConfiguration dynamicConfiguration =  new PropertiesConfiguration(dynamicConfigurationHolder);
-//            AConfigurationManager.setDynamicConfiguration(dynamicConfiguration);
-//
-//            GraderSettings.get().convertToDynamicConfiguration();
-//        	GraderSettings.get().convertToDynamicConfiguration();
+
+
        	   
             // Get the project name
             String projectName = configuration.getString("project.name");
-//            Object projectProperty = configuration.getProperty("project.name");
             GradingEnvironment.get().setAssignmentName(projectName);
             
-//                        
-//            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-//            defaultAssignmentsDataFolderName = moduleProgramManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
-//            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
-            // Get the project requirements
-//            Class<?> _class = Class.forName(configuration.getString("project.requirements"));
-//            ProjectRequirements requirements = (ProjectRequirements) _class.newInstance();
-//            ProjectRequirements requirements = getProjectRequirements(configuration);
             ProjectRequirements requirements = null;
 //
 //            // Logging
             ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
-//            recorder.setProjectRequirements(requirements);
-//            initLoggers(requirements, configuration);
 
-//            String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
-//           //lazy coding means feedback should be the last step so that isSaved works correctly
-//
-//            for (String method :loggingMethods) {
-//
-//                // Add loggers
-//                if (method.equals("local") || method.equals("local-txt"))
-//                    recorder.addLogger(new LocalTextSummaryLogger());
-//                if (method.equals("local") || method.equals("local-json"))
-//                    recorder.addLogger(new LocalJsonLogger());
-//                if (method.equals("feedback") || method.equals("feedback-txt"))
-//                    recorder.addLogger(new FeedbackTextSummaryLogger());
-//                if (method.equals("feedback") || method.equals("feedback-json"))
-//                    recorder.addLogger(new FeedbackJsonLogger());
-//                if (method.equals("spreadsheet"))
-//                    recorder.addLogger(new SpreadsheetLogger(requirements));
-//                if (method.equals("csv"))
-//                    recorder.addLogger(new CsvLogger());
-//            }
 
             // Run the grading process
-            String controller = configuration.getString("grader.controller", "GradingManager");
-//            GraderSettingsModel settingsModel = null;
+//            String controller = configuration.getString("grader.controller", "GradingManager");
              settingsModel = null;
 
-//            OEFrame settingsFrame = null;
             String goToOnyen = "";
             
             if (controller.equals("AGUIGradingManager")) {
@@ -385,7 +332,8 @@ public class Driver {
                 GradingManager manager = new AGUIGradingManager(projectName, requirements);
                 manager.run();
 
-            }  else if (controller.equals("AHeadlessGradingManager")) {
+//            }  else if (controller.equals("AHeadlessGradingManager")) {
+            }  else if (isHeadless()) {
 
                 // Run the GraderManager
                 GradingManager manager = new AHeadlessGradingManager(projectName, requirements, userPropsFile.getAbsolutePath());
