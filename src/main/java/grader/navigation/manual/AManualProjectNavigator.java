@@ -4,7 +4,7 @@ import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JOptionPane;
 
 import bus.uigen.OEFrame;
-import framework.execution.reflectionObjects.ManualProject;
+//import framework.execution.reflectionObjects.ManualProject;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;

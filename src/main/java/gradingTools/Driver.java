@@ -336,7 +336,7 @@ public class Driver {
             }  else if (isHeadless()) {
 
                 // Run the GraderManager
-                GradingManager manager = new AHeadlessGradingManager(projectName, requirements, userPropsFile.getAbsolutePath());
+                GradingManager manager = new AHeadlessGradingManager(projectName, requirements, configuration, graderSettingsManager);
                 manager.run();
             
             } else if (controller.equals("SakaiProjectDatabase")) {

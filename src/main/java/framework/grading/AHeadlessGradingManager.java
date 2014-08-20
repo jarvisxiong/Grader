@@ -11,6 +11,7 @@ import framework.navigation.StudentFolder;
 import framework.project.Project;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
+import grader.settings.GraderSettingsManager;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.configuration.ConfigurationException;
@@ -23,25 +24,20 @@ import scala.Option;
  */
 public class AHeadlessGradingManager implements GradingManager {
 
-    private String configFile;
-
-    private String projectName;
-    private ProjectRequirements projectRequirements;
-//    private List<Logger> loggers;
-
-    // Settings that affect what to grade
+    private final PropertiesConfiguration configuration;
     private String downloadPath;
-    private String start;
     private String end;
+    private final GraderSettingsManager graderSettingsManager;
+    private final String projectName;
+    private final ProjectRequirements projectRequirements;
 
-    public AHeadlessGradingManager(String projectName, ProjectRequirements projectRequirements) {
-        this(projectName, projectRequirements, "config.properties");
-    }
+    private String start;
 
-    public AHeadlessGradingManager(String projectName, ProjectRequirements projectRequirements, String configFile) {
+    public AHeadlessGradingManager(String projectName, ProjectRequirements projectRequirements, PropertiesConfiguration config, GraderSettingsManager graderSettingsManager) {
         this.projectName = projectName;
         this.projectRequirements = projectRequirements;
-        this.configFile = configFile;
+        this. graderSettingsManager = graderSettingsManager;
+        configuration = config;
     }
 
     @Override
@@ -113,36 +109,34 @@ public class AHeadlessGradingManager implements GradingManager {
     }
 
     private void getGradingOptions() throws ConfigurationException {
-        // Load the config file
-        PropertiesConfiguration configuration = new PropertiesConfiguration(configFile);
 
         String configPath = configuration.getString("grader.headless.path", null);
         if (configPath != null) {
-            GraderSettings.get().set("path", configPath);
+            graderSettingsManager.setDownloadPath("grader.headless", configPath);
         }
-
+        
         String configStart = configuration.getString("grader.headless.start", null);
         if (configStart != null) {
-            GraderSettings.get().set("start", configStart);
+            graderSettingsManager.setStartingOnyen("grader.headless", configStart);
         }
 
         String configEnd = configuration.getString("grader.headless.end", null);
         if (configEnd != null) {
-            GraderSettings.get().set("end", configEnd);
+            graderSettingsManager.setEndingOnyen("grader.headless", configEnd);
         }
 
         if (GraderSettings.get().has("editor")) {
-            String editor = GraderSettings.get().get("editor");
+            String editor = graderSettingsManager.getEditor();
             GradingEnvironment.get().setEditor(editor);
         }
         if (GraderSettings.get().has("path")) {
-            downloadPath = GraderSettings.get().get("path");
+            downloadPath = graderSettingsManager.getDownloadPath("grader.headless");
         }
         if (GraderSettings.get().has("start")) {
-            start = GraderSettings.get().get("start");
+            start = graderSettingsManager.getStartingOnyen("grader.headless");
         }
         if (GraderSettings.get().has("end")) {
-            end = GraderSettings.get().get("end");
+            end = graderSettingsManager.getEndingOnyen("grader.headless");
         }
     }
 
