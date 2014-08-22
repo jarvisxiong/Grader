@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
-//<<<<<<< HEAD
-//=======
 import java.util.TreeSet;
-//>>>>>>> working
 
 /**
  * This is a Sakai-specific implementation for handling bulk download folders.

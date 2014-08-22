@@ -38,8 +38,8 @@ public class Feature extends Checkable {
     public Feature(boolean anIsManual, String name, double points, boolean extraCredit, TestCase ... testCases) {
         this(name, points, extraCredit, testCases);
         manual = anIsManual;
-      }
-
+    }
+    
     public Feature(String name, double points, TestCase ... testCases) {
         this.name = name;
         this.points = points;

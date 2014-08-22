@@ -53,7 +53,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public void addFeature(String name, double points, TestCase ... testCases) {
         addFeature(new Feature(name, points, testCases));
     }
-
+    
     public void addFeature(String name, double points, boolean extraCredit, TestCase ... testCases) {
         addFeature(new Feature(name, points, extraCredit, testCases));
     }

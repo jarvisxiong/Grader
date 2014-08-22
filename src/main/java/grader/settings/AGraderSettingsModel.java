@@ -202,6 +202,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		if (problemDownloadPath != null) {
 			File folder = new File(problemDownloadPath);
+                        System.out.println("~~~ " + folder.getAbsolutePath() + " ~~~");
 			if (!folder.exists()) {
 //				JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
 				noValidDownloadPath(problemDownloadPath);

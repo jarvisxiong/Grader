@@ -27,10 +27,11 @@ public class DirectoryUtils {
      */
     public static Option<File> find(File folder, FileFilter filter) {
         File[] files = folder.listFiles(filter);
-        if (files == null || files.length == 0)
+        if (files == null || files.length == 0) {
             return Option.empty();
-        else
+        } else {
             return Option.apply(files[0]);
+        }
     }
 
     /**
@@ -41,22 +42,23 @@ public class DirectoryUtils {
      */
     public static Option<File> locateFolder(File currentDir, final String folderName) {
         // Don't accept files (they don't make sense) or Mac meta folders
-        if (!currentDir.isDirectory() || currentDir.getName().equals("__MACOSX"))
+        if (!currentDir.isDirectory() || currentDir.getName().equals("__MACOSX")) {
             return Option.empty();
-        else {
+        } else {
             Option<File> folder = find(currentDir, new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
                     return pathname.getName().equals(folderName);
                 }
             });
-            if (folder.isDefined())
+            if (folder.isDefined()) {
                 return folder;
-            else {
+            } else {
                 for (File file : currentDir.listFiles()) {
                     Option<File> possible = locateFolder(file, folderName);
-                    if (possible.isDefined())
+                    if (possible.isDefined()) {
                         return possible;
+                    }
                 }
                 return Option.empty();
             }
@@ -87,8 +89,9 @@ public class DirectoryUtils {
                 return pathname.isDirectory();
             }
         });
-        for (File directory : directories)
+        for (File directory : directories) {
             allFiles.addAll(getFiles(directory, filter));
+        }
 
         return allFiles;
     }
@@ -107,8 +110,9 @@ public class DirectoryUtils {
 	
 	public static boolean hasSuffix (String name, List<String> ignoreSuffixes) {
 		for (String suffix:ignoreSuffixes) {
-			if (name.endsWith(suffix))
-				return true;
+			if (name.endsWith(suffix)) {
+                            return true;
+                        }
 			
 		}
 		return false; 
@@ -117,7 +121,7 @@ public class DirectoryUtils {
 	}
 	
 	public static boolean compare (File correctDir, File testDir) {
-		List<String> suffixes = new ArrayList();
+		List<String> suffixes = new ArrayList<>();
 		return compare(correctDir, testDir, suffixes);
 		
 	}
@@ -144,8 +148,9 @@ public class DirectoryUtils {
 				retVal = false;
 //				return false;
 			}
-			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
-				continue;
+			if (hasSuffix(correctChild.getName(), ignoreSuffixes)) {
+                            continue;
+                        }
 			if (correctChild.isDirectory()) {
 				if (!testChild.isDirectory()) {
 					Tracer.error("Test file is not a directory:" + testChild.getName());
@@ -156,14 +161,15 @@ public class DirectoryUtils {
 						retVal = false;
 						continue;
 //						return false;
-					} else
-						continue;
+					} else {
+                                            continue;
+                                }
 				
 			}
 //			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 //				continue;
-			String correctText = Common.toText(correctChild);
-			String testText = Common.toText(testChild);
+			String correctText = Common.toText(correctChild).replaceAll("\r\n", "\n");
+			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
 			if (!correctText.equals(testText)) {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
 				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);

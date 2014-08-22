@@ -1,16 +1,18 @@
 package framework.project;
 
+import grader.project.AProject;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Set;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import scala.Option;
 import tools.TestConfig;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests {@link TestProjectClassesManager}
@@ -32,6 +34,14 @@ public class TestProjectClassesManager {
         simpleClassName = TestConfig.getConfig().getString("test.exampleSakai.example1.simpleName");
         canonicalClassName = TestConfig.getConfig().getString("test.exampleSakai.example1.canonicalName");
         invalidName = "__doesntexist__";
+        
+        AProject.setLoadClasses(true);
+        
+        assertNotNull(validBuildLocation, "Config option test.exampleSakai.example1.build read as null");
+        assertNotNull(validSrcLocation, "Config option test.exampleSakai.example1.source read as null");
+        assertNotNull(validTag, "Config option test.exampleSakai.example1.tag read as null");
+        assertNotNull(simpleClassName, "Config option test.exampleSakai.example1.simpleName read as null");
+        assertNotNull(canonicalClassName, "Config option test.exampleSakai.example1.canonicalName read as null");
     }
 
     @Test

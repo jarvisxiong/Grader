@@ -61,6 +61,6 @@ public class Assignment10ProjectRequirements extends FrameworkProjectRequirement
                 new AnimatingMethodTestCase("asynchronous guard"),
                 new AnimatingMethodNewThreadTestCase("asynchronous guard"));
         addFeature("Precondition buttons", 10, true, new QuestionTestCase("Are there buttons that are dynamically enabled/disabled based on the preconditions?", "Precondition buttons test case"));
-        addFeature("Awesome demo", 5, true, new ManualTestCase("Awesome demo test case"));
+        addManualFeature("Awesome demo", 5, true);
     }
 }

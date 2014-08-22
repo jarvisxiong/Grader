@@ -9,7 +9,6 @@ import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
 import framework.project.Project;
-import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.settings.GraderSettingsManager;
 import java.util.ArrayList;
@@ -110,33 +109,25 @@ public class AHeadlessGradingManager implements GradingManager {
 
     private void getGradingOptions() throws ConfigurationException {
 
-        String configPath = configuration.getString("grader.headless.path", null);
-        if (configPath != null) {
-            graderSettingsManager.setDownloadPath("grader.headless", configPath);
+        downloadPath = configuration.getString("grader.headless.path", null);
+        if (downloadPath != null) {
+            graderSettingsManager.setDownloadPath("grader.headless", downloadPath);
         }
         
-        String configStart = configuration.getString("grader.headless.start", null);
-        if (configStart != null) {
-            graderSettingsManager.setStartingOnyen("grader.headless", configStart);
+        start = configuration.getString("grader.headless.start", null);
+        if (start != null) {
+            graderSettingsManager.setStartingOnyen("grader.headless", start);
         }
 
-        String configEnd = configuration.getString("grader.headless.end", null);
-        if (configEnd != null) {
-            graderSettingsManager.setEndingOnyen("grader.headless", configEnd);
+        end = configuration.getString("grader.headless.end", null);
+        if (end != null) {
+            graderSettingsManager.setEndingOnyen("grader.headless", end);
         }
-
-        if (GraderSettings.get().has("editor")) {
-            String editor = graderSettingsManager.getEditor();
+        
+        
+        String editor = graderSettingsManager.getEditor();
+        if (editor != null) {
             GradingEnvironment.get().setEditor(editor);
-        }
-        if (GraderSettings.get().has("path")) {
-            downloadPath = graderSettingsManager.getDownloadPath("grader.headless");
-        }
-        if (GraderSettings.get().has("start")) {
-            start = graderSettingsManager.getStartingOnyen("grader.headless");
-        }
-        if (GraderSettings.get().has("end")) {
-            end = graderSettingsManager.getEndingOnyen("grader.headless");
         }
     }
 

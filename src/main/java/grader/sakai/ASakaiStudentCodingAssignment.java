@@ -14,6 +14,7 @@ import util.misc.Common;
 import util.trace.Tracer;
 
 public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment implements StudentCodingAssignment {
+
     public static final String RUBRICK_SUBSTRING = "rubric";
 
     FileProxy rubrick;
@@ -30,64 +31,71 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
 
     public ASakaiStudentCodingAssignment(String aFolderName, FileProxy aFileProxy) {
         super(aFolderName, aFileProxy);
-        if (isSubmitted())
+        if (isSubmitted()) {
             findRubrickAndProject();
+        }
     }
-    
+
     FileProxy getZipChild(FileProxy aFolder) {
-    	Set<String> childrenNames = aFolder.getChildrenNames();
-    	for (String childName:childrenNames) {
-    		if (childName.endsWith(".zip")) return submissionFolder.getFileEntry(childName);
-    	}
-    	return null;
-  
-    }
-    
-    FileProxy getUniqueNonMACOSFolderChild(FileProxy aFolder) {
-    	Set<String> childrenNames = aFolder.getChildrenNames();
-    	FileProxy folderChild = null;
-    	for (String childName:childrenNames) {
-    		FileProxy child = submissionFolder.getFileEntry(childName);
-    		if (child.isDirectory() && childName.indexOf("MACOSX") == -1 ) {
-    			if (folderChild != null)
-    				return null;
-    			else
-    				folderChild = child;
-    		}    		
-    	}
-    	if (folderChild == null) {
-    		ProjectFolderNotFound.newCase(submissionFolder.getLocalName(), this);
-    		folderChild = submissionFolder;
-    		ProjectFolderAssumed.newCase(submissionFolder.getLocalName(), this);
-    		
-    	}
-    	return folderChild;
+        Set<String> childrenNames = aFolder.getChildrenNames();
+        for (String childName : childrenNames) {
+            System.out.println(childName);
+            if (childName.endsWith(".zip")) {
+                return submissionFolder.getFileEntry(childName);
+            }
+        }
+        return null;
 
     }
-    
-    FileProxy getUnzippedFolder(FileProxy aFolder, FileProxy zipFile) {
-    	String name = zipFile.getParentRelativeName();
-    	String normalizedName = name.substring(0, name.indexOf(".")).toLowerCase();
-    	Set<String> childrenNames = aFolder.getChildrenNames();
-    	FileProxy folderChild = null;
-    	for (String childName:childrenNames) {
-    		FileProxy child = submissionFolder.getFileEntry(childName);
-    		if (child == zipFile) continue;
-    		if (child.getParentRelativeName().toLowerCase().equals(normalizedName))	
-    			return child;
-    	} 	
-    	return null;
-    	
-    	
+
+    FileProxy getUniqueNonMACOSFolderChild(FileProxy aFolder) {
+        Set<String> childrenNames = aFolder.getChildrenNames();
+        FileProxy folderChild = null;
+        for (String childName : childrenNames) {
+            FileProxy child = submissionFolder.getFileEntry(childName);
+            if (child.isDirectory() && childName.indexOf("MACOSX") == -1) {
+                if (folderChild != null) {
+                    return null;
+                } else {
+                    folderChild = child;
+                }
+            }
+        }
+        if (folderChild == null) {
+            ProjectFolderNotFound.newCase(submissionFolder.getLocalName(), this);
+            folderChild = submissionFolder;
+            ProjectFolderAssumed.newCase(submissionFolder.getLocalName(), this);
+
+        }
+        return folderChild;
+
     }
-    
+
+    FileProxy getUnzippedFolder(FileProxy aFolder, FileProxy zipFile) {
+        String name = zipFile.getParentRelativeName();
+        String normalizedName = name.substring(0, name.indexOf(".")).toLowerCase();
+        Set<String> childrenNames = aFolder.getChildrenNames();
+        FileProxy folderChild = null;
+        for (String childName : childrenNames) {
+            FileProxy child = submissionFolder.getFileEntry(childName);
+            if (child == zipFile) {
+                continue;
+            }
+            if (child.getParentRelativeName().toLowerCase().equals(normalizedName)) {
+                return child;
+            }
+        }
+        return null;
+
+    }
+
     FileProxy findRubrick(FileProxy aFolder) {
-    	Set<String> childrenNames = aFolder.getChildrenNames();
+        Set<String> childrenNames = aFolder.getChildrenNames();
 //    	FileProxy retVal;
         for (String childName : childrenNames) {
             FileProxy childProxy = submissionFolder.getFileEntry(childName);
             if (childName.toLowerCase().indexOf(RUBRICK_SUBSTRING) > -1) {
-            	RubrickFileLoaded.newCase(childName, this);
+                RubrickFileLoaded.newCase(childName, this);
                 return childProxy;
             }
         }
@@ -95,26 +103,27 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     }
 
     void findRubrickAndProject() {
-    	rubrick = findRubrick(submissionFolder);
-    	FileProxy zipFile = getZipChild(submissionFolder);
-    	if (zipFile == null) {
-    		projectFolder = getUniqueNonMACOSFolderChild(submissionFolder);
-    	} else {
-    		FileProxy unzippedFolder = getUnzippedFolder(submissionFolder, zipFile);
-    		if (unzippedFolder == null) {
-    			projectFolder = new AZippedRootFolderProxy(zipFile.getAbsoluteName());
-    		} else {
-    			projectFolder = getUniqueNonMACOSFolderChild(unzippedFolder);
-    			if (projectFolder == null)
-    				projectFolder = unzippedFolder; // not sure if this is ever reasonable
-    		}	
-    	
-    	}
-    	if (projectFolder == null) {
-    		ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this);
+        rubrick = findRubrick(submissionFolder);
+        FileProxy zipFile = getZipChild(submissionFolder);
+        if (zipFile == null) {
+            projectFolder = getUniqueNonMACOSFolderChild(submissionFolder);
+        } else {
+            FileProxy unzippedFolder = getUnzippedFolder(submissionFolder, zipFile);
+            if (unzippedFolder == null) {
+                projectFolder = new AZippedRootFolderProxy(zipFile.getAbsoluteName());
+            } else {
+                projectFolder = getUniqueNonMACOSFolderChild(unzippedFolder);
+                if (projectFolder == null) {
+                    projectFolder = unzippedFolder; // not sure if this is ever reasonable
+                }
+            }
+
+        }
+        if (projectFolder == null) {
+            ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this);
 //    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
-    	}
-        
+        }
+
     }
 //    void findRubrickAndProjectOld() {
 //        Set<String> childrenNames = submissionFolder.getChildrenNames();

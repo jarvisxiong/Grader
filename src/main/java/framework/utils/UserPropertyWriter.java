@@ -29,33 +29,43 @@ public class UserPropertyWriter {
             String propValue = null;
 
             userProperties[i] = userProperties[i].trim();
-            if (userProperties[i].equals("--use-framework-gui")) {
-                propName = "grader.controller.useFrameworkGUI";
-                propValue = "true";
-            } else if (userProperties[i].equals("--no-framework-gui")) {
-                propName = "grader.controller.useFrameworkGUI";
-                propValue = "false";
-            } else if (userProperties[i].equals("--project-requirements")) {
-                propName = "project.requirements";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--project-name")) {
-                propName = "project.name";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--grader-controller")) {
-                propName = "grader.controller";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--headless-path")) {
-                propName = "grader.headless.path";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--headless-start")) {
-                propName = "grader.headless.start";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--headless-end")) {
-                propName = "grader.headless.end";
-                propValue = userProperties[++i].trim();
-            } else if (userProperties[i].equals("--logger")) {
-                propName = "grader.logger";
-                propValue = userProperties[++i].trim();
+            switch (userProperties[i]) {
+                case "--use-framework-gui":
+                    propName = "grader.controller.useFrameworkGUI";
+                    propValue = "true";
+                    break;
+                case "--no-framework-gui":
+                    propName = "grader.controller.useFrameworkGUI";
+                    propValue = "false";
+                    break;
+                case "--project-requirements":
+                    propName = "project.requirements";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--project-name":
+                    propName = "project.name";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--grader-controller":
+                    propName = "grader.controller";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--headless-path":
+                    propName = "grader.headless.path";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--headless-start":
+                    propName = "grader.headless.start";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--headless-end":
+                    propName = "grader.headless.end";
+                    propValue = userProperties[++i].trim();
+                    break;
+                case "--logger":
+                    propName = "grader.logger";
+                    propValue = userProperties[++i].trim();
+                    break;
             }
 
             if (propName != null) {

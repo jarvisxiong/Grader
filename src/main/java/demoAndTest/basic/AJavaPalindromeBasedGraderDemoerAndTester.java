@@ -223,8 +223,9 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		waitForNavigator2();
 		doValidate5_pass2();
 //		changeOverallNotes3();
-		if (!generatingCorrectDir)
-		checkWithCorrectResults();
+		if (!generatingCorrectDir) {
+                    checkWithCorrectResults();
+                }
 		quit2();
 		
 	}
@@ -249,6 +250,10 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 	}
 	
 	public  void initializeAndChangeProblem() {
+            while(Driver.getSettingsModel() == null) {
+                ThreadSupport.sleep(100);
+            }
+                
 		Driver.getSettingsModel().getModuleProblemSelector().getModule().setValue(courseNo());
 
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment1");
