@@ -244,7 +244,7 @@ public class Driver {
         if (isNotHeadless()) {
             database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);
         } else {
-            database.getAutomaticProjectNavigator().n
+            database.getAutomaticProjectNavigator().navigate(settingsModel, null, true);
         }
     }
 
