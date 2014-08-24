@@ -19,16 +19,16 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
         super(aRootFolderProxy);
         file = aFile;
         mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
-        absoluteName = mixedCaseAbsoluteName;//.toLowerCase();
+        absoluteName = mixedCaseAbsoluteName.toLowerCase();
 
         mixedCaseLocalName = Common.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
-        localName = mixedCaseLocalName;//.toLowerCase();
+        localName = mixedCaseLocalName.toLowerCase();
     }
 
     public AFileSystemFileProxy(File aFile) {
         super(null);
         file = aFile;
-        absoluteName = Common.toCanonicalFileName(file.getAbsolutePath());//.toLowerCase();
+        absoluteName = Common.toCanonicalFileName(file.getAbsolutePath()).toLowerCase();
     }
 
     public String toString() {

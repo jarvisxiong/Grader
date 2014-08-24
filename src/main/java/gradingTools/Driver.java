@@ -140,8 +140,8 @@ public class Driver {
 //                    settingsModel = new AGraderSettingsModel(null);
             synchronized (Driver.class) {
                 settingsModel = GraderSettingsModelSelector.getGraderSettingsModel();
-//                 	  settingsModel.setPrivacyMode(StaticConfigurationUtils.getPrivacy(configuration, graderSettingsManager));
-                
+//                settingsModel.setPrivacyMode(StaticConfigurationUtils.getPrivacy(configuration, graderSettingsManager));
+
                 settingsModel.init();
             }
             if (isNotHeadless()) {
@@ -153,39 +153,36 @@ public class Driver {
                 //                    settingsFrame.setSize(550, 530);
                 settingsFrame.setSize(600, 550);
                 GraderSettingsDisplayed.newCase(settingsModel, Driver.class);
-            }
-
-            if (isNotHeadless()) {
                 settingsModel.awaitBegin();
             } else {
                 settingsModel.getNavigationSetter().setNavigationKind(NavigationKind.AUTOMATIC);
-
+                settingsModel.begin();
             }
-//                    settingsModel.maybePreCompile();
+//            settingsModel.maybePreCompile();
             projectName = settingsModel.getCurrentProblem(); // get the current one
             GradingEnvironment.get().setAssignmentName(projectName);
             requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
             // Logging
-//                    ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
+//            ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
             recorder.setProjectRequirements(requirements);
             initLoggers(requirements, configuration);
             initAssignmentDataFolder();
-//                    String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-//                    defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
-//                    GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+//            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
+//            defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
+//            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
 
-//                    goToOnyen = settingsModel.getOnyens().getGoToOnyen();
-//                    settingsFrame.dispose();
+//            goToOnyen = settingsModel.getOnyens().getGoToOnyen();
+//            settingsFrame.dispose();
         } else if (isNotHeadless()) {
 
             // Start the grading process by, first, getting the settings the running the project database
             SettingsWindow settingsWindow = SettingsWindow.create();
             settingsWindow.awaitBegin();
 
-//                    ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
+//            ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(settingsWindow.getDownloadPath(), null, settingsWindow.getStart(), settingsWindow.getEnd()));
         }
-//                String projectName = configuration.getString("project.name");
+//        String projectName = configuration.getString("project.name");
 //                Object projectProperty = configuration.getProperty("project.name");
 //                GradingEnvironment.get().setAssignmentName(projectName);
 
@@ -194,7 +191,7 @@ public class Driver {
         BasicFeatureGradeRecorderSelector.setFactory(new AFeatureGradeRecorderFactory());
 
         // Create the database
-//                ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
+//        ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
         boolean loadClasses = StaticConfigurationUtils.getLoadClasses(configuration, graderSettingsManager);
         AProject.setLoadClasses(loadClasses);
         String language = StaticConfigurationUtils.getLanguage();
@@ -206,7 +203,7 @@ public class Driver {
         database = new ProjectDatabaseWrapper();
         database.setGraderSettings(settingsModel);
         database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
-//                ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
+//        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
 
         database.addProjectRequirements(requirements);
 
@@ -219,28 +216,20 @@ public class Driver {
         }
 
         // Feedback
-//                database.setAutoFeedback(ConglomerateRecorder.getInstance());
+//        database.setAutoFeedback(ConglomerateRecorder.getInstance());
         database.setManualFeedback(ConglomerateRecorder.getInstance());
 
-        if (isNotHeadless()) {
-            List<String> visitActions = StaticConfigurationUtils.autoVisitActions(configuration, graderSettingsManager);
-            ProjectStepper projectStepper = database.getOrCreateProjectStepper();
+        List<String> visitActions = StaticConfigurationUtils.autoVisitActions(configuration, graderSettingsManager);
+        ProjectStepper projectStepper = database.getOrCreateProjectStepper();
 //                    OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
-            if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE)) {
-                projectStepper.setAutoAutoGrade(true);
-            }
-            if (visitActions.contains(StaticConfigurationUtils.AUTO_RUN)) {
-                projectStepper.setAutoRun(true);
-            }
-//                    if (visitActions.contains(MAKE_CLASS_DESCRIPTION)) {
-//                    	AProject.setMakeClassDescriptions(true);
-//                    	
-//                    }
-            database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);
-//                }
-//                break;
-//            }
+        if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE)) {
+            projectStepper.setAutoAutoGrade(true);
         }
+        if (visitActions.contains(StaticConfigurationUtils.AUTO_RUN)) {
+            projectStepper.setAutoRun(true);
+        }
+//            if (visitActions.contains(MAKE_CLASS_DESCRIPTION)) {
+//                AProject.setMakeClassDescriptions(true);      
         if (isNotHeadless()) {
             database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);
         } else {

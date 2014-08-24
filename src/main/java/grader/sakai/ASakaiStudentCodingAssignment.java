@@ -39,7 +39,6 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     FileProxy getZipChild(FileProxy aFolder) {
         Set<String> childrenNames = aFolder.getChildrenNames();
         for (String childName : childrenNames) {
-            System.out.println(childName);
             if (childName.endsWith(".zip")) {
                 return submissionFolder.getFileEntry(childName);
             }

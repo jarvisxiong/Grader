@@ -11,7 +11,7 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
 
     protected void add(FileProxy aFileProxy) {
         entries.add(aFileProxy);
-        nameToFileProxy.put(aFileProxy.getAbsoluteName()/*.toLowerCase()*/, aFileProxy);
+        nameToFileProxy.put(aFileProxy.getAbsoluteName().toLowerCase(), aFileProxy);
     }
 
     @Override
@@ -25,7 +25,7 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
     }
 
     public List<FileProxy> getChildrenOf(String aParentName) {
-        String myName = aParentName;//.toLowerCase();
+        String myName = aParentName.toLowerCase();
         int parentDepth = Common.numMiddleOccurences(myName, '/');
 
         List<FileProxy> retVal = new ArrayList();
@@ -76,7 +76,7 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
     boolean debug;
     @Override
     public FileProxy getFileEntry(String name) {
-    	String lowercase = name;//.toLowerCase();
+    	String lowercase = name.toLowerCase();
 //        return nameToFileProxy.get(name.toLowerCase());
     	FileProxy retVal = nameToFileProxy.get(lowercase);
     	if (retVal == null && debug) {

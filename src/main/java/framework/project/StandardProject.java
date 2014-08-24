@@ -96,7 +96,6 @@ public class StandardProject implements Project {
 //        	this.directory = sourceFolder;
         } else {
             sourceFolder = src.get();
-            System.out.println(sourceFolder.getAbsolutePath());
             this.directory = src.get().getParentFile();
         }
         
