@@ -50,7 +50,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             else {
             	throw SubmissionFolderNotFound.newCase(onyen, this);
             }
-            System.out.println("*^*^* " + aFileProxy.getMixedCaseAbsoluteName());
+//            System.out.println("*^*^* " + aFileProxy.getMixedCaseAbsoluteName());
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
             FeedbackFolderLoaded.newCase(feedbackFolder.getAbsoluteName(), this);
 

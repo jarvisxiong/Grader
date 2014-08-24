@@ -1,5 +1,6 @@
 package grader.settings.folders;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import util.annotations.Explanation;
@@ -11,8 +12,9 @@ import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGraderFilesSetterModel implements GraderFilesSetterModel {
-	FileSetterModel downloadPathModel = new AFileSetterModel();
-	FileSetterModel textEditorPathModel = new AFileSetterModel();
+	FileSetterModel downloadPathModel = new AFileSetterModel(JFileChooser.DIRECTORIES_ONLY);
+	FileSetterModel textEditorPathModel = new AFileSetterModel(JFileChooser.DIRECTORIES_ONLY);
+	FileSetterModel diffPathModel = new AFileSetterModel(JFileChooser.FILES_ONLY);
 	@Row(0)
 	@Explanation("This value must be specied once per module. Other entries are derived from the problem choice. It is assumed that download folders for diferent problems of a module are in a common folder.")
 	public FileSetterModel getDownloadFolder() {
@@ -20,9 +22,15 @@ public class AGraderFilesSetterModel implements GraderFilesSetterModel {
 	}
 	@Row(1)
 //	@Visible(false)
-	@Explanation("The OS-speificif editor for displaying source files.")
+	@Explanation("The OS-speific editor for displaying source files.")
 	public FileSetterModel getTextEditor() {
 		return textEditorPathModel;
+	}
+	@Row(2)
+//	@Visible(false)
+	@Explanation("The OS-speific toof for diffing files.")
+	public FileSetterModel getDiff() {
+		return diffPathModel;
 	}
 	@Visible(false)
 	public void initFrame(JFrame aFrame) {

@@ -58,6 +58,8 @@ public interface GraderSettingsManager {
 	void setWordPath(String aNewValue);
 	String getCCompilerPath();
 	void setCCompilerPath(String aNewValue);
+	String getDiff();
+	void setDiff(String newValue);
 	
 
 }

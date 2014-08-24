@@ -71,6 +71,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	List<String> modules = new ArrayList();
 	List<String> problems = new ArrayList();
 	String editor;
+	String diff;
 	String currentModule;
 	List<String> currentProblems;
 	String currentProblem;
@@ -202,7 +203,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		if (problemDownloadPath != null) {
 			File folder = new File(problemDownloadPath);
-                        System.out.println("~~~ " + folder.getAbsolutePath() + " ~~~");
+//                        System.out.println("~~~ " + folder.getAbsolutePath() + " ~~~");
 			if (!folder.exists()) {
 //				JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
 				noValidDownloadPath(problemDownloadPath);
@@ -367,6 +368,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         }
 //		maybeConvertToDynamicConfiguration();
 		editor = graderSettingsManager.getEditor();
+		diff = graderSettingsManager.getDiff();
 
 //		 editor = dynamicConfiguration.getString(EDITOR);
 //		if (editor != null) {
@@ -375,6 +377,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //        } else
 //            editor = GradingEnvironment.get().getEditor();
         fileBrowsing.getTextEditor().getLabel().setText(editor);
+        fileBrowsing.getDiff().getLabel().setText(diff);
         String aModule = currentModule;
 //        String aModule = graderSettingsManager.getModule();
 //        modules = moduleProblemManager.getModules();

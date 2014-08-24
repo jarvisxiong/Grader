@@ -19,6 +19,7 @@ import grader.navigation.filter.NavigationFilter;
 public class AGraderSettingsManager implements GraderSettingsManager {
 
     public static final String EDITOR = "editor";
+    public static final String DIFF = "diff";
     public static final String MODULE = "currentModule";
     public static final String PROBLEM_PATH = "path";
     public static final String PROBLEM_NAME = "problem";
@@ -217,6 +218,24 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     @Override
     public void setEditor(String newValue) {
         dynamicConfiguration.setProperty(EDITOR, newValue);
+
+    }
+    
+    @Override
+    public String getDiff() {
+        String diff = dynamicConfiguration.getString(DIFF);
+        if (diff != null) {
+//				editor = GraderSettings.get().get("editor");
+            GradingEnvironment.get().setDiff(diff); // why not for path also, perhaps its not used later?
+        } else {
+        	diff = GradingEnvironment.get().getDiff();
+        }
+        return diff;
+    }
+
+    @Override
+    public void setDiff(String newValue) {
+        dynamicConfiguration.setProperty(DIFF, newValue);
 
     }
 

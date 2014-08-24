@@ -40,6 +40,7 @@ public class GradingEnvironment {
 
 	private String osName;
     private String editor;
+    protected String diff;
     private String browser;
     private String classpath;
     private String assignmentName;
@@ -104,6 +105,13 @@ public class GradingEnvironment {
 
     public String getEditor() {
         return editor;
+    }
+    
+    public String getDiff() {
+        return diff;
+    }
+    public void setDiff(String diff) {
+        this.diff = diff;
     }
 
     public String getOsName() {

@@ -18,7 +18,9 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 	
 	JFileChooser fileChooser = new JFileChooser();
 	JFrame frame;
-	public AFileSetterModel () {
+	int filterOption;
+	public AFileSetterModel (int aFilterOption) {
+		filterOption = aFilterOption;
 //		frame = (JFrame) aFrame.getFrame().getPhysicalComponent();
 	}
 	@Visible(false)
@@ -32,7 +34,9 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 //	@ComponentWidth(80)
 	@ComponentHeight(25)
 	public void browse() {
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setFileSelectionMode(filterOption);
+
         int returnValue = fileChooser.showOpenDialog(frame);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             setText( fileChooser.getSelectedFile().getAbsolutePath());
@@ -41,7 +45,7 @@ public class AFileSetterModel extends ALabelSetterModel implements FileSetterMod
 	}
 	
 	public static void main (String[] args) {
-		AFileSetterModel aFileSetterModel = new AFileSetterModel();
+		AFileSetterModel aFileSetterModel = new AFileSetterModel(JFileChooser.DIRECTORIES_ONLY);
 		OEFrame oeFrame = ObjectEditor.edit(aFileSetterModel);
 		aFileSetterModel.initFrame((JFrame) oeFrame.getFrame().getPhysicalComponent());
 		oeFrame.setSize(600,  200);
