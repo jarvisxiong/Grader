@@ -480,6 +480,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         // Update the settings
 		String editor = fileBrowsing.getTextEditor().getLabel().getText();
 		String downloadPath = fileBrowsing.getDownloadFolder().getLabel().getText();
+		String diff = fileBrowsing.getDiff().getLabel().getText();
 		String startingOnyen = onyens.getStartingOnyen();
 		String endingOnyen = onyens.getEndingOnyen();
         GraderSettings.get().set(START_ONYEN, startingOnyen);
@@ -488,6 +489,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         GradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
         GraderSettings.get().set("editor", editor);
+        GraderSettings.get().set("diff", diff);     
+
         GraderSettings.get().save();
         graderSettingsManager.setEditor(editor);
         graderSettingsManager.setModule(currentModule);
@@ -495,6 +498,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         graderSettingsManager.setStartingOnyen(currentModule, startingOnyen);
         graderSettingsManager.setEndingOnyen(currentModule, endingOnyen);
         graderSettingsManager.setProblem(currentModule, currentProblem);
+        graderSettingsManager.setDiff(diff);
         
        graderSettingsManager.setNavigationKind(currentModule, navigationSetter.getNavigationKind());
        graderSettingsManager.setAnimateGrades(currentModule, navigationSetter.getAutomaticNavigationSetter().getAnimateGrades());

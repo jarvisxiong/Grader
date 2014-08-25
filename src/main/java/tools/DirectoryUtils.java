@@ -3,11 +3,13 @@ package tools;
 import scala.Option;
 import util.misc.Common;
 import util.trace.Tracer;
+import framework.utils.GradingEnvironment;
 import grader.language.LanguageDependencyManager;
 import grader.project.file.ARootCodeFolder;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -126,6 +128,10 @@ public class DirectoryUtils {
 		
 	}
 	
+	public static String handleSpacesInExecutale(String aCommand) {
+		return aCommand.replaceAll("Program Files", "\"Program Files\""); // hack for now
+	}
+	
 	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
 		boolean retVal = true;		
 		if (!correctDir.isDirectory() || ! testDir.isDirectory()) {
@@ -168,6 +174,19 @@ public class DirectoryUtils {
 			}
 //			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 //				continue;
+//			String diffTool = GradingEnvironment.get().getDiff();
+//			if (!(diffTool == null || diffTool.isEmpty())) {
+////				diffTool = handleSpacesInExecutale(diffTool);
+//			String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
+//			try {
+//				Runtime.getRuntime().exec(command);
+//				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+
 			String correctText = Common.toText(correctChild).replaceAll("\r\n", "\n");
 			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
 			if (!correctText.equals(testText)) {
