@@ -103,7 +103,7 @@ public class AClassesTextManager implements ClassesTextManager {
         int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * (SOURCE_SUFFIX.length() + SOURCE_PREFIX.length() + MAX_FILE_NAME_LENGTH);
         StringBuffer retVal = new StringBuffer(totalTextSize);
         for (ViewableClassDescription viewable : sourceClasses) {
-        	String fileName = viewable.getClassDescription().getSourceFile().getLocalName();
+        	String fileName = viewable.getClassDescription().getSourceFile().getParentRelativeName();
         	String prefix = SOURCE_PREFIX + fileName + "\n";
         	retVal.append(prefix);
             retVal.append(viewable.getClassDescription().getText());

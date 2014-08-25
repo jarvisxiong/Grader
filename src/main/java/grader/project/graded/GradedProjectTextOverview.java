@@ -5,7 +5,7 @@ import util.annotations.Row;
 import util.annotations.Visible;
 import util.misc.ClearanceManager;
 import util.models.LabelBeanModel;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
@@ -16,7 +16,7 @@ import grader.trace.settings.MissingOnyenException;
 import java.beans.PropertyChangeListener;
 
 
-public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{
+public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ PropertyListenerRegistrar/*, PropertyChangeListener*/{
 	public boolean setProject(SakaiProject newVal) ;
 //	
 //	public void output();
@@ -105,6 +105,8 @@ public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ Proper
 	double getSourcePoints();
 	void setSourcePoints(double newValue);
 	void internalSetSourcePoints(double newValue);
+	String getDisplayedOnyen();
+	String getDisplayedName();
 
 //	String getFeedback();
 //

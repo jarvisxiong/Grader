@@ -7,7 +7,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextArea;
 
 import scala.collection.convert.Wrappers.SetWrapper;
-import util.models.AConsoleModel;
+import util.pipe.AConsoleModel;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

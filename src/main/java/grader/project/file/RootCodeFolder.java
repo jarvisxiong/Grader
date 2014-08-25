@@ -39,5 +39,9 @@ public interface RootCodeFolder {
 
     public boolean hasValidBinaryFolder();
 
+	RootFolderProxy getSourceFolder();
+
+	RootFolderProxy getBinaryFolder();
+
 
 }

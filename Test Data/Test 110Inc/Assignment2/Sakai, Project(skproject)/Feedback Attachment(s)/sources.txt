@@ -1,0 +1,58 @@
+//START OF FILE: sakai, project(skproject)/submission attachment(s)/project/src/main/helloworld.java
+package main;
+
+import java.util.Scanner;
+
+public class HelloWorld {
+    public static void main(String[] args) {
+
+        // Create the printers
+        Printer printer1 = new SimplePrinter();
+        Printer printer2 = new ReversePrinter();
+
+        // Read in a string
+        System.out.println("Please enter a string: ");
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
+
+        // Print it out
+        printer1.print(line);
+        printer2.print(line);
+    }
+}
+//END OF FILE
+//START OF FILE: sakai, project(skproject)/submission attachment(s)/project/src/main/printer.java
+package main;
+
+public interface Printer {
+    public void print(String message);
+}
+//END OF FILE
+//START OF FILE: sakai, project(skproject)/submission attachment(s)/project/src/main/reverseprinter.java
+package main;
+
+public class ReversePrinter implements Printer {
+
+    @Override
+    public void print(String message) {
+        String reverse = new StringBuilder(message).reverse().toString();
+        System.out.println(reverse);
+    }
+
+}
+//END OF FILE
+//START OF FILE: sakai, project(skproject)/submission attachment(s)/project/src/main/simpleprinter.java
+package main;
+
+import util.annotations.Tags;
+
+@Tags({"Printer"})
+public class SimplePrinter implements Printer {
+
+    @Override
+    public void print(String message) {
+        System.out.println(message);
+    }
+
+}
+//END OF FILE

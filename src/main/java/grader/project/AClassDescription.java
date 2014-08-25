@@ -3,9 +3,13 @@
 
 package grader.project;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +18,16 @@ import java.util.Set;
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
+import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
-import grader.trace.compilation.ClassFileCompiledInMemory;
+import grader.trace.compilation.SourceTextCompiledInMemory;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;
 import grader.trace.compilation.ClassFileNotFound;
 import grader.trace.compilation.ClassLoaded;
 import grader.trace.compilation.CompilationUnitCreated;
 import grader.trace.compilation.JavacSourceClassCreated;
 import grader.trace.compilation.QDoxClassCreated;
+import grader.trace.overall_transcript.OverallTranscriptSaved;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -75,26 +81,39 @@ public class AClassDescription  implements ClassDescription {
 			PrintStream stderr = System.err;
 		try {
 //			javaClass = Class.forName(aClassName);
+			if (AProject.isLoadClasses()) {
 			javaClass = aClassLoader.loadClass(aClassName);
 			if (javaClass == null) {
 				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
 				
 				
-				String outputFile = aProject.getOutputFileName();
-				
-				if (outputFile != null) {
-					FileOutputStream outStream = new FileOutputStream(outputFile);
+				String outputFileName = aProject.getOutputFileName();
+				ByteArrayOutputStream outStream = null;
+				if (outputFileName != null) {
+					outStream = new ByteArrayOutputStream();
+//					FileOutputStream outStream = new FileOutputStream(outputFile, true);
+//					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
                     teeout = new TeePrintStream(outStream, stdout);
                     teeerr = new TeePrintStream(outStream, stderr);
                     System.setOut(teeout);
                     System.setErr(teeerr);
                 }
 				Tracer.error(classFileNotfound.getMessage());
-				Tracer.error("Attempting to compile class");
-				
+			
+				if (AProject.isCompileMissingObjectCode()) {
+					String compileClassMessage = "Attempting to compile class:" + aClassName;
+				Tracer.error(compileClassMessage);
+				// need to compile multiple files in one shot because of dependencies
+				// in any case am duplicating work of Josh's compilation
+				// better to have Josh's code run through the directory, unzipping and compiling things, and then 
+				// read the entire directory
+				// compilation errors
+				// for now letting it be
+				// so as long as we have one class programs, we are fine it seems
 				byte[] classBytes = ParserMain.compile(aClassName, aText);
 				if (classBytes != null) {
-					ClassFileCompiledInMemory.newCase(aClassName, classBytes, this);
+					SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
 					javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
 				}
 //				teeout.close();
@@ -110,6 +129,24 @@ public class AClassDescription  implements ClassDescription {
 
 //					Tracer.error("Could not compile");
 				}
+				String transcript = outStream.toString();
+				outStream.close();
+				try {
+					String original = Common.toText(new File(outputFileName));
+					if (!original.contains(compileClassMessage)) { // otherwise we have already put the text in a previous pass
+					FileWriter fileWriter = new FileWriter(outputFileName);
+					fileWriter.append(transcript + "\n" + "----------------------------------------\n" + original);
+					OverallTranscriptSaved.newCase(null, null, null,  outputFileName, transcript, this);
+//					if (project.getCurrentGradingFeature() != null)
+//					FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
+					fileWriter.close();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+				
 				
 				
 				
@@ -122,6 +159,7 @@ public class AClassDescription  implements ClassDescription {
 //			javaClass = Class.forName(aClassName);
 //			javaClass = aClassLoader.findClass(aClassName);
 			classProxy = AClassProxy.classProxy(javaClass);
+			}
 			}
 			
 		} catch (CompilerNotFound cnf) {
@@ -151,6 +189,7 @@ public class AClassDescription  implements ClassDescription {
 		}
 
 		className = aClassName;
+		if (AProject.isLoadClasses())
 		packageName = Common.classNameToPackageName(aClassName);
 //		qdoxClass = getQdoxClass();
 	}

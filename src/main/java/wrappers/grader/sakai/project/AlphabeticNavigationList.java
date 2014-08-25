@@ -69,6 +69,7 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         if (include) { // did not find ending onyen
         	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
+        if (aSakaiProjectDatabase.getProjectStepper() != null)
 		NavigationListCreated.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), onyens, this);
 		
         return onyens;

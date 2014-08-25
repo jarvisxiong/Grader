@@ -9,6 +9,6 @@ public interface ConfigurationManager {
 	public  PropertiesConfiguration getDynamicConfiguration() ;
 	public  void setDynamicConfiguration(
 			PropertiesConfiguration dynamicConfiguration) ;
-	void init();
+	void init(String[] args);
 
 }

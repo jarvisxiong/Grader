@@ -35,4 +35,6 @@ public interface StudentAssignment {
 
 	void cleanFeedbackFolder();
 
+	void cleanSubmissionFolder();
+
 }

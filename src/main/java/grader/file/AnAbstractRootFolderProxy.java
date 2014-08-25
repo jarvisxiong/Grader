@@ -73,19 +73,19 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
         }
         RootFolderProxyLoaded.newCase(getAbsoluteName(), this);
     }
-
+    boolean debug;
     @Override
     public FileProxy getFileEntry(String name) {
     	String lowercase = name.toLowerCase();
 //        return nameToFileProxy.get(name.toLowerCase());
     	FileProxy retVal = nameToFileProxy.get(lowercase);
-//    	if (retVal == null) {
-//    		Set<String> keys = nameToFileProxy.keySet();
-//    		for (String key:keys) {
-//    			System.out.println("comparing" + key + " and\n" + lowercase);
-//    			if (key.equals(lowercase)) return nameToFileProxy.get(key);
-//    		}
-//    	}
+    	if (retVal == null && debug) {
+    		Set<String> keys = nameToFileProxy.keySet();
+    		for (String key:keys) {
+    			System.out.println("comparing" + key + " and\n" + lowercase);
+    			if (key.equals(lowercase)) return nameToFileProxy.get(key);
+    		}
+    	}
     	return retVal;
     }
 

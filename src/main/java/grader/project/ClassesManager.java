@@ -31,4 +31,8 @@ public interface ClassesManager {
 
     public void makeClassDescriptions(String aProjectDirectory, boolean aSeparateSrcBin);
 
+	ClassDescription tagToUniqueClassDescription(String aTag);
+
+	ClassDescription tagsToUniqueClassDescription(List<String> aTags);
+
 }

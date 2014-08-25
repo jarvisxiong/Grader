@@ -24,7 +24,10 @@ import grader.project.Project;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
+import grader.settings.folders.AnOnyenRangeModel;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -129,6 +132,7 @@ public class AGradedProjectTextOverview  implements
 	LabelBeanModel photoLabelBeanModel;
 	OverviewProjectStepper projectStepper;
 	double sourcePoints;
+	GraderSettingsModel graderSettings;
 
 	public AGradedProjectTextOverview() {
 		photoLabelBeanModel = new ALabelBeanModel("");
@@ -136,6 +140,7 @@ public class AGradedProjectTextOverview  implements
 	}
 	
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
+		graderSettings = GraderSettingsModelSelector.getGraderSettingsModel();
 		projectDatabase = aProjectDatabase;
 		// gradeRecorder = aProjectDatabase.getGradeRecorder();
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
@@ -175,10 +180,20 @@ public class AGradedProjectTextOverview  implements
 	@Row(0)
 	@Override
 	@Explanation("Editing onyen will navigate to corresponding project")
+	@Label("Onyen")
+	public String getDisplayedOnyen() {
+		if (graderSettings.isPrivacyMode())
+			return AnOnyenRangeModel.ANONYMOUS;
+			else return getOnyen();
+//		return onyen;
+	}
+	@Visible(false)
+	@ComponentWidth(150)
+	@Row(0)
 	public String getOnyen() {
+		
 		return onyen;
 	}
-
 
 	@Override
 	public void setOnyen(String anOnyen) throws MissingOnyenException {
@@ -200,13 +215,23 @@ public class AGradedProjectTextOverview  implements
 	}
 
 
-
+	@Visible(false)
 	@Row(1)
 	@ComponentWidth(150)
 	@Override
 	public String getName() {
 		return name;
 	}
+	@Row(1)
+	@ComponentWidth(150)
+	@Override
+	@Label("Name")
+	public String getDisplayedName() {
+		if (graderSettings.isPrivacyMode())
+		return AnOnyenRangeModel.ANONYMOUS;
+		else return getName();
+	}
+	
 	@Override
 	@Visible(false)
 	public void setName(String newVal) {

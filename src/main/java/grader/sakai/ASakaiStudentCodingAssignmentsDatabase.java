@@ -46,9 +46,10 @@ public class ASakaiStudentCodingAssignmentsDatabase extends AnAbstractSakaiStude
 		return new ASakaiStudentCodingAssignment(aStudentDescription, bulkAssignmentFolder.getStudentFolder(aFolderName));
 	}
 	@Override
-    public void cleanAllFeedbackFolders() {
+    public void cleanAllFeedbackAndSubmissionFolders() {
     	for (StudentAssignment studentAssignment:getStudentAssignments()) {
     		studentAssignment.cleanFeedbackFolder();
+    		studentAssignment.cleanSubmissionFolder();
     	}
     	
     }

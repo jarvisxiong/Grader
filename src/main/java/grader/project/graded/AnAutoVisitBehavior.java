@@ -16,11 +16,13 @@ import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
+import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
 import grader.project.Project;
+import grader.project.file.ARootCodeFolder;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -197,7 +199,7 @@ public class AnAutoVisitBehavior implements
 	}
 
 	boolean isNotRunnable() {
-		return project.getClassLoader() == null || project.getClassesManager() == null;
+		return LanguageDependencyManager.isJava() && (project.getClassLoader() == null || project.getClassesManager() == null);
 		
 	}
 
@@ -246,7 +248,9 @@ public class AnAutoVisitBehavior implements
 		}
 		
 		
-		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
+//		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
+		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isSomeAutoGraded()) { // auto attempt was made
+
 			autoGrade();
 			
 		} else {
@@ -617,6 +621,7 @@ public class AnAutoVisitBehavior implements
 					resultFormat);
 			FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
 //			features.get(i).setScore(score);
+			if (!features.get(i).isManual()) {
 			features.get(i).internalSetScore(score);
 
 
@@ -624,6 +629,7 @@ public class AnAutoVisitBehavior implements
 			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
 					.getFeatureName(), score);
 			FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
+			}
 
 			
 		}

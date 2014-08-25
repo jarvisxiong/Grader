@@ -7,7 +7,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +25,6 @@ public class ShapesRegisterListenerTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-
         // Look for the classes that implement or interfaces that extend PropertyListenerRegisterer
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
@@ -33,14 +32,15 @@ public class ShapesRegisterListenerTestCase extends BasicTestCase {
         ClassesManager manager = project.getClassesManager().get();
         int count = 0;
         for (ClassDescription description : manager.getClassDescriptions()) {
-            if (PropertyListenerRegisterer.class.isAssignableFrom(description.getJavaClass()))
+            if (PropertyListenerRegistrar.class.isAssignableFrom(description.getJavaClass()))
                 count++;
         }
 
         // There should be at least two cases
         if (count >= 2)
-            return pass();
+            return pass(autoGrade);
         else
-            return fail("All atomic shapes should extend/implement PropertyListenerRegisterer");
+            return fail("All atomic shapes should extend/implement PropertyListenerRegisterer", autoGrade);
     }
 }
+

@@ -1,0 +1,270 @@
+//START OF FILE: src/examples/rmi/arithmetic/stateful/amixedtypeairthmeticdisplayerlauncher.java
+package examples.rmi.arithmetic.stateful;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+@Tags({"RMIClient", DistributedTags.CLIENT})
+public class AMixedTypeAirthmeticDisplayerLauncher {
+	public static void main (String[] args) {	
+		try {
+			Registry rmiRegistry = LocateRegistry.getRegistry();
+			RemoteStatefulMixedTypeProcessor mixedTypeProcessor = (RemoteStatefulMixedTypeProcessor) rmiRegistry.lookup(MixedTypeAirthmeticServer.SERVER_NAME);	
+		
+			System.out.println("The int addition:"+ mixedTypeProcessor.intAdd());
+			System.out.println("The double addition:"+ mixedTypeProcessor.doubleAdd());
+			System.out.println("The int multiplication:"+ mixedTypeProcessor.intMultiply());
+			System.out.println("The double multiplication:"+ mixedTypeProcessor.doubleMultiply());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/amixedtypearithmeticdoublesetteranddisplayerlauncher.java
+package examples.rmi.arithmetic.stateful;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+@Tags({DistributedTags.CLIENT, DistributedTags.CLIENT_2})
+public class AMixedTypeArithmeticDoubleSetterAndDisplayerLauncher {
+	public static void main (String[] args) {	
+		try {
+			Registry rmiRegistry = LocateRegistry.getRegistry();
+			RemoteStatefulMixedTypeProcessor mixedTypeProcessor = (RemoteStatefulMixedTypeProcessor) rmiRegistry.lookup(MixedTypeAirthmeticServer.SERVER_NAME);
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Please input a decimal");
+			double num2 = scan.nextDouble();
+			mixedTypeProcessor.setDouble(num2);
+			Integer intAddition = mixedTypeProcessor.intAdd();
+			Double doubleAddition = mixedTypeProcessor.doubleAdd();
+			Integer intMultiply = mixedTypeProcessor.intMultiply();
+			Double doubleMultiply = mixedTypeProcessor.doubleMultiply();
+			// need to print out only initialized values otherwise the grading goes wrong
+			if (intAddition != null)
+			System.out.println("The int addition:"+ intAddition);
+			if (doubleAddition != null)
+			System.out.println("The double addition:"+ doubleAddition);
+			if (intMultiply != null)
+			System.out.println("The int multiplication:"+ intMultiply);
+			if (doubleMultiply != null)
+			System.out.println("The double multiplication:"+ doubleMultiply);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/amixedtypearithmeticintsetterlauncher.java
+package examples.rmi.arithmetic.stateful;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+@Tags({DistributedTags.CLIENT, DistributedTags.CLIENT_1})
+public class AMixedTypeArithmeticIntSetterLauncher {
+	public static void main (String[] args) {	
+		try {
+			Registry rmiRegistry = LocateRegistry.getRegistry();
+			RemoteStatefulMixedTypeProcessor mixedTypeProcessor = (RemoteStatefulMixedTypeProcessor) rmiRegistry.lookup(MixedTypeAirthmeticServer.SERVER_NAME);
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Please input an integer");
+			int num1 = scan.nextInt();
+			mixedTypeProcessor.setInt(num1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/astatefulmixedtypearithmeticserverlauncher.java
+package examples.rmi.arithmetic.stateful;
+
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+@Tags({DistributedTags.RMI, DistributedTags.SERVER})
+public class AStatefulMixedTypeArithmeticServerLauncher implements MixedTypeAirthmeticServer {	
+	public static void main (String[] args) {
+		try {
+			Registry rmiRegistry = LocateRegistry.getRegistry();
+			RemoteStatefulMixedTypeProcessor mixedTypeProcessor = new AStatefulMixedTypeProcessor();
+			//create proxy
+			UnicastRemoteObject.exportObject(mixedTypeProcessor, 0);	
+			// make it available for clients
+			rmiRegistry.rebind(SERVER_NAME, mixedTypeProcessor);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/astatefulmixedtypeprocessor.java
+package examples.rmi.arithmetic.stateful;
+
+import java.rmi.RemoteException;
+
+public class AStatefulMixedTypeProcessor implements RemoteStatefulMixedTypeProcessor {
+	Integer num1;
+	Double num2;
+	
+	boolean notInitialized() {
+		return num1 == null || num2 == null;
+	}
+
+	@Override
+	public Integer intAdd() {
+		if (notInitialized()) return null;
+		int retVal = num1 + (int) num2.intValue();
+//		System.out.println("The int addition:"+ (num1 + (int) num2));
+		return retVal;
+	}
+	@Override
+	public Double doubleAdd() {
+		if (notInitialized()) return null;
+		double retVal = (double) num1 +  num2;
+//		System.out.println("The double addition:"+ ( (double) num1 + num2));
+		return retVal;
+	}
+	@Override
+	public Integer intMultiply() {
+		if (notInitialized()) return null;
+		int retVal = num1 * (int) num2.intValue();
+//		System.out.println("The int multiplication:"+ (num1 * (int) num2));
+		return retVal;
+	}
+	@Override
+	public Double doubleMultiply() {
+		if (notInitialized()) return null;
+		double retVal = (double) num1 *  num2;
+//		System.out.println("The double multiplication:"+ ( (double) num1 * num2));
+		return retVal;
+	}
+	@Override
+	public void setInt(Integer newVal) throws RemoteException {
+		num1 = newVal;
+		
+	}
+	@Override
+	public void setDouble(Double newVal) throws RemoteException {
+		num2 = newVal;		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/demoerofstatefulmixedtypearithmetic.java
+package examples.rmi.arithmetic.stateful;
+
+import examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher;
+import bus.uigen.models.MainClassLaunchingUtility;
+// this is a distrbuted implementation of a CS 1 (UNC Comp 110) first assignment submission described below
+/******************************************************************
+ * Program or Assignment #: Assignment1
+ *
+ * Programmer: Jacob
+ *
+ * Due Date: Tuesday, Jan. 28
+ *
+ * COMP110-002, Spring 2014       Instructor: Prof. Jay Aikat
+ *
+ * Pledge: I have neither given nor received unauthorized aid
+ *         on this program. 
+ *
+ * Description: Insert a brief paragraph describing the program
+ *
+ * Input: Insert a brief description of user inputs, or "None" if
+ *        there is no user input
+ *
+ * Output: Insert a brief description of the program output
+ *
+ ******************************************************************/
+public class DemoerOfStatefulMixedTypeArithmetic {
+	public static void main(String args[]) {
+		demo();
+	}
+	
+	public static void demo() {
+//		String currentDir = System.getProperty("user.dir");
+//        System.out.println("Current dir using System:" +currentDir);
+		
+		Class[] classes = {
+				DistributedRMIRegistryStarter.class,
+				AStatefulMixedTypeArithmeticServerLauncher.class,
+				AMixedTypeArithmeticIntSetterLauncher.class,
+				AMixedTypeArithmeticDoubleSetterAndDisplayerLauncher.class,
+//				AMixedTypeArithmeticServerLauncher.class
+				
+		};
+		MainClassLaunchingUtility.createInteractiveLauncher(classes);
+	}
+	
+	
+
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/distributedrmiregistrystarter.java
+package examples.rmi.arithmetic.stateful;
+import java.rmi.registry.LocateRegistry;
+import java.util.Scanner;
+import java.util.concurrent.Semaphore;
+
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+
+@Tags({DistributedTags.RMI, DistributedTags.REGISTRY})
+public class DistributedRMIRegistryStarter {
+	public static void main (String[] args) {
+		try {
+			LocateRegistry.createRegistry(1099);
+			(new Semaphore(0)).acquire(); // wait for ever to avoid termination
+//			Scanner scanner = new Scanner(System.in);
+//			scanner.nextLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/mixedtypeairthmeticserver.java
+package examples.rmi.arithmetic.stateful;
+
+public interface MixedTypeAirthmeticServer {
+	public static final String SERVER_NAME = "Remote Mixed Type Arithmetic";
+}
+//END OF FILE
+//START OF FILE: src/examples/rmi/arithmetic/stateful/remotestatefulmixedtypeprocessor.java
+package examples.rmi.arithmetic.stateful;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface RemoteStatefulMixedTypeProcessor extends Remote  {
+	void setInt(Integer num1) throws RemoteException;
+	void setDouble(Double num2) throws RemoteException;	
+	Integer intAdd() throws RemoteException;
+	Double doubleAdd () throws RemoteException;
+	Integer intMultiply () throws RemoteException;
+	Double doubleMultiply () throws RemoteException;
+
+}
+//END OF FILE

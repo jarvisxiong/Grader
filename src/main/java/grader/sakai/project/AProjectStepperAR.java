@@ -1,6 +1,6 @@
 package grader.sakai.project;
 
-import util.models.AConsoleModel;
+import util.pipe.AConsoleModel;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

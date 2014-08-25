@@ -1,0 +1,20 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Contains the HelloWorld class                          30.0 / 30.0
+Contains a main method                                 30.0 / 30.0
+Prints Hello World                                     40.0 / 40.0
+----------------------------------
+  Points Awarded: 100.0
+
+  Total Score: 100.0
+
+Notes from grading features:
+----------------------------------
+
+Notes from grading restrictions:
+----------------------------------
+
+TA Comments:
+----------------------------------

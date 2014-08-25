@@ -1,0 +1,4 @@
+Score:30.0
+Does not properly check palindromes of length 7
+Does not properly check palindromes of length 8
+

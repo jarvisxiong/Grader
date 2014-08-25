@@ -4,11 +4,17 @@ import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
 import grader.assignment.GradingFeature;
+import grader.execution.AProxyProjectClassLoader;
+import grader.execution.MainClassFinder;
+import grader.execution.ProjectRunnerSelector;
+import grader.execution.ProxyBasedClassesManager;
+import grader.execution.ProxyClassLoader;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 import grader.project.file.RootCodeFolder;
-import grader.project.file.java.AJavaRootCodeFolder;
 import grader.project.source.AClassesTextManager;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
@@ -26,7 +32,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AProject implements Project {
 
@@ -60,7 +68,9 @@ public class AProject implements Project {
     String[][] args;
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
-    String currentInput;
+    StringBuffer currentInput = new StringBuffer();
+//    Map<String, String> processToOutput = new HashMap();
+//    Map<String, String> processToInput = new HashMap();
     String[] currentArgs;
 //    FileWriter outputFile ;
 
@@ -74,9 +84,25 @@ public class AProject implements Project {
     List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
 	
 	List<String> classNamesCompiled = new ArrayList();
+	
+	static boolean loadClasses = false;
+	
+	static boolean compileMissingObjectCode = false;
+	static boolean preCompileMissingObjectCode = false;
+	static boolean filesCompiled = false;
+
+	
+	
+
+	static boolean forceCompile = false;
 
 
-    public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+    
+
+
+	
+
+	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
@@ -109,7 +135,10 @@ public class AProject implements Project {
     }
 
     protected MainClassFinder createMainClassFinder() {
-        return new AMainClassFinder();
+//        return new AMainClassFinder();
+//    	return JavaMainClassFinderSelector.getMainClassFinder();
+        return LanguageDependencyManager.getMainClassFinder();
+
     }
 
     public void init(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
@@ -145,15 +174,17 @@ public class AProject implements Project {
 //        	System.out.println("bluoing");
 //        outputFolder = anOutputFolder;
         try {
-        rootCodeFolder = new AJavaRootCodeFolder(rootFolder);
+        rootCodeFolder = new ARootCodeFolder(rootFolder);
         } catch (ProjectFolderNotFound e) {
         	setNoProjectFolder(true);
         	return;
         }
+        if (AProject.isLoadClasses()) {
         if (rootCodeFolder.hasValidBinaryFolder())
             proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
         else
         	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+        }
         sourceFileName = createFullSourceFileName();
 //        outputFileName = createFullOutputFileName();
         classesManager = new AProxyBasedClassesManager();
@@ -183,6 +214,7 @@ public class AProject implements Project {
     public List<Class> getImplicitlyLoadedClasses() {
         return classesImplicitlyLoaded;
     }
+    
 
     public void maybeMakeClassDescriptions() {
     	// earlier it expected class descroptions to be fetched after running
@@ -190,7 +222,8 @@ public class AProject implements Project {
     	// so removing this check
 //        if (!runChecked && !hasBeenRun)
 //            return;
-
+//    	if (!isLoadClasses())
+//    		return;
         if (madeClassDescriptions)
             return;
         
@@ -428,12 +461,23 @@ public class AProject implements Project {
 	}
     @Override
 	public String getCurrentInput() {
-		return currentInput;
+		return currentInput.toString();
 	}
     @Override
-	public void setCurrentInput(String currentInput) {
-		this.currentInput = currentInput;
+	public void setCurrentInput(String aCurrentInput) {
+		currentInput.setLength(0);
+		appendCurrentInput(aCurrentInput);
 	}
+    @Override
+  	public void appendCurrentInput(String aCurrentInput) {
+  		currentInput.append(aCurrentInput);
+    }
+    
+//    @Override
+//  	public void appendCurrentInput(String aProcess, String aCurrentInput) {
+////  		currentInput.append(aCurrentInput);
+//    }
+  	
     @Override
 	public String[] getCurrentArgs() {
 		return currentArgs;
@@ -481,5 +525,42 @@ public class AProject implements Project {
 		
 	}
 
+	public static boolean isLoadClasses() {
+		return loadClasses;
+	}
+
+	public static void setLoadClasses(boolean makeClassDescriptions) {
+		AProject.loadClasses = makeClassDescriptions;
+	}
+
+	public static boolean isCompileMissingObjectCode() {
+		return compileMissingObjectCode;
+	}
+
+	public static void setCompileMissingObjectCode(boolean newVal) {
+		AProject.compileMissingObjectCode = newVal;
+	}
+	public static boolean isForceCompile() {
+		return forceCompile;
+	}
+
+	public static void setForceCompile(boolean forceCompile) {
+		AProject.forceCompile = forceCompile;
+	}
+	public static boolean isPreCompileMissingObjectCode() {
+		return preCompileMissingObjectCode;
+	}
+
+	public static void setPrecompileMissingObjectCode(
+			boolean preCompileMissingObjectCode) {
+		AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
+	}
+	public static boolean isFilesCompiled() {
+		return filesCompiled;
+	}
+
+	public static void setFilesCompiled(boolean filesCompiled) {
+		AProject.filesCompiled = filesCompiled;
+	}
 
 }

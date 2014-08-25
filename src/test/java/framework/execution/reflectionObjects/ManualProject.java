@@ -5,10 +5,12 @@ import framework.execution.RunningProject;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import scala.Option;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,4 +73,21 @@ public class ManualProject implements Project {
     public TraceableLog getTraceableLog() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+	@Override
+	public RunningProject launch(
+			InputGenerator anOutputBasedInputGenerator,
+			String input, int timeout) throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RunningProject launch(
+			InputGenerator anOutputBasedInputGenerator,
+			Map<String, String> aProcessToInput, int timeout)
+			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

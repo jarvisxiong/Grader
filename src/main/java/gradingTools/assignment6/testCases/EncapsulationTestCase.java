@@ -45,6 +45,7 @@ public class EncapsulationTestCase extends BasicTestCase {
 
         double fractionPublicVariables = numVariables == 0? 0: (double) numPublicVariables/numVariables;
         double fractionalScore = 1 - fractionPublicVariables;
-        return partialPass(fractionalScore, notes);
+        return partialPass(fractionalScore, notes, autoGrade);
     }
 }
+

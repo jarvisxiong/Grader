@@ -1,7 +1,10 @@
 package grader.project;
 
+import grader.execution.ProxyBasedClassesManager;
+import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
-import grader.project.file.java.AJavaRootCodeFolder;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 import util.misc.Common;
 
 import java.util.List;
@@ -23,12 +26,13 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
     public void makeClassDescriptions(Project aProject) {
         List<FileProxy> entries = aProject.getRootCodeFolder().getFileEntries();
         String projectPath = aProject.getRootCodeFolder().getAbsoluteName();
-        ProxyClassLoader classLoder = null;
+        ProxyClassLoader classLoader = null;
         // we no longer need this check as we are allowing classes to be loaded before running
 //        if (aProject.canBeRun() && aProject.hasBeenRun()) {
-            classLoder = aProject.getClassLoader();
+        if (AProject.isLoadClasses())
+            classLoader = aProject.getClassLoader();
 //        }
-        makeClassDescriptions(aProject.getSourceProjectFolderName(), entries, classLoder, aProject);
+        makeClassDescriptions(aProject.getSourceProjectFolderName(), entries, classLoader, aProject);
     }
 
     /* (non-Javadoc)
@@ -38,7 +42,7 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
         for (FileProxy aFile : aFiles) {
             String locaName = aFile.getMixedCaseLocalName();
 
-            if (locaName != null && locaName.endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX)) {
+            if (locaName != null && locaName.endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 //                if (locaName != null && locaName.endsWith(SOURCE_FILE_SUFFIX)) {
 
                 String relativeName = Common.toRelativeName(srcFolderName, aFile.getMixedCaseAbsoluteName());

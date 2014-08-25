@@ -1,7 +1,9 @@
 package grader.project;
 
 import util.misc.Common;
-import grader.project.file.java.AJavaRootCodeFolder;
+import wrappers.framework.project.ProjectWrapper;
+import grader.language.LanguageDependencyManager;
+import grader.project.file.ARootCodeFolder;
 
 import java.io.File;
 import java.util.*;
@@ -14,7 +16,7 @@ public class AClassesManager implements ClassesManager {
 
     List<ClassDescription> classDescriptions = new ArrayList();
     final int ESTIMATED_SOURCES_LENGTH = 20;
-    final String SOURCE_FILE_SUFFIX = ".java";
+//    final String SOURCE_FILE_SUFFIX = ".java";
 
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#getClassNameToDescription()
@@ -76,6 +78,59 @@ public class AClassesManager implements ClassesManager {
     public Set<ClassDescription> tagToClassDescriptions(String aTag) {
         return tagToDescription.get(aTag);
     }
+    
+    @Override
+    public ClassDescription tagToUniqueClassDescription(String aTag) {
+        Set<ClassDescription>  aClassDescriptions = tagToDescription.get(aTag);
+        if (aClassDescriptions == null || aClassDescriptions.size() == 0) {
+			throw NoClassWithTag.newCase(this, aTag);				 
+		} else if (aClassDescriptions.size() > 1) {
+			throw MultipleClassesWithTag.newCase(this, aTag);
+		}
+		for (ClassDescription aClassDescription:aClassDescriptions) {
+			return aClassDescription;
+			
+		}
+		
+		return null;
+        
+    }
+    @Override
+    public ClassDescription tagsToUniqueClassDescription(List<String> aTags) {
+		if (aTags == null)
+			return null;		
+		
+			Set<ClassDescription> aClassDescriptions = new HashSet();
+			aClassDescriptions.addAll(getClassDescriptions());
+			for (String aTag:aTags) {
+				Set<ClassDescription> aCurrentSet = tagToClassDescriptions(aTag);
+				if (aCurrentSet == null)
+					aClassDescriptions.clear();
+				else
+				    aClassDescriptions.retainAll(aCurrentSet);
+			}			
+		
+			if (aClassDescriptions == null || aClassDescriptions.size() == 0) {
+				throw NoClassWithTag.newCase(this, aTags);				 
+			} else if (aClassDescriptions.size() > 1) {
+				 MultipleClassesWithTag.newCase(this, aTags); // do not give up
+			}
+			
+			int minTags = Integer.MAX_VALUE;
+			ClassDescription retVal = null;
+			// find the class with fewest tags that matches aTags
+			for (ClassDescription aClassDescription:aClassDescriptions) {
+				String[] aCurrentTags = aClassDescription.getTags();
+				if (aCurrentTags.length < minTags) {
+				 retVal = aClassDescription;
+				 minTags = aCurrentTags.length;
+				}				
+			}
+			
+			return retVal;
+	}
+    
+
 
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#tagsToClassDescriptions(java.lang.String[])
@@ -143,7 +198,7 @@ public class AClassesManager implements ClassesManager {
         String[] fileNames = aFolder.list();
         File[] files = aFolder.listFiles();
         for (File aFile : files) {
-            if (aFile.getName().endsWith(AJavaRootCodeFolder.SOURCE_FILE_SUFFIX)) {
+            if (aFile.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 
 //            if (aFile.getName().endsWith(SOURCE_FILE_SUFFIX)) {
                 String relativeName = Common.toRelativeName(aProjectFolder.getAbsolutePath(), aFile.getAbsolutePath());

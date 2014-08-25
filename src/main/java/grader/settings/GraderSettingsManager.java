@@ -54,6 +54,12 @@ public interface GraderSettingsManager {
 //			NavigationFilter aNavigationFilter);
 //	void setNavigationFilterOption(String aModule,
 //			NavigationFilter aNavigationFilter, Object anOption);
+	String getWordPath();
+	void setWordPath(String aNewValue);
+	String getCCompilerPath();
+	void setCCompilerPath(String aNewValue);
+	String getDiff();
+	void setDiff(String newValue);
 	
 
 }

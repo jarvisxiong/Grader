@@ -51,7 +51,7 @@ public class AGradingFeature implements GradingFeature {
 	double maxScore;
 	double score;
 	boolean graded;
-	boolean autoGraded;
+	boolean autoGradable = true;
 	boolean extraCredit;
 	FileProxy feedbackFolder;
 	String feedbackFolderName;
@@ -131,6 +131,11 @@ public class AGradingFeature implements GradingFeature {
 			FeatureChecker aFeatureChecker, boolean anExtraCredit) {
 		this(aFeature, aMaxScore, aFeatureChecker);
 		extraCredit = anExtraCredit;
+	}
+	public AGradingFeature(boolean anIsManual, String aFeature, double aMaxScore,
+			FeatureChecker aFeatureChecker, boolean anExtraCredit) {
+		this(aFeature, aMaxScore, aFeatureChecker, anExtraCredit);
+		autoGradable = !anIsManual;
 	}
 
 	@Visible(false)
@@ -484,7 +489,7 @@ public class AGradingFeature implements GradingFeature {
 	@ComponentWidth(60)
 	@Visible(false)
 	public boolean isAutoGradable() {
-		return featureChecker != null;
+		return featureChecker != null && autoGradable;
 	}
 	
 	@Override

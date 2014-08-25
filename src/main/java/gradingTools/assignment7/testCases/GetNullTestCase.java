@@ -49,12 +49,12 @@ public class GetNullTestCase extends BasicTestCase {
             Object r = getMethod.invoke(table, new Object[]{null});
 
             if (r == null)
-                return pass();
+                return pass(autoGrade);
             else
-                return fail("Getting w/ null shouldn't return anything.");
+                return fail("Getting w/ null shouldn't return anything.", autoGrade);
         } catch (InvocationTargetException e) {
             // This means the method threw an error
-            return fail("Getting w/ null throws an error");
+            return fail("Getting w/ null throws an error", autoGrade);
         } catch (Exception e) {
             throw new NotGradableException();
         }
@@ -68,3 +68,4 @@ public class GetNullTestCase extends BasicTestCase {
 //            return fail("Put method should save nothing when key/value is null.");
 //    }
 }
+

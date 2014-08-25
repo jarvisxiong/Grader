@@ -50,6 +50,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             else {
             	throw SubmissionFolderNotFound.newCase(onyen, this);
             }
+//            System.out.println("*^*^* " + aFileProxy.getMixedCaseAbsoluteName());
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
             FeedbackFolderLoaded.newCase(feedbackFolder.getAbsoluteName(), this);
 
@@ -93,6 +94,19 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             }
         }
     }
+//    @Override
+//    public void cleanFeedbackFolder() {
+//    	if (feedbackFolder ==null)
+//    		return;
+//    	String name = feedbackFolder.getMixedCaseAbsoluteName();
+//    	if (name == null)
+//    		return;
+//    	try {
+//			FileUtils.cleanDirectory(new File(name));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//    }
     @Override
     public void cleanFeedbackFolder() {
     	if (feedbackFolder ==null)
@@ -101,7 +115,40 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     	if (name == null)
     		return;
     	try {
-			FileUtils.cleanDirectory(new File(name));
+//			FileUtils.cleanDirectory(new File(name));
+    		File feedbackFile = new File(name);
+    		File[] children = feedbackFile.listFiles();
+    		for (File child:children) {
+    			if (child.isDirectory()) {
+    				FileUtils.cleanDirectory(child); // generated directory
+    				child.delete();
+    			}
+    			else {
+    				if (child.getName().endsWith(".ini")) continue; // keep desktop.ini file around for git
+    				else child.delete();
+    			}
+    		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    @Override
+    public void cleanSubmissionFolder() {
+    	if (submissionFolder ==null)
+    		return;
+    	String name = submissionFolder.getMixedCaseAbsoluteName();
+    	if (name == null)
+    		return;
+    	
+    	try {
+    		File submissionFile = new File(name);
+    		File[] children = submissionFile.listFiles();
+    		for (File child:children) {
+    			if (child.isDirectory()) {
+    				FileUtils.cleanDirectory(child); // generated  directory
+    				child.delete();
+    			}
+    		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

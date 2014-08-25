@@ -3,9 +3,9 @@ package grader.settings.navigation;
 import java.beans.PropertyChangeListener;
 
 import util.models.DynamicEnum;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public interface NavigationFilterSetter extends PropertyChangeListener, PropertyListenerRegisterer {
+public interface NavigationFilterSetter extends PropertyChangeListener, PropertyListenerRegistrar {
 
 	DynamicEnum getNavigationFilterType();
 

@@ -53,9 +53,16 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public void addFeature(String name, double points, TestCase ... testCases) {
         addFeature(new Feature(name, points, testCases));
     }
-
+    
     public void addFeature(String name, double points, boolean extraCredit, TestCase ... testCases) {
         addFeature(new Feature(name, points, extraCredit, testCases));
+    }
+    public void addFeature(boolean anIsManual, String name, double points, boolean extraCredit, TestCase ... testCases) {
+        addFeature(new Feature(anIsManual, name, points, extraCredit, testCases));
+    }
+    
+    public void addManualFeature(String name, double points, boolean extraCredit) {
+        addFeature(new Feature(true, name, points, extraCredit, (TestCase) null));
     }
 
     // Restriction adding methods
@@ -109,6 +116,8 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     		sakaiProject = projectWrapper.getProject();
     	}
         for (Feature feature : features) {
+//        	if (feature.isManual()) 
+//        		continue;
         	if (sakaiProject != null) {
         		sakaiProject.setCurrentGradingFeature(feature);
         	}

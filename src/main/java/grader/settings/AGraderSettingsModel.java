@@ -4,8 +4,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
+import grader.config.StaticConfigurationUtils;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
@@ -24,7 +27,9 @@ import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
+import grader.project.AProject;
 import grader.project.graded.OverviewProjectStepper;
+import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
@@ -39,6 +44,7 @@ import grader.trace.settings.GraderSettingsStarted;
 import grader.trace.settings.ModuleUserChange;
 import grader.trace.settings.NavigationInitiated;
 import grader.trace.settings.ProblemUserChange;
+import grader.trace.settings.StartOnyenUserChange;
 import gradingTools.Driver;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
@@ -51,6 +57,7 @@ import util.misc.Common;
 import util.models.DynamicEnum;
 import util.trace.TraceableBus;
 import util.trace.Tracer;
+import wrappers.framework.project.ProjectWrapper;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
@@ -64,6 +71,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	List<String> modules = new ArrayList();
 	List<String> problems = new ArrayList();
 	String editor;
+	String diff;
 	String currentModule;
 	List<String> currentProblems;
 	String currentProblem;
@@ -76,9 +84,13 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	String problemDownloadPath;
 	String moduleDownloadPath;
 	boolean settingsLoaded;
+	boolean privacyMode;
+	boolean compileMode;
 //	DynamicEnum moduleEnum, problemEnum;
 	
 
+
+	
 
 	//	BeginActionModel beginActionModel = new ABeginActionModel();
 	boolean graderStarted;
@@ -175,8 +187,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 		JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
-	void noValidDownloadPath() {
-		JOptionPane.showMessageDialog(null, "No folder found for download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+	void noValidDownloadPath(String aPath) {
+		JOptionPane.showMessageDialog(null, "No folder found for download path:" + problemDownloadPath + " . When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
 
 	}
 	@Visible(false)
@@ -191,9 +203,10 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		problemDownloadPath = moduleDownloadPath + "\\" +  currentProblem;
 		if (problemDownloadPath != null) {
 			File folder = new File(problemDownloadPath);
+//                        System.out.println("~~~ " + folder.getAbsolutePath() + " ~~~");
 			if (!folder.exists()) {
 //				JOptionPane.showMessageDialog(null, "Please enter download path for current problem in module:" + currentModule);
-				noValidDownloadPath();
+				noValidDownloadPath(problemDownloadPath);
 				return;
 //				Tracer.error("No folder found for:" + downloadPath);				
 			} else {
@@ -246,6 +259,13 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //				moduleProblemSelector.getProblem().setValue(savedProblem); // current problem mught be resets
 				
 			}
+			graderSettingsManager.setModule(currentModule);
+	        graderSettingsManager.setProblem(currentModule, currentProblem);
+
+			boolean isPrivacy = StaticConfigurationUtils.getPrivacy(
+					ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration(), 
+					graderSettingsManager);
+			setPrivacyMode(isPrivacy);
 //		if (problems.size() > 0) {
 //			currentProblem = problems.get(problems.size() - 1);
 //		else
@@ -276,11 +296,11 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         }
         if (GraderSettings.get().has("start")) {
         	String startingOnyen = GraderSettings.get().get("start");
-        	onyens.setStartingOnyen(startingOnyen);
+        	onyens.setDisplayedStartingOnyen(startingOnyen);
         }
         if (GraderSettings.get().has("end")) {
         	String endingOnyen = GraderSettings.get().get("end");
-        	onyens.setEndingOnyen(endingOnyen);
+        	onyens.setDisplayedEndingOnyen(endingOnyen);
         }
 //        List objectModules = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getList("modules");
 //		modules = objectModules;
@@ -322,13 +342,13 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         
         if (startingOnyen != null) {
 //        	String startingOnyen = GraderSettings.get().get("start");
-        	onyens.setStartingOnyen(startingOnyen);
+        	onyens.setDisplayedStartingOnyen(startingOnyen);
         }
 //        String endingOnyen = dynamicConfiguration.getString(aModule + "." + END_ONYEN,
 //        		dynamicConfiguration.getString(END_ONYEN));
         String endingOnyen = graderSettingsManager.getEndingOnyen(aModule);
         if (endingOnyen != null) {
-        	onyens.setEndingOnyen(endingOnyen);
+        	onyens.setDisplayedEndingOnyen(endingOnyen);
         }
 	}
 
@@ -348,6 +368,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         }
 //		maybeConvertToDynamicConfiguration();
 		editor = graderSettingsManager.getEditor();
+		diff = graderSettingsManager.getDiff();
 
 //		 editor = dynamicConfiguration.getString(EDITOR);
 //		if (editor != null) {
@@ -356,6 +377,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //        } else
 //            editor = GradingEnvironment.get().getEditor();
         fileBrowsing.getTextEditor().getLabel().setText(editor);
+        fileBrowsing.getDiff().getLabel().setText(diff);
         String aModule = currentModule;
 //        String aModule = graderSettingsManager.getModule();
 //        modules = moduleProblemManager.getModules();
@@ -458,6 +480,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         // Update the settings
 		String editor = fileBrowsing.getTextEditor().getLabel().getText();
 		String downloadPath = fileBrowsing.getDownloadFolder().getLabel().getText();
+		String diff = fileBrowsing.getDiff().getLabel().getText();
 		String startingOnyen = onyens.getStartingOnyen();
 		String endingOnyen = onyens.getEndingOnyen();
         GraderSettings.get().set(START_ONYEN, startingOnyen);
@@ -466,6 +489,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         GradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
         GraderSettings.get().set("editor", editor);
+        GraderSettings.get().set("diff", diff);     
+
         GraderSettings.get().save();
         graderSettingsManager.setEditor(editor);
         graderSettingsManager.setModule(currentModule);
@@ -473,6 +498,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
         graderSettingsManager.setStartingOnyen(currentModule, startingOnyen);
         graderSettingsManager.setEndingOnyen(currentModule, endingOnyen);
         graderSettingsManager.setProblem(currentModule, currentProblem);
+        graderSettingsManager.setDiff(diff);
         
        graderSettingsManager.setNavigationKind(currentModule, navigationSetter.getNavigationKind());
        graderSettingsManager.setAnimateGrades(currentModule, navigationSetter.getAutomaticNavigationSetter().getAnimateGrades());
@@ -627,6 +653,8 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener aListener) {
 		propertyChangeSupport.addPropertyChangeListener(aListener);
+
+        settingsLoaded = true; // OE has opened it
 		
 	}
 	SakaiProjectDatabase projectDatabase;
@@ -644,7 +672,7 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 //		projectDatabase = new ProjectDatabaseWrapper();
 //		projectDatabase.setGraderSettings(this);
 		maybeCreateProjectDatabase();
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 		
 	}
 	@Override
@@ -656,7 +684,51 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	public void cleanSlate() {
 		maybeCreateProjectDatabase();
 		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
+	}
+	
+//	public void maybePreCompile() {
+////      	if (!AProject.isCompileMissingObjectCode()) return;
+//		maybeCreateProjectDatabase();
+//		List<String> onyens = projectDatabase.getOnyenNavigationList();
+//		OnyenRangeModel anOnyenRangeModel = getOnyens();
+//		String aStartOnyen = anOnyenRangeModel.getStartingOnyen();
+//		String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
+//		
+//		for (String anOnyen:onyens) {
+//			if (aStartOnyen.compareTo(anOnyen) <= 0 && anEndOnyen.compareTo(anOnyen) >= 0) {
+//				try {
+//					new ProjectWrapper(projectDatabase.getProject(anOnyen), anOnyen);
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}		
+//		
+//	}
+	@Override
+	public  boolean maybePreCompile() {
+	  	if (!AProject.isPreCompileMissingObjectCode()) return false;
+		maybeCreateProjectDatabase();
+
+		List<String> onyens = projectDatabase.getOnyenNavigationList();
+//		OnyenRangeModel anOnyenRangeModel = getOnyens();
+//		String aStartOnyen = GraderSettings.get().
+//		String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
+		
+		for (String anOnyen:onyens) {
+//			if (aStartOnyen.compareTo(anOnyen) <= 0 && anEndOnyen.compareTo(anOnyen) >= 0) {
+				try {
+					new ProjectWrapper(projectDatabase.getProject(anOnyen), anOnyen);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//			}
+		}
+		return AProject.isFilesCompiled();
+		
 	}
 	
 
@@ -690,6 +762,24 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 			DownloadPathUserChange.newCase(newPath, this, this);
 		}
 		
+	}
+	@Visible(false)
+	public boolean isPrivacyMode() {
+		return privacyMode;
+	}
+	public void setPrivacyMode(boolean newValue) {
+		if (privacyMode == newValue) return;
+		this.privacyMode = newValue;
+		propertyChangeSupport.firePropertyChange("onyens", null, onyens);
+	}
+	public void togglePrivacyMode() {
+		setPrivacyMode(!privacyMode);
+	}
+	
+	@Visible(false)
+	@Override
+	public boolean getCompileMode() {
+		return compileMode;
 	}
 	
 	public static void main (String[] args) {

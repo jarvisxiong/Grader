@@ -4,9 +4,20 @@ Grading framework by Prasun Dewan and Joshua Monson.
 
 The purpose of this project is to provide a framework and tools to allow for the automatic and assisted grading of
 Java-based programs. It employs several methods to check code validity including reflection-based invocation,
-abstract syntax tree inspection, output parsing, source code validation, and JVM modification.
+abstract syntax tree inspection, output parsing, source code validation, JVM modification, and 
+manual inspection of source code and user-interface.
 
-It also uses a GUI to display a grading rubric The instructor running the program can input grades into the GUI.  Grades can then be stored and uploaded to Sakai
+Output parsing and manual inspection can work for any language, so recently this work has been extended to allow these actions to be performed also for C/C++.
+To use this extension, the system path, include and lib must be set to allow dynamic compilation and execution of C/C++ programs.
+
+Supporting these features for other languages is a matter of writing some "simple" plug-ins.
+
+The grader  uses a GUI to display a grading rubric and the results of automatic grading.  The instructor running the program can view these data and input grades into the GUI to override auto grading steps and do manual grading.  Grades can then be stored and uploaded to Sakai
+
+The grader evolved in a bottom up fashion by integrating two different projects, framework and grader, which insipred each other but were separate. These two projects were then glued together through some wrappers. Because of this history, there is substantial duplication of functionality.
+It was used originally for Fall 2013 Comp 401 by Josh. Then two branches of it were created, one for Spring Comp 110 and the other for Spring Comp 410. The former was used by Josh and the latter by Jacob. We hope to merge these branches in Fall 2014. This is the Comp 110 branch owned by Jacob.
+
+
 
 **Table of Contents**
 
@@ -142,3 +153,39 @@ There is, somewhat, an order to them.
 * GraderWithProjectRequirementsExample.java
 * GraderWithNewGUIExample.java
 
+# Demo and Test
+
+The examples have been suprseeded by demo and test programs. 
+The demo programs show the various features of the grader using Java, C and distributed programs.
+The test programs are for the grader developer, they validate that chages made to the grader have
+not broken the demos. Thus, for each example, there are three kinds of programs: One that simply demos
+the example and is called a demoer and tester, 
+one that generates correct state for the example (after say the example has been changed) and is called a correct state generator, 
+and one that tests to see if some change to the grader is consistent with the correct state generated befoe
+the change and is called a tester. 
+
+In demoAndTest.basic package are the three versions for an example based on Palindrome checking. 
+In demoAndTest.multiparadigm package are three subpackages, each of which takes the same basic example (computing mixed arithmetic)
+and grades, Java and distributed implementations of the example. As the grading code looks at the I/O, it is shared
+by the three implementations.
+
+The subpakages have "obvious" names. For example, the C subpackage is: demoAndTest.multiparadigm.C.
+
+To run the C examples, you need to set the path, include and lib variables.
+
+Here are example values:
+64 bit Windows 8.1 
+
+Include=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include
+
+Lib=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib;C:\Program Files(x86)\Microsoft Visual Studio 11.0\VC\atlmfc\lib;C:\Program Files (x86)\WindowsKits\8.0\Lib\win8\um\x86
+
+Path=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin
+
+32 bit Windows 7 machine:
+
+Include=C:\Program Files\Microsoft Visual Studio 10.0\VC\include
+
+Lib=C:\Program Files\Microsoft Visual Studio 10.0\VC\lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib;C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib
+
+Path=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin

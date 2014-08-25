@@ -7,6 +7,7 @@ import grader.trace.file.load.RootFileSystemFolderLoaded;
 import grader.trace.file.load.RootFolderProxyLoaded;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -32,7 +33,13 @@ public class AFileSystemRootFolderProxy extends AnAbstractRootFolderProxy
             return;
         }
 
-        rootName = aRootFolderName;
+//        rootName = aRootFolderName;
+//        try {
+			rootName = Common.toCanonicalFileName(rootFolder.getAbsolutePath());
+//		} catch (IOException e) {
+//			rootName = aRootFolderName;
+//		}
+
         localName = Common.toCanonicalFileName(rootFolder.getName());
         initEntries(rootFolder);
         initChildrenRootData(); // I moved this out of init entries because it only needs to be called once and significantly reduces the loading time. --Josh

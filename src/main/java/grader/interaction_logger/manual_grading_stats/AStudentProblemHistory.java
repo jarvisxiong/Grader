@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AStudentProblemHistory  implements StudentProblemGradingHistory{
+public class AStudentProblemHistory  implements StudentProblemHistory{
 	List<String> graderNames = new ArrayList();	
 	String moduleName;
 	String problemName;
@@ -25,7 +25,7 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 	long autoVisitTime;
 	
 	long manualVisitTime;
-	String sourceComments;
+	String sourceComments = "";
 	double multiplier;
 	double sourcePoints;
 	double featuresScore;
@@ -133,7 +133,7 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 		this.visitEndTime = visitEndTime;
 	}
 	@Override
-	public void merge(StudentProblemGradingHistory other) {
+	public void merge(StudentProblemHistory other) {
 		incNumVisits();
 		if (other.getVisitEndTime() > getVisitEndTime()) {
 //		if (!other.getManualOverallNotes().isEmpty())
@@ -266,6 +266,18 @@ public class AStudentProblemHistory  implements StudentProblemGradingHistory{
 	@Override
 	public void setProblemHistoryVisited() {
 		tabsVisited.add(PROBLEM_HISTORY_TAB);
+		
+	}
+	
+	@Override
+	public void isStudentHistoryVisited() {
+		tabsVisited.contains(STUDENT_HISTORY_TAB);
+		
+	}
+
+	@Override
+	public void setStudentHistoryVisited() {
+		tabsVisited.add(STUDENT_HISTORY_TAB);
 		
 	}
 

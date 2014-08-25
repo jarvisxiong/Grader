@@ -34,12 +34,12 @@ public interface AllStudentsProblemHistory {
 	public void setAverageManualOverallNotes(double averageManualOverallNotes) ;
 //	public List<SavedStudentProblemGradingHistory> getStudentsHistory() ;
 //	public void setStudentsHistory(List<SavedStudentProblemGradingHistory> studentsHistory) ;
-	public void newStudentHistory(String anOnyen, StudentProblemGradingHistory aHistory) ;
+	public void newStudentHistory(String anOnyen, StudentProblemHistory aHistory) ;
 	public List<String> getVisitedStudents() ;
 	public void setVisitedStudents(List<String> visitedStudents) ;
-	public Map<String, StudentProblemGradingHistory> getOnyenToStudentHistory() ;
+	public Map<String, StudentProblemHistory> getOnyenToStudentHistory() ;
 	public void setOnyenToStudentHistory(
-			Map<String, StudentProblemGradingHistory> onyenToStudentHistory) ;
+			Map<String, StudentProblemHistory> onyenToStudentHistory) ;
 	void merge(AllStudentsProblemHistory other);
 	public String getModuleName() ;
 

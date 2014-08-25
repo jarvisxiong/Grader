@@ -27,7 +27,9 @@ import grader.project.source.TACommentsExtractorSelector;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsManagerSelector;
 import grader.settings.GraderSettingsModel;
+import grader.settings.GraderSettingsModelSelector;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
@@ -169,6 +171,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	String output = "";
 	String source = "";
 	String problemHistory = "";
+	String studentHistory = "";
 	TACommentsExtractor taCommentsExtractor;
 	String taComments = "";
 
@@ -455,6 +458,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			// cannot do this, recording session not created
 //			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
 		}
+		
 //		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
 //		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
 //			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
@@ -481,9 +485,21 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
 		problemHistory = GradingHistoryManagerSelector.getGradingHistoryManager().getProblemHistoryTextOfCurrentModuleProblem();
-	
+		studentHistory = GradingHistoryManagerSelector.getGradingHistoryManager().getStudentHistoryText(
+					GraderSettingsModelSelector.getGraderSettingsModel().getCurrentModule(), getOnyen());
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
 		// gradePercentage);
+		double savedSourcePoints = featureGradeRecorder.getSourcePoints(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen());
+		SourcePointsLoaded.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+		if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+			gradedProjectOverview.internalSetSourcePoints(savedSourcePoints);
+			// propagate to other recorders
+			// cannot do this, recording session not created
+//			featureGradeRecorder.setGrade(gradedProjectOverview.getName(), gradedProjectOverview.getOnyen(), savedScore);
+		}
+		else {
+			gradedProjectOverview.internalSetSourcePoints(0);
+		}
 
 		if (selectedGradingFeature != null) {
 			internalSetManualNotes(getManualNotes(selectedGradingFeature));
@@ -694,6 +710,10 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public String getProblemHistory() {
 		return problemHistory;
+	}
+	@Override
+	public String getStudentHistory() {
+		return studentHistory;
 	}
 	@Override
 	public String getSource() {
@@ -1591,7 +1611,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public void cleanAllFeedbackFolders() {
-		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackFolders();
+		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 		if (isExitOnQuit())
 			System.exit(0);
 			
@@ -1671,6 +1691,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void internalSetSourcePoints(double newValue) {
 		gradedProjectOverview.internalSetSourcePoints(newValue);
 		
+	}
+	@Override
+	public String getDisplayedOnyen() {
+		// TODO Auto-generated method stub
+		return gradedProjectOverview.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return gradedProjectOverview.getDisplayedName();
 	}
 	
 }

@@ -32,4 +32,6 @@ public interface FileProxy extends RootFolderProxy {
 
 	String getParentFolderName();
 
+	String getParentRelativeMixedCaseName();
+
 }

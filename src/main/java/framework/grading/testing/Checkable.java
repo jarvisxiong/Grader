@@ -11,6 +11,12 @@ import util.trace.Tracer;
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
  */
 public abstract class Checkable implements Gradable {
+    public boolean manual; // added by pd
+
+    
+    public boolean isManual() {
+        return manual;
+    }
 
     /**
      * This checks the test cases against the project
@@ -21,6 +27,8 @@ public abstract class Checkable implements Gradable {
      * @return The results of the check
      */
     protected CheckResult check(double points, List<TestCase> testCases, Project project, boolean autoMode) {
+    	if (isManual())
+    		 return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
         if (testCases.isEmpty())
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
         double pointWeight = points / testCases.size();
@@ -40,7 +48,16 @@ public abstract class Checkable implements Gradable {
 
         } catch (NotGradableException e) {
         	e.announce();
-        	String msg = "Could not grade because did not find classes ";
+        	String msg;
+        	if (e.getMessage() == null || e.getMessage().isEmpty())
+        		msg = "Grading failed";
+        	else
+        		msg = "Grading failed: " + e.getMessage();
+//        	String msg = "Grading failed: " + e.getMessage();
+//        	String msg = "Grading failed";
+
+
+//        	String msg = "Could not grade because did not find classes ";
 //        	Tracer.error("Could not grade because did not find classes ");
         	Tracer.error(msg);
 //            e.printStackTrace();
@@ -56,6 +73,8 @@ public abstract class Checkable implements Gradable {
 
     public CheckResult check(Project project) {
         return check(project, true);
+//        return check(project, !isManual());
+
     }
 
     /**

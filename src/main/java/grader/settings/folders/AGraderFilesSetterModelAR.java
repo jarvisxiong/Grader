@@ -18,6 +18,7 @@ public class AGraderFilesSetterModelAR implements ExecutableCommand{
 		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "DownloadFolder", AttributeNames.CONTAINER_BACKGROUND, Color.PINK);
 
 		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "TextEditor", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IS_LEFT);
+		ObjectEditor.setPropertyAttribute(AGraderFilesSetterModel.class, "Diff", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IS_LEFT);
 
 
 		return null;

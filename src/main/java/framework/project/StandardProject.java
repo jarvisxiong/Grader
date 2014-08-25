@@ -1,6 +1,8 @@
 package framework.project;
 
 import framework.execution.*;
+import grader.project.AProject;
+import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
@@ -8,11 +10,13 @@ import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
 import scala.Option;
 import tools.DirectoryUtils;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,6 +29,7 @@ public class StandardProject implements Project {
     private Option<ClassesManager> classesManager;
     private TraceableLog traceableLog;
     boolean noSrc;
+    protected SakaiProject project;
 
     /**
      * Basic constructor
@@ -60,50 +65,52 @@ public class StandardProject implements Project {
 //        traceableLog = TraceableLogFactory.getTraceableLog();
 //
 //    }
-    
+//	public StandardProject(SakaiProject project, File aDirectory, String name) throws FileNotFoundException {
+//		
+//	}
     // rewriting Josh's code
-    public StandardProject(File aDirectory, String name) throws FileNotFoundException {
+    public StandardProject(SakaiProject aProject, File aDirectory, String name) throws FileNotFoundException {
         // Find the folder. We could be there or it could be in a different folder
-    	if (aDirectory == null) return;
+    	if (aDirectory == null) {
+            throw new FileNotFoundException("No directory given");
+        }
+    	project = aProject;
     	directory = aDirectory;
         Option<File> src = DirectoryUtils.locateFolder(aDirectory, "src");
         if (src.isEmpty()) {
         	System.out.println(SourceFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
 
         	Set<File> sourceFiles = DirectoryUtils.getSourceFiles(aDirectory);
-        	if (sourceFiles.size() != 0) {
-        		File aSourceFile = sourceFiles.iterator().next();
-        		sourceFolder = aSourceFile.getParentFile(); // assuming no packages!
-                this.directory = sourceFolder.getParentFile();
-       		 SourceFolderAssumed.newCase(sourceFolder.getAbsolutePath(), this);
-
-
+        	if (!sourceFiles.isEmpty()) {
+                    File aSourceFile = sourceFiles.iterator().next();
+                    sourceFolder = aSourceFile.getParentFile(); // assuming no packages!
+                    this.directory = sourceFolder.getParentFile();
+                    SourceFolderAssumed.newCase(sourceFolder.getAbsolutePath(), this);
         	} else {
-            	System.out.println(ProjectFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
-
+                    System.out.println(ProjectFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
+                    throw new FileNotFoundException("No source files found");
         	}
-//          throw new FileNotFoundException("No src folder");
-
         	noSrc = true;
+//                throw new FileNotFoundException("No src folder");
 //        	sourceFolder = aDirectory;
 //        	this.directory = sourceFolder;
         } else {
-        sourceFolder = src.get();
-        this.directory = src.get().getParentFile();
+            sourceFolder = src.get();
+            this.directory = src.get().getParentFile();
         }
         
 
         try {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
-            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(buildFolder, sourceFolder));
+//            if (AProject.isMakeClassDescriptions())
+            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
         } catch (Exception e) {
             classesManager = Option.empty();
         }
 
         // Create the traceable log
         traceableLog = TraceableLogFactory.getTraceableLog();
-
     }
 
     /**
@@ -119,8 +126,9 @@ public class StandardProject implements Project {
 
         // If there is no 'out' or 'bin' folder then give up
         if (out.isEmpty() && bin.isEmpty()) {
-        	if (noSrc)
-        		return sourceFolder; 
+        	if (noSrc) {
+                    return sourceFolder;
+                } 
 //            throw new FileNotFoundException();
         	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
         	File retVal = new File(directory, "bin");
@@ -132,19 +140,26 @@ public class StandardProject implements Project {
             // There can be more folders under it, so look around some more
             // But first check the class name to see what we are looking for
             File dir = null;
-            if (out.isDefined())
+            if (out.isDefined()) {
                 dir = out.get();
-            if (bin.isDefined())
+            }
+            if (bin.isDefined()) {
                 dir = bin.get();
+            }
+            if (preferredClass == null || preferredClass.isEmpty()) {
+                return dir;
+            }
 
             if (preferredClass.contains(".")) {
                 Option<File> packageDir = DirectoryUtils.locateFolder(dir, preferredClass.split("\\.")[0]);
-                if (packageDir.isDefined())
+                if (packageDir.isDefined()) {
                     return packageDir.get().getParentFile();
-                else
+                } else {
                     return dir;
-            } else
+                }
+            } else {
                 return dir;
+            }
         }
     }
 
@@ -169,7 +184,16 @@ public class StandardProject implements Project {
     }
 
     @Override
-    public RunningProject launch(String input, int timeout) throws NotRunnableException {
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
+    }
+    @Override
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
+    }
+    
+    @Override
+    public RunningProject launch( String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, timeout);
     }
 

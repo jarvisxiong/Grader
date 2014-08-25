@@ -15,7 +15,7 @@ public interface GradingHistoryParser {
 
 	public abstract void processNextVisit();
 
-	StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable);
+	StudentProblemHistory parseStudentHistory(List<String[]> aTable);
 
 	boolean initNewNavigation(List<String[]> aTable);
 

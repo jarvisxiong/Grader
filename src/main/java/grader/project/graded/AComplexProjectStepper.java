@@ -11,6 +11,7 @@ import grader.trace.stepper.FeedbackVisited;
 import grader.trace.stepper.MainVisited;
 import grader.trace.stepper.ProblemHistoryVisited;
 import grader.trace.stepper.SourceVisited;
+import grader.trace.stepper.StudentHistoryVisited;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -209,6 +210,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Visible(true)
 	@Position(1)
 	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("The contents of the summary seen by the student.")
 	public String getFeedback() {
 		return mainProjectStepper.getFeedback();
 	}
@@ -422,6 +424,15 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.getProblemHistory();
 	}
 	
+	@Override
+	@Visible(true)
+	@Position(4)
+	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("History of manual interventions for this student.")
+	public String getStudentHistory() {
+		return mainProjectStepper.getStudentHistory();
+	}
+	
 	
 	@Override
 	public void internalSetSource(String newValue) {
@@ -530,6 +541,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 				MainVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			else if (aProperty.equals("problemhistory"))
 				ProblemHistoryVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
+			else if (aProperty.equals("studenthistory"))
+				StudentHistoryVisited.newCase(getProjectDatabase(), this, getProject(), aProperty, this);
 			
 			
 	}
@@ -553,6 +566,16 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.loadSourceFromFile();
 		
 	}
+	@Override
+	public String getDisplayedOnyen() {
+		return mainProjectStepper.getDisplayedOnyen();
+	}
+	@Override
+	public String getDisplayedName() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.getDisplayedName();
+	}
+	
 
 
 }

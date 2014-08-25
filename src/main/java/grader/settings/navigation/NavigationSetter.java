@@ -4,9 +4,9 @@ import grader.navigation.NavigationKind;
 
 import java.beans.PropertyChangeListener;
 
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public interface NavigationSetter  {
+public interface NavigationSetter extends PropertyListenerRegistrar {
 
 	AutomaticNavigationSetter getAutomaticNavigationSetter();
 

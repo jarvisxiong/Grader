@@ -29,4 +29,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	String getProblemHistory();
 
+	String getStudentHistory();
+
 }

@@ -4,6 +4,9 @@ import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
 import grader.assignment.GradingFeature;
+import grader.execution.MainClassFinder;
+import grader.execution.ProxyBasedClassesManager;
+import grader.execution.ProxyClassLoader;
 import grader.project.file.RootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
@@ -98,5 +101,7 @@ public interface Project {
 	public List<String> getCompiledClasses() ;
 
 	public void addCompiledClass(String newVal) ;
+
+	void appendCurrentInput(String aCurrentInput);
 
 }

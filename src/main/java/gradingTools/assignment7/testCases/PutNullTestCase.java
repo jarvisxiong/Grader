@@ -48,10 +48,10 @@ public class PutNullTestCase extends BasicTestCase {
             method.invoke(table, "test1", null);
 
             // If we got here then it didn't blow up, meaning it worked
-            return pass();
+            return pass(autoGrade);
         } catch (InvocationTargetException e) {
             // This means the method threw an error
-            return fail("Putting with keys & values of null throws an error.");
+            return fail("Putting with keys & values of null throws an error.", autoGrade);
         } catch (Exception e) {
             throw new NotGradableException();
         }
@@ -65,3 +65,4 @@ public class PutNullTestCase extends BasicTestCase {
 //            return fail("Put method should save nothing when key/value is null.");
 //    }
 }
+

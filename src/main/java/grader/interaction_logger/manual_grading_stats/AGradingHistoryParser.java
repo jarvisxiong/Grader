@@ -24,6 +24,7 @@ import grader.trace.stepper.ProjectStepStarted;
 import grader.trace.stepper.ProjectStepperEnded;
 import grader.trace.stepper.ProjectStepperStarted;
 import grader.trace.stepper.SourceVisited;
+import grader.trace.stepper.StudentHistoryVisited;
 import grader.trace.stepper.UserQuit;
 
 public class AGradingHistoryParser implements GradingHistoryParser {
@@ -36,7 +37,7 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	List<String[]> table;
 	AllStudentsProblemHistory history;
 	String currentOnyen = "";
-	StudentProblemGradingHistory currentStudentHistory;
+	StudentProblemHistory currentStudentHistory;
 	boolean isAutomaticPhase;
 	String graderName;
 	
@@ -264,7 +265,7 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	
 	
 	@Override
-	public StudentProblemGradingHistory parseStudentHistory(List<String[]> aTable) {
+	public StudentProblemHistory parseStudentHistory(List<String[]> aTable) {
 		setTable(aTable);
 		endPhaseIndex = aTable.size(); 
 //		table = aTable;
@@ -278,13 +279,14 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 	}
 	
 	
-	 StudentProblemGradingHistory parseNextStudentHistory() {
+	 StudentProblemHistory parseNextStudentHistory() {
 		String[] beginRow = table.get(currentRowIndex);
 		long beginTime = ProjectStepStarted.timeStampFromCSVRow(beginRow);
 		long endTime;
 
 		 currentOnyen =  ProjectStepStarted.onyenFromCSVRow(beginRow);
-		StudentProblemGradingHistory retVal = new AStudentProblemHistory(graderName, history.getModuleName(), history.getProblemName(), currentOnyen);
+//		 String name = ProjectStepStarted.nameFromCSVRow(beginRow);
+		StudentProblemHistory retVal = new AStudentProblemHistory(graderName, history.getModuleName(), history.getProblemName(), currentOnyen);
 		 endVisitIndex = logReader.nextRowIndex(ProjectStepEnded.class, currentRowIndex, endPhaseIndex);
 		
 		if (endVisitIndex < 0) {
@@ -350,6 +352,10 @@ public class AGradingHistoryParser implements GradingHistoryParser {
 			index = logReader.nextRowIndex(ProblemHistoryVisited.class, currentRowIndex, endPhaseIndex);
 			if (index >= 0) {
 				retVal.setProblemHistoryVisited();
+			}
+			index = logReader.nextRowIndex(StudentHistoryVisited.class, currentRowIndex, endPhaseIndex);
+			if (index >= 0) {
+				retVal.setStudentHistoryVisited();
 			}
 		}
 		

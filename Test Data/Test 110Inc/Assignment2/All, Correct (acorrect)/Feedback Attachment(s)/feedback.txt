@@ -1,0 +1,45 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Contains a main method                                 10.0 / 10.0
+Has a proper header                                    10.0 / 10.0
+Prompts for inputs                                     10.0 / 10.0
+Takes in a String                                      10.0 / 10.0
+Prints an error message                                10.0 / 10.0
+Correctly checks for palindrome                        40.0 / 40.0
+Ignores case when checking for palindromes             10.0 / 10.0
+----------------------------------
+  Points Awarded: 100.0
+
+Grading restrictions...
+----------------------------------
+No StringBuffer allowed                     0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Total Score: 100.0
+
+Notes from grading features:
+----------------------------------
+Contains a main method:
+excellent!
+
+
+Has a proper header:
+Validated by instructor.
+Takes in a String:
+Validated by instructor.
+Prints an error message:
+Validated by instructor.
+Correctly checks for palindrome:
+fff
+
+Notes from grading restrictions:
+----------------------------------
+
+Overall Comments:
+----------------------------------
+Edit 1. edit 54
+
+ Total score manually changed from 50.0 to 60.0. Total score manually changed from 100.0 to 80.0.

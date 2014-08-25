@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 
@@ -49,94 +51,6 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
     public ProjectDatabaseWrapper(String aBulkAssignmentsFolderName, String anAssignmentsDataFolderName) {
         super(aBulkAssignmentsFolderName, anAssignmentsDataFolderName, true);
     }
-    
-    // moving to super class
-
-//    /**
-//     * This generates grading features based on the project requirements
-//     *
-//     * @param requirements The FrameworkProjectRequirements to add to the project database
-//     */
-//    public void addProjectRequirements(ProjectRequirements requirements) {
-//        projectRequirements = requirements;
-//        List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
-//
-//        // Add the features
-//        for (Feature feature : requirements.getFeatures()) {
-//            gradingFeatures.add(new AGradingFeature(feature.getName(), feature.getPoints(), new FeatureCheckerWrapper(feature), feature.isExtraCredit()));
-//        }
-//
-//        // Add the restrictions
-//        for (Restriction restriction : requirements.getRestrictions()) {
-//            gradingFeatures.add(new AGradingFeature(restriction.getName(), restriction.getPoints(), new FeatureCheckerWrapper(restriction)));
-//        }
-//
-//        addGradingFeatures(gradingFeatures);
-//    }
-//
-//    public ProjectRequirements getProjectRequirements() {
-//        return projectRequirements;
-//    }
-
-    /**
-     * This method is overridden to take the assignment name for the settings singleton rather than looking for an extra
-     * folder nesting and pulling the name from the folder.
-     */
-    /**
-     * fixed the above problem so am commenting out this method
-     */
-//    @Override
-//    public void maybeMakeProjects() {
-//        if (projectsMade)
-//            return;
-//        projectsMade = true;
-//
-//        // Create the bulk folder
-//        BulkAssignmentFolder bulkFolder = new NonNestedBulkAssignmentFolder();
-//        setBulkFolder(bulkFolder);
-//
-//        // Create the assignmentDataFolder
-//        AnAssignmenDataFolder assignmentDataFolder = new AnAssignmenDataFolder(getDataFolder() + "/" + GradingEnvironment.get().getAssignmentName(), bulkFolder.getSpreadsheet());
-//        setAssignmentDataFolder(assignmentDataFolder);
-//
-//        // Create the collection of assignments
-//        GenericStudentAssignmentDatabase<StudentCodingAssignment> aStudentAssignmentDatabase = getStudentAssignmentDatabase();
-//        System.out.println(aStudentAssignmentDatabase.getStudentIds());
-//        Collection<StudentCodingAssignment> studentAssignments = aStudentAssignmentDatabase.getStudentAssignments();
-//
-//        // Make the projects for the onyens that are specified
-//        for (StudentCodingAssignment anAssignment : studentAssignments) {
-////            RootFolderProxy projectFolder = anAssignment.getProjectFolder();
-//            if (!assignmentDataFolder.getStudentIDs().contains(anAssignment.getOnyen()))
-//                continue;
-//            SakaiProject project = makeProject(anAssignment);
-//            if (project != null) {
-//                saveProject(anAssignment.getOnyen(), project);
-//            }
-//        }
-//    }
-    
-    // moved this up to the superclass
-
-//    @Override
-//    public GenericStudentAssignmentDatabase<StudentCodingAssignment> getStudentAssignmentDatabase() {
-//        if (studentAssignmentDatabase == null)
-//            studentAssignmentDatabase = new ASakaiStudentCodingAssignmentsDatabase(getBulkAssignmentFolder());
-//        return studentAssignmentDatabase;
-//    }
-   /**
-    * do not see how this is different from the inherited version, deleting it
-    */
-//    @Override
-//    public StudentCodingAssignment getStudentAssignment(String anOnyen) {
-//        GenericStudentAssignmentDatabase<StudentCodingAssignment> aStudentAssignmentDatabase = getStudentAssignmentDatabase();
-//        Collection<StudentCodingAssignment> studentAssignments = aStudentAssignmentDatabase.getStudentAssignments();
-//        for (StudentCodingAssignment anAssignment : studentAssignments) {
-//            if (anAssignment.getOnyen().equals(anOnyen))
-//                return anAssignment;
-//        }
-//        return null;
-//    }
 
     /**
      * This attempts to find/make the data folder.
@@ -163,10 +77,10 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             Boolean include = false;
             Set<String> onyenSet = new TreeSet<String>();
             File files[] = new File(GraderSettings.get().get("path")).listFiles();
-        	Arrays.sort(files, new AFileObjectSorter(FileNameSorterSelector.getSorter())) ;
-        	
-        	//maybe this is the only sort we need now, at least we do not need it in getStudentIds, but will keep it for now
-    		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), ProjectDatabaseWrapper.class);
+            Arrays.sort(files, new AFileObjectSorter(FileNameSorterSelector.getSorter())) ;
+
+            //maybe this is the only sort we need now, at least we do not need it in getStudentIds, but will keep it for now
+            StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), ProjectDatabaseWrapper.class);
     		
 //            for (File file : new File(GraderSettings.get().get("path")).listFiles()) {
             for (File file : files) {

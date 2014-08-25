@@ -2,12 +2,16 @@ package framework.project;
 
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
+
 import org.joda.time.DateTime;
+
 import scala.Option;
+import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Based on {@link grader.project.Project}
@@ -32,8 +36,9 @@ public interface Project {
     /**
      * Attempts to launch the project in a new process
      */
-    public RunningProject launch(String input, int timeout) throws NotRunnableException;
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
+    public RunningProject launch(String input, int timeout) throws NotRunnableException;
 
     public RunningProject launchInteractive() throws NotRunnableException;
 
@@ -57,4 +62,9 @@ public interface Project {
      * @return The traceable log of events.
      */
     public TraceableLog getTraceableLog();
+
+	RunningProject launch(
+			InputGenerator anOutputBasedInputGenerator,
+			Map<String, String> aProcessToInput, int timeout)
+			throws NotRunnableException;
 }
