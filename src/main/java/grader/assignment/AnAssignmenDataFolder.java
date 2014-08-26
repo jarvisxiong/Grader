@@ -15,11 +15,11 @@ import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import util.misc.Common;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
 
@@ -101,18 +101,23 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 //            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
 //             originalFeatureGradeFile = new File(fullFeatureGradeFileName);
              
-            File aFinalGradeFile = new File(finalGradeFile.getAbsoluteName());
-
+            //File aFinalGradeFile = new File(finalGradeFile.getAbsoluteName());
+            File aFinalGradeFile = new File(finalGradeFile.getMixedCaseAbsoluteName());
+            
             try {
+                //System.out.println("(*) " + aFinalGradeFile.toPath() + ", " + originalFeatureGradeFile.toPath());
+                //System.out.println("(*) " + Common.toText(aFinalGradeFile));
                 Files.copy(aFinalGradeFile.toPath(), originalFeatureGradeFile.toPath(), REPLACE_EXISTING);
-                FeatureGradeFileCreatedFromFinalGradeFile.newCase(originalFeatureGradeFile.getName(), aFinalGradeFile.getName(), this);
-                featureGradeFile = new AFileSystemFileProxy(this, new File(fullFeatureGradeFileName), this.getAbsoluteName());
+                FeatureGradeFileCreatedFromFinalGradeFile.newCase(originalFeatureGradeFile.getName(), aFinalGradeFile.getName(), this);            
+                //featureGradeFile = new AFileSystemFileProxy(this, new File(fullFeatureGradeFileName), this.getAbsoluteName());
+                featureGradeFile = new AFileSystemFileProxy(this, new File(fullFeatureGradeFileName), this.getMixedCaseAbsoluteName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else if (featureGradeFile.exists()) {
-        	FeatureGradeFileLoaded.newCase(featureGradeFile.getAbsoluteName(), this);
+        	//FeatureGradeFileLoaded.newCase(featureGradeFile.getAbsoluteName(), this);
+            FeatureGradeFileLoaded.newCase(featureGradeFile.getMixedCaseAbsoluteName(), this);
         } 
 //        else {
 //        	FinalGradeFileNotFound.newCase(aFileName, aFinder);
