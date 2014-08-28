@@ -41,6 +41,8 @@ public void setFeedbackFileName(String feedbackFileName) {
 			String anOverviewFileName,
 			String aNotes,
 			Object aFinder) {
+		if (anOverviewFileName.contains("nosub"))
+				System.out.println("gpothach");
 		String aMessage = "Feedback Saved to File:" + anOverviewFileName + ". Notes:" + aNotes;
 		FeedbackSaved retVal = new FeedbackSaved(aMessage, aSakaiProjectDatabase, aProjectStepper, aProject, anOverviewFileName, aNotes, aFinder);
 		retVal.announce();		

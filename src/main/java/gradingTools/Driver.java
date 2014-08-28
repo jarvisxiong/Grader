@@ -61,6 +61,11 @@ public class Driver {
     static GraderSettingsModel settingsModel;
 
     static File userPropsFile;
+    
+    public static ProjectRequirements getRequirements() {
+       return StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
+
+    }
 
     public static void drive(String[] args, int settingsFrameX, int settingsFrameY) {
 //	  ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
@@ -166,6 +171,11 @@ public class Driver {
             // Logging
 //            ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
             recorder.setProjectRequirements(requirements);
+            if (requirements == null) {
+            	System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
+            	System.exit(-1);
+            }
+            	
             initLoggers(requirements, configuration);
             initAssignmentDataFolder();
 //            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");

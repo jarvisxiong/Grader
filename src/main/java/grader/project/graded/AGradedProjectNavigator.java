@@ -434,6 +434,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		return preProceed() && !preNext();
 	}
 	void maybeSaveState() {
+		if (projectStepper.getProject().isNoProjectFolder())
+			return;
 		// josh's code
 				// no serialization otherwise
 				if (projectStepper.isChanged() || 
@@ -531,6 +533,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		boolean projectSet = projectStepper.setProject(anOnyen);
 		if (!projectSet) {
 			boolean retVal = move(forward);
+			if (!hasMoreSteps)
+				return false;
 			if (!retVal && filteredOnyenIndex != currentOnyenIndex) {
 //				currentOnyenIndex = filteredOnyenIndex;
 				setCurrentOnyenIndex(filteredOnyenIndex);
@@ -539,6 +543,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 				} catch (MissingOnyenException e) {
 					e.printStackTrace(); // this should never be executed
 				}
+				if (projectStepper.getProject().isNoProjectFolder())
+					return false;
 				String message = "Cannot move as no more records that satisfy selection condition. You can change the filter settings.";
 				Tracer.error(message);
 				JOptionPane.showMessageDialog(null, message);

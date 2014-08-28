@@ -280,7 +280,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			e.printStackTrace(); // not sure we will ever come here
 		}
 		Boolean retVal = setProject(projectDatabase.getProject(anOnyen));
-		SakaiProject project = getProject();
+//		SakaiProject project = getProject();
 //		loadSourceFromFile();
 //		internalSetSource(
 //						getProject().
@@ -479,8 +479,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		featureGradeRecorder.newSession(getOnyen());
 		featureGradeRecorder.setGrade(getName(), getOnyen(), getScore()); // pass the first score to recording session
-		gradedProjectOverview.setProject(newVal);
-		autoVisitBehavior.setProject(newVal);
+		
+		if (!gradedProjectOverview.setProject(newVal))
+			return false;
+		if (!autoVisitBehavior.setProject(newVal))
+			return false;
 		gradedProjectNavigator.setProject(newVal);
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
