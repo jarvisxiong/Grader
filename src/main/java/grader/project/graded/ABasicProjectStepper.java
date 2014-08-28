@@ -530,7 +530,8 @@ public class ABasicProjectStepper extends AClearanceManager implements
 
 		featureGradeRecorder.newSession(getOnyen());
 		gradedProjectOverview.setProject(newVal);
-		autoVisitBehavior.setProject(newVal);
+		if (!autoVisitBehavior.setProject(newVal) ) 
+			return false;
 		gradedProjectNavigator.setProject(newVal);
 		// Josh's code from ProjectStepperDisplayerWrapper
 		// Figure out the late penalty
