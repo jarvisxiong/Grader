@@ -10,6 +10,9 @@ import grader.project.file.ARootCodeFolder;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -177,19 +180,40 @@ public class DirectoryUtils {
 			}
 //			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 //				continue;
-//			String diffTool = GradingEnvironment.get().getDiff();
-//			if (!(diffTool == null || diffTool.isEmpty())) {
+			String diffTool = GradingEnvironment.get().getDiff();
+			if (!(diffTool == null || diffTool.isEmpty())) {
 //				diffTool = handleSpacesInExecutale(diffTool);
+//			Path aPath = Paths.get(diffTool);
+			try {
+//				String aCanonicalPath = aPath.toFile().getCanonicalPath();
+				String aCanonicalPath = diffTool;
+				String aCorrectChildName =  "\"" + correctChild.getAbsolutePath() + "\"";
+				String aTestChildName = "\"" + testChild.getAbsolutePath() + "\"";
+//				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, correctChild.getAbsolutePath(), testChild.getAbsolutePath(), ">", testChild.getAbsolutePath()+"diff" );
+				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
+
+//				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath );
+
+				aProcessBuilder.redirectError(Redirect.INHERIT);
+				aProcessBuilder.redirectOutput(Redirect.INHERIT);
+
+				Process aProcess = aProcessBuilder.start();
+				aProcess.waitFor();
+//				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
+
+			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
 ////			try {
 ////				Runtime.getRuntime().exec(command);
 //				OEMisc.runWithProcessExecer(diffTool);
-//				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
-////			} catch (IOException e) {
-////				// TODO Auto-generated catch block
-////				e.printStackTrace();
-////			}
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
 //			}
+			}
 
 			String correctText = Common.toText(correctChild).replaceAll("\r\n", "\n");
 			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
