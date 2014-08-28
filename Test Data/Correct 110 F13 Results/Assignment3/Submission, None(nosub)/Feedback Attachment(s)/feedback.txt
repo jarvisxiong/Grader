@@ -1,0 +1,24 @@
+Grading result for: Submission, None(nosub)
+
+Grading features...
+----------------------------------
+Has a proper header                                    0.0 /  5.0
+Contains a main method                                 0.0 /  5.0
+Prompts for String and computation input               0.0 / 10.0
+Has proper isPalindromeMethod method                   0.0 / 20.0
+Has proper computeRoundedSum method                    0.0 / 20.0
+Has proper countUniqueCharacters method                0.0 / 20.0
+Program runs computation specified by the user         0.0 / 20.0
+EXTRA CREDIT: reverseWordCharacters                    0.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 0.0
+
+Grading restrictions...
+----------------------------------
+No StringBuffer or StringBuilder allowed    0.0 /  -30.0
+No advanced Java classes allowed            0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 0.0
+  Total Score: 0.0

@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import bus.uigen.misc.OEMisc;
+
 /**
  * A set of utilities to assist with the recursive nature of directories.
  */
@@ -129,7 +131,8 @@ public class DirectoryUtils {
 	}
 	
 	public static String handleSpacesInExecutale(String aCommand) {
-		return aCommand.replaceAll("Program Files", "\"Program Files\""); // hack for now
+//		return aCommand.replaceAll("Program Files", "\"Program Files\""); // hack for now
+		return "\"" + aCommand + "\"";
 	}
 	
 	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
@@ -176,23 +179,26 @@ public class DirectoryUtils {
 //				continue;
 //			String diffTool = GradingEnvironment.get().getDiff();
 //			if (!(diffTool == null || diffTool.isEmpty())) {
-////				diffTool = handleSpacesInExecutale(diffTool);
+//				diffTool = handleSpacesInExecutale(diffTool);
 //			String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
-//			try {
-//				Runtime.getRuntime().exec(command);
+////			try {
+////				Runtime.getRuntime().exec(command);
+//				OEMisc.runWithProcessExecer(diffTool);
 //				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+////			} catch (IOException e) {
+////				// TODO Auto-generated catch block
+////				e.printStackTrace();
+////			}
 //			}
 
 			String correctText = Common.toText(correctChild).replaceAll("\r\n", "\n");
 			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
 			if (!correctText.equals(testText)) {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
-				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
-				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
+//				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
+//				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
+				System.out.println( "-----------------Correct Text-----------------\n" + correctText);
+				System.out.println("-----------------Test Text-----------------\n" + testText);
 				retVal = false;
 //				return false;
 			} else {

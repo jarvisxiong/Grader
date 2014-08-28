@@ -1,0 +1,39 @@
+Grading result for: Infinite, Loop (iloop)
+
+Grading features...
+----------------------------------
+Has a proper header                                    5.0 /  5.0
+Contains a main method                                 5.0 /  5.0
+Prompts for String and computation input               10.0 / 10.0
+Has proper isPalindromeMethod method                   10.0 / 20.0
+Has proper computeRoundedSum method                    20.0 / 20.0
+Has proper countUniqueCharacters method                10.0 / 20.0
+Program runs computation specified by the user         10.0 / 20.0
+EXTRA CREDIT: reverseWordCharacters                    20.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 90.0
+
+Grading restrictions...
+----------------------------------
+No StringBuffer or StringBuilder allowed    0.0 /  -30.0
+No advanced Java classes allowed            0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 90.0
+
+Notes from grading features:
+----------------------------------
+Has proper isPalindromeMethod method:
+  -- - Method isPalindrome did not complete within 3.0seconds.  Likely an infinite loop.
+
+
+Has proper countUniqueCharacters method:
+  -- - Method countUniqueCharacters does not generate the correct output.
+
+
+Program runs computation specified by the user:
+  -- Incorrect output for computation check if palindrome
+  -- Does not continually ask for new Strings and calculations to run
+
+  Total Score: 90.0

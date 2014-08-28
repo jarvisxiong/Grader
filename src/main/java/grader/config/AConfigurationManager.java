@@ -1,14 +1,5 @@
 package grader.config;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import framework.utils.UserPropertyWriter;
@@ -16,6 +7,14 @@ import grader.trace.config.DynamicConfigurationFileCreated;
 import grader.trace.config.DynamicConfigurationFileRead;
 import grader.trace.config.StaticConfigurationFileNotRead;
 import grader.trace.config.StaticConfigurationFileRead;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.Map;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class AConfigurationManager implements ConfigurationManager {
 
@@ -73,7 +72,7 @@ public class AConfigurationManager implements ConfigurationManager {
             StaticConfigurationFileRead.newCase(STATIC_CONFIGURATION_FILE_NAME, this);
             setStaticConfiguration(configuration);
             String dynamicConfigurationName = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
-
+            
             File file = new File(dynamicConfigurationName);
             if (!file.exists()) {
                 file.createNewFile();
@@ -125,6 +124,7 @@ public class AConfigurationManager implements ConfigurationManager {
             userProperties.writeUserProperties(userPropsFile);
             // Load the default config file
             PropertiesConfiguration configuration = new PropertiesConfiguration(userPropsFile);
+            
             return configuration;
 //			PropertiesConfiguration configuration = new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
         } catch (ConfigurationException e) {

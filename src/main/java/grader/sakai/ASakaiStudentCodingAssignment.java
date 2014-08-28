@@ -109,7 +109,9 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
         } else {
             FileProxy unzippedFolder = getUnzippedFolder(submissionFolder, zipFile);
             if (unzippedFolder == null) {
-                projectFolder = new AZippedRootFolderProxy(zipFile.getAbsoluteName());
+//                projectFolder = new AZippedRootFolderProxy(zipFile.getAbsoluteName());
+                projectFolder = new AZippedRootFolderProxy(zipFile.getMixedCaseAbsoluteName());
+
             } else {
                 projectFolder = getUniqueNonMACOSFolderChild(unzippedFolder);
                 if (projectFolder == null) {
