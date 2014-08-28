@@ -2,14 +2,14 @@ package gradingTools.comp110f14.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.ManualTestCase;
-import gradingTools.comp110s14.assignment1.testcases.AddAndMultiplyTestCase;
-import gradingTools.comp110s14.assignment1.testcases.MainMethodTestCase;
-import gradingTools.comp110s14.assignment1.testcases.PrintAddAndMultiplyTestCase;
-import gradingTools.comp110s14.assignment1.testcases.PromptTestCase;
-import gradingTools.comp110s14.assignment1.testcases.ProperHeaderTestCase;
-import gradingTools.comp110s14.assignment1.testcases.TakeNumberTestCase;
-import gradingTools.comp110s14.program0.HelloWorldClassTestCase;
-import gradingTools.comp110s14.program0.HelloWorldPrinterTestCase;
+import gradingTools.comp110.assignment1.testcases.AddAndMultiplyTestCase;
+import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
+import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
+import gradingTools.comp110.assignment1.testcases.PromptTestCase;
+import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
+import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
+import gradingTools.comp110.program0.HelloWorldClassTestCase;
+import gradingTools.comp110.program0.HelloWorldPrinterTestCase;
 
 public class Assignment1Requirements extends FrameworkProjectRequirements {
 	public Assignment1Requirements() {
