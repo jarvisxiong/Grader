@@ -149,6 +149,8 @@ public class DirectoryUtils {
 		if (correctChildren.length != testChildren.length) {
 			Tracer.error("correct and test dir not same size:" + correctDir.getAbsolutePath() + "(" + correctChildren.length + "," + testChildren.length + ")");
 			Tracer.info(DirectoryUtils.class, "Correct:" +  Common.toString(correctChildren) + " Test:" + Common.toString(testChildren));
+			System.out.println( "Correct:" +  Common.toString(correctChildren) + " Test:" + Common.toString(testChildren));
+
 			retVal = false;
 //			return false;
 			

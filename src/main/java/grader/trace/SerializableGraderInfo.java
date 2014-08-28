@@ -45,7 +45,12 @@ public class SerializableGraderInfo extends GraderInfo implements CSVSerializabl
 	}
 	
 	public static String classNameFromCSVRow(String[] aRow) {
+		try {
 		return aRow[2];
+		} catch (Exception e) {
+//			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public static void main (String[] args) {
