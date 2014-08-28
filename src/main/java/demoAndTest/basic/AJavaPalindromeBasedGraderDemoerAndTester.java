@@ -278,7 +278,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 //		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue("Assignment3");
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue(assignmentNo());
 
-		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("cwrong");
+		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("nosub");
 		Driver.getSettingsModel().getOnyens().setDisplayedStartingOnyen("acorrect");
 
 		Driver.getSettingsModel().cleanSlate();

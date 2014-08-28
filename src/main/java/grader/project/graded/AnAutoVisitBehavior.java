@@ -229,6 +229,8 @@ public class AnAutoVisitBehavior implements
 
 	
 		try {
+			if (project.isNoProjectFolder())
+				return false;
 			wrappedProject = new ProjectWrapper(project, GradingEnvironment
 					.get().getAssignmentName());
 			studentFolder = ProjectWrapper.getStudentFolder(projectStepper.getOnyen());
