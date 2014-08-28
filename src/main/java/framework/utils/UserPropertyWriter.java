@@ -77,7 +77,12 @@ public class UserPropertyWriter {
     private void setupDefault(String defaultProperties) {
         try {
             PropertiesConfiguration configuration = new PropertiesConfiguration(defaultProperties);
-            if (configuration.containsKey("project.requirements")) {
+            Iterator<String> keys = configuration.getKeys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                properties.put(key, configuration.getString(key));
+            }
+            /*if (configuration.containsKey("project.requirements")) {
                 properties.put("project.requirements", configuration.getString("project.requirements"));
             }
             if (configuration.containsKey("project.name")) {
@@ -100,7 +105,7 @@ public class UserPropertyWriter {
             }
             if (configuration.containsKey("grader.controller.useFrameworkGUI")) {
                 properties.put("grader.controller.useFrameworkGUI", configuration.getString("grader.controller.useFrameworkGUI"));
-            }
+            }*/
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }

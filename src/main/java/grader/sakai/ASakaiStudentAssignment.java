@@ -46,7 +46,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             studentFolder = aFileProxy;
             submissionFolder = aFileProxy.getFileEntryFromLocalName(SUBMISSION_LOCAL_NAME);
             if (submissionFolder != null)
-            SubmissionFolderLoaded.newCase(submissionFolder.getAbsoluteName(), this);
+                SubmissionFolderLoaded.newCase(submissionFolder.getAbsoluteName(), this);
             else {
             	throw SubmissionFolderNotFound.newCase(onyen, this);
             }
