@@ -1,0 +1,151 @@
+*****************************(Prompts for String and computation input)*****************************
+INPUT(Prompts for String and computation input)
+hello
+OUTPUT(Prompts for String and computation input)
+Please enter a line of text.
+	Saw input:hello
+Please indicate which computation you'd like to perform.
+
+ERRORS(Prompts for String and computation input)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:37)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+
+ERRORS(Program runs computation specified by the user)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:37)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+check if palindrome
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+	Saw option:check if palindrome
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+0.1 1.2 0.3
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:0.1 1.2 0.3
+Please indicate which computation you'd like to perform.
+
+ERRORS(Program runs computation specified by the user)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:37)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+0.1 1.2 0.3
+compute rounded sum
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:0.1 1.2 0.3
+Please indicate which computation you'd like to perform.
+	Saw option:compute rounded sum
+2.0
+
+Please enter a line of text.
+
+ERRORS(Program runs computation specified by the user)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:33)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+
+ERRORS(Program runs computation specified by the user)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:37)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+count unique characters
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+	Saw option:count unique characters
+7
+
+Please enter a line of text.
+
+ERRORS(Program runs computation specified by the user)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:33)
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+check if palindrome
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+	Saw option:check if palindrome
+
+*****************************(Program runs computation specified by the user)*****************************
+INPUT(Program runs computation specified by the user)
+abcdefg
+check if palindrome
+0.1 1.2 0.3
+compute rounded sum
+OUTPUT(Program runs computation specified by the user)
+Please enter a line of text.
+	Saw input:abcdefg
+Please indicate which computation you'd like to perform.
+	Saw option:check if palindrome
+
+*****************************(EXTRA CREDIT: reverseWordCharacters)*****************************
+INPUT(EXTRA CREDIT: reverseWordCharacters)
+Computer programming can be a difficult task or it can be as easy as 123
+OUTPUT(EXTRA CREDIT: reverseWordCharacters)
+Please enter a line of text.
+	Saw input:Computer programming can be a difficult task or it can be as easy as 123
+Please indicate which computation you'd like to perform.
+
+ERRORS(EXTRA CREDIT: reverseWordCharacters)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:37)
+
+*****************************(EXTRA CREDIT: reverseWordCharacters)*****************************
+INPUT(EXTRA CREDIT: reverseWordCharacters)
+Computer programming can be a difficult task or it can be as easy as 123
+reverse word characters
+OUTPUT(EXTRA CREDIT: reverseWordCharacters)
+Please enter a line of text.
+	Saw input:Computer programming can be a difficult task or it can be as easy as 123
+Please indicate which computation you'd like to perform.
+	Saw option:reverse word characters
+retupmoC gnimmargorp nac eb a tluciffid ksat ro ti nac eb sa ysae sa 321 
+
+Please enter a line of text.
+
+ERRORS(EXTRA CREDIT: reverseWordCharacters)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at Program3.main(Program3.java:33)
+

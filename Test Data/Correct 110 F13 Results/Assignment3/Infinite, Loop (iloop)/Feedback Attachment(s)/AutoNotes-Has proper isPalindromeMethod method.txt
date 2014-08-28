@@ -1,0 +1,2 @@
+  -- - Method isPalindrome did not complete within 3.0seconds.  Likely an infinite loop.
+
