@@ -1,0 +1,6 @@
+Templates
+DueDate,02/4/2014 23:55:59,0.75,,,,
+Feature,Correct Sort,unsorted.txt,sorted.txt,diff, $ModelOutput $ActualOutput,-i -w -b
+Feature,Prompts for Input,20,ExpectedPrompt.txt,substring,$Model_Output,$ActualOutput
+Restriction,Does not use Scanner,-30,,,contains,$Source,Scanner 
+Type,Description,MaxScore,Input,Model Output,Comparator,Argument1, Argument2, Argument3
