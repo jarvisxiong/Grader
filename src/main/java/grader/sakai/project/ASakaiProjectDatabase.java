@@ -1265,7 +1265,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				continue; // assume a message has already been given
 
 			SakaiProject project = makeProject(anAssignment);
-			if (project != null) {
+			if (project != null && !project.isNoProjectFolder()) {
 				onyenToProject.put(anAssignment.getOnyen(), project);
 			}
 		}

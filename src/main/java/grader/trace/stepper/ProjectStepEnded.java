@@ -77,9 +77,15 @@ public static Map<String, String> featureNotesFromCSVRow(String[] aRow) {
 	Map<String, String> retVal = new HashMap();
 	int size = sizeFeatureNotesFromCSVRow(aRow);
 	for (int i =0 ; i < size; i++) {
+		try {
 		String featureName = aRow[MIN_COLUMNS_USED + i*2];
+		
 		String featureNotes = unNormalize(aRow[MIN_COLUMNS_USED + i*2 + 1]);
 		retVal.put(featureName, featureNotes);
+		} catch (Exception e) {
+			System.out.println("Number of feature notes wrong!");
+//			e.printStackTrace();
+		}
 	}
 	return retVal;
 }

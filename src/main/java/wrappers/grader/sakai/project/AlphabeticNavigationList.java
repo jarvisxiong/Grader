@@ -5,6 +5,7 @@ import framework.utils.GraderSettings;
 import grader.navigation.sorter.AFileObjectSorter;
 import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.NavigationListCreator;
+import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 import grader.trace.stepper.NavigationListCreated;
@@ -58,8 +59,17 @@ public class AlphabeticNavigationList implements NavigationListCreator {
             if (file.isDirectory()) {
                 if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
                     include = true;
-                if (include)
-                    onyens.add(file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")")));
+                if (include) {
+                	String anOnyen = file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")"));
+                	SakaiProject aProject = aSakaiProjectDatabase.getProject(anOnyen);
+                	if (aProject == null || aProject.isNoProjectFolder()) {
+//                		System.out.println("Onyen:" + anOnyen + " ignored because of missing project");
+                		;
+                	} else {
+//                    onyens.add(file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")")));
+                    onyens.add(anOnyen);
+                	}
+                }
                 if (file.getName().contains("(" + GraderSettings.get().get("end") + ")")) {
                     include = false;
                     break;

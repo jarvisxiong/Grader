@@ -476,14 +476,22 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		// Josh: Added event
 		propertyChangeSupport.firePropertyChange("Project", AttributeNames.IGNORE_NOTIFICATION, project);
-
+//		if (!gradedProjectOverview.setProject(newVal))
+//			return false;
+//		if (!autoVisitBehavior.setProject(newVal))
+//			return false;
 		featureGradeRecorder.newSession(getOnyen());
 		featureGradeRecorder.setGrade(getName(), getOnyen(), getScore()); // pass the first score to recording session
 		
-		if (!gradedProjectOverview.setProject(newVal))
+		if (!gradedProjectOverview.setProject(newVal)) {
+			featureGradeRecorder.newSession(null);
 			return false;
-		if (!autoVisitBehavior.setProject(newVal))
+		} 
+		if (!autoVisitBehavior.setProject(newVal)) {
+			featureGradeRecorder.newSession(null); // this is the one that matters
+
 			return false;
+		}
 		gradedProjectNavigator.setProject(newVal);
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that

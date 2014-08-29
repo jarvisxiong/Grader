@@ -150,6 +150,10 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     // Session methods
 
     public void newSession(final String onyen) {
+    	if (onyen == null) {
+    		recordingSession =null;
+    		return;
+    	}
 
         // Get the user id from the onyen
         String userId = DirectoryUtils.find(new File(GraderSettings.get().get("path")), new FileFilter() {
