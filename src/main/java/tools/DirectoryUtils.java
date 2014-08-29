@@ -138,6 +138,60 @@ public class DirectoryUtils {
 		return "\"" + aCommand + "\"";
 	}
 	
+	public static void diff(File correctChild, File testChild, String anOutputFileName) {
+		String diffTool = GradingEnvironment.get().getDiff();
+		if ((diffTool == null || diffTool.isEmpty())) {
+			System.out.println("cannot diff as no difftool provided");
+			return;
+		}
+//			diffTool = handleSpacesInExecutale(diffTool);
+//		Path aPath = Paths.get(diffTool);
+		try {
+//			String aCanonicalPath = aPath.toFile().getCanonicalPath();
+			String aCanonicalPath = diffTool;
+			String aCorrectChildName =  "\"" + correctChild.getAbsolutePath() + "\"";
+			String aTestChildName = "\"" + testChild.getAbsolutePath() + "\"";
+			
+//			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, correctChild.getAbsolutePath(), testChild.getAbsolutePath(), ">", testChild.getAbsolutePath()+"diff" );
+//			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
+//			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName,  ">", anOutputFileName);
+			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
+
+
+//			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath );
+
+			aProcessBuilder.redirectError(Redirect.INHERIT);
+			if (anOutputFileName == null) {
+				aProcessBuilder.redirectOutput(Redirect.INHERIT);
+
+			} else {
+
+			File anOutputFile = new File(anOutputFileName);
+			if (!anOutputFile.exists())
+				anOutputFile.createNewFile();
+			aProcessBuilder.redirectOutput(Redirect.to(anOutputFile));
+			}
+
+			Process aProcess = aProcessBuilder.start();
+			aProcess.waitFor();
+//			String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
+
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
+////		try {
+////			Runtime.getRuntime().exec(command);
+//			OEMisc.runWithProcessExecer(diffTool);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	
+		
+	}
+	
 	public static boolean compare (File correctDir, File testDir, List<String> ignoreSuffixes) {
 		boolean retVal = true;		
 		if (!correctDir.isDirectory() || ! testDir.isDirectory()) {
@@ -182,40 +236,48 @@ public class DirectoryUtils {
 			}
 //			if (hasSuffix(correctChild.getName(), ignoreSuffixes))
 //				continue;
-			String diffTool = GradingEnvironment.get().getDiff();
-			if (!(diffTool == null || diffTool.isEmpty())) {
-//				diffTool = handleSpacesInExecutale(diffTool);
-//			Path aPath = Paths.get(diffTool);
-			try {
-//				String aCanonicalPath = aPath.toFile().getCanonicalPath();
-				String aCanonicalPath = diffTool;
-				String aCorrectChildName =  "\"" + correctChild.getAbsolutePath() + "\"";
-				String aTestChildName = "\"" + testChild.getAbsolutePath() + "\"";
-//				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, correctChild.getAbsolutePath(), testChild.getAbsolutePath(), ">", testChild.getAbsolutePath()+"diff" );
-				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
-
-//				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath );
-
-				aProcessBuilder.redirectError(Redirect.INHERIT);
-				aProcessBuilder.redirectOutput(Redirect.INHERIT);
-
-				Process aProcess = aProcessBuilder.start();
-				aProcess.waitFor();
-//				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
-
-			} catch (IOException | InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//			String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
-////			try {
-////				Runtime.getRuntime().exec(command);
-//				OEMisc.runWithProcessExecer(diffTool);
-//			} catch (IOException e) {
+//			String diffTool = GradingEnvironment.get().getDiff();
+//			if (!(diffTool == null || diffTool.isEmpty())) {
+////				diffTool = handleSpacesInExecutale(diffTool);
+////			Path aPath = Paths.get(diffTool);
+//			try {
+////				String aCanonicalPath = aPath.toFile().getCanonicalPath();
+//				String aCanonicalPath = diffTool;
+//				String aCorrectChildName =  "\"" + correctChild.getAbsolutePath() + "\"";
+//				String aTestChildName = "\"" + testChild.getAbsolutePath() + "\"";
+//				String anOutputFileName =  testChild.getAbsolutePath() + "diff";
+//				File anOutputFile = new File(anOutputFileName);
+//				if (!anOutputFile.exists())
+//					anOutputFile.createNewFile();
+////				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, correctChild.getAbsolutePath(), testChild.getAbsolutePath(), ">", testChild.getAbsolutePath()+"diff" );
+////				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
+////				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName,  ">", anOutputFileName);
+//				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
+//
+//
+////				ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath );
+//
+//				aProcessBuilder.redirectError(Redirect.INHERIT);
+//				
+//				aProcessBuilder.redirectOutput(Redirect.appendTo(anOutputFile));
+//
+//				Process aProcess = aProcessBuilder.start();
+//				aProcess.waitFor();
+////				String diffText = Common.toText(new File(testChild.getAbsolutePath()+"diff"));
+//
+//			} catch (IOException | InterruptedException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			}
+////			String command = diffTool + " " + correctChild.getAbsolutePath() + " " + testChild.getAbsolutePath() + " > " + testChild.getAbsolutePath()+"diff";
+//////			try {
+//////				Runtime.getRuntime().exec(command);
+////				OEMisc.runWithProcessExecer(diffTool);
+////			} catch (IOException e) {
+////				// TODO Auto-generated catch block
+////				e.printStackTrace();
+////			}
+//			}
 
 			String correctText = Common.toText(correctChild).replaceAll("\r\n", "\n");
 			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
@@ -225,6 +287,7 @@ public class DirectoryUtils {
 //				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
 				System.out.println( "-----------------Correct Text-----------------\n" + correctText);
 				System.out.println("-----------------Test Text-----------------\n" + testText);
+				diff(correctChild, testChild, null);
 				retVal = false;
 //				return false;
 			} else {

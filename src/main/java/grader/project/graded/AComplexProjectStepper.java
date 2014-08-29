@@ -411,13 +411,21 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Visible(true)
 	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("Correct result (if provided) diffed with actual result.")
+	public String getResultDiff() {
+		return mainProjectStepper.getResultDiff();
+	}
+	@Override
+	@Visible(true)
+	@Position(3)
+	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Comment on the source code by editing it.")
 	public String getSource() {
 		return mainProjectStepper.getSource();
 	}
 	@Override
 	@Visible(true)
-	@Position(3)
+	@Position(4)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions on this problem.")
 	public String getProblemHistory() {
@@ -426,7 +434,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	
 	@Override
 	@Visible(true)
-	@Position(4)
+	@Position(5)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions for this student.")
 	public String getStudentHistory() {
@@ -438,6 +446,11 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void internalSetSource(String newValue) {
 		
 		mainProjectStepper.internalSetSource(newValue);
+	}
+	@Override
+	public void setResultDiff(String newValue) {
+		
+		mainProjectStepper.setResultDiff(newValue);
 	}
 	@Override
 	@Visible(true)

@@ -170,6 +170,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	LabelBeanModel photoLabelBeanModel;
 	String output = "";
 	String source = "";
+	String resultDiff = "";
 	String problemHistory = "";
 	String studentHistory = "";
 	TACommentsExtractor taCommentsExtractor;
@@ -717,6 +718,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		featureGradeRecorder.setSourcePoints(getName(), getOnyen(), taPoints);
 //		SourcePointsSaved.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), taPoints, this);
 		setComputedFeedback();
+	}
+	@Override
+	public void setResultDiff(String newValue) {
+		String oldValue = resultDiff;
+		resultDiff = newValue;
+		propertyChangeSupport.firePropertyChange("resultDiff", oldValue, newValue);		
+	}
+	@Override
+	public String getResultDiff() {
+		return resultDiff;
 	}
 	@Override
 	public String getProblemHistory() {
