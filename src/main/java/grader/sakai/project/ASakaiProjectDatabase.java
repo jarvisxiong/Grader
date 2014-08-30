@@ -66,6 +66,8 @@ import grader.project.graded.AMainProjectStepper;
 import grader.project.graded.AnOverviewProjectStepper;
 import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ClassesTextManager;
+import grader.requirements.interpreter.specification.ACSVRequirementsSpecification;
+import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.ASakaiBulkAssignmentFolder;
 import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
@@ -115,6 +117,8 @@ import java.util.Set;
 
 
 
+
+
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -157,6 +161,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	FinalGradeRecorder gradeRecorder;
 	FinalGradeRecorder totalScoreRecorder;
 	protected FeatureGradeRecorder featureGradeRecorder;
+	protected CSVRequirementsSpecification csvRequirementsSpecification;
 	GradingFeatureList gradingFeatures = new AGradingFeatureList();
 
 	String sourceFileNameSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
@@ -418,7 +423,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		return bulkFolder;
 	}
 
-	public AssignmentDataFolder getAssigmentDataFolder() {
+	public AssignmentDataFolder getAssignmentDataFolder() {
 		return assignmentDataFolder;
 	}
 
@@ -1203,7 +1208,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	// assignmentRoot);
 	// }
 
-
+	/*
+	 * this does more than initialize projects
+	 */
 	public void maybeMakeProjects() {
 		if (projectsMade)
 			return;
@@ -1215,27 +1222,33 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		if (assignmentsDataFolderName == null)
 			assignmentsDataFolderName = GradingEnvironment.get()
 					.getDefaultAssignmentsDataFolderName();
-//		if (assignmentsDataFolderName.startsWith("null")) 
-//			assignmentsDataFolderName = null;
-		if (assignmentsDataFolderName != null) { // we may be creating the database without folder name
-		String specificAssignmentDataFolderName = assignmentsDataFolderName
-				+ "/" + assignmentName;
-		maybeCreateFolder(specificAssignmentDataFolderName);
-		File idFile = maybeCreateFile(specificAssignmentDataFolderName + "/"
-				+ AnAssignmenDataFolder.ID_FILE_NAME);
+		// if (assignmentsDataFolderName.startsWith("null"))
+		// assignmentsDataFolderName = null;
+		if (assignmentsDataFolderName != null) { // we may be creating the
+													// database without folder
+													// name
+			String specificAssignmentDataFolderName = assignmentsDataFolderName
+					+ "/" + assignmentName;
+			maybeCreateFolder(specificAssignmentDataFolderName);
+			File idFile = maybeCreateFile(specificAssignmentDataFolderName
+					+ "/" + AnAssignmenDataFolder.ID_FILE_NAME);
 
-		maybeWriteStudentIDs(idFile);
+			maybeWriteStudentIDs(idFile);
 
-		assignmentDataFolder = new AnAssignmenDataFolder(
-				specificAssignmentDataFolderName, bulkFolder.getSpreadsheet());
+			assignmentDataFolder = new AnAssignmenDataFolder(
+					specificAssignmentDataFolderName,
+					bulkFolder.getSpreadsheet());
 
-		if (!assignmentDataFolder.exists()) {
-			System.out.println("Expecting assignment data folder:"
-					+ specificAssignmentDataFolderName);
+			if (!assignmentDataFolder.exists()) {
+				System.out.println("Expecting assignment data folder:"
+						+ specificAssignmentDataFolderName);
+			} else if (assignmentDataFolder.getRequirementsSpreadsheetFile() != null) {
+				
+				csvRequirementsSpecification = new ACSVRequirementsSpecification(assignmentDataFolder.getRequirementsSpreadsheetFile());
+			}
+			
+
 		}
-
-		}
-
 
 		// GenericStudentAssignmentDatabase<StudentCodingAssignment>
 		// studentAssignmentDatabase = new
@@ -1258,14 +1271,16 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		for (StudentCodingAssignment anAssignment : studentAssignments) {
 			RootFolderProxy projectFolder = anAssignment.getProjectFolder();
 
-			if (assignmentDataFolder != null && !assignmentDataFolder.getStudentIDs().contains(
-					anAssignment.getOnyen()))
+			if (assignmentDataFolder != null
+					&& !assignmentDataFolder.getStudentIDs().contains(
+							anAssignment.getOnyen()))
 				continue;
-			if (anAssignment.getStudentFolder() == null || anAssignment.getSubmissionFolder() == null)
+			if (anAssignment.getStudentFolder() == null
+					|| anAssignment.getSubmissionFolder() == null)
 				continue; // assume a message has already been given
 
 			SakaiProject project = makeProject(anAssignment);
-			if (project != null /*&& !project.isNoProjectFolder()*/) {
+			if (project != null /* && !project.isNoProjectFolder() */) {
 				onyenToProject.put(anAssignment.getOnyen(), project);
 			}
 		}
@@ -1569,6 +1584,14 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	@Override
 	public void setFileNameSorter(Comparator<String> fileNameSorter) {
 		this.fileNameSorter = fileNameSorter;
+	}
+	@Override
+	public CSVRequirementsSpecification getCSVRequirementsSpecification() {
+		return csvRequirementsSpecification;
+	}
+	@Override
+	public void setCSVRequirementsSpecification(CSVRequirementsSpecification newValue) {
+		 csvRequirementsSpecification = newValue;
 	}
 
 }

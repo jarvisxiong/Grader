@@ -22,7 +22,7 @@ import java.util.Set;
 import util.misc.Common;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
-
+	public static final String DEFAULT_REQUIREMENTS_SPREADHEET_NAME = "Requirements.csv";
     public static final String ID_FILE_NAME = "onyens.txt";
     public static final String DEFAULT_LOG_FILE_NAME = "log.txt";
     public static final String DEFAULT_SKIPPED_FILE_NAME = "skipped_onyens.txt";
@@ -38,6 +38,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     String inputFolderName = DEFAULT_INPUT_FOLDER_NAME;
     String featureGradeFileName = DEFAULT_FEATURE_GRADE_FILE_NAME;
     String backupFeatureGradeFileName = DEFAULT_BACKUP_FEATURE_GRADE_FILE_NAME;
+    String requirementsSpreadsheetFileName = DEFAULT_REQUIREMENTS_SPREADHEET_NAME;
     
     File originalFeatureGradeFile, backupFeatureGradeFile;
     
@@ -46,6 +47,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     Set<String> inputFiles;
     List<String> studentIDs;
     FileProxy finalGradeFile, featureGradeFile;
+    FileProxy requirementsSpreadsheetFile;
 
 
     public AnAssignmenDataFolder(String aRootFolderName, FileProxy aFinalGradeFile) {
@@ -75,6 +77,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
         skippedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_SKIPPED_FILE_NAME;
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
+        requirementsSpreadsheetFile = getFileEntryFromLocalName(requirementsSpreadsheetFileName);
         initFeatureGradeFiles();
 //        if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {
 //            String fullFeatureGradeFileName = rootFolder.getAbsolutePath() + "/" + featureGradeFileName;
@@ -287,6 +290,31 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 //    	return true;   	
 //    	
 //    }
+
+
+
+	public String getRequirementsSpreadsheetFileName() {
+		return requirementsSpreadsheetFileName;
+	}
+
+
+
+	public void setRequirementsSpreadsheetFileName(
+			String requirementsSpreadsheetFileName) {
+		this.requirementsSpreadsheetFileName = requirementsSpreadsheetFileName;
+	}
+
+
+
+	public FileProxy getRequirementsSpreadsheetFile() {
+		return requirementsSpreadsheetFile;
+	}
+
+
+
+	public void setRequirementsSpreadsheetFile(FileProxy requirementsSpreadsheetFile) {
+		this.requirementsSpreadsheetFile = requirementsSpreadsheetFile;
+	}
     
 
 

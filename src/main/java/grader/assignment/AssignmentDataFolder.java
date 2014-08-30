@@ -60,6 +60,20 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 	boolean restoreFeatureGradeFile();
 
 	boolean backupExists();
+	public String getRequirementsSpreadsheetFileName() ;
+
+
+
+	public void setRequirementsSpreadsheetFileName(
+			String requirementsSpreadsheetFileName) ;
+
+
+
+	public FileProxy getRequirementsSpreadsheetFile() ;
+
+
+
+	public void setRequirementsSpreadsheetFile(FileProxy requirementsSpreadsheetFile) ;
 
 
 }

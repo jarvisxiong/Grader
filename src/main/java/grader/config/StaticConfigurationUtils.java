@@ -2,6 +2,10 @@ package grader.config;
 
 import framework.grading.ProjectRequirements;
 import framework.utils.GradingEnvironment;
+import grader.requirements.interpreter.AnInterpretedRequirements;
+import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
+import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;
 
@@ -406,8 +410,10 @@ public class StaticConfigurationUtils {
 
             requirements = (ProjectRequirements) _class.newInstance();
         } catch (ClassNotFoundException e) {
-            System.err.println("Could not find project requirements:" + requirementsSpec);
-            System.err.println(e.getMessage());
+        	requirements = getInterpretedRequirements();
+        	if (requirements == null)        	
+                System.err.println("Could not find project requirements:" + requirementsSpec);
+//            System.err.println(e.getMessage());
         } catch (InstantiationException e) {
             System.err.println("Could not create project requirements." + requirements);
             System.err.println(e.getMessage());
@@ -417,6 +423,21 @@ public class StaticConfigurationUtils {
         }
         return requirements;
 
+    }
+    
+    public static ProjectRequirements getInterpretedRequirements() {
+    	try {
+        	SakaiProjectDatabase aDatabase = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase();
+        	CSVRequirementsSpecification aSpecification = aDatabase.getCSVRequirementsSpecification();
+        	return new AnInterpretedRequirements(aSpecification);
+
+    		
+    	} catch (Exception e) {
+    		System.out.println("Could not find interpreted requirements");
+    		return null;
+//    		e.printStackTrace();
+    	}
+    	
     }
 
     public static List<String> getProcessTeams() {

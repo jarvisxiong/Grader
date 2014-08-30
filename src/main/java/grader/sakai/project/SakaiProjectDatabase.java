@@ -35,6 +35,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 
 import util.misc.ClearanceManager;
@@ -56,6 +57,7 @@ import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.PhotoReader;
 import grader.project.Project;
+import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
 import grader.sakai.StudentCodingAssignment;
@@ -68,7 +70,7 @@ import grader.trace.settings.MissingOnyenException;
 public interface SakaiProjectDatabase {
 	public BulkAssignmentFolder getBulkAssignmentFolder();
 	
-	public AssignmentDataFolder getAssigmentDataFolder() ;
+	public AssignmentDataFolder getAssignmentDataFolder() ;
 	
 	public SakaiProject getProject(String aName) ;
 	public Set<String> getOnyens() ;
@@ -82,6 +84,7 @@ public interface SakaiProjectDatabase {
 	public void runProjectsInteractively();
 
 	FinalGradeRecorder getGradeRecorder();
+	
 	public GradingFeatureList getGradingFeatures();
 
 	FeatureGradeRecorder getFeatureGradeRecorder();
@@ -203,6 +206,10 @@ public interface SakaiProjectDatabase {
 	Comparator<String> getFileNameSorter();
 
 	void setFileNameSorter(Comparator<String> fileNameSorter);
+
+	CSVRequirementsSpecification getCSVRequirementsSpecification();
+
+	void setCSVRequirementsSpecification(CSVRequirementsSpecification newValue);
 	
 
 

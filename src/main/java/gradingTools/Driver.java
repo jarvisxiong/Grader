@@ -62,7 +62,7 @@ public class Driver {
 
     static File userPropsFile;
     
-    public static ProjectRequirements getRequirements() {
+    public static ProjectRequirements getProjectRequirements() {
        return StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
     }
@@ -109,7 +109,9 @@ public class Driver {
 
         String goToOnyen = "";
 
-        requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
+//        requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
+        requirements = getProjectRequirements();
+
 
         GradingManager manager;
         /*switch (controller) {

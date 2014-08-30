@@ -191,7 +191,7 @@ public class AProjectStepper extends AClearanceManager implements
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 		registerWithGradingFeatures();
-		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
+		logFile = aProjectDatabase.getAssignmentDataFolder().getLogFileName();
 //<<<<<<< HEAD
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder().getGradedIdFileName();
 //		skippedFile = aProjectDatabase.getAssigmentDataFolder().getSkippedIdFileName();
@@ -214,9 +214,9 @@ public class AProjectStepper extends AClearanceManager implements
 ////		project = projectDatabase.getProject(anOnyen);
 //		String oldOnyen = onyen;
 //=======
-		gradedFile = aProjectDatabase.getAssigmentDataFolder()
+		gradedFile = aProjectDatabase.getAssignmentDataFolder()
 				.getGradedIdFileName();
-		skippedFile = aProjectDatabase.getAssigmentDataFolder()
+		skippedFile = aProjectDatabase.getAssignmentDataFolder()
 				.getSkippedIdFileName();
 		GraderSettingsModel graderSettings = aProjectDatabase.getGraderSettings();
 //		graderSettings.getNavigationSetter().getNavigationFilterSetter().addPropertyChangeListener(this);

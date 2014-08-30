@@ -198,7 +198,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 		registerWithGradingFeatures();
-		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
+		logFile = aProjectDatabase.getAssignmentDataFolder().getLogFileName();
 //		source = aProjectDatabase.getSourceDisplayer().getAll
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
 //				.getGradedIdFileName();
@@ -1624,7 +1624,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public void resetFeatureSpreadsheet() {
-		boolean retVal = projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		boolean retVal = projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 		if (isExitOnQuit())
 		System.exit(0);
 		
@@ -1653,12 +1653,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public boolean preRestoreFeatureSpreadsheet() {
-		return projectDatabase.getAssigmentDataFolder().backupExists();
+		return projectDatabase.getAssignmentDataFolder().backupExists();
 	}
 	@Visible(false)
 	@Override
 	public void restoreFeatureSpreadsheet() {
-		boolean retVal = projectDatabase.getAssigmentDataFolder().restoreFeatureGradeFile();
+		boolean retVal = projectDatabase.getAssignmentDataFolder().restoreFeatureGradeFile();
 		if (retVal)
 			System.exit(0);
 		

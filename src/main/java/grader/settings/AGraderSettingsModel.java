@@ -679,12 +679,12 @@ public class AGraderSettingsModel implements GraderSettingsModel{
 	@Override
 	public void resetFeatureSpreadsheet() {
 		maybeCreateProjectDatabase();
-		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 	}
 	@Override
 	public void cleanSlate() {
 		maybeCreateProjectDatabase();
-		projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 		projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
 	}
 	

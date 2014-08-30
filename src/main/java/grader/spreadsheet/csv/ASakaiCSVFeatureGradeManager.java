@@ -58,7 +58,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 	
 	public ASakaiCSVFeatureGradeManager(SakaiProjectDatabase aSakaiProjectDatabase) {
-		super(aSakaiProjectDatabase.getAssigmentDataFolder().getFeatureGradeFile());
+		super(aSakaiProjectDatabase.getAssignmentDataFolder().getFeatureGradeFile());
 		gradingFeatures = aSakaiProjectDatabase.getGradingFeatures();
 		
 //		gradeSpreadsheet = aGradeSpreadsheet;		
