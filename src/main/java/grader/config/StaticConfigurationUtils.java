@@ -2,6 +2,7 @@ package grader.config;
 
 import framework.grading.ProjectRequirements;
 import framework.utils.GradingEnvironment;
+import grader.assignment.AnAssignmenDataFolder;
 import grader.requirements.interpreter.AnInterpretedRequirements;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -426,14 +427,16 @@ public class StaticConfigurationUtils {
     }
     
     public static ProjectRequirements getInterpretedRequirements() {
+//    	SakaiProjectDatabase aDatabase = null;
+    	
+    		SakaiProjectDatabase aDatabase = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase();
     	try {
-        	SakaiProjectDatabase aDatabase = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase();
         	CSVRequirementsSpecification aSpecification = aDatabase.getCSVRequirementsSpecification();
         	return new AnInterpretedRequirements(aSpecification);
 
     		
     	} catch (Exception e) {
-    		System.out.println("Could not find interpreted requirements");
+    		System.out.println("Could not find interpreted requirements " + AnAssignmenDataFolder.DEFAULT_REQUIREMENTS_SPREADHEET_NAME + " in assignment data folder:" + aDatabase.getAssignmentDataFolder().getMixedCaseAbsoluteName() );
     		return null;
 //    		e.printStackTrace();
     	}

@@ -17,7 +17,8 @@ Clear messages with output                             7.0 / 10.0
 Notes from grading features:
 ----------------------------------
 Contains a main method:
-Not gradable
+  -- No method main found in class
+
 Displays results of addition and multiplication:
   -- Does not output the correct double product of the numbers
 

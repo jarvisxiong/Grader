@@ -93,7 +93,7 @@ public class Driver {
             setupHeadlessGrader(args);
         }
         AProject.setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
-
+        AProject.setForceCompile(StaticConfigurationUtils.getForceCompileClasses(configuration, graderSettingsManager));
         // Get the project name
         String projectName = configuration.getString("project.name");
         GradingEnvironment.get().setAssignmentName(projectName);

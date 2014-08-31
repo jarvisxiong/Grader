@@ -80,7 +80,9 @@ public class ProjectClassesManager implements ClassesManager {
 //				return pathname.getName().endsWith(".java");
 //			}
 //		});
-		if (AProject.isCompileMissingObjectCode() || AProject.isForceCompile() || AProject.isPreCompileMissingObjectCode()) {
+		if (AProject.isCompileMissingObjectCode() 
+				|| AProject.isForceCompile() 
+				|| AProject.isPreCompileMissingObjectCode()) {
 
                     // Check if any files need to be compiled
                     ArrayList<File> aFilesToCompile = new ArrayList<File>();

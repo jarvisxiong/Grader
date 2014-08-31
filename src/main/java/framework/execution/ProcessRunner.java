@@ -872,9 +872,13 @@ public class ProcessRunner implements Runner {
 //					errorSemaphore.release();
 					outRunnable.getSemaphore().release();
 					errorRunnable.getSemaphore().release();
+					String entryPoint = "";
+					if (entryPoints != null)
+						entryPoint = entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT);
 					UserProcessExecutionTimedOut.newCase(
 							folder.getAbsolutePath(),
-							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),
+//							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),
+							entryPoint,
 							classPath, this);
 
 					System.out
