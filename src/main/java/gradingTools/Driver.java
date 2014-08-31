@@ -110,7 +110,7 @@ public class Driver {
         String goToOnyen = "";
 
 //        requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
-        requirements = getProjectRequirements();
+//        requirements = getProjectRequirements();
 
 
         GradingManager manager;
@@ -166,26 +166,22 @@ public class Driver {
                 settingsModel.begin();
             }
 //            settingsModel.maybePreCompile();
+            initAssignmentDataFolder();
+
             projectName = settingsModel.getCurrentProblem(); // get the current one
             GradingEnvironment.get().setAssignmentName(projectName);
-            requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
+            
+            // moving code below
+//            requirements = getProjectRequirements();
+//            recorder.setProjectRequirements(requirements);
+//            if (requirements == null) {
+//            	System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
+//            	System.exit(-1);
+//            }
+//            	
+//            initLoggers(requirements, configuration);
+//            initAssignmentDataFolder();
 
-            // Logging
-//            ConglomerateRecorder recorder = ConglomerateRecorder.getInstance();
-            recorder.setProjectRequirements(requirements);
-            if (requirements == null) {
-            	System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
-            	System.exit(-1);
-            }
-            	
-            initLoggers(requirements, configuration);
-            initAssignmentDataFolder();
-//            String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
-//            defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
-//            GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
-
-//            goToOnyen = settingsModel.getOnyens().getGoToOnyen();
-//            settingsFrame.dispose();
         } else if (isNotHeadless()) {
 
             // Start the grading process by, first, getting the settings the running the project database
@@ -216,6 +212,15 @@ public class Driver {
         database.setGraderSettings(settingsModel);
         database.setScoreFeedback(null); // we will be writing to feedback file which is more complete
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
+        // moved code from above
+        requirements = getProjectRequirements();
+        recorder.setProjectRequirements(requirements);
+        if (requirements == null) {
+        	System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
+        	System.exit(-1);
+        }
+        	
+        initLoggers(requirements, configuration);
 
         database.addProjectRequirements(requirements);
 

@@ -211,6 +211,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public void init(String aBulkAssignmentsFolderName,
 			String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
+		setCurrentSakaiProjectDatabase(this);
 		assignmentRoot = anAssigmentRoot;
 		sourceFileNameSuffix = sourceSuffix();
 		outputSuffix = outputSuffix();
