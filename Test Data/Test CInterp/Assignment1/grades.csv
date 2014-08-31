@@ -3,6 +3,6 @@ Assignment 1,Points,,,
 Display ID,ID,Last Name,First Name,grade
 skproject,skproject,Sakai,Project,20
 nosub,nosub,Submission,None,0.0
-jbartel,jbartel,Bartel,Jacob,50.0
-acorrect,acorrect,All,Correct,70.0
-binmiss,binmiss,Missing,Bin,67.0
+jbartel,jbartel,Bartel,Jacob,0.0
+acorrect,acorrect,All,Correct,30.0
+binmiss,binmiss,Missing,Bin,30.0

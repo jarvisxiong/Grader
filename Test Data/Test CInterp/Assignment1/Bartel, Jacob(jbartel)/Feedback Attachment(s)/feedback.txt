@@ -1,0 +1,48 @@
+Grading result for: Bartel, Jacob(jbartel)
+
+Grading features...
+----------------------------------
+Adds and multiplies the numbers exact  match           0.0 / 10.0 (Extra credit)
+Adds and multiplies the numbers                        0.0 / 30.0
+Nice code                                              0.0 / 20.0 (Extra credit)
+Extra nice code                                        0.0 / 10.0
+----------------------------------
+  Points Awarded: 0.0
+
+  Features Score: 0.0
+
+Notes from grading features:
+----------------------------------
+Adds and multiplies the numbers exact  match:
+  -- Model output diff actual output:
+1d0
+< Please   input   an  integer
+2a2
+> Please input an integer
+4c4
+< The double addition:3.500000
+---
+> The double addition:3.000000
+6c6
+< The double multiplication:2.500000
+---
+> The double multiplication:2.000000
+
+
+Adds and multiplies the numbers:
+  -- Model output diff actual output:
+1d0
+< Please   input   an  integer
+2a2
+> Please input an integer
+4c4
+< The double addition:3.500000
+---
+> The double addition:3.000000
+6c6
+< The double multiplication:2.500000
+---
+> The double multiplication:2.000000
+
+
+  Total Score: 0.0

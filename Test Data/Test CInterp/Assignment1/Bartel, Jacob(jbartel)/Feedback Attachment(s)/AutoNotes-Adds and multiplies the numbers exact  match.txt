@@ -1,0 +1,14 @@
+  -- Model output diff actual output:
+1d0
+< Please   input   an  integer
+2a2
+> Please input an integer
+4c4
+< The double addition:3.500000
+---
+> The double addition:3.000000
+6c6
+< The double multiplication:2.500000
+---
+> The double multiplication:2.000000
+
