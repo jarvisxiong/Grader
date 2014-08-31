@@ -1,0 +1,1 @@
+  -- Does not print error when string is longer than 8 characters

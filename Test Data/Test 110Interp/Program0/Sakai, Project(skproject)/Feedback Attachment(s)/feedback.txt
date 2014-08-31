@@ -1,0 +1,26 @@
+Grading result for: Sakai, Project(skproject)
+
+Grading features...
+----------------------------------
+Contains the HelloWorld class                          0.0 / 30.0
+Contains a main method                                 0.0 / 30.0
+Prints Hello World                                     0.0 / 40.0
+----------------------------------
+  Points Awarded: 0.0
+
+  Total Score: 0.0
+
+Notes from grading features:
+----------------------------------
+Notes about Contains the HelloWorld class:
+ * From test case "HelloWorld class test case": No class with name HelloWorld found
+Notes about Contains a main method:
+ * From test case "HelloWorld class test case": No method main found in class with name HelloWorld
+Notes about Prints Hello World:
+ * From test case "Hello World printer test case": Did not print out Hello World
+
+Notes from grading restrictions:
+----------------------------------
+
+TA Comments:
+----------------------------------

@@ -1,0 +1,1 @@
+  -- Does not ignore case when detecting palindromes

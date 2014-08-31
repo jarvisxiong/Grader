@@ -1,0 +1,18 @@
+Grading result for: No, ExtraCredit (noextra)
+
+Grading features...
+----------------------------------
+Has a proper header                                    5.0 /  5.0
+Contains a main method                                 5.0 /  5.0
+Has proper averageFood method                          15.0 / 15.0
+Has proper searchForGerbil method                      15.0 / 15.0
+----------------------------------
+  Points Awarded: 40.0
+
+Grading restrictions...
+----------------------------------
+No advanced Java classes allowed            0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Total Score: 40.0

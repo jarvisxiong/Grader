@@ -1,0 +1,24 @@
+Grading result for: Bartel, Jacob(jbartel)
+
+Grading features...
+----------------------------------
+Contains the HelloWorld class                          30.0 / 30.0
+Contains a main method                                 12.0 / 30.0
+Prints Hello World                                     0.0 / 40.0
+----------------------------------
+  Points Awarded: 42.0
+
+  Total Score: 42.0
+
+Notes from grading features:
+----------------------------------
+Notes about Contains a main method:
+ * From test case "HelloWorld class test case": main method not public, main method not static, main does not take String[] as its only parameter
+
+Notes from grading restrictions:
+----------------------------------
+
+Late penalty: 50.0%
+
+TA Comments:
+----------------------------------
