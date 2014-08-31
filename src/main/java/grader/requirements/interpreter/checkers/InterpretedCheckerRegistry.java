@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class InterpretedCheckerRegistry {
 	public static final String DIFF_NAME = "diff";
+	public static final String MATCH_NAME = "match";
 	static Map<String, InterpretedChecker> nameToChecker = new HashMap<>();
 	public static void register(String aName, InterpretedChecker aChecker) {
 		nameToChecker.put(aName, aChecker);
@@ -16,6 +17,7 @@ public class InterpretedCheckerRegistry {
 	
 	static {
 		register(DIFF_NAME, new ADiffChecker());
+		register(MATCH_NAME, new AMatchChecker());
 	}
 
 }

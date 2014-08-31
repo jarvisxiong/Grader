@@ -28,7 +28,7 @@ import util.trace.Tracer;
  * 
 
  */
-public class ACMixedArithmeticInterpretedInputGraderDemoerAndTester extends AJavaMixedArithmeticGraderDemoerAndTester {
+public class ACMixedArithmeticInterpretedInputGraderDemoerAndTester extends ACMixedArithmeticGraderDemoerAndTester {
 	
 	//	 String[] args ;
 	public static final  String INTERP_TEST_DIR = "Test Data/Test CInterp";
@@ -53,6 +53,10 @@ public class ACMixedArithmeticInterpretedInputGraderDemoerAndTester extends AJav
 	protected String courseNo() {
 		return INTERP_COURSE_NO;
 	}
+	protected int clearMessagesItem() {
+		return 4;
+	}
+	
 	
 	
 

@@ -37,7 +37,11 @@ public class InterpretedVariablesSubstituter {
 	}
 	
 	public static String getSource(RunningProject aRunningProject) {
-		return Common.toText(aRunningProject.getProject().getSourceFileName()).toString();
+		SakaiProject project = aRunningProject.getProject();
+		return project.
+				getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName());
+		
+//		return Common.toText(aRunningProject.getProject().getSourceFileName()).toString();
 	}
 	
 	public static boolean isFileName(String aString) {

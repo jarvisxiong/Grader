@@ -56,7 +56,7 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 		return "Assignment1";
 	}
 
-	 void initializeDirectoryAndAutoProceed() {
+	 protected void initializeDirectoryAndAutoProceed() {
 		if (generatingCorrectDir)
 			directory = correctDir();
 		else
@@ -137,7 +137,9 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 	}
 	public  void doSelectClearMessages() {
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(6);
+//		GradingFeature gradingFeature = gradingFeatures.get(6);
+		GradingFeature gradingFeature = gradingFeatures.get(clearMessagesItem());
+
 //		GradingFeature prevGradingFeature = gradingFeatures.get(5);
 //		gradingFeature.setManualNotes("");
 //		prevGradingFeature.setManualNotes("");	
@@ -149,11 +151,16 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 		if (clearanceManager.isAutoPerformStep())
 		gradingFeature.setSelected(true);
 	}
+	protected int clearMessagesItem() {
+		return 6;
+	}
 	public  void doFullScoreClearMessages() {
 		clearanceManager.setStepDescription("Next step is to check the full credit box in clear messages item (#7) to give full score. \n\nThe item should become uncolored to indicate this is normal  . \n\nIn addition, the item should get selected in case we want to comment on it."); 
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(6);
+//		GradingFeature gradingFeature = gradingFeatures.get(6);
+		GradingFeature gradingFeature = gradingFeatures.get(clearMessagesItem());
+
 		if (clearanceManager.isAutoPerformStep())
 
 		gradingFeature.setFullCredit(true);
@@ -163,7 +170,9 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 		clearanceManager.setStepDescription("Next step is to enter partial score for the red manual grading item. \n\nThe item and notes should become pink to indicate no reason has been given for not giving full score, which can be given by simply pressing the graded button.");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(6);
+//		GradingFeature gradingFeature = gradingFeatures.get(6);
+		GradingFeature gradingFeature = gradingFeatures.get(clearMessagesItem());
+
 		if (clearanceManager.isAutoPerformStep())
 		gradingFeature.setScore(7);
 	}
