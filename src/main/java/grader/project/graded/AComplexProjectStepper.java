@@ -408,7 +408,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.setOverviewProjectStepper(overviewProjectStepper);
 	}
 	@Override
-	@Visible(true)
+	@Visible(false)
 	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Correct result (if provided) diffed with actual result.")
@@ -417,7 +417,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
-	@Position(3)
+	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Comment on the source code by editing it.")
 	public String getSource() {
@@ -425,7 +425,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
-	@Position(4)
+	@Position(3)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions on this problem.")
 	public String getProblemHistory() {
@@ -434,7 +434,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	
 	@Override
 	@Visible(true)
-	@Position(5)
+	@Position(4)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions for this student.")
 	public String getStudentHistory() {

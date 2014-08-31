@@ -1,7 +1,11 @@
 package grader.requirements.interpreter;
 
 import util.misc.Common;
+import framework.execution.RunningProject;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
+import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
 import gradingTools.assignment7.testCases.GetInvalidTestCase;
 
 public class InterpretedVariablesSubstituter {
@@ -9,9 +13,10 @@ public class InterpretedVariablesSubstituter {
 	public static final String ACTUAL_OUTPUT = "$actualoutput";
 	public static final String MODEL_OUTPUT = "$modeloutput";
 	public static final String INPUT = "$input";
+	public static final String SOURCE = "$source";
 	public static final String FILE_SUFFIX = ".txt";
 
-	public static String getValue(CSVRequirementsSpecification aSpecification, 
+	public static String getValue(RunningProject aRunningProject, CSVRequirementsSpecification aSpecification, 
 			int aRequirementNumber, 
 			String anOutput,
 			String anExpression) {
@@ -19,13 +24,20 @@ public class InterpretedVariablesSubstituter {
 		if (!anExpression.startsWith(VAR_PREFIX)) {
 			return anExpression;
 		} else if (ACTUAL_OUTPUT.equals(anExpressionLC)) {
-			return getActualOutput(aSpecification, aRequirementNumber, anOutput, anExpression);
+			return getActualOutput(anOutput);
 		} else if (MODEL_OUTPUT.equals(anExpressionLC)) {
-			return getModelOutput(aSpecification, aRequirementNumber, anOutput, anExpression);
+			return getModelOutput(aSpecification, aRequirementNumber);
 		} else if (INPUT.equals(anExpressionLC)) {
 			return getInput(aSpecification, aRequirementNumber);
-		} else return "";
+		} else if (SOURCE.equals(anExpressionLC)) {
+			return getSource(aRunningProject);
+		}
+		else return "";
 		
+	}
+	
+	public static String getSource(RunningProject aRunningProject) {
+		return Common.toText(aRunningProject.getProject().getSourceFileName()).toString();
 	}
 	
 	public static boolean isFileName(String aString) {
@@ -33,23 +45,24 @@ public class InterpretedVariablesSubstituter {
 			
 	}
 	
+	public static String toFullFileName(String aFileName) {
+		SakaiProjectDatabase aProjectDatabase = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase();
+		String anAssignmentDataFoldername = aProjectDatabase.getAssignmentDataFolder().getMixedCaseAbsoluteName();
+		return anAssignmentDataFoldername+ "/" + aFileName;
+	}
+	
 	public static String toString(String aFileOrText) {
 		if (isFileName(aFileOrText))
 		    return Common.toText(aFileOrText).toString();
 		else
-			return aFileOrText;
+			return toFullFileName( aFileOrText);
 		
 	}
-	public static String getActualOutput(CSVRequirementsSpecification aSpecification, 
-			int aRequirementNumber, 
-			String anOutput,
-			String anExpression) {
+	public static String getActualOutput(
+			String anOutput) {
 		return anOutput; // cannot be a file
 	}
-	public static String getModelOutput(CSVRequirementsSpecification aSpecification, 
-			int aRequirementNumber, 
-			String anOutput,
-			String anExpression) {
+	public static String getModelOutput(CSVRequirementsSpecification aSpecification, int aRequirementNumber) {
 		String aModelOutput = aSpecification.getModelOutput(aRequirementNumber);
 		return toString(aModelOutput);
 	}

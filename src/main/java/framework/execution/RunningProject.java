@@ -55,6 +55,8 @@ public class RunningProject implements ProcessInputListener {
 	String outputFileName;
 	StringBuffer projectOutput;
 	SakaiProject project;
+	
+
 	InputGenerator outputBasedInputGenerator; // actuall all we need is an output consumer
 //	RunnerInputStreamProcessor processIn;
 	StringBuffer input = new StringBuffer();
@@ -529,6 +531,9 @@ public class RunningProject implements ProcessInputListener {
 	public void setProcess(String aProcessName, TimedProcess aTimedProcess) {
 //		this.processIn = processIn;
 		nameToProcess.put(aProcessName, aTimedProcess);
+	}
+	public SakaiProject getProject() {
+		return project;
 	}
 
 }

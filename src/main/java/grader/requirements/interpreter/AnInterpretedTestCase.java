@@ -38,7 +38,7 @@ public class AnInterpretedTestCase extends BasicTestCase{
 		String[] anArgs = new String[numArgs];
 		for (int i = 0; i < numArgs; i++) {
 			String anArg = csvRequirementsSpecification.getArg(featureNumber, i);
-			String anActualArg = InterpretedVariablesSubstituter.getValue(csvRequirementsSpecification, featureNumber, output, anArg);
+			String anActualArg = InterpretedVariablesSubstituter.getValue(runningProject, csvRequirementsSpecification, featureNumber, output, anArg);
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);
 		if (aResult.isSucceeded()) {
