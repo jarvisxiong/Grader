@@ -59,8 +59,15 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         if (rootFolder != null)
             initGraderData();
     }
-    
-  
+    @Override
+    public void clearLogFile() {
+    	try {
+			Common.writeText(getLogFileName(), "");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
     void initGraderData() {
 
@@ -77,6 +84,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
         skippedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_SKIPPED_FILE_NAME;
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
+        clearLogFile();
         requirementsSpreadsheetFile = getFileEntryFromLocalName(requirementsSpreadsheetFileName);
         initFeatureGradeFiles();
 //        if (finalGradeFile != null && (featureGradeFile == null || !featureGradeFile.exists())) {

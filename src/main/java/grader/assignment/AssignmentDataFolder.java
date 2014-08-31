@@ -75,5 +75,7 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 
 	public void setRequirementsSpreadsheetFile(FileProxy requirementsSpreadsheetFile) ;
 
+	void clearLogFile();
+
 
 }

@@ -34,8 +34,8 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 	}
 	
 	void setCompilerPath() {
-//		 compilerPath = GraderSettingsManagerSelector.getGraderSettingsManager().getCCompilerPath();
-		compilerPath = COMPILER_COMMAND;
+		 compilerPath = GraderSettingsManagerSelector.getGraderSettingsManager().getCCompilerPath();
+//		compilerPath = COMPILER_COMMAND;
 	}
 	
 	public RunningProject compileFile(String aFileName, String workingDirectory) {

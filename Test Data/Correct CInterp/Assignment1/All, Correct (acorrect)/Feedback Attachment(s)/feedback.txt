@@ -1,0 +1,25 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Has a main                                             5.0 /  5.0
+Prompts for input                                      10.0 / 10.0
+Adds and multiplies the numbers                        30.0 / 30.0
+Adds and multiplies the numbers exact match            0.0 /  5.0 (Extra credit)
+Clear messages                                         20.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 65.0
+
+  Features Score: 65.0
+
+Notes from grading features:
+----------------------------------
+Adds and multiplies the numbers exact match:
+  -- Model output diff actual output:
+1c1
+< Please   input   an  integer
+---
+> Please input an integer
+
+
+  Total Score: 65.0

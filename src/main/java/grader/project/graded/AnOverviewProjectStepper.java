@@ -1324,6 +1324,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //			hasMoreSteps = false;
 			return false;
 		}
+//		projectDatabase.getAssignmentDataFolder().clearLogFile();
 //		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		
 		String anOnyen = aGoToOnyen;
