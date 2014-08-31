@@ -53,9 +53,10 @@ public class InterpretedVariablesSubstituter {
 	
 	public static String toString(String aFileOrText) {
 		if (isFileName(aFileOrText))
-		    return Common.toText(aFileOrText).toString();
+			return Common.toText(toFullFileName( aFileOrText)).toString();
 		else
-			return toFullFileName( aFileOrText);
+	        return aFileOrText;
+
 		
 	}
 	public static String getActualOutput(

@@ -3,6 +3,7 @@ package framework.grading.testing;
 import framework.project.Project;
 import grader.trace.feature.FeatureChecked;
 
+import java.util.Arrays;
 import java.util.List;
 
 import util.trace.Tracer;
@@ -11,8 +12,64 @@ import util.trace.Tracer;
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
  */
 public abstract class Checkable implements Gradable {
-    public boolean manual; // added by pd
+    protected boolean manual; // added by pd
+    protected boolean extraCredit; // moved by pd
+    protected String name; // moved by pd
+    protected double points; //moved by pd
+    protected List<TestCase> testCases; // moved by pd
 
+
+    public Checkable(String name, double points, List<TestCase> testCases) {
+        this.name = name;
+        this.points = points;
+        this.extraCredit = false;
+        this.testCases = testCases;
+    }
+
+    public Checkable(String name, double points, boolean extraCredit, List<TestCase> testCases) {
+        this.name = name;
+        this.points = points;
+        this.extraCredit = extraCredit;
+        this.testCases = testCases;
+    }
+    
+    public Checkable(boolean anIsManual, String name, double points, boolean extraCredit, List<TestCase> testCases) {
+      this(name, points, extraCredit, testCases);
+      manual = anIsManual;
+    }
+    public Checkable(boolean anIsManual, String name, double points, boolean extraCredit, TestCase ... testCases) {
+        this(name, points, extraCredit, testCases);
+        manual = anIsManual;
+    }
+    
+    public Checkable(String name, double points, TestCase ... testCases) {
+        this.name = name;
+        this.points = points;
+        this.extraCredit = false;
+        this.testCases = Arrays.asList(testCases);
+    }
+
+    public Checkable(String name, double points, boolean extraCredit, TestCase ... testCases) {
+        this.name = name;
+        this.points = points;
+        this.extraCredit = extraCredit;
+        this.testCases = Arrays.asList(testCases);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public double getPoints() {
+        return points;
+    }
+
+    public boolean isExtraCredit() {
+        return extraCredit;
+    }
+    
     
     public boolean isManual() {
         return manual;

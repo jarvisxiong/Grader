@@ -49,14 +49,19 @@ public class ADiffChecker implements InterpretedChecker{
 			String anArg1FileName =  TEMP_DIR + "/" + "diffFile1.txt";
 			String anArg2FileName = TEMP_DIR + "/" + "diffFile2.txt";
 			String aResultFileName = TEMP_DIR + "/" + "diffresult.txt";
-			File anArg1 = maybeCreateFile(anArg1FileName);
-			File anArg2 = maybeCreateFile(anArg2FileName);
+			File anArg1File = maybeCreateFile(anArg1FileName);
+			File anArg2File = maybeCreateFile(anArg2FileName);
 			maybeCreateFile(aResultFileName);
-
-			
-			DirectoryUtils.diff(anArgs[0], anArg1,
-					anArg2, aResultFileName);
-			String aNotes = Common.toText(aResultFileName).toString();
+			Common.writeText(anArg1File, anArg1Text);
+			Common.writeText(anArg2File, anArg2Text);
+//			DirectoryUtils.diff("-i -w -b",  anArg1File,
+//					anArg2File, aResultFileName);
+			DirectoryUtils.diff(anArgs[0],  anArg1File,
+					anArg2File, aResultFileName);
+			StringBuffer aDiffResult = Common.toText(aResultFileName);
+			if (aDiffResult.length() > 0)
+			aDiffResult.insert(0, "Model output diff actual output:\n");
+			String aNotes = aDiffResult.toString();
 			boolean aResult = aNotes.isEmpty();
 			return new ACheckerResult(aNotes, aResult);
 

@@ -210,24 +210,35 @@ public class DirectoryUtils {
 	
 		
 	}
-	public static void diff( String anOptions, File correctChild, File testChild, String anOutputFileName) {
+	public static void diff( String anOptions, File anOriginalFile, File aModifiedFile, String anOutputFileName) {
 		String diffTool = GradingEnvironment.get().getDiff();
 		if ((diffTool == null || diffTool.isEmpty())) {
 			System.out.println("cannot diff as no difftool provided");
 			return;
 		}
+		String[] anOptionsList = anOptions.replace("\"", "").split("\\s+");
 //			diffTool = handleSpacesInExecutale(diffTool);
 //		Path aPath = Paths.get(diffTool);
 		try {
 //			String aCanonicalPath = aPath.toFile().getCanonicalPath();
 			String aCanonicalPath = diffTool;
-			String aCorrectChildName =  "\"" + correctChild.getAbsolutePath() + "\"";
-			String aTestChildName = "\"" + testChild.getAbsolutePath() + "\"";
+			String anOriginalFileName =  "\"" + anOriginalFile.getAbsolutePath() + "\"";
+			String aModifiedFileName = "\"" + aModifiedFile.getAbsolutePath() + "\"";
+			String[] anArgs = new String[anOptionsList.length + 3];
+			for (int i=0; i < anOptionsList.length; i++) {
+				anArgs[i + 1] = anOptionsList[i];
+			}
+			anArgs[0] = aCanonicalPath;
+			anArgs[anOptionsList.length + 1] = anOriginalFileName;
+			anArgs[anOptionsList.length + 2] = aModifiedFileName;
+			
+			
 			
 //			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, correctChild.getAbsolutePath(), testChild.getAbsolutePath(), ">", testChild.getAbsolutePath()+"diff" );
 //			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName);
 //			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, aCorrectChildName, aTestChildName,  ">", anOutputFileName);
-			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, anOptions, aCorrectChildName, aTestChildName);
+//			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath, anOptions, anOriginalFileName, aModifiedFileName);
+			ProcessBuilder aProcessBuilder = new ProcessBuilder(anArgs);
 
 
 //			ProcessBuilder aProcessBuilder = new ProcessBuilder(aCanonicalPath );

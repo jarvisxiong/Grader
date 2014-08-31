@@ -27,8 +27,12 @@ public interface CSVRequirementsSpecification {
 	
 	public String getInput(int aRequirementNum) ;
 	public String getModelOutput(int aRequirementNum) ;
-	public String getComparator(int aRequirementNum);
+	public String getChecker(int aRequirementNum);
 
 	Integer getTimeOut(int aRequirementNum);
+
+	boolean isExtraCredit(int aRequirementNum);
+
+	boolean isManual(int aRequirementNum);
 
 }

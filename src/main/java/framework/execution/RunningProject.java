@@ -482,7 +482,7 @@ public class RunningProject implements ProcessInputListener {
 		System.out.println("Terminating:" + aProcess);
 //
 		try {
-			processToOut.get(aProcess).getSemaphore().acquire();
+			processToOut.get(aProcess).getSemaphore().acquire(); // this is deadlocking, need to debug
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

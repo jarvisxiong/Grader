@@ -122,13 +122,15 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             }
 
             // Make sure that there is input
-            File inputFolder = new File(dataFolder, "input");
-            inputFolder.mkdir();
-            try {
-                FileUtils.writeStringToFile(new File(inputFolder, "Input1.txt"), "");
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+            // there is no need, AnAssignmentData folder simply sets the files to null set
+//            File inputFolder = new File(dataFolder, "input");
+//            inputFolder.mkdir();
+//            if (inputFolder.listFiles().length == 0)
+//            try {
+//                FileUtils.writeStringToFile(new File(inputFolder, "Input1.txt"), "");
+//            } catch (IOException e) {
+//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            }
             graderDataMade = true;
         }
 

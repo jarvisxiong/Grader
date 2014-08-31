@@ -32,13 +32,14 @@ public class AnInterpretedTestCase extends BasicTestCase{
 		int aTimeOut = csvRequirementsSpecification.getTimeOut(featureNumber);
 		RunningProject runningProject = RunningProjectUtils.runProject(project, aTimeOut, anInput);
 		String output = runningProject.await();
-		String aComparator = csvRequirementsSpecification.getComparator(featureNumber);
+		String aComparator = csvRequirementsSpecification.getChecker(featureNumber);
 		InterpretedChecker aChecker = InterpretedCheckerRegistry.getInterpretedChecker(aComparator);
 		int numArgs = aChecker.getNumArgs();
 		String[] anArgs = new String[numArgs];
 		for (int i = 0; i < numArgs; i++) {
 			String anArg = csvRequirementsSpecification.getArg(featureNumber, i);
 			String anActualArg = InterpretedVariablesSubstituter.getValue(runningProject, csvRequirementsSpecification, featureNumber, output, anArg);
+			anArgs[i] = anActualArg;
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);
 		if (aResult.isSucceeded()) {

@@ -33,11 +33,12 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 	public static final int TYPE_COLUMN = 0;
 	public static final int DESCRIPTION_COLUMN = TYPE_COLUMN+1;
 	public static final int MAX_SCORE_COLUMN = DESCRIPTION_COLUMN + 1;
-	public static final  int INPUT_COLUMN = DESCRIPTION_COLUMN + 1;
-	public static final  int TIMEOUT_COLUMN = INPUT_COLUMN + 1;
-	public static final  int MODEL_OUTPUT_COLUMN = TIMEOUT_COLUMN + 1;
-	public static final  int COMPARATOR_COLUMN = MODEL_OUTPUT_COLUMN  + 1;
-	public static final  int START_COMPARATOR_ARGUMENTS_COLUMN = COMPARATOR_COLUMN + 1;
+	public static final  int TIMEOUT_COLUMN = MAX_SCORE_COLUMN + 1;
+	public static final  int INPUT_COLUMN = TIMEOUT_COLUMN + 1;
+	public static final  int MODEL_OUTPUT_COLUMN = INPUT_COLUMN + 1;
+	public static final int EXTRA_CREDIT_COLUMN = MODEL_OUTPUT_COLUMN + 1;
+	public static final  int CHECKER_COLUMN = EXTRA_CREDIT_COLUMN  + 1;
+	public static final  int START_CHECKER_ARGUMENTS_COLUMN = CHECKER_COLUMN + 1;
 	
 	protected int headerRow = 0;
 	protected int numRequirements;
@@ -70,7 +71,7 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 	
 	protected void makeRequirements() {
 		if (isValid()) {
-			numRequirements = table.size() - headerRow + 1;
+			numRequirements = table.size() - (headerRow + 1);
 			
 		}
 		
@@ -146,7 +147,7 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 	public String getArg(int aRequirementNum, int anArgNum) {
 		try {
 		int aRowNum = headerRow + 1 + aRequirementNum;
-		int aColumnNum = START_COMPARATOR_ARGUMENTS_COLUMN + anArgNum;
+		int aColumnNum = START_CHECKER_ARGUMENTS_COLUMN + anArgNum;
 		return table.get(aRowNum)[aColumnNum];
 		} catch (Exception e) {
 			System.out.println("Requirement " + aRequirementNum + " does not have arg " + anArgNum);
@@ -193,6 +194,32 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 			return null;
 		}
 	}
+	@Override
+	public boolean isExtraCredit(int aRequirementNum) {
+		try {
+			int aRowNum = headerRow + 1 + aRequirementNum;
+			String aSpec = table.get(aRowNum)[EXTRA_CREDIT_COLUMN].replaceAll("\\s+", "");
+			return !aSpec.isEmpty();
+			
+			} catch (Exception e) {
+				System.out.println("Requirement " + aRequirementNum + " does not have extra credit");
+				return false;
+			}
+	}
+	
+	
+	@Override
+	public boolean isManual(int aRequirementNum) {
+		try {
+			int aRowNum = headerRow + 1 + aRequirementNum;
+			String aSpec = table.get(aRowNum)[CHECKER_COLUMN].replaceAll("\\s+", "");
+			return aSpec.isEmpty();
+			
+			} catch (Exception e) {
+				System.out.println("Requirement " + aRequirementNum + " does not have checker column");
+				return false;
+			}
+	}
 
 	
 	public String getInput(int aRequirementNum) {
@@ -213,12 +240,12 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 			return null;
 		}
 	}
-	public String getComparator(int aRequirementNum) {
+	public String getChecker(int aRequirementNum) {
 		try {
 		int aRowNum = headerRow + 1 + aRequirementNum;
-		return table.get(aRowNum)[COMPARATOR_COLUMN];
+		return table.get(aRowNum)[CHECKER_COLUMN];
 		} catch (Exception e) {
-			System.out.println("Requirement " + aRequirementNum + " does not have comparator");
+			System.out.println("Requirement " + aRequirementNum + " does not have a function");
 			return null;
 		}
 	}

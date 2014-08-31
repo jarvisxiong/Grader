@@ -14,5 +14,8 @@ public class InterpretedCheckerRegistry {
 		return nameToChecker.get(aName);
 	}
 	
+	static {
+		register(DIFF_NAME, new ADiffChecker());
+	}
 
 }

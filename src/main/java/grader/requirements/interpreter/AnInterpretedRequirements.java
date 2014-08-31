@@ -9,6 +9,7 @@ public class AnInterpretedRequirements extends FrameworkProjectRequirements impl
 	CSVRequirementsSpecification csvRequirementsSpecification;	
 	public AnInterpretedRequirements(CSVRequirementsSpecification aCSVRequirementsSpecification) {
 		csvRequirementsSpecification = aCSVRequirementsSpecification;
+		addRequirements();
 	}
 	
 	public void addRequirements() {
@@ -19,8 +20,9 @@ public class AnInterpretedRequirements extends FrameworkProjectRequirements impl
 	}
 	
 	public void addRequirement(int aRequirementNum) {
+		String aType = "";
 		try {
-		String aType = csvRequirementsSpecification.getType(aRequirementNum);
+		 aType = csvRequirementsSpecification.getType(aRequirementNum);
 		if (aType == null) return;
 		String aTypeLC = aType.toLowerCase();
 		if (DUE_DATE.equals(aTypeLC)) {
@@ -31,7 +33,7 @@ public class AnInterpretedRequirements extends FrameworkProjectRequirements impl
 			addRestriction(aRequirementNum);
 		}
 		} catch (Exception e) {
-			System.out.println("Could not add requirement:" + aRequirementNum );
+			System.out.println("Could not add requirement#:" + aRequirementNum + " " + aType );
 			e.printStackTrace();
 		}
 	}
@@ -43,17 +45,22 @@ public class AnInterpretedRequirements extends FrameworkProjectRequirements impl
 	}
 	
     public void addFeature(int aRequirementNum) {
+    	boolean isExtraCredit = csvRequirementsSpecification.isExtraCredit(aRequirementNum);
+    	boolean isManual = csvRequirementsSpecification.isManual(aRequirementNum);
+
     	String aName = csvRequirementsSpecification.getDescription(aRequirementNum);
     	Double aMaxScore =  csvRequirementsSpecification.getMaxScore(aRequirementNum);
     	BasicTestCase aTestCase = new AnInterpretedTestCase(aName, csvRequirementsSpecification, aRequirementNum);
-    	addFeature(aName, aMaxScore, aTestCase);		
+    	addFeature(isManual, aName, aMaxScore, isExtraCredit, aTestCase);		
 	}
     
     public void addRestriction(int aRequirementNum) {
+    	boolean isExtraCredit = csvRequirementsSpecification.isExtraCredit(aRequirementNum);
+    	boolean isManual = csvRequirementsSpecification.isManual(aRequirementNum);
     	String aName = csvRequirementsSpecification.getDescription(aRequirementNum);
     	Double aMaxScore =  csvRequirementsSpecification.getMaxScore(aRequirementNum);
     	BasicTestCase aTestCase = new AnInterpretedTestCase(aName, csvRequirementsSpecification, aRequirementNum);
-    	addRestriction(aName, aMaxScore, aTestCase);		
+    	addRestriction(isManual, aName, aMaxScore, isExtraCredit, aTestCase);		
    	}
 
 }
