@@ -54,6 +54,9 @@ public abstract class Checkable implements Gradable {
         this.points = points;
         this.extraCredit = extraCredit;
         this.testCases = Arrays.asList(testCases);
+        for (TestCase aTestCase:this.testCases) {
+        	aTestCase.setCheckable(this);
+        }
     }
 
     @Override

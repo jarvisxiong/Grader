@@ -2,6 +2,7 @@ package grader.requirements.interpreter;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.Feature;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
@@ -42,8 +43,10 @@ public class AnInterpretedTestCase extends BasicTestCase{
 			anArgs[i] = anActualArg;
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);
+		
+//		if (checkable instanceof Feature && aResult.isSucceeded()) {
 		if (aResult.isSucceeded()) {
-			return pass(aResult.getNotes());
+			return pass("");
 		} else 
 			return fail(aResult.getNotes());
 	}

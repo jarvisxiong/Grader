@@ -22,7 +22,8 @@ public class AMatchChecker implements InterpretedChecker{
 			String aNotes = "";
 			if (!aResult) {
 				aNotes =  anArgs[0] + " does not match " + anArgs[1];
-			}
+			} else 
+				aNotes = anArgs[0] + " matches " + anArgs[1];
 					
 			return new ACheckerResult(aNotes, aResult);
 

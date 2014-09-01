@@ -59,3 +59,16 @@ The double addition:3.500000
 The int multiplication:2
 The double multiplication:2.500000
 
+*****************************(Clear messages)*****************************
+INPUT(Clear messages)
+1
+2.5
+
+OUTPUT(Clear messages)
+Please input an integer
+Please input a decimal
+The int addition:3
+The double addition:3.500000
+The int multiplication:2
+The double multiplication:2.500000
+

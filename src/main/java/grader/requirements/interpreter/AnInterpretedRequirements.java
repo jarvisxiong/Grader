@@ -29,7 +29,7 @@ public class AnInterpretedRequirements extends FrameworkProjectRequirements impl
 			 addDueDate(aRequirementNum);
 		} else if (FEATURE.equals(aTypeLC)) {
 			addFeature(aRequirementNum);
-		} else if (RESTRICTION.equals(aRequirementNum)) {
+		} else if (RESTRICTION.equals(aTypeLC)) {
 			addRestriction(aRequirementNum);
 		}
 		} catch (Exception e) {
