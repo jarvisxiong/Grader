@@ -1,0 +1,2 @@
+  -- Please input an integer
+ does not match [\s\S]*int[\s\S]*decimal[\s\S]*
