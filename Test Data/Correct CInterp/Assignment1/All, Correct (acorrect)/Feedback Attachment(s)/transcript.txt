@@ -7,13 +7,6 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:InputAndOutput.exe 
 InputAndOutput.obj 
-*****************************(Prompts for input)*****************************
-OUTPUT(Prompts for input)
-Please input an integer
-
-ERRORS(Prompts for input)
-Premature end of file before int was input, exiting
-
 *****************************(Adds and multiplies the numbers)*****************************
 INPUT(Adds and multiplies the numbers)
 1

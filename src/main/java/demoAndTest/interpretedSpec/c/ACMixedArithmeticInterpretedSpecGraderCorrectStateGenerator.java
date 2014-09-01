@@ -8,7 +8,7 @@ import util.trace.Tracer;
  */
 public class ACMixedArithmeticInterpretedSpecGraderCorrectStateGenerator {
 	public static void main (String[] anArgs) {
-		GraderDemoerAndTester demoerAndTester = new ACMixedArithmeticInterpretedInputGraderDemoerAndTester(anArgs);
+		GraderDemoerAndTester demoerAndTester = new ACMixedArithmeticInterpretedISpecGraderDemoerAndTester(anArgs);
 
 		demoerAndTester.setAutoProceed(true);
 		demoerAndTester.setGeneratingCorrectDir(true);

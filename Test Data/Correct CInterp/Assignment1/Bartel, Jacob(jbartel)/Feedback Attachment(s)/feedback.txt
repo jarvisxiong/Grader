@@ -3,9 +3,9 @@ Grading result for: Bartel, Jacob(jbartel)
 Grading features...
 ----------------------------------
 Has a main                                             5.0 /  5.0
-Prompts for input                                      0.0 / 10.0
 Adds and multiplies the numbers                        0.0 / 30.0
 Adds and multiplies the numbers exact match            0.0 /  5.0 (Extra credit)
+Prompts for input                                      0.0 / 10.0
 Clear messages                                         0.0 / 20.0 (Extra credit)
 ----------------------------------
   Points Awarded: 5.0
@@ -20,10 +20,6 @@ No commented Java println                   -5.0 /  -5.0
 
 Notes from grading features:
 ----------------------------------
-Prompts for input:
-  -- Please input a decimal
- does not match [\s\S]*int[\s\S]*decimal[\s\S]*
-
 Adds and multiplies the numbers:
   -- Model output diff actual output:
 1d0
@@ -55,6 +51,15 @@ Adds and multiplies the numbers exact match:
 ---
 > The double multiplication:2.000000
 
+
+Prompts for input:
+  -- Please input a decimal
+Please input an integer
+The int addition:3
+The double addition:3.000000
+The int multiplication:2
+The double multiplication:2.000000
+ does not match [\s\S]*int[\s\S]*decimal[\s\S]*
 
 
 Notes from grading restrictions:

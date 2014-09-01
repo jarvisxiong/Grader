@@ -59,7 +59,7 @@ public class InterpretedVariablesSubstituter {
 		if (isFileName(aFileOrText))
 			return Common.toText(toFullFileName( aFileOrText)).toString();
 		else
-	        return aFileOrText;
+	        return aFileOrText.replace("\\n", "\n"); // to support new lines, csv reader gobbles up single slashes and leaves souble slashes unchanged
 
 		
 	}
@@ -76,6 +76,12 @@ public class InterpretedVariablesSubstituter {
 			int aRequirementNumber) {
 		String anInput = aSpecification.getInput(aRequirementNumber);
 		return toString(anInput);
+	}
+	
+	public static void main (String[] args) {
+		String s = "1\\n2\\n";
+		String s2 = s.replace("\\n", "\n");
+		System.out.println(s2);
 	}
 
 }

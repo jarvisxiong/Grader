@@ -13,6 +13,7 @@ import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
+import grader.trace.stepper.ProjectIORedirected;
 import tools.TimedProcess;
 import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
@@ -381,6 +382,8 @@ public class RunningProject implements ProcessInputListener {
 			throw new NotRunnableException();
 		}
 		appendCumulativeOutput();
+		project.setCurrentOutput(new StringBuffer(output));
+		project.setCurrentInput(input.toString());
 		return output;
 	}
 

@@ -12,6 +12,7 @@ import grader.requirements.interpreter.checkers.InterpretedChecker;
 import grader.requirements.interpreter.checkers.InterpretedCheckerRegistry;
 import grader.requirements.interpreter.checkers.InterpretedCheckerResult;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
+import grader.sakai.project.SakaiProject;
 import gradingTools.utils.RunningProjectUtils;
 
 public class AnInterpretedTestCase extends BasicTestCase{
@@ -30,13 +31,17 @@ public class AnInterpretedTestCase extends BasicTestCase{
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
+		SakaiProject aSakaiProject = ((ProjectWrapper) project).getProject();
 		String anInput = InterpretedVariablesSubstituter.getInput(csvRequirementsSpecification, featureNumber);
 		Integer aTimeOut = csvRequirementsSpecification.getTimeOut(featureNumber);
-		String output = "";
+		String anOutput = "";
 		RunningProject runningProject = null;
 		if (aTimeOut != null) {
 		 runningProject = RunningProjectUtils.runProject(project, aTimeOut, anInput);
-		output = runningProject.await();
+		anOutput = runningProject.await();
+		} else { // use the I/O from last run, could also store I/O mapping in project
+			anInput = aSakaiProject.getCurrentInput();
+			anOutput = aSakaiProject.getCurrentOutput().toString();
 		}
 		String aComparator = csvRequirementsSpecification.getChecker(featureNumber);
 		InterpretedChecker aChecker = InterpretedCheckerRegistry.getInterpretedChecker(aComparator);
@@ -44,7 +49,7 @@ public class AnInterpretedTestCase extends BasicTestCase{
 		String[] anArgs = new String[numArgs];
 		for (int i = 0; i < numArgs; i++) {
 			String anArg = csvRequirementsSpecification.getArg(featureNumber, i);
-			String anActualArg = InterpretedVariablesSubstituter.getValue(((ProjectWrapper) project).getProject(), csvRequirementsSpecification, featureNumber, output, anArg);
+			String anActualArg = InterpretedVariablesSubstituter.getValue(aSakaiProject, csvRequirementsSpecification, featureNumber, anOutput, anArg);
 			anArgs[i] = anActualArg;
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);
