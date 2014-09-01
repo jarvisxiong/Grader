@@ -16,7 +16,7 @@ public class InterpretedVariablesSubstituter {
 	public static final String SOURCE = "$source";
 	public static final String FILE_SUFFIX = ".txt";
 
-	public static String getValue(RunningProject aRunningProject, CSVRequirementsSpecification aSpecification, 
+	public static String getValue(SakaiProject aRunningProject, CSVRequirementsSpecification aSpecification, 
 			int aRequirementNumber, 
 			String anOutput,
 			String anExpression) {
@@ -36,8 +36,8 @@ public class InterpretedVariablesSubstituter {
 		
 	}
 	
-	public static String getSource(RunningProject aRunningProject) {
-		SakaiProject project = aRunningProject.getProject();
+	public static String getSource(SakaiProject project) {
+//		SakaiProject project = aRunningProject.getProject();
 		return project.
 				getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName());
 		

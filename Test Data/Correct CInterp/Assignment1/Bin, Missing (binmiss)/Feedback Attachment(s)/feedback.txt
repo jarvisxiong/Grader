@@ -3,12 +3,12 @@ Grading result for: Bin, Missing (binmiss)
 Grading features...
 ----------------------------------
 Has a main                                             5.0 /  5.0
-Prompts for input                                      10.0 / 10.0
+Prompts for input                                      0.0 / 10.0
 Adds and multiplies the numbers                        30.0 / 30.0
 Adds and multiplies the numbers exact match            0.0 /  5.0 (Extra credit)
 Clear messages                                         7.0 / 20.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 52.0
+  Points Awarded: 42.0
 
 Grading restrictions...
 ----------------------------------
@@ -16,10 +16,14 @@ No commented Java println                   -5.0 /  -5.0
 ----------------------------------
   Points Deducted: -5.0
 
-  Features Score: 47.0
+  Features Score: 37.0
 
 Notes from grading features:
 ----------------------------------
+Prompts for input:
+  -- Please input an integer
+ does not match [\s\S]*int[\s\S]*decimal[\s\S]*
+
 Adds and multiplies the numbers exact match:
   -- Model output diff actual output:
 1c1
@@ -103,4 +107,4 @@ int main()
 //END OF FILE
  does not match (?![\s\S]*System.out.println[\s\S]*)
 
-  Total Score: 47.0
+  Total Score: 37.0

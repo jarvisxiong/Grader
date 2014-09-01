@@ -7,31 +7,12 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:InputAndOutput-Flipped.exe 
 InputAndOutput-Flipped.obj 
-*****************************(Has a main)*****************************
-INPUT(Has a main)
-1
-2.5
-
-OUTPUT(Has a main)
-Please input a decimal
-Please input an integer
-The int addition:3
-The double addition:3.000000
-The int multiplication:2
-The double multiplication:2.000000
-
 *****************************(Prompts for input)*****************************
-INPUT(Prompts for input)
-1
-2.5
-
 OUTPUT(Prompts for input)
 Please input a decimal
-Please input an integer
-The int addition:3
-The double addition:3.000000
-The int multiplication:2
-The double multiplication:2.000000
+
+ERRORS(Prompts for input)
+Premature end of file before decimal was input, exiting
 
 *****************************(Adds and multiplies the numbers)*****************************
 INPUT(Adds and multiplies the numbers)
@@ -52,19 +33,6 @@ INPUT(Adds and multiplies the numbers exact match)
 2.5
 
 OUTPUT(Adds and multiplies the numbers exact match)
-Please input a decimal
-Please input an integer
-The int addition:3
-The double addition:3.000000
-The int multiplication:2
-The double multiplication:2.000000
-
-*****************************(Clear messages)*****************************
-INPUT(Clear messages)
-1
-2.5
-
-OUTPUT(Clear messages)
 Please input a decimal
 Please input an integer
 The int addition:3

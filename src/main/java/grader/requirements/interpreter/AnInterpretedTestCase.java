@@ -1,5 +1,6 @@
 package grader.requirements.interpreter;
 
+import wrappers.framework.project.ProjectWrapper;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.Feature;
@@ -30,16 +31,20 @@ public class AnInterpretedTestCase extends BasicTestCase{
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		String anInput = InterpretedVariablesSubstituter.getInput(csvRequirementsSpecification, featureNumber);
-		int aTimeOut = csvRequirementsSpecification.getTimeOut(featureNumber);
-		RunningProject runningProject = RunningProjectUtils.runProject(project, aTimeOut, anInput);
-		String output = runningProject.await();
+		Integer aTimeOut = csvRequirementsSpecification.getTimeOut(featureNumber);
+		String output = "";
+		RunningProject runningProject = null;
+		if (aTimeOut != null) {
+		 runningProject = RunningProjectUtils.runProject(project, aTimeOut, anInput);
+		output = runningProject.await();
+		}
 		String aComparator = csvRequirementsSpecification.getChecker(featureNumber);
 		InterpretedChecker aChecker = InterpretedCheckerRegistry.getInterpretedChecker(aComparator);
 		int numArgs = aChecker.getNumArgs();
 		String[] anArgs = new String[numArgs];
 		for (int i = 0; i < numArgs; i++) {
 			String anArg = csvRequirementsSpecification.getArg(featureNumber, i);
-			String anActualArg = InterpretedVariablesSubstituter.getValue(runningProject, csvRequirementsSpecification, featureNumber, output, anArg);
+			String anActualArg = InterpretedVariablesSubstituter.getValue(((ProjectWrapper) project).getProject(), csvRequirementsSpecification, featureNumber, output, anArg);
 			anArgs[i] = anActualArg;
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);

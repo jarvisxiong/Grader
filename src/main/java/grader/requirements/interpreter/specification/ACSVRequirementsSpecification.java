@@ -188,7 +188,10 @@ public class ACSVRequirementsSpecification implements CSVRequirementsSpecificati
 	public Integer getTimeOut(int aRequirementNum) {
 		try {
 		int aRowNum = headerRow + 1 + aRequirementNum;
-		return Integer.parseInt(table.get(aRowNum)[TIMEOUT_COLUMN]);
+		String aTimeOut = table.get(aRowNum)[TIMEOUT_COLUMN];
+		if (aTimeOut == null || aTimeOut.isEmpty())
+			return null;
+		return Integer.parseInt(aTimeOut);
 		} catch (Exception e) {
 			System.out.println("Requirement " + aRequirementNum + " does not have timeout");
 			return null;
