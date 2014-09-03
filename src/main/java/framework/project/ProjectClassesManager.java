@@ -127,8 +127,22 @@ public class ProjectClassesManager implements ClassesManager {
                                 
                                 if (c != null)
                                     classDescriptions.add(new BasicClassDescription(c, file));
-                                
+			} catch (UnsupportedClassVersionError e) {
+				try {
+                    System.out.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
+                    List<File> recompiledFileList = new ArrayList<>();
+                    recompiledFileList.add(file);
+                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, recompiledFileList);
+                    if (runningProject != null) {
+                            runningProject.appendOutputAndErrorsToTranscriptFile(project);
+
+                    }
+                    System.out.println("Compilation attempt finished.");
+				} catch (Exception ex) {
+                    System.out.println("Compilation failed: " + ex.toString());
+				}
 			} catch (Error e) {
+				e.printStackTrace();
 				throw new IOException(e.getMessage());
 			}/* catch (Exception e) {
 				throw new IOException(e.getMessage());
