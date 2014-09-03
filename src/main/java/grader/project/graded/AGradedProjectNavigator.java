@@ -300,8 +300,12 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	@Override
 	public void setPlayMode(boolean newValue) {
-		if (newValue == playMode) return;
-		if (!preTogglePlayPause()) return;
+		if (newValue == playMode) {
+                    return;
+                }
+		if (!preTogglePlayPause()) {
+                    return;
+                }
 		this.playMode = newValue;
 		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
 

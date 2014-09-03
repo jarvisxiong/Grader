@@ -12,6 +12,8 @@ public interface RootCodeFolder {
     FileProxy binaryFile(String aClassName);
 
     String getAbsoluteName();
+    
+    String getMixedCaseAbsoluteName();
 
     String getLocalName();
 

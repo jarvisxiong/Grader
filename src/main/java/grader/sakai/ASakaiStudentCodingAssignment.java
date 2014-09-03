@@ -50,6 +50,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     FileProxy getUniqueNonMACOSFolderChild(FileProxy aFolder) {
         Set<String> childrenNames = aFolder.getChildrenNames();
         FileProxy folderChild = null;
+        
         for (String childName : childrenNames) {
             FileProxy child = submissionFolder.getFileEntry(childName);
             if (child.isDirectory() && childName.indexOf("MACOSX") == -1) {
@@ -75,6 +76,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
         String normalizedName = name.substring(0, name.indexOf(".")).toLowerCase();
         Set<String> childrenNames = aFolder.getChildrenNames();
         FileProxy folderChild = null;
+        
         for (String childName : childrenNames) {
             FileProxy child = submissionFolder.getFileEntry(childName);
             if (child == zipFile) {
@@ -84,6 +86,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
                 return child;
             }
         }
+        
         return null;
 
     }
@@ -121,7 +124,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
 
         }
         if (projectFolder == null) {
-            ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this);
+            System.out.println(ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this).getMessage());
 //    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
         }
 

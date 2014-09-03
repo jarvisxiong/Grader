@@ -56,8 +56,9 @@ public class SimplifiedFileProxy implements FileProxy {
             }
         });
         List<FileProxy> entryProxies = new ArrayList<FileProxy>();
-        for (File entry : entries)
+        for (File entry : entries) {
             entryProxies.add(new SimplifiedFileProxy(entry));
+        }
         return entryProxies;
     }
 
@@ -103,8 +104,9 @@ public class SimplifiedFileProxy implements FileProxy {
             }
         });
         Set<String> names = new HashSet<String>();
-        for (File f : files)
+        for (File f : files) {
             names.add(Common.toCanonicalFileName(f.getAbsolutePath()));
+        }
         return names;
     }
 
@@ -117,8 +119,9 @@ public class SimplifiedFileProxy implements FileProxy {
     @Override
     public Set<String> getChildrenNames() {
         Set<String> names = new HashSet<String>();
-        for (File f : file.listFiles())
+        for (File f : file.listFiles()) {
             names.add(Common.toCanonicalFileName(f.getAbsolutePath()));
+        }
         return names;
     }
 
@@ -131,8 +134,9 @@ public class SimplifiedFileProxy implements FileProxy {
             }
         });
         Set<String> names = new HashSet<String>();
-        for (File f : files)
+        for (File f : files) {
             names.add(Common.toCanonicalFileName(f.getAbsolutePath()));
+        }
         return names;
     }
 

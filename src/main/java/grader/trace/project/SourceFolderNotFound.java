@@ -21,7 +21,7 @@ public class SourceFolderNotFound extends UncheckedGraderException {
 	}
 	
 	public static SourceFolderNotFound newCase(String aFileName, Object aFinder) {
-		String aMessage = "Source  folder not found in project folder:" + aFileName;
+		String aMessage = "Source folder not found in project folder:" + aFileName;
 		SourceFolderNotFound retVal = new SourceFolderNotFound(aMessage, aFileName, aFinder);
 		retVal.announce();
 		return retVal;

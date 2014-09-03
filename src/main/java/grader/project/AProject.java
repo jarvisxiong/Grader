@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class AProject implements Project {
 
@@ -82,38 +83,31 @@ public class AProject implements Project {
     boolean noProjectFolder;
 //    List<String> nonCompiledClasses = new ArrayList();
     List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
-	
-	List<String> classNamesCompiled = new ArrayList();
-	
-	static boolean loadClasses = false;
-	
-	static boolean compileMissingObjectCode = false;
-	static boolean preCompileMissingObjectCode = false;
-	static boolean filesCompiled = false;
 
-	
-	
+    List<String> classNamesCompiled = new ArrayList();
 
-	static boolean forceCompile = false;
+    static boolean loadClasses = false;
 
+    static boolean compileMissingObjectCode = false;
+    static boolean preCompileMissingObjectCode = false;
+    static boolean filesCompiled = false;
 
-    
+    static boolean forceCompile = false;
 
-
-	
-
-	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+    public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
     public AProject(StudentCodingAssignment aStudentCodingAssignment) {
-        init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
+        //init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
+        init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getMixedCaseAbsoluteName());
     }
 
     public AProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
         sourceSuffix = aSourceSuffix;
         outputSuffix = anOutputSuffix;
-        init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
+        //init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
+        init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getMixedCaseAbsoluteName());
     }
 
     public String toString() {
@@ -149,46 +143,50 @@ public class AProject implements Project {
         }
         init(rootFolder, anOutputFolder);
     }
+
     @Override
     public boolean isNoProjectFolder() {
-		return noProjectFolder;
-	}
-    @Override
-	public void setNoProjectFolder(boolean noProjectFolder) {
-		this.noProjectFolder = noProjectFolder;
-	}
+        return noProjectFolder;
+    }
 
-	public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
+    @Override
+    public void setNoProjectFolder(boolean noProjectFolder) {
+        this.noProjectFolder = noProjectFolder;
+    }
+
+    public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
         outputFolder = anOutputFolder;
 
         rootFolder = aRootFolder;
         outputFileName = createFullOutputFileName();
 
         if (aRootFolder == null) {
-        	setNoProjectFolder(true);
-        	return;
+            setNoProjectFolder(true);
+            return;
         } else {
-        
-        projectFolderName = aRootFolder.getAbsoluteName();
+
+            //projectFolderName = aRootFolder.getAbsoluteName();
+            projectFolderName = aRootFolder.getMixedCaseAbsoluteName();
 //        if (projectFolderName.contains("bluong"))
 //        	System.out.println("bluoing");
 //        outputFolder = anOutputFolder;
-        try {
-        rootCodeFolder = new ARootCodeFolder(rootFolder);
-        } catch (ProjectFolderNotFound e) {
-        	setNoProjectFolder(true);
-        	return;
-        }
-        if (AProject.isLoadClasses()) {
-        if (rootCodeFolder.hasValidBinaryFolder())
-            proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
-        else
-        	proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
-        }
-        sourceFileName = createFullSourceFileName();
+            try {
+                rootCodeFolder = new ARootCodeFolder(rootFolder);
+            } catch (ProjectFolderNotFound e) {
+                setNoProjectFolder(true);
+                return;
+            }
+            if (AProject.isLoadClasses()) {
+                if (rootCodeFolder.hasValidBinaryFolder()) {
+                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
+                } else {
+                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+                }
+            }
+            sourceFileName = createFullSourceFileName();
 //        outputFileName = createFullOutputFileName();
-        classesManager = new AProxyBasedClassesManager();
-        mainClassFinder = createMainClassFinder();
+            classesManager = new AProxyBasedClassesManager();
+            mainClassFinder = createMainClassFinder();
         }
     }
 
@@ -214,19 +212,19 @@ public class AProject implements Project {
     public List<Class> getImplicitlyLoadedClasses() {
         return classesImplicitlyLoaded;
     }
-    
 
     public void maybeMakeClassDescriptions() {
     	// earlier it expected class descroptions to be fetched after running
-    	// but we need the class descriptions to find the main method sometimes
-    	// so removing this check
+        // but we need the class descriptions to find the main method sometimes
+        // so removing this check
 //        if (!runChecked && !hasBeenRun)
 //            return;
 //    	if (!isLoadClasses())
 //    		return;
-        if (madeClassDescriptions)
+        if (madeClassDescriptions) {
             return;
-        
+        }
+
         makeClassDescriptions();
         madeClassDescriptions = true;
 
@@ -242,11 +240,12 @@ public class AProject implements Project {
 //            System.out.println("Error making class descriptions");
 //        }
     }
-    
+
     public void makeClassDescriptions() {
-    	if (isNoProjectFolder())
-    		return;
-    	
+        if (isNoProjectFolder()) {
+            return;
+        }
+
         try { // Added by Josh: Exceptions can occur when making class descriptions
             classesManager.makeClassDescriptions(this);
             classViewManager = new AClassViewManager(classesManager);
@@ -290,20 +289,19 @@ public class AProject implements Project {
             if (mainClass == null) {
 //                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());
                 setCanBeRun(false);
-                MainClassNotFound.newCase(mainClassName,  getProjectFolderName(), this);
+                MainClassNotFound.newCase(mainClassName, getProjectFolderName(), this);
                 return false;
             }
-            
 
             mainMethod = mainClass.getMethod("main", String[].class);
             if (mainMethod == null) {
 //                System.out.println("Missing main method:" + "main");
-                MainMethodNotFound.newCase(mainClassName,  getProjectFolderName(), this);
+                MainMethodNotFound.newCase(mainClassName, getProjectFolderName(), this);
 
                 setCanBeRun(false);
                 return false;
             }
-            MainClassFound.newCase(mainClassName,  getProjectFolderName(), this);
+            MainClassFound.newCase(mainClassName, getProjectFolderName(), this);
 
             return true;
         } catch (Exception e) {
@@ -317,7 +315,9 @@ public class AProject implements Project {
     @Override
     public Thread runProject() {
         try {
-            if (!canBeRun()) return null;
+            if (!canBeRun()) {
+                return null;
+            }
             Runnable runnable = ProjectRunnerSelector.createProjectRunner(mainClassName, args, this, inputFiles, outputFiles, mainClass, mainMethod);
             Thread retVal = new Thread(runnable);
             retVal.start();
@@ -335,7 +335,6 @@ public class AProject implements Project {
         setRunParameters(aMainClassName, anArgs, anInputFiles, anOutputFiles, mainClassFinder);
         return runProject();
     }
-
 
     public AProject(String aProjectFolder, String anOutputFolder) {
         init(aProjectFolder, anOutputFolder, aProjectFolder.endsWith(ZIP_SUFFIX));
@@ -429,138 +428,148 @@ public class AProject implements Project {
         }
         return javaDocBuilder;
     }
+
     @Override
-	public StringBuffer getCurrentOutput() {
-		return currentOutput;
-	}
+    public StringBuffer getCurrentOutput() {
+        return currentOutput;
+    }
+
     @Override
     public void clearOutput() {
-    	currentOutput.setLength(0);
-    	try {
-			FileWriter fileWriter = new FileWriter(new File(outputFileName));
-			OverallTranscriptCleared.newCase(null, null,  (SakaiProject) this, outputFileName,  this);
-			fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
+        currentOutput.setLength(0);
+        try {
+            FileWriter fileWriter = new FileWriter(new File(outputFileName));
+            OverallTranscriptCleared.newCase(null, null, (SakaiProject) this, outputFileName, this);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
-    
-  
+
     @Override
-	public void setCurrentOutput(StringBuffer currentOutput) {
-		this.currentOutput = currentOutput;
-	}
-    @Override
-	public Feature getCurrentGradingFeature() {
-		return currentGradingFeature;
-	}
-    @Override
-	public void setCurrentGradingFeature(Feature currentGradingFeature) {
-		this.currentGradingFeature = currentGradingFeature;
-	}
-    @Override
-	public String getCurrentInput() {
-		return currentInput.toString();
-	}
-    @Override
-	public void setCurrentInput(String aCurrentInput) {
-		currentInput.setLength(0);
-		appendCurrentInput(aCurrentInput);
-	}
-    @Override
-  	public void appendCurrentInput(String aCurrentInput) {
-  		currentInput.append(aCurrentInput);
+    public void setCurrentOutput(StringBuffer currentOutput) {
+        this.currentOutput = currentOutput;
     }
-    
+
+    @Override
+    public Feature getCurrentGradingFeature() {
+        return currentGradingFeature;
+    }
+
+    @Override
+    public void setCurrentGradingFeature(Feature currentGradingFeature) {
+        this.currentGradingFeature = currentGradingFeature;
+    }
+
+    @Override
+    public String getCurrentInput() {
+        return currentInput.toString();
+    }
+
+    @Override
+    public void setCurrentInput(String aCurrentInput) {
+        currentInput.setLength(0);
+        appendCurrentInput(aCurrentInput);
+    }
+
+    @Override
+    public void appendCurrentInput(String aCurrentInput) {
+        currentInput.append(aCurrentInput);
+    }
+
 //    @Override
 //  	public void appendCurrentInput(String aProcess, String aCurrentInput) {
 ////  		currentInput.append(aCurrentInput);
 //    }
-  	
     @Override
-	public String[] getCurrentArgs() {
-		return currentArgs;
-	}
+    public String[] getCurrentArgs() {
+        return currentArgs;
+    }
+
     @Override
-	public void setCurrentArgs(String[] currentArgs) {
-		this.currentArgs = currentArgs;
-	}
+    public void setCurrentArgs(String[] currentArgs) {
+        this.currentArgs = currentArgs;
+    }
+
     @Override
-	public String getSourceSuffix() {
-		return sourceSuffix;
-	}
+    public String getSourceSuffix() {
+        return sourceSuffix;
+    }
 
-	@Override
-	public boolean hasUnCompiledClasses() {
-		// TODO Auto-generated method stub
-		return classNamesThatCouldNotBeCompiled.size() > 0;
-	}
+    @Override
+    public boolean hasUnCompiledClasses() {
+        // TODO Auto-generated method stub
+        return classNamesThatCouldNotBeCompiled.size() > 0;
+    }
 
-	@Override
-	public List<String> getNonCompiledClasses() {
-		return classNamesThatCouldNotBeCompiled;
-	}
+    @Override
+    public List<String> getNonCompiledClasses() {
+        return classNamesThatCouldNotBeCompiled;
+    }
 
-	@Override
-	public void addNonCompiledClass(String newVal) {
-		classNamesThatCouldNotBeCompiled.add(newVal);
-		
-	}
-	
-	@Override
-	public boolean hasCompiledClasses() {
-		// TODO Auto-generated method stub
-		return classNamesCompiled.size() > 0;
-	}
+    @Override
+    public void addNonCompiledClass(String newVal) {
+        classNamesThatCouldNotBeCompiled.add(newVal);
 
-	@Override
-	public List<String> getCompiledClasses() {
-		return classNamesCompiled;
-	}
+    }
 
-	@Override
-	public void addCompiledClass(String newVal) {
-		classNamesCompiled.add(newVal);
-		
-	}
+    @Override
+    public boolean hasCompiledClasses() {
+        // TODO Auto-generated method stub
+        return classNamesCompiled.size() > 0;
+    }
 
-	public static boolean isLoadClasses() {
-		return loadClasses;
-	}
+    @Override
+    public List<String> getCompiledClasses() {
+        return classNamesCompiled;
+    }
 
-	public static void setLoadClasses(boolean makeClassDescriptions) {
-		AProject.loadClasses = makeClassDescriptions;
-	}
+    @Override
+    public void addCompiledClass(String newVal) {
+        classNamesCompiled.add(newVal);
 
-	public static boolean isCompileMissingObjectCode() {
-		return compileMissingObjectCode;
-	}
+    }
 
-	public static void setCompileMissingObjectCode(boolean newVal) {
-		AProject.compileMissingObjectCode = newVal;
-	}
-	public static boolean isForceCompile() {
-		return forceCompile;
-	}
+    public static boolean isLoadClasses() {
+        return loadClasses;
+    }
 
-	public static void setForceCompile(boolean forceCompile) {
-		AProject.forceCompile = forceCompile;
-	}
-	public static boolean isPreCompileMissingObjectCode() {
-		return preCompileMissingObjectCode;
-	}
+    public static void setLoadClasses(boolean makeClassDescriptions) {
+        AProject.loadClasses = makeClassDescriptions;
+    }
 
-	public static void setPrecompileMissingObjectCode(
-			boolean preCompileMissingObjectCode) {
-		AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
-	}
-	public static boolean isFilesCompiled() {
-		return filesCompiled;
-	}
+    public static boolean isCompileMissingObjectCode() {
+        return compileMissingObjectCode;
+    }
 
-	public static void setFilesCompiled(boolean filesCompiled) {
-		AProject.filesCompiled = filesCompiled;
-	}
+    public static void setCompileMissingObjectCode(boolean newVal) {
+        AProject.compileMissingObjectCode = newVal;
+    }
+
+    public static boolean isForceCompile() {
+        return forceCompile;
+    }
+
+    public static void setForceCompile(boolean forceCompile) {
+        AProject.forceCompile = forceCompile;
+    }
+
+    public static boolean isPreCompileMissingObjectCode() {
+        return preCompileMissingObjectCode;
+    }
+
+    public static void setPrecompileMissingObjectCode(
+            boolean preCompileMissingObjectCode) {
+        AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
+    }
+
+    public static boolean isFilesCompiled() {
+        return filesCompiled;
+    }
+
+    public static void setFilesCompiled(boolean filesCompiled) {
+        AProject.filesCompiled = filesCompiled;
+    }
 
 }

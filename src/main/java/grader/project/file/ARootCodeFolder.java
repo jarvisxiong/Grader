@@ -25,12 +25,15 @@ import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
 import grader.trace.project.SourceFolderNotFound;
+import java.nio.file.Paths;
 //a root folder containing source and binary directories
+
 public class ARootCodeFolder implements RootCodeFolder {
-	public static final String SOURCE = "/src";
-	public static final String BINARY = "/bin";
-	public static final String BINARY_2 = "out";
-	public static final String BINARY_3 = "build"; // net beans
+
+    public static final String SOURCE = "src";
+    public static final String BINARY = "bin";
+    public static final String BINARY_2 = "out";
+    public static final String BINARY_3 = "build"; // net beans
 //	 static  String sourceFileSuffix = ".java";
 //	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
 //	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
@@ -45,75 +48,70 @@ public class ARootCodeFolder implements RootCodeFolder {
 //	
 //	public static  String binaryFileSuffix = ".class";
 
-	
-	
-	String sourceFolderName = SOURCE;
-	String binaryFolderName = BINARY;
-	RootFolderProxy root;
-	String projectFolder; 
-	// changing sourceFolder to rootfolderproxy from FileProxy as we do not need the more general type
-	RootFolderProxy sourceFolder, binaryFolder;
+    String sourceFolderName = SOURCE;
+    String binaryFolderName = BINARY;
+    RootFolderProxy root;
+    String projectFolder;
+    // changing sourceFolder to rootfolderproxy from FileProxy as we do not need the more general type
+    RootFolderProxy sourceFolder, binaryFolder;
 //	FileProxy sourceFolder, binaryFolder;
-	
-	boolean separateSourceBinary = true;
-	boolean hasSource;
-	boolean hasBinary;
-	boolean hasSourceFile;
-	boolean hasBinaryFile;
-	public ARootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
-		root = aRoot;
-		sourceFolderName = aSourceFolder;
-		binaryFolderName = aBinaryFolder;
-		SourceFolderIdentified.newCase(sourceFolderName, this);
-		BinaryFolderIdentified.newCase(binaryFolderName, this);
-		
-	}
-	
-	String findParentOfSomeSourceFile(RootFolderProxy aRoot) { // will  not work with packages
-		List<FileProxy> entries = aRoot.getFileEntries();
-		for (FileProxy aFile:entries) {
+
+    boolean separateSourceBinary = true;
+    boolean hasSource;
+    boolean hasBinary;
+    boolean hasSourceFile;
+    boolean hasBinaryFile;
+
+    public ARootCodeFolder(RootFolderProxy aRoot, String aSourceFolder, String aBinaryFolder) {
+        root = aRoot;
+        sourceFolderName = aSourceFolder;
+        binaryFolderName = aBinaryFolder;
+        SourceFolderIdentified.newCase(sourceFolderName, this);
+        BinaryFolderIdentified.newCase(binaryFolderName, this);
+
+    }
+
+    String findParentOfSomeSourceFile(RootFolderProxy aRoot) { // will  not work with packages
+        List<FileProxy> entries = aRoot.getFileEntries();
+        for (FileProxy aFile : entries) {
 //			if (aFile.getAbsoluteName().endsWith(sourceFileSuffix)) {
-			if (aFile.getAbsoluteName().endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
+            if (aFile.getAbsoluteName().endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 
-				return aFile.getParentFolderName();
-			}
-		}
-		return null;
-		
-		
-	}
+                return aFile.getParentFolderName();
+            }
+        }
+        return null;
 
-	public ARootCodeFolder(RootFolderProxy aRoot) {
+    }
+
+    public ARootCodeFolder(RootFolderProxy aRoot) {
 //		if (aRoot.getAbsoluteName().indexOf("erichman") != -1) {
 //			System.out.println (" found erichman");
 //		}
-		// this code is a bit of a mess, need to clean this up
-		root = aRoot;
-		setSeparateSourcBinary();
-		// should we not be doing this only if there is a separate source and binary?
-		sourceFolderName = getEntryWithSuffix(aRoot, SOURCE);
-		binaryFolderName = getEntryWithSuffix(aRoot, BINARY);
-		// allow a set here
-		if (binaryFolderName == null)
-			binaryFolderName = getEntryWithSuffix(aRoot, BINARY_2);
-		if (binaryFolderName == null)
-			binaryFolderName = getEntryWithSuffix(aRoot, BINARY_3);
-
-	
-		
+        // this code is a bit of a mess, need to clean this up
+        root = aRoot;
+        setSeparateSourceBinary();
+        // should we not be doing this only if there is a separate source and binary?
+        sourceFolderName = getEntryWithSuffix(aRoot, SOURCE);
+        binaryFolderName = getEntryWithSuffix(aRoot, BINARY);
+        // allow a set here
+        if (binaryFolderName == null) {
+            binaryFolderName = getEntryWithSuffix(aRoot, BINARY_2);
+        }
+        if (binaryFolderName == null) {
+            binaryFolderName = getEntryWithSuffix(aRoot, BINARY_3);
+        }
 //		if (sourceFolderName == null || binaryFolderName == null) {
-		if (sourceFolderName == null && binaryFolderName == null) {
-			System.out.println(SourceFolderNotFound.newCase(root.getLocalName(), this).getMessage());
-		 sourceFolderName = findParentOfSomeSourceFile(aRoot);
-		if (sourceFolderName != null) {
-			 SourceFolderAssumed.newCase(sourceFolderName, this);
+        if (sourceFolderName == null && binaryFolderName == null) {
+            System.out.println(SourceFolderNotFound.newCase(root.getLocalName(), this).getMessage());
+            sourceFolderName = findParentOfSomeSourceFile(aRoot);
+            if (sourceFolderName != null) {
+                SourceFolderAssumed.newCase(sourceFolderName, this);
 
 //			sourceFolderName = sourceFolder.getAbsoluteName();
-			binaryFolderName = sourceFolderName;
-		} else {
-			throw ProjectFolderNotFound.newCase(aRoot.getLocalName(), this);
-			
-			
+                binaryFolderName = sourceFolderName;
+            } else {
+                throw ProjectFolderNotFound.newCase(aRoot.getLocalName(), this);
 
 //		sourceFolderName = aRoot.getAbsoluteName();
 //		binaryFolderName = sourceFolderName;
@@ -123,72 +121,76 @@ public class ARootCodeFolder implements RootCodeFolder {
 //			binaryFolderName += "/" + BINARY;
 //			
 //		}
-		}
-		}
-		
-		
-		if (separateSourceBinary) {
-			if (hasValidBinaryFolder()) {
-			projectFolder = Common.getParentFileName(binaryFolderName);
-			sourceFolder = root.getFileEntry(sourceFolderName);
+            }
+        }
+
+        if (separateSourceBinary) {
+            if (hasValidBinaryFolder()) {
+                projectFolder = Common.getParentFileName(binaryFolderName);
+                sourceFolder = root.getFileEntry(sourceFolderName);
 //			if (sourceFolder ==null ) {
 //				System.out.println("All children" + root.getEntryNames());
 //				System.out.println("not found:" + sourceFolderName);
 //			}
-			binaryFolder = root.getFileEntry(binaryFolderName);
-			} else {
-				binaryFolder = root; // will this cause problems?
-				binaryFolderName = root.getAbsoluteName();
-				projectFolder = binaryFolderName;
-			}
-		} else {
-			projectFolder = binaryFolderName;
-			//added this.
-			sourceFolder = root.getFileEntry(sourceFolderName + "/"); //no idea whey I need sometimes ending backslash, need to debu
+                binaryFolder = root.getFileEntry(binaryFolderName);
+            } else {
+                binaryFolder = root; // will this cause problems?
+                binaryFolderName = root.getAbsoluteName();
+                projectFolder = binaryFolderName;
+            }
+        } else {
+            projectFolder = binaryFolderName;
+            //added this.
+            sourceFolder = root.getFileEntry(sourceFolderName + "/"); //no idea whey I need sometimes ending backslash, need to debu
 
 //			sourceFolder = root;
-		}
-		
-		SourceFolderIdentified.newCase(sourceFolderName, this);
-		if (hasBinaryFile)
-		BinaryFolderIdentified.newCase(binaryFolderName, this);
-		else
-			BinaryFolderNotFound.newCase(root.getAbsoluteName(), this);
-		
-	}
-	public boolean hasValidBinaryFolder() {
-		return hasBinaryFile;
-	}
-	void setSeparateSourcBinary() {
-		Set<String> names = root.getEntryNames();
-		String srcPattern = SOURCE + "/";
-		String binPattern = BINARY + "/";
-		for (String name:names ) {
-			if (!hasSource && name.indexOf(srcPattern) != -1) {
-				hasSource = true;
-			}
-			if (!hasBinary && name.indexOf(binPattern) != -1) {
-				hasBinary = true;
-			}
+        }
+
+        SourceFolderIdentified.newCase(sourceFolderName, this);
+        if (hasBinaryFile) {
+            BinaryFolderIdentified.newCase(binaryFolderName, this);
+        } else {
+            BinaryFolderNotFound.newCase(root.getAbsoluteName(), this);
+        }
+
+    }
+
+    public boolean hasValidBinaryFolder() {
+        return hasBinaryFile;
+    }
+
+    void setSeparateSourceBinary() {
+        Set<String> names = root.getEntryNames();
+        String srcPattern = SOURCE + "/";
+        String binPattern = BINARY + "/";
+        for (String name : names) {
+            if (!hasSource && name.indexOf(srcPattern) != -1) {
+                hasSource = true;
+            }
+            if (!hasBinary && name.indexOf(binPattern) != -1) {
+                hasBinary = true;
+            }
 //			if (!hasSourceFile && name.indexOf(SOURCE_FILE_SUFFIX) != -1) {
-			if (!hasSourceFile && name.endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
+            if (!hasSourceFile && name.endsWith(LanguageDependencyManager.getSourceFileSuffix())) {
 
-				hasSourceFile = true;
-			}
+                hasSourceFile = true;
+            }
 //			if (!hasBinaryFile && name.indexOf(BINARY_FILE_SUFFIX) != -1) {// .classpath will fool this
-			if (!hasBinaryFile && name.endsWith(LanguageDependencyManager.getBinaryFileSuffix())) {
+            if (!hasBinaryFile && name.endsWith(LanguageDependencyManager.getBinaryFileSuffix())) {
 
-				hasBinaryFile = true;
-			}
-			if (hasSource && hasBinary && hasSourceFile && hasBinaryFile)
-				break;
-		}
-		separateSourceBinary = hasSource || hasBinary;
-		
-	}
-	public String toString() {
-		return root.getLocalName();
-	}
+                hasBinaryFile = true;
+            }
+            if (hasSource && hasBinary && hasSourceFile && hasBinaryFile) {
+                break;
+            }
+        }
+        separateSourceBinary = hasSource || hasBinary;
+
+    }
+
+    public String toString() {
+        return root.getLocalName();
+    }
 //	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
 //		Set<String> nameSet = aRoot.getEntryNames();
 //		for (String name:nameSet) {
@@ -219,120 +221,154 @@ public class ARootCodeFolder implements RootCodeFolder {
 //		return null;
 //	}
 		/*
-		 * We get names of files, not directories, for zips
-		 * for file system, we get both
-		 * So a bin must be extracted from file names.
-		 * Two cases: b
-		 */
-	public static String getEntryWithSuffix (RootFolderProxy aRoot, String suffix) {
-			Set<String> nameSet = aRoot.getEntryNames();
-			for (String name:nameSet) {
-				int index = name.indexOf(suffix);
-				if (index < 0)
-					continue;
-				int intermediateIndex = name.indexOf(suffix + "/");
-				boolean nameEndsWithSuffix = name.length() == index + suffix.length();
-								
-				// if name ends with suffix we should proceed, or if suffix/ is an intermediate directory in zip file path we should proceed
-//				if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
-//				if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
-				if (
-						intermediateIndex < 0 // not an intermediate directory)
-						&& !nameEndsWithSuffix // not an end name
-						)
+     * We get names of files, not directories, for zips
+     * for file system, we get both
+     * So a bin must be extracted from file names.
+     * Two cases: b
+     */
 
-					continue; // in case src and bin are not followed by / and are in intermediate directories
-//				if (name.charAt(0) == '_')
-//					continue;
-//				if (name.indexOf("_macos") != -1)
-//					continue;
-				FileProxy proxy = aRoot.getFileEntry(name);
-				String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
-				if (nameEndsWithSuffix)
-			
-//				return name.substring(0, index + suffix.length());
-					return mixedCaseProxy.substring(0, index + suffix.length());
-				else 
-					return mixedCaseProxy.substring(0, intermediateIndex + suffix.length());
+    public static String getEntryWithSuffix(RootFolderProxy aRoot, String suffix) {
+        Set<String> nameSet = aRoot.getEntryNames();
+        String zipSuffix = "";
+        for (String name : nameSet) {
+            String filename = Paths.get(name).getFileName().toString();
+            if (filename.endsWith(suffix)
+                    || filename.endsWith(suffix + System.getProperty("path.separator"))) {
+                if (name.contains(".zip")) {
+                    zipSuffix = name;
+                } else {
+                    return name;
+                }
+            }
+        }
+        if (!zipSuffix.isEmpty()) {
+            return zipSuffix;
+        }
+//        for (String name : nameSet) {
+//            
+//            int index = name.indexOf(suffix);
+//            if (index < 0) {
+//                continue;
+//            }
+//            int intermediateIndex = name.indexOf(suffix + "/");
+//            boolean nameEndsWithSuffix = name.length() == index + suffix.length();
+//            // if name ends with suffix we should proceed, or if suffix/ is an intermediate directory in zip file path we should proceed
+////				if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
+////				if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
+//            if (intermediateIndex < 0 // not an intermediate directory)
+//                    && !nameEndsWithSuffix // not an end name
+//                    ) {
+//                continue; // in case src and bin are not followed by / and are in intermediate directories
+//            }//				if (name.charAt(0) == '_')
+////					continue;
+////				if (name.indexOf("_macos") != -1)
+////					continue;
+//            FileProxy proxy = aRoot.getFileEntry(name);
+//            String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
+//            if (nameEndsWithSuffix) //				return name.substring(0, index + suffix.length());
+//            {
+//                return mixedCaseProxy.substring(0, index + suffix.length());
+//            } else {
+//                return mixedCaseProxy.substring(0, intermediateIndex + suffix.length());
+//            }
+//
+////				if (name.endsWith(suffix))
+////					return name;
+//        }
+        return null;
+    }
 
-//				if (name.endsWith(suffix))
-//					return name;
-			}
-			return null;
-		}
-	
-	
-	@Override
-	public FileProxy sourceFile(String aClassName) {
-		String sourceFileName = Common.classNameToSourceFileName(aClassName);
-		if (separateSourceBinary) {
-			sourceFileName = SOURCE + "/" + sourceFileName;
-		}
-		return root.getFileEntry(sourceFileName);
-	}
-	@Override
-	public RootFolderProxy getRootFolder() {
-		return root;
-	}
-	@Override
-	public String getProjectFolderName() {
-		return projectFolder;
-	}
-	@Override
-	public FileProxy binaryFile(String aClassName) {
-		String binaryFileName = Common.classNameToBinaryFileName(aClassName);
-		if (separateSourceBinary) {
-			binaryFileName += BINARY + "/" + binaryFileName;
-		}
-		return root.getFileEntry(binaryFileName);
-	}
-	@Override
-	public String getAbsoluteName() {
-		// TODO Auto-generated method stub
-		return root.getAbsoluteName();
-	}
-	@Override
-	public String getLocalName() {
-		// TODO Auto-generated method stub
-		return root.getAbsoluteName();
-	}
-	@Override
-	public List<FileProxy> getFileEntries() {
-		// TODO Auto-generated method stub
-		return root.getFileEntries();
-	}
-	@Override
-	public FileProxy getFileEntry(String name) {
-		// TODO Auto-generated method stub
-		return root.getFileEntry(name);
-	}
-	@Override
-	public String getSourceProjectFolderName() {
-		return sourceFolderName;
-	}
-	@Override
-	public String getBinaryProjectFolderName() {
-		return binaryFolderName;
-	}
-	@Override
-	public Set<String> getEntryNames() {
-		return root.getEntryNames();
-	}
-	public boolean hasSource() {
-		return hasSource;
-	}
-	
-	public boolean hasBinary() {
-		return hasBinary;
-	}
-	public boolean hasSeparateSourceBinary() {
-		return separateSourceBinary;
-	}
-	@Override
-	public String getMixedCaseSourceProjectFolderName() {
-		// TODO Auto-generated method stub
-		return sourceFolder.getMixedCaseAbsoluteName();
-	}
+    @Override
+    public FileProxy sourceFile(String aClassName) {
+        String sourceFileName = Common.classNameToSourceFileName(aClassName);
+        if (separateSourceBinary) {
+            sourceFileName = SOURCE + "/" + sourceFileName;
+        }
+        return root.getFileEntry(sourceFileName);
+    }
+
+    @Override
+    public RootFolderProxy getRootFolder() {
+        return root;
+    }
+
+    @Override
+    public String getProjectFolderName() {
+        return projectFolder;
+    }
+
+    @Override
+    public FileProxy binaryFile(String aClassName) {
+        String binaryFileName = Common.classNameToBinaryFileName(aClassName);
+        if (separateSourceBinary) {
+            binaryFileName += BINARY + "/" + binaryFileName;
+        }
+        return root.getFileEntry(binaryFileName);
+    }
+
+    @Override
+    public String getAbsoluteName() {
+        // TODO Auto-generated method stub
+        return root.getAbsoluteName();
+    }
+    
+    @Override
+    public String getMixedCaseAbsoluteName() {
+        // TODO Auto-generated method stub
+        return root.getMixedCaseAbsoluteName();
+    }
+    
+
+    @Override
+    public String getLocalName() {
+        // TODO Auto-generated method stub
+        return root.getAbsoluteName();
+    }
+
+    @Override
+    public List<FileProxy> getFileEntries() {
+        // TODO Auto-generated method stub
+        return root.getFileEntries();
+    }
+
+    @Override
+    public FileProxy getFileEntry(String name) {
+        // TODO Auto-generated method stub
+        return root.getFileEntry(name);
+    }
+
+    @Override
+    public String getSourceProjectFolderName() {
+        return sourceFolderName;
+    }
+
+    @Override
+    public String getBinaryProjectFolderName() {
+        return binaryFolderName;
+    }
+
+    @Override
+    public Set<String> getEntryNames() {
+        return root.getEntryNames();
+    }
+
+    public boolean hasSource() {
+        return hasSource;
+    }
+
+    public boolean hasBinary() {
+        return hasBinary;
+    }
+
+    public boolean hasSeparateSourceBinary() {
+        return separateSourceBinary;
+    }
+
+    @Override
+    public String getMixedCaseSourceProjectFolderName() {
+        // TODO Auto-generated method stub
+        return sourceFolder.getMixedCaseAbsoluteName();
+    }
 //	public static String getSourceFileSuffix() {
 //		return LanguageDependencyManager.getSourceFileSuffix();
 //	}
@@ -343,19 +379,16 @@ public class ARootCodeFolder implements RootCodeFolder {
 //	public static String getBinaryFileSuffix() {
 //		return LanguageDependencyManager.getBinaryFileSuffix();
 //	}
-	
-	
-@Override
-	public RootFolderProxy getSourceFolder() {
-		return sourceFolder;
-	}
 
-@Override	
-	public RootFolderProxy getBinaryFolder() {
-		return binaryFolder;
-	}
+    @Override
+    public RootFolderProxy getSourceFolder() {
+        return sourceFolder;
+    }
 
-	
+    @Override
+    public RootFolderProxy getBinaryFolder() {
+        return binaryFolder;
+    }
 
 //	public static void setBinaryFileSuffix(String binaryFileSuffix) {
 //		LanguageDependencyManager.setBinaryFileSuffix(binaryFileSuffix);
@@ -367,7 +400,6 @@ public class ARootCodeFolder implements RootCodeFolder {
 //	public static String getLanguage() {
 //		return LanguageDependencyManager.getLanguage();
 //	}
-
 //	public static void setLanguage(String language) {
 ////		ARootCodeFolder.language = language;
 ////		sourceFileSuffix = languageToSourceFileSuffix.get(getLanguage());
@@ -379,7 +411,6 @@ public class ARootCodeFolder implements RootCodeFolder {
 ////		return languageToMainClassFinder.get(getLanguage());
 //		return LanguageDependencyManager.getMainClassFinder();
 //	}
-	
 //	public static ClassFilesCompiler getSourceFilesCompiler() {
 ////		return languageToCompiler.get(getLanguage());
 //		return LanguageDependencyManager.getSourceFilesCompiler();
@@ -402,5 +433,4 @@ public class ARootCodeFolder implements RootCodeFolder {
 //
 //		
 //	}
-
 }

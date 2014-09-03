@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import bus.uigen.misc.OEMisc;
+import java.util.Collections;
 
 /**
  * A set of utilities to assist with the recursive nature of directories.
@@ -88,8 +89,11 @@ public class DirectoryUtils {
                 return !pathname.isDirectory() && filter.accept(pathname);
             }
         });
-        Set<File> allFiles = new HashSet<File>();
-        allFiles.addAll(Arrays.asList(files));
+        
+        Set<File> allFiles = new HashSet<>(files.length);
+        //if (files != null) {
+            allFiles.addAll(Arrays.asList(files));
+        //}
 
         // Get files in sub directories
         File[] directories = dir.listFiles(new FileFilter() {
@@ -98,9 +102,12 @@ public class DirectoryUtils {
                 return pathname.isDirectory();
             }
         });
-        for (File directory : directories) {
-            allFiles.addAll(getFiles(directory, filter));
-        }
+        
+        //if (directories != null) {
+            for (File directory : directories) {
+                allFiles.addAll(getFiles(directory, filter));
+            }
+        //}
 
         return allFiles;
     }

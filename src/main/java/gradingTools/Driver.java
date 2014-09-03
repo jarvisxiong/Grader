@@ -163,6 +163,8 @@ public class Driver {
                 settingsModel.awaitBegin();
             } else {
                 settingsModel.getNavigationSetter().setNavigationKind(NavigationKind.AUTOMATIC);
+                settingsModel.preSettings();
+                settingsModel.postSettings();
                 settingsModel.begin();
             }
 //            settingsModel.maybePreCompile();
@@ -269,7 +271,7 @@ public class Driver {
     }
 
     public static void initAssignmentDataFolder() {
-        String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName", "./log/AssignmentsData/{moduleName}");
+        String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
         defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
         GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
     }
@@ -340,9 +342,8 @@ public class Driver {
 
             userProperties[i] = userProperties[i].trim();
             switch (userProperties[i]) {
-                case "--project-requirements":
-                    String[] requirementParts = userProperties[++i].trim().split("\\.");
-                    course = requirementParts[1];
+                case "--course-name":
+                    course = userProperties[++i].trim();
                     break;
                 case "--project-name":
                     problem = userProperties[++i].trim();
@@ -358,7 +359,7 @@ public class Driver {
                     break;
             }
         }
-        course = Character.toUpperCase(course.charAt(0)) + course.substring(1);
+        course = Character.toUpperCase(course.charAt(0)) + course.substring(1).toLowerCase();
         graderSettingsManager.setModule(course);
         graderSettingsManager.setStartingOnyen(course, start);
         GraderSettings.get().set("start", start);

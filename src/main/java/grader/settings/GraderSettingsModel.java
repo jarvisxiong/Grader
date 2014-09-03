@@ -16,8 +16,10 @@ public interface GraderSettingsModel extends PropertyListenerRegistrar, Property
 	public void setFileBrowsing(GraderFilesSetterModel fileBrowsing);
 	public OnyenRangeModel getOnyens() ;
 	public void setOnyens(OnyenRangeModel onyens) ;
-	public  void begin() ;
-	public  void awaitBegin() ;
+        public void preSettings();
+        public void postSettings();
+	public void begin() ;
+	public void awaitBegin() ;
 	NavigationSetter getNavigationSetter();
 	void setNavigationSetter(NavigationSetter navigationSetter);
 	boolean isGraderStarted();

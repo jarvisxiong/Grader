@@ -22,6 +22,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 
 public class ASakaiStudentAssignment implements StudentAssignment {
+
     public static String SUBMISSION_LOCAL_NAME = "Submission attachment(s)";
     public static String FEEDBACK_LOCAL_NAME = "Feedback Attachment(s)";
     public static String COMMENTS_LOCAL_NAME = "comments.txt";
@@ -45,10 +46,10 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             onyen = aStudentDescription.substring(parenIndex + 1, studentDescription.length() - 1);
             studentFolder = aFileProxy;
             submissionFolder = aFileProxy.getFileEntryFromLocalName(SUBMISSION_LOCAL_NAME);
-            if (submissionFolder != null)
+            if (submissionFolder != null) {
                 SubmissionFolderLoaded.newCase(submissionFolder.getAbsoluteName(), this);
-            else {
-            	throw SubmissionFolderNotFound.newCase(onyen, this);
+            } else {
+                throw SubmissionFolderNotFound.newCase(onyen, this);
             }
 //            System.out.println("*^*^* " + aFileProxy.getMixedCaseAbsoluteName());
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
@@ -56,8 +57,9 @@ public class ASakaiStudentAssignment implements StudentAssignment {
 
             commentsFile = aFileProxy.getFileEntryFromLocalName(COMMENTS_LOCAL_NAME);
             if (commentsFile != null) {
-            commentsFileName = commentsFile.getAbsoluteName();
-            CommentsFileLoaded.newCase(commentsFileName, this);
+                //commentsFileName = commentsFile.getAbsoluteName();
+                commentsFileName = commentsFile.getMixedCaseAbsoluteName();
+                CommentsFileLoaded.newCase(commentsFileName, this);
 
             }
             timeStampFile = aFileProxy.getFileEntryFromLocalName(TIMESTAMP_LOCAL_NAME);
@@ -73,17 +75,13 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             submitted = timeStamp != null && date != null;
             findDocuments();
         } catch (SubmissionFolderNotFound sfnf) {
-        	Tracer.error(sfnf.getMessage());
+            Tracer.error(sfnf.getMessage());
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 //        	System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
-    
-    
-    
 
     void findDocuments() {
         Set<String> entryNames = studentFolder.getDescendentEntryNames(feedbackFolder);
@@ -107,51 +105,59 @@ public class ASakaiStudentAssignment implements StudentAssignment {
 //			e.printStackTrace();
 //		}
 //    }
+
     @Override
     public void cleanFeedbackFolder() {
-    	if (feedbackFolder ==null)
-    		return;
-    	String name = feedbackFolder.getMixedCaseAbsoluteName();
-    	if (name == null)
-    		return;
-    	try {
+        if (feedbackFolder == null) {
+            return;
+        }
+        String name = feedbackFolder.getMixedCaseAbsoluteName();
+        if (name == null) {
+            return;
+        }
+        try {
 //			FileUtils.cleanDirectory(new File(name));
-    		File feedbackFile = new File(name);
-    		File[] children = feedbackFile.listFiles();
-    		for (File child:children) {
-    			if (child.isDirectory()) {
-    				FileUtils.cleanDirectory(child); // generated directory
-    				child.delete();
-    			}
-    			else {
-    				if (child.getName().endsWith(".ini")) continue; // keep desktop.ini file around for git
-    				else child.delete();
-    			}
-    		}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            File feedbackFile = new File(name);
+            File[] children = feedbackFile.listFiles();
+            for (File child : children) {
+                if (child.isDirectory()) {
+                    FileUtils.cleanDirectory(child); // generated directory
+                    child.delete();
+                } else {
+                    if (child.getName().endsWith(".ini")) {
+                        continue; // keep desktop.ini file around for git
+                    } else {
+                        child.delete();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     @Override
     public void cleanSubmissionFolder() {
-    	if (submissionFolder ==null)
-    		return;
-    	String name = submissionFolder.getMixedCaseAbsoluteName();
-    	if (name == null)
-    		return;
-    	
-    	try {
-    		File submissionFile = new File(name);
-    		File[] children = submissionFile.listFiles();
-    		for (File child:children) {
-    			if (child.isDirectory()) {
-    				FileUtils.cleanDirectory(child); // generated  directory
-    				child.delete();
-    			}
-    		}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        if (submissionFolder == null) {
+            return;
+        }
+        String name = submissionFolder.getMixedCaseAbsoluteName();
+        if (name == null) {
+            return;
+        }
+
+        try {
+            File submissionFile = new File(name);
+            File[] children = submissionFile.listFiles();
+            for (File child : children) {
+                if (child.isDirectory()) {
+                    FileUtils.cleanDirectory(child); // generated  directory
+                    child.delete();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isSubmitted() {

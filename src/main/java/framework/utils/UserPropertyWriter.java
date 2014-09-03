@@ -66,6 +66,9 @@ public class UserPropertyWriter {
                     propName = "grader.logger";
                     propValue = userProperties[++i].trim();
                     break;
+                case "--course-name":
+                    propName = "currentModule";
+                    propValue = userProperties[++i].trim();
             }
 
             if (propName != null) {

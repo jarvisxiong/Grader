@@ -82,11 +82,11 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
 
     @Override
     public String getMixedCaseAbsoluteName() {
-        return rootLocalName;
+        return absoluteName;
     }
 
     @Override
     public String getMixedCaseLocalName() {
-        return absoluteName;
+        return rootLocalName;
     }
 }

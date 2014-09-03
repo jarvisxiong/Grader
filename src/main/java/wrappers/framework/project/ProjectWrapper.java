@@ -41,16 +41,22 @@ public class ProjectWrapper extends StandardProject {
      * @throws FileNotFoundException
      */
     private static File getDirectory(Project project) throws FileNotFoundException {
-    	if (project.isNoProjectFolder()) return null;
-
+    	if (project.isNoProjectFolder()) {
+            return null;
+        }
+        
         // Can be a path or a directory
-        File path = new File(project.getProjectFolderName());
+        //System.out.println(")()()()()( " + project.getRootCodeFolder().getAbsoluteName());
+        //File path = new File(project.getProjectFolderName());
+        File path = new File(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+        //System.out.println("()()()()() " + path.getAbsolutePath());
         if (path.isFile()) {
             if (path.getName().endsWith(".zip")) {
                 // A zip file, so unzip
                 File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
-                if (dir.exists())
-                	return dir;
+                if (dir.exists()) {
+                    return dir;
+                }
                 dir.mkdir();
 
                 try {
@@ -61,10 +67,12 @@ public class ProjectWrapper extends StandardProject {
                 } catch (ZipException e) {
                     throw new FileNotFoundException();
                 }
-            } else
+            } else {
                 throw new FileNotFoundException();
-        } else
+            }
+        } else {
             return path;
+            }
     }
 
     /**

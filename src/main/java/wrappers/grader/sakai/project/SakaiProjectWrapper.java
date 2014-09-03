@@ -33,8 +33,9 @@ public class SakaiProjectWrapper extends ASakaiProject {
     // so is this code executed when we are using Josh's stuff?
     private static StudentCodingAssignment getCodingAssignment(Project project) {
         File folder = project.getSourceFolder();
-        while (!folder.getName().matches("^[^,]+, [^\\(]+\\([^\\)]+\\)$"))
+        while (!folder.getName().matches("^[^,]+, [^\\(]+\\([^\\)]+\\)$")) {
             folder = folder.getParentFile();
+        }
         // it seems this is executed only when Josh's framework is  used, so we will use his file proxy
         return new ASakaiStudentCodingAssignment(folder.getName(), new SimplifiedFileProxy(folder));
 //        return new ASakaiStudentCodingAssignment(folder.getName(), ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getStudentAssignmentDatabase().getBulkAssignmentFolder().getStudentFolder(folder.getName()));
