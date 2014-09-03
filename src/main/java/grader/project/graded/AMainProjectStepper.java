@@ -579,6 +579,17 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getStudentHistory();
 	}
+	@Override
+	@Visible(false)
+	public void setResultDiff(String newValue) {
+		overviewProjectStepper.setResultDiff(newValue);
+		
+	}
+	@Override
+	@Visible(false)
+	public String getResultDiff() {
+		return overviewProjectStepper.getResultDiff();
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

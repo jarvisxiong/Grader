@@ -76,7 +76,11 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
     boolean debug;
     @Override
     public FileProxy getFileEntry(String name) {
-    	String lowercase = name.toLowerCase();
+    	if (name == null) {
+    		System.out.println("Null file entry returning null proxy");
+    		return null;
+    	}
+    	String lowercase = name.toLowerCase(); // sometimes this gives an exception
 //        return nameToFileProxy.get(name.toLowerCase());
     	FileProxy retVal = nameToFileProxy.get(lowercase);
     	if (retVal == null && debug) {

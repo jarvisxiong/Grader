@@ -79,6 +79,7 @@ public interface GradedProjectOverview  extends GradedProjectTextOverview, /*Cle
 
 	LabelBeanModel getPhoto();
 
+
 //	String getName();
 //
 //	void setName(String newVal);

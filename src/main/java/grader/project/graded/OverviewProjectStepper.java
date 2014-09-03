@@ -31,4 +31,8 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 
 	String getStudentHistory();
 
+
+	void setResultDiff(String newValue);
+	String getResultDiff();
+
 }

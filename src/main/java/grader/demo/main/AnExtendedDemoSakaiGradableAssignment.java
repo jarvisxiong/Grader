@@ -110,10 +110,10 @@ public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAss
 
 		Set<String> onyens = projectDatabase.getOnyens();
 		System.out.println("Grading onyens:" + onyens);
-		FileProxy fileProxy = projectDatabase.getAssigmentDataFolder().getFeatureGradeFile();
+		FileProxy fileProxy = projectDatabase.getAssignmentDataFolder().getFeatureGradeFile();
 		System.out.println("Made projects:" + projectDatabase.getProjects());
 		System.out.println("will add feature and final grades to:" + fileProxy.getAbsoluteName());
-		Set<String> inputFiles = projectDatabase.getAssigmentDataFolder().getInputFiles();
+		Set<String> inputFiles = projectDatabase.getAssignmentDataFolder().getInputFiles();
 		System.out.println("Input files are:" + inputFiles);
 		
 //		projectDatabase.runProjectInteractively("mkcolema");

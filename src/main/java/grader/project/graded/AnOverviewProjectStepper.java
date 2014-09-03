@@ -170,6 +170,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	LabelBeanModel photoLabelBeanModel;
 	String output = "";
 	String source = "";
+	String resultDiff = "";
 	String problemHistory = "";
 	String studentHistory = "";
 	TACommentsExtractor taCommentsExtractor;
@@ -197,7 +198,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 		registerWithGradingFeatures();
-		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
+		logFile = aProjectDatabase.getAssignmentDataFolder().getLogFileName();
 //		source = aProjectDatabase.getSourceDisplayer().getAll
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
 //				.getGradedIdFileName();
@@ -476,14 +477,22 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 		// Josh: Added event
 		propertyChangeSupport.firePropertyChange("Project", AttributeNames.IGNORE_NOTIFICATION, project);
-
+//		if (!gradedProjectOverview.setProject(newVal))
+//			return false;
+//		if (!autoVisitBehavior.setProject(newVal))
+//			return false;
 		featureGradeRecorder.newSession(getOnyen());
 		featureGradeRecorder.setGrade(getName(), getOnyen(), getScore()); // pass the first score to recording session
 		
-		if (!gradedProjectOverview.setProject(newVal))
+		if (!gradedProjectOverview.setProject(newVal)) {
+			featureGradeRecorder.newSession(null);
 			return false;
-		if (!autoVisitBehavior.setProject(newVal))
+		} 
+		if (!autoVisitBehavior.setProject(newVal)) {
+			featureGradeRecorder.newSession(null); // this is the one that matters
+
 			return false;
+		}
 		gradedProjectNavigator.setProject(newVal);
 		
 		loadSourceFromFile(); // this has to happen after setGrade in featureGradeRecorder as recording session is null before that
@@ -709,6 +718,16 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		featureGradeRecorder.setSourcePoints(getName(), getOnyen(), taPoints);
 //		SourcePointsSaved.newCase(projectDatabase, this, project, featureGradeRecorder.getFileName(), taPoints, this);
 		setComputedFeedback();
+	}
+	@Override
+	public void setResultDiff(String newValue) {
+		String oldValue = resultDiff;
+		resultDiff = newValue;
+		propertyChangeSupport.firePropertyChange("resultDiff", oldValue, newValue);		
+	}
+	@Override
+	public String getResultDiff() {
+		return resultDiff;
 	}
 	@Override
 	public String getProblemHistory() {
@@ -1305,6 +1324,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //			hasMoreSteps = false;
 			return false;
 		}
+//		projectDatabase.getAssignmentDataFolder().clearLogFile();
 //		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		
 		String anOnyen = aGoToOnyen;
@@ -1605,7 +1625,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public void resetFeatureSpreadsheet() {
-		boolean retVal = projectDatabase.getAssigmentDataFolder().removeFeatureGradeFile();
+		boolean retVal = projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 		if (isExitOnQuit())
 		System.exit(0);
 		
@@ -1634,12 +1654,12 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Visible(false)
 	@Override
 	public boolean preRestoreFeatureSpreadsheet() {
-		return projectDatabase.getAssigmentDataFolder().backupExists();
+		return projectDatabase.getAssignmentDataFolder().backupExists();
 	}
 	@Visible(false)
 	@Override
 	public void restoreFeatureSpreadsheet() {
-		boolean retVal = projectDatabase.getAssigmentDataFolder().restoreFeatureGradeFile();
+		boolean retVal = projectDatabase.getAssignmentDataFolder().restoreFeatureGradeFile();
 		if (retVal)
 			System.exit(0);
 		

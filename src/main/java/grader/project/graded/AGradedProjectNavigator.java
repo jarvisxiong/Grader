@@ -97,10 +97,10 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 //		registerWithGradingFeatures();
-		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
-		gradedFile = aProjectDatabase.getAssigmentDataFolder()
+		logFile = aProjectDatabase.getAssignmentDataFolder().getLogFileName();
+		gradedFile = aProjectDatabase.getAssignmentDataFolder()
 				.getGradedIdFileName();
-		skippedFile = aProjectDatabase.getAssigmentDataFolder()
+		skippedFile = aProjectDatabase.getAssignmentDataFolder()
 				.getSkippedIdFileName();
 //		ObjectEditor.setMethodAttribute(AGradedProjectNavigator.class, "togglePlayPause", AttributeNames.LABEL, computeTogglePlayPauseLabel());
 

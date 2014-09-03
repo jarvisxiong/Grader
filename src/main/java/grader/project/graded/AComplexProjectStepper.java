@@ -408,6 +408,14 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.setOverviewProjectStepper(overviewProjectStepper);
 	}
 	@Override
+	@Visible(false)
+	@Position(2)
+	@PreferredWidgetClass(JTextArea.class)
+	@Explanation("Correct result (if provided) diffed with actual result.")
+	public String getResultDiff() {
+		return mainProjectStepper.getResultDiff();
+	}
+	@Override
 	@Visible(true)
 	@Position(2)
 	@PreferredWidgetClass(JTextArea.class)
@@ -438,6 +446,11 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void internalSetSource(String newValue) {
 		
 		mainProjectStepper.internalSetSource(newValue);
+	}
+	@Override
+	public void setResultDiff(String newValue) {
+		
+		mainProjectStepper.setResultDiff(newValue);
 	}
 	@Override
 	@Visible(true)

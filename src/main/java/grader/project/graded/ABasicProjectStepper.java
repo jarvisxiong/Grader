@@ -156,7 +156,7 @@ public class ABasicProjectStepper extends AClearanceManager implements
 		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 //		totalScoreRecorder = aProjectDatabase.getTotalScoreRecorder();
 		registerWithGradingFeatures();
-		logFile = aProjectDatabase.getAssigmentDataFolder().getLogFileName();
+		logFile = aProjectDatabase.getAssignmentDataFolder().getLogFileName();
 //		gradedFile = aProjectDatabase.getAssigmentDataFolder()
 //				.getGradedIdFileName();
 //		skippedFile = aProjectDatabase.getAssigmentDataFolder()

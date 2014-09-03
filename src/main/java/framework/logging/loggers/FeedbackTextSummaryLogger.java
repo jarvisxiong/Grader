@@ -3,9 +3,12 @@ package framework.logging.loggers;
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
+import grader.sakai.project.ASakaiProjectDatabase;
 import grader.trace.feedback.FeedbackSaved;
 
 import org.apache.commons.io.FileUtils;
+
+import util.misc.Common;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +28,8 @@ public class FeedbackTextSummaryLogger implements Logger {
 
         try {
             FileUtils.writeStringToFile(file, text);
+            String aLogFileName = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getAssignmentDataFolder().getLogFileName();
+            Common.appendText(aLogFileName, text);
             FeedbackSaved.newCase(null, null, null, file.getAbsolutePath(), text, this);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

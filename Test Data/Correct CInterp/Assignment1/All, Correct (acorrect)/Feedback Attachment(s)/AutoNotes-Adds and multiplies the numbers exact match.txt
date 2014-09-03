@@ -1,0 +1,6 @@
+  -- Model output diff actual output:
+1c1
+< Please   input   an  integer
+---
+> Please input an integer
+

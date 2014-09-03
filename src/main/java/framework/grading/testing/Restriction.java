@@ -11,31 +11,31 @@ import java.util.List;
  */
 public class Restriction extends Checkable {
 
-    private String name;
-    private double points;
-    private List<TestCase> testCases;
+//    private String name;
+//    private double points;
+//    private List<TestCase> testCases;
 
-    public Restriction(String name, double points, List<TestCase> testCases) {
-        this.name = name;
-        this.points = Math.min(points, -points); // Make sure we are negative
-        this.testCases = testCases;
-    }
+//    public Restriction(String name, double points, List<TestCase> testCases) {
+//        this.name = name;
+//        this.points = Math.min(points, -points); // Make sure we are negative
+//        this.testCases = testCases;
+//    }
+//
+//    public Restriction(String name, double points, TestCase ... testCases) {
+//        this.name = name;
+//        this.points = Math.min(points, -points); // Make sure we are negative
+//        this.testCases = Arrays.asList(testCases);
+//    }
 
-    public Restriction(String name, double points, TestCase ... testCases) {
-        this.name = name;
-        this.points = Math.min(points, -points); // Make sure we are negative
-        this.testCases = Arrays.asList(testCases);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public double getPoints() {
-        return points;
-    }
+//    @Override
+//    public String getName() {
+//        return name;
+//    }
+//
+//    @Override
+//    public double getPoints() {
+//        return points;
+//    }
 
     /**
      * Checks the project for restrictions. Negative points are given if violated.
@@ -50,8 +50,48 @@ public class Restriction extends Checkable {
         result.setScore(result.getScore() + points);
         return result;
     }
+    
+    void setPoints() {
+      points = Math.min(points, -points); // Make sure we are negative
 
-    @Override
+    }
+
+    public Restriction(boolean anIsManual, String name, double points,
+			boolean extraCredit, List<TestCase> testCases) {
+		super(anIsManual, name, points, extraCredit, testCases);
+		setPoints();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Restriction(boolean anIsManual, String name, double points,
+			boolean extraCredit, TestCase... testCases) {
+		super(anIsManual, name, points, extraCredit, testCases);
+		setPoints();
+	}
+
+	public Restriction(String name, double points, boolean extraCredit,
+			List<TestCase> testCases) {
+		super(name, points, extraCredit, testCases);
+		setPoints();
+	}
+
+	public Restriction(String name, double points, boolean extraCredit,
+			TestCase... testCases) {
+		super(name, points, extraCredit, testCases);
+		setPoints();
+	}
+
+	public Restriction(String name, double points, List<TestCase> testCases) {
+		super(name, points, testCases);
+		setPoints();
+	}
+
+	public Restriction(String name, double points, TestCase... testCases) {
+		super(name, points, testCases);
+		setPoints();
+	}
+
+	@Override
     public String getSummary() {
         String spaces = "                                            ";
         String score = points < 10 ? " " + points : points + "";

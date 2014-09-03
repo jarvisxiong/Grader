@@ -1,0 +1,184 @@
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Prompts for inputs)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Takes in a String)*****************************
+OUTPUT(Takes in a String)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Takes in a String)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Takes in a String)*****************************
+INPUT(Takes in a String)
+This_is_a_string
+
+OUTPUT(Takes in a String)
+Please, enter a string with a length between one and eight characters:There was an Error. Please, enter a string with a length between one and eight characters instead of 16 characters
+
+*****************************(Prints an error message)*****************************
+OUTPUT(Prints an error message)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Prints an error message)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Prints an error message)*****************************
+INPUT(Prints an error message)
+this_string_is_much_longer_than_is_acceptable
+
+OUTPUT(Prints an error message)
+Please, enter a string with a length between one and eight characters:There was an Error. Please, enter a string with a length between one and eight characters instead of 45 characters
+
+*****************************(Prints an error message)*****************************
+OUTPUT(Prints an error message)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Prints an error message)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Prints an error message)*****************************
+INPUT(Prints an error message)
+short
+OUTPUT(Prints an error message)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Correctly checks for palindrome)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+d
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+nn
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+ey
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+ymy
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+fqs
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+qzzq
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+doqq
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+kfcfk
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+fshgq
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+apsspa
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+wgndks
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+mdotodm
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+fyifpdj
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+aiorroia
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+kkejjhxv
+
+OUTPUT(Correctly checks for palindrome)
+Please, enter a string with a length between one and eight characters:The string you entered is not a palindrome.
+
+*****************************(Ignores case when checking for palindromes)*****************************
+OUTPUT(Ignores case when checking for palindromes)
+Please, enter a string with a length between one and eight characters:
+
+ERRORS(Ignores case when checking for palindromes)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at PalindromeFun.main(PalindromeFun.java:29)
+
+*****************************(Ignores case when checking for palindromes)*****************************
+INPUT(Ignores case when checking for palindromes)
+A!bB!a
+OUTPUT(Ignores case when checking for palindromes)
+Please, enter a string with a length between one and eight characters:The string you entered is a palindrome.
+

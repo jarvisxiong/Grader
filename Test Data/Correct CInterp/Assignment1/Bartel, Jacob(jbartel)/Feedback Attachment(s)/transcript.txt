@@ -1,0 +1,35 @@
+Microsoft (R) C/C++ Optimizing Compiler Version 17.00.50727.1 for x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+InputAndOutput-Flipped.c
+Microsoft (R) Incremental Linker Version 11.00.50727.1
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:InputAndOutput-Flipped.exe 
+InputAndOutput-Flipped.obj 
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+1
+2.5
+
+OUTPUT(Adds and multiplies the numbers)
+Please input a decimal
+Please input an integer
+The int addition:3
+The double addition:3.000000
+The int multiplication:2
+The double multiplication:2.000000
+
+*****************************(Adds and multiplies the numbers exact match)*****************************
+INPUT(Adds and multiplies the numbers exact match)
+1
+2.5
+
+OUTPUT(Adds and multiplies the numbers exact match)
+Please input a decimal
+Please input an integer
+The int addition:3
+The double addition:3.000000
+The int multiplication:2
+The double multiplication:2.000000
+

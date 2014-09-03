@@ -1,0 +1,43 @@
+Grading result for: Bartel, Jacob(jbartel)
+
+Grading features...
+----------------------------------
+Contains a main method                                 10.0 / 10.0
+Has a proper header                                    10.0 / 10.0
+Prompts for inputs                                     10.0 / 10.0
+Takes in a String                                      4.0 / 10.0
+Prints an error message                                10.0 / 10.0
+Correctly checks for palindrome                        30.0 / 40.0
+Ignores case when checking for palindromes             0.0 / 10.0
+----------------------------------
+  Points Awarded: 74.0
+
+Grading restrictions...
+----------------------------------
+No StringBuffer allowed                     0.0 /  -30.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Total Score: 74.0
+
+Notes from grading features:
+----------------------------------
+Prompts for inputs:
+Validated by instructor.
+Correctly checks for palindrome:
+  -- Does not properly check palindromes of length 7
+Does not properly check palindromes of length 8
+
+
+Validated by instructor.
+Ignores case when checking for palindromes:
+  -- Does not ignore case when detecting palindromes
+
+Validated by instructor.
+
+Notes from grading restrictions:
+----------------------------------
+
+Overall Comments:
+----------------------------------
+Total score manually changed from 80.0 to 75.0.

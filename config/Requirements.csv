@@ -1,0 +1,9 @@
+Type,Description,MaxScore,Timeout,Input,Model Output,Extra Credit?,Checker,Argument1, Argument2, Argument3
+DueDate,"02/4/2014 23:55:59",1,,,,,,,,
+DueDate,"02/5/2014 23:55:59",0.5,,,,,,,,
+Feature,Has a main,5,,,,,match,$Source,[\\s\\S]*int\\s+main\\s*\\(\\s*\\)[\\s\\S]*
+Feature,Adds and multiplies the numbers,30,1,inputs/Input1.txt,correctoutput.txt,,diff,"-i -w -b",$ModelOutput,$ActualOutput
+Feature,Adds and multiplies the numbers exact match,5,1,"1\\n2.5\\n",correctoutput.txt,yes,diff,,$ModelOutput,$ActualOutput
+Feature,Prompts for input,10,,,,,match,$ActualOutput,"[\\s\\S]*int[\\s\\S]*decimal[\\s\\S]*"
+Feature,Clear messages,20,,,,yes,,,,
+Restriction,No commented Java println,5,,,,,match,$Source,(?![\\s\\S]*System.out.println[\\s\\S]*)

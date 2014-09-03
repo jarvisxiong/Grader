@@ -1,0 +1,142 @@
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+Please enter a string: 
+
+ERRORS(Prompts for inputs)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.HelloWorld.main(HelloWorld.java:15)
+
+*****************************(Takes in a String)*****************************
+OUTPUT(Takes in a String)
+Please enter a string: 
+
+ERRORS(Takes in a String)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.HelloWorld.main(HelloWorld.java:15)
+
+*****************************(Takes in a String)*****************************
+INPUT(Takes in a String)
+This_is_a_string
+
+OUTPUT(Takes in a String)
+Please enter a string: 
+This_is_a_string
+gnirts_a_si_sihT
+
+*****************************(Prints an error message)*****************************
+OUTPUT(Prints an error message)
+Please enter a string: 
+
+ERRORS(Prints an error message)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.HelloWorld.main(HelloWorld.java:15)
+
+*****************************(Prints an error message)*****************************
+INPUT(Prints an error message)
+this_string_is_much_longer_than_is_acceptable
+
+OUTPUT(Prints an error message)
+Please enter a string: 
+this_string_is_much_longer_than_is_acceptable
+elbatpecca_si_naht_regnol_hcum_si_gnirts_siht
+
+*****************************(Correctly checks for palindrome)*****************************
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+
+ERRORS(Correctly checks for palindrome)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.HelloWorld.main(HelloWorld.java:15)
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+j
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+j
+j
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+ii
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+ii
+ii
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+wqw
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+wqw
+wqw
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+qaaq
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+qaaq
+qaaq
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+aaraa
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+aaraa
+aaraa
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+runnur
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+runnur
+runnur
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+ufktkfu
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+ufktkfu
+ufktkfu
+
+*****************************(Correctly checks for palindrome)*****************************
+INPUT(Correctly checks for palindrome)
+jwtcctwj
+
+OUTPUT(Correctly checks for palindrome)
+Please enter a string: 
+jwtcctwj
+jwtcctwj
+
+*****************************(Ignores case when checking for palindromes)*****************************
+OUTPUT(Ignores case when checking for palindromes)
+Please enter a string: 
+
+ERRORS(Ignores case when checking for palindromes)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.HelloWorld.main(HelloWorld.java:15)
+
+*****************************(Ignores case when checking for palindromes)*****************************
+INPUT(Ignores case when checking for palindromes)
+A!bB!a
+OUTPUT(Ignores case when checking for palindromes)
+Please enter a string: 
+A!bB!a
+a!Bb!A
+
