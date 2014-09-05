@@ -138,6 +138,15 @@ public class ProjectClassesManager implements ClassesManager {
 
                     }
                     System.out.println("Compilation attempt finished.");
+                    
+                    Class c = null;
+                    if (AProject.isLoadClasses()) {
+                        c = classLoader.loadClass(className);
+                    }
+                    
+                    if (c != null) {
+                        classDescriptions.add(new BasicClassDescription(c, file));
+					}
 				} catch (Exception ex) {
                     System.out.println("Compilation failed: " + ex.toString());
 				}
