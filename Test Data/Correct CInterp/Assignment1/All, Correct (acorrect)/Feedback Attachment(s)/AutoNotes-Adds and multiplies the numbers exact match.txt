@@ -1,4 +1,4 @@
-  -- Model output diff actual output:
+  -- diff   $ModelOutput $ActualOutput failed 
 1c1
 < Please   input   an  integer
 ---

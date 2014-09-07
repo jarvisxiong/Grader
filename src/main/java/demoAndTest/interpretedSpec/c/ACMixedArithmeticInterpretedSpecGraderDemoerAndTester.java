@@ -28,7 +28,7 @@ import util.trace.Tracer;
  * 
 
  */
-public class ACMixedArithmeticInterpretedISpecGraderDemoerAndTester extends ACMixedArithmeticGraderDemoerAndTester {
+public class ACMixedArithmeticInterpretedSpecGraderDemoerAndTester extends ACMixedArithmeticGraderDemoerAndTester {
 	
 	//	 String[] args ;
 	public static final  String INTERP_TEST_DIR = "Test Data/Test CInterp";
@@ -38,7 +38,7 @@ public class ACMixedArithmeticInterpretedISpecGraderDemoerAndTester extends ACMi
 
 
 
-	public ACMixedArithmeticInterpretedISpecGraderDemoerAndTester(String[] anArgs) {
+	public ACMixedArithmeticInterpretedSpecGraderDemoerAndTester(String[] anArgs) {
 		super(anArgs);
 	}
 	@Override
@@ -64,9 +64,9 @@ public class ACMixedArithmeticInterpretedISpecGraderDemoerAndTester extends ACMi
 //		ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
 //		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(DirectoryUtils.class, true);
-		GraderDemoerAndTester aDemoerAndTester = new ACMixedArithmeticInterpretedISpecGraderDemoerAndTester(anArgs);
+		GraderDemoerAndTester aDemoerAndTester = new ACMixedArithmeticInterpretedSpecGraderDemoerAndTester(anArgs);
 //		args = anArgs;
-		Tracer.info(ACMixedArithmeticInterpretedISpecGraderDemoerAndTester.class, "test");
+		Tracer.info(ACMixedArithmeticInterpretedSpecGraderDemoerAndTester.class, "test");
 		aDemoerAndTester.demoAndTest();
 		
 //		aDemoerAndTester.demoAndTest();

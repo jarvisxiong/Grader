@@ -20,10 +20,10 @@ public class AMatchChecker implements InterpretedChecker{
 			
 			boolean aResult = anArgs[0].matches(anArgs[1]);
 			String aNotes = "";
-			if (!aResult) {
-				aNotes =  anArgs[0] + " does not match " + anArgs[1];
-			} else 
-				aNotes = anArgs[0] + " matches " + anArgs[1];
+//			if (!aResult) {
+//				aNotes =  "Not matched regular expression: " + anArgs[1];
+//			} else 
+//				aNotes =  "Matched regular expression: " + anArgs[1];
 					
 			return new ACheckerResult(aNotes, aResult);
 

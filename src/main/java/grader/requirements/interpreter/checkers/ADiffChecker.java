@@ -59,8 +59,8 @@ public class ADiffChecker implements InterpretedChecker{
 			DirectoryUtils.diff(anArgs[0],  anArg1File,
 					anArg2File, aResultFileName);
 			StringBuffer aDiffResult = Common.toText(aResultFileName);
-			if (aDiffResult.length() > 0)
-			aDiffResult.insert(0, "Model output diff actual output:\n");
+//			if (aDiffResult.length() > 0)
+//			aDiffResult.insert(0, "Model output diff actual output:\n");
 			String aNotes = aDiffResult.toString();
 			boolean aResult = aNotes.isEmpty();
 			return new ACheckerResult(aNotes, aResult);

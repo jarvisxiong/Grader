@@ -47,18 +47,21 @@ public class AnInterpretedTestCase extends BasicTestCase{
 		InterpretedChecker aChecker = InterpretedCheckerRegistry.getInterpretedChecker(aComparator);
 		int numArgs = aChecker.getNumArgs();
 		String[] anArgs = new String[numArgs];
+		String allArgs = "";
 		for (int i = 0; i < numArgs; i++) {
 			String anArg = csvRequirementsSpecification.getArg(featureNumber, i);
 			String anActualArg = InterpretedVariablesSubstituter.getValue(aSakaiProject, csvRequirementsSpecification, featureNumber, anOutput, anArg);
 			anArgs[i] = anActualArg;
+			allArgs += " " + anArg;
 		}
 		InterpretedCheckerResult aResult = aChecker.check(anArgs);
+		String aFunctionCall = aComparator + " " + allArgs;
 		
 //		if (checkable instanceof Feature && aResult.isSucceeded()) {
 		if (aResult.isSucceeded()) {
 			return pass("");
 		} else 
-			return fail(aResult.getNotes());
+			return fail(aFunctionCall + " failed \n" + aResult.getNotes());
 	}
 
 }

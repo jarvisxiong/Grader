@@ -1,4 +1,4 @@
-  -- Model output diff actual output:
+  -- diff  -i -w -b $ModelOutput $ActualOutput failed 
 1d0
 < Please   input   an  integer
 2a2

@@ -1,7 +1,2 @@
-  -- Please input a decimal
-Please input an integer
-The int addition:3
-The double addition:3.000000
-The int multiplication:2
-The double multiplication:2.000000
- does not match [\s\S]*int[\s\S]*decimal[\s\S]*
+  -- match  $ActualOutput [\s\S]*int[\s\S]*decimal[\s\S]* failed 
+
