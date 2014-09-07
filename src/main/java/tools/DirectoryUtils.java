@@ -375,10 +375,10 @@ public class DirectoryUtils {
 			String testText = Common.toText(testChild).replaceAll("\r\n", "\n");
 			if (!correctText.equals(testText)) {
 				Tracer.error("Not equal to test file:" + correctChild.getAbsolutePath());
-//				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
-//				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
-				System.out.println( "-----------------Correct Text-----------------\n" + correctText);
-				System.out.println("-----------------Test Text-----------------\n" + testText);
+				Tracer.info(DirectoryUtils.class, "-----------------Correct Text-----------------\n" + correctText);
+				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
+//				System.out.println( "-----------------Correct Text-----------------\n" + correctText);
+//				System.out.println("-----------------Test Text-----------------\n" + testText);
 				diff("", correctChild, testChild, null);
 				retVal = false;
 //				return false;

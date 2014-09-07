@@ -12,6 +12,8 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
     protected void add(FileProxy aFileProxy) {
         entries.add(aFileProxy);
         nameToFileProxy.put(aFileProxy.getAbsoluteName().toLowerCase(), aFileProxy);
+        nameToFileProxy.put(aFileProxy.getAbsoluteName(), aFileProxy); // added this for Unix systems
+
     }
 
     @Override
@@ -74,24 +76,63 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
         RootFolderProxyLoaded.newCase(getAbsoluteName(), this);
     }
     boolean debug;
-    @Override
-    public FileProxy getFileEntry(String name) {
-    	if (name == null) {
+
+
+    public FileProxy getFileEntryFromArg(String aName) {
+    	if (aName == null) {
     		System.out.println("Null file entry returning null proxy");
     		return null;
     	}
-    	String lowercase = name.toLowerCase(); // sometimes this gives an exception
+//    	String aCanonicalName = aName.toLowerCase(); // sometimes this gives an exception
+    	String aCanonicalName = aName;
+
 //        return nameToFileProxy.get(name.toLowerCase());
-    	FileProxy retVal = nameToFileProxy.get(lowercase);
+    	FileProxy retVal = nameToFileProxy.get(aCanonicalName);
+    	return retVal;
+//    	if (retVal == null && debug) {
+//    		Set<String> keys = nameToFileProxy.keySet();
+//    		for (String key:keys) {
+//    			System.out.println("comparing" + key + " and\n" + aCanonicalName);
+//    			if (key.equals(aCanonicalName)) return nameToFileProxy.get(key);
+//    		}
+//    	}
+//    	return retVal;
+    }
+    public FileProxy getFileEntry(String aName) {
+    	FileProxy retVal = getFileEntryFromArg(aName);
+    	if (retVal != null) 
+    	
+    		return retVal;
+    	String aCanonicalName = aName.toLowerCase();
+    	retVal = getFileEntryFromArg(aCanonicalName);
+    	
+//        return nameToFileProxy.get(name.toLowerCase());
     	if (retVal == null && debug) {
     		Set<String> keys = nameToFileProxy.keySet();
     		for (String key:keys) {
-    			System.out.println("comparing" + key + " and\n" + lowercase);
-    			if (key.equals(lowercase)) return nameToFileProxy.get(key);
+    			System.out.println("comparing" + key + " and\n" + aCanonicalName);
+    			if (key.equals(aCanonicalName)) return nameToFileProxy.get(key);
     		}
     	}
     	return retVal;
     }
-
+    
+//    public FileProxy getFileEntry(String aName) {
+//    	if (aName == null) {
+//    		System.out.println("Null file entry returning null proxy");
+//    		return null;
+//    	}
+//    	String aCanonicalName = aName.toLowerCase(); // sometimes this gives an exception
+////        return nameToFileProxy.get(name.toLowerCase());
+//    	FileProxy retVal = nameToFileProxy.get(aCanonicalName);
+//    	if (retVal == null && debug) {
+//    		Set<String> keys = nameToFileProxy.keySet();
+//    		for (String key:keys) {
+//    			System.out.println("comparing" + key + " and\n" + aCanonicalName);
+//    			if (key.equals(aCanonicalName)) return nameToFileProxy.get(key);
+//    		}
+//    	}
+//    	return retVal;
+//    }
 
 }
