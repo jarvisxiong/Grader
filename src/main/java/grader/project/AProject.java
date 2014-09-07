@@ -3,6 +3,7 @@ package grader.project;
 import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
+import framework.logging.loggers.FeedbackTextSummaryLogger;
 import grader.assignment.GradingFeature;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.MainClassFinder;
@@ -173,6 +174,7 @@ public class AProject implements Project {
             try {
                 rootCodeFolder = new ARootCodeFolder(rootFolder);
             } catch (ProjectFolderNotFound e) {
+            	FeedbackTextSummaryLogger.logNoSrcFolder(this);
                 setNoProjectFolder(true);
                 return;
             }
