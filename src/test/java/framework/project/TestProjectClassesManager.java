@@ -1,16 +1,21 @@
 package framework.project;
 
+import grader.config.ConfigurationManagerSelector;
 import grader.project.AProject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import scala.Option;
 import tools.TestConfig;
 
@@ -28,7 +33,11 @@ public class TestProjectClassesManager {
 
     @Before
     public void setUp() throws Exception {
-        validBuildLocation = TestConfig.getConfig().getString("test.exampleSakai.example1.build");
+
+
+        ConfigurationManagerSelector.getConfigurationManager().init(new String[0]);
+    	
+    	validBuildLocation = TestConfig.getConfig().getString("test.exampleSakai.example1.build");
         validSrcLocation = TestConfig.getConfig().getString("test.exampleSakai.example1.source");
         validTag = TestConfig.getConfig().getString("test.exampleSakai.example1.tag");
         simpleClassName = TestConfig.getConfig().getString("test.exampleSakai.example1.simpleName");

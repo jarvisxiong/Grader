@@ -5,6 +5,7 @@ import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
+import framework.logging.loggers.FeedbackTextSummaryLogger;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.AGradingFeatureList;
@@ -111,6 +112,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 
@@ -453,7 +455,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		
 
 		if (projectFolder == null) {
-
+			FeedbackTextSummaryLogger.logNoSubmission(anAssignment);
 			Tracer.error(ProjectFolderNotFound.newCase(anAssignment.getOnyen(), anAssignment.getStudentName(), this).getMessage()); // we will not throw this exception
 			if (AGradedProjectNavigator.doNotVisitNullProjects)
 			return null;
