@@ -68,6 +68,9 @@ public class ARootCodeFolder implements RootCodeFolder {
         binaryFolderName = aBinaryFolder;
         SourceFolderIdentified.newCase(sourceFolderName, this);
         BinaryFolderIdentified.newCase(binaryFolderName, this);
+        
+        System.out.println("&&&& " + sourceFolderName);
+        System.out.println("&&&& " + binaryFolderName);
 
     }
 
@@ -93,13 +96,17 @@ public class ARootCodeFolder implements RootCodeFolder {
         setSeparateSourceBinary();
         // should we not be doing this only if there is a separate source and binary?
         sourceFolderName = getFolderWithName(aRoot, SOURCE);
+//        sourceFolderName = getEntryWithSuffixAndrew(aRoot, SOURCE);
         binaryFolderName = getFolderWithName(aRoot, BINARY);
+//        binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY);
         // allow a set here
         if (binaryFolderName == null) {
             binaryFolderName = getFolderWithName(aRoot, BINARY_2);
+//            binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY_2);
         }
         if (binaryFolderName == null) {
             binaryFolderName = getFolderWithName(aRoot, BINARY_3);
+//            binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY_3);
         }
 //		if (sourceFolderName == null || binaryFolderName == null) {
         if (sourceFolderName == null && binaryFolderName == null) {
@@ -153,6 +160,8 @@ public class ARootCodeFolder implements RootCodeFolder {
             BinaryFolderNotFound.newCase(root.getAbsoluteName(), this);
         }
 
+        System.out.println("**** " + sourceFolderName);
+        System.out.println("**** " + binaryFolderName);
     }
 
     public boolean hasValidBinaryFolder() {
@@ -223,21 +232,40 @@ public class ARootCodeFolder implements RootCodeFolder {
     
     public static String getEntryWithSuffixAndrew(RootFolderProxy aRoot, String suffix) {
         Set<String> nameSet = aRoot.getEntryNames();
-        String zipSuffix = "";
-        for (String name : nameSet) {
-            String filename = Paths.get(name).getFileName().toString();
-            if (filename.endsWith(suffix)
-                    || filename.endsWith(suffix + System.getProperty("path.separator"))) {
-                if (name.contains(".zip")) {
-                    zipSuffix = name;
+        String zipPath = "";
+        for (String path : nameSet) {
+            if (path.contains(suffix + System.getProperty("file.separator"))) {
+                System.out.println(path);
+                String folderPath = path.substring(0, path.lastIndexOf(suffix) + suffix.length());
+                if (path.contains(".zip")) {
+                    zipPath = folderPath;
                 } else {
-                    return name;
+                    return folderPath;
                 }
+            } else if (path.endsWith(suffix) || path.endsWith(suffix + System.getProperty("file.separator"))) {
+                System.out.println(path);
+                return path;
             }
         }
-        if (!zipSuffix.isEmpty()) {
-            return zipSuffix;
+        if (!zipPath.isEmpty()) {
+            return zipPath;
         }
+//        Set<String> nameSet = aRoot.getEntryNames();
+//        String zipSuffix = "";
+//        for (String name : nameSet) {
+//            String filename = Paths.get(name).getFileName().toString();
+//            if (filename.endsWith(suffix)
+//                    || filename.endsWith(suffix + System.getProperty("file.separator"))) {
+//                if (name.contains(".zip")) {
+//                    zipSuffix = name;
+//                } else {
+//                    return name;
+//                }
+//            }
+//        }
+//        if (!zipSuffix.isEmpty()) {
+//            return zipSuffix;
+//        }
         return null;
     }
 		/*
@@ -249,7 +277,7 @@ public class ARootCodeFolder implements RootCodeFolder {
 
     public static String getFolderWithName(RootFolderProxy aRoot, String aName) {
         Set<String> nameSet = aRoot.getEntryNames();
-        String separator = System.getProperty("path.separator");
+        String separator = "/";
         for (String name : nameSet) {
             
             int index = name.indexOf(aName);
@@ -260,16 +288,18 @@ public class ARootCodeFolder implements RootCodeFolder {
             int intermediateIndex = name.indexOf(aName + separator);
             boolean nameEndsWithSuffix = name.length() == index + aName.length();
             // if name ends with suffix we should proceed, or if suffix/ is an intermediate directory in zip file path we should proceed
-//				if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
-//				if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
+//            if (!name.endsWith(suffix) && name.indexOf(suffix + "/") < 0)
+//            if (!(name.endsWith(suffix)|| name.indexOf(suffix + "/") >= 0))
             if (intermediateIndex < 0 // not an intermediate directory)
-                    && !nameEndsWithSuffix // not an end name
-                    ) {
+                    && !nameEndsWithSuffix) { // not an end name
                 continue; // in case src and bin are not followed by / and are in intermediate directories
-            }//				if (name.charAt(0) == '_')
-//					continue;
-//				if (name.indexOf("_macos") != -1)
-//					continue;
+            }
+//            if (name.charAt(0) == '_') {
+//                continue;
+//            }
+//            if (name.indexOf("_macos") != -1) {
+//		  continue;
+//            }        
             FileProxy proxy = aRoot.getFileEntry(name);
             String mixedCaseProxy = proxy.getMixedCaseAbsoluteName();
             if (nameEndsWithSuffix) //				return name.substring(0, index + suffix.length());
@@ -279,8 +309,8 @@ public class ARootCodeFolder implements RootCodeFolder {
                 return mixedCaseProxy.substring(0, intermediateIndex + aName.length());
             }
 
-//				if (name.endsWith(suffix))
-//					return name;
+//	  if (name.endsWith(suffix))
+//	  return name;
         }
         return null;
     }
