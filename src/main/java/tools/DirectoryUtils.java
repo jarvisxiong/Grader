@@ -307,6 +307,7 @@ public class DirectoryUtils {
 				Tracer.error("test file does not exist:" + testChild.getName());
 				retVal = false;
 //				return false;
+                                continue;
 			}
 			if (hasSuffix(correctChild.getName(), ignoreSuffixes)) {
                             continue;
