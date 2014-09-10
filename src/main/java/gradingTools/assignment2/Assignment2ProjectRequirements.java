@@ -22,14 +22,14 @@ public class Assignment2ProjectRequirements extends FrameworkProjectRequirements
         addFeature("Quoted string", 30, new QuotedStringTestCase());
 
         // Testing
-        addFeature("Debugging screenshots", 20, new ManualTestCase("Debugging screenshots test case"));
-        addFeature("Output screenshots", 10, new ManualTestCase("Output screenshots test case"));
+        addManualFeature("Debugging screenshots", 20, false);
+        addManualFeature("Output screenshots", 10, false);
 
         // Extra credit
-        addFeature("Variable spaces", 3, true, new ManualTestCase("Variable spaces test case"));
-        addFeature("Error message w/ missing quote", 3, true, new ManualTestCase("Missing quote test case"));
+        addManualFeature("Variable spaces", 3, true);
+        addManualFeature("Error message w/ missing quote", 3, true);
         addFeature("Custom isLetter method", 3, true, new IsLetterTestCase());
-        addFeature("Plus and minus tokens", 4, true, new ManualTestCase("Plus and minus tokens test case"));
+        addManualFeature("Plus and minus tokens", 4, true);
 
 
     }

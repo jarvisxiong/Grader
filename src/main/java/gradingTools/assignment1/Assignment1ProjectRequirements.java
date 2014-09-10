@@ -27,15 +27,15 @@ public class Assignment1ProjectRequirements extends FrameworkProjectRequirements
         addFeature("Terminates with period", 10, new TerminateWithPeriodTestCase());
 
         // Style
-        addFeature("One loop on string", 20, new QuestionTestCase("Is there only one loop over the input string?", "Input string one loop test case"));
+        addManualFeature("One loop on string", 20, new QuestionTestCase("Is there only one loop over the input string?", "Input string one loop test case"));
         addFeature("Two methods", 10, new TwoMethodTestCase());
-        addFeature("Screenshots", 10, new QuestionTestCase("Are there screenshots included which show test data output?", "Screenshots testcase"));
+        addManualFeature("Screenshots", 10, new QuestionTestCase("Are there screenshots included which show test data output?", "Screenshots testcase"));
 
         // TODO: Extra Credit
-        addFeature("Handle invalid chars", 2, true, new ManualTestCase("Invalid character test case"));
-        addFeature("No-array parser class", 10, true, new ManualTestCase("Separate parser class w/out array test case"));
-        addFeature("Variable spaces", 5, true, new ManualTestCase("Supports a variable number of spaces test case"));
-        addFeature("Nice code", 10, true, new ManualTestCase("Nice code test case"));
+        addManualFeature("Handle invalid chars", 2, true);
+        addManualFeature("No-array parser class", 10, true);
+        addManualFeature("Variable spaces", 5, true);
+        addManualFeature("Nice code", 10, true);
 
         // Restrictions
         addRestriction("No .split allowed", -10, new NoSplitTestCase());

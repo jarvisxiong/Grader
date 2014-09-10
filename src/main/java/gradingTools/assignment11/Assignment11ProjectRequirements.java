@@ -40,10 +40,10 @@ public class Assignment11ProjectRequirements extends ExtendedProjectRequirements
 
         //Parsing (70)
         addFeature("Methods for all 8 nonterminals", 10, new ParserMethodChecker());
-        addFeature("Recursive cmd list commands", 40,
+        addManualFeature("Recursive cmd list commands", 40,
                 new QuestionTestCase("Does the command list parser recursively parse?", "Recursive command list test case"),
                 new QuestionTestCase("Test the command interpreter. Do command lists work properly?", "Command list functionality test case"));
-        addFeature("Recursive repeat commands", 20,
+        addManualFeature("Recursive repeat commands", 20,
                 new QuestionTestCase("Does the repeat command parser recursively parse?", "Recursive repeat command test case"),
                 new QuestionTestCase("Test the command interpreter. Do repeat commands work properly?", "Command list functionality test case"));
 

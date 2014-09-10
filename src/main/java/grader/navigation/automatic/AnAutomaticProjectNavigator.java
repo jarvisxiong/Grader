@@ -1,9 +1,5 @@
 package grader.navigation.automatic;
 
-import javax.swing.JOptionPane;
-
-import util.misc.ClearanceManager;
-import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -14,6 +10,11 @@ import grader.trace.settings.AutomaticNavigationEnded;
 import grader.trace.settings.AutomaticNavigationStarted;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
+import util.misc.ClearanceManager;
+import util.misc.ThreadSupport;
 
 public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator {
 
@@ -71,7 +72,9 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator {
                     clearanceManager.waitForClearance();
                 }
             }
+            System.out.println("&&& " + Arrays.toString(database.getOnyenNavigationList().toArray()));
             if (projectStepper.getCurrentOnyenIndex() < onyensSize - 1) {
+                System.out.println("&&& " + projectStepper.getOnyen());
                 projectStepper.move(true);
             } else {
                 projectStepper.save();

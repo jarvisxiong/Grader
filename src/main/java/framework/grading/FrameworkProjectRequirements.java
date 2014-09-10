@@ -68,6 +68,14 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public void addManualFeature(String name, double points, boolean extraCredit) {
         addFeature(new Feature(true, name, points, extraCredit, (TestCase) null));
     }
+    
+    public void addManualFeature(String name, double points, TestCase ... testCases) {
+        addFeature(new Feature(true, name, points, false, testCases));
+    }
+    
+    public void addManualFeature(String name, double points, boolean extraCredit, TestCase ... testCases) {
+        addFeature(new Feature(true, name, points, extraCredit, testCases));
+    }
 
     // Restriction adding methods
 

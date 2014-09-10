@@ -44,6 +44,7 @@ public class TestCaseResult {
      * @param autograded Whether the test was autonomously graded
      */
     public TestCaseResult(double percentage, String notes, String name, boolean autograded) {
+        System.out.println("### " + name + ": " + percentage);
         this.percentage = Math.min(Math.max(percentage, 0), 1);
         this.notes = notes;
         this.name = name;

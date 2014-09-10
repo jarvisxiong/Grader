@@ -15,9 +15,9 @@ import gradingTools.assignment6.testCases.*;
 public class Assignment6ProjectRequirements extends FrameworkProjectRequirements {
     public Assignment6ProjectRequirements() {
 
-        addFeature(new Feature("Gorge and bridge", 10, new QuestionTestCase("Is there a gorge and bridge?", "Gorge and bridge test case")));
-        addFeature(new Feature("Two standing areas", 10, new QuestionTestCase("Are there two standing areas", "Standing areas test case")));
-        addFeature(new Feature("Avatar init in constructor", 10, new QuestionTestCase("Are the avatars initialized & positioned in their constructors?", "Avatar init test case")));
+        addManualFeature("Gorge and bridge", 10, new QuestionTestCase("Is there a gorge and bridge?", "Gorge and bridge test case"));
+        addManualFeature("Two standing areas", 10, new QuestionTestCase("Are there two standing areas", "Standing areas test case"));
+        addManualFeature("Avatar init in constructor", 10, new QuestionTestCase("Are the avatars initialized & positioned in their constructors?", "Avatar init test case"));
         addFeature(new Feature("Approach method", 15,
                 new TaggedMethodTestCase("approach", "Approach tag test case"),
                 new QuestionTestCase("Does the approach method use the occupied property?", "Approach property test case"),
@@ -47,9 +47,9 @@ public class Assignment6ProjectRequirements extends FrameworkProjectRequirements
 
         // Define extra credit
 
-        addFeature(new Feature("3D Gorge", 3, true, new QuestionTestCase("Are there 3D effects for the gorge/bridge?", "3D gorge test case")));
-        addFeature(new Feature("Animated bridge crossing", 3, true, new QuestionTestCase("Is there animated falling?", "Animated crossing test case")));
-        addFeature(new Feature("Rotated/animated falling", 3, true, new QuestionTestCase("Is there animated crossing?", "Animated falling test case")));
+        addManualFeature("3D Gorge", 3, true, new QuestionTestCase("Are there 3D effects for the gorge/bridge?", "3D gorge test case"));
+        addManualFeature("Animated bridge crossing", 3, true, new QuestionTestCase("Is there animated falling?", "Animated crossing test case"));
+        addManualFeature("Rotated/animated falling", 3, true, new QuestionTestCase("Is there animated crossing?", "Animated falling test case"));
 
         // Define the restrictions
 
