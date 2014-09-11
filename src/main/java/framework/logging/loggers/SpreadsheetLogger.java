@@ -109,6 +109,11 @@ public class SpreadsheetLogger implements Logger {
 		else
 			rawScore = featuresBasedSave(row, recordingSession);
 		
+		if (rawScore < 0) {
+			System.out.println ("Negative score, making it 0:"+ rawScore);
+
+			rawScore = 0;
+		}
 		int rowNum = row.getRowNum() + 1;
 //		int columnCounter = 7;
 //		for (CheckResult result : recordingSession.getFeatureResults()) {
@@ -123,6 +128,7 @@ public class SpreadsheetLogger implements Logger {
 		// Save the final scores
 		row.getCell(4).setCellValue(rawScore);
 		System.out.println("Saving score:" + rawScore);
+		
 		row.getCell(5).setCellValue(recordingSession.getLatePenalty());
 		row.getCell(6).setCellFormula("E" + rowNum + "*F" + rowNum);
 

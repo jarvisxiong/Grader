@@ -363,7 +363,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 			aScore += aGradingFeature.getScore();
 		}
 		if (aScore < 0) {
-			Tracer.error("Negative computed Score!");
+			System.out.println("Negative computed Score, making it 0!");
+			aScore = 0;
 		}
 //		setScore(aScore);
 		internalSetScore(aScore);

@@ -89,6 +89,10 @@ public class RecordingSession {
 	}
 
 	public void setScore(double score) {
+		if (score < 0) {
+			System.out.println ("Negative score, making it 0: " + score);
+			score = 0;
+		}
 		this.score = score;
 	}
 	
