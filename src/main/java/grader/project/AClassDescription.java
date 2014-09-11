@@ -222,7 +222,10 @@ public class AClassDescription  implements ClassDescription {
 	public String getPackageName() {
 		return packageName;
 	}
-	
+	@Override
+	public Project getProject() {
+		return project;
+	}
 	
 	@Override
 	public  String[] getTags() {

@@ -35,6 +35,7 @@ public interface ClassDescription {
     CompilationUnit getCompilationUnit() throws IOException;
     public FileProxy getSourceFile() ;
 	public void setSourceFile(FileProxy sourceFile) ;
+	Project getProject();
 	
 	
 //	public List<String> getClassNamesThatCouldNotBeCompiled();

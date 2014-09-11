@@ -8,6 +8,7 @@ import grader.project.Project;
 import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
+import grader.sakai.project.SakaiProject;
 import grader.trace.source.SourceFileComputed;
 import grader.trace.source.SourceFileLoaded;
 import grader.trace.source.SourceFileSaved;
@@ -103,8 +104,12 @@ public class AClassesTextManager implements ClassesTextManager {
         int totalTextSize = totalTextSize(sourceClasses) + sourceClasses.size() * (SOURCE_SUFFIX.length() + SOURCE_PREFIX.length() + MAX_FILE_NAME_LENGTH);
         StringBuffer retVal = new StringBuffer(totalTextSize);
         for (ViewableClassDescription viewable : sourceClasses) {
-        	String fileName = viewable.getClassDescription().getSourceFile().getParentRelativeName();
-        	String prefix = SOURCE_PREFIX + fileName + "\n";
+        	SakaiProject aProject =  (SakaiProject) viewable.getClassDescription().getProject();
+        	String aProjectFolderName = aProject.getProjectFolderName();
+        	String aLocalName = Common.toRelativeName(aProjectFolderName, viewable.getClassDescription().getSourceFile().getAbsoluteName());
+//        	String fileName = viewable.getClassDescription().getSourceFile().getParentRelativeName();
+//        	String prefix = SOURCE_PREFIX + fileName + "\n";
+        	String prefix = SOURCE_PREFIX + aLocalName + "\n";
         	retVal.append(prefix);
             retVal.append(viewable.getClassDescription().getText());
             retVal.append(SOURCE_SUFFIX);
