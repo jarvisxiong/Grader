@@ -14,4 +14,6 @@ public interface GenericStudentAssignmentDatabase<GenericAssignment> {
 
 	void cleanAllFeedbackAndSubmissionFolders();
 
+	void cleanFeedbackAndSubmissionFolder(String anOnyen);
+
 }

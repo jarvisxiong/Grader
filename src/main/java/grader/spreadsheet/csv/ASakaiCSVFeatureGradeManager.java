@@ -170,6 +170,24 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 		
 	}
+	@Override
+	public void clearGrades(String anOnyen, String aStudentName) {
+    try {
+			
+
+			maybeCreateTable();
+			clearStudentRow(table, aStudentName, anOnyen);
+			
+		
+		    writeTable();
+
+
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		
+	}
+	}
 	
 	@Override
 	public void setResultFormat(String aStudentName, String anOnyen, String aFeature,

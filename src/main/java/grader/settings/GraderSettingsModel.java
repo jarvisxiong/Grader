@@ -38,5 +38,6 @@ public interface GraderSettingsModel extends PropertyListenerRegistrar, Property
 	public void togglePrivacyMode() ;
 	boolean getCompileMode();
 	boolean maybePreCompile();
+	void cleanSlate(String anOnyen);
 
 }

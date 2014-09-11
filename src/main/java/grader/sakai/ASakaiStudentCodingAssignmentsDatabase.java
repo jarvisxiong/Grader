@@ -53,4 +53,11 @@ public class ASakaiStudentCodingAssignmentsDatabase extends AnAbstractSakaiStude
     	}
     	
     }
+	@Override
+	public void cleanFeedbackAndSubmissionFolder(String anOnyen) {
+		StudentAssignment aStudentAssignment = nameToStudentAssignment.get(anOnyen);
+		if (aStudentAssignment != null)
+			aStudentAssignment.cleanFeedbackFolder();
+			aStudentAssignment.cleanSubmissionFolder();
+	}
 }

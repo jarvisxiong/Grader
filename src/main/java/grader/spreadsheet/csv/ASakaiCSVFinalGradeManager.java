@@ -84,6 +84,17 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		
 	}
 	
+	public void clearStudentRow(List<String[]> aSheet, String aStudentName, String anOnyen) {
+		 String[] aRow = getStudentRow(aSheet, aStudentName, anOnyen);
+		 if (aRow != null) {
+			 for (int aColumn = 0; aColumn < aRow.length; aColumn++) {
+				 if (aColumn == ONYEN_COLUMN) continue;
+				 aRow[aColumn] = "";
+			 }
+		 }
+		
+	}
+	
 	public void recordGrade (String[] aRow, double aScore) {
 		recordGrade(aRow, GRADE_COLUMN, aScore);
 

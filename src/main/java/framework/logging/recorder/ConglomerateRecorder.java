@@ -381,4 +381,10 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 		recordingSession.setSourcePoints(aScore);
 		
 	}
+
+	@Override
+	public void clearGrades(String anOnyen, String aStudentName) {
+		// TODO Auto-generated method stub
+		
+	}
 }

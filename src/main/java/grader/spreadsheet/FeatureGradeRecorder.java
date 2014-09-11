@@ -41,5 +41,6 @@ public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	void saveSourceCodeComments(String comments);
 	double getSourcePoints(String aStudentName, String anOnyen);
 	void setSourcePoints(String aStudentName, String anOnyen, double aScore);
+	void clearGrades(String anOnyen, String aStudentName);
 	
 }

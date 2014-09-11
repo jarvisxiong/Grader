@@ -38,6 +38,7 @@ import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
+import grader.spreadsheet.FeatureGradeRecorder;
 import grader.trace.settings.DownloadPathUserChange;
 import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.GraderSettingsStarted;
@@ -722,6 +723,16 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
         projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
+    }
+    
+    @Override
+    public void cleanSlate(String anOnyen) {
+        maybeCreateProjectDatabase();
+        FeatureGradeRecorder featureGradeRecorder = projectDatabase.getFeatureGradeRecorder();
+       featureGradeRecorder.clearGrades(anOnyen, "");
+
+//        projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
+        projectDatabase.getStudentAssignmentDatabase().cleanFeedbackAndSubmissionFolder(anOnyen);
     }
 
 //	public void maybePreCompile() {
