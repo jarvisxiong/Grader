@@ -33,25 +33,25 @@ public class Assignment8ProjectRequirements extends FrameworkProjectRequirements
                 new ConsoleViewConstructorAddListenerTestCase());
 
         // Part 3
-        addFeature("Move demo", 10,
+        addManualFeature("Move demo", 10,
                 new QuestionTestCase("Does the avatar move?", "Move test case"),
                 new QuestionTestCase("Are the move events printed to the console?", "Move event test case"));
-        addFeature("Rotate demo", 10,
+        addManualFeature("Rotate demo", 10,
                 new QuestionTestCase("Do the avatar parts rotate?", "Rotate test case"),
                 new QuestionTestCase("Are the rotate events printed to the console?", "Rotate event test case"));
-        addFeature("Text demo", 10,
+        addManualFeature("Text demo", 10,
                 new QuestionTestCase("Does the avatar's text change?", "Text test case"),
                 new QuestionTestCase("Is the text event printed to the console?", "Text event test case"));
 
         // Extra credit
-        addFeature(new Feature("Awesome demo", 5, true, new ManualTestCase("Awesome demo test case")));
+        addManualFeature("Awesome demo", 5, true);
 
         // Define the restrictions
-        addRestriction(new Restriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case")));
-        addRestriction(new Restriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case")));
-        addRestriction(new Restriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case")));
-        addRestriction(new Restriction("Main class in correct package.", -5, new MainClassTestCase("Assignment8", "Main method test case")));
-        addRestriction(new Restriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case")));
+        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
+        addRestriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case"));
+        addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
+        addRestriction("Main class in correct package.", -5, new MainClassTestCase("Assignment8", "Main method test case"));
+        addRestriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case"));
 
     }
 }

@@ -61,16 +61,16 @@ public class Assignment7ProjectRequirements extends FrameworkProjectRequirements
 
         addFeature("Command interpreter tag", 5, new CmdIntTagTestCase());
         addFeature("Editable property", 5, new CmdIntEditablePropTestCase());
-        addFeature("Command interpretation", 25,
+        addManualFeature("Command interpretation", 25,
                 new QuestionTestCase("In the command interpreter, Does the command get scanned?", "Command interpreter scanning test case"),
                 new QuestionTestCase("Does the command interpreter correctly identify 'move' and 'say' commands?", "Command interpreter move/say test case"),
                 new QuestionTestCase("Does the command interpreter invoke the move or say method?", "Command interpreter method invoke test case"),
                 new QuestionTestCase("Is the command interpreter demoed?", "Command interpreter demo test case"));
 
         // Extra credit
-        addFeature("Move supports signs and is tagged", 5, true, new ManualTestCase("Signed move test case"));
-        addFeature("Interpreter detects errors and is tagged", 5, true, new ManualTestCase("Error resilient test case"));
-        addFeature("Nice Demo", 5, true, new ManualTestCase("Nice demo test case"));
+        addManualFeature("Move supports signs and is tagged", 5, true);
+        addManualFeature("Interpreter detects errors and is tagged", 5, true);
+        addManualFeature("Nice Demo", 5, true);
 
         // Define the restrictions
 

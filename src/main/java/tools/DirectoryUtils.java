@@ -380,7 +380,7 @@ public class DirectoryUtils {
 				Tracer.info(DirectoryUtils.class,"-----------------Test Text-----------------\n" + testText);
 //				System.out.println( "-----------------Correct Text-----------------\n" + correctText);
 //				System.out.println("-----------------Test Text-----------------\n" + testText);
-				diff("", correctChild, testChild, null);
+				diff("-w", correctChild, testChild, null);
 				retVal = false;
 //				return false;
 			} else {

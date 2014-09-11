@@ -3,6 +3,7 @@ package gradingTools;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
+import java.util.Arrays;
 import framework.grading.AGUIGradingManager;
 import framework.grading.AHeadlessGradingManager;
 import framework.grading.GradingManager;
@@ -80,7 +81,9 @@ public class Driver {
 
         controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
 //        if (!controller.equals("AHeadlessGradingManager")) {
-        if (!controller.equals(GradingMangerType.A_HEADLESS_GRADING_MANAGER)) {
+        if (isHeadless()) {
+            ObjectEditor.setShowStartView(false);
+        } else {
             ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
             ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
         }
@@ -151,14 +154,11 @@ public class Driver {
 
                 settingsModel.init();
             }
-            
-        for(String arg : args) {
-                System.out.println("^ " + arg);
-            if (arg.equals("--clean-slate")) {
-                System.out.println("!!!");
-               settingsModel.cleanSlate();
+            for(String arg : args) {
+                if (arg.equals("--clean-slate")) {
+                    settingsModel.cleanSlate();
+                }
             }
-        }
             if (isNotHeadless()) {
                 settingsFrame = ObjectEditor.edit(settingsModel);
                 settingsFrame.setLocation(settingsFrameX, settingsFrameY);
@@ -174,6 +174,7 @@ public class Driver {
                 settingsModel.preSettings();
                 settingsModel.postSettings();
                 settingsModel.begin();
+                settingsModel.cleanSlate();
             }
 //            settingsModel.maybePreCompile();
             initAssignmentDataFolder();

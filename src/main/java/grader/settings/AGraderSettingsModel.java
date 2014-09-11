@@ -133,7 +133,9 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public void init() {
-        graderStarted = false;
+        
+        setGraderStarted(false);
+        //graderStarted = false;
 //		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
         moduleProblemManager = ModuleProblemManagerSelector.getModuleProblemManager();
@@ -588,7 +590,8 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     public synchronized void preSettings() {
         GraderSettingsStarted.newCase(this, this);
 
-        graderStarted = false;
+         setGraderStarted(false);
+        //graderStarted = false;
     }
     
     public synchronized void postSettings() {
@@ -599,7 +602,8 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
         
             saveSettings();
-            graderStarted = true;
+            setGraderStarted(true);
+            //graderStarted = true;
             GraderSettingsEnded.newCase(this, this);
 
             // this can cause concurrent changed to object editor  leading to race conditions
@@ -645,6 +649,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public void setGraderStarted(boolean graderStarted) {
+        System.out.println("Grader started: " + this.graderStarted + " -> " + graderStarted);
         this.graderStarted = graderStarted;
         propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 

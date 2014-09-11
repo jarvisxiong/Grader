@@ -180,7 +180,9 @@ public class AGradingFeature implements GradingFeature {
 	
 	public static String getFeedbackFolderName (SakaiProject aProject) {
 		FileProxy feedbackFolder = aProject.getStudentAssignment().getFeedbackFolder();
-		return feedbackFolder.getAbsoluteName() + "/";
+//		return feedbackFolder.getAbsoluteName() + "/";
+		return feedbackFolder.getMixedCaseAbsoluteName() + "/";
+
 	}
 
 	public void setProject(SakaiProject aProject) {
