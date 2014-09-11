@@ -151,6 +151,14 @@ public class Driver {
 
                 settingsModel.init();
             }
+            
+        for(String arg : args) {
+                System.out.println("^ " + arg);
+            if (arg.equals("--clean-slate")) {
+                System.out.println("!!!");
+               settingsModel.cleanSlate();
+            }
+        }
             if (isNotHeadless()) {
                 settingsFrame = ObjectEditor.edit(settingsModel);
                 settingsFrame.setLocation(settingsFrameX, settingsFrameY);
