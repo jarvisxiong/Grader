@@ -23,13 +23,16 @@ public class BalancePrintingTestCase extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		Random r= new Random();
 		int depo=r.nextInt();
-		int withd=r.nextInt(depo+1);
+		int withd=r.nextInt(depo);
+		while(withd>depo){
+			withd=r.nextInt(depo);
+		}
 		int result=depo-withd;
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 3,""+depo);
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+depo);
 		String initialbalanceoutput=runningProject.await();
 		boolean print1=false;
 		if(initialbalanceoutput.contains(""+depo))print1=true;
-		RunningProject runningProject2=RunningProjectUtils.runProject(project, 3,""+depo+"\n"+withd);
+		RunningProject runningProject2=RunningProjectUtils.runProject(project, 10,""+depo+"\n"+withd);
 		String finalbalanceoutput=runningProject2.await();
 		boolean print2=false;
 		if(finalbalanceoutput.contains(""+(depo-withd)))print2=true;

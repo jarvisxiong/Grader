@@ -22,9 +22,8 @@ public class WelcomeThankYouTest extends BasicTestCase {
 		boolean hasWelcome=false;
 		boolean hasThankYou=false;
 		try{
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 3,"200\n55");
-			String output=runningProject.await();
-			output.toLowerCase();
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 10,"200\n55");
+			String output=runningProject.await().toLowerCase();
 			if(output.contains("welcome")||output.contains("hi")||output.contains("hello"))
 				hasWelcome=true;
 			if(output.contains("thank")) hasThankYou=true;

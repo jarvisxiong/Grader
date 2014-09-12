@@ -18,13 +18,13 @@ public class PromptTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 3,"");
-		String output0=Project0.await();
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		String output0=Project0.await().toLowerCase();
 		boolean hasdepo=false;
 		if(output0.contains("depo"))hasdepo=true;
 		
-		RunningProject Project1 = RunningProjectUtils.runProject(project,3,"5");
-		String output1=Project1.await();
+		RunningProject Project1 = RunningProjectUtils.runProject(project,10,"5");
+		String output1=Project1.await().toLowerCase();
 		boolean haswithd=false;
 		if(output1.contains("withd"))haswithd=true;
 		
