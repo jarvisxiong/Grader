@@ -214,6 +214,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		showStudentHistory();
 		showMain();
 		syncSource();
+//		cleanUpOnyen();
 		quit1();
 //		System.exit(0);
 		secondSession();
@@ -247,6 +248,17 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 	public  void waitForNavigator2() {
 		clearanceManager.setStepDescription("Now wait until the navigator UI comes up and then press proceed to go to first navigation step in the second round. There should be no autograding this time.");
 		waitForUserOrMediumSleep();
+	}
+	
+	public void cleanUpOnyen() {
+		clearanceManager.setStepDescription("Now proceed to clean up acorrect so that it is regraded");
+		if (clearanceManager.isAutoPerformStep()) {
+			Driver.getSettingsModel().cleanSlate("acorrect");
+
+		
+		}
+		
+
 	}
 	
 	public  void initializeAndChangeProblem() {
@@ -525,6 +537,8 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep()) {
+//			cleanUpOnyen();
+
 			
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 		}

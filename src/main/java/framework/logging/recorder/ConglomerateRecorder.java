@@ -384,7 +384,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 
 	@Override
 	public void clearGrades(String anOnyen, String aStudentName) {
-		// TODO Auto-generated method stub
+		basicFeatureGradeRecorder.clearGrades(anOnyen, aStudentName);
 		
 	}
 }

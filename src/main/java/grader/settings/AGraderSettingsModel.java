@@ -29,6 +29,7 @@ import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
 import grader.project.AProject;
 import grader.project.graded.OverviewProjectStepper;
+import grader.sakai.StudentAssignment;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.folders.AGraderFilesSetterModel;
@@ -729,10 +730,17 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     public void cleanSlate(String anOnyen) {
         maybeCreateProjectDatabase();
         FeatureGradeRecorder featureGradeRecorder = projectDatabase.getFeatureGradeRecorder();
+      
        featureGradeRecorder.clearGrades(anOnyen, "");
+       SakaiProject aProject = projectDatabase.getProject(anOnyen);
+       StudentAssignment aStudentAssignment = aProject.getStudentAssignment();
+       if (aStudentAssignment != null) {
+    	   aStudentAssignment.cleanFeedbackFolder();
+    	   aStudentAssignment.cleanSubmissionFolder();
+       }
 
 //        projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
-        projectDatabase.getStudentAssignmentDatabase().cleanFeedbackAndSubmissionFolder(anOnyen);
+//        projectDatabase.getStudentAssignmentDatabase().cleanFeedbackAndSubmissionFolder(anOnyen);
     }
 
 //	public void maybePreCompile() {
