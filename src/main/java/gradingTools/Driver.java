@@ -154,11 +154,41 @@ public class Driver {
 
                 settingsModel.init();
             }
-            for(String arg : args) {
-                if (arg.equals("--clean-slate")) {
-                    settingsModel.cleanSlate();
+            
+            // handle the clean slate argss
+            for(int i = 0; i < args.length; i ++) {
+                if (args[i].equals("--clean-slate")) {
+                    i++;
+                    if (i == args.length || args[i].startsWith("-")) {
+                        settingsModel.cleanSlate();
+                        break;
+                    } else {
+                        String onyenArg = args[i];
+                        if (onyenArg.startsWith("{")) {
+                            String[] onyenList = onyenArg.substring(1, onyenArg.length() - 1).split(",");
+                            for(String onyen : onyenList) {
+                                if (onyen.contains("-")) {
+                                    String[] onyenLimits = onyen.split("-");
+        //                            settingsModel.cleanSlate(onyenLimits[0], onyenLimits[1]);
+                                } else {
+                                    settingsModel.cleanSlate(onyen);
+                                }
+                            }
+                        } else if (onyenArg.contains("-")) {
+                            String[] onyenLimits = onyenArg.split("-");
+//                            settingsModel.cleanSlate(onyenLimits[0], onyenLimits[1]);
+                        } else {
+                            settingsModel.cleanSlate(onyenArg);
+                        }
+                        break;
+                    }
                 }
             }
+//            for(String arg : args) {
+//                if (arg.equals("--clean-slate")) {
+//                    settingsModel.cleanSlate();
+//                }
+//            }
             if (isNotHeadless()) {
                 settingsFrame = ObjectEditor.edit(settingsModel);
                 settingsFrame.setLocation(settingsFrameX, settingsFrameY);

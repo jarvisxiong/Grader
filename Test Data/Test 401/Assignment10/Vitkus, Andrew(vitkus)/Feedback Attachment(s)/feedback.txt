@@ -1,0 +1,47 @@
+Grading result for: Vitkus, Andrew(vitkus)
+
+Grading features...
+----------------------------------
+Precondition methods                                   6.0 / 12.0
+Console view shows precond events                      0.0 / 12.0
+Say & move cmd objects                                 5.0 /  5.0
+Move cmd constructor                                   0.0 /  3.0
+Say cmd constructor                                    3.0 /  3.0
+Say and move parsers                                   5.0 /  5.0
+Command object invoked                                 0.0 /  5.0
+Animating methods                                      5.0 /  5.0
+Methods start new threads                              0.0 / 10.0
+Animating command classes                              0.0 / 20.0
+Animator classes                                       0.0 / 20.0
+Guard animation                                        2.5 /  5.0 (Extra credit)
+Precondition buttons                                   0.0 / 10.0 (Extra credit)
+Awesome demo                                           0.0 /  5.0 (Extra credit)
+----------------------------------
+  Points Awarded: 26.5
+
+  Features Score: 26.5
+
+Notes from grading features:
+----------------------------------
+Precondition methods:
+  -- Could not find a precondition method associated with: passed
+  -- Could not find a precondition method associated with: failed
+
+Move cmd constructor:
+  -- No constructor taking 1 avatar and 2 ints.
+
+Command object invoked:
+  -- Couldn't find a parser invoker that called .run()
+
+Methods start new threads:
+  -- Could not find .start() in the async method
+  -- Could not find .start() in the async method
+  -- Could not find .start() in the async method
+  -- Could not find .start() in the async method
+
+Guard animation:
+  -- Could not find .start() in the async method
+
+
+Early benefit: 105.0%
+  Total Score: 27.825000000000003

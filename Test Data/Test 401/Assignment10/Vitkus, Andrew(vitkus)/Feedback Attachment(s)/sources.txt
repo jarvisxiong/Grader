@@ -1,0 +1,5587 @@
+//START OF FILE: src/commandengine/commands/approachcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.avatar.IAvatar;
+import graphics.view.IBridgeScene;
+
+@Tags({ "Move Command" })
+public class ApproachCommand implements IApproachCommand {
+	private IAvatar avatar;
+	private IBridgeScene scene;
+	
+	public ApproachCommand(IBridgeScene scene, IAvatar avatar) {
+		this.scene = scene;
+		this.avatar = avatar;
+	}
+
+	@Override
+	public void run() {
+		scene.approach(avatar);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/clapcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.avatar.IAvatar;
+
+@Tags({ "Clap Command" })
+public class ClapCommand implements IClapCommand {
+	private IAvatar avatar;
+	private int claps;
+	
+	public ClapCommand(IAvatar avatar, int claps) {
+		this.avatar = avatar;
+		this.claps = claps;
+	}
+
+	@Override
+	public void run() {
+		Thread right;
+		Thread left;
+		int dir = 1;
+		for(int i = 0; i < claps; i ++) {
+			//System.out.println(i);
+			
+			right = new Thread(new RotateRightArmCommand(avatar, 19 * dir));
+			left = new Thread(new RotateLeftArmCommand(avatar, -19 * dir));
+
+			right.start();
+			left.start();
+			
+			try {
+				right.join();
+				left.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			dir *= -1;
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/failcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.view.IBridgeScene;
+
+@Tags({ "Fail Command" })
+public class FailCommand implements IFailCommand {
+	private IBridgeScene scene;
+	
+	public FailCommand(IBridgeScene scene) {
+		this.scene = scene;
+	}
+
+	@Override
+	public void run() {
+		scene.fail();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/iapproachcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Approach Command" })
+public interface IApproachCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/iclapcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Clap Command" })
+public interface IClapCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/icommand.java
+package commandEngine.commands;
+
+public interface ICommand extends Runnable {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/ifailcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Fail Command" })
+public interface IFailCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/imovecommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Move Command" })
+public interface IMoveCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/ipasscommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Pass Command" })
+public interface IPassCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/irotateleftarmcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Rotate Left Arm Command" })
+public interface IRotateLeftArmCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/irotaterightarmcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Rotate Right Arm Command" })
+public interface IRotateRightArmCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/isaycommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+
+@Tags({ "Say Command" })
+public interface ISayCommand extends ICommand {
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/movecommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.avatar.IAvatar;
+import graphics.shapes.IRotatingLine;
+
+@Tags({ "Move Command" })
+public class MoveCommand implements IMoveCommand {
+	private IAvatar avatar;
+	private int x, y;
+
+	private static final int DELAY = 10;
+	
+	public MoveCommand(IAvatar avatar, int x, int y) {
+		this.avatar = avatar;
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public void run() {
+		double dx = x;
+		double dy = y;
+		if (avatar == null) {
+			return;
+		}
+		double dydx = (double) dy / dx;
+		double dxdy = (double) dx / dy;
+	
+		// System.out.println("dydx: " + dydx + ", dxdy: " + dxdy);
+		int turnDir = -1;
+		int xDir = dx >= 0 ? 1 : -1;
+		int yDir = dy >= 0 ? 1 : -1;
+	
+		dx = Math.abs(dx);
+		dy = Math.abs(dy);
+	
+		IRotatingLine leftLeg = avatar.getLegs().getLeftLine();
+	
+		// System.out.println(dydx);
+	
+		if (dx == 0) {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (dy == 0) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (dydx < 1) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if ((int) (dy - dydx) != (int) dy) {
+					avatar.move(0, yDir);
+				}
+				dy -= dydx;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (Math.abs(dydx - 1) < 0.01) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if ((int) (dx - dydx) != (int) dx) {
+					avatar.move(xDir, 0);
+					dx -= dxdy;
+				}
+				dx -= dxdy;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		}
+	}
+
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/passcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.view.IBridgeScene;
+
+@Tags({ "Pass Command" })
+public class PassCommand implements IPassCommand {
+	private IBridgeScene scene;
+	
+	public PassCommand(IBridgeScene scene) {
+		this.scene = scene;
+	}
+
+	@Override
+	public void run() {
+		scene.pass();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/rotateleftarmcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.avatar.IAvatar;
+
+@Tags({ "Rotate Left Arm Command" })
+public class RotateLeftArmCommand implements IRotateLeftArmCommand {
+	private IAvatar avatar;
+	private int steps;
+
+	private final static int DELAY = 50;
+	
+	public RotateLeftArmCommand(IAvatar avatar, int steps) {
+		this.avatar = avatar;
+		this.steps = steps;
+	}
+
+	@Override
+	public void run() {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateLeftArm(dir);
+			sleep(DELAY);
+		}
+	}
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/rotaterightarmcommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.avatar.IAvatar;
+
+@Tags({ "Rotate Right Arm Command" })
+public class RotateRightArmCommand implements IRotateRightArmCommand {
+	private IAvatar avatar;
+	private int steps;
+
+	private final static int DELAY = 50;
+	
+	public RotateRightArmCommand(IAvatar avatar, int steps) {
+		this.avatar = avatar;
+		this.steps = steps;
+	}
+
+	@Override
+	public void run() {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateRightArm(dir);
+			sleep(DELAY);
+		}
+	}
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/commandengine/commands/saycommand.java
+package commandEngine.commands;
+
+import util.annotations.Tags;
+import graphics.view.IBridgeScene;
+
+@Tags({ "Say Command" })
+public class SayCommand implements ISayCommand {
+	private IBridgeScene scene;
+	private String text;
+
+	public SayCommand(IBridgeScene scene, String text) {
+		this.scene = scene;
+		this.text = text;
+	}
+
+	@Override
+	public void run() {
+		scene.say(text);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/interpreter/iinterpreter.java
+package commandEngine.interpreter;
+
+import bus.uigen.OEFrame;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "Command Interpreter" })
+public interface IInterpreter extends PropertyListenerRegisterer {
+	public void setOEFrame(OEFrame frame);
+	public OEFrame getOEFrame();
+	public void setCommand(String command);
+	public String getCommand();
+	public String getError();
+	public void animateArthur();
+	public void animateGalahad();
+	public void animateLancelot();
+	public void animateRobin();
+	public void animateGuard();
+}
+//END OF FILE
+//START OF FILE: src/commandengine/interpreter/itable.java
+package commandEngine.interpreter;
+
+import java.util.List;
+
+import util.annotations.Tags;
+
+@Tags({ "Table" })
+public interface ITable {
+	public void put(String key, Object val);
+
+	public Object get(String key);
+
+	public int size();
+
+	public boolean isEmpty();
+
+	public boolean containsKey(String key);
+
+	public boolean containsValue(Object val);
+
+	public List<String> getKeys();
+}
+//END OF FILE
+//START OF FILE: src/commandengine/interpreter/interpreter.java
+package commandEngine.interpreter;
+
+import java.beans.PropertyChangeListener;
+
+import bus.uigen.OEFrame;
+import token.IMinusToken;
+import token.INumberToken;
+import token.IPlusToken;
+import token.IQuotedStringToken;
+import token.IToken;
+import token.IWordToken;
+import token.command.IApproachCommandToken;
+import token.command.ICommandToken;
+import token.command.IFailCommandToken;
+import token.command.IMoveCommandToken;
+import token.command.IPassCommandToken;
+import token.command.IRotateLeftArmCommandToken;
+import token.command.IRotateRightArmCommandToken;
+import token.command.ISayCommandToken;
+import token.command.ISleepCommandToken;
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
+import graphics.animation.Animator;
+import graphics.animation.ClapAnimatingCommand;
+import graphics.animation.WalkAnimatingCommand;
+import graphics.avatar.IAvatar;
+import graphics.view.IBridgeScene;
+import commandEngine.commands.ApproachCommand;
+import commandEngine.commands.ClapCommand;
+import commandEngine.commands.FailCommand;
+import commandEngine.commands.IApproachCommand;
+import commandEngine.commands.ICommand;
+import commandEngine.commands.IFailCommand;
+import commandEngine.commands.IMoveCommand;
+import commandEngine.commands.IPassCommand;
+import commandEngine.commands.IRotateLeftArmCommand;
+import commandEngine.commands.IRotateRightArmCommand;
+import commandEngine.commands.ISayCommand;
+import commandEngine.commands.MoveCommand;
+import commandEngine.commands.PassCommand;
+import commandEngine.commands.RotateLeftArmCommand;
+import commandEngine.commands.RotateRightArmCommand;
+import commandEngine.commands.SayCommand;
+import commandEngine.tokenizer.IClearableTokenHistory;
+import commandEngine.tokenizer.ITokenizer;
+import commandEngine.tokenizer.Tokenizer;
+
+@PropertyNames({ "Command", "Error", "OEFrame" })
+@EditablePropertyNames({ "Command", "OEFrame" })
+@Tags({ "Command Interpreter", "Error Resilient", "Signed Move", "Observable" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public class Interpreter implements IInterpreter {
+	private final IBridgeScene scene;
+	private final ITokenizer tokenizer;
+	private final ITable avatarTable;
+	private String error;
+	private OEFrame frame;
+
+	private APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+
+	public Interpreter(IBridgeScene scene) {
+		this.scene = scene;
+		tokenizer = new Tokenizer();
+
+		avatarTable = new Table();
+		buildTable();
+
+		error = "";
+	}
+
+	@Override
+	public void setOEFrame(OEFrame frame) {
+		this.frame = frame;
+	}
+
+	@Visible(false)
+	@Override
+	public OEFrame getOEFrame() {
+		return frame;
+	}
+
+	@Override
+	public void setCommand(String command) {
+		pclm.firePropertyChange("command", getCommand(), command);
+		error = "";
+		tokenizer.setLine(command);
+		if (tokenizer.getErrors().length > 0) {
+			String oldError = error;
+			error = "";
+			String[] errors = tokenizer.getErrors();
+			for(int i = 0; i < errors.length; i ++) {
+				error += errors[i];
+				if (i != errors.length - 1) {
+					error += ", ";
+				}
+			}
+			pclm.firePropertyChange("error", oldError,error);
+			return;
+		}
+		ICommand commandObj = runCommand();
+		if (commandObj != null) {
+			new Thread(commandObj).start();
+		}
+		tokenizer.setLine("");
+	}
+
+	@Override
+	public String getCommand() {
+		return tokenizer.getLine();
+	}
+
+	private ICommand runCommand() {
+		try {
+			pclm.firePropertyChange("error", error, "");
+			IClearableTokenHistory tokens = tokenizer.getTokens();
+			if (tokens.isEmpty()) {
+				return null;
+			}
+
+			if (tokenizer.getErrors().length > 0) {
+				throw new InvalidCommandException("Invalid token '\""
+						+ tokens.tokenAt(tokens.size() - 1).getString()
+						+ "'. Missing end quote!");
+			}
+			
+			IToken token = tokens.tokenAt(0);
+
+			if (token instanceof ICommandToken) {
+				if (token instanceof IMoveCommandToken) {
+					return tryMoveToken(tokens);
+				} else if (token instanceof ISayCommandToken) {
+					return trySayToken(tokens);
+				} else if (token instanceof IApproachCommandToken) {
+					return tryApproachToken(tokens);
+				} else if (token instanceof ISleepCommandToken) {
+					trySleepToken(tokens);
+				} else if (token instanceof IPassCommandToken) {
+					return tryPassToken(tokens);
+				} else if (token instanceof IFailCommandToken) {
+					return tryFailToken(tokens);
+				} else if (token instanceof IRotateRightArmCommandToken) {
+					return tryRotateRightArmToken(tokens);
+				} else if (token instanceof IRotateLeftArmCommandToken) {
+					return tryRotateLeftArmToken(tokens);
+				} else {
+					throw new InvalidCommandException("Invalid token '"
+							+ tokens.tokenAt(0).getString()
+							+ "'. Expected 'approach', 'fail', 'move', 'pass', 'say', or 'sleep'!");
+				}
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(0).getString()
+						+ "'. Expected a command token!");
+			}
+		} catch (InvalidCommandException e) {
+			// System.err.println(e.getMessage());
+			error = e.getMessage();
+			pclm.firePropertyChange("error", "", error);
+		}
+		return null;
+	}
+
+	@Tags({ "Move Parser" })
+	private IMoveCommand tryMoveToken(IClearableTokenHistory tokens) {
+		int tokenCheck = 1;
+
+		int num1 = 1;
+		int num2 = 1;
+
+		try {
+			if (tokens.tokenAt(tokenCheck) instanceof IWordToken) {
+				tokenCheck++;
+				if (tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+					num1 = -1;
+					tokenCheck++;
+				} else if (tokens.tokenAt(tokenCheck) instanceof IPlusToken) {
+					tokenCheck++;
+				}
+				if (tokens.tokenAt(tokenCheck) instanceof INumberToken) {
+					num1 *= ((INumberToken) tokens.tokenAt(tokenCheck))
+							.getNumber();
+					tokenCheck++;
+					if (tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+						num2 = -1;
+						tokenCheck++;
+					} else if (tokens.tokenAt(tokenCheck) instanceof IPlusToken) {
+						tokenCheck++;
+					}
+					if (tokens.tokenAt(tokenCheck) instanceof INumberToken) {
+						num2 *= ((INumberToken) tokens.tokenAt(tokenCheck))
+								.getNumber();
+						tokenCheck++;
+						IAvatar avatar = (IAvatar) avatarTable
+								.get(((IWordToken) tokens.tokenAt(1)).getWord());
+
+						if (avatar == null) {
+							throw new InvalidCommandException(
+									"Invalid value of token '"
+											+ tokens.tokenAt(1).getString()
+											+ "'. Expected an avatar name!");
+						}
+
+						return new MoveCommand(avatar, num1, num2);
+						//scene.walk(avatar, num1, num2);
+					} else {
+						throw new InvalidCommandException("Invalid token '"
+								+ tokens.tokenAt(tokenCheck).getString()
+								+ "'. Expected a number or sign token!");
+					}
+				} else {
+					throw new InvalidCommandException("Invalid token '"
+							+ tokens.tokenAt(--tokenCheck).getString()
+							+ "'. Expected a number or sign token!");
+				}
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(1).getString()
+						+ "'. Expected a word token!");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new InvalidCommandException(
+					"Not enough arguments for 'move' command! Requires 'move name [+/-]x [+/-]y'");
+		}
+	}
+
+	@Tags({ "Say Parser" })
+	private ISayCommand trySayToken(IClearableTokenHistory tokens) {
+		if (!scene.preSay()) {
+			throw new InvalidCommandException("Conditions for say not met");
+		}
+		try {
+			if (tokens.tokenAt(1) instanceof IQuotedStringToken) {
+				return new SayCommand(scene, ((IQuotedStringToken) tokens.tokenAt(1)).getString());
+				//scene.say(((IQuotedStringToken) tokens.tokenAt(1)).getString());
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(1).getString()
+						+ "'. Expected a quoted string token!");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new InvalidCommandException(
+					"Not enough arguments for 'say' command! Requires 'say \"text\"'");
+		}
+	}
+
+	@Tags({ "Approach Parser" })
+	private IApproachCommand tryApproachToken(IClearableTokenHistory tokens) {
+		if (!scene.preApproach()) {
+			throw new InvalidCommandException("Conditions to approach not met");
+		}
+		try {
+			if (tokens.tokenAt(1) instanceof IWordToken) {
+				IAvatar avatar = (IAvatar) avatarTable.get(((IWordToken) tokens
+						.tokenAt(1)).getWord());
+
+				if (avatar == null) {
+					throw new InvalidCommandException(
+							"Invalid value of token '"
+									+ tokens.tokenAt(1).getString()
+									+ "'. Expected an avatar name!");
+				} else if (avatar.equals(scene.getGuard())) {
+					throw new InvalidCommandException(
+							"Invalid avatar 'Guard'. Guard cannot approach.");
+				}
+				//scene.approach(avatar);
+				return new ApproachCommand(scene, avatar);
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(1).getString()
+						+ "'. Expected a word token!");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new InvalidCommandException(
+					"Not enough arguments for 'approach' command! Requires 'approach name'");
+		}
+	}
+
+	@Tags({ "Sleep Parser" })
+	private void trySleepToken(IClearableTokenHistory tokens) {
+		try {
+			if (tokens.tokenAt(1) instanceof INumberToken) {
+				try {
+					Thread.sleep(((INumberToken) tokens.tokenAt(1)).getNumber());
+				} catch (InterruptedException e) {
+				}
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(1).getString()
+						+ "'. Expected a number token!");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new InvalidCommandException(
+					"Not enough arguments for 'wait' command! Requires 'wait time'");
+		}
+	}
+	
+	@Tags({ "Pass Parser" })
+	private IPassCommand tryPassToken(IClearableTokenHistory tokens) {
+		if (scene.prePass()) {
+			return new PassCommand(scene);
+		} else {
+			throw new InvalidCommandException("Conditions to pass not met");
+		}
+	}
+	
+	@Tags({ "Fail Parser" })
+	private IFailCommand tryFailToken(IClearableTokenHistory tokens) {
+		if (scene.preFail()) {
+			return new FailCommand(scene);
+		} else {
+			throw new InvalidCommandException("Conditions to fail not met");
+		}
+	}
+
+	@Tags({ "Rotate Right Arm Parser" })
+	private IRotateRightArmCommand tryRotateRightArmToken(IClearableTokenHistory tokens) {
+		try {
+			if (tokens.tokenAt(1) instanceof IWordToken) {
+				IAvatar avatar = (IAvatar) avatarTable.get(((IWordToken) tokens.tokenAt(1)).getWord());
+				if (avatar == null) {
+					throw new InvalidCommandException(
+							"Invalid value of token '"
+									+ tokens.tokenAt(1).getString()
+									+ "'. Expected an avatar name!");
+				}
+				
+				int tokenCheck = 2;
+				int steps = 1;
+				
+				if (tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+					steps = -1;
+					tokenCheck ++;
+				} else if(tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+					tokenCheck ++;
+				}
+				if (tokens.tokenAt(tokenCheck) instanceof INumberToken) {
+					steps *= ((INumberToken) tokens.tokenAt(tokenCheck)).getNumber();
+					return new RotateRightArmCommand(avatar, steps);
+				} else {
+					throw new InvalidCommandException("Invalid token '"
+							+ tokens.tokenAt(tokenCheck).getString()
+							+ "'. Expected a number or sign token!");
+				}
+
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(1).getString()
+						+ "'. Expected a word token!");
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new InvalidCommandException(
+					"Not enough arguments for 'rotateRightArm' command! Requires 'rotateRightArm name [+/-] number'");
+		}
+	}
+	
+
+	@Tags({ "Rotate Left Arm Parser" })
+	private IRotateLeftArmCommand tryRotateLeftArmToken(IClearableTokenHistory tokens) {try {
+		if (tokens.tokenAt(1) instanceof IWordToken) {
+			IAvatar avatar = (IAvatar) avatarTable.get(((IWordToken) tokens.tokenAt(1)).getWord());
+			if (avatar == null) {
+				throw new InvalidCommandException(
+						"Invalid value of token '"
+								+ tokens.tokenAt(1).getString()
+								+ "'. Expected an avatar name!");
+			}
+			
+			int tokenCheck = 2;
+			int steps = 1;
+			
+			if (tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+				steps = -1;
+				tokenCheck ++;
+			} else if(tokens.tokenAt(tokenCheck) instanceof IMinusToken) {
+				tokenCheck ++;
+			}
+			if (tokens.tokenAt(tokenCheck) instanceof INumberToken) {
+				steps *= ((INumberToken) tokens.tokenAt(tokenCheck)).getNumber();
+				return new RotateLeftArmCommand(avatar, steps);
+			} else {
+				throw new InvalidCommandException("Invalid token '"
+						+ tokens.tokenAt(tokenCheck).getString()
+						+ "'. Expected a number or sign token!");
+			}
+
+		} else {
+			throw new InvalidCommandException("Invalid token '"
+					+ tokens.tokenAt(1).getString()
+					+ "'. Expected a word token!");
+		}
+	} catch (IndexOutOfBoundsException e) {
+		throw new InvalidCommandException(
+				"Not enough arguments for 'rotateLeftArm' command! Requires 'rotateLeftArm name [+/-] number'");
+	}
+	}
+
+	private void buildTable() {
+		if (avatarTable.isEmpty()) {
+			avatarTable.put("arthur", scene.getArthur());
+			avatarTable.put("lancelot", scene.getLancelot());
+			avatarTable.put("robin", scene.getRobin());
+			avatarTable.put("galahad", scene.getGalahad());
+			avatarTable.put("guard", scene.getGuard());
+		}
+	}
+
+	@Override
+	public String getError() {
+		return error;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+
+	@Tags({ "asynchronous arthur" })
+	@Override
+	public void animateArthur() {
+		new Animator().animate(new WalkAnimatingCommand(scene.getArthur(), 100, 0));
+		//new Thread(new MoveCommand(scene, scene.getArthur(), 100, 0)).start();
+	}
+
+	@Tags({ "asynchronous galahad" })
+	@Override
+	public void animateGalahad() {
+		new Animator().animate(new WalkAnimatingCommand(scene.getGalahad(), 100, 20));
+		//new Thread(new MoveCommand(scene, scene.getGalahad(), 100, 20)).start();
+	}
+
+	@Tags({ "asynchronous lancelot" })
+	@Override
+	public void animateLancelot() {
+		new Animator().animate(new WalkAnimatingCommand(scene.getLancelot(), 150, 0));
+		//new Thread(new MoveCommand(scene, scene.getLancelot(), 150, 0)).start();
+	}
+
+	@Tags({ "asynchronous robin" })
+	@Override
+	public void animateRobin() {
+		new Animator().animate(new WalkAnimatingCommand(scene.getRobin(), 150, -20));
+		//new Thread(new MoveCommand(scene, scene.getRobin(), 150, -20)).start();
+	}
+
+	@Tags({ "asynchronous guard" })
+	@Override
+	public void animateGuard() {
+		new Animator().animate(new ClapAnimatingCommand(scene.getGuard(), 5));
+		//new Thread(new ClapCommand(scene, scene.getGuard(), 1)).start();
+	}
+}
+//END OF FILE
+//START OF FILE: src/commandengine/interpreter/invalidcommandexception.java
+package commandEngine.interpreter;
+
+@SuppressWarnings("serial")
+public class InvalidCommandException extends RuntimeException {
+
+	public InvalidCommandException() {
+	}
+
+	public InvalidCommandException(String message) {
+		super(message);
+	}
+
+	public InvalidCommandException(Throwable cause) {
+		super(cause);
+	}
+
+	public InvalidCommandException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public InvalidCommandException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/interpreter/table.java
+package commandEngine.interpreter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import util.annotations.Tags;
+
+@Tags({ "Table" })
+public class Table implements ITable {
+	private final ArrayList<String> keys;
+	private final ArrayList<Object> values;
+
+	public Table() {
+		keys = new ArrayList<>();
+		values = new ArrayList<>();
+	}
+
+	@Override
+	public Object get(String key) {
+		if (containsKey(key)) {
+			return values.get(keys.indexOf(key));
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void put(String key, Object value) {
+		if (key == null || value == null) {
+			return;
+		}
+		if (containsKey(key)) {
+			values.set(keys.indexOf(key), value);
+		}
+		keys.add(key);
+		values.add(value);
+	}
+
+	@Override
+	public int size() {
+		return keys.size();
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return keys.isEmpty();
+	}
+
+	@Override
+	public boolean containsKey(String key) {
+		return keys.contains(key);
+	}
+
+	@Override
+	public boolean containsValue(Object val) {
+		return values.contains(val);
+	}
+
+	@Override
+	public List<String> getKeys() {
+		return keys;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/clearabletokenhistory.java
+package commandEngine.tokenizer;
+
+import token.IToken;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({ "Clearable History" })
+@StructurePattern(StructurePatternNames.VECTOR_PATTERN)
+public class ClearableTokenHistory extends TokenHistory implements
+		IClearableTokenHistory {
+
+	public ClearableTokenHistory() {
+		super();
+	}
+
+	@Override
+	public void clear() {
+		contents = new IToken[MAX_SIZE];
+		size = 0;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/iclearabletokenhistory.java
+package commandEngine.tokenizer;
+
+public interface IClearableTokenHistory extends ITokenHistory {
+	public void clear();
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/itokenhistory.java
+package commandEngine.tokenizer;
+
+import token.IToken;
+
+public interface ITokenHistory {
+	public void addToken(IToken token);
+
+	public IToken tokenAt(int index);
+
+	public boolean isFull();
+
+	public boolean isEmpty();
+
+	public int size();
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/itokenizer.java
+package commandEngine.tokenizer;
+
+import java.util.Iterator;
+
+import token.IToken;
+import util.annotations.Tags;
+
+@Tags({ "Scanner Bean" })
+public interface ITokenizer extends Iterator<IToken> {
+	public String getLine();
+
+	public void setLine(String line);
+
+	public ClearableTokenHistory getTokens();
+
+	public String[] getErrors();
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/tokenhistory.java
+package commandEngine.tokenizer;
+
+import token.IToken;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.VECTOR_PATTERN)
+public class TokenHistory implements ITokenHistory {
+	public static final int MAX_SIZE = 50;
+	protected IToken[] contents;
+	protected int size;
+
+	public TokenHistory() {
+		contents = new IToken[MAX_SIZE];
+		size = 0;
+	}
+
+	@Override
+	public int size() {
+		return size;
+	}
+
+	@Override
+	public IToken tokenAt(int index) {
+		if (index > size) {
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
+					+ size);
+		}
+		return contents[index];
+	}
+
+	@Override
+	public boolean isFull() {
+		return size == MAX_SIZE;
+
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	@Override
+	public void addToken(IToken token) {
+		if (isFull())
+			System.out.println("Adding token to a full history\n");
+		else {
+			contents[size] = token;
+			size++;
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/tokentype.java
+package commandEngine.tokenizer;
+
+public enum TokenType {
+	NUMBER, WORD, QUOTED_STRING
+};
+//END OF FILE
+//START OF FILE: src/commandengine/tokenizer/tokenizer.java
+package commandEngine.tokenizer;
+
+import java.util.Arrays;
+
+import token.*;
+import token.command.*;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({ "Scanner Bean" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "Line", "Tokens", "Errors" })
+@EditablePropertyNames({ "Line" })
+public class Tokenizer implements ITokenizer {
+
+	private String line = "";
+	private int loc = 0;
+	private int errorCount = 0;
+	private ClearableTokenHistory tokens = new ClearableTokenHistory();
+	private String[] errors = {};
+
+	public String getLine() {
+		return line;
+	}
+
+	public void setLine(String line) {
+		loc = 0;
+		this.line = line;
+		errorCount = 0;
+		tokens.clear();
+		;
+		errors = new String[line.length()];
+		buildTokenArray();
+		buildErrorArray();
+	}
+
+	public ClearableTokenHistory getTokens() {
+		return tokens;
+	}
+
+	public String[] getErrors() {
+		return errors;
+	}
+
+	private void buildTokenArray() {
+		while (hasNext()) {
+			tokens.addToken(next());
+		}
+		loc = 0;
+	}
+
+	private void buildErrorArray() {
+		if (errorCount > 0) {
+			errors = Arrays.copyOf(errors, errorCount);
+		} else {
+			errors = new String[] {};
+		}
+	}
+
+	private boolean isCharacter(char c) {
+		return c >= 'A' && c <= 'z';
+	}
+
+	private boolean isDigit(char c) {
+		return c >= '0' && c <= '9';
+	}
+
+	private boolean isQuote(char c) {
+		return c == '"';
+	}
+
+	private boolean isPlus(char c) {
+		return c == '+';
+	}
+
+	private boolean isSpecialSingle(char c) {
+		return c == '-' || c == '+' || c == '{' || c == '}';
+	}
+
+	private boolean isMinus(char c) {
+		return c == '-';
+	}
+
+	private boolean isStart(char c) {
+		return c == '{';
+	}
+
+	private boolean isEnd(char c) {
+		return c == '}';
+	}
+
+	private boolean isWhiteSpace(char c) {
+		return c == ' ' || c == '\n' || c == '\t';
+	}
+
+	@Override
+	public boolean hasNext() {
+		return loc < line.length();
+	}
+
+	@Override
+	public void remove() {
+	}
+
+	@Override
+	public IToken next() {
+		boolean inToken = false;
+		TokenType type = null;
+		String token = "";
+
+		for (; loc < line.length(); loc++) {
+			char cur = line.charAt(loc);
+
+			if (!inToken) {
+				if (isQuote(cur)) {
+					inToken = true;
+					type = TokenType.QUOTED_STRING;
+				} else if (isCharacter(cur)) {
+					inToken = true;
+					type = TokenType.WORD;
+					token += cur;
+				} else if (isDigit(cur)) {
+					inToken = true;
+					type = TokenType.NUMBER;
+					token += cur;
+				} else if (isSpecialSingle(cur)) {
+					for (; loc < line.length()
+							&& isWhiteSpace(line.charAt(loc)); loc++)
+						;
+					loc++;
+
+					if (isPlus(cur)) {
+						IToken tok = new PlusToken(Character.toString(cur));
+						// System.out.println(tok + "\n" + tok.getString());
+						return (tok);
+					} else if (isMinus(cur)) {
+						IToken tok = new MinusToken(Character.toString(cur));
+						// System.out.println(tok + "\n" + tok.getString());
+						return (tok);
+					} else if (isStart(cur)) {
+						IToken tok = new StartToken(Character.toString(cur));
+						// System.out.println(tok + "\n" + tok.getString());
+						return (tok);
+					} else if (isEnd(cur)) {
+						IToken tok = new EndToken(Character.toString(cur));
+						// System.out.println(tok + "\n" + tok.getString());
+						return (tok);
+					}
+				}
+			} else {
+				if (isQuote(cur)) {
+					if (type == TokenType.QUOTED_STRING) {
+						loc++;
+					}
+					return (buildToken(type, token));
+				} else if (type == TokenType.QUOTED_STRING) {
+					token += cur;
+				} else {
+					if (isWhiteSpace(cur)) {
+						for (; loc < line.length()
+								&& isWhiteSpace(line.charAt(loc)); loc++)
+							;
+						return (buildToken(type, token));
+					} else if (isCharacter(cur)) {
+						if (type == TokenType.WORD) {
+							token += cur;
+						} else {
+							for (; loc < line.length()
+									&& isWhiteSpace(line.charAt(loc)); loc++)
+								;
+							return (buildToken(type, token));
+						}
+					} else if (isDigit(cur)) {
+						if (type == TokenType.NUMBER) {
+							token += cur;
+						} else {
+							for (; loc < line.length()
+									&& isWhiteSpace(line.charAt(loc)); loc++)
+								;
+							return (buildToken(type, token));
+						}
+					} else if (isSpecialSingle(cur)) {
+						for (; loc < line.length()
+								&& isWhiteSpace(line.charAt(loc)); loc++)
+							;
+						loc++;
+
+						if (isPlus(cur)) {
+							IToken tok = new PlusToken(Character.toString(cur));
+							// System.out.println(tok + "\n" + tok.getString());
+							return (tok);
+						} else if (isMinus(cur)) {
+							IToken tok = new MinusToken(Character.toString(cur));
+							// System.out.println(tok + "\n" + tok.getString());
+							return (tok);
+						} else if (isStart(cur)) {
+							IToken tok = new StartToken(Character.toString(cur));
+							// System.out.println(tok + "\n" + tok.getString());
+							return (tok);
+						} else if (isEnd(cur)) {
+							IToken tok = new EndToken(Character.toString(cur));
+							// System.out.println(tok + "\n" + tok.getString());
+							return (tok);
+						}
+					}
+				}
+			}
+		}
+
+		if (inToken) {
+			if (type != TokenType.QUOTED_STRING) {
+				return (buildToken(type, token));
+			} else {
+				errors[errorCount] = "Missing end quote!";
+				errorCount++;
+				return (buildToken(type, token));
+			}
+		}
+
+		return null;
+	}
+
+	private IToken buildToken(TokenType type, String token) {
+
+		switch (type) {
+		case NUMBER:
+			INumberToken numTok = new NumberToken(token);
+			// System.out.println(numTok + "\n" + numTok.getString() + "\n" +
+			// numTok.getNumber());
+			return numTok;
+		case WORD:
+			IWordToken wordTok = checkWordToken(token);
+			// System.out.println(wordTok + "\n" + wordTok.getString() + "\n" +
+			// wordTok.getWord());
+			return wordTok;
+		case QUOTED_STRING:
+			IQuotedStringToken quotTok = new QuotedStringToken(token);
+			// System.out.println(quotTok + "\n" + quotTok.getString());
+			return quotTok;
+		default:
+			return null;
+		}
+	}
+
+	private IWordToken checkWordToken(String token) {
+		switch (token.toLowerCase()) {
+		case "approach":
+			return new ApproachCommandToken(token);
+		case "call":
+			return new CallCommandToken(token);
+		case "define":
+			return new DefineCommandToken(token);
+		case "fail":
+			return new FailCommandToken(token);
+		case "move":
+			return new MoveCommandToken(token);
+		case "undo":
+			return new UndoCommandToken(token);
+		case "pass":
+			return new PassCommandToken(token);
+		case "proceedall":
+			return new ProceedAllCommandToken(token);
+		case "redo":
+			return new RedoCommandToken(token);
+		case "repeat":
+			return new RepeatCommandToken(token);
+		case "rotateleftarm":
+			return new RotateLeftArmCommandToken(token);
+		case "rotaterightarm":
+			return new RotateRightArmCommandToken(token);
+		case "say":
+			return new SayCommandToken(token);
+		case "sleep":
+			return new SleepCommandToken(token);
+		case "thread":
+			return new ThreadCommandToken(token);
+		case "wait":
+			return new WaitCommandToken(token);
+		default:
+			return new WordToken(token);
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/animator.java
+package graphics.animation;
+
+import util.annotations.Tags;
+
+@Tags({ "animator" })
+public class Animator implements IAnimator {
+
+	public Animator() {}
+
+	@Override
+	public Thread animate(IAnimatingCommand animatingCommand) {
+		Thread t = new Thread(animatingCommand);
+		t.start();
+		return t;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/clapanimatingcommand.java
+package graphics.animation;
+
+import graphics.avatar.IAvatar;
+
+import util.annotations.Tags;
+
+@Tags({ "animating command" })
+public class ClapAnimatingCommand implements IClapAnimatingCommand {
+	private IAvatar avatar;
+	private int count;
+
+	
+	private final static int DELAY = 50;
+			
+	public ClapAnimatingCommand(IAvatar avatar, int count) {
+		this.avatar = avatar;
+		this.count = count;
+	}
+
+	@Override
+	public void run() {
+		for(int i = 0; i < count; i ++) {
+
+			int dir = 1;
+			for(int j = 0; j < 8; j ++) {
+				avatar.rotateRightArm(dir);
+				avatar.rotateLeftArm(-dir);
+				sleep(DELAY);
+			}
+			dir *= -1;
+			for(int j = 0; j < 8; j ++) {
+				avatar.rotateRightArm(dir);
+				avatar.rotateLeftArm(-dir);
+				sleep(DELAY);
+			}
+		}
+	}
+
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/ianimatingcommand.java
+package graphics.animation;
+
+import util.annotations.Tags;
+
+@Tags({ "animating command" })
+public interface IAnimatingCommand extends Runnable {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/ianimator.java
+package graphics.animation;
+
+import util.annotations.Tags;
+
+@Tags({ "animator" })
+public interface IAnimator {
+	public Thread animate(IAnimatingCommand animatingCommand);
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/iclapanimatingcommand.java
+package graphics.animation;
+
+import util.annotations.Tags;
+
+@Tags({ "animating command" })
+public interface IClapAnimatingCommand extends IAnimatingCommand {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/iwalkanimatingcommand.java
+package graphics.animation;
+
+import util.annotations.Tags;
+
+@Tags({ "animating command" })
+public interface IWalkAnimatingCommand extends IAnimatingCommand {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/animation/walkanimatingcommand.java
+package graphics.animation;
+
+import graphics.avatar.IAvatar;
+import graphics.shapes.IRotatingLine;
+
+import util.annotations.Tags;
+
+@Tags({ "animating command" })
+public class WalkAnimatingCommand implements IWalkAnimatingCommand {
+	private IAvatar avatar;
+	private int idx, idy;
+	
+	private static final int DELAY = 15;
+	
+	public WalkAnimatingCommand(IAvatar avatar, int idx, int idy) {
+		this.avatar = avatar;
+		this.idx = idx;
+		this.idy = idy;
+	}
+
+	@Override
+	public void run() {
+		double dx = idx;
+		double dy = idy;
+		if (avatar == null) {
+			return;
+		}
+		double dydx = (double) dy / dx;
+		double dxdy = (double) dx / dy;
+	
+		// System.out.println("dydx: " + dydx + ", dxdy: " + dxdy);
+		int turnDir = -1;
+		int xDir = dx >= 0 ? 1 : -1;
+		int yDir = dy >= 0 ? 1 : -1;
+	
+		dx = Math.abs(dx);
+		dy = Math.abs(dy);
+	
+		IRotatingLine leftLeg = avatar.getLegs().getLeftLine();
+	
+		// System.out.println(dydx);
+	
+		if (dx == 0) {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (dy == 0) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (dydx < 1) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if ((int) (dy - dydx) != (int) dy) {
+					avatar.move(0, yDir);
+				}
+				dy -= dydx;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else if (Math.abs(dydx - 1) < 0.01) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		} else {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if ((int) (dx - dydx) != (int) dx) {
+					avatar.move(xDir, 0);
+					dx -= dxdy;
+				}
+				dx -= dxdy;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(DELAY);
+			}
+		}
+	}
+
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/angleshape.java
+package graphics.avatar;
+
+import graphics.shapes.IRotatingLine;
+import graphics.shapes.ARotatingLine;
+import graphics.types.Movable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.IsCompositeShape;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@Tags({ "Angle" })
+@PropertyNames({ "LeftLine", "RightLine", "X", "Y" })
+@EditablePropertyNames({ "X", "Y" })
+@IsCompositeShape(true)
+public class AngleShape extends Movable implements IAngleShape {
+	private IRotatingLine rightLine, leftLine;
+
+	public AngleShape(int x, int y, double rightAngle, double rightLength,
+			double leftAngle, double leftLength) {
+		super(x, y);
+		rightLine = new ARotatingLine(x, y, rightAngle, rightLength);
+		leftLine = new ARotatingLine(x, y, leftAngle, leftLength);
+	}
+
+	@Override
+	public IRotatingLine getLeftLine() {
+		return leftLine;
+	}
+
+	@Override
+	public IRotatingLine getRightLine() {
+		return rightLine;
+	}
+
+	@Override
+	public void setX(int newX) {
+		super.setX(newX);
+		rightLine.setX(newX);
+		leftLine.setX(newX);
+	}
+
+	@Override
+	public void setY(int newY) {
+		super.setY(newY);
+		rightLine.setY(newY);
+		leftLine.setY(newY);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/avatar.java
+package graphics.avatar;
+
+import graphics.avatar.IHead.AvatarName;
+import graphics.shapes.IRotatingLine;
+import graphics.shapes.IStringShape;
+import graphics.shapes.ARotatingLine;
+import graphics.shapes.AStringShape;
+import graphics.types.Movable;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.event.EventListenerList;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.IsCompositeShape;
+
+@PropertyNames({ "X", "Y", "SizeScale", "BodyColor", "TextColor", "Text",
+		"Head", "Arms", "Legs", "Body", "Neck" })
+@EditablePropertyNames({ "X", "Y", "SizeScale", "BodyColor", "TextColor" })
+@Tags({ "Avatar" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@IsCompositeShape(true)
+public class Avatar extends Movable implements IAvatar {
+	private double sizeScale;
+	private Color bodyColor, textColor;
+	private IAngleShape arms, legs;
+	private IHead head;
+	private IRotatingLine body, neck;
+	private IStringShape text;
+
+	private final EventListenerList ell = new EventListenerList();
+
+	public Avatar(AvatarName avatarName, int x, int y, Color color) {
+		this(avatarName, x, y, color, color);
+	}
+
+	public Avatar(AvatarName avatarName, int x, int y, Color bodyColor,
+			Color textColor) {
+		super(x, y);
+
+		body = new ARotatingLine(x, y, -Math.PI / 2., 50.);
+
+		neck = new ARotatingLine(x + body.getWidth(), y + body.getHeight(), -Math.PI / 2., 15.);
+
+		head = new Head(avatarName, x + neck.getWidth() + body.getWidth(), y + neck.getHeight() + body.getHeight());
+		head.setX(x - head.getWidth() / 2 + neck.getWidth() + body.getWidth());
+		head.setY(y - head.getHeight() + neck.getHeight() + body.getHeight());
+
+		arms = new AngleShape(x + body.getWidth(), y + body.getHeight(), Math.PI / 4., 30., 3 * Math.PI / 4., 30.);
+
+		legs = new AngleShape(x, y, Math.PI / 3., 40., 2 * Math.PI / 3., 40.);
+
+		text = new AStringShape("", x + head.getWidth() / 2 + neck.getWidth() + body.getWidth(), y - head.getHeight() + neck.getHeight() + body.getHeight());
+		text.setX(x + head.getWidth() / 2 + neck.getWidth() + body.getWidth());
+		text.setY(y - head.getHeight() + neck.getHeight() + body.getHeight() - text.getFont().getSize());
+		setBodyColor(bodyColor);
+		setTextColor(textColor);
+	}
+
+	@Override
+	public void setX(int newX) {
+		super.setX(newX);
+		fixLocations();
+	}
+
+	@Override
+	public void setY(int newY) {
+		super.setY(newY);
+		fixLocations();
+	}
+
+	@Tags("Move")
+	@Override
+	public void move(int dx, int dy) {
+		if (dx != 0) {
+			setX(getX() + dx);
+		}
+		if (dy != 0) {
+			setY(getY() + dy);
+		}
+	}
+	
+	
+
+	private void fixLocations() {
+		head.setX(getX() - head.getWidth() / 2 + neck.getWidth() + body.getWidth());
+		head.setY(getY() - head.getHeight() + neck.getHeight() + body.getHeight());
+
+		neck.setX(getX() + body.getWidth());
+		neck.setY(getY() + body.getHeight());
+
+		arms.setX(getX() + body.getWidth());
+		arms.setY(getY() + body.getHeight());
+
+		body.setX(getX());
+		body.setY(getY());
+
+		legs.setX(getX());
+		legs.setY(getY());
+
+		text.setX(getX() + head.getWidth() / 2 + neck.getWidth() + body.getWidth());
+		text.setY(getY() - head.getHeight() + neck.getHeight() + body.getHeight() - text.getFont().getSize());
+
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Body Fixed"));
+	}
+
+	@Override
+	public Color getBodyColor() {
+		return bodyColor;
+	}
+
+	@Override
+	public void setBodyColor(Color newColor) {
+		bodyColor = newColor;
+		arms.getLeftLine().setColor(bodyColor);
+		arms.getRightLine().setColor(bodyColor);
+		legs.getLeftLine().setColor(bodyColor);
+		legs.getRightLine().setColor(bodyColor);
+		body.setColor(bodyColor);
+		neck.setColor(bodyColor);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Body Color Changed"));
+	}
+
+	@Override
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	@Override
+	public void setTextColor(Color newColor) {
+		textColor = newColor;
+		text.setColor(textColor);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Text Color Changed"));
+	}
+
+	@Override
+	public void setSizeScale(double newScale) {
+		sizeScale = newScale;
+		head.setHeight((int) Math.round(head.getHeight() * sizeScale));
+		head.setWidth((int) Math.round(head.getWidth() * sizeScale));
+		arms.getLeftLine().setRadius(arms.getLeftLine().getRadius() * sizeScale);
+		arms.getRightLine().setRadius(arms.getRightLine().getRadius() * sizeScale);
+		legs.getLeftLine().setRadius(legs.getLeftLine().getRadius() * sizeScale);
+		legs.getRightLine().setRadius(legs.getRightLine().getRadius() * sizeScale);
+		neck.setRadius(neck.getRadius() * sizeScale);
+		body.setRadius(body.getRadius() * sizeScale);
+
+		fixLocations();
+	}
+
+	@Override
+	public double getSizeScale() {
+		return sizeScale;
+	}
+
+	@Override
+	public IHead getHead() {
+		return head;
+	}
+
+	@Override
+	public IAngleShape getArms() {
+		return arms;
+	}
+
+	@Override
+	public IAngleShape getLegs() {
+		return legs;
+	}
+
+	@Override
+	public IRotatingLine getBody() {
+		return body;
+	}
+
+	@Override
+	public IRotatingLine getNeck() {
+		return neck;
+	}
+
+	@Override
+	public IStringShape getText() {
+		return text;
+	}
+
+	@Override
+	public void angleNeck(double newAngle) {
+		neck.setAngle(newAngle);
+		fixLocations();
+	}
+
+	@Override
+	public void angleBody(double newAngle) {
+		body.setAngle(newAngle);
+		fixLocations();
+	}
+	
+	@Override
+	public void angleRightArm(double newAngle) {
+		arms.getRightLine().setAngle(newAngle);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Right Arm Rotated"));
+	}
+
+	@Override
+	public void angleLeftArm(double newAngle) {
+		arms.getLeftLine().setAngle(newAngle);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Left Arm Rotated"));
+	}
+
+	@Override
+	public void angleRightLeg(double newAngle) {
+		legs.getRightLine().setAngle(newAngle);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Right Leg Rotated"));
+	}
+
+	@Override
+	public void angleLeftLeg(double newAngle) {
+		legs.getLeftLine().setAngle(newAngle);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Left Leg Rotated"));
+	}
+
+	@Override
+	public void rotateRightArm(int steps) {
+		arms.getRightLine().rotate(steps);
+		//System.out.println("Right");
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Right Arm Rotated"));
+	}
+
+	@Override
+	public void rotateLeftArm(int steps) {
+		arms.getLeftLine().rotate(steps);
+		//System.out.println("Left");
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Left Arm Rotated"));
+	}
+
+	@Override
+	public void rotateRightLeg(int steps) {
+		legs.getRightLine().rotate(steps);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Right Leg Rotated"));
+	}
+
+	@Override
+	public void rotateLeftLeg(int steps) {
+		legs.getLeftLine().rotate(steps);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Left Leg Rotated"));
+	}
+
+	@Override
+	public void rotateNeck(int steps) {
+		neck.rotate(steps);
+		fixLocations();
+	}
+
+	@Override
+	public void rotateBody(int steps) {
+		body.rotate(steps);
+		fixLocations();
+	}
+	
+	@Override
+	public void say(String text) {
+		this.text.setText(text);
+		fireActionEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Text Changed"));
+	}
+	
+	@Override
+	public void addActionListener(ActionListener listener) {
+		ell.add(ActionListener.class, listener);
+	}
+	
+	private void fireActionEvent(ActionEvent e) {
+		for(ActionListener listener : ell.getListeners(ActionListener.class)) {
+			listener.actionPerformed(e);
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/head.java
+package graphics.avatar;
+
+import graphics.shapes.AnImageShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@PropertyNames({ "ImageFileName", "X", "Y", "Width", "Height", "AvatarName" })
+@EditablePropertyNames({ "ImageFileName", "X", "Y", "Width", "Height",
+		"AvatarName" })
+@Tags({ "Head" })
+public class Head extends AnImageShape implements IHead {
+	private AvatarName avatarName;
+
+	public Head(AvatarName avatarName, int x, int y) {
+		super(getFileNameForAvatarName(avatarName), x, y,
+				getImageHeightForAvatarName(avatarName),
+				getImageWidthForAvatarName(avatarName));
+		this.avatarName = avatarName;
+	}
+
+	@Override
+	public AvatarName getAvatarName() {
+		return avatarName;
+	}
+
+	@Override
+	public void setAvatarName(AvatarName newAvatarName) {
+		avatarName = newAvatarName;
+		setImageFileName(getFileNameForAvatarName(avatarName));
+	}
+
+	private static String getFileNameForAvatarName(AvatarName avatarName) {
+		switch (avatarName) {
+		case ARTHUR:
+			return "arthur.jpg";
+		case GALAHAD:
+			return "galahad.jpg";
+		case GUARD:
+			return "guard.jpg";
+		case LANCELOT:
+			return "lancelot.jpg";
+		case ROBIN:
+			return "robin.jpg";
+		default:
+			return null;
+		}
+	}
+
+	private static int getImageHeightForAvatarName(AvatarName avatarName) {
+		switch (avatarName) {
+		case ARTHUR:
+			return (64);
+		case GALAHAD:
+			return (65);
+		case GUARD:
+			return (65);
+		case LANCELOT:
+			return (64);
+		case ROBIN:
+			return (64);
+		default:
+			return 0;
+		}
+	}
+
+	private static int getImageWidthForAvatarName(AvatarName avatarName) {
+		switch (avatarName) {
+		case ARTHUR:
+			return (40);
+		case GALAHAD:
+			return (38);
+		case GUARD:
+			return (33);
+		case LANCELOT:
+			return (37);
+		case ROBIN:
+			return (43);
+		default:
+			return 0;
+		}
+	}
+
+	public String getImageFileName() {
+		return super.getImageFileName();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/iangleshape.java
+package graphics.avatar;
+
+import graphics.shapes.IRotatingLine;
+import graphics.types.IMovable;
+import util.annotations.Tags;
+
+@Tags({ "Angle" })
+public interface IAngleShape extends IMovable {
+	public IRotatingLine getLeftLine();
+
+	public IRotatingLine getRightLine();
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/iavatar.java
+package graphics.avatar;
+
+import graphics.shapes.IRotatingLine;
+import graphics.shapes.IStringShape;
+import graphics.types.IMovable;
+
+import java.awt.Color;
+import java.awt.event.ActionListener;
+
+import util.annotations.Tags;
+
+@Tags({ "Avatar" })
+public interface IAvatar extends IMovable {
+	public void move(int dx, int dy);
+	public void rotateNeck(int steps);
+	public void rotateBody(int steps);
+	public void rotateRightArm(int steps);
+	public void rotateLeftArm(int steps);
+	public void rotateRightLeg(int steps);
+	public void rotateLeftLeg(int steps);
+	public Color getBodyColor();
+	public void setBodyColor(Color newColor);
+	public Color getTextColor();
+	public void setTextColor(Color newColor);
+	public double getSizeScale();
+	public void setSizeScale(double newScale);
+	public IHead getHead();
+	public IAngleShape getArms();
+	public IAngleShape getLegs();
+	public IRotatingLine getBody();
+	public IRotatingLine getNeck();
+	public IStringShape getText();
+	public void angleNeck(double newAngle);
+	public void angleBody(double newAngle);
+	public void angleRightArm(double newAngle);
+	public void angleLeftArm(double newAngle);
+	public void angleRightLeg(double newAngle);
+	public void angleLeftLeg(double newAngle);
+	public void say(String text);
+	public void addActionListener(ActionListener listener);
+}
+//END OF FILE
+//START OF FILE: src/graphics/avatar/ihead.java
+package graphics.avatar;
+
+import util.annotations.Tags;
+import graphics.shapes.IImageShape;
+
+@Tags({ "Head" })
+public interface IHead extends IImageShape {
+	enum AvatarName {
+		ARTHUR, LANCELOT, ROBIN, GALAHAD, GUARD
+	};
+
+	public String getImageFileName();
+
+	public AvatarName getAvatarName();
+
+	public void setAvatarName(AvatarName newAvatarName);
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/arectangleshape.java
+package graphics.shapes;
+
+import graphics.types.MovableResizableShape;
+
+import java.awt.Color;
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.IsAtomicShape;
+import util.annotations.Tags;
+
+@StructurePattern(StructurePatternNames.RECTANGLE_PATTERN)
+@PropertyNames({ "Height", "Width", "X", "Y", "Color", "Filled" })
+@EditablePropertyNames({ "Height", "Width", "X", "Y", "Color" })
+@IsAtomicShape(true)
+@Tags({ "Rectangle Shape" })
+public class ARectangleShape extends MovableResizableShape implements
+		IRectangleShape {
+	private Color color;
+	private boolean filled;
+
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+
+	public ARectangleShape(int x, int y, int width, int height, Color color) {
+		super(x, y, width, height);
+		this.color = color;
+		filled = true;
+	}
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(Color newColor) {
+		pclm.firePropertyChange("color", color, newColor);
+		color = newColor;
+	}
+
+	@Override
+	public void setX(int newX) {
+		pclm.firePropertyChange("x", getX(), newX);
+		super.setX(newX);
+	}
+
+	@Override
+	public void setY(int newY) {
+		pclm.firePropertyChange("y", getY(), newY);
+		super.setY(newY);
+	}
+
+	@Override
+	public void setHeight(int newHeight) {
+		pclm.firePropertyChange("height", getHeight(), newHeight);
+		super.setHeight(newHeight);
+	}
+
+	@Override
+	public void setWidth(int newWidth) {
+		pclm.firePropertyChange("width", getWidth(), newWidth);
+		super.setWidth(newWidth);
+	}
+
+	@Override
+	public boolean isFilled() {
+		return filled;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/arotatingline.java
+package graphics.shapes;
+
+import graphics.types.BoundedMovableShape;
+
+import java.awt.Color;
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.LINE_PATTERN)
+@Tags({ "Rotating Line" })
+@PropertyNames({ "Height", "Width", "X", "Y", "Angle", "Radius", "Color",
+		"Filled" })
+@EditablePropertyNames({ "Angle", "Radius", "X", "Y", "Color" })
+public class ARotatingLine extends BoundedMovableShape implements IRotatingLine {
+
+	private double radius, angle;
+	private Color color;
+
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(
+			this);
+
+	public ARotatingLine(int x, int y, double angle, double radius) {
+		super(x, y, (int) Math.round(radius * Math.cos(angle)), (int) Math
+				.round(angle * Math.sin(angle)));
+		setRadius(radius);
+		setAngle(angle);
+	}
+
+	public ARotatingLine() {
+		this(0, 0, 0, 1);
+	}
+
+	@Override
+	public void setAngle(double angle) {
+		setWidth((int) Math.round(getRadius() * Math.cos(angle)));
+		setHeight((int) Math.round(getRadius() * Math.sin(angle)));
+		
+		double oldAngle = this.angle;
+		this.angle = angle;
+		pclm.firePropertyChange("angle", oldAngle, this.angle);
+	}
+
+	@Override
+	public double getAngle() {
+		return angle;
+	}
+
+	@Override
+	public void setRadius(double radius) {
+		double prevRadius = getRadius();
+
+		this.radius = radius;
+
+		double limitPrevRadius = prevRadius == 0 ? 1. : prevRadius;
+
+		setWidth((int) Math.round(((double) width) / limitPrevRadius * radius));
+		setHeight((int) Math.round(((double) height) / limitPrevRadius * radius));
+		
+		pclm.firePropertyChange("radius", prevRadius, this.radius);
+	}
+
+	@Override
+	public double getRadius() {
+		return radius;
+	}
+
+	@Override
+	@Tags({ "rotate" })
+	public void rotate(int units) {
+		setAngle(getAngle() + Math.PI / 32. * units);
+	}
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(Color newColor) {
+		pclm.firePropertyChange("color", color, newColor);
+		color = newColor;
+	}
+
+	@Override
+	public void setX(int newX) {
+		pclm.firePropertyChange("x", getX(), newX);
+		super.setX(newX);
+	}
+
+	@Override
+	public void setY(int newY) {
+		pclm.firePropertyChange("y", getY(), newY);
+		super.setY(newY);
+	}
+
+	private void setHeight(int newHeight) {
+		pclm.firePropertyChange("height", getHeight(), newHeight);
+		height = newHeight;
+	}
+
+	private void setWidth(int newWidth) {
+		pclm.firePropertyChange("width", getWidth(), newWidth);
+		width = newWidth;
+	}
+
+	@Override
+	public boolean isFilled() {
+		return false;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/astringshape.java
+package graphics.shapes;
+
+import graphics.types.Movable;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@PropertyNames({ "Text", "X", "Y", "Color", "Font", "Filled" })
+@EditablePropertyNames({ "Text", "X", "Y", "Color", "Font" })
+@StructurePattern(StructurePatternNames.STRING_PATTERN)
+@Tags({ "String Shape" })
+public class AStringShape extends Movable implements IStringShape {
+	private String text;
+	private Color color;
+	private Font font;
+
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+
+	public AStringShape(String text, int x, int y) {
+		this(text, x, y, new Font("Arial", Font.PLAIN, 12));
+	}
+
+	public AStringShape(String text, int x, int y, Font font) {
+		super(x, y);
+		this.text = text;
+		this.font = font;
+	}
+
+	@Override
+	public String getText() {
+		return text;
+	}
+
+	@Override
+	public void setText(String newText) {
+		String oldText = text;
+		text = newText;
+		pclm.firePropertyChange("text", oldText, text);
+	}
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(Color newColor) {
+		Color oldColor = color;
+		color = newColor;
+		pclm.firePropertyChange("color", oldColor, color);
+	}
+
+	@Override
+	public void setX(int newX) {
+		int oldX = getX();
+		super.setX(newX);
+		pclm.firePropertyChange("x", oldX, getX());
+	}
+
+	@Override
+	public void setY(int newY) {
+		int oldY = getY();
+		super.setY(newY);
+		pclm.firePropertyChange("y", oldY, getY());
+	}
+
+	@Override
+	public Font getFont() {
+		return font;
+	}
+
+	@Override
+	public void setFont(Font newFont) {
+		Font oldFont = font;
+		font = newFont;
+		pclm.firePropertyChange("font", oldFont, font);
+	}
+
+	@Override
+	public boolean isFilled() {
+		return true;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/animageshape.java
+package graphics.shapes;
+
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@PropertyNames({ "ImageFileName", "X", "Y", "Width", "Height" })
+@EditablePropertyNames({ "ImageFileName", "X", "Y", "Width", "Height" })
+@StructurePattern(StructurePatternNames.IMAGE_PATTERN)
+@Tags({ "Image Shape" })
+public class AnImageShape implements IImageShape {
+	private int x, y, height, width;
+	private String fileName;
+
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+
+	public AnImageShape(String fileName, int x, int y, int height, int width) {
+		setImageFileName(fileName);
+		setX(x);
+		setY(y);
+		setHeight(height);
+		setWidth(width);
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public void setX(int newX) {
+		pclm.firePropertyChange("x", x, newX);
+		x = newX;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	@Override
+	public void setY(int newY) {
+		pclm.firePropertyChange("y", y, newY);
+		y = newY;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public void setHeight(int newHeight) {
+		pclm.firePropertyChange("height", height, newHeight);
+		height = newHeight;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public void setWidth(int newWidth) {
+		pclm.firePropertyChange("width", width, newWidth);
+		width = newWidth;
+	}
+
+	@Override
+	public String getImageFileName() {
+		return fileName;
+	}
+
+	@Override
+	public void setImageFileName(String newFileName) {
+		pclm.firePropertyChange("imagefilename", fileName, newFileName);
+		fileName = newFileName;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		pclm.addPropertyChangeListener(pcl);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/anovalshape.java
+package graphics.shapes;
+
+import graphics.types.MovableResizableShape;
+
+import java.awt.Color;
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.IsAtomicShape;
+import util.annotations.Tags;
+
+@StructurePattern(StructurePatternNames.OVAL_PATTERN)
+@PropertyNames({ "Height", "Width", "X", "Y", "Color", "Filled" })
+@EditablePropertyNames({ "Height", "Width", "X", "Y", "Color" })
+@IsAtomicShape(true)
+@Tags({ "Oval Shape" })
+public class AnOvalShape extends MovableResizableShape implements IOvalShape {
+	private Color color;
+	private boolean filled;
+
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(
+			this);
+
+	public AnOvalShape(int x, int y, int width, boolean filled, int height) {
+		this(x, y, width, height, filled, Color.WHITE);
+	}
+
+	public AnOvalShape(int x, int y, int width, int height, boolean filled,
+			Color color) {
+		super(x, y, width, height);
+		this.filled = filled;
+		this.color = color;
+	}
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(Color newColor) {
+		pclm.firePropertyChange("color", color, newColor);
+		color = newColor;
+	}
+
+	@Override
+	public void setX(int newX) {
+		pclm.firePropertyChange("x", getX(), newX);
+		super.setX(newX);
+	}
+
+	@Override
+	public void setY(int newY) {
+		pclm.firePropertyChange("y", getY(), newY);
+		super.setY(newY);
+	}
+
+	@Override
+	public void setHeight(int newHeight) {
+		pclm.firePropertyChange("height", getHeight(), newHeight);
+		super.setHeight(newHeight);
+	}
+
+	@Override
+	public void setWidth(int newWidth) {
+		pclm.firePropertyChange("width", getWidth(), newWidth);
+		super.setWidth(newWidth);
+	}
+
+	@Override
+	public boolean isFilled() {
+		return filled;
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/iimageshape.java
+package graphics.shapes;
+
+import graphics.types.IMovableResizableShape;
+import util.annotations.Tags;
+
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "Image Shape" })
+public interface IImageShape extends IMovableResizableShape, PropertyListenerRegisterer {
+	public String getImageFileName();
+
+	public void setImageFileName(String newFileName);
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/iovalshape.java
+package graphics.shapes;
+
+import graphics.types.IColorable;
+import graphics.types.IMovableResizableShape;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "Oval Shape" })
+public interface IOvalShape extends IMovableResizableShape, IColorable,
+		PropertyListenerRegisterer {
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/irectangleshape.java
+package graphics.shapes;
+
+import graphics.types.IColorable;
+import graphics.types.IMovableResizableShape;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "Rectangle Shape" })
+public interface IRectangleShape extends IMovableResizableShape, IColorable, PropertyListenerRegisterer {
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/irotatingline.java
+package graphics.shapes;
+
+import graphics.types.IBoundedMovableShape;
+import graphics.types.IColorable;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "Rotating Line" })
+public interface IRotatingLine extends IBoundedMovableShape, IColorable,
+		PropertyListenerRegisterer {
+	public void setAngle(double angle);
+
+	public double getAngle();
+
+	public void setRadius(double radius);
+
+	public double getRadius();
+
+	public void rotate(int units);
+}
+//END OF FILE
+//START OF FILE: src/graphics/shapes/istringshape.java
+package graphics.shapes;
+
+import graphics.types.IColorable;
+import graphics.types.IMovable;
+
+import java.awt.Font;
+
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({ "String Shape" })
+public interface IStringShape extends IMovable, IColorable,
+		PropertyListenerRegisterer {
+	public String getText();
+
+	public void setText(String newText);
+
+	public Font getFont();
+
+	public void setFont(Font newFont);
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/boundedmovableshape.java
+package graphics.types;
+
+public class BoundedMovableShape implements IBoundedMovableShape {
+	protected int x, y, height, width;
+
+	public BoundedMovableShape(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	@Override
+	public void setX(int newX) {
+		x = newX;
+	}
+
+	@Override
+	public void setY(int newY) {
+		y = newY;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/boundedshape.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Bounded Shape" })
+public class BoundedShape extends Locatable implements IBoundedShape {
+	int width, height;
+
+	public BoundedShape(int x, int y, int width, int height) {
+		super(x, y);
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/iboundedmovableshape.java
+package graphics.types;
+
+public interface IBoundedMovableShape extends IBoundedShape, IMovable {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/iboundedshape.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Bounded Shape" })
+public interface IBoundedShape extends ILocatable {
+	public int getWidth();
+
+	public int getHeight();
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/icolorable.java
+package graphics.types;
+
+import java.awt.Color;
+import util.annotations.Tags;
+
+@Tags({ "Colorable" })
+public interface IColorable extends IColored {
+	public void setColor(Color newColor);
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/icolored.java
+package graphics.types;
+
+import java.awt.Color;
+import util.annotations.Tags;
+
+@Tags({ "Colored" })
+public interface IColored {
+	public boolean isFilled();
+
+	public Color getColor();
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/ilocatable.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Locatable" })
+public interface ILocatable {
+	public int getX();
+
+	public int getY();
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/imovable.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Moveable" })
+public interface IMovable extends ILocatable {
+	public void setX(int newX);
+
+	public void setY(int newY);
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/imovableresizableshape.java
+package graphics.types;
+
+public interface IMovableResizableShape extends IMovable, IResizableShape {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/iresizableshape.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Resizable Shape" })
+public interface IResizableShape extends IBoundedShape {
+	public void setHeight(int newHeight);
+
+	public void setWidth(int newWidth);
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/locatable.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Locatable" })
+public class Locatable implements ILocatable {
+	int x, y;
+
+	public Locatable(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/movable.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Moveable" })
+public class Movable extends Locatable implements IMovable {
+
+	public Movable(int x, int y) {
+		super(x, y);
+	}
+
+	@Override
+	public void setX(int newX) {
+		x = newX;
+	}
+
+	@Override
+	public void setY(int newY) {
+		y = newY;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/movableresizableshape.java
+package graphics.types;
+
+public class MovableResizableShape implements IMovableResizableShape {
+	int x, y, height, width;
+
+	public MovableResizableShape(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+	}
+
+	@Override
+	public void setX(int newX) {
+		x = newX;
+	}
+
+	@Override
+	public void setY(int newY) {
+		y = newY;
+	}
+
+	@Override
+	public void setHeight(int newHeight) {
+		height = newHeight;
+	}
+
+	@Override
+	public void setWidth(int newWidth) {
+		width = newWidth;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/types/resizableshape.java
+package graphics.types;
+
+import util.annotations.Tags;
+
+@Tags({ "Resiable Shape" })
+public class ResizableShape extends BoundedShape implements IResizableShape {
+
+	public ResizableShape(int x, int y, int width, int height) {
+		super(x, y, width, height);
+	}
+
+	@Override
+	public void setHeight(int newHeight) {
+		height = newHeight;
+	}
+
+	@Override
+	public void setWidth(int newWidth) {
+		width = newWidth;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/avatarview.java
+package graphics.view;
+
+import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+
+import graphics.avatar.IAvatar;
+import graphics.shapes.IImageShape;
+import graphics.shapes.IRotatingLine;
+import graphics.shapes.IStringShape;
+import util.annotations.Tags;
+
+@Tags({ "Observing Bridge Scene Painter" })
+
+@SuppressWarnings("serial")
+public class AvatarView extends Component implements IAvatarView {
+	private IAvatar avatar;
+	private ObservablePainter painter;
+	
+	public AvatarView(IAvatar avatar, ObservablePainter painter) {
+		this.avatar = avatar;
+		this.painter = painter;
+		attachListeners();
+	}
+	
+	private void attachListeners() {
+		painter.addPaintListener(this);
+		
+		avatar.getArms().getLeftLine().addPropertyChangeListener(this);
+		avatar.getArms().getRightLine().addPropertyChangeListener(this);
+		avatar.getBody().addPropertyChangeListener(this);
+		avatar.getHead().addPropertyChangeListener(this);
+		avatar.getLegs().getLeftLine().addPropertyChangeListener(this);
+		avatar.getLegs().getRightLine().addPropertyChangeListener(this);
+		avatar.getNeck().addPropertyChangeListener(this);
+		avatar.getText().addPropertyChangeListener(this);
+	}
+
+	@Override
+	public void paint(Graphics2D g) {
+		g.setColor(avatar.getBodyColor());
+		IRotatingLine all = avatar.getArms().getLeftLine(); //arm left line
+		g.drawLine(all.getX(), all.getY(), all.getX()+all.getWidth(), all.getY()+all.getHeight());
+		IRotatingLine arl = avatar.getArms().getRightLine(); //arm right line
+		g.drawLine(arl.getX(), arl.getY(), arl.getX()+arl.getWidth(), arl.getY()+arl.getHeight());
+		IRotatingLine b = avatar.getBody(); //body
+		g.drawLine(b.getX(), b.getY(), b.getX()+b.getWidth(), b.getY()+b.getHeight());
+		IImageShape h = avatar.getHead(); //head
+		Image hImg = Toolkit.getDefaultToolkit().getImage(h.getImageFileName()); //head image
+		g.drawImage(hImg, h.getX(), h.getY(), h.getWidth(), h.getHeight(), painter);
+		IRotatingLine lll = avatar.getLegs().getLeftLine(); //leg left line
+		g.drawLine(lll.getX(), lll.getY(), lll.getX()+lll.getWidth(), lll.getY()+lll.getHeight());
+		IRotatingLine lrl = avatar.getLegs().getRightLine(); //leg right line
+		g.drawLine(lrl.getX(), lrl.getY(), lrl.getX()+lrl.getWidth(), lrl.getY()+lrl.getHeight());
+		IRotatingLine n = avatar.getNeck(); //neck
+		g.drawLine(n.getX(), n.getY(), n.getX()+n.getWidth(), n.getY()+n.getHeight());
+		IStringShape t = avatar.getText(); //text
+		g.drawString(t.getText(), t.getX(), t.getY() + t.getFont().getSize2D());
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		//System.out.println(evt.getPropertyName());
+		painter.repaint();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/backgroundview.java
+package graphics.view;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import util.annotations.Tags;
+
+@Tags({ "Observing Bridge Scene Painter" })
+public class BackgroundView implements IBackgroundView {
+
+	public BackgroundView() { }
+
+	@Override
+	public void paint(Graphics2D g) {
+		g.setColor(new Color(135, 206, 250));
+		g.fillRect(0, 0, 800, 500);
+		g.setColor(new Color(133, 94, 66));
+		g.fillRect(600, 200, 100, 50); //bridge
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(0, 150, 600, 350); //close land
+		g.fillRect(700, 150, 100, 350); //far land
+		g.setColor(Color.WHITE);
+		g.fillOval(325, 260, 100, 50); //knight area
+		g.fillOval(450, 260, 100, 50); //guard area
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/bridgescene.java
+package graphics.view;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
+import bus.uigen.OEFrame;
+import graphics.avatar.Avatar;
+import graphics.avatar.IAvatar;
+import graphics.avatar.IHead.AvatarName;
+import graphics.shapes.IOvalShape;
+import graphics.shapes.IRectangleShape;
+import graphics.shapes.IRotatingLine;
+import graphics.shapes.AnOvalShape;
+import graphics.shapes.ARectangleShape;
+import util.APropertyChangeListenerManager;
+import util.IPropertyChangeListenerManager;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.IsCompositeShape;
+import util.annotations.Visible;
+
+@PropertyNames({ "Arthur", "Lancelot", "Robin", "Galahad", "Guard",
+		"GuardArea", "KnightArea", "Bridge", "CloseLand", "FarLand",
+		"Occupied", "KnightTurn", "OEFrame" })
+@EditablePropertyNames({ "OEFrame" })
+@Tags({ "Bridge Scene" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@IsCompositeShape(true)
+public class BridgeScene implements IBridgeScene {
+	private IAvatar arthur, lancelot, robin, galahad, guard, occupyingKnight;
+	private ArrayList<IAvatar> resolved;
+	private IRectangleShape closeLand, bridge, farLand;
+	private IOvalShape knightArea, guardArea;
+	private boolean occupied, knightTurn;
+	private OEFrame frame;
+	private IPropertyChangeListenerManager pclm;
+
+	public BridgeScene() {
+		arthur = new Avatar(AvatarName.ARTHUR, 50, 175, Color.YELLOW);
+		lancelot = new Avatar(AvatarName.LANCELOT, 150, 175, Color.BLACK);
+		robin = new Avatar(AvatarName.ROBIN, 100, 325, Color.GREEN);
+		galahad = new Avatar(AvatarName.GALAHAD, 200, 325, Color.RED);
+		guard = new Avatar(AvatarName.GUARD, 500, 250, Color.GRAY);
+		closeLand = new ARectangleShape(0, 150, 600, 300, Color.DARK_GRAY);
+		bridge = new ARectangleShape(600, 200, 100, 50, Color.getHSBColor(
+				(float) (28. / 255), (float) (80. / 255), (float) (51. / 255)));
+		farLand = new ARectangleShape(700, 150, 100, 300, Color.DARK_GRAY);
+		guardArea = new AnOvalShape(450, 260, 100, 50, true, Color.WHITE);
+		knightArea = new AnOvalShape(325, 260, 100, 50, true, Color.WHITE);
+		occupied = false;
+		occupyingKnight = null;
+		knightTurn = false;
+		resolved = new ArrayList<>();
+		pclm = new APropertyChangeListenerManager(this);
+	}
+
+	@Override
+	public void setOEFrame(OEFrame frame) {
+		this.frame = frame;
+	}
+
+	@Visible(false)
+	@Override
+	public OEFrame getOEFrame() {
+		return frame;
+	}
+
+	@Override
+	public IAvatar getArthur() {
+		return arthur;
+	}
+
+	@Override
+	public IAvatar getLancelot() {
+		return lancelot;
+	}
+
+	@Override
+	public IAvatar getRobin() {
+		return robin;
+	}
+
+	@Override
+	public IAvatar getGalahad() {
+		return galahad;
+	}
+
+	@Override
+	public IAvatar getGuard() {
+		return guard;
+	}
+
+	@Override
+	public IRectangleShape getCloseLand() {
+		return closeLand;
+	}
+
+	@Override
+	public IRectangleShape getBridge() {
+		return bridge;
+	}
+
+	@Override
+	public IRectangleShape getFarLand() {
+		return farLand;
+	}
+
+	@Override
+	public IOvalShape getGuardArea() {
+		return guardArea;
+	}
+
+	@Override
+	public IOvalShape getKnightArea() {
+		return knightArea;
+	}
+
+	@Override
+	public boolean preApproach() {
+		return !occupied;
+	}
+
+	@Tags({ "Approach" })
+	@Override
+	public void approach(IAvatar knight) {
+		if (knight == null || resolved.contains(knight)) {
+			return;
+		}
+		assert preApproach() : "Cannot approach when knight area is alraedy occupied!";
+		walkTo(knight, 375, 285 - knight.getLegs().getLeftLine().getHeight());
+		occupyingKnight = knight;
+		occupied = true;
+		knightTurn = false;
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "approach", false));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "say", true));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "pass", true));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "fail", true));
+	}
+
+	@Override
+	public void walk(IAvatar avatar, int dx, int dy) {
+		walk(avatar, (double) dx, (double) dy);
+	}
+
+	private void walk(IAvatar avatar, double dx, double dy) {
+		if (avatar == null) {
+			return;
+		}
+		double dydx = (double) dy / dx;
+		double dxdy = (double) dx / dy;
+
+		// System.out.println("dydx: " + dydx + ", dxdy: " + dxdy);
+		int turnDir = -1;
+		int xDir = dx >= 0 ? 1 : -1;
+		int yDir = dy >= 0 ? 1 : -1;
+
+		dx = Math.abs(dx);
+		dy = Math.abs(dy);
+
+		IRotatingLine leftLeg = avatar.getLegs().getLeftLine();
+
+		// System.out.println(dydx);
+
+		if (dx == 0) {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(2);
+			}
+		} else if (dy == 0) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(2);
+			}
+		} else if (dydx < 1) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, 0);
+				if ((int) (dy - dydx) != (int) dy) {
+					avatar.move(0, yDir);
+				}
+				dy -= dydx;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(2);
+			}
+		} else if (Math.abs(dydx - 1) < 0.01) {
+			for (; dx > 0; dx--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(xDir, yDir);
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(2);
+			}
+		} else {
+			for (; dy > 0; dy--) {
+				avatar.rotateLeftLeg(turnDir);
+				avatar.rotateRightLeg(-turnDir);
+				avatar.move(0, yDir);
+				if ((int) (dx - dydx) != (int) dx) {
+					avatar.move(xDir, 0);
+					dx -= dxdy;
+				}
+				dx -= dxdy;
+				if (leftLeg.getHeight() < 4 * leftLeg.getRadius() / 5) {
+					turnDir *= -1;
+				}
+				// frame.refresh();
+				sleep(2);
+			}
+		}
+	}
+
+	@Override
+	public void walkTo(IAvatar avatar, int newX, int newY) {
+		if (avatar == null) {
+			return;
+		}
+		int dx = newX - avatar.getX();
+		int dy = newY - avatar.getY();
+		walk(avatar, dx, dy);
+	}
+
+	@Override
+	public void flail(IAvatar avatar, int newX, int newY) {
+		if (avatar == null) {
+			return;
+		}
+		double dx = newX - avatar.getX();
+		double dy = newY - avatar.getY();
+		double dydx = dy / dx;
+		double dxdy = dx / dy;
+		int xDir = dx >= 0 ? 1 : -1;
+		int yDir = dy >= 0 ? 1 : -1;
+
+		dx = Math.abs(dx);
+		dy = Math.abs(dy);
+
+		// System.out.println(dydx + ", " + dx + ", " + dy);
+
+		if (dx == 0) {
+			for (; dy > 0; dy--) {
+				avatar.move(0, yDir);
+				// System.out.println("(" + avatar.getX() + ", " + avatar.getY()
+				// + ")");
+				avatar.rotateLeftArm(1);
+				avatar.rotateRightArm(-1);
+				// frame.refresh();
+				sleep(1);
+			}
+		} else if (Math.abs(dydx) <= 0.99) {
+			for (; dx > 0; dx--) {
+				avatar.move(xDir, 0);
+				if ((int) (dy - dydx) != (int) dy) {
+					avatar.move(0, yDir);
+				}
+
+				avatar.rotateLeftArm(1);
+				avatar.rotateRightArm(-1);
+				// System.out.println("(" + avatar.getX() + ", " + avatar.getY()
+				// + ")");
+				dy -= dydx;
+				// frame.refresh();
+				sleep(1);
+			}
+		} else if (Math.abs(dydx - 1) < 0.01) {
+			for (; dx > 0; dx--) {
+				avatar.move(xDir, yDir);
+				avatar.rotateLeftArm(1);
+				avatar.rotateRightArm(-1);
+				// System.out.println("(" + avatar.getX() + ", " + avatar.getY()
+				// + ")");
+				// frame.refresh();
+				sleep(1);
+			}
+		} else {
+			for (; dy > 0; dy--) {
+				avatar.move(0, yDir);
+				if ((int) (dx - dydx) != (int) dx) {
+					avatar.move(xDir, 0);
+					dx -= dxdy;
+				}
+				avatar.rotateLeftArm(1);
+				avatar.rotateRightArm(-1);
+				// System.out.println("(" + avatar.getX() + ", " + avatar.getY()
+				// + ")");
+				dx -= dxdy;
+				// frame.refresh();
+				sleep(1);
+			}
+		}
+	}
+
+	@Override
+	public boolean isOccupied() {
+		return occupied;
+	}
+
+	@Override
+	public boolean isKnightTurn() {
+		return occupied;
+	}
+
+	@Override
+	public boolean preSay() {
+		return occupied && guard.getY() < 600;
+	}
+	
+	@Override
+	public void say(String text) {
+		assert preSay() : "Cannot talk unless knight area occupied and guard not failed";
+		if (knightTurn) {
+			guard.getText().setText("");
+			occupyingKnight.getText().setText(text);
+			// frame.refresh();
+		} else {
+			occupyingKnight.getText().setText("");
+			guard.getText().setText(text);
+			// frame.refresh();
+		}
+		knightTurn = !knightTurn;
+	}
+
+	@Override
+	public boolean prePass() {
+		return occupied && !knightTurn;
+	}
+
+	@Tags({ "pass" })
+	@Override
+	public void pass() {
+		assert prePass() : "Cannot pass if knight area unoccupied or not guard's turn";
+		knightTurn = false;
+		occupyingKnight.getText().setText("");
+		walkTo(occupyingKnight, 550, 200);
+		walkTo(occupyingKnight, 750, 200);
+		resolved.add(occupyingKnight);
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "approach", true));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "say", false));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "pass", false));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "fail", false));
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", occupyingKnight.getHead().getAvatarName().name().toLowerCase(), false));
+		occupyingKnight = null;
+		occupied = false;
+	}
+	
+	@Override
+	public boolean preFail() {
+		return occupied && guard.getY() < 600;
+	}
+
+	@Tags({ "fail" })
+	@Override
+	public void fail() {
+		assert preFail() : "Cannot fail if the knight area is unoccupied or the guard has already failed";
+		if (knightTurn == false) {
+			occupyingKnight.getText().setText("");
+			flail(occupyingKnight, 650, 200);
+			flail(occupyingKnight, 650, 600);
+			resolved.add(occupyingKnight);
+			guard.getText().setText("");
+			firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "say", false));
+			firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "approach", true));
+			firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "pass", false));
+			firePropertyChangeEvent(new PropertyChangeEvent(this, "this", occupyingKnight.getHead().getAvatarName().name().toLowerCase(), false));
+			occupyingKnight = null;
+			occupied = false;
+		} else {
+			guard.getText().setText("");
+			flail(guard, 650, 200);
+			flail(guard, 650, 620);
+			resolved.add(guard);
+			occupyingKnight.getText().setText("");
+			firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "guard", false));
+		}
+		firePropertyChangeEvent(new PropertyChangeEvent(this, "this", "fail", false));
+		knightTurn = false;
+	}
+	
+	@Override
+	public void angleNeck(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getNeck().getAngle();
+
+		if (clockwise) {
+			if (angle > target) {
+				angle -= 2 * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32) {
+				avatar.angleNeck(angle);
+				sleep(25);
+			}
+		} else {
+			if (angle < target) {
+				angle += 2 * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32) {
+				avatar.angleNeck(angle);
+				sleep(25);
+			}
+		}
+	}
+
+	@Override
+	public void angleBody(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getBody().getAngle();
+
+		if (clockwise) {
+			while (angle > target) {
+				angle -= 2. * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32.) {
+				avatar.angleBody(angle);
+				sleep(50);
+			}
+		} else {
+			while (angle < target) {
+				// System.out.println(angle);
+				angle += 2. * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32.) {
+				// System.out.println(angle);
+				avatar.angleBody(angle);
+				sleep(50);
+			}
+		}
+	}
+
+	@Override
+	public void angleRightArm(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getArms().getRightLine().getAngle();
+
+		if (clockwise) {
+			while (angle > target) {
+				angle -= 2. * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32.) {
+				avatar.angleRightArm(angle);
+				sleep(50);
+			}
+		} else {
+			while (angle < target) {
+				// System.out.println(angle);
+				angle += 2. * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32.) {
+				// System.out.println(angle);
+				avatar.angleRightArm(angle);
+				sleep(25);
+			}
+		}
+	}
+
+	@Override
+	public void angleLeftArm(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getArms().getLeftLine().getAngle();
+
+		if (clockwise) {
+			while (angle > target) {
+				angle -= 2. * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32.) {
+				avatar.angleLeftArm(angle);
+				sleep(50);
+			}
+		} else {
+			while (angle < target) {
+				// System.out.println(angle);
+				angle += 2. * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32.) {
+				// System.out.println(angle);
+				avatar.angleLeftArm(angle);
+				sleep(25);
+			}
+		}
+	}
+
+	@Override
+	public void angleRightLeg(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getLegs().getRightLine().getAngle();
+
+		if (clockwise) {
+			while (angle > target) {
+				angle -= 2. * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32.) {
+				avatar.angleRightLeg(angle);
+				sleep(50);
+			}
+		} else {
+			while (angle < target) {
+				// System.out.println(angle);
+				angle += 2. * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32.) {
+				// System.out.println(angle);
+				avatar.angleRightLeg(angle);
+				sleep(25);
+			}
+		}
+	}
+
+	@Override
+	public void angleLeftLeg(IAvatar avatar, double target, boolean clockwise) {
+		double angle = avatar.getLegs().getLeftLine().getAngle();
+
+		if (clockwise) {
+			while (angle > target) {
+				angle -= 2. * Math.PI;
+			}
+			for (; angle < target; angle += Math.PI / 32.) {
+				avatar.angleLeftLeg(angle);
+				sleep(50);
+			}
+		} else {
+			while (angle < target) {
+				// System.out.println(angle);
+				angle += 2. * Math.PI;
+			}
+			for (; angle > target; angle -= Math.PI / 32.) {
+				// System.out.println(angle);
+				avatar.angleLeftLeg(angle);
+				sleep(25);
+			}
+		}
+	}
+
+	@Override
+	public void angleNeck(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateNeck(dir);
+			sleep(25);
+		}
+	}
+
+	@Override
+	public void angleBody(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateBody(dir);
+			sleep(50);
+		}
+	}
+
+	@Override
+	public void angleRightArm(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateRightArm(dir);
+			sleep(50);
+		}
+	}
+
+	@Override
+	public void angleLeftArm(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateLeftArm(dir);
+			sleep(50);
+		}
+	}
+
+	@Override
+	public void angleRightLeg(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateRightLeg(dir);
+			sleep(25);
+		}
+	}
+
+	@Override
+	public void angleLeftLeg(IAvatar avatar, int steps) {
+		int dir = steps > 0 ? 1 : steps < 0 ? -1 : 0;
+		steps = Math.abs(steps);
+		for(int i = 0; i < steps; i ++) {
+			avatar.rotateLeftLeg(dir);
+			sleep(25);
+		}
+	}
+
+	@Override
+	public void scaleAvatar(IAvatar avatar, double scaleFactor) {
+		avatar.setSizeScale(scaleFactor);
+	}
+	
+	private void firePropertyChangeEvent(PropertyChangeEvent evt) {
+		pclm.firePropertyChange(evt);
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/bridgesceneview.java
+package graphics.view;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import util.APropertyChangeListenerManager;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.models.PropertyListenerRegisterer;
+
+@SuppressWarnings("serial")
+public class BridgeSceneView extends JFrame implements Runnable, PropertyListenerRegisterer {
+	private ObservablePainter painter;
+	
+	private APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+	
+	public BridgeSceneView(IBridgeScene scene, CommandInterpreterView civ) {
+		super("Bridge Scene");
+
+		painter = new ObservablePainter();
+
+		new AvatarView(scene.getArthur(), painter);
+		new AvatarView(scene.getGalahad(), painter);
+		new AvatarView(scene.getGuard(), painter);
+		new AvatarView(scene.getLancelot(), painter);
+		new AvatarView(scene.getRobin(), painter);
+		
+		painter.addPaintListener(new BackgroundView());
+		addPropertyChangeListener(civ);
+		
+		add(painter);
+		
+		buildMenu();
+	}
+	
+	private void buildMenu() {
+		JMenuBar mbar = new JMenuBar();
+		
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem quitItem = new JMenuItem("Quit");
+		quitItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+			
+		});
+		fileMenu.add(quitItem);
+		
+		JMenu viewMenu = new JMenu("View");
+		final JMenuItem interpreterItem = new JMenuItem("Interpreter");
+		interpreterItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("interpreter visible changed");
+				firePropertyChange(new PropertyChangeEvent(BridgeSceneView.this, "Interpreter Visible", false, true));
+			}
+			
+		});
+		viewMenu.add(interpreterItem);
+		
+		mbar.add(fileMenu);
+		mbar.add(viewMenu);
+		
+		setJMenuBar(mbar);
+	}
+
+	@Override
+	public void run() {
+		setSize(800, 500);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+        setLocationByPlatform(true);
+		setVisible(true);
+	}
+	
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+
+	private void firePropertyChange(PropertyChangeEvent evt) {
+		pclm.firePropertyChange(evt);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/commandinterpreterview.java
+package graphics.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import commandEngine.interpreter.IInterpreter;
+
+@SuppressWarnings("serial")
+public class CommandInterpreterView extends JFrame implements ICommandInterpreterView {
+	private IInterpreter interpreter;
+	private JButton approachButton, passButton, failButton;
+	private JTextField commandField;
+	private JTextArea errorArea;
+	private boolean[] approachAllowed = {true, true, true, true};
+	private boolean canFail = true;
+	
+	public CommandInterpreterView(IInterpreter interpreter, IBridgeScene scene) {
+		super("Command Controller");
+		
+		this.interpreter = interpreter;
+		
+		buildWindow();
+		buildMenu();
+		attachListeners();
+		scene.addPropertyChangeListener(this);
+	}
+	
+	private void buildWindow() {
+		commandField = new JTextField("");
+		
+		errorArea = new JTextArea("");
+		errorArea.setLineWrap(true);
+		errorArea.setEditable(false);
+		
+		setLayout(new GridLayout(3, 1));
+		
+		JPanel commandPanel = new JPanel(new GridLayout());
+		commandPanel.setBorder(BorderFactory.createTitledBorder("Command"));
+		commandPanel.add(commandField, BorderLayout.CENTER);
+		add(commandPanel);
+		
+		JPanel errorPanel = new JPanel(new GridLayout());
+		errorPanel.setBorder(BorderFactory.createTitledBorder("Errors"));
+		errorPanel.add(errorArea, BorderLayout.CENTER);
+		
+		approachButton = new JButton("Approach");
+		passButton = new JButton("Pass");
+		passButton.setEnabled(false);
+		failButton = new JButton("Fail");
+		failButton.setEnabled(false);
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+		buttonPanel.add(approachButton);
+		buttonPanel.add(passButton);
+		buttonPanel.add(failButton);
+		
+		add(errorPanel);
+		add(buttonPanel);
+	}
+	
+	private void buildMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu actionsMenu = new JMenu("Actions");
+		
+		JMenuItem passMenuItem = new JMenuItem("Pass");
+		passMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("pass");
+			}
+			
+		});
+		passMenuItem.setEnabled(false);
+		
+		JMenuItem failMenuItem = new JMenuItem("Fail");
+		failMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("fail");
+			}
+			
+		});
+		failMenuItem.setEnabled(false);
+		
+		JMenu approachAnimationMenu = new JMenu("Approach");
+		
+		JMenuItem arthurApproachMenuItem = new JMenuItem("Arthur");
+		arthurApproachMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("approach Arthur");
+			}
+			
+		});
+		JMenuItem lancelotApproachMenuItem = new JMenuItem("Lancelot");
+		lancelotApproachMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("approach Lancelot");
+			}
+			
+		});
+		JMenuItem galahadApproachMenuItem = new JMenuItem("Galahad");
+		galahadApproachMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("approach Galahad");
+			}
+			
+		});
+		JMenuItem robinApproachMenuItem = new JMenuItem("Robin");
+		robinApproachMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("approach Robin");
+			}
+			
+		});
+		
+		approachAnimationMenu.add(arthurApproachMenuItem);
+		approachAnimationMenu.add(galahadApproachMenuItem);
+		approachAnimationMenu.add(lancelotApproachMenuItem);
+		approachAnimationMenu.add(robinApproachMenuItem);
+		
+		actionsMenu.add(passMenuItem);
+		actionsMenu.add(failMenuItem);
+		actionsMenu.add(approachAnimationMenu);
+		
+		menuBar.add(actionsMenu);
+		
+		setJMenuBar(menuBar);
+	}
+	
+	private void attachListeners() {
+		interpreter.addPropertyChangeListener(this);
+		
+		commandField.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand(commandField.getText());
+			}
+			
+		});
+		
+		approachButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (approachAllowed[0]) {
+					interpreter.setCommand("approach arthur");
+				} else if (approachAllowed[1]) {
+					interpreter.setCommand("approach galahad");
+				} else if (approachAllowed[2]) {
+					interpreter.setCommand("approach lancelot");
+				} else if (approachAllowed[3]) {
+					interpreter.setCommand("approach robin");
+				}
+			}
+			
+		});
+		
+		passButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("pass");
+			}
+			
+		});
+		
+		failButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				interpreter.setCommand("fail");
+			}
+			
+		});
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		//System.out.println(evt.getSource().getClass().getSimpleName() + ", " + evt.getPropertyName());
+		if (evt.getSource() instanceof IInterpreter) {
+			switch(evt.getPropertyName()) {
+			case "command":
+				commandField.setText((String) evt.getNewValue());
+				break;
+			case "error":
+				errorArea.setText((String)evt.getNewValue());
+				break;
+			}
+		} else if (evt.getSource() instanceof IBridgeScene) {
+			if (evt.getPropertyName().equals("this")) {
+				switch((String)evt.getOldValue()) {
+				case "pass":
+					getJMenuBar().getMenu(0).getItem(0).setEnabled((Boolean)evt.getNewValue());
+					passButton.setEnabled((Boolean)evt.getNewValue());
+					break;
+				case "fail":
+					getJMenuBar().getMenu(0).getItem(1).setEnabled((Boolean)evt.getNewValue() && canFail);
+					failButton.setEnabled((Boolean)evt.getNewValue() && canFail);
+					break;
+				case "approach":
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(0).setEnabled((Boolean)evt.getNewValue() && approachAllowed[0]);
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(1).setEnabled((Boolean)evt.getNewValue() && approachAllowed[1]);
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(2).setEnabled((Boolean)evt.getNewValue() && approachAllowed[2]);
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(3).setEnabled((Boolean)evt.getNewValue() && approachAllowed[3]);
+					boolean approachable = false;
+					for(boolean b : approachAllowed) {
+						if (b) {
+							approachable = true;
+							break;
+						}
+					}
+					if (approachable) {
+						approachButton.setEnabled((Boolean)evt.getNewValue());
+					}
+					break;
+				case "arthur":
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(0).setEnabled((Boolean)evt.getNewValue());
+					approachAllowed[0] = false;
+					break;
+				case "galahad":
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(1).setEnabled((Boolean)evt.getNewValue());
+					approachAllowed[1] = false;
+					break;
+				case "lancelot":
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(2).setEnabled((Boolean)evt.getNewValue());
+					approachAllowed[2] = false;
+					break;
+				case "robin":
+					((JMenu)getJMenuBar().getMenu(0).getItem(2)).getItem(3).setEnabled((Boolean)evt.getNewValue());
+					approachAllowed[3] = false;
+					break;
+				case "guard":
+					canFail = false;
+				}
+			}
+		} else if (evt.getSource() instanceof BridgeSceneView) {
+			if (evt.getPropertyName().equals("Interpreter Visible")) {
+				if (!isVisible()) {
+					setVisible(true);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void run() {		
+		setSize(350, 175);
+		//setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setResizable(false);
+        setLocationByPlatform(true);
+		setVisible(true);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/consolesceneview.java
+package graphics.view;
+
+import java.beans.PropertyChangeEvent;
+
+import util.annotations.Tags;
+
+@Tags( { "Console Scene View" } )
+public class ConsoleSceneView implements IConsoleSceneView {
+	
+	public ConsoleSceneView(IBridgeScene scene) {
+		/*
+		 * Scene
+		 */
+		scene.addPropertyChangeListener(this);
+		
+		/*
+		 * Scene Parts
+		 */
+		scene.getBridge().addPropertyChangeListener(this);
+		scene.getCloseLand().addPropertyChangeListener(this);
+		scene.getFarLand().addPropertyChangeListener(this);
+		scene.getGuardArea().addPropertyChangeListener(this);
+		scene.getKnightArea().addPropertyChangeListener(this);
+		
+		/*
+		 * Arthur
+		 */
+		scene.getArthur().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getArthur().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getArthur().getBody().addPropertyChangeListener(this);
+		scene.getArthur().getHead().addPropertyChangeListener(this);
+		scene.getArthur().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getArthur().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getArthur().getNeck().addPropertyChangeListener(this);
+		scene.getArthur().getText().addPropertyChangeListener(this);
+
+		/*
+		 * Galahad
+		 */
+		scene.getGalahad().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getGalahad().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getGalahad().getBody().addPropertyChangeListener(this);
+		scene.getGalahad().getHead().addPropertyChangeListener(this);
+		scene.getGalahad().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getGalahad().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getGalahad().getNeck().addPropertyChangeListener(this);
+		scene.getGalahad().getText().addPropertyChangeListener(this);
+		
+		/*
+		 * Guard
+		 */
+		scene.getGuard().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getGuard().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getGuard().getBody().addPropertyChangeListener(this);
+		scene.getGuard().getHead().addPropertyChangeListener(this);
+		scene.getGuard().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getGuard().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getGuard().getNeck().addPropertyChangeListener(this);
+		scene.getGuard().getText().addPropertyChangeListener(this);
+		
+		/*
+		 * Lanelot
+		 */
+		scene.getLancelot().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getLancelot().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getLancelot().getBody().addPropertyChangeListener(this);
+		scene.getLancelot().getHead().addPropertyChangeListener(this);
+		scene.getLancelot().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getLancelot().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getLancelot().getNeck().addPropertyChangeListener(this);
+		scene.getLancelot().getText().addPropertyChangeListener(this);
+		
+		/*
+		 * Robin
+		 */
+		scene.getRobin().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getRobin().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getRobin().getBody().addPropertyChangeListener(this);
+		scene.getRobin().getHead().addPropertyChangeListener(this);
+		scene.getRobin().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getRobin().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getRobin().getNeck().addPropertyChangeListener(this);
+		scene.getRobin().getText().addPropertyChangeListener(this);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println(evt.getPropertyName() + ": " + evt.getOldValue() + " -> " + evt.getNewValue());
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/iavatarview.java
+package graphics.view;
+
+import java.beans.PropertyChangeListener;
+
+import util.PaintListener;
+
+public interface IAvatarView extends PaintListener, PropertyChangeListener {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/ibackgroundview.java
+package graphics.view;
+
+import util.PaintListener;
+
+public interface IBackgroundView extends PaintListener {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/ibridgescene.java
+package graphics.view;
+
+import util.models.PropertyListenerRegisterer;
+import bus.uigen.OEFrame;
+import graphics.avatar.IAvatar;
+import graphics.shapes.IOvalShape;
+import graphics.shapes.IRectangleShape;
+
+public interface IBridgeScene extends PropertyListenerRegisterer {
+	public IAvatar getArthur();
+	public IAvatar getLancelot();
+	public IAvatar getRobin();
+	public IAvatar getGalahad();
+	public IAvatar getGuard();
+	public IRectangleShape getCloseLand();
+	public IRectangleShape getBridge();
+	public IRectangleShape getFarLand();
+	public IOvalShape getGuardArea();
+	public IOvalShape getKnightArea();
+	public boolean preApproach();
+	public void approach(IAvatar knight);
+	public void walk(IAvatar avatar, int dx, int dy);
+	public void walkTo(IAvatar avatar, int newX, int newY);
+	public void flail(IAvatar avatar, int newX, int newY);
+	public boolean isOccupied();
+	public boolean isKnightTurn();
+	public boolean preSay();
+	public void say(String text);
+	public boolean prePass();
+	public void pass();
+	public boolean preFail();
+	public void fail();
+	public OEFrame getOEFrame();
+	public void setOEFrame(OEFrame frame);
+	public void angleNeck(IAvatar avatar, double target, boolean clockwise);
+	public void angleBody(IAvatar avatar, double target, boolean clockwise);
+	public void angleRightArm(IAvatar avatar, double target, boolean clockwise);
+	public void angleLeftArm(IAvatar avatar, double target, boolean clockwise);
+	public void angleRightLeg(IAvatar avatar, double target, boolean clockwise);
+	public void angleLeftLeg(IAvatar avatar, double target, boolean clockwise);
+	public void angleNeck(IAvatar avatar, int steps);
+	public void angleBody(IAvatar avatar, int steps);
+	public void angleRightArm(IAvatar avatar, int steps);
+	public void angleLeftArm(IAvatar avatar, int steps);
+	public void angleRightLeg(IAvatar avatar, int steps);
+	public void angleLeftLeg(IAvatar avatar, int steps);
+	public void scaleAvatar(IAvatar avatar, double scaleFactor);
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/icommandinterpreterview.java
+package graphics.view;
+
+import java.beans.PropertyChangeListener;
+
+public interface ICommandInterpreterView extends PropertyChangeListener, Runnable  {
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/iconsolesceneview.java
+package graphics.view;
+
+import java.beans.PropertyChangeListener;
+
+import util.annotations.Tags;
+
+@Tags( { "Console Scene View" } )
+public interface IConsoleSceneView extends PropertyChangeListener {
+
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/observablepainter.java
+package graphics.view;
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.event.EventListenerList;
+
+import util.PaintListener;
+import util.annotations.Tags;
+
+@SuppressWarnings("serial")
+@Tags({ "Observable Painter" })
+public class ObservablePainter extends Component {
+	private EventListenerList ell = new EventListenerList();
+	
+	public ObservablePainter() { }
+	
+	public void addPaintListener(PaintListener listener) {
+		ell.add(PaintListener.class, listener);
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		//System.out.println("Paint!");
+		for(PaintListener listener : ell.getListeners(PaintListener.class)) {
+			listener.paint((Graphics2D) g);
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/progressmonitor.java
+package graphics.view;
+
+public class ProgressMonitor {
+	private ProgressMonitorView view;
+	private ProgressMonitorController controller;
+	
+	public ProgressMonitor(int stepCount) {
+		view = new ProgressMonitorView(stepCount);
+		controller = new ProgressMonitorController(stepCount);
+		
+		controller.addPropertyChangeListener(view);
+		
+		javax.swing.SwingUtilities.invokeLater(view);
+	}
+
+	public void stepComplete() {
+		controller.stepComplete();
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/progressmonitorcontroller.java
+package graphics.view;
+
+import java.beans.PropertyChangeListener;
+
+import util.APropertyChangeListenerManager;
+import util.models.PropertyListenerRegisterer;
+
+public class ProgressMonitorController implements PropertyListenerRegisterer {
+	private int currentStep, totalSteps;
+	
+	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
+	
+	public ProgressMonitorController(int steps) {
+		currentStep = 0;
+		totalSteps = steps;
+	}
+
+	public void stepComplete() {
+		if (currentStep < totalSteps) {
+			pclm.firePropertyChange("Step", currentStep ++, currentStep);
+		}
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pclm.addPropertyChangeListener(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/graphics/view/progressmonitorview.java
+package graphics.view;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+
+@SuppressWarnings("serial")
+public class ProgressMonitorView extends JFrame implements Runnable, PropertyChangeListener {
+	private JProgressBar progressBar;
+	
+	public ProgressMonitorView(int steps) {
+		super("Animation Progress");
+		progressBar = new JProgressBar(0, steps);
+		progressBar.setStringPainted(true);
+		add(progressBar);
+	}
+
+	@Override
+	public void run() {
+		setSize(250, 50);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setResizable(false);
+        setLocationByPlatform(true);
+		setVisible(true);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("Step")) {
+			Object o = evt.getNewValue();
+			if (o instanceof Integer) {
+				progressBar.setValue((Integer)o);
+			}
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/main/assignment10.java
+package main;
+
+//import test.TableTest;
+import commandEngine.interpreter.IInterpreter;
+import commandEngine.interpreter.Interpreter;
+import commandEngine.tokenizer.Tokenizer;
+import graphics.view.BridgeScene;
+import graphics.view.BridgeSceneView;
+import graphics.view.CommandInterpreterView;
+import graphics.view.ConsoleSceneView;
+import graphics.view.IBridgeScene;
+import graphics.view.ICommandInterpreterView;
+import graphics.view.ProgressMonitor;
+import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
+
+public class Assignment10 {
+	public static void main(String[] args) {
+		IBridgeScene bridgeScene = new BridgeScene();
+
+		@SuppressWarnings("unused")
+		ConsoleSceneView csv = new ConsoleSceneView(bridgeScene);
+
+		IInterpreter interpreter = new Interpreter(bridgeScene);
+		ProgressMonitor pm = new ProgressMonitor(14);
+		
+		CommandInterpreterView civ = new CommandInterpreterView(interpreter, bridgeScene);
+		javax.swing.SwingUtilities.invokeLater(new BridgeSceneView(bridgeScene, civ));
+		pm.stepComplete();
+		
+		javax.swing.SwingUtilities.invokeLater(civ);
+		pm.stepComplete();
+		
+		//OEFrame editor2 = ObjectEditor.edit(interpreterView);
+		OEFrame editor = ObjectEditor.edit(bridgeScene);
+		bridgeScene.setOEFrame(editor);
+
+		editor.hideMainPanel();
+		editor.setSize(800, 500);
+		pm.stepComplete();
+
+		sleep(2000);
+		
+		interpreter.animateArthur();
+		interpreter.animateGalahad();
+		interpreter.animateLancelot();
+		interpreter.animateRobin();
+		interpreter.animateGuard();
+
+		//interpreter.setOEFrame(editor2);
+		
+
+		interpreter.setCommand("sleep 5000");
+		pm.stepComplete();
+		interpreter.setCommand("move Arthur -50 100");
+		pm.stepComplete();
+		sleep(2000);
+		interpreter.setCommand("move Lancelot 50 -20");
+		pm.stepComplete();
+		sleep(2000);
+		interpreter.setCommand("approach Galahad");
+		pm.stepComplete();
+		sleep(2000);
+		interpreter.setCommand("say \"What is your favorite color?\"");
+		pm.stepComplete();
+		sleep(4000);
+		interpreter.setCommand("say \"Magenta!\"");
+		pm.stepComplete();
+		sleep(2000);
+		
+		bridgeScene.scaleAvatar(bridgeScene.getArthur(), 0.5);
+		pm.stepComplete();
+		sleep(2000);
+		bridgeScene.angleBody(bridgeScene.getArthur(), -2. * Math.PI / 5., true);
+		pm.stepComplete();
+		sleep(2000);
+		bridgeScene.angleNeck(bridgeScene.getArthur(), -3. * Math.PI / 4., false);
+		pm.stepComplete();
+		sleep(2000);
+		interpreter.setCommand("pass");
+		pm.stepComplete();
+
+		/*
+		 * TableTest tTest = new TableTest(bridgeScene);
+		 * 
+		 * OEFrame editor3 = ObjectEditor.edit(tTest);
+		 * tTest.setOEFrame(editor3); tTest.runTest();
+		 * 
+		 * /*bridgeScene.approach(bridgeScene.getArthur()); sleep(1000);
+		 * bridgeScene.fail();
+		 * 
+		 * bridgeScene.approach(bridgeScene.getRobin());
+		 * bridgeScene.say("fail?"); sleep(1000); bridgeScene.say("fail.");
+		 * sleep(1000); bridgeScene.fail();
+		 * 
+		 * 
+		 * bridgeScene.approach(bridgeScene.getGalahad());
+		 * bridgeScene.say("pass?"); sleep(1000); bridgeScene.say("pass");
+		 * sleep(1000); bridgeScene.pass();
+		 * 
+		 * bridgeScene.approach(bridgeScene.getLancelot());
+		 * bridgeScene.say("darn"); sleep(1000); bridgeScene.fail();
+		 * 
+		 * /*angleNeck(editor, bridgeScene.getArthur(), -Math.PI/5., true);
+		 * angleBody(editor, bridgeScene.getArthur(), 9.*Math.PI/7., false);
+		 * 
+		 * //scaleAvatar(editor, bridgeScene.getGuard(), .5);
+		 * 
+		 * bridgeScene.getGalahad().setBodyColor(Color.BLUE);
+		 * 
+		 * IRotatingLine galahadLeftArm =
+		 * bridgeScene.getGalahad().getArms().getLeftLine(); IRotatingLine
+		 * galahadRightArm = bridgeScene.getGalahad().getArms().getRightLine();
+		 * 
+		 * for(int i = 1; i <= 30; i ++) { galahadLeftArm.rotate(1 + 5 / i);
+		 * galahadRightArm.rotate(-1 + -5 / i); editor.refresh(); sleep(10); }
+		 * 
+		 * sleep(490);
+		 * 
+		 * say(editor, bridgeScene.getLancelot(), "I seek the holy grail!");
+		 * sleep(500);
+		 * 
+		 * bridgeScene.getGalahad().setBodyColor(Color.YELLOW);
+		 * 
+		 * editor.refresh(); sleep(250);
+		 * 
+		 * //say(editor, bridgeScene.getGuard(), "I am half size!");
+		 * //sleep(1000);
+		 * 
+		 * IRotatingLine robinLeftLeg =
+		 * bridgeScene.getRobin().getLegs().getLeftLine(); IRotatingLine
+		 * robinRightLeg = bridgeScene.getRobin().getLegs().getRightLine();
+		 * 
+		 * for(int i = 1; i <= 10; i ++) { robinLeftLeg.rotate(-1);
+		 * robinRightLeg.rotate(1); bridgeScene.getRobin().move(1, 0);
+		 * editor.refresh(); sleep(10); }
+		 * 
+		 * for(int i = 1; i <= 10; i ++) { robinLeftLeg.rotate(1);
+		 * robinRightLeg.rotate(-1); bridgeScene.getRobin().move(1, 0);
+		 * editor.refresh(); sleep(10); }
+		 * 
+		 * for(int i = 1; i <= 10; i ++) { robinLeftLeg.rotate(-1);
+		 * robinRightLeg.rotate(1); bridgeScene.getRobin().move(1, 0);
+		 * editor.refresh(); sleep(10); }
+		 * 
+		 * sleep(490);
+		 * 
+		 * bridgeScene.getLancelot().setTextColor(Color.WHITE);
+		 * editor.refresh();
+		 */
+
+	}
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/test/tabletest.java
+package test;
+
+import java.util.ArrayList;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
+import bus.uigen.OEFrame;
+import commandEngine.interpreter.ITable;
+import commandEngine.interpreter.Table;
+import graphics.avatar.IAvatar;
+import graphics.view.IBridgeScene;
+
+@PropertyNames({ "AvatarName", "Avatar", "OEFrame" })
+@EditablePropertyNames({ "AvatarName", "OEFrame" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@Tags({ "Table Test" })
+public class TableTest {
+	private final IBridgeScene scene;
+	private final ITable avatarTable;
+	private OEFrame frame;
+	private String name;
+	private IAvatar avatar;
+
+	public TableTest(IBridgeScene scene) {
+		this.scene = scene;
+		avatarTable = new Table();
+		buildTable();
+		setAvatarName("arthur");
+	}
+
+	public void runTest() {
+		ArrayList<String> names = (ArrayList<String>) avatarTable.getKeys();
+
+		for (String testName : names) {
+			// System.out.println(testName);
+			setAvatarName(testName);
+			frame.refresh();
+			sleep(5000);
+		}
+	}
+
+	public void setOEFrame(OEFrame frame) {
+		this.frame = frame;
+		frame.setSize(800, 800);
+	}
+
+	@Visible(false)
+	public OEFrame getOEFrame() {
+		return frame;
+	}
+
+	public void setAvatarName(String name) {
+		this.name = name;
+		avatar = (IAvatar) avatarTable.get(name);
+	}
+
+	public String getAvatarName() {
+		return name;
+	}
+
+	public IAvatar getAvatar() {
+		return avatar;
+	}
+
+	private void buildTable() {
+		if (avatarTable.isEmpty()) {
+			avatarTable.put("arthur", scene.getArthur());
+			avatarTable.put("lancelot", scene.getLancelot());
+			avatarTable.put("robin", scene.getRobin());
+			avatarTable.put("galahad", scene.getGalahad());
+			avatarTable.put("guard", scene.getGuard());
+		}
+	}
+
+	private static void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/token/endtoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "End Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public class EndToken extends Token implements IEndToken {
+
+	public EndToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/iendtoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "End Token" })
+public interface IEndToken extends IToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/iminustoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Minus Token" })
+public interface IMinusToken extends IToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/inumbertoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Number Token" })
+public interface INumberToken extends IToken {
+	public int getNumber();
+}
+//END OF FILE
+//START OF FILE: src/token/iplustoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Plus Token" })
+public interface IPlusToken extends IToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/iquotedstringtoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Quote Token" })
+public interface IQuotedStringToken extends IToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/istarttoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Start Token" })
+public interface IStartToken extends IToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/itoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Token" })
+public interface IToken {
+	public void setString(String s);
+
+	public String getString();
+}
+//END OF FILE
+//START OF FILE: src/token/iwordtoken.java
+package token;
+
+import util.annotations.Tags;
+
+@Tags({ "Word Token" })
+public interface IWordToken extends IToken {
+	public String getWord();
+}
+//END OF FILE
+//START OF FILE: src/token/minustoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Minus Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public class MinusToken extends Token implements IMinusToken {
+
+	public MinusToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/numbertoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Number Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Number" })
+@EditablePropertyNames({ "String" })
+public class NumberToken extends Token implements INumberToken {
+
+	public NumberToken(String s) {
+		super(s);
+		num = Integer.parseInt(s);
+	}
+
+	private int num;
+
+	@Override
+	public void setString(String s) {
+		super.setString(s);
+		num = Integer.parseInt(s);
+	}
+
+	@Override
+	public int getNumber() {
+		return num;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/plustoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Plus Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public class PlusToken extends Token implements IPlusToken {
+
+	public PlusToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/quotedstringtoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Quote Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public class QuotedStringToken extends Token implements IQuotedStringToken {
+
+	public QuotedStringToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/starttoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Start Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public class StartToken extends Token implements IStartToken {
+
+	public StartToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/token.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String" })
+@EditablePropertyNames({ "String" })
+public abstract class Token implements IToken {
+
+	private String s;
+
+	public Token(String s) {
+		setString(s);
+	}
+
+	@Override
+	public void setString(String s) {
+		this.s = s;
+	}
+
+	@Override
+	public String getString() {
+		return s;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/wordtoken.java
+package token;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "Word Token" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class WordToken extends Token implements IWordToken {
+
+	public WordToken(String s) {
+		super(s);
+		word = s.toLowerCase();
+	}
+
+	private String word;
+
+	/*
+	 * @Override public void setString(String s) { super.setString(s); word =
+	 * s.toLowerCase(); }
+	 */
+
+	@Override
+	public String getWord() {
+		return word;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/approachcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "approach" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class ApproachCommandToken extends WordToken implements
+		IApproachCommandToken {
+
+	public ApproachCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/callcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "call" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class CallCommandToken extends WordToken implements ICallCommandToken {
+
+	public CallCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/definecommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "define" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class DefineCommandToken extends WordToken implements
+		IDefineCommandToken {
+
+	public DefineCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/failcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "fail" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class FailCommandToken extends WordToken implements IFailCommandToken {
+
+	public FailCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/iapproachcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "approach" })
+public interface IApproachCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/icallcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "call" })
+public interface ICallCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/icommandtoken.java
+package token.command;
+
+import token.IWordToken;
+import util.annotations.Tags;
+
+@Tags({ "Command Token" })
+public interface ICommandToken extends IWordToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/idefinecommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "define" })
+public interface IDefineCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/ifailcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "fail" })
+public interface IFailCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/imovecommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "move" })
+public interface IMoveCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/ipasscommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "pass" })
+public interface IPassCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/iproceedallcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "proceedAll" })
+public interface IProceedAllCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/iredocommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "redo" })
+public interface IRedoCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/irepeatcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "repeat" })
+public interface IRepeatCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/irotateleftarmcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "rotateLeftArm" })
+public interface IRotateLeftArmCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/irotaterightarmcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "rotateRightArm" })
+public interface IRotateRightArmCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/isaycommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "say" })
+public interface ISayCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/isleepcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "sleep" })
+public interface ISleepCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/ithreadcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "thread" })
+public interface IThreadCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/iundocommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "undo" })
+public interface IUndoCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/iwaitcommandtoken.java
+package token.command;
+
+import util.annotations.Tags;
+
+@Tags({ "wait" })
+public interface IWaitCommandToken extends ICommandToken {
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/movecommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "move" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class MoveCommandToken extends WordToken implements IMoveCommandToken {
+
+	public MoveCommandToken(String s) {
+		super(s);
+	}
+}
+//END OF FILE
+//START OF FILE: src/token/command/passcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "pass" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class PassCommandToken extends WordToken implements IPassCommandToken {
+
+	public PassCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/proceedallcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "proceedAll" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class ProceedAllCommandToken extends WordToken implements
+		IProceedAllCommandToken {
+
+	public ProceedAllCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/redocommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "redo" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class RedoCommandToken extends WordToken implements IRedoCommandToken {
+
+	public RedoCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/repeatcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "repeat" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class RepeatCommandToken extends WordToken implements
+		IRepeatCommandToken {
+
+	public RepeatCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/rotateleftarmcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "rotateLeftArm" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class RotateLeftArmCommandToken extends WordToken implements
+		IRotateLeftArmCommandToken {
+
+	public RotateLeftArmCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/rotaterightarmcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "rotateRightArm" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class RotateRightArmCommandToken extends WordToken implements
+		IRotateRightArmCommandToken {
+
+	public RotateRightArmCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/saycommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "say" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class SayCommandToken extends WordToken implements ISayCommandToken {
+
+	public SayCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/sleepcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "sleep" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class SleepCommandToken extends WordToken implements ISleepCommandToken {
+
+	public SleepCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/threadcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "thread" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class ThreadCommandToken extends WordToken implements
+		IThreadCommandToken {
+
+	public ThreadCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/undocommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "undo" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class UndoCommandToken extends WordToken implements IUndoCommandToken {
+
+	public UndoCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/token/command/waitcommandtoken.java
+package token.command;
+
+import token.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({ "wait" })
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "String", "Word" })
+@EditablePropertyNames({ "String" })
+public class WaitCommandToken extends WordToken implements IWaitCommandToken {
+
+	public WaitCommandToken(String s) {
+		super(s);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/util/apropertychangelistenermanager.java
+package util;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
+public class APropertyChangeListenerManager implements IPropertyChangeListenerManager {
+	private final Object source;
+	private ArrayList<PropertyChangeListener> listeners = new ArrayList<>();
+
+	public APropertyChangeListenerManager(Object source) {
+		this.source = source;
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		listeners.add(listener);
+	}
+
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		listeners.remove(listener);
+	}
+
+	@Override
+	public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+		PropertyChangeEvent event = new PropertyChangeEvent(source, propertyName, oldValue, newValue);
+		firePropertyChange(event);
+	}
+
+	@Override
+	public void firePropertyChange(PropertyChangeEvent event) {
+		for (PropertyChangeListener l : listeners) {
+			l.propertyChange(event);
+		}
+	}
+
+	@Override
+	public PropertyChangeListener[] getPropertyChangeListeners() {
+		return listeners.toArray(new PropertyChangeListener[listeners.size()]);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/util/ipropertychangelistenermanager.java
+package util;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public interface IPropertyChangeListenerManager {
+	public void addPropertyChangeListener(PropertyChangeListener listener);
+
+	public void removePropertyChangeListener(PropertyChangeListener listener);
+
+	public void firePropertyChange(String propertyName, Object oldValue, Object newValue);
+
+	public void firePropertyChange(PropertyChangeEvent event);
+
+	public PropertyChangeListener[] getPropertyChangeListeners();
+}
+//END OF FILE
+//START OF FILE: src/util/paintlistener.java
+package util;
+
+import java.awt.Graphics2D;
+
+import util.annotations.Tags;
+
+@Tags({ "Paint Listener" })
+public interface PaintListener extends java.util.EventListener {
+	public void paint(Graphics2D g);
+}
+//END OF FILE

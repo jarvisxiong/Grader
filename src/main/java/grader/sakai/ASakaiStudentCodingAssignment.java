@@ -124,7 +124,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
 
         }
         if (projectFolder == null) {
-            System.out.println(ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this).getMessage());
+            System.out.println("!!! " + ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this).getMessage());
 //    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
         }
 
