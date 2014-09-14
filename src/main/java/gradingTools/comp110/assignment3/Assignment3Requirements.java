@@ -23,7 +23,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		addDueDate("03/26/2014 23:55:59", 0.5);
 
 		// Checks for proper header
-		addFeature("Has a proper header", 5, new ProperHeaderTestCase());
+		addFeature("Has a proper header", 5, new ProperHeaderTestCase("COMP110-002, Spring 2014"));
 
 		// Check for a main method
 		addFeature("Contains a main method", 5, new MainMethodTestCase());

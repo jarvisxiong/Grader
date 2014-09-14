@@ -30,7 +30,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		addFeature("Displays results of addition and multiplication", 40,
 				new PrintAddAndMultiplyTestCase());
 
-		addFeature("Has a proper header", 10, new ProperHeaderTestCase());
+		addFeature("Has a proper header", 10, new ProperHeaderTestCase("COMP110-002, Spring 2014"));
 
 		// Check for the messages with the outputs
 		// manual feature, not extra credit

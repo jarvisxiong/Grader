@@ -15,7 +15,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		// Check for a main method
 				addFeature("Contains a main method", 10, new MainMethodTestCase());
 		// Check for Header		
-				addFeature("Has a proper header", 10, new ProperHeaderTestCase());
+				addFeature("Has a proper header", 10, new ProperHeaderTestCase("COMP110-001, Fall 2014"));
 		//Check for BankTransaction Classname
 				addFeature("Has BankTransaction class",10,new BankTransactionClassTestCase());
 		//Check for Welcome and Thank You Message

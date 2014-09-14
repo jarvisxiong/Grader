@@ -22,7 +22,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 		addDueDate("04/19/2014 23:55:59", 0.5);
 
 		// Checks for proper header
-		addFeature("Has a proper header", 5, new ProperHeaderTestCase());
+		addFeature("Has a proper header", 5, new ProperHeaderTestCase("COMP110-002, Spring 2014"));
 
 		// Classes not to check for our methods
 		ArrayList<String> badClasses = new ArrayList<String>();
