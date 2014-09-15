@@ -22,7 +22,7 @@ public class BalancePrintingTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		Random r= new Random();
-		int depo=r.nextInt();
+		int depo=r.nextInt(Integer.MAX_VALUE)+1;
 		int withd=r.nextInt(depo);
 		while(withd>depo){
 			withd=r.nextInt(depo);
