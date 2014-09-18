@@ -265,10 +265,15 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Override
 	public void loadSourceFromFile() {
 		if (project.isNoProjectFolder()) return;
+		try {
 		internalSetSource(
 //				getProject().
 					project.
-					getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));								;
+					getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));		
+		} catch (Exception e) {
+			System.out.println("Could not load source");
+			System.out.println(e);
+		}
 
 	}
 
