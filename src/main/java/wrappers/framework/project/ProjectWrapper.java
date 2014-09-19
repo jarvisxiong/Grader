@@ -4,6 +4,7 @@ import framework.navigation.SakaiStudentFolder;
 import framework.navigation.StudentFolder;
 import framework.project.StandardProject;
 import framework.utils.GraderSettings;
+import grader.project.AProject;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.file.load.RootZipFileFolderLoaded;
@@ -51,9 +52,16 @@ public class ProjectWrapper extends StandardProject {
         File path = new File(project.getRootCodeFolder().getMixedCaseAbsoluteName());
         //System.out.println("()()()()() " + path.getAbsolutePath());
         if (path.isFile()) {
-            if (path.getName().endsWith(".zip")) {
+//            if (path.getName().endsWith(".zip")) {
+            if (path.getName().endsWith(AProject.ZIP_SUFFIX_1) || path.getName().endsWith(AProject.ZIP_SUFFIX_2)) {
+
                 // A zip file, so unzip
-                File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
+//                File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
+            	String aFileName = path.getName().replace(AProject.ZIP_SUFFIX_1, "").replace(AProject.ZIP_SUFFIX_2, "");
+//                File dir = new File(path.getParentFile(), path.getName().replace(AProject.ZIP_SUFFIX_1, ""));
+
+            	File dir = new File(path.getParentFile(), aFileName);
+
                 if (dir.exists()) {
                     return dir;
                 }

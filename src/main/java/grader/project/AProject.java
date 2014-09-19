@@ -40,7 +40,8 @@ import java.util.Objects;
 
 public class AProject implements Project {
 
-    public static final String ZIP_SUFFIX = ".zip";
+    public static final String ZIP_SUFFIX_1 = ".zip";
+    public static final String ZIP_SUFFIX_2 = ".jar";
     public static final String DEFAULT_PROJECT_FOLDER = ".";
     public static final String DEFAULT_GRADING_FOLDER = "C:/Users/dewan/Downloads/GraderData";
     public static final String DEFAULT_TRANSCRIPT_FILE_PREFIX = "transcript";
@@ -339,12 +340,12 @@ public class AProject implements Project {
     }
 
     public AProject(String aProjectFolder, String anOutputFolder) {
-        init(aProjectFolder, anOutputFolder, aProjectFolder.endsWith(ZIP_SUFFIX));
+        init(aProjectFolder, anOutputFolder, aProjectFolder.endsWith(ZIP_SUFFIX_1) || aProjectFolder.endsWith(ZIP_SUFFIX_2) );
 
     }
 
     public AProject(String aProjectFolder) {
-        init(aProjectFolder, outputFolder, aProjectFolder.endsWith(ZIP_SUFFIX));
+        init(aProjectFolder, outputFolder, aProjectFolder.endsWith(ZIP_SUFFIX_1) || aProjectFolder.endsWith(ZIP_SUFFIX_2));
 
     }
 

@@ -3,6 +3,7 @@ package grader.sakai;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
+import grader.project.AProject;
 import grader.project.Project;
 import grader.trace.project.ProjectFolderAssumed;
 import grader.trace.project.ProjectFolderNotFound;
@@ -39,7 +40,10 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     FileProxy getZipChild(FileProxy aFolder) {
         Set<String> childrenNames = aFolder.getChildrenNames();
         for (String childName : childrenNames) {
-            if (childName.endsWith(".zip")) {
+//            if (childName.endsWith(".zip")) {
+            if (childName.endsWith(AProject.ZIP_SUFFIX_1) || 
+            		childName.endsWith(AProject.ZIP_SUFFIX_2)) {
+
                 return submissionFolder.getFileEntry(childName);
             }
         }

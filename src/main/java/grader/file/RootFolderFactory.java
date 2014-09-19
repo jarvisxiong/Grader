@@ -6,7 +6,7 @@ import grader.project.AProject;
 
 public class RootFolderFactory {
     public static RootFolderProxy createRootFolder(String aFolder) {
-        boolean isZipperFolder = aFolder.endsWith(AProject.ZIP_SUFFIX);
+        boolean isZipperFolder = aFolder.endsWith(AProject.ZIP_SUFFIX_1) || aFolder.endsWith(AProject.ZIP_SUFFIX_2);
         if (isZipperFolder) {
             return new AZippedRootFolderProxy(aFolder);
         } else {

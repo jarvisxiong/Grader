@@ -2,11 +2,14 @@ package framework.navigation;
 
 import framework.project.Project;
 import framework.project.StandardProject;
+import grader.project.AProject;
 import tools.DirectoryUtils;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
+
 import scala.Option;
 import util.misc.Common;
 
@@ -89,7 +92,10 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
         Option<File> zipFile = DirectoryUtils.find(submissionFolder, new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.getName().endsWith(".zip");
+            	return pathname.getName().endsWith(AProject.ZIP_SUFFIX_1) 
+                		|| pathname.getName().endsWith(AProject.ZIP_SUFFIX_2); // let us see if this works
+//                return pathname.getName().endsWith(".zip") 
+//                		|| pathname.getName().endsWith(".jar"); // let us see if this works
             }
         });
         if (zipFile.isEmpty())
