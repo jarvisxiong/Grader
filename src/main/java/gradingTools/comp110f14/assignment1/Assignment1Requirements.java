@@ -13,8 +13,8 @@ import gradingTools.comp110.program0.HelloWorldPrinterTestCase;
 
 public class Assignment1Requirements extends FrameworkProjectRequirements {
 	public Assignment1Requirements() {
-		addDueDate("08/27/2014 23:55:59", 1.0);
-		addDueDate("08/28/2014 23:55:59", 0.5);
+		addDueDate("09/09/2014 23:55:59", 1.0);
+		addDueDate("09/10/2014 23:55:59", 0.5);
 
 		// Check for a HelloWorld class
 		addFeature("Contains the HelloWorld class", 30, new HelloWorldClassTestCase());
