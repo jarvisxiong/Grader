@@ -50,7 +50,7 @@ public class TransactionResultTest extends BasicTestCase {
 		
 		if (integerForm && correctBalance) {
 			return pass();
-		} else if (!integerForm) {
+		} else if (!correctBalance) {
 			return fail("Incorrect balance");
 		} else {
 			return partialPass(0.5, "Balance not in integer form");

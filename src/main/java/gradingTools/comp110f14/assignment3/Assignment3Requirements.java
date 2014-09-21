@@ -1,4 +1,6 @@
 package gradingTools.comp110f14.assignment3;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -9,6 +11,7 @@ import gradingTools.comp110f14.assignment3testcases.NegativeBalanceTest;
 import gradingTools.comp110f14.assignment3testcases.OpenAccountTest;
 import gradingTools.comp110f14.assignment3testcases.SecondTransactionPromptTest;
 import gradingTools.comp110f14.assignment3testcases.SharedOutput;
+import gradingTools.comp110f14.assignment3testcases.ThankYouTest;
 import gradingTools.comp110f14.assignment3testcases.TransactionPromptTest;
 import gradingTools.comp110f14.assignment3testcases.TransactionResultTest;
 import gradingTools.comp110f14.assignment3testcases.WelcomeTest;
@@ -18,7 +21,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		addDueDate("09/16/2014 23:55:59", 1.0);
 		addDueDate("09/17/2014 23:55:59", 0.5);
 		
-		// Check for Header		
+		// Check for Header
 		addFeature("Has a proper header", 5, new ProperHeaderTestCase("COMP110-001, Fall 2014"));
 		
 		int minValue = 30;
@@ -27,20 +30,22 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		int firstDeposit = rand.nextInt(maxAmount-minValue)+minValue;
 		int firstWithdawal = rand.nextInt(maxAmount-minValue)+minValue;
 		int secondWithdrawl1 = rand.nextInt(firstDeposit);
-		int secondWithdrawl2 = rand.nextInt(maxAmount-firstDeposit)+firstDeposit;
+		int secondWithdrawl2 = rand.nextInt(maxAmount-(firstDeposit+1))+firstDeposit+1;
 		
 		//For sharing output of initial prompt
 		SharedOutput initialPromptSharer = new SharedOutput("", 1);
+		//For sharing output when no account is opened
+		SharedOutput noAccountSharer = new SharedOutput("no", 1);
 		//For sharing prompt for type of transaction
 		SharedOutput transactionTypePromptSharer = new SharedOutput("yes", 1);
 		//For output for transactions
 		SharedOutput firstTransactionDeposit = new SharedOutput("yes\nDeposit\n"+firstDeposit, 1);
 		SharedOutput firstTransactionWithdrawal = new SharedOutput("yes\nWithdrawal\n"+firstWithdawal, 1);
-		SharedOutput secondTransactionWithdrawal1 = new SharedOutput("yes\nWithdrawal\n"+firstDeposit+"\n"+secondWithdrawl1+"\n", 1);
-		SharedOutput secondTransactionWithdrawal2 = new SharedOutput("yes\nWithdrawal\n"+firstDeposit+"\n"+secondWithdrawl2+"\n", 1);
+		SharedOutput secondTransactionWithdrawal1 = new SharedOutput("yes\nDeposit\n"+firstDeposit+"\nWithdrawal\n"+secondWithdrawl1+"\n", 1);
+		SharedOutput secondTransactionWithdrawal2 = new SharedOutput("yes\nDeposit\n"+firstDeposit+"\nWithdrawal\n"+secondWithdrawl2+"\n", 1);
 		
 		//Check for Welcome Message
-		addFeature("Has Welcome Message",10,new WelcomeTest(initialPromptSharer));
+		addFeature("Has Welcome Message",5,new WelcomeTest(initialPromptSharer));
 		//Check for Account prompt
 		addFeature("Prompt for opening account",10,new OpenAccountTest(initialPromptSharer));
 		//Check for type of transaction prompt
@@ -49,8 +54,8 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		//Check for result of first transaction
 		Map<SharedOutput, Integer> firstTransactionOutputs = new HashMap<>();
 		firstTransactionOutputs.put(firstTransactionDeposit, firstDeposit);
-		firstTransactionOutputs.put(firstTransactionWithdrawal, firstWithdawal);
-		addFeature("Correctly print balance for first transaction", 20, new TransactionResultTest(firstTransactionOutputs));
+		firstTransactionOutputs.put(firstTransactionWithdrawal, -1*firstWithdawal);
+		addFeature("Print balance for first transaction", 20, new TransactionResultTest(firstTransactionOutputs));
 		
 		//Check for prompt of second transaction
 		addFeature("Prompt for second transaction", 10, new SecondTransactionPromptTest(initialPromptSharer, firstTransactionDeposit));
@@ -59,18 +64,22 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		Map<SharedOutput, Integer> secondTransactionOutputs = new HashMap<>();
 		secondTransactionOutputs.put(secondTransactionWithdrawal1, firstDeposit - secondWithdrawl1);
 		secondTransactionOutputs.put(secondTransactionWithdrawal2, firstDeposit - secondWithdrawl2);
-		addFeature("Correctly print balance for second transaction", 20, new TransactionResultTest(secondTransactionOutputs));
+		addFeature("Print balance for second transaction", 20, new TransactionResultTest(secondTransactionOutputs));
 		
 		//Check for detection of overdraft
 		Map<SharedOutput, Integer> overdrafts = new HashMap<>();
-		overdrafts.put(firstTransactionWithdrawal, firstWithdawal);
+		//overdrafts.put(firstTransactionWithdrawal, -1*firstWithdawal);
 		overdrafts.put(secondTransactionWithdrawal2, firstDeposit - secondWithdrawl2);
 		Map<SharedOutput, Integer> nonOverdrafts = new HashMap<>();
 		nonOverdrafts.put(firstTransactionDeposit, firstDeposit);
 		nonOverdrafts.put(secondTransactionWithdrawal1, firstDeposit - secondWithdrawl1);
-		addFeature("Correctly detects negative balance and prints balance with overdraft fee", 15, new NegativeBalanceTest(overdrafts, nonOverdrafts, 20));
+		addFeature("Detects negative balance and assigns overdraft fee", 15, new NegativeBalanceTest(overdrafts, nonOverdrafts, 20));
 		
-		//TODO check for thank you
+		//Check for thank you message
+		Collection<SharedOutput> twoTransactionOutputs = new ArrayList<>();
+		twoTransactionOutputs.add(secondTransactionWithdrawal1);
+		twoTransactionOutputs.add(secondTransactionWithdrawal2);
+		addFeature("Thank user for visiting the bank", 5, new ThankYouTest(initialPromptSharer, noAccountSharer, twoTransactionOutputs));
 		
 	}
 } 
