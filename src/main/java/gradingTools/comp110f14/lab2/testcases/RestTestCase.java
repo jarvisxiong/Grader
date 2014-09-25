@@ -29,7 +29,7 @@ public class RestTestCase extends BasicTestCase {
 		int numoff=5;
 		concat=Pattern.matches(".*Computer.*Science.*is.*fun.*", output);
 		//concat=output.matches(".*Computer.*Science.*is.*fun.*");
-		len=Pattern.matches(".*[20-30].*", output);
+		len=Pattern.matches(".*((2[0-9])|(30)).*", output);
 		//len=output.matches(".*[20-30].*");
 		concat=Pattern.matches(".*computer.*science.*is.*fun.*", output);
 		//low=output.matches(".*computer.*science.*is.*fun.*");
