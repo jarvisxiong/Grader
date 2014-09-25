@@ -1,4 +1,6 @@
-package gradingTools.comp110f14.Lab2.testcases;
+package gradingTools.comp110f14.lab2.testCases;
+
+import java.util.regex.Pattern;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -24,12 +26,15 @@ public class RestTestCase extends BasicTestCase {
 		boolean concat=false;
 		boolean len=false;
 		boolean low=false;
-		int numoff=0;
-		concat=output.matches(".*Computer.*Science.*is.*fun!.*");
-		len=output.matches(".*(20-30).*");
-		low=output.matches(".*computer.*science.*is.*fun!.*");
+		int numoff=5;
+		concat=Pattern.matches(".*Computer.*Science.*is.*fun.*", output);
+		//concat=output.matches(".*Computer.*Science.*is.*fun.*");
+		len=Pattern.matches(".*[20-30].*", output);
+		//len=output.matches(".*[20-30].*");
+		concat=Pattern.matches(".*computer.*science.*is.*fun.*", output);
+		//low=output.matches(".*computer.*science.*is.*fun.*");
 		if(concat&&len&&low)return pass();
-		if(!(concat&&len&&low))return fail("no correct concatenated statement, length, or lower case ");
+		if((!concat&&!len&&!low))return fail("no correct concatenated statement, length, or lower case ");
 		String partialpassmessage = "";
 		if(!concat){
 			numoff-=2;
@@ -43,7 +48,7 @@ public class RestTestCase extends BasicTestCase {
 			numoff--;
 			partialpassmessage+=" no correct lower case printing";
 		}
-		double partialpassvalue=(10-numoff)/10;
+		double partialpassvalue=(5-numoff)/5;
 		return partialPass(partialpassvalue,partialpassmessage);
 	}
 
