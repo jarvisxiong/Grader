@@ -1,4 +1,4 @@
-package gradingTools.comp110f14.lab2.testCases;
+package gradingTools.comp110f14.lab2.testcases;
 
 import java.util.regex.Pattern;
 
