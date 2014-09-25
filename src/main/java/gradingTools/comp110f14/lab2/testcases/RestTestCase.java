@@ -23,15 +23,19 @@ public class RestTestCase extends BasicTestCase {
 		// TODO Auto-generated method stub
 		RunningProject goo=RunningProjectUtils.runProject(project, 3,"");
 		String output=goo.await();
+		System.out.println(output);
 		boolean concat=false;
 		boolean len=false;
 		boolean low=false;
 		int numoff=5;
 		concat=Pattern.matches(".*Computer.*Science.*is.*fun.*", output);
+		System.out.println(concat);
 		//concat=output.matches(".*Computer.*Science.*is.*fun.*");
 		len=Pattern.matches(".*((2[0-9])|(30)).*", output);
+		System.out.println(len);
 		//len=output.matches(".*[20-30].*");
 		concat=Pattern.matches(".*computer.*science.*is.*fun.*", output);
+		System.out.print(concat);
 		//low=output.matches(".*computer.*science.*is.*fun.*");
 		if(concat&&len&&low)return pass();
 		if((!concat&&!len&&!low))return fail("no correct concatenated statement, length, or lower case ");

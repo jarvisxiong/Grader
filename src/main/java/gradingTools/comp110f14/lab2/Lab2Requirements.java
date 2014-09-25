@@ -13,7 +13,7 @@ public class Lab2Requirements extends FrameworkProjectRequirements {//Labs out o
 		addFeature("Contains a main method", 5, new MainMethodTestCase());
 		
 		//check for rest
-		addFeature("Is the rest good?",5,new RestTestCase());
+		addFeature("Is the rest good",5,new RestTestCase());
 		
 		
 	}
