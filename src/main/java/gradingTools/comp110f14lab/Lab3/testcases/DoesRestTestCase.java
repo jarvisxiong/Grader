@@ -1,4 +1,4 @@
-package gradingTools.comp110f14.Lab3.testcases;
+package gradingTools.comp110f14lab.Lab3.testcases;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;

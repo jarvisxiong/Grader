@@ -1,4 +1,4 @@
-package gradingTools.comp110f14.lab2.testcases;
+package gradingTools.comp110f14lab.lab2.testcases;
 
 import java.util.regex.Pattern;
 
@@ -17,6 +17,10 @@ public class RestTestCase extends BasicTestCase {
 		// TODO Auto-generated constructor stub
 	}
 
+	Pattern concatPattern = Pattern.compile("Computer.*Science.*is.*fun");
+	Pattern lengthPattern = Pattern.compile("((2[0-9])|(30))");
+	Pattern lowPattern = Pattern.compile("computer.*science.*is.*fun");
+	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
@@ -28,15 +32,9 @@ public class RestTestCase extends BasicTestCase {
 		boolean len=false;
 		boolean low=false;
 		int numoff=5;
-		concat=Pattern.matches(".*Computer.*Science.*is.*fun.*", output);
-		System.out.println(concat);
-		//concat=output.matches(".*Computer.*Science.*is.*fun.*");
-		len=Pattern.matches(".*((2[0-9])|(30)).*", output);
-		System.out.println(len);
-		//len=output.matches(".*[20-30].*");
-		concat=Pattern.matches(".*computer.*science.*is.*fun.*", output);
-		System.out.print(concat);
-		//low=output.matches(".*computer.*science.*is.*fun.*");
+		concat=concatPattern.matcher(output).find();
+		len=lengthPattern.matcher(output).find();
+		low=lowPattern.matcher(output).find();
 		if(concat&&len&&low)return pass();
 		if((!concat&&!len&&!low))return fail("no correct concatenated statement, length, or lower case ");
 		String partialpassmessage = "";

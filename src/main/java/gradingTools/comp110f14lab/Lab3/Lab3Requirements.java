@@ -1,7 +1,7 @@
-package gradingTools.comp110f14.Lab3;
+package gradingTools.comp110f14lab.Lab3;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
-import gradingTools.comp110f14.Lab3.testcases.DoesRestTestCase;
+import gradingTools.comp110f14lab.Lab3.testcases.DoesRestTestCase;
 
 public class Lab3Requirements extends FrameworkProjectRequirements {
 	public Lab3Requirements(){
