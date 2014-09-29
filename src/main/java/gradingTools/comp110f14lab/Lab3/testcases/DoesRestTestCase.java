@@ -1,4 +1,6 @@
-package gradingTools.comp110f14lab.Lab3.testcases;
+package gradingTools.comp110f14lab.lab3.testcases;
+
+import java.util.regex.Pattern;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -30,6 +32,12 @@ public class DoesRestTestCase extends BasicTestCase {
 		String lengthprint1="owiefjoweifjowfeijewf";
 		String lengthprint2="jw";
 		
+		Pattern o02= Pattern.compile(".*cor.*");
+		Pattern o4= Pattern.compile(".*cig.*");
+		Pattern o6= Pattern.compile(".*in|wr.*");
+		Pattern o6b=Pattern.compile(".*long.*");
+		Pattern o7=Pattern.compile(".*short.*");
+		
 		
 		
 		RunningProject goo0=RunningProjectUtils.runProject(project, 3,worksforAString1);
@@ -45,15 +53,15 @@ public class DoesRestTestCase extends BasicTestCase {
 		
 		String partialmessage="";
 		
-		if(output0.toLowerCase().matches(".*cor.*"))worksforA=true;
+		if(o02.matcher(output0.toLowerCase()).find())worksforA=true;
 		else partialmessage+="Does not work for A\n";
-		if(output2.toLowerCase().matches(".*cor.*"))worksforB=true;
+		if(o02.matcher(output2.toLowerCase()).find())worksforB=true;
 		else partialmessage+="Does not work for B\n";
-		if(output4.toLowerCase().matches(".*cig.*"))Cprint=true;
+		if(o4.matcher(output4.toLowerCase()).find())Cprint=true;
 		else partialmessage+="Does not work for C\n";
-		if(output6.toLowerCase().matches(".*in|wr.*"))printincorrect=true;
+		if(o6.matcher(output6.toLowerCase()).find())printincorrect=true;
 		else partialmessage+="Does not work for printing incorrect\n";
-		if(output6.toLowerCase().matches(".*long.*")&&output7.toLowerCase().matches(".*short.*"))lengthprint=true;
+		if(o6b.matcher(output6.toLowerCase()).find()&&o7.matcher(output7.toLowerCase()).find())lengthprint=true;
 		else partialmessage+= "Short/Long print problem";
 		boolean[] foo=new boolean[5] ;
 			foo[0]=worksforA;
