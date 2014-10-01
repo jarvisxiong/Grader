@@ -18,8 +18,8 @@ import gradingTools.comp110f14.assignment3testcases.WelcomeTest;
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
 	public Assignment3Requirements(){
-		addDueDate("09/16/2014 23:55:59", 1.0);
-		addDueDate("09/17/2014 23:55:59", 0.5);
+		addDueDate("10/02/2014 23:55:59", 1.0);
+		addDueDate("10/03/2014 23:55:59", 0.5);
 		
 		// Check for Header
 		addFeature("Has a proper header", 5, new ProperHeaderTestCase("COMP110-001, Fall 2014"));
