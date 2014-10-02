@@ -35,9 +35,14 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			List<String> optionList = new ArrayList<String>();
 			// set the output directory for the compiler
 			String buildFolderPath = buildFolder.getCanonicalPath();
+			String graderClassPath = GradingEnvironment
+					.get().getClasspath();
+			String myClassPath = buildFolderPath + ";" + graderClassPath;
+			
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath));
-			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
-					.get().getClasspath()));
+//			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
+//					.get().getClasspath()));
+			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", myClassPath));
 			System.out.println(buildFolderPath);
 
 			Iterable<? extends JavaFileObject> compilationUnits = fileManager

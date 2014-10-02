@@ -225,10 +225,13 @@ public class ProjectClassesManager implements ClassesManager {
 	 * @return boolean true if should compile/recompile false otherwise
 	 */
 	private boolean shouldCompile(File javaFile, File classFile) {
+//		System.out.println("Class time:" + classFile.lastModified() + " source time:" + javaFile.lastModified());
 
 		return AProject.isForceCompile() ||
 				!classFile.exists() || 
 				classFile.lastModified() < javaFile.lastModified();
+//				(classFile.lastModified() - javaFile.lastModified()) < 1000;
+
 	}
 
 //	/**
