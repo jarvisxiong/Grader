@@ -226,7 +226,7 @@ public abstract class CodeInspectorTestCase extends BasicTestCase{
 	protected void inspectIfStatement(IfStmt statement) {
 		inspectCondition(statement.getCondition());
 		inspectThenStatement(statement.getThenStmt());
-		inspectElseStatement(statement);
+		inspectElseStatement(statement.getElseStmt());
 	}
 	
 	protected void inspectForStatement(ForStmt statement) {

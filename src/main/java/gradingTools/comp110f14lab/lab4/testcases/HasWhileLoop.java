@@ -1,22 +1,22 @@
 package gradingTools.comp110f14lab.lab4.testcases;
 
+import com.github.antlrjavaparser.api.stmt.ForStmt;
+
 import framework.grading.testing.TestCaseResult;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
-import com.github.antlrjavaparser.api.stmt.WhileStmt;
-
-public class HasForLoop extends CodeInspectorTestCase {
+public class HasWhileLoop extends CodeInspectorTestCase {
 	
 	boolean hasForLoop = false;
 
-	public HasForLoop() {
-		super("Has for loop");
+	public HasWhileLoop() {
+		super("Has while loop");
 	}
 	
 	@Override
-	protected void inspectWhileStatement(WhileStmt statement) {
+	protected void inspectForStatement(ForStmt statement) {
 		hasForLoop = true;
-		super.inspectWhileStatement(statement);
+		super.inspectForStatement(statement);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class HasForLoop extends CodeInspectorTestCase {
 		if (hasForLoop) {
 			return pass();
 		} else {
-			return fail("No while loop found");
+			return fail("No for loop found");
 		}
 	}
 }
