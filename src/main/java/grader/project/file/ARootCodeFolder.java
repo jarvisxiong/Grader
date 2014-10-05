@@ -25,6 +25,8 @@ import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
 import grader.trace.project.SourceFolderNotFound;
+
+import java.io.File;
 import java.nio.file.Paths;
 //a root folder containing source and binary directories
 
@@ -228,17 +230,22 @@ public class ARootCodeFolder implements RootCodeFolder {
      */
 
     public static String getEntryWithSuffix(RootFolderProxy aRoot, String suffix) {
+    	String rootName = Common.toCanonicalFileName(aRoot.getAbsoluteName().toLowerCase());
         Set<String> nameSet = aRoot.getEntryNames();
         String zipSuffix = "";
         for (String name : nameSet) {
-            String filename = Paths.get(name).getFileName().toString();
-            if (filename.endsWith(suffix)
-                    || filename.endsWith(suffix + System.getProperty("path.separator"))) {
-                if (name.contains(".zip")) {
-                    zipSuffix = name;
-                } else {
-                    return name;
+            while(!name.equals(rootName)) {
+                String filename = Paths.get(name).getFileName().toString();
+                if (filename.endsWith(suffix)
+                        || filename.endsWith(suffix + System.getProperty("path.separator"))) {
+                    if (name.contains(".zip")) {
+                        zipSuffix = name;
+                    } else {
+                        return name;
+                    }
                 }
+                File file = new File(name);
+                name = Common.toCanonicalFileName(file.getParent());
             }
         }
         if (!zipSuffix.isEmpty()) {
