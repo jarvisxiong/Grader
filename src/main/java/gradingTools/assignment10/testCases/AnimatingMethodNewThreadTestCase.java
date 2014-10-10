@@ -15,6 +15,7 @@ import tools.classFinder2.ClassFinder;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +39,7 @@ public class AnimatingMethodNewThreadTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade);
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
             return fail("Looking for method in command interpreter, but the class was not found.", autoGrade);
 

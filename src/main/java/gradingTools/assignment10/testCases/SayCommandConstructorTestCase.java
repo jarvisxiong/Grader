@@ -12,6 +12,7 @@ import tools.classFinder2.ClassFinder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,13 +32,13 @@ public class SayCommandConstructorTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("say command", autoGrade);
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("say command", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
             return fail("No say command object", autoGrade);
         Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Option<ClassDescription> sceneClassDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade);
+        Option<ClassDescription> sceneClassDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade, ClassType.CLASS);
         if (sceneClassDescription.isEmpty())
             return fail("No bridge scene class. This is needed for the constructor.", autoGrade);
         Class<?> sceneClass = sceneClassDescription.get().getJavaClass();

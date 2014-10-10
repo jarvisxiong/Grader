@@ -37,12 +37,36 @@ public class ClassFinder {
      * @return The class description wrapped in an {@link Option} in case none was found
      */
     public Option<ClassDescription> findByTag(String tag, boolean autoGrade) throws NotAutomatableException {
+        return findByTag(tag, autoGrade, ClassType.UNDEFINED);
+    }
+    
+    /**
+     * Finds the first class with the given tag. If no class is found then it asks the grader which one it is.
+     * @param tag The tag to search for
+     * @return The class description wrapped in an {@link Option} in case none was found
+     */
+    public Option<ClassDescription> findByTag(String tag, boolean autoGrade, ClassType type) throws NotAutomatableException {
         // First check the cache
-        if (classCache.containsKey(tag))
-            return classCache.get(tag);
+        if (classCache.containsKey(tag)) {
+            Option<ClassDescription> descOpt = classCache.get(tag);
+            if (!descOpt.isEmpty()) {
+                ClassDescription desc = descOpt.get();
+                if (type.equals(ClassType.UNDEFINED) || type.equals(ClassType.getClassType(desc.getJavaClass()))) {
+                    return classCache.get(tag);
+                }
+            }
+            classCache.remove(tag);
+        }
 
         // We haven't search for that yet. Let's look starting with the tags
         Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag(tag);
+        if (!type.equals(ClassType.UNDEFINED)) {
+            for(ClassDescription description : descriptions.toArray(new ClassDescription[descriptions.size()])) {
+                if (!ClassType.getClassType(description.getJavaClass()).equals(type)) {
+                    descriptions.remove(description);
+                }
+            }
+        }
         Option<ClassDescription> classDescription;
         if (descriptions.isEmpty()) {
             if (autoGrade)

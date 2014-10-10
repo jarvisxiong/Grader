@@ -6,12 +6,14 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import java.lang.reflect.Constructor;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,25 +30,28 @@ public class MoveCommandConstructorTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        if (project.getClassesManager().isEmpty())
+        if (project.getClassesManager().isEmpty()) {
             throw new NotGradableException();
+        }
 
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("move command", autoGrade);
-        if (classDescription.isEmpty())
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("move command", autoGrade, ClassType.CLASS);
+        if (classDescription.isEmpty()) {
             return fail("No move command object", autoGrade);
+        }
         Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Option<ClassDescription> avatarClassDescription = ClassFinder.get(project).findByTag("Avatar", autoGrade);
-        if (avatarClassDescription.isEmpty())
+        Option<ClassDescription> avatarClassDescription = ClassFinder.get(project).findByTag("Avatar", autoGrade, ClassType.CLASS);
+        if (avatarClassDescription.isEmpty()) {
             return fail("No single avatar class. This is needed for the constructor.", autoGrade);
+        }
         Class<?> avatarClass = avatarClassDescription.get().getJavaClass();
         List<Class<?>> avatarClasses = new ArrayList<Class<?>>(Arrays.asList(avatarClass.getInterfaces()));
         avatarClasses.add(avatarClass);
 
         // Try all three possible ordering of arguments with different classes.
         for (Class<?> avatar : avatarClasses) {
-            if (checkForConstructor(_class, avatar, int.class, int.class))
+            if (checkForConstructor(_class, avatar, int.class, int.class)) 
                 return pass(autoGrade);
             if (checkForConstructor(_class, avatar, Integer.class, Integer.class))
                 return pass(autoGrade);

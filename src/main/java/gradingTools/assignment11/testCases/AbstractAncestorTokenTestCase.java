@@ -10,6 +10,7 @@ import scala.Option;
 import tools.classFinder2.ClassFinder;
 
 import java.lang.reflect.Modifier;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +31,7 @@ public class AbstractAncestorTokenTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        Option<ClassDescription> description = ClassFinder.get(project).findByTag("ancestor token", autoGrade);
+        Option<ClassDescription> description = ClassFinder.get(project).findByTag("ancestor token", autoGrade, ClassType.ABSTRACT);
         if (description.isEmpty())
             return fail("No ancestor token class", autoGrade);
 

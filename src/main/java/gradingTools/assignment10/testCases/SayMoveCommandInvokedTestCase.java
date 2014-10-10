@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +39,7 @@ public class SayMoveCommandInvokedTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade);
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
             return fail("Command interpreter not found.", autoGrade);
         Class<?> _class = classDescription.get().getJavaClass();

@@ -3,14 +3,9 @@ package gradingTools;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-import java.util.Arrays;
-import framework.grading.AGUIGradingManager;
-import framework.grading.AHeadlessGradingManager;
 import framework.grading.GradingManager;
 import framework.grading.GradingMangerType;
-import static framework.grading.GradingMangerType.A_GUI_GRADING_MANAGER;
 import static framework.grading.GradingMangerType.A_HEADLESS_GRADING_MANAGER;
-import static framework.grading.GradingMangerType.SAKAI_PROJECT_DATABASE;
 import framework.grading.ProjectRequirements;
 import framework.gui.SettingsWindow;
 import framework.logging.loggers.*;
@@ -46,8 +41,8 @@ import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
 /**
- * This is the entry class for the grading tools that Maven will reference.
- * Use config.properties to configure what gets run.
+ * This is the entry class for the grading tools that Maven will reference. Use
+ * config.properties to configure what gets run.
  */
 public class Driver {
 
@@ -62,9 +57,9 @@ public class Driver {
     static GraderSettingsModel settingsModel;
 
     static File userPropsFile;
-    
+
     public static ProjectRequirements getProjectRequirements() {
-       return StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
+        return StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
     }
 
@@ -114,8 +109,6 @@ public class Driver {
 
 //        requirements = StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 //        requirements = getProjectRequirements();
-
-
         GradingManager manager;
         /*switch (controller) {
          case A_GUI_GRADING_MANAGER: {
@@ -154,9 +147,9 @@ public class Driver {
 
                 settingsModel.init();
             }
-            
+
             // handle the clean slate argss
-            for(int i = 0; i < args.length; i ++) {
+            for (int i = 0; i < args.length; i++) {
                 if (args[i].equals("--clean-slate")) {
                     i++;
                     if (i == args.length || args[i].startsWith("-")) {
@@ -166,10 +159,10 @@ public class Driver {
                         String onyenArg = args[i];
                         if (onyenArg.startsWith("{")) {
                             String[] onyenList = onyenArg.substring(1, onyenArg.length() - 1).split(",");
-                            for(String onyen : onyenList) {
+                            for (String onyen : onyenList) {
                                 if (onyen.contains("-")) {
                                     String[] onyenLimits = onyen.split("-");
-        //                            settingsModel.cleanSlate(onyenLimits[0], onyenLimits[1]);
+                                    //                            settingsModel.cleanSlate(onyenLimits[0], onyenLimits[1]);
                                 } else {
                                     settingsModel.cleanSlate(onyen);
                                 }
@@ -193,7 +186,7 @@ public class Driver {
                 settingsFrame = ObjectEditor.edit(settingsModel);
                 settingsFrame.setLocation(settingsFrameX, settingsFrameY);
                 settingsFrame.setTitle("Grader Assistant Starter");
-               
+
 //                settingsFrame.setSize(600, 550);
                 settingsFrame.setSize(600, 570);
 
@@ -211,7 +204,7 @@ public class Driver {
 
             projectName = settingsModel.getCurrentProblem(); // get the current one
             GradingEnvironment.get().setAssignmentName(projectName);
-            
+
             // moving code below
 //            requirements = getProjectRequirements();
 //            recorder.setProjectRequirements(requirements);
@@ -222,7 +215,6 @@ public class Driver {
 //            	
 //            initLoggers(requirements, configuration);
 //            initAssignmentDataFolder();
-
         } else if (isNotHeadless()) {
 
             // Start the grading process by, first, getting the settings the running the project database
@@ -257,10 +249,10 @@ public class Driver {
         requirements = getProjectRequirements();
         recorder.setProjectRequirements(requirements);
         if (requirements == null) {
-        	System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
-        	System.exit(-1);
+            System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
+            System.exit(-1);
         }
-        	
+
         initLoggers(requirements, configuration);
 
         database.addProjectRequirements(requirements);

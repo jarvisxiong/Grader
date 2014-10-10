@@ -8,6 +8,7 @@ import framework.project.ClassDescription;
 import framework.project.Project;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,7 +38,7 @@ public class CommandImplementsRunnableTestCase extends BasicTestCase {
             score = 0.5;
             notes = "Class was not tagged.";
         }
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag(tag, autoGrade);
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag(tag, autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
             return fail("No class tagged: " + tag, autoGrade);
 
