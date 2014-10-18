@@ -13,6 +13,7 @@ import tools.classFinder2.ClassFinder;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
+import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,7 +37,7 @@ public class PreconditionTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // First get the bridge scene class
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade);
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
             return fail("No bridge scene class", autoGrade);
         Class<?> _class = classDescription.get().getJavaClass();
