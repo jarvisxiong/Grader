@@ -21,6 +21,7 @@ public class LanguageDependencyManager {
 		
 		public static String JAVA_LANGUAGE = "Java";
 		public static String C_LANGUAGE = "C";
+		public static String PYTHON_LANGUAGE = "Python";
 
 	
 	public static  String binaryFileSuffix = ".class";
@@ -84,6 +85,8 @@ public class LanguageDependencyManager {
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
 		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
 		languageToBinaryFileSuffix.put(C_LANGUAGE, ".obj");
+		languageToSourceFileSuffix.put(PYTHON_LANGUAGE, ".py");
+		languageToBinaryFileSuffix.put(PYTHON_LANGUAGE, ".py"); // does it have a compiled class
 		
 		languageToMainClassFinder.put(JAVA_LANGUAGE, JavaMainClassFinderSelector.getMainClassFinder());
 		languageToMainClassFinder.put(C_LANGUAGE, ExecutableFinderSelector.getMainClassFinder());

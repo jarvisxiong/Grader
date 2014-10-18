@@ -27,6 +27,8 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     public static final String END_ONYEN = "end";
     public static final String WORD_PATH = "Word.path";
     public static final String C_COMPILER_PATH = "CCompiler.path";
+    public static final String PYTHON_INTERPRETER_PATH = "PythonInterpreter.path";
+
     PropertiesConfiguration dynamicConfiguration
             = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
     ModuleProblemManager moduleProblemManager = ModuleProblemManagerSelector.getModuleProblemManager();
@@ -295,6 +297,23 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     @Override
     public void setCCompilerPath(String aNewValue) {
         dynamicConfiguration.setProperty(C_COMPILER_PATH, aNewValue);
+
+    }
+    
+    @Override
+    public String getPythonInterpreterPath() {
+        String path = dynamicConfiguration.getString(PYTHON_INTERPRETER_PATH);
+        if (path == null) {
+//            path = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration().getString(C_COMPILER_PATH, "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/bin/cl.exe");
+            path = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration().getString(PYTHON_INTERPRETER_PATH, "python");
+
+        }
+        return path;
+    }
+
+    @Override
+    public void setPythonInterpreterPath(String aNewValue) {
+        dynamicConfiguration.setProperty(PYTHON_INTERPRETER_PATH, aNewValue);
 
     }
 
