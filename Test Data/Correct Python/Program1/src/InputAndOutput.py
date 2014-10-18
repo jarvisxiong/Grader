@@ -40,7 +40,7 @@
 num1 = int(raw_input("Please input an integer "));
 num2 =  float(raw_input("Please input a decimal "));
 print "The int addition:", num1 + int(num2);
-print "The double addition:", double(num1) + num2;
+print "The double addition:", float(num1) + num2;
 print "The int multiplication:", num1 * int(num2);
-print "The double multiplication:", double(num1)*num2;
+print "The double multiplication:", float(num1)*num2;
   		
