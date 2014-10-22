@@ -6,8 +6,8 @@ import gradingTools.comp110f14lab.lab2.testcases.RestTestCase;
 
 public class Lab2Requirements extends FrameworkProjectRequirements {//Labs out of 10
 	public Lab2Requirements(){
-		addDueDate("09/22/2014 23:55:59", 1.0);//temp
-		addDueDate("09/23/2014 23:55:59", 0.5);//temp
+		addDueDate("09/22/2014 23:55:59", 1.0);
+		addDueDate("09/23/2014 23:55:59", 0.5);
 		
 		//check for main method
 		addFeature("Contains a main method", 5, new MainMethodTestCase());

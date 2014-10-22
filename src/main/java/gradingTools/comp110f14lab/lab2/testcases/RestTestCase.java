@@ -27,7 +27,6 @@ public class RestTestCase extends BasicTestCase {
 		// TODO Auto-generated method stub
 		RunningProject goo=RunningProjectUtils.runProject(project, 3,"");
 		String output=goo.await();
-		System.out.println(output);
 		boolean concat=false;
 		boolean len=false;
 		boolean low=false;
@@ -36,7 +35,7 @@ public class RestTestCase extends BasicTestCase {
 		len=lengthPattern.matcher(output).find();
 		low=lowPattern.matcher(output).find();
 		if(concat&&len&&low)return pass();
-		if((!concat&&!len&&!low))return fail("no correct concatenated statement, length, or lower case ");
+		if((!concat&&!len&&!low))return fail("no correct concatenated statement, length, or lower case");
 		String partialpassmessage = "";
 		if(!concat){
 			numoff-=2;
