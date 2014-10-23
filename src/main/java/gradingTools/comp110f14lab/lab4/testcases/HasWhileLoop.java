@@ -1,30 +1,35 @@
 package gradingTools.comp110f14lab.lab4.testcases;
 
-import com.github.antlrjavaparser.api.stmt.ForStmt;
-
 import framework.grading.testing.TestCaseResult;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
+import com.github.antlrjavaparser.api.stmt.WhileStmt;
+
 public class HasWhileLoop extends CodeInspectorTestCase {
 	
-	boolean hasForLoop = false;
+	boolean hasWhileLoop = false;
 
 	public HasWhileLoop() {
 		super("Has while loop");
 	}
+
+	@Override
+	public void resetVariablesForEachProject() {
+		hasWhileLoop = false;
+	}
 	
 	@Override
-	protected void inspectForStatement(ForStmt statement) {
-		hasForLoop = true;
-		super.inspectForStatement(statement);
+	protected void inspectWhileStatement(WhileStmt statement) {
+		hasWhileLoop = true;
+		super.inspectWhileStatement(statement);
 	}
 
 	@Override
 	public TestCaseResult codeInspectionResult() {
-		if (hasForLoop) {
+		if (hasWhileLoop) {
 			return pass();
 		} else {
-			return fail("No for loop found");
+			return fail("No while loop found");
 		}
 	}
 }

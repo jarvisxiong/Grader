@@ -319,6 +319,7 @@ public abstract class CodeInspectorTestCase extends BasicTestCase{
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
 		
+		resetVariablesForEachProject();
 		
 		if (project.getClassesManager().isEmpty())
 			throw new NotGradableException();
@@ -361,6 +362,8 @@ public abstract class CodeInspectorTestCase extends BasicTestCase{
 	public void inspectMethodName(String name) {}
 	
 	public void inspectVariableName(String variable) {}
+	
+	public abstract void resetVariablesForEachProject();
 
 	public abstract TestCaseResult codeInspectionResult();
 }

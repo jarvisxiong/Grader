@@ -1,9 +1,6 @@
 package gradingTools.comp110f14.assignment4testcases;
 
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
 import java.util.ArrayList;
@@ -17,12 +14,10 @@ public class CapitalizationStyle extends CodeInspectorTestCase {
 	public CapitalizationStyle() {
 		super("Correct capitalization of variables, methods, and classes");
 	}
-	
+
 	@Override
-	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
-	NotGradableException {
+	public void resetVariablesForEachProject() {
 		incorrectCases = new ArrayList<>();
-		return super.test(project, autoGrade);
 	}
 	
 	private boolean isUpperCase(char c) {
