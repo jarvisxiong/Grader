@@ -32,7 +32,7 @@ public class HasArray extends CodeInspectorTestCase {
 	@Override
 	protected void inspectVariableDeclarationExpr(VariableDeclarationExpr expr) {
 		// Code to check if it is an array
-		expr.getType().toString();  //This gets the String of the name of the type
+		if(expr.getType().toString().toLowerCase().contains("int[]")||expr.getType().toString().toLowerCase().contains("myarray[]")||expr.getType().toString().toLowerCase().contains("double[]"))hasArray=true;
 		super.inspectVariableDeclarationExpr(expr);
 	}
 
