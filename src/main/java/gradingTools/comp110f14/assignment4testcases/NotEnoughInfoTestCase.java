@@ -1,5 +1,7 @@
 package gradingTools.comp110f14.assignment4testcases;
 
+import java.util.regex.Pattern;
+
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -25,7 +27,8 @@ public class NotEnoughInfoTestCase extends BasicTestCase {
 		if(noInfoOutput.toLowerCase().contains("not enough information"))hasMessage=true;
 		String[] splittedNoInfoOutput=noInfoOutput.split("\n");
 		int length= splittedNoInfoOutput.length;
-		if(splittedNoInfoOutput[length-1].contains("gene")||splittedNoInfoOutput[length-2].contains("gene"))askAgain=true;
+		Pattern genecrap=Pattern.compile(".*gene|seq|anoth.*");
+		if(genecrap.matcher(splittedNoInfoOutput[length-1]).find()||genecrap.matcher(splittedNoInfoOutput[length-2]).find())askAgain=true;
 		if(askAgain&&hasMessage)return pass();
 		if(!askAgain&&!hasMessage)return fail("did not print out notification correctly nor asked for gene input");
 		int numwrong=0;
