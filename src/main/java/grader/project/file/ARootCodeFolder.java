@@ -25,6 +25,8 @@ import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
 import grader.trace.project.SourceFolderNotFound;
+
+import java.io.File;
 import java.nio.file.Paths;
 //a root folder containing source and binary directories
 
@@ -276,6 +278,8 @@ public class ARootCodeFolder implements RootCodeFolder {
      */
 
     public static String getFolderWithName(RootFolderProxy aRoot, String aName) {
+//    public static String getEntryWithSuffix(RootFolderProxy aRoot, String suffix) {
+    	String rootName = Common.toCanonicalFileName(aRoot.getAbsoluteName().toLowerCase());
         Set<String> nameSet = aRoot.getEntryNames();
         String separator = "/";
         for (String name : nameSet) {
@@ -284,6 +288,21 @@ public class ARootCodeFolder implements RootCodeFolder {
             if (index < 0) {
                 continue;
             }
+            // Jacob's solution to the intermediate node problem
+            while(!name.equals(rootName)) {
+                String filename = Paths.get(name).getFileName().toString();
+                if (filename.endsWith(aName)
+                        || filename.endsWith(aName + System.getProperty("path.separator"))) {
+//                    if (name.contains(".zip")) {
+//                        zipSuffix = name;
+//                    } else {
+                        return name;
+//                    }
+                }
+                File file = new File(name);
+                name = Common.toCanonicalFileName(file.getParent());
+            }
+            // pd's solution to the intermediate node problem - if his fails try this
 //            int intermediateIndex = name.indexOf(aName + "/");
             int intermediateIndex = name.indexOf(aName + separator);
             boolean nameEndsWithSuffix = name.length() == index + aName.length();

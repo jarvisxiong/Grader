@@ -19,7 +19,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		addFeature("Contains a main method", 10, new MainMethodTestCase());
 
 		// Checks for proper header
-		addFeature("Has a proper header", 10, new ProperHeaderTestCase());
+		addFeature("Has a proper header", 10, new ProperHeaderTestCase("COMP110-002, Spring 2014"));
 
 		// Checks for prompts
 		addFeature("Prompts for inputs", 10, new PromptTestCase());

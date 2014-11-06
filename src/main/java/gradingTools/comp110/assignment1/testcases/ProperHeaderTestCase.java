@@ -15,8 +15,16 @@ import framework.project.Project;
 
 public class ProperHeaderTestCase extends BasicTestCase {
 
+	String className;
+	
 	public ProperHeaderTestCase() {
 		super("Proper header test case");
+		this.className = "COMP110-002, Spring 2014";
+	}
+	
+	public ProperHeaderTestCase(String className) {
+		super("Proper header test case");
+		this.className = className;
 	}
 
 	static final String UNFILLED_PROGRAM_NAME = "Program or Assignment #: Insert assignment name";
@@ -38,9 +46,18 @@ public class ProperHeaderTestCase extends BasicTestCase {
 			try {
 				// Get the comment free code
 				String code = FileUtils.readFileToString(description.getSource());
-				code = code.replaceAll("\\s+", " ");
+				
+				while (true) {
+					String newCode = code.replaceAll("\\s+", " ");
+					if (!newCode.equals(code)) {
+						code = newCode;
+						code = code.replaceAll("\u00A0", " ");
+						continue;
+					}
+					break;
+				}
 
-				String headerRegex = "/[*]{1,} ([*]{1,} )*Program or Assignment #: .+ [*]{1,} [*]{1,} Programmer: .+ [*]{1,} [*]{1,} Due Date: .+ [*]{1,} [*]{1,} COMP110-002, Spring 2014 Instructor: Prof. Jay Aikat [*]{1,} [*]{1,} Pledge: I have neither given nor received unauthorized aid ([*]{1,} )?on this program. [*]{1,} [*]{1,} Description: .+ [*]{1,} [*]{1,} Input: .+ [*]{1,} [*]{1,} Output: .+ [*]{1,} [*]{1,}/";
+				String headerRegex = "/[*]{1,} ([*]{1,} )*((Program or Assignment)|(Program)|(Assignment)) (#|(\\d+)): .+( [*]{1,})* Programmer: .+( [*]{1,})* Due Date: .+( [*]{1,})* "+className+" Instructor: ((Prof[.]|Professor) )?Jay Aikat( [*]{1,})* Pledge: I have neither given nor received unauthorized aid ([*]{1,} )?on this program.( [*]{1,})* Description: .+( [*]{1,})* Input: .+( [*]{1,})* Output: .+( [*]{1,})*/";
 				Matcher matcher = Pattern.compile(headerRegex).matcher(code);
 				if (matcher.find()) {
 					String header = matcher.group();
@@ -57,6 +74,8 @@ public class ProperHeaderTestCase extends BasicTestCase {
 					} else {
 						return pass();
 					}
+				} else {
+					return fail("Could not automatically find header");
 				}
 
 			} catch (IOException e) {
