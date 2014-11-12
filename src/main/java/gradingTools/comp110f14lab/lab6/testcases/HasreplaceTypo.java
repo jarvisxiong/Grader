@@ -11,12 +11,13 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
+import gradingTools.sharedTestCase.ASimpleMethodMatcher;
+import gradingTools.sharedTestCase.MethodMatcher;
 
 public class HasreplaceTypo extends BasicTestCase {
 	String methodName;
 	Class<?> returnType;
 	Class<?>[] paramTypes;
-	ArrayList<String> badClass;
 	public HasreplaceTypo() {
 		super("has a replaceTypo method");
 		// TODO Auto-generated constructor stub
@@ -31,9 +32,7 @@ public class HasreplaceTypo extends BasicTestCase {
 		ClassesManager manager = project.getClassesManager().get();
 		for (ClassDescription description : manager.getClassDescriptions() ) {
 			Class<?> javaClass = description.getJavaClass();
-			if (!badClass.contains(javaClass.getName().toLowerCase())) {//should get the remaining class in program
-				continue;
-			}
+			
 			for (Method method : javaClass.getDeclaredMethods()) {
 				boolean correctName = method.getName().toLowerCase().equals("replacetypo");//decided to ignore case here
     			boolean correctVisibility = Modifier.isPublic(method.getModifiers()); //should be public

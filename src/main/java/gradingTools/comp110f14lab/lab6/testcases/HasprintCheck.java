@@ -16,7 +16,6 @@ public class HasprintCheck extends BasicTestCase{
 	String methodName;
 	Class<?> returnType;
 	Class<?>[] paramTypes;
-	ArrayList<String> badClass;
 	public HasprintCheck() {
 		super("has printCheck method");
 		// TODO Auto-generated constructor stub
@@ -31,13 +30,10 @@ public class HasprintCheck extends BasicTestCase{
 		ClassesManager manager = project.getClassesManager().get();
 		for (ClassDescription description : manager.getClassDescriptions() ) {
 			Class<?> javaClass = description.getJavaClass();
-			if (!badClass.contains(javaClass.getName().toLowerCase())) {//should get the remaining class in program
-				continue;
-			}
 			for (Method method : javaClass.getDeclaredMethods()) {
 				boolean correctName = method.getName().toLowerCase().equals("printcheck");//decided to ignore case here
     			boolean correctVisibility = Modifier.isPublic(method.getModifiers()); //should be public
-    			boolean correctReturnType = method.getReturnType().equals(Void.class);//should be void
+    			boolean correctReturnType = method.getReturnType().equals(Void.TYPE);//should be void
     			boolean correctParameterTypes = false;
     			Class[] paramClasses = method.getParameterTypes();
     			if (paramClasses.length == 1) { //should take in 1 parameter
