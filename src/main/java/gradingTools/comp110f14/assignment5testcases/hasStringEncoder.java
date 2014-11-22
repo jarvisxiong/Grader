@@ -13,6 +13,7 @@ import framework.project.ClassesManager;
 import framework.project.Project;
 
 public class hasStringEncoder extends BasicTestCase {
+	public boolean stringfirsten=false;
 	String methodName;
 	Class<?> returnType;
 	Class<?>[] paramTypes;
@@ -36,7 +37,11 @@ public class hasStringEncoder extends BasicTestCase {
     			boolean correctParameterTypes = false;
     			Class[] paramClasses = method.getParameterTypes();
     			if (paramClasses.length == 2) { //should take in 3 parameters
-    				if((paramClasses[0]==String.class&&paramClasses[1]==Array.class)||(paramClasses[1]==String.class&&paramClasses[0]==Array.class))correctParameterTypes = true;
+    				if(paramClasses[0]==String.class&&paramClasses[1]==Array.class){
+    					correctParameterTypes=true;
+    					stringfirsten=true;
+    				}
+    				else if(paramClasses[1]==String.class&&paramClasses[0]==Array.class)correctParameterTypes = true;
     					}
     			if (correctName && correctReturnType && correctParameterTypes) {
     				return pass();
