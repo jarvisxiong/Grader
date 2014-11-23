@@ -37,11 +37,11 @@ public class hasStringEncoder extends BasicTestCase {
     			boolean correctParameterTypes = false;
     			Class[] paramClasses = method.getParameterTypes();
     			if (paramClasses.length == 2) { //should take in 3 parameters
-    				if(paramClasses[0]==String.class&&paramClasses[1]==Array.class){
+    				if(paramClasses[0]==String.class&&paramClasses[1].isArray()){
     					correctParameterTypes=true;
     					stringfirsten=true;
     				}
-    				else if(paramClasses[1]==String.class&&paramClasses[0]==Array.class)correctParameterTypes = true;
+    				else if(paramClasses[1]==String.class&&paramClasses[0].isArray())correctParameterTypes = true;
     					}
     			if (correctName && correctReturnType && correctParameterTypes) {
     				return pass();

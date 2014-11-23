@@ -19,7 +19,7 @@ public class Assignment5Requirements extends FrameworkProjectRequirements {
 	char[] cipher={ 'Z', 'Y', 'X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q',
 			'P', 'O', 'N', 'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E',
 			'D', 'C', 'B', 'A' };
-	String toencode="goobear";
+	String toencode="GOOBEAR";
 	String todecode="YLOWYVZI";
 	
 	public Assignment5Requirements(){
@@ -41,21 +41,17 @@ public class Assignment5Requirements extends FrameworkProjectRequirements {
 		//has StringDecoder method
 		addFeature("has StringDecoder method",3,new hasStringDecoder());
 		this.stringfirstde= new hasStringDecoder().stringfirstde;
+		System.out.println(stringfirstde);
 		//has StringEncoder method
 		addFeature("has StringEncoder method",3,new hasStringEncoder());
 		this.stringfirsten=new hasStringEncoder().stringfirsten;
+		System.out.println(stringfirsten);
 		
 		//working StringEncoder
 		MethodMatcher encodetest = new ASimpleMethodMatcher("stringEncoder");
 		Object[][] argsen = new Object[1][2];
-		if(stringfirsten){
 			argsen[0][0]=toencode;
 			argsen[0][1]=cipher;
-		}
-		else{
-			argsen[0][0]=cipher;
-			argsen[0][1]=toencode;
-		}
 		Object[] reten = new Object[1];
 		reten[0]="TLLYVZI";
 		addFeature("Correct return for a call to StringEncoder",30,new CorrectStringEncoder(encodetest, argsen, reten, 500));
@@ -63,14 +59,8 @@ public class Assignment5Requirements extends FrameworkProjectRequirements {
 		//Working StringDecoder
 		MethodMatcher decodetest = new ASimpleMethodMatcher("stringDecoder");
 		Object[][] argsde = new Object[1][2];
-		if(stringfirstde){
 			argsde[0][0]=todecode;
 			argsde[0][1]=cipher;
-		}
-		else{
-			argsde[0][0]=cipher;
-			argsde[0][1]=todecode;
-		}
 		Object[] retde = new Object[1];
 		retde[0]="BOLDBEAR";
 		addFeature("Correct return for a call to StringDecoder",20,new CorrectStringDecoder(decodetest, argsde, retde, 500));
