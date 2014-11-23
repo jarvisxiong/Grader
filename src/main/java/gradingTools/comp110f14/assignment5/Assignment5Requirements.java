@@ -2,8 +2,11 @@ package gradingTools.comp110f14.assignment5;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110f14.assignment4testcases.CapitalizationStyle;
+import gradingTools.comp110f14.assignment5testcases.AskingAgain;
 import gradingTools.comp110f14.assignment5testcases.CorrectStringDecoder;
 import gradingTools.comp110f14.assignment5testcases.CorrectStringEncoder;
+import gradingTools.comp110f14.assignment5testcases.HandlingYesNo;
+import gradingTools.comp110f14.assignment5testcases.PromptTestCase;
 import gradingTools.comp110f14.assignment5testcases.hasOperateEncoder;
 import gradingTools.comp110f14.assignment5testcases.hasStringDecoder;
 import gradingTools.comp110f14.assignment5testcases.hasStringEncoder;
@@ -28,7 +31,11 @@ public class Assignment5Requirements extends FrameworkProjectRequirements {
 		//Check for Capitalization
 		addFeature("Naming Style",5,new CapitalizationStyle());
 		//Initial Prompt
-		
+		addFeature("Has Prompt",10,new PromptTestCase());
+		//Asks Again
+		addFeature("asks again",5,new AskingAgain());
+		//Handling response to ask again
+		addFeature("Handling Response",15,new HandlingYesNo());
 		//has OperateEncoder Method
 		addFeature("has OperateEncoder method",4,new hasOperateEncoder());
 		//has StringDecoder method
