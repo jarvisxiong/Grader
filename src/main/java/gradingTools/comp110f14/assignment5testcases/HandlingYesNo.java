@@ -44,11 +44,19 @@ public class HandlingYesNo extends BasicTestCase {
 		//---------------end yes stuff---------------//
 		
 		//---------------no stuff--------------------//
-		RunningProject no = RunningProjectUtils.runProject(project, 10, "ToBeIsTheQuestion\nno\n");
+		RunningProject no = RunningProjectUtils.runProject(project, 10, "ToBeIsTheQuestion\nyes\nfooBear\nno\n");
 		String outputno= no.await();
 		//break up output
 		String[] outputnofoo = outputno.split("\n");
-		int noencounters=0;
+		
+		//test attempt two
+		if(outputnofoo.length > outputyesfoo.length){
+			numwrong++;
+			partialMessage+="Asked for another message to encode despite user entering no\n";
+		}
+		
+		//handle test attempt one
+		/*int noencounters=0;
 		//loop through output given by specified input
 		for (int i = 0; i < outputnofoo.length; i++) {
 			if(promptstuff.matcher(outputnofoo[i]).find()){
@@ -59,7 +67,8 @@ public class HandlingYesNo extends BasicTestCase {
 		if(noencounters>2){
 			numwrong++;
 			partialMessage+="Asked for another message to encode despite user entering no\n";
-		}
+		}*/
+		
 		//---------------end no stuff---------------//
 		
 		//if handled yes and no then pass
