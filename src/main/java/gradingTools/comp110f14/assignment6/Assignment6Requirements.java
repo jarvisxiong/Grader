@@ -2,6 +2,7 @@ package gradingTools.comp110f14.assignment6;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110f14.assignment4testcases.CapitalizationStyle;
+import gradingTools.comp110f14.assignment6testcases.VariableTest;
 
 public class Assignment6Requirements extends FrameworkProjectRequirements {
 	
@@ -13,7 +14,8 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
 		addFeature("Has a proper header", 5, new ProperHeaderTestCase("COMP110-001, Fall 2014"));
 		//Check for Capitalization
 		addFeature("Naming Style",5,new CapitalizationStyle());
-	
+		//Check variables
+		addFeature("Contains desired variables in KitKatFactory",10,new VariableTest());
 		
 	}
 }
