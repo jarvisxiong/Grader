@@ -28,7 +28,7 @@ public class PreviousHoursPromptTestCase extends BasicTestCase {
 		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
 		String output0=Project0.await().toLowerCase();
 		boolean hasPrevHoursPrompt=false;
-		if(output0.contains("up until")) {
+		if(output0.contains("until")||output0.contains("semester")) {
 			hasPrevHoursPrompt=true;
 		}
 		if(hasPrevHoursPrompt) {
