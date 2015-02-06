@@ -22,15 +22,15 @@ public class CalculateRemainingHours extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		
 		int hoursRequired = 120;
-		int taken = 81;
-		int enrolled = 16;
+		int taken = 83;
+		int enrolled = 20;
 		int remaining = hoursRequired-(taken+enrolled);
 		
 		RunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+taken+'\n'+ enrolled);
 		
 		String hoursOutput=runningProject.await();
 		
-		if(hoursOutput.contains(""+remaining+ " hours")){
+		if(hoursOutput.contains(""+remaining)){
 			return pass();
 		}
 		
