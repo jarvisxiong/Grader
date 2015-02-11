@@ -27,7 +27,7 @@ public class CalculateTotalHours extends BasicTestCase {
 		
 		String hoursOutput=runningProject.await();
 		
-		if(hoursOutput.contains(""+total)){
+		if(hoursOutput.contains(""+total+" total")){
 			return pass();
 		}
 		
