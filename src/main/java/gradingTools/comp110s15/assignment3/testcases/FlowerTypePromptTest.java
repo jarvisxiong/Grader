@@ -31,7 +31,7 @@ public class FlowerTypePromptTest extends BasicTestCase{
 			return pass();
 		}
 		else {
-			return fail("no prompt seen for hours taken upto this semester");		
+			return fail("no prompt seen for flower type");		
 
 		}		
 	}
