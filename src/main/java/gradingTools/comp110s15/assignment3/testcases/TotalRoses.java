@@ -22,11 +22,11 @@ public class TotalRoses extends BasicTestCase {
 		int totalRoses = (numRoses * 12);
 
 		RunningProject runningProject = RunningProjectUtils.runProject(project,
-				10, "roses" + '\n' + numRoses);
+				10, "roses" + '\n' + numRoses+'\n');
 		String rosesOutput = runningProject.await();
 
-		if (rosesOutput.contains("" + totalRoses + "")
-				&& rosesOutput.contains("individual")) {
+		if (rosesOutput.contains(""+totalRoses)
+				) {
 			return pass();
 		}
 

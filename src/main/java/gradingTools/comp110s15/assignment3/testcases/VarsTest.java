@@ -33,7 +33,7 @@ public class VarsTest extends CodeInspectorTestCase {
 	protected void inspectVariableDeclarationExpr(VariableDeclarationExpr expr) {
 		// Code to check if it is there
 		String line=expr.getType().toString().toLowerCase();
-		if(line.contains("String"))hasVar=true;
+		if(line.contains("string"))hasVar=true;
 		super.inspectVariableDeclarationExpr(expr);
 	}
 

@@ -25,7 +25,7 @@ public class WelcomePromptTest extends BasicTestCase{
 		// TODO Auto-generated method stub
 		boolean hasWelcome=false;
 		try{
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 10,"200\n55");
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 10,"");
 			String output=runningProject.await().toLowerCase();
 			if( output.contains("welcome") ) {
 				hasWelcome=true;

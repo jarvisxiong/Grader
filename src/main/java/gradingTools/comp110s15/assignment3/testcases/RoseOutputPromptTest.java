@@ -21,13 +21,11 @@ public class RoseOutputPromptTest extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"roses\n3\n");
 		String output0=Project0.await().toLowerCase();
 		boolean hasRoseOutPrompt=true;
-		if( output0.contains("dozen") ){
-			if(!output0.contains("individual")) {
+		if(!output0.contains("dozen") ){
 				hasRoseOutPrompt=false;
-			}
 		}
 		if(hasRoseOutPrompt) {
 			return pass();

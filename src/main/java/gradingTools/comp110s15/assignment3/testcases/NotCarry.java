@@ -26,7 +26,7 @@ public class NotCarry extends BasicTestCase {
 		
 		String flowerOutput=runningProject.await();
 		
-		if(flowerOutput.contains("do not carry") && flowerOutput.length()<3 ){
+		if(flowerOutput.contains("do not carry")){
 			return pass();
 		}
 		
