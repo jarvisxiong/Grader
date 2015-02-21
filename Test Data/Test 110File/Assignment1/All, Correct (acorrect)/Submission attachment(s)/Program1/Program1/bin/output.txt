@@ -1,0 +1,6 @@
+Please input an integer
+Please input a decimal
+The int addition:9
+The double addition:9.213025
+The int multiplication:20
+The double multiplication:20.8521

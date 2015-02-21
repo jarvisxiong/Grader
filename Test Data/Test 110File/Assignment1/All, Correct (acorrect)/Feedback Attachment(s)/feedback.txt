@@ -1,0 +1,39 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Contains a main method                                 10.0 / 10.0
+Prompts for inputs                                     0.0 / 10.0
+Takes in Double and Integer                            0.0 / 10.0
+Adds and multiplies the numbers                        0.0 / 10.0
+Displays results of addition and multiplication        0.0 / 40.0
+Has a proper header                                    5.0 / 10.0
+Clear messages with output                             0.0 / 10.0
+----------------------------------
+  Points Awarded: 15.0
+
+  Features Score: 15.0
+
+Notes from grading features:
+----------------------------------
+Prompts for inputs:
+  -- Program does not prompt for integer inputs
+Program does not prompt for double inputs
+
+
+Takes in Double and Integer:
+  -- Did not take in any input
+
+Adds and multiplies the numbers:
+Not automatable
+Displays results of addition and multiplication:
+  -- Does not output the correct integer sum of the numbers
+Does not output the correct double sum of the numbers
+Does not output the correct integer product of the numbers
+Does not output the correct double product of the numbers
+
+
+Has a proper header:
+  -- Did not fill in all parts of the header
+
+  Total Score: 15.0

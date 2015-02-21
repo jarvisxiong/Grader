@@ -1,0 +1,51 @@
+//START OF FILE: src/inputandoutput.java
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+/******************************************************************
+ * Program or Assignment #: Assignment1
+ *
+ * Programmer: Jacob
+ *
+ * Due Date: Tuesday, Jan. 28
+ *
+ * COMP110-002, Spring 2014       Instructor: Prof. Jay Aikat
+ *
+ * Pledge: I have neither given nor received unauthorized aid
+ *         on this program. 
+ *
+ * Description: Insert a brief paragraph describing the program
+ *
+ * Input: Insert a brief description of user inputs, or "None" if
+ *        there is no user input
+ *
+ * Output: Insert a brief description of the program output
+ *
+ ******************************************************************/
+
+public class InputAndOutput {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter( "output.txt");
+			writer.println("Please input an integer");
+			int num1 = scan.nextInt();
+			writer.println("Please input a decimal");
+			double num2 = scan.nextDouble();
+			writer.println("The int addition:"+ (num1 + (int) num2));
+			writer.println("The double addition:"+ ( (double) num1 + num2));
+			writer.println("The int multiplication:"+ (num1 * (int) num2));
+			writer.println("The double multiplication:"+ ( (double) num1 * num2));
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}
+//END OF FILE

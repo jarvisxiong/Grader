@@ -1,0 +1,3 @@
+  -- Program does not prompt for integer inputs
+Program does not prompt for double inputs
+
