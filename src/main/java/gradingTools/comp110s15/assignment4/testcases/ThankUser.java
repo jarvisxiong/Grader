@@ -30,7 +30,7 @@ public class ThankUser extends BasicTestCase {
 		String output0 = Project0.await().toLowerCase();
 
 		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
-				"duke");
+				"DUKE\n");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 

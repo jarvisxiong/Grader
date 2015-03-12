@@ -29,7 +29,7 @@ public class InputDook extends BasicTestCase {
 		String output0 = Project0.await().toLowerCase();
 
 		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
-				"duke");
+				"duke\n");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 
@@ -38,7 +38,7 @@ public class InputDook extends BasicTestCase {
 		}
 
 		RunningProject Project2 = RunningProjectUtils.runProject(project, 10,
-				"DukE");
+				"DukE\n");
 		String output2 = Project2.await().toLowerCase();
 		output2 = output2.substring(output0.length() - 1);
 
