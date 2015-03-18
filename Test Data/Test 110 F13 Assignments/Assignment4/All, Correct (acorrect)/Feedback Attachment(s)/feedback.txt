@@ -2,12 +2,17 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Has a proper header                                    5.0 /  5.0
+Has a proper header                                    0.0 /  5.0
 Contains a main method                                 5.0 /  5.0
 Has proper averageFood method                          15.0 / 15.0
 Has proper searchForGerbil method                      15.0 / 15.0
+Correct output for user typing average                 20.0 / 20.0
+Correct output for user typing search                  20.0 / 20.0
+Correct output for user typing restart                 10.0 / 10.0
+Correct output for user typing quit                    10.0 / 10.0
+EXTRA CREDIT: Food Class                               20.0 / 20.0
 ----------------------------------
-  Points Awarded: 40.0
+  Points Awarded: 115.0
 
 Grading restrictions...
 ----------------------------------
@@ -15,4 +20,11 @@ No advanced Java classes allowed            0.0 /  -30.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Total Score: 40.0
+  Features Score: 115.0
+
+Notes from grading features:
+----------------------------------
+Has a proper header:
+  -- Could not automatically find header
+
+  Total Score: 115.0

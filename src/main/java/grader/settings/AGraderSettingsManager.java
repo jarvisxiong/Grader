@@ -42,7 +42,7 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     void maybeConvertToDynamicConfiguration() {
         Map<String, String> settings = GraderSettings.get().getSettings();
 //	    	PropertiesConfiguration dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
-        if (!dynamicConfiguration.isEmpty()) {
+        if (dynamicConfiguration == null || !dynamicConfiguration.isEmpty()) {
             return;
         }
         for (String key : settings.keySet()) {
