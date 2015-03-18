@@ -1,0 +1,848 @@
+*****************************(Correct output for user typing average)*****************************
+INPUT(Correct output for user typing average)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+OUTPUT(Correct output for user typing average)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+
+ERRORS(Correct output for user typing average)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:178)
+
+*****************************(Correct output for user typing average)*****************************
+INPUT(Correct output for user typing average)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+average
+OUTPUT(Correct output for user typing average)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+SB1X3 (Prince Firstly) 67%
+SB2 (Malcolm) 32%
+SB329 (Hannibal) 57%
+What information would you like to know?
+
+ERRORS(Correct output for user typing average)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:178)
+
+*****************************(Correct output for user typing search)*****************************
+INPUT(Correct output for user typing search)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+search
+OUTPUT(Correct output for user typing search)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+lab id to search for:
+
+ERRORS(Correct output for user typing search)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:188)
+
+*****************************(Correct output for user typing search)*****************************
+INPUT(Correct output for user typing search)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+search
+SB2
+OUTPUT(Correct output for user typing search)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+lab id to search for:
+Malcolm (will not escape, will not bite), Food: Cheese - 20/20 Fava Beans - 25/50 Bacon - 30/50 Gerbil Food - 20/60 Gerbil - 1/120
+What information would you like to know?
+
+ERRORS(Correct output for user typing search)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:178)
+
+*****************************(Correct output for user typing search)*****************************
+INPUT(Correct output for user typing search)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+search
+incorrectGerbilID
+OUTPUT(Correct output for user typing search)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+lab id to search for:
+ERROR: this gerbil does not exist
+What information would you like to know?
+
+ERRORS(Correct output for user typing search)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:178)
+
+*****************************(Correct output for user typing restart)*****************************
+INPUT(Correct output for user typing restart)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+restart
+OUTPUT(Correct output for user typing restart)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+How many food items do the gerbils eat?
+
+ERRORS(Correct output for user typing restart)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:37)
+
+*****************************(Correct output for user typing restart)*****************************
+INPUT(Correct output for user typing restart)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+restart
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+OUTPUT(Correct output for user typing restart)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+How many food items do the gerbils eat?
+
+ERRORS(Correct output for user typing restart)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:37)
+
+*****************************(Correct output for user typing quit)*****************************
+INPUT(Correct output for user typing quit)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+OUTPUT(Correct output for user typing quit)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+
+ERRORS(Correct output for user typing quit)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Unknown Source)
+	at main.main(main.java:178)
+
+*****************************(Correct output for user typing quit)*****************************
+INPUT(Correct output for user typing quit)
+5
+Cheese
+20
+Fava Beans
+50
+Bacon
+50
+Gerbil Food
+60
+Gerbil
+120
+3
+SB329
+Hannibal
+0
+50
+0
+0
+120
+True
+True
+SB2
+Malcolm
+20
+25
+30
+20
+1
+False
+False
+SB1X3
+Prince Firstly
+19
+25
+25
+30
+102
+False
+True
+quit
+OUTPUT(Correct output for user typing quit)
+How many food items do the gerbils eat?
+Name of food item 1
+Maximum consumed per gerbil: 
+Name of food item 2
+Maximum consumed per gerbil: 
+Name of food item 3
+Maximum consumed per gerbil: 
+Name of food item 4
+Maximum consumed per gerbil: 
+Name of food item 5
+Maximum consumed per gerbil: 
+How many gerbils are in the lab?
+Gerbil 1's lab id:
+What name did the undergrads give to SB329?
+SB329 eats how many Cheeses per day?
+SB329 eats how many Fava Beanss per day?
+SB329 eats how many Bacons per day?
+SB329 eats how many Gerbil Foods per day?
+SB329 eats how many Gerbils per day?
+Does SB329 bite?
+Does SB329 try to escape?
+Gerbil 2's lab id:
+What name did the undergrads give to SB2?
+SB2 eats how many Cheeses per day?
+SB2 eats how many Fava Beanss per day?
+SB2 eats how many Bacons per day?
+SB2 eats how many Gerbil Foods per day?
+SB2 eats how many Gerbils per day?
+Does SB2 bite?
+Does SB2 try to escape?
+Gerbil 3's lab id:
+What name did the undergrads give to SB1X3?
+SB1X3 eats how many Cheeses per day?
+SB1X3 eats how many Fava Beanss per day?
+SB1X3 eats how many Bacons per day?
+SB1X3 eats how many Gerbil Foods per day?
+SB1X3 eats how many Gerbils per day?
+Does SB1X3 bite?
+Does SB1X3 try to escape?
+What information would you like to know?
+
