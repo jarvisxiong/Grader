@@ -36,7 +36,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
 
-public abstract class CodeInspectorTestCase extends BasicTestCase{
+public abstract class CodeInspectorTestCase extends BasicTestCase{//mdaum mod
 
 	public CodeInspectorTestCase(String name) {
 		super(name);
@@ -326,6 +326,8 @@ public abstract class CodeInspectorTestCase extends BasicTestCase{
 
 		for (ClassDescription description : project.getClassesManager().get()
 				.getClassDescriptions()) {
+			Class<?> javaClass = description.getJavaClass();
+			if(javaClass.getName().toLowerCase().contains("m"))continue;//this line meant for picking out bad classes....
 			try {
 
 				// Get the comment free code

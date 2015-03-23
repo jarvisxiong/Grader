@@ -20,3 +20,5 @@ No advanced Java classes allowed            0.0 /  -30.0
 Overall Comments:
 ----------------------------------
 Missing project in submission folder:submission attachment(s)( desktop.ini)
+=======
+No project folder found that could be used to grade your project. This is likely because you did not submit a .zip file or your .zip file was corrupted.

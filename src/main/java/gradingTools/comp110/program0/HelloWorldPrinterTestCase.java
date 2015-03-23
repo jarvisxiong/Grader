@@ -25,7 +25,7 @@ public class HelloWorldPrinterTestCase extends BasicTestCase {
             String output = runningProject.await();
 
             // Now you can test the output for certain things
-            if (output != null && output.trim().equalsIgnoreCase("hello world"))
+            if (output != null && output.trim().toLowerCase().contains("hello world"))
                 return pass();
             else
                 return fail("Did not print out Hello World");

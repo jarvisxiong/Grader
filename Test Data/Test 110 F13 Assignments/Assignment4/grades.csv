@@ -10,3 +10,17 @@ norestart,norestart,No,Restart,40.0
 nosearch,nosearch,No,Search,40.0
 wrongname,wrongname,Wrong,MethodName,25.0
 wrongreturn,wrongreturn,Wrong,ReturnType,36.25
+=======
+Assignment 1,Points,,,
+,,,,
+Display ID,ID,Last Name,First Name,grade
+acorrect,acorrect,All,Correct,115.0
+jbartel,jbartel,Bartel,Jacob,0.0
+noavg,noavg,No,Average,40.0
+noextra,noextra,No,ExtraCredit,40.0
+noquit,noquit,No,Quit,40.0
+norestart,norestart,No,Restart,40.0
+nosearch,nosearch,No,Search,40.0
+wrongname,wrongname,Wrong,MethodName,25.0
+wrongreturn,wrongreturn,Wrong,ReturnType,36.25
+
