@@ -1,5 +1,7 @@
 package grader.navigation.manual;
 
+import java.awt.GraphicsEnvironment;
+
 import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JOptionPane;
 
@@ -28,6 +30,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 	} 
 		
 	Tracer.error(message);
+	if (!GraphicsEnvironment.isHeadless())
 	JOptionPane.showMessageDialog(null, message );
 	if (exitOnCompletion)
 		System.exit(0);

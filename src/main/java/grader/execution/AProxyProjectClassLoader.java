@@ -81,7 +81,11 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
     }
 
     public Class loadClass(String aClassName) throws ClassNotFoundException {
+    	try {
         return super.loadClass(aClassName);
+    	} catch (Exception e) {
+    		return null;
+    	}
     }
 
     public static void run(Project aProject, String mainClassName) {

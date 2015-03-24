@@ -114,51 +114,60 @@ public class ProjectClassesManager implements ClassesManager {
             }
         }
 
-        for (File file : sourceFiles) {
-            String className = getClassName(file);
-            //System.out.println(className);
-            try {
-                Class c = null;
-                if (AProject.isLoadClasses()) {
-                    c = classLoader.loadClass(className);
-                }
+		for (File file : sourceFiles) {
+			String className = getClassName(file);
+			// System.out.println(className);
+			try {
+				Class c = null;
+				if (AProject.isLoadClasses()) {
+					c = classLoader.loadClass(className);
+				}
 
-                if (c != null) {
-                    classDescriptions.add(new BasicClassDescription(c, file));
-                }
-            } catch (UnsupportedClassVersionError e) {
-            	
-//            } catch (UnsupportedClassVersionError | IncompatibleClassChangeError e) {
-                try {
-                    System.out.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
-                    List<File> recompiledFileList = new ArrayList<>();
-                    recompiledFileList.add(file);
-                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, recompiledFileList);
-                    if (runningProject != null) {
-                        runningProject.appendOutputAndErrorsToTranscriptFile(project);
+				if (c != null) {
+					classDescriptions.add(new BasicClassDescription(c, file));
+				}
+			} catch (UnsupportedClassVersionError e) {
 
-                    }
-                    System.out.println("Compilation attempt finished.");
+				// } catch (UnsupportedClassVersionError |
+				// IncompatibleClassChangeError e) {
+				try {
+					System.out
+							.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
+					List<File> recompiledFileList = new ArrayList<>();
+					recompiledFileList.add(file);
+					RunningProject runningProject = LanguageDependencyManager
+							.getSourceFilesCompiler().compile(sourceFolder,
+									buildFolder, recompiledFileList);
+					if (runningProject != null) {
+						runningProject
+								.appendOutputAndErrorsToTranscriptFile(project);
 
-                    Class c = null;
-                    if (AProject.isLoadClasses()) {
-                        c = classLoader.loadClass(className);
-                    }
+					}
+					System.out.println("Compilation attempt finished.");
 
-                    if (c != null) {
-                        classDescriptions.add(new BasicClassDescription(c, file));
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Compilation failed: " + ex.toString());
-                }
-            } catch (Error e) {
-                e.printStackTrace();
-                throw new IOException(e.getMessage());
-            }/* catch (Exception e) {
-             throw new IOException(e.getMessage());
-             }*/
+					Class c = null;
+					if (AProject.isLoadClasses()) {
+						c = classLoader.loadClass(className);
+					}
 
-        }
+					if (c != null) {
+						classDescriptions
+								.add(new BasicClassDescription(c, file));
+					}
+				} catch (Exception ex) {
+					System.out.println("Compilation failed: " + ex.toString());
+				}
+			} catch (Exception e) {
+				System.out.println("Could not load class:" + file);
+				e.printStackTrace();
+			} catch (Error e) {
+				e.printStackTrace();
+				throw new IOException(e.getMessage());
+			}/*
+			 * catch (Exception e) { throw new IOException(e.getMessage()); }
+			 */
+
+		}
     }
 
     /**
