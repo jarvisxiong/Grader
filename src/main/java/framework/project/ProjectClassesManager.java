@@ -127,6 +127,8 @@ public class ProjectClassesManager implements ClassesManager {
                     classDescriptions.add(new BasicClassDescription(c, file));
                 }
             } catch (UnsupportedClassVersionError e) {
+            	
+//            } catch (UnsupportedClassVersionError | IncompatibleClassChangeError e) {
                 try {
                     System.out.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
                     List<File> recompiledFileList = new ArrayList<>();
