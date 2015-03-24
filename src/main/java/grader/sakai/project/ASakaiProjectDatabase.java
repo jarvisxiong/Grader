@@ -99,6 +99,7 @@ import grader.trace.stepper.ProjectWindowsRecorded;
 
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
@@ -112,6 +113,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 
@@ -812,8 +814,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// aProjectStepper.setHasMoreSteps(true);
 		List<String> onyens = getOnyenNavigationList(this);
 		if (onyens.size() == 0) {
+			if (!GraphicsEnvironment.isHeadless())
 			JOptionPane.showMessageDialog(null,
 					"No onyens matching specification found");
+			Tracer.error("No onyens matching specification found");
 		}
 
 

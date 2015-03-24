@@ -1,5 +1,6 @@
 package grader.settings;
 
+import java.awt.GraphicsEnvironment;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -184,13 +185,18 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     void noDownloadPath() {
+    	if (!GraphicsEnvironment.isHeadless())
         JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+    	else
+    		Tracer.error("No stored download path.");
 
     }
 
     void noValidDownloadPath(String aPath) {
+    	if (!GraphicsEnvironment.isHeadless())
         JOptionPane.showMessageDialog(null, "No folder found for download path:" + problemDownloadPath + " . When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
-
+    	else
+    		Tracer.error("No valid download path.");
     }
 
     @Visible(false)

@@ -69,6 +69,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 		} catch (MissingOnyenException moe) {
 			String message = "Student:" + goToOnyen + " not in specified range. Try again.";
 			Tracer.error(message);
+			if (!GraphicsEnvironment.isHeadless())
 			JOptionPane.showMessageDialog(null, message);
 
 	//			ASakaiProjectDatabase.dispose(aFrame);

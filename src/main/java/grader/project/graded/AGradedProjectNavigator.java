@@ -26,6 +26,7 @@ import grader.trace.stepper.UserQuit;
 import grader.trace.stepper.UserWindowClose;
 
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyChangeListener;
@@ -476,6 +477,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 	boolean checkLeave() {
 		if (!preProceed() && !projectStepper.isSettingUpProject()) {
+			if (!GraphicsEnvironment.isHeadless())
 			JOptionPane.showMessageDialog(null, "Cannot proceed as assignment not completely graded. Turn off the Stop-If-Not-Done checkbox if you do not want this check.");
 			return false;
 		}
@@ -551,6 +553,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 					return false;
 				String message = "Cannot move as no more records that satisfy selection condition. You can change the filter settings.";
 				Tracer.error(message);
+				if (!GraphicsEnvironment.isHeadless())
 				JOptionPane.showMessageDialog(null, message);
 				setFailedMoveFlags(forward);
 			} else {
