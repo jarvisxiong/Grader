@@ -733,6 +733,10 @@ public class AGraderSettingsModel implements GraderSettingsModel {
       
        featureGradeRecorder.clearGrades(anOnyen, "");
        SakaiProject aProject = projectDatabase.getProject(anOnyen);
+       if (aProject == null) {
+    	   System.out.println ("Did not find project of:" + anOnyen + " nothing to clean");
+    	   return;
+       }
        StudentAssignment aStudentAssignment = aProject.getStudentAssignment();
        if (aStudentAssignment != null) {
     	   aStudentAssignment.cleanFeedbackFolder();
