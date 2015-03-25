@@ -133,8 +133,11 @@ public class ProjectClassesManager implements ClassesManager {
 				try {
 					System.out
 							.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
-					List<File> recompiledFileList = new ArrayList<>();
-					recompiledFileList.add(file);
+//					List<File> recompiledFileList = new ArrayList<>();
+//					recompiledFileList.add(file);
+					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
+//					recompiledFileList.add(file);
+					System.out.println("Recompiling files:" + recompiledFileList);
 					RunningProject runningProject = LanguageDependencyManager
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);

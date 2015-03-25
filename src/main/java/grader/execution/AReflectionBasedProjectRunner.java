@@ -9,6 +9,7 @@ import grader.trace.execution.UserThreadExecutionStarted;
 import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -75,9 +76,26 @@ public class AReflectionBasedProjectRunner implements Runnable {
                 if (stdout != null) {
                     System.setOut(stdout);
                 }
+                boolean changedWorkingDirectory = false;
+            	String previousDir = System.getProperty("user.dir");
+                System.out.println("Current dir using System:" + previousDir);
                 try {
                 	UserThreadExecutionStarted.newCase(projectName, mainClassName, project, mainArgs, outputFiles, inputFiles, mainMethod, mainClass, this);
-                    mainMethod.invoke(mainClass, args);
+                    String projectFolder = project.getProjectFolderName();
+                    String binaryFolder  = project.getBinaryProjectFolderName();
+                    System.out.println("Binary folder:" + binaryFolder + " ProjectFolder:" + projectFolder);
+                    String workingDirectory = projectFolder;
+                    File aWorkingDirectoryFile = new File(projectFolder);
+                    if (aWorkingDirectoryFile.exists()) { // if zip then this is not the case
+                    	System.setProperty("user.dir", projectFolder);
+                    	changedWorkingDirectory = true;
+                    	System.out.println("New working directory: " + System.getProperty("user.dir", projectFolder));
+                    }
+                	mainMethod.invoke(mainClass, args);
+//                	if (changedWorkingDirectory) {
+//                		System.setProperty("user.dir", previousDir);
+//                	}
+                	
                 	UserThreadExecutionFinished.newCase(projectName, mainClassName, project, mainArgs, outputFiles, inputFiles, mainMethod, mainClass, this);
 
                     if (outputFile != null) {
@@ -94,6 +112,12 @@ public class AReflectionBasedProjectRunner implements Runnable {
 //                    System.out.println("Could not successfully run:" + projectName + "with input file:" + inputFile);
 
                     e.printStackTrace();
+                } finally {
+//                	String previousDir = System.getProperty("user.dir");
+                	if (changedWorkingDirectory) {
+            		System.setProperty("user.dir", previousDir);
+            	}
+
                 }
                 project.setHasBeenRun(true);
 

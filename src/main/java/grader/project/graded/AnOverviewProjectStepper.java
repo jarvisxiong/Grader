@@ -271,8 +271,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 					project.
 					getClassesTextManager().getEditedAllSourcesText(project.getSourceFileName()));		
 		} catch (Exception e) {
-			System.out.println("Could not load source");
-			System.out.println(e);
+			System.out.println("Could not load source:" + e);
 		}
 
 	}
