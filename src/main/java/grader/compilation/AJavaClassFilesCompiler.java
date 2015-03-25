@@ -45,7 +45,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
 //					.get().getClasspath()));
 			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", myClassPath));
-			System.out.println(buildFolderPath);
+			System.out.println("Buildfolder:" + buildFolderPath + " classpath: " + myClassPath);
 
 			Iterable<? extends JavaFileObject> compilationUnits = fileManager
 					.getJavaFileObjectsFromFiles(sourceFiles);
