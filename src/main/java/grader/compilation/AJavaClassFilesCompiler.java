@@ -37,7 +37,9 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			String buildFolderPath = buildFolder.getCanonicalPath();
 			String graderClassPath = GradingEnvironment
 					.get().getClasspath();
-			String myClassPath = buildFolderPath + ";" + graderClassPath;
+//			String myClassPath = buildFolderPath + ";" + graderClassPath;
+			String myClassPath = buildFolderPath + System.getProperty("path.separator") + graderClassPath;
+
 			
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath));
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
