@@ -55,6 +55,8 @@ public class ProjectClassesManager implements ClassesManager {
 
         // Create the Class Loader and load the classes
         if (AProject.isLoadClasses()) {
+//        	classLoader = project.getClassLoader();
+//        	if (classLoader == null)
             classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
         }
         classDescriptions = new HashSet<ClassDescription>();
@@ -99,6 +101,7 @@ public class ProjectClassesManager implements ClassesManager {
                 }
                 try {
                     System.out.println("Attempting to compile files.");
+                    project.setHasBeenCompiled(true);
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
                     RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
@@ -108,8 +111,10 @@ public class ProjectClassesManager implements ClassesManager {
 
                     }
                     System.out.println("Compilation attempt finished.");
+                    project.setCanBeCompiled(true);
                 } catch (Exception e) {
                     System.out.println("Compilation failed: " + e.toString());
+                    project.setCanBeCompiled(false);
                 }
             }
         }
@@ -126,21 +131,26 @@ public class ProjectClassesManager implements ClassesManager {
 				if (c != null) {
 					classDescriptions.add(new BasicClassDescription(c, file));
 				}
-			} catch (UnsupportedClassVersionError e) {
-
-				// } catch (UnsupportedClassVersionError |
-				// IncompatibleClassChangeError e) {
+//			} catch (UnsupportedClassVersionError e) {
+//
+				 } catch (UnsupportedClassVersionError |
+				 IncompatibleClassChangeError e) {
 				try {
 					System.out
 							.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
 //					List<File> recompiledFileList = new ArrayList<>();
 //					recompiledFileList.add(file);
+					if (project.hasBeenCompiled() )
+						return;
+					project.setHasBeenCompiled(true);
 					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
 //					recompiledFileList.add(file);
 					System.out.println("Recompiling files:" + recompiledFileList);
 					RunningProject runningProject = LanguageDependencyManager
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);
+					project.setCanBeCompiled(true);
+
 					if (runningProject != null) {
 						runningProject
 								.appendOutputAndErrorsToTranscriptFile(project);
@@ -158,12 +168,18 @@ public class ProjectClassesManager implements ClassesManager {
 								.add(new BasicClassDescription(c, file));
 					}
 				} catch (Exception ex) {
+					project.setCanBeCompiled(false);
+
 					System.out.println("Compilation failed: " + ex.toString());
 				}
 			} catch (Exception e) {
+				project.setCanBeCompiled(false);
+
 				System.out.println("Could not load class:" + file + " " + e.getClass().getSimpleName() + " "+  e.getMessage());
 //				e.printStackTrace();
 			} catch (Error e) {
+				project.setCanBeCompiled(false);
+
 				System.out.println("Could not load class:" + file + " " + e.getClass().getSimpleName() + " " + e.getMessage());
 
 //				e.printStackTrace();
@@ -238,9 +254,9 @@ public class ProjectClassesManager implements ClassesManager {
     private boolean shouldCompile(File javaFile, File classFile) {
 //		System.out.println("Class time:" + classFile.lastModified() + " source time:" + javaFile.lastModified());
 
-        return AProject.isForceCompile()
+        return !project.hasBeenCompiled() && ( AProject.isForceCompile()
                 || !classFile.exists()
-                || classFile.lastModified() < javaFile.lastModified();
+                || classFile.lastModified() < javaFile.lastModified());
 //				(classFile.lastModified() - javaFile.lastModified()) < 1000;
 
     }

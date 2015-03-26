@@ -64,7 +64,9 @@ public class AProject implements Project {
     String sourceFileName, outputFileName;
     String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
     String outputSuffix = DEFAULT_TRANSCRIPT_FILE_SUFFIX;
-    boolean hasBeenRun, canBeRun = true;
+    boolean hasBeenRun, canBeRun = true; // strange that initial value is true
+    boolean hasBeenCompiled, canBeCompiled; 
+
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
     Feature currentGradingFeature; // ugly but do not want to change project runner code that has access to project and not grading feature
@@ -278,7 +280,23 @@ public class AProject implements Project {
         }
     }
 
-    @Override()
+    public boolean hasBeenCompiled() {
+		return hasBeenCompiled;
+	}
+
+	public void setHasBeenCompiled(boolean hasBeenCompiled) {
+		this.hasBeenCompiled = hasBeenCompiled;
+	}
+
+	public boolean canBeCompiled() {
+		return canBeCompiled;
+	}
+
+	public void setCanBeCompiled(boolean canBeCompiled) {
+		this.canBeCompiled = canBeCompiled;
+	}
+
+	@Override()
     public boolean setRunParameters(String aMainClassName, String anArgs[][], String[] anInputFiles, String[] anOutputFiles, MainClassFinder aMainClassFinder) {
         args = anArgs;
         try {

@@ -56,6 +56,14 @@ public interface Project {
     public boolean canBeRun();
 
     public boolean hasBeenRun();
+    
+    public boolean hasBeenCompiled();
+    
+    public boolean canBeCompiled();
+    
+    public void setHasBeenCompiled(boolean newVal);    
+    
+    public void setCanBeCompiled(boolean newVal);
 
     public String getOutputFileName();
 
