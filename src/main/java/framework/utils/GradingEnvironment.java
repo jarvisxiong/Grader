@@ -87,8 +87,11 @@ public class GradingEnvironment {
     }
 
     private static String findClasspath(String separator) {
+    	String myClassPath = System.getProperty("java.class.path");
         File oe = new File("oeall-22.jar");
-        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
+//        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
+        String[] paths = new String[] { ".", "..", myClassPath};
+
         String classpath = "";
         for (String path : paths)
             classpath += (classpath.isEmpty() ? "" : separator) + path;

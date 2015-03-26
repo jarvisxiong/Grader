@@ -112,4 +112,6 @@ public interface Project {
 
 	void appendCurrentInput(String aCurrentInput);
 
+	void setNewClassLoader();
+
 }

@@ -157,6 +157,16 @@ public class AProject implements Project {
     public void setNoProjectFolder(boolean noProjectFolder) {
         this.noProjectFolder = noProjectFolder;
     }
+    @Override
+    public void setNewClassLoader() {
+    	if (AProject.isLoadClasses()) {
+            if (rootCodeFolder.hasValidBinaryFolder()) {
+                proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
+            } else {
+                proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+            }
+        }
+    }
 
     public void init(RootFolderProxy aRootFolder, String anOutputFolder) {
         outputFolder = anOutputFolder;
@@ -181,13 +191,14 @@ public class AProject implements Project {
                 setNoProjectFolder(true);
                 return;
             }
-            if (AProject.isLoadClasses()) {
-                if (rootCodeFolder.hasValidBinaryFolder()) {
-                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
-                } else {
-                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
-                }
-            }
+//            if (AProject.isLoadClasses()) {
+//                if (rootCodeFolder.hasValidBinaryFolder()) {
+//                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
+//                } else {
+//                    proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder); // create class loader in this case also
+//                }
+//            }
+            setNewClassLoader();
             sourceFileName = createFullSourceFileName();
 //        outputFileName = createFullOutputFileName();
             classesManager = new AProxyBasedClassesManager();

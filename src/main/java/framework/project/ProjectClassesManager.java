@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.RunningProject;
 import grader.compilation.JavaClassFilesCompilerSelector;
+import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
@@ -42,6 +43,7 @@ public class ProjectClassesManager implements ClassesManager {
     private final File buildFolder;
     private final File sourceFolder;
     private ClassLoader classLoader;
+    protected ProxyClassLoader proxyClassLoader;
     private final Set<ClassDescription> classDescriptions;
     List<String> classNamesToCompile = new ArrayList();
     SakaiProject project;
@@ -57,6 +59,7 @@ public class ProjectClassesManager implements ClassesManager {
         if (AProject.isLoadClasses()) {
 //        	classLoader = project.getClassLoader();
 //        	if (classLoader == null)
+        	proxyClassLoader = project.getClassLoader();
             classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
         }
         classDescriptions = new HashSet<ClassDescription>();
@@ -125,7 +128,8 @@ public class ProjectClassesManager implements ClassesManager {
 			try {
 				Class c = null;
 				if (AProject.isLoadClasses()) {
-					c = classLoader.loadClass(className);
+//					c = classLoader.loadClass(className);
+					c = proxyClassLoader.loadClass(className);
 				}
 
 				if (c != null) {
@@ -150,6 +154,8 @@ public class ProjectClassesManager implements ClassesManager {
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);
 					project.setCanBeCompiled(true);
+					project.setNewClassLoader();
+					proxyClassLoader = project.getClassLoader();
 
 					if (runningProject != null) {
 						runningProject
@@ -160,7 +166,9 @@ public class ProjectClassesManager implements ClassesManager {
 
 					Class c = null;
 					if (AProject.isLoadClasses()) {
-						c = classLoader.loadClass(className);
+//						c = classLoader.loadClass(className);
+						c = proxyClassLoader.loadClass(className);
+
 					}
 
 					if (c != null) {
