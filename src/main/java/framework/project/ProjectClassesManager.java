@@ -161,11 +161,13 @@ public class ProjectClassesManager implements ClassesManager {
 					System.out.println("Compilation failed: " + ex.toString());
 				}
 			} catch (Exception e) {
-				System.out.println("Could not load class:" + file);
-				e.printStackTrace();
+				System.out.println("Could not load class:" + file + " " + e.getMessage());
+//				e.printStackTrace();
 			} catch (Error e) {
-				e.printStackTrace();
-				throw new IOException(e.getMessage());
+				System.out.println("Could not load class:" + file + " " + e.getMessage());
+
+//				e.printStackTrace();
+//				throw new IOException(e.getMessage());
 			}/*
 			 * catch (Exception e) { throw new IOException(e.getMessage()); }
 			 */
