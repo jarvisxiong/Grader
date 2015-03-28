@@ -113,5 +113,12 @@ public interface Project {
 	void appendCurrentInput(String aCurrentInput);
 
 	void setNewClassLoader();
+	public boolean hasBeenLoaded();
+
+	public void setHasBeenLoaded(boolean hasBeenLoaded) ;
+
+	public boolean canBeLoaded() ;
+
+	public void setCanBeLoaded(boolean canBeLoaded) ;
 
 }

@@ -66,6 +66,8 @@ public class AProject implements Project {
     String outputSuffix = DEFAULT_TRANSCRIPT_FILE_SUFFIX;
     boolean hasBeenRun, canBeRun = true; // strange that initial value is true
     boolean hasBeenCompiled, canBeCompiled; 
+    boolean hasBeenLoaded, canBeLoaded; 
+
 
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
@@ -306,6 +308,22 @@ public class AProject implements Project {
 	public void setCanBeCompiled(boolean canBeCompiled) {
 		this.canBeCompiled = canBeCompiled;
 	}
+	
+	 public boolean hasBeenLoaded() {
+			return hasBeenLoaded;
+		}
+
+		public void setHasBeenLoaded(boolean hasBeenLoaded) {
+			this.hasBeenLoaded = hasBeenLoaded;
+		}
+
+		public boolean canBeLoaded() {
+			return canBeLoaded;
+		}
+
+		public void setCanBeLoaded(boolean canBeLoaded) {
+			this.canBeLoaded = canBeLoaded;
+		}
 
 	@Override()
     public boolean setRunParameters(String aMainClassName, String anArgs[][], String[] anInputFiles, String[] anOutputFiles, MainClassFinder aMainClassFinder) {

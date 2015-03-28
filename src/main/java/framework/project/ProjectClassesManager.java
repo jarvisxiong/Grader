@@ -75,6 +75,7 @@ public class ProjectClassesManager implements ClassesManager {
      * @throws IOException
      */
     private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
+    	
         Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder);
 //		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
 //			@Override
@@ -121,6 +122,9 @@ public class ProjectClassesManager implements ClassesManager {
                 }
             }
         }
+        
+        project.setHasBeenLoaded(true);
+        project.setCanBeLoaded(true);
 
 		for (File file : sourceFiles) {
 			String className = getClassName(file);
@@ -135,10 +139,12 @@ public class ProjectClassesManager implements ClassesManager {
 				if (c != null) {
 					classDescriptions.add(new BasicClassDescription(c, file));
 				}
-//			} catch (UnsupportedClassVersionError e) {
+			} catch (IncompatibleClassChangeError e) {
+				System.out.println("IncompatibleClassChangeError :" + file + " "+  e.getMessage());
+			} catch (UnsupportedClassVersionError e) {
 //
-				 } catch (UnsupportedClassVersionError |
-				 IncompatibleClassChangeError e) {
+//				 } catch (UnsupportedClassVersionError |
+//				 IncompatibleClassChangeError e) {
 				try {
 					System.out
 							.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
@@ -156,6 +162,8 @@ public class ProjectClassesManager implements ClassesManager {
 					project.setCanBeCompiled(true);
 					project.setNewClassLoader();
 					proxyClassLoader = project.getClassLoader();
+		            classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
+
 
 					if (runningProject != null) {
 						runningProject
@@ -181,12 +189,12 @@ public class ProjectClassesManager implements ClassesManager {
 					System.out.println("Compilation failed: " + ex.toString());
 				}
 			} catch (Exception e) {
-				project.setCanBeCompiled(false);
+//				project.setCanBeCompiled(false);
 
 				System.out.println("Could not load class:" + file + " " + e.getClass().getSimpleName() + " "+  e.getMessage());
 //				e.printStackTrace();
 			} catch (Error e) {
-				project.setCanBeCompiled(false);
+//				project.setCanBeCompiled(false);
 
 				System.out.println("Could not load class:" + file + " " + e.getClass().getSimpleName() + " " + e.getMessage());
 
