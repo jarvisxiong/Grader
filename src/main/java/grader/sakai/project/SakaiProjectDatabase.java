@@ -210,6 +210,8 @@ public interface SakaiProjectDatabase {
 	CSVRequirementsSpecification getCSVRequirementsSpecification();
 
 	void setCSVRequirementsSpecification(CSVRequirementsSpecification newValue);
+
+	void restoreGraderDirectory();
 	
 
 

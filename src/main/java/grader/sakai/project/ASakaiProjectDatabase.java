@@ -28,6 +28,7 @@ import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.execution.AMainClassFinder;
+import grader.execution.AReflectionBasedProjectRunner;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.feedback.AManualFeedbackManager;
@@ -123,6 +124,7 @@ import java.util.Set;
 
 
 
+
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -191,6 +193,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	BasicNavigationFilter navigationFilter;
 	NotesGenerator notesGenerator;
 	Comparator<String> fileNameSorter;
+	String graderDirectory;
 
 	public ASakaiProjectDatabase(String aBulkAssignmentsFolderName,
 			String anAssignmentsDataFolderName, String aStartStudentID,
@@ -216,6 +219,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	public void init(String aBulkAssignmentsFolderName,
 			String anAssignmentsDataFolderName, boolean anAssigmentRoot) {
 		setCurrentSakaiProjectDatabase(this);
+		graderDirectory = AReflectionBasedProjectRunner.getCurrentDirectory();
 		assignmentRoot = anAssigmentRoot;
 		sourceFileNameSuffix = sourceSuffix();
 		outputSuffix = outputSuffix();
@@ -963,6 +967,10 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	List<OEFrame> oldList;
 	Window[] oldWindows;
+	@Override
+	public void restoreGraderDirectory() {
+		AReflectionBasedProjectRunner.setCurrentDirectory(graderDirectory);
+	}
 
 	public void recordWindows() {
 		oldList = new ArrayList(uiFrameList.getList());
@@ -972,7 +980,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				projectStepper.getProject(), this);
 
 	}
-
+	@Override
 	public void clearWindows() {
 		if (oldWindows != null && oldList != null) {// somebody went before me,
 													// get rid of their windows

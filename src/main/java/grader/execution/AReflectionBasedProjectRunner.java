@@ -55,6 +55,10 @@ public class AReflectionBasedProjectRunner implements Runnable {
 
         return result;
     }
+    
+    public static String getCurrentDirectory() {
+		return  System.getProperty("user.dir");
+	}
 
     public void run() {
         try {
@@ -91,30 +95,31 @@ public class AReflectionBasedProjectRunner implements Runnable {
                 if (stdout != null) {
                     System.setOut(stdout);
                 }
-                boolean changedWorkingDirectory = false;
-            	String previousDir = System.getProperty("user.dir");
-                System.out.println("Current dir using System:" + previousDir);
+//                boolean changedWorkingDirectory = false;
+//            	String previousDir = System.getProperty("user.dir");
+//                System.out.println("Current dir using System:" + previousDir);
                 try {
                 	UserThreadExecutionStarted.newCase(projectName, mainClassName, project, mainArgs, outputFiles, inputFiles, mainMethod, mainClass, this);
-                    String projectFolder = project.getProjectFolderName();
-                    String binaryFolder  = project.getBinaryProjectFolderName();
-                    System.out.println("Binary folder:" + binaryFolder + " ProjectFolder:" + projectFolder);
-                    String workingDirectory = projectFolder;
-                    File aWorkingDirectoryFile = new File(projectFolder);
-                   	File currentDirectory = new File (".");
-                	File[] files = currentDirectory.listFiles();
-                    if (aWorkingDirectoryFile.exists()) { // if zip then this is not the case
-//                    	System.setProperty("user.dir", projectFolder);
-                    	setCurrentDirectory(projectFolder);
-                    	changedWorkingDirectory = true;
-                    	System.out.println("New working directory: " + System.getProperty("user.dir", projectFolder));
-                    	 currentDirectory = new File (".").getAbsoluteFile();
-                    	files = currentDirectory.listFiles();
-                    	File arthur = new File ("arthur.jpg").getAbsoluteFile();
-                    	if (arthur.exists()) {
-                    		System.out.println(" found arthur");
-                    	}
-                    }
+//                    String projectFolder = project.getProjectFolderName();
+//                    String binaryFolder  = project.getBinaryProjectFolderName();
+//                    System.out.println("Binary folder:" + binaryFolder + " ProjectFolder:" + projectFolder);
+//                    String workingDirectory = projectFolder;
+//                    File aWorkingDirectoryFile = new File(projectFolder);
+//                   	File currentDirectory = new File (".");
+//                	File[] files = currentDirectory.listFiles();
+//                    if (aWorkingDirectoryFile.exists()) { // if zip then this is not the case
+////                    	System.setProperty("user.dir", projectFolder);
+//                    	setCurrentDirectory(projectFolder);
+//                    	changedWorkingDirectory = true;
+//                    	System.out.println("New working directory: " + System.getProperty("user.dir", projectFolder));
+//                    	 currentDirectory = new File (".").getAbsoluteFile();
+//                    	files = currentDirectory.listFiles();
+//                    	File arthur = new File ("arthur.jpg").getAbsoluteFile();
+//                    	if (arthur.exists()) {
+//                    		System.out.println(" found arthur");
+//                    	}
+//                    }
+                	setCurrentDirectory(project.getProjectFolderName());
                 	mainMethod.invoke(mainClass, args);
 //                	if (changedWorkingDirectory) {
 //                		System.setProperty("user.dir", previousDir);
@@ -138,9 +143,9 @@ public class AReflectionBasedProjectRunner implements Runnable {
                     e.printStackTrace();
                 } finally {
 //                	String previousDir = System.getProperty("user.dir");
-                	if (changedWorkingDirectory) {
-            		System.setProperty("user.dir", previousDir);
-            	}
+//                	if (changedWorkingDirectory) {
+//            		System.setProperty("user.dir", previousDir);
+//            	}
 
                 }
                 project.setHasBeenRun(true);
