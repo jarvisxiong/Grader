@@ -52,13 +52,40 @@ public class AGradingHistoryParser implements GradingHistoryParser {
     @Override
     public AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(String aFullFileName) {
         try {
+        	return parseAllStudentsProblemGradingHistory(new File(aFullFileName));
+//            currentRowIndex = 0;
+//            endPhaseIndex = 0;
+//            endVisitIndex = 0;
+//
+//            table = AnInteractionLogReader.toCSVTable(aFullFileName);
+//            File file = new File(aFullFileName);
+//            String aFileName = file.getName();
+//            String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
+//            if (fileParts.length != PARTS_IN_LOG_FILE_NAME) {
+//                return null;
+//            }
+//            String[] csvParts = fileParts[fileParts.length - 1].split("\\.");
+//            if (csvParts.length != 2) {
+//                return null;
+//            }
+//            return parseAllStudentsProblemGradingHistory(table, fileParts[fileParts.length - 4], fileParts[fileParts.length - 2], csvParts[0]);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    @Override
+    public AllStudentsProblemHistory parseAllStudentsProblemGradingHistory(File file) {
+        try {
             currentRowIndex = 0;
             endPhaseIndex = 0;
             endVisitIndex = 0;
 //		logReader = new AnInteractionLogReader(aFullFileName);
 //		table = logReader.getTable();
-            table = AnInteractionLogReader.toCSVTable(aFullFileName);
-            File file = new File(aFullFileName);
+            table = AnInteractionLogReader.toCSVTable(file);
+//            File file = new File(aFullFileName);
             String aFileName = file.getName();
             String[] fileParts = aFileName.split(AnInteractionLogWriter.SEPARATOR);
             if (fileParts.length != PARTS_IN_LOG_FILE_NAME) {

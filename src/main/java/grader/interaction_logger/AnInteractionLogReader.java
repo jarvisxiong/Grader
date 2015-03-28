@@ -15,11 +15,31 @@ import java.util.List;
 public class AnInteractionLogReader implements InteractionLogReader {
 
     public static List<String[]> toCSVTable(String aFileName) {
+    	return toCSVTable(new File(aFileName));
+//        List<String[]> retVal = null;
+//        String fileName = aFileName;
+//        File file = new File(aFileName);
+//        if (!file.exists()) {
+//            throw InteractionLogFileNotFound.newCase(aFileName, AnInteractionLogReader.class);
+//        }
+//
+//        try (CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(file)))) {
+//            retVal = csvReader.readAll();
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return retVal;
+    }
+    public static List<String[]> toCSVTable(File file) {
         List<String[]> retVal = null;
-        String fileName = aFileName;
-        File file = new File(aFileName);
+//        String fileName = aFileName;
+//        File file = new File(aFileName);
         if (!file.exists()) {
-            throw InteractionLogFileNotFound.newCase(aFileName, AnInteractionLogReader.class);
+            throw InteractionLogFileNotFound.newCase(file.getName(), AnInteractionLogReader.class);
         }
 
         try (CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(file)))) {

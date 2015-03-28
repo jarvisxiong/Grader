@@ -196,7 +196,18 @@ public class AGradingHistoryManager implements GradingHistoryManager {
                     || interactionFile.getName().contains(AnInteractionLogWriter.SETTINGS_SUFFIX)) {
                 continue;
             }
-            AllStudentsProblemHistory newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getAbsolutePath());
+//            AllStudentsProblemHistory newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getAbsolutePath());
+            AllStudentsProblemHistory newVal;
+			try {
+//				newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile.getCanonicalPath());
+				newVal = parser.parseAllStudentsProblemGradingHistory(interactionFile);
+
+			} catch (Exception e) {
+				newVal = null;
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
             if (newVal != null) {
                 String description = newVal.getModuleName() + ":" + newVal.getProblemName();
                 AllStudentsProblemHistory oldProblemHistory = descriptionToHistory.get(description);

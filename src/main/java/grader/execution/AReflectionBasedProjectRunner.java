@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class AReflectionBasedProjectRunner implements Runnable {
     public static final String DEFAULT_OUTPUT_FILE_NAME = "output.txt";
@@ -39,6 +40,20 @@ public class AReflectionBasedProjectRunner implements Runnable {
         inputFiles = anInputFiles;
         mainMethod = aMainMethod;
         mainClass = aMainClass;
+    }
+    
+    public static boolean setCurrentDirectory(String directory_name)
+    {
+        boolean result = false;  // Boolean indicating whether directory was set
+        File    directory;       // Desired current working directory
+
+        directory = new File(directory_name).getAbsoluteFile();
+        if (directory.exists() || directory.mkdirs())
+        {
+            result = (System.setProperty("user.dir", directory.getAbsolutePath()) != null);
+        }
+
+        return result;
     }
 
     public void run() {
@@ -86,10 +101,19 @@ public class AReflectionBasedProjectRunner implements Runnable {
                     System.out.println("Binary folder:" + binaryFolder + " ProjectFolder:" + projectFolder);
                     String workingDirectory = projectFolder;
                     File aWorkingDirectoryFile = new File(projectFolder);
+                   	File currentDirectory = new File (".");
+                	File[] files = currentDirectory.listFiles();
                     if (aWorkingDirectoryFile.exists()) { // if zip then this is not the case
-                    	System.setProperty("user.dir", projectFolder);
+//                    	System.setProperty("user.dir", projectFolder);
+                    	setCurrentDirectory(projectFolder);
                     	changedWorkingDirectory = true;
                     	System.out.println("New working directory: " + System.getProperty("user.dir", projectFolder));
+                    	 currentDirectory = new File (".").getAbsoluteFile();
+                    	files = currentDirectory.listFiles();
+                    	File arthur = new File ("arthur.jpg").getAbsoluteFile();
+                    	if (arthur.exists()) {
+                    		System.out.println(" found arthur");
+                    	}
                     }
                 	mainMethod.invoke(mainClass, args);
 //                	if (changedWorkingDirectory) {
