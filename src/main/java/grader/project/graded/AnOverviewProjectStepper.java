@@ -214,7 +214,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		// code moved from run projects interactively
 		projectDatabase.initIO();
 
-		projectDatabase.recordWindows();
+		projectDatabase.recordWindows(); //is this needed? project stepper has not started, probably as in auto phase windows may also be created
 		featureGradeRecorder.setGradingFeatures(projectDatabase
 				.getGradingFeatures());
 		for (int i = 0; i < projectDatabase.getGradingFeatures().size(); i++) {

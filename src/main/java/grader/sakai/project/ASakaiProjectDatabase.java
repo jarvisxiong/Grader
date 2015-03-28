@@ -732,7 +732,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		projectStepper.setFrame(retVal);
 		// }
 		ProjectStepperDisplayed.newCase(this, (OverviewProjectStepper) aProjectStepper, this);
-		recordWindows(); // make sure this frame is not disposed on next
+//		recordWindows(); // make sure this frame is not disposed on next, set Frame is recording windows, why record again? Also setFrame will do auto run
 		// ProjectWindowsRecorded.newCase(this, (OverviewProjectStepper)
 		// projectStepper, projectStepper.getProject(), this);
 

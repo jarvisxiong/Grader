@@ -162,8 +162,8 @@ public class ARootCodeFolder implements RootCodeFolder {
             BinaryFolderNotFound.newCase(root.getAbsoluteName(), this);
         }
 
-        System.out.println("**** " + sourceFolderName);
-        System.out.println("**** " + binaryFolderName);
+//        System.out.println("&&& " + sourceFolderName);
+//        System.out.println("&&& " + binaryFolderName);
     }
 
     public boolean hasValidBinaryFolder() {
