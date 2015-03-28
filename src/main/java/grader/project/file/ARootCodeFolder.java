@@ -283,6 +283,8 @@ public class ARootCodeFolder implements RootCodeFolder {
         Set<String> nameSet = aRoot.getEntryNames();
         String separator = "/";
         for (String name : nameSet) {
+//        	if (name.indexOf ("__MACOSX") != -1)
+//        		continue;
             
             int index = name.indexOf(aName);
             if (index < 0) {

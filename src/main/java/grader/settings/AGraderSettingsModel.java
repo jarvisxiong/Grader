@@ -657,7 +657,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public void setGraderStarted(boolean graderStarted) {
-        System.out.println("Grader started: " + this.graderStarted + " -> " + graderStarted);
+//        System.out.println("Grader started: " + this.graderStarted + " -> " + graderStarted);
         this.graderStarted = graderStarted;
         propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
 
