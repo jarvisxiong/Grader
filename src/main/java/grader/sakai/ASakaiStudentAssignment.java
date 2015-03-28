@@ -72,7 +72,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             } catch (Exception e) {
                 // Don't stop here
             }
-            System.out.println("&&& " + Boolean.toString(timeStamp == null) + ", " + Boolean.toString(date == null));
+//            System.out.println("&&& " + Boolean.toString(timeStamp == null) + ", " + Boolean.toString(date == null));
             submitted = timeStamp != null && date != null;
             findDocuments();
         } catch (SubmissionFolderNotFound sfnf) {

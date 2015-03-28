@@ -274,6 +274,7 @@ public class AProject implements Project {
             madeClassDescriptions = true;
         } catch (Exception e) {
             System.out.println("Error making class descriptions");
+            e.printStackTrace();
         }
     }
 

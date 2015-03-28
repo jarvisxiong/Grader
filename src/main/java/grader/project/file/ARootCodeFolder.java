@@ -71,8 +71,8 @@ public class ARootCodeFolder implements RootCodeFolder {
         SourceFolderIdentified.newCase(sourceFolderName, this);
         BinaryFolderIdentified.newCase(binaryFolderName, this);
         
-        System.out.println("&&&& " + sourceFolderName);
-        System.out.println("&&&& " + binaryFolderName);
+//        System.out.println("&&&& " + sourceFolderName);
+//        System.out.println("&&&& " + binaryFolderName);
 
     }
 

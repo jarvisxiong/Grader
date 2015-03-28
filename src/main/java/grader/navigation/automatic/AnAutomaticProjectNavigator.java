@@ -72,9 +72,9 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator {
                     clearanceManager.waitForClearance();
                 }
             }
-            System.out.println("&&& " + Arrays.toString(database.getOnyenNavigationList().toArray()));
+//            System.out.println("&&& " + Arrays.toString(database.getOnyenNavigationList().toArray()));
             if (projectStepper.getCurrentOnyenIndex() < onyensSize - 1) {
-                System.out.println("&&& " + projectStepper.getOnyen());
+//                System.out.println("&&& " + projectStepper.getOnyen());
                 projectStepper.move(true);
             } else {
                 projectStepper.save();
