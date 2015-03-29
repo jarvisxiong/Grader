@@ -26,7 +26,7 @@ public class ProjectWrapper extends StandardProject {
 
     // changed to SakaiProject
     public ProjectWrapper(SakaiProject project, String name) throws FileNotFoundException {
-        super(project, getDirectory(project), name);
+        super(project, getDirectoryAndMaybeUnzip(project), name);
 //        this.project = project;
     }
 
@@ -41,12 +41,16 @@ public class ProjectWrapper extends StandardProject {
      * @return The folder of the project
      * @throws FileNotFoundException
      */
-    public static File getDirectory(Project project) throws FileNotFoundException {
+    public static File getDirectoryAndMaybeUnzip(SakaiProject project) throws FileNotFoundException {
     	if (project.isNoProjectFolder()) {
             return null;
         }
     	
-    	return getDirectory(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+//    	File retVal = getDirectoryAndMaybeUnzip(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+    	File retVal = getDirectoryAndMaybeUnzip(project.getProjectZipFileOrFolderMixedCaseAbsoluteName());
+
+    	project.setFilesUnzipped(true);
+    	return retVal;
         
 //        // Can be a path or a directory
 //        //System.out.println(")()()()()( " + project.getRootCodeFolder().getAbsoluteName());
@@ -91,7 +95,7 @@ public class ProjectWrapper extends StandardProject {
      * @return The folder of the project
      * @throws FileNotFoundException
      */
-    public static File getDirectory(String aZipFileName) throws FileNotFoundException {
+    public static File getDirectoryAndMaybeUnzip(String aZipFileName) throws FileNotFoundException {
     	if (aZipFileName == null) {
             return null;
         }
@@ -100,10 +104,15 @@ public class ProjectWrapper extends StandardProject {
         //System.out.println(")()()()()( " + project.getRootCodeFolder().getAbsoluteName());
         //File path = new File(project.getProjectFolderName());
         File path = new File(aZipFileName);
+        System.out.println("got path:" + path);
+
         //System.out.println("()()()()() " + path.getAbsolutePath());
         if (path.isFile()) {
+//            System.out.println("is File:" + path);
+
 //            if (path.getName().endsWith(".zip")) {
             if (path.getName().endsWith(AProject.ZIP_SUFFIX_1) || path.getName().endsWith(AProject.ZIP_SUFFIX_2)) {
+//                System.out.println("is Zip suffix:" + path);
 
                 // A zip file, so unzip
 //                File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
@@ -113,9 +122,12 @@ public class ProjectWrapper extends StandardProject {
             	File dir = new File(path.getParentFile(), aFileName);
 
                 if (dir.exists()) {
+//                    System.out.println("Directory exisrts:" + dir);
+
                     return dir;
                 }
                 dir.mkdir();
+//                System.out.println("Made directory:" + dir);
 
                 try {
                     ZipFile zip = new ZipFile(path);

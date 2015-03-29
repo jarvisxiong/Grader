@@ -3,7 +3,7 @@ package grader.project;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 
 import java.io.File;
 import java.util.*;

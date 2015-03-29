@@ -14,5 +14,9 @@ public interface StudentCodingAssignment extends StudentAssignment {
 
     public void setProject(Project newVal);
 
+	FileProxy getZipFile();
+
+	void setZipFile(FileProxy zipFile);
+
 
 }

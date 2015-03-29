@@ -1,8 +1,10 @@
 package grader.execution;
 
 import grader.file.FileProxy;
+import grader.file.filesystem.AFileSystemFileProxy;
 import grader.project.Project;
-import grader.project.file.RootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
+import grader.project.folder.RootCodeFolder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +22,10 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
     public static final String CLASS_MAIN = "main.finalAssignment";
 
     RootCodeFolder rootCodeFolder;
-    String projectFolderName, binaryFolderName;
+    String projectFolderName, binaryFolderName, binaryFileSystemFolderName;
+    
+
+	String sourceFolderMixedCaseName;
     List<Class> classesLoaded = new ArrayList();
     
     Map<String, Class> dynamicallyCompiledClass = new HashMap();
@@ -32,6 +37,15 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
     void init(RootCodeFolder aRootCodeFolder) {
         rootCodeFolder = aRootCodeFolder;
         binaryFolderName = rootCodeFolder.getBinaryProjectFolderName();
+        if (rootCodeFolder.getBinaryFolder() != null && rootCodeFolder.getBinaryFolder() instanceof AFileSystemFileProxy) {
+        binaryFileSystemFolderName = rootCodeFolder.getBinaryFolder().getMixedCaseAbsoluteName();
+        } 
+//        else if (rootCodeFolder.getSourceFolder() != null){
+//        	binaryFolderMixedCaseName = rootCodeFolder.getSourceFolder().
+//        			getMixedCaseAbsoluteName().replaceAll(
+//        					"/" + ARootCodeFolder.SOURCE + "/", 
+//        					"/" + ARootCodeFolder.BINARY + "/");
+//        }
         projectFolderName = rootCodeFolder.getProjectFolderName();
 //        if (projectFolderName == null)
 //        	projectFolderName = binaryFolderName; // bin folder was missing so bin folder became project folder and hence this confusion
@@ -63,21 +77,21 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
     }
     
     InputStream getInputStreamOfClass(String aFileName) {
-//    	// refetch the file as we may have recompiled classes
-//		File classFile = new File(binaryFolderName, aFileName);
-//		if (classFile.exists()) {
-//			try {
-//				return  new FileInputStream(classFile);
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//				return null;
-//			}
-//		} else {
+    	// refetch the file as we may have recompiled classes
+		File classFile = new File(binaryFileSystemFolderName, aFileName);
+		if (classFile.exists()) {
+			try {
+				return  new FileInputStream(classFile);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		} else {
     	
              String aFullFileName = binaryFolderName + "/" + aFileName;
              FileProxy classFileProxy = rootCodeFolder.getFileEntry(aFullFileName);
             return classFileProxy.getInputStream();
-//		}
+		}
     	
     }
 
@@ -122,6 +136,14 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
             e.printStackTrace();
         }
     }
+    @Override
+    public String getBinaryFileSystemFolderName() {
+		return binaryFileSystemFolderName;
+	}
+    @Override
+	public void setBinaryFileSystemFolderName(String binaryFileSystemFolderName) {
+		this.binaryFileSystemFolderName = binaryFileSystemFolderName;
+	}
 
     public List<Class> getClassesLoaded() {
         return classesLoaded;

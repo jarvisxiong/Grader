@@ -35,7 +35,7 @@ import grader.execution.TagNotFound;
 import grader.language.LanguageDependencyManager;
 import grader.project.MultipleClassesWithTag;
 import grader.project.NoClassWithTag;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;

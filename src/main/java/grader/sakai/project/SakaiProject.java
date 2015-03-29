@@ -14,5 +14,7 @@ public interface SakaiProject extends Project {
 
 	void setStudentPhoto(Icon studentPhoto);
 
+	String getProjectZipFileOrFolderMixedCaseAbsoluteName();
+
 
 }

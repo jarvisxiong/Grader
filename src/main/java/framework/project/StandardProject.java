@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.*;
 import grader.project.AProject;
+import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
@@ -121,8 +122,12 @@ public class StandardProject implements Project {
      * @throws FileNotFoundException
      */
     public File getBuildFolder(String preferredClass) throws FileNotFoundException {
-        Option<File> out = DirectoryUtils.locateFolder(directory, "out");
-        Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
+//        Option<File> out = DirectoryUtils.locateFolder(directory, "out");
+        Option<File> out = DirectoryUtils.locateFolder(directory, ARootCodeFolder.BINARY_2);
+
+//        Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
+        Option<File> bin = DirectoryUtils.locateFolder(directory,  ARootCodeFolder.BINARY);
+
 
         // If there is no 'out' or 'bin' folder then give up
         if (out.isEmpty() && bin.isEmpty()) {
@@ -131,8 +136,9 @@ public class StandardProject implements Project {
                 } 
 //            throw new FileNotFoundException();
         	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
-        	File retVal = new File(directory, "bin");
+        	File retVal = new File(directory, ARootCodeFolder.BINARY);
         	retVal.mkdirs();
+//        	project.getClassLoader().setBinaryFileSystemFolderName(retVal.getAbsolutePath());
         	BinaryFolderMade.newCase(retVal.getAbsolutePath(), this);
         	return retVal.getAbsoluteFile();
         	

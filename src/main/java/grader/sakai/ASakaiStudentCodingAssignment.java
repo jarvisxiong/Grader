@@ -21,8 +21,11 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     FileProxy rubrick;
     RootFolderProxy projectFolder;
     Project project;
+    FileProxy zipFile;
 
-    public Project getProject() {
+    
+
+	public Project getProject() {
         return project;
     }
 
@@ -110,7 +113,9 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
 
     void findRubrickAndProject() {
         rubrick = findRubrick(submissionFolder);
-        FileProxy zipFile = getZipChild(submissionFolder);
+//        FileProxy zipFile = getZipChild(submissionFolder);
+        zipFile = getZipChild(submissionFolder);
+
         if (zipFile == null) {
             projectFolder = getUniqueNonMACOSFolderChild(submissionFolder);
         } else {
@@ -167,4 +172,12 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     public RootFolderProxy getProjectFolder() {
         return projectFolder;
     }
+    @Override
+    public FileProxy getZipFile() {
+		return zipFile;
+	}
+    @Override
+	public void setZipFile(FileProxy zipFile) {
+		this.zipFile = zipFile;
+	}
 }

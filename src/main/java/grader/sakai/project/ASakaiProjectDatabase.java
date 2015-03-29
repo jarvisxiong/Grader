@@ -60,7 +60,7 @@ import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AProject;
 import grader.project.Project;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.project.graded.ABasicProjectStepper;
 import grader.project.graded.AComplexProjectStepper;
 import grader.project.graded.AGradedProjectNavigator;
@@ -114,6 +114,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 

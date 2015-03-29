@@ -14,5 +14,9 @@ public interface ProxyClassLoader {
 
 	Class defineDynamicallyCompiledClass(String aClassName, byte[] aBytes);
 
+	String getBinaryFileSystemFolderName();
+
+	void setBinaryFileSystemFolderName(String binaryFileSystemFolderName);
+
 
 }

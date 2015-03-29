@@ -5,7 +5,7 @@ import util.misc.Common;
 import util.trace.Tracer;
 import framework.utils.GradingEnvironment;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import bus.uigen.misc.OEMisc;
+
 import java.util.Collections;
 
 /**

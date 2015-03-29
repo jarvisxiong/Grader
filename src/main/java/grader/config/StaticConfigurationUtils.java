@@ -29,6 +29,7 @@ public class StaticConfigurationUtils {
     public static final String PRE_COMPILE_CLASSES = "precompileMissingObjectCode";
 
     public static final String FORCE_COMPILE_CLASSES = "forceCompile";
+    public static final String UNZIP_FILES = "unzipFiles";
 
     public static final String PRIVACY = "privacy";
     public static final String EXECUTION_COMMAND = "execution";
@@ -85,6 +86,12 @@ public class StaticConfigurationUtils {
     public static boolean getPrecompileClasses(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
 
         return getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, PRE_COMPILE_CLASSES, false);
+
+    }
+    
+    public static boolean getUnzipFiles(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {
+
+        return getInheritedBooleanModuleProblemProperty(configuration, graderSettingsManager, UNZIP_FILES, false);
 
     }
 

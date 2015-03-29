@@ -1,4 +1,4 @@
-package grader.project.file;
+package grader.project.folder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -135,6 +135,7 @@ public class ARootCodeFolder implements RootCodeFolder {
         }
 
         if (separateSourceBinary) {
+        	
             if (hasValidBinaryFolder()) {
                 projectFolder = Common.getParentFileName(binaryFolderName);
                 sourceFolder = root.getFileEntry(sourceFolderName);
@@ -144,15 +145,31 @@ public class ARootCodeFolder implements RootCodeFolder {
 //			}
                 binaryFolder = root.getFileEntry(binaryFolderName);
             } else {
+            	if (sourceFolderName != null && binaryFolderName == null) {// this will always be true?
+            		 sourceFolder = root.getFileEntry(sourceFolderName);
+                     projectFolder = Common.getParentFileName(sourceFolderName);
+
+            		binaryFolder = null; 
+            		// Assuming that binary folder will be made later by dynamic compilation
+//            		binaryFolderName = sourceFolderName.replace("/src/", "/" + BINARY + "/");
+            		binaryFolderName = null;
+            		// make binary folder
+            		
+            	} else if (binaryFolderName == null) { // ever reach this?
                 binaryFolder = root; // will this cause problems?
                 binaryFolderName = root.getAbsoluteName();
                 projectFolder = binaryFolderName;
+            	}
             }
         } else {
             projectFolder = binaryFolderName;
             //added this.
             sourceFolder = root.getFileEntry(sourceFolderName + "/"); //no idea whey I need sometimes ending backslash, need to debu
-
+            if (sourceFolder == null) {
+            	sourceFolder = root.getFileEntry(sourceFolderName);
+//            	binaryFolder = sourceFolder;
+            }
+            binaryFolder = sourceFolder;
 //			sourceFolder = root;
         }
 

@@ -7,7 +7,7 @@ import grader.assignment.GradingFeature;
 import grader.execution.MainClassFinder;
 import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
-import grader.project.file.RootCodeFolder;
+import grader.project.folder.RootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
 
@@ -120,5 +120,13 @@ public interface Project {
 	public boolean canBeLoaded() ;
 
 	public void setCanBeLoaded(boolean canBeLoaded) ;
+
+	boolean isFilesCompiled();
+
+	void setFilesCompiled(boolean filesCompiled);
+
+	boolean isFilesUnzipped();
+
+	void setFilesUnzipped(boolean filesUnzipped);
 
 }

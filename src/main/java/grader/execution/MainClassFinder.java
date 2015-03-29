@@ -5,7 +5,7 @@ import java.util.Map;
 
 import framework.execution.NotRunnableException;
 import grader.project.Project;
-import grader.project.file.RootCodeFolder;
+import grader.project.folder.RootCodeFolder;
 
 public interface MainClassFinder {
 	public static final String MAIN_ENTRY_POINT = "main";

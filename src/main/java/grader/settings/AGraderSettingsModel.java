@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import framework.project.ProjectClassesManager;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
@@ -701,6 +702,8 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     SakaiProjectDatabase projectDatabase;
 
     void maybeCreateProjectDatabase() {
+    	if (projectDatabase != null)
+    		return;
         saveSettings();
         Driver.initAssignmentDataFolder();
         projectDatabase = new ProjectDatabaseWrapper();
@@ -774,6 +777,40 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //		
 //	}
     @Override
+    public boolean maybePreUnzip() {
+        if (!AProject.isUnzipFiles()) {
+            return false;
+        }
+        maybeCreateProjectDatabase();
+
+        List<String> onyens = projectDatabase.getOnyenNavigationList();
+//		OnyenRangeModel anOnyenRangeModel = getOnyens();
+//		String aStartOnyen = GraderSettings.get().
+//		String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
+
+        for (String anOnyen : onyens) {
+        	try {
+        		System.out.println ("Unzipping directory for onyen:" + anOnyen);
+				ProjectWrapper.getDirectoryAndMaybeUnzip(projectDatabase.getProject(anOnyen));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+				System.out.println ("Could not unzip project for student:" + anOnyen + " " + e);
+			}
+////			if (aStartOnyen.compareTo(anOnyen) <= 0 && anEndOnyen.compareTo(anOnyen) >= 0) {
+//            try {
+//                new ProjectWrapper(projectDatabase.getProject(anOnyen), anOnyen);
+//            } catch (FileNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//			}
+        }
+       
+        return true;
+
+    }
+    @Override
     public boolean maybePreCompile() {
         if (!AProject.isPreCompileMissingObjectCode()) {
             return false;
@@ -795,7 +832,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
             }
 //			}
         }
-        return AProject.isFilesCompiled();
+        return true;
 
     }
 

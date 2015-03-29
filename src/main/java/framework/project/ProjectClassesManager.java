@@ -6,7 +6,7 @@ import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
@@ -117,8 +117,11 @@ public class ProjectClassesManager implements ClassesManager {
                     }
                     System.out.println("Compilation attempt finished.");
                     project.setCanBeCompiled(true);
-                    project.setNewClassLoader();
-					proxyClassLoader = project.getClassLoader();
+                    // reuse the same loader as its binary folder name has changed
+//                    project.setNewClassLoader();
+//					proxyClassLoader = project.getClassLoader();
+                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+
                 } catch (Exception e) {
                     System.out.println("Compilation failed: " + e.toString());
                     project.setCanBeCompiled(false);
@@ -163,8 +166,11 @@ public class ProjectClassesManager implements ClassesManager {
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);
 					project.setCanBeCompiled(true);
+					// may have to unload class so am doing this reset
 					project.setNewClassLoader();
 					proxyClassLoader = project.getClassLoader();
+                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+
 		            classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
 
 

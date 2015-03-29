@@ -9,7 +9,7 @@ import grader.file.FileProxy;
 import grader.project.ClassDescription;
 import grader.project.ClassesManager;
 import grader.project.Project;
-import grader.project.file.RootCodeFolder;
+import grader.project.folder.RootCodeFolder;
 import util.misc.Common;
 
 import java.util.ArrayList;

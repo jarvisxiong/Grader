@@ -3,7 +3,7 @@ package wrappers.grader.sakai.project;
 import framework.project.Project;
 import wrappers.grader.file.SimplifiedFileProxy;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProject;

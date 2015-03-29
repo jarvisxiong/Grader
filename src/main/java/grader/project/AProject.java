@@ -14,8 +14,8 @@ import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
-import grader.project.file.RootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
+import grader.project.folder.RootCodeFolder;
 import grader.project.source.AClassesTextManager;
 import grader.project.source.ClassesTextManager;
 import grader.project.view.AClassViewManager;
@@ -95,10 +95,16 @@ public class AProject implements Project {
     static boolean loadClasses = false;
 
     static boolean compileMissingObjectCode = false;
-    static boolean preCompileMissingObjectCode = false;
-    static boolean filesCompiled = false;
+    static boolean unzipFiles = false;
+ 
 
-    static boolean forceCompile = false;
+	static boolean preCompileMissingObjectCode = false;
+     boolean filesCompiled = false;
+     boolean filesUnzipped = false;
+
+   
+
+	static boolean forceCompile = false; //compile whether that is needed or not
 
     public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -120,9 +126,9 @@ public class AProject implements Project {
         return "(" + projectFolderName + "," + outputFolder + ")";
     }
 
-    public AProject(RootFolderProxy aRootFolder, String anOutputFolder) {
-        init(aRootFolder, anOutputFolder);
-    }
+//    public AProject(RootFolderProxy aRootFolder, String anOutputFolder) {
+//        init(aRootFolder, anOutputFolder);
+//    }
 
     @Override
     public String getOutputFolder() {
@@ -614,13 +620,29 @@ public class AProject implements Project {
             boolean preCompileMissingObjectCode) {
         AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
     }
-
-    public static boolean isFilesCompiled() {
+    @Override
+    public  boolean isFilesCompiled() {
         return filesCompiled;
     }
+    @Override
 
-    public static void setFilesCompiled(boolean filesCompiled) {
-        AProject.filesCompiled = filesCompiled;
+    public  void setFilesCompiled(boolean filesCompiled) {
+        this.filesCompiled = filesCompiled;
     }
+    @Override
+    public  boolean isFilesUnzipped() {
+		return filesUnzipped;
+	}
+    @Override
+	public  void setFilesUnzipped(boolean filesUnzipped) {
+		this.filesUnzipped = filesUnzipped;
+	}
+	   public static boolean isUnzipFiles() {
+			return unzipFiles;
+		}
+
+		public static void setUnzipFiles(boolean unzipFiles) {
+			AProject.unzipFiles = unzipFiles;
+		}
 
 }

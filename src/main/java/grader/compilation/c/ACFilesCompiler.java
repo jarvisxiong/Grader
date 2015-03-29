@@ -14,7 +14,7 @@ import grader.compilation.ClassFilesCompiler;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.settings.GraderSettingsManagerSelector;
 import grader.trace.file.open.WordOpenedFile;
 

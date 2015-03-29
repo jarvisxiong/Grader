@@ -8,7 +8,7 @@ import grader.config.StaticConfigurationUtils;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.language.LanguageDependencyManager;
-import grader.project.file.ARootCodeFolder;
+import grader.project.folder.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;

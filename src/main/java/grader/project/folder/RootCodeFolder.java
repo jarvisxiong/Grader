@@ -1,4 +1,4 @@
-package grader.project.file;
+package grader.project.folder;
 
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
