@@ -442,8 +442,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		if (projectStepper.getProject().isNoProjectFolder())
 			return;
 		projectDatabase.restoreGraderDirectory();
-		projectDatabase.resetIO();
-		projectDatabase.clearWindows();
+//		projectDatabase.resetIO();
+//		projectDatabase.clearWindows();
 		// josh's code
 				// no serialization otherwise
 				if (projectStepper.isChanged() || 
@@ -456,8 +456,8 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 
 				// my original code
 				// should this not be at the start of this method
-//				projectDatabase.resetIO();
-//				projectDatabase.clearWindows();
+				projectDatabase.resetIO();
+				projectDatabase.clearWindows();
 				ProjectStepEnded.newCase(projectDatabase, projectStepper, project, this);
 	}
 	void redirectProject() {

@@ -18,6 +18,7 @@ import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
+import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.language.LanguageDependencyManager;
 import grader.trace.project.BinaryFolderIdentified;
 import grader.trace.project.BinaryFolderNotFound;
@@ -446,6 +447,10 @@ public class ARootCodeFolder implements RootCodeFolder {
     @Override
     public RootFolderProxy getBinaryFolder() {
         return binaryFolder;
+    }
+    @Override
+    public boolean isZippedFolder() {
+    	return root instanceof AZippedRootFolderProxy;
     }
 
 //	public static void setBinaryFileSuffix(String binaryFileSuffix) {

@@ -4,6 +4,9 @@ import grader.file.FileProxy;
 import grader.project.Project;
 import grader.project.file.RootCodeFolder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -58,6 +61,25 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
             return aClass;
         
     }
+    
+    InputStream getInputStreamOfClass(String aFileName) {
+//    	// refetch the file as we may have recompiled classes
+//		File classFile = new File(binaryFolderName, aFileName);
+//		if (classFile.exists()) {
+//			try {
+//				return  new FileInputStream(classFile);
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//				return null;
+//			}
+//		} else {
+    	
+             String aFullFileName = binaryFolderName + "/" + aFileName;
+             FileProxy classFileProxy = rootCodeFolder.getFileEntry(aFullFileName);
+            return classFileProxy.getInputStream();
+//		}
+    	
+    }
 
     public Class findClass(String aClassName) throws ClassNotFoundException {
         try {
@@ -66,10 +88,10 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
         		return retVal;
             byte classBytes[];
             String aFileName = aClassName.replaceAll("\\.", "/") + ".class";
-            String aFullFileName = binaryFolderName + "/" + aFileName;
-            FileProxy ClassFile = rootCodeFolder.getFileEntry(aFullFileName);
-            InputStream inputStream = ClassFile.getInputStream();
-
+//            String aFullFileName = binaryFolderName + "/" + aFileName;
+//            FileProxy classFile = rootCodeFolder.getFileEntry(aFullFileName);
+//            InputStream inputStream = classFile.getInputStream();
+            InputStream inputStream = getInputStreamOfClass(aFileName);
             classBytes = new byte[inputStream.available()];
             inputStream.read(classBytes);
             Class classObject = defineClass(aClassName, classBytes, 0, classBytes.length);

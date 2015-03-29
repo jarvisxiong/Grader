@@ -2,9 +2,9 @@ Assignment 1,Points,,,
 ,,,,
 Display ID,ID,Last Name,First Name,grade
 acorrect,acorrect,All,Correct,120.0
-aonce,aonce,Ask,Once,111.5
-binmiss,binmiss,Bin,Missing,120.0
-classmiss,classmiss,Class,Missing,120.0
+aonce,aonce,Ask,Once,105.0
+binmiss,binmiss,Bin,Missing,0.0
+classmiss,classmiss,Class,Missing,0.0
 compileno,compileno,Compile,No,0.0
 jbartel,jbartel,Bartel,Jacob,105.0
 iloop,iloop,Infinite,Loop,90.0

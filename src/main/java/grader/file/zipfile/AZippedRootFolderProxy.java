@@ -58,8 +58,12 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
 
             ZipEntry nextEntry = enumeration.nextElement();
             String name = nextEntry.getName();
-            if ((name.indexOf(".") >= 0 && name.indexOf('/') == -1) 
-            		|| !name.contains(".MF")) // manifest files in jars
+            // why do we have this check?
+            if ((name.indexOf(".") >= 0 && 
+            		name.indexOf('/') == -1) 
+//            		|| !name.contains(".MF")) // manifest files in jars
+        		|| name.contains(".MF")) // manifest files in jars
+
                 continue; // we got a file at the top level
             rootLocalName = rootLocalName(name);
             Tracer.info(this, "Local name:" + rootLocalName + " of zip file" + zipFile.getName());

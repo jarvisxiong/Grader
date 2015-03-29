@@ -45,5 +45,7 @@ public interface RootCodeFolder {
 
 	RootFolderProxy getBinaryFolder();
 
+	boolean isZippedFolder();
+
 
 }

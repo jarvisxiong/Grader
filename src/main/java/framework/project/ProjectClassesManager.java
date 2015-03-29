@@ -106,6 +106,7 @@ public class ProjectClassesManager implements ClassesManager {
                 try {
                     System.out.println("Attempting to compile files.");
                     project.setHasBeenCompiled(true);
+                	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
                     RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
@@ -116,6 +117,8 @@ public class ProjectClassesManager implements ClassesManager {
                     }
                     System.out.println("Compilation attempt finished.");
                     project.setCanBeCompiled(true);
+                    project.setNewClassLoader();
+					proxyClassLoader = project.getClassLoader();
                 } catch (Exception e) {
                     System.out.println("Compilation failed: " + e.toString());
                     project.setCanBeCompiled(false);
@@ -151,7 +154,7 @@ public class ProjectClassesManager implements ClassesManager {
 //					List<File> recompiledFileList = new ArrayList<>();
 //					recompiledFileList.add(file);
 					if (project.hasBeenCompiled() )
-						return;
+						break;
 					project.setHasBeenCompiled(true);
 					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
 //					recompiledFileList.add(file);

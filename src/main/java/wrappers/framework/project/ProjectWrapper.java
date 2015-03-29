@@ -41,15 +41,65 @@ public class ProjectWrapper extends StandardProject {
      * @return The folder of the project
      * @throws FileNotFoundException
      */
-    private static File getDirectory(Project project) throws FileNotFoundException {
+    public static File getDirectory(Project project) throws FileNotFoundException {
     	if (project.isNoProjectFolder()) {
+            return null;
+        }
+    	
+    	return getDirectory(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+        
+//        // Can be a path or a directory
+//        //System.out.println(")()()()()( " + project.getRootCodeFolder().getAbsoluteName());
+//        //File path = new File(project.getProjectFolderName());
+//        File path = new File(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+//        //System.out.println("()()()()() " + path.getAbsolutePath());
+//        if (path.isFile()) {
+////            if (path.getName().endsWith(".zip")) {
+//            if (path.getName().endsWith(AProject.ZIP_SUFFIX_1) || path.getName().endsWith(AProject.ZIP_SUFFIX_2)) {
+//
+//                // A zip file, so unzip
+////                File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
+//            	String aFileName = path.getName().replace(AProject.ZIP_SUFFIX_1, "").replace(AProject.ZIP_SUFFIX_2, "");
+////                File dir = new File(path.getParentFile(), path.getName().replace(AProject.ZIP_SUFFIX_1, ""));
+//
+//            	File dir = new File(path.getParentFile(), aFileName);
+//
+//                if (dir.exists()) {
+//                    return dir;
+//                }
+//                dir.mkdir();
+//
+//                try {
+//                    ZipFile zip = new ZipFile(path);
+//                    zip.extractAll(dir.getAbsolutePath());
+//                    FileUnzipped.newCase(path.getName(), ProjectWrapper.class);
+//                    return dir;
+//                } catch (ZipException e) {
+//                    throw new FileNotFoundException();
+//                }
+//            } else {
+//                throw new FileNotFoundException();
+//            }
+//        } else {
+//            return path;
+//            }
+    }
+    /**
+     * Given a  zip file, unzips it and returns the file object
+     *
+     * @param project The grader project
+     * @return The folder of the project
+     * @throws FileNotFoundException
+     */
+    public static File getDirectory(String aZipFileName) throws FileNotFoundException {
+    	if (aZipFileName == null) {
             return null;
         }
         
         // Can be a path or a directory
         //System.out.println(")()()()()( " + project.getRootCodeFolder().getAbsoluteName());
         //File path = new File(project.getProjectFolderName());
-        File path = new File(project.getRootCodeFolder().getMixedCaseAbsoluteName());
+        File path = new File(aZipFileName);
         //System.out.println("()()()()() " + path.getAbsolutePath());
         if (path.isFile()) {
 //            if (path.getName().endsWith(".zip")) {
