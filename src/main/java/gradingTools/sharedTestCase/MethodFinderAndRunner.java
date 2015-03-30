@@ -119,7 +119,8 @@ public class MethodFinderAndRunner extends BasicTestCase {
 		if (project.getClassesManager().isEmpty())
 			throw new NotAutomatableException();
 		ClassesManager manager = project.getClassesManager().get();
-
+		if (manager.getClassDescriptions().isEmpty())
+			throw new NotGradableException();
 		notes = "";
 		percentage = 1.0;
 

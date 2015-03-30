@@ -26,6 +26,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ClassesManager;
 import framework.project.Project;
 
 public class RestrictedStringOutsideComments extends BasicTestCase {
@@ -150,7 +151,9 @@ public class RestrictedStringOutsideComments extends BasicTestCase {
 			NotGradableException {
 		if (project.getClassesManager().isEmpty())
 			throw new NotGradableException();
-
+		
+		if (project.getClassesManager().get().getClassDescriptions().isEmpty())
+				throw new NotGradableException();
 		for (ClassDescription description : project.getClassesManager().get()
 				.getClassDescriptions()) {
 			try {

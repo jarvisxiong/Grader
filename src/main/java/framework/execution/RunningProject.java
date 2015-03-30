@@ -153,6 +153,7 @@ public class RunningProject implements ProcessInputListener {
 //		if (aProcess == null) { // it will never be null
 //			return;
 //		}
+    	System.out.println ("New output " + newVal + " aprocess " + aProcess);
         // wonder why did not have this before
         if (newVal == null) {
             return;
@@ -382,6 +383,7 @@ public class RunningProject implements ProcessInputListener {
 
     @Override
     public void newInputLine(String aProcessName, String anInput) {
+    	System.out.println("New input " + anInput + "for " + aProcessName );
         processToIn.get(aProcessName).newInput(anInput + "\n");
         project.appendCurrentInput(anInput);// this should go, 
         if (aProcessName != null && processToInput != null) {
@@ -390,7 +392,9 @@ public class RunningProject implements ProcessInputListener {
                 aProcessStringBuffer.append(anInput);
             }
         }
-        input.append(anInput);
+//        input.append(anInput);
+       input.append(anInput + "\n"); // need to put new line to it
+
         // why would this be info ever?
         if (Tracer.isInfo(anInput)) {
             return;

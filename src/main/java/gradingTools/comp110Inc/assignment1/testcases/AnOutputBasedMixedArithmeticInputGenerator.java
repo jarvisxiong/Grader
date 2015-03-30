@@ -8,6 +8,7 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractInputG
 //	protected StringBuilder output;
 	protected boolean foundIntPrompt;
 	protected boolean foundDoublePrompt;
+//	protected boolean foundComputedResult;
 	protected boolean foundOutput;
 	public AnOutputBasedMixedArithmeticInputGenerator(Integer anIntInput, Double aDoubleInput) {
 		intInput = anIntInput;
@@ -20,18 +21,32 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractInputG
 		return ((intInput == null || foundIntPrompt())) &&
 				((doubleInput == null) || foundDoublePrompt());
 	}
-	protected void maybeTerminate(String aProcessName) {
+	protected void maybeTerminateInput(String aProcessName) {
 		setTerminatedSuccessfully(aProcessName, terminationConditionMet(aProcessName));
 		if (isTerminatedSuccessfully(aProcessName)) {
-			notifyTermination(aProcessName);
+			maybeNotifyTermination(aProcessName);
 		}
 	}
+	/** the subclasses can teminate process when all input is available.
+	 * this class assumes some indeterminate number of lines will be output and
+	 * the process will voluntarily terminate 
+	 * @param aProcessName
+	 */
+	protected void maybeNotifyTermination(String aProcessName) {
+//		maybeNotifyTermination(aProcessName);
+
+		
+	}
 	protected void setFoundIntPrompt(String aProcessName, boolean newVal) {
+		System.out.println("Found int prompt " + newVal );
 		foundIntPrompt = newVal;
 	}
 	protected void setFoundDoublePrompt(String aProcessName, boolean newVal) {
+		System.out.println("Found double prompt " + newVal );
+
 		foundDoublePrompt = newVal;
 	}
+	
 	protected void setFoundOutput(String aProcessName, boolean newVal) {
 		foundOutput = newVal;
 	}
@@ -52,8 +67,11 @@ public class AnOutputBasedMixedArithmeticInputGenerator extends AnAbstractInputG
 			if (doubleInput != null)
 				notifyNewInputLine(aProcessName, doubleInput + "");
 			
-		}
-		maybeTerminate(aProcessName);
+		} 
+		maybeTerminateInput(aProcessName);
+//	  else { // new output, shouldk wait for two lines actually
+////			maybeTerminate(aProcessName);
+//		}
 		
 
 		

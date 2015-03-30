@@ -105,16 +105,22 @@ public abstract class Checkable implements Gradable {
             return result;
         } catch (NotAutomatableException e) {
         	e.announce();
+        	String msg;
+        	if (e.getMessage() == null || e.getMessage().isEmpty())
+        		msg = "Not automatable";
+        	else
+        		msg = "Not automatable: " + e.getMessage();
 //            return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
-            return new CheckResult(0, "Not automatable", CheckResult.CheckStatus.NotGraded, this);
+        	// Not automatbole should really mean a manual check is neded
+            return new CheckResult(0, msg, CheckResult.CheckStatus.NotGraded, this);
 
         } catch (NotGradableException e) {
         	e.announce();
         	String msg;
         	if (e.getMessage() == null || e.getMessage().isEmpty())
-        		msg = "Grading failed";
+        		msg = "Not gradable";
         	else
-        		msg = "Grading failed: " + e.getMessage();
+        		msg = "Not gradable: " + e.getMessage();
 //        	String msg = "Grading failed: " + e.getMessage();
 //        	String msg = "Grading failed";
 

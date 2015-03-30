@@ -74,7 +74,9 @@ package gradingTools.comp110.assignment1.testcases;
 	        	
 	        }
 
-	        return fail("No method main found in class");
+//	        return fail("No method main found in class");
+			throw new NotGradableException();
+
 	    }
 	}
 

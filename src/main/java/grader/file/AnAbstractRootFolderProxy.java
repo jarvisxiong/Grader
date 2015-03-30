@@ -103,6 +103,10 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
     	if (retVal != null) 
     	
     		return retVal;
+    	if (aName == null) {
+    		System.err.println ("Null aName!!");
+    		return null;
+    	}
     	String aCanonicalName = aName.toLowerCase();
     	retVal = getFileEntryFromArg(aCanonicalName);
     	
