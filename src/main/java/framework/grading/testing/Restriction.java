@@ -2,6 +2,7 @@ package framework.grading.testing;
 
 import framework.project.Project;
 
+import java.security.Permission;
 import java.util.Arrays;
 import java.util.List;
 
@@ -97,4 +98,8 @@ public class Restriction extends Checkable {
         String score = points < 10 ? " " + points : points + "";
         return name + spaces.substring(name.length()) + "%.1f / " + score;
     }
+	@Override
+	public Permission[] getPermissions() {
+		return getRequirements().getPermissions();
+	}
 }

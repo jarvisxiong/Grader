@@ -2,9 +2,11 @@ package framework.grading;
 
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
+import framework.grading.testing.Permissible;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
 import framework.project.Project;
+
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
  * Time: 9:31 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectRequirements {
+public interface ProjectRequirements extends Permissible{
 
     // Methods for adding features
     public void addFeature(Feature feature);

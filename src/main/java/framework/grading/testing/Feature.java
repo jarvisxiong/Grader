@@ -2,6 +2,7 @@ package framework.grading.testing;
 
 import framework.project.Project;
 
+import java.security.Permission;
 import java.util.Arrays;
 import java.util.List;
 
@@ -120,4 +121,10 @@ public class Feature extends Checkable {
     public String toString() {
     	return name;
     }
+
+	@Override
+	public Permission[] getPermissions() {
+		return getRequirements().getPermissions();
+	}
+    
 }

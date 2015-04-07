@@ -1,5 +1,7 @@
 package framework.grading.testing;
 
+import java.security.Permission;
+
 import framework.project.Project;
 
 
@@ -86,4 +88,8 @@ public abstract class BasicTestCase implements TestCase {
         return new TestCaseResult(false, notes, name, autograded);
 
     }
+    @Override
+	public Permission[] getPermissions() {
+		return checkable.getPermissions();
+	}
 }

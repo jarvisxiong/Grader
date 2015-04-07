@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import wrappers.framework.project.ProjectWrapper;
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,5 +170,10 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         }
         return percentage;
     }
+
+	@Override
+	public Permission[] getPermissions() {
+		return new Permission[0];
+	}
 
 }

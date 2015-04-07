@@ -5,7 +5,7 @@ import framework.project.Project;
 /**
  * Like AnAbstractFeatureChecker
  */
-public interface TestCase {
+public interface TestCase extends Permissible{
 
     /**
      * @return A name or short description about the test case.

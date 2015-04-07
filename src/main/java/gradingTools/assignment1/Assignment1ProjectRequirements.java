@@ -15,7 +15,7 @@ import gradingTools.assignment6.testCases.QuestionTestCase;
 public class Assignment1ProjectRequirements extends FrameworkProjectRequirements {
 
     public Assignment1ProjectRequirements() {
-
+    	
         // Functionality
         addFeature("Process & print tokens", 40,
                 new SingleTokenTestCase(),

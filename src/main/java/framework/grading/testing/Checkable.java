@@ -1,5 +1,6 @@
 package framework.grading.testing;
 
+import framework.grading.ProjectRequirements;
 import framework.project.Project;
 import grader.trace.feature.FeatureChecked;
 
@@ -12,7 +13,10 @@ import util.trace.Tracer;
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
  */
 public abstract class Checkable implements Gradable {
-    protected boolean manual; // added by pd
+	ProjectRequirements requirements; //inheritance link
+   
+
+	protected boolean manual; // added by pd
     protected boolean extraCredit; // moved by pd
     protected String name; // moved by pd
     protected double points; //moved by pd
@@ -137,7 +141,14 @@ public abstract class Checkable implements Gradable {
 
         }
     }
-
+    @Override
+    public ProjectRequirements getRequirements() {
+		return requirements;
+	}
+    @Override
+	public void initRequirements(ProjectRequirements requirements) {
+		this.requirements = requirements;
+	}
 
     public CheckResult check(Project project) {
         return check(project, true);
