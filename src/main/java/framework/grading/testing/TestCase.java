@@ -28,6 +28,6 @@ public interface TestCase extends Permissible{
      * @param checkable The check to set as the owner.
      * @deprecated This is never used and does nothing.
      */
-    @Deprecated
+//    @Deprecated
     public void setCheckable(Checkable checkable);
 }

@@ -45,6 +45,7 @@ public abstract class Checkable implements Gradable {
     public Checkable(boolean anIsManual, String name, double points, boolean extraCredit, TestCase ... testCases) {
         this(name, points, extraCredit, testCases);
         manual = anIsManual;
+        makeTestCasesReferenceMe(testCases);
     }
     
     public Checkable(String name, double points, TestCase ... testCases) {
@@ -52,6 +53,14 @@ public abstract class Checkable implements Gradable {
         this.points = points;
         this.extraCredit = false;
         this.testCases = Arrays.asList(testCases);
+        makeTestCasesReferenceMe(testCases);
+    }
+    protected void makeTestCasesReferenceMe(TestCase ... testCases) {
+    	for (TestCase aTestCase : this.testCases) {
+            if (aTestCase != null) {
+        	aTestCase.setCheckable(this);
+            }
+        }
     }
 
     public Checkable(String name, double points, boolean extraCredit, TestCase ... testCases) {
@@ -59,11 +68,12 @@ public abstract class Checkable implements Gradable {
         this.points = points;
         this.extraCredit = extraCredit;
         this.testCases = Arrays.asList(testCases);
-        for (TestCase aTestCase : this.testCases) {
-            if (aTestCase != null) {
-        	aTestCase.setCheckable(this);
-            }
-        }
+        makeTestCasesReferenceMe(testCases);
+//        for (TestCase aTestCase : this.testCases) {
+//            if (aTestCase != null) {
+//        	aTestCase.setCheckable(this);
+//            }
+//        }
     }
 
     @Override

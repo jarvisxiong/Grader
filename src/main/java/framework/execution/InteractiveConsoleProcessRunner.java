@@ -100,7 +100,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
     @Override
 	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
-    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, anEntryPoint);
+    	String[] command = StaticConfigurationUtils.getExecutionCommand(project, folder, anEntryPoint);
     	return run(null, command, input, args, timeout);
 	}
     @Override

@@ -34,6 +34,7 @@ import grader.execution.MainClassFinder;
 import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.language.LanguageDependencyManager;
+import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.project.MultipleClassesWithTag;
 import grader.project.NoClassWithTag;
 import grader.project.folder.ARootCodeFolder;
@@ -524,7 +525,7 @@ public class ProcessRunner implements Runner {
 		String[] anArgs = executionSpecification.getArgs(aProcess).toArray(
 				new String[0]);
 		int aSleepTime = executionSpecification.getSleepTime(aProcess);
-		String[] command = StaticConfigurationUtils.getExecutionCommand(
+		String[] command = StaticConfigurationUtils.getExecutionCommand(project,
 				aProcess, folder, anEntryPoint, aClassWithEntryTag, anArgs);
 		TimedProcess aTimedProcess = run(runner, anOutputBasedInputGenerator,
 				command, processToInput.get(aProcess), anArgs, timeout, aProcess, false); // do
@@ -650,7 +651,7 @@ public class ProcessRunner implements Runner {
 	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
-		String[] command = StaticConfigurationUtils.getExecutionCommand(getFolder(),
+		String[] command = StaticConfigurationUtils.getExecutionCommand(project, getFolder(),
 				anEntryPoint);
 		return run(aDynamicInputProvider, command, input, args, timeout);
 
@@ -667,6 +668,7 @@ public class ProcessRunner implements Runner {
 
 //	final Semaphore outputSemaphore = new Semaphore(1);
 //	final Semaphore errorSemaphore = new Semaphore(1);
+	
 
 	@Override
 	public TimedProcess run (RunningProject runner, InputGenerator anOutputBasedInputGenerator,
@@ -694,20 +696,20 @@ public class ProcessRunner implements Runner {
 			if (command.length == 0) { // this part should not execute, onlyif
 										// command is null
 				
-				Object[] aPermissions = null; 
-				if (project instanceof ProjectWrapper) {
-					TestCase aTestCase = 
-            		((ProjectWrapper) project).getProject().getCurrentTestCase();
-					if (aTestCase != null) {
-						aPermissions = aTestCase.getPermissions();
-					}
-            	}
-				if (aPermissions == null) {
-					
-				    aPermissions	= LanguageDependencyManager.getDefaultPermissible().getPermissions();
-				}
-				File aPermissionsFile = LanguageDependencyManager.getPermissionGenerator().permissionFile(project, aPermissions);
-
+//				Object[] aPermissions = null; 
+//				if (project instanceof ProjectWrapper) {
+//					TestCase aTestCase = 
+//            		((ProjectWrapper) project).getProject().getCurrentTestCase();
+//					if (aTestCase != null) {
+//						aPermissions = aTestCase.getPermissions();
+//					}
+//            	}
+//				if (aPermissions == null) {
+//					
+//				    aPermissions	= LanguageDependencyManager.getDefaultPermissible().getPermissions();
+//				}
+//				File aPermissionsFile = LanguageDependencyManager.getPermissionGenerator().permissionFile(project, aPermissions);
+				File aPermissionsFile = JavaProjectToPermissionFile.getPermissionFile(project);
 				// Prepare to run the process
 				// ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 				// GradingEnvironment.get().getClasspath(), entryPoint);

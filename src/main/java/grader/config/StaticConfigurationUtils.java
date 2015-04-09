@@ -1,8 +1,10 @@
 package grader.config;
 
 import framework.grading.ProjectRequirements;
+import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.assignment.AnAssignmenDataFolder;
+import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.requirements.interpreter.AnInterpretedRequirements;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.project.ASakaiProjectDatabase;
@@ -37,6 +39,7 @@ public class StaticConfigurationUtils {
     public static final String REQUIREMENTS = "requirements";
     public static final String ENTRY_POINT = "entryPoint";
     public static final String BUILD_FOLDER = "buildFolder";
+    public static final String PERMISSIONS = "permissions";
 
     public static final String CLASS_PATH = "classPath";
 
@@ -51,6 +54,11 @@ public class StaticConfigurationUtils {
     public static final String GENERATE_TRACE_FILES = "trace";
 
     public static final String JAVA = "Java";
+    
+    public static final String CLASS_PATH_VAR = toVariable(CLASS_PATH);
+    public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
+//    public static final String ENTRY_TAG_VAR = toVariable(ENTRY_TAG);
+    
 
     public static String toVariable(String aVariableName) {
         return "{" + aVariableName + "}";
@@ -177,44 +185,16 @@ public class StaticConfigurationUtils {
 
     }
 
-//	public static String[] getExecutionCommand(File buildFolder, String entryPoint) {
-//		List<String> basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
-//		String[] retVal = new String[basicCommand.size()];
-//		for (int i = 0; i < basicCommand.size(); i++) {
-////		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
-////		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
-////		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
-//		
-//		String withClassPath = basicCommand.get(i).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
-//		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), entryPoint);
-//		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), buildFolder.getAbsolutePath());
-//		retVal[i] = withBuildFolder;
-//		}
-//		return retVal;
-//		
-//	}
-    public static String[] getExecutionCommand(File aBuildFolder) {
+
+    public static String[] getExecutionCommand(Project aProject, File aBuildFolder) {
         String anEntryPoint = getInheritedStringModuleProblemProperty(toVariable(ENTRY_POINT), null);
 
-        return getExecutionCommand(aBuildFolder, anEntryPoint);
+        return getExecutionCommand(aProject, aBuildFolder, anEntryPoint);
     }
 
-    public static String[] getExecutionCommand(File aBuildFolder, String anEntryPoint) {
+    public static String[] getExecutionCommand(Project aProject, File aBuildFolder, String anEntryPoint) {
 
-        return getExecutionCommand(null, aBuildFolder, anEntryPoint, "", new String[0]);
-//		List<String> basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
-//		List<String> retVal = new ArrayList(basicCommand.size());
-//		for (int i = 0; i < basicCommand.size(); i++) {
-////		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
-////		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
-////		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
-//		
-//		String withClassPath = basicCommand.get(i).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
-//		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), entryPoint);
-//		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), buildFolder.getAbsolutePath());
-//		retVal.add(i, withBuildFolder);
-//		}
-//		return retVal.toArray(new String[0]);
+        return getExecutionCommand(aProject, null, aBuildFolder, anEntryPoint, "", new String[0]);
 
     }
 
@@ -256,7 +236,7 @@ public class StaticConfigurationUtils {
         return aProcessCommand.contains(ARGS);
     }
 
-    public static String[] getExecutionCommand(String aProcessName, File aBuildFolder, String anEntryPoint, String anEntryTagTarget, String[] anArgs) {
+    public static String[] getExecutionCommand(Project aProject, String aProcessName, File aBuildFolder, String anEntryPoint, String anEntryTagTarget, String[] anArgs) {
 
         List<String> basicCommand = null;
         if (aProcessName == null || aProcessName.isEmpty()) {
@@ -268,16 +248,39 @@ public class StaticConfigurationUtils {
 
         }
         List<String> retVal = new ArrayList(basicCommand.size());
+//        for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+//
+//            String command = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH),
+//            		GradingEnvironment.get().getClasspath());
+//            command = command.replace(toVariable(PERMISSIONS), 
+//            		"\"" + JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath() + "\"");
+//            if (anEntryPoint != null) {
+//                command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
+//            }
+//            if (anEntryTagTarget != null) {
+//                command = command.replace(toVariable(ENTRY_TAGS), anEntryTagTarget);
+//                command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);	// will match tags also
+//
+//            }
+//
+////		if (anEntryTagTarget != null)
+//            command = command.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
+//
+//            retVal.add(command);
+//        }
+       
         for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
-//		String withClassPath = basicCommand.get(i).replace("{classPath}", GradingEnvironment.get().getClasspath());
-//		String withEntryPoint = withClassPath.replace("{entryPoint}", entryPoint);
-//		String withBuildFolder = withEntryPoint.replace("{buildFolder}", buildFolder.getAbsolutePath());
 
-//		String withClassPath = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
-//		String withEntryPoint = withClassPath.replace(toVariable(ENTRY_POINT), anEntryPoint);
-//		String withBuildFolder = withEntryPoint.replace(toVariable(BUILD_FOLDER), aBuildFolder.getAbsolutePath());
-//		String withEntryTag = withBuildFolder.replace(toVariable(ENTRY_TAG), anEntryTagTarget);		
-            String command = basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH), GradingEnvironment.get().getClasspath());
+            String command = basicCommand.get(aCommandIndex);
+            if (command.contains(CLASS_PATH_VAR)) {
+            	command = command.replace(CLASS_PATH_VAR, 
+            			"\"" + GradingEnvironment.get().getClasspath() + "\"");
+            
+//            } else if (command.contains(PERMISSIONS_VAR)) {
+//            	command = command.replace(PERMISSIONS_VAR, 
+//                		"\"" + JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath() + "\"");
+            }
+            
             if (anEntryPoint != null) {
                 command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
             }

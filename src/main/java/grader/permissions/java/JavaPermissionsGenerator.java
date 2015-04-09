@@ -15,6 +15,7 @@ import grader.sakai.project.SakaiProjectDatabase;
 
 public class JavaPermissionsGenerator implements PermissionsGenerator{
 	Hashcodetable<Object[], File> permissionsToFile = new Hashcodetable<>();
+	public static final String PERMISSION_FILE_PREFIX = "permissions";
 	
 
 	@Override
@@ -52,8 +53,8 @@ public class JavaPermissionsGenerator implements PermissionsGenerator{
 	
 	public String composePermissionFileName(Project aProject) {
 		return ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().
-				getBulkAssignmentFolder().getAssignmentFolder().getMixedCaseAbsoluteName() + 
-				"/" + permissionsToFile.size();
+				getBulkAssignmentFolder().getAssignmentFolder().getMixedCaseAbsoluteName() +  
+				"/" + PERMISSION_FILE_PREFIX  + permissionsToFile.size() + ".txt";
 	} 
 		
 		

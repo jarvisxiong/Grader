@@ -42,6 +42,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 
     public void addFeature(Feature feature) {
         features.add(feature);
+        feature.initRequirements(this);
     }
 
     public void addFeature(String name, double points, List<TestCase> testCases) {
@@ -83,6 +84,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 
     public void addRestriction(Restriction restriction) {
         restrictions.add(restriction);
+        restriction.initRequirements(this);
     }
 
     public void addRestriction(String name, double points, TestCase ... testCases) {
