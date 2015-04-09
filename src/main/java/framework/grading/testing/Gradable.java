@@ -1,6 +1,7 @@
 package framework.grading.testing;
 
 import framework.grading.ProjectRequirements;
+import grader.permissions.Permissible;
 
 /**
  * Anything that is gradable should have a name and a point value

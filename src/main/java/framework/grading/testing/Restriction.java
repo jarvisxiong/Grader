@@ -99,7 +99,7 @@ public class Restriction extends Checkable {
         return name + spaces.substring(name.length()) + "%.1f / " + score;
     }
 	@Override
-	public Permission[] getPermissions() {
+	public Object[] getPermissions() {
 		return getRequirements().getPermissions();
 	}
 }

@@ -2,10 +2,10 @@ package framework.grading;
 
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
-import framework.grading.testing.Permissible;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
 import framework.project.Project;
+import grader.permissions.Permissible;
 
 import org.joda.time.DateTime;
 

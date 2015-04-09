@@ -1,6 +1,7 @@
 package framework.grading.testing;
 
 import framework.project.Project;
+import grader.permissions.Permissible;
 
 /**
  * Like AnAbstractFeatureChecker

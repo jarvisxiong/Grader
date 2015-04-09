@@ -89,7 +89,7 @@ public abstract class BasicTestCase implements TestCase {
 
     }
     @Override
-	public Permission[] getPermissions() {
+	public Object[] getPermissions() {
 		return checkable.getPermissions();
 	}
 }

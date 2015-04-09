@@ -123,7 +123,7 @@ public class Feature extends Checkable {
     }
 
 	@Override
-	public Permission[] getPermissions() {
+	public Object[] getPermissions() {
 		return getRequirements().getPermissions();
 	}
     
