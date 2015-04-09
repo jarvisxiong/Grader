@@ -6,6 +6,10 @@ import grader.compilation.c.CFilesCompilerSelector;
 import grader.execution.ExecutableFinderSelector;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
+import grader.permissions.Permissible;
+import grader.permissions.PermissionsGenerator;
+import grader.permissions.java.DefaultJavaPermissible;
+import grader.permissions.java.JavaPermissionsGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +20,8 @@ public class LanguageDependencyManager {
 	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
 	 static Map<String, MainClassFinder> languageToMainClassFinder = new HashMap();
 	 static Map<String, ClassFilesCompiler> languageToCompiler = new HashMap();
+	 static Map<String, Permissible> languageToDefaultPermissible = new HashMap<>();
+	 static Map<String, PermissionsGenerator> languageToPermissionGenerator = new HashMap<>();;
 
 	 static String language;
 		
@@ -77,6 +83,12 @@ public class LanguageDependencyManager {
 	public static ClassFilesCompiler getSourceFilesCompiler() {
 		return languageToCompiler.get(getLanguage());
 	}
+	public static Permissible getDefaultPermissible() {
+		return languageToDefaultPermissible.get(getLanguage());
+	}
+	public static PermissionsGenerator getPermissionGenerator() {
+		return languageToPermissionGenerator.get(getLanguage());
+	}
 	public static boolean isJava() {
 		return getLanguage() == JAVA_LANGUAGE;
 	}
@@ -93,6 +105,10 @@ public class LanguageDependencyManager {
 		
 		languageToCompiler.put(JAVA_LANGUAGE, JavaClassFilesCompilerSelector.getClassFilesCompiler() );
 		languageToCompiler.put(C_LANGUAGE, CFilesCompilerSelector.getClassFilesCompiler());
+		
+		languageToDefaultPermissible.put(JAVA_LANGUAGE, new DefaultJavaPermissible());
+
+		languageToPermissionGenerator.put(JAVA_LANGUAGE, new JavaPermissionsGenerator());
 
 		
 	}

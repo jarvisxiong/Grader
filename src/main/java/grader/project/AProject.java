@@ -3,6 +3,7 @@ package grader.project;
 import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
+import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
 import grader.assignment.GradingFeature;
 import grader.execution.AProxyProjectClassLoader;
@@ -76,7 +77,11 @@ public class AProject implements Project {
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
     StringBuffer currentInput = new StringBuffer();
-//    Map<String, String> processToOutput = new HashMap();
+    
+    TestCase currentTestCase;
+
+
+	//    Map<String, String> processToOutput = new HashMap();
 //    Map<String, String> processToInput = new HashMap();
     String[] currentArgs;
 //    FileWriter outputFile ;
@@ -644,5 +649,11 @@ public class AProject implements Project {
 		public static void setUnzipFiles(boolean unzipFiles) {
 			AProject.unzipFiles = unzipFiles;
 		}
+		public TestCase getCurrentTestCase() {
+			return currentTestCase;
+		}
 
+		public void setCurrentTestCase(TestCase currentTestCase) {
+			this.currentTestCase = currentTestCase;
+		}
 }

@@ -3,6 +3,7 @@ package grader.project;
 import com.thoughtworks.qdox.JavaDocBuilder;
 
 import framework.grading.testing.Feature;
+import framework.grading.testing.TestCase;
 import grader.assignment.GradingFeature;
 import grader.execution.MainClassFinder;
 import grader.execution.ProxyBasedClassesManager;
@@ -85,7 +86,10 @@ public interface Project {
 
 	Feature getCurrentGradingFeature();
 
-	void setCurrentGradingFeature(Feature currentGradingFeature);
+	void setCurrentGradingFeature(Feature newVal);
+	TestCase getCurrentTestCase();
+
+	void setCurrentTestCase(TestCase newVal);
 
 	String getCurrentInput();
 

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import util.trace.Tracer;
+import wrappers.framework.project.ProjectWrapper;
 
 /**
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
@@ -101,11 +102,17 @@ public abstract class Checkable implements Gradable {
         CheckResult result = new CheckResult(pointWeight, this);
         try {
             for (TestCase testCase : testCases) {
+            	if (project instanceof ProjectWrapper) {
+            		((ProjectWrapper) project).getProject().setCurrentTestCase(testCase);
+            	}
                 TestCaseResult testResult = testCase.test(project, autoMode);
                 result.save(testResult);
             }
             result.setStatus(CheckResult.CheckStatus.Successful);
             FeatureChecked.newCase(null, null, null, this, this);
+            if (project instanceof ProjectWrapper) {
+        		((ProjectWrapper) project).getProject().setCurrentTestCase(null);
+        	}
             return result;
         } catch (NotAutomatableException e) {
         	e.announce();

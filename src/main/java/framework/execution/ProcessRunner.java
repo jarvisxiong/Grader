@@ -20,6 +20,7 @@ import util.misc.ThreadSupport;
 import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
+import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
@@ -668,7 +669,7 @@ public class ProcessRunner implements Runner {
 //	final Semaphore errorSemaphore = new Semaphore(1);
 
 	@Override
-	public TimedProcess run(RunningProject runner, InputGenerator anOutputBasedInputGenerator,
+	public TimedProcess run (RunningProject runner, InputGenerator anOutputBasedInputGenerator,
 			String[] command, String input, String[] args, int timeout,
 			String aProcessName, boolean anOnlyProcess) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);
@@ -692,13 +693,32 @@ public class ProcessRunner implements Runner {
 			ProcessBuilder builder;
 			if (command.length == 0) { // this part should not execute, onlyif
 										// command is null
+				
+				Object[] aPermissions = null; 
+				if (project instanceof ProjectWrapper) {
+					TestCase aTestCase = 
+            		((ProjectWrapper) project).getProject().getCurrentTestCase();
+					if (aTestCase != null) {
+						aPermissions = aTestCase.getPermissions();
+					}
+            	}
+				if (aPermissions == null) {
+					
+				    aPermissions	= LanguageDependencyManager.getDefaultPermissible().getPermissions();
+				}
+				File aPermissionsFile = LanguageDependencyManager.getPermissionGenerator().permissionFile(project, aPermissions);
 
 				// Prepare to run the process
 				// ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 				// GradingEnvironment.get().getClasspath(), entryPoint);
-				builder = new ProcessBuilder("java", "-cp", GradingEnvironment
-						.get().getClasspath(), getEntryPoints().get(
+				builder = new ProcessBuilder("java", 
+						"-cp", GradingEnvironment.get().getClasspath(), 
+						"-Djava.security.manager",
+						"-Djava.security.policy==\"" + aPermissionsFile.getAbsolutePath() + "\"",						
+						getEntryPoints().get(
 						MainClassFinder.MAIN_ENTRY_POINT));
+				
+				
 				System.out.println("Running process: java -cp \"" + classPath
 						+ "\" "
 						+ entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));

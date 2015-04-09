@@ -5,6 +5,7 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
 import framework.project.Project;
+import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
 
 import org.joda.time.DateTime;
@@ -172,8 +173,8 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     }
 
 	@Override
-	public Permission[] getPermissions() {
-		return new Permission[0];
+	public Object[] getPermissions() {
+		return LanguageDependencyManager.getDefaultPermissible().getPermissions();
 	}
 
 }
