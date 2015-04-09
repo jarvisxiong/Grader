@@ -2,7 +2,8 @@ package grader.sakai;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.FileProxy;
-import grader.file.RootFolderFactory;
+import grader.file.ARootFolderCreator;
+import grader.file.RootFolderCreatorFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.Project;
@@ -66,7 +67,9 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     }
 
     void initializeBullkDownloadChidren() {
-        rootBulkDownloadFolder = RootFolderFactory.createRootFolder(bulkDownloadDirectory);
+//        rootBulkDownloadFolder = ARootFolderCreator.createRootFolder(bulkDownloadDirectory);
+        rootBulkDownloadFolder = RootFolderCreatorFactory.getSingleton().createRootFolder(bulkDownloadDirectory);
+
         isZippedRootFolder = rootBulkDownloadFolder instanceof AZippedRootFolderProxy;
         bulkDownloadDirectory = rootBulkDownloadFolder.getAbsoluteName(); // normalize name
         setAssignmentFolder();
@@ -84,12 +87,14 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     RootFolderProxy extractAssignmentFolder() {
     	if (isAssignmentRoot) return rootBulkDownloadFolder;
-        Set<String> childrenNames = rootBulkDownloadFolder.getChildrenNames();
-        for (String childName : childrenNames) {
-            FileProxy fileProxy = rootBulkDownloadFolder.getFileEntry(childName);
-            if (fileProxy.isDirectory()) return fileProxy;
-        }
-        return rootBulkDownloadFolder.getFileEntry(rootBulkDownloadFolder.getAbsoluteName() + "/" + assignmentName);
+    	 return AssignmentFolderExtractorFactory.getSingleton().
+         		extractAssignmentFolder(rootBulkDownloadFolder, assignmentName);
+//        Set<String> childrenNames = rootBulkDownloadFolder.getChildrenNames();
+//        for (String childName : childrenNames) {
+//            FileProxy fileProxy = rootBulkDownloadFolder.getFileEntry(childName);
+//            if (fileProxy.isDirectory()) return fileProxy;
+//        }
+//        return rootBulkDownloadFolder.getFileEntry(rootBulkDownloadFolder.getAbsoluteName() + "/" + assignmentName);
     }
 
     FileProxy extractGradeSpreadsheet() {
@@ -111,6 +116,9 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     void setAssignmentFolder() {
         assignmentFolder = extractAssignmentFolder();
+//        assignmentFolder = AssignmentFolderExtractorFactory.getSingleton().
+//        		extractAssignmentFolder(rootBulkDownloadFolder, assignmentName);
+
         AssignmentRootFolderLoaded.newCase(assignmentFolder.getAbsoluteName(), this);
     }
     
@@ -155,13 +163,17 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     }
 
     void setStudentFolderNames() {
-        studentFolderNames = extractStudentFolderNames();
+//        studentFolderNames = extractStudentFolderNames();
+        studentFolderNames = StudentFoldersExtractorFactory.getSingleton().
+        		extractStudentFolderNames(rootBulkDownloadFolder, assignmentFolder, fileNameComparator);
         for (String folderName:studentFolderNames)
         	StudentFolderLoaded.newCase(folderName, this);
     }
 
     void setGradeSpreadsheet() {
-        gradeSpreadsheet = extractGradeSpreadsheet();
+//        gradeSpreadsheet = extractGradeSpreadsheet();
+        gradeSpreadsheet = GradeSpreadsheetExtractorFactory.getSingleton().
+        		extractGradeSpreadsheet(rootBulkDownloadFolder, assignmentFolder);
     }
 
     @Override

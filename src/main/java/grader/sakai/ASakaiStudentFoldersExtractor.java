@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ASakaiStudentFoldersExtractor {
+public class ASakaiStudentFoldersExtractor implements StudentFoldersExtractor {
+	@Override
 	public Set<String> extractStudentFolderNames(RootFolderProxy aRootBulkDownloadFolder, 
 			RootFolderProxy anAssignmentFolder,
 			Comparator<String> aFileNameComparator) {
