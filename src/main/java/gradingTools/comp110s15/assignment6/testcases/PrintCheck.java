@@ -1,7 +1,5 @@
 package gradingTools.comp110s15.assignment6.testcases;
 
-import java.util.regex.Pattern;
-
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -26,64 +24,50 @@ public class PrintCheck extends BasicTestCase {
 		String output0 = Project0.await().toLowerCase();
 
 		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
-				"deposit\n45\nyes\ndeposit\n125\nyes\ndeposit\n60\nno");
+				"deposit\n145\nyes\nwithdraw\n25\nno\n");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 
-		// deposit
-		RunningProject Project2 = RunningProjectUtils
-				.runProject(project, 10,
-						"deposit\n45\nyes\ndeposit\n125\nyes\ndeposit\n60\nyes\nprint\nno");
-		String output2 = Project2.await().toLowerCase();
-		output2 = output2.substring(output0.length() - 1);
-
-		// withdraw
-		RunningProject Project3 = RunningProjectUtils
-				.runProject(project, 10,
-						"deposit\n145\nyes\nwithdraw\n25\nyes\nwithdraw\n60\nyes\nprint\nno");
-		String output3 = Project3.await().toLowerCase();
-		output3 = output3.substring(output0.length() - 1);
-
+		
 		RunningProject Project4 = RunningProjectUtils
 				.runProject(project, 10,
-						"deposit\n145\nyes\nwithdraw\n25\nyes\nwithdraw\n60\nyes\nprint\nno");
+						"deposit\n150\nyes\nwithdraw\n25\nyes\nwithdraw\n60\nyes\nprint\nno\n");
 		String output4 = Project4.await().toLowerCase();
 		output4 = output4.substring(output0.length() - 1);
 
 		String printOutput1 = output4.substring(output1.length() - 1);
 
-		Pattern out1 = Pattern
-				.compile("deposit: \\$145\nwithdraw: \\$25\nwithdraw: \\$60\n");
-		Pattern out2 = Pattern.compile("current account balance: \\$60\n"); // not
-																			// relevant
-		Pattern out3 = Pattern.compile("average deposit amount: \\$145\n");
-		Pattern out4 = Pattern.compile("average withdraw amount: \\$47.50\n");
-		Pattern printOut = Pattern.compile(".*" + out1 + out2 + out3 + out4
-				+ ".*");
+		boolean trans= (printOutput1.contains("150")&&printOutput1.contains("-60")&&printOutput1.contains("-25"));
+		boolean with = printOutput1.contains("150"); // not
+		boolean depo = printOutput1.contains("42.5");															// relevant
+		boolean balance = printOutput1.contains("65");
 
-		if (printOut.matcher(printOutput1).find()) {
+		if (trans&&with&&depo&&balance) {
 			return pass();
 		}
-		/*
-		Pattern printOut1 = Pattern.compile(".*" + out1 + ".*"), printOut2 = Pattern
-				.compile(".*" + out2 + ".*"), printOut3 = Pattern.compile(".*"
-				+ out3 + ".*"), printOut4 = Pattern.compile(".*" + out4 + ".*");
-		if (printOut.matcher(printOutput1).find()) {
-		 return pass();
+		int numwrong=0;
+		String partial="";
+		if(!trans){
+			numwrong++;
+			partial+="did not print out 3 most recent transactions\n";
 		}
-		 else if(!(printOut.matcher(printOut1).find())){ 
-		 return partialPass(0.5,"Did not print last three transactions correctly");
-		} else if!(printOut.matcher(printOut3).find()){
-		 return partialPass(0.75, "Did not compute deposit average correctly");
-		} else if!(printOut.matcher(printOut4).find()){
-		  return partialPass(0.75,"Did not compute withdraw average correctly"); 
-		} else{
-		return fail(); 
+		if(!balance){
+			numwrong++;
+			partial+="did not print out current account balance\n";
+		};
+		if(!depo){
+			numwrong++;
+			partial+="did not correctly compute/print average deposit amount";
 		}
-		 */
-
+		if(!with){
+			numwrong++;
+			partial+="did not correctly compute/print average withdraw amount";
+		}
+		
+		if(numwrong==4){
 		return fail("did not correctly print 3 most recent transactions, compute average deposit amount, or computes average withdraw amount.");
-
+		}
+		return partialPass(numwrong/4,partial);
 	}
 
 }

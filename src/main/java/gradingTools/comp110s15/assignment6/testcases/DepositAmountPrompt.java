@@ -23,7 +23,7 @@ public class DepositAmountPrompt extends BasicTestCase {
 				"");
 		String output0 = Project0.await().toLowerCase();
 		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
-				"deposit\n45\nno");
+				"deposit\n");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 		if(output1.contains("how much") || output1.contains("money") || 
