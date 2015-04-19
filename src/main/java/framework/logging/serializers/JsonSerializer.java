@@ -23,7 +23,7 @@ public class JsonSerializer implements RecordingSessionSerializer {
             mapper.writeValue(writer, recordingSession);
             return writer.toString();
         } catch (IOException e) {
-            System.out.println("Unable to write .json file");
+            System.out.println("Unable to write .json file:" + e.getMessage());
             return "{}";
         }
     }

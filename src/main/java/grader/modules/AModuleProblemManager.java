@@ -1,5 +1,6 @@
 package grader.modules;
 
+import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.NavigationFilter;
@@ -11,13 +12,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import util.annotations.Explanation;
 import util.trace.Tracer;
 
 public class AModuleProblemManager implements ModuleProblemManager{
+	public static final String MODULES = "modules";
+	public static final String GENERIC_COURSE = "GenericCourse";
 	PropertiesConfiguration configuration, dynamicConfiguration;
+	PropertiesConfiguration moduleConfiguration, dynamicModuleConfiguration;
 //	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 	List<String> modules;
 	public AModuleProblemManager() {
@@ -26,24 +31,58 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //				GraderSettingsManagerSelector.getGraderSettingsManager();
 		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+		moduleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getModuleConfiguration();
+		dynamicModuleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicModuleConfiguration();
 		
 	}
 //	@Override
 //	public void init(GraderSettingsManager aGraderSettingsManager) {
 //		graderSettingsManager = aGraderSettingsManager;
 //	}
+	
+	public void saveModules() {
+		try {
+			dynamicModuleConfiguration.setProperty(MODULES, getModules());
+			dynamicModuleConfiguration.save();
+        } catch (ConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		
+	}
+	// side effect, reading modules will save them
 	public List<String> getModules() {
 		if (modules != null) return modules;
+		List objectModules = null;
+		if (moduleConfiguration != null) {
+			 objectModules = moduleConfiguration.getList(MODULES);
+		 }
 		
-		 List objectModules = configuration.getList("modules");
-		 List<String> 	modules = objectModules;
+		if (objectModules != null && objectModules.isEmpty()) {
+			System.err.println("No modules found in modules.properties, using the ones in config");
+		}
+		
+		if (objectModules == null || objectModules.isEmpty()) {
+		
+//		 List objectModules = configuration.getList("modules");
+//		 List objectModules = configuration.getList(MODULES);
+		objectModules = configuration.getList(MODULES);
+		}
+		
+
+//		 List<String> 	modules = objectModules;
+		modules = objectModules;
+
 			if (modules == null || objectModules.size() == 0) {
 				modules = new ArrayList();
 //				Tracer.error("No modules specified in configuration file!");
-				modules.add("GenericCourse");
+//				modules.add("GenericCourse");
+				modules.add(GENERIC_COURSE);
 //				Tracer.error("No modules specified in configuration file!");
 //				System.exit(-1);
 			}
+			saveModules();
+			
 		return modules;
 		
 	}

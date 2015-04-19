@@ -10,5 +10,9 @@ public interface ConfigurationManager {
 	public  void setDynamicConfiguration(
 			PropertiesConfiguration dynamicConfiguration) ;
 	void init(String[] args);
+	PropertiesConfiguration getModuleConfiguration();
+	void setModuleConfiguration(PropertiesConfiguration newVal);
+	PropertiesConfiguration getDynamicModuleConfiguration();
+	void setDynamicModuleConfiguration(PropertiesConfiguration newVal);
 
 }

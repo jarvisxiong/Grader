@@ -7,6 +7,8 @@ import grader.trace.feature.FeatureChecked;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 
@@ -14,6 +16,7 @@ import wrappers.framework.project.ProjectWrapper;
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.
  */
 public abstract class Checkable implements Gradable {
+	@JsonIgnore
 	ProjectRequirements requirements; //inheritance link
    
 
@@ -159,6 +162,7 @@ public abstract class Checkable implements Gradable {
         }
     }
     @Override
+    @JsonIgnore
     public ProjectRequirements getRequirements() {
 		return requirements;
 	}
