@@ -20,6 +20,7 @@ public class AConfigurationManager implements ConfigurationManager {
 
     public static final String CONFIG_DIR = "config";
     public static final String CONFIG_FILE = "config.properties";
+    public static final String MODULES_FILE = "modules.properties";
     public static final String STATIC_CONFIGURATION_FILE_NAME = "./config/config.properties";
     private static PropertiesConfiguration staticConfiguration;
     static File userPropsFile;
