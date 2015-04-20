@@ -57,11 +57,18 @@ public class StaticConfigurationUtils {
     
     public static final String CLASS_PATH_VAR = toVariable(CLASS_PATH);
     public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
+    public static final String  IMPLICIT_REQUIRMENTS_ROOT = "implicitRequirementsRoot";
+    public static final String  DEFAULT_IMPLICIT_REQUIRMENTS_ROOT = "gradingTools";
+
 //    public static final String ENTRY_TAG_VAR = toVariable(ENTRY_TAG);
     
 
     public static String toVariable(String aVariableName) {
         return "{" + aVariableName + "}";
+    }
+    
+    public static String getImplicitRequirementsRoot(PropertiesConfiguration configuration) {
+    	return configuration.getString(IMPLICIT_REQUIRMENTS_ROOT, DEFAULT_IMPLICIT_REQUIRMENTS_ROOT);
     }
 
     public static List<String> autoVisitActions(PropertiesConfiguration configuration, GraderSettingsManager graderSettingsManager) {

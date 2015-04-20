@@ -18,6 +18,7 @@ import grader.config.StaticConfigurationUtils;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.language.LanguageDependencyManager;
+import grader.modules.ARequirementsToCourseInfoTranslator;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.NavigationKind;
@@ -34,8 +35,10 @@ import grader.trace.settings.GraderSettingsDisplayed;
 
 import java.io.File;
 import java.util.List;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+
 import util.trace.TraceableBus;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
@@ -47,7 +50,9 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 public class Driver {
 
     static PropertiesConfiguration configuration; // = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-    static GradingMangerType controller;
+    
+
+	static GradingMangerType controller;
     static ProjectDatabaseWrapper database = null;
 
     static GraderSettingsManager graderSettingsManager; //  = GraderSettingsManagerSelector.getGraderSettingsManager();
@@ -73,6 +78,9 @@ public class Driver {
 
         configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         // moved
+        // probbaly will fail
+        (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
+
 
         controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
 //        if (!controller.equals("AHeadlessGradingManager")) {
@@ -403,4 +411,11 @@ public class Driver {
         graderSettingsManager.setDownloadPath(course, path);
         GraderSettings.get().set("path", path);
     }
+    public static PropertiesConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public static void setConfiguration(PropertiesConfiguration configuration) {
+		Driver.configuration = configuration;
+	}
 }
