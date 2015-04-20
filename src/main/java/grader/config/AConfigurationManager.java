@@ -103,9 +103,13 @@ public class AConfigurationManager implements ConfigurationManager {
 //            String dynamicConfigurationName = configuration.getString("grader.dynamicConfiguration", "dynamicconfig.properties");
             String dynamicConfigurationName = configuration.getString(DYNAMIC_CONFIG_PROPERTY, DYNAMIC_CONFIGURATION_FILE_NAME);
 
-            File file = new File(dynamicConfigurationName);
-            if (!file.exists()) {
-                file.createNewFile();
+            File dynamicConfigurationFile = new File(dynamicConfigurationName);
+            if (!dynamicConfigurationFile.exists()) {
+            	File parent = dynamicConfigurationFile.getParentFile();
+            	if (!parent.exists()) {
+            		parent.mkdirs();
+            	}
+                dynamicConfigurationFile.createNewFile();
                 DynamicConfigurationFileCreated.newCase(dynamicConfigurationName, this);
 //	         	convertToDynamicConfiguration();
             }
@@ -115,7 +119,18 @@ public class AConfigurationManager implements ConfigurationManager {
             DynamicConfigurationFileRead.newCase(dynamicConfigurationName, this);
             
             setModuleConfiguration(createModuleConfiguration(args));
-            setDynamicModuleConfiguration(new PropertiesConfiguration(DYNAMIC_MODULE_CONFIGURATION_FILE_NAME));        
+            
+           File dynamicModuleFile = new File(DYNAMIC_MODULE_CONFIGURATION_FILE_NAME);
+           if (!dynamicModuleFile.exists()) {
+           	File parent = dynamicModuleFile.getParentFile();
+           	if (!parent.exists()) {
+           		parent.mkdirs();
+           	}
+           	dynamicModuleFile.createNewFile();
+//	         	convertToDynamicConfiguration();
+           }
+            
+            setDynamicModuleConfiguration(new PropertiesConfiguration(dynamicModuleFile.getAbsolutePath()));        
             
             
 

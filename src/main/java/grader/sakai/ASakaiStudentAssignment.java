@@ -147,18 +147,22 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             return;
         }
 
-        try {
+//        try {
             File submissionFile = new File(name);
             File[] children = submissionFile.listFiles();
             for (File child : children) {
                 if (child.isDirectory()) {
+                	try {
                     FileUtils.cleanDirectory(child); // generated  directory
                     child.delete();
+                	} catch (IOException e) {
+                		System.err.println("Could not delete " + child.getAbsolutePath() + " " + e.getMessage());
+                	}
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public boolean isSubmitted() {
