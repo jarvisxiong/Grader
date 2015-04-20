@@ -17,8 +17,8 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
     String absoluteName;
     public static final String MACOS = "_MACOS";
 
-    public AZippedRootFolderProxy(String aZipFileName) {
-        super();
+    public AZippedRootFolderProxy(String aZipFileName, String aSubFolderName) {
+        super(aSubFolderName);
         try {
             this.zipFile = new ZipFile(aZipFileName);
         } catch (IOException e) {
@@ -27,6 +27,10 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
         }
         initRootName();
         initEntries();
+    }
+    public AZippedRootFolderProxy(String aZipFileName) {
+    	this(aZipFileName, null);
+    	
     }
 
     public boolean exists() {
@@ -71,13 +75,17 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
         }
 
     }
+    
+  
 
     void initEntries() {
         Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
         while (enumeration.hasMoreElements()) {
             ZipEntry nextEntry = enumeration.nextElement();
-            if (nextEntry.getName().indexOf(MACOS) >= 0)
+            if (nextEntry.getName().indexOf(MACOS) >= 0) // why not use contains?
                 continue; // mac added stuff
+            if (!inTreeOfSubFolder(nextEntry.getName()))
+            	continue;
             add(new AZippedFileProxy(this, nextEntry, zipFile, rootLocalName));
         }
         initChildrenRootData();

@@ -8,6 +8,22 @@ import java.util.*;
 public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implements RootFolderProxy {
     protected Map<String, FileProxy> nameToFileProxy = new HashMap();
     protected List<FileProxy> entries = new ArrayList();
+    
+    protected  String subFolderName; // only children of this folder will be viisted and put in nameToFileProxy;
+    protected  String subFolderNameLowerCase;
+    
+    public AnAbstractRootFolderProxy(String aSubFolderName) {
+    	subFolderName = aSubFolderName;
+    	if (subFolderName != null)
+    		subFolderNameLowerCase = subFolderName.toLowerCase();
+    	
+    }
+    
+    protected boolean inTreeOfSubFolder(String anEntryName) {
+    	return subFolderNameLowerCase == null || 
+    			anEntryName.toLowerCase().contains(subFolderNameLowerCase);
+    	
+    }
 
     protected void add(FileProxy aFileProxy) {
         entries.add(aFileProxy);

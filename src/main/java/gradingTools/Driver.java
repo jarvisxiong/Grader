@@ -78,7 +78,7 @@ public class Driver {
 
         configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         // moved
-        // probbaly will fail
+        // , in progress
         (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
 
 

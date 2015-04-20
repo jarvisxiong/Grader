@@ -23,8 +23,8 @@ public class AFileSystemRootFolderProxy extends AnAbstractRootFolderProxy
     String rootName;
     String localName;
 
-    public AFileSystemRootFolderProxy(String aRootFolderName) {
-        super();
+    public AFileSystemRootFolderProxy(String aRootFolderName, String aSubFolderName) {
+        super(aSubFolderName);
         rootFolder = new File(aRootFolderName);
         if (!rootFolder.exists()) {
             System.out.println("File:" + aRootFolderName + "  does not exist");
@@ -45,6 +45,10 @@ public class AFileSystemRootFolderProxy extends AnAbstractRootFolderProxy
         initChildrenRootData(); // I moved this out of init entries because it only needs to be called once and significantly reduces the loading time. --Josh
         RootFileSystemFolderLoaded.newCase(getAbsoluteName(), this);
 
+    }
+
+    public AFileSystemRootFolderProxy(String aRootFolderName) {
+        this(aRootFolderName, null);
     }
     
     private boolean containsOnyen(File file ){
@@ -110,10 +114,14 @@ public class AFileSystemRootFolderProxy extends AnAbstractRootFolderProxy
         
         String rootName = Common.toCanonicalFileName(rootFolder.getAbsolutePath());
         for (File aFile : files) {
+        	if (aFolder.equals(rootFolder) &&  !inTreeOfSubFolder(aFile.getName()))
+        		continue;
             add(new AFileSystemFileProxy(this, aFile, rootName));
             if (aFile.isDirectory()) {
                 initEntries(aFile);
             }
+            if (subFolderName != null && aFolder.equals(rootFolder)) // we are done, we found our subfolder
+            	break;
         }
     }
 

@@ -36,7 +36,7 @@ public class ARequirementsToCourseInfoTranslator {
 		RootFolderProxy aGraderFileProxy;
 		File aGraderFile = new File(aGraderPath);
 		if (aGraderFile.isDirectory()) {
-			aGraderFileProxy = new AFileSystemRootFolderProxy(aGraderFile.getAbsolutePath());
+			aGraderFileProxy = new AFileSystemRootFolderProxy(aGraderFile.getAbsolutePath(), "gradingTools");
 		} else {
 			aGraderFileProxy = new AZippedRootFolderProxy(aGraderFile.getAbsolutePath());
 		}
