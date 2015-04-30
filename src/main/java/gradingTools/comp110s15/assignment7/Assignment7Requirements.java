@@ -6,8 +6,12 @@ import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp110s15.assignment7.testcases.AccountType;
 import gradingTools.comp110s15.assignment7.testcases.Amount;
+import gradingTools.comp110s15.assignment7.testcases.NegBalance;
 import gradingTools.comp110s15.assignment7.testcases.Optest;
 import gradingTools.comp110s15.assignment7.testcases.ThankQuit;
+import gradingTools.comp110s15.assignment7.testcases.UltimatePrint;
+import gradingTools.comp110s15.assignment7.testcases.UnrecOp;
+import gradingTools.sharedTestCase.BlankTestCase;
 import gradingTools.sharedTestCase.HasMainMethodMultClasses;
 import gradingTools.sharedTestCase.Welcome;
 
@@ -37,6 +41,15 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
 				addFeature("Asks amount",5,new Amount());
 		//thank/quit
 				addFeature("quits/thanks user",10,new ThankQuit());
+		//print depo withdraw transfer test
+				addFeature("print/depo/with/trans test",40,new UltimatePrint());//todo
+		//check neg amount
+				addFeature("negative balance detection and penalty",10,new NegBalance());
+		// check unrec op
+				addFeature("unrecognized operation detection",5,new UnrecOp());
+		//check class files
+				addFeature("Required classes",10,new BlankTestCase());
+			
 		
 	}
 

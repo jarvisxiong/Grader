@@ -20,7 +20,7 @@ public class Amount extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
 		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
-				"max\ntransfer\n");
+				"max\nwithdraw\n");
 		String output0 = Project0.await().toLowerCase();
 		boolean dgood=false;
 		boolean wgood=false;
