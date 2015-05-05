@@ -24,7 +24,10 @@ public class UltimatePrint extends BasicTestCase {
 		String out0=Project0.await().toLowerCase();
 		RunningProject TestAll = RunningProjectUtils.runProject(project, 10,
 				"max\ndeposit\nchecking\n75\nwithdraw\nchecking\n20\ntransfer\nchecking\n10\nprint\n");
-		String outall=TestAll.await().toLowerCase().substring(out0.length()-1);
+		String realOutAll = TestAll.await();
+//		String outall=TestAll.await().toLowerCase().substring(out0.length()-1);
+		String outall=realOutAll.toLowerCase().substring(out0.length()-1);
+
 		if(outall.contains("45") && outall.contains("10") && outall.contains("75") && outall.contains("20"))return pass();
 		else{
 			boolean depo=false;

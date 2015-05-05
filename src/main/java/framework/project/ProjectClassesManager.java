@@ -106,6 +106,7 @@ public class ProjectClassesManager implements ClassesManager {
                 try {
                     System.out.println("Attempting to compile files.");
                     project.setHasBeenCompiled(true);
+                    aFilesToCompile = new ArrayList<>(sourceFiles); // compile all if we have to compile one because the previpusly comppiled files may be different version from ours
                 	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
