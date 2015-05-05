@@ -17,8 +17,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import bus.uigen.Message;
+
+//import bus.uigen.Message;
 import scala.xml.dtd.DEFAULT;
+import util.trace.Tracer;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import grader.file.FileProxy;
@@ -194,7 +196,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public void setGrade(String aStudentName, String anOnyen, double aScore) {
 		try {
 			if (aScore < 0) {
-				Message.error("negative score!");
+				Tracer.error("negative score!");
 //				JOptionPane.showMessageDialog(null, "Negative score! Not saving it.");
 				return;
 				

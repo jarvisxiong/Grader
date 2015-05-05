@@ -18,6 +18,7 @@ import java.util.Set;
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
+import framework.utils.GradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.trace.compilation.SourceTextCompiledInMemory;
@@ -111,7 +112,8 @@ public class AClassDescription  implements ClassDescription {
 				// compilation errors
 				// for now letting it be
 				// so as long as we have one class programs, we are fine it seems
-				byte[] classBytes = ParserMain.compile(aClassName, aText);
+				byte[] classBytes = ParserMain.compile(aClassName, aText, GradingEnvironment
+						.get().getClasspath());
 				if (classBytes != null) {
 					SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
 					javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
@@ -286,7 +288,9 @@ public class AClassDescription  implements ClassDescription {
 	@Override
 	public SourceClass getJavacSourceClass() {
 		if (javacSourceClass == null) {
-			javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className);
+			// added classpath, should not really be accessed
+			javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className,  GradingEnvironment
+					.get().getClasspath());
 			JavacSourceClassCreated.newCase(className, this);
 
 		}
