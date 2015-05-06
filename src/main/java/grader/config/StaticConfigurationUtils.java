@@ -291,7 +291,43 @@ public class StaticConfigurationUtils {
 		return aProcessCommand.contains(ARGS);
 	}
 	
-	static boolean doPermissions = false;
+	static boolean doPermissions = true;
+	
+//	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+	public static final String FILE_SEPARATOR = "/";
+
+
+	public static String quotePath(String path) {
+		if (!path.contains(" ")) return path;
+	    boolean startSlash = path.startsWith("\\") || path.startsWith("/");
+	    boolean endSlash = path.endsWith("\\") || path.endsWith("/");
+	    String[] split = path.split("[\\\\/]+");
+
+	    StringBuilder quotPath = new StringBuilder(path.length());
+
+	    if (startSlash) {
+	        quotPath.append(FILE_SEPARATOR);
+	    }
+	    
+	    for(int i = 0; i < split.length; i ++) {
+	    	String s = split[i];
+	        if (s.contains(" ")) {
+//	            s = "\"" + s + "\"";
+	            s = "\\\"" + s + "\\\"";
+
+	        }
+	        quotPath.append(s);
+	        if (i+1 < split.length) {
+	            quotPath.append(FILE_SEPARATOR);
+	        }
+	    }
+	    
+	    if (endSlash) {
+	        quotPath.append(FILE_SEPARATOR);
+	    }
+	    
+	    return quotPath.toString();
+	}
 
 	public static String[] getExecutionCommand(Project aProject,
 			String aProcessName, File aBuildFolder, String anEntryPoint,
@@ -361,22 +397,30 @@ public class StaticConfigurationUtils {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				aPolicyFilePath = aPolicyFilePath.replace("\\", "/");
 
-				try {
-					URL aPermissionFileURL = Class.class
-							.getResource(aPolicyFilePath);
+//				aPolicyFilePath = "C:/Users/dewan/Downloads/A7/\"Assignment 7\"/permissions0.txt";
+				
+				aPolicyFilePath = quotePath(aPolicyFilePath);
 
-					aPolicyFilePath = URLDecoder.decode(
-							aPermissionFileURL.getFile(), "UTF-8");
-				} catch (Exception e) {
-					System.err.println("Could not decode" + e.getMessage());
-				}
+//				try {
+//					URL aPermissionFileURL = Class.class
+//							.getResource(aPolicyFilePath);
+//
+//					aPolicyFilePath = URLDecoder.decode(
+//							aPermissionFileURL.getFile(), "UTF-8");
+//				} catch (Exception e) {
+//					System.err.println("Could not decode: " + e.getMessage());
+//				}
 				command = command.replace(
 						PERMISSIONS_VAR,
-						"\""
-								+ JavaProjectToPermissionFile
-										.getPermissionFile(aProject)
-										.getAbsolutePath() + "\"");
+//						"\"" +
+								aPolicyFilePath
+//								JavaProjectToPermissionFile
+//										.getPermissionFile(aProject)
+//										.getAbsolutePath() + 
+//										+ "\""
+								);
 			}
 
 			if (anEntryPoint != null) {
