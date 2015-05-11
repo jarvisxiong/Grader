@@ -22,7 +22,7 @@ public class AModuleProblemManager implements ModuleProblemManager{
 	public static final String MODULES = "modules";
 	public static final String GENERIC_COURSE = "GenericCourse";
 	PropertiesConfiguration configuration, dynamicConfiguration;
-	PropertiesConfiguration moduleConfiguration, dynamicModuleConfiguration;
+	PropertiesConfiguration courseConfiguration, dynamicModuleConfiguration;
 //	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 	List<String> modules;
 	public AModuleProblemManager() {
@@ -31,7 +31,7 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //				GraderSettingsManagerSelector.getGraderSettingsManager();
 		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
-		moduleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getModuleConfiguration();
+		courseConfiguration = ConfigurationManagerSelector.getConfigurationManager().getCourseConfiguration();
 		dynamicModuleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicModuleConfiguration();
 		
 	}
@@ -54,8 +54,8 @@ public class AModuleProblemManager implements ModuleProblemManager{
 	public List<String> getModules() {
 		if (modules != null) return modules;
 		List objectModules = null;
-		if (moduleConfiguration != null) {
-			 objectModules = moduleConfiguration.getList(MODULES);
+		if (courseConfiguration != null) {
+			 objectModules = courseConfiguration.getList(MODULES);
 		 }
 		
 		if (objectModules != null && objectModules.isEmpty()) {

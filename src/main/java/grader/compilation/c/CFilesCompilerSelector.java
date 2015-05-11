@@ -3,9 +3,11 @@ package grader.compilation.c;
 import grader.compilation.ClassFilesCompiler;
 
 public class CFilesCompilerSelector {
-	static ClassFilesCompiler classFilesCompiler = new ACFilesCompiler();
+	static ClassFilesCompiler classFilesCompiler ;
 
 	public static ClassFilesCompiler getClassFilesCompiler() {
+		if (classFilesCompiler ==  null)
+			classFilesCompiler =  new ACFilesCompiler();
 		return classFilesCompiler;
 	}
 

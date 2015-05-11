@@ -40,5 +40,6 @@ public interface GraderSettingsModel extends PropertyListenerRegistrar, Property
 	boolean maybePreCompile();
 	void cleanSlate(String anOnyen);
 	boolean maybePreUnzip();
+	void compileExecutor();
 
 }

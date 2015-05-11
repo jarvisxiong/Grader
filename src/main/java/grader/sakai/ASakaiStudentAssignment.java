@@ -53,7 +53,11 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             }
 //            System.out.println("*^*^* " + aFileProxy.getMixedCaseAbsoluteName());
             feedbackFolder = aFileProxy.getFileEntryFromLocalName(FEEDBACK_LOCAL_NAME);
+            if (feedbackFolder != null)
+
             FeedbackFolderLoaded.newCase(feedbackFolder.getAbsoluteName(), this);
+            else
+            	System.err.println("No feedback folder for: " + onyen);
 
             commentsFile = aFileProxy.getFileEntryFromLocalName(COMMENTS_LOCAL_NAME);
             if (commentsFile != null) {

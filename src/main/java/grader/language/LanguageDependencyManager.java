@@ -3,6 +3,8 @@ package grader.language;
 import grader.compilation.ClassFilesCompiler;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.compilation.c.CFilesCompilerSelector;
+import grader.config.ConfigurationManager;
+import grader.config.StaticConfigurationUtils;
 import grader.execution.ExecutableFinderSelector;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
@@ -92,11 +94,20 @@ public class LanguageDependencyManager {
 	public static boolean isJava() {
 		return getLanguage() == JAVA_LANGUAGE;
 	}
+	public static void setCOBj(ConfigurationManager aConfigurationManager) {
+		String cObj = aConfigurationManager.getCourseConfiguration().getString(StaticConfigurationUtils.C_OBJ);
+		if (cObj == null)
+			cObj = aConfigurationManager.getStaticConfiguration().getString(StaticConfigurationUtils.C_OBJ);
+		if (cObj != null)
+			languageToBinaryFileSuffix.put(C_LANGUAGE, "." + cObj);
+
+		
+	}
 	static {
 		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");
 		languageToSourceFileSuffix.put(C_LANGUAGE, ".c");
-		languageToBinaryFileSuffix.put(C_LANGUAGE, ".obj");
+		languageToBinaryFileSuffix.put(C_LANGUAGE, ".o");
 		languageToSourceFileSuffix.put(PYTHON_LANGUAGE, ".py");
 		languageToBinaryFileSuffix.put(PYTHON_LANGUAGE, ".py"); // does it have a compiled class
 		

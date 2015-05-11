@@ -189,3 +189,5 @@ Include=C:\Program Files\Microsoft Visual Studio 10.0\VC\include
 Lib=C:\Program Files\Microsoft Visual Studio 10.0\VC\lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib;C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib
 
 Path=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin
+
+There is also a bat file that sets these variables for you. See https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx and search for "Using vcvarsall.bat in a Command Prompt window"

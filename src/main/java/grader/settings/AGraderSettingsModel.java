@@ -22,6 +22,7 @@ import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
+import grader.executor.ExecutorSelector;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
@@ -733,6 +734,10 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
         projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
+    }
+    @Override
+    public void compileExecutor() {
+       ExecutorSelector.getExecutor().compile();
     }
     
     @Override

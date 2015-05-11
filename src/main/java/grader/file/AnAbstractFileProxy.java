@@ -3,6 +3,7 @@ package grader.file;
 import util.misc.Common;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,6 +66,8 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
     }
 
     public Set<String> getDescendentEntryNames(FileProxy aParent) {
+    	if (aParent == null)
+    		return new HashSet();
         return rootFolderProxy.getDescendentEntryNames(aParent);
     }
 

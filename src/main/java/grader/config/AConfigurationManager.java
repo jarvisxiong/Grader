@@ -3,16 +3,20 @@ package grader.config;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import framework.utils.UserPropertyWriter;
+import grader.executor.ExecutorSelector;
+import grader.language.LanguageDependencyManager;
 import grader.trace.config.DynamicConfigurationFileCreated;
 import grader.trace.config.DynamicConfigurationFileRead;
 import grader.trace.config.StaticConfigurationFileNotRead;
 import grader.trace.config.StaticConfigurationFileRead;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Map;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
@@ -21,14 +25,14 @@ public class AConfigurationManager implements ConfigurationManager {
     public static final String CONFIG_DIR = "config";
     public static final String CONFIG_FILE = "config.properties";
     public static final String DYNAMIC_CONFIGURATION_FILE = "dynamicconfig.properties";
-    public static final String MODULES_FILE = "modules.properties";
+    public static final String COURSE_FILE = "course.properties";
     public static final String DYNAMIC_MODULES_FILE = "dynamicmodules.properties";
     public static final String DYNAMIC_CONFIG_PROPERTY = "grader.dynamicConfiguration";
 //    public static final String STATIC_CONFIGURATION_FILE_NAME = "./config/config.properties";
     public static final String STATIC_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + CONFIG_FILE;
     public static final String DYNAMIC_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + DYNAMIC_CONFIGURATION_FILE;
 
-    public static final String MODULE_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + MODULES_FILE;
+    public static final String COURSE_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + COURSE_FILE;
     public static final String DYNAMIC_MODULE_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + DYNAMIC_MODULES_FILE;
 
 
@@ -60,6 +64,7 @@ public class AConfigurationManager implements ConfigurationManager {
     public PropertiesConfiguration getDynamicConfiguration() {
         return dynamicConfiguration;
     }
+    
 
     public void setDynamicConfiguration(
             PropertiesConfiguration dynamicConfiguration) {
@@ -74,11 +79,11 @@ public class AConfigurationManager implements ConfigurationManager {
         this.staticConfiguration = staticConfiguration;
     }
     @Override
-    public PropertiesConfiguration getModuleConfiguration() {
+    public PropertiesConfiguration getCourseConfiguration() {
         return moduleConfiguration;
     }
     @Override
-    public void setModuleConfiguration(PropertiesConfiguration newVal) {
+    public void setCourseConfiguration(PropertiesConfiguration newVal) {
         this.moduleConfiguration = newVal;
     }
     
@@ -118,7 +123,8 @@ public class AConfigurationManager implements ConfigurationManager {
 
             DynamicConfigurationFileRead.newCase(dynamicConfigurationName, this);
             
-            setModuleConfiguration(createModuleConfiguration(args));
+            setCourseConfiguration(createCourseConfiguration(args));
+            
             
            File dynamicModuleFile = new File(DYNAMIC_MODULE_CONFIGURATION_FILE_NAME);
            if (!dynamicModuleFile.exists()) {
@@ -132,7 +138,11 @@ public class AConfigurationManager implements ConfigurationManager {
             
             setDynamicModuleConfiguration(new PropertiesConfiguration(dynamicModuleFile.getAbsolutePath()));        
             
-            
+            LanguageDependencyManager.setCOBj(this);
+            String anExecutor = getCourseConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
+            if (anExecutor == null)
+            	anExecutor = getStaticConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
+            ExecutorSelector.getExecutor().setExecutorDirectory(anExecutor);
 
 //	         GraderSettings.get().convertToDynamicConfiguration();
         } catch (ConfigurationException e) {
@@ -147,10 +157,10 @@ public class AConfigurationManager implements ConfigurationManager {
         }
     }
     
-    PropertiesConfiguration createModuleConfiguration(String[] args) {
+    PropertiesConfiguration createCourseConfiguration(String[] args) {
        
                 try {
-					return new PropertiesConfiguration(MODULE_CONFIGURATION_FILE_NAME);
+					return new PropertiesConfiguration(COURSE_CONFIGURATION_FILE_NAME);
 				} catch (ConfigurationException e) {
 					e.printStackTrace();
 					return null;

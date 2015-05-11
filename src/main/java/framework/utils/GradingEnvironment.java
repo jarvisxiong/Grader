@@ -57,6 +57,9 @@ public class GradingEnvironment {
 			String newVal) {
 		this.defaulAssignmentsDataFolderName = newVal;
 	}
+	public boolean isNotWindows() {
+		return !osName.equals("Windows");
+	}
 
 	private GradingEnvironment() {
         osName = System.getProperty("os.name");
