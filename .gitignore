@@ -24,3 +24,4 @@ log
 /bin
 config/dynamicconfig.properties
 config/dynamicmodules.properties
+Test Data/Test*
