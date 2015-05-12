@@ -137,12 +137,16 @@ public class AConfigurationManager implements ConfigurationManager {
            }
             
             setDynamicModuleConfiguration(new PropertiesConfiguration(dynamicModuleFile.getAbsolutePath()));        
-            
-            LanguageDependencyManager.setCOBj(this);
-            String anExecutor = getCourseConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
-            if (anExecutor == null)
-            	anExecutor = getStaticConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
-            ExecutorSelector.getExecutor().setExecutorDirectory(anExecutor);
+            LanguageDependencyManager.setCOBj(
+            		StaticConfigurationUtils.getCourseOrStaticString(StaticConfigurationUtils.C_OBJ));
+
+//            LanguageDependencyManager.setCOBj(this);
+//            String anExecutor = getCourseConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
+//            if (anExecutor == null)
+//            	anExecutor = getStaticConfiguration().getString(StaticConfigurationUtils.EXECEUTOR);
+//            ExecutorSelector.getExecutor().setExecutorDirectory(anExecutor);
+            ExecutorSelector.getExecutor().setExecutorDirectory(
+            		StaticConfigurationUtils.getCourseOrStaticString(StaticConfigurationUtils.EXECEUTOR));
 
 //	         GraderSettings.get().convertToDynamicConfiguration();
         } catch (ConfigurationException e) {

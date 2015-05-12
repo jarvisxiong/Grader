@@ -103,6 +103,12 @@ public class LanguageDependencyManager {
 
 		
 	}
+	public static void setCOBj(String aCObj) {
+		
+			languageToBinaryFileSuffix.put(C_LANGUAGE, "." + aCObj);
+
+		
+	}
 	static {
 		languageToSourceFileSuffix.put(JAVA_LANGUAGE, ".java");
 		languageToBinaryFileSuffix.put(JAVA_LANGUAGE, ".class");

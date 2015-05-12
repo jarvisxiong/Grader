@@ -455,6 +455,28 @@ public class StaticConfigurationUtils {
 		return retVal.toArray(new String[0]);
 
 	}
+	
+	public static String getCourseOrStaticString(String aProperty) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		 String aRetVal = courseConfiguration.getString(aProperty);
+         if (aRetVal == null)
+         	aRetVal = staticConfiguration.getString(aProperty);
+         return aRetVal;		
+	}
+	
+	public static boolean getCourseOrStaticBoolean(String aProperty) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		 Boolean aRetVal = courseConfiguration.getBoolean(aProperty);
+         if (aRetVal == null)
+         	aRetVal = staticConfiguration.getBoolean(aProperty);
+         return aRetVal;		
+	}
 
 	public static String getInheritedStringModuleProblemProperty(
 			String property, String defaultValue) {
