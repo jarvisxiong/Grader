@@ -62,7 +62,7 @@ public class StaticConfigurationUtils {
 	public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
 	public static final String IMPLICIT_REQUIRMENTS_ROOT = "implicitRequirementsRoot";
 	public static final String DEFAULT_IMPLICIT_REQUIRMENTS_ROOT = "gradingTools";
-	public static final String USE_EXECEUTOR = "useexecutor";
+	public static final String USE_EXECEUTOR = "useExecutor";
 	public static final String EXECEUTOR = "executor";
 	public static final String C_OBJ = "language.C.obj";
 
@@ -214,6 +214,60 @@ public class StaticConfigurationUtils {
 		if (retVal == null) {
 			retVal = configuration.getBoolean(DEFAULT + "." + property,
 					defaultValue);
+		}
+
+		return retVal;
+
+	}
+	public static Boolean getInheritedBooleanModuleProblemProperty(
+			String module,
+			String problem, String property, Boolean aDefaultValue) {
+
+		Boolean retVal = getCourseOrStaticBoolean(module + "." + problem + "."
+				+ property, null);
+
+		if (retVal == null) {
+			retVal = getCourseOrStaticBoolean(module + "." + property, null);
+		}
+		if (retVal == null) {
+			retVal = getCourseOrStaticBoolean(DEFAULT + "." + property,
+					aDefaultValue);
+		}
+
+		return retVal;
+
+	}
+	public static Integer getInheritedIntegerModuleProblemProperty(
+			String module,
+			String problem, String property, Integer aDefaultValue) {
+
+		Integer retVal = getCourseOrStaticInteger(module + "." + problem + "."
+				+ property, null);
+
+		if (retVal == null) {
+			retVal = getCourseOrStaticInteger(module + "." + property, null);
+		}
+		if (retVal == null) {
+			retVal = getCourseOrStaticInteger(DEFAULT + "." + property,
+					aDefaultValue);
+		}
+
+		return retVal;
+
+	}
+	public static String getInheritedStringModuleProblemProperty(
+			String module,
+			String problem, String property, String aDefaultValue) {
+
+		String retVal = getCourseOrStaticString(module + "." + problem + "."
+				+ property, null);
+
+		if (retVal == null) {
+			retVal = getCourseOrStaticString(module + "." + property, null);
+		}
+		if (retVal == null) {
+			retVal = getCourseOrStaticString(DEFAULT + "." + property,
+					aDefaultValue);
 		}
 
 		return retVal;
@@ -456,25 +510,36 @@ public class StaticConfigurationUtils {
 
 	}
 	
-	public static String getCourseOrStaticString(String aProperty) {
+	public static String getCourseOrStaticString(String aProperty, String aDefault) {
 		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
 				.getConfigurationManager().getStaticConfiguration();
 		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
 				.getConfigurationManager().getCourseConfiguration();
-		 String aRetVal = courseConfiguration.getString(aProperty);
+		 String aRetVal = courseConfiguration.getString(aProperty, aDefault);
          if (aRetVal == null)
-         	aRetVal = staticConfiguration.getString(aProperty);
+         	aRetVal = staticConfiguration.getString(aProperty, aDefault);
          return aRetVal;		
 	}
 	
-	public static boolean getCourseOrStaticBoolean(String aProperty) {
+	public static Boolean getCourseOrStaticBoolean(String aProperty, Boolean aDefault) {
 		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
 				.getConfigurationManager().getStaticConfiguration();
 		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
 				.getConfigurationManager().getCourseConfiguration();
-		 Boolean aRetVal = courseConfiguration.getBoolean(aProperty);
+		 Boolean aRetVal = courseConfiguration.getBoolean(aProperty, aDefault);
          if (aRetVal == null)
-         	aRetVal = staticConfiguration.getBoolean(aProperty);
+         	aRetVal = staticConfiguration.getBoolean(aProperty, aDefault);
+         return aRetVal;		
+	}
+	
+	public static Integer getCourseOrStaticInteger(String aProperty, Integer aDefault) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		 Integer aRetVal = courseConfiguration.getInteger(aProperty, aDefault);
+         if (aRetVal == null)
+         	aRetVal = staticConfiguration.getInteger(aProperty, aDefault);
          return aRetVal;		
 	}
 
@@ -499,7 +564,9 @@ public class StaticConfigurationUtils {
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
 		String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
-		return getInheritedBooleanModuleProblemProperty(configuration, aModule,
+//		return getInheritedBooleanModuleProblemProperty(configuration, aModule,
+//				aProblem, property, defaultValue);
+		return getInheritedBooleanModuleProblemProperty(aModule,
 				aProblem, property, defaultValue);
 
 	}

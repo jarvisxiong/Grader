@@ -33,6 +33,7 @@ import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
+import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.project.MultipleClassesWithTag;
@@ -672,7 +673,7 @@ public class ProcessRunner implements Runner {
 
 	@Override
 	public TimedProcess run (RunningProject runner, InputGenerator anOutputBasedInputGenerator,
-			String[] command, String input, String[] args, int timeout,
+			String[] aCommand, String input, String[] args, int timeout,
 			String aProcessName, boolean anOnlyProcess) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);
 		if (project != null && project instanceof ProjectWrapper) {
@@ -693,7 +694,7 @@ public class ProcessRunner implements Runner {
 			// String[] command =
 			// StaticConfigurationUtils.getExecutionCommand(entryPoint);
 			ProcessBuilder builder;
-			if (command.length == 0) { // this part should not execute, onlyif
+			if (aCommand.length == 0) { // this part should not execute, onlyif
 										// command is null
 				
 //				Object[] aPermissions = null; 
@@ -725,9 +726,10 @@ public class ProcessRunner implements Runner {
 						+ "\" "
 						+ entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 			} else {
-				builder = new ProcessBuilder(command);
+				aCommand = ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);
+				builder = new ProcessBuilder(aCommand);
 				System.out.println("Running command:"
-						+ Common.toString(command, " "));
+						+ Common.toString(aCommand, " "));
 			}
 			// ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 			// classPath, entryPoint);

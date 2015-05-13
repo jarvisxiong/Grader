@@ -106,7 +106,10 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 	}
 	
 	public  void initializeProblem() {
-		Driver.getSettingsModel().getModuleProblemSelector().getModule().setValue(courseNo());
+		Driver.getSettingsModel().
+			getModuleProblemSelector().
+				getModule().
+					setValue(courseNo());
 
 		Driver.getSettingsModel().getModuleProblemSelector().getProblem().setValue(assignmentNo());
 //		Driver.getSettingsModel().getFileBrowsing().getDownloadFolder().setText("Test Data/Test 110 F13 Assignments/Assignment1");
