@@ -104,6 +104,7 @@ public class LanguageDependencyManager {
 		
 	}
 	public static void setCOBj(String aCObj) {
+			if (aCObj != null)
 		
 			languageToBinaryFileSuffix.put(C_LANGUAGE, "." + aCObj);
 

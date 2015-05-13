@@ -7,14 +7,15 @@ import java.util.List;
 
 import framework.utils.GradingEnvironment;
 import grader.compilation.c.CFilesCompilerSelector;
+import grader.config.StaticConfigurationUtils;
 
 public class AnExecutor implements Executor {
 	String executorDirectory;
-	public static final String SOURCE_FILE = "executor";
+	public static final String EXECUTOR_FILE = "executor";
 	public  final List<File> sourceFiles;
 	public AnExecutor() {
 		sourceFiles = new ArrayList();
-		sourceFiles.add(new File(SOURCE_FILE + ".c"));
+		sourceFiles.add(new File(EXECUTOR_FILE + ".c"));
 		
 	}
 	
@@ -28,7 +29,7 @@ public class AnExecutor implements Executor {
 			CFilesCompilerSelector.getClassFilesCompiler().compile(new File(executorDirectory + "/src") , 
 					new File (executorDirectory + "/bin"), sourceFiles);
 			if (GradingEnvironment.get().isNotWindows()) {
-				String fileNames = executorDirectory + "/bin/" + SOURCE_FILE + "*";
+				String fileNames = executorDirectory + "/bin/" + EXECUTOR_FILE + "*";
 				Runtime.getRuntime().exec("setuid nobody " + fileNames);
 			}
 		} catch (IllegalStateException e) {
@@ -45,7 +46,15 @@ public class AnExecutor implements Executor {
 	 * @see grader.executor.Executor#execute(java.lang.String[])
 	 */
 	@Override
-	public void execute(String[] args) {
+	public String[] maybeToExecutorCommand(String[] aCommand) {
+		if (!StaticConfigurationUtils.getInheritedBooleanModuleProblemProperty(StaticConfigurationUtils.USE_EXECEUTOR, false))
+			return aCommand;
+		String[] retVal = new String[aCommand.length+1];
+		retVal[0] = executorDirectory + "/bin/" + EXECUTOR_FILE;
+		for (int index = 0; index < aCommand.length; index++) {
+			retVal[index + 1] = StaticConfigurationUtils.quotePath(aCommand[index]);
+		}
+		return retVal;
 		
 	}
 	/* (non-Javadoc)
