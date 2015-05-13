@@ -1,28 +1,51 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<errno.h>
 
-int main(int argc,char* argv[]){
-	if (argc == 1) {
-		printf ("Please provide the args to execute\n");
-		return -1;
+#ifdef _WIN32
+	#define _RUN_OS_WINDOWS
+#elif defined(__CYGWIN__)
+	#define _RUN_OS_WINDOWS
+#elif defined(__linux__)
+	#define _RUN_OS_UNIX_LIKE
+#elif defined(__APPLE__)
+	#define _RUN_OS_UNIX_LIKE
+#endif
+
+#ifdef _RUN_OS_WINDOWS
+	#include<process.h>
+#elif defined(_RUN_OS_UNIX_LIKE)
+	#include<sys/types.h>
+	#include<sys/wait.h>
+	#include<unistd.h>
+#endif
+
+int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		printf("No command given\n");
+		return 0;
 	}
-	int length = 0;
-	for (int i=1; i < argc; i++) {
-		length += strlen(argv[i]) + 1;
-	}
-	char* command;
-	command = malloc(sizeof(char)*length);
-	command[0] = '\0';
-	for (int i=1; i < argc; i++) {
-		strcat(command, argv[i]);
-		if (i < argc -1)
-		 strcat(command, " ");
-		
-	}
-	printf ("Executing command: %s\n", command);
-	int status = system(command);
-	printf("Executed command and status is:%d\n", status);
-	free(command);
-	return status;
-	
+	#ifdef _RUN_OS_WINDOWS
+		_spawnv(_P_WAIT, argv[1], &(argv[1]));
+		return errno;
+	#elif defined(_RUN_OS_UNIX_LIKE)
+		//int out = dup(1);
+		//pid_t pid = fork();
+		//if (pid == -1) {
+		//	printf("Error forking execution\n");
+		//} else if (pid == 0) {
+		//	dup2(out, 1);
+			int ret;
+			ret = execv(argv[1], &(argv[1]));
+			return ret;
+		//} else {
+		//	int status;
+		//	(void)waitpid(pid, &status, 0);
+		//	return status;
+		//}
+	#else
+		printf("Unsupported operating system");
+	#endif
+
+	return 0;
 }
