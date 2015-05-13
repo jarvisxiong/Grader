@@ -183,6 +183,8 @@ public class Driver {
                         }
                         break;
                     }
+                } else if (args[i].equals("--compile-executor")) {
+                    settingsModel.compileExecutor();
                 }
             }
 //            for(String arg : args) {
