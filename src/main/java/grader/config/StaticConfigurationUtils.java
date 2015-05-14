@@ -509,6 +509,16 @@ public class StaticConfigurationUtils {
 		return retVal.toArray(new String[0]);
 
 	}
+	public static List getCourseOrStaticList(String aProperty, List aDefault) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		 List aRetVal = courseConfiguration.getList(aProperty, aDefault);
+         if (aRetVal == null)
+         	aRetVal = staticConfiguration.getList(aProperty, aDefault);
+         return aRetVal;		
+	}
 	
 	public static String getCourseOrStaticString(String aProperty, String aDefault) {
 		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
@@ -545,21 +555,23 @@ public class StaticConfigurationUtils {
 
 	public static String getInheritedStringModuleProblemProperty(
 			String property, String defaultValue) {
-		PropertiesConfiguration configuration = ConfigurationManagerSelector
-				.getConfigurationManager().getStaticConfiguration();
+//		PropertiesConfiguration configuration = ConfigurationManagerSelector
+//				.getConfigurationManager().getStaticConfiguration();
 		GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
 		String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
-		return getInheritedStringModuleProblemProperty(configuration, aModule,
+//		return getInheritedStringModuleProblemProperty(configuration, aModule,
+//				aProblem, property, defaultValue);
+		return getInheritedStringModuleProblemProperty(aModule,
 				aProblem, property, defaultValue);
 
 	}
 
 	public static Boolean getInheritedBooleanModuleProblemProperty(
 			String property, boolean defaultValue) {
-		PropertiesConfiguration configuration = ConfigurationManagerSelector
-				.getConfigurationManager().getStaticConfiguration();
+//		PropertiesConfiguration configuration = ConfigurationManagerSelector
+//				.getConfigurationManager().getStaticConfiguration();
 		GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
@@ -573,14 +585,16 @@ public class StaticConfigurationUtils {
 
 	public static Integer getInheritedIntegerModuleProblemProperty(
 			String property, Integer defaultValue) {
-		PropertiesConfiguration configuration = ConfigurationManagerSelector
-				.getConfigurationManager().getStaticConfiguration();
+//		PropertiesConfiguration configuration = ConfigurationManagerSelector
+//				.getConfigurationManager().getStaticConfiguration();
 		GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
 		String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
-		return getInheritedIntegerModuleProblemProperty(configuration, aModule,
-				aProblem, property, defaultValue);
+//		return getInheritedIntegerModuleProblemProperty(configuration, aModule,
+//				aProblem, property, defaultValue);
+		return getInheritedIntegerModuleProblemProperty( aModule,
+		aProblem, property, defaultValue);
 
 	}
 
@@ -645,6 +659,23 @@ public class StaticConfigurationUtils {
 		}
 		if (retVal.isEmpty()) {
 			retVal = configuration.getList(DEFAULT + "." + property);
+		}
+
+		return retVal;
+
+	}
+	public static List<String> getInheritedListModuleProblemProperty(
+			String module,
+			String problem, String property) {
+
+		List retVal = getCourseOrStaticList(module + "." + problem + "."
+				+ property, null);
+
+		if (retVal.isEmpty()) {
+			retVal = getCourseOrStaticList(module + "." + property, null);
+		}
+		if (retVal.isEmpty()) {
+			retVal = getCourseOrStaticList(DEFAULT + "." + property, null);
 		}
 
 		return retVal;
