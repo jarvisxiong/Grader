@@ -26,31 +26,31 @@ public class LocalJsonLogger implements Logger {
 //        File folder = new File("log/" + GradingEnvironment.get().getAssignmentName());
         try {
 //            FileUtils.writeStringToFile(new File(folder, recordingSession.getUserId() + ".json"), text);
-          FileUtils.writeStringToFile(logFile(recordingSession.getUserId()), text);
+            FileUtils.writeStringToFile(logFile(recordingSession.getUserId()), text);
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
-	@Override
-	public String logFileName(String aUserId) {
-		File file = logFile(aUserId);
-		if (file != null && file.exists()) {
-			return file.getAbsolutePath();
-		}
-		return null;
-	}
-	
-	File logFile(String aUserId) {
+    @Override
+    public String logFileName(String aUserId) {
+        File file = logFile(aUserId);
+        if (file != null && file.exists()) {
+            return file.getAbsolutePath();
+        }
+        return null;
+    }
+
+    File logFile(String aUserId) {
         File folder = new File("log/" + GradingEnvironment.get().getAssignmentName());
         return new File(folder, aUserId + ".json");
-         
-	}
 
-	@Override
-	public boolean isSaved(String aUserId) {
-		File file = logFile(aUserId);
-		return file != null && file.exists();
-	}
+    }
+
+    @Override
+    public boolean isSaved(String aUserId) {
+        File file = logFile(aUserId);
+        return file != null && file.exists();
+    }
 }

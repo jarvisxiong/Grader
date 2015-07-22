@@ -1,2 +1,0 @@
-Could not successfully run:D:/dewan_backup/Java/GraderToolkit/Test Data/Test 401/Assignment10/Vitkus, Andrew(vitkus)/Submission attachment(s)/Assignment10/Preconditions, Commands, Threads, Animationwith input file:null
-terminated main method

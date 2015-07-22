@@ -56,7 +56,7 @@ public class ProjectClassesManager implements ClassesManager {
         this.sourceFolder = sourceFolder;
 
         // Create the Class Loader and load the classes
-        if (AProject.isLoadClasses()) {
+        if (AProject.isLoadClasses() ) {
 //        	classLoader = project.getClassLoader();
 //        	if (classLoader == null)
         	proxyClassLoader = project.getClassLoader();

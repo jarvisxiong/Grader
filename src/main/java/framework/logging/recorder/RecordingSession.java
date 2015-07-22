@@ -17,18 +17,14 @@ public class RecordingSession {
     private String comments = "";
     private double latePenalty;
     double sourcePoints;
-    
-	double score;
+
+    double score;
     String sourceCodeComments = "";
-    
 
-	
+    List<GradingFeature> gradingFeatures;
 
-	List<GradingFeature> gradingFeatures;
-
-    
-	public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
-                            String comments, double latePenalty, GradingFeatureList newGradingFeatures) {
+    public RecordingSession(String userId, List<CheckResult> featureResults, List<CheckResult> restrictionResults,
+            String comments, double latePenalty, GradingFeatureList newGradingFeatures) {
         this.userId = userId;
         this.featureResults = featureResults;
         this.restrictionResults = restrictionResults;
@@ -76,40 +72,41 @@ public class RecordingSession {
     public void setLatePenalty(double latePenalty) {
         this.latePenalty = latePenalty;
     }
-    
+
     public List<GradingFeature> getGradingFeatures() {
-		return gradingFeatures;
-	}
+        return gradingFeatures;
+    }
 
-	public void setGradingFeatures(List<GradingFeature> gradingFeatures) {
-		this.gradingFeatures = gradingFeatures;
-	}
-	public double getScore() {
-		return score;
-	}
+    public void setGradingFeatures(List<GradingFeature> gradingFeatures) {
+        this.gradingFeatures = gradingFeatures;
+    }
 
-	public void setScore(double score) {
-		if (score < 0) {
-			System.out.println ("Negative score, making it 0: " + score);
-			score = 0;
-		}
-		this.score = score;
-	}
-	
-	public String getSourceCodeTAComments() {
-		return sourceCodeComments;
-	}
-	
-	public void setSourceCodeComments(String sourceCodeComments) {
-		this.sourceCodeComments = sourceCodeComments;
-	}
-	public double getSourcePoints() {
-		return sourcePoints;
-	}
+    public double getScore() {
+        return score;
+    }
 
-	public void setSourcePoints(double sourcePoints) {
-		this.sourcePoints = sourcePoints;
-	}
+    public void setScore(double score) {
+        if (score < 0) {
+            System.out.println("Negative score, making it 0: " + score);
+            score = 0;
+        }
+        this.score = score;
+    }
 
+    public String getSourceCodeTAComments() {
+        return sourceCodeComments;
+    }
+
+    public void setSourceCodeComments(String sourceCodeComments) {
+        this.sourceCodeComments = sourceCodeComments;
+    }
+
+    public double getSourcePoints() {
+        return sourcePoints;
+    }
+
+    public void setSourcePoints(double sourcePoints) {
+        this.sourcePoints = sourcePoints;
+    }
 
 }

@@ -415,10 +415,10 @@ package commandEngine.interpreter;
 
 import bus.uigen.OEFrame;
 import util.annotations.Tags;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "Command Interpreter" })
-public interface IInterpreter extends PropertyListenerRegisterer {
+public interface IInterpreter extends PropertyListenerRegistrar {
 	public void setOEFrame(OEFrame frame);
 	public OEFrame getOEFrame();
 	public void setCommand(String command);
@@ -2660,10 +2660,10 @@ package graphics.shapes;
 import graphics.types.IMovableResizableShape;
 import util.annotations.Tags;
 
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "Image Shape" })
-public interface IImageShape extends IMovableResizableShape, PropertyListenerRegisterer {
+public interface IImageShape extends IMovableResizableShape, PropertyListenerRegistrar {
 	public String getImageFileName();
 
 	public void setImageFileName(String newFileName);
@@ -2675,11 +2675,11 @@ package graphics.shapes;
 import graphics.types.IColorable;
 import graphics.types.IMovableResizableShape;
 import util.annotations.Tags;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "Oval Shape" })
 public interface IOvalShape extends IMovableResizableShape, IColorable,
-		PropertyListenerRegisterer {
+		PropertyListenerRegistrar {
 }
 //END OF FILE
 //START OF FILE: src/graphics/shapes/irectangleshape.java
@@ -2688,10 +2688,10 @@ package graphics.shapes;
 import graphics.types.IColorable;
 import graphics.types.IMovableResizableShape;
 import util.annotations.Tags;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "Rectangle Shape" })
-public interface IRectangleShape extends IMovableResizableShape, IColorable, PropertyListenerRegisterer {
+public interface IRectangleShape extends IMovableResizableShape, IColorable, PropertyListenerRegistrar {
 }
 //END OF FILE
 //START OF FILE: src/graphics/shapes/irotatingline.java
@@ -2700,11 +2700,11 @@ package graphics.shapes;
 import graphics.types.IBoundedMovableShape;
 import graphics.types.IColorable;
 import util.annotations.Tags;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "Rotating Line" })
 public interface IRotatingLine extends IBoundedMovableShape, IColorable,
-		PropertyListenerRegisterer {
+		PropertyListenerRegistrar {
 	public void setAngle(double angle);
 
 	public double getAngle();
@@ -2725,11 +2725,11 @@ import graphics.types.IMovable;
 import java.awt.Font;
 
 import util.annotations.Tags;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @Tags({ "String Shape" })
 public interface IStringShape extends IMovable, IColorable,
-		PropertyListenerRegisterer {
+		PropertyListenerRegistrar {
 	public String getText();
 
 	public void setText(String newText);
@@ -3773,10 +3773,10 @@ import javax.swing.JMenuItem;
 import util.APropertyChangeListenerManager;
 import util.annotations.ObserverRegisterer;
 import util.annotations.ObserverTypes;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
 @SuppressWarnings("serial")
-public class BridgeSceneView extends JFrame implements Runnable, PropertyListenerRegisterer {
+public class BridgeSceneView extends JFrame implements Runnable, PropertyListenerRegistrar {
 	private ObservablePainter painter;
 	
 	private APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
@@ -4250,13 +4250,13 @@ public interface IBackgroundView extends PaintListener {
 //START OF FILE: src/graphics/view/ibridgescene.java
 package graphics.view;
 
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 import bus.uigen.OEFrame;
 import graphics.avatar.IAvatar;
 import graphics.shapes.IOvalShape;
 import graphics.shapes.IRectangleShape;
 
-public interface IBridgeScene extends PropertyListenerRegisterer {
+public interface IBridgeScene extends PropertyListenerRegistrar {
 	public IAvatar getArthur();
 	public IAvatar getLancelot();
 	public IAvatar getRobin();
@@ -4377,9 +4377,9 @@ package graphics.view;
 import java.beans.PropertyChangeListener;
 
 import util.APropertyChangeListenerManager;
-import util.models.PropertyListenerRegisterer;
+import util.models.PropertyListenerRegistrar;
 
-public class ProgressMonitorController implements PropertyListenerRegisterer {
+public class ProgressMonitorController implements PropertyListenerRegistrar {
 	private int currentStep, totalSteps;
 	
 	private final APropertyChangeListenerManager pclm = new APropertyChangeListenerManager(this);
