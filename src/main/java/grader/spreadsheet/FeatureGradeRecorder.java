@@ -1,5 +1,6 @@
 package grader.spreadsheet;
 
+import framework.grading.testing.CheckResult;
 import java.util.List;
 
 import framework.grading.testing.TestCaseResult;
@@ -8,6 +9,7 @@ import grader.assignment.GradingFeatureList;
 
 public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore);
+	void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore, List<CheckResult> results);
 	double getGrade(String aStudentName, String anOnyen, String aFeature);
 	void setNotes(String aStudentName, String anOnyen, String aFeature, String aNotes);
 	String getNotes(String aStudentName, String anOnyen, String aFeature);

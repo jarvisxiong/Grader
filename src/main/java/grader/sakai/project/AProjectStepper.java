@@ -1285,6 +1285,7 @@ public class AProjectStepper extends AClearanceManager implements
 			// Save the score
 			featureGradeRecorder.setGrade(getName(), getOnyen(), features.get(i)
 					.getFeatureName(), score);
+                        
 		}
 		setComputedScore(); // will trigger change occurred
 		setComputedFeedback();

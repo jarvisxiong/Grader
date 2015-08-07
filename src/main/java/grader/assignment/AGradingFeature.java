@@ -446,20 +446,7 @@ public class AGradingFeature implements GradingFeature {
 			linkedFeature.setGraded(true);
 		}
 		if (cannotAutoGrade) {
-			propertyChangeSupport.firePropertyChange("this", null, this); // our
-																			// companion
-																			// has
-																			// been
-																			// graded,
-																			// so
-																			// we
-																			// are
-																			// also,
-																			// and
-																			// let
-																			// the
-																			// preconditions
-																			// update
+			propertyChangeSupport.firePropertyChange("this", null, this); // our																// update
 			return;
 		}
 	}

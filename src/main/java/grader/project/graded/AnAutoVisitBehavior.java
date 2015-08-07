@@ -77,6 +77,7 @@ import bus.uigen.controller.menus.SelectedMenuItem;
 import bus.uigen.introspect.Attribute;
 import bus.uigen.oadapters.ClassAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
+import framework.grading.testing.TestCaseResult;
 import scala.Option;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
@@ -97,51 +98,52 @@ import wrappers.framework.project.ProjectWrapper;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AnAutoVisitBehavior implements
-		AutoVisitBehavior {
-	public static int PAUSE_AFTER_RUN = 3000;
-	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
-			this);
+        AutoVisitBehavior {
 
-	String COMMENTS_FILE_PREFIX = "Comments";
-;
+    public static int PAUSE_AFTER_RUN = 3000;
+    PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
+            this);
+
+    String COMMENTS_FILE_PREFIX = "Comments";
+    ;
 	SakaiProjectDatabase projectDatabase;
 
 	// ideally this stuff should really be done through property change as
-	// Josh's wrapper does
-	FeatureGradeRecorder featureGradeRecorder;
+    // Josh's wrapper does
+    FeatureGradeRecorder featureGradeRecorder;
 
+    SakaiProject project;
+    OverviewProjectStepper projectStepper;
+    framework.project.Project wrappedProject;
 
-	SakaiProject project;
-	OverviewProjectStepper projectStepper;
-	framework.project.Project wrappedProject;
+    List<CheckResult> featureResults;
+    List<CheckResult> restrictionResults;
+    StudentFolder studentFolder;
+    boolean autoRunDeferred = false;
 
-	List<CheckResult> featureResults;
-	List<CheckResult> restrictionResults;
-	StudentFolder studentFolder;
-	boolean autoRunDeferred = false;
+    public AnAutoVisitBehavior() {
 
-	public AnAutoVisitBehavior() {
+    }
 
-	}
-	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
-		projectDatabase = aProjectDatabase;
-		projectStepper = (OverviewProjectStepper) aProjectDatabase.getProjectStepper();
-		featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
+    public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
+        projectDatabase = aProjectDatabase;
+        projectStepper = (OverviewProjectStepper) aProjectDatabase.getProjectStepper();
+        featureGradeRecorder = aProjectDatabase.getFeatureGradeRecorder();
 
+    }
 
-	}
+    boolean runExecuted;
 
-	boolean runExecuted;
-@Override
-	public boolean runAttempted() {
-		return runExecuted || isAutoRun() || isAutoAutoGrade();
-	}
+    @Override
+    public boolean runAttempted() {
+        return runExecuted || isAutoRun() || isAutoAutoGrade();
+    }
 
-	String getCommentsFileName(SakaiProject aProject) {
-		return AGradingFeature.getFeedbackFolderName(aProject)
-				+ COMMENTS_FILE_PREFIX + AGradingFeature.FEEDBACK_FILE_SUFFIX;
+    String getCommentsFileName(SakaiProject aProject) {
+        return AGradingFeature.getFeedbackFolderName(aProject)
+                + COMMENTS_FILE_PREFIX + AGradingFeature.FEEDBACK_FILE_SUFFIX;
 
-	}
+    }
 
 //	String readComments(SakaiProject aProject) {
 //		try {
@@ -151,145 +153,137 @@ public class AnAutoVisitBehavior implements
 //			return "";
 //		}
 //	}
+    boolean autoRun = false;
 
+    public boolean isAutoRun() {
+        return autoRun;
 
+    }
 
-	boolean autoRun = false;
+    public void setAutoRun(boolean newVal) {
+        autoRun = newVal;
 
-	public boolean isAutoRun() {
-		return autoRun;
+    }
 
-	}
+    public void autoRun() {
+        autoRun = !autoRun;
+    }
 
-	public void setAutoRun(boolean newVal) {
-		autoRun = newVal;
+    boolean autoAutoGrade = false; // should we automatically do all the auto
+    // grade
 
-	}
+    public boolean isAutoAutoGrade() {
+        return autoAutoGrade;
 
-	public void autoRun() {
-		autoRun = !autoRun;
-	}
+    }
 
-	boolean autoAutoGrade = false; // should we automatically do all the auto
-									// grade
+    public void setAutoAutoGrade(boolean newVal) {
+        boolean oldVal = autoAutoGrade;
+        autoAutoGrade = newVal;
+        propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, projectStepper);
+        AutoAutoGradeSet.newCase(projectDatabase, projectStepper, project, autoAutoGrade, this);
 
-	public boolean isAutoAutoGrade() {
-		return autoAutoGrade;
+    }
 
-	}
+    public void autoAutoGrade() {
+        autoAutoGrade = !autoAutoGrade;
+    }
 
-	public void setAutoAutoGrade(boolean newVal) {
-		boolean oldVal = autoAutoGrade;
-		autoAutoGrade = newVal;
-		propertyChangeSupport.firePropertyChange("autoAutoGrade", autoAutoGrade, projectStepper);
-		AutoAutoGradeSet.newCase(projectDatabase, projectStepper, project, autoAutoGrade, this);
+    @Visible(false)
+    public SakaiProject getProject() {
+        return project;
+    }
 
+    boolean isNotRunnable() {
+        return LanguageDependencyManager.isJava() && (project.getClassLoader() == null || project.getClassesManager() == null);
 
-	}
-
-	public void autoAutoGrade() {
-		autoAutoGrade = !autoAutoGrade;
-	}
-
-
-
-	@Visible(false)
-	public SakaiProject getProject() {
-		return project;
-	}
-
-	boolean isNotRunnable() {
-		return LanguageDependencyManager.isJava() && (project.getClassLoader() == null || project.getClassesManager() == null);
-		
-	}
+    }
 
 	// Josh: We want to know when a project is set, so I'm adding the project
-	// property change event here.
-	@Visible(false)
-	public boolean setProject(SakaiProject newVal) {
-		settingUpProject = true;
-		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
-		
-		runExecuted = false;
-		boolean notRunnable = false;
-		project = newVal;
-//		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
-		if (isNotRunnable()) {
+    // property change event here.
+    @Visible(false)
+    public boolean setProject(SakaiProject newVal) {
+        settingUpProject = true;
+        propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, false, true);
 
-			AutoVisitFailedException.newCase("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen(), this);
-			notRunnable = true;
-			
+        runExecuted = false;
+        boolean notRunnable = false;
+        project = newVal;
+//		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
+        if (isNotRunnable()) {
+
+            AutoVisitFailedException.newCase("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen(), this);
+            notRunnable = true;
+
 //			projectStepper.setScore(0);
 //			projectStepper.setMultiplier(0);
-			//			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
-			if (AGradedProjectNavigator.doNotVisitNullProjects)
-			return false;
-			
-		}
+            //			Tracer.error("Not running or autograding project as no binary folder or classes found for" + projectStepper.getOnyen());
+            if (AGradedProjectNavigator.doNotVisitNullProjects) {
+                return false;
+            }
 
-	
-		try {
-			if (project.isNoProjectFolder())
-				return false;
-			wrappedProject = new ProjectWrapper(project, GradingEnvironment
-					.get().getAssignmentName());
-			studentFolder = ProjectWrapper.getStudentFolder(projectStepper.getOnyen());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        }
 
-		if (isAutoRun() && (!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
+        try {
+            if (project.isNoProjectFolder()) {
+                return false;
+            }
+            wrappedProject = new ProjectWrapper(project, GradingEnvironment
+                    .get().getAssignmentName());
+            studentFolder = ProjectWrapper.getStudentFolder(projectStepper.getOnyen());
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if (isAutoRun() && (!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
 //			projectDatabase.runProject(projectStepper.getOnyen(), project);
-			if (frame == null) {
-				autoRunDeferred = true;
-			} else {
-				run();
+            if (frame == null) {
+                autoRunDeferred = true;
+            } else {
+                run();
 //				ThreadSupport.sleep(PAUSE_AFTER_RUN);
-			}
-		}
-		
-		
-//		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
-		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isSomeAutoGraded()) { // auto attempt was made
+            }
+        }
 
-			autoGrade();
-			
-		} else {
-			
-			// in case the multiplier is to be used for navigation filter then we need to load it in the set project in project overviewer
-			double aMultiplier = featureGradeRecorder.getEarlyLatePoints(projectStepper.getName(),
-					projectStepper.getOnyen());
-			
-			if (aMultiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE)
-				aMultiplier = 1;
-			projectStepper.internalSetMultiplier(aMultiplier);
-			//have a method for getting the file name from featureGradeRecorder
-			MultiplierLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), aMultiplier, this);
-			
-			
+//		if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isAllAutoGraded()) {
+        if (isAutoAutoGrade() && !projectStepper.getGradingFeatures().isSomeAutoGraded()) { // auto attempt was made
+
+            autoGrade();
+
+        } else {
+
+            // in case the multiplier is to be used for navigation filter then we need to load it in the set project in project overviewer
+            double aMultiplier = featureGradeRecorder.getEarlyLatePoints(projectStepper.getName(),
+                    projectStepper.getOnyen());
+
+            if (aMultiplier == ASakaiCSVFeatureGradeManager.DEFAULT_VALUE) {
+                aMultiplier = 1;
+            }
+            projectStepper.internalSetMultiplier(aMultiplier);
+            //have a method for getting the file name from featureGradeRecorder
+            MultiplierLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), aMultiplier, this);
+
 			// not sure we need the next step, perhaps to let the other loggers to know this information
-			// problem is that only one unparsers is a parser, so we transmit info from the unique parser
-			// to all unparsers
-			// internalSetMultiplier is doing the saving
-			
+            // problem is that only one unparsers is a parser, so we transmit info from the unique parser
+            // to all unparsers
+            // internalSetMultiplier is doing the saving
 //			featureGradeRecorder.setEarlyLatePoints(projectStepper.getName(), projectStepper.getOnyen(),
 //					aMultiplier);
-			
 			//
-			// cannot be used for filtering
-			double savedSourcePoints = featureGradeRecorder.getSourcePoints(projectStepper.getName(), projectStepper.getOnyen());
-			if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
-				projectStepper.internalSetSourcePoints(savedSourcePoints);
-				SourcePointsLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
-			}
+            // cannot be used for filtering
+            double savedSourcePoints = featureGradeRecorder.getSourcePoints(projectStepper.getName(), projectStepper.getOnyen());
+            if (savedSourcePoints != ASakaiCSVFinalGradeManager.DEFAULT_VALUE) {
+                projectStepper.internalSetSourcePoints(savedSourcePoints);
+                SourcePointsLoaded.newCase(projectDatabase, projectStepper, project, featureGradeRecorder.getFileName(), savedSourcePoints, this);
+            }
 
-			projectStepper.setStoredFeedback();
+            projectStepper.setStoredFeedback();
 
-			projectStepper.setStoredOutput();
-		}
+            projectStepper.setStoredOutput();
+        }
 		// featureGradeRecorder.setEarlyLatePoints(name, onyen,
-		// gradePercentage);
+        // gradePercentage);
 
 //		if (projectStepper.getSelectedGradingFeature() != null) {
 //			projectStepper.internalSetNotes(getNotes(projectStepper.getSelectedGradingFeature()));
@@ -305,10 +299,8 @@ public class AnAutoVisitBehavior implements
 //		
 //		
 //		Icon studentPhoto = projectDatabase.getStudentPhoto(projectStepper.getOnyen(), project);
-				
 //				projectDatabase.getPhotoReader().getIcon(onyen);
 //		photoLabelBeanModel.setIcon(studentPhoto);
-
 //		if (studentPhoto != null){
 //			projectStepper.getPhoto().set("", studentPhoto);
 //		} else {
@@ -322,14 +314,12 @@ public class AnAutoVisitBehavior implements
 ////		}
 //		
 //		propertyChangeSupport.firePropertyChange(OEFrame.SUPPRESS_NOTIFICATION_PROCESSING, true, false);
-
 //		boolean changed = setCurrentColors();
 //		if (changed)
 //			displayColors();
+        return true;
+    }
 
-		return true;
-	}
-	
 //	boolean shouldVisit() {
 //		if (manualOnyen)
 //			return true;
@@ -340,7 +330,6 @@ public class AnAutoVisitBehavior implements
 //		BasicNavigationFilter navigationFilter = projectDatabase.getNavigationFilter();
 //		return navigationFilter.includeProject(this, projectDatabase);
 //	}
-	
 //	void refreshColors() {
 //		// no incremental updates as score and other properties change during auto grade
 //		if (settingUpProject) 
@@ -399,8 +388,6 @@ public class AnAutoVisitBehavior implements
 //		setColor("OverallNotes",  nextOverallNotesColor);
 //		currentOverallNotesColor = nextOverallNotesColor;
 //	}
-	
-	
 	// setCurrentColors and refreshColors should probably be combined
 //		boolean setCurrentColors() {
 //			 computeNextColors();
@@ -418,7 +405,6 @@ public class AnAutoVisitBehavior implements
 //			}
 //			return changed;
 //		}
-	
 //	void setGradingFeatureColors() {
 //		if (settingUpProject) 
 //		    return;
@@ -433,7 +419,6 @@ public class AnAutoVisitBehavior implements
 //		}
 //		
 //	}
-	
 //	void setColors() {
 //		// no incremental updates as score and other properties change during auto grade
 //		if (settingUpProject) 
@@ -473,69 +458,69 @@ public class AnAutoVisitBehavior implements
 //
 //	}
 //
-	public boolean preRun() {
-		return project.canBeRun() && !autoRun
-		// && !runExecuted
-		;
-	}
+    public boolean preRun() {
+        return project.canBeRun() && !autoRun // && !runExecuted
+                ;
+    }
 
 //	@Row(3)
-	@ComponentWidth(100)
-	public void run() {
-		if (isNotRunnable()) {
-			notRunnableProjectFeedback();
-			return;
-		}
-		runExecuted = true;
-		projectDatabase.runProject(projectStepper.getOnyen(), project);
-		project.setHasBeenRun(true);
-		for (GradingFeature gradingFeature : projectDatabase
-				.getGradingFeatures()) {
-			if (gradingFeature.isAutoGradable()) {
-				gradingFeature.firePropertyChange("this", null, gradingFeature);
-			}
-		}
+    @ComponentWidth(100)
+    public void run() {
+        if (isNotRunnable()) {
+            notRunnableProjectFeedback();
+            return;
+        }
+        runExecuted = true;
+        projectDatabase.runProject(projectStepper.getOnyen(), project);
+        project.setHasBeenRun(true);
+        for (GradingFeature gradingFeature : projectDatabase
+                .getGradingFeatures()) {
+            if (gradingFeature.isAutoGradable()) {
+                gradingFeature.firePropertyChange("this", null, gradingFeature);
+            }
+        }
 
-	}
+    }
 
-
-	@Override
-	public boolean preAutoGrade() {
+    @Override
+    public boolean preAutoGrade() {
 		// return project.runChecked() && project.canBeRun() &&
-		// preGetGradingFeatures();
-		return /* project.runChecked() && project.canBeRun() && */projectStepper.preGetGradingFeatures();
+        // preGetGradingFeatures();
+        return /* project.runChecked() && project.canBeRun() && */ projectStepper.preGetGradingFeatures();
 
-	}
-	boolean settingUpProject;
-	
-	void notRunnableProjectFeedback() {
-		
-			projectStepper.internalSetScore(0);
-			NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();			
+    }
+    boolean settingUpProject;
 
-			String newNotes = notesGenerator.missingProjectNotes(projectStepper);
-			projectStepper.setOverallNotes(notesGenerator.appendNotes(
-					projectStepper.getOverallNotes(), 
-					newNotes));
-		
-	}
-	//
-	@Row(8)
-	@ComponentWidth(100)
-	@Override
-	public void autoGrade() {
+    void notRunnableProjectFeedback() {
+
+        projectStepper.internalSetScore(0);
+        NotesGenerator notesGenerator = projectDatabase.getNotesGenerator();
+
+        String newNotes = notesGenerator.missingProjectNotes(projectStepper);
+        projectStepper.setOverallNotes(notesGenerator.appendNotes(
+                projectStepper.getOverallNotes(),
+                newNotes));
+
+    }
+
+    //
+
+    @Row(8)
+    @ComponentWidth(100)
+    @Override
+    public void autoGrade() {
 //		project.setHasBeenRun(true);
-		projectStepper.setChanged (true);
-		if (isNotRunnable()) {
-			notRunnableProjectFeedback();
-			for (GradingFeature gradingFeature : projectDatabase
-					.getGradingFeatures()) {
-				if (gradingFeature.isAutoGradable()) {
-					double score = 0;
-					gradingFeature.internalSetScore(score);
-					featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), gradingFeature.getFeatureName(), score);
-				}
-			}
+        projectStepper.setChanged(true);
+        if (isNotRunnable()) {
+            notRunnableProjectFeedback();
+            for (GradingFeature gradingFeature : projectDatabase
+                    .getGradingFeatures()) {
+                if (gradingFeature.isAutoGradable()) {
+                    double score = 0;
+                    gradingFeature.internalSetScore(score);
+                    featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), gradingFeature.getFeatureName(), score);
+                }
+            }
 //			for (GradingFeature gradingFeature : projectDatabase
 //					.getGradingFeatures()) {
 //				if (gradingFeature.isAutoGradable()) {
@@ -543,156 +528,157 @@ public class AnAutoVisitBehavior implements
 //				}
 //			}
 //			return;
-		} else {
-		
-		// we may have compile errors in output, so do not clear it
+        } else {
+
+            // we may have compile errors in output, so do not clear it
 //		project.clearOutput();
-		for (GradingFeature gradingFeature : projectDatabase
-				.getGradingFeatures()) {
-			if (gradingFeature.isAutoGradable()) {
-				gradingFeature.pureSetGraded(true);
-			}
-		}
-		
+            for (GradingFeature gradingFeature : projectDatabase
+                    .getGradingFeatures()) {
+                if (gradingFeature.isAutoGradable()) {
+                    gradingFeature.pureSetGraded(true);
+                }
+            }
+
 //		if (!isNotRunnable()) {
-		featureResults = projectDatabase.getProjectRequirements()
-				.checkFeatures(wrappedProject);
-		
-		restrictionResults = projectDatabase.getProjectRequirements()
-				.checkRestrictions(wrappedProject);
-		
-		FeaturesAutoGraded.newCase(projectDatabase, projectStepper, project, this);
+            featureResults = projectDatabase.getProjectRequirements()
+                    .checkFeatures(wrappedProject);
+
+            restrictionResults = projectDatabase.getProjectRequirements()
+                    .checkRestrictions(wrappedProject);
+
+            FeaturesAutoGraded.newCase(projectDatabase, projectStepper, project, this);
 //		}
-		GradingFeatureList features = projectDatabase.getGradingFeatures();
+            GradingFeatureList features = projectDatabase.getGradingFeatures();
 //		projectStepper.setComputedScore(); // will trigger change occurred
-		for (int i = 0; i < features.size(); i++) {
-			// Figure out the score for the feature/restriction
-			double score = (i < featureResults.size()) ? featureResults.get(i)
-					.getScore() : restrictionResults.get(
-					i - featureResults.size()).getScore();
+            for (int i = 0; i < features.size(); i++) {
+                // Figure out the score for the feature/restriction
+                double score = (i < featureResults.size()) ? featureResults.get(i)
+                        .getScore() : restrictionResults.get(
+                                i - featureResults.size()).getScore();
 
 			// Save the comments. We save them in the ConglomerateRecorder so
-			// that, if it is being used as the
-			// manual feedback, they will be pulled in.
-
+                // that, if it is being used as the
+                // manual feedback, they will be pulled in.
 			// correcting josh's code to separate feature comments and results
-			// featureGradeRecorder.setFeatureComments(featureResults.get(i).getNotes());
-			// featureGradeRecorder.setFeatureResults(featureResults.get(i).getResults());
-					
+                // featureGradeRecorder.setFeatureComments(featureResults.get(i).getNotes());
+                // featureGradeRecorder.setFeatureResults(featureResults.get(i).getResults());
 			//not sure why we are doing the following two steps as previous feature data are overridden by the next one
-			// a bit of investigation tells me these steps are useless but leaving the code around
-			String notes = (i < featureResults.size()) ? featureResults
-					.get(i).getNotes() : restrictionResults.get(
-					i - featureResults.size()).getNotes();
+                // a bit of investigation tells me these steps are useless but leaving the code around
+                String notes = (i < featureResults.size()) ? featureResults
+                        .get(i).getNotes() : restrictionResults.get(
+                                i - featureResults.size()).getNotes();
 //			featureGradeRecorder
 //					.setFeatureComments((i < featureResults.size()) ? featureResults
 //							.get(i).getNotes() : restrictionResults.get(
 //							i - featureResults.size()).getNotes());
-			
-			featureGradeRecorder
-			.setFeatureComments(notes);
-			
-			// this is a useful step
-			if (!notes.isEmpty())
-				features.get(i).setManualNotes(notes);
-			
-			featureGradeRecorder
-					.setFeatureResults((i < featureResults.size()) ? featureResults
-							.get(i).getResults() : restrictionResults.get(
-							i - featureResults.size()).getResults());
+
+                featureGradeRecorder
+                        .setFeatureComments(notes);
+
+                // this is a useful step
+                if (!notes.isEmpty()) {
+                    features.get(i).setManualNotes(notes);
+                }
+
+                featureGradeRecorder
+                        .setFeatureResults((i < featureResults.size()) ? featureResults
+                                        .get(i).getResults() : restrictionResults.get(
+                                                i - featureResults.size()).getResults());
 			// do not reset notes read from files
 //			features.get(i).setNotes(
 //					(i < featureResults.size()) ? featureResults.get(i)
 //							.getNotes() : restrictionResults.get(
 //							i - featureResults.size()).getNotes());
-			
-			String resultFormat = (i < featureResults.size()) ? featureResults.get(i)
-					.getTarget().getSummary() : restrictionResults
-					.get(i - featureResults.size()).getTarget()
-					.getSummary();
+
+                String resultFormat = (i < featureResults.size()) ? featureResults.get(i)
+                        .getTarget().getSummary() : restrictionResults
+                        .get(i - featureResults.size()).getTarget()
+                        .getSummary();
 //			// in memory save
-			features.get(i).setResultFormat(resultFormat);
-			String autoNotes = (i < featureResults.size()) ? featureResults.get(i).getAutoNotes() : restrictionResults
-					.get(i - featureResults.size()).getAutoNotes();
+                features.get(i).setResultFormat(resultFormat);
+                String autoNotes = (i < featureResults.size()) ? featureResults.get(i).getAutoNotes() : restrictionResults
+                        .get(i - featureResults.size()).getAutoNotes();
 //			// in memory save
-			// in memory save
-			features.get(i).setAutoNotes(autoNotes);
-			
-			// save to the excel file so we can read it later
-			featureGradeRecorder.setResultFormat(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(), 
-					resultFormat);
-			FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
+                // in memory save
+                features.get(i).setAutoNotes(autoNotes);
+
+                // save to the excel file so we can read it later
+                featureGradeRecorder.setResultFormat(projectStepper.getName(), projectStepper.getOnyen(), features.get(i).getFeatureName(),
+                        resultFormat);
+                FeatureAutoResultFormatSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), resultFormat, this);
 //			features.get(i).setScore(score);
-			if (!features.get(i).isManual()) {
-			features.get(i).internalSetScore(score);
+                if (!features.get(i).isManual()) {
+                    features.get(i).internalSetScore(score);
 
+                    List<CheckResult> results = new ArrayList<>(featureResults.size() + restrictionResults.size());
+                    results.addAll(featureResults);
+                    results.addAll(restrictionResults);
+                    
+                    // Save the score
+                    featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
+                            .getFeatureName(), score, results);
+                    FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
+                }
 
-			// Save the score
-			featureGradeRecorder.setGrade(projectStepper.getName(), projectStepper.getOnyen(), features.get(i)
-					.getFeatureName(), score);
-			FeatureScoreSaved.newCase(projectDatabase, projectStepper, project, features.get(i), featureGradeRecorder.getFileName(), score, this);
-			}
+            }
+        }
+        projectStepper.setComputedScore(); // will trigger change occurred
 
-			
-		}
-		}
-		projectStepper.setComputedScore(); // will trigger change occurred
-
-		projectStepper.setComputedFeedback();
-		projectStepper.setStoredOutput();
+        projectStepper.setComputedFeedback();
+        projectStepper.setStoredOutput();
 		// Josh's code from ProjectStepperDisplayerWrapper
-				// Figure out the late penalty
-		Option<DateTime> timestamp = studentFolder.getTimestamp();
+        // Figure out the late penalty
+        Option<DateTime> timestamp = studentFolder.getTimestamp();
 				// double gradePercentage = timestamp.isDefined() ?
-				// projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-				// : 0;
-		double aMultiplier = timestamp.isDefined() ?
-				 projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
-				 : 0;
-		MultiplierAutoChange.newCase(projectDatabase, projectStepper, project, projectStepper.getScore(), this);
+        // projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
+        // : 0;
+        double aMultiplier = timestamp.isDefined()
+                ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
+                : 0;
+        MultiplierAutoChange.newCase(projectDatabase, projectStepper, project, projectStepper.getScore(), this);
 
-		projectStepper.internalSetMultiplier(aMultiplier);
+        projectStepper.internalSetMultiplier(aMultiplier);
 
 //		featureGradeRecorder.setEarlyLatePoints(name, onyen, aMultiplier);
-		// setSummary();
-		
+        // setSummary();
+    }
 
-	}
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener aListener) {
+        propertyChangeSupport.addPropertyChangeListener(aListener);
+    }
 
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener aListener) {
-		propertyChangeSupport.addPropertyChangeListener(aListener);
-	}
+    CheckResult checkableToResult(Checkable aCheckable) {
+        try {
+            for (CheckResult checkResult : featureResults) {
+                if (checkResult.getTarget() == aCheckable) {
+                    return checkResult;
+                }
+            }
 
-	CheckResult checkableToResult(Checkable aCheckable) {
-		try {
-			for (CheckResult checkResult : featureResults) {
-				if (checkResult.getTarget() == aCheckable)
-					return checkResult;
-			}
+            for (CheckResult checkResult : restrictionResults) {
+                if (checkResult.getTarget() == aCheckable) {
+                    return checkResult;
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
 
-			for (CheckResult checkResult : restrictionResults) {
-				if (checkResult.getTarget() == aCheckable)
-					return checkResult;
-			}
-		} catch (Exception e) {
-			return null;
-		}
-		return null;
+    }
 
-	}
+    CheckResult gradingFeatureToCheckResult(GradingFeature aGradingFeature) {
+        Checkable checkable = projectDatabase.getRequirement(aGradingFeature);
+        if (checkable != null) {
+            return checkableToResult(checkable);
+        }
+        return null;
+    }
 
-	CheckResult gradingFeatureToCheckResult(GradingFeature aGradingFeature) {
-		Checkable checkable = projectDatabase.getRequirement(aGradingFeature);
-		if (checkable != null) {
-			return checkableToResult(checkable);
-		}
-		return null;
-	}
-	
-	String getSavedResult(GradingFeature aGradingFeature) {
-		return featureGradeRecorder.getResult(projectStepper.getName(), projectStepper.getOnyen(), aGradingFeature.getFeatureName());
-	}
+    String getSavedResult(GradingFeature aGradingFeature) {
+        return featureGradeRecorder.getResult(projectStepper.getName(), projectStepper.getOnyen(), aGradingFeature.getFeatureName());
+    }
 
 //	String getInMemoryResult(GradingFeature aGradingFeature) {
 //		return aGradingFeature.getAutoNotes();
@@ -703,7 +689,6 @@ public class AnAutoVisitBehavior implements
 ////
 ////		return "";
 //	}
-
 //	void setNotes(GradingFeature aGradingFeature, String aNotes) {
 //		featureGradeRecorder.setFeatureComments(aNotes);
 //		featureGradeRecorder.comment(aGradingFeature);
@@ -715,19 +700,19 @@ public class AnAutoVisitBehavior implements
 //		// }
 //
 //	}
-
-	String getNotes(GradingFeature aGradingFeature) {
-		String retVal = aGradingFeature.getManualNotes();
+    String getNotes(GradingFeature aGradingFeature) {
+        String retVal = aGradingFeature.getManualNotes();
 		// CheckResult checkResult =
-		// gradingFeatureToCheckResult(aGradingFeature);
-		// if (checkResult != null) {
-		// return checkResult.getNotes(); }
-		if (retVal == null)
-			retVal = "";
+        // gradingFeatureToCheckResult(aGradingFeature);
+        // if (checkResult != null) {
+        // return checkResult.getNotes(); }
+        if (retVal == null) {
+            retVal = "";
+        }
 
-		return retVal;
-	}
-	
+        return retVal;
+    }
+
 //	void refreshSelectedFeature() {
 //		if (selectedGradingFeature != null)
 //		manualNotes = getNotes(selectedGradingFeature);
@@ -743,7 +728,6 @@ public class AnAutoVisitBehavior implements
 //			unSelectOtherGradingFeatures(gradingFeature);
 //		
 //	}
-
 //	@Override
 //	public void propertyChange(PropertyChangeEvent evt) {
 //		if (evt.getSource() instanceof GradingFeature
@@ -810,35 +794,33 @@ public class AnAutoVisitBehavior implements
 //		}
 //
 //	}
-
 	// List<OEFrame> newList = new ArrayList( uiFrameList.getList());
+	//
+    // for (OEFrame frame:newList) {
+    // if (oldList.contains(frame))
+    // continue;
+    // frame.dispose(); // will this work
+    // }
+    // Window[] newWindows = Window.getWindows();
+    //
+    //
+    // for (Window frame:newWindows) {
+    // if (Common.containsReference(oldWindows, frame)) {
+    // continue;
+    // }
+    // frame.dispose();
+    // }
+    @Override
+    @Visible(false)
+    public SakaiProjectDatabase getProjectDatabase() {
+        // TODO Auto-generated method stub
+        return projectDatabase;
+    }
 
-	//
-	// for (OEFrame frame:newList) {
-	// if (oldList.contains(frame))
-	// continue;
-	// frame.dispose(); // will this work
-	// }
-	// Window[] newWindows = Window.getWindows();
-	//
-	//
-	// for (Window frame:newWindows) {
-	// if (Common.containsReference(oldWindows, frame)) {
-	// continue;
-	// }
-	// frame.dispose();
-	// }
-	@Override
-	@Visible(false)
-	public SakaiProjectDatabase getProjectDatabase() {
-		// TODO Auto-generated method stub
-		return projectDatabase;
-	}
-
-	List<String> onyens;
-	int currentOnyenIndex = 0;
-	int filteredOnyenIndex = 0;
-	String nextOnyen;
+    List<String> onyens;
+    int currentOnyenIndex = 0;
+    int filteredOnyenIndex = 0;
+    String nextOnyen;
 
 //	@Override
 //	public void configureNavigationList() {
@@ -869,7 +851,6 @@ public class AnAutoVisitBehavior implements
 //		
 //
 //	}
-	
 //	public boolean runProjectsInteractively() {
 //	
 //			try {
@@ -1051,17 +1032,18 @@ public class AnAutoVisitBehavior implements
 //
 //	}
 //
-	Object frame;
-	@Visible(false)
-	@Override
-	public void setFrame(Object aFrame) {
-		frame = aFrame;
-		if (autoRunDeferred) {
-			run();
-			autoRunDeferred = false;
-		}
-		
-	}
+    Object frame;
+
+    @Visible(false)
+    @Override
+    public void setFrame(Object aFrame) {
+        frame = aFrame;
+        if (autoRunDeferred) {
+            run();
+            autoRunDeferred = false;
+        }
+
+    }
 //
 //	@Visible(false)
 //	@Override
@@ -1083,8 +1065,8 @@ public class AnAutoVisitBehavior implements
 //		
 //	}
 
-	public static void main(String[] args) {
-		ObjectEditor.edit(new AnAutoVisitBehavior());
-	}
+    public static void main(String[] args) {
+        ObjectEditor.edit(new AnAutoVisitBehavior());
+    }
 
 }

@@ -21,6 +21,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 //import bus.uigen.Message;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
+import framework.grading.testing.CheckResult;
 import framework.grading.testing.TestCaseResult;
 import grader.assignment.AssignmentDataFolder;
 import grader.assignment.GradingFeature;
@@ -146,30 +147,27 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 
 	@Override
-	public void setGrade(String aStudentName, String anOnyen, String aFeature,
-			double aScore) {
-		try {
-			
+	public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore) {
+            try {
+                maybeCreateTable();
+                String[] row = getStudentRow(table, aStudentName, anOnyen);
+                if (row == null) {
+                    System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+                    return;
+                }
 
-			maybeCreateTable();
-			
-		    String[] row = getStudentRow(table, aStudentName, anOnyen);
-		    if (row == null) {
-				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
-				return;
-		    }
-		    
-		    recordGrade(row, aFeature, aScore);
-		    writeTable();
-
-
-
-	} catch (Exception e) {
-		e.printStackTrace();
-		
+                recordGrade(row, aFeature, aScore);
+                writeTable();
+            } catch (Exception e) {
+                    e.printStackTrace();
+            }
 	}
-		
-	}
+        
+	@Override
+	public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore, List<CheckResult> results) {
+            setGrade(aStudentName, anOnyen, aFeature, aScore);
+        }
+        
 	@Override
 	public void clearGrades(String anOnyen, String aStudentName) {
     try {

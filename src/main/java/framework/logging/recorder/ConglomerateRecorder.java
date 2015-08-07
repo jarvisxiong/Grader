@@ -1,5 +1,6 @@
 package framework.logging.recorder;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.FrameworkProjectRequirements;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
@@ -232,6 +233,17 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore) {
         checkSession(anOnyen);
         save(aFeature, aScore);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
+    }
+    
+    /**
+     * Feature score setter. This is needed so that when setScore or
+     * pureSetScore are called it comes here.
+     */
+    @Override
+    public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore, List<CheckResult> results) {
+        checkSession(anOnyen);
+        save(results);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
     }
 

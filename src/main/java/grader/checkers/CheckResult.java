@@ -1,5 +1,6 @@
 package grader.checkers;
 
+import framework.grading.testing.TestCaseResult;
 import java.util.List;
 
 public interface CheckResult {
@@ -14,5 +15,8 @@ public interface CheckResult {
 	String getAutoNotes();
 
 	void setAutoNotes(String autoNotes);
+        
+    public void setResults(List<TestCaseResult> results);
+    public List<TestCaseResult> getResults();
 
 }

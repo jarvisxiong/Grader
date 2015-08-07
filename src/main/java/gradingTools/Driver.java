@@ -268,7 +268,7 @@ public class Driver {
 
         database.addProjectRequirements(requirements);
 
-        ConglomerateRecorder.getInstance().setBasicFeatureGradeRecorder(BasicFeatureGradeRecorderSelector.createFeatureGradeRecorder(database));
+            ConglomerateRecorder.getInstance().setBasicFeatureGradeRecorder(BasicFeatureGradeRecorderSelector.createFeatureGradeRecorder(database));
 
         // Possibly set the stepper displayer
         boolean useFrameworkGUI = configuration.getBoolean("grader.controller.useFrameworkGUI", false) && isNotHeadless();

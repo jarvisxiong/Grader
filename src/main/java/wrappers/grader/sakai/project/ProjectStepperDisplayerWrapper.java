@@ -140,8 +140,12 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                 ConglomerateRecorder.getInstance().setFeatureResults(featureResults.get(i).getResults());
                 features.get(i).setScore(score);
 
+                List<CheckResult> results = new ArrayList<>(featureResults.size() + restrictionResults.size());
+                results.addAll(featureResults);
+                results.addAll(restrictionResults);
+                
                 // Save the score
-                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeatureName(), score);
+                projectDatabase.getFeatureGradeRecorder().setGrade(studentName, onyen, features.get(i).getFeatureName(), score, results);
             }
 
             // Finish up

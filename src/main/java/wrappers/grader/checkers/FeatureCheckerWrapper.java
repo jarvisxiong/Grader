@@ -3,6 +3,7 @@ package wrappers.grader.checkers;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
+import framework.logging.recorder.ConglomerateRecorder;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import wrappers.framework.project.ProjectWrapper;
@@ -27,7 +28,8 @@ public class FeatureCheckerWrapper extends ErrorHandlingFeatureChecker {
 
         Project project = new ProjectWrapper(this.project, GradingEnvironment.get().getAssignmentName());
         framework.grading.testing.CheckResult checkResult = checkable.check(project, false);
-
+        ConglomerateRecorder.getInstance().save(checkResult);
+        
         CheckResult result = new ACheckResult();
 
         // Check the test status. Only accept successes
@@ -35,10 +37,11 @@ public class FeatureCheckerWrapper extends ErrorHandlingFeatureChecker {
             throw new NotGradableException();
 
         result.setScore(checkResult.getScore());
+        result.setResults(checkResult.getResults());
 
         // Add general notes
         if (!checkResult.getNotes().isEmpty()) {
-        	String autoNotes = checkResult.getNotes();
+            String autoNotes = checkResult.getNotes();
             result.getLog().add(autoNotes);
             result.setAutoNotes(autoNotes);
         }
@@ -48,7 +51,7 @@ public class FeatureCheckerWrapper extends ErrorHandlingFeatureChecker {
             if (!testCaseResult.getNotes().isEmpty())
                 result.getLog().add(testCaseResult.getNotes());
         }
-
+        
         return result;
     }
 }
