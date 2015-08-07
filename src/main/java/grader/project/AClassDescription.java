@@ -1,6 +1,4 @@
-
 //non Java doc reg exp: (?s)/\*[^*](?:(?!\*/).)*\(non-javadoc\)(?:(?!\*/).)*\*/
-
 package grader.project;
 
 import java.io.ByteArrayOutputStream;
@@ -49,253 +47,265 @@ import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.local.AClassProxy;
 // gets the source from AClassesManager
 // converts class name to class object
-public class AClassDescription  implements ClassDescription {
-	
-	ClassProxy classProxy;
-	Class javaClass;
-	StringBuffer text;
-	long sourceTime;
-	String packageName;
-	String className;
-	JavaClass qdoxClass;
-	JavaSource javaSource;
-	Project project;
-	FileProxy sourceFile;
-	SourceClass javacSourceClass;
+
+public class AClassDescription implements ClassDescription {
+
+    ClassProxy classProxy;
+    Class javaClass;
+    StringBuffer text;
+    long sourceTime;
+    String packageName;
+    String className;
+    JavaClass qdoxClass;
+    JavaSource javaSource;
+    Project project;
+    FileProxy sourceFile;
+    SourceClass javacSourceClass;
 //	List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
 //	
 //	List<String> classNamesCompiled = new ArrayList();
 
     private CompilationUnit compilationUnit;
-	
-	
-	public AClassDescription( String aClassName, StringBuffer aText, long aSourceTime, ProxyClassLoader aClassLoader, Project aProject, FileProxy aFileProxy) {
+
+    public AClassDescription(String aClassName, StringBuffer aText, long aSourceTime, ProxyClassLoader aClassLoader, Project aProject, FileProxy aFileProxy) {
 //		text = Common.toText(aClassName);
-		sourceFile = aFileProxy;
-		project = aProject;
-		text = aText;
-		sourceTime = aSourceTime;
-		if (aClassLoader != null) {
-			PrintStream teeout = null;
-			PrintStream teeerr = null;
-			PrintStream stdout = System.out;
-			PrintStream stderr = System.err;
-		try {
+        sourceFile = aFileProxy;
+        project = aProject;
+        text = aText;
+        sourceTime = aSourceTime;
+        if (aClassLoader != null) {
+            PrintStream teeout = null;
+            PrintStream teeerr = null;
+            PrintStream stdout = System.out;
+            PrintStream stderr = System.err;
+            try {
 //			javaClass = Class.forName(aClassName);
-			if (AProject.isLoadClasses()) {
-			javaClass = aClassLoader.loadClass(aClassName);
-			if (javaClass == null) {
-				ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
-				
-				
-				String outputFileName = aProject.getOutputFileName();
-				ByteArrayOutputStream outStream = null;
-				if (outputFileName != null) {
-					outStream = new ByteArrayOutputStream();
+                if (AProject.isLoadClasses()) {
+                    javaClass = aClassLoader.loadClass(aClassName);
+                    if (javaClass == null) {
+                        ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
+
+                        String outputFileName = aProject.getOutputFileName();
+                        ByteArrayOutputStream outStream = null;
+                        if (outputFileName != null) {
+                            outStream = new ByteArrayOutputStream();
 //					FileOutputStream outStream = new FileOutputStream(outputFile, true);
 //					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-                    teeout = new TeePrintStream(outStream, stdout);
-                    teeerr = new TeePrintStream(outStream, stderr);
-                    System.setOut(teeout);
-                    System.setErr(teeerr);
-                }
-				Tracer.error(classFileNotfound.getMessage());
-			
-				if (AProject.isCompileMissingObjectCode()) {
-					String compileClassMessage = "Attempting to compile class:" + aClassName;
-				Tracer.error(compileClassMessage);
+                            teeout = new TeePrintStream(outStream, stdout);
+                            teeerr = new TeePrintStream(outStream, stderr);
+                            System.setOut(teeout);
+                            System.setErr(teeerr);
+                        }
+                        classFileNotfound.printStackTrace();
+                        Tracer.error(classFileNotfound.getMessage());
+
+                        if (AProject.isCompileMissingObjectCode()) {
+                            String compileClassMessage = "Attempting to compile class:" + aClassName;
+                            Tracer.error(compileClassMessage);
 				// need to compile multiple files in one shot because of dependencies
-				// in any case am duplicating work of Josh's compilation
-				// better to have Josh's code run through the directory, unzipping and compiling things, and then 
-				// read the entire directory
-				// compilation errors
-				// for now letting it be
-				// so as long as we have one class programs, we are fine it seems
-				byte[] classBytes = ParserMain.compile(aClassName, aText, GradingEnvironment
-						.get().getClasspath());
-				if (classBytes != null) {
-					SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
-					javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
-				}
+                            // in any case am duplicating work of Josh's compilation
+                            // better to have Josh's code run through the directory, unzipping and compiling things, and then 
+                            // read the entire directory
+                            // compilation errors
+                            // for now letting it be
+                            // so as long as we have one class programs, we are fine it seems
+                            byte[] classBytes = ParserMain.compile(aClassName, aText, GradingEnvironment
+                                    .get().getClasspath());
+                            if (classBytes != null) {
+                                SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
+                                javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
+                            }
 //				teeout.close();
 //				teeerr.close();
 //				System.setOut(stdout);
 //				System.setErr(stderr);
-				if (javaClass != null) {
-					ClassLoaded.newCase(aClassName, this);
-					project.addCompiledClass(aClassName);
-				}  else {
-					Tracer.error(ClassFileCouldNotBeCompiled.newCase(aClassName, this).getMessage());
-					project.addNonCompiledClass(aClassName);
+                            if (javaClass != null) {
+                                ClassLoaded.newCase(aClassName, this);
+                                project.addCompiledClass(aClassName);
+                            } else {
+                                Tracer.error("remove 2: " + ClassFileCouldNotBeCompiled.newCase(aClassName, this).getMessage());
+                                project.addNonCompiledClass(aClassName);
 
 //					Tracer.error("Could not compile");
-				}
-				String transcript = outStream.toString();
-				outStream.close();
-				try {
-					String original = Common.toText(new File(outputFileName));
-					if (!original.contains(compileClassMessage)) { // otherwise we have already put the text in a previous pass
-					FileWriter fileWriter = new FileWriter(outputFileName);
-					fileWriter.append(transcript + "\n" + "----------------------------------------\n" + original);
-					OverallTranscriptSaved.newCase(null, null, null,  outputFileName, transcript, this);
+                            }
+                            String transcript = outStream.toString();
+                            outStream.close();
+                            try {
+                                String original = Common.toText(new File(outputFileName));
+                                if (!original.contains(compileClassMessage)) { // otherwise we have already put the text in a previous pass
+                                    FileWriter fileWriter = new FileWriter(outputFileName);
+                                    fileWriter.append(transcript + "\n" + "----------------------------------------\n" + original);
+                                    OverallTranscriptSaved.newCase(null, null, null, outputFileName, transcript, this);
 //					if (project.getCurrentGradingFeature() != null)
 //					FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
-					fileWriter.close();
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
-				
-				
-				
-				
+                                    fileWriter.close();
+                                }
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
 
 //				Tracer.error("Missing class file for:" + aClassName);
+                    } else {
 
-			} else {
-
-			ClassLoaded.newCase(aClassName, this);
+                        ClassLoaded.newCase(aClassName, this);
 //			javaClass = Class.forName(aClassName);
 //			javaClass = aClassLoader.findClass(aClassName);
-			classProxy = AClassProxy.classProxy(javaClass);
-			}
-			}
-			
-		} catch (CompilerNotFound cnf) {
-			System.out.println(cnf.getMessage());
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			ClassFileNotFound.newCase(aClassName, this);
-		
+                        classProxy = AClassProxy.classProxy(javaClass);
+                    }
+                }
+
+            } catch (CompilerNotFound cnf) {
+                System.out.println(cnf.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                ClassFileNotFound.newCase(aClassName, this);
+
 //			Tracer.error("Missing class file for:" + aClassName);
 //			e.printStackTrace();
-		} catch (Error e) { // Added by Josh, the loadClass method may throw a IncompatibleClassChangeError
-			ClassFileNotFound.newCase(aClassName, this);
+            } catch (Error e) { // Added by Josh, the loadClass method may throw a IncompatibleClassChangeError
+                ClassFileNotFound.newCase(aClassName, this);
 
 //			Tracer.error("Missing class file for:" + aClassName);
-        } finally {
-        	if (teeout != null) {
-        		teeout.close();
-        		System.setOut(stdout);
-        	}
-        	if (teeerr != null) {
-        		teeerr.close();
-        		System.setErr(stderr);
-        	}
-        		
+            } finally {
+                if (teeout != null) {
+                    teeout.close();
+                    System.setOut(stdout);
+                }
+                if (teeerr != null) {
+                    teeerr.close();
+                    System.setErr(stderr);
+                }
+
+            }
         }
-		}
 
-		className = aClassName;
-		if (AProject.isLoadClasses())
-		packageName = Common.classNameToPackageName(aClassName);
+        className = aClassName;
+        if (AProject.isLoadClasses()) {
+            packageName = Common.classNameToPackageName(aClassName);
+        }
 //		qdoxClass = getQdoxClass();
-	}
-	public String toString() {
-		if (classProxy != null)
-		return classProxy.toString();
-		else return className;
-	}
-	public String getClassName() {
-		return className;
-	}
-	public ClassProxy getClassProxy() {
-		return classProxy;
-	}
-	public void setClassProxy(ClassProxy classProxy) {
-		this.classProxy = classProxy;
-	}
-	public StringBuffer getText() {
-		return text;
-	}
-	public void setText(StringBuffer text) {
-		this.text = text;
-	}	
-	public long getSourceTime() {
-		return sourceTime;
-	}
-	public void setSourceTime(long newVal) {
-		this.sourceTime = newVal;
-	}
-	public String getPackageName() {
-		return packageName;
-	}
-	@Override
-	public Project getProject() {
-		return project;
-	}
-	
-	@Override
-	public  String[] getTags() {
-		if (classProxy == null)
-			return new String[]{};
-		Tags tags = classProxy.getAnnotation(Tags.class);
-		return tags == null?new String[]{}:tags.value();			
-	}
-	
-	@Override
-	public  String getStructurePatternName() {
-		if (classProxy == null)
-			return null;
-		StructurePattern structurePattern = classProxy.getAnnotation(StructurePattern.class);
-		return  structurePattern == null?null:structurePattern.value();		
-	}
-	
-	@Override
-	public  String[] getPropertyNames() {
-		if (classProxy == null)
-			return new String[]{};
-		PropertyNames propertyNames = classProxy.getAnnotation(PropertyNames.class);
-		return propertyNames == null?new String[]{}:propertyNames.value();			
-	}
-	
-	@Override
-	public  String[] getEditablePropertyNames() {
-		if (classProxy == null)
-			return new String[]{};
-		EditablePropertyNames editablePropertyNames = classProxy.getAnnotation(EditablePropertyNames.class);
-		return editablePropertyNames == null?new String[]{}:editablePropertyNames.value();			
-	}
-	@Override
-	public JavaClass getQdoxClass() {
-		if (qdoxClass == null) {
-			initializeQdoxData();
-//			FileProxy fileProxy = project.
-		}
-		return qdoxClass;
-	}
-	
-	@Override
-	public JavaSource getQdoxSource() {
-		if (javaSource == null) {
-			initializeQdoxData();
-//			FileProxy fileProxy = project.
-		}
-		return javaSource;
-	}
-	
-	public void initializeQdoxData() {
-		JavaDocBuilder builder = project.getJavaDocBuilder();
-		javaSource = builder.addSource( new InputStreamReader(sourceFile.getInputStream()));
-		qdoxClass = builder.getClassByName(className);
-		QDoxClassCreated.newCase(className, this);
-	}
+    }
 
-	@Override
-	public SourceClass getJavacSourceClass() {
-		if (javacSourceClass == null) {
-			// added classpath, should not really be accessed
-			javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className,  GradingEnvironment
-					.get().getClasspath());
-			JavacSourceClassCreated.newCase(className, this);
+    public String toString() {
+        if (classProxy != null) {
+            return classProxy.toString();
+        } else {
+            return className;
+        }
+    }
 
-		}
-		return javacSourceClass;
-	}
+    public String getClassName() {
+        return className;
+    }
+
+    public ClassProxy getClassProxy() {
+        return classProxy;
+    }
+
+    public void setClassProxy(ClassProxy classProxy) {
+        this.classProxy = classProxy;
+    }
+
+    public StringBuffer getText() {
+        return text;
+    }
+
+    public void setText(StringBuffer text) {
+        this.text = text;
+    }
+
+    public long getSourceTime() {
+        return sourceTime;
+    }
+
+    public void setSourceTime(long newVal) {
+        this.sourceTime = newVal;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    @Override
+    public Project getProject() {
+        return project;
+    }
+
+    @Override
+    public String[] getTags() {
+        if (classProxy == null) {
+            return new String[]{};
+        }
+        Tags tags = classProxy.getAnnotation(Tags.class);
+        return tags == null ? new String[]{} : tags.value();
+    }
+
+    @Override
+    public String getStructurePatternName() {
+        if (classProxy == null) {
+            return null;
+        }
+        StructurePattern structurePattern = classProxy.getAnnotation(StructurePattern.class);
+        return structurePattern == null ? null : structurePattern.value();
+    }
+
+    @Override
+    public String[] getPropertyNames() {
+        if (classProxy == null) {
+            return new String[]{};
+        }
+        PropertyNames propertyNames = classProxy.getAnnotation(PropertyNames.class);
+        return propertyNames == null ? new String[]{} : propertyNames.value();
+    }
+
+    @Override
+    public String[] getEditablePropertyNames() {
+        if (classProxy == null) {
+            return new String[]{};
+        }
+        EditablePropertyNames editablePropertyNames = classProxy.getAnnotation(EditablePropertyNames.class);
+        return editablePropertyNames == null ? new String[]{} : editablePropertyNames.value();
+    }
+
+    @Override
+    public JavaClass getQdoxClass() {
+        if (qdoxClass == null) {
+            initializeQdoxData();
+//			FileProxy fileProxy = project.
+        }
+        return qdoxClass;
+    }
+
+    @Override
+    public JavaSource getQdoxSource() {
+        if (javaSource == null) {
+            initializeQdoxData();
+//			FileProxy fileProxy = project.
+        }
+        return javaSource;
+    }
+
+    public void initializeQdoxData() {
+        JavaDocBuilder builder = project.getJavaDocBuilder();
+        javaSource = builder.addSource(new InputStreamReader(sourceFile.getInputStream()));
+        qdoxClass = builder.getClassByName(className);
+        QDoxClassCreated.newCase(className, this);
+    }
+
+    @Override
+    public SourceClass getJavacSourceClass() {
+        if (javacSourceClass == null) {
+            // added classpath, should not really be accessed
+            javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className, GradingEnvironment
+                    .get().getClasspath());
+            JavacSourceClassCreated.newCase(className, this);
+
+        }
+        return javacSourceClass;
+    }
 
     @Override
     public Class<?> getJavaClass() {
@@ -305,7 +315,6 @@ public class AClassDescription  implements ClassDescription {
 //	public String getComment() {
 //		return getQdoxClass().getComment();
 //	}
-
     @Override
     public CompilationUnit getCompilationUnit() throws IOException {
         if (compilationUnit == null) {
@@ -314,12 +323,14 @@ public class AClassDescription  implements ClassDescription {
         }
         return compilationUnit;
     }
-	public FileProxy getSourceFile() {
-		return sourceFile;
-	}
-	public void setSourceFile(FileProxy sourceFile) {
-		this.sourceFile = sourceFile;
-	}
+
+    public FileProxy getSourceFile() {
+        return sourceFile;
+    }
+
+    public void setSourceFile(FileProxy sourceFile) {
+        this.sourceFile = sourceFile;
+    }
 //	public List<String> getClassNamesThatCouldNotBeCompiled() {
 //		return classNamesThatCouldNotBeCompiled;
 //	}

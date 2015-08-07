@@ -80,6 +80,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
             submitted = timeStamp != null && date != null;
             findDocuments();
         } catch (SubmissionFolderNotFound sfnf) {
+            //sfnf.printStackTrace();
             Tracer.error(sfnf.getMessage());
 
         } catch (Exception e) {

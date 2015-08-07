@@ -77,19 +77,21 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
     }
     @Override
    	public String getParentRelativeName() {
-       	if (getParentFolder() == null)
-       			return getLocalName();
-       	else
-       		return Common.toRelativeName(getParentFolder().getLocalName(), getLocalName());
-   		
+            if (getParentFolder() == null) {
+       		return getLocalName();
+            } else {
+                //System.out.println(this.getClass().getName());
+       		return FileUtils.toRelativeName(getParentFolder().getLocalName(), getLocalName());
+            }
    	}
     @Override
    	public String getParentRelativeMixedCaseName() {
-       	if (getParentFolder() == null)
-       			return getMixedCaseLocalName();
-       	else
-       		return Common.toRelativeName(getParentFolder().getMixedCaseLocalName(), getMixedCaseLocalName());
-   		
+            if (getParentFolder() == null) {
+                return getMixedCaseLocalName();
+            } else {
+                //System.out.println(this.getClass().getName());
+                return FileUtils.toRelativeName(getParentFolder().getMixedCaseLocalName(), getMixedCaseLocalName());
+            }	
    	}
     @Override
     public List<FileProxy> getChildren() {

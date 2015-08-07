@@ -2,6 +2,7 @@ package grader.file.filesystem;
 
 import grader.file.AnAbstractFileProxy;
 import grader.file.FileProxy;
+import grader.file.FileUtils;
 import grader.file.RootFolderProxy;
 import util.misc.Common;
 
@@ -21,7 +22,8 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
         mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
         absoluteName = mixedCaseAbsoluteName.toLowerCase();
 
-        mixedCaseLocalName = Common.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
+        //System.out.println(this.getClass().getName());
+        mixedCaseLocalName = FileUtils.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
         localName = mixedCaseLocalName.toLowerCase();
     }
 

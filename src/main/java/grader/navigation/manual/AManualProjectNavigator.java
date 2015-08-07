@@ -29,7 +29,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 			settingsModel.setGraderStarted(false);
 	} 
 		
-	Tracer.error(message);
+	Tracer.error("remove me: " + message);
 	if (!GraphicsEnvironment.isHeadless())
 	JOptionPane.showMessageDialog(null, message );
 	if (exitOnCompletion)

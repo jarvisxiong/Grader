@@ -50,9 +50,8 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 public class Driver {
 
     static PropertiesConfiguration configuration; // = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
-    
 
-	static GradingMangerType controller;
+    static GradingMangerType controller;
     static ProjectDatabaseWrapper database = null;
 
     static GraderSettingsManager graderSettingsManager; //  = GraderSettingsManagerSelector.getGraderSettingsManager();
@@ -80,7 +79,6 @@ public class Driver {
         // moved
         // , in progress
         (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
-
 
         controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
 //        if (!controller.equals("AHeadlessGradingManager")) {
@@ -413,11 +411,12 @@ public class Driver {
         graderSettingsManager.setDownloadPath(course, path);
         GraderSettings.get().set("path", path);
     }
-    public static PropertiesConfiguration getConfiguration() {
-		return configuration;
-	}
 
-	public static void setConfiguration(PropertiesConfiguration configuration) {
-		Driver.configuration = configuration;
-	}
+    public static PropertiesConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public static void setConfiguration(PropertiesConfiguration configuration) {
+        Driver.configuration = configuration;
+    }
 }

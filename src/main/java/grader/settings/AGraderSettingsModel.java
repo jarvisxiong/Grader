@@ -138,7 +138,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public void init() {
-        
+
         setGraderStarted(false);
         //graderStarted = false;
 //		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
@@ -187,18 +187,20 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     void noDownloadPath() {
-    	if (!GraphicsEnvironment.isHeadless())
-        JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
-    	else
-    		Tracer.error("No stored download path.");
+        if (!GraphicsEnvironment.isHeadless()) {
+            JOptionPane.showMessageDialog(null, "No stored download path. When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+        } else {
+            Tracer.error("No stored download path.");
+        }
 
     }
 
     void noValidDownloadPath(String aPath) {
-    	if (!GraphicsEnvironment.isHeadless())
-        JOptionPane.showMessageDialog(null, "No folder found for download path:" + problemDownloadPath + " . When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
-    	else
-    		Tracer.error("No valid download path.");
+        if (!GraphicsEnvironment.isHeadless()) {
+            JOptionPane.showMessageDialog(null, "No folder found for download path:" + problemDownloadPath + " . When the settings window comes up, please enter correct download path for a problem in module:" + currentModule + " or change the module.");
+        } else {
+            Tracer.error("No valid download path.");
+        }
     }
 
     @Visible(false)
@@ -596,29 +598,27 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         notify();
 
     }
-    
+
     public synchronized void preSettings() {
         GraderSettingsStarted.newCase(this, this);
 
-         setGraderStarted(false);
+        setGraderStarted(false);
         //graderStarted = false;
     }
-    
+
     public synchronized void postSettings() {
         //GraderSettingsStarted.newCase(this, this);
 
         //graderStarted = false;
         // see comment about race conditions
 //		propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
-        
-            saveSettings();
-            setGraderStarted(true);
-            //graderStarted = true;
-            GraderSettingsEnded.newCase(this, this);
+        saveSettings();
+        setGraderStarted(true);
+        //graderStarted = true;
+        GraderSettingsEnded.newCase(this, this);
 
             // this can cause concurrent changed to object editor  leading to race conditions
 //			propertyChangeSupport.firePropertyChange("this", null, this); // evaluate pre conditions
-        
     }
 
     @Visible(false)
@@ -703,8 +703,9 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     SakaiProjectDatabase projectDatabase;
 
     void maybeCreateProjectDatabase() {
-    	if (projectDatabase != null)
-    		return;
+        if (projectDatabase != null) {
+            return;
+        }
         saveSettings();
         Driver.initAssignmentDataFolder();
         projectDatabase = new ProjectDatabaseWrapper();
@@ -735,27 +736,28 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
         projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
     }
+
     @Override
     public void compileExecutor() {
-       ExecutorSelector.getExecutor().compile();
+        ExecutorSelector.getExecutor().compile();
     }
-    
+
     @Override
     public void cleanSlate(String anOnyen) {
         maybeCreateProjectDatabase();
         FeatureGradeRecorder featureGradeRecorder = projectDatabase.getFeatureGradeRecorder();
-      
-       featureGradeRecorder.clearGrades(anOnyen, "");
-       SakaiProject aProject = projectDatabase.getProject(anOnyen);
-       if (aProject == null) {
-    	   System.out.println ("Did not find project of:" + anOnyen + " nothing to clean");
-    	   return;
-       }
-       StudentAssignment aStudentAssignment = aProject.getStudentAssignment();
-       if (aStudentAssignment != null) {
-    	   aStudentAssignment.cleanFeedbackFolder();
-    	   aStudentAssignment.cleanSubmissionFolder();
-       }
+
+        featureGradeRecorder.clearGrades(anOnyen, "");
+        SakaiProject aProject = projectDatabase.getProject(anOnyen);
+        if (aProject == null) {
+            System.out.println("Did not find project of:" + anOnyen + " nothing to clean");
+            return;
+        }
+        StudentAssignment aStudentAssignment = aProject.getStudentAssignment();
+        if (aStudentAssignment != null) {
+            aStudentAssignment.cleanFeedbackFolder();
+            aStudentAssignment.cleanSubmissionFolder();
+        }
 
 //        projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 //        projectDatabase.getStudentAssignmentDatabase().cleanFeedbackAndSubmissionFolder(anOnyen);
@@ -794,14 +796,15 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //		String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
 
         for (String anOnyen : onyens) {
-        	try {
-        		System.out.println ("Unzipping directory for onyen:" + anOnyen);
-				ProjectWrapper.getDirectoryAndMaybeUnzip(projectDatabase.getProject(anOnyen));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
-				System.out.println ("Could not unzip project for student:" + anOnyen + " " + e);
-			}
+            try {
+                System.out.println("Unzipping directory for onyen:" + anOnyen);
+                ProjectWrapper.getDirectoryAndMaybeUnzip(projectDatabase.getProject(anOnyen));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+//		e.printStackTrace();
+                System.out.println("Could not unzip project for student:" + anOnyen + " " + e);
+                e.printStackTrace();
+            }
 ////			if (aStartOnyen.compareTo(anOnyen) <= 0 && anEndOnyen.compareTo(anOnyen) >= 0) {
 //            try {
 //                new ProjectWrapper(projectDatabase.getProject(anOnyen), anOnyen);
@@ -811,10 +814,11 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //            }
 //			}
         }
-       
+
         return true;
 
     }
+
     @Override
     public boolean maybePreCompile() {
         if (!AProject.isPreCompileMissingObjectCode()) {

@@ -1,6 +1,7 @@
 package grader.project.source;
 
 
+import grader.file.FileUtils;
 import grader.project.AClassesManager;
 import grader.project.AProject;
 import grader.project.ClassesManager;
@@ -106,7 +107,8 @@ public class AClassesTextManager implements ClassesTextManager {
         for (ViewableClassDescription viewable : sourceClasses) {
         	SakaiProject aProject =  (SakaiProject) viewable.getClassDescription().getProject();
         	String aProjectFolderName = aProject.getProjectFolderName();
-        	String aLocalName = Common.toRelativeName(aProjectFolderName, viewable.getClassDescription().getSourceFile().getAbsoluteName());
+        //System.out.println(this.getClass().getName());
+        	String aLocalName = FileUtils.toRelativeName(aProjectFolderName, viewable.getClassDescription().getSourceFile().getAbsoluteName());
 //        	String fileName = viewable.getClassDescription().getSourceFile().getParentRelativeName();
 //        	String prefix = SOURCE_PREFIX + fileName + "\n";
         	String prefix = SOURCE_PREFIX + aLocalName + "\n";
