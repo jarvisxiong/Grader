@@ -8,7 +8,7 @@ import util.trace.Tracer;
  *
  * @author Andrew Vitkus
  */
-public class FileUtils {
+public class GraderFileUtils {
 
     public static String toRelativeName(String aParentName, String aChildName) {
         try {

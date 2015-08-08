@@ -81,7 +81,7 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
        		return getLocalName();
             } else {
                 //System.out.println(this.getClass().getName());
-       		return FileUtils.toRelativeName(getParentFolder().getLocalName(), getLocalName());
+       		return GraderFileUtils.toRelativeName(getParentFolder().getLocalName(), getLocalName());
             }
    	}
     @Override
@@ -90,7 +90,7 @@ public abstract class AnAbstractFileProxy extends AnAbstractProxy implements Fil
                 return getMixedCaseLocalName();
             } else {
                 //System.out.println(this.getClass().getName());
-                return FileUtils.toRelativeName(getParentFolder().getMixedCaseLocalName(), getMixedCaseLocalName());
+                return GraderFileUtils.toRelativeName(getParentFolder().getMixedCaseLocalName(), getMixedCaseLocalName());
             }	
    	}
     @Override

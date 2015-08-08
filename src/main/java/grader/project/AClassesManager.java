@@ -1,6 +1,6 @@
 package grader.project;
 
-import grader.file.FileUtils;
+import grader.file.GraderFileUtils;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 import grader.language.LanguageDependencyManager;
@@ -203,7 +203,7 @@ public class AClassesManager implements ClassesManager {
 
 //            if (aFile.getName().endsWith(SOURCE_FILE_SUFFIX)) {
         //System.out.println(this.getClass().getName());
-                String relativeName = FileUtils.toRelativeName(aProjectFolder.getAbsolutePath(), aFile.getAbsolutePath());
+                String relativeName = GraderFileUtils.toRelativeName(aProjectFolder.getAbsolutePath(), aFile.getAbsolutePath());
                 String className = Common.projectRelativeNameToClassName(relativeName);
                 StringBuffer text = Common.toText(aFile.getAbsolutePath());
                 ClassDescription classDescription = new AClassDescription(className, text, aFile.lastModified(), null, null, null);

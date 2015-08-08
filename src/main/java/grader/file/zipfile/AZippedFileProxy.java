@@ -2,7 +2,7 @@ package grader.file.zipfile;
 
 import grader.file.AnAbstractFileProxy;
 import grader.file.FileProxy;
-import grader.file.FileUtils;
+import grader.file.GraderFileUtils;
 import grader.file.RootFolderProxy;
 import util.misc.Common;
 
@@ -30,7 +30,7 @@ public class AZippedFileProxy extends AnAbstractFileProxy implements FileProxy {
             System.out.println("null zip entry");
         }
         //System.out.println(this.getClass().getName());
-        mixedCaseName = FileUtils.toRelativeName(aRootLocalName, zipEntry.getName());
+        mixedCaseName = GraderFileUtils.toRelativeName(aRootLocalName, zipEntry.getName());
         if (mixedCaseName != null) // for MACOS, a null value is returned
             name = mixedCaseName.toLowerCase();
     }
