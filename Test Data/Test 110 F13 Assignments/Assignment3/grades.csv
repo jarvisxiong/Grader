@@ -1,16 +1,16 @@
 Assignment 1,Points,,,
 ,,,,
 Display ID,ID,Last Name,First Name,grade
-acorrect,acorrect,All,Correct,30.0
-aonce,aonce,Ask,Once,30.0
-binmiss,binmiss,Bin,Missing,30.0
-classmiss,classmiss,Class,Missing,30.0
+acorrect,acorrect,All,Correct,120.0
+aonce,aonce,Ask,Once,111.5
+binmiss,binmiss,Bin,Missing,120.0
+classmiss,classmiss,Class,Missing,120.0
 compileno,compileno,Compile,No,0.0
-jbartel,jbartel,Bartel,Jacob,30.0
-iloop,iloop,Infinite,Loop,30.0
-cwrong,cwrong,Counts,UniqueWrong,30.0
+jbartel,jbartel,Bartel,Jacob,105.0
+iloop,iloop,Infinite,Loop,90.0
+cwrong,cwrong,Counts,UniqueWrong,110.0
 skproject,skproject,Sakai,Project,8
 noproject,noproject,Project,None,0.0
-nosrc,nosrc,Src,None,30.0
+nosrc,nosrc,Src,None,120.0
 nosub,nosub,Submission,None,0.0
 nozip,nozip,Zip,None,120.0
