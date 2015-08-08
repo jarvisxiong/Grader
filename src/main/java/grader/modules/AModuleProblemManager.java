@@ -66,7 +66,12 @@ public class AModuleProblemManager implements ModuleProblemManager{
 		
 //		 List objectModules = configuration.getList("modules");
 //		 List objectModules = configuration.getList(MODULES);
+			if (configuration != null) {
 		objectModules = configuration.getList(MODULES);
+			} else {
+				System.err.println("Null configuration");
+				return new ArrayList(); // when we are rnning code without the grader running such as a C compiler of checkstyle
+			}
 		}
 		
 

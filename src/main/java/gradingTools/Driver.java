@@ -247,6 +247,7 @@ public class Driver {
         LanguageDependencyManager.setLanguage(language);
         AProject.setCompileMissingObjectCode(StaticConfigurationUtils.getAllowCompileClasses(configuration, graderSettingsManager));
         AProject.setUnzipFiles(StaticConfigurationUtils.getUnzipFiles(configuration, graderSettingsManager));
+        AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle(configuration, graderSettingsManager));
 
         // before we load the database, see if we need to precompile
         settingsModel.maybePreCompile();

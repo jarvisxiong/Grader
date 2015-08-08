@@ -50,7 +50,9 @@ public class AProject implements Project {
     public static final String DEFAULT_TRASNCRIPT_FILE_NAME = DEFAULT_TRANSCRIPT_FILE_PREFIX + DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 //    public static final String PROJECT_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated/Final";
 //    public static final String PROJECT_ZIPPED_DIRECTORY = "D:/dewan_backup/Java/AmandaKaramFinalUpdated.zip";
-
+    public static final String DEFAULT_CHECK_STYLE_FILE_PREFIX = "checkstyle";
+    public static final String DEFAULT_CHECK_STYLE_FILE_SUFFIX = ".txt";
+    public static final String DEFAULT_CHECK_STYLE__NAME = DEFAULT_CHECK_STYLE_FILE_PREFIX + DEFAULT_CHECK_STYLE_FILE_SUFFIX;
     String projectFolderName = DEFAULT_PROJECT_FOLDER;
     String gradingProjectFolderName = DEFAULT_GRADING_FOLDER;
     ProxyBasedClassesManager classesManager;
@@ -62,9 +64,10 @@ public class AProject implements Project {
     ProxyClassLoader proxyClassLoader;
     ClassLoader oldClassLoader;
     String outputFolder = ".";
-    String sourceFileName, outputFileName;
+    String sourceFileName, outputFileName, checkStyleFileName;
     String sourceSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
     String outputSuffix = DEFAULT_TRANSCRIPT_FILE_SUFFIX;
+    String checkStyleSuffix = DEFAULT_CHECK_STYLE_FILE_SUFFIX;
     boolean hasBeenRun, canBeRun = true; // strange that initial value is true
     boolean hasBeenCompiled, canBeCompiled; 
     boolean hasBeenLoaded, canBeLoaded; 
@@ -110,8 +113,11 @@ public class AProject implements Project {
    
 
 	static boolean forceCompile = false; //compile whether that is needed or not
+	static boolean checkStyle = false; 
 
-    public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+
+
+	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
@@ -186,6 +192,7 @@ public class AProject implements Project {
 
         rootFolder = aRootFolder;
         outputFileName = createFullOutputFileName();
+        checkStyleFileName = createFullCheckStyleFileName();
 
         if (aRootFolder == null) {
             setNoProjectFolder(true);
@@ -234,6 +241,14 @@ public class AProject implements Project {
     public String createFullOutputFileName() {
         return outputFolder + "/" + createLocalOutputFileName();
     }
+    public String createLocalCheckStyleFileName() {
+        return DEFAULT_CHECK_STYLE_FILE_PREFIX + checkStyleSuffix;
+    }
+
+    public String createFullCheckStyleFileName() {
+        return outputFolder + "/" + createLocalCheckStyleFileName();
+    }
+
 
     boolean madeClassDescriptions;
     List<Class> classesImplicitlyLoaded;
@@ -291,6 +306,11 @@ public class AProject implements Project {
 
     public String getOutputFileName() {
         return outputFileName;
+    }
+    
+
+    public String getCheckStyleFileName() {
+        return checkStyleFileName;
     }
 
     public boolean hasBeenRun() {
@@ -655,5 +675,13 @@ public class AProject implements Project {
 
 		public void setCurrentTestCase(TestCase currentTestCase) {
 			this.currentTestCase = currentTestCase;
+		}
+
+	    public static boolean isCheckStyle() {
+			return checkStyle;
+		}
+
+	    public static void setCheckStyle(boolean checkStyle) {
+			AProject.checkStyle = checkStyle;
 		}
 }

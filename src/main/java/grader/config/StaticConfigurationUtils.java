@@ -35,6 +35,8 @@ public class StaticConfigurationUtils {
 
 	public static final String FORCE_COMPILE_CLASSES = "forceCompile";
 	public static final String UNZIP_FILES = "unzipFiles";
+	
+	public static final String CHECK_STYLE = "checkStyle";
 
 	public static final String PRIVACY = "privacy";
 	public static final String EXECUTION_COMMAND = "execution";
@@ -127,6 +129,14 @@ public class StaticConfigurationUtils {
 
 		return getInheritedBooleanModuleProblemProperty(configuration,
 				graderSettingsManager, UNZIP_FILES, false);
+
+	}
+	
+	public static boolean getCheckStyle(PropertiesConfiguration configuration,
+			GraderSettingsManager graderSettingsManager) {
+
+		return getInheritedBooleanModuleProblemProperty(configuration,
+				graderSettingsManager, CHECK_STYLE, false);
 
 	}
 
@@ -575,6 +585,10 @@ public class StaticConfigurationUtils {
 		GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
+		if (aModule ==null) {
+			System.err.println("Null module:");
+			return defaultValue;
+		}
 		String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
 //		return getInheritedBooleanModuleProblemProperty(configuration, aModule,
 //				aProblem, property, defaultValue);

@@ -244,6 +244,10 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     @Override
     public String getModule() {
         List<String> modules = moduleProblemManager.getModules();
+        if (dynamicConfiguration == null) {
+        	System.err.println(" Null dynamic configuration");
+        	return null;
+        }
 
         String aModule = dynamicConfiguration.getString(MODULE, modules.get(0));
         return aModule;

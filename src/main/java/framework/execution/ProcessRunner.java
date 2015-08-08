@@ -887,11 +887,14 @@ public class ProcessRunner implements Runner {
 				// Wait for it to finish
 				try {
 					process.waitFor();
+//					if (entryPoints != null)
 					UserProcessExecutionFinished.newCase(
 							folder.getAbsolutePath(),
-							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),
+							(entryPoints != null) ? entryPoints
+									.get(MainClassFinder.MAIN_ENTRY_POINT) : null,
 							classPath, this);
 				} catch (Exception e) {
+					e.printStackTrace();
 //					outputSemaphore.release();
 //					errorSemaphore.release();
 					outRunnable.getSemaphore().release();

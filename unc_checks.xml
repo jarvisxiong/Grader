@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This configuration file was written by the eclipse-cs plugin configuration 
+	editor -->
+<!-- Checkstyle-Configuration: Test Description: none -->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+
+<module name="unc.tools.checkstyle.AnExtendibleChecker">
+
+	<property name="severity" value="warning" />
+<!--
+	<module name="Header">
+		<property name="headerFile" value="${config_loc}/java.header" />
+	</module>
+	-->
+<!--
+	<module name="JavadocPackage" />
+-->
+
+	<module name="unc.tools.checkstyle.AnExtendibleTreeWalker">
+		<property name="severity" value="info" />
+
+		<module name="STBuilder">
+			<property name="includeTypeTags" value="*" />		
+
+			<property name="severity" value="info" />
+			<property name="projectPackagePrefixes" value="test,lectures" />
+			<property name="existingClasses"
+				value="java.util.List, java.util.Vector, java.util.HashMap" />
+			<property name="importsAsExistingClasses" value="true" />
+
+
+
+
+
+		</module>
+
+	</module>
+
+
+	<module name="TreeWalker">
+		<module name="EqualsAvoidNull"/>
+		<module name="EmptyStatement"/>
+		<module name="MagicNumber"/>
+		<module name="SimplifyBooleanExpression"/>
+		<module name="SimplifyBooleanReturn"/>
+		<module name="StringLiteralEquality"/>
+		<module name="NestedForDepth">
+    		<property name="max" value="1"/>
+		</module>
+		<module name="NestedIfDepth">
+    		<property name="max" value="1"/>
+		</module>
+		<module name="OneTopLevelClass"/>
+		<module name="VisibilityModifier">
+    		<property name="packageAllowed" value="true"/>
+    		<property name="protectedAllowed" value="true"/>    		
+		</module>
+		<module name="ConstantName"/>
+		<module name="MethodName"/>
+		<module name="LocalVariableName"/>
+		<module name="MemberName"/>
+		<module name="StaticVariableName"/>
+		
+		
+		
+		
+		
+		<module name="VariableHasClassType">
+
+		</module>
+		<!-- <module name="MethodLimit"> <property name="max" value="4" /> <message 
+			key="methodlimit" value="Man, only {0} methods allowed." /> </module> -->
+		<module name="NoDuplicateShortTypeName">
+			<property name="includeTypeTags" value="*" />		
+		</module>
+		<module name="NoFullTypeName">
+			<property name="includeTypeTags" value="*" />			
+		
+		</module>
+		<module name="ClassHasOneInterface">
+			<property name="includeTypeTags" value="*" />	
+			
+		</module>
+		<module name="ClassHasAtLeastOneInterface">
+			<property name="includeTypeTags" value="*" />			
+		</module>
+		<module name="IllegalMethodCall">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />		
+			<property name="excludeTypeTags" value="@Tag4" />
+
+			<property name="disallowedCalls" value="Scanner, @Tag1>String, @Tag1>@Tag2" />
+			<property name="exceptionCalls"
+				value="String.substring, String.charAt, @Tag1>String.length, Bar.@NextLineCaller>Scanner.nextLine, @Tag1.@Tag3>@Tag2.@Tag4" />
+		</module>
+		<module name="LegalMethodCall">
+			<property name="severity" value="info" />
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="expectedMethods" value="charAt, length, substring" />
+		</module>
+		<module name="IllegalInitCall">
+			<property name="includeTypeTags" value="*" />				
+		</module>
+		<module name="LegalInitCall">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+		</module>
+		<module name="IllegalComponentInstantiation">
+			<property name="includeTypeTags" value="*" />			
+		
+		</module>
+		<module name="LegalComponentInstantiation">
+			<property name="severity" value="info" />
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />
+		</module>
+		<module name="IllegalTypeImported">
+			<property name="includeTypeTags" value="*" />		
+			<property name="excludeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />		
+		    <property name="illegalPrefixes" value="*" />
+			<property name="legalPrefixes"
+				value="Foo=java.util, @Tag1=java.util, bus.uigen, util, shapes, java.beans" />
+		</module>
+		<module name="IllegalTypeDefined">
+			<property name="illegalTypeNames"
+				value="PropertyChangeEvent, PropertyChangeListener, PropertyListenerRegisterer" />
+		</module>
+		<module name="StaticVariable">
+			<property name="includeTypeTags" value="*" />		
+			<property name="excludeTypeTags" value="@StaticVariableDemo"/>	
+			<property name="singletonTypes" value="Scanner, BufferedReader"/>		
+				
+		</module>
+		<module name="FunctionAssignsGlobal">
+			<property name="includeTypeTags" value="*" />			
+			<property name="excludeTypeTags" value="@Tag4" />
+			<property name="excludeMethodTags" value="next, pop, delete, remove, read" />
+			
+		</module>
+		<module name="SetterAssignsGlobal">
+			<property name="includeTypeTags" value="*" />			
+		</module>
+		<module name="ExpectedGetters">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="expectedProperties" value="@Tag1= P1:int | P2:int" />
+		</module>
+		<module name="ExpectedSetters">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="expectedProperties" value="@Tag1 = P1:int | P2:int | Foo:@Tag1" />
+		</module>
+		<module name="ExpectedSignatures">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="expectedSignatures"
+				value="@Vector = elementAt:int->$T | setElementAt:int; $T->void | size:->int " />
+		</module>
+		<!-- <module name="LineLength"> <property name="max" value="${maxLineLength}"/> 
+			</module> -->
+		<module name="PackageDeclaration" />
+		<module name="LinePattern">
+			<property name="includeTypeTags" value="*" />		
+		</module>
+		<module name="OvalPattern">
+					<property name="includeTypeTags" value="*" />			
+		
+		</module>		
+		<module name="RectanglePattern">
+			<property name="includeTypeTags" value="*"/>		
+		</module>
+		<module name="StringShapePattern">
+			<property name="includeTypeTags" value="*"/>		
+		
+		</module>
+		<module name="PointPattern">
+				<property name="includeTypeTags" value="*"/>		
+		
+		</module>		
+		<module name="ImagePattern">
+			<property name="includeTypeTags" value="*"/>		
+		
+		</module>
+		<module name="VectorPattern">
+			<property name="includeTypeTags" value="*"/>		
+		</module>
+		<module name="ListPattern">
+			<property name="includeTypeTags" value="*"/>		
+		</module>
+		<module name="MapPattern">
+			<property name="includeTypeTags" value="*"/>		
+		</module>
+		<module name="MinComponentObjects">
+			<property name="minObjectComponents" value="@Composite=3" />
+			<property name="includeTypeTags" value="Composite" />
+		</module>
+		<module name="MinDescendantObjects">
+			<property name="minObjectDescendants" value="@Composite=5" />
+			<property name="includeTypeTags" value="Composite" />
+		</module>
+		<module name="MinDescendantShapes">
+			<property name="minShapeDescendants" value="@Composite=2" />
+			<property name="includeTypeTags" value="Composite" />
+		</module>
+		<!-- <module name="ISATypes" /> -->
+		<module name="PeerCommonSignatures">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="includeSets" value="@Tag1 | @Tag2, @IMAGE_PATTERN|@LINE_PATTERN" />
+			<property name="excludeSignatures" value="*:->Foo" />
+		</module>
+		<module name="PeerCommonProperties">
+			<property name="includeTypeTags" value="@Tag1, @Tag2, @Tag3+@Tag4" />			
+			<property name="includeSets" value="@Tag1 | @Tag2, @IMAGE_PATTERN|@LINE_PATTERN" />		
+		    <property name="excludeProperties" value="*:int" />
+		  </module>
+		<module name="NoStructuredSetter">
+					<property name="includeTypeTags" value="*" />		
+					<property name="excludeStructuredTypes" value="@Tag1+@Tag2, Factorial, @POINT_PATTERN" />		
+		
+		 </module>
+		<module name="IllegalPropertyNotification">
+			<property name="includeTypeTags" value="*" />
+			<property name="excludeProperties" value="this" />			
+		
+		</module>		
+		<module name="MissingActualProperty">
+					<property name="includeTypeTags" value="*" />			
+		
+		</module>	
+		<module name="MissingActualEditableProperty">
+				<property name="includeTypeTags" value="*" />			
+		
+		</module>	
+
+
+
+
+
+		<!-- <module name="Regexp"> <property name="format" value="(interface [a-zA-Z0-9 
+			&lt;&gt;,\./*?[\s]]* \{)|((@Immutable|@ThreadSafe|@NotThreadSafe)(.*[\n])*.*(class|enum) 
+			[a-zA-Z0-9\s&lt;&gt;,\./*?]* \{)" /> <property name="message" value="Classes 
+			should be annotated with @Immutable, @ThreadSafe or @NotThreadSafe" /> <property 
+			name="illegalPattern" value="false" /> </module> -->
+		
+		<module name="ClassDefined">
+			<property name="includeTypeTags" value="*" />		
+			<property name="severity" value="info" />
+			<property name="expectedTypes" value="Factorial, @Tag1+@Tag2" />
+
+		</module>
+		
+		<module name="InterfaceDefined">
+			<property name="includeTypeTags" value="@Tag1+@Tag2" />
+		
+			<property name="severity" value="info" />
+			<message key="interfaceDefined" value="Interface {0} defined." />
+		</module>
+		
+	</module>
+</module>
+

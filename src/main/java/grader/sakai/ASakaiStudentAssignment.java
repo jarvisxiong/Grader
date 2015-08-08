@@ -26,16 +26,18 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     public static String SUBMISSION_LOCAL_NAME = "Submission attachment(s)";
     public static String FEEDBACK_LOCAL_NAME = "Feedback Attachment(s)";
     public static String COMMENTS_LOCAL_NAME = "comments.txt";
+//    public static String CHECKSTYLE_LOCAL_NAME = "checkstyle.txt";
     public static String TIMESTAMP_LOCAL_NAME = "timestamp.txt";
 
     FileProxy submissionFolder, feedbackFolder, commentsFile, timeStampFile;
+//    FileProxy checkStyleFile;
     Date date;
     String timeStamp;
     String studentDescription;
     String name, onyen;
     boolean submitted;
     List<String> documents = new ArrayList();
-    String commentsFileName;
+    String commentsFileName, checkStyleFileName;
     FileProxy studentFolder;
 
     public ASakaiStudentAssignment(String aStudentDescription, FileProxy aFileProxy) {
@@ -66,6 +68,14 @@ public class ASakaiStudentAssignment implements StudentAssignment {
                 CommentsFileLoaded.newCase(commentsFileName, this);
 
             }
+//            checkStyleFile = aFileProxy.getFileEntryFromLocalName(CHECKSTYLE_LOCAL_NAME);
+//            if (checkStyleFile != null) {
+//                //commentsFileName = commentsFile.getAbsoluteName();
+//            	checkStyleFileName = checkStyleFile.getMixedCaseAbsoluteName();
+//                CommentsFileLoaded.newCase(checkStyleFileName, this);
+//
+//            }
+            
             timeStampFile = aFileProxy.getFileEntryFromLocalName(TIMESTAMP_LOCAL_NAME);
             try {
                 timeStamp = FileProxyUtils.toText(timeStampFile);

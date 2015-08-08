@@ -69,6 +69,8 @@ public interface Project {
     public String getOutputFileName();
 
     String getSourceFileName();
+    
+    String getCheckStyleFileName();
 
     boolean runChecked();
 

@@ -1,6 +1,7 @@
 package framework.project;
 
 import framework.execution.RunningProject;
+import grader.checkStyle.CheckStyleInvokerFactory;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
@@ -33,6 +34,7 @@ import org.apache.commons.io.FileUtils;
 
 import scala.Option;
 import tools.DirectoryUtils;
+import util.misc.Common;
 import util.trace.javac.CompilerNotFound;
 
 /**
@@ -65,6 +67,23 @@ public class ProjectClassesManager implements ClassesManager {
         classDescriptions = new HashSet<ClassDescription>();
 
         loadClasses(sourceFolder);
+        checkStyle(project, sourceFolder);
+    }
+    
+    protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
+    		if (!AProject.isCheckStyle())
+    			return;
+    	
+			RunningProject aRunner = CheckStyleInvokerFactory.getSingleton().checkStyle(aSourceFolder.getAbsolutePath());
+			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
+			String aCheckStyleOutput = aRunner.getOutput();
+			try {
+				Common.writeText(aCheckStyleOutputFile, aCheckStyleOutput);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
     }
 
     /**
