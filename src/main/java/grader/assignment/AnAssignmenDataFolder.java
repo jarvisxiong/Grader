@@ -1,6 +1,8 @@
 package grader.assignment;
 
 import framework.utils.GradingEnvironment;
+import grader.config.AConfigurationManager;
+import grader.config.StaticConfigurationUtils;
 import grader.file.FileProxy;
 import grader.file.FileProxyUtils;
 import grader.file.filesystem.AFileSystemFileProxy;
@@ -10,18 +12,24 @@ import grader.trace.assignment_data.FeatureGradeFileCreatedFromFinalGradeFile;
 import grader.trace.assignment_data.FeatureGradeFileLoaded;
 import grader.trace.assignment_data.FeatureGradeFileRestored;
 import grader.trace.assignment_data.InputFileFound;
+import grader.trace.checkStyle.CheckStyleFileLoaded;
 import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import util.misc.Common;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
+	public static final String DEFAULT_CONFIGURATION_FILE = "config/checks.xml";
+
 	public static final String DEFAULT_REQUIREMENTS_SPREADHEET_NAME = "Requirements.csv";
     public static final String ID_FILE_NAME = "onyens.txt";
     public static final String DEFAULT_LOG_FILE_NAME = "log.txt";
@@ -41,9 +49,13 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     String requirementsSpreadsheetFileName = DEFAULT_REQUIREMENTS_SPREADHEET_NAME;
     
     File originalFeatureGradeFile, backupFeatureGradeFile;
-    
+    String checkStyleConfigurationFileName;
 
-    String idText;
+  
+
+
+
+	String idText;
     Set<String> inputFiles;
     List<String> studentIDs;
     FileProxy finalGradeFile, featureGradeFile;
@@ -84,6 +96,13 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
         skippedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_SKIPPED_FILE_NAME;
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
+        checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + DEFAULT_CONFIGURATION_FILE;
+        checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + StaticConfigurationUtils.getCheckStyleFile();
+
+        File aFile = new File(checkStyleConfigurationFileName);
+        if (!aFile.exists()) {
+        	checkStyleConfigurationFileName = AConfigurationManager.CONFIG_DIR + "/"  + DEFAULT_CONFIGURATION_FILE;
+        }
         clearLogFile();
         requirementsSpreadsheetFile = getFileEntryFromLocalName(requirementsSpreadsheetFileName);
         initFeatureGradeFiles();
@@ -323,7 +342,15 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 	public void setRequirementsSpreadsheetFile(FileProxy requirementsSpreadsheetFile) {
 		this.requirementsSpreadsheetFile = requirementsSpreadsheetFile;
 	}
-    
+	@Override
+	  public String getCheckStyleConfigurationFileName() {
+			return checkStyleConfigurationFileName;
+		}
+	@Override
+		public void setCheckStyleConfigurationFileName(
+				String checkStyleConfigurationFileName) {
+			this.checkStyleConfigurationFileName = checkStyleConfigurationFileName;
+		}
 
 
 }

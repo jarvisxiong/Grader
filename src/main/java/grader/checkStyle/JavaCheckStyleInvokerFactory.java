@@ -2,12 +2,12 @@ package grader.checkStyle;
 
 import grader.compilation.ClassFilesCompiler;
 
-public class CheckStyleInvokerFactory {
+public class JavaCheckStyleInvokerFactory {
 	static CheckStyleInvoker checkStyleInvoker ;
 
 	public static CheckStyleInvoker getSingleton() {
 		if (checkStyleInvoker ==  null)
-			checkStyleInvoker =  new ACheckStyleInvoker();
+			checkStyleInvoker =  new AJavaCheckStyleInvoker();
 		return checkStyleInvoker;
 	}
 }

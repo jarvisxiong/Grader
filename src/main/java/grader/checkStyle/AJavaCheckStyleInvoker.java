@@ -10,32 +10,32 @@ import framework.execution.ProcessRunner;
 import framework.execution.Runner;
 import framework.execution.RunningProject;
 import framework.utils.GradingEnvironment;
+import grader.assignment.AnAssignmenDataFolder;
 import grader.compilation.ClassFilesCompiler;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.language.LanguageDependencyManager;
 import grader.project.folder.ARootCodeFolder;
+import grader.sakai.project.ASakaiProjectDatabase;
 import grader.settings.GraderSettingsManagerSelector;
 import grader.trace.file.open.WordOpenedFile;
 
-public class ACheckStyleInvoker  implements CheckStyleInvoker{
+public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	
-	public static final String CONFIGURATION_FILE = "unc_checks.xml";
 	
-
 	
-	public ACheckStyleInvoker() {
-		
-	}
+	
 	
 
 	
 	public RunningProject checkStyle(String aSourceFileFlder) {
+		String aConfigurationFileName = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getAssignmentDataFolder().getCheckStyleConfigurationFileName();
+
 //        String windowsName = Common.toWindowsFileName(aSourceFileFlder);
 			String windowsName = aSourceFileFlder;
         
 //        String[] command = {compilerPath, windowsName, "-o",  fullObjName , EXECUTABLE_OPTION  + fullExecName};
-        String[] command = {"java", "com.puppycrawl.tools.checkstyle.Main", "-c",  CONFIGURATION_FILE ,   windowsName };
+        String[] command = {"java", "com.puppycrawl.tools.checkstyle.Main", "-c",  aConfigurationFileName ,   windowsName };
 // java com.puppycrawl.tools.checkstyle.Main -c ../UNCCheckStyle/unc_checks.xml \
 //        src/ > checkstyle.txt
 //        String[] command = {compilerPath, windowsName};
@@ -54,7 +54,7 @@ public class ACheckStyleInvoker  implements CheckStyleInvoker{
 	
 	public static void main (String[] args) {
         
-		ACheckStyleInvoker checkStyleInvoker = new ACheckStyleInvoker();
+		AJavaCheckStyleInvoker checkStyleInvoker = new AJavaCheckStyleInvoker();
 //		compiler.compileFile("Test Data/Test C/Assignment1/All, Correct (acorrect)/Submission attachment(s)/program1/Program1/src/Simple.c",
 //				"Test Data/Test C/Assignment1/All, Correct (acorrect)/Submission attachment(s)/program1/Program1/bin");
 //		compiler.compileFile("src/Simple.c",

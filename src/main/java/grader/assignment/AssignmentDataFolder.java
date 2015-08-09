@@ -77,5 +77,10 @@ public interface AssignmentDataFolder extends RootFolderProxy {
 
 	void clearLogFile();
 
+	String getCheckStyleConfigurationFileName();
+
+	void setCheckStyleConfigurationFileName(
+			String checkStyleConfigurationFileName);
+
 
 }

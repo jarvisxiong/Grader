@@ -1,7 +1,7 @@
 package framework.project;
 
 import framework.execution.RunningProject;
-import grader.checkStyle.CheckStyleInvokerFactory;
+import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
@@ -74,7 +74,7 @@ public class ProjectClassesManager implements ClassesManager {
     		if (!AProject.isCheckStyle())
     			return;
     	
-			RunningProject aRunner = CheckStyleInvokerFactory.getSingleton().checkStyle(aSourceFolder.getAbsolutePath());
+			RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			try {

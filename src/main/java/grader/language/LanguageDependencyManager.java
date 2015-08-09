@@ -1,5 +1,7 @@
 package grader.language;
 
+import grader.checkStyle.CheckStyleInvoker;
+import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.ClassFilesCompiler;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.compilation.c.CFilesCompilerSelector;
@@ -22,6 +24,7 @@ public class LanguageDependencyManager {
 	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
 	 static Map<String, MainClassFinder> languageToMainClassFinder = new HashMap();
 	 static Map<String, ClassFilesCompiler> languageToCompiler = new HashMap();
+	 static Map<String, CheckStyleInvoker> languageToCheckStyleInvoker = new HashMap();
 	 static Map<String, Permissible> languageToDefaultPermissible = new HashMap<>();
 	 static Map<String, PermissionsGenerator> languageToPermissionGenerator = new HashMap<>();;
 
@@ -85,6 +88,9 @@ public class LanguageDependencyManager {
 	public static ClassFilesCompiler getSourceFilesCompiler() {
 		return languageToCompiler.get(getLanguage());
 	}
+	public static CheckStyleInvoker getCheckStyleInvoker() {
+		return languageToCheckStyleInvoker.get(getLanguage());
+	}
 	public static Permissible getDefaultPermissible() {
 		return languageToDefaultPermissible.get(getLanguage());
 	}
@@ -123,6 +129,7 @@ public class LanguageDependencyManager {
 		
 		languageToCompiler.put(JAVA_LANGUAGE, JavaClassFilesCompilerSelector.getClassFilesCompiler() );
 		languageToCompiler.put(C_LANGUAGE, CFilesCompilerSelector.getClassFilesCompiler());
+		languageToCheckStyleInvoker.put(JAVA_LANGUAGE, JavaCheckStyleInvokerFactory.getSingleton());
 		
 		languageToDefaultPermissible.put(JAVA_LANGUAGE, new DefaultJavaPermissible());
 
