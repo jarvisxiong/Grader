@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import util.misc.Common;
+
 public class AProject implements Project {
 
     public static final String ZIP_SUFFIX_1 = ".zip";
@@ -229,6 +231,8 @@ public class AProject implements Project {
     public String createLocalSourceFileName() {
         return classesTextManager.DEFAULT_SOURCES_FILE_PREFIX + sourceSuffix;
     }
+    
+    
 
     public String createLocalOutputFileName() {
         return DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
@@ -243,6 +247,27 @@ public class AProject implements Project {
     }
     public String createLocalCheckStyleFileName() {
         return DEFAULT_CHECK_STYLE_FILE_PREFIX + checkStyleSuffix;
+    }
+    
+    String checkStyleText = null;
+    @Override
+    public String getCheckstyleText() {
+    	if (checkStyleText == null) { // assume it will never change
+			checkStyleText = "";
+    		if (!isNoProjectFolder()) {
+    			checkStyleText = "";    		
+    			String aFileName = getCheckStyleFileName();
+    			File aFile = new File(aFileName);
+    			if (aFile.exists()) {    	
+    			    try {
+						checkStyleText = Common.readFile(aFile).toString();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    			}
+    		}
+    	}
+    	return checkStyleText;
     }
 
     public String createFullCheckStyleFileName() {

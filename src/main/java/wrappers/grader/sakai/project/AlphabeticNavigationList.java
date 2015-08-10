@@ -3,12 +3,12 @@ package wrappers.grader.sakai.project;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GraderSettings;
 import grader.navigation.sorter.AFileObjectSorter;
-import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.steppers.OverviewProjectStepper;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
-import grader.trace.stepper.NavigationListCreated;
+import grader.trace.steppers.NavigationListCreated;
 
 import java.io.File;
 import java.util.ArrayList;

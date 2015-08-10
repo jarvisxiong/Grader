@@ -135,4 +135,6 @@ public interface Project {
 
 	void setFilesUnzipped(boolean filesUnzipped);
 
+	String getCheckstyleText();
+
 }

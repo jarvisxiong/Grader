@@ -1,6 +1,6 @@
 package demoAndTest;
 
-import grader.project.graded.AMainProjectStepper;
+import grader.steppers.AMainProjectStepper;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;

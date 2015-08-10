@@ -10,10 +10,10 @@ import grader.trace.interaction_logger.InteractionLogFileCreatedOrLoaded;
 import grader.trace.interaction_logger.InteractionLogFolderCreated;
 import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.NavigationStarted;
-import grader.trace.stepper.ProjectStepEnded;
-import grader.trace.stepper.ProjectStepStarted;
-import grader.trace.stepper.ProjectStepperEnded;
-import grader.trace.stepper.ProjectStepperStarted;
+import grader.trace.steppers.ProjectStepEnded;
+import grader.trace.steppers.ProjectStepStarted;
+import grader.trace.steppers.ProjectStepperEnded;
+import grader.trace.steppers.ProjectStepperStarted;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -3,9 +3,9 @@ package demoAndTest.multiparadigm.C;
 import grader.assignment.GradingFeature;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.GradingStatus;
-import grader.project.graded.ComplexProjectStepper;
-import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ATACommentsExtractor;
+import grader.steppers.ComplexProjectStepper;
+import grader.steppers.OverviewProjectStepper;
 import gradingTools.Driver;
 
 import java.io.File;

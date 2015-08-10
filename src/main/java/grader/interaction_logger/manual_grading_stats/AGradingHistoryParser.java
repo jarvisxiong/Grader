@@ -16,16 +16,16 @@ import grader.trace.settings.GraderSettingsInfo;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.NavigationStarted;
-import grader.trace.stepper.FeedbackVisited;
-import grader.trace.stepper.ProblemHistoryVisited;
-import grader.trace.stepper.ProjectStepAborted;
-import grader.trace.stepper.ProjectStepEnded;
-import grader.trace.stepper.ProjectStepStarted;
-import grader.trace.stepper.ProjectStepperEnded;
-import grader.trace.stepper.ProjectStepperStarted;
-import grader.trace.stepper.SourceVisited;
-import grader.trace.stepper.StudentHistoryVisited;
-import grader.trace.stepper.UserQuit;
+import grader.trace.steppers.FeedbackVisited;
+import grader.trace.steppers.ProblemHistoryVisited;
+import grader.trace.steppers.ProjectStepAborted;
+import grader.trace.steppers.ProjectStepEnded;
+import grader.trace.steppers.ProjectStepStarted;
+import grader.trace.steppers.ProjectStepperEnded;
+import grader.trace.steppers.ProjectStepperStarted;
+import grader.trace.steppers.SourceVisited;
+import grader.trace.steppers.StudentHistoryVisited;
+import grader.trace.steppers.UserQuit;
 
 public class AGradingHistoryParser implements GradingHistoryParser {
 

@@ -12,9 +12,9 @@ import grader.trace.settings.AutomaticNavigationStarted;
 import grader.trace.settings.GraderSettingsInfo;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
-import grader.trace.stepper.ProjectStepEnded;
-import grader.trace.stepper.ProjectStepStarted;
-import grader.trace.stepper.ProjectStepperStarted;
+import grader.trace.steppers.ProjectStepEnded;
+import grader.trace.steppers.ProjectStepStarted;
+import grader.trace.steppers.ProjectStepperStarted;
 
 public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 	

@@ -61,12 +61,6 @@ import grader.photos.PhotoReader;
 import grader.project.AProject;
 import grader.project.Project;
 import grader.project.folder.ARootCodeFolder;
-import grader.project.graded.ABasicProjectStepper;
-import grader.project.graded.AComplexProjectStepper;
-import grader.project.graded.AGradedProjectNavigator;
-import grader.project.graded.AMainProjectStepper;
-import grader.project.graded.AnOverviewProjectStepper;
-import grader.project.graded.OverviewProjectStepper;
 import grader.project.source.ClassesTextManager;
 import grader.requirements.interpreter.specification.ACSVRequirementsSpecification;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
@@ -88,15 +82,21 @@ import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
 import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
+import grader.steppers.ABasicProjectStepper;
+import grader.steppers.AComplexProjectStepper;
+import grader.steppers.AGradedProjectNavigator;
+import grader.steppers.AMainProjectStepper;
+import grader.steppers.AnOverviewProjectStepper;
+import grader.steppers.OverviewProjectStepper;
 import grader.trace.assignment_data.AssignmentDataFolderCreated;
 import grader.trace.assignment_data.AssignmentDataFolderLoaded;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
-import grader.trace.stepper.ProjectIORedirected;
-import grader.trace.stepper.ProjectStepperDisplayed;
-import grader.trace.stepper.ProjectWindowsDisposed;
-import grader.trace.stepper.ProjectWindowsRecorded;
+import grader.trace.steppers.ProjectIORedirected;
+import grader.trace.steppers.ProjectStepperDisplayed;
+import grader.trace.steppers.ProjectWindowsDisposed;
+import grader.trace.steppers.ProjectWindowsRecorded;
 
 import java.awt.Component;
 import java.awt.Frame;
@@ -114,6 +114,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+
 
 
 

@@ -1,13 +1,13 @@
 package grader.trace.feature.auto_result_format;
 
 import grader.assignment.GradingFeature;
-import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.steppers.OverviewProjectStepper;
 import grader.trace.feature.GradingFeatureInfo;
-import grader.trace.stepper.SerializableStepperInfo;
-import grader.trace.stepper.StepperInfo;
+import grader.trace.steppers.SerializableStepperInfo;
+import grader.trace.steppers.StepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 

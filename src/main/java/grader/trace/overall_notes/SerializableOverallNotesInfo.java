@@ -1,11 +1,11 @@
 package grader.trace.overall_notes;
 
-import grader.project.graded.OverviewProjectStepper;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import grader.steppers.OverviewProjectStepper;
 import grader.trace.feature.SerializableFeatureInfo;
-import grader.trace.stepper.SerializableStepperInfo;
+import grader.trace.steppers.SerializableStepperInfo;
 import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.trace.TraceableInfo;
 
