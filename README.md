@@ -173,7 +173,7 @@ one that generates correct state for the example (after say the example has been
 and one that tests to see if some change to the grader is consistent with the correct state generated befoe
 the change and is called a tester. 
 
-In demoAndTest.basic package are the three versions for an example based on Palindrome checking. 
+In demoAndTest.basic package are the three versions for an example based on Palindrome checking. This version needs checkstyle.
 In demoAndTest.multiparadigm package are three subpackages, each of which takes the same basic example (computing mixed arithmetic)
 and grades, Java and distributed implementations of the example. As the grading code looks at the I/O, it is shared
 by the three implementations.

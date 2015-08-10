@@ -203,6 +203,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		doValidate5_pass1();
 		doValidate34_pass1();
 //		explainSourceAndcommentOnCode();
+		showSourceChecks();
 		showSource();
 		commentOnCode();
 //		changeOverallScore();
@@ -439,6 +440,19 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 				System.err.println("Oops, proceed occurred before auto grading completed");
 			}
 			stepperFrame.focus(projectStepper, "source");			
+		}
+	}
+	
+	public  void showSourceChecks() {
+		clearanceManager.setStepDescription("Next step is to go the source checks tab to view source code analysis.");
+		waitForUserOrSleep();		
+		if (clearanceManager.isAutoPerformStep()) {
+			ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();
+			OEFrame stepperFrame = (OEFrame) projectStepper.getFrame();
+			if (stepperFrame == null) {
+				System.err.println("Oops, proceed occurred before auto grading completed");
+			}
+			stepperFrame.focus(projectStepper, "sourceChecks");			
 		}
 	}
 	
