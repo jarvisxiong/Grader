@@ -1,4 +1,5 @@
-//START OF FILE: src/program3.java
+//START OF FILE: assignment3\src\palindrome\program3.java
+package palindrome;
 /******************************************************************
  * Program or Assignment #: Assignment 3
  *
@@ -38,19 +39,19 @@ public class Program3 {
 			String option = kb.nextLine();
 			System.out.println("\tSaw option:" + option);
 
-			if (option.equalsIgnoreCase("check if palindrome")) {
+			if ("check if palindrome".equalsIgnoreCase(option)) {
 
 				System.out.println(isPalindrome(input) + "\n");
 
-			} else if (option.equalsIgnoreCase("compute rounded sum")) {
+			} else if ("compute rounded sum".equalsIgnoreCase(option)) {
 
 				System.out.println(computeRoundedSum(input) + "\n");
 
-			} else if (option.equalsIgnoreCase("count unique characters")) {
+			} else if ("count unique characters".equalsIgnoreCase(option)) {
 
 				System.out.println(countUniqueCharacters(input) + "\n");
 
-			} else if (option.equalsIgnoreCase("reverse word characters")) {
+			} else if ("reverse word characters".equalsIgnoreCase(option)) {
 
 				System.out.println(reverseWordCharacters(input) + "\n");
 

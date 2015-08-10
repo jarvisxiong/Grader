@@ -3,6 +3,7 @@ package grader.file;
 import util.misc.Common;
 import grader.trace.file.load.RootFolderProxyLoaded;
 
+import java.io.File;
 import java.util.*;
 
 public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implements RootFolderProxy {
@@ -85,8 +86,10 @@ public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implemen
             entry.initRootData();
             String entryName = entry.getLocalName();
             if (entryName == null) continue;
-            int index = entryName.indexOf('/');
-            if (index == -1)
+            int index1 = entryName.indexOf('/');
+            int index2 = entryName.indexOf('\\');// use file separator
+            int index3 = entryName.indexOf(File.separator);
+            if (index1 == -1 && index2 == -1 && index3 == -1)
                 childrenNames.add(entry.getAbsoluteName());
         }
         RootFolderProxyLoaded.newCase(getAbsoluteName(), this);

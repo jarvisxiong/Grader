@@ -4,6 +4,8 @@ Grading features...
 ----------------------------------
 Has a proper header                                    0.0 /  5.0
 Contains a main method                                 0.0 /  5.0
+Package declarations                                   5.0 /  5.0 (Extra credit)
+Equal avoid null                                       5.0 /  5.0 (Extra credit)
 Prompts for String and computation input               0.0 / 10.0
 Has proper isPalindromeMethod method                   0.0 / 20.0
 Has proper computeRoundedSum method                    0.0 / 20.0
@@ -11,7 +13,7 @@ Has proper countUniqueCharacters method                0.0 / 20.0
 Program runs computation specified by the user         0.0 / 20.0
 EXTRA CREDIT: reverseWordCharacters                    0.0 / 20.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 0.0
+  Points Awarded: 10.0
 
 Grading restrictions...
 ----------------------------------
@@ -20,31 +22,31 @@ No advanced Java classes allowed            -30.0 /  -30.0
 ----------------------------------
   Points Deducted: -60.0
 
-  Features Score: -60.0
+  Features Score: -50.0
 
 Notes from grading features:
 ----------------------------------
 Has a proper header:
-Grading failed
+Not automatable
 Contains a main method:
-Grading failed
+Not gradable
 Prompts for String and computation input:
-Grading failed
+Not gradable
 Has proper isPalindromeMethod method:
-Not automatable
+Not gradable
 Has proper computeRoundedSum method:
-Not automatable
+Not gradable
 Has proper countUniqueCharacters method:
-Not automatable
+Not gradable
 Program runs computation specified by the user:
 Not automatable
 EXTRA CREDIT: reverseWordCharacters:
-Not automatable
+Not gradable
 
 Notes from grading restrictions:
 ----------------------------------
 No StringBuffer or StringBuilder allowed:
-Grading failed
+Not gradable
 No advanced Java classes allowed:
-Grading failed
+Not gradable
   Total Score: 0.0

@@ -1,0 +1,7 @@
+Starting audit...
+D:\dewan_backup\Java\Comp110-Grader\Test Data\Correct 110 F13 Results\Assignment3\Ask, Once (aonce)\Submission attachment(s)\jbartel_assignment3\Assignment3\src\Program3.java:22: warning: Missing package declaration.
+D:\dewan_backup\Java\Comp110-Grader\Test Data\Correct 110 F13 Results\Assignment3\Ask, Once (aonce)\Submission attachment(s)\jbartel_assignment3\Assignment3\src\Program3.java:40:52: warning: String literal expressions should be on the left side of an equalsIgnoreCase comparison.
+D:\dewan_backup\Java\Comp110-Grader\Test Data\Correct 110 F13 Results\Assignment3\Ask, Once (aonce)\Submission attachment(s)\jbartel_assignment3\Assignment3\src\Program3.java:44:59: warning: String literal expressions should be on the left side of an equalsIgnoreCase comparison.
+D:\dewan_backup\Java\Comp110-Grader\Test Data\Correct 110 F13 Results\Assignment3\Ask, Once (aonce)\Submission attachment(s)\jbartel_assignment3\Assignment3\src\Program3.java:48:59: warning: String literal expressions should be on the left side of an equalsIgnoreCase comparison.
+D:\dewan_backup\Java\Comp110-Grader\Test Data\Correct 110 F13 Results\Assignment3\Ask, Once (aonce)\Submission attachment(s)\jbartel_assignment3\Assignment3\src\Program3.java:52:59: warning: String literal expressions should be on the left side of an equalsIgnoreCase comparison.
+Audit done.

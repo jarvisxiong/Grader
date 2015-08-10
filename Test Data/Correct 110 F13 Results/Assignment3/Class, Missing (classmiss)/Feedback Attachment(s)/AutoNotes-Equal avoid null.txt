@@ -1,0 +1,1 @@
+  -- Literal should be target rather than argument of equals(Ignorecase) 4 number of times

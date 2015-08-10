@@ -4,6 +4,8 @@ Grading features...
 ----------------------------------
 Has a proper header                                    5.0 /  5.0
 Contains a main method                                 5.0 /  5.0
+Package declarations                                   5.0 /  5.0 (Extra credit)
+Equal avoid null                                       5.0 /  5.0 (Extra credit)
 Prompts for String and computation input               10.0 / 10.0
 Has proper isPalindromeMethod method                   20.0 / 20.0
 Has proper computeRoundedSum method                    20.0 / 20.0
@@ -11,7 +13,7 @@ Has proper countUniqueCharacters method                20.0 / 20.0
 Program runs computation specified by the user         20.0 / 20.0
 EXTRA CREDIT: reverseWordCharacters                    20.0 / 20.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 120.0
+  Points Awarded: 130.0
 
 Grading restrictions...
 ----------------------------------
@@ -20,9 +22,9 @@ No advanced Java classes allowed            0.0 /  -30.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 120.0
+  Features Score: 130.0
 
 Overall Comments:
 ----------------------------------
 All correct!----------------------------------
-  Total Score: 120.0
+  Total Score: 130.0

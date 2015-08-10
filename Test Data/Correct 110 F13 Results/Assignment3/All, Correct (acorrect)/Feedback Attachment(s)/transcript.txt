@@ -9,7 +9,7 @@ Please indicate which computation you'd like to perform.
 ERRORS(Prompts for String and computation input)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:37)
+	at palindrome.Program3.main(Program3.java:38)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -22,7 +22,7 @@ Please indicate which computation you'd like to perform.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:37)
+	at palindrome.Program3.main(Program3.java:38)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -40,7 +40,7 @@ Please enter a line of text.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -53,7 +53,7 @@ Please indicate which computation you'd like to perform.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:37)
+	at palindrome.Program3.main(Program3.java:38)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -71,7 +71,7 @@ Please enter a line of text.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -84,7 +84,7 @@ Please indicate which computation you'd like to perform.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:37)
+	at palindrome.Program3.main(Program3.java:38)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -102,7 +102,7 @@ Please enter a line of text.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -120,7 +120,7 @@ Please enter a line of text.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 
 *****************************(Program runs computation specified by the user)*****************************
 INPUT(Program runs computation specified by the user)
@@ -146,7 +146,7 @@ Please enter a line of text.
 ERRORS(Program runs computation specified by the user)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 
 *****************************(EXTRA CREDIT: reverseWordCharacters)*****************************
 INPUT(EXTRA CREDIT: reverseWordCharacters)
@@ -159,7 +159,7 @@ Please indicate which computation you'd like to perform.
 ERRORS(EXTRA CREDIT: reverseWordCharacters)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:37)
+	at palindrome.Program3.main(Program3.java:38)
 
 *****************************(EXTRA CREDIT: reverseWordCharacters)*****************************
 INPUT(EXTRA CREDIT: reverseWordCharacters)
@@ -177,5 +177,5 @@ Please enter a line of text.
 ERRORS(EXTRA CREDIT: reverseWordCharacters)
 Exception in thread "main" java.util.NoSuchElementException: No line found
 	at java.util.Scanner.nextLine(Scanner.java:1585)
-	at Program3.main(Program3.java:33)
+	at palindrome.Program3.main(Program3.java:34)
 

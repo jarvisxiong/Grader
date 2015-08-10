@@ -23,7 +23,9 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
         absoluteName = mixedCaseAbsoluteName.toLowerCase();
 
         //System.out.println(this.getClass().getName());
-        mixedCaseLocalName = GraderFileUtils.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
+        mixedCaseLocalName = GraderFileUtils.toRelativeName(aRootFolderName, mixedCaseAbsoluteName);
+
+//        mixedCaseLocalName = GraderFileUtils.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
         localName = mixedCaseLocalName.toLowerCase();
     }
 
