@@ -15,7 +15,9 @@ import gradingTools.comp110.assignment3.testCases.InfiniteLoopComputationTestCas
 import gradingTools.comp110.assignment3.testCases.IsPalindromeTestCase;
 import gradingTools.comp110.assignment3.testCases.PromptStringTestCase;
 import gradingTools.comp110.assignment3.testCases.ReverseWordCharacters;
+import gradingTools.sharedTestCase.EqualsAvoidNullTestCase;
 import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
+import gradingTools.sharedTestCase.PackageDeclarationTestCase;
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
 	public Assignment3Requirements() {
@@ -27,6 +29,14 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 
 		// Check for a main method
 		addFeature("Contains a main method", 5, new MainMethodTestCase());
+		
+		 
+        // Package declaration, make it extra credit
+        addFeature("Package declarations", 5, true, new PackageDeclarationTestCase());
+        
+        // EqualsNull
+        addFeature("Equal avoid null", 5, true, new EqualsAvoidNullTestCase());
+
 
 		// Checks for prompt of String and Computation
 		addFeature("Prompts for String and computation input", 10, new PromptStringTestCase());

@@ -72,8 +72,11 @@ public class ProjectClassesManager implements ClassesManager {
     
     protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
     		if (!AProject.isCheckStyle())
-    			return;
-    	
+    			return;    		
+    	    File aFile = new File (aProject.getCheckStyleFileName());
+    	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
+    	    	return;
+    	    }
 			RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();

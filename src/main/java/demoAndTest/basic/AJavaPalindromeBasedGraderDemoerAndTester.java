@@ -201,6 +201,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		changeManualScore6();
 		changeManualNotes6();
 		doValidate5_pass1();
+		doValidate34_pass1();
 //		explainSourceAndcommentOnCode();
 		showSource();
 		commentOnCode();
@@ -209,6 +210,8 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		showFeedback();
 		showMain();
 		doNext2();
+		doValidate34_pass1();
+
 //		openSource();
 		showProblemHistory();
 		showStudentHistory();
@@ -331,7 +334,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		Driver.getDatabase().getProjectStepper().setOverallNotes("All correct!");
 	}
 	public  void doNext1() {
-		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nWait until the UI is refreshed before proceeding. \n\nThere should be two pink items (6 and 7) for non-full points indicating attention.");
+		clearanceManager.setStepDescription("Next step is to navigate to next student. \n\nWait until the UI is refreshed before proceeding. \n\nThere should be four pink items (3, 4, 8 and 9) for non-full points indicating attention.");
 		waitForUserOrSleep();
 		if (clearanceManager.isAutoPerformStep())
 		Driver.getDatabase().getProjectStepper().next();
@@ -344,12 +347,12 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 	}
 	public  void doSelect6() {
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(6);
+		GradingFeature gradingFeature = gradingFeatures.get(8);
 //		GradingFeature prevGradingFeature = gradingFeatures.get(5);
 //		gradingFeature.setManualNotes("");
 //		prevGradingFeature.setManualNotes("");	
 //		Driver.getDatabase().getProjectStepper().setOverallNotes("");
-		clearanceManager.setStepDescription("Next step is check the select box in item 7 to select it.\n\nThe auto notes box should show the reason for point deduction for the selected item. \n\nThe transcript box should show the output for this feature. \n\nThe manual notes will show the previous manual notes for this item, which should be empty.");
+		clearanceManager.setStepDescription("Next step is check the select box in item 9 to select it.\n\nThe auto notes box should show the reason for point deduction for the selected item. \n\nThe transcript box should show the output for this feature. \n\nThe manual notes will show the previous manual notes for this item, which should be empty.");
 		waitForUserOrSleep();
 //		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
 //		GradingFeature gradingFeature = gradingFeatures.get(6);
@@ -360,7 +363,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		clearanceManager.setStepDescription("Next step is to manually override the auto computed score. \n\nThe item should remain pink to indicate no reason has been given for change.");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(6);
+		GradingFeature gradingFeature = gradingFeatures.get(8);
 		if (clearanceManager.isAutoPerformStep())
 		gradingFeature.setScore(gradingFeature.getScore() * 1.1);
 	}
@@ -374,23 +377,50 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 //		gradingFeature.setManualNotes("The source code shows that indicated output syntax was misunderstood. Gave partial credit.");
 	}
 	public  void doValidate5_pass1() {
-		clearanceManager.setStepDescription("Next step is to check the validate box in item 6 to indicate that the automantically computed non full score is correct. \n\nThe item  color should change. \n\nIn addition, the item should get selected. \n\nThe auto notes box should indicate the reason for deduction. The manual notes box should contain notes indicating validation and change color to show presence of notes for selected item."); 
+		clearanceManager.setStepDescription("Next step is to check the validate box in item 8 to indicate that the automantically computed non full score is correct. \n\nThe item  color should change. \n\nIn addition, the item should get selected. \n\nThe auto notes box should indicate the reason for deduction. The manual notes box should contain notes indicating validation and change color to show presence of notes for selected item."); 
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(5);
+		GradingFeature gradingFeature = gradingFeatures.get(7);
 		if (clearanceManager.isAutoPerformStep())
 
 		gradingFeature.setValidate(true);
+	}
+	public  void doValidate34_pass1() {
+		clearanceManager.setStepDescription("Next step is to valdiate 3 and 4"); 
+		waitForUserOrSleep();
+		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
+		GradingFeature gradingFeature7 = gradingFeatures.get(7);
+		GradingFeature gradingFeature2 = gradingFeatures.get(2);
+		GradingFeature gradingFetaure3 = gradingFeatures.get(3);
+
+		if (clearanceManager.isAutoPerformStep()) {
+
+		gradingFeature7.setValidate(true);
+		gradingFeature2.setValidate(true);
+		gradingFetaure3.setValidate(true);
+		}
 	}
 	public  void doValidate5_pass2() {
-		clearanceManager.setStepDescription("Next steps is to validate the pink item (#6).");
+		clearanceManager.setStepDescription("Next steps is to validate the pink items.");
 		waitForUserOrSleep();
 		List<GradingFeature> gradingFeatures = Driver.getDatabase().getGradingFeatures();
-		GradingFeature gradingFeature = gradingFeatures.get(5);
-		if (clearanceManager.isAutoPerformStep())
+		GradingFeature gradingFeature5 = gradingFeatures.get(5);
+		GradingFeature gradingFeature2 = gradingFeatures.get(2);
+		GradingFeature gradingFetaure3 = gradingFeatures.get(3);
+//		if (clearanceManager.isAutoPerformStep())
+//
+//		gradingFeature.setValidate(true);
+		
 
-		gradingFeature.setValidate(true);
+		if (clearanceManager.isAutoPerformStep()) {
+
+		gradingFeature5.setValidate(true);
+		gradingFeature2.setValidate(true);
+		gradingFetaure3.setValidate(true);
+		}
 	}
+	
+	
 	
 	public boolean navigatorReady() {
 		ComplexProjectStepper projectStepper = (ComplexProjectStepper)Driver.getDatabase().getProjectStepper();

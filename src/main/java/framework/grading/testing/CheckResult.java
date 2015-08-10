@@ -95,6 +95,12 @@ public class CheckResult implements Describable {
     public CheckStatus getStatus() {
         return status;
     }
+    
+    // copied code from the web
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
+    }
 
     /**
      * Sets the grading status.
@@ -102,6 +108,7 @@ public class CheckResult implements Describable {
      */
     public void setStatus(CheckStatus status) {
         this.status = status;
+        score = round(score, 1); // added by pd, this method seems to be called after all test cases have been run
     }
 
     /**

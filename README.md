@@ -67,7 +67,16 @@ In Eclipse, import a Maven project. Select the project you just cloned.
 
 *Note:* The compliance level may be set to **1.5** so be sure to change this to **1.7**.
 
-## Step 5: Run the Program
+## Step 6: Run the Program
+if you are going to run tests that use checkstyle, install chekstyle jars in your class path 
+
+One of these jars is in the project directory: checkstyle-6.5-all.jar
+The one other needed is available by googling for it: checkstyle-6.5-all.jar
+The best thing to do is to go to Help-> Eclipse marketplace in Eclipse and install Checkstyle. 
+In that case I will be in a subdirectory of the Eclipse subdirectory, as hown below:
+D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610
+
+## Step 7: Run the Program
 
 That's it, you're all set up. The default entry point is `graderTools.Driver`. You can run this file to run the grading
 tool.
@@ -169,7 +178,7 @@ In demoAndTest.multiparadigm package are three subpackages, each of which takes 
 and grades, Java and distributed implementations of the example. As the grading code looks at the I/O, it is shared
 by the three implementations.
 
-The subpakages have "obvious" names. For example, the C subpackage is: demoAndTest.multiparadigm.C.
+The subpackages have "obvious" names. For example, the C subpackage is: demoAndTest.multiparadigm.C.
 
 To run the C examples, you need to set the path, include and lib variables.
 
@@ -191,3 +200,5 @@ Lib=C:\Program Files\Microsoft Visual Studio 10.0\VC\lib;C:\Program Files\Micros
 Path=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin
 
 There is also a bat file that sets these variables for you. See https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx and search for "Using vcvarsall.bat in a Command Prompt window"
+
+
