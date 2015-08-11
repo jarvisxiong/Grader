@@ -17,6 +17,7 @@ public class GraderFileUtils {
             Path child = Paths.get(aChildName);
             Path relative = parent.relativize(child);
             String retVal = relative.toString();
+            retVal = retVal.replaceAll("\\\\", "/");
             return retVal;
         } catch (Exception e) {
             Tracer.error(aParentName + " is not in " + aParentName);
