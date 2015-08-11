@@ -34,7 +34,7 @@ public class ARequirementsToCourseInfoTranslator {
 //		URL url4 = getClass().getResource("oeall-22.jar");
         String[] aPathElements = System.getProperty("java.class.path").split(";");
 
-        System.out.println("Path elements:" + aPathElements);
+//        System.out.println("Path elements:" + aPathElements);
         String aGraderPath = getGraderPath(aPathElements);
         if (aGraderPath == null) {
             return null;
@@ -46,7 +46,7 @@ public class ARequirementsToCourseInfoTranslator {
         } else {
             aGraderFileProxy = new AZippedRootFolderProxy(aGraderFile.getAbsolutePath());
         }
-        System.out.println("Grader file proxy:" + aGraderFileProxy);
+//        System.out.println("Grader file proxy:" + aGraderFileProxy);
         return aGraderFileProxy;
     }
 
