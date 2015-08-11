@@ -35,7 +35,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 			String windowsName = aSourceFileFlder;
         
 //        String[] command = {compilerPath, windowsName, "-o",  fullObjName , EXECUTABLE_OPTION  + fullExecName};
-        String[] command = {"java", "com.puppycrawl.tools.checkstyle.Main", "-c",  aConfigurationFileName ,   windowsName };
+        String[] command = {"java", "-cp", GradingEnvironment.get().getClasspath(), "com.puppycrawl.tools.checkstyle.Main", "-c",  aConfigurationFileName ,   windowsName };
 // java com.puppycrawl.tools.checkstyle.Main -c ../UNCCheckStyle/unc_checks.xml \
 //        src/ > checkstyle.txt
 //        String[] command = {compilerPath, windowsName};

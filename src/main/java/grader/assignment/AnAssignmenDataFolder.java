@@ -28,7 +28,7 @@ import java.util.Set;
 import util.misc.Common;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
-	public static final String DEFAULT_CONFIGURATION_FILE = "config/checks.xml";
+	public static final String DEFAULT_CONFIGURATION_FILE = "checks.xml";
 
 	public static final String DEFAULT_REQUIREMENTS_SPREADHEET_NAME = "Requirements.csv";
     public static final String ID_FILE_NAME = "onyens.txt";
