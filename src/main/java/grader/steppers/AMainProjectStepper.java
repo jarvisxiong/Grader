@@ -72,8 +72,8 @@ public class AMainProjectStepper implements MainProjectStepper {
 		overviewProjectStepper.setScore(newVal);
 	}
 
-	public void waitForClearance() {
-		overviewProjectStepper.waitForClearance();
+	public boolean waitForClearance() {
+		return overviewProjectStepper.waitForClearance();
 	}
 	@Override
 	@Visible(false) 
@@ -593,6 +593,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@Override
 	public String getSourceChecks() {
 		return overviewProjectStepper.getSourceChecks();
+	}
+	@Override
+	public String getWaitingThreads() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.getWaitingThreads();
 	}
 	
 //	@Override

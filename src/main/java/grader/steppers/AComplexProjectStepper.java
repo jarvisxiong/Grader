@@ -114,8 +114,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.setScore(newVal);
 	}
 
-	public void waitForClearance() {
-		mainProjectStepper.waitForClearance();
+	public boolean waitForClearance() {
+		return mainProjectStepper.waitForClearance();
 	}
 	@Visible(false)
 	public SakaiProjectDatabase getProjectDatabase() {
@@ -593,6 +593,11 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	@Override
 	public String getDisplayedName() {
 		return mainProjectStepper.getDisplayedName();
+	}
+	@Override
+	public String getWaitingThreads() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.getWaitingThreads();
 	}
 
 

@@ -5,7 +5,7 @@ import util.annotations.Row;
 import util.annotations.Visible;
 import util.misc.ClearanceManager;
 import util.models.LabelBeanModel;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
@@ -16,7 +16,7 @@ import grader.trace.settings.MissingOnyenException;
 import java.beans.PropertyChangeListener;
 
 
-public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegistrar, PropertyChangeListener{
+public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegisterer, PropertyChangeListener{
 	public boolean setProject(SakaiProject newVal) ;
 	
 	public void output();
@@ -24,7 +24,7 @@ public interface ProjectStepper  extends ClearanceManager, PropertyListenerRegis
 	public void openSource() ;
 	public double getScore() ;
 	public void setScore(double newVal) ;
-	public  void waitForClearance() ;
+	public  boolean waitForClearance() ;
 	public SakaiProjectDatabase getProjectDatabase() ;
 
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) ;

@@ -5,7 +5,7 @@ import util.annotations.Row;
 import util.annotations.Visible;
 import util.misc.ClearanceManager;
 import util.models.LabelBeanModel;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 import grader.assignment.GradingFeatureList;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
@@ -16,7 +16,7 @@ import grader.trace.settings.MissingOnyenException;
 import java.beans.PropertyChangeListener;
 
 
-public interface GradedProjectNavigator   extends /*ClearanceManager,*/ PropertyListenerRegistrar/*, PropertyChangeListener*/{
+public interface GradedProjectNavigator   extends /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{
 	public boolean setProject(SakaiProject newVal) ;
 	
 //	public void output();
@@ -31,7 +31,7 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 //	public void setOnyen(String anOnyen) throws MissingOnyenException ;
 //	public boolean setProject(String anOnyen) ;
 //	public boolean isAutoRun() ;
-//    public void setAutoRun(boolean newVal);
+//    public void setAutoRun(boolean newVal);sss
 //    public void autoRun() ;
 //    public boolean hasMoreSteps();
 	

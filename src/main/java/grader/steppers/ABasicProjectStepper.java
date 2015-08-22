@@ -1357,9 +1357,9 @@ public class ABasicProjectStepper extends AClearanceManager implements
 	
 
 	@Override
-	public synchronized void waitForClearance() {
+	public synchronized boolean waitForClearance() {
 
-		super.waitForClearance();
+		return super.waitForClearance();
 		
 
 	}

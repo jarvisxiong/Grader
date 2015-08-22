@@ -30,8 +30,8 @@ public class ADemoAndTestingClearanceManager extends AClearanceManager implement
 		super.proceed();
 	}
 	@Visible(false)
-	public synchronized void waitForClearance() {
-		super.waitForClearance();
+	public synchronized boolean waitForClearance() {
+		return super.waitForClearance();
 	}
 	@Row(0)
 //	@Column(0)

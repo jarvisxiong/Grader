@@ -5,12 +5,12 @@ import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import util.annotations.Visible;
-import util.models.PropertyListenerRegistrar;
+import util.models.PropertyListenerRegisterer;
 
 import java.awt.Color;
 import java.beans.PropertyChangeListener;
 
-public interface GradingFeature extends PropertyListenerRegistrar {
+public interface GradingFeature extends PropertyListenerRegisterer {
     public String getFeatureName();
 
     public double getMax();
