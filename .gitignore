@@ -1,6 +1,7 @@
 # Eclipse
 .metadata/
 .settings/
+.classpath
 
 # Intellij
 .idea/

@@ -10,10 +10,13 @@ import util.annotations.ComponentWidth;
 import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ADemoAndTestingClearanceManager extends AClearanceManager implements DemoAndTestingClearanceManager{
 	
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
