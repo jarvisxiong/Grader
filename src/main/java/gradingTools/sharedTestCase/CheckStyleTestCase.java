@@ -56,6 +56,13 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	
     }
     
+    protected TestCaseResult singleMistakePenalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+    	
+        String aNotes = failMessageSpecifier(); 
+        return partialPass(1, aNotes, autoGrade);    
+    	
+    }
+    
     protected TestCaseResult penalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
     	return numMistakesPenalty(aProject, aCheckStyleLines, aFailedLines, autoGrade);
     	
