@@ -1,0 +1,140 @@
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+12479 
+.
+
+OUTPUT(Process & print tokens)
+please enter a string:
+the num :12479 and the integer is: 12479
+Numbers: 12479 Sum: 12479 Product: 12479
+unexpected character:.
+Numbers: Sum: 0 Product: 1
+
+ERRORS(Process & print tokens)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+22 44 66 
+11 33 55 
+.
+
+OUTPUT(Process & print tokens)
+please enter a string:
+the num :22 and the integer is: 22
+the num :44 and the integer is: 44
+the num :66 and the integer is: 66
+Numbers: 22 44 66 Sum: 132 Product: 63888
+the num :11 and the integer is: 11
+the num :33 and the integer is: 33
+the num :55 and the integer is: 55
+Numbers: 11 33 55 Sum: 99 Product: 19965
+unexpected character:.
+Numbers: Sum: 0 Product: 1
+
+ERRORS(Process & print tokens)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+11 0023 45 
+.
+
+OUTPUT(Process & print tokens)
+please enter a string:
+the num :11 and the integer is: 11
+the num :0023 and the integer is: 23
+the num :45 and the integer is: 45
+Numbers: 11 23 45 Sum: 79 Product: 11385
+unexpected character:.
+Numbers: Sum: 0 Product: 1
+
+ERRORS(Process & print tokens)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+11 0023 45
+OUTPUT(Process & print tokens)
+please enter a string:
+the num :11 and the integer is: 11
+the num :0023 and the integer is: 23
+the num :45 and the integer is: 45
+Numbers: 11 23 45 Sum: 79 Product: 11385
+
+ERRORS(Process & print tokens)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Sum and product)*****************************
+INPUT(Sum and product)
+19 28 
+.
+
+OUTPUT(Sum and product)
+please enter a string:
+the num :19 and the integer is: 19
+the num :28 and the integer is: 28
+Numbers: 19 28 Sum: 47 Product: 532
+unexpected character:.
+Numbers: Sum: 0 Product: 1
+
+ERRORS(Sum and product)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Sum and product)*****************************
+INPUT(Sum and product)
+19 28 
+.
+
+OUTPUT(Sum and product)
+please enter a string:
+the num :19 and the integer is: 19
+the num :28 and the integer is: 28
+Numbers: 19 28 Sum: 47 Product: 532
+unexpected character:.
+Numbers: Sum: 0 Product: 1
+
+ERRORS(Sum and product)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Terminates with period)*****************************
+INPUT(Terminates with period)
+19 28 
+
+OUTPUT(Terminates with period)
+please enter a string:
+the num :19 and the integer is: 19
+the num :28 and the integer is: 28
+Numbers: 19 28 Sum: 47 Product: 532
+
+ERRORS(Terminates with period)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
+*****************************(Terminates with period)*****************************
+INPUT(Terminates with period)
+19 28
+OUTPUT(Terminates with period)
+please enter a string:
+the num :19 and the integer is: 19
+the num :28 and the integer is: 28
+Numbers: 19 28 Sum: 47 Product: 532
+
+ERRORS(Terminates with period)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment1.main(Assignment1.java:20)
+
