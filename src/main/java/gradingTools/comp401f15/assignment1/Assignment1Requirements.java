@@ -14,9 +14,9 @@ import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
  * Time: 9:12 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Assignment1ProjectRequirements extends FrameworkProjectRequirements {
+public class Assignment1Requirements extends FrameworkProjectRequirements {
 
-    public Assignment1ProjectRequirements() {
+    public Assignment1Requirements() {
     	
         // Functionality
         addFeature("Process & print tokens", 40,
