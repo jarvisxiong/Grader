@@ -132,7 +132,7 @@ public class CsvLogger implements Logger {
  			List<String> lines = FileUtils.readLines(file);
  			FileWriter writer = new FileWriter(file);			
  			for(String line : lines) {
- 				if (line.startsWith(onyen + ",")) {
+ 				if (line.startsWith("\""+onyen + "\",")) {
  					String[] csvParts = line.split(",");
  					for(int i=0; i<4; i++) {
  						writer.write(csvParts[i]+",");
