@@ -3,10 +3,11 @@ package grader.spreadsheet;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.csv.AFeatureAndFinalGradeRecorderFactory;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
+import grader.spreadsheet.csv.AFinalGradeRecorderFactory;
 
 public class TotalScoreRecorderSelector {
 //	static FinalGradeRecorderFactory factory = new AFeatureAndFinalGradeRecorderFactory();
-	static FinalGradeRecorderFactory factory = new AFeatureGradeRecorderFactory();
+	static FinalGradeRecorderFactory factory = new AFinalGradeRecorderFactory();
 
 
 	public static FinalGradeRecorderFactory getFactory() {

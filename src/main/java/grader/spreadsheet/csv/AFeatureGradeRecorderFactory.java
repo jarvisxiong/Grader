@@ -7,7 +7,7 @@ import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorderFactory;
 // chnage its name to have SakaiCSV in it
 public class AFeatureGradeRecorderFactory implements FeatureGradeRecorderFactory{
-
+	FeatureGradeRecorder recorder;
 //	@Override
 //	public FinalGradeRecorder createFinalGradeRecorder(
 //			SakaiProjectDatabase aSakaiProjectDatabase) {
@@ -18,5 +18,13 @@ public class AFeatureGradeRecorderFactory implements FeatureGradeRecorderFactory
 	public FeatureGradeRecorder createGradeRecorder(
 			SakaiProjectDatabase aSakaiProjectDatabase) {
 		return new ASakaiCSVFeatureGradeManager(aSakaiProjectDatabase);
+	}
+
+	@Override
+	public FinalGradeRecorder getGradeRecorder(
+			SakaiProjectDatabase aSakaiProjectDatabase) {
+		if (recorder == null)
+			recorder = createGradeRecorder(aSakaiProjectDatabase);
+		return recorder;
 	}
 }

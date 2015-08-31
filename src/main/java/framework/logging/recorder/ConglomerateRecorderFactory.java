@@ -3,6 +3,7 @@ package framework.logging.recorder;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderFactory;
+import grader.spreadsheet.FinalGradeRecorder;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,4 +18,10 @@ public class ConglomerateRecorderFactory implements FeatureGradeRecorderFactory 
     public FeatureGradeRecorder createGradeRecorder(SakaiProjectDatabase aSakaiProjectDatabase) {
         return ConglomerateRecorder.getInstance();
     }
+
+	@Override
+	public FinalGradeRecorder getGradeRecorder(
+			SakaiProjectDatabase aSakaiProjectDatabase) {
+		return createGradeRecorder(aSakaiProjectDatabase);
+	}
 }

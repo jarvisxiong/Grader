@@ -14,6 +14,11 @@ import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
+import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.SakaiProjectDatabase;
+import grader.spreadsheet.FinalGradeRecorder;
+import grader.spreadsheet.TotalScoreRecorderSelector;
+import grader.spreadsheet.csv.AFinalGradeRecorderFactory;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 public class CsvLogger implements Logger {
@@ -107,7 +112,7 @@ public class CsvLogger implements Logger {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
-     void featuresBasedSave(RecordingSession recordingSession) {
+     void featuresBasedSaveJosh(RecordingSession recordingSession) {
          String text = SerializationUtils.getSerializer("text").serialize(recordingSession);
 
          // Maybe write this to a file
@@ -169,4 +174,61 @@ public class CsvLogger implements Logger {
         File file = logFile(aUserId);
         return file != null && file.exists();
 	}
+	/*
+	 * Writes the csv file and feedcback text it seems
+	 */
+	void featuresBasedSave(RecordingSession recordingSession) {
+        String text = SerializationUtils.getSerializer("text").serialize(recordingSession);
+
+        // Maybe write this to a file
+       
+        	SakaiProjectDatabase aSakaiProjectDatabase = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase();
+			FinalGradeRecorder aRecorder = TotalScoreRecorderSelector.getFactory().getGradeRecorder(aSakaiProjectDatabase);
+			
+			
+			//Get the onyen
+			String id = recordingSession.getUserId();
+			String onyen = id.substring(id.lastIndexOf('(')+1, id.lastIndexOf(')'));
+			
+			//Get the rawScore
+//			double rawScore = 0;
+			
+			
+//	         for (GradingFeature gradingFeature:recordingSession.getGradingFeatures()) {
+//	        	rawScore += gradingFeature.getScore();
+//	            
+//	         }
+			double rawScore = recordingSession.getScore();
+			double total = ASakaiCSVFeatureGradeManager.getTotalGrade(rawScore, recordingSession.getLatePenalty(), recordingSession.getSourcePoints());
+
+			aRecorder.setGrade(id, onyen, total);
+//			
+//			List<String> lines = FileUtils.readLines(file);
+//			FileWriter writer = new FileWriter(file);			
+//			for(String line : lines) {
+//				if (line.startsWith(onyen + ",")) {
+//					String[] csvParts = line.split(",");
+//					for(int i=0; i<4; i++) {
+//						writer.write(csvParts[i]+",");
+//					}
+////					writer.write("" + (rawScore * recordingSession.getLatePenalty()));
+//					double total = ASakaiCSVFeatureGradeManager.getTotalGrade(rawScore, recordingSession.getLatePenalty(), recordingSession.getSourcePoints());
+//					writer.write("" + total);
+//
+//					writer.write("\n");
+//				}else{
+//					writer.write(line+"\n");
+//				}
+//			}
+//			writer.close();
+			
+		
+        File file = new File(GraderSettings.get().get("path") + "/" + recordingSession.getUserId() + "/Feedback Attachment(s)/feedback.txt");
+//        File file = new File(logFileName(recordingSession));
+        try {
+            FileUtils.writeStringToFile(file, text);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 }
