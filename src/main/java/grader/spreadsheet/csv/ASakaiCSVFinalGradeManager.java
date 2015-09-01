@@ -18,8 +18,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 
+
 //import bus.uigen.Message;
 import scala.xml.dtd.DEFAULT;
+import util.misc.Common;
 import util.trace.Tracer;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -185,6 +187,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		try {
 			csvWriter.close();
 			output.close();
+			removeQuotes();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,6 +263,17 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		
 	}
 	
+	void removeQuotes() {
+		String aFileName = gradeSpreadsheet.getAbsoluteName();
+		StringBuffer aText = Common.toText(aFileName);
+		String aNewText = aText.toString().replaceAll("\"", "");
+		try {
+			Common.writeText(aFileName, aNewText);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public FileProxy getGradeSpreadsheet() {
 		return gradeSpreadsheet;

@@ -29,6 +29,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+	
 		if (compiler != null) {
 			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
@@ -56,6 +57,8 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			}
 		} else {
 //			throw new RuntimeException("Compiler not accessible");
+			String home = System.getProperty("java.home");
+			System.out.println("Java Home =" + home);
 			throw CompilerNotFound.newCase(this);
 		}
 		return null;
