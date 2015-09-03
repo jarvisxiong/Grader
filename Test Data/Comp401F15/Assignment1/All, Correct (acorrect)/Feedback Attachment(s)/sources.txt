@@ -16,9 +16,30 @@ public class Assignment1 {
 		System.out.println("please enter a string:");
 		Scanner scan = new Scanner(System.in);
 		String line="";
-		while(line!=".")
+		while(true)
 		{
 		 line = scan.nextLine();
+		 if(line.equals(""))
+			 continue;
+		 if (line.charAt(0)=='.')
+		 {
+			 break;
+		 }
+		 
+		 System.out.println(StringScanner.myScanner(line)); 
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/stringscanner.java
+package main;
+
+public class StringScanner {
+
+	public static String myScanner(String line)
+	{
+	
 		 String outLine="Numbers:";
 		 int sum=0;
 		 int product=1;
@@ -48,7 +69,7 @@ public class Assignment1 {
 					 sum+=hh;
 					 product*=hh;
 					 outLine+=" "+hh;
-					 System.out.println("the num :"+num+" and the integer is: "+hh);
+					 //System.out.println("the num :"+num+" and the integer is: "+hh);
 					 isDigit=0;					 
 				 }
 			 }else//other character
@@ -62,7 +83,7 @@ public class Assignment1 {
 					 sum+=hh;
 					 product*=hh;
 					 outLine+=" "+hh;
-					 System.out.println("the num :"+num+" and the integer is: "+hh);
+					 //System.out.println("the num :"+num+" and the integer is: "+hh);
 					 isDigit=0;					 
 				 }
 			 }
@@ -75,13 +96,11 @@ public class Assignment1 {
 			 sum+=hh;
 			 product*=hh;
 			 outLine+=" "+hh;
-			 System.out.println("the num :"+num+" and the integer is: "+hh);
+			 //System.out.println("the num :"+num+" and the integer is: "+hh);
 			 isDigit=0;
 		 }
 		 outLine+=" Sum: "+sum+" Product: "+product;
-		 System.out.println(outLine); 
-		}
+		 return outLine;
 	}
-
 }
 //END OF FILE
