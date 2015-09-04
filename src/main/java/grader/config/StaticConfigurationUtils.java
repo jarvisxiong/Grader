@@ -637,12 +637,18 @@ public class StaticConfigurationUtils {
 			String property) {
 		PropertiesConfiguration configuration = ConfigurationManagerSelector
 				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
 		GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector
 				.getGraderSettingsManager();
 		String aModule = graderSettingsManager.getModule();
 		String aProblem = graderSettingsManager.getNormalizedProblem(aModule);
-		return getInheritedListModuleProblemProperty(configuration, aModule,
+		List<String> retVal = getInheritedListModuleProblemProperty(courseConfiguration, aModule,
 				aProblem, property);
+		if (retVal.isEmpty())
+			retVal =  getInheritedListModuleProblemProperty(configuration, aModule,
+					aProblem, property);
+		return retVal;
 
 	}
 
