@@ -459,8 +459,10 @@ public class StaticConfigurationUtils {
 
 			String command = basicCommand.get(aCommandIndex);
 			if (command.contains(CLASS_PATH_VAR)) {
-				command = command.replace(CLASS_PATH_VAR, "\""
-						+ GradingEnvironment.get().getClasspath() + "\"");
+//				command = command.replace(CLASS_PATH_VAR, "\""
+//						+ GradingEnvironment.get().getClasspath() + "\"");
+				command = command.replace(CLASS_PATH_VAR, 
+						GradingEnvironment.get().getClasspath());
 
 				// } else if (command.contains(PERMISSIONS_VAR)) {
 				// command = command.replace(PERMISSIONS_VAR,

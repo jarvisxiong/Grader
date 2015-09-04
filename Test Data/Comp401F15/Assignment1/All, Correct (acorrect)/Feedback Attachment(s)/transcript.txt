@@ -36,7 +36,7 @@ Numbers: 11 23 45 Sum: 79 Product: 11385
 
 ERRORS(Process & print tokens)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.Assignment1.main(Assignment1.java:20)
 
 *****************************(Sum and product)*****************************
@@ -67,7 +67,7 @@ Numbers: 19 28 Sum: 47 Product: 532
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.Assignment1.main(Assignment1.java:20)
 
 *****************************(Terminates with period)*****************************
@@ -79,6 +79,6 @@ Numbers: 19 28 Sum: 47 Product: 532
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.Assignment1.main(Assignment1.java:20)
 
