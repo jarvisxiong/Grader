@@ -21,8 +21,9 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
         // Functionality
         addFeature("Process & print tokens", 40,
                 new SingleTokenTestCase(),
-                new MultipleTokensTestCase(),
-                new RemovePrecedingZerosTestCase());
+                new MultipleTokensTestCase()
+              //  new RemovePrecedingZerosTestCase()
+                );
         addFeature("Sum and product", 10,
                 new SumTestCase(),
                 new ProductTestCase());
