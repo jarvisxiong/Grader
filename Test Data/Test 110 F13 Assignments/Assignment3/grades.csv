@@ -1,16 +1,16 @@
-"Assignment 1","Points","","",""
-"","","","",""
-"Display ID","ID","Last Name","First Name","grade"
-"acorrect","acorrect","All","Correct","130.0"
-"aonce","aonce","Ask","Once","111.8"
-"binmiss","binmiss","Bin","Missing","120.3"
-"classmiss","classmiss","Class","Missing","120.3"
-"compileno","compileno","Compile","No","0.0"
-"jbartel","jbartel","Bartel","Jacob","105.3"
-"iloop","iloop","Infinite","Loop","90.3"
-"cwrong","cwrong","Counts","UniqueWrong","110.3"
-"skproject","skproject","Sakai","Project","8"
-"noproject","noproject","Project","None","0.0"
-"nosrc","nosrc","Src","None","120.3"
-"nosub","nosub","Submission","None","0.0"
-"nozip","nozip","Zip","None","120.0"
+Assignment 1,Points,,,
+,,,,
+Display ID,ID,Last Name,First Name,grade
+acorrect,acorrect,All,Correct,130.0
+aonce,aonce,Ask,Once,111.8
+binmiss,binmiss,Bin,Missing,120.3
+classmiss,classmiss,Class,Missing,120.3
+compileno,compileno,Compile,No,0.0
+jbartel,jbartel,Bartel,Jacob,105.3
+iloop,iloop,Infinite,Loop,90.3
+cwrong,cwrong,Counts,UniqueWrong,110.3
+skproject,skproject,Sakai,Project,8
+noproject,noproject,Project,None,0.0
+nosrc,nosrc,Src,None,120.3
+nosub,nosub,Submission,None,0.0
+nozip,nozip,Zip,None,120.0

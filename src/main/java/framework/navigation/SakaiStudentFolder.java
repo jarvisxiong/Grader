@@ -51,6 +51,10 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
     public String getUserId() {
         return folder.getName();
     }
+    
+    public static String getOnyen(String id) {
+    	return id.substring(id.indexOf('(') + 1, id.indexOf(')'));
+    }
 
     /**
      * @return The student's Onyen
@@ -58,7 +62,8 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
     @Override
     public String getOnyen() {
         String id = getUserId();
-        return id.substring(id.indexOf('(') + 1, id.indexOf(')'));
+//        return id.substring(id.indexOf('(') + 1, id.indexOf(')'));
+        return getOnyen(id);
     }
 
     /**
