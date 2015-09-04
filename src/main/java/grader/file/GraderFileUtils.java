@@ -10,18 +10,13 @@ import util.trace.Tracer;
  */
 public class GraderFileUtils {
 
-	public static String toRelativeName(String aParentName, String aChildName) {
+    public static String toRelativeName(String aParentName, String aChildName) {
         try {
             //System.out.println("toRelativeName was called");
-            Path parent = Paths.get(aParentName.toLowerCase());
-            
-            Path child = Paths.get(aChildName.toLowerCase());
-//            String parentLC = parent.toLowerCase(); 
+            Path parent = Paths.get(aParentName);
+            Path child = Paths.get(aChildName);
             Path relative = parent.relativize(child);
-            String relativeName = relative.toString();
-            int relativeNameIndex = aChildName.length() - relativeName.length();
-            String retVal = aChildName.substring(relativeNameIndex);
-           
+            String retVal = relative.toString();
             retVal = retVal.replaceAll("\\\\", "/");
             return retVal;
         } catch (Exception e) {
