@@ -20,8 +20,14 @@ public class GraderFileUtils {
             Path relative = parent.relativize(child);
             String relativeName = relative.toString();
             int relativeNameIndex = aChildName.length() - relativeName.length();
-            String retVal = aChildName.substring(relativeNameIndex);
-           
+            String retVal;
+            if(relativeNameIndex>=aChildName.length()||relativeNameIndex<0){
+            	//System.out.println("bad!");
+            	retVal="";
+            }
+            else{
+            retVal = aChildName.substring(relativeNameIndex);
+            }
             retVal = retVal.replaceAll("\\\\", "/");
             return retVal;
         } catch (Exception e) {
