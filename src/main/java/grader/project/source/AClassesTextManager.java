@@ -1,7 +1,6 @@
 package grader.project.source;
 
 
-import grader.file.GraderFileUtils;
 import grader.project.AClassesManager;
 import grader.project.AProject;
 import grader.project.ClassesManager;
@@ -13,6 +12,7 @@ import grader.sakai.project.SakaiProject;
 import grader.trace.source.SourceFileComputed;
 import grader.trace.source.SourceFileLoaded;
 import grader.trace.source.SourceFileSaved;
+import grader.util.GraderFileUtils;
 
 import java.io.File;
 import java.io.PrintWriter;

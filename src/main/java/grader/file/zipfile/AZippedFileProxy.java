@@ -2,8 +2,8 @@ package grader.file.zipfile;
 
 import grader.file.AnAbstractFileProxy;
 import grader.file.FileProxy;
-import grader.file.GraderFileUtils;
 import grader.file.RootFolderProxy;
+import grader.util.GraderFileUtils;
 import util.misc.Common;
 
 import java.io.IOException;

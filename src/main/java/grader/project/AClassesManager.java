@@ -1,10 +1,10 @@
 package grader.project;
 
-import grader.file.GraderFileUtils;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 import grader.language.LanguageDependencyManager;
 import grader.project.folder.ARootCodeFolder;
+import grader.util.GraderFileUtils;
 
 import java.io.File;
 import java.util.*;

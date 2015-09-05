@@ -333,7 +333,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	
 	boolean proceedWhenDone = true;
 //	@Visible(false)
-	@Row(2)
+	@Row(3)
 	@Column(0)
 	@Override
 	@Label("Stop If Not Done")
@@ -639,7 +639,7 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	
 	@Override
-	@Row(2)
+	@Row(3)
 	@Column(1)
 	@ComponentWidth(30)
 	@ComponentHeight(27)
@@ -690,6 +690,14 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Explanation("To be implemented.")
 	public void exploreSource() {
 		projectStepper.openSource();
+	}
+	@ComponentWidth(100)
+	@Row(2)
+	@Column(0)
+	@Override
+	@Explanation("Circulate through the submmitted documents")
+	public void nextDocument() {
+		projectStepper.nextDocument();		
 	}
 	
 	void doQuit() {
@@ -782,4 +790,10 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		exitOnQuit = newVal;
 		
 	}
+	@Override
+	public boolean preNextDocument() {
+		// TODO Auto-generated method stub
+		return projectStepper.preNextDocument();
+	}
+	
 }

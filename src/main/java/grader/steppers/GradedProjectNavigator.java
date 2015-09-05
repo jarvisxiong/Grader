@@ -118,6 +118,10 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 	void sync();
 
 	void openSource();
+	void nextDocument();
+
+	boolean preNextDocument();
+
 
 
 //	void setFrame(Object aFrame);

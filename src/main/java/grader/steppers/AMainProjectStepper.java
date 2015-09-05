@@ -602,8 +602,19 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getWaitingThreads();
 	}
+	
+	@Override
+	@Visible(false)
+	public void nextDocument() {
+		 overviewProjectStepper.nextDocument();
+	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AMainProjectStepper());
+	}
+	@Override
+	public boolean preNextDocument() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.preNextDocument();
 	}
 	
 //	@Override

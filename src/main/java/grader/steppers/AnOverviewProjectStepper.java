@@ -669,7 +669,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 
 //	@Row(3)
 //	@ComponentWidth(100)
-	@Visible(true)
+//	@Visible(true)
 	public void run() {
 		runExecuted = true;
 		projectDatabase.runProject(getOnyen(), project);
@@ -802,11 +802,17 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		setChanged(true);
 
 	}
+	@Override
+	public boolean preNextDocument() {
+		return nextDocumentIndex < documents.size();
+	}
 
 	@Row(6)
 	@ComponentWidth(100)
+	@Override
 	public void nextDocument() {
-		if (nextDocumentIndex >= documents.size()) {
+//		if (nextDocumentIndex >= documents.size()) {
+		if (!preNextDocument()) {
 			System.out.println("No documents to display");
 			return;
 		}

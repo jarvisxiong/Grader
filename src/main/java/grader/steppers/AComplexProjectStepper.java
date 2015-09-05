@@ -600,6 +600,17 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		// TODO Auto-generated method stub
 		return mainProjectStepper.getWaitingThreads();
 	}
+	@Override
+	@Visible(false)
+	public void nextDocument() {
+		mainProjectStepper.nextDocument();
+		
+	}
+	@Override
+	public boolean preNextDocument() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.preNextDocument();
+	}
 
 
 }

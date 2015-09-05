@@ -8,6 +8,7 @@ import grader.trace.sakai_bulk_folder.FeedbackFolderLoaded;
 import grader.trace.sakai_bulk_folder.SubmissionFolderLoaded;
 import grader.trace.sakai_bulk_folder.SubmissionFolderNotFound;
 import grader.trace.sakai_bulk_folder.TimestampFileLoaded;
+import grader.util.GraderCommon;
 import util.misc.Common;
 import util.trace.Tracer;
 
@@ -100,9 +101,9 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     }
 
     void findDocuments() {
-        Set<String> entryNames = studentFolder.getDescendentEntryNames(feedbackFolder);
+        Set<String> entryNames = studentFolder.getDescendentEntryNames(submissionFolder);
         for (String entryName : entryNames) {
-            if (Common.isDocumentName(entryName)) {
+            if (GraderCommon.isDocumentName(entryName)) {
                 documents.add(entryName);
                 DocumentFileLoaded.newCase(entryName, this);
             }
