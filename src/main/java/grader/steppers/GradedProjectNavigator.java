@@ -122,6 +122,10 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 
 	boolean preNextDocument();
 
+	boolean preFirstDocument();
+
+	void firstDocument();
+
 
 
 //	void setFrame(Object aFrame);

@@ -806,6 +806,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public boolean preNextDocument() {
 		return nextDocumentIndex < documents.size();
 	}
+	@Override
+	public boolean preFirstDocument() {
+		return documents.size() > 0;
+	}
+
 
 	@Row(6)
 	@ComponentWidth(100)
@@ -818,10 +823,13 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		}
 		String nextDocument = documents.get(nextDocumentIndex);
 		nextDocumentIndex++;
-		if (nextDocumentIndex == documents.size())
-			nextDocumentIndex = 0;
+//		if (nextDocumentIndex == documents.size())
+//			nextDocumentIndex = 0;
 		DocumentDisplayerRegistry.display(nextDocument);
-
+	}
+	@Override
+	public void firstDocument() {
+		nextDocumentIndex = 0;
 	}
 
 	@Row(7)

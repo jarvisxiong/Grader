@@ -616,6 +616,16 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.preNextDocument();
 	}
+	@Override
+	public boolean preFirstDocument() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.preFirstDocument();
+	}
+	@Override
+	public void firstDocument() {
+		 overviewProjectStepper.firstDocument();
+		
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

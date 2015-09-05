@@ -695,9 +695,18 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	@Row(2)
 	@Column(0)
 	@Override
-	@Explanation("Circulate through the submmitted documents")
+	@Explanation("Navigate through the submmitted documents")
 	public void nextDocument() {
 		projectStepper.nextDocument();		
+	}
+	@ComponentWidth(100)
+	@Row(2)
+	@Column(1)
+	@Override
+	@Explanation("Go back to first document")
+	public void firstDocument() {
+		projectStepper.firstDocument();
+		
 	}
 	
 	void doQuit() {
@@ -795,5 +804,11 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 		// TODO Auto-generated method stub
 		return projectStepper.preNextDocument();
 	}
+	@Override
+	public boolean preFirstDocument() {
+		// TODO Auto-generated method stub
+		return projectStepper.preFirstDocument();
+	}
+	
 	
 }

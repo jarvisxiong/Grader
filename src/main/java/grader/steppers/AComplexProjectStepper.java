@@ -611,6 +611,16 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		// TODO Auto-generated method stub
 		return mainProjectStepper.preNextDocument();
 	}
+	@Override
+	public boolean preFirstDocument() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.preFirstDocument();
+	}
+	@Override
+	public void firstDocument() {
+		mainProjectStepper.firstDocument();
+		
+	}
 
 
 }
