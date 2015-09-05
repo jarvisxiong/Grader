@@ -13,6 +13,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JTextArea;
 
+import bus.uigen.ObjectEditor;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.Explanation;
@@ -591,13 +592,18 @@ public class AMainProjectStepper implements MainProjectStepper {
 		return overviewProjectStepper.getResultDiff();
 	}
 	@Override
+	@Visible(false)
 	public String getSourceChecks() {
 		return overviewProjectStepper.getSourceChecks();
 	}
 	@Override
+	@Visible(false)
 	public String getWaitingThreads() {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.getWaitingThreads();
+	}
+	public static void main(String[] args) {
+		ObjectEditor.edit(new AMainProjectStepper());
 	}
 	
 //	@Override

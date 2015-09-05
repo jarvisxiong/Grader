@@ -1618,9 +1618,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public void setAutoVisitBehavior(AutoVisitBehavior autoVisitBehavior) {
 		this.autoVisitBehavior = autoVisitBehavior;
 	}
-	public static void main(String[] args) {
-		ObjectEditor.edit(new AnOverviewProjectStepper());
-	}
+	
 	@Override
 	public boolean isPlayMode() {
 		// TODO Auto-generated method stub
@@ -1742,6 +1740,14 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public String getDisplayedName() {
 		// TODO Auto-generated method stub
 		return gradedProjectOverview.getDisplayedName();
+	}
+	@Override
+	@Visible(false)
+	public String getWaitingThreads() {
+		return waitingThreadsList.toString();
+	}
+	public static void main(String[] args) {
+		ObjectEditor.edit(new AnOverviewProjectStepper());
 	}
 	
 }

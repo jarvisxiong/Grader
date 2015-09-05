@@ -595,6 +595,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.getDisplayedName();
 	}
 	@Override
+	@Visible(false)
 	public String getWaitingThreads() {
 		// TODO Auto-generated method stub
 		return mainProjectStepper.getWaitingThreads();

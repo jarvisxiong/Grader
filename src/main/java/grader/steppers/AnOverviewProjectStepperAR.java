@@ -13,6 +13,7 @@ public class AnOverviewProjectStepperAR implements ExecutableCommand {
 //			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABELLED, false);
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABEL_POSITION, AttributeNames.LABEL_IN_BORDER);
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "*", AttributeNames.LABEL, "");
+//			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "WaitingThreads", AttributeNames.VISIBLE, false);
 
 //			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "OverallNotes", AttributeNames.LABELLED, true);
 			ObjectEditor.setPropertyAttribute(AnOverviewProjectStepper.class, "OverallNotes", AttributeNames.LABEL, "Overall Notes");
