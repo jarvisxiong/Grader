@@ -210,6 +210,9 @@ public class AnAutoVisitBehavior implements
         runExecuted = false;
         boolean notRunnable = false;
         project = newVal;
+        if (preTerminate()) {
+        	terminate();
+        }
 //		if (project.getClassLoader() == null || project.getClassesManager() == null ) {
         if (isNotRunnable()) {
 

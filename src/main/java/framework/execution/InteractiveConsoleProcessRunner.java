@@ -303,7 +303,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 //	                                if (myThread.isInterrupted() || runner.isDestroyed())
 //	                                	loop = false;
 	                            } catch (Exception e1) {
-	                            	System.out.println("Provoding input to non existing process");
+	                            	System.out.println("Providing input to non existing process");
 //	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 	                            }
 	                        }

@@ -1,4 +1,4 @@
-//START OF FILE: src/main/assignment1.java
+//START OF FILE: src/main/procstring.java
 package main;
 
 import java.util.Scanner;
@@ -9,37 +9,17 @@ import java.util.Scanner;
  *
  *This is for assignment1 from comp 401
  */
-public class Assignment1 {
+
+	public class ProcString {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("please enter a string:");
 		Scanner scan = new Scanner(System.in);
 		String line="";
-		while(true)
+		while(line!=".")
 		{
 		 line = scan.nextLine();
-		 if(line.equals(""))
-			 continue;
-		 if (line.charAt(0)=='.')
-		 {
-			 break;
-		 }
-		 
-		 System.out.println(StringScanner.myScanner(line)); 
-		}
-	}
-
-}
-//END OF FILE
-//START OF FILE: src/main/stringscanner.java
-package main;
-
-public class StringScanner {
-
-	public static String myScanner(String line)
-	{
-	
 		 String outLine="Numbers:";
 		 int sum=0;
 		 int product=1;
@@ -69,7 +49,7 @@ public class StringScanner {
 					 sum+=hh;
 					 product*=hh;
 					 outLine+=" "+hh;
-					 //System.out.println("the num :"+num+" and the integer is: "+hh);
+					 System.out.println("the num :"+num+" and the integer is: "+hh);
 					 isDigit=0;					 
 				 }
 			 }else//other character
@@ -83,7 +63,7 @@ public class StringScanner {
 					 sum+=hh;
 					 product*=hh;
 					 outLine+=" "+hh;
-					 //System.out.println("the num :"+num+" and the integer is: "+hh);
+					 System.out.println("the num :"+num+" and the integer is: "+hh);
 					 isDigit=0;					 
 				 }
 			 }
@@ -96,11 +76,13 @@ public class StringScanner {
 			 sum+=hh;
 			 product*=hh;
 			 outLine+=" "+hh;
-			 //System.out.println("the num :"+num+" and the integer is: "+hh);
+			 System.out.println("the num :"+num+" and the integer is: "+hh);
 			 isDigit=0;
 		 }
 		 outLine+=" Sum: "+sum+" Product: "+product;
-		 return outLine;
+		 System.out.println(outLine); 
+		}
 	}
+
 }
 //END OF FILE
