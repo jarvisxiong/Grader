@@ -227,6 +227,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 
 	boolean runExecuted;
+//	boolean isRunning;
 
 
 	String getCommentsFileName(SakaiProject aProject) {
@@ -661,40 +662,63 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		return autoVisitBehavior.runAttempted() && project.canBeRun();
 
 	}
+	@Override
+	public boolean preRun() {
+//		return !project.isNoProjectFolder() && project.canBeRun();
+		return autoVisitBehavior.preRun();
+	}
 
 //	public boolean preRun() {
 //		return project.canBeRun() && !autoRun
 //		// && !runExecuted
 //		;
 //	}
-
+//	RunningProject runningProject;
 //	@Row(3)
-//	@ComponentWidth(100)
-//	@Visible(true)
+	@ComponentWidth(100)
+	@Visible(false)
+	@Override
+	@Row(2)
+	@Column(2)
 	public void run() {
-//		runExecuted = true;
-//		projectDatabase.runProject(getOnyen(), project);
-//		// should this go in the code doing the running?
+		autoVisitBehavior.run();
+//		if (preTerminate())
+//			terminate();
+////		runExecuted = true;
+////		projectDatabase.runProject(getOnyen(), project);
+////		// should this go in the code doing the running?
 //		ProjectRun.newCase(projectDatabase, this, project, this);
-//		project.setHasBeenRun(true);
-//		for (GradingFeature gradingFeature : projectDatabase
-//				.getGradingFeatures()) {
-//			if (gradingFeature.isAutoGradable()) {
-//				gradingFeature.firePropertyChange("this", null, gradingFeature);
-//			}
-//		}
-		RunningProject runningProject = project.getWrapper().launchInteractive();
-		runningProject.destroy();
-//		TimedProcess aProcess = runningProject.getCurrentTimedProcess();
-//		aProcess.destroy();
-//		runningProject.end();
-		 runningProject = project.getWrapper().launchInteractive();
-		 
-		runningProject.destroy();
+////		project.setHasBeenRun(true);
+////		for (GradingFeature gradingFeature : projectDatabase
+////				.getGradingFeatures()) {
+////			if (gradingFeature.isAutoGradable()) {
+////				gradingFeature.firePropertyChange("this", null, gradingFeature);
+////			}
+////		}
+//		 runningProject = project.getWrapper().launchInteractive();
+////		runningProject.destroy();
+////		TimedProcess aProcess = runningProject.getCurrentTimedProcess();
+////		aProcess.destroy();
+////		runningProject.end();
+////		 runningProject = project.getWrapper().launchInteractive();
+////		 
+////		runningProject.destroy();
 
 		
 //        String output = runningProject.await();
 
+	}
+	@Override
+	public boolean preTerminate() {
+//		return runningProject != null && !runningProject.isDestroyed();
+		return autoVisitBehavior.preTerminate();
+	}
+	@Override
+	public void terminate() {
+//		if (!runningProject.isDestroyed()) {
+//			runningProject.destroy();
+//		}
+		autoVisitBehavior.terminate();
 	}
 	@Visible(false)
 	public void runInSameJVM() {

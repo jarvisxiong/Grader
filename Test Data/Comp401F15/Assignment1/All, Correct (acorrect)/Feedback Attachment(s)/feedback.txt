@@ -2,7 +2,7 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Process & print tokens                                 26.7 / 40.0
+Process & print tokens                                 40.0 / 40.0
 Sum and product                                        10.0 / 10.0
 Terminates with period                                 0.0 / 10.0
 One loop on string                                     0.0 / 20.0
@@ -14,7 +14,7 @@ No-array parser class                                  0.0 / 10.0 (Extra credit)
 Variable spaces                                        0.0 /  5.0 (Extra credit)
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 46.7
+  Points Awarded: 60.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,14 +22,11 @@ No .split allowed                           0.0 /  -10.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 46.7
+  Features Score: 60.0
 
 Notes from grading features:
 ----------------------------------
-Process & print tokens:
-  -- Program should remove preceding zeros.
-
 Terminates with period:
   -- Program terminates prematurely
 
-  Total Score: 46.7
+  Total Score: 60.0

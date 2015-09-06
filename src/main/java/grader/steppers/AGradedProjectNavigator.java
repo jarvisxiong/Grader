@@ -740,7 +740,27 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 			ASakaiProjectDatabase.dispose(frame);
 			
 	}
+	@Override
+	@ComponentWidth(100)
+	@Row(2)
+	@Column(2)
+	@Explanation("Run program after terminating previous run")
+	public void run() {
+		 projectStepper.run();
+	}
+	@Override
+	public boolean preTerminate() {
+		return projectStepper.preTerminate();
+	}
+	@Override
+	public void terminate() {
+		projectStepper.terminate();
+	}
 	
+	
+	public boolean preRun() {
+		return projectStepper.preRun();
+	}	
 	
 	
 	
@@ -806,7 +826,6 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	@Override
 	public boolean preFirstDocument() {
-		// TODO Auto-generated method stub
 		return projectStepper.preFirstDocument();
 	}
 	

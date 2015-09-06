@@ -621,6 +621,19 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.firstDocument();
 		
 	}
+	@Override
+	public boolean preTerminate() {
+		return mainProjectStepper.preTerminate();
+	}
+	@Override
+	@Visible(true)
+	public void terminate() {
+		mainProjectStepper.terminate();
+	}
+	@Override
+	public boolean preRun() {
+		return mainProjectStepper.preRun();
+	}
 
 
 }

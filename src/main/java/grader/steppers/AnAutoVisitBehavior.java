@@ -48,6 +48,7 @@ import grader.trace.source_points.SourcePointsLoaded;
 import grader.trace.steppers.AutoAutoGradeSet;
 import grader.trace.steppers.AutoVisitFailedException;
 import grader.trace.steppers.FeaturesAutoGraded;
+import grader.trace.steppers.ProjectRun;
 
 import java.awt.Color;
 import java.awt.Window;
@@ -459,13 +460,23 @@ public class AnAutoVisitBehavior implements
 //	}
 //
     public boolean preRun() {
-        return project.canBeRun() && !autoRun // && !runExecuted
-                ;
+//        return project.canBeRun() && !autoRun // && !runExecuted
+		return !project.isNoProjectFolder() && project.canBeRun();            
     }
+    @Override
+	public boolean preTerminate() {
+		return runningProject != null && !runningProject.isDestroyed();
+	}
+	@Override
+	public void terminate() {
+		if (!runningProject.isDestroyed()) {
+			runningProject.destroy();
+		}
+	}
 
 //	@Row(3)
-    @ComponentWidth(100)
-    public void run() {
+//    @ComponentWidth(100)
+    public void runInSameVM() {
         if (isNotRunnable()) {
             notRunnableProjectFeedback();
             return;
@@ -481,6 +492,37 @@ public class AnAutoVisitBehavior implements
         }
 
     }
+	RunningProject runningProject;
+
+    public void run() {
+		if (preTerminate())
+			terminate();
+		project.setHasBeenRun(true);
+        runExecuted = true;
+//		runExecuted = true;
+//		projectDatabase.runProject(getOnyen(), project);
+//		// should this go in the code doing the running?
+		ProjectRun.newCase(projectDatabase, projectStepper, project, this);
+//		project.setHasBeenRun(true);
+//		for (GradingFeature gradingFeature : projectDatabase
+//				.getGradingFeatures()) {
+//			if (gradingFeature.isAutoGradable()) {
+//				gradingFeature.firePropertyChange("this", null, gradingFeature);
+//			}
+//		}
+		 runningProject = project.getWrapper().launchInteractive();
+//		runningProject.destroy();
+//		TimedProcess aProcess = runningProject.getCurrentTimedProcess();
+//		aProcess.destroy();
+//		runningProject.end();
+//		 runningProject = project.getWrapper().launchInteractive();
+//		 
+//		runningProject.destroy();
+
+		
+//        String output = runningProject.await();
+
+	}
 
     @Override
     public boolean preAutoGrade() {
