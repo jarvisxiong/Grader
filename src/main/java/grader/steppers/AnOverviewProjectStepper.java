@@ -100,6 +100,7 @@ import bus.uigen.introspect.Attribute;
 import bus.uigen.oadapters.ClassAdapter;
 import bus.uigen.oadapters.ObjectAdapter;
 import scala.Option;
+import tools.TimedProcess;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
@@ -671,6 +672,32 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //	@ComponentWidth(100)
 //	@Visible(true)
 	public void run() {
+//		runExecuted = true;
+//		projectDatabase.runProject(getOnyen(), project);
+//		// should this go in the code doing the running?
+//		ProjectRun.newCase(projectDatabase, this, project, this);
+//		project.setHasBeenRun(true);
+//		for (GradingFeature gradingFeature : projectDatabase
+//				.getGradingFeatures()) {
+//			if (gradingFeature.isAutoGradable()) {
+//				gradingFeature.firePropertyChange("this", null, gradingFeature);
+//			}
+//		}
+		RunningProject runningProject = project.getWrapper().launchInteractive();
+		runningProject.destroy();
+//		TimedProcess aProcess = runningProject.getCurrentTimedProcess();
+//		aProcess.destroy();
+//		runningProject.end();
+		 runningProject = project.getWrapper().launchInteractive();
+		 
+		runningProject.destroy();
+
+		
+//        String output = runningProject.await();
+
+	}
+	@Visible(false)
+	public void runInSameJVM() {
 		runExecuted = true;
 		projectDatabase.runProject(getOnyen(), project);
 		// should this go in the code doing the running?

@@ -28,6 +28,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
     private Map<String, String> entryPoints;
     private File folder;
     Project project;
+    Thread outputThread; // can we share this also?
+    static Thread inputThread;
 
     public InteractiveConsoleProcessRunner(Project aProject) throws NotRunnableException {
         try {
@@ -182,7 +184,10 @@ public class InteractiveConsoleProcessRunner implements Runner {
 //        }
 //        return runner;
     }
-
+    static OutputStreamWriter osw;
+    static BufferedWriter bw;
+    static Scanner scanner = new Scanner(System.in);
+    // only one of these should be executing at one time as static vars are accessed
 	@Override
 	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
@@ -204,12 +209,148 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Start the process
 	            final TimedProcess process = new TimedProcess(builder, timeout);
+	            runner.setCurrentTimeProcess(process);
 	            process.start();
 
 	            // Print output to the console
 	            InputStreamReader isr = new InputStreamReader(process.getInputStream());
 	            final BufferedReader br = new BufferedReader(isr);
-	            new Thread(new Runnable() {
+	            runner.addDependentCloseable(br);
+	            // printing on System.out whatever the process is outputtng
+	            outputThread = new Thread(new Runnable() {
+	                @Override
+	                public void run() {
+	                    try {
+	                        String line = null;
+	                        while ((line = br.readLine()) != null && !runner.isDestroyed())
+	                            System.out.println(line);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                    }
+	                }
+	            });
+	            outputThread.setName ("Output Thread");
+	            runner.addDependentThread(outputThread);
+	            outputThread.start();
+//	            new Thread(new Runnable() {
+//	                @Override
+//	                public void run() {
+//	                    try {
+//	                        String line = null;
+//	                        while ((line = br.readLine()) != null)
+//	                            System.out.println(line);
+//	                    } catch (IOException e) {
+//	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//	                    }
+//	                }
+//	            }).start();
+
+	            // Feed console input to the process
+//	            OutputStreamWriter osw = new OutputStreamWriter(process.getOutputStream());
+	            
+	            // reset static variables to current process
+	            osw = new OutputStreamWriter(process.getOutputStream());
+	            bw = new BufferedWriter(osw);
+//	            new Thread(new Runnable() {
+//	                @Override
+//	                public void run() {
+//	                    boolean loop = true;
+//	                    Scanner scanner = new Scanner(System.in);
+//	                    while (loop) {
+//	                        try {
+//	                            process.getProcess().exitValue();
+//	                            loop = false;
+//	                        } catch (IllegalThreadStateException e) {
+//
+//	                            try {
+//	                                if (scanner.hasNextLine()) {
+//	                                    bw.write(scanner.nextLine());
+//	                                    bw.newLine();
+//	                                    bw.flush();
+//	                                }
+//	                                Thread.sleep(50);
+//	                            } catch (Exception e1) {
+//	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//	                            }
+//	                        }
+//	                    }
+//	                }
+//	            }).start();
+	            if (inputThread == null) {
+	           inputThread =  new Thread(new Runnable() {
+	                @Override
+	                public void run() {
+	                	Thread myThread = Thread.currentThread();
+	                    boolean loop = true;
+	                    if (scanner == null) {
+	                    scanner = new Scanner(System.in);
+	                    }
+//	    	            runner.addDependentCloseable(scanner);
+
+	                    while (loop) {
+//	                        try {
+//	                            process.getProcess().exitValue();
+//	                            loop = false;
+//	                        } catch (IllegalThreadStateException e) {
+
+	                            try {
+	                                if (scanner.hasNextLine()) {
+	                                    bw.write(scanner.nextLine());
+	                                    bw.newLine();
+	                                    bw.flush();
+	                                }
+//	                                Thread.sleep(50);
+//	                                if (myThread.isInterrupted() || runner.isDestroyed())
+//	                                	loop = false;
+	                            } catch (Exception e1) {
+	                            	System.out.println("provoding input to non existing process");
+//	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+	                            }
+	                        }
+	                    }
+//	                }
+	            });
+	           inputThread.setName("Input Thread");
+	           inputThread.start();
+	            }
+//	           runner.addDependentThread(inputThread);
+
+
+	        } catch (Exception e) {
+//	            runner.error();
+//	            runner.end();
+	        }
+	        return runner;
+	}
+	
+	public RunningProject runJosh(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+			String[] args, int timeout) throws NotRunnableException {
+		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
+
+	        try {
+//	            runner.start();
+	        	
+	        	ProcessBuilder builder;
+	        	if (command.length == 0)
+
+	            // Prepare to run the process
+//	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
+	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
+	        	else
+	        		builder = new ProcessBuilder(command);
+
+	        	builder.directory(folder);
+
+	            // Start the process
+	            final TimedProcess process = new TimedProcess(builder, timeout);
+	            runner.setCurrentTimeProcess(process);
+	            process.start();
+
+	            // Print output to the console
+	            InputStreamReader isr = new InputStreamReader(process.getInputStream());
+	            final BufferedReader br = new BufferedReader(isr);
+	            runner.addDependentCloseable(br);
+	            outputThread = new Thread(new Runnable() {
 	                @Override
 	                public void run() {
 	                    try {
@@ -220,16 +361,59 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 	                    }
 	                }
-	            }).start();
+	            });
+	            outputThread.setName ("Output Thread");
+	            runner.addDependentThread(outputThread);
+	            outputThread.start();
+//	            new Thread(new Runnable() {
+//	                @Override
+//	                public void run() {
+//	                    try {
+//	                        String line = null;
+//	                        while ((line = br.readLine()) != null)
+//	                            System.out.println(line);
+//	                    } catch (IOException e) {
+//	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//	                    }
+//	                }
+//	            }).start();
 
 	            // Feed console input to the process
 	            OutputStreamWriter osw = new OutputStreamWriter(process.getOutputStream());
 	            final BufferedWriter bw = new BufferedWriter(osw);
-	            new Thread(new Runnable() {
+//	            new Thread(new Runnable() {
+//	                @Override
+//	                public void run() {
+//	                    boolean loop = true;
+//	                    Scanner scanner = new Scanner(System.in);
+//	                    while (loop) {
+//	                        try {
+//	                            process.getProcess().exitValue();
+//	                            loop = false;
+//	                        } catch (IllegalThreadStateException e) {
+//
+//	                            try {
+//	                                if (scanner.hasNextLine()) {
+//	                                    bw.write(scanner.nextLine());
+//	                                    bw.newLine();
+//	                                    bw.flush();
+//	                                }
+//	                                Thread.sleep(50);
+//	                            } catch (Exception e1) {
+//	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//	                            }
+//	                        }
+//	                    }
+//	                }
+//	            }).start();
+	           inputThread =  new Thread(new Runnable() {
 	                @Override
 	                public void run() {
+	                	Thread myThread = Thread.currentThread();
 	                    boolean loop = true;
 	                    Scanner scanner = new Scanner(System.in);
+//	    	            runner.addDependentCloseable(scanner);
+
 	                    while (loop) {
 	                        try {
 	                            process.getProcess().exitValue();
@@ -243,13 +427,19 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	                                    bw.flush();
 	                                }
 	                                Thread.sleep(50);
+	                                if (myThread.isInterrupted() || runner.isDestroyed())
+	                                	loop = false;
 	                            } catch (Exception e1) {
 	                                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 	                            }
 	                        }
 	                    }
 	                }
-	            }).start();
+	            });
+	           inputThread.setName("Input Thread");
+	           inputThread.start();
+	           runner.addDependentThread(inputThread);
+
 
 	        } catch (Exception e) {
 //	            runner.error();

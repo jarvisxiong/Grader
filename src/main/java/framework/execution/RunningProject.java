@@ -1,8 +1,11 @@
 package framework.execution;
 
+import java.io.Closeable;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,8 +39,13 @@ public class RunningProject implements ProcessInputListener {
     // duplicates the mapping in Process Runner
     protected Map<String, RunnerInputStreamProcessor> processToIn = new HashMap();
     protected Map<String, TimedProcess> nameToProcess = new HashMap();
+    protected TimedProcess currentProcess;
+    protected boolean destroyed;
 
-    protected Map<String, String> processToOutputAndErrors = new HashMap();
+   
+
+	
+	protected Map<String, String> processToOutputAndErrors = new HashMap();
 
     private String output = "";
     private String errorOutput = "";
@@ -48,6 +56,8 @@ public class RunningProject implements ProcessInputListener {
     String outputFileName;
     StringBuffer projectOutput;
     SakaiProject project;
+    Set<Thread> dependentThreads = new HashSet();
+    Set<Closeable> dependentCloseables = new HashSet();
 
     InputGenerator outputBasedInputGenerator; // actuall all we need is an output consumer
 //	RunnerInputStreamProcessor processIn;
@@ -547,5 +557,44 @@ public class RunningProject implements ProcessInputListener {
     public SakaiProject getProject() {
         return project;
     }
+    public boolean isDestroyed() {
+		return destroyed;
+	}
+
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
+	
+	public void addDependentThread(Thread aThread) {
+		dependentThreads.add(aThread);
+	}
+	
+	public void addDependentCloseable(Closeable aCloseable) {
+		dependentCloseables.add(aCloseable);
+	}
+
+    public void destroy() {
+    	setDestroyed(true);
+    	currentProcess.destroy();
+    	for (Thread dependentThread:dependentThreads) {
+    		dependentThread.interrupt();
+    	}
+    	for (Closeable closeable:dependentCloseables) {
+    		try {
+				closeable.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	end();
+    }
+    public TimedProcess getCurrentTimedProcess() {
+		return currentProcess;
+	}
+
+	public void setCurrentTimeProcess(TimedProcess currentProcess) {
+		this.currentProcess = currentProcess;
+	}
 
 }

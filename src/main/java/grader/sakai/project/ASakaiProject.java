@@ -10,10 +10,15 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import wrappers.framework.project.ProjectWrapper;
+
 public class ASakaiProject extends AProject implements SakaiProject {
     StudentCodingAssignment studentAssignment;
     Icon studentPhoto;
+    ProjectWrapper wrapper;
     
+
+	
 
 	public ASakaiProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
         super(aStudentCodingAssignment, aSourceSuffix, anOutputSuffix);
@@ -48,4 +53,12 @@ public class ASakaiProject extends AProject implements SakaiProject {
     		return getRootCodeFolder().getMixedCaseAbsoluteName();
     	}
     }
+     @Override
+     public ProjectWrapper getWrapper() {
+ 		return wrapper;
+ 	}
+     @Override
+     public void setWrapper(ProjectWrapper newValue) {
+ 		this.wrapper = newValue;
+ 	}
 }
