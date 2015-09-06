@@ -240,7 +240,8 @@ public class AnAutoVisitBehavior implements
             e.printStackTrace();
         }
 
-        if (isAutoRun() && (!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
+        if (isAutoRun() && 
+        		(!projectStepper.getGradingFeatures().isAllAutoGraded() || projectStepper.getScore() <= 0)) {
 //			projectDatabase.runProject(projectStepper.getOnyen(), project);
             if (frame == null) {
                 autoRunDeferred = true;

@@ -282,7 +282,9 @@ public class Driver {
 //        database.setAutoFeedback(ConglomerateRecorder.getInstance());
         database.setManualFeedback(ConglomerateRecorder.getInstance());
 
-        List<String> visitActions = StaticConfigurationUtils.autoVisitActions(configuration, graderSettingsManager);
+//        List<String> visitActions = StaticConfigurationUtils.autoVisitActions(configuration, graderSettingsManager);
+        List<String> visitActions = StaticConfigurationUtils.autoVisitActions(graderSettingsManager);
+
         ProjectStepper projectStepper = database.getOrCreateProjectStepper();
 //                    OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
         if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE)) {

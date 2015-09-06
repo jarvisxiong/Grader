@@ -82,6 +82,22 @@ public class StaticConfigurationUtils {
 		return configuration.getString(IMPLICIT_REQUIRMENTS_ROOT,
 				DEFAULT_IMPLICIT_REQUIRMENTS_ROOT);
 	}
+	public static List<String> autoVisitActions(
+			
+			GraderSettingsManager graderSettingsManager) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		List<String> retVal = autoVisitActions(courseConfiguration, graderSettingsManager);
+		if (retVal ==null)
+			retVal = autoVisitActions(staticConfiguration, graderSettingsManager);
+		if (retVal == null)
+			retVal = new ArrayList();
+		return retVal;
+		 
+
+	}
 
 	public static List<String> autoVisitActions(
 			PropertiesConfiguration configuration,
@@ -89,12 +105,14 @@ public class StaticConfigurationUtils {
 		String module = graderSettingsManager.getModule();
 		String problem = graderSettingsManager.getNormalizedProblem(module);
 		List retVal = configuration.getList(module + "." + problem + "."
-				+ VISIT_ACTIONS);
-		if (retVal.isEmpty()) {
-			retVal = configuration.getList(module + "." + VISIT_ACTIONS);
+				+ VISIT_ACTIONS, null);
+//		if (retVal == null)
+//			return null;
+		if (retVal == null || retVal.isEmpty()) {
+			retVal = configuration.getList(module + "." + VISIT_ACTIONS, null);
 		}
-		if (retVal.isEmpty()) {
-			retVal = configuration.getList(DEFAULT + "." + VISIT_ACTIONS);
+		if (retVal == null || retVal.isEmpty()) {
+			retVal = configuration.getList(DEFAULT + "." + VISIT_ACTIONS, null);
 		}
 
 		return retVal;

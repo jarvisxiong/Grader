@@ -2,31 +2,25 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Process & print tokens                                 40.0 / 40.0
-Sum and product                                        10.0 / 10.0
-Terminates with period                                 0.0 / 10.0
-One loop on string                                     0.0 / 20.0
-Two declared methods                                   3.0 /  3.0
-One called method                                      7.0 /  7.0
-Screenshots                                            0.0 / 10.0
-Handle invalid chars                                   0.0 /  5.0 (Extra credit)
-No-array parser class                                  0.0 / 10.0 (Extra credit)
-Variable spaces                                        0.0 /  5.0 (Extra credit)
-Nice code                                              0.0 / 10.0 (Extra credit)
+
+
+
+
+
+
+
+
+
+
+
 ----------------------------------
-  Points Awarded: 60.0
+  Points Awarded: 0.0
 
 Grading restrictions...
 ----------------------------------
-No .split allowed                           0.0 /  -10.0
+
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 60.0
-
-Notes from grading features:
-----------------------------------
-Terminates with period:
-  -- Program terminates prematurely
-
-  Total Score: 60.0
+  Features Score: 0.0
+  Total Score: 0.0
