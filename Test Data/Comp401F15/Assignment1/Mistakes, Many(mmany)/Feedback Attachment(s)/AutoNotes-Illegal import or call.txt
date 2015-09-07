@@ -1,1 +1,1 @@
-  -- Illegal type imported
+  -- Illegal type or call

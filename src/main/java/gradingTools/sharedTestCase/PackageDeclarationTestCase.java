@@ -27,9 +27,9 @@ public String regexLineFilter() {
 	return "(.*)Missing package declaration(.*)";
 }
 
-protected  TestCaseResult penalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+protected  TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 
-	return classFractionPenalty(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+	return classFractionResult(aProject, aCheckStyleLines, aFailedLines, autoGrade);
 	
 }
 

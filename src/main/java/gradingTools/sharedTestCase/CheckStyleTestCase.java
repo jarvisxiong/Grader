@@ -22,7 +22,11 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         super(aName);
     }
     
-    public static  List<String> failedLines (String[] aLines, String aRegex) {
+    protected boolean failOnMatch() {
+    	return true;
+    }
+    
+    public static  List<String> matchedLines (String[] aLines, String aRegex) {
     	List<String> result = new ArrayList();    
 //    	int aCount = 0;
     	for (String aLine:aLines) {
@@ -32,62 +36,62 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return result;
     }
     public static  int numMatches (String[] aLines, String aRegex) {
-    	return failedLines(aLines, aRegex).size();
+    	return matchedLines(aLines, aRegex).size();
     }
     public abstract String regexLineFilter();
     public abstract String failMessageSpecifier();
     protected TestCaseResult test(SakaiProject aProject, String[] aCheckStyleLines, boolean autoGrade) {
-    	List<String> aFailedLines = failedLines(aCheckStyleLines, regexLineFilter());
+    	List<String> aFailedLines = matchedLines(aCheckStyleLines, regexLineFilter());
     	return test(aProject, aCheckStyleLines, aFailedLines, autoGrade);    	
     }
     
-    protected TestCaseResult classFractionPenalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-    	int aNumFailedInstances = aFailedLines.size();    	
+    protected TestCaseResult classFractionResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
+    	int aNumMatchedInstances = aMatchedLines.size();    	
         int aTotalClassCount = aProject.getClassesManager().getClassDescriptions().size();
-        String aNotes = failMessageSpecifier() + " in " + aNumFailedInstances + " out of " + aTotalClassCount + " classes ";
-        return partialPass((aTotalClassCount - aNumFailedInstances)/aTotalClassCount, aNotes, autoGrade);    
+        String aNotes = failMessageSpecifier() + " in " + aNumMatchedInstances + " out of " + aTotalClassCount + " classes ";
+        return partialPass((aTotalClassCount - aNumMatchedInstances)/aTotalClassCount, aNotes, autoGrade);    
     	
     }
-    protected TestCaseResult numMistakesPenalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+    protected TestCaseResult numMatchesResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
     	int aNumFailedInstances = aFailedLines.size();    	
-    	double aPenalty = penaltyForMistakes(aNumFailedInstances);
+    	double aScore = scoreForMatches(aNumFailedInstances);
         String aNotes = failMessageSpecifier() + " " + aNumFailedInstances + " number of times";
-        return partialPass((1 - aPenalty), aNotes, autoGrade);    
+        return partialPass((1 - aScore), aNotes, autoGrade);    
     	
     }
     
-    protected TestCaseResult singleMistakePenalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+    protected TestCaseResult singleMatchScore (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
     	
         String aNotes = failMessageSpecifier(); 
         return fail(aNotes, autoGrade);    
     	
     }
     
-    protected TestCaseResult penalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-    	return numMistakesPenalty(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+    protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+    	return numMatchesResult(aProject, aCheckStyleLines, aFailedLines, autoGrade);
     	
     }
     
-    protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+    protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
 //    	int aNumFailedInstances = aFailedLines.size();
 //        int aTotalClassCount = aProject.getClassesManager().getClassDescriptions().size();
 //        String aNotes = failMessageSpecifier() + " in " + aNumFailedInstances + " out of " + aTotalClassCount + " classes ";
 //        return partialPass((aTotalClassCount - aNumFailedInstances)/aTotalClassCount, aNotes, autoGrade);  
-    	int aNumFailedInstances = aFailedLines.size();
-    	if (aNumFailedInstances == 0)
+    	int aNumMatchedInstances = aMatchedLines.size();
+    	if (aNumMatchedInstances == 0 && failOnMatch() || aNumMatchedInstances == 1 && !failOnMatch())
     		return pass();
-    	return penalty(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+    	return computeResult(aProject, aCheckStyleLines, aMatchedLines, autoGrade);
     	
     }
-    protected double penaltyForMistakeNumber(int aMistakeNumber) {
+    protected double scoreForMatchNumber(int aMistakeNumber) {
     	return 1.0/(Math.pow(2, aMistakeNumber+1)); // starting at 0
     }
-    protected double penaltyForMistakes(int aNumMistakes) {
-    	double aPenalty = 0;
+    protected double scoreForMatches(int aNumMistakes) {
+    	double aScore = 0;
     	for (int aMistakeNumber = 0; aMistakeNumber < aNumMistakes; aMistakeNumber++) {
-    		aPenalty += penaltyForMistakeNumber(aMistakeNumber);
+    		aScore += scoreForMatchNumber(aMistakeNumber);
     	}
-    	return aPenalty;
+    	return aScore;
     }
 //    protected TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 //    	int aNumFailedInstances = aFailedLines.size();

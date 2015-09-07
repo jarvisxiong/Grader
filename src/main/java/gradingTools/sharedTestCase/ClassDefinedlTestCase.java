@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
 
 import java.lang.reflect.Field;
@@ -16,16 +17,19 @@ import java.util.List;
 import wrappers.framework.project.ProjectWrapper;
 
 
-public class MinCalledMethodsTestCase extends CheckStyleTestCase {
-	int minimum;
-	 public MinCalledMethodsTestCase(int aMinimum) {
-	        super("Min called method test case");
-	        minimum = aMinimum;
+public class ClassDefinedlTestCase extends CheckStyleTestCase {
+	 String descriptor;
+	 public ClassDefinedlTestCase(String aDescriptor) {
+	        super(aDescriptor + " defined");
+	        descriptor = aDescriptor;
+	  }
+	 protected boolean failOnMatch() {
+	    	return false;
 	    }
     
 	@Override
 	public String regexLineFilter() {
-		return "(.*)minCalledMethods(.*)";
+		return "(.*)Class matching " + descriptor + " defined(.*)";
 	}
 
 
@@ -33,11 +37,18 @@ public class MinCalledMethodsTestCase extends CheckStyleTestCase {
 	@Override
 	public String failMessageSpecifier() {
 		// TODO Auto-generated method stub
-		return "Number of called methods less than" + minimum;
+		return "Class matching " + descriptor + " not defined";
 	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-	    	return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+		 TestCaseResult aResult = singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+		 if (aResult.getPercentage() != 1.0) {
+			 String aMainClassUsed = aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT);
+			 if (aMainClassUsed.contains("main.")) {
+				 return partialPass(0.5, aResult.getNotes() + " but main package defined");
+			 }
+		 }
+		 return aResult;
 	    	
 	}
 

@@ -116,8 +116,11 @@ public class AProject implements Project {
 
 	static boolean forceCompile = false; //compile whether that is needed or not
 	static boolean checkStyle = false; 
+	Map<String, String> entryPoints;
 
 
+
+	
 
 	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
@@ -708,5 +711,12 @@ public class AProject implements Project {
 
 	    public static void setCheckStyle(boolean checkStyle) {
 			AProject.checkStyle = checkStyle;
+		}
+	    public Map<String, String> getEntryPoints() {
+			return entryPoints;
+		}
+
+		public void setEntryPoints(Map<String, String> entryPoints) {
+			this.entryPoints = entryPoints;
 		}
 }

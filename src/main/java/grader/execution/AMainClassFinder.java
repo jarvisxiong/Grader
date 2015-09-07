@@ -11,6 +11,7 @@ import grader.project.ClassesManager;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
 import util.misc.Common;
+import wrappers.framework.project.ProjectWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public class AMainClassFinder implements MainClassFinder {
     public Map<String, String> getEntryPoints(framework.project.Project project) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
+        ProjectWrapper projectWrapper = (ProjectWrapper) project;
 		Map<String, String> entryPoints = new HashMap();
 
         framework.project.ClassesManager manager = project.getClassesManager().get();
@@ -58,6 +60,7 @@ public class AMainClassFinder implements MainClassFinder {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
                 entryPoints.put(MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());
+                projectWrapper.getProject().setEntryPoints(entryPoints);
                 return entryPoints;
 //                return description.getJavaClass().getCanonicalName();
             } catch (NoSuchMethodException e) {
