@@ -1,1 +1,1 @@
-  -- Program terminates with errors
+  -- Program gives errors with ending .

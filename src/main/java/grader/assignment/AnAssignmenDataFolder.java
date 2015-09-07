@@ -96,7 +96,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         gradedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_GRADED_ID_FILE_NAME;
         skippedIdFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_SKIPPED_FILE_NAME;
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
-        checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + DEFAULT_CONFIGURATION_FILE;
+//        checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + DEFAULT_CONFIGURATION_FILE;
         checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + StaticConfigurationUtils.getCheckStyleFile();
 
         File aFile = new File(checkStyleConfigurationFileName);

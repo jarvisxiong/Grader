@@ -38,12 +38,31 @@ Numbers: 19 28 Sum: 47 Product: 532
 
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
-10 20  
-20 30  
-.
-
+10 20 
+40 50 
+.the end
 OUTPUT(Terminates with period)
 please enter a string:
 Numbers: 10 20 Sum: 30 Product: 200
-Numbers: 20 30 Sum: 50 Product: 600
+Numbers: 40 50 Sum: 90 Product: 2000
+
+*****************************(Variable spaces)*****************************
+INPUT(Variable spaces)
+10   20 
+   40 50 
+.
+OUTPUT(Variable spaces)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+Numbers: 40 50 Sum: 90 Product: 2000
+
+*****************************(Handle invalid chars)*****************************
+INPUT(Handle invalid chars)
+10   20 
+   40 50 
+.
+OUTPUT(Handle invalid chars)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+Numbers: 40 50 Sum: 90 Product: 2000
 

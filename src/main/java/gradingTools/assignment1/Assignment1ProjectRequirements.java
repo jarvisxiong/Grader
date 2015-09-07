@@ -4,6 +4,7 @@ import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment1.testCases.*;
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 
 /**
  * Created with IntelliJ IDEA.

@@ -9,18 +9,17 @@ One loop on string                                     0.0 / 20.0
 Two declared methods                                   3.0 /  3.0
 One called method                                      7.0 /  7.0
 Screenshots                                            0.0 / 10.0
-Handle invalid chars                                   0.0 /  5.0 (Extra credit)
-No-array parser class                                  0.0 / 10.0 (Extra credit)
-Variable spaces                                        0.0 /  5.0 (Extra credit)
+Variable spaces                                        5.0 /  5.0
+Handle invalid chars                                   5.0 /  5.0
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 70.0
+  Points Awarded: 80.0
 
 Grading restrictions...
 ----------------------------------
-No .split allowed                           0.0 /  -10.0
+Illegal import or call                      0.0 /  -25.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 70.0
-  Total Score: 70.0
+  Features Score: 80.0
+  Total Score: 80.0
