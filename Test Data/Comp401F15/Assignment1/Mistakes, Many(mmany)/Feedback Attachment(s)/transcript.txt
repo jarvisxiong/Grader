@@ -1,0 +1,68 @@
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+12479 
+.
+
+OUTPUT(Process & print tokens)
+please enter a string:
+Numbers: 12479 Sum: 12479 Product: 12479
+
+*****************************(Process & print tokens)*****************************
+INPUT(Process & print tokens)
+22 44 66 
+11 33 55 
+.
+
+OUTPUT(Process & print tokens)
+please enter a string:
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 Sum: 99 Product: 19965
+
+*****************************(Sum and product)*****************************
+INPUT(Sum and product)
+19 28 
+.
+
+OUTPUT(Sum and product)
+please enter a string:
+Numbers: 19 28 Sum: 47 Product: 532
+
+*****************************(Sum and product)*****************************
+INPUT(Sum and product)
+19 28 
+.
+
+OUTPUT(Sum and product)
+please enter a string:
+Numbers: 19 28 Sum: 47 Product: 532
+
+*****************************(Terminates with period)*****************************
+INPUT(Terminates with period)
+10 20 
+40 50 
+.the end
+OUTPUT(Terminates with period)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+Numbers: 40 50 Sum: 90 Product: 2000
+
+*****************************(Variable spaces)*****************************
+INPUT(Variable spaces)
+10   20 
+   40 50 
+.
+OUTPUT(Variable spaces)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+Numbers: 40 50 Sum: 90 Product: 2000
+
+*****************************(Handle invalid chars)*****************************
+INPUT(Handle invalid chars)
+10   20 
+   40 50 
+.
+OUTPUT(Handle invalid chars)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+Numbers: 40 50 Sum: 90 Product: 2000
+
