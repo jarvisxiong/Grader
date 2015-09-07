@@ -4,6 +4,7 @@ import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment1.testCases.*;
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
@@ -40,8 +41,9 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
         addFeature("One called method", 7, new MinDeclaredMethodsInSameOrDifferentClassTestCase(1));
         addFeature("Variable spaces", 5, new VariableSpacesTestCase());
         addFeature("Handle invalid chars", 5, new VariableSpacesTestCase());
-        
-        addManualFeature("Screenshots", 10, new QuestionTestCase("Screenshots included showing test data output?", "Screenshots testcase"));
+        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
+
+//        addManualFeature("Screenshots", 10, new QuestionTestCase("Screenshots included showing test data output?", "Screenshots testcase"));
 
         // TODO: Extra Credit
 //        addManualFeature("Handle invalid chars", 5, true);

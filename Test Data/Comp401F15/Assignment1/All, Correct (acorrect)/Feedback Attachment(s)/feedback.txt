@@ -10,10 +10,10 @@ Two declared methods                                   0.0 /  3.0
 One called method                                      0.0 /  7.0
 Variable spaces                                        2.5 /  5.0
 Handle invalid chars                                   2.5 /  5.0
-Screenshots                                            0.0 / 10.0
+Screenshots enclosed                                   10.0 / 10.0
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 55.0
+  Points Awarded: 65.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,7 +22,7 @@ Single main.Assigment*                      -5.0 /  -10.0
 ----------------------------------
   Points Deducted: -5.0
 
-  Features Score: 50.0
+  Features Score: 60.0
 
 Notes from grading features:
 ----------------------------------
@@ -45,6 +45,6 @@ Handle invalid chars:
 Notes from grading restrictions:
 ----------------------------------
 Single main.Assigment*:
-  -- Class matching main.Assignment(.*) not defined
+  -- Class matching main.Assignment(.*) not defined but main package defined
 
-  Total Score: 50.0
+  Total Score: 60.0

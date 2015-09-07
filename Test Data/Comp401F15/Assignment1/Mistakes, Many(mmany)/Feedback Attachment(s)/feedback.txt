@@ -10,7 +10,7 @@ Two declared methods                                   3.0 /  3.0
 One called method                                      7.0 /  7.0
 Variable spaces                                        5.0 /  5.0
 Handle invalid chars                                   5.0 /  5.0
-Screenshots                                            0.0 / 10.0
+Screenshots enclosed                                   0.0 / 10.0
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
   Points Awarded: 80.0
@@ -23,6 +23,12 @@ Single main.Assigment*                      0.0 /  -10.0
   Points Deducted: -25.0
 
   Features Score: 55.0
+
+Notes from grading features:
+----------------------------------
+Screenshots enclosed:
+  -- Missing images
+
 
 Notes from grading restrictions:
 ----------------------------------
