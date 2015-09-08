@@ -12,10 +12,10 @@ import java.util.Map;
  * Created by Andrew on 2/11/14.
  */
 public class UserPropertyWriter {
-    private HashMap<String, String> properties;
+    private HashMap<String, String[]> properties;
 
     public UserPropertyWriter() {
-        properties = new HashMap<String, String>();
+        properties = new HashMap<String, String[]>();
     }
 
     public UserPropertyWriter(String defaultProperties) {
@@ -72,7 +72,7 @@ public class UserPropertyWriter {
             }
 
             if (propName != null) {
-                properties.put(propName,propValue);
+                properties.put(propName, new String[]{propValue});
             }
         }
     }
@@ -83,7 +83,7 @@ public class UserPropertyWriter {
             Iterator<String> keys = configuration.getKeys();
             while(keys.hasNext()) {
                 String key = keys.next();
-                properties.put(key, configuration.getString(key));
+                properties.put(key, configuration.getStringArray(key));
             }
             /*if (configuration.containsKey("project.requirements")) {
                 properties.put("project.requirements", configuration.getString("project.requirements"));
@@ -118,8 +118,8 @@ public class UserPropertyWriter {
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(userPropertiesFile));
-            for (Map.Entry<String, String> entry : properties.entrySet()) {
-                bw.write(entry.getKey() + "=" + entry.getValue());
+            for (Map.Entry<String, String[]> entry : properties.entrySet()) {
+                bw.write(entry.getKey() + "=" + buildStrFromArr(entry.getValue()));
                 bw.newLine();
             }
             bw.flush();
@@ -134,6 +134,17 @@ public class UserPropertyWriter {
                 }
             }
         }
+    }
+    
+    private String buildStrFromArr(String[] arr) {
+        String retVal = "";
+        if (arr.length > 0) {
+            retVal = arr[0];
+            for(int i = 1; i < arr.length; i ++) {
+                retVal += "," + arr[i];
+            }
+        }
+        return retVal;
     }
 
     public void writeUserProperties(String userPropertiesFile) {
