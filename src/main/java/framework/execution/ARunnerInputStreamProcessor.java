@@ -7,6 +7,8 @@ import java.io.OutputStreamWriter;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
+import util.misc.ThreadSupport;
+
 public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	protected OutputStream input;
 	protected RunningProject runner;
@@ -36,6 +38,7 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 			System.out.println(inPrefix + anInput); // echo input for display
 			inputWriter.write(anInput);
 			inputWriter.flush();
+//			ThreadSupport.sleep(200);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

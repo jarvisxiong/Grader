@@ -17,11 +17,18 @@ public class TerminateWithPeriodTestCase extends ErrorCheckingTestCase {
     }
 
 
-    String simplifiedInputWithNoEndingSpace = "10 20 \n40 50 \n.";
-    String simplifiedInputWithEndingSpace = "10 20\n40 50 \n.";
-    String inputWithEndingSpace = "10 20 \n40 50 \n.the end";
-    String inputWithNoEndingSpace = "10 20\n40 50 \n.the end";
-    String[] expectedOutputs = {"30", "200", "90", "2000"};
+//    String simplifiedInputWithNoEndingSpace = "10 20 \n40 50 \n.\n";
+//    String simplifiedInputWithEndingSpace = "10 20\n40 50 \n.\n";
+//    String inputWithEndingSpace = "10 20 \n40 50 \n.the end\n";
+//    String inputWithNoEndingSpace = "10 20\n40 50 \n.the end\n";
+//    String[] expectedOutputs = {"30", "200", "90", "2000"};
+    
+    String simplifiedInputWithNoEndingSpace = "10 20 \n.\n";
+    String simplifiedInputWithEndingSpace = "10 20\n.\n";
+    String inputWithEndingSpace = "10 20 \n.the end\n";
+    String inputWithNoEndingSpace = "10 20\n.the end\n";
+//    String[] expectedOutputs = {"30", "200", "90", "2000"};
+    String[] expectedOutputs = {"30", "200"};
     
 
 

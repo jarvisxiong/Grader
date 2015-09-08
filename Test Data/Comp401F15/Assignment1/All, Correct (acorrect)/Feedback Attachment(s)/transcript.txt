@@ -78,16 +78,13 @@ Exception in thread "main" java.util.NoSuchElementException: No line found
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20 
-40 50 
 .the end
+
 OUTPUT(Terminates with period)
 please enter a string:
 the num :10 and the integer is: 10
 the num :20 and the integer is: 20
 Numbers: 10 20 Sum: 30 Product: 200
-the num :40 and the integer is: 40
-the num :50 and the integer is: 50
-Numbers: 40 50 Sum: 90 Product: 2000
 unexpected character:.
 unexpected character:t
 unexpected character:h
@@ -105,16 +102,13 @@ Exception in thread "main" java.util.NoSuchElementException: No line found
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20
-40 50 
 .the end
+
 OUTPUT(Terminates with period)
 please enter a string:
 the num :10 and the integer is: 10
 the num :20 and the integer is: 20
 Numbers: 10 20 Sum: 30 Product: 200
-the num :40 and the integer is: 40
-the num :50 and the integer is: 50
-Numbers: 40 50 Sum: 90 Product: 2000
 unexpected character:.
 unexpected character:t
 unexpected character:h
@@ -132,16 +126,13 @@ Exception in thread "main" java.util.NoSuchElementException: No line found
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20 
-40 50 
 .
+
 OUTPUT(Terminates with period)
 please enter a string:
 the num :10 and the integer is: 10
 the num :20 and the integer is: 20
 Numbers: 10 20 Sum: 30 Product: 200
-the num :40 and the integer is: 40
-the num :50 and the integer is: 50
-Numbers: 40 50 Sum: 90 Product: 2000
 unexpected character:.
 Numbers: Sum: 0 Product: 1
 
@@ -153,16 +144,13 @@ Exception in thread "main" java.util.NoSuchElementException: No line found
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20
-40 50 
 .
+
 OUTPUT(Terminates with period)
 please enter a string:
 the num :10 and the integer is: 10
 the num :20 and the integer is: 20
 Numbers: 10 20 Sum: 30 Product: 200
-the num :40 and the integer is: 40
-the num :50 and the integer is: 50
-Numbers: 40 50 Sum: 90 Product: 2000
 unexpected character:.
 Numbers: Sum: 0 Product: 1
 

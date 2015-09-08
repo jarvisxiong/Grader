@@ -81,38 +81,18 @@ Exception in thread "main" java.util.NoSuchElementException: No line found
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20 
-40 50 
 .the end
+
 OUTPUT(Terminates with period)
-Numbers: 
 Numbers: 
 
 *****************************(Terminates with period)*****************************
 INPUT(Terminates with period)
 10 20
-40 50 
 .the end
+
 OUTPUT(Terminates with period)
 Numbers: 10 20 Sum: 30 Product: 200
-Numbers: 
-
-*****************************(Terminates with period)*****************************
-INPUT(Terminates with period)
-10 20 
-40 50 
-.
-OUTPUT(Terminates with period)
-Numbers: 
-Numbers: 
-
-*****************************(Terminates with period)*****************************
-INPUT(Terminates with period)
-10 20
-40 50 
-.
-OUTPUT(Terminates with period)
-Numbers: 10 20 Sum: 30 Product: 200
-Numbers: 
 
 *****************************(Variable spaces)*****************************
 INPUT(Variable spaces)
