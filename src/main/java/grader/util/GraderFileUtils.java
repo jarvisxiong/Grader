@@ -13,6 +13,9 @@ public class GraderFileUtils {
 	public static String toRelativeName(String aParentName, String aChildName) {
         try {
             //System.out.println("toRelativeName was called");
+        	if (aParentName == null || aChildName == null) {
+        		return "";
+        	}
             Path parent = Paths.get(aParentName.toLowerCase());
             
             Path child = Paths.get(aChildName.toLowerCase());
