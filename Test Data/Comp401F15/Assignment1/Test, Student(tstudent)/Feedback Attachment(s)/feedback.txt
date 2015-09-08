@@ -44,4 +44,6 @@ Notes from grading restrictions:
 Single main.Assigment:
   -- Class matching main.Assignment(.*) not defined but main package defined
 
-  Total Score: 55.0
+
+Early benefit: 105.0%
+  Total Score: 57.75

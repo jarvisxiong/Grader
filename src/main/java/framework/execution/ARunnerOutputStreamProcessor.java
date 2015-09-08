@@ -21,7 +21,7 @@ public class ARunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcess
 
 @Override
 public void processLine(String s) {
-//	System.out.println("Process line:" + s);
+	System.out.println("Process line:" + s);
 	runner.appendCumulativeOutput(s + "\n"); // append cumulative output
 //	if (processName != null) {
 	

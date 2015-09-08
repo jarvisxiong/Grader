@@ -35,4 +35,6 @@ Notes from grading restrictions:
 Illegal import or call:
   -- Illegal type or call
 
-  Total Score: 55.0
+
+Early benefit: 105.0%
+  Total Score: 57.75

@@ -38,7 +38,7 @@ public abstract class ErrorCheckingTestCase extends BasicTestCase {
     }
     
    protected  OutputErrorStatus test (Project project, String anInput, String[] anExpectedStrings, boolean autoGrade) {
-    	RunningProject runner = project.launch(anInput);
+    	RunningProject runner = project.launch(anInput, 1);
         String output = runner.await();
         boolean validOutput = validOutput(output, anExpectedStrings);
         String error = runner.getErrorOutput();

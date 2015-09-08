@@ -29,4 +29,6 @@ Notes from grading features:
 Screenshots enclosed:
   -- Missing images
 
-  Total Score: 80.0
+
+Early benefit: 105.0%
+  Total Score: 84.0
