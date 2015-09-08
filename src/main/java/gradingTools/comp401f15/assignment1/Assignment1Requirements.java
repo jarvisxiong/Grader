@@ -50,7 +50,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assigment*", 10, new ClassDefinedlTestCase("main.Assignment(.*)"));
+        addRestriction("Single main.Assigment", 10, new ClassDefinedlTestCase("main.Assignment(.*)"));
 
        
         
