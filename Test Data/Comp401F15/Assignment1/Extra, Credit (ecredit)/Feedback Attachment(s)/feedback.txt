@@ -18,7 +18,7 @@ Nice code                                              0.0 / 10.0 (Extra credit)
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assigment*                      0.0 /  -10.0
+Single main.Assigment                       0.0 /  -10.0
 ----------------------------------
   Points Deducted: 0.0
 

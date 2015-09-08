@@ -1,4 +1,4 @@
-Grading result for: All, Correct (acorrect)
+Grading result for: Test, Student(tstudent)
 
 Grading features...
 ----------------------------------
@@ -6,14 +6,14 @@ Process & print tokens                                 40.0 / 40.0
 Sum and product                                        10.0 / 10.0
 Terminates with period                                 0.0 / 10.0
 One loop on string                                     0.0 / 20.0
-Two declared methods                                   0.0 /  3.0
-One called method                                      0.0 /  7.0
-Variable spaces                                        2.5 /  5.0
-Handle invalid chars                                   2.5 /  5.0
-Screenshots enclosed                                   10.0 / 10.0
+Two declared methods                                   3.0 /  3.0
+One called method                                      7.0 /  7.0
+Variable spaces                                        0.0 /  5.0
+Handle invalid chars                                   0.0 /  5.0
+Screenshots enclosed                                   0.0 / 10.0
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 65.0
+  Points Awarded: 60.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,24 +22,21 @@ Single main.Assigment                       -5.0 /  -10.0
 ----------------------------------
   Points Deducted: -5.0
 
-  Features Score: 60.0
+  Features Score: 55.0
 
 Notes from grading features:
 ----------------------------------
 Terminates with period:
   -- Program gives errors with ending .
 
-Two declared methods:
-  -- Number of declared methods less than2
-
-One called method:
-  -- Number of declared methods less than1
-
 Variable spaces:
-  -- Errors with  variable space
+  -- Incorrect output with variable spaces
 
 Handle invalid chars:
-  -- Errors with  variable space
+  -- Incorrect output with variable spaces
+
+Screenshots enclosed:
+  -- Missing images
 
 
 Notes from grading restrictions:
@@ -47,4 +44,4 @@ Notes from grading restrictions:
 Single main.Assigment:
   -- Class matching main.Assignment(.*) not defined but main package defined
 
-  Total Score: 60.0
+  Total Score: 55.0

@@ -23,6 +23,10 @@ import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
 public class Assignment1Requirements extends FrameworkProjectRequirements {
 
     public Assignment1Requirements() {
+    	addDueDate("08/26/2015 23:55:00", 1.05);
+    	addDueDate("08/28/2015 23:55:00", 1);
+    	addDueDate("08/30/2015 23:55:00", 0.9);
+    	addDueDate("09/01/2015 23:55:00", 0.75);
     	
         // Functionality
         addFeature("Process & print tokens", 40,
