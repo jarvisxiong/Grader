@@ -9,6 +9,7 @@ import grader.trace.project.ProjectFolderAssumed;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.RubrickFileLoaded;
 
+import java.nio.file.Paths;
 import java.util.Set;
 
 import util.misc.Common;
@@ -43,6 +44,10 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     FileProxy getZipChild(FileProxy aFolder) {
         Set<String> childrenNames = aFolder.getChildrenNames();
         for (String childName : childrenNames) {
+        	String shortFileName = Paths.get(childName).getFileName().toString();
+        	if (shortFileName.startsWith(".")) {
+        		continue;
+        	}
 //            if (childName.endsWith(".zip")) {
             if (childName.endsWith(AProject.ZIP_SUFFIX_1) || 
             		childName.endsWith(AProject.ZIP_SUFFIX_2)) {
@@ -112,10 +117,10 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     }
 
     void findRubrickAndProject() {
-        rubrick = findRubrick(submissionFolder);
+    	rubrick = findRubrick(submissionFolder);
 //        FileProxy zipFile = getZipChild(submissionFolder);
         zipFile = getZipChild(submissionFolder);
-
+        
         if (zipFile == null) {
             projectFolder = getUniqueNonMACOSFolderChild(submissionFolder);
         } else {
@@ -134,6 +139,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
         }
         if (projectFolder == null) {
             System.out.println("!!! " + ProjectFolderNotFound.newCase(submissionFolder.getAbsoluteName(), this).getMessage());
+            projectFolder = submissionFolder;
 //    		Tracer.error("No project folder found in " + submissionFolder.getAbsoluteName());
         }
 
