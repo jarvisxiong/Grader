@@ -8,11 +8,10 @@ Terminates with period                                 10.0 / 10.0
 One loop on string                                     0.0 / 20.0
 Two declared methods                                   3.0 /  3.0
 One called method                                      7.0 /  7.0
-Variable spaces                                        0.0 /  5.0
-Handle invalid chars                                   0.0 /  5.0
+Variable spaces                                        0.0 /  5.0 (Extra credit)
+Handle invalid chars                                   0.0 /  5.0 (Extra credit)
 Screenshots enclosed                                   10.0 / 10.0
 Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
-Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
   Points Awarded: 80.0
 
@@ -37,7 +36,7 @@ Handle invalid chars:
 Notes from grading restrictions:
 ----------------------------------
 Single main.Assigment:
-  -- Class matching main.Assignment(.*) not defined but main package defined
+  -- Class matching main.Assignment(.*) not defined but main package defined or main package has wrong case
 
 
 Early benefit: 105.0%

@@ -43,8 +43,8 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
         addManualFeature("One loop on string", 20, new QuestionTestCase("Is there only one loop over the input string?", "Input string one loop test case"));
         addFeature("Two declared methods", 3, new MinDeclaredMethodsInSameOrDifferentClassTestCase(2));
         addFeature("One called method", 7, new MinDeclaredMethodsInSameOrDifferentClassTestCase(1));
-        addFeature("Variable spaces", 5, new VariableSpacesTestCase());
-        addFeature("Handle invalid chars", 5, new VariableSpacesTestCase());
+        addFeature("Variable spaces", 5, true, new VariableSpacesTestCase());
+        addFeature("Handle invalid chars", 5, true, new VariableSpacesTestCase());
         addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         addManualFeature("Use an extra class with iterator like interface", 10, true);
 
