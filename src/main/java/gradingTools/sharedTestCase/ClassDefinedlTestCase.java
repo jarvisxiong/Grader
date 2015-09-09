@@ -46,8 +46,8 @@ public class ClassDefinedlTestCase extends CheckStyleTestCase {
 			 if (aProject.getEntryPoints() == null || aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT) == null)
 				 return aResult;
 			 String aMainClassUsed = aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT);
-			 if (aMainClassUsed.contains("main.")) {
-				 return partialPass(0.5, aResult.getNotes() + " but main package defined");
+			 if (aMainClassUsed.contains("main.") || aMainClassUsed.contains("Main.") ) {
+				 return partialPass(0.5, aResult.getNotes() + " but main package defined or main package has wrong case");
 			 }
 		 }
 		 return aResult;

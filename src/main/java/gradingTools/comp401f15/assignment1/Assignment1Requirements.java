@@ -61,7 +61,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
        
         
 
-        addManualFeature("Nice code", 10, true);
+//        addManualFeature("Nice code", 10, true);
 
         // Restrictions
 //        addRestriction("No .split allowed", -10, new NoSplitTestCase());
