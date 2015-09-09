@@ -36,6 +36,11 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 		if (anInput == null) return;
 		try {
 			System.out.println(inPrefix + anInput); // echo input for display
+			String[] inputLines = anInput.split("\n");
+//			for (String anInputLine:inputLines) {
+//				inputWriter.write(anInput + "\n");
+//				inputWriter.flush();
+//			}
 			inputWriter.write(anInput);
 			inputWriter.flush();
 //			ThreadSupport.sleep(200);
