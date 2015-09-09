@@ -94,7 +94,7 @@
 		<module name="IllegalTypeImported">
 			<property name="illegalPrefixes" value="*" />
 			<property name="legalPrefixes"
-				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayList" />
+				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayList, java.util.Iterator" />
 		</module>
 		<module name="IllegalTypeDefined">
 			<property name="illegalTypeNames"

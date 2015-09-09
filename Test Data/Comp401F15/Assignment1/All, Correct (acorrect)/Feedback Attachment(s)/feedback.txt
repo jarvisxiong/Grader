@@ -11,6 +11,7 @@ One called method                                      0.0 /  7.0
 Variable spaces                                        2.5 /  5.0
 Handle invalid chars                                   2.5 /  5.0
 Screenshots enclosed                                   10.0 / 10.0
+Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
 Nice code                                              0.0 / 10.0 (Extra credit)
 ----------------------------------
   Points Awarded: 65.0

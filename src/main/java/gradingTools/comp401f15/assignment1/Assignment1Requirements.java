@@ -46,6 +46,8 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
         addFeature("Variable spaces", 5, new VariableSpacesTestCase());
         addFeature("Handle invalid chars", 5, new VariableSpacesTestCase());
         addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
+        addManualFeature("Use an extra class with iterator like interface", 10, true);
+
 
 //        addManualFeature("Screenshots", 10, new QuestionTestCase("Screenshots included showing test data output?", "Screenshots testcase"));
 
