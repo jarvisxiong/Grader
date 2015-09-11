@@ -57,7 +57,7 @@ public class ProperHeaderTestCase extends BasicTestCase {
 					break;
 				}
 
-				String headerRegex = "/[*]{1,} ([*]{1,} )*((Program or Assignment)|(Program)|(Assignment)) (#|(\\d+)): .+( [*]{1,})* Programmer: .+( [*]{1,})* Due Date: .+( [*]{1,})* "+className+" Instructor: ((Prof[.]|Professor) )?Jay Aikat( [*]{1,})* Pledge: I have neither given nor received unauthorized aid ([*]{1,} )?on this program.( [*]{1,})* Description: .+( [*]{1,})* Input: .+( [*]{1,})* Output: .+( [*]{1,})*/";
+				String headerRegex = "/[*]{1,} ([*]{1,} )*((Program or Assignment)|(Program)|(Assignment)|(Lab)) (#|(\\d+)): .+( [*]{1,})* Programmer: .+( [*]{1,})* Due Date: .+( [*]{1,})* "+".*"+".*Pledge: I have neither given nor received unauthorized aid ([*]{1,} )?on this program.( [*]{1,})* Description: .+( [*]{1,})* Input: .+( [*]{1,})* Output: .+( [*]{1,})*/";
 				Matcher matcher = Pattern.compile(headerRegex).matcher(code);
 				if (matcher.find()) {
 					String header = matcher.group();
