@@ -5,7 +5,7 @@ Grading features...
 Process & print tokens                                 40.0 / 40.0
 Sum and product                                        10.0 / 10.0
 Terminates with period                                 10.0 / 10.0
-One loop on string                                     0.0 / 20.0
+One loop on string                                     20.0 / 20.0
 Two declared methods                                   3.0 /  3.0
 One called method                                      7.0 /  7.0
 Variable spaces                                        5.0 /  5.0 (Extra credit)
@@ -13,7 +13,7 @@ Handle invalid chars                                   5.0 /  5.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 80.0
+  Points Awarded: 100.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,19 +22,23 @@ Single main.Assigment                       0.0 /  -10.0
 ----------------------------------
   Points Deducted: -25.0
 
-  Features Score: 55.0
+  Features Score: 75.0
 
 Notes from grading features:
 ----------------------------------
 Screenshots enclosed:
   -- Missing images
 
+Validated by instructor.
+Use an extra class with iterator like interface:
+Validated by instructor.
 
 Notes from grading restrictions:
 ----------------------------------
 Illegal import or call:
   -- Illegal type or call
 
+Validated by instructor.
 
 Early benefit: 105.0%
-  Total Score: 57.75
+  Total Score: 78.75

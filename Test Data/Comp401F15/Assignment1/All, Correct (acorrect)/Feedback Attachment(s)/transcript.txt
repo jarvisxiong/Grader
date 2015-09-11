@@ -12,7 +12,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Process & print tokens)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Process & print tokens)*****************************
@@ -36,7 +36,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Process & print tokens)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Sum and product)*****************************
@@ -54,7 +54,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Sum and product)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Sum and product)*****************************
@@ -72,7 +72,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Sum and product)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Terminates with period)*****************************
@@ -96,7 +96,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Terminates with period)*****************************
@@ -120,7 +120,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Terminates with period)*****************************
@@ -138,7 +138,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Terminates with period)*****************************
@@ -156,7 +156,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Terminates with period)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Variable spaces)*****************************
@@ -177,7 +177,7 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Variable spaces)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
 *****************************(Handle invalid chars)*****************************
@@ -198,6 +198,6 @@ Numbers: Sum: 0 Product: 1
 
 ERRORS(Handle invalid chars)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at java.util.Scanner.nextLine(Scanner.java:1540)
 	at main.ProcString.main(ProcString.java:21)
 
