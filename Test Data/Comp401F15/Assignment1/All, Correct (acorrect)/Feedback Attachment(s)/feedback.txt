@@ -5,15 +5,15 @@ Grading features...
 Process & print tokens                                 40.0 / 40.0
 Sum and product                                        10.0 / 10.0
 Terminates with period                                 0.0 / 10.0
-One loop on string                                     20.0 / 20.0
+One loop on string                                     0.0 / 20.0
 Two declared methods                                   3.0 /  3.0
 One called method                                      7.0 /  7.0
-Variable spaces                                        2.5 /  5.0 (Extra credit)
-Handle invalid chars                                   2.5 /  5.0 (Extra credit)
+Variable spaces                                        0.0 /  5.0 (Extra credit)
+Handle invalid chars                                   0.0 /  5.0 (Extra credit)
 Screenshots enclosed                                   10.0 / 10.0
-Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
+Use an extra class with iterator like interface        10.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 95.0
+  Points Awarded: 80.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,7 +22,7 @@ Single main.Assigment                       -5.0 /  -10.0
 ----------------------------------
   Points Deducted: -5.0
 
-  Features Score: 90.0
+  Features Score: 75.0
 
 Notes from grading features:
 ----------------------------------
@@ -30,16 +30,14 @@ Terminates with period:
   -- Program gives errors with ending .
 
 Validated by instructor.
+One loop on string:
+Validated by instructor.
 Variable spaces:
   -- Errors with  variable space
 
-Validated by instructor.
 Handle invalid chars:
   -- Errors with  variable space
 
-Validated by instructor.
-Use an extra class with iterator like interface:
-Validated by instructor.
 
 Notes from grading restrictions:
 ----------------------------------
@@ -49,4 +47,4 @@ Single main.Assigment:
 Validated by instructor.
 
 Early benefit: 105.0%
-  Total Score: 94.5
+  Total Score: 78.75

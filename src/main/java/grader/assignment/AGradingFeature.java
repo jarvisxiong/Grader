@@ -386,6 +386,12 @@ public class AGradingFeature implements GradingFeature {
 	public boolean isFullCredit() {
 		return isRestriction? score== 0:score == maxScore;
 	}
+	@Override
+	@Visible(false)
+	public boolean isPartialCredit() {
+		return score > 0 && !isFullCredit();
+	}
+	
 	
 	
 	@Override

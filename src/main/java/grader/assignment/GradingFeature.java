@@ -106,4 +106,6 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	void internalSetScore(double newVal);
 
+	boolean isPartialCredit();
+
 }

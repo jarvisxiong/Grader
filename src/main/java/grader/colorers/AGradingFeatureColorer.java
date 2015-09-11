@@ -13,6 +13,7 @@ public class AGradingFeatureColorer implements Colorer<GradingFeature>{
 	Color notGradedColor = Color.RED;
 	Color gradedNonFullCreditColor = Color.PINK;
 	Color autoGradableNotGraded = Color.RED;
+	Color gradedPartialExtraCreditColor = Color.ORANGE;
 
 	public AGradingFeatureColorer(SakaiProjectDatabase aSakaiProjectDatabase) {
 		database = aSakaiProjectDatabase;
@@ -31,8 +32,13 @@ public class AGradingFeatureColorer implements Colorer<GradingFeature>{
 		// put some notes if these conditions hold
 //		 if (aGradingFeature.isAutoWithNotFullCredit() ||
 //				 aGradingFeature.isManualWithNotFullCredit() ) 
-		if (!aGradingFeature.isFullCredit() ) 
+		if (!aGradingFeature.isFullCredit() && !aGradingFeature.isExtraCredit() ) 
 			return gradedNonFullCreditColor;
+		if (aGradingFeature.isExtraCredit() && 
+				aGradingFeature.isAutoGradable() && 
+				aGradingFeature.isPartialCredit())
+			return gradedPartialExtraCreditColor;
+		
 		
 		return null;
 	}

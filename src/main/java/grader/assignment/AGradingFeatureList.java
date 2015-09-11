@@ -24,7 +24,8 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 			if ((! gradingFeature.isGraded() && 
 					gradingFeature.isAutoGradable()) // auto case
 					|| (!gradingFeature.isFullCredit() && 
-							gradingFeature.getManualNotes().isEmpty())	
+							gradingFeature.getManualNotes().isEmpty() && !gradingFeature.isExtraCredit())	
+					|| (gradingFeature.isExtraCredit() && gradingFeature.isPartialCredit() && gradingFeature.getManualNotes().isEmpty()) // assume zero credit means not attempted
 					
 					)
 					return false;
