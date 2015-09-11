@@ -54,6 +54,7 @@ import gradingTools.Driver;
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
 import util.annotations.Label;
+import util.annotations.Position;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -598,14 +599,14 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         notify();
 
     }
-
+    @Visible(false)
     public synchronized void preSettings() {
         GraderSettingsStarted.newCase(this, this);
 
         setGraderStarted(false);
         //graderStarted = false;
     }
-
+    @Visible(false)
     public synchronized void postSettings() {
         //GraderSettingsStarted.newCase(this, this);
 
@@ -725,12 +726,14 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     @Override
+    @Position(3)
     public void resetFeatureSpreadsheet() {
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
     }
 
     @Override
+    @Position(0)
     public void cleanSlate() {
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
@@ -738,11 +741,13 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     @Override
+    @Position(5)
     public void compileExecutor() {
         ExecutorSelector.getExecutor().compile();
     }
 
     @Override
+    @Position(1)
     public void cleanSlate(String anOnyen) {
         maybeCreateProjectDatabase();
         FeatureGradeRecorder featureGradeRecorder = projectDatabase.getFeatureGradeRecorder();
@@ -784,6 +789,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //		
 //	}
     @Override
+    @Visible(false)
     public boolean maybePreUnzip() {
         if (!AProject.isUnzipFiles()) {
             return false;
@@ -820,6 +826,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     @Override
+    @Visible(false)
     public boolean maybePreCompile() {
         if (!AProject.isPreCompileMissingObjectCode()) {
             return false;
@@ -888,7 +895,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     public boolean isPrivacyMode() {
         return privacyMode;
     }
-
+    @Visible(false)
     public void setPrivacyMode(boolean newValue) {
         if (privacyMode == newValue) {
             return;
@@ -896,7 +903,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         this.privacyMode = newValue;
         propertyChangeSupport.firePropertyChange("onyens", null, onyens);
     }
-
+    @Position(4)
     public void togglePrivacyMode() {
         setPrivacyMode(!privacyMode);
     }
