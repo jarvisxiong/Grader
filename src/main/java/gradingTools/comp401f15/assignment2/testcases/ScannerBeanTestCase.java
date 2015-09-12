@@ -1,28 +1,43 @@
-package gradingTools.assignment2.testCases;
-
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
+package gradingTools.comp401f15.assignment2.testcases;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
-/**
- * Created with IntelliJ IDEA.
- * User: josh
- * Date: 11/7/13
- * Time: 9:18 PM
- * To change this template use File | Settings | File Templates.
- */
-public class BeanClassTestCase extends BasicTestCase {
-    public BeanClassTestCase() {
-        super("Bean class test case");
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.OutputAndErrorCheckingTestCase;
+import framework.grading.testing.TestCaseResult;
+import framework.project.ClassDescription;
+import framework.project.Project;
+import grader.util.ExecutionUtil;
+
+public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
+
+	public ScannerBeanTestCase() {
+        super("Scanner Bean class test case");
     }
+	
+	public Object createScannerBean (Class aClass) {
+		Constructor aConstructor = null;
+		try {
+			aConstructor = aClass.getConstructor();
+			return aConstructor.newInstance();
+		} catch (Exception e) {
+			try {
+				aConstructor = aClass.getConstructor(String.class);
+				return aConstructor.newInstance("");
+			} catch (Exception e1) {
+				return null;
+			}			
+		}
+		
+		
+		
+	}
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -38,6 +53,9 @@ public class BeanClassTestCase extends BasicTestCase {
                 for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
                     if (descriptor.getPropertyType() == String.class && descriptor.getReadMethod() != null &&
                             descriptor.getWriteMethod() != null) {
+                        Object anInstance = createScannerBean((description.getJavaClass()));
+
+                    	ExecutionUtil.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
                         return pass(autoGrade);
                     }
                 }
@@ -48,4 +66,3 @@ public class BeanClassTestCase extends BasicTestCase {
         return fail("Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).", autoGrade);
     }
 }
-
