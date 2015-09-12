@@ -116,13 +116,14 @@ The name of the jar depends on the `version` defined in `pom.xml`. Run the jar:
 ```
 java -jar target/comp401-grader-Assignment-X-jar-with-dependencies.jar
 ```
+NOTE: You must have your jdk/bin as the FIRST entry in your system path (or at least ahead of oracle's java related entries) so the grader can find javac on recompilations.
 
 If you have the project set up in an IDE you can run it there as well.
 
 # Configuration
 
-The entry point in the program (the one which Maven is configured to use) looks at the configuration file to determine
-what and how to run. There are the following settings that you can set:
+The entry point in the program (the one which Maven is configured to use) looks at the configuration files (config/config.properties and config/course.properites) to determine
+what and how to run. There are the following settings that you can set (note that config/course.properties overwrites config.properties when there are dup fields, it is advised to specify class specific run configurations there.):
 
 * `project.requirements`: This is the canonical name of a class which extends `ProjectRequirements` to use as the grading
 criteria.
@@ -136,6 +137,7 @@ criteria.
  * `local-json`: This saves a json file in the local log folder
  * `local`: Equivalent to "local-txt + local-json"
  * `spreadsheet`: This saves all the scores in a spreadsheet
+ * `[module].execution`: Use this to create a different execution command for a specific module. For example, for Comp110 we have the line Comp110f15.execution = java,{entryPoint} (have this in course.properties)
 
 # Features
 * A rubic GUI for grading features and storing grades on a student per student basis.
