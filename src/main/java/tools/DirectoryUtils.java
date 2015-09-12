@@ -118,7 +118,7 @@ public class DirectoryUtils {
 		@Override
 		public boolean accept(File pathname) {
 //			return pathname.getName().endsWith(".java");
-			return pathname.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix());
+			return !pathname.getName().startsWith(".") && pathname.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix());
 
 		}
 	});

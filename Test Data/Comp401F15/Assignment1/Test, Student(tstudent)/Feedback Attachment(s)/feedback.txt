@@ -1,0 +1,43 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Process & print tokens                                 40.0 / 40.0
+Sum and product                                        10.0 / 10.0
+Terminates with period                                 10.0 / 10.0
+One loop on string                                     0.0 / 20.0
+Two declared methods                                   3.0 /  3.0
+One called method                                      7.0 /  7.0
+Variable spaces                                        0.0 /  5.0 (Extra credit)
+Handle invalid chars                                   0.0 /  5.0 (Extra credit)
+Screenshots enclosed                                   10.0 / 10.0
+Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
+----------------------------------
+  Points Awarded: 80.0
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assigment                       0.0 /  -10.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 80.0
+
+Notes from grading features:
+----------------------------------
+Variable spaces:
+  -- Incorrect output with variable spaces
+
+Handle invalid chars:
+  -- Incorrect output with variable spaces
+
+
+Notes from grading restrictions:
+----------------------------------
+Single main.Assigment:
+  -- Class matching main.Assignment(.*) not defined 0 number of times
+
+
+Early benefit: 105.0%
+  Total Score: 84.0

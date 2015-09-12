@@ -29,6 +29,10 @@ public class TimedProcess {
         process = processBuilder.start();
         return process;
     }
+    
+    public void destroy() {
+    	process.destroy();
+    }
 
     public InputStream getInputStream() {
         return process.getInputStream();

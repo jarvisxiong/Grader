@@ -42,7 +42,7 @@ public class GradingEnvironment {
     private String editor;
     protected String diff;
     private String browser;
-    private String classpath;
+    private String classpath, canonicalClassPath;
     private String assignmentName;
     private String defaulAssignmentsDataFolderName;
 //    ConfigurationManager configurationManager;  // maybe it does not belong here
@@ -106,6 +106,13 @@ public class GradingEnvironment {
 //        	classpath = classpath.replaceAll(" ", "\\ ");
 //        return classpath;
 //    }
+    public  String toOSClassPath(String aCanoicalClassPath) {
+    	if (osName.equals("Windows"))
+        	return "\""+ aCanoicalClassPath + "\"";
+        else
+        	return aCanoicalClassPath.replaceAll(" ", "\\ ");
+//        return aCanoicalClassPath;
+    }
     private  String findClasspath(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
@@ -113,19 +120,27 @@ public class GradingEnvironment {
         File oe = new File("oeall-22.jar");
 //        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
         String[] paths = new String[] { ".", "..", originalClassPath};
+//        String[] paths = new String[] { ".", originalClassPath};
+
 
         String classpath = "";
+        
         for (String path : paths)
             classpath += (classpath.isEmpty() ? "" : separator) + path;
-        if (osName.equals("Windows"))
-        	classpath = "\""+ classpath + "\"";
-        else
-        	classpath = classpath.replaceAll(" ", "\\ ");
+        canonicalClassPath = classpath;
+        classpath = toOSClassPath(canonicalClassPath);
+//        if (osName.equals("Windows"))
+//        	classpath = "\""+ classpath + "\"";
+//        else
+//        	classpath = classpath.replaceAll(" ", "\\ ");
         return classpath;
     }
 
     public String getClasspath() {
         return classpath;
+    }
+    public String getCanonicalClasspath() {
+        return canonicalClassPath;
     }
 
     public void setEditor(String editor) {

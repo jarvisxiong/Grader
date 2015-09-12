@@ -1,1 +1,1 @@
-  -- Program terminates prematurely
+  -- Program gives errors with ending .

@@ -297,6 +297,9 @@ public class ARootCodeFolder implements RootCodeFolder {
 
     public static String getFolderWithName(RootFolderProxy aRoot, String aName) {
 //    public static String getEntryWithSuffix(RootFolderProxy aRoot, String suffix) {
+    	if (aRoot == null) {
+    		return null;
+    	}
     	String rootName = Common.toCanonicalFileName(aRoot.getAbsoluteName().toLowerCase());
         Set<String> nameSet = aRoot.getEntryNames();
         String separator = "/";

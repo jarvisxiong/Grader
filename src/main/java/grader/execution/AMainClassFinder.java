@@ -2,6 +2,7 @@ package grader.execution;
 
 
 import framework.execution.NotRunnableException;
+import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
@@ -11,7 +12,9 @@ import grader.project.ClassesManager;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
 import util.misc.Common;
+import wrappers.framework.project.ProjectWrapper;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +23,40 @@ import java.util.Map;
 public class AMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
+    protected boolean isEntryPoint (String aCandidate, framework.project.ClassesManager manager) {
+    	if (aCandidate == null)
+    		return false;
+    	for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+			try {
+				if (!description.getJavaClass().getCanonicalName().equals(aCandidate))
+					continue;
+				Method method = description.getJavaClass().getMethod("main", String[].class);
+				
+				return method != null;
+				
+//				return description.getJavaClass().getCanonicalName();
+//				return description.getJavaClass().getCanonicalName();
+
+			} catch (NoSuchMethodException e) {
+				return false;
+			}
+		}
+    	return false;
+    	
+    }
+    
     private List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
 		if (project.getClassesManager() == null)
 			throw new NotRunnableException();
 		List<String> entryPoints = new ArrayList();
+	
 
 		ClassesManager manager = project.getClassesManager();
+//		String aCandidate = StaticConfigurationUtils.getEntryPoint();
+//		if (isEntryPoint(aCandidate, manager)) {
+//			entryPoints.add(aCandidate);
+//			return entryPoints;
+//		}
 		for (ClassDescription description : manager.getClassDescriptions()) {
 			try {
 				description.getJavaClass().getMethod("main", String[].class);
@@ -51,13 +82,20 @@ public class AMainClassFinder implements MainClassFinder {
     public Map<String, String> getEntryPoints(framework.project.Project project) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
+        ProjectWrapper projectWrapper = (ProjectWrapper) project;
 		Map<String, String> entryPoints = new HashMap();
 
         framework.project.ClassesManager manager = project.getClassesManager().get();
+        String aCandidate = StaticConfigurationUtils.getEntryPoint();
+		if (isEntryPoint(aCandidate, manager)) {
+			entryPoints.put(MAIN_ENTRY_POINT, aCandidate);
+			return entryPoints;
+		}
         for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
                 entryPoints.put(MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());
+                projectWrapper.getProject().setEntryPoints(entryPoints);
                 return entryPoints;
 //                return description.getJavaClass().getCanonicalName();
             } catch (NoSuchMethodException e) {

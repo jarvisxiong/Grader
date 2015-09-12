@@ -1,0 +1,41 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Bean class                                             0.0 / 20.0
+Numbers and words                                      0.0 / 20.0
+Quoted string                                          0.0 / 30.0
+Screenshots enclosed                                   10.0 / 10.0
+----------------------------------
+  Points Awarded: 10.0
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      -5.0 /  -10.0
+----------------------------------
+  Points Deducted: -5.0
+
+  Features Score: 5.0
+
+Notes from grading features:
+----------------------------------
+Bean class:
+  -- Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).
+
+Numbers and words:
+  -- Cannot scan numbers
+  -- Cannot scan numbers
+
+Quoted string:
+  -- Cannot scan numbers
+
+
+Notes from grading restrictions:
+----------------------------------
+Single main.Assignment:
+  -- Class matching main.Assignment(.*) not defined but main package defined or main package has wrong case
+
+
+Early benefit: 105.0%
+  Total Score: 5.25

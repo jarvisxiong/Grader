@@ -125,6 +125,14 @@ public interface GradedProjectNavigator   extends /*ClearanceManager,*/ Property
 	boolean preFirstDocument();
 
 	void firstDocument();
+	
+	void run();
+
+	boolean preTerminate();
+
+	void terminate();
+
+	boolean preRun();
 
 
 

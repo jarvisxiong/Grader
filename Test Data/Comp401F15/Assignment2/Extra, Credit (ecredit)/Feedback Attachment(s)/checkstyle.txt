@@ -1,0 +1,4 @@
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Extra, Credit (ecredit)\Submission attachment(s)\Assignment2\Assignment2\src\grail\BeanStringScanner.java:1: classDefined: (BeanStringScanner.java:1) Class matching @ScannerBean defined, unmatched expected classes/tags [main.Assignment(.*)]
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Extra, Credit (ecredit)\Submission attachment(s)\Assignment2\Assignment2\src\main\Assignment2.java:1: classDefined: (Assignment2.java:1) Class matching main.Assignment(.*) defined, unmatched expected classes/tags []
+Audit done.

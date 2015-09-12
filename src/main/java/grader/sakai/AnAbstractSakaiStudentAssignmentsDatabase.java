@@ -39,6 +39,9 @@ public abstract class AnAbstractSakaiStudentAssignmentsDatabase<GenericAssignmen
         for (String aFolderName : studentFolderNames) {
             try {
                 String studentId = Common.shortFileName(aFolderName);
+                if (aFolderName.contains("._")) {
+                	continue;
+                }
                 String anOnyen = SakaiStudentFolder.getOnyen(studentId);
                 if (! (anOnyen.equals(aGotoOnyen) ||
                 		anOnyen.compareTo(aStartOnyen) >= 0 &&

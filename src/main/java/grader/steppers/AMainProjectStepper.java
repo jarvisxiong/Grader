@@ -626,6 +626,18 @@ public class AMainProjectStepper implements MainProjectStepper {
 		 overviewProjectStepper.firstDocument();
 		
 	}
+	@Override
+	public boolean preTerminate() {
+		return overviewProjectStepper.preTerminate();
+	}
+	@Override
+	public void terminate() {
+		 overviewProjectStepper.terminate();
+	}
+	@Override
+	public boolean preRun() {
+		return overviewProjectStepper.preRun();
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

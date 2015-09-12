@@ -13,6 +13,7 @@ import grader.project.source.ClassesTextManager;
 import grader.project.view.ClassViewManager;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Project {
 
@@ -136,5 +137,7 @@ public interface Project {
 	void setFilesUnzipped(boolean filesUnzipped);
 
 	String getCheckstyleText();
+	public Map<String, String> getEntryPoints() ;
+	public void setEntryPoints(Map<String, String> entryPoints) ;
 
 }

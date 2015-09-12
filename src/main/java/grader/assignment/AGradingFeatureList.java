@@ -21,8 +21,11 @@ public class AGradingFeatureList extends AListenableVector<GradingFeature> imple
 	@Visible(false)
 	public boolean isAllGraded() {
 		for (GradingFeature gradingFeature:this) {
-			if (! (gradingFeature.isGraded()) 
-					|| (!gradingFeature.isFullCredit() && gradingFeature.getManualNotes().isEmpty())	
+			if ((! gradingFeature.isGraded() && 
+					gradingFeature.isAutoGradable()) // auto case
+					|| (!gradingFeature.isFullCredit() && 
+							gradingFeature.getManualNotes().isEmpty() && !gradingFeature.isExtraCredit())	
+					|| (gradingFeature.isExtraCredit() && gradingFeature.isPartialCredit() && gradingFeature.getManualNotes().isEmpty()) // assume zero credit means not attempted
 					
 					)
 					return false;

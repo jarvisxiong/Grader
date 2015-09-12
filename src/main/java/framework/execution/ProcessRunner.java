@@ -745,6 +745,7 @@ public class ProcessRunner implements Runner {
 			// Start the process
 			// TimedProcess process = new TimedProcess(builder, timeout);
 			process = new TimedProcess(builder, timeout);
+			runner.setCurrentTimeProcess(process);
 
 			Process processObj = process.start();
 			if (folder != null)

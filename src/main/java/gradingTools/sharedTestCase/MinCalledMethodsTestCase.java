@@ -36,8 +36,8 @@ public class MinCalledMethodsTestCase extends CheckStyleTestCase {
 		return "Number of called methods less than" + minimum;
 	}
   //String literal expressions should be on the left side
-	 protected TestCaseResult penalty (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-	    	return singleMistakePenalty(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+	    	return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
 	    	
 	}
 

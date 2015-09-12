@@ -41,11 +41,15 @@ public class NumberTokensTestCase extends BasicTestCase {
     }
 
     private String[] outputParts = new String[] {"22", "44", "66"};
+//    private String[] outputParts = new String[] {".*22.*", ".*44.*", ".*66.*"}; 
+
 
     private boolean isValidOutput(String output) {
         boolean result = true;
         for (String part : outputParts)
             result = result && output.contains(part);
+//        	result = result && output.matches(part);
+
         return result;
     }
 }

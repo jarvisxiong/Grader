@@ -13,21 +13,28 @@ public class GraderFileUtils {
 	public static String toRelativeName(String aParentName, String aChildName) {
         try {
             //System.out.println("toRelativeName was called");
-            Path parent = Paths.get(aParentName.toLowerCase());
-            
-            Path child = Paths.get(aChildName.toLowerCase());
-//            String parentLC = parent.toLowerCase(); 
-            Path relative = parent.relativize(child);
-            String relativeName = relative.toString();
-            int relativeNameIndex = aChildName.length() - relativeName.length();
+        	if (aChildName == null) {
+        		return "";
+        	}
             String retVal;
-            if(relativeNameIndex>=aChildName.length()||relativeNameIndex<0){
-            	//System.out.println("bad!");
-            	retVal="";
-            }
-            else{
-            retVal = aChildName.substring(relativeNameIndex);
-            }
+        	if (aParentName == null) {
+        		retVal = aChildName;
+        	} else {
+	            Path parent = Paths.get(aParentName.toLowerCase());
+	            
+	            Path child = Paths.get(aChildName.toLowerCase());
+	//            String parentLC = parent.toLowerCase(); 
+	            Path relative = parent.relativize(child);
+	            String relativeName = relative.toString();
+	            int relativeNameIndex = aChildName.length() - relativeName.length();
+	            if(relativeNameIndex>=aChildName.length()||relativeNameIndex<0){
+	            	//System.out.println("bad!");
+	            	retVal="";
+	            }
+	            else{
+	            	retVal = aChildName.substring(relativeNameIndex);
+	            }
+        	}
             retVal = retVal.replaceAll("\\\\", "/");
             return retVal;
         } catch (Exception e) {

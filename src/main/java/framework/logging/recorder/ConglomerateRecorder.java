@@ -167,7 +167,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         String userId = DirectoryUtils.find(new File(GraderSettings.get().get("path")), new FileFilter() {
             @Override
             public boolean accept(File file) {
-                return file.getName().contains("(" + onyen + ")");
+                return !file.getName().contains("._") && file.getName().contains("(" + onyen + ")");
             }
         }).get().getName();
 

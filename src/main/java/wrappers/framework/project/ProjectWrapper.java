@@ -27,6 +27,8 @@ public class ProjectWrapper extends StandardProject {
     // changed to SakaiProject
     public ProjectWrapper(SakaiProject project, String name) throws FileNotFoundException {
         super(project, getDirectoryAndMaybeUnzip(project), name);
+    	project.setWrapper(this);
+
 //        this.project = project;
     }
 

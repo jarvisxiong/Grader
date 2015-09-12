@@ -59,7 +59,7 @@ run the following command.
 mvn install:install-file -Dfile=oeall-22.jar -DgroupId=edu.unc -DartifactId=oeall -Dversion=22 -Dpackaging=jar
 ```
 
-This adds the Object Editor jar file to your local Maven repository so that the dependency can be resolved.
+This adds the Object Editor jar file to your local Maven repository so that the dependency can be resolved. Be sure to copy the full command (double click on it), not just what is visible without scrolling to the end!
 
 ## Step 4: Add the Project to Eclipse
 

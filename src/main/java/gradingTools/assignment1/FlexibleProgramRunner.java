@@ -14,8 +14,11 @@ public class FlexibleProgramRunner {
     private Project project;
     private String input;
     private String spacedInput = "";
+    RunningProject runningProject;
 
-    public FlexibleProgramRunner(Project project, String input) {
+  
+
+	public FlexibleProgramRunner(Project project, String input) {
         this(project, input, true);
     }
 
@@ -34,13 +37,21 @@ public class FlexibleProgramRunner {
     }
 
     public String runWithSpaces() throws NotRunnableException {
-        RunningProject runningProject = project.launch(spacedInput, Timeout);
+         runningProject = project.launch(spacedInput, Timeout);
+        
         return runningProject.await();
     }
 
     public String runNoSpaces() throws NotRunnableException {
-        RunningProject runningProject = project.launch(input, Timeout);
+         runningProject = project.launch(input, Timeout);
         return runningProject.await();
     }
+    public RunningProject getRunningProject() {
+  		return runningProject;
+  	}
+
+  	public void setRunningProject(RunningProject runningProject) {
+  		this.runningProject = runningProject;
+  	}
 
 }

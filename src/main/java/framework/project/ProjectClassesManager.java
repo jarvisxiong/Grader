@@ -301,8 +301,11 @@ public class ProjectClassesManager implements ClassesManager {
      */
     private boolean shouldCompile(File javaFile, File classFile) {
 //		System.out.println("Class time:" + classFile.lastModified() + " source time:" + javaFile.lastModified());
-
-        return !project.hasBeenCompiled() && ( AProject.isForceCompile()
+    	String javaName = javaFile.getName();
+    	String className = classFile.getName();
+        return !project.hasBeenCompiled() && !classFile.getName().startsWith("_") &&
+        		!javaFile.getName().startsWith("._") &&
+        		( AProject.isForceCompile()
                 || !classFile.exists()
                 || classFile.lastModified() < javaFile.lastModified());
 //				(classFile.lastModified() - javaFile.lastModified()) < 1000;

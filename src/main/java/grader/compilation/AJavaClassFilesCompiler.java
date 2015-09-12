@@ -36,15 +36,24 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			List<String> optionList = new ArrayList<String>();
 			// set the output directory for the compiler
 			String buildFolderPath = buildFolder.getCanonicalPath();
+//			String graderClassPath = GradingEnvironment
+//					.get().getClasspath();
 			String graderClassPath = GradingEnvironment
-					.get().getClasspath();
+					.get().getCanonicalClasspath();
+//			String graderClassPath = GradingEnvironment
+//					.get().getClasspath();
 //			String myClassPath = buildFolderPath + ";" + graderClassPath;
-			String myClassPath = buildFolderPath + System.getProperty("path.separator") + graderClassPath;
+//			String myClassPath = buildFolderPath + System.getProperty("path.separator") + graderClassPath;
+			String myClassPath = graderClassPath; // classpath can inclide spaces and should not be in quotes
+
+//			myClassPath = GradingEnvironment.get().toOSClassPath(myClassPath);
+
 
 			
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath));
 //			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", GradingEnvironment
 //					.get().getClasspath()));
+//			myClassPath = "\".;D:\\dewan_backup\\Java\\lib\\oeall22.jar\"";
 			optionList.addAll(Arrays.asList("-d", buildFolderPath, "-cp", myClassPath, "-Xlint:unchecked"));
 			System.out.println("Buildfolder:" + buildFolderPath + " classpath: " + myClassPath);
 

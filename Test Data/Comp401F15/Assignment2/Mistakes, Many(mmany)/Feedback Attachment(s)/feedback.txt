@@ -1,0 +1,38 @@
+Grading result for: Mistakes, Many(mmany)
+
+Grading features...
+----------------------------------
+Bean class                                             0.0 / 20.0
+Numbers and words                                      0.0 / 20.0
+Quoted string                                          0.0 / 30.0
+Screenshots enclosed                                   0.0 / 10.0
+----------------------------------
+  Points Awarded: 0.0
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 0.0
+
+Notes from grading features:
+----------------------------------
+Bean class:
+  -- Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).
+
+Numbers and words:
+  -- Cannot scan numbers
+  -- Cannot scan numbers
+
+Quoted string:
+  -- Cannot scan numbers
+
+Screenshots enclosed:
+  -- Missing images
+
+
+Early benefit: 105.0%
+  Total Score: 0.0

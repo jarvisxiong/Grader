@@ -43,6 +43,7 @@ public class StaticConfigurationUtils {
 
 	public static final String PRIVACY = "privacy";
 	public static final String EXECUTION_COMMAND = "execution";
+
 	public static final String LANGUAGE = "language";
 	public static final String REQUIREMENTS = "requirements";
 	public static final String ENTRY_POINT = "entryPoint";
@@ -82,6 +83,22 @@ public class StaticConfigurationUtils {
 		return configuration.getString(IMPLICIT_REQUIRMENTS_ROOT,
 				DEFAULT_IMPLICIT_REQUIRMENTS_ROOT);
 	}
+	public static List<String> autoVisitActions(
+			
+			GraderSettingsManager graderSettingsManager) {
+		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getStaticConfiguration();
+		PropertiesConfiguration courseConfiguration = ConfigurationManagerSelector
+				.getConfigurationManager().getCourseConfiguration();
+		List<String> retVal = autoVisitActions(courseConfiguration, graderSettingsManager);
+		if (retVal ==null)
+			retVal = autoVisitActions(staticConfiguration, graderSettingsManager);
+		if (retVal == null)
+			retVal = new ArrayList();
+		return retVal;
+		 
+
+	}
 
 	public static List<String> autoVisitActions(
 			PropertiesConfiguration configuration,
@@ -89,12 +106,14 @@ public class StaticConfigurationUtils {
 		String module = graderSettingsManager.getModule();
 		String problem = graderSettingsManager.getNormalizedProblem(module);
 		List retVal = configuration.getList(module + "." + problem + "."
-				+ VISIT_ACTIONS);
-		if (retVal.isEmpty()) {
-			retVal = configuration.getList(module + "." + VISIT_ACTIONS);
+				+ VISIT_ACTIONS, null);
+//		if (retVal == null)
+//			return null;
+		if (retVal == null || retVal.isEmpty()) {
+			retVal = configuration.getList(module + "." + VISIT_ACTIONS, null);
 		}
-		if (retVal.isEmpty()) {
-			retVal = configuration.getList(DEFAULT + "." + VISIT_ACTIONS);
+		if (retVal == null || retVal.isEmpty()) {
+			retVal = configuration.getList(DEFAULT + "." + VISIT_ACTIONS, null);
 		}
 
 		return retVal;
@@ -337,6 +356,16 @@ public class StaticConfigurationUtils {
 
 	public static List<String> getBasicCommand() {
 		return getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+	}
+	
+	public static String getEntryPoint() {
+		String retVal = getInheritedStringModuleProblemProperty(ENTRY_POINT, null);
+		if (retVal != null) {
+			GraderSettingsManager manager = GraderSettingsManagerSelector.getGraderSettingsManager();
+			retVal = manager.replaceModuleProblemVars(retVal);
+			return retVal.replaceAll(" ", "");
+		}
+		return retVal;
 	}
 
 	public static List<String> getBasicCommand(String aProcessName) {
