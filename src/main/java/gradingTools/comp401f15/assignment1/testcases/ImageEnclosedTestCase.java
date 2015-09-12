@@ -5,7 +5,7 @@ import java.util.List;
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.ErrorCheckingTestCase;
+import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
@@ -15,7 +15,7 @@ import grader.util.GraderCommon;
 import gradingTools.assignment1.FlexibleProgramRunner;
 
 
-public class ImageEnclosedTestCase extends ErrorCheckingTestCase {
+public class ImageEnclosedTestCase extends OutputAndErrorCheckingTestCase {
 
     public ImageEnclosedTestCase() {
         super("Image enclosed test case");

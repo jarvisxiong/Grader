@@ -2,11 +2,11 @@ package gradingTools.comp401f15.assignment1.testcases;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.ErrorCheckingTestCase;
+import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.grading.testing.ErrorCheckingTestCase.OutputErrorStatus;
+import framework.grading.testing.OutputAndErrorCheckingTestCase.OutputErrorStatus;
 import framework.project.Project;
 import gradingTools.assignment1.FlexibleProgramRunner;
 
@@ -17,7 +17,7 @@ import gradingTools.assignment1.FlexibleProgramRunner;
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class VariableSpacesTestCase extends ErrorCheckingTestCase {
+public class VariableSpacesTestCase extends OutputAndErrorCheckingTestCase {
 
     public VariableSpacesTestCase() {
         super("Variable Space Test");
@@ -26,7 +26,9 @@ public class VariableSpacesTestCase extends ErrorCheckingTestCase {
 
     String simplifiedInputWithNoEndingSpace = "10   20 \n   40 50 \n.";
    
-    String[] expectedOutputs = {"30", "200", "90", "2000"};
+//    String[] expectedOutputs = {"30", "200", "90", "2000"};
+    String[] expectedOutputs = {".*30.*", ".*200.*", ".*90.*", ".*2000.*"};
+
     
 
 

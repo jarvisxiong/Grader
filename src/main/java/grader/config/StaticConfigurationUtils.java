@@ -43,6 +43,7 @@ public class StaticConfigurationUtils {
 
 	public static final String PRIVACY = "privacy";
 	public static final String EXECUTION_COMMAND = "execution";
+
 	public static final String LANGUAGE = "language";
 	public static final String REQUIREMENTS = "requirements";
 	public static final String ENTRY_POINT = "entryPoint";
@@ -355,6 +356,16 @@ public class StaticConfigurationUtils {
 
 	public static List<String> getBasicCommand() {
 		return getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+	}
+	
+	public static String getEntryPoint() {
+		String retVal = getInheritedStringModuleProblemProperty(ENTRY_POINT, null);
+		if (retVal != null) {
+			GraderSettingsManager manager = GraderSettingsManagerSelector.getGraderSettingsManager();
+			retVal = manager.replaceModuleProblemVars(retVal);
+			return retVal.replaceAll(" ", "");
+		}
+		return retVal;
 	}
 
 	public static List<String> getBasicCommand(String aProcessName) {
