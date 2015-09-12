@@ -1,0 +1,22 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Bean class                                             20.0 / 20.0
+Numbers and words                                      20.0 / 20.0
+Quoted string                                          30.0 / 30.0
+Screenshots enclosed                                   10.0 / 10.0
+----------------------------------
+  Points Awarded: 80.0
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 80.0
+
+Early benefit: 105.0%
+  Total Score: 84.0
