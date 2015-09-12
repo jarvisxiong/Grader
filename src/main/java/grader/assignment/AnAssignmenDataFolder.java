@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import util.misc.Common;
+import util.trace.Tracer;
 
 public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements AssignmentDataFolder {
 	public static final String DEFAULT_CONFIGURATION_FILE = "checks.xml";
@@ -101,7 +102,9 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
         File aFile = new File(checkStyleConfigurationFileName);
         if (!aFile.exists()) {
+        	Tracer.warning("Could not find checkstyle file:" + checkStyleConfigurationFileName);
         	checkStyleConfigurationFileName = AConfigurationManager.CONFIG_DIR + "/"  + DEFAULT_CONFIGURATION_FILE;
+        	Tracer.warning("Using default checkstyle file:" + checkStyleConfigurationFileName );
         }
         clearLogFile();
         requirementsSpreadsheetFile = getFileEntryFromLocalName(requirementsSpreadsheetFileName);
