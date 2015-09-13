@@ -11,6 +11,7 @@ import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,7 +41,7 @@ public class LocatableInheritanceTestCase extends BasicTestCase {
         Class<?> locatableSuperclass = classDescription.get().getJavaClass();
 
         // There should be at least three classes tagged "locatable" (locatable, angle, bounded shape)
-        Set<ClassDescription> locatables = project.getClassesManager().get().findByTag("Locatable");
+        List<ClassDescription> locatables = project.getClassesManager().get().findByTag("Locatable");
         if (locatables.size() < 3)
             return fail("Expected more classes tagged \"Locatable\"", autoGrade);
 

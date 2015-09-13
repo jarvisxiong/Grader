@@ -11,6 +11,7 @@ import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,7 +41,7 @@ public class BoundedShapeInheritanceTestCase extends BasicTestCase {
         Class<?> locatableSuperclass = classDescription.get().getJavaClass();
 
         // There should be at least three classes tagged "bounded shape" (bounded shape, line, image)
-        Set<ClassDescription> locatables = project.getClassesManager().get().findByTag("Bounded Shape");
+        List<ClassDescription> locatables = project.getClassesManager().get().findByTag("Bounded Shape");
         if (locatables.size() < 3)
             return fail("Expected more classes tagged \"Bounded Shape\"", autoGrade);
 

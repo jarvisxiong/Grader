@@ -10,6 +10,7 @@ import framework.project.Project;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +30,7 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Paint Listener");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Paint Listener");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"Paint Listener\"", autoGrade);
         ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);

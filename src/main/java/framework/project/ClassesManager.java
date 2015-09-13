@@ -21,7 +21,7 @@ public interface ClassesManager {
      * @param className The name of the class to find
      * @return The {@link ClassDescription} wrapped in an {@link scala.Option} in case none is found.
      */
-    public Option<ClassDescription> findByClassName(String className);
+    public List<ClassDescription> findByClassName(String className);
 
     /**
      * Attempts to find a class description based on a tag
@@ -29,7 +29,7 @@ public interface ClassesManager {
      * @param tag The tag to search for
      * @return The {@link ClassDescription} wrapped in an {@link scala.Option} in case none is found.
      */
-    public Set<ClassDescription> findByTag(String tag);
+    public List<ClassDescription> findByTag(String tag);
 
     /**
      * @return All the {@link ClassDescription}
@@ -39,5 +39,13 @@ public interface ClassesManager {
 	List<String> getClassNamesToCompile();
 
 	void setClassNamesToCompile(List<String> classNamesToCompile);
+
+
+	List<ClassDescription> findByTagMatch(String regex);
+
+	List<ClassDescription> findByClassNameMatch(String className);
+
+	List<ClassDescription> findClass(String aName, String aTag,
+			String aNameMatch, String aTagMatch);
 
 }

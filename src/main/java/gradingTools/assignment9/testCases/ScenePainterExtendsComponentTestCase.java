@@ -13,6 +13,7 @@ import tools.classFinder.RootTagFinder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,7 +33,7 @@ public class ScenePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Inheriting Bridge Scene Painter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Inheriting Bridge Scene Painter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"Inheriting Bridge Scene Painter\"", autoGrade);
         ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);

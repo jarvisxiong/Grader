@@ -8,6 +8,7 @@ import framework.project.ClassDescription;
 import framework.project.Project;
 import scala.Option;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,8 +28,8 @@ public class ListenerAndPainterTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        Set<ClassDescription> class1 = project.getClassesManager().get().findByTag("Paint Listener");
-        Set<ClassDescription> class2 = project.getClassesManager().get().findByTag("Observable Painter");
+        List<ClassDescription> class1 = project.getClassesManager().get().findByTag("Paint Listener");
+        List<ClassDescription> class2 = project.getClassesManager().get().findByTag("Observable Painter");
         if (class1.isEmpty()) {
             if (class2.isEmpty())
                 return fail("Neither paint listener nor observable painter are tagged.",autoGrade);

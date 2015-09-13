@@ -7,6 +7,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +29,7 @@ public class CmdIntTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        Set<ClassDescription> classes = project.getClassesManager().get().findByTag("Command Interpreter");
+        List<ClassDescription> classes = project.getClassesManager().get().findByTag("Command Interpreter");
         if (classes.size() == 1)
             return pass(autoGrade);
         return fail("There should be one class tagged \"Command Interpreter\"", autoGrade);

@@ -30,13 +30,9 @@ public class ManualClassesManager implements ClassesManager {
         return ClassLoader.getSystemClassLoader();
     }
 
-    @Override
-    public Option<ClassDescription> findByClassName(String className) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
-    public Set<ClassDescription> findByTag(String tag) {
+    public List<ClassDescription> findByTag(String tag) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -56,4 +52,31 @@ public class ManualClassesManager implements ClassesManager {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<ClassDescription> findByClassName(String className) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassDescription> findByTagMatch(String regex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassDescription> findByClassNameMatch(String className) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassDescription> findClass(String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

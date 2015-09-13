@@ -6,7 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-
+import java.util.List;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
@@ -29,7 +29,7 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Observable Painter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Observable Painter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"Observable Painter\"", autoGrade);
         ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);

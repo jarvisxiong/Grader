@@ -7,6 +7,7 @@ import scala.Option;
 import tools.classFinder2.ClassFinder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public class SpecialClassFinder {
 
     public static Option<ClassDescription> getLocatable(Project project, boolean autoGrade) throws NotAutomatableException {
 
-        Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag("locatable");
+        List<ClassDescription> descriptions = project.getClassesManager().get().findByTag("locatable");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("locatable", autoGrade);
 
@@ -35,7 +36,7 @@ public class SpecialClassFinder {
     }
 
     public static Option<ClassDescription> getBoundedShape(Project project, boolean autoGrade) throws NotAutomatableException {
-        Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag("bounded shape");
+        List<ClassDescription> descriptions = project.getClassesManager().get().findByTag("bounded shape");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("bounded shape", autoGrade);
 

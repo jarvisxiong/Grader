@@ -2,12 +2,12 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Bean class                                             20.0 / 20.0
+Bean class                                             0.0 / 20.0
 Numbers and words                                      20.0 / 20.0
 Quoted string                                          30.0 / 30.0
 Screenshots enclosed                                   10.0 / 10.0
 ----------------------------------
-  Points Awarded: 80.0
+  Points Awarded: 60.0
 
 Grading restrictions...
 ----------------------------------
@@ -17,7 +17,13 @@ Scanner Bean Tagged                         0.0 /  -5.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 80.0
+  Features Score: 60.0
+
+Notes from grading features:
+----------------------------------
+Bean class:
+  -- Cannot find unique scanner bean class
+
 
 Early benefit: 105.0%
-  Total Score: 84.0
+  Total Score: 63.0

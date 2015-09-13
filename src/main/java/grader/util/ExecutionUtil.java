@@ -2,6 +2,7 @@ package grader.util;
 
 import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
+import grader.execution.ResultWithOutput;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +44,7 @@ public class ExecutionUtil {
 
 	}
 
-	public static Object timedInteractiveInvoke(Object anObject,
+	public static ResultWithOutput timedInteractiveInvoke(Object anObject,
 			Method aMethod, Object[] anArgs, long aMillSeconds) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
 

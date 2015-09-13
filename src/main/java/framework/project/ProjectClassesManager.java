@@ -238,6 +238,7 @@ public class ProjectClassesManager implements ClassesManager {
 
 		}
     }
+    
 
     /**
      * Given a file, this finds the canonical class name.
@@ -357,22 +358,66 @@ public class ProjectClassesManager implements ClassesManager {
      * was found.
      */
     @Override
-    public Option<ClassDescription> findByClassName(String className) {
+    public List<ClassDescription> findByClassName(String className) {
+        List<ClassDescription> classes = new ArrayList<>();
+
         // First search the simple names
         for (ClassDescription description : classDescriptions) {
             if (description.getJavaClass().getSimpleName().equalsIgnoreCase(className)) {
-                return Option.apply(description);
+               classes.add(description);
             }
         }
 
         // Next search the canonical names
         for (ClassDescription description : classDescriptions) {
             if (description.getJavaClass().getCanonicalName().equalsIgnoreCase(className)) {
-                return Option.apply(description);
+                classes.add(description);
             }
         }
-        return Option.empty();
+        return classes;
     }
+    
+    @Override
+    public List<ClassDescription> findByClassNameMatch(String className) {
+        List<ClassDescription> classes = new ArrayList<>();
+
+        // First search the simple names
+        for (ClassDescription description : classDescriptions) {
+            if (description.getJavaClass().getSimpleName().matches(className)) {
+               classes.add(description);
+            }
+        }
+
+        // Next search the canonical names
+        for (ClassDescription description : classDescriptions) {
+            if (description.getJavaClass().getCanonicalName().matches(className)) {
+                classes.add(description);
+            }
+        }
+        return classes;
+    }
+    @Override
+    public List<ClassDescription> findClass (String aName, String aTag, String aNameMatch, String aTagMatch) {
+    	List<ClassDescription> result = new ArrayList();
+    	if (aName != null)
+    		result = findByClassName(aName);
+    	if (!result.isEmpty())
+    		return result;
+    	if (aTag != null)
+    		result = findByTag(aTag);    	
+    	if (!result.isEmpty())
+    		return result;
+    	if (aNameMatch != null) {
+    		result = findByClassNameMatch(aName);  		
+    	}
+    	if (!result.isEmpty())
+    		return result;
+    	if (aTagMatch != null) {
+    		result = findByTagMatch(aTagMatch);
+    	}
+    	return result;
+    }
+    
 
     /**
      * Looks for all class descriptions with a particular tag
@@ -381,11 +426,30 @@ public class ProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public Set<ClassDescription> findByTag(String tag) {
-        Set<ClassDescription> classes = new HashSet<ClassDescription>();
+    public List<ClassDescription> findByTag(String tag) {
+        List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
             for (String t : description.getTags()) {
                 if (t.equalsIgnoreCase(tag)) {
+                    classes.add(description);
+                }
+            }
+        }
+        return classes;
+    }
+    
+    /**
+     * Looks for all class descriptions with a particular tag
+     *
+     * @param tag The tag to search for
+     * @return The set of matching class descriptions
+     */
+    @Override
+    public List<ClassDescription> findByTagMatch(String regex) {
+        List<ClassDescription> classes = new ArrayList<>();
+        for (ClassDescription description : classDescriptions) {
+            for (String t : description.getTags()) {
+                if (t.matches(regex)) {
                     classes.add(description);
                 }
             }

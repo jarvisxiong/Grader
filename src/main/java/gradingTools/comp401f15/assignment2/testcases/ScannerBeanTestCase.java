@@ -6,6 +6,8 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -43,15 +45,21 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-
-        // Look in each class for something that satisfies the bean class requirements
-        for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
+        
+        List<ClassDescription> aClasses = project.getClassesManager().get().findClass(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+        if (aClasses.size() != 1) {
+        	return  fail ("Cannot find unique scanner bean class");
+        }
+        ClassDescription description = aClasses.get(0);
+//        
+//        // Look in each class for something that satisfies the bean class requirements
+//        for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
 
             // There should be a string property with a getter and setter
             try {
                 BeanInfo info = Introspector.getBeanInfo(description.getJavaClass());
                 for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
-                    if (descriptor.getPropertyType() == String.class && descriptor.getReadMethod() != null &&
+                    if (descriptor.getName().equalsIgnoreCase("ScannedString") && descriptor.getPropertyType() == String.class && descriptor.getReadMethod() != null &&
                             descriptor.getWriteMethod() != null) {
                         Object anInstance = createScannerBean((description.getJavaClass()));
 
@@ -62,7 +70,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
             } catch (IntrospectionException e) {
                 // Do nothing if it fails
             }
-        }
+        
         return fail("Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).", autoGrade);
     }
 }
