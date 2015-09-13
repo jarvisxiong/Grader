@@ -8,6 +8,7 @@ import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
+import gradingTools.comp401f15.assignment2.testcases.ModularScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.NumberTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
@@ -25,7 +26,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/04/2015 23:59:00", 1);
     	addDueDate("09/09/2015 23:59:00", 0.9);
     	addDueDate("09/11/2015 23:59:00", 0.75);
-    	 addFeature("Bean class", 20, new ScannerBeanTestCase());
+    	 addFeature("Bean class", 20, new ModularScannerBeanTestCase());
          addFeature("Numbers and words", 20,
                  new NumberTokensTestCase(),
                  new WordTokensTestCase());

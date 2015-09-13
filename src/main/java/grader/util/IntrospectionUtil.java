@@ -14,7 +14,7 @@ import grader.execution.ResultWithOutput;
 public class IntrospectionUtil {
 	public static Class findClass(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
-		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
         if (aClasses.size() != 1) {
         	return null;
         }
@@ -33,8 +33,12 @@ public class IntrospectionUtil {
             }
         }
 		} catch (IntrospectionException e) {
+			System.out.println("Property " +  aPropertyName + "not found");
+
 			return null;
 		}
+		System.out.println("Property " +  aPropertyName + "not found");
+
 		return null;
 	}
 

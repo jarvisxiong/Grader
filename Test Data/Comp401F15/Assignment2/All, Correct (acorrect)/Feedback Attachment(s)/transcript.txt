@@ -1,3 +1,9 @@
+*****************************(Bean class)*****************************
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
+*****************************(Bean class)*****************************
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
 hello "h e l l o" 10 goodbye  "go odb ye" 20

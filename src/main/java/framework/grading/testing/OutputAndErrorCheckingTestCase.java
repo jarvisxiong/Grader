@@ -27,7 +27,7 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
     }
 
 
-    protected boolean isValidOutputInDifferentLines(List<String> anOutput, String[] anExpectedStrings){
+    public static boolean isValidOutputInDifferentLines(List<String> anOutput, String[] anExpectedStrings){
    	 for (String anExpectedString: anExpectedStrings) {
 //      		if (!anOutput.contains(anExpectedString))
 //          	if (!anOutput.match(anExpectedString))
@@ -36,20 +36,27 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
       	}
       	return true;
       }
-   protected boolean isValidOutputInSameOrDifferentLines(List<String> anOutput, String[] anExpectedStrings){
+   public static boolean isValidOutputInSameOrDifferentLines(List<String> anOutput, String[] anExpectedStrings){
 	 for (String anExpectedString: anExpectedStrings) {
 //   		if (!anOutput.contains(anExpectedString))
 //       	if (!anOutput.match(anExpectedString))
          if (!matchesNonConsuming(anOutput, anExpectedString))
    			return false;
    	}
+	 
    	return true;
    }
-   protected boolean isValidOutput(List<String> anOutput, String[] anExpectedStrings){
+   protected  boolean isValidOutput(String anOutput, String[] anExpectedStrings){
+	   	 List anOutputLines = Common.arrayToArrayList(anOutput.split("\n"));
+	   			 
+
+ 		return isValidOutput(anOutputLines, anExpectedStrings);
+ }
+   protected  boolean isValidOutput(List<String> anOutput, String[] anExpectedStrings){
 	   return isValidOutputInSameOrDifferentLines(anOutput, anExpectedStrings);
    }
    
-   protected int indexOf (List<String> anOutputs, String anExpectedString) {
+   public static int indexOf (List<String> anOutputs, String anExpectedString) {
 	   for (int index = 0; index < anOutputs.size(); index++) {
 		   String anOutput = anOutputs.get(index);
 		   if (anOutput.matches(anExpectedString))
@@ -58,11 +65,11 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
 	   return -1;
 	   
    }
-   protected boolean matchesNonConsuming (List<String> anOutputs, String anExpectedString) {
+   public static boolean matchesNonConsuming (List<String> anOutputs, String anExpectedString) {
 	   return indexOf(anOutputs, anExpectedString) != -1;
 	   
    }
-   protected boolean matchesConsuming (List<String> anOutputs, String anExpectedString) {
+   public static boolean matchesConsuming (List<String> anOutputs, String anExpectedString) {
 	   int index = indexOf(anOutputs, anExpectedString);
 	   if (index  == -1)
 		   return false;
@@ -70,12 +77,7 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
 	   return true;	   
    }
 
-   protected boolean isValidOutput(String anOutput, String[] anExpectedStrings){
-	   	 List anOutputLines = Common.arrayToArrayList(anOutput.split("\n"));
-	   			 
-
-   		return isValidOutput(anOutputLines, anExpectedStrings);
-   }
+   
    protected  boolean hasError(String anError){
     	return !anError.isEmpty();
     }

@@ -1,5 +1,7 @@
 package grader.util;
 
+import framework.execution.RunningProject;
+import framework.grading.testing.Checkable;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.AConstructorExecutionCallable;
@@ -7,6 +9,7 @@ import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
 import grader.execution.ResultWithOutput;
 
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +20,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -190,21 +194,104 @@ public class ExecutionUtil {
 //
 //		}
 	}
-	public static Map<String, Object> testBean (Project aProject, String aBeanDescription, Map<String, Object> anInputs, Map<String, Object> anOutputs ) {
+	static String[] emptyArgs = {};
+	
+	public static Map<String, Object> testBean (String aFeatureName, Project aProject, 
+			String[] aBeanDescriptions, 
+			Class[] aConstructorArgTypes, 
+			Object[] aConstructorArgs, Map<String, Object> anInputs, 
+			String[] anOutputProperties ) {
+		String anOutput;
 		Map<String, Object> anActualOutputs = new HashMap();
-		String[] aBeanDescriptions = aBeanDescription.split(",");
+
+		try {
+//		String[] aBeanDescriptions = aBeanDescription.split(",");
 		if (aBeanDescriptions.length != 4) {
 			Tracer.error("Bean description  in testBean should have 4 elements instead of: " + aBeanDescriptions.length);
 		}
-		
-        List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(
+		redirectOutput();
+		System.out.println ("Finding class matching:" + Common.toString(aBeanDescriptions));
+		Class aClass = IntrospectionUtil.findClass(aProject, 
         		aBeanDescriptions[0],
         		aBeanDescriptions[1],
         		aBeanDescriptions[2],
         		aBeanDescriptions[3]);
-        return null;
+		
 
+		if (aClass == null) {
+			System.out.println ("No class matching: " + Common.toString(aBeanDescriptions));
+//			anActualOutputs = null;
+		} else {
+			System.out.println ("Finding constructor matching:" + Common.toString(aConstructorArgTypes));
+			Constructor aConstructor = aClass.getConstructor(aConstructorArgTypes);
+			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 300);
+			for (String aPropertyName:anInputs.keySet()) {
+				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, aPropertyName);
+				if (aProperty == null) {
+//					System.out.println("Property " +  aPropertyName + "not found");
+					continue;
+				}
+				Method aWriteMethod = aProperty.getWriteMethod();
+				if (aWriteMethod == null) {
+					System.out.println("Missing write method for property " +  aPropertyName);
+					continue;
+				}
+				Object aValue = anInputs.get(aPropertyName);
+				timedInvoke(anObject, aWriteMethod, new Object[]{aValue}, 300);
+			}
+			for (String anOutputPropertyName:anOutputProperties) {
+				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, anOutputPropertyName);
+				if (aProperty == null) {
+//					System.out.println("Property " +  aPropertyName + "not found");
+					continue;
+				}
+				Method aReadMethod = aProperty.getReadMethod();
+				if (aReadMethod == null) {
+					System.out.println("Missing read method for property " +  anOutputPropertyName);
+					continue;
+				}
+				Object result = timedInvoke(anObject, aReadMethod, emptyArgs, 300);
+				anActualOutputs.put(anOutputPropertyName, result);				
+			}
+		}
+		
+		} catch (NoSuchMethodException e) {
+			System.out.println("Constructor not found");
+//			anActualOutputs = null;
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			anActualOutputs = null;
+
+			e.printStackTrace();
+		} finally {
+			anOutput = restoreOutputAndGetRedirectedOutput();
+			 if (anOutput != null && !anOutput.isEmpty()) {
+             	RunningProject.appendToTranscriptFile(aProject, aFeatureName, anOutput);
+             }
+			anActualOutputs.put("System.out", anOutput);
+			
+		}
+		
+		return anActualOutputs;
 	}
-
 	
+
+	 public static boolean getsReturnedSets(Map<String, Object> anInputs, 
+			 Map<String, Object> anActualOutputs) {
+		 if (anInputs == null || anActualOutputs == null) 
+			 return false;
+		 Set<String> anOutputProperties = anActualOutputs.keySet();
+		 for (String anInputProperty:anInputs.keySet()) {
+			 if (!anOutputProperties.contains(anInputProperty))
+				 continue;
+			 Object aGetterValue = anActualOutputs.get(anInputProperty);
+			 Object aSetterValue = anInputs.get(anInputProperty);
+			if (! Common.equal(aGetterValue, aSetterValue) ) {
+				return false;
+			}
+		 }
+		 return true;
+	    	
+	    }
 }

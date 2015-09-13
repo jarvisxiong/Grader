@@ -1,9 +1,23 @@
 *****************************(Bean class)*****************************
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found
+*****************************(Bean class)*****************************
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found
+*****************************(Bean class)*****************************
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner() 
+called method: public grail.BeanStringScanner() 
 calling method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args 22 32 45 
 number: 22
 number: 32
 number: 45
 called method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args:22 32 45  result:null
+calling method: public java.lang.String grail.BeanStringScanner.getScannedString() with args 
+called method: public java.lang.String grail.BeanStringScanner.getScannedString() with args: result:22 32 45 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
 hello "h e l l o" 10 goodbye  "go odb ye" 20
