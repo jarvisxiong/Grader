@@ -9,12 +9,16 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
+import wrappers.framework.project.ProjectWrapper;
+import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.execution.ResultWithOutput;
+import grader.sakai.project.SakaiProject;
 import grader.util.ExecutionUtil;
 
 public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
@@ -45,6 +49,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
+     	SakaiProject aProject = ((ProjectWrapper) project).getProject();
         
         List<ClassDescription> aClasses = project.getClassesManager().get().findClass(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
         if (aClasses.size() != 1) {
@@ -63,8 +68,12 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
                             descriptor.getWriteMethod() != null) {
                         Object anInstance = createScannerBean((description.getJavaClass()));
 
-                    	ExecutionUtil.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
-                        return pass(autoGrade);
+                    	ResultWithOutput aResultWithOutput = ExecutionUtil.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
+                        String anOutput = aResultWithOutput.getOutput();
+                        if (anOutput != null && !anOutput.isEmpty()) {
+                        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), anOutput);
+                        }
+                    	return pass(autoGrade);
                     }
                 }
             } catch (IntrospectionException e) {

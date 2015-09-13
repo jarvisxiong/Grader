@@ -1,6 +1,6 @@
 package grader.assignment;
 
-import framework.grading.testing.Feature;
+import framework.grading.testing.Checkable;
 import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -96,9 +96,9 @@ public interface GradingFeature extends PropertyListenerRegisterer {
 
 	void pureSetValidate(boolean newVal);
 
-	Feature getFeature();
+	Checkable getFeature();
 
-	void setFeature(Feature feature);
+	void setFeature(Checkable feature);
 
 	String getResultFormat();
 

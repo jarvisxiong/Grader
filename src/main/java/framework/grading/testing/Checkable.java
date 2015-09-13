@@ -2,6 +2,7 @@ package framework.grading.testing;
 
 import framework.grading.ProjectRequirements;
 import framework.project.Project;
+import grader.assignment.GradingFeature;
 import grader.trace.feature.FeatureChecked;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ import wrappers.framework.project.ProjectWrapper;
 public abstract class Checkable implements Gradable {
 	@JsonIgnore
 	ProjectRequirements requirements; //inheritance link
-   
+	
 
 	protected boolean manual; // added by pd
     protected boolean extraCredit; // moved by pd
@@ -185,6 +186,15 @@ public abstract class Checkable implements Gradable {
      * @return The results of the check
      */
     public abstract CheckResult check(Project project, boolean autoMode);
+	@JsonIgnore
+    GradingFeature gradingFeature;
+    
 
+	public GradingFeature getGradingFeature() {
+		return gradingFeature;
+	}
 
+	public void setGradingFeature(GradingFeature gradingFeature) {
+		this.gradingFeature = gradingFeature;
+	}
 }

@@ -2,6 +2,7 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
+import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
@@ -77,7 +78,7 @@ public class AProject implements Project {
 
     JavaDocBuilder javaDocBuilder;
     MainClassFinder mainClassFinder;
-    Feature currentGradingFeature; // ugly but do not want to change project runner code that has access to project and not grading feature
+    Checkable currentGradingFeature; // ugly but do not want to change project runner code that has access to project and not grading feature
     String[][] args;
     boolean runChecked;
     StringBuffer currentOutput = new StringBuffer();
@@ -563,12 +564,12 @@ public class AProject implements Project {
     }
 
     @Override
-    public Feature getCurrentGradingFeature() {
+    public Checkable getCurrentGradingFeature() {
         return currentGradingFeature;
     }
 
     @Override
-    public void setCurrentGradingFeature(Feature currentGradingFeature) {
+    public void setCurrentGradingFeature(Checkable currentGradingFeature) {
         this.currentGradingFeature = currentGradingFeature;
     }
 

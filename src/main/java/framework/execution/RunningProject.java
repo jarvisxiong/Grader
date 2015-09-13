@@ -354,12 +354,12 @@ public class RunningProject implements ProcessInputListener {
 
     }
 
-    void appendToTranscriptFile(SakaiProject aProject, String aText) {
+   public static void appendToTranscriptFile(SakaiProject aProject, String aText) {
         try {
             String anOutputFileName = aProject.getOutputFileName();
             FileWriter fileWriter = new FileWriter(anOutputFileName, true);
             fileWriter.append(aText);
-            OverallTranscriptSaved.newCase(null, null, aProject, anOutputFileName, aText, this);
+            OverallTranscriptSaved.newCase(null, null, aProject, anOutputFileName, aText, RunningProject.class);
 //			if (project.getCurrentGradingFeature() != null)
 //			FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
             fileWriter.close();
@@ -368,6 +368,13 @@ public class RunningProject implements ProcessInputListener {
             e.printStackTrace();
         }
 
+    }
+   
+    public static void appendToTranscriptFile(SakaiProject aProject, String aFeatureName, String aText) {
+    	appendToTranscriptFile(aProject, featureHeader(aFeatureName) + "\n" + aText);
+    }
+    public static void appendToTranscriptFile(Project aProject, String aFeatureName, String aText) {
+    	appendToTranscriptFile(((ProjectWrapper) aProject).getProject(), featureHeader(aFeatureName) + "\n" + aText);
     }
 
     public void appendOutputAndErrorsToTranscriptFile(SakaiProject aProject) {

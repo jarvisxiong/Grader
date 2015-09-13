@@ -1380,6 +1380,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 						feature.isExtraCredit());
 				gradingFeatures.add(gradingFeature);
 				gradingFeature.setFeature(feature);
+				feature.setGradingFeature(gradingFeature);
 				featureToCheckable.put(gradingFeature, feature);
 			}
 
@@ -1389,6 +1390,8 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 						restriction.getName(), restriction.getPoints(),
 						new FeatureCheckerWrapper(restriction));
 				gradingFeatures.add(gradingFeature);
+				gradingFeature.setFeature(restriction);
+				restriction.setGradingFeature(gradingFeature);
 				featureToCheckable.put(gradingFeature, restriction);
 			}
 		}

@@ -2,7 +2,7 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
-import framework.grading.testing.Feature;
+import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import grader.assignment.GradingFeature;
 import grader.execution.MainClassFinder;
@@ -87,9 +87,9 @@ public interface Project {
 
 	void setCurrentOutput(StringBuffer currentOutput);
 
-	Feature getCurrentGradingFeature();
+	Checkable getCurrentGradingFeature();
 
-	void setCurrentGradingFeature(Feature newVal);
+	void setCurrentGradingFeature(Checkable newVal);
 	TestCase getCurrentTestCase();
 
 	void setCurrentTestCase(TestCase newVal);

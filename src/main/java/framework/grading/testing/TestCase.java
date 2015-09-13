@@ -22,12 +22,8 @@ public interface TestCase extends Permissible{
      */
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException;
 
-    /**
-     * Sets the checkable containing this test case.
-     *
-     * @param checkable The check to set as the owner.
-     * @deprecated This is never used and does nothing.
-     */
-//    @Deprecated
+   
     public void setCheckable(Checkable checkable);
+
+	Checkable getCheckable();
 }

@@ -38,14 +38,17 @@ import framework.project.Project;
 public abstract class BasicTestCase implements TestCase {
 	@JsonIgnore
     protected Checkable checkable;
-    protected String name;
+    
+	protected String name;
 
     public BasicTestCase(String name) {
         this.name = name;
     }
    
-
-
+    @Override
+    public Checkable getCheckable() {
+		return checkable;
+	}
 
     @Override
     public void setCheckable(Checkable checkable) {

@@ -70,9 +70,7 @@ public class ExecutionUtil {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
 
 		PrintStream originalOut = System.out;
-		Callable aCallable = new AMethodExecutionCallable(anObject,
-				aMethod, anArgs);
-		Future future = executor.submit(aCallable);
+		
 
 		try {
 //			System.out.flush();
@@ -86,6 +84,9 @@ public class ExecutionUtil {
 			System.setOut(teeStream);
 //			Object aResult = timedInvoke(anObject, aMethod, anArgs,
 //					aMillSeconds);
+			Callable aCallable = new AMethodExecutionCallable(anObject,
+					aMethod, anArgs);
+			Future future = executor.submit(aCallable);
 			Object aResult = future.get(aMillSeconds, TimeUnit.MILLISECONDS);
 
 //			System.out.flush();

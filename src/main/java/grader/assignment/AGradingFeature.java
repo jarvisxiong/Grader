@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import grader.auto_notes.NotesGenerator;
 import grader.checkers.CheckResult;
@@ -68,7 +69,7 @@ public class AGradingFeature implements GradingFeature {
 	String resultFormat = "";
 	boolean isRestriction;
 	String output = "";
-	Feature feature;
+	Checkable feature;
 
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
@@ -660,12 +661,12 @@ public class AGradingFeature implements GradingFeature {
 	}
 	@Visible(false)
 	@Override
-	public Feature getFeature() {
+	public Checkable getFeature() {
 		return feature;
 	}
 	@Override
 	@Visible(false)
-	public void setFeature(Feature feature) {
+	public void setFeature(Checkable feature) {
 		this.feature = feature;
 	}
 	@Override
