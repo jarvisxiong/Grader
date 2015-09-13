@@ -1,0 +1,11 @@
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: classDefined: (Assignment1.java:1) Class matching main.Assignment(.*) defined, unmatched expected classes/tags [@ScannerBean]
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: illegalMethodCall: (Assignment1.java:19) called disallowed method delimiter
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: uncessaryMethodCall: (Assignment1.java:19) called unnecessary method delimiter
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:20: warning: illegalMethodCall: (Assignment1.java:20) called disallowed method split
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:20: warning: uncessaryMethodCall: (Assignment1.java:20) called unnecessary method split
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: 'if' construct must use '{}'s.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: uncessaryMethodCall: (Assignment1.java:25) called unnecessary method equals
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25:32: warning: String literal expressions should be on the left side of an equals comparison.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:36:51: warning: The String " " appears 3 times in the file.
+Audit done.

@@ -27,15 +27,21 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
         super("Scanner Bean class test case");
     }
 	
+	static String[] emptyArgs = {};
+	
 	public Object createScannerBean (Class aClass) {
 		Constructor aConstructor = null;
 		try {
 			aConstructor = aClass.getConstructor();
-			return aConstructor.newInstance();
+//			return aConstructor.newInstance();
+			Object aResult = ExecutionUtil.timedInvoke(aConstructor, emptyArgs, 300);
+			return aResult;
 		} catch (Exception e) {
 			try {
 				aConstructor = aClass.getConstructor(String.class);
-				return aConstructor.newInstance("");
+				Object aResult = ExecutionUtil.timedInvoke(aConstructor, new String[] {""}, 300);
+
+				return aResult;
 			} catch (Exception e1) {
 				return null;
 			}			
@@ -67,6 +73,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
                     if (descriptor.getName().equalsIgnoreCase("ScannedString") && descriptor.getPropertyType() == String.class && descriptor.getReadMethod() != null &&
                             descriptor.getWriteMethod() != null) {
                         Object anInstance = createScannerBean((description.getJavaClass()));
+                        
 
                     	ResultWithOutput aResultWithOutput = ExecutionUtil.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
                         String anOutput = aResultWithOutput.getOutput();

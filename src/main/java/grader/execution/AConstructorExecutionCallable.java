@@ -4,20 +4,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
+import util.misc.Common;
+
 public class AConstructorExecutionCallable implements Callable{
 	Constructor constructor;
-	Object object;
+//	Object object;
 	Object[] args;
-	public AConstructorExecutionCallable(Object anObject, Constructor aConstructor, Object[] anArgs) {
+	public AConstructorExecutionCallable(Constructor aConstructor, Object[] anArgs) {
 		constructor = aConstructor;
-		object = anObject;
+//		object = anObject;
 		args = anArgs;
 	}
 	@Override
 	public Object call() throws Exception {
-		System.out.println ("calling method: " + constructor + " " + args);
-		Object retVal = constructor.newInstance(object, args);
-		System.out.println ("called method: " + constructor + " " + args);
+		System.out.println ("calling method: " + constructor + " " + Common.toString(args));
+		Object retVal = constructor.newInstance(args);
+		System.out.println ("called method: " + constructor + " " + Common.toString(args));
 
 		return retVal;
 	}
