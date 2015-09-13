@@ -6,8 +6,13 @@ Bean class                                             0.0 / 20.0
 Numbers and words                                      0.0 / 20.0
 Quoted string                                          0.0 / 30.0
 Screenshots enclosed                                   0.0 / 10.0
+Breakpoint step into/over/return screenhots            0.0 / 20.0
+Variable spaces                                        0.0 /  3.0 (Extra credit)
+Plus minus                                             4.0 /  4.0 (Extra credit)
+Missing quote                                          0.0 /  3.0 (Extra credit)
+Own isLetter                                           0.0 /  3.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 0.0
+  Points Awarded: 4.0
 
 Grading restrictions...
 ----------------------------------
@@ -17,7 +22,7 @@ Scanner Bean Tagged                         0.0 /  -5.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 0.0
+  Features Score: 4.0
 
 Notes from grading features:
 ----------------------------------
@@ -33,6 +38,12 @@ Quoted string:
 Screenshots enclosed:
   -- Missing images
 
+Variable spaces:
+  -- Cannot scan numbers
+
+Missing quote:
+  -- Cannot scan numbers
+
 
 Notes from grading restrictions:
 ----------------------------------
@@ -41,4 +52,4 @@ Scanner Bean Tagged :
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 4.2

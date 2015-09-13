@@ -6,6 +6,11 @@ Bean class                                             0.0 / 20.0
 Numbers and words                                      0.0 / 20.0
 Quoted string                                          0.0 / 30.0
 Screenshots enclosed                                   10.0 / 10.0
+Breakpoint step into/over/return screenhots            0.0 / 20.0
+Variable spaces                                        0.0 /  3.0 (Extra credit)
+Plus minus                                             0.0 /  4.0 (Extra credit)
+Missing quote                                          0.0 /  3.0 (Extra credit)
+Own isLetter                                           0.0 /  3.0 (Extra credit)
 ----------------------------------
   Points Awarded: 10.0
 
@@ -28,6 +33,15 @@ Numbers and words:
   -- Cannot scan numbers
 
 Quoted string:
+  -- Cannot scan numbers
+
+Variable spaces:
+  -- Cannot scan numbers
+
+Plus minus:
+  -- Cannot scan numbers
+
+Missing quote:
   -- Cannot scan numbers
 
 

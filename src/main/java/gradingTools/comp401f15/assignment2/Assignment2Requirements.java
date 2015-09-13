@@ -8,10 +8,13 @@ import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
+import gradingTools.comp401f15.assignment2.testcases.MissingQuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ModularScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.NumberTokensTestCase;
+import gradingTools.comp401f15.assignment2.testcases.PlusMinusTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
+import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
 import gradingTools.sharedTestCase.ClassDefinedlTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
@@ -50,6 +53,17 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 //        addFeature("Variable spaces", 5, true, new VariableSpacesTestCase());
 //        addFeature("Handle invalid chars", 5, true, new VariableSpacesTestCase());
         addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
+        addManualFeature("Breakpoint step into/over/return screenhots", 20);
+        
+        addFeature("Variable spaces", 3, true, new VarialbleSpaceTokensTestCase());
+        addFeature("Plus minus", 4, true, new PlusMinusTokensTestCase());
+      addFeature("Missing quote", 3, true, new MissingQuotedStringTokensTestCase());
+      addManualFeature("Own isLetter", 3, true);
+
+
+
+
+
 //        addManualFeature("Use an extra class with iterator like interface", 10, true);
 
 

@@ -1,13 +1,5 @@
 *****************************(Bean class)*****************************
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
-Finding constructor matching:class java.lang.String
-Constructor not found
-*****************************(Bean class)*****************************
-Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
-Finding constructor matching:class java.lang.String
-Constructor not found
-*****************************(Bean class)*****************************
-Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
 Finding constructor matching:
 calling method: public grail.BeanStringScanner() 
 called method: public grail.BeanStringScanner() 
@@ -50,7 +42,7 @@ number: 20
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
+hello    "h e l l o"   10   goodbye  "go odb ye" 20
 .
 
 OUTPUT(Quoted string)
@@ -62,4 +54,47 @@ number: 10
 word: goodbye
 quoted string: go odb ye
 number: 20
+
+*****************************(Variable spaces)*****************************
+INPUT(Variable spaces)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Variable spaces)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+hello    "h e l l o"   10   goodbye  "go odb ye 20
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+closed quota is missing.....
+go odb ye 20
 

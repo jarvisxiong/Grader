@@ -35,6 +35,15 @@ import util.misc.ThreadSupport;
 import util.trace.Tracer;
 
 public class ExecutionUtil {
+	public static final String PRINTS = "System.out";
+	public static final String MISSING_CLASS = "Status.NoClass";
+	public static final String MISSING_PROPERTY = "Status.NoProperty";
+	public static final String MISSING_WRITE = "Status.NoWrite";
+	public static final String MISSING_READ = "Status.NoRead";
+	public static final String GETS_EQUAL_SETS = "Status.GetsEqualSets";
+	public static final String EXPECTED_EQUAL_ACTUAL = "Status.ExpectedEqualActual";
+
+	public static final String MISSING_CONSTRUCTOR = "Status.MissingConstructor";
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
@@ -220,6 +229,7 @@ public class ExecutionUtil {
 
 		if (aClass == null) {
 			System.out.println ("No class matching: " + Common.toString(aBeanDescriptions));
+			anActualOutputs.put(MISSING_CLASS, true);
 //			anActualOutputs = null;
 		} else {
 			System.out.println ("Finding constructor matching:" + Common.toString(aConstructorArgTypes));
@@ -228,11 +238,15 @@ public class ExecutionUtil {
 			for (String aPropertyName:anInputs.keySet()) {
 				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, aPropertyName);
 				if (aProperty == null) {
+					anActualOutputs.put(MISSING_PROPERTY, true);
+					anActualOutputs.put(MISSING_PROPERTY+"." + aPropertyName, true);
 //					System.out.println("Property " +  aPropertyName + "not found");
 					continue;
 				}
 				Method aWriteMethod = aProperty.getWriteMethod();
 				if (aWriteMethod == null) {
+					anActualOutputs.put(MISSING_WRITE, true);
+					anActualOutputs.put(MISSING_WRITE +"." + aPropertyName, true);
 					System.out.println("Missing write method for property " +  aPropertyName);
 					continue;
 				}
@@ -242,12 +256,15 @@ public class ExecutionUtil {
 			for (String anOutputPropertyName:anOutputProperties) {
 				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, anOutputPropertyName);
 				if (aProperty == null) {
+					
 //					System.out.println("Property " +  aPropertyName + "not found");
 					continue;
 				}
 				Method aReadMethod = aProperty.getReadMethod();
 				if (aReadMethod == null) {
 					System.out.println("Missing read method for property " +  anOutputPropertyName);
+					anActualOutputs.put(MISSING_READ, true);
+					anActualOutputs.put(MISSING_READ +"." + anOutputPropertyName, true);
 					continue;
 				}
 				Object result = timedInvoke(anObject, aReadMethod, emptyArgs, 300);
@@ -257,7 +274,7 @@ public class ExecutionUtil {
 		
 		} catch (NoSuchMethodException e) {
 			System.out.println("Constructor not found");
-//			anActualOutputs = null;
+			anActualOutputs.put(MISSING_CONSTRUCTOR, true);
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -269,11 +286,34 @@ public class ExecutionUtil {
 			 if (anOutput != null && !anOutput.isEmpty()) {
              	RunningProject.appendToTranscriptFile(aProject, aFeatureName, anOutput);
              }
-			anActualOutputs.put("System.out", anOutput);
+			anActualOutputs.put(PRINTS, anOutput);
 			
 		}
-		
+		boolean getsReturnSets = ExecutionUtil.getsReturnedSets(anInputs, anActualOutputs);
+		anActualOutputs.put(GETS_EQUAL_SETS, getsReturnSets);
 		return anActualOutputs;
+	}
+	public static Map<String, Object> testBean (String aFeatureName, Project aProject, 
+			String[] aBeanDescriptions, 
+			Class[] aConstructorArgTypes, 
+			Object[] aConstructorArgs, Map<String, Object> anInputs, 
+			String[] anOutputProperties, Object[] anExpectedValues) {
+		if (anOutputProperties.length != anExpectedValues.length) {
+			Tracer.error("output properties length not the same as expected values length");
+			return null;
+		}
+		Map<String, Object> anActualOutputs = testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, anOutputProperties);
+		for (int i = 0; i < anOutputProperties.length;i++) {
+			Object anExpectedOutput = anExpectedValues[i];
+			Object anActualOutput = anActualOutputs.get(anOutputProperties[i]);
+			if (!Common.equal(anExpectedOutput, anActualOutput)) {
+				anActualOutputs.put(EXPECTED_EQUAL_ACTUAL, false);
+				anActualOutputs.put(EXPECTED_EQUAL_ACTUAL + "." + anOutputProperties[i], false);
+			}
+			
+		}
+		return anActualOutputs;
+		
 	}
 	
 
@@ -294,4 +334,31 @@ public class ExecutionUtil {
 		 return true;
 	    	
 	    }
+	 
+	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, Project aProject, 
+				String[] aBeanDescriptions,  
+				String aConstructorArg, String anIndependentPropertyName, Object anIndepentValue,
+				String anOutputPropertyName, Object anExpectedOutputValue ) {
+		 Class[] aConstructorArgTypes = new Class[]{String.class};
+		 Object[] aConstructorArgs = new String[] {aConstructorArg};
+		 String[] anOutputProperties = new String[] {anOutputPropertyName};
+		 Object[] anExpectedValue = new Object[] {anExpectedOutputValue};
+		 Map<String, Object> anInputs = new HashMap();
+		 anInputs.put(anIndependentPropertyName, anIndepentValue);
+		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+				 aConstructorArgs, anInputs, anOutputProperties);
+	 
+	 }
+	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, Project aProject, 
+				String[] aBeanDescriptions,  
+				String aConstructorArg) {
+		 Class[] aConstructorArgTypes = new Class[]{String.class};
+		 Object[] aConstructorArgs = new String[] {aConstructorArg};
+		 String[] anOutputProperties = new String[] {};
+		 Object[] anExpectedValue = new Object[] {};
+		 Map<String, Object> anInputs = new HashMap();
+		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+				 aConstructorArgs, anInputs, anOutputProperties);
+	 
+	 }
 }

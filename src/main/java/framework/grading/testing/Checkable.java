@@ -109,6 +109,8 @@ public abstract class Checkable implements Gradable {
      */
     protected CheckResult check(double points, List<TestCase> testCases, Project project, boolean autoMode) {
     	if (isManual())
+//        	if (isManual() && testCases.isEmpty())
+
     		 return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
         if (testCases.isEmpty())
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
@@ -120,6 +122,9 @@ public abstract class Checkable implements Gradable {
             		((ProjectWrapper) project).getProject().setCurrentTestCase(testCase);
             	}
                 TestCaseResult testResult = testCase.test(project, autoMode);
+                if (isManual()) {
+                	testResult.setAutoGraded(false);
+                }
                 result.save(testResult);
             }
             result.setStatus(CheckResult.CheckStatus.Successful);

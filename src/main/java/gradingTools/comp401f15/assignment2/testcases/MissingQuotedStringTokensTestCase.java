@@ -12,37 +12,39 @@ import framework.project.Project;
 import gradingTools.assignment1.FlexibleProgramRunner;
 
 
-public class NumberTokensTestCase extends AbstractTokensTestCase {
+public class MissingQuotedStringTokensTestCase extends AbstractTokensTestCase {
 
-    public NumberTokensTestCase() {
-        super("Number Token Test Case");
+    public MissingQuotedStringTokensTestCase() {
+        super("Quoted String Token Test Case");
     }
     
-    protected String simplifiedInputWithNoEndingSpace () {return "10 20\n.\n";}
-    protected String simplifiedInputWithEndingSpace() {return "10 20 \n.\n";}
-    protected String inputWithEndingSpace() {return  "hello \"h e l l o\" 10 goodbye  \"go odb ye\" 20\n.\n";}
-    protected   String inputWithNoEndingSpace() { return  "hello \"h e l l o\" 10 goodbye \"go odb ye\" 20 \n.\n";}
-    protected String[] expectedOutputs() {
-    	return new String[] {".*10.*", ".*20.*"};
-    }
+    protected String simplifiedInputWithNoEndingSpace() {return  "\"h e l l o\" \"go odb ye\n.\n";}
+    protected  String simplifiedInputWithEndingSpace() { return "\"h e l l o\" \"go odb ye\" \n.\n";}
+    protected String inputWithEndingSpace() { return "hello    \"h e l l o\"   10   goodbye  \"go odb ye 20\n.\n";}
+    protected String inputWithNoEndingSpace() { return "hello   \"h e l l o\"  10   goodbye \"go odb ye 20 \n.\n";}
 
-
-//    String simplifiedInputWithNoEndingSpace = "10 20 \n40 50 \n.\n";
-//    String simplifiedInputWithEndingSpace = "10 20\n40 50 \n.\n";
-//    String inputWithEndingSpace = "10 20 \n40 50 \n.the end\n";
-//    String inputWithNoEndingSpace = "10 20\n40 50 \n.the end\n";
+ 
 //    String[] expectedOutputs = {"30", "200", "90", "2000"};
-    
-//    String simplifiedInputWithNoEndingSpace = "10 20\n.\n";
-//    String simplifiedInputWithEndingSpace = "10 20 \n.\n";
+    protected String[] expectedOutputs() {
+    	return new String[] {".*h e l l o.*"};
+    }
+
+////    String simplifiedInputWithNoEndingSpace = "10 20 \n40 50 \n.\n";
+////    String simplifiedInputWithEndingSpace = "10 20\n40 50 \n.\n";
+////    String inputWithEndingSpace = "10 20 \n40 50 \n.the end\n";
+////    String inputWithNoEndingSpace = "10 20\n40 50 \n.the end\n";
+////    String[] expectedOutputs = {"30", "200", "90", "2000"};
+//    
+//    String simplifiedInputWithNoEndingSpace = "hello goodbye\n.\n";
+//    String simplifiedInputWithEndingSpace = "hello goodbye \n.\n";
 //    String inputWithEndingSpace = "hello \"h e l l o\" 10 goodbye  \"go odb ye\" 20\n.\n";
 //    String inputWithNoEndingSpace = "hello \"h e l l o\" 10 goodbye \"go odb ye\" 20 \n.\n";
 //
 // 
 ////    String[] expectedOutputs = {"30", "200", "90", "2000"};
-//    String[] expectedOutputs = {".*10.*", ".*20.*"};
-//    
-//    protected double simplifiedCredit = 0.3;
+//    String[] expectedOutputs = {".*h e l l o.*", ".*go odb ye.*"};
+//    protected double simplifiedCredit = 0.7;
+//
 //    
 //    @Override
 //    protected boolean isValidOutput(List<String> anOutput, String[] anExpectedStrings){
@@ -63,11 +65,11 @@ public class NumberTokensTestCase extends AbstractTokensTestCase {
 //            retVal = test(project, simplifiedInputWithNoEndingSpace, expectedOutputs, autoGrade);
 //            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
 //            		|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-//            	return partialPass(simplifiedCredit, "Cannot scan numbers in mixed token case");            
+//            	return partialPass(simplifiedCredit, "Cannot scan words in mixed token case");            
 //            retVal = test(project, simplifiedInputWithEndingSpace, expectedOutputs, autoGrade);
 //            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
 //            		|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-//            	return partialPass(simplifiedCredit, "Cannot scan numbers in mixed token case");
+//            	return partialPass(simplifiedCredit, "Cannot scan words in mixed token case");
 //
 //            return fail("Cannot scan numbers", autoGrade);
 //            

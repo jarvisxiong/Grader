@@ -114,6 +114,9 @@ public class TestCaseResult {
     public boolean getAutoGraded() {
         return autograded;
     }
+    public void setAutoGraded(boolean newVal) {
+    	autograded = true;
+    }
 }
 //=======
 //package framework.grading.testing;

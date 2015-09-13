@@ -54,10 +54,10 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 //		
 //	}
 	String[] beanDescriptions =  {null, "ScannerBean", ".*Bean.*", ".*Bean.*"};
-    Class[] constructorArgTypes1 = {String.class};
-    Class[] constructorArgTypes2 = {};
-    String[] constructorArgs1 = {""};
-    String[] constructorArgs2 = {};
+    Class[] constructorArgTypes2 = {String.class};
+    Class[] constructorArgTypes1 = {};
+    String[] constructorArgs2 = {""};
+    String[] constructorArgs1 = {};
     String inputEndingSpaces =  "22 32 45 ";
     String input = "22 32 45";
     String[] outputPropertyNames = {"ScannedString"};
@@ -75,11 +75,11 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 //        if (aTranscript != null && !aTranscript.isEmpty()) {
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);
 //        }
-        if (anActualOutputs.size() == 1) { // only output, no object
+        if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
         	return fail ("Could not find scanner bean");
         }
-        boolean getsReturnedSets = ExecutionUtil.getsReturnedSets(anInputs, anActualOutputs);
-        String anOutput = (String) anActualOutputs.get("System.out");
+        Boolean getsReturnedSets = (Boolean) anActualOutputs.get(ExecutionUtil.GETS_EQUAL_SETS);
+        String anOutput = (String) anActualOutputs.get(ExecutionUtil.PRINTS);
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;
@@ -101,6 +101,8 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
             throw new NotGradableException();
         
       TestCaseResult result = test(project, constructorArgTypes1, constructorArgs1, inputEndingSpaces);
+      if (result.getNotes().contains("Could not find scanner bean"))
+      	return result;
       if (result.getPercentage() < 0.7) {
     	  result = test(project, constructorArgTypes2, constructorArgs2, inputEndingSpaces);
     	  if (result.getPercentage() < 0.7) {
