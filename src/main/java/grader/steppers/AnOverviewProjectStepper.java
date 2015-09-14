@@ -378,7 +378,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 		if (aScore < 0) {
 			System.out.println("Negative computed Score, making it 0!");
 			aScore = 0;
-		} else {
+		}
+		else {
 			aScore =(double)Math.round(aScore * 10) / 10;
 		}
 //		setScore(aScore);
