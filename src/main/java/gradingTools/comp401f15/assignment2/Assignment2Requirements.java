@@ -74,7 +74,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assignment", 1, new ClassDefinedlTestCase("main.Assignment(.*)"));
+//        addRestriction("Single main.Assignment", 1, new ClassDefinedlTestCase("main.Assignment(.*)"));
         addRestriction("Scanner Bean Tagged ", 5, new ClassDefinedlTestCase("@ScannerBean"));
 
 
