@@ -58,20 +58,10 @@
 		<module name="StaticVariableName" />
 		<module name="NeedBraces"/>
 		<module name="MultipleStringLiterals"/>
-		<module name="MinDeclaredMethods">
-			<property name="minDeclaredMethods" value="2" />
-		</module>
 		
-		<module name="MinCalledMethods">
-			<property name="minCalledMethods" value="1" />
-		</module>
-
-
 		<module name="NoDuplicateShortTypeName">
-			<property name="includeTypeTags" value="*" />
 		</module>
 		<module name="NoFullTypeName">
-			<property name="includeTypeTags" value="*" />
 		</module>
 
 		<module name="IllegalMethodCall">
@@ -92,9 +82,8 @@
 			<property name="includeTypeTags" value="*" />
 		</module>
 		<module name="IllegalTypeImported">
-			<property name="illegalPrefixes" value="*" />
 			<property name="legalPrefixes"
-				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayList, java.util.Vector, java.util.LinkedList, java.util.Iterator, java.util.NoSuchElementException" />
+				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayListjava.util.Vector, java.util.LinkedList, java.util.Iterator, java.util.NoSuchElementException" />
 		</module>
 		<module name="IllegalTypeDefined">
 			<property name="illegalTypeNames"
@@ -102,10 +91,16 @@
 		</module>
 		<module name="ClassDefined">
 			<property name="severity" value="info" />
-			<property name="expectedTypes" value="main.Assignment(.*)" />
+			<property name="expectedTypes" value="main.Assignment(.*), @ScannerBean" />
 		</module>
 		
-		
+		<module name="ExpectedGetters">
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
+		</module>
+		<module name="ExpectedSetters">
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
+		</module>
+
 		<module name="FunctionAssignsGlobal">
 			<property name="excludeMethodTags"
 				value="next(.*), pop(.*), delete(.*), remove(.*), read(.*), create(.*), set(.*), process(.*), scan(.*)" />
@@ -113,6 +108,11 @@
 		</module>
 		<module name="SetterAssignsGlobal">
 		</module>
+		<module name="MissingActualProperty">
+		</module>
+		<module name="MissingActualEditableProperty">
+		</module>
+		
 
 		<module name="LinePattern">
 		</module>
@@ -138,11 +138,7 @@
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
 		</module>
-		<module name="MissingActualProperty">
-		</module>
-		<module name="MissingActualEditableProperty">
-		</module>
-
+		
 
 
 	</module>

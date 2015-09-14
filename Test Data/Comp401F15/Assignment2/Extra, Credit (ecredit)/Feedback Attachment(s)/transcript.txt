@@ -83,6 +83,37 @@ quoted string: h e l l o
 word: goodbye
 quoted string: go odb ye
 
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye "go odb ye" - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
 hello    "h e l l o"   10   goodbye  "go odb ye 20

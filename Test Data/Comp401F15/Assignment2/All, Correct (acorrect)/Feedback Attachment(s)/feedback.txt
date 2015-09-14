@@ -8,11 +8,11 @@ Quoted string                                          30.0 / 30.0
 Screenshots enclosed                                   10.0 / 10.0
 Breakpoint step into/over/return screenhots            0.0 / 20.0
 Variable spaces                                        3.0 /  3.0 (Extra credit)
-Plus minus                                             4.0 /  4.0 (Extra credit)
+Plus minus                                             0.0 /  4.0 (Extra credit)
 Missing quote                                          3.0 /  3.0 (Extra credit)
 Own isLetter                                           0.0 /  3.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 70.0
+  Points Awarded: 66.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,13 +22,16 @@ Scanner Bean Tagged                         0.0 /  -5.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 70.0
+  Features Score: 66.0
 
 Notes from grading features:
 ----------------------------------
 Bean class:
   -- Could not find scanner bean
 
+Plus minus:
+  -- Cannot scan numbers
+
 
 Early benefit: 105.0%
-  Total Score: 73.5
+  Total Score: 69.3
