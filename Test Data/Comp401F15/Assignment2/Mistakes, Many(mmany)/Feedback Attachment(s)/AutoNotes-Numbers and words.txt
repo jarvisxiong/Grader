@@ -1,2 +1,0 @@
-  -- Cannot scan numbers
-  -- Cannot scan numbers

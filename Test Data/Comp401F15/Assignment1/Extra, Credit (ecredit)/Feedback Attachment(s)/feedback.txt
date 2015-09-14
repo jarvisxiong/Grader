@@ -30,5 +30,11 @@ Screenshots enclosed:
   -- Missing images
 
 
+Notes from grading restrictions:
+----------------------------------
+Single main.Assigment:
+  -- Class matching main.Assignment(.*) not defined 0 number of times
+
+
 Early benefit: 105.0%
   Total Score: 84.0

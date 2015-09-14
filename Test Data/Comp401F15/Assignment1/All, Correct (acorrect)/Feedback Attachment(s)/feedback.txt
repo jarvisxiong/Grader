@@ -6,14 +6,14 @@ Process & print tokens                                 40.0 / 40.0
 Sum and product                                        10.0 / 10.0
 Terminates with period                                 0.0 / 10.0
 One loop on string                                     0.0 / 20.0
-Two declared methods                                   0.0 /  3.0
-One called method                                      0.0 /  7.0
+Two declared methods                                   3.0 /  3.0
+One called method                                      7.0 /  7.0
 Variable spaces                                        2.5 /  5.0 (Extra credit)
 Handle invalid chars                                   2.5 /  5.0 (Extra credit)
 Screenshots enclosed                                   10.0 / 10.0
 Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 65.0
+  Points Awarded: 75.0
 
 Grading restrictions...
 ----------------------------------
@@ -22,24 +22,18 @@ Single main.Assigment                       0.0 /  -10.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 65.0
+  Features Score: 75.0
 
 Notes from grading features:
 ----------------------------------
 Terminates with period:
   -- Program gives errors with ending .
 
-Two declared methods:
-  -- Number of declared methods less than2
-
-One called method:
-  -- Number of declared methods less than1
-
 Variable spaces:
   -- Errors with  variable space
 
 Handle invalid chars:
-  -- Errors with  variable space
+  -- Correct output but errors
 
 
 Notes from grading restrictions:
@@ -49,4 +43,4 @@ Single main.Assigment:
 
 
 Early benefit: 105.0%
-  Total Score: 68.25
+  Total Score: 78.75

@@ -13,7 +13,7 @@ import gradingTools.assignment1.FlexibleProgramRunner;
 public class InvalidCharacterTestCase extends OutputAndErrorCheckingTestCase {
 
     public InvalidCharacterTestCase() {
-        super("Terminates with period test case");
+        super("Invalid Character Test Case");
     }
 
 

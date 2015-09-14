@@ -5,6 +5,7 @@ import gradingTools.assignment1.testCases.*;
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
+import gradingTools.comp401f15.assignment1.testcases.InvalidCharacterTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
@@ -44,7 +45,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
         addFeature("Two declared methods", 3, new MinDeclaredMethodsInSameOrDifferentClassTestCase(2));
         addFeature("One called method", 7, new MinDeclaredMethodsInSameOrDifferentClassTestCase(1));
         addFeature("Variable spaces", 5, true, new VariableSpacesTestCase());
-        addFeature("Handle invalid chars", 5, true, new VariableSpacesTestCase());
+        addFeature("Handle invalid chars", 5, true, new InvalidCharacterTestCase());
         addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         addManualFeature("Use an extra class with iterator like interface", 10, true);
 

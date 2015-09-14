@@ -57,11 +57,20 @@ Numbers: 40 50 Sum: 90 Product: 2000
 
 *****************************(Handle invalid chars)*****************************
 INPUT(Handle invalid chars)
-10   20 
-   40 50 
+10 ten 20
+40 forty 50 ! 
 .
 OUTPUT(Handle invalid chars)
 please enter a string:
+unexpected character:t
+unexpected character:e
+unexpected character:n
 Numbers: 10 20 Sum: 30 Product: 200
+unexpected character:f
+unexpected character:o
+unexpected character:r
+unexpected character:t
+unexpected character:y
+unexpected character:!
 Numbers: 40 50 Sum: 90 Product: 2000
 

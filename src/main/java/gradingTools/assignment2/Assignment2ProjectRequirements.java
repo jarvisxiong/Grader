@@ -26,7 +26,7 @@ public class Assignment2ProjectRequirements extends FrameworkProjectRequirements
         addManualFeature("Output screenshots", 10, false);
 
         // Extra credit
-        addManualFeature("Variable spaces", 3, true);
+//        addManualFeature("Variable spaces", 3, true);
         addManualFeature("Error message w/ missing quote", 3, true);
         addFeature("Custom isLetter method", 3, true, new IsLetterTestCase());
         addManualFeature("Plus and minus tokens", 4, true);
