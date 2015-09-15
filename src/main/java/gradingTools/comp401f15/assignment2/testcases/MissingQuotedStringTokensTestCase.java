@@ -23,7 +23,8 @@ public class MissingQuotedStringTokensTestCase extends AbstractTokensTestCase {
     protected String inputWithEndingSpace() { return "hello    \"h e l l o\"   10   goodbye  \"go odb ye 20\n.\n";}
     protected String inputWithNoEndingSpace() { return "hello   \"h e l l o\"  10   goodbye \"go odb ye 20 \n.\n";}
 
- 
+    protected String inputWithStartingAndEndingSpace() {return  " hello \"h e l l o\" 10 goodbye  \"go odb ye\" 20\n.\n";}
+
 //    String[] expectedOutputs = {"30", "200", "90", "2000"};
     protected String[] expectedOutputs() {
     	return new String[] {".*h e l l o.*"};

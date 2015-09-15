@@ -29,7 +29,8 @@ public abstract class AbstractTokensTestCase extends OutputAndErrorCheckingTestC
     abstract protected String simplifiedInputWithNoEndingSpace();
     abstract protected String simplifiedInputWithEndingSpace();
     abstract protected String inputWithEndingSpace() ;
-    abstract String inputWithNoEndingSpace ();
+    abstract protected String inputWithNoEndingSpace ();
+    abstract protected String inputWithStartingAndEndingSpace ();
 
  
 //    String[] expectedOutputs = {"30", "200", "90", "2000"};
@@ -50,6 +51,10 @@ public abstract class AbstractTokensTestCase extends OutputAndErrorCheckingTestC
             		|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
             	return pass();
             retVal = test(project, inputWithNoEndingSpace(), expectedOutputs(), autoGrade);
+            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
+            	|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
+            	return pass();
+            retVal = test(project, inputWithStartingAndEndingSpace(), expectedOutputs(), autoGrade);
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
             	|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
             	return pass();

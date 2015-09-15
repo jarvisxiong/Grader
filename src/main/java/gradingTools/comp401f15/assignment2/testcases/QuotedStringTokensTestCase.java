@@ -22,6 +22,7 @@ public class QuotedStringTokensTestCase extends AbstractTokensTestCase {
     protected  String simplifiedInputWithEndingSpace() { return "\"h e l l o\" \"go odb ye\" \n.\n";}
     protected String inputWithEndingSpace() { return "hello    \"h e l l o\"   10   goodbye  \"go odb ye\" 20\n.\n";}
     protected String inputWithNoEndingSpace() { return "hello   \"h e l l o\"  10   goodbye \"go odb ye\" 20 \n.\n";}
+    protected String inputWithStartingAndEndingSpace() {return  " shello \"h e l l o\" 10 goodbye  \"go odb ye\" 20\n.\n";}
 
  
 //    String[] expectedOutputs = {"30", "200", "90", "2000"};

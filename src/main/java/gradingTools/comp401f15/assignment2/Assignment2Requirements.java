@@ -55,7 +55,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
         addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         addManualFeature("Breakpoint step into/over/return screenhots", 20);
         
-        addFeature("Variable spaces", 3, true, new VarialbleSpaceTokensTestCase());
+//        addFeature("Variable spaces", 3, true, new VarialbleSpaceTokensTestCase());
         addFeature("Plus minus", 4, true, new PlusMinusTokensTestCase());
       addFeature("Missing quote", 3, true, new MissingQuotedStringTokensTestCase());
       addManualFeature("Own isLetter", 3, true);
