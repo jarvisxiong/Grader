@@ -16,7 +16,7 @@ import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
-import gradingTools.sharedTestCase.ClassDefinedlTestCase;
+import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
 import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
@@ -75,7 +75,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
 //        addRestriction("Single main.Assignment", 1, new ClassDefinedlTestCase("main.Assignment(.*)"));
-        addRestriction("Scanner Bean Tagged ", 5, new ClassDefinedlTestCase("@ScannerBean"));
+        addRestriction("Scanner Bean Tagged ", 5, new ClassDefinedTestCase("@ScannerBean"));
 
 
        

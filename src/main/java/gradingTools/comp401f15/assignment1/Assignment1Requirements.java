@@ -6,10 +6,11 @@ import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.InvalidCharacterTestCase;
+import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
-import gradingTools.sharedTestCase.ClassDefinedlTestCase;
+import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
 import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
@@ -57,7 +58,9 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assigment", 10, new ClassDefinedlTestCase("main.Assignment(.*)"));
+//        addRestriction("Single main.Assigment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
+        addRestriction("Single main.Assigment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
+
 
        
         

@@ -16,8 +16,9 @@ import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.ScannerBeanWithTokenObjectsTestCase;
-import gradingTools.sharedTestCase.ClassDefinedlTestCase;
+import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
 import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
@@ -30,7 +31,8 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/13/2015 23:59:00", 1);
     	addDueDate("09/16/2015 23:59:00", 0.9);
     	addDueDate("09/18/2015 23:59:00", 0.75);
-    	 addFeature("Bean class", 20, new ScannerBeanWithTokenObjectsTestCase());
+    	addFeature("Scanner Check", 20, new ScannerBeanWithTokenObjectsTestCase());
+    	addFeature("Token Beans", 15, new NumberTokenBeanTestCase());
 //         addFeature("Numbers and words", 20,
 //                 new NumberTokensTestCase(),
 //                 new WordTokensTestCase());
@@ -75,14 +77,14 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assignment", 10, new ClassDefinedlTestCase("main.Assignment(.*)"));
+        addRestriction("Single main.Assignment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Beans Tagged ", 18, 
-        		new ClassDefinedlTestCase("@ScannerBean"),
-        		new ClassDefinedlTestCase("@Word"),
-        		new ClassDefinedlTestCase("@Number"),
-        		new ClassDefinedlTestCase("@Quote"),
-        		new ClassDefinedlTestCase("@Start"),
-        		new ClassDefinedlTestCase("@End"));
+        		new ClassDefinedTestCase("@ScannerBean"),
+        		new ClassDefinedTestCase("@Word"),
+        		new ClassDefinedTestCase("@Number"),
+        		new ClassDefinedTestCase("@Quote"),
+        		new ClassDefinedTestCase("@Start"),
+        		new ClassDefinedTestCase("@End"));
 
 
        

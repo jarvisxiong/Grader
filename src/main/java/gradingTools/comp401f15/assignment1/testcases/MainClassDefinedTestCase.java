@@ -5,9 +5,9 @@ import java.util.List;
 import framework.grading.testing.TestCaseResult;
 import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.ClassDefinedlTestCase;
+import gradingTools.sharedTestCase.ClassDefinedTestCase;
 
-public class MainClassDefinedTestCase extends ClassDefinedlTestCase {
+public class MainClassDefinedTestCase extends ClassDefinedTestCase {
 
 	public MainClassDefinedTestCase(String aDescriptor) {
 		super(aDescriptor);

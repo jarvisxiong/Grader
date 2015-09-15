@@ -380,6 +380,7 @@ public class ProjectClassesManager implements ClassesManager {
     @Override
     public List<ClassDescription> findByClassNameMatch(String className) {
         List<ClassDescription> classes = new ArrayList<>();
+        if (className == null) return classes;
 
         // First search the simple names
         for (ClassDescription description : classDescriptions) {

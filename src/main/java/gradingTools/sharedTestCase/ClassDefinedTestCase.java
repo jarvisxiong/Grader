@@ -17,9 +17,9 @@ import java.util.List;
 import wrappers.framework.project.ProjectWrapper;
 
 
-public class ClassDefinedlTestCase extends CheckStyleTestCase {
+public class ClassDefinedTestCase extends CheckStyleTestCase {
 	 String descriptor;
-	 public ClassDefinedlTestCase(String aDescriptor) {
+	 public ClassDefinedTestCase(String aDescriptor) {
 	        super(aDescriptor + " defined");
 	        descriptor = aDescriptor;
 	  }
@@ -39,9 +39,9 @@ public class ClassDefinedlTestCase extends CheckStyleTestCase {
 		// TODO Auto-generated method stub
 		return "Class matching " + descriptor + " not defined";
 	}
-//  //String literal expressions should be on the left side
-//	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-//		 TestCaseResult aResult = singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
+  //String literal expressions should be on the left side
+	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
+		 return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
 //		 if (aResult.getPercentage() != 1.0) {
 //			 if (aProject.getEntryPoints() == null || aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT) == null)
 //				 return aResult;
@@ -51,8 +51,8 @@ public class ClassDefinedlTestCase extends CheckStyleTestCase {
 //			 }
 //		 }
 //		 return aResult;
-//	    	
-//	}
+	    	
+	}
 
 }
 
