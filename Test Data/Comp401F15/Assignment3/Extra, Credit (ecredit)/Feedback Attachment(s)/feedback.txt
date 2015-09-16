@@ -2,10 +2,16 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
+Multi Property Token Beans                             25.0 / 25.0
+Single Property Token Beans                            15.0 / 15.0
+Scanner Check                                          0.0 / 25.0
+Class has interface check                              9.2 / 10.0
+Variable has class type                                0.0 / 10.0
+Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
 Plus Minus Scanner Check                               0.0 /  4.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 ----------------------------------
-  Points Awarded: 0.0
+  Points Awarded: 55.2
 
 Grading restrictions...
 ----------------------------------
@@ -15,11 +21,34 @@ Classes Tagged                              -9.0 /  -18.0
 ----------------------------------
   Points Deducted: -9.0
 
-  Features Score: -9.0
+  Features Score: 46.2
 
 Notes from grading features:
 ----------------------------------
+Scanner Check:
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+
+Class has interface check:
+  -- Class has no interface: BeanStringScanner
+
+Variable has class type:
+  -- [D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\main\Assignment3.java:20: warning: variableHasClassType: (Assignment3.java:20) Class ExtBeanStringScanner rather than interface used as the type of bss, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\EndToken.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:79) Class EndToken rather than interface used as the type of et, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Minus.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:144) Class Minus rather than interface used as the type of pl, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Minus.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:167) Class Minus rather than interface used as the type of pl, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Number.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:193) Class mp.Number rather than interface used as the type of num, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Plus.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:138) Class Plus rather than interface used as the type of pl, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Plus.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:161) Class Plus rather than interface used as the type of pl, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\StartToken.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:73) Class StartToken rather than interface used as the type of st, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Word.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:154) Class mp.Word rather than interface used as the type of ww, D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment3\Extra, Credit (ecredit)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Word.java:0: warning: variableHasClassType: (ExtBeanStringScanner.java:204) Class mp.Word rather than interface used as the type of ww]
+
 Plus Minus Scanner Check:
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
   -- Could not find scanner bean
 
 Screenshots enclosed:
@@ -35,4 +64,4 @@ Classes Tagged :
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 48.300000000000004

@@ -19,6 +19,7 @@ import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment3.testcases.MinusClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.MinusEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.MinusTokenBeanTestCase;
@@ -35,6 +36,7 @@ import gradingTools.comp401f15.assignment3.testcases.NumberEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
@@ -77,6 +79,9 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     			new EndClassTestCase()
     			
     			);
+    	addFeature("Class has interface check", 25, new HasInterfaceTestCase("Has interface"));
+    	addFeature("Variable has class type", 10, new VariableHasClassTypeTestCase("Variable has class type"));
+
     	addFeature("Plus Minus Token Beans", 6, true,
     			new PlusTokenBeanTestCase(),
     			new MinusTokenBeanTestCase()

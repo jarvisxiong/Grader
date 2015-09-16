@@ -1,1 +1,4 @@
   -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean

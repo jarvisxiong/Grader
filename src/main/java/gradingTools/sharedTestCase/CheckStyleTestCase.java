@@ -18,6 +18,7 @@ import wrappers.framework.project.ProjectWrapper;
 
 
 public abstract class CheckStyleTestCase extends BasicTestCase {
+	
     public CheckStyleTestCase(String aName) {
         super(aName);
     }
@@ -115,5 +116,13 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         return test(aProject, aCheckStyleLines, autoGrade);
         
     }
+    public   String toClassName(String aCheckstyleMessage) {
+		 int anIndex1 = aCheckstyleMessage.indexOf("(");
+		 int anIndex2 = aCheckstyleMessage.indexOf (")");
+		 if (anIndex1 < 0 || anIndex2 < 0 || anIndex2 <= anIndex1)
+			 return "";
+		 return aCheckstyleMessage.substring(anIndex1 + 1, anIndex2);
+				
+	 }
 }
 

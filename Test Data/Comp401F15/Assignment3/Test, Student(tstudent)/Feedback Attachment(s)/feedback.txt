@@ -2,10 +2,16 @@ Grading result for: Test, Student(tstudent)
 
 Grading features...
 ----------------------------------
+Multi Property Token Beans                             25.0 / 25.0
+Single Property Token Beans                            15.0 / 15.0
+Scanner Check                                          0.0 / 25.0
+Class has interface check                              9.2 / 10.0
+Variable has class type                                10.0 / 10.0
+Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
 Plus Minus Scanner Check                               0.0 /  4.0 (Extra credit)
 Screenshots enclosed                                   10.0 / 10.0
 ----------------------------------
-  Points Awarded: 10.0
+  Points Awarded: 75.2
 
 Grading restrictions...
 ----------------------------------
@@ -15,11 +21,31 @@ Classes Tagged                              -12.0 /  -18.0
 ----------------------------------
   Points Deducted: -12.0
 
-  Features Score: -2.0
+  Features Score: 63.2
 
 Notes from grading features:
 ----------------------------------
+Scanner Check:
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+
+Class has interface check:
+  -- Class has no interface: BeanStringScanner
+
 Plus Minus Scanner Check:
+  -- Could not find scanner bean
+  -- Could not find scanner bean
+  -- Could not find scanner bean
   -- Could not find scanner bean
 
 
@@ -33,4 +59,4 @@ Classes Tagged :
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 66.15
