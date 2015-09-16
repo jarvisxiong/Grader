@@ -44,6 +44,8 @@ public class ExecutionUtil {
 	public static final String EXPECTED_EQUAL_ACTUAL = "Status.ExpectedEqualActual";
 
 	public static final String MISSING_CONSTRUCTOR = "Status.MissingConstructor";
+	public static final String CLASS_MATCHED = "Status.ClassMatched";
+	
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
@@ -233,9 +235,11 @@ public class ExecutionUtil {
 //			anActualOutputs = null;
 		} else {
 			System.out.println ("Finding constructor matching:" + Common.toString(aConstructorArgTypes));
+			anActualOutputs.put(CLASS_MATCHED, aClass.getCanonicalName());
 			Constructor aConstructor = aClass.getConstructor(aConstructorArgTypes);
 			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 300);
 			for (String aPropertyName:anInputs.keySet()) {
+				if (aPropertyName == null) continue;
 				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, aPropertyName);
 				if (aProperty == null) {
 					anActualOutputs.put(MISSING_PROPERTY, true);
@@ -254,6 +258,8 @@ public class ExecutionUtil {
 				timedInvoke(anObject, aWriteMethod, new Object[]{aValue}, 300);
 			}
 			for (String anOutputPropertyName:anOutputProperties) {
+				if (anOutputPropertyName == null)
+					continue;
 				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, anOutputPropertyName);
 				if (aProperty == null) {
 					
@@ -305,7 +311,10 @@ public class ExecutionUtil {
 		Map<String, Object> anActualOutputs = testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, anOutputProperties);
 		for (int i = 0; i < anOutputProperties.length;i++) {
 			Object anExpectedOutput = anExpectedValues[i];
-			Object anActualOutput = anActualOutputs.get(anOutputProperties[i]);
+			Object anActualOutput;
+			Object outputProperty = anOutputProperties[i];
+			anActualOutput = outputProperty == null ?null:anActualOutputs.get(outputProperty);
+//			anActualOutput = anActualOutputs.get(outputProperty);
 			if (!Common.equal(anExpectedOutput, anActualOutput)) {
 				anActualOutputs.put(EXPECTED_EQUAL_ACTUAL, false);
 				anActualOutputs.put(EXPECTED_EQUAL_ACTUAL + "." + anOutputProperties[i], false);
@@ -341,6 +350,20 @@ public class ExecutionUtil {
 				String anOutputPropertyName, Object anExpectedOutputValue ) {
 		 Class[] aConstructorArgTypes = new Class[]{String.class};
 		 Object[] aConstructorArgs = new String[] {aConstructorArg};
+		 String[] anOutputProperties = new String[] {anOutputPropertyName};
+		 Object[] anExpectedValue = new Object[] {anExpectedOutputValue};
+		 Map<String, Object> anInputs = new HashMap();
+		 anInputs.put(anIndependentPropertyName, anIndepentValue);
+		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+				 aConstructorArgs, anInputs, anOutputProperties);
+	 
+	 }
+	 public static Map<String, Object> testBeanWithNoConstructor (String aFeatureName, Project aProject, 
+				String[] aBeanDescriptions,  
+				 String anIndependentPropertyName, Object anIndepentValue,
+				String anOutputPropertyName, Object anExpectedOutputValue ) {
+		 Class[] aConstructorArgTypes = new Class[]{String.class};
+		 Object[] aConstructorArgs = new Object[] {};
 		 String[] anOutputProperties = new String[] {anOutputPropertyName};
 		 Object[] anExpectedValue = new Object[] {anExpectedOutputValue};
 		 Map<String, Object> anInputs = new HashMap();

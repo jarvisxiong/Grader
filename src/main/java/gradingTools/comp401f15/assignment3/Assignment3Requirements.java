@@ -16,8 +16,12 @@ import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.NumberTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.ScannerBeanWithTokenObjectsTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
@@ -32,7 +36,15 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/16/2015 23:59:00", 0.9);
     	addDueDate("09/18/2015 23:59:00", 0.75);
     	addFeature("Scanner Check", 20, new ScannerBeanWithTokenObjectsTestCase());
-    	addFeature("Token Beans", 15, new NumberTokenBeanTestCase());
+    	addFeature("Multi Property Token Beans", 8,
+    			new NumberTokenBeanTestCase(),
+    			new WordTokenBeanTestCase()
+    			);
+    	addFeature("Single Property Token Beans", 8,
+    			new QuoteTokenBeanTestCase(),
+    			new StartTokenBeanTestCase(),
+    			new EndTokenBeanTestCase()
+    			);
 //         addFeature("Numbers and words", 20,
 //                 new NumberTokensTestCase(),
 //                 new WordTokensTestCase());
@@ -78,7 +90,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
-        addRestriction("Beans Tagged ", 18, 
+        addRestriction("Classes Tagged ", 18, 
         		new ClassDefinedTestCase("@ScannerBean"),
         		new ClassDefinedTestCase("@Word"),
         		new ClassDefinedTestCase("@Number"),

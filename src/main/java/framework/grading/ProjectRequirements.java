@@ -55,4 +55,8 @@ public interface ProjectRequirements extends Permissible{
 
     public double checkDueDate(DateTime dateTime);
 
+	Object getUserObject(Object aKey);
+
+	void putUserObject(Object aKey, Object aValue);
+
 }

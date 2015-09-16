@@ -16,8 +16,10 @@ import wrappers.framework.project.ProjectWrapper;
 
 import java.security.Permission;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is the fundamental container which holds all the features and
@@ -27,7 +29,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 
     private List<Feature> features;
     private List<Restriction> restrictions;
-
+    protected Map<Object, Object> userData = new HashMap();
     private List<DueDate> dueDates = new ArrayList<DueDate>();
 
     /**
@@ -181,6 +183,14 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     @Override
     public Object[] getPermissions() {
         return LanguageDependencyManager.getDefaultPermissible().getPermissions();
+    }
+    @Override
+    public Object getUserObject (Object aKey) {
+    	return userData.get(aKey);
+    }
+    @Override
+    public void putUserObject (Object aKey, Object aValue) {
+    	 userData.put(aKey, aValue);
     }
 
 }

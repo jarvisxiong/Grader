@@ -1,282 +1,45 @@
-*****************************(Bean class)*****************************
+*****************************(Scanner Check)*****************************
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20
-.
-
-OUTPUT(Numbers and words)
-Numbers: 10 20 Sum: 30 Product: 200
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye
-.
-
-OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-hello    "h e l l o"   10   goodbye  "go odb ye" 20
-.
-
-OUTPUT(Quoted string)
-Numbers: hello 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-hello   "h e l l o"  10   goodbye "go odb ye" 20 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye"
-.
-
-OUTPUT(Quoted string)
-Numbers: "h 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-hello "h e l l o" + goodbye  "go odb ye" -
-.
-
-OUTPUT(Plus minus)
-Numbers: hello 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-hello "h e l l o" + goodbye "go odb ye" - 
-.
-
-OUTPUT(Plus minus)
-Numbers: 
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-+ -
-.
-
-OUTPUT(Plus minus)
-Numbers: + 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "+"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:484)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-+ - 
-.
-
-OUTPUT(Plus minus)
-Numbers: 
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-hello    "h e l l o"   10   goodbye  "go odb ye 20
-.
-
-OUTPUT(Missing quote)
-Numbers: hello 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-hello   "h e l l o"  10   goodbye "go odb ye 20 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye
-.
-
-OUTPUT(Missing quote)
-Numbers: "h 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
-
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
+*****************************(Multi Property Token Beans)*****************************
+Finding class matching:null, Number, .*Number.*, .*Number.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Number(java.lang.String) 006500
+called method: public mp.Number(java.lang.String) 006500
+calling method: public void mp.Number.setInput(java.lang.String) with args 006500
+called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
+calling method: public int mp.Number.getValue() with args 
+called method: public int mp.Number.getValue() with args: result:6500
+*****************************(Multi Property Token Beans)*****************************
+Finding class matching:null, Word, .*Word.*, .*Word.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Word(java.lang.String) MixedCamelCase
+called method: public mp.Word(java.lang.String) MixedCamelCase
+calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
+called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, Quote, .*Quote.*, .*Quote.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.QuotedString(java.lang.String) This is a Quote
+called method: public mp.QuotedString(java.lang.String) This is a Quote
+calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
+called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
+Property Valuenot found
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, Start, .*Start.*, .*Start.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.StartToken(java.lang.String) {
+called method: public mp.StartToken(java.lang.String) {
+calling method: public void mp.StartToken.setInput(java.lang.String) with args {
+called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
+Property Valuenot found
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, End, .*End.*, .*End.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.EndToken(java.lang.String) End
+called method: public mp.EndToken(java.lang.String) End
+calling method: public void mp.EndToken.setInput(java.lang.String) with args End
+called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
+Property Valuenot found

@@ -1,131 +1,45 @@
-*****************************(Bean class)*****************************
+*****************************(Scanner Check)*****************************
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
-Finding constructor matching:
-calling method: public grail.BeanStringScanner() 
-called method: public grail.BeanStringScanner() 
-calling method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args 22 32 45 
-number: 22
-number: 32
-number: 45
-called method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args:22 32 45  result:null
-calling method: public java.lang.String grail.BeanStringScanner.getScannedString() with args 
-called method: public java.lang.String grail.BeanStringScanner.getScannedString() with args: result:22 32 45 
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Numbers and words)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-number: 10
-word: goodbye
-quoted string: go odb ye
-number: 20
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Numbers and words)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-number: 10
-word: goodbye
-quoted string: go odb ye
-number: 20
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-hello    "h e l l o"   10   goodbye  "go odb ye" 20
-.
-
-OUTPUT(Quoted string)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-number: 10
-word: goodbye
-quoted string: go odb ye
-number: 20
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-number: 10
-word: goodbye
-quoted string: go odb ye
-number: 20
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-hello "h e l l o" + goodbye  "go odb ye" -
-.
-
-OUTPUT(Plus minus)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-word: goodbye
-quoted string: go odb ye
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-hello "h e l l o" + goodbye "go odb ye" - 
-.
-
-OUTPUT(Plus minus)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-word: goodbye
-quoted string: go odb ye
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-+ -
-.
-
-OUTPUT(Plus minus)
-please enter a string:
-Processed by bean class
-
-*****************************(Plus minus)*****************************
-INPUT(Plus minus)
-+ - 
-.
-
-OUTPUT(Plus minus)
-please enter a string:
-Processed by bean class
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-hello    "h e l l o"   10   goodbye  "go odb ye 20
-.
-
-OUTPUT(Missing quote)
-please enter a string:
-Processed by bean class
-word: hello
-quoted string: h e l l o
-number: 10
-word: goodbye
-closed quota is missing.....
-go odb ye 20
-
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
+*****************************(Multi Property Token Beans)*****************************
+Finding class matching:null, Number, .*Number.*, .*Number.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Number(java.lang.String) 006500
+called method: public mp.Number(java.lang.String) 006500
+calling method: public void mp.Number.setInput(java.lang.String) with args 006500
+called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
+calling method: public int mp.Number.getValue() with args 
+called method: public int mp.Number.getValue() with args: result:6500
+*****************************(Multi Property Token Beans)*****************************
+Finding class matching:null, Word, .*Word.*, .*Word.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Word(java.lang.String) MixedCamelCase
+called method: public mp.Word(java.lang.String) MixedCamelCase
+calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
+called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, Quote, .*Quote.*, .*Quote.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.QuotedString(java.lang.String) This is a Quote
+called method: public mp.QuotedString(java.lang.String) This is a Quote
+calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
+called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
+Property Valuenot found
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, Start, .*Start.*, .*Start.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.StartToken(java.lang.String) {
+called method: public mp.StartToken(java.lang.String) {
+calling method: public void mp.StartToken.setInput(java.lang.String) with args {
+called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
+Property Valuenot found
+*****************************(Single Property Token Beans)*****************************
+Finding class matching:null, End, .*End.*, .*End.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.EndToken(java.lang.String) End
+called method: public mp.EndToken(java.lang.String) End
+calling method: public void mp.EndToken.setInput(java.lang.String) with args End
+called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
+Property Valuenot found

@@ -2,41 +2,36 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Bean class                                             0.0 / 20.0
-Numbers and words                                      20.0 / 20.0
-Quoted string                                          30.0 / 30.0
+Scanner Check                                          0.0 / 20.0
+Multi Property Token Beans                             8.0 /  8.0
+Single Property Token Beans                            8.0 /  8.0
 Screenshots enclosed                                   10.0 / 10.0
-Breakpoint step into/over/return screenhots            0.0 / 20.0
-Variable spaces                                        3.0 /  3.0 (Extra credit)
-Plus minus                                             0.0 /  4.0 (Extra credit)
-Missing quote                                          3.0 /  3.0 (Extra credit)
-Own isLetter                                           0.0 /  3.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 66.0
+  Points Awarded: 26.0
 
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Scanner Bean Tagged                         0.0 /  -5.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              -9.0 /  -18.0
 ----------------------------------
-  Points Deducted: 0.0
+  Points Deducted: -9.0
 
-  Features Score: 66.0
+  Features Score: 17.0
 
 Notes from grading features:
 ----------------------------------
-Bean class:
+Scanner Check:
   -- Could not find scanner bean
-
-Plus minus:
-  -- Cannot scan numbers
 
 
 Notes from grading restrictions:
 ----------------------------------
-Scanner Bean Tagged :
-  -- Class matching @ScannerBean not defined 0 number of times
+Classes Tagged :
+  -- Class matching @Quote not defined
+  -- Class matching @Start not defined
+  -- Class matching @End not defined
 
 
 Early benefit: 105.0%
-  Total Score: 69.3
+  Total Score: 17.85

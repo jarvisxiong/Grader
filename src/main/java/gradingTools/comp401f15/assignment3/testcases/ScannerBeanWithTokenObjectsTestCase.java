@@ -62,7 +62,7 @@ public class ScannerBeanWithTokenObjectsTestCase extends OutputAndErrorCheckingT
     String input = "22 32 45";
     String[] outputPropertyNames = {"ScannedString"};
     
-    String[] expectedOutputs = {".*22.*", ".*32.*", ".*45.*" };
+   protected String[] expectedOutputs() { return new String[] {".*22.*", ".*32.*", ".*45.*" };};
 
     
    
@@ -83,7 +83,7 @@ public class ScannerBeanWithTokenObjectsTestCase extends OutputAndErrorCheckingT
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;
-        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, expectedOutputs);
+        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, expectedOutputs());
         if (getsReturnedSets && correctTokensPrinted) {
         	return pass();
         }
