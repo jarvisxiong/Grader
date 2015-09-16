@@ -1,4 +1,6 @@
   -- Class matching @ScannerBean not defined
+  -- Class matching @Word not defined
+  -- Class matching @Number not defined
   -- Class matching @Quote not defined
   -- Class matching @Start not defined
   -- Class matching @End not defined

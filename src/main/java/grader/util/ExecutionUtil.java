@@ -282,9 +282,9 @@ public class ExecutionUtil {
 		}
 		
 		} catch (NoSuchMethodException e) {
-			System.out.println("Constructor not found");
+			System.out.println("Constructor not found:" + e.getMessage());
 			anActualOutputs.put(MISSING_CONSTRUCTOR, true);
-			e.printStackTrace();
+//			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			anActualOutputs = null;

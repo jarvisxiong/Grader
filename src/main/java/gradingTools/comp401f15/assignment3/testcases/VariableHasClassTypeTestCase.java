@@ -12,16 +12,29 @@ public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 	public VariableHasClassTypeTestCase(String aMessage) {
 		super(aMessage);
 	}
-
+	public static final String WARNING_NAME = "variableHasClassType";
 	@Override
 	public String regexLineFilter() {
 		// TODO Auto-generated method stub
-		return ".*variableHasClassType.*";
+		return ".*" + WARNING_NAME + ".*";
 	}
 
 	@Override
 	public String failMessageSpecifier() {
 		return null;
+	}
+	
+	String beautify (String aCheckstyleString) {
+		return aCheckstyleString.substring(aCheckstyleString.indexOf(WARNING_NAME)) + "\n";
+	}
+	String beautify (List<String> aList) {
+		StringBuffer sb = new StringBuffer();
+		for (String aString: aList) {
+			String beautifiedString = beautify(aString);
+			sb.append(beautifiedString);
+			
+		}
+		return sb.toString();
 	}
 	
 	protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
@@ -30,7 +43,7 @@ public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 		}
 		double score = Math.min(aMatchedLines.size(), 5) / 5.0;
         score = Math.max(0, 1 - score);
-        return partialPass(score, aMatchedLines.toString());
+        return partialPass(score, beautify(aMatchedLines));
     	
     }
 	 
