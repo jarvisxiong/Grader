@@ -4,13 +4,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args 22 32 45 
-mp.Number@2ed5d4bb
+mp.Number@182a3bb3
 22
 22
-mp.Number@58815902
+mp.Number@7cb57129
 32
 32
-mp.Number@13fabfb3
+mp.Number@6c187ab5
 45
 45
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:22 32 45  result:null
@@ -41,7 +41,6 @@ calling method: public mp.QuotedString(java.lang.String) This is a Quote
 called method: public mp.QuotedString(java.lang.String) This is a Quote
 calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
 called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
-Property Valuenot found
 *****************************(Single Property Token Beans)*****************************
 Finding class matching:null, Start, .*Start.*, .*Start.*
 Finding constructor matching:class java.lang.String
@@ -49,7 +48,6 @@ calling method: public mp.StartToken(java.lang.String) {
 called method: public mp.StartToken(java.lang.String) {
 calling method: public void mp.StartToken.setInput(java.lang.String) with args {
 called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
-Property Valuenot found
 *****************************(Single Property Token Beans)*****************************
 Finding class matching:null, End, .*End.*, .*End.*
 Finding constructor matching:class java.lang.String
@@ -57,4 +55,3 @@ calling method: public mp.EndToken(java.lang.String) End
 called method: public mp.EndToken(java.lang.String) End
 calling method: public void mp.EndToken.setInput(java.lang.String) with args End
 called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
-Property Valuenot found

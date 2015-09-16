@@ -29,6 +29,8 @@ public class WordTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	
 	protected String input(){ return "MixedCamelCase";};
 	protected Object value() {return "mixedcamelcase";};
+	protected String inputPropertyName() { return "Input";};
+	protected String outputPropertyName() { return "Value";};
 
     public WordTokenBeanTestCase() {
         super("Word Token Bean Case");

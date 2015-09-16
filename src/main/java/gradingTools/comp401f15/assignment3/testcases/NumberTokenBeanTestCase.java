@@ -29,6 +29,8 @@ public class NumberTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	
 	protected String input(){ return "006500";};
 	protected Object value() {return 6500;};
+	protected String inputPropertyName() { return "Input";};
+	protected String outputPropertyName() { return "Value";};
 
     public NumberTokenBeanTestCase() {
         super("Number Token Bean Case");

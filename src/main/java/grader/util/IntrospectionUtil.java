@@ -33,11 +33,11 @@ public class IntrospectionUtil {
             }
         }
 		} catch (IntrospectionException e) {
-			System.out.println("Property " +  aPropertyName + "not found");
+			System.out.println("Property " +  aPropertyName + " not found");
 
 			return null;
 		}
-		System.out.println("Property " +  aPropertyName + "not found");
+		System.out.println("Property " +  aPropertyName + " not found");
 
 		return null;
 	}

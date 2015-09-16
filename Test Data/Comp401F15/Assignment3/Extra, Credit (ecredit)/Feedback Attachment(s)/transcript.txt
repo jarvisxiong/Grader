@@ -26,7 +26,6 @@ calling method: public mp.QuotedString(java.lang.String) This is a Quote
 called method: public mp.QuotedString(java.lang.String) This is a Quote
 calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
 called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
-Property Valuenot found
 *****************************(Single Property Token Beans)*****************************
 Finding class matching:null, Start, .*Start.*, .*Start.*
 Finding constructor matching:class java.lang.String
@@ -34,7 +33,6 @@ calling method: public mp.StartToken(java.lang.String) {
 called method: public mp.StartToken(java.lang.String) {
 calling method: public void mp.StartToken.setInput(java.lang.String) with args {
 called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
-Property Valuenot found
 *****************************(Single Property Token Beans)*****************************
 Finding class matching:null, End, .*End.*, .*End.*
 Finding constructor matching:class java.lang.String
@@ -42,4 +40,3 @@ calling method: public mp.EndToken(java.lang.String) End
 called method: public mp.EndToken(java.lang.String) End
 calling method: public void mp.EndToken.setInput(java.lang.String) with args End
 called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
-Property Valuenot found

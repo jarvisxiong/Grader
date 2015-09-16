@@ -27,6 +27,8 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
 //	abstract protected double getsNotSetsPenalty();
 //	abstract protected double incorrectDependentsPenalty();
 //	
+	abstract protected String inputPropertyName();
+	abstract protected String outputPropertyName();
 	abstract protected String input();
 	abstract protected Object value();
 	protected double missingClassPenalty() {return 1.0;};
@@ -47,7 +49,7 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
     }
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         try {
-        	Map<String, Object> retVal = ExecutionUtil.testBeanWithStringConstructor(getCheckable().getName(), project, beanDescriptions(), input(), "Input", input(), "Value", value());
+        	Map<String, Object> retVal = ExecutionUtil.testBeanWithStringConstructor(getCheckable().getName(), project, beanDescriptions(), input(), inputPropertyName(), input(), outputPropertyName(), value());
         	Boolean missingExpectedConstructor = (Boolean) retVal.get(ExecutionUtil.MISSING_CONSTRUCTOR);
         	Boolean missingClass = (Boolean) retVal.get(ExecutionUtil.MISSING_CLASS);
         	double penalty = 0.0;
@@ -61,7 +63,7 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
         		getCheckable().getRequirements().putUserObject(classIdentifier(), retVal.get(ExecutionUtil.CLASS_MATCHED));
         	}
         	if (missingExpectedConstructor != null) {
-            	 retVal = ExecutionUtil.testBeanWithNoConstructor(getCheckable().getName(), project, beanDescriptions(), "Input", input(), "Value", value());
+            	 retVal = ExecutionUtil.testBeanWithNoConstructor(getCheckable().getName(), project, beanDescriptions(), inputPropertyName(), input(), outputPropertyName(), value());
             	 penalty += missingExpectedConstructorPenalty();
             	 aMessage += "Expected constructor missing ";
 

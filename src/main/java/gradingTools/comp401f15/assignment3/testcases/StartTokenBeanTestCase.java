@@ -29,6 +29,8 @@ public class StartTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	
 	protected String input(){ return "{";};
 	protected Object value() {return null;};
+	protected String inputPropertyName() { return "Input";};
+	protected String outputPropertyName() { return null;};
 
     public StartTokenBeanTestCase() {
         super("Start Token Bean Case");

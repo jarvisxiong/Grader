@@ -19,7 +19,7 @@ import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.NumberTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.QuoteTokenBeanTestCase;
-import gradingTools.comp401f15.assignment3.testcases.ScannerBeanWithTokenObjectsTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberLinesTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
@@ -35,7 +35,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/13/2015 23:59:00", 1);
     	addDueDate("09/16/2015 23:59:00", 0.9);
     	addDueDate("09/18/2015 23:59:00", 0.75);
-    	addFeature("Scanner Check", 20, new ScannerBeanWithTokenObjectsTestCase());
+    	addFeature("Scanner Check", 20, new NumberLinesTestCase());
     	addFeature("Multi Property Token Beans", 8,
     			new NumberTokenBeanTestCase(),
     			new WordTokenBeanTestCase()

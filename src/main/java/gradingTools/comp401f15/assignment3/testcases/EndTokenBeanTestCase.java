@@ -29,6 +29,8 @@ public class EndTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	
 	protected String input(){ return "End";};
 	protected Object value() {return null;};
+	protected String inputPropertyName() { return "Input";};
+	protected String outputPropertyName() { return null;};
 
     public EndTokenBeanTestCase() {
         super("End");

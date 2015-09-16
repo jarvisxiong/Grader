@@ -24,10 +24,10 @@ import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
 import grader.util.ExecutionUtil;
 
-public class ScannerBeanWithTokenObjectsTestCase extends OutputAndErrorCheckingTestCase{
+public class NumberLinesTestCase extends OutputAndErrorCheckingTestCase{
 
-	public ScannerBeanWithTokenObjectsTestCase() {
-        super("Scanner Bean class test case");
+	public NumberLinesTestCase() {
+        super("Number scanning test case");
     }
 	
 //	static String[] emptyArgs = {};

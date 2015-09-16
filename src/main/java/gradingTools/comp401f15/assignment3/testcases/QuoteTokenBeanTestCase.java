@@ -29,6 +29,8 @@ public class QuoteTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	
 	protected String input(){ return "This is a Quote";};
 	protected Object value() {return null;};
+	protected String inputPropertyName() { return "Input";};
+	protected String outputPropertyName() { return null;};
 
     public QuoteTokenBeanTestCase() {
         super("Quote Token Bean Case");
