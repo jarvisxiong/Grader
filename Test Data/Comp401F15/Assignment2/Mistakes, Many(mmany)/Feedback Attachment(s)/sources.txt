@@ -1,61 +1,110 @@
-//START OF FILE: src/main/scan.java
+//START OF FILE: src/main/assignment1.java
 package main;
-import java.util.ArrayList;
+
 import java.util.Scanner;
-public class Scan 
-{
-	public static void main(String[] args)
-	{
-		Scanner keyboard = new Scanner(System.in);
-		String inputString = keyboard.nextLine();
-		char period = '.';
-		char firstChar = inputString.charAt(0);
-		//terminate if a period is entered as the first character of the line
-		//loop through input lines if period is not entered
-		while (firstChar != period)
+import java.util.StringTokenizer;
+
+/**
+ * 
+ * @author kosko
+ *
+ *This is for assignment1 from comp 401
+ */
+public class Assignment1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("please enter a string:");
+		Scanner scan = new Scanner(System.in);
+		String line="";
+		scan.delimiter();
+		"hello world".split(" ");
+		
+		while(true)
 		{
-			scan (inputString);
-			System.out.println();
-			inputString = keyboard.nextLine();
-			firstChar = inputString.charAt(0);
+		 line = scan.nextLine();
+		 if(line.equals(""))
+			 continue;
+		 if (line.charAt(0)=='.')
+		 {
+			 break;
+		 }
+		 
+		 System.out.println(StringScanner.myScanner(line)); 
 		}
-		System.exit(-1);
-		keyboard.close();
 	}
-	public static void scan(String inputString)
+
+}
+//END OF FILE
+//START OF FILE: src/main/stringscanner.java
+package main;
+
+public class StringScanner {
+
+	public static String myScanner(String line)
 	{
-		//create Array List to store numbers
-		ArrayList<String> numberList = new ArrayList<String>();
-		System.out.print("Numbers: ");
-		int sum = 0;
-		int product = 1;
-		String numberString = "";
-		for (int index=0;index<inputString.length();index++)
-		{
-			char currentNumber = inputString.charAt(index);
-			char space = ' ';
-			//if at a space, add the number to the Array List
-			if (currentNumber == space) {
-				numberList.add(numberString);
-				numberString = "";
-			//if last number in string, add number to Array and print array, sum and product
-			} else if(index == inputString.length() - 1) {
-				numberString += currentNumber;
-				numberList.add(numberString);
-				for(int i=0;i<numberList.size();i++){
-					System.out.print(numberList.get(i) + " ");
-					int num = Integer.parseInt(numberList.get(i));
-					sum += num;
-					product *= num;
-				}
-				numberString = "";
-				System.out.print("Sum: " + sum + " Product: " + product);
-			//for all other numbers, add to the temporary string to later be added to the Array List once a space is found
-			} else if (currentNumber != space) {
-				numberString += currentNumber;
-			}
-		}	
+	
+		 String outLine="Numbers:";
+		 int sum=0;
+		 int product=1;
+		 char c;
+		 int beginInd=0;
+		 int endInd=0;
+		 int isDigit=0;
+		 String num="";
+		 for (int i=0;i<line.length();i++)
+		 {
+			 c=line.charAt(i);
+			 if (Character.isDigit(c))
+			 {
+				 if (isDigit==0)
+				 {
+					 isDigit=1;
+					 beginInd=i;
+				 }
+				 continue;
+			 }else if (c==' ')
+			 {
+				 if(isDigit==1)
+				 {
+					 endInd=i;//the endInd is excluded
+					 num=line.substring(beginInd,endInd);
+					 int hh=Integer.parseInt(num);
+					 sum+=hh;
+					 product*=hh;
+					 outLine+=" "+hh;
+					 //System.out.println("the num :"+num+" and the integer is: "+hh);
+					 isDigit=0;					 
+				 }
+			 }else//other character
+			 {
+				 System.out.println("unexpected character:"+c);
+				 if(isDigit==1)
+				 {
+					 endInd=i;//the endInd is excluded
+					 num=line.substring(beginInd,endInd);
+					 int hh=Integer.parseInt(num);
+					 sum+=hh;
+					 product*=hh;
+					 outLine+=" "+hh;
+					 //System.out.println("the num :"+num+" and the integer is: "+hh);
+					 isDigit=0;					 
+				 }
+			 }
+		 }
+		 if (isDigit==1)//for the last digit
+		 {
+			 endInd=line.length();
+			 num=line.substring(beginInd,endInd);
+			 int hh=Integer.parseInt(num);
+			 sum+=hh;
+			 product*=hh;
+			 outLine+=" "+hh;
+			 //System.out.println("the num :"+num+" and the integer is: "+hh);
+			 isDigit=0;
+		 }
+		 outLine+=" Sum: "+sum+" Product: "+product;
+		 return outLine;
 	}
 }
-
 //END OF FILE

@@ -1,44 +1,36 @@
 *****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.BeanA2() 
+called method: public main.BeanA2() 
+calling method: public void main.BeanA2.setScannedString(java.lang.String) with args 22 32 45 
+number: 22
+number: 32
+number: 45
+Illegal characters entered: "2", "3", "4" 
+called method: public void main.BeanA2.setScannedString(java.lang.String) with args:22 32 45  result:null
+Missing read method for property ScannedString
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
 hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
 
 ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20
-.
-
-OUTPUT(Numbers and words)
-Numbers: 10 20 Sum: 30 Product: 200
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -46,47 +38,20 @@ hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
 
 ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye
-.
-
-OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -94,95 +59,20 @@ hello    "h e l l o"   10   goodbye  "go odb ye" 20
 .
 
 OUTPUT(Quoted string)
-Numbers: hello 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
 
 ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-hello   "h e l l o"  10   goodbye "go odb ye" 20 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye"
-.
-
-OUTPUT(Quoted string)
-Numbers: "h 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -190,15 +80,20 @@ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: hello 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+sign: +
+word: goodbye
+quoted string: go odb ye
+sign: -
+Illegal characters entered: "h", "g" 
+Please enter a line of text: 
 
 ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -206,7 +101,41 @@ hello "h e l l o" + goodbye "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+sign: +
+word: goodbye
+quoted string: go odb ye
+sign: -
+Illegal characters entered: "h", "g" 
+Please enter a line of text: 
+
+ERRORS(Plus minus)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Plus minus)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
+
+ERRORS(Plus minus)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -214,15 +143,15 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: + 
+Please enter a line of text: 
+sign: +
+sign: -
+Please enter a line of text: 
 
 ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "+"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:484)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -230,7 +159,15 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+Please enter a line of text: 
+sign: +
+sign: -
+Please enter a line of text: 
+
+ERRORS(Plus minus)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -238,45 +175,20 @@ hello    "h e l l o"   10   goodbye  "go odb ye 20
 .
 
 OUTPUT(Missing quote)
-Numbers: hello 
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+ERROR: Closing double quote is missing!
+Good thing my program is smarter than you are!
+Here is your "quoted" string anyway:
+quoted string: go odb ye 20 
+Illegal characters entered: "h", "1", "g" 
+Please enter a line of text: 
 
 ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-hello   "h e l l o"  10   goodbye "go odb ye 20 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye
-.
-
-OUTPUT(Missing quote)
-Numbers: "h 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.Assignment2.main(Assignment2.java:12)
 

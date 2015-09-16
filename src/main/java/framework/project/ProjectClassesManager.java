@@ -382,14 +382,15 @@ public class ProjectClassesManager implements ClassesManager {
         List<ClassDescription> classes = new ArrayList<>();
         if (className == null) return classes;
 
-        // First search the simple names
-        for (ClassDescription description : classDescriptions) {
-            if (description.getJavaClass().getSimpleName().matches(className)) {
-               classes.add(description);
-            }
-        }
-
-        // Next search the canonical names
+//        // First search the simple names
+//        for (ClassDescription description : classDescriptions) {
+//            if (description.getJavaClass().getSimpleName().matches(className)) {
+//               classes.add(description);
+//            }
+//        }
+//        if (!classes.isEmpty())
+//        	return classes;
+        //  search the canonical names
         for (ClassDescription description : classDescriptions) {
             if (description.getJavaClass().getCanonicalName().matches(className)) {
                 classes.add(description);
@@ -409,7 +410,7 @@ public class ProjectClassesManager implements ClassesManager {
     	if (!result.isEmpty())
     		return result;
     	if (aNameMatch != null) {
-    		result = findByClassNameMatch(aName);  		
+    		result = findByClassNameMatch(aNameMatch);  		
     	}
     	if (!result.isEmpty())
     		return result;

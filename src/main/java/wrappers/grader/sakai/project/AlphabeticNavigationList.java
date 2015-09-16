@@ -54,12 +54,21 @@ public class AlphabeticNavigationList implements NavigationListCreator {
 		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), this);
 		
 		
-        
+    	String aStartOnyen = GraderSettings.get().get("start");
+    	String anEndOnyen = GraderSettings.get().get("end");
+    	String aStartFilePart = "(" + aStartOnyen + ")";
+    	String anEndFilePart = "(" + anEndOnyen + ")";
+    	System.out.println(" Searching for onyens between:" + aStartOnyen + "->" + anEndOnyen);
+    	boolean foundStart = false;
+
         for (File file : files) {
             if (file.isDirectory()) {
-                if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
+//                if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
+                if (file.getName().contains(aStartFilePart))
                     include = true;
                 if (include) {
+                	System.out.println ("Found start onyen");
+                	foundStart = true;
                 	String anOnyen = file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")"));
                 	SakaiProject aProject = aSakaiProjectDatabase.getProject(anOnyen);
                 	if (aProject == null || aProject.isNoProjectFolder()) {
@@ -71,12 +80,19 @@ public class AlphabeticNavigationList implements NavigationListCreator {
                 	}
                 }
                 if (file.getName().contains("(" + GraderSettings.get().get("end") + ")")) {
+                	System.out.println ("Found end onyen");
                     include = false;
                     break;
                 }
             }
         }
+        if (!foundStart) {
+        	System.out.println ("Did not find start onyen in:" + files);
+
+        }
         if (include) { // did not find ending onyen
+        	System.out.println ("Did not find end onyen in:" + files);
+
         	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
         if (aSakaiProjectDatabase.getProjectStepper() != null)

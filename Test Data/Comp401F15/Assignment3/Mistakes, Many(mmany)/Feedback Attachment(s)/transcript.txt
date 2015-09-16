@@ -49,13 +49,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args 00220 32 45 
-mp.Number@2b6afd0f
+mp.Number@c5392fb
 00220
 220
-mp.Number@7d0bfa0d
+mp.Number@2946d01
 32
 32
-mp.Number@1d4dab9e
+mp.Number@6abf98b
 45
 45
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:00220 32 45  result:null
@@ -68,13 +68,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args 00220 32 45 
-mp.Number@a3aee42
+mp.Number@43a9673a
 00220
 220
-mp.Number@22f0344d
+mp.Number@53fdf1fe
 32
 32
-mp.Number@47f9bd26
+mp.Number@722062e5
 45
 45
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:00220 32 45  result:null
@@ -87,13 +87,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args 00220 32 45 
-mp.Number@7a537350
+mp.Number@2b9eaa8b
 00220
 220
-mp.Number@7cb7c7ed
+mp.Number@23869875
 32
 32
-mp.Number@5a6d893
+mp.Number@1f48effa
 45
 45
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:00220 32 45  result:null
@@ -106,13 +106,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args CamelCase anotherWord wordWord 
-mp.Word@594a9734
+mp.Word@6e0e81bc
 CamelCase
 camelcase
-mp.Word@300d04b8
+mp.Word@309aa404
 anotherWord
 anotherword
-mp.Word@26b0e4ad
+mp.Word@27c8c752
 wordWord
 wordword
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:CamelCase anotherWord wordWord  result:null
@@ -125,13 +125,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args CamelCase anotherWord wordWord 
-mp.Word@1a7d434d
+mp.Word@7f27db6e
 CamelCase
 camelcase
-mp.Word@15cd81d1
+mp.Word@65beb657
 anotherWord
 anotherword
-mp.Word@6705cb85
+mp.Word@619460
 wordWord
 wordword
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:CamelCase anotherWord wordWord  result:null
@@ -144,13 +144,13 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args CamelCase anotherWord wordWord 
-mp.Word@62920dc8
+mp.Word@61722169
 CamelCase
 camelcase
-mp.Word@62c6f806
+mp.Word@20cf7a82
 anotherWord
 anotherword
-mp.Word@74c58493
+mp.Word@30d37cc2
 wordWord
 wordword
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:CamelCase anotherWord wordWord  result:null
@@ -163,9 +163,9 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args "CamelCase !@# " "Word wordWord" 
-mp.QuotedString@6dd0d81c
+mp.QuotedString@3c9d2c2c
 CamelCase !@# 
-mp.QuotedString@2a1c4e97
+mp.QuotedString@4c142bbf
 Word wordWord
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:"CamelCase !@# " "Word wordWord"  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 
@@ -177,9 +177,9 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args "CamelCase !@# " "Word wordWord" 
-mp.QuotedString@248eba46
+mp.QuotedString@175453d5
 CamelCase !@# 
-mp.QuotedString@16675c6a
+mp.QuotedString@3cca0891
 Word wordWord
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:"CamelCase !@# " "Word wordWord"  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 
@@ -191,9 +191,9 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args \{ \{ 
-mp.StartToken@50683930
+mp.StartToken@6963af68
 {
-mp.StartToken@6a82a78d
+mp.StartToken@4c72828
 {
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:\{ \{  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 
@@ -205,9 +205,9 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args \{ \{ 
-mp.StartToken@79896cf
+mp.StartToken@31b8199e
 {
-mp.StartToken@32d4f3ee
+mp.StartToken@5dda01b8
 {
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:\{ \{  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 
@@ -219,11 +219,11 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args \} \{} 
-mp.EndToken@6ff154c9
+mp.EndToken@2936fd84
 }
-mp.StartToken@4cf59189
+mp.StartToken@148d06e2
 {
-mp.EndToken@e25e0d8
+mp.EndToken@65888904
 }
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:\} \{}  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 
@@ -235,11 +235,11 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args \} \{} 
-mp.EndToken@36456cfc
+mp.EndToken@68d283cc
 }
-mp.StartToken@7f6303a
+mp.StartToken@7616898f
 {
-mp.EndToken@33d833eb
+mp.EndToken@a502bb9
 }
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:\} \{}  result:null
 calling method: public java.lang.String grail.ExtBeanStringScanner.getScannedString() with args 

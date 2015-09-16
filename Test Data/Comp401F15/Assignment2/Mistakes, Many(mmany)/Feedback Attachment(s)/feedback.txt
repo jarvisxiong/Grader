@@ -1,33 +1,32 @@
-Grading result for: Test, Student(tstudent)
+Grading result for: Mistakes, Many(mmany)
 
 Grading features...
 ----------------------------------
 Bean class                                             0.0 / 20.0
 Numbers and words                                      0.0 / 20.0
 Quoted string                                          0.0 / 30.0
-Screenshots enclosed                                   10.0 / 10.0
+Screenshots enclosed                                   0.0 / 10.0
 Breakpoint step into/over/return screenhots            0.0 / 20.0
-Variable spaces                                        0.0 /  3.0 (Extra credit)
 Plus minus                                             0.0 /  4.0 (Extra credit)
 Missing quote                                          0.0 /  3.0 (Extra credit)
 Own isLetter                                           0.0 /  3.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 10.0
+  Points Awarded: 0.0
 
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assignment                      0.0 /  -1.0
-Scanner Bean Tagged                         0.0 /  -5.0
+Scanner Bean Tagged                         -5.0 /  -5.0
 ----------------------------------
-  Points Deducted: 0.0
+  Points Deducted: -5.0
 
-  Features Score: 10.0
+  Features Score: -5.0
 
 Notes from grading features:
 ----------------------------------
 Bean class:
-Not gradable
+  -- Could not find scanner bean
+
 Numbers and words:
   -- Cannot scan numbers
   -- Cannot scan numbers
@@ -35,8 +34,8 @@ Numbers and words:
 Quoted string:
   -- Cannot scan numbers
 
-Variable spaces:
-  -- Cannot scan numbers
+Screenshots enclosed:
+  -- Missing images
 
 Plus minus:
   -- Cannot scan numbers
@@ -47,12 +46,9 @@ Missing quote:
 
 Notes from grading restrictions:
 ----------------------------------
-Single main.Assignment:
-  -- Class matching main.Assignment(.*) not defined 0 number of times
-
 Scanner Bean Tagged :
-  -- Class matching @ScannerBean not defined 0 number of times
+  -- Class matching @ScannerBean not defined
 
 
 Early benefit: 105.0%
-  Total Score: 10.5
+  Total Score: 0.0

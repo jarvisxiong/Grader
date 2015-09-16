@@ -1,44 +1,21 @@
 *****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
 hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20
-.
-
-OUTPUT(Numbers and words)
-Numbers: 10 20 Sum: 30 Product: 200
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-10 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -46,47 +23,14 @@ hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye
-.
-
-OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Numbers and words)*****************************
-INPUT(Numbers and words)
-hello goodbye 
-.
-
-OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -94,95 +38,14 @@ hello    "h e l l o"   10   goodbye  "go odb ye" 20
 .
 
 OUTPUT(Quoted string)
-Numbers: hello 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-hello   "h e l l o"  10   goodbye "go odb ye" 20 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye"
-.
-
-OUTPUT(Quoted string)
-Numbers: "h 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Quoted string)*****************************
-INPUT(Quoted string)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -190,15 +53,12 @@ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: hello 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -206,7 +66,27 @@ hello "h e l l o" + goodbye "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -214,15 +94,8 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: + 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "+"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:484)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+Processed by bean class
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -230,7 +103,8 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+please enter a string:
+Processed by bean class
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -238,45 +112,12 @@ hello    "h e l l o"   10   goodbye  "go odb ye 20
 .
 
 OUTPUT(Missing quote)
-Numbers: hello 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-hello   "h e l l o"  10   goodbye "go odb ye 20 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye
-.
-
-OUTPUT(Missing quote)
-Numbers: "h 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Missing quote)*****************************
-INPUT(Missing quote)
-"h e l l o" "go odb ye" 
-.
-
-OUTPUT(Missing quote)
-Numbers: 
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+closed quota is missing.....
+go odb ye 20
 

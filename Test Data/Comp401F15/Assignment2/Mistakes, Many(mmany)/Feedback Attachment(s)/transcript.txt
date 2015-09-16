@@ -1,20 +1,43 @@
 *****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
 hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -22,7 +45,73 @@ hello "h e l l o" 10 goodbye "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -30,6 +119,7 @@ INPUT(Numbers and words)
 .
 
 OUTPUT(Numbers and words)
+please enter a string:
 Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
@@ -38,7 +128,8 @@ INPUT(Numbers and words)
 .
 
 OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -46,15 +137,36 @@ hello "h e l l o" 10 goodbye  "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -62,7 +174,73 @@ hello "h e l l o" 10 goodbye "go odb ye" 20
 .
 
 OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -70,15 +248,20 @@ hello goodbye
 .
 
 OUTPUT(Numbers and words)
-Numbers: hello 
-
-ERRORS(Numbers and words)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
 
 *****************************(Numbers and words)*****************************
 INPUT(Numbers and words)
@@ -86,7 +269,20 @@ hello goodbye
 .
 
 OUTPUT(Numbers and words)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -94,15 +290,36 @@ hello    "h e l l o"   10   goodbye  "go odb ye" 20
 .
 
 OUTPUT(Quoted string)
-Numbers: hello 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -110,7 +327,74 @@ hello   "h e l l o"  10   goodbye "go odb ye" 20
 .
 
 OUTPUT(Quoted string)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+ shello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:s
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -118,15 +402,24 @@ INPUT(Quoted string)
 .
 
 OUTPUT(Quoted string)
-Numbers: "h 
-
-ERRORS(Quoted string)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
 
 *****************************(Quoted string)*****************************
 INPUT(Quoted string)
@@ -134,55 +427,24 @@ INPUT(Quoted string)
 .
 
 OUTPUT(Quoted string)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye  "go odb ye" 20
-.
-
-OUTPUT(Variable spaces)
-Numbers: hello 
-
-ERRORS(Variable spaces)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
-
-*****************************(Variable spaces)*****************************
-INPUT(Variable spaces)
-hello "h e l l o" 10 goodbye "go odb ye" 20 
-.
-
-OUTPUT(Variable spaces)
-Numbers: 
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -190,15 +452,38 @@ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: hello 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:+
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:-
+Numbers: Sum: 0 Product: 1
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -206,7 +491,75 @@ hello "h e l l o" + goodbye "go odb ye" -
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:+
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -214,15 +567,10 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: + 
-
-ERRORS(Plus minus)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "+"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:484)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:+
+unexpected character:-
+Numbers: Sum: 0 Product: 1
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
@@ -230,7 +578,10 @@ INPUT(Plus minus)
 .
 
 OUTPUT(Plus minus)
-Numbers: 
+please enter a string:
+unexpected character:+
+unexpected character:-
+Numbers: Sum: 0 Product: 1
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -238,15 +589,35 @@ hello    "h e l l o"   10   goodbye  "go odb ye 20
 .
 
 OUTPUT(Missing quote)
-Numbers: hello 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: "hello"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:492)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -254,7 +625,72 @@ hello   "h e l l o"  10   goodbye "go odb ye 20
 .
 
 OUTPUT(Missing quote)
-Numbers: 
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -262,15 +698,23 @@ INPUT(Missing quote)
 .
 
 OUTPUT(Missing quote)
-Numbers: "h 
-
-ERRORS(Missing quote)
-Exception in thread "main" java.lang.NumberFormatException: For input string: ""h"
-	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-	at java.lang.Integer.parseInt(Integer.java:481)
-	at java.lang.Integer.parseInt(Integer.java:527)
-	at main.Scan.scan(Scan.java:46)
-	at main.Scan.main(Scan.java:16)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
 
 *****************************(Missing quote)*****************************
 INPUT(Missing quote)
@@ -278,5 +722,22 @@ INPUT(Missing quote)
 .
 
 OUTPUT(Missing quote)
-Numbers: 
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
 
