@@ -62,8 +62,8 @@ public class EndClassTestCase extends TokenScanningTestCase{
     protected String input() { return "\\} \\}";}
     
     protected String[] expectedOutputs() {
- 	   String aClassName =  (String) this.getCheckable().getRequirements().getUserObject(EndTokenBeanTestCase.TAG);
- 	   String aPattern = ".*" + aClassName + ".*";
+ 	   Class aClass =  (Class) (this.getCheckable().getRequirements().getUserObject(EndTokenBeanTestCase.TAG));
+ 	   String aPattern = ".*" + aClass.getCanonicalName() + ".*";
  	   return new String[] {aPattern, aPattern};
  	   
     };

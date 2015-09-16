@@ -236,7 +236,9 @@ public class ExecutionUtil {
 //			anActualOutputs = null;
 		} else {
 			System.out.println ("Finding constructor matching:" + Common.toString(aConstructorArgTypes));
-			anActualOutputs.put(CLASS_MATCHED, aClass.getCanonicalName());
+//			anActualOutputs.put(CLASS_MATCHED, aClass.getCanonicalName());
+			anActualOutputs.put(CLASS_MATCHED, aClass);
+
 			Constructor aConstructor = aClass.getConstructor(aConstructorArgTypes);
 			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 300);
 			for (String aPropertyName:anInputs.keySet()) {

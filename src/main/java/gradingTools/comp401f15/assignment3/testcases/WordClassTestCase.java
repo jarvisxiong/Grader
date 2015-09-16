@@ -40,8 +40,8 @@ public class WordClassTestCase extends TokenScanningTestCase{
     protected String input() { return "CamelCase anotherWord wordWord";}
     
    protected String[] expectedOutputs() {
-	   String aClassName =  (String) this.getCheckable().getRequirements().getUserObject(WordTokenBeanTestCase.TAG);
-	   String aPattern = ".*" + aClassName + ".*";
+	   Class aClassName =  (Class) this.getCheckable().getRequirements().getUserObject(WordTokenBeanTestCase.TAG);
+	   String aPattern = ".*" + aClassName.getCanonicalName() + ".*";
 	   return new String[] {aPattern, aPattern, aPattern };
 	   
    };

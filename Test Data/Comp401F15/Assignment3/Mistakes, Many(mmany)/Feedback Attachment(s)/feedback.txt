@@ -5,13 +5,13 @@ Grading features...
 Multi Property Token Beans                             25.0 / 25.0
 Single Property Token Beans                            15.0 / 15.0
 Scanner Check                                          25.0 / 25.0
-Class has interface check                              9.2 / 10.0
+Class has interface check                              22.9 / 25.0
 Variable has class type                                10.0 / 10.0
 Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
 Plus Minus Scanner Check                               2.6 /  4.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 ----------------------------------
-  Points Awarded: 92.8
+  Points Awarded: 106.5
 
 Grading restrictions...
 ----------------------------------
@@ -21,7 +21,7 @@ Classes Tagged                              0.0 /  -18.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 92.8
+  Features Score: 106.5
 
 Notes from grading features:
 ----------------------------------
@@ -37,4 +37,4 @@ Screenshots enclosed:
 
 
 Early benefit: 105.0%
-  Total Score: 97.65
+  Total Score: 112.35

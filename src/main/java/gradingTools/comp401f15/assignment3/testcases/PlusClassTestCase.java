@@ -62,8 +62,8 @@ public class PlusClassTestCase extends TokenScanningTestCase{
     protected String input() { return "+ +";}
 
    protected String[] expectedOutputs() {
-	   String aClassName =  (String) this.getCheckable().getRequirements().getUserObject(PlusTokenBeanTestCase.TAG);
-	   String aPattern = ".*" + aClassName + ".*";
+	   Class aClass =  (Class) this.getCheckable().getRequirements().getUserObject(PlusTokenBeanTestCase.TAG);
+	   String aPattern = ".*" + aClass.getName() + ".*";
 	   return new String[] {aPattern, aPattern};
 	   
    };

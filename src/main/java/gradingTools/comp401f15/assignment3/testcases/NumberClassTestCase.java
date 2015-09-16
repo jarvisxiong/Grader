@@ -40,8 +40,8 @@ public class NumberClassTestCase extends TokenScanningTestCase{
     protected String input() { return "00220 32 45";}
     
    protected String[] expectedOutputs() {
-	   String aClassName =  (String) this.getCheckable().getRequirements().getUserObject(NumberTokenBeanTestCase.TAG);
-	   String aPattern = ".*" + aClassName + ".*";
+	   Class aClass =  (Class) this.getCheckable().getRequirements().getUserObject(NumberTokenBeanTestCase.TAG);
+	   String aPattern = ".*" + aClass.getCanonicalName() + ".*";
 	   return new String[] {aPattern, aPattern, aPattern };
 	   
    };

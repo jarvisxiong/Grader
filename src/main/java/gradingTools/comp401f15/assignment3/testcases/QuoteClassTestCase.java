@@ -40,8 +40,8 @@ public class QuoteClassTestCase extends TokenScanningTestCase{
     protected String input() { return "\"CamelCase !@#  \" \"Word wordWord\"";}
     
    protected String[] expectedOutputs() {
-	   String aClassName =  (String) this.getCheckable().getRequirements().getUserObject(QuoteTokenBeanTestCase.TAG);
-	   String aPattern = ".*" + aClassName + ".*";
+	   Class aClass =  (Class) this.getCheckable().getRequirements().getUserObject(QuoteTokenBeanTestCase.TAG);
+	   String aPattern = ".*" + aClass.getCanonicalName() + ".*";
 	   return new String[] {aPattern, aPattern};
 	   
    };
