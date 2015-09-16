@@ -18,8 +18,9 @@ import gradingTools.assignment1.FlexibleProgramRunner;
 
 
 public class EndTokenBeanTestCase extends AbstractTokenBeanTestCase {
-	public  String classIdentifier() { return "End";}
-	protected String[] beanDescriptions() { return new String[] {null, "End", ".*End.*", ".*End.*"};};
+	public static final String TAG = "End";
+	public  String classIdentifier() { return TAG;}
+	protected String[] beanDescriptions() { return new String[] {null, TAG, ".*" + TAG + ".*", ".*" + TAG + ".*"};};
 //	protected double missingClassPenalty() {return 1.0;};
 //	protected double missingExpectedConstructorPenalty() {return 0.2;};
 //	protected double missingNullConstructorPenalty() {return 0.0;}

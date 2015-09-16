@@ -16,11 +16,28 @@ import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.MinusClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.MinusEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.MinusTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.NumberTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.PlusClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.PlusEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.PlusTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.QuoteTokenBeanTestCase;
-import gradingTools.comp401f15.assignment3.testcases.NumberLinesTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
@@ -35,16 +52,43 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/13/2015 23:59:00", 1);
     	addDueDate("09/16/2015 23:59:00", 0.9);
     	addDueDate("09/18/2015 23:59:00", 0.75);
-    	addFeature("Scanner Check", 20, new NumberLinesTestCase());
-    	addFeature("Multi Property Token Beans", 8,
+    	addFeature("Multi Property Token Beans", 25,
     			new NumberTokenBeanTestCase(),
     			new WordTokenBeanTestCase()
     			);
-    	addFeature("Single Property Token Beans", 8,
+    	
+    	addFeature("Single Property Token Beans", 15,
     			new QuoteTokenBeanTestCase(),
     			new StartTokenBeanTestCase(),
     			new EndTokenBeanTestCase()
     			);
+    	addFeature("Scanner Check", 25, 
+    			new NumberEchoTestCase(),
+    			new NumberComputationTestCase(),
+    			new NumberClassTestCase(),
+    			new WordEchoTestCase(),
+    			new WordComputationTestCase(),
+    			new WordClassTestCase(),
+    			new QuoteEchoTestCase(),
+    			new QuoteClassTestCase(),
+    			new StartEchoTestCase(),
+    			new StartClassTestCase(),
+    			new EndEchoTestCase(),
+    			new EndClassTestCase()
+    			
+    			);
+    	addFeature("Plus Minus Token Beans", 6, true,
+    			new PlusTokenBeanTestCase(),
+    			new MinusTokenBeanTestCase()
+    			);
+    	addFeature("Plus Minus Scanner Check", 4, true,
+    			new PlusEchoTestCase(),
+    			new PlusClassTestCase(),
+    			new MinusEchoTestCase(),
+    			new MinusClassTestCase()
+    			
+    			);
+
 //         addFeature("Numbers and words", 20,
 //                 new NumberTokensTestCase(),
 //                 new WordTokensTestCase());

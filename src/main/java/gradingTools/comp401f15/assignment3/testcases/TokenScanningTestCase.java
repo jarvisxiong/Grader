@@ -24,10 +24,10 @@ import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
 import grader.util.ExecutionUtil;
 
-public class NumberLinesTestCase extends OutputAndErrorCheckingTestCase{
+public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestCase{
 
-	public NumberLinesTestCase() {
-        super("Number scanning test case");
+	public TokenScanningTestCase(String aName) {
+        super(aName);
     }
 	
 //	static String[] emptyArgs = {};
@@ -58,11 +58,11 @@ public class NumberLinesTestCase extends OutputAndErrorCheckingTestCase{
     Class[] constructorArgTypes1 = {};
     String[] constructorArgs2 = {""};
     String[] constructorArgs1 = {};
-    String inputEndingSpaces =  "22 32 45 ";
-    String input = "22 32 45";
+    protected abstract String inputEndingSpaces();
+    protected abstract String input();
     String[] outputPropertyNames = {"ScannedString"};
     
-   protected String[] expectedOutputs() { return new String[] {".*22.*", ".*32.*", ".*45.*" };};
+   protected abstract String[] expectedOutputs();
 
     
    
@@ -70,7 +70,7 @@ public class NumberLinesTestCase extends OutputAndErrorCheckingTestCase{
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
     	Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
-        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
+        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
 //        String aTranscript = (String) anActualOutputs.get("System.out");
 //        if (aTranscript != null && !aTranscript.isEmpty()) {
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);
@@ -100,15 +100,15 @@ public class NumberLinesTestCase extends OutputAndErrorCheckingTestCase{
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
         
-      TestCaseResult result = test(project, constructorArgTypes1, constructorArgs1, inputEndingSpaces);
+      TestCaseResult result = test(project, constructorArgTypes1, constructorArgs1, inputEndingSpaces());
       if (result.getNotes().contains("Could not find scanner bean"))
       	return result;
       if (result.getPercentage() < 0.7) {
-    	  result = test(project, constructorArgTypes2, constructorArgs2, inputEndingSpaces);
+    	  result = test(project, constructorArgTypes2, constructorArgs2, inputEndingSpaces());
     	  if (result.getPercentage() < 0.7) {
-    		  result = test(project, constructorArgTypes1, constructorArgs1, input);
+    		  result = test(project, constructorArgTypes1, constructorArgs1, input());
     		  if (result.getPercentage() < 0.7)
-    			  result = test(project, constructorArgTypes2, constructorArgs2, input);
+    			  result = test(project, constructorArgTypes2, constructorArgs2, input());
     	  }
       }
       return result;

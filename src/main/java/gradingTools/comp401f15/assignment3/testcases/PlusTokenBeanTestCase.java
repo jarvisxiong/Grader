@@ -17,8 +17,8 @@ import grader.util.ExecutionUtil;
 import gradingTools.assignment1.FlexibleProgramRunner;
 
 
-public class WordTokenBeanTestCase extends AbstractTokenBeanTestCase {
-	public static final String TAG = "Word";
+public class PlusTokenBeanTestCase extends AbstractTokenBeanTestCase {
+	public static final String TAG = "Plus";
 	public  String classIdentifier() { return TAG;}
 	protected String[] beanDescriptions() { return new String[] {null, TAG, ".*" + TAG + ".*", ".*" + TAG + ".*"};};
 //	protected double missingClassPenalty() {return 1.0;};
@@ -28,13 +28,13 @@ public class WordTokenBeanTestCase extends AbstractTokenBeanTestCase {
 //	protected double getsNotSetsPenalty() {return 0.2;}
 //	protected double incorrectDependentsPenalty(){return 0.3;}
 	
-	protected String input(){ return "MixedCamelCase";};
-	protected Object value() {return "mixedcamelcase";};
+	protected String input(){ return "+";};
+	protected Object value() {return null;};
 	protected String inputPropertyName() { return "Input";};
-	protected String outputPropertyName() { return "Value";};
+	protected String outputPropertyName() { return null;};
 
-    public WordTokenBeanTestCase() {
-        super("Word Token Bean Case");
+    public PlusTokenBeanTestCase() {
+        super("Plus Token Bean Case");
     }
 
    

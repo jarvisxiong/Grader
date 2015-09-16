@@ -18,8 +18,9 @@ import gradingTools.assignment1.FlexibleProgramRunner;
 
 
 public class NumberTokenBeanTestCase extends AbstractTokenBeanTestCase {
-	public  String classIdentifier() { return "Number";}
-	protected String[] beanDescriptions() { return new String[] {null, "Number", ".*Number.*", ".*Number.*"};};
+	public static final String TAG = "Number";
+	public  String classIdentifier() { return TAG;}
+	protected String[] beanDescriptions() { return new String[] {null, TAG, ".*" + TAG + ".*", ".*" + TAG + ".*"};};
 //	protected double missingClassPenalty() {return 1.0;};
 //	protected double missingExpectedConstructorPenalty() {return 0.2;};
 //	protected double missingNullConstructorPenalty() {return 0.0;}

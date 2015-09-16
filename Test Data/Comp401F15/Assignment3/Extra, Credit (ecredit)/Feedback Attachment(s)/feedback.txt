@@ -2,12 +2,10 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Scanner Check                                          0.0 / 20.0
-Multi Property Token Beans                             8.0 /  8.0
-Single Property Token Beans                            8.0 /  8.0
+Plus Minus Scanner Check                               0.0 /  4.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 ----------------------------------
-  Points Awarded: 16.0
+  Points Awarded: 0.0
 
 Grading restrictions...
 ----------------------------------
@@ -17,11 +15,11 @@ Classes Tagged                              -9.0 /  -18.0
 ----------------------------------
   Points Deducted: -9.0
 
-  Features Score: 7.0
+  Features Score: -9.0
 
 Notes from grading features:
 ----------------------------------
-Scanner Check:
+Plus Minus Scanner Check:
   -- Could not find scanner bean
 
 Screenshots enclosed:
@@ -37,4 +35,4 @@ Classes Tagged :
 
 
 Early benefit: 105.0%
-  Total Score: 7.35
+  Total Score: 0.0

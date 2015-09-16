@@ -1,42 +1,4 @@
-*****************************(Scanner Check)*****************************
+*****************************(Plus Minus Scanner Check)*****************************
+Testcase:Plus class test case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
 No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
-*****************************(Multi Property Token Beans)*****************************
-Finding class matching:null, Number, .*Number.*, .*Number.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.Number(java.lang.String) 006500
-called method: public mp.Number(java.lang.String) 006500
-calling method: public void mp.Number.setInput(java.lang.String) with args 006500
-called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
-calling method: public int mp.Number.getValue() with args 
-called method: public int mp.Number.getValue() with args: result:6500
-*****************************(Multi Property Token Beans)*****************************
-Finding class matching:null, Word, .*Word.*, .*Word.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.Word(java.lang.String) MixedCamelCase
-called method: public mp.Word(java.lang.String) MixedCamelCase
-calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
-called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
-calling method: public java.lang.String mp.Word.getValue() with args 
-called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
-*****************************(Single Property Token Beans)*****************************
-Finding class matching:null, Quote, .*Quote.*, .*Quote.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.QuotedString(java.lang.String) This is a Quote
-called method: public mp.QuotedString(java.lang.String) This is a Quote
-calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
-called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
-*****************************(Single Property Token Beans)*****************************
-Finding class matching:null, Start, .*Start.*, .*Start.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.StartToken(java.lang.String) {
-called method: public mp.StartToken(java.lang.String) {
-calling method: public void mp.StartToken.setInput(java.lang.String) with args {
-called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
-*****************************(Single Property Token Beans)*****************************
-Finding class matching:null, End, .*End.*, .*End.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.EndToken(java.lang.String) End
-called method: public mp.EndToken(java.lang.String) End
-calling method: public void mp.EndToken.setInput(java.lang.String) with args End
-called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null

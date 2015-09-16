@@ -70,7 +70,7 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
     	Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
-        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
+        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
 //        String aTranscript = (String) anActualOutputs.get("System.out");
 //        if (aTranscript != null && !aTranscript.isEmpty()) {
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);

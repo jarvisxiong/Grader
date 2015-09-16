@@ -207,7 +207,7 @@ public class ExecutionUtil {
 	}
 	static String[] emptyArgs = {};
 	
-	public static Map<String, Object> testBean (String aFeatureName, Project aProject, 
+	public static Map<String, Object> testBean (String aFeatureName, String aCheckName, Project aProject, 
 			String[] aBeanDescriptions, 
 			Class[] aConstructorArgTypes, 
 			Object[] aConstructorArgs, Map<String, Object> anInputs, 
@@ -221,6 +221,7 @@ public class ExecutionUtil {
 			Tracer.error("Bean description  in testBean should have 4 elements instead of: " + aBeanDescriptions.length);
 		}
 		redirectOutput();
+		System.out.println("Testcase:" + aCheckName);
 		System.out.println ("Finding class matching:" + Common.toString(aBeanDescriptions));
 		Class aClass = IntrospectionUtil.findClass(aProject, 
         		aBeanDescriptions[0],
@@ -299,7 +300,7 @@ public class ExecutionUtil {
 		anActualOutputs.put(GETS_EQUAL_SETS, getsReturnSets);
 		return anActualOutputs;
 	}
-	public static Map<String, Object> testBean (String aFeatureName, Project aProject, 
+	public static Map<String, Object> testBean (String aFeatureName, String aTestCase, Project aProject, 
 			String[] aBeanDescriptions, 
 			Class[] aConstructorArgTypes, 
 			Object[] aConstructorArgs, Map<String, Object> anInputs, 
@@ -308,7 +309,7 @@ public class ExecutionUtil {
 			Tracer.error("output properties length not the same as expected values length");
 			return null;
 		}
-		Map<String, Object> anActualOutputs = testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, anOutputProperties);
+		Map<String, Object> anActualOutputs = testBean(aFeatureName, aTestCase, aProject, aBeanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, anOutputProperties);
 		for (int i = 0; i < anOutputProperties.length;i++) {
 			Object anExpectedOutput = anExpectedValues[i];
 			Object anActualOutput;
@@ -344,7 +345,7 @@ public class ExecutionUtil {
 	    	
 	    }
 	 
-	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, Project aProject, 
+	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, String aTestCase, Project aProject, 
 				String[] aBeanDescriptions,  
 				String aConstructorArg, String anIndependentPropertyName, Object anIndepentValue,
 				String anOutputPropertyName, Object anExpectedOutputValue ) {
@@ -354,11 +355,11 @@ public class ExecutionUtil {
 		 Object[] anExpectedValue = new Object[] {anExpectedOutputValue};
 		 Map<String, Object> anInputs = new HashMap();
 		 anInputs.put(anIndependentPropertyName, anIndepentValue);
-		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+		 return testBean(aFeatureName, aTestCase, aProject, aBeanDescriptions, aConstructorArgTypes,
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static Map<String, Object> testBeanWithNoConstructor (String aFeatureName, Project aProject, 
+	 public static Map<String, Object> testBeanWithNoConstructor (String aFeatureName, String aTestCase, Project aProject, 
 				String[] aBeanDescriptions,  
 				 String anIndependentPropertyName, Object anIndepentValue,
 				String anOutputPropertyName, Object anExpectedOutputValue ) {
@@ -368,11 +369,11 @@ public class ExecutionUtil {
 		 Object[] anExpectedValue = new Object[] {anExpectedOutputValue};
 		 Map<String, Object> anInputs = new HashMap();
 		 anInputs.put(anIndependentPropertyName, anIndepentValue);
-		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+		 return testBean(aFeatureName, aTestCase, aProject, aBeanDescriptions, aConstructorArgTypes,
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, Project aProject, 
+	 public static Map<String, Object> testBeanWithStringConstructor (String aFeatureName, String aTestCase, Project aProject, 
 				String[] aBeanDescriptions,  
 				String aConstructorArg) {
 		 Class[] aConstructorArgTypes = new Class[]{String.class};
@@ -380,7 +381,7 @@ public class ExecutionUtil {
 		 String[] anOutputProperties = new String[] {};
 		 Object[] anExpectedValue = new Object[] {};
 		 Map<String, Object> anInputs = new HashMap();
-		 return testBean(aFeatureName, aProject, aBeanDescriptions, aConstructorArgTypes,
+		 return testBean(aFeatureName, aTestCase, aProject, aBeanDescriptions, aConstructorArgTypes,
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }

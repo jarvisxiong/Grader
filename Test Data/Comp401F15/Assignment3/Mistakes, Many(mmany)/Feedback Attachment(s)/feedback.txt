@@ -2,12 +2,10 @@ Grading result for: Mistakes, Many(mmany)
 
 Grading features...
 ----------------------------------
-Scanner Check                                          20.0 / 20.0
-Multi Property Token Beans                             8.0 /  8.0
-Single Property Token Beans                            8.0 /  8.0
+Plus Minus Scanner Check                               4.0 /  4.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 ----------------------------------
-  Points Awarded: 36.0
+  Points Awarded: 4.0
 
 Grading restrictions...
 ----------------------------------
@@ -17,7 +15,7 @@ Classes Tagged                              0.0 /  -18.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 36.0
+  Features Score: 4.0
 
 Notes from grading features:
 ----------------------------------
@@ -26,4 +24,4 @@ Screenshots enclosed:
 
 
 Early benefit: 105.0%
-  Total Score: 37.800000000000004
+  Total Score: 4.2
