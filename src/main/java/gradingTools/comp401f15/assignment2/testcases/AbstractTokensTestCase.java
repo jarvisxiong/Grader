@@ -61,13 +61,13 @@ public abstract class AbstractTokensTestCase extends OutputAndErrorCheckingTestC
             retVal = test(project, simplifiedInputWithNoEndingSpace(), expectedOutputs(), autoGrade);
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
             		|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-            	return partialPass(simplifiedCredit, "Cannot scan numbers in mixed token case");            
+            	return partialPass(simplifiedCredit,  this.getName() + " failed");            
             retVal = test(project, simplifiedInputWithEndingSpace(), expectedOutputs(), autoGrade);
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS
             		|| retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-            	return partialPass(simplifiedCredit, "Cannot scan numbers in mixed token case");
+            	return partialPass(simplifiedCredit, this.getName() + " failed");
 
-            return fail("Cannot scan numbers", autoGrade);
+            return fail(this.getName() + " failed", autoGrade);
             
         } catch (NotRunnableException e) {
             throw new NotGradableException();

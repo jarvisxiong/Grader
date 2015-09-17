@@ -25,7 +25,7 @@ public class PlusMinusTokensTestCase extends AbstractTokensTestCase {
     protected String inputWithStartingAndEndingSpace() {return  " hello \"h e l l o\" + goodbye  \"go odb ye\" -\n.\n";}
 
     protected String[] expectedOutputs() {
-    	return new String[] {".*plus: +.*", ".*minus: -.*"};
+    	return new String[] {".*sign: +.*", ".*sign: -.*"};
     }
 
 
