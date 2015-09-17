@@ -75,7 +75,7 @@ quoted string: go odb ye
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
- hello "h e l l o" 10 goodbye  "go odb ye" 20
+ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
@@ -83,10 +83,8 @@ please enter a string:
 Processed by bean class
 word: hello
 quoted string: h e l l o
-number: 10
 word: goodbye
 quoted string: go odb ye
-number: 20
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)

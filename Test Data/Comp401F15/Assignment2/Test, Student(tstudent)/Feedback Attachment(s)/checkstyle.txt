@@ -1,7 +1,5 @@
 Starting audit...
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:0: warning: variableHasClassType: (Assignment2.java:8) Class BeanA2 rather than interface used as the type of scannerBean
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:14: warning: classHasAtLeastOneInterface: (BeanA2.java:14) Classes with public instance methods should implement interfaces
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:16: warning: staticVariable: (BeanA2.java:16) Non final static variable errors defined, should it be instance or final?
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\Assignment2.java:1: classDefined: (Assignment2.java:1) Class matching main.Assignment(.*) defined, unmatched expected classes/tags [@ScannerBean]
 D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:92:17: warning: Conditional logic can be removed.
 D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:102:109: warning: Expression can be simplified.
 Audit done.

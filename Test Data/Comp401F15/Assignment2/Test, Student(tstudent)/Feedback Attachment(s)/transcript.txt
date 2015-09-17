@@ -29,7 +29,7 @@ Please enter a line of text:
 
 ERRORS(Numbers and words)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Numbers and words)*****************************
@@ -50,7 +50,7 @@ Please enter a line of text:
 
 ERRORS(Numbers and words)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Quoted string)*****************************
@@ -71,7 +71,7 @@ Please enter a line of text:
 
 ERRORS(Quoted string)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
@@ -92,7 +92,7 @@ Please enter a line of text:
 
 ERRORS(Plus minus)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
@@ -113,28 +113,28 @@ Please enter a line of text:
 
 ERRORS(Plus minus)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
- hello "h e l l o" 10 goodbye  "go odb ye" 20
+ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
 Please enter a line of text: 
 word: hello
 quoted string: h e l l o
-number: 10
+sign: +
 word: goodbye
 quoted string: go odb ye
-number: 20
-Illegal characters entered: "h", "1", "g", "2" 
+sign: -
+Illegal characters entered: "h", "g" 
 Please enter a line of text: 
 
 ERRORS(Plus minus)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
@@ -150,7 +150,7 @@ Please enter a line of text:
 
 ERRORS(Plus minus)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Plus minus)*****************************
@@ -166,7 +166,7 @@ Please enter a line of text:
 
 ERRORS(Plus minus)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 
 *****************************(Missing quote)*****************************
@@ -189,6 +189,6 @@ Please enter a line of text:
 
 ERRORS(Missing quote)
 Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at java.util.Scanner.nextLine(Scanner.java:1585)
 	at main.Assignment2.main(Assignment2.java:12)
 

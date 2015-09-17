@@ -15,14 +15,14 @@ import gradingTools.assignment1.FlexibleProgramRunner;
 public class PlusMinusTokensTestCase extends AbstractTokensTestCase {
 
     public PlusMinusTokensTestCase() {
-        super("Number Token Test Case");
+        super("Plus Minus Token Test Case");
     }
     
     protected String simplifiedInputWithNoEndingSpace () {return "+ -\n.\n";}
     protected String simplifiedInputWithEndingSpace() {return "+ - \n.\n";}
     protected String inputWithEndingSpace() {return  "hello \"h e l l o\" + goodbye  \"go odb ye\" -\n.\n";}
     protected   String inputWithNoEndingSpace() { return  "hello \"h e l l o\" + goodbye \"go odb ye\" - \n.\n";}
-    protected String inputWithStartingAndEndingSpace() {return  " hello \"h e l l o\" 10 goodbye  \"go odb ye\" 20\n.\n";}
+    protected String inputWithStartingAndEndingSpace() {return  " hello \"h e l l o\" + goodbye  \"go odb ye\" -\n.\n";}
 
     protected String[] expectedOutputs() {
     	return new String[] {".*plus: +.*", ".*minus: -.*"};

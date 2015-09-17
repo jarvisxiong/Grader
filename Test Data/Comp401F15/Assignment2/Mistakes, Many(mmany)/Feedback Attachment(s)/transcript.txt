@@ -526,7 +526,7 @@ Numbers: Sum: 0 Product: 1
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
- hello "h e l l o" 10 goodbye  "go odb ye" 20
+ hello "h e l l o" + goodbye  "go odb ye" -
 .
 
 OUTPUT(Plus minus)
@@ -543,6 +543,7 @@ unexpected character:l
 unexpected character:l
 unexpected character:o
 unexpected character:"
+unexpected character:+
 unexpected character:g
 unexpected character:o
 unexpected character:o
@@ -559,7 +560,8 @@ unexpected character:b
 unexpected character:y
 unexpected character:e
 unexpected character:"
-Numbers: 10 20 Sum: 30 Product: 200
+unexpected character:-
+Numbers: Sum: 0 Product: 1
 
 *****************************(Plus minus)*****************************
 INPUT(Plus minus)
