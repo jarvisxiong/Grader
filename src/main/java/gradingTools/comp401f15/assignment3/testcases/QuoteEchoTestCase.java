@@ -58,10 +58,16 @@ public class QuoteEchoTestCase extends TokenScanningTestCase{
 //    Class[] constructorArgTypes1 = {};
 //    String[] constructorArgs2 = {""};
 //    String[] constructorArgs1 = {};
-    protected String inputEndingSpaces() { return  "\"CamelCase !@# \" \"Word wordWord\" ";}
-    protected String input() { return "\"CamelCase !@#  \" \"Word wordWord\"";}
-    
-   protected String[] expectedOutputs() { return new String[] {".*CamelCase !@# .*", ".*Word wordWord.*" };};
+//    protected String inputEndingSpaces() { return  "\"CamelCase !@# \" \"Word wordWord\" ";}
+//    protected String input() { return "\"CamelCase !@#  \" \"Word wordWord\"";}
+//    
+//   protected String[] expectedOutputs() { return new String[] {".*CamelCase !@# .*", ".*Word wordWord.*" };};
+   // for those assuming no space in quoted
+   protected String inputEndingSpaces() { return  "\"CamelCase\" \"Word\" ";}
+   protected String input() { return "\"CamelCase\" \"Word\"";}
+   
+  protected String[] expectedOutputs() { return new String[] {".*CamelCase.*", ".*Word.*" };};
+
 
     
    

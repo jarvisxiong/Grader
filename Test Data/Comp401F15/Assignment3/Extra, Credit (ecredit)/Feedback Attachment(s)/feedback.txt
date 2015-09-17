@@ -16,12 +16,12 @@ Screenshots enclosed                                   0.0 / 10.0
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assignment                      -10.0 /  -10.0
-Classes Tagged                              -18.0 /  -18.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              -9.0 /  -18.0
 ----------------------------------
-  Points Deducted: -28.0
+  Points Deducted: -9.0
 
-  Features Score: 40.900000000000006
+  Features Score: 59.900000000000006
 
 Notes from grading features:
 ----------------------------------
@@ -67,17 +67,11 @@ Screenshots enclosed:
 
 Notes from grading restrictions:
 ----------------------------------
-Single main.Assignment:
-  -- Class matching main.Assignment(.*) not defined
-
 Classes Tagged :
-  -- Class matching @ScannerBean not defined
-  -- Class matching @Word not defined
-  -- Class matching @Number not defined
   -- Class matching @Quote not defined
   -- Class matching @Start not defined
   -- Class matching @End not defined
 
 
 Early benefit: 105.0%
-  Total Score: 43.050000000000004
+  Total Score: 63.0
