@@ -90,9 +90,9 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
         if (!getsReturnedSets && !correctTokensPrinted)
         	return fail("Gets do not returns sets and incorrect tokens printed");
         if (!getsReturnedSets)	{
-        	return partialPass (0.7, "Gets do not returns sets ");
+        	return partialPass (0.9, "Gets do not returns sets, a minor penalty as you may have been penalized for this in an earlier assignment ");
         }
-        return partialPass (0.3, "Incorrect tokens printed");
+        return partialPass (0.1, "Incorrect tokens printed");
     }
 
     @Override
