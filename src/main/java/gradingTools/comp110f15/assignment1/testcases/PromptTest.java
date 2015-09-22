@@ -23,16 +23,15 @@ public class PromptTest extends BasicTestCase{
 			throws NotAutomatableException, NotGradableException {
 		RunningProject p0=RunningProjectUtils.runProject(project, 10,"");
 		String UNCInfo=p0.await();
-		UNCInfo=UNCInfo.toLowerCase();
-		Pattern uncpat= Pattern.compile(".*(unc|tar|heel|point|quarter).*");
-		Matcher m = uncpat.matcher(UNCInfo);
-		boolean unc=m.matches();
 		RunningProject p1=RunningProjectUtils.runProject(project, 10,"10\n10\n10\n10");
 		String DukeInfo=p1.await();
-		DukeInfo=DukeInfo.substring(UNCInfo.length()-1).toLowerCase();
-		Pattern dukepat= Pattern.compile(".*(duke|dook|blue|point|quarter|devil).*");
-		Matcher d = dukepat.matcher(DukeInfo);
-		boolean duke=d.matches();
+		UNCInfo=UNCInfo.toLowerCase();
+		boolean unc=false;
+		if(UNCInfo.contains("unc")||UNCInfo.contains("heel"))unc=true;
+		DukeInfo=DukeInfo.substring(UNCInfo.length()-1);
+		DukeInfo=DukeInfo.toLowerCase();
+		boolean duke=false;
+		if(DukeInfo.contains("duke")||DukeInfo.contains("dook")) duke=true;
 		if(duke&&unc)return pass();
 		if(!duke)return partialPass(0.5,"did not catch prompt for Duke score");
 		if(!unc)return partialPass(0.5,"did not catch prompt for UNC score");

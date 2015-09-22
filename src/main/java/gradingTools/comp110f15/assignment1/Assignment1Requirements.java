@@ -20,6 +20,6 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 		addFeature("Contains proper Welcome Message",5,new WelcometTest());
 		addFeature("Contains proper prompts",20,new PromptTest());
 		addFeature("Contains correct variables",10,new VarsA1());
-		addFeature("Correctly handles all Game Results and Prints correct information",45,new GameResult());
+		addFeature("Correct Game Results & Printing",45,new GameResult());
 	}
 }
