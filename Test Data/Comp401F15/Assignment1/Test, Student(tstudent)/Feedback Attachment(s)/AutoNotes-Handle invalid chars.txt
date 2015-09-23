@@ -1,1 +1,0 @@
-  -- Program gives errors and wrong output with invalid characters
