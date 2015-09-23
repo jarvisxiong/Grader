@@ -28,7 +28,7 @@ Bean class:
   -- Could not find scanner bean
 
 Plus minus:
-  -- Cannot scan numbers
+  -- Plus Minus Token Test Case failed
 
 
 Early benefit: 105.0%

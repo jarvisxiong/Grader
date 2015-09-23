@@ -1,1 +1,1 @@
-  -- Class matching main.Assignment(.*) not defined 0 number of times
+  -- Class matching main.Assignment(.*) not defined but main package defined or main package has wrong case

@@ -18,11 +18,11 @@ Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assigment                       0.0 /  -10.0
+Single main.Assigment                       -5.0 /  -10.0
 ----------------------------------
-  Points Deducted: 0.0
+  Points Deducted: -5.0
 
-  Features Score: 80.0
+  Features Score: 75.0
 
 Notes from grading features:
 ----------------------------------
@@ -30,14 +30,14 @@ Variable spaces:
   -- Incorrect output with variable spaces
 
 Handle invalid chars:
-  -- Incorrect output with variable spaces
+  -- Program gives errors and wrong output with invalid characters
 
 
 Notes from grading restrictions:
 ----------------------------------
 Single main.Assigment:
-  -- Class matching main.Assignment(.*) not defined 0 number of times
+  -- Class matching main.Assignment(.*) not defined but main package defined or main package has wrong case
 
 
 Early benefit: 105.0%
-  Total Score: 84.0
+  Total Score: 78.75

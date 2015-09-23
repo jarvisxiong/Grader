@@ -47,7 +47,7 @@ public class RunningProject implements ProcessInputListener {
 	
 	protected Map<String, String> processToOutputAndErrors = new HashMap();
 
-    private String output = "";
+    private String output = ""; // why is this a string and not a string buffer?
     private String errorOutput = "";
     String outputAndErrors = "";
     private NotRunnableException exception;
@@ -401,6 +401,7 @@ public class RunningProject implements ProcessInputListener {
     @Override
     public void newInputLine(String aProcessName, String anInput) {
     	System.out.println("New input " + anInput + "for " + aProcessName );
+    	if (aProcessName != null)
         processToIn.get(aProcessName).newInput(anInput + "\n");
         project.appendCurrentInput(anInput);// this should go, 
         if (aProcessName != null && processToInput != null) {

@@ -105,8 +105,24 @@ Numbers:
 
 *****************************(Handle invalid chars)*****************************
 INPUT(Handle invalid chars)
-10   20 
-   40 50 
+10 ten 20
+40 forty 50 ! 
+.
+OUTPUT(Handle invalid chars)
+Numbers: 10 ten 
+
+ERRORS(Handle invalid chars)
+Exception in thread "main" java.lang.NumberFormatException: For input string: "ten"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:492)
+	at java.lang.Integer.parseInt(Integer.java:527)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(Handle invalid chars)*****************************
+INPUT(Handle invalid chars)
+10 ten 20 
+40 50 ! 
 .
 OUTPUT(Handle invalid chars)
 Numbers: 

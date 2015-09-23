@@ -1,2 +1,2 @@
-  -- Cannot scan numbers
-  -- Cannot scan numbers
+  -- Number Token Test Case failed
+  -- Word Token Test Case failed

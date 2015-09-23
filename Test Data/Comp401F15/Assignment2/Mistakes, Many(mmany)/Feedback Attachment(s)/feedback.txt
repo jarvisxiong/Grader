@@ -28,20 +28,20 @@ Bean class:
   -- Could not find scanner bean
 
 Numbers and words:
-  -- Cannot scan numbers
-  -- Cannot scan numbers
+  -- Number Token Test Case failed
+  -- Word Token Test Case failed
 
 Quoted string:
-  -- Cannot scan numbers
+  -- Quoted String Token Test Case failed
 
 Screenshots enclosed:
   -- Missing images
 
 Plus minus:
-  -- Cannot scan numbers
+  -- Plus Minus Token Test Case failed
 
 Missing quote:
-  -- Cannot scan numbers
+  -- Quoted String Token Test Case failed
 
 
 Notes from grading restrictions:

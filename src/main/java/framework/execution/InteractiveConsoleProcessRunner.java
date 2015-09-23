@@ -30,6 +30,8 @@ public class InteractiveConsoleProcessRunner implements Runner {
     Project project;
     Thread outputThread; // can we share this also?
     static Thread inputThread;
+    StringBuffer input;
+    
 
     public InteractiveConsoleProcessRunner(Project aProject) throws NotRunnableException {
         try {
@@ -222,8 +224,10 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	                public void run() {
 	                    try {
 	                        String line = null;
-	                        while ((line = br.readLine()) != null && !runner.isDestroyed())
+	                        while ((line = br.readLine()) != null && !runner.isDestroyed()) {
 	                            System.out.println(line);
+	                            runner.appendCumulativeOutput(line + "\n");
+	                        }
 	                    } catch (IOException e) {
 	                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 	                    }
@@ -295,7 +299,10 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	                            try {
 	                                if (scanner.hasNextLine()) {
-	                                    bw.write(scanner.nextLine());
+	                                	String nextLine = scanner.nextLine();
+	                                	runner.newInputLine(null, nextLine);
+	                                    bw.write(nextLine);
+//	                                    bw.write(scanner.nextLine());
 	                                    bw.newLine();
 	                                    bw.flush();
 	                                }
