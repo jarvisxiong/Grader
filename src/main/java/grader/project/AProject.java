@@ -2,6 +2,7 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.TestCase;
@@ -85,6 +86,9 @@ public class AProject implements Project {
     StringBuffer currentInput = new StringBuffer();
     
     TestCase currentTestCase;
+    RunningProject currentRunningProject;
+
+
 
 
 	//    Map<String, String> processToOutput = new HashMap();
@@ -719,5 +723,14 @@ public class AProject implements Project {
 
 		public void setEntryPoints(Map<String, String> entryPoints) {
 			this.entryPoints = entryPoints;
+		}
+		@Override
+		public RunningProject getCurrentRunningProject() {
+			return currentRunningProject;
+		}
+		@Override
+
+		public void setCurrentRunningProject(RunningProject currentRunningProject) {
+			this.currentRunningProject = currentRunningProject;
 		}
 }

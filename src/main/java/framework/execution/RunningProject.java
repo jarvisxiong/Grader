@@ -281,7 +281,7 @@ public class RunningProject implements ProcessInputListener {
 
     StringBuffer transcript = new StringBuffer(); // reusing the buffer
 
-    String createFeatureTranscript() {
+    public String createFeatureTranscript() {
         transcript.setLength(0);
         if (project == null || project.getCurrentGradingFeature() == null) {
             return "";
@@ -301,7 +301,7 @@ public class RunningProject implements ProcessInputListener {
         }
         String[] args = project.getCurrentArgs();
 
-        if (args.length > 0) {
+        if (args != null && args.length > 0) {
             transcript.append("MAIN ARGS(" + featureName + ")\n");
             transcript.append("[");
             for (int i = 0; i < args.length; i++) {
@@ -330,7 +330,7 @@ public class RunningProject implements ProcessInputListener {
 
     }
 
-    void appendCumulativeOutput() {
+   public void appendCumulativeOutput() {
         if (projectOutput == null) {
             return;
         }

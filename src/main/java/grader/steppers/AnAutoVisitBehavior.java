@@ -3,6 +3,7 @@ package grader.steppers;
 import framework.execution.RunningProject;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
+import framework.grading.testing.Feature;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
 import framework.project.ProjectClassesManager;
@@ -471,8 +472,18 @@ public class AnAutoVisitBehavior implements
 	public boolean preTerminate() {
 		return runningProject != null && !runningProject.isDestroyed();
 	}
+    boolean lastTranscriptRecorded;
 	@Override
 	public void terminate() {
+		if (!lastTranscriptRecorded) {
+		Checkable anInteractiveFeature = projectDatabase.getProjectRequirements().getInteractiveRunFeature();
+		project.setCurrentGradingFeature(anInteractiveFeature);
+		lastTranscriptRecorded = true;
+	 if (anInteractiveFeature != null) {
+		 anInteractiveFeature.check(wrappedProject);
+		 runningProject.appendCumulativeOutput();
+	 }
+		}
 		if (!runningProject.isDestroyed()) {
 			runningProject.destroy();
 		}
@@ -503,6 +514,7 @@ public class AnAutoVisitBehavior implements
 			terminate();
 		project.setHasBeenRun(true);
         runExecuted = true;
+        lastTranscriptRecorded = false;
 //		runExecuted = true;
 //		projectDatabase.runProject(getOnyen(), project);
 //		// should this go in the code doing the running?
@@ -514,7 +526,19 @@ public class AnAutoVisitBehavior implements
 //				gradingFeature.firePropertyChange("this", null, gradingFeature);
 //			}
 //		}
+//		project.setCurrentGradingFeature(newVal);
+	
+		 
 		 runningProject = project.getWrapper().launchInteractive();
+		 project.setCurrentRunningProject(runningProject);
+//			Feature anInteractiveFeature = projectDatabase.getProjectRequirements().getInteractiveRun();
+//			project.setCurrentGradingFeature(anInteractiveFeature);
+//		 if (anInteractiveFeature != null) {
+//			 runningProject.appendCumulativeOutput();
+//		 }
+		 
+		 
+		 
 //		runningProject.destroy();
 //		TimedProcess aProcess = runningProject.getCurrentTimedProcess();
 //		aProcess.destroy();

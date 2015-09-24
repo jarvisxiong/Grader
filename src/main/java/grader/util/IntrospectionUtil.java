@@ -15,10 +15,33 @@ public class IntrospectionUtil {
 	public static Class findClass(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
-        if (aClasses.size() != 1) {
-        	return null;
-        }
-        return aClasses.get(0).getJavaClass();
+		for (ClassDescription aClass:aClasses) {
+			if (aClass.getJavaClass().isInterface())
+				continue;
+			return aClass.getJavaClass();
+		}
+		return null;
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static Class findInterface(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
+		for (ClassDescription aClass:aClasses) {
+			if (!aClass.getJavaClass().isInterface())
+				continue;
+			return aClass.getJavaClass();
+		}
+		return null;
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
 		
 	}
 	

@@ -205,7 +205,10 @@ public class StandardProject implements Project {
 
     @Override
     public RunningProject launchInteractive() throws NotRunnableException {
-        return new InteractiveConsoleProcessRunner(this).run("");
+    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
+//    	retVal.createFeatureTranscript();
+    	return retVal;
+//        return new InteractiveConsoleProcessRunner(this).run("");
     }
 
     @Override

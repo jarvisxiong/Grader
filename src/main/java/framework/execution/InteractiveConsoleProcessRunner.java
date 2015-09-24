@@ -189,11 +189,16 @@ public class InteractiveConsoleProcessRunner implements Runner {
     static OutputStreamWriter osw;
     static BufferedWriter bw;
     static Scanner scanner = new Scanner(System.in);
+    static RunningProject runner; // need the runner to change for single input thread
     // only one of these should be executing at one time as static vars are accessed
+//    protected RunningProject getRunningProject() {
+//    	return runner;
+//    }
 	@Override
 	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
+//		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
+		runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
 
 	        try {
 //	            runner.start();

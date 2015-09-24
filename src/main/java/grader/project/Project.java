@@ -2,6 +2,7 @@ package grader.project;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import grader.assignment.GradingFeature;
@@ -139,5 +140,8 @@ public interface Project {
 	String getCheckstyleText();
 	public Map<String, String> getEntryPoints() ;
 	public void setEntryPoints(Map<String, String> entryPoints) ;
+
+	RunningProject getCurrentRunningProject();
+	void setCurrentRunningProject(RunningProject currentRunningProject);
 
 }

@@ -19,6 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface ProjectRequirements extends Permissible{
+	String INTERACTIVE_RUN = "Interactive Run";
 
     // Methods for adding features
     public void addFeature(Feature feature);
@@ -58,5 +59,8 @@ public interface ProjectRequirements extends Permissible{
 	Object getUserObject(Object aKey);
 
 	void putUserObject(Object aKey, Object aValue);
+	Feature getInteractiveRunFeature();
+
+	Restriction getInteractiveRunRestriction();
 
 }

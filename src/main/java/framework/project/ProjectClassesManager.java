@@ -431,6 +431,8 @@ public class ProjectClassesManager implements ClassesManager {
     public List<ClassDescription> findByTag(String tag) {
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
+//        	if (description.getJavaClass().isInterface())
+//        		continue;
             for (String t : description.getTags()) {
                 if (t.equalsIgnoreCase(tag)) {
                     classes.add(description);

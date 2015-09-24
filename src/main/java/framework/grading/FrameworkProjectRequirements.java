@@ -1,6 +1,7 @@
 package framework.grading;
 
 import framework.grading.testing.CheckResult;
+import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
@@ -134,6 +135,8 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         for (Feature feature : features) {
 //        	if (feature.isManual()) 
 //        		continue;
+        	if (isInteractiveRun(feature))
+        		results.add(feature.check(project, false));
             if (sakaiProject != null) {
                 sakaiProject.setCurrentGradingFeature(feature);
             }
@@ -155,6 +158,8 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public List<CheckResult> checkRestrictions(Project project) {
         List<CheckResult> results = new LinkedList<CheckResult>();
         for (Restriction restriction : restrictions) {
+        	if (isInteractiveRun(restriction))
+        		results.add(restriction.check(project, false));
             results.add(restriction.check(project));
         }
         return results;
@@ -192,5 +197,27 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public void putUserObject (Object aKey, Object aValue) {
     	 userData.put(aKey, aValue);
     }
+    boolean isInteractiveRun(Checkable aFeature) {
+    	return aFeature.getName().equals(INTERACTIVE_RUN);
+    }
+
+	@Override
+	public Feature getInteractiveRunFeature() {
+		for (Feature aFeature:features) {
+//			if (aFeature.getName().equals(INTERACTIVE_RUN))
+			if (isInteractiveRun(aFeature))
+				return aFeature;
+		}
+		return null;
+	}
+	@Override
+	public Restriction getInteractiveRunRestriction() {
+		for (Restriction aRestriction:restrictions) {
+//			if (aFeature.getName().equals(INTERACTIVE_RUN))
+			if (isInteractiveRun(aRestriction))
+				return aRestriction;
+		}
+		return null;
+	}
 
 }

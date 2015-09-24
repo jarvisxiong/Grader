@@ -27,7 +27,8 @@ public class FeatureCheckerWrapper extends ErrorHandlingFeatureChecker {
     protected CheckResult doCheck() throws Exception {
 
         Project project = new ProjectWrapper(this.project, GradingEnvironment.get().getAssignmentName());
-        framework.grading.testing.CheckResult checkResult = checkable.check(project, false);
+//        framework.grading.testing.CheckResult checkResult = checkable.check(project, false);
+        framework.grading.testing.CheckResult checkResult = checkable.check(project, true);
         ConglomerateRecorder.getInstance().save(checkResult);
         
         CheckResult result = new ACheckResult();

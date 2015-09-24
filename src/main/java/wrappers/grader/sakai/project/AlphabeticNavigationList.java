@@ -64,11 +64,15 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         for (File file : files) {
             if (file.isDirectory()) {
 //                if (file.getName().contains("(" + GraderSettings.get().get("start") + ")"))
-                if (file.getName().contains(aStartFilePart))
+                if (file.getName().contains(aStartFilePart)) {
                     include = true;
-                if (include) {
-                	System.out.println ("Found start onyen");
+                	System.out.println ("Found start onyen:" + file.getName());
                 	foundStart = true;
+
+
+                }
+                if (include) {
+//                	foundStart = true;
                 	String anOnyen = file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")"));
                 	SakaiProject aProject = aSakaiProjectDatabase.getProject(anOnyen);
                 	if (aProject == null || aProject.isNoProjectFolder()) {
@@ -80,7 +84,7 @@ public class AlphabeticNavigationList implements NavigationListCreator {
                 	}
                 }
                 if (file.getName().contains("(" + GraderSettings.get().get("end") + ")")) {
-                	System.out.println ("Found end onyen");
+                	System.out.println ("Found end onyen:" + file.getName());
                     include = false;
                     break;
                 }
