@@ -240,7 +240,7 @@ public class ExecutionUtil {
 			anActualOutputs.put(CLASS_MATCHED, aClass);
 
 			Constructor aConstructor = aClass.getConstructor(aConstructorArgTypes);
-			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 300);
+			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 500);
 			for (String aPropertyName:anInputs.keySet()) {
 				if (aPropertyName == null) continue;
 				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, aPropertyName);
