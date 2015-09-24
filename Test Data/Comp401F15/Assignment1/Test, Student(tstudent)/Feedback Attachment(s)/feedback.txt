@@ -1,0 +1,41 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Process & print tokens                                 40.0 / 40.0
+Sum and product                                        10.0 / 10.0
+Terminates with period                                 10.0 / 10.0
+One loop on string                                     0.0 / 20.0
+Two declared methods                                   3.0 /  3.0
+One called method                                      7.0 /  7.0
+Variable spaces                                        0.0 /  5.0 (Extra credit)
+Handle invalid chars                                   0.0 /  5.0 (Extra credit)
+Screenshots enclosed                                   10.0 / 10.0
+Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
+Interactive Run                                        0.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 80.0
+
+Grading restrictions...
+----------------------------------
+Interactive Run                                        20.0 / 20.0 (Extra credit)
+Illegal import or call                      0.0 /  -25.0
+----------------------------------
+  Points Deducted: 20.0
+
+  Features Score: 100.0
+
+Notes from grading features:
+----------------------------------
+Variable spaces:
+  -- Incorrect output with variable spaces
+
+Handle invalid chars:
+  -- Program gives errors and wrong output with invalid characters
+
+Interactive Run:
+  -- No graded in auto run
+
+
+Early benefit: 105.0%
+  Total Score: 105.0
