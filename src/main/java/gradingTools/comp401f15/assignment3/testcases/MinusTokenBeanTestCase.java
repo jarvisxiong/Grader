@@ -34,7 +34,7 @@ public class MinusTokenBeanTestCase extends AbstractTokenBeanTestCase {
 	protected String outputPropertyName() { return null;};
 
     public MinusTokenBeanTestCase() {
-        super("Plus Token Bean Case");
+        super("Minus Token Bean Case");
     }
 
    

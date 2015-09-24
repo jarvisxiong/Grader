@@ -27,7 +27,7 @@ import grader.util.ExecutionUtil;
 public class EndEchoTestCase extends TokenScanningTestCase{
 
 	public EndEchoTestCase() {
-        super("Start echo test case");
+        super("End echo test case");
     }
 	
 //	static String[] emptyArgs = {};

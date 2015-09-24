@@ -27,7 +27,7 @@ import grader.util.ExecutionUtil;
 public class QuoteClassTestCase extends TokenScanningTestCase{
 
 	public QuoteClassTestCase() {
-        super("Quote Echo test case");
+        super("Quote class test case");
     }
 	
 

@@ -76,7 +76,7 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);
 //        }
         if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
-        	return fail ("Could not find scanner bean");
+        	return fail ("Could not find scanner bean in test case:" + getName());
         }
         Boolean getsReturnedSets = (Boolean) anActualOutputs.get(ExecutionUtil.GETS_EQUAL_SETS);
         String anOutput = (String) anActualOutputs.get(ExecutionUtil.PRINTS);
@@ -88,11 +88,11 @@ public class ModularScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
         	return pass();
         }
         if (!getsReturnedSets && !correctTokensPrinted)
-        	return fail("Gets do not returns sets and incorrect tokens printed");
+        	return fail("Gets do not returns sets and incorrect tokens printed in test case" + getName());
         if (!getsReturnedSets)	{
         	return partialPass (0.7, "Gets do not returns sets ");
         }
-        return partialPass (0.3, "Incorrect tokens printed");
+        return partialPass (0.3, "Incorrect tokens printed in test case:" + getName());
     }
 
     @Override
