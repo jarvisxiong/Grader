@@ -5,6 +5,7 @@ import gradingTools.assignment1.testCases.*;
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
+import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
@@ -138,7 +139,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assignment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
+        addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 18, 
         		new ClassDefinedTestCase("@ScannerBean"),
         		new ClassDefinedTestCase("@Word"),

@@ -21,7 +21,7 @@ public class SpecialClassFinder {
 
     public static Option<ClassDescription> getLocatable(Project project, boolean autoGrade) throws NotAutomatableException {
 
-        List<ClassDescription> descriptions = project.getClassesManager().get().findByTag("locatable");
+        List<ClassDescription> descriptions = project.getClassesManager().get().findClassByTag("locatable");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("locatable", autoGrade);
 
@@ -36,7 +36,7 @@ public class SpecialClassFinder {
     }
 
     public static Option<ClassDescription> getBoundedShape(Project project, boolean autoGrade) throws NotAutomatableException {
-        List<ClassDescription> descriptions = project.getClassesManager().get().findByTag("bounded shape");
+        List<ClassDescription> descriptions = project.getClassesManager().get().findClassByTag("bounded shape");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("bounded shape", autoGrade);
 

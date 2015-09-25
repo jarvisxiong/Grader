@@ -1,1 +1,1 @@
-  -- Class has no interface: BeanStringScanner
+  -- Class has no interface: Assignment3

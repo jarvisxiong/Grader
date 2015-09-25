@@ -58,8 +58,8 @@ public class EndClassTestCase extends TokenScanningTestCase{
 //    Class[] constructorArgTypes1 = {};
 //    String[] constructorArgs2 = {""};
 //    String[] constructorArgs1 = {};
-    protected String inputEndingSpaces() { return  "\\} \\{} ";}
-    protected String input() { return "\\} \\}";}
+    protected String inputEndingSpaces() { return  "} } ";}
+    protected String input() { return "} }";}
     
     protected String[] expectedOutputs() {
  	   Class aClass =  (Class) (this.getCheckable().getRequirements().getUserObject(EndTokenBeanTestCase.TAG));

@@ -406,7 +406,7 @@ public class ProjectClassesManager implements ClassesManager {
     	if (!result.isEmpty())
     		return result;
     	if (aTag != null)
-    		result = findByTag(aTag);    	
+    		result = findClassByTag(aTag);    	
     	if (!result.isEmpty())
     		return result;
     	if (aNameMatch != null) {
@@ -428,11 +428,11 @@ public class ProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findByTag(String tag) {
+    public List<ClassDescription> findClassByTag(String tag) {
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
-//        	if (description.getJavaClass().isInterface())
-//        		continue;
+        	if (description.getJavaClass().isInterface())
+        		continue;
             for (String t : description.getTags()) {
                 if (t.equalsIgnoreCase(tag)) {
                     classes.add(description);

@@ -8,31 +8,69 @@ import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
+import grader.util.IntrospectionUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import javax.rmi.CORBA.ClassDesc;
+
 import wrappers.framework.project.ProjectWrapper;
 
 
 public class ClassDefinedTestCase extends CheckStyleTestCase {
-	 String descriptor;
+	 protected String descriptor;
 	 public ClassDefinedTestCase(String aDescriptor) {
 	        super(aDescriptor + " defined");
 	        descriptor = aDescriptor;
 	  }
 	 protected boolean failOnMatch() {
 	    	return false;
-	    }
+	   }
     
 	@Override
 	public String regexLineFilter() {
 		return "(.*)Class matching " + descriptor + " defined(.*)";
 	}
+	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
+	        TestCaseResult aResult = super.test(project, autoGrade);
+//		 TestCaseResult aResult = fail("foo");
 
+		 String aTag = descriptor;
+		 if (descriptor.startsWith("@"))
+			 aTag = descriptor.substring(1);
+		 else 
+			 return aResult;
+	        if (aResult.getPercentage() == 1.0) {
+	        	return aResult;
+	        }
+	        
+	        	List<ClassDescription> aClasses = IntrospectionUtil.findClassesByTag(project, aTag);
+	        	if (aClasses.size() == 1) {
+	        		return pass();
+	        	}
+	        	if (aClasses.size() > 1) {
+	        		return partialPass(0.5, "Multiple classes tagged:" + aTag + " " + aClasses);
+	        	}
+	        	return fail("No class tagged: " + aTag);
+	        
+	        
+	        
+	 }
 
+//	 protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
+////	    	int aNumFailedInstances = aFailedLines.size();
+////	        int aTotalClassCount = aProject.getClassesManager().getClassDescriptions().size();
+////	        String aNotes = failMessageSpecifier() + " in " + aNumFailedInstances + " out of " + aTotalClassCount + " classes ";
+////	        return partialPass((aTotalClassCount - aNumFailedInstances)/aTotalClassCount, aNotes, autoGrade);  
+//	    	int aNumMatchedInstances = aMatchedLines.size();
+//	    	if (aNumMatchedInstances == 0 && failOnMatch() || aNumMatchedInstances == 1 && !failOnMatch())
+//	    		return pass();
+//	    	return computeResult(aProject, aCheckStyleLines, aMatchedLines, autoGrade);
+//	    	
+//	    }
 
 	@Override
 	public String failMessageSpecifier() {

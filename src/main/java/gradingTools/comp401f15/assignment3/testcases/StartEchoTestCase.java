@@ -58,8 +58,8 @@ public class StartEchoTestCase extends TokenScanningTestCase{
 //    Class[] constructorArgTypes1 = {};
 //    String[] constructorArgs2 = {""};
 //    String[] constructorArgs1 = {};
-    protected String inputEndingSpaces() { return  "\\{ \\{ ";}
-    protected String input() { return "\\{ \\{";}
+    protected String inputEndingSpaces() { return  "{ { ";}
+    protected String input() { return "{ {";}
     
    protected String[] expectedOutputs() { return new String[] {".*\\{.*", ".*\\{.*" };};
 

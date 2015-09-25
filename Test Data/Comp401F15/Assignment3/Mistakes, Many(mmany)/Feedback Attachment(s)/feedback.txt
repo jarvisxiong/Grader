@@ -8,10 +8,10 @@ Scanner Check                                          25.0 / 25.0
 Class has interface check                              22.9 / 25.0
 Variable has class type                                10.0 / 10.0
 Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
-Plus Minus Scanner Check                               2.6 /  4.0 (Extra credit)
+Plus Minus Scanner Check                               2.2 /  4.0 (Extra credit)
 Screenshots enclosed                                   0.0 / 10.0
 ----------------------------------
-  Points Awarded: 106.5
+  Points Awarded: 106.10000000000001
 
 Grading restrictions...
 ----------------------------------
@@ -21,7 +21,7 @@ Classes Tagged                              0.0 /  -18.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 106.5
+  Features Score: 106.10000000000001
 
 Notes from grading features:
 ----------------------------------
@@ -29,12 +29,12 @@ Class has interface check:
   -- Class has no interface: BeanStringScanner
 
 Plus Minus Scanner Check:
-  -- Incorrect tokens printed
-  -- Incorrect tokens printed
+  -- Incorrect tokens printed:Plus class test case
+  -- Incorrect tokens printed:Minus class test case
 
 Screenshots enclosed:
   -- Missing images
 
 
 Early benefit: 105.0%
-  Total Score: 112.35
+  Total Score: 111.3

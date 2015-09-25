@@ -29,7 +29,7 @@ public interface ClassesManager {
      * @param tag The tag to search for
      * @return The {@link ClassDescription} wrapped in an {@link scala.Option} in case none is found.
      */
-    public List<ClassDescription> findByTag(String tag);
+    public List<ClassDescription> findClassByTag(String tag);
 
     /**
      * @return All the {@link ClassDescription}

@@ -28,6 +28,16 @@ public class IntrospectionUtil {
 //        return aClasses.get(0).getJavaClass();
 		
 	}
+	public static List<ClassDescription> findClassesByTag(Project aProject, String aTag) {
+		return aProject.getClassesManager().get().findClass(null, aTag, null, null);
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	
 	public static Class findInterface(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);

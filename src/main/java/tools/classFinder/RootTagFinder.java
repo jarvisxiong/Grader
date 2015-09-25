@@ -24,7 +24,7 @@ public class RootTagFinder {
 
     private Option<ClassDescription> find(String tag, boolean isInterface) {
         try {
-            List<ClassDescription> classes = project.getClassesManager().get().findByTag(tag);
+            List<ClassDescription> classes = project.getClassesManager().get().findClassByTag(tag);
             for (ClassDescription description : classes) {
                 Class<?> _class = description.getJavaClass();
                 Class<?> superclass = _class.getSuperclass();

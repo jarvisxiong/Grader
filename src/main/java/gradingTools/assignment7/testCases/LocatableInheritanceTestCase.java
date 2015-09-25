@@ -41,7 +41,7 @@ public class LocatableInheritanceTestCase extends BasicTestCase {
         Class<?> locatableSuperclass = classDescription.get().getJavaClass();
 
         // There should be at least three classes tagged "locatable" (locatable, angle, bounded shape)
-        List<ClassDescription> locatables = project.getClassesManager().get().findByTag("Locatable");
+        List<ClassDescription> locatables = project.getClassesManager().get().findClassByTag("Locatable");
         if (locatables.size() < 3)
             return fail("Expected more classes tagged \"Locatable\"", autoGrade);
 

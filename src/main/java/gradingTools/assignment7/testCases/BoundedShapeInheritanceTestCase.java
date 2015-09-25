@@ -41,7 +41,7 @@ public class BoundedShapeInheritanceTestCase extends BasicTestCase {
         Class<?> locatableSuperclass = classDescription.get().getJavaClass();
 
         // There should be at least three classes tagged "bounded shape" (bounded shape, line, image)
-        List<ClassDescription> locatables = project.getClassesManager().get().findByTag("Bounded Shape");
+        List<ClassDescription> locatables = project.getClassesManager().get().findClassByTag("Bounded Shape");
         if (locatables.size() < 3)
             return fail("Expected more classes tagged \"Bounded Shape\"", autoGrade);
 

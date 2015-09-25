@@ -59,7 +59,7 @@ public class ClassFinder {
         }
 
         // We haven't search for that yet. Let's look starting with the tags
-        List<ClassDescription> descriptions = project.getClassesManager().get().findByTag(tag);
+        List<ClassDescription> descriptions = project.getClassesManager().get().findClassByTag(tag);
         if (!type.equals(ClassType.UNDEFINED)) {
             for(ClassDescription description : descriptions.toArray(new ClassDescription[descriptions.size()])) {
                 if (!ClassType.getClassType(description.getJavaClass()).equals(type)) {

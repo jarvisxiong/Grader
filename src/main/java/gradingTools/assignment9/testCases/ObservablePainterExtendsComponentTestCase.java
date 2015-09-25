@@ -29,7 +29,7 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Observable Painter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Observable Painter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"Observable Painter\"", autoGrade);
         ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);

@@ -28,8 +28,8 @@ public class ListenerAndPainterTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        List<ClassDescription> class1 = project.getClassesManager().get().findByTag("Paint Listener");
-        List<ClassDescription> class2 = project.getClassesManager().get().findByTag("Observable Painter");
+        List<ClassDescription> class1 = project.getClassesManager().get().findClassByTag("Paint Listener");
+        List<ClassDescription> class2 = project.getClassesManager().get().findClassByTag("Observable Painter");
         if (class1.isEmpty()) {
             if (class2.isEmpty())
                 return fail("Neither paint listener nor observable painter are tagged.",autoGrade);

@@ -1,161 +1,8 @@
-//START OF FILE: src/grail/beanstringscanner.java
-package grail;
-//this is for assignment2, so I donot implement interfaces
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
+//START OF FILE: src/main/ascannerbean.java
+package main;
 
 
-@Tags({"BeanStringScanner"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"scannedString"})
-@EditablePropertyNames({"scannedString"})
-
-public class BeanStringScanner {
-	private String scannedString;
-	
-	public void setScannedString(String str)
-	{
-		scannedString=str;
-		scanString(str);
-	}
-	public String getScannedString(){
-		return scannedString;
-	}
-	
-	private void scanString(String line)
-	{
-		
-		char c; 
-		int quota=0;// to remember the number of quotas
-		int flag=0;//word:1, number:2
-		StringBuffer word=new StringBuffer();
-		
-		String numberPreToken="number: ";
-		String wordPreToken="word: ";
-		String signPreToken="sign: ";
-		 for (int i=0;i<line.length();i++)
-		 {
-			 c=line.charAt(i);
-			 if (c=='"')
-			 {
-				 quota++;
-				 if(quota==2)//output word
-				 {
-					 System.out.println("quoted string: "+word);
-					 word.delete(0,word.length());
-					 flag=0;
-					 quota=0;
-				 }else if (quota==1)
-				 {
-					//donothing, not allow word or number to output
-				 }else
-				 {
-					 continue;
-				 }
-			 }
-			 else if (Character.isDigit(c))
-			 {
-				 flag=1;
-				 word.append(c);
-			 }
-			 else if (Util.isLetter(c))
-			 {
-				 flag=2;
-				 word.append(c); 
-			 }
-			 else if(c==' ')
-			 {
-				 if (quota==1)
-				 {
-					 word.append(c);
-					 continue;
-				 }
-				 if (flag==1){
-					 int num=Integer.parseInt(word.toString());
-					 System.out.println(numberPreToken+num);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					 System.out.println(wordPreToken+word);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-			 }
-			 else if (c=='+'||c=='-')//we should also ouput "+" or "-"
-			 {
-				 if (quota==1)
-				 {
-					 word.append(c);
-					 continue;
-				 }
-				 if (flag==1){
-					 int num=Integer.parseInt(word.toString());
-					 System.out.println(numberPreToken+num);
-					 System.out.println(signPreToken+c);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					 System.out.println(wordPreToken+word);
-					 System.out.println(signPreToken+c);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-			 }
-			 else//other character, for example, symbols
-			 {
-				word.append(c);
-			 }
-		 }
-		if (quota==1)
-		{
-			System.out.println("closed quota is missing.....");
-			System.out.println(word);
-		}
-		else//output the last word
-		{
-			 if (flag==1){
-				 int num=Integer.parseInt(word.toString());
-				 System.out.println(numberPreToken+num);
-				 flag=0;
-				 word.delete(0, word.length());
-			 }
-			 else if (flag==2)
-			 {
-				 System.out.println(wordPreToken+word);
-				 flag=0;
-				 word.delete(0, word.length());
-			 }
-		}
-	}
-
-}
-//END OF FILE
-//START OF FILE: src/grail/extbeanstringscanner.java
-package grail;
-//this is a expansion version for assignment3
-import mp.EndToken;
-import mp.Number;
-import mp.Minus;
-import mp.Plus;
-import mp.ProcNumberValue;
-import mp.QuotedString;
-import mp.RawInput;
-import mp.StartToken;
-import mp.Word;
-import mp.ProcWordValue;
+import java.util.Iterator;
 
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
@@ -163,426 +10,153 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 
-@Tags({"ExtBeanStringScanner"})
+@Tags({"ScannerBean"})
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"scannedString"})
-@EditablePropertyNames({"scannedString"})
+@PropertyNames({"ScannedString"})
+@EditablePropertyNames({"ScannedString"})
 
-public class ExtBeanStringScanner implements ScannerInterface{
+public class AScannerBean implements ScannerBean{
 	private String scannedString;
+	private Iterator<Token> scanner;
 	
-	public void setScannedString(String str)
-	{
-		scannedString=str;
-		scanString(str);
+	public AScannerBean(){
+		scanner = new ATokenScanner();
 	}
-	public String getScannedString(){
+	
+	private void printLine(){
+		((ATokenScanner) scanner).setScannedString(scannedString);
+		while(scanner.hasNext()){
+			Token token = scanner.next();
+			if(token == null){break;}
+			System.out.println(token);
+			System.out.println(token.getInput());
+			if(token instanceof IntValueToken){System.out.println(((IntValueToken) token).getValue());}
+			if(token instanceof StringValueToken){System.out.println(((StringValueToken) token).getValue());}
+		}
+	}
+	
+	@Override
+	public String getScannedString() {
 		return scannedString;
 	}
+
+	@Override
+	public void setScannedString(String scannedString) {
+		this.scannedString = scannedString;
+		printLine();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/atokenscanner.java
+package main;
+
+public class ATokenScanner implements TokenScanner{
+	private String scannedString;
 	
-	public void scanString(String line)
-	{
+	public void setScannedString(String scannedString){
+		this.scannedString = " " + scannedString;
+	}
+	
+	@Override
+	public boolean hasNext() {
+		return scannedString.length() > 0;
+	}
+
+	@Override
+	public Token next() {
+		Token token = null;
+		int tokenLength = 1;
 		
-		char c; 
-		int quota=0;// to remember the number of quotas
-		int flag=0;//word:1, number:2
-		//StringBuffer word=new StringBuffer();
-		String word="";
-		 for (int i=0;i<line.length();i++)
-		 {
-			 c=line.charAt(i);
-			 if (c=='"')
-			 {
-				 quota++;
-				 if(quota==2)//output word
-				 {
-					 //do new operation as required in Assignment3
-					 RawInput qs=new QuotedString(word);
-					 System.out.println(qs);
-					 System.out.println(qs.getInput());
-					 word="";
-					 //word.delete(0,word.length());
-					 flag=0;
-					 quota=0;
-				 }else if (quota==1)
-				 {
-					//donothing, not allow word or number to output
-				 }else
-				 {
-					 continue;
-				 }
-			 }
-			 else if (Character.isDigit(c))
-			 {
-				 flag=1;
-				 word+=c;
-				 //word.append(c);
-			 }
-			 else if (Util.isLetter(c))
-			 {
-				 flag=2;
-				 word+=c;
-				 //word.append(c); 
-			 }
-			 else if (c=='{'&&quota==0)
-			 {
-				 RawInput st=new StartToken(Util.char2String(c));
-				 System.out.println(st);
-				 System.out.println(st.getInput());
-			 }
-			 else if (c=='}'&&quota==0)
-			 {
-				 RawInput et=new EndToken(Util.char2String(c));
-				 System.out.println(et);
-				 System.out.println(et.getInput());
-			 }
-			 else if(c==' ')
-			 {
-				 if (quota==1)
-				 {
-					 //word.append(c);
-					 word+=c;
-					 continue;
-				 }
-				 if (flag==1){
-					//do new operation as required in Assignment3
-					 RawInput num=new Number(word);
-					 System.out.println(num);
-					 System.out.println(num.getInput());
-					 ProcNumberValue pnv=new Number(word);
-					 System.out.println(pnv.getValue());
-				
-					 flag=0;
-					 word="";
-					 //word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					//do new operation as required in Assignment3
-					 RawInput ww=new Word(word);
-					 System.out.println(ww);
-					 System.out.println(ww.getInput());
-					 ProcWordValue pwv=new Word(word);
-					 System.out.println(pwv.getValue());
-					 flag=0;
-					 word="";
-					 //word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-			 }
-			 else if (c=='+'||c=='-')//we should also ouput "+" or "-"
-			 {
-				 if (quota==1)
-				 {
-					 word+=c;
-					 //word.append(c);
-					 continue;
-				 }
-				 if (flag==1){
-					//do new operation as required in Assignment3
-					 RawInput num=new Number(word);
-					 System.out.println(num);
-					 System.out.println(num.getInput());
-					 ProcNumberValue pnv=new Number(word);
-					 System.out.println(pnv.getValue());
-				
-					 //int num=Integer.parseInt(word.toString());
-					 //System.out.println("number: "+num);
-					 //System.out.println("sign: "+c);
-					 /*
-					if (c=='+')
-					{
-					
-						RawInput pl=new Plus(Util.char2String(c));
-						System.out.println(pl);
-						System.out.println(pl.getInput());
-						
-					}else
-					{
-						RawInput pl=new Minus(Util.char2String(c));
-						System.out.println(pl);
-						System.out.println(pl.getInput());
-					}*/
-					flag=0;
-					word="";
-					 //word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					 RawInput ww=new Word(word);
-					 System.out.println(ww);
-					 System.out.println(ww.getInput());
-					 ProcWordValue pwv=new Word(word);
-					 System.out.println(pwv.getValue());
-					 /*
-					 if (c=='+')
-					{
-						RawInput pl=new Plus(Util.char2String(c));
-						System.out.println(pl);
-						System.out.println(pl.getInput());
-						
-					}else
-					{
-						RawInput pl=new Minus(Util.char2String(c));
-						System.out.println(pl);
-						System.out.println(pl.getInput());
-					}*/
-					 flag=0;
-					 word="";
-					 //word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-				 if (c=='+')
-				{
-					RawInput pl=new Plus(Util.char2String(c));
-					System.out.println(pl);
-					System.out.println(pl.getInput());
-					
-				}else
-				{
-					RawInput pl=new Minus(Util.char2String(c));
-					System.out.println(pl);
-					System.out.println(pl.getInput());
-				}
-			 }
-			 else//other character, for example, symbols
-			 {
-				 word+=c;
-				//word.append(c);
-			 }
-		 }
-		if (quota==1)
-		{
-			System.out.println("closed quota is missing.....");
-			System.out.println(word);
+		while(scannedString.length() > 1){
+			char character = scannedString.charAt(1);
+			if(character == '"'){
+				tokenLength = getTokenLength('"');
+				String tokenString = scannedString.substring(2, tokenLength);
+				token = new QuoteToken(tokenString);
+			}else if(Character.isLetter(character)){
+				tokenLength = getTokenLength(' ');
+				String tokenString = scannedString.substring(1, tokenLength);
+				token = new WordToken(tokenString);
+			}else if(Character.isDigit(character)){
+				tokenLength = getTokenLength(' ');
+				String tokenString = scannedString.substring(1, tokenLength);
+				token = new NumberToken(tokenString);
+			}else if(character == ' '){
+				int length = 1;
+				if(token != null) {length = token.getInput().length();}
+				scannedString = scannedString.substring(length, scannedString.length());
+				continue;
+			}else{
+				tokenLength = 1;
+				if(character == '{') {token = new StartToken(character + "");}
+				if(character == '}') {token = new EndToken(character + "");}
+				if(character == '+') {token = new PlusToken(character + "");}
+				if(character == '-') {token = new MinusToken(character + "");}
+			}
+			
+			scannedString = scannedString.substring(tokenLength, scannedString.length());
+			break;
 		}
-		else//output the last word
-		{
-			 if (flag==1){
-				 RawInput num=new Number(word);
-				 System.out.println(num);
-				 System.out.println(num.getInput());
-				 ProcNumberValue pnv=new Number(word);
-				 System.out.println(pnv.getValue());
-
-				 flag=0;
-				 word="";
-				 //word.delete(0, word.length());
-			 }
-			 else if (flag==2)
-			 {
-				 RawInput ww=new Word(word);
-				 System.out.println(ww);
-				 System.out.println(ww.getInput());
-				 ProcWordValue pwv=new Word(word);
-				 System.out.println(pwv.getValue());
-				 flag=0;
-				 word="";
-				 //word.delete(0, word.length());
-			 }
+		if(token == null) {return null;}
+		return token;
+	}
+	
+	private int getTokenLength(char endCharacter){
+		int tokenLength = 2;
+		while(scannedString.length() > tokenLength){
+			if(scannedString.charAt(tokenLength) != endCharacter) {tokenLength++;}
+			else {break;}
 		}
+		if(tokenLength == scannedString.length() && endCharacter == '"') {System.out.println("[ERROR - Missing closing quotation mark]");} 
+		return tokenLength;
 	}
 
-}
-//END OF FILE
-//START OF FILE: src/grail/scannerinterface.java
-package grail;
+	@Override
+	public String getScannedString() {
+		return scannedString;
+	}
 
-public interface ScannerInterface {
-	public void setScannedString(String str);
-	public String getScannedString();
-	public void scanString(String line);
-}
-//END OF FILE
-//START OF FILE: src/grail/stringscanner.java
-package grail;
-
-public class StringScanner {
-
-	public static void myScanner(String line)
-	{
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
 		
-		char c; 
-		int quota=0;// to remember the number of quotas
-		int flag=0;//word:1, number:2
-		StringBuffer word=new StringBuffer();
-		
-		String numberPreToken="number: ";
-		String wordPreToken="word: ";
-		String signPreToken="sign: ";
-		 for (int i=0;i<line.length();i++)
-		 {
-			 c=line.charAt(i);
-			 if (c=='"')
-			 {
-				 quota++;
-				 if(quota==2)//output word
-				 {
-					 System.out.println("quoted string: "+word);
-					 word.delete(0,word.length());
-					 flag=0;
-					 quota=0;
-				 }else if (quota==1)
-				 {
-					//donothing, not allow word or number to output
-				 }else
-				 {
-					 continue;
-				 }
-			 }
-			 else if (Character.isDigit(c))
-			 {
-				 flag=1;
-				 word.append(c);
-			 }
-			 else if (Character.isLetter(c))
-			 {
-				 flag=2;
-				 word.append(c); 
-			 }
-			 else if(c==' ')
-			 {
-				 if (quota==1)
-				 {
-					 word.append(c);
-					 continue;
-				 }
-				 if (flag==1){
-					 int num=Integer.parseInt(word.toString());
-					 System.out.println(numberPreToken+num);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					 System.out.println(wordPreToken+word);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-			 }
-			 else if (c=='+'||c=='-')//we should also ouput "+" or "-"
-			 {
-				 if (quota==1)
-				 {
-					 word.append(c);
-					 continue;
-				 }
-				 if (flag==1){
-					 int num=Integer.parseInt(word.toString());
-					 System.out.println(numberPreToken+num);
-					 System.out.println(signPreToken+c);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }
-				 else if (flag==2)
-				 {
-					 System.out.println(wordPreToken+word);
-					 System.out.println(signPreToken+c);
-					 flag=0;
-					 word.delete(0, word.length());
-				 }else//continuous space after word 
-				 {
-					 continue;
-				 }
-			 }
-			 else//other character, for example, symbols
-			 {
-				word.append(c);
-			 }
-		 }
-		if (quota==1)
-		{
-			System.out.println("closed quota is missing.....");
-			System.out.println(word);
-		}
-		else//output the last word
-		{
-			 if (flag==1){
-				 int num=Integer.parseInt(word.toString());
-				 System.out.println(numberPreToken+num);
-				 flag=0;
-				 word.delete(0, word.length());
-			 }
-			 else if (flag==2)
-			 {
-				 System.out.println(wordPreToken+word);
-				 flag=0;
-				 word.delete(0, word.length());
-			 }
-		}
 	}
-}
-//END OF FILE
-//START OF FILE: src/grail/util.java
-package grail;
-
-public class Util {
-	public static boolean isLetter(char c)
-	{
-		return 'a'<=c&&c<='z'||'A'<=c&&c<='Z';
-	}
-	public static String char2String(char c)
-	{
-		String res="";
-		res+=c;
-		return res;
-	}
+	
 }
 //END OF FILE
 //START OF FILE: src/main/assignment3.java
 package main;
 
-import grail.ExtBeanStringScanner;
-import grail.ScannerInterface;
-
 import java.util.Scanner;
 
-import bus.uigen.ObjectEditor;
-/**
- * 
- * @author Dong Nie
- * dongnie@cs.unc.edu
- *
- *This is for assignment3 from comp 401
- */
 public class Assignment3 {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("please enter a string:");
-		Scanner scan = new Scanner(System.in);
-		String line="";
-		ScannerInterface bss=new ExtBeanStringScanner();
-		while(true)
-		{
-		 line = scan.nextLine();
-		// if(line.equals(""))
-			// continue;
-		 if (line.charAt(0)=='.')
-		 {
-			 break;
-		 }
-		 //System.out.println("Processed by ordinary class");
-		 //StringScanner.myScanner(line); 
-		 //System.out.println("Processed by bean class");
-		 //test bean scanner
-		 bss.setScannedString(line);
-		 //ObjectEditor.edit(filter);
-
+	private Scanner input;
+	private ScannerBean scannerBean;
+	
+	public Assignment3(){
+		input = new Scanner(System.in);
+		scannerBean = new AScannerBean();
+	}
+	
+	public void run(){
+		while(true){
+			String line = input.nextLine();
+			if(line.charAt(0) == '.'){
+				System.out.println(" - Program terminated - ");
+				System.exit(-1);
+			}
+			scannerBean.setScannedString(line);
 		}
 	}
-
+	
+	public static void main(String[] args){
+		new Assignment3().run();
+	}
 }
 //END OF FILE
-//START OF FILE: src/mp/endtoken.java
-package mp;
+//START OF FILE: src/main/endtoken.java
+package main;
 
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
@@ -590,271 +164,264 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 
-
-@Tags({"EndToken"})
+@Tags({"End"})
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input"})
-@EditablePropertyNames({"input"})
+@PropertyNames({"Input"})
+@EditablePropertyNames({"Input"})
+public class EndToken implements Token{
+	private String input;
+	
+	public EndToken(String input){
+		setInput(input);
+	}
 
-public class EndToken implements RawInput{
-	private String input="";
-	
-	public EndToken(String input)//need or not
-	{
-		this.input=input;
+	@Override
+	public String getInput() {
+		return input;
 	}
-	
-	public void setInput(String input)
-	{
-		this.input=input;
-	}
-	
-	public String getInput()
-	{
-		return this.input;
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
 	}
 }
 //END OF FILE
-//START OF FILE: src/mp/minus.java
-package mp;
+//START OF FILE: src/main/intvaluetoken.java
+package main;
 
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
-
-
-@Tags({"Minus"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input"})
-@EditablePropertyNames({"input"})
-
-public class Minus implements RawInput{
-	private String input="";
-	
-	public Minus(String input)//need or not
-	{
-		this.input=input;
-	}
-	
-	public void setInput(String input)
-	{
-		this.input=input;
-	}
-	
-	public String getInput()
-	{
-		return this.input;
-	}
-}
-//END OF FILE
-//START OF FILE: src/mp/number.java
-package mp;
-
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
-
-
-@Tags({"Number"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input","value"})
-@EditablePropertyNames({"input"})
-
-public class Number implements RawInput, ProcNumberValue{
-	private String input="";
-	private int value;
-	
-	public Number(String input)
-	{
-		this.input=input;
-		value=Integer.parseInt(input);//the input not always legal, so need more process here
-	}
-	public void setInput(String input)
-	{
-		this.input=input;
-		value=Integer.parseInt(input);//the input not always legal, so need more process here
-	}
-	
-	public String getInput()
-	{
-		return this.input;
-	}
-	
-	public int getValue()
-	{
-		return value;
-	}
-	
-}
-//END OF FILE
-//START OF FILE: src/mp/plus.java
-package mp;
-
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
-
-
-@Tags({"Plus"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input"})
-@EditablePropertyNames({"input"})
-
-public class Plus implements RawInput{
-	private String input="";
-	
-	public Plus(String input)//need or not
-	{
-		this.input=input;
-	}
-	
-	public void setInput(String input)
-	{
-		this.input=input;
-	}
-	
-	public String getInput()
-	{
-		return this.input;
-	}
-}
-//END OF FILE
-//START OF FILE: src/mp/procnumbervalue.java
-package mp;
-
-public interface ProcNumberValue {
+public interface IntValueToken {
 	public int getValue();
 }
 //END OF FILE
-//START OF FILE: src/mp/procwordvalue.java
-package mp;
+//START OF FILE: src/main/minustoken.java
+package main;
 
-public interface ProcWordValue {
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Minus"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Input"})
+@EditablePropertyNames({"Input"})
+public class MinusToken implements Token{
+	private String input;
+
+	public MinusToken(String input){
+		setInput(input);
+	}
+	
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/numbertoken.java
+package main;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Number"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Input", "Value"})
+@EditablePropertyNames({"Input"})
+public class NumberToken implements Token, IntValueToken{
+	private String input;
+	
+	public NumberToken(String input){
+		setInput(input);
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public int getValue() {
+		return Integer.parseInt(input);
+	}
+}
+//END OF FILE
+//START OF FILE: src/main/plustoken.java
+package main;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Plus"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Input"})
+@EditablePropertyNames({"Input"})
+public class PlusToken implements Token{
+	private String input;
+	
+	public PlusToken(String input){
+		setInput(input);
+	}
+	
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/main/quotetoken.java
+package main;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Quote"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Input"})
+@EditablePropertyNames({"Input"})
+public class QuoteToken implements Token{
+	private String input;
+
+	public QuoteToken(String input){
+		setInput(input);
+	}
+	
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/main/scannerbean.java
+package main;
+
+public interface ScannerBean {
+	public String getScannedString();
+	public void setScannedString(String scannedString);
+}
+//END OF FILE
+//START OF FILE: src/main/starttoken.java
+package main;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Start"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Input"})
+@EditablePropertyNames({"Input"})
+
+public class StartToken implements Token{
+	private String input;
+	
+	public StartToken(String input){
+		setInput(input);
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/main/stringvaluetoken.java
+package main;
+
+public interface StringValueToken {
 	public String getValue();
 }
 //END OF FILE
-//START OF FILE: src/mp/quotedstring.java
-package mp;
+//START OF FILE: src/main/token.java
+package main;
 
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
-
-
-@Tags({"QuotedString"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input"})
-@EditablePropertyNames({"input"})
-
-public class QuotedString implements RawInput{
-	private String input="";
-	
-	public QuotedString(String input)//need or not
-	{
-		this.input=input;
-	}
-	
-	public void setInput(String input)
-	{
-		this.input=input;
-	}
-	
-	public String getInput()
-	{
-		return this.input;
-	}
-}
-//END OF FILE
-//START OF FILE: src/mp/rawinput.java
-package mp;
-
-public interface RawInput {
-	public void setInput(String input);
+public interface Token {
 	public String getInput();
+	public void setInput(String input);
 }
 //END OF FILE
-//START OF FILE: src/mp/starttoken.java
-package mp;
+//START OF FILE: src/main/tokenscanner.java
+package main;
+
+import java.util.Iterator;
+
+public interface TokenScanner extends Iterator<Token>{
+	public void setScannedString(String scannedString);
+	public String getScannedString();
+}
+//END OF FILE
+//START OF FILE: src/main/wordtoken.java
+package main;
 
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
-
-
-@Tags({"StartToken"})
-@StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input"})
-@EditablePropertyNames({"input"})
-
-public class StartToken implements RawInput{
-	private String input="";
-	
-	public StartToken(String input)//need or not
-	{
-		this.input=input;
-	}
-	
-	public void setInput(String input)
-	{
-		this.input=input;
-	}
-	
-	public String getInput()
-	{
-		return this.input;
-	}
-}
-//END OF FILE
-//START OF FILE: src/mp/word.java
-package mp;
-
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-import util.annotations.Tags;
-
 
 @Tags({"Word"})
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
-@PropertyNames({"input","value"})
-@EditablePropertyNames({"input"})
+@PropertyNames({"Input", "Value"})
+@EditablePropertyNames({"Input"})
 
-public class Word implements RawInput, ProcWordValue{
-	private String input="";
-	private String value;//lower case for the input string
+public class WordToken implements Token, StringValueToken{
+	private String input;
 	
-	public Word(String input)
-	{
-		this.input=input;
-		//value=input.toLowerCase();//the input not always legal, so need more process here
-	}
-	public void setInput(String input)
-	{
-		this.input=input;
-		//value=input.toLowerCase();//the input not always legal, so need more process here
+	public WordToken(String input){
+		setInput(input);
 	}
 	
-	public String getInput()
-	{
-		return this.input;
+	@Override
+	public String getInput() {
+		return input;
 	}
 	
-	public String getValue()
-	{
-		value=input.toLowerCase();//the input not always legal, so need more process here
-
-		return value;
+	@Override
+	public void setInput(String input) {
+		this.input = input;
+	}
+	
+	public String getValue() {
+		return input.toLowerCase();
 	}
 	
 }

@@ -33,7 +33,7 @@ public class PaintListenerListenersTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("Paint Listener");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Paint Listener");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"Paint Listener\"", autoGrade);
         ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);

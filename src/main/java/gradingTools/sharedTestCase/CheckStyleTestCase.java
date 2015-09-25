@@ -72,14 +72,18 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return numMatchesResult(aProject, aCheckStyleLines, aFailedLines, autoGrade);
     	
     }
-    
+    protected boolean isPassed(int aNumMatchedInstances) {
+    	return aNumMatchedInstances == 0 && failOnMatch() || aNumMatchedInstances == 1 && !failOnMatch();
+    }
     protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
 //    	int aNumFailedInstances = aFailedLines.size();
 //        int aTotalClassCount = aProject.getClassesManager().getClassDescriptions().size();
 //        String aNotes = failMessageSpecifier() + " in " + aNumFailedInstances + " out of " + aTotalClassCount + " classes ";
 //        return partialPass((aTotalClassCount - aNumFailedInstances)/aTotalClassCount, aNotes, autoGrade);  
     	int aNumMatchedInstances = aMatchedLines.size();
-    	if (aNumMatchedInstances == 0 && failOnMatch() || aNumMatchedInstances == 1 && !failOnMatch())
+//    	if (aNumMatchedInstances == 0 && failOnMatch() || aNumMatchedInstances == 1 && !failOnMatch())
+        if (isPassed(aNumMatchedInstances))
+
     		return pass();
     	return computeResult(aProject, aCheckStyleLines, aMatchedLines, autoGrade);
     	

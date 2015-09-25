@@ -1,4 +1,2 @@
-  -- Could not find scanner bean
-  -- Could not find scanner bean
-  -- Could not find scanner bean
-  -- Could not find scanner bean
+  -- Incorrect tokens printed:Plus class test case
+  -- Incorrect tokens printed:Minus class test case

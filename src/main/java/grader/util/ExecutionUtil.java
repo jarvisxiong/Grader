@@ -146,6 +146,8 @@ public class ExecutionUtil {
 	}
 	public static String restoreOutputAndGetRedirectedOutput() {
 		try {
+//			System.out.flush();
+//			originalOut.flush();
 			aFileStream.flush();
 			aFileStream.close();
 //			ThreadSupport.sleep(2000);

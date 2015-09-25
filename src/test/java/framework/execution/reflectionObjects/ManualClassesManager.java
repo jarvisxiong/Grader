@@ -32,7 +32,7 @@ public class ManualClassesManager implements ClassesManager {
 
 
     @Override
-    public List<ClassDescription> findByTag(String tag) {
+    public List<ClassDescription> findClassByTag(String tag) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
