@@ -150,6 +150,27 @@ public class IntrospectionUtil {
 	        }
 	        return result;
 	    }
+	    
+	    public static List<Method> findMethod (Class aJavaClass, String aName, String aTag, String aNameMatch, String aTagMatch) {
+	    	List<Method> result = new ArrayList();
+	    	if (aName != null)
+	    		result = findMethodByName(aJavaClass, aName);
+	    	if (!result.isEmpty())
+	    		return result;
+	    	if (aTag != null)
+	    		result = findMethodByTag(aJavaClass, aTag);    	
+	    	if (!result.isEmpty())
+	    		return result;
+	    	if (aNameMatch != null) {
+	    		result = findMethodByNameMatch(aJavaClass, aNameMatch);  		
+	    	}
+	    	if (!result.isEmpty())
+	    		return result;
+	    	if (aTagMatch != null) {
+	    		result = findMethodByTagMatch(aJavaClass, aTagMatch);
+	    	}
+	    	return result;
+	    }
 
 	
 //	public static String setPropertyInteractive (Class aClass, Method aWriteMethod, Object aValue) {
