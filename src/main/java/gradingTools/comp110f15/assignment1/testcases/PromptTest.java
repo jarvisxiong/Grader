@@ -31,7 +31,7 @@ public class PromptTest extends BasicTestCase{
 		DukeInfo=DukeInfo.substring(UNCInfo.length()-1);
 		DukeInfo=DukeInfo.toLowerCase();
 		boolean duke=false;
-		if(DukeInfo.contains("duke")||DukeInfo.contains("dook")) duke=true;
+		if(DukeInfo.contains("duke")||DukeInfo.contains("dook")||DukeInfo.contains("dev")||DukeInfo.contains("blu")) duke=true;
 		if(duke&&unc)return pass();
 		if(!duke)return partialPass(0.5,"did not catch prompt for Duke score");
 		if(!unc)return partialPass(0.5,"did not catch prompt for UNC score");
