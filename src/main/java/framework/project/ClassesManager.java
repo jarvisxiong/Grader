@@ -2,6 +2,7 @@ package framework.project;
 
 import scala.Option;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
@@ -47,5 +48,13 @@ public interface ClassesManager {
 
 	List<ClassDescription> findClass(String aName, String aTag,
 			String aNameMatch, String aTagMatch);
+
+//	List<Method> findMethodByName(Class aClass, String aSpecification);
+//
+//	List<Method> findMethodByNameMatch(Class aClass, String aSpecification);
+//
+//	List<Method> findMethodByTagMatch(Class aClass, String aSpecification);
+//
+//	List<Method> findMethodByTag(Class aClass, String aSpecification);
 
 }
