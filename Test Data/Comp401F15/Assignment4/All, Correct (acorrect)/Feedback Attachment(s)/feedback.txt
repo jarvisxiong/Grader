@@ -1,0 +1,74 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Command Classes Implemented                            20.0 / 20.0
+Scanner Makes Command Tokens                           0.0 / 20.0
+Scanner bean returns token array                       0.0 / 10.0
+Class has interface check                              4.7 /  5.0
+Variable has class type                                5.0 /  5.0
+Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 30.0
+Scanner has error property                             0.0 /  5.0 (Extra credit)
+Rotating line pattern                                  0.0 /  2.0 (Extra credit)
+Rotating fixed line                                    0.0 /  6.0 (Extra credit)
+Rotating moving line                                   3.0 /  3.0 (Extra credit)
+Object Editor rotating line                            0.0 / 24.0 (Extra credit)
+----------------------------------
+  Points Awarded: 32.7
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      -10.0 /  -10.0
+Classes Tagged                              0.0 /  -39.0
+Common token interface not T                -5.0 /  -5.0
+Interactive Run                             -10.0 /  -10.0
+----------------------------------
+  Points Deducted: -25.0
+
+  Features Score: 7.700000000000003
+
+Notes from grading features:
+----------------------------------
+Scanner Makes Command Tokens:
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+
+Scanner bean returns token array:
+  -- No common interface for all tokens
+
+Class has interface check:
+  -- Class has no interface: BeanStringScanner
+Class has no interface: ExtBeanStringScanner
+
+Scanner has error property:
+  -- No scanner error getter
+
+Rotating line pattern:
+  -- Wrong Structure Pattern
+
+Rotating fixed line:
+Not gradable
+
+Notes from grading restrictions:
+----------------------------------
+Single main.Assignment:
+  -- Class matching main.Assignment(.*) not defined
+
+Common token interface not T:
+  -- No common interface for all tokens
+
+
+Early benefit: 105.0%
+  Total Score: 8.4

@@ -82,6 +82,9 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                             classDescriptions[1],
                             classDescriptions[2],
                             classDescriptions[3]);
+            if (aClass == null) 
+            	continue;
+            	
             Class[] tokenInterfaces = aClass.getInterfaces();
             if(tokenInterfaces.length == 0) {
                 return null;

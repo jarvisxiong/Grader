@@ -116,7 +116,15 @@ public class Feature extends Checkable {
         String spaces = "                                                       ";
         String score = points < 10 ? " " + points : points + "";
         String ec = extraCredit ? " (Extra credit)" : "";
-        return name + spaces.substring(name.length()) + "%.1f / " + score + ec;
+        String aPadding;
+        
+        if (name.length() > spaces.length() )
+        	aPadding = " ";
+        else
+        	aPadding = spaces.substring(name.length());
+        return name + aPadding + "%.1f / " + score + ec;
+        	
+//        return name + spaces.substring(name.length()) + "%.1f / " + score + ec;
     }
     public String toString() {
     	return name;

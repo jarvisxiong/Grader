@@ -83,6 +83,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public void addManualFeature(String name, double points, boolean extraCredit, TestCase... testCases) {
         addFeature(new Feature(true, name, points, extraCredit, testCases));
     }
+    
 
     // Restriction adding methods
     public void addRestriction(Restriction restriction) {
@@ -96,6 +97,12 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 
     public void addRestriction(String name, double points, List<TestCase> testCases) {
         addRestriction(new Restriction(name, points, testCases));
+    }
+    public void addManualRestriction(String name, double points, boolean extraCredit, TestCase... testCases) {
+        addRestriction(new Restriction(true, name, points, extraCredit, testCases));
+    }
+    public void addManualRestriction(String name, double points, TestCase... testCases) {
+        addRestriction(new Restriction(true, name, points, false, testCases));
     }
 
     // Due date adding methods
