@@ -27,7 +27,7 @@ public class RotatingFixedLineMethodsTestCase extends BasicTestCase {
         if (aClass == null) {
             return fail("Cannot find rotating line class");
         } else {
-            boolean[][] methodsPresent = new boolean[][]{{false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}, {false, false, false, false}};
+            boolean[][] methodsPresent = new boolean[][]{{false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false}};
             for(Method m : aClass.getMethods()) {
                 switch(m.getName()) {
                     case "getX":
