@@ -27,6 +27,9 @@ public class UserPropertyWriter {
         for(int i = 0; i < userProperties.length; i ++) {
             String propName = null;
             String propValue = null;
+            
+            String problem = null;
+            String module = null;
 
             userProperties[i] = userProperties[i].trim();
             switch (userProperties[i]) {
@@ -38,13 +41,17 @@ public class UserPropertyWriter {
                     propName = "grader.controller.useFrameworkGUI";
                     propValue = "false";
                     break;
-                case "--project-requirements":
-                    propName = "project.requirements";
-                    propValue = userProperties[++i].trim();
-                    break;
+//                case "--project-requirements":
+//                    propName = "project.requirements";
+//                    propValue = userProperties[++i].trim();
+//                    break;
                 case "--project-name":
-                    propName = "project.name";
-                    propValue = userProperties[++i].trim();
+                    problem = userProperties[++i].trim();
+                    if (module != null) {
+                        propName = "" + module + ".problem";
+                        propValue = problem;
+                        problem = null;
+                    }
                     break;
                 case "--grader-controller":
                     propName = "grader.controller";
@@ -69,6 +76,10 @@ public class UserPropertyWriter {
                 case "--course-name":
                     propName = "currentModule";
                     propValue = userProperties[++i].trim();
+                    if (problem != null) {
+                        propName = "" + module + ".problem";
+                        propValue = problem;
+                    }
             }
 
             if (propName != null) {
@@ -119,7 +130,7 @@ public class UserPropertyWriter {
         try {
             bw = new BufferedWriter(new FileWriter(userPropertiesFile));
             for (Map.Entry<String, String[]> entry : properties.entrySet()) {
-                bw.write(entry.getKey() + "=" + buildStrFromArr(entry.getValue()));
+                bw.write(entry.getKey().replace(" ", "\\ ") + " = " + buildStrFromArr(entry.getValue()).replace(" ", "\\ "));
                 bw.newLine();
             }
             bw.flush();

@@ -119,7 +119,7 @@ public class AConfigurationManager implements ConfigurationManager {
 //	         	convertToDynamicConfiguration();
             }
 //            dynamicConfiguration = new PropertiesConfiguration(dynamicConfigurationName);
-            setDynamicConfiguration(new PropertiesConfiguration(dynamicConfigurationName));
+            setDynamicConfiguration(createDynamicConfiguration(args, dynamicConfigurationName));
 
             DynamicConfigurationFileRead.newCase(dynamicConfigurationName, this);
             
@@ -173,7 +173,7 @@ public class AConfigurationManager implements ConfigurationManager {
                 // Andrew might need to add stuff like in the method below
         
     }
-
+    
     PropertiesConfiguration createStaticConfiguration(String[] args) {
         userPropsFile = null;
         try {
@@ -185,16 +185,12 @@ public class AConfigurationManager implements ConfigurationManager {
 // this seems to be Andrew's code duplicating the properties in a thread specific file
             
             userProperties.setUserProperties(args);
-            String name = "properties-" + Thread.currentThread().getId();
-            try {
-                userPropsFile = Files.createTempFile(name, ".config").toFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                userPropsFile = Paths.get("config", name + ".config").toFile();
-            }
+            userPropsFile = Paths.get(CONFIG_DIR, "user-config.properties").toFile();
+            
             if (userPropsFile.exists()) {
                 userPropsFile.delete();
             }
+            
             try {
                 userPropsFile.createNewFile();
             } catch (IOException e) {
@@ -213,9 +209,46 @@ public class AConfigurationManager implements ConfigurationManager {
             return null;
         } finally {
             //System.out.println("run done");
-            if (userPropsFile != null) {
-                userPropsFile.delete();
+            //if (userPropsFile != null) {
+            //    userPropsFile.delete();
+            //}
+        }
+    }
+    
+    PropertiesConfiguration createDynamicConfiguration(String[] args, String dynamicConfigName) {
+        userPropsFile = null;
+        try {
+            if (args.length == 0) {
+                return new PropertiesConfiguration(dynamicConfigName);
             }
+//		           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());
+            UserPropertyWriter userProperties = new UserPropertyWriter(dynamicConfigName);
+// this seems to be Andrew's code duplicating the properties in a thread specific file
+            
+            userProperties.setUserProperties(args);
+            userPropsFile = Paths.get(dynamicConfigName).toFile();
+            
+            try {
+                userPropsFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            userProperties.writeUserProperties(userPropsFile);
+            // Load the default config file
+            PropertiesConfiguration configuration = new PropertiesConfiguration(userPropsFile);
+            
+            return configuration;
+//			PropertiesConfiguration configuration = new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
+        } catch (ConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } finally {
+            //System.out.println("run done");
+            //if (userPropsFile != null) {
+            //    userPropsFile.delete();
+            //}
         }
     }
 
