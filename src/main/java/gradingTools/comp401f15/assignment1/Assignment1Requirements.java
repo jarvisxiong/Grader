@@ -8,13 +8,13 @@ import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.InvalidCharacterTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
-import gradingTools.comp401f15.assignment1.testcases.NoWarningTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
 import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
+import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -62,7 +62,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 //        addRestriction("Single main.Assigment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Single main.Assigment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         
-        addFeature(INTERACTIVE_RUN, 20, true, new NoWarningTestCase());
+        addFeature(INTERACTIVE_RUN, 20, true, new NoWarningOrErrorTestCase());
 
 
        

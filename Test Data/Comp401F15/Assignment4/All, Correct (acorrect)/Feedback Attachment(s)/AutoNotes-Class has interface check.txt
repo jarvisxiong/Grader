@@ -1,0 +1,2 @@
+  -- Class has no interface: ExtBeanStringScanner
+Class has no interface: BeanStringScanner
