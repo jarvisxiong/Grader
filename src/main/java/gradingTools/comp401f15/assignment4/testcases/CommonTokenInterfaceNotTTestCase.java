@@ -39,7 +39,7 @@ public class CommonTokenInterfaceNotTTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class tokenInterface = getCommonInterface(project);
+        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
@@ -53,32 +53,32 @@ public class CommonTokenInterfaceNotTTestCase extends BasicTestCase {
         super("Token Common Interface Not Named T Test Case");
     }
     
-    private static Class getCommonInterface(Project project) {
-        List<Class> interfaces = new ArrayList<>(5);
-        for(String[] classDescriptions : tokenDescriptions) {
-            Class aClass = IntrospectionUtil.findClass(project, 
-                            classDescriptions[0],
-                            classDescriptions[1],
-                            classDescriptions[2],
-                            classDescriptions[3]);
-            if (aClass == null)
-            	continue;
-            Class[] tokenInterfaces = aClass.getInterfaces();
-          
-            if(tokenInterfaces.length == 0) {
-                return null;
-            } else {
-                if (interfaces.isEmpty()) {
-                    interfaces.addAll(Arrays.asList(tokenInterfaces));
-                } else {
-                    interfaces.retainAll(Arrays.asList(tokenInterfaces));
-                }
-            }
-        }
-        if (interfaces.size() != 1) {
-            return null;
-        } else {
-            return interfaces.get(0);
-        }
-    }
+//    private static Class getCommonInterface(Project project) {
+//        List<Class> interfaces = new ArrayList<>(5);
+//        for(String[] classDescriptions : tokenDescriptions) {
+//            Class aClass = IntrospectionUtil.findClass(project, 
+//                            classDescriptions[0],
+//                            classDescriptions[1],
+//                            classDescriptions[2],
+//                            classDescriptions[3]);
+//            if (aClass == null)
+//            	continue;
+//            Class[] tokenInterfaces = aClass.getInterfaces();
+//          
+//            if(tokenInterfaces.length == 0) {
+//                return null;
+//            } else {
+//                if (interfaces.isEmpty()) {
+//                    interfaces.addAll(Arrays.asList(tokenInterfaces));
+//                } else {
+//                    interfaces.retainAll(Arrays.asList(tokenInterfaces));
+//                }
+//            }
+//        }
+//        if (interfaces.size() != 1) {
+//            return null;
+//        } else {
+//            return interfaces.get(0);
+//        }
+//    }
 }

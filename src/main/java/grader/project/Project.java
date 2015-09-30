@@ -16,6 +16,8 @@ import grader.project.view.ClassViewManager;
 import java.util.List;
 import java.util.Map;
 
+import wrappers.framework.project.ProjectWrapper;
+
 public interface Project {
 
     public ClassesManager getClassesManager();
@@ -143,5 +145,8 @@ public interface Project {
 
 	RunningProject getCurrentRunningProject();
 	void setCurrentRunningProject(RunningProject currentRunningProject);
+	ProjectWrapper getWrapper();
+	
+		void setWrapper(ProjectWrapper newValue);
 
 }

@@ -17,9 +17,9 @@ public interface SakaiProject extends Project {
 
 	String getProjectZipFileOrFolderMixedCaseAbsoluteName();
 
-	ProjectWrapper getWrapper();
-
-	void setWrapper(ProjectWrapper newValue);
+//	ProjectWrapper getWrapper();
+//
+//	void setWrapper(ProjectWrapper newValue);
 
 
 }

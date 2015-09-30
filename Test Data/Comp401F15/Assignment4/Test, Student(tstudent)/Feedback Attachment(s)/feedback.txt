@@ -19,14 +19,14 @@ Object Editor rotating line                            0.0 / 24.0 (Extra credit)
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assignment                      -10.0 /  -10.0
+Single main.Assignment                      0.0 /  -10.0
 Classes Tagged                              -39.0 /  -39.0
 Common token interface not T                0.0 /  -5.0
 Interactive Run                             -10.0 /  -10.0
 ----------------------------------
-  Points Deducted: -59.0
+  Points Deducted: -49.0
 
-  Features Score: -49.5
+  Features Score: -39.5
 
 Notes from grading features:
 ----------------------------------
@@ -82,9 +82,6 @@ Rotating moving line:
 
 Notes from grading restrictions:
 ----------------------------------
-Single main.Assignment:
-  -- Class matching main.Assignment(.*) not defined
-
 Classes Tagged :
   -- No class tagged: Call
   -- No class tagged: Define

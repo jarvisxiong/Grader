@@ -28,11 +28,12 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
     String[] constructorArgs1 = {};
 
     String inputEndingSpaces() {
-        return " { word 9+2 ";
+//        return " { word 9+2 ";
+        return "{ word @# 9+2 ";
     }
 
     String input() {
-        return "9 word }";
+        return "{ word @# 9+2";
     }
 
     String[] outputPropertyNames = {};
@@ -48,7 +49,9 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
         }
         Method errorPropertyGetter = null;
         for (Method m : aClass.getMethods()) {
-            if (m.getName().matches("get.*[eE]rror.*")) {
+            if (m.getName().matches("get.*[eE]rr.*")) {
+
+//            if (m.getName().matches("get.*[eE]rror.*")) {
                 errorPropertyGetter = m;
                 break;
             }
@@ -59,7 +62,7 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
 
         Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
-        outputPropertyNames = new String[]{errorPropertyGetter.getName()};
+        outputPropertyNames = new String[]{errorPropertyGetter.getName().substring(3)};
         Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, scannerDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
         if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
@@ -71,12 +74,12 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
             } else {
                 return partialPass(0.3, "Errors not logged");
             }
-        } else if (errorPropertyGetter.getReturnType().equals(String.class.getClass())) {
+        } else if (errorPropertyGetter.getReturnType().equals(String.class)) {
             String errors = (String) anActualOutputs.get(errorPropertyGetter.getName());
             if (errors != null && !errors.isEmpty()) {
                 return pass();
             } else {
-                return partialPass(0.4, "Errors not logged");
+                return partialPass(0.3, "Errors not logged");
             }
         } else {
             return partialPass(0.2, "Error getter does not return Array or String");

@@ -2,117 +2,63 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Command Classes Implemented                            0.0 / 20.0
-Scanner Makes Command Tokens                           0.0 / 20.0
-Scanner bean returns token array                       0.0 / 10.0
-Class has interface check                              4.6 /  5.0
-Variable has class type                                0.0 /  5.0
+Command Classes Implemented                            20.0 / 20.0
+Scanner Makes Command Tokens                           20.0 / 20.0
+Scanner bean returns token array                       10.0 / 10.0
+Class has interface check                              4.7 /  5.0
+Variable has class type                                5.0 /  5.0
 Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 30.0
-Scanner has error property                             0.0 /  5.0 (Extra credit)
+Scanner has error property                             1.5 /  5.0 (Extra credit)
 Rotating line pattern                                  0.0 /  2.0 (Extra credit)
-Rotating fixed line                                    0.0 /  6.0 (Extra credit)
-Rotating moving line                                   0.0 /  3.0 (Extra credit)
+Rotating fixed line                                    4.1 /  6.0 (Extra credit)
+Rotating moving line                                   3.0 /  3.0 (Extra credit)
 Object Editor rotating line                            0.0 / 24.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 4.6
+  Points Awarded: 68.3
 
 Grading restrictions...
 ----------------------------------
 Illegal import or call                      0.0 /  -25.0
-Single main.Assignment                      -10.0 /  -10.0
-Classes Tagged                              -39.0 /  -39.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              0.0 /  -39.0
 Common token interface not T                0.0 /  -5.0
 Interactive Run                             -10.0 /  -10.0
 ----------------------------------
-  Points Deducted: -59.0
+  Points Deducted: -10.0
 
-  Features Score: -54.4
+  Features Score: 58.3
 
 Notes from grading features:
 ----------------------------------
-Command Classes Implemented:
-  -- Class matching:null, call, .*call.*, .*call.* not found
-  -- Class matching:null, define, .*define.*, .*define.* not found
-  -- Class matching:null, move, .*move.*, .*move.* not found
-  -- Class matching:null, proceedAll, .*proceedAll.*, .*proceedAll.* not found
-  -- Class matching:null, redo, .*redo.*, .*redo.* not found
-  -- Class matching:null, repeat, .*repeat.*, .*repeat.* not found
-  -- Class matching:null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.* not found
-  -- Class matching:null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.* not found
-  -- Class matching:null, say, .*say.*, .*say.* not found
-  -- Class matching:null, sleep, .*sleep.*, .*sleep.* not found
-  -- Class matching:null, thread, .*thread.*, .*thread.* not found
-  -- Class matching:null, undo, .*undo.*, .*undo.* not found
-  -- Class matching:null, wait, .*wait.*, .*wait.* not found
-
 Scanner Makes Command Tokens:
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-  -- Scanner does not return token array
-
-Scanner bean returns token array:
-  -- getTokens() method not found
+  -- Correctly creates 'call' command tokens
+  -- Correctly creates 'define' command tokens
+  -- Correctly creates 'move' command tokens
+  -- Correctly creates 'proceedAll' command tokens
+  -- Correctly creates 'redo' command tokens
+  -- Correctly creates 'repeat' command tokens
+  -- Correctly creates 'rotateLeftArm' command tokens
+  -- Correctly creates 'rotateRightArm' command tokens
+  -- Correctly creates 'say' command tokens
+  -- Correctly creates 'sleep' command tokens
+  -- Correctly creates 'thread' command tokens
+  -- Correctly creates 'undo' command tokens
+  -- Correctly creates 'wait' command tokens
 
 Class has interface check:
-  -- Class has no interface: BeanStringScanner
-
-Variable has class type:
-  -- variableHasClassType: (Assignment3.java:20) Class ExtBeanStringScanner rather than interface used as the type of bss
-variableHasClassType: (ExtBeanStringScanner.java:79) Class EndToken rather than interface used as the type of et
-variableHasClassType: (ExtBeanStringScanner.java:144) Class Minus rather than interface used as the type of pl
-variableHasClassType: (ExtBeanStringScanner.java:167) Class Minus rather than interface used as the type of pl
-variableHasClassType: (ExtBeanStringScanner.java:193) Class mp.Number rather than interface used as the type of num
-variableHasClassType: (ExtBeanStringScanner.java:138) Class Plus rather than interface used as the type of pl
-variableHasClassType: (ExtBeanStringScanner.java:161) Class Plus rather than interface used as the type of pl
-variableHasClassType: (ExtBeanStringScanner.java:73) Class StartToken rather than interface used as the type of st
-variableHasClassType: (ExtBeanStringScanner.java:154) Class mp.Word rather than interface used as the type of ww
-variableHasClassType: (ExtBeanStringScanner.java:204) Class mp.Word rather than interface used as the type of ww
-
+  -- Class has no interface: ExtBeanStringScanner
+Class has no interface: BeanStringScanner
 
 Scanner has error property:
-  -- No scanner error getter
+  -- Errors not logged
 
 Rotating line pattern:
-  -- Cannot find rotating line class
+  -- Wrong Structure Pattern
 
 Rotating fixed line:
-  -- Cannot find rotating line class
-  -- Cannot find rotating line class
-
-Rotating moving line:
-  -- Cannot find rotating line class
-
-
-Notes from grading restrictions:
-----------------------------------
-Single main.Assignment:
-  -- Class matching main.Assignment(.*) not defined
-
-Classes Tagged :
-  -- No class tagged: Call
-  -- No class tagged: Define
-  -- No class tagged: Move
-  -- No class tagged: ProceedAll
-  -- No class tagged: Redo
-  -- No class tagged: Repeat
-  -- No class tagged: RotateLeftArm
-  -- No class tagged: RotateRightArm
-  -- No class tagged: Say
-  -- No class tagged: Sleep
-  -- No class tagged: Thread
-  -- No class tagged: Undo
-  -- No class tagged: Wait
+  -- Missing default constructor
+  -- Missing method 'rotate'
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 60.9

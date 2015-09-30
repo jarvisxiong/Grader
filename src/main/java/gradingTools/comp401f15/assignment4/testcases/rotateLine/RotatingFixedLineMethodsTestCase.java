@@ -83,7 +83,9 @@ public class RotatingFixedLineMethodsTestCase extends BasicTestCase {
                             if(m.getParameterCount() == 1 && m.getParameterTypes()[0].equals(double.class)) {
                                 methodsPresent[5][2] = true;
                             }
-                        } else if(m.getName().matches(".*[rR]otate.*") || arrayContains(m.getAnnotation(Tags.class).value(), "rotate")) {
+                        } else if(m.getName().matches(".*[rR]otate.*") || 
+                        		(m.getAnnotation(Tags.class) != null && 
+                        			arrayContains(m.getAnnotation(Tags.class).value(), "rotate"))) {
                             methodsPresent[5][0] = true;
                             methodsPresent[5][1] = arrayContains(m.getAnnotation(Tags.class).value(), "rotate");
                             if(m.getReturnType().equals(void.class)) {

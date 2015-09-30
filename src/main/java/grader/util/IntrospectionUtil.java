@@ -6,6 +6,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import util.annotations.Tags;
@@ -172,7 +173,43 @@ public class IntrospectionUtil {
 	    	return result;
 	    }
 
-	
+	    public static List<Class> getAllInterfaces(Class aClass) {
+	    	List<Class> retVal = new ArrayList();
+	    	while (aClass != null) {
+	    	   retVal.addAll(Arrays.asList(aClass.getInterfaces()));
+	    	   aClass = aClass.getSuperclass();
+	    	}
+	    	return retVal;
+	    	
+	    }
+	    public static Class getCommonInterface(Project project, String[][] aClassDescriptions) {
+	        List<Class> interfaces = new ArrayList<>(5);
+	        for(String[] classDescriptions : aClassDescriptions) {
+	            Class aClass = IntrospectionUtil.findClass(project, 
+	                            classDescriptions[0],
+	                            classDescriptions[1],
+	                            classDescriptions[2],
+	                            classDescriptions[3]);
+	            if (aClass == null) 
+	            	continue;
+	            	
+	           List<Class> tokenInterfaces = IntrospectionUtil.getAllInterfaces(aClass);
+	            if(tokenInterfaces.size() == 0) {
+	                return null;
+	            } else {
+	                if (interfaces.isEmpty()) {
+	                    interfaces.addAll(tokenInterfaces);
+	                } else {
+	                    interfaces.retainAll(tokenInterfaces);
+	                }
+	            }
+	        }
+	        if (interfaces.size() != 1) {
+	            return null;
+	        } else {
+	            return interfaces.get(0);
+	        }
+	    }
 //	public static String setPropertyInteractive (Class aClass, Method aWriteMethod, Object aValue) {
 //		
 //		

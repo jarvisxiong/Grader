@@ -1,1 +1,1 @@
-  -- No scanner error getter
+  -- Errors not logged

@@ -1,2 +1,2 @@
-  -- Cannot find rotating line class
-  -- Cannot find rotating line class
+  -- Missing default constructor
+  -- Missing method 'rotate'

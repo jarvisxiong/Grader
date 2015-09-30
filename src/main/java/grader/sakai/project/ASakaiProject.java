@@ -15,7 +15,7 @@ import wrappers.framework.project.ProjectWrapper;
 public class ASakaiProject extends AProject implements SakaiProject {
     StudentCodingAssignment studentAssignment;
     Icon studentPhoto;
-    ProjectWrapper wrapper;
+//    ProjectWrapper wrapper;
     
 
 	
@@ -53,12 +53,12 @@ public class ASakaiProject extends AProject implements SakaiProject {
     		return getRootCodeFolder().getMixedCaseAbsoluteName();
     	}
     }
-     @Override
-     public ProjectWrapper getWrapper() {
- 		return wrapper;
- 	}
-     @Override
-     public void setWrapper(ProjectWrapper newValue) {
- 		this.wrapper = newValue;
- 	}
+//     @Override
+//     public ProjectWrapper getWrapper() {
+// 		return wrapper;
+// 	}
+//     @Override
+//     public void setWrapper(ProjectWrapper newValue) {
+// 		this.wrapper = newValue;
+// 	}
 }

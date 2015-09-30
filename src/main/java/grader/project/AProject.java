@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import util.misc.Common;
+import wrappers.framework.project.ProjectWrapper;
 
 public class AProject implements Project {
 
@@ -122,6 +123,8 @@ public class AProject implements Project {
 	static boolean forceCompile = false; //compile whether that is needed or not
 	static boolean checkStyle = false; 
 	Map<String, String> entryPoints;
+	
+	ProjectWrapper wrapper;
 
 
 
@@ -718,7 +721,13 @@ public class AProject implements Project {
 			AProject.checkStyle = checkStyle;
 		}
 	    public Map<String, String> getEntryPoints() {
+	    	if (entryPoints == null) {
+				entryPoints = LanguageDependencyManager.getMainClassFinder()
+						.getEntryPoints(getWrapper());
+
+			}
 			return entryPoints;
+//			return entryPoints;
 		}
 
 		public void setEntryPoints(Map<String, String> entryPoints) {
@@ -733,4 +742,12 @@ public class AProject implements Project {
 		public void setCurrentRunningProject(RunningProject currentRunningProject) {
 			this.currentRunningProject = currentRunningProject;
 		}
+		  @Override
+		     public ProjectWrapper getWrapper() {
+		 		return wrapper;
+		 	}
+		     @Override
+		     public void setWrapper(ProjectWrapper newValue) {
+		 		this.wrapper = newValue;
+		 	}
 }

@@ -492,3 +492,33 @@ Testcase:Wait Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
 Finding constructor matching:class java.lang.String
 Constructor not found:grail.BeanStringScanner4.<init>(java.lang.String)
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2 
+Terminated execution after milliseconds:300
+calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
+called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.BeanStringScanner4.<init>(java.lang.String)
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2
+Terminated execution after milliseconds:300
+calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
+called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.BeanStringScanner4.<init>(java.lang.String)

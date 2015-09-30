@@ -3,6 +3,7 @@ package gradingTools.comp401f15.assignment4;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
+import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
@@ -146,7 +147,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assignment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
+        addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 39, 
         		new ClassDefinedTestCase("@Call"),
         		new ClassDefinedTestCase("@Define"),
