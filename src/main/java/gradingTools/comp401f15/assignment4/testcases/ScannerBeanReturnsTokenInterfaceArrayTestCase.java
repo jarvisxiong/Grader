@@ -11,6 +11,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,17 +57,47 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                                 scannerDescriptions[2],
                                 scannerDescriptions[3]);
         
+        boolean getTokensNamedWrong = false;
         try {
-            Method getTokensMethod = scannerClass.getMethod("getTokens");
+            Method getTokensMethod;
+            try {
+                getTokensMethod = scannerClass.getMethod("getTokens");
+            } catch (NoSuchMethodException e) {
+                getTokensMethod = null;
+                getTokensNamedWrong = true;
+            }
+            if (getTokensMethod == null) {
+                for(Method m : scannerClass.getMethods()) {
+                    if (m.getName().matches(".*get.*[tT]okens.*")) {
+                        getTokensMethod = m;
+                        break;
+                    }
+                    Class retType = m.getReturnType();
+                    if (retType.isArray()) {
+                        if(retType.equals(Array.newInstance(tokenInterface, 0).getClass())) {
+                            getTokensMethod = m;
+                        }
+                    }
+                }
+            }
+            if (getTokensMethod == null) {
+                return fail("No getTokens method or other method returning a token typed array");
+            }
             Class returnType = getTokensMethod.getReturnType();
             if (!returnType.isArray()) {
-                return partialPass(0.1, "getTokens() does not return an array");
+                if (getTokensNamedWrong) {
+                    return partialPass(0.05, "getTokens method does not return an array and is named incorrectly");
+                } else {
+                    return partialPass(0.1, "getTokens method does not return an array");
+                }
             }
             if(!returnType.equals(Array.newInstance(tokenInterface, 0).getClass())) {
-                return partialPass(0.5, "getTokens() method does not return common token interface type array");
+                if (getTokensNamedWrong) {
+                    return partialPass(0.25, "getTokens method does not return common token interface type array and is named incorrectly");
+                } else {
+                    return partialPass(0.5, "getTokens method does not return common token interface type array");
+                }
             }
-        } catch (NoSuchMethodException ex) {
-            return fail("getTokens() method not found");
         } catch (SecurityException ex) {
             throw new NotGradableException();
         }
