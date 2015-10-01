@@ -22,11 +22,11 @@ Illegal import or call                      0.0 /  -25.0
 Single main.Assignment                      0.0 /  -10.0
 Classes Tagged                              -39.0 /  -39.0
 Common token interface not T                0.0 /  -5.0
-Interactive Run                             -10.0 /  -10.0
+Interactive Run                             -5.0 /  -5.0
 ----------------------------------
-  Points Deducted: -49.0
+  Points Deducted: -44.0
 
-  Features Score: -39.4
+  Features Score: -34.4
 
 Notes from grading features:
 ----------------------------------

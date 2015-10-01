@@ -22,11 +22,11 @@ Illegal import or call                      0.0 /  -25.0
 Single main.Assignment                      0.0 /  -10.0
 Classes Tagged                              0.0 /  -39.0
 Common token interface not T                0.0 /  -5.0
-Interactive Run                             0.0 /  -10.0
+Interactive Run                             -5.0 /  -5.0
 ----------------------------------
-  Points Deducted: 0.0
+  Points Deducted: -5.0
 
-  Features Score: 65.7
+  Features Score: 60.7
 
 Notes from grading features:
 ----------------------------------
@@ -61,4 +61,4 @@ Object Editor rotating, moving line:
 Not gradable: Manual test cannot be auto graded, why was it even tried?
 
 Early benefit: 105.0%
-  Total Score: 69.3
+  Total Score: 64.05

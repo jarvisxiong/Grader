@@ -19,17 +19,22 @@ import gradingTools.assignment1.FlexibleProgramRunner;
 
 public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
 	protected String ignoreFilter;
+	protected String includeFilter;
 	protected double penalty;
     public NoWarningOrErrorTestCase() {
         super("No warning test case");
     }
-    public NoWarningOrErrorTestCase(String aName, String aFilter, double aPenalty) {
+    public NoWarningOrErrorTestCase(String aName, String anIgnoreFilter, String anIncludeFilter, double aPenalty) {
         super(aName);
-        ignoreFilter = aFilter;
+        ignoreFilter = anIgnoreFilter;
+        includeFilter = anIncludeFilter;
         penalty = aPenalty;
     }
     protected String ignoreFilter() {
     	return ignoreFilter;
+    }
+    protected String includeFilter() {
+    	return includeFilter;
     }
     public static boolean isErrorOrWarning (String aLine) {
     	return aLine.contains("E**") || aLine.contains("W**");
@@ -38,8 +43,11 @@ public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
     	List<String> retVal = new ArrayList<>();
     	String[] anOutputLines = anOutput.split("\n");
     	String anIgnoreFilter = ignoreFilter();
+    	String anIncludeFilter = includeFilter();
     	for (String anOutputLine:anOutputLines) {
-    		if (!isErrorOrWarning(anOutputLine) || (anIgnoreFilter != null && anOutputLine.matches(anIgnoreFilter)))
+    		if (!isErrorOrWarning(anOutputLine) 
+    				|| (anIgnoreFilter != null && anOutputLine.matches(anIgnoreFilter))
+    				|| (anIncludeFilter != null && !anOutputLine.matches(anIncludeFilter)))
     			continue;
     		retVal.add(anOutputLine);
     		
