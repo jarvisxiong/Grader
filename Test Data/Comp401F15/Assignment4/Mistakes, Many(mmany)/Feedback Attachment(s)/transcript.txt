@@ -57,7 +57,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args call 
-mp.Word@19def6e7
+mp.Word@74c3a6d6
 call
 call
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:call  result:null
@@ -74,7 +74,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args call
-mp.Word@6c930671
+mp.Word@42568041
 call
 call
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:call result:null
@@ -91,7 +91,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args define 
-mp.Word@4becb09b
+mp.Word@3f01c804
 define
 define
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:define  result:null
@@ -108,7 +108,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args define
-mp.Word@5a896c8b
+mp.Word@59c22b03
 define
 define
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:define result:null
@@ -125,7 +125,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args move 
-mp.Word@340ec0f3
+mp.Word@305ec3fb
 move
 move
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:move  result:null
@@ -142,7 +142,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args move
-mp.Word@405af88d
+mp.Word@46fc1939
 move
 move
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:move result:null
@@ -159,7 +159,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args proceedAll 
-mp.Word@6e9cf075
+mp.Word@770ca80a
 proceedAll
 proceedall
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:proceedAll  result:null
@@ -176,7 +176,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args proceedAll
-mp.Word@7f603419
+mp.Word@3fde0fdb
 proceedAll
 proceedall
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:proceedAll result:null
@@ -193,7 +193,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args redo 
-mp.Word@3dab7a5e
+mp.Word@795952c0
 redo
 redo
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:redo  result:null
@@ -210,7 +210,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args redo
-mp.Word@2aa273f6
+mp.Word@5f4aa903
 redo
 redo
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:redo result:null
@@ -227,7 +227,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args repeat 
-mp.Word@23b4218f
+mp.Word@4d140618
 repeat
 repeat
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:repeat  result:null
@@ -244,7 +244,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args repeat
-mp.Word@5d8a091c
+mp.Word@27b68b6
 repeat
 repeat
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:repeat result:null
@@ -261,7 +261,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateLeftArm 
-mp.Word@3b95f179
+mp.Word@3187f56b
 rotateLeftArm
 rotateleftarm
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
@@ -278,7 +278,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateLeftArm
-mp.Word@211083e
+mp.Word@3b0f40e9
 rotateLeftArm
 rotateleftarm
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateLeftArm result:null
@@ -295,7 +295,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateRightArm 
-mp.Word@abf9aa
+mp.Word@5646b556
 rotateRightArm
 rotaterightarm
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateRightArm  result:null
@@ -312,7 +312,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateRightArm
-mp.Word@67d06f71
+mp.Word@26ae1b18
 rotateRightArm
 rotaterightarm
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateRightArm result:null
@@ -329,7 +329,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args say 
-mp.Word@9f5ece9
+mp.Word@397c0bd6
 say
 say
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:say  result:null
@@ -346,7 +346,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args say
-mp.Word@380a143d
+mp.Word@2fe85fbb
 say
 say
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:say result:null
@@ -363,7 +363,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args sleep 
-mp.Word@18364dc6
+mp.Word@2565bd7f
 sleep
 sleep
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:sleep  result:null
@@ -380,7 +380,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args sleep
-mp.Word@7c790256
+mp.Word@73450410
 sleep
 sleep
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:sleep result:null
@@ -397,7 +397,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args thread 
-mp.Word@5a4d2b94
+mp.Word@2abe8315
 thread
 thread
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:thread  result:null
@@ -414,7 +414,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args thread
-mp.Word@320e771c
+mp.Word@4746147e
 thread
 thread
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:thread result:null
@@ -431,7 +431,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args undo 
-mp.Word@18fc44e6
+mp.Word@4f40c7ac
 undo
 undo
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:undo  result:null
@@ -448,7 +448,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args undo
-mp.Word@2ca39e1d
+mp.Word@14fe2fd0
 undo
 undo
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:undo result:null
@@ -465,7 +465,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args wait 
-mp.Word@1f810196
+mp.Word@4a86b071
 wait
 wait
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:wait  result:null
@@ -482,7 +482,7 @@ Finding constructor matching:
 calling method: public grail.ExtBeanStringScanner() 
 called method: public grail.ExtBeanStringScanner() 
 calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args wait
-mp.Word@5ef623ed
+mp.Word@3d94b8bb
 wait
 wait
 called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:wait result:null

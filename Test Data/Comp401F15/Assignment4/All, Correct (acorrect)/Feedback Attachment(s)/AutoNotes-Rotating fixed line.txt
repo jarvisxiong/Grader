@@ -1,2 +1,1 @@
   -- Missing default constructor
-  -- Missing method 'rotate'

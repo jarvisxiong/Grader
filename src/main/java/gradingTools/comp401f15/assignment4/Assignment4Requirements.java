@@ -163,6 +163,6 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
         		new ClassDefinedTestCase("@Undo"),
         		new ClassDefinedTestCase("@Wait"));
         addRestriction("Common token interface not T", 5, new CommonTokenInterfaceNotTTestCase());
-        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.*", 0.3));
+        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.* | .*not in range.*", 0.3));
     }
 }

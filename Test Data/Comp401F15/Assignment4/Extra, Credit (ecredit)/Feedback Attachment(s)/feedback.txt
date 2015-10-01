@@ -9,12 +9,12 @@ Class has interface check                              4.7 /  5.0
 Variable has class type                                5.0 /  5.0
 Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 30.0
 Scanner has error property                             1.5 /  5.0 (Extra credit)
-Rotating line pattern                                  0.0 /  2.0 (Extra credit)
-Rotating fixed line                                    4.1 /  6.0 (Extra credit)
+Rotating line pattern                                  2.0 /  2.0 (Extra credit)
+Rotating fixed line                                    4.5 /  6.0 (Extra credit)
 Rotating moving line                                   3.0 /  3.0 (Extra credit)
 Object Editor rotating line                            0.0 / 24.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 68.3
+  Points Awarded: 70.7
 
 Grading restrictions...
 ----------------------------------
@@ -26,7 +26,7 @@ Interactive Run                             -10.0 /  -10.0
 ----------------------------------
   Points Deducted: -10.0
 
-  Features Score: 58.3
+  Features Score: 60.7
 
 Notes from grading features:
 ----------------------------------
@@ -46,19 +46,15 @@ Scanner Makes Command Tokens:
   -- Correctly creates 'wait' command tokens
 
 Class has interface check:
-  -- Class has no interface: ExtBeanStringScanner
-Class has no interface: BeanStringScanner
+  -- Class has no interface: BeanStringScanner
+Class has no interface: ExtBeanStringScanner
 
 Scanner has error property:
   -- Errors not logged
 
-Rotating line pattern:
-  -- Wrong Structure Pattern
-
 Rotating fixed line:
   -- Missing default constructor
-  -- Missing method 'rotate'
 
 
 Early benefit: 105.0%
-  Total Score: 60.9
+  Total Score: 64.05

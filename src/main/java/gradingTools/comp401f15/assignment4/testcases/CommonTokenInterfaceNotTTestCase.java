@@ -16,30 +16,33 @@ import java.util.List;
  */
 public class CommonTokenInterfaceNotTTestCase extends BasicTestCase {
 
-    private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
-                                                                       {null, "Minus", ".*Minus.*", ".*Minus.*"},
-                                                                       {null, "Number", ".*Number.*", ".*Number.*"},
-                                                                       {null, "Plus", ".*Plus.*", ".*Plus.*"},
-                                                                       {null, "Quote", ".*Quote.*", ".*Quote.*"},
-                                                                       {null, "Start", ".*Start.*", ".*Start.*"},
-                                                                       {null, "Word", ".*Word.*", ".*Word.*"},
-                                                                       {null, "call", ".*call.*", ".*call.*"},
-                                                                       {null, "define", ".*define.*", ".*define.*"},
-                                                                       {null, "move", ".*move.*", ".*move.*"},
-                                                                       {null, "proceedAll", ".*proceedAll.*", ".*proceedAll.*"},
-                                                                       {null, "redo", ".*redo.*", ".*redo.*"},
-                                                                       {null, "repeat", ".*repeat.*", ".*repeat.*"},
-                                                                       {null, "rotateLeftArm", ".*rotateLeftArm.*", ".*rotateLeftArm.*"},
-                                                                       {null, "rotateRightArm", ".*rotateRightArm.*", ".*rotateRightArm.*"},
-                                                                       {null, "say", ".*say.*", ".*say.*"},
-                                                                       {null, "sleep", ".*sleep.*", ".*sleep.*"},
-                                                                       {null, "thread", ".*thread.*", ".*thread.*"},
-                                                                       {null, "undo", ".*undo.*", ".*undo.*"},
-                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
+//    private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
+//                                                                       {null, "Minus", ".*Minus.*", ".*Minus.*"},
+//                                                                       {null, "Number", ".*Number.*", ".*Number.*"},
+//                                                                       {null, "Plus", ".*Plus.*", ".*Plus.*"},
+//                                                                       {null, "Quote", ".*Quote.*", ".*Quote.*"},
+//                                                                       {null, "Start", ".*Start.*", ".*Start.*"},
+//                                                                       {null, "Word", ".*Word.*", ".*Word.*"},
+//                                                                       {null, "call", ".*call.*", ".*call.*"},
+//                                                                       {null, "define", ".*define.*", ".*define.*"},
+//                                                                       {null, "move", ".*move.*", ".*move.*"},
+//                                                                       {null, "proceedAll", ".*proceedAll.*", ".*proceedAll.*"},
+//                                                                       {null, "redo", ".*redo.*", ".*redo.*"},
+//                                                                       {null, "repeat", ".*repeat.*", ".*repeat.*"},
+//                                                                       {null, "rotateLeftArm", ".*rotateLeftArm.*", ".*rotateLeftArm.*"},
+//                                                                       {null, "rotateRightArm", ".*rotateRightArm.*", ".*rotateRightArm.*"},
+//                                                                       {null, "say", ".*say.*", ".*say.*"},
+//                                                                       {null, "sleep", ".*sleep.*", ".*sleep.*"},
+//                                                                       {null, "thread", ".*thread.*", ".*thread.*"},
+//                                                                       {null, "undo", ".*undo.*", ".*undo.*"},
+//                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+//        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+//        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+        Class tokenInterface = (Class) getCheckable().getRequirements().getUserObject(ScannerBeanReturnsTokenInterfaceArrayTestCase.COMMON_TOKEN_INTERFACE);
+
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }

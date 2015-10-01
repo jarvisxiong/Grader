@@ -17,6 +17,7 @@ import java.util.List;
  * @author Andrew Vitkus
  */
 public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase {
+	public static final String COMMON_TOKEN_INTERFACE = "CommonTokenInterface";
 
     String[] scannerDescriptions = {null, "ScannerBean", ".*Bean.*", ".*Bean.*"};
     
@@ -47,6 +48,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
+        getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, tokenInterface);
         Class scannerClass = IntrospectionUtil.findClass(project, 
                                 scannerDescriptions[0],
                                 scannerDescriptions[1],

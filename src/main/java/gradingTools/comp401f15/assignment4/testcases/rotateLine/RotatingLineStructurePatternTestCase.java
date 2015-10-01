@@ -29,14 +29,14 @@ public class RotatingLineStructurePatternTestCase extends BasicTestCase {
             return fail("Cannot find rotating line class");
         }
         
-        Annotation structurePattern = aClass.getAnnotation(StructurePattern.class);
+        StructurePattern structurePattern = (StructurePattern) aClass.getAnnotation(StructurePattern.class);
         if (structurePattern == null) {
             return fail("Structure Pattern undefined");
         }
-        if (structurePattern.toString().equals(StructurePatternNames.LINE_PATTERN)) {
+        if (structurePattern.value().equals(StructurePatternNames.LINE_PATTERN)) {
             return pass();
         } else {
-            return fail("Wrong Structure Pattern");
+            return fail("Wrong Structure Pattern:" + structurePattern);
         }
     }
     
