@@ -72,7 +72,6 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
         if (errorPropertyGetter.getReturnType().isArray()) {
             Object[] errors = (Object[]) anActualOutputs.get(errorPropertyName);
             if (errors != null && errors.length > 0) {
-                System.out.println("*** ERROR ARRAY: " + Arrays.toString(errors));
                 return pass();
             } else {
                 return partialPass(0.3, "Errors not logged");
@@ -80,7 +79,6 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
         } else if (errorPropertyGetter.getReturnType().equals(String.class)) {
             String errors = (String) anActualOutputs.get(errorPropertyName);
             if (errors != null && !errors.isEmpty()) {
-                System.out.println("*** ERROR MESSAGE: " + errors);
                 return pass();
             } else {
                 return partialPass(0.3, "Errors not logged");
