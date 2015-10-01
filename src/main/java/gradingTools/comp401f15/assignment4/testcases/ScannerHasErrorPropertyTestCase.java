@@ -61,15 +61,16 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
             return fail("No scanner error getter");
         }
 
-        Map<String, Object> anInputs = new HashMap();
+        Map<String, Object> anInputs = new HashMap<>();
         anInputs.put("ScannedString", aScannedString);
-        outputPropertyNames = new String[]{errorPropertyGetter.getName().substring(3)};
+        String errorPropertyName = errorPropertyGetter.getName().substring(3);
+        outputPropertyNames = new String[]{errorPropertyName};
         Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, scannerDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
         if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
         }
         if (errorPropertyGetter.getReturnType().isArray()) {
-            Object[] errors = (Object[]) anActualOutputs.get(errorPropertyGetter.getName());
+            Object[] errors = (Object[]) anActualOutputs.get(errorPropertyName);
             if (errors != null && errors.length > 0) {
                 System.out.println("*** ERROR ARRAY: " + Arrays.toString(errors));
                 return pass();
@@ -77,7 +78,7 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
                 return partialPass(0.3, "Errors not logged");
             }
         } else if (errorPropertyGetter.getReturnType().equals(String.class)) {
-            String errors = (String) anActualOutputs.get(errorPropertyGetter.getName());
+            String errors = (String) anActualOutputs.get(errorPropertyName);
             if (errors != null && !errors.isEmpty()) {
                 System.out.println("*** ERROR MESSAGE: " + errors);
                 return pass();
