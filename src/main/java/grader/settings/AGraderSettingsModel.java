@@ -682,7 +682,8 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 
     void setCurrentProblem(String aProblem) {
         currentProblem = aProblem;
-        problemDownloadPath = moduleDownloadPath + "\\" + currentProblem;
+//        problemDownloadPath = moduleDownloadPath + "\\" + currentProblem;
+        problemDownloadPath = moduleDownloadPath + "/" + currentProblem;
         refreshProblemDownloadPath();
 //		ProblemUserChange.newCase(currentProblem, this, this);
 
