@@ -118,14 +118,21 @@ public abstract class Checkable implements Gradable {
         CheckResult result = new CheckResult(pointWeight, this);
         try {
             for (TestCase testCase : testCases) {
+            	if (testCase == null)
+            		continue;
             	if (project instanceof ProjectWrapper) {
             		((ProjectWrapper) project).getProject().setCurrentTestCase(testCase);
             	}
+            	try {
                 TestCaseResult testResult = testCase.test(project, autoMode);
+            	
                 if (isManual()) {
                 	testResult.setAutoGraded(false);
                 }
                 result.save(testResult);
+            	} catch (Exception e) {
+            		e.printStackTrace();
+            	}
             }
             result.setStatus(CheckResult.CheckStatus.Successful);
             FeatureChecked.newCase(null, null, null, this, this);

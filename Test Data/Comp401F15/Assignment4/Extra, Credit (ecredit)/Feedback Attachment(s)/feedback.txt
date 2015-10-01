@@ -3,8 +3,8 @@ Grading result for: Extra, Credit (ecredit)
 Grading features...
 ----------------------------------
 Command Classes Implemented                            15.0 / 15.0
-Scanner Makes Command Tokens                           20.0 / 20.0
 Scanner bean returns token array                       10.0 / 10.0
+Scanner Makes Command Tokens                           20.0 / 20.0
 Class has interface check                              4.7 /  5.0
 Variable has class type                                5.0 /  5.0
 Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
@@ -46,19 +46,15 @@ Scanner Makes Command Tokens:
   -- Correctly creates 'wait' command tokens
 
 Class has interface check:
-  -- Class has no interface: BeanStringScanner
-Class has no interface: ExtBeanStringScanner
+  -- Class has no interface: ExtBeanStringScanner
+Class has no interface: BeanStringScanner
 
 Scanner has error property:
   -- Errors not logged
 
-Scanner displays errors correctly:
-Not gradable
 Rotating fixed line:
   -- Missing default constructor
 
-Object Editor rotating, moving line:
-Not gradable: Manual test cannot be auto graded, why was it even tried?
 
 Early benefit: 105.0%
   Total Score: 64.05

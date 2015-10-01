@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase {
 	public static final String COMMON_TOKEN_INTERFACE = "CommonTokenInterface";
+	public static final String TOKEN_METHOD = "Token Method";
 
     String[] scannerDescriptions = {null, "ScannerBean", ".*Bean.*", ".*Bean.*"};
     
@@ -56,19 +57,22 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                                 scannerDescriptions[1],
                                 scannerDescriptions[2],
                                 scannerDescriptions[3]);
-        
+        String methodName = "getTokens";
+        String methodRegex = ".*get.*[tT]oken.*";
+//        String methodName = "foo";
+//        String methodRegex = ".*get.*bar.*";
         boolean getTokensNamedWrong = false;
         try {
             Method getTokensMethod;
             try {
-                getTokensMethod = scannerClass.getMethod("getTokens");
+                getTokensMethod = scannerClass.getMethod(methodName);
             } catch (NoSuchMethodException e) {
                 getTokensMethod = null;
                 getTokensNamedWrong = true;
             }
             if (getTokensMethod == null) {
                 for(Method m : scannerClass.getMethods()) {
-                    if (m.getName().matches(".*get.*[tT]okens.*")) {
+                    if (m.getName().matches(methodRegex)) {
                         getTokensMethod = m;
                         break;
                     }
@@ -83,6 +87,8 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
             if (getTokensMethod == null) {
                 return fail("No getTokens method or other method returning a token typed array");
             }
+            getCheckable().getRequirements().putUserObject(TOKEN_METHOD, getTokensMethod);
+
             Class returnType = getTokensMethod.getReturnType();
             if (!returnType.isArray()) {
                 if (getTokensNamedWrong) {
@@ -101,6 +107,9 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
         } catch (SecurityException ex) {
             throw new NotGradableException();
         }
+        if (getTokensNamedWrong) {
+            return partialPass(0.9, "tokens getter should be " + methodName);
+        } 
         return pass();
     }
     

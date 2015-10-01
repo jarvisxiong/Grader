@@ -1,14 +1,19 @@
 package gradingTools.comp401f15.assignment4.testcases.commands.created;
 
 import framework.grading.testing.BasicTestCase;
+
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
+import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 
 public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
 
@@ -28,19 +33,27 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
 
     protected String inputEndingSpaces() {return commandName() + " ";}
     protected String input(){return commandName();}
+    protected String tokenPropertyName = "Tokens";
     
-    String[] outputPropertyNames = {"Tokens"};
+    String[] outputPropertyNames()  {
+    	Method getTokenswMethod = (Method) getCheckable().getRequirements().getUserObject(ScannerBeanReturnsTokenInterfaceArrayTestCase.TOKEN_METHOD);
+    	if (getTokenswMethod != null) {
+    		tokenPropertyName = getTokenswMethod.getName().substring(3);
+    	} 
+    		return new String[]{tokenPropertyName};
+    	
+    	};
 
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
         Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
-        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
+        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames());
 
         if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
         }
         if (!anActualOutputs.containsKey(ExecutionUtil.MISSING_READ)) {
-            Object tokenRet = anActualOutputs.get("Tokens");
+            Object tokenRet = anActualOutputs.get(tokenPropertyName);
             if (tokenRet instanceof Object[]) {
                 Object[] tokens = (Object[])tokenRet;
                 Class aClass = IntrospectionUtil.findClass(aProject, 

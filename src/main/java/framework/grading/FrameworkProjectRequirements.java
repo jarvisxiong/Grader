@@ -73,7 +73,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     }
 
     public void addManualFeature(String name, double points, boolean extraCredit) {
-        addFeature(new Feature(true, name, points, extraCredit, (TestCase) null));
+        addFeature(new Feature(true, name, points, extraCredit,  new TestCase[]{}));
     }
 
     public void addManualFeature(String name, double points, TestCase... testCases) {

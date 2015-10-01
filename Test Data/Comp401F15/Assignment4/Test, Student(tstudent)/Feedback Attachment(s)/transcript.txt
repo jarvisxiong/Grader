@@ -57,7 +57,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args call 
-main.WordToken@1c878f1c
+main.WordToken@7d9d8fd5
 call
 call
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:call  result:null
@@ -74,7 +74,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args call
-main.WordToken@3c5e13a5
+main.WordToken@557417ec
 call
 call
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:call result:null
@@ -91,7 +91,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args define 
-main.WordToken@5b97a137
+main.WordToken@6b8d3ee0
 define
 define
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:define  result:null
@@ -108,7 +108,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args define
-main.WordToken@7b8faa9b
+main.WordToken@6164e0bc
 define
 define
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:define result:null
@@ -125,7 +125,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args move 
-main.WordToken@5b503599
+main.WordToken@70163862
 move
 move
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:move  result:null
@@ -142,7 +142,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args move
-main.WordToken@17dfc66d
+main.WordToken@5288afb
 move
 move
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:move result:null
@@ -159,7 +159,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args proceedAll 
-main.WordToken@712743b8
+main.WordToken@750de80
 proceedAll
 proceedall
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:proceedAll  result:null
@@ -176,7 +176,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args proceedAll
-main.WordToken@77fae475
+main.WordToken@41f7afd6
 proceedAll
 proceedall
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:proceedAll result:null
@@ -193,7 +193,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args redo 
-main.WordToken@2ddcebee
+main.WordToken@e35aa2
 redo
 redo
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:redo  result:null
@@ -210,7 +210,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args redo
-main.WordToken@44d9bc96
+main.WordToken@415d6717
 redo
 redo
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:redo result:null
@@ -227,7 +227,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args repeat 
-main.WordToken@fa80d36
+main.WordToken@40f81562
 repeat
 repeat
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:repeat  result:null
@@ -244,7 +244,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args repeat
-main.WordToken@2fd199fa
+main.WordToken@3c8d8bb4
 repeat
 repeat
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:repeat result:null
@@ -261,7 +261,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateLeftArm 
-main.WordToken@65189475
+main.WordToken@2621e0cd
 rotateLeftArm
 rotateleftarm
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
@@ -278,7 +278,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateLeftArm
-main.WordToken@6cacb94c
+main.WordToken@cee5ec1
 rotateLeftArm
 rotateleftarm
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateLeftArm result:null
@@ -295,7 +295,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateRightArm 
-main.WordToken@2322c852
+main.WordToken@c3d193b
 rotateRightArm
 rotaterightarm
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateRightArm  result:null
@@ -312,7 +312,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateRightArm
-main.WordToken@6180e9fc
+main.WordToken@5cd2f170
 rotateRightArm
 rotaterightarm
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateRightArm result:null
@@ -329,7 +329,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args say 
-main.WordToken@68eaf267
+main.WordToken@33313954
 say
 say
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:say  result:null
@@ -346,7 +346,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args say
-main.WordToken@1546c9e7
+main.WordToken@10794365
 say
 say
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:say result:null
@@ -363,7 +363,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args sleep 
-main.WordToken@74cbc540
+main.WordToken@56e0ad89
 sleep
 sleep
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:sleep  result:null
@@ -380,7 +380,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args sleep
-main.WordToken@12e20d2c
+main.WordToken@1df29f54
 sleep
 sleep
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:sleep result:null
@@ -397,7 +397,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args thread 
-main.WordToken@2d24acdd
+main.WordToken@2733ee27
 thread
 thread
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:thread  result:null
@@ -414,7 +414,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args thread
-main.WordToken@e8e516f
+main.WordToken@7d8bf3cf
 thread
 thread
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:thread result:null
@@ -431,7 +431,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args undo 
-main.WordToken@2445643b
+main.WordToken@2ed49512
 undo
 undo
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:undo  result:null
@@ -448,7 +448,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args undo
-main.WordToken@264c96f2
+main.WordToken@27d5b7a3
 undo
 undo
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:undo result:null
@@ -465,7 +465,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args wait 
-main.WordToken@2e0694a2
+main.WordToken@1faf37a8
 wait
 wait
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:wait  result:null
@@ -482,7 +482,7 @@ Finding constructor matching:
 calling method: public main.AScannerBean() 
 called method: public main.AScannerBean() 
 calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args wait
-main.WordToken@52ffbd24
+main.WordToken@3d98ba19
 wait
 wait
 called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:wait result:null

@@ -1,1 +1,0 @@
-Not gradable: Manual test cannot be auto graded, why was it even tried?

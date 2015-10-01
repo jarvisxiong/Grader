@@ -1,1 +1,1 @@
-  -- getTokens() method not found
+  -- No getTokens method or other method returning a token typed array

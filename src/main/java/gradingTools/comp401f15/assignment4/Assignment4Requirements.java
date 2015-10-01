@@ -96,7 +96,9 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
         
 //        //Do command tokens extend word
 //        addFeature("Command Tokens Extend Word Token", 30, new CommandClassesExtendWordTokenTestCase());
-        
+
+        // uses array (or they make an array to return, but checkstyle should catch that)
+        addFeature("Scanner bean returns token array", 10, new ScannerBeanReturnsTokenInterfaceArrayTestCase());
         //Correct output from scanner
         addFeature("Scanner Makes Command Tokens", 20,
     			new CallCommandCreatedTestCase(),
@@ -114,8 +116,6 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     			new WaitCommandCreatedTestCase()
     			);
         
-        // uses array (or they make an array to return, but checkstyle should catch that)
-        addFeature("Scanner bean returns token array", 10, new ScannerBeanReturnsTokenInterfaceArrayTestCase());
         
     	addFeature("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
     	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
@@ -144,7 +144,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
                         new RotatingMovingLineMethodsTestCase() // add execution tests
                         );
         
-        addManualFeature("Object Editor rotating, moving line", 24, true, new ManualTestCase("Does the line rotate?"));
+        addManualFeature("Object Editor rotating, moving line", 24, true);
         
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         

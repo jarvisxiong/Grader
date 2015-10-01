@@ -1,6 +1,1 @@
-Starting audit...
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment4\Mistakes, Many(mmany)\Submission attachment(s)\Assignment3\Assignment3\src\grail\BeanStringScanner.java:10: warning: classHasAtLeastOneInterface: (BeanStringScanner.java:10) Classes with public instance methods should implement interfaces
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment4\Mistakes, Many(mmany)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Number.java:10: warning: classHasOneInterface: (Number.java:10) A class with instance methods should have exactly one (possibly extending and empty) interface      
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment4\Mistakes, Many(mmany)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Word.java:0: warning: functionAssignsGlobal: (Word.java:35) Function getValue assigns to a global variable 
-D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment4\Mistakes, Many(mmany)\Submission attachment(s)\Assignment3\Assignment3\src\mp\Word.java:10: warning: classHasOneInterface: (Word.java:10) A class with instance methods should have exactly one (possibly extending and empty) interface      
-Audit done.
+Unable to create Checker: cannot initialize module TreeWalker - Unable to instantiate UnnecessaryMethodCall
