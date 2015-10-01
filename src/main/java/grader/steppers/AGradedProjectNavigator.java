@@ -710,6 +710,9 @@ public class AGradedProjectNavigator /*extends AClearanceManager*/ implements
 	}
 	
 	void doQuit() {
+		if (projectStepper.preTerminate()) {
+			projectStepper.terminate();
+		}
 		maybeSaveState();
 		ProjectStepperEnded.newCase(projectDatabase, projectStepper, this);
 		GradingHistoryManagerSelector.getGradingHistoryManager().setProblemHistoryTextOfCurrentModuleProblem();
