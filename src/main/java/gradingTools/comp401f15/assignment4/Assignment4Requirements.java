@@ -76,7 +76,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/25/2015 23:59:00", 0.75);
         
         //Do the command tokens exist and do word stuff
-    	addFeature("Command Classes Implemented", 20,
+    	addFeature("Command Classes Implemented", 15,
     			new CallCommandBeanTestCase(),
     			new DefineCommandBeanTestCase(),
     			new MoveCommandBeanTestCase(),
@@ -120,7 +120,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     	addFeature("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
     	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
 
-        addManualFeature("Scanner object displays properly in ObjectEditor and tests for every token type", 30);
+        addManualFeature("Scanner object displays properly in ObjectEditor and tests for every token type", 15);
         
         /*
          * Interface stuff goes here. I think that is checkstyle, but I'm not sure what the case for that is
@@ -128,21 +128,23 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
         
         // scanner error array
     	addFeature("Scanner has error property", 5, true, new ScannerHasErrorPropertyTestCase());
+    	addManualFeature("Scanner displays errors correctly", 5, true);
+
+        // will do with warnings
         
-        
-    	addFeature("Rotating line pattern", 2, true,
-    			new RotatingLineStructurePatternTestCase()
-    			);
+//    	addFeature("Rotating line pattern", 2, true,
+//    			new RotatingLineStructurePatternTestCase()
+//    			);
         addFeature("Rotating fixed line", 6, true,
     				new RotatingLineDefinedTestCase(),
 
                         new RotatingFixedLineMethodsTestCase() // add execution tests
                         );
-        addFeature("Rotating moving line", 3, true,
+        addFeature("Rotating moving line", 5, true,
                         new RotatingMovingLineMethodsTestCase() // add execution tests
                         );
         
-        addManualFeature("Object Editor rotating line", 24, true, new ManualTestCase("Does the line rotate?"));
+        addManualFeature("Object Editor rotating, moving line", 24, true, new ManualTestCase("Does the line rotate?"));
         
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         

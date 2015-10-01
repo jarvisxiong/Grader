@@ -63,8 +63,9 @@ public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
         	RunningProject aRunner = aSakaiProject.getCurrentRunningProject();
         	if (aRunner == null ) {
         		System.err.println("No project run interactively");
-        	} else if (aRunner == lastRunningProject) {
-        		System.err.println("Have already graded this interactive run");
+        		return fail("No project run interactively");
+//        	} else if (aRunner == lastRunningProject) {
+//        		System.err.println("Have already graded this interactive run");
         	} else {
         		lastRunningProject = aRunner;
         		String anOutput = lastRunningProject.getOutput();
@@ -84,7 +85,7 @@ public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
 
         	}
 //        	String aTranscript = aSakaiProject.getCurrentOutput().toString();
-        	return pass();
+//        	return pass();
         	
         	
         } catch (NotRunnableException e) {

@@ -108,7 +108,7 @@ public abstract class Checkable implements Gradable {
      * @return The results of the check
      */
     protected CheckResult check(double points, List<TestCase> testCases, Project project, boolean autoMode) {
-    	if (isManual())
+    	if (isManual() && !autoMode)
 //        	if (isManual() && testCases.isEmpty())
 
     		 return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);

@@ -29,11 +29,11 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
 
     String inputEndingSpaces() {
 //        return " { word 9+2 ";
-        return "{ word @# 9+2 ";
+        return "{ word @# 9+2 \n7654 @@ 987 ";
     }
 
     String input() {
-        return "{ word @# 9+2";
+        return "{ word @# 9+2\n7654 @@ 987";
     }
 
     String[] outputPropertyNames = {};

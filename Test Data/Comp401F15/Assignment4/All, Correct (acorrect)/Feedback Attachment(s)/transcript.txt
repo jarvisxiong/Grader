@@ -499,6 +499,7 @@ Finding constructor matching:
 calling method: public grail.BeanStringScanner4() 
 called method: public grail.BeanStringScanner4() 
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2 
+7654 @@ 987 
 Terminated execution after milliseconds:300
 calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
 called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:
@@ -514,6 +515,7 @@ Finding constructor matching:
 calling method: public grail.BeanStringScanner4() 
 called method: public grail.BeanStringScanner4() 
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2
+7654 @@ 987
 Terminated execution after milliseconds:300
 calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
 called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:

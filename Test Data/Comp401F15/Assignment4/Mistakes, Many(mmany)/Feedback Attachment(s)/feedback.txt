@@ -2,17 +2,17 @@ Grading result for: Mistakes, Many(mmany)
 
 Grading features...
 ----------------------------------
-Command Classes Implemented                            0.0 / 20.0
+Command Classes Implemented                            0.0 / 15.0
 Scanner Makes Command Tokens                           0.0 / 20.0
 Scanner bean returns token array                       0.0 / 10.0
 Class has interface check                              4.6 /  5.0
 Variable has class type                                5.0 /  5.0
-Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 30.0
+Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
 Scanner has error property                             0.0 /  5.0 (Extra credit)
-Rotating line pattern                                  0.0 /  2.0 (Extra credit)
+Scanner displays errors correctly                      0.0 /  5.0 (Extra credit)
 Rotating fixed line                                    0.0 /  6.0 (Extra credit)
-Rotating moving line                                   0.0 /  3.0 (Extra credit)
-Object Editor rotating line                            0.0 / 24.0 (Extra credit)
+Rotating moving line                                   0.0 /  5.0 (Extra credit)
+Object Editor rotating, moving line                    0.0 / 24.0 (Extra credit)
 ----------------------------------
   Points Awarded: 9.6
 
@@ -68,9 +68,6 @@ Class has interface check:
 
 Scanner has error property:
   -- No scanner error getter
-
-Rotating line pattern:
-  -- Cannot find rotating line class
 
 Rotating fixed line:
   -- Cannot find rotating line class
