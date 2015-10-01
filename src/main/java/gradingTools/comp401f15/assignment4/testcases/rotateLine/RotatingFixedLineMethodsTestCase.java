@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import util.annotations.Tags;
 
@@ -83,11 +84,10 @@ public class RotatingFixedLineMethodsTestCase extends BasicTestCase {
                             if(m.getParameterCount() == 1 && m.getParameterTypes()[0].equals(double.class)) {
                                 methodsPresent[5][2] = true;
                             }
-                        } else if(m.getName().matches(".*[rR]otate.*") || 
-                        		(m.getAnnotation(Tags.class) != null && 
-                        			arrayContains(m.getAnnotation(Tags.class).value(), "rotate"))) {
+                        } else if(m.getName().matches(".*[rR]otate.*")) {
+                            Tags tag = m.getAnnotation(Tags.class);
                             methodsPresent[6][0] = true;
-                            methodsPresent[6][1] = arrayContains(m.getAnnotation(Tags.class).value(), "rotate");
+                            methodsPresent[6][1] = tag != null && arrayContains(tag.value(), "rotate");
                             if(m.getReturnType().equals(void.class)) {
                                 methodsPresent[6][2] = true;
                             }
