@@ -24,7 +24,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
 
     String[] scannerDescriptions = {null, "ScannerBean", ".*Bean.*", ".*Bean.*"};
     
-    /*private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
+    private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
                                                                        {null, "Minus", ".*Minus.*", ".*Minus.*"},
                                                                        {null, "Number", ".*Number.*", ".*Number.*"},
                                                                        {null, "Plus", ".*Plus.*", ".*Plus.*"},
@@ -43,7 +43,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                                                                        {null, "sleep", ".*sleep.*", ".*sleep.*"},
                                                                        {null, "thread", ".*thread.*", ".*thread.*"},
                                                                        {null, "undo", ".*undo.*", ".*undo.*"},
-                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};*/
+                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -52,7 +52,9 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
         // clear previous project data
         getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, null);
 
-        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
+//        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
+        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
