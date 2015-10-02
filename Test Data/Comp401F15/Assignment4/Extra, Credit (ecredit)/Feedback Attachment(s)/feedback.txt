@@ -48,8 +48,8 @@ Scanner Makes Command Tokens:
   -- Correctly creates 'wait' command tokens
 
 Class has interface check:
-  -- Class has no interface: BeanStringScanner
-Class has no interface: ExtBeanStringScanner
+  -- Class has no interface: ExtBeanStringScanner
+Class has no interface: BeanStringScanner
 
 Scanner has error property:
   -- Errors not logged
