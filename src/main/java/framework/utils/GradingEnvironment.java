@@ -2,6 +2,7 @@ package framework.utils;
 
 import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManager;
+import grader.config.StaticConfigurationUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -126,12 +127,24 @@ public class GradingEnvironment {
     private  String findClasspath(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
-    	String originalClassPath = systemClassPath;
-    	canonicalOEClassPath = findOEClassPath(separator);
+//    	String originalClassPath = systemClassPath;
+    	canonicalOEClassPath = findOEClassPath(separator);    	
 //        File oe = new File("oeall-22.jar");
 //        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
-        String[] paths = new String[] { ".", "..", originalClassPath};
 //        String[] paths = new String[] { ".", originalClassPath};
+//      String[] paths = new String[] { ".", "..", originalClassPath};
+
+    	String[] paths = null;
+    	if (StaticConfigurationUtils.hasClassPath() ) {
+    		paths = new String[] { ".", "..", systemClassPath};
+    	} else if (StaticConfigurationUtils.hasOEClassPath()) {
+    		paths = new String[] { ".", "..", canonicalOEClassPath};
+    	} else if (StaticConfigurationUtils.hasOEOrClassPath()) {
+    		paths = new String[] { ".", "..", canonicalOEClassPath, systemClassPath};
+    	}
+    	
+//        String[] paths = new String[] { ".", "..", originalClassPath};
+
 
 
         String classpath = "";
