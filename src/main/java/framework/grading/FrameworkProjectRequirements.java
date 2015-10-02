@@ -146,11 +146,12 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         		results.add(feature.check(project, false));
             if (sakaiProject != null) {
                 sakaiProject.setCurrentGradingFeature(feature);
-            }
+            
             try {
                 results.add(feature.check(project));
             } catch (Exception e) {
                 e.printStackTrace();
+            }
             }
         }
         return results;

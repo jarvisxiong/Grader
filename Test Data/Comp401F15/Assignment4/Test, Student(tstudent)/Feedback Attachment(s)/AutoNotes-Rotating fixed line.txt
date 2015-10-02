@@ -1,2 +1,0 @@
-  -- Cannot find rotating line class
-  -- Cannot find rotating line class

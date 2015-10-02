@@ -51,6 +51,8 @@ public class StaticConfigurationUtils {
 	public static final String PERMISSIONS = "permissions";
 
 	public static final String CLASS_PATH = "classPath";
+	public static final String OE_PATH = "oePath";
+	public static final String OE_AND_CLASS_PATH = "oeAndClassPath";
 
 	public static final String PROCESS_TEAMS = "processTeams";
 
@@ -65,12 +67,15 @@ public class StaticConfigurationUtils {
 	public static final String JAVA = "Java";
 
 	public static final String CLASS_PATH_VAR = toVariable(CLASS_PATH);
+	public static final String OE_PATH_VAR = toVariable(OE_PATH);
+	public static final String OE_AND_CLASS_PATH_VAR = toVariable(OE_AND_CLASS_PATH );
 	public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
 	public static final String IMPLICIT_REQUIRMENTS_ROOT = "implicitRequirementsRoot";
 	public static final String DEFAULT_IMPLICIT_REQUIRMENTS_ROOT = "gradingTools";
 	public static final String USE_EXECEUTOR = "useExecutor";
 	public static final String EXECEUTOR = "executor";
 	public static final String C_OBJ = "language.C.obj";
+	public static  List<String> basicCommand;
 
 	// public static final String ENTRY_TAG_VAR = toVariable(ENTRY_TAG);
 
@@ -355,8 +360,44 @@ public class StaticConfigurationUtils {
 	}
 
 	public static List<String> getBasicCommand() {
-		return getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+		if (basicCommand == null) {
+			basicCommand = getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+		}
+//		return getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+		return basicCommand;
+
 	}
+	
+	public static boolean hasClassPath() {
+		getBasicCommand();
+		if (basicCommand == null) {
+			return false;
+		}
+		for (String aCommand:basicCommand) {
+			if (aCommand.contains(CLASS_PATH_VAR) || aCommand.contains(OE_AND_CLASS_PATH_VAR)) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	
+	public static boolean hasOEClassPath() {
+		getBasicCommand();
+		if (basicCommand == null) {
+			return false;
+		}
+		for (String aCommand:basicCommand) {
+			if (aCommand.contains(OE_PATH_VAR) || aCommand.contains(OE_AND_CLASS_PATH_VAR)) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	
+	public static boolean hasOEOrClassPath() {
+		return hasClassPath() || hasOEClassPath();
+	}
+	
 	
 	public static String getEntryPoint() {
 		String retVal = getInheritedStringModuleProblemProperty(ENTRY_POINT, null);
@@ -499,7 +540,17 @@ public class StaticConfigurationUtils {
 				// JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath()
 				// + "\"");
 				// }
-			} else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
+			} else if (command.contains(OE_PATH_VAR)) {
+//				command = command.replace(CLASS_PATH_VAR, "\""
+//				+ GradingEnvironment.get().getClasspath() + "\"");
+		         command = command.replace(OE_PATH_VAR, 
+				GradingEnvironment.get().getClasspath());
+
+	      } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
+	    	   command = command.replace(OE_AND_CLASS_PATH_VAR, 
+	   				GradingEnvironment.get().getClasspath());
+	      }
+			else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
 				// URL policyFileURL =
 				// Class.class.getResource("/server/model/easy.policy");
 				String aPolicyFilePath = JavaProjectToPermissionFile

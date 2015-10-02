@@ -42,7 +42,7 @@ public class GradingEnvironment {
     private String editor;
     protected String diff;
     private String browser;
-    private String classpath, canonicalClassPath;
+    private String classpath, canonicalClassPath, oeClassPath, canonicalOEClassPath;
     private String assignmentName;
     private String defaulAssignmentsDataFolderName;
 //    ConfigurationManager configurationManager;  // maybe it does not belong here
@@ -113,11 +113,22 @@ public class GradingEnvironment {
         	return aCanoicalClassPath.replaceAll(" ", "\\ ");
 //        return aCanoicalClassPath;
     }
+    protected String findOEClassPath(String separator) {
+    	String myClassPath = System.getProperty("java.class.path");
+    	String[] paths = myClassPath.split(separator);
+    	for (String aPath:paths) {
+    		if (aPath.contains("oeall")) {
+    			return aPath;
+    		}
+    	}
+    	return null;
+    }
     private  String findClasspath(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
     	String originalClassPath = systemClassPath;
-        File oe = new File("oeall-22.jar");
+    	canonicalOEClassPath = findOEClassPath(separator);
+//        File oe = new File("oeall-22.jar");
 //        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
         String[] paths = new String[] { ".", "..", originalClassPath};
 //        String[] paths = new String[] { ".", originalClassPath};
@@ -135,6 +146,7 @@ public class GradingEnvironment {
 //        	classpath = classpath.replaceAll(" ", "\\ ");
         return classpath;
     }
+    
 
     public String getClasspath() {
         return classpath;
