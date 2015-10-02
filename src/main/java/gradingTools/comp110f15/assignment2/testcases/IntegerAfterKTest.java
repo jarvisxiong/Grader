@@ -25,7 +25,7 @@ public class IntegerAfterKTest extends BasicTestCase{
 		String out1 = run1.await();
 		
 		out1 = out1.substring(out0.length());
-		if (out1.contains("A: ")) return pass();
+		if (!out1.contains("A: ")) return pass();
 		return fail("The program looped when the user did not put in a number for K");
 	}
 
