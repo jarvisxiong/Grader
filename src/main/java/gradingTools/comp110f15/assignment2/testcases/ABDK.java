@@ -10,10 +10,10 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
-public class ABCK extends BasicTestCase{
+public class ABDK extends BasicTestCase{
 
-	public ABCK() {
-		super("This will test pathway ABCK");
+	public ABDK() {
+		super("This will test pathway ABDK");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,12 +21,12 @@ public class ABCK extends BasicTestCase{
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		RunningProject run0 =RunningProjectUtils.runProject(project, 10, "1\n1");
+		RunningProject run0 =RunningProjectUtils.runProject(project, 10, "1\n2");
 		String out0 = run0.await();
 		out0=out0.replaceAll("\n", " ");
-		Pattern p = Pattern.compile("take.*A:.*B:.*C:.*K:.*");
+		Pattern p = Pattern.compile("take.*A:.*B:.*D:.*K:.*");
 		if(p.matcher(out0).find()) return pass();
-		return fail("Did not print out message A,B,C,K when user takes that path.");
+		return fail("Did not print out message A,B,D,K when user takes that path.");
 	}
 
 }
