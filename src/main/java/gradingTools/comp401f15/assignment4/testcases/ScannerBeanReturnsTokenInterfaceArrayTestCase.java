@@ -6,13 +6,13 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
+import static gradingTools.comp401f15.assignment2.testcases.BasicTokenDefinitions.buildGroup;
+import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
+import static gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions.extendedTokens;
+import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
+import static gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions.baseCommandTokens;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +24,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
 
     String[] scannerDescriptions = {null, "ScannerBean", ".*Bean.*", ".*Bean.*"};
     
-    private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
+    /*private static final String[][] tokenDescriptions = new String[][]{{null, "End", ".*End.*", ".*End.*"},
                                                                        {null, "Minus", ".*Minus.*", ".*Minus.*"},
                                                                        {null, "Number", ".*Number.*", ".*Number.*"},
                                                                        {null, "Plus", ".*Plus.*", ".*Plus.*"},
@@ -43,11 +43,14 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                                                                        {null, "sleep", ".*sleep.*", ".*sleep.*"},
                                                                        {null, "thread", ".*thread.*", ".*thread.*"},
                                                                        {null, "undo", ".*undo.*", ".*undo.*"},
-                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
+                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};*/
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+        ExtendedTokenDefinitions.findTokens(project);
+        CommandTokenDefinitions.findTokens(project);
+        
+        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
@@ -78,7 +81,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                     }
                     Class retType = m.getReturnType();
                     if (retType.isArray()) {
-                        if(retType.equals(Array.newInstance(tokenInterface, 0).getClass())) {
+                        if(retType.getComponentType().equals(tokenInterface)) {
                             getTokensMethod = m;
                         }
                     }
@@ -97,7 +100,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                     return partialPass(0.1, "getTokens method does not return an array");
                 }
             }
-            if(!returnType.equals(Array.newInstance(tokenInterface, 0).getClass())) {
+            if(!returnType.getComponentType().equals(tokenInterface)) {
                 if (getTokensNamedWrong) {
                     return partialPass(0.25, "getTokens method does not return common token interface type array and is named incorrectly");
                 } else {
@@ -116,70 +119,4 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
     public ScannerBeanReturnsTokenInterfaceArrayTestCase() {
         super("Scanner Bean Returns Token Inteface Array Test Case");
     }
-//    public static List<Class> getAllInterfaces(Class aClass) {
-//    	List<Class> retVal = new ArrayList();
-//    	while (aClass != null) {
-//    	   retVal.addAll(Arrays.asList(aClass.getInterfaces()));
-//    	   aClass = aClass.getSuperclass();
-//    	}
-//    	return retVal;
-//    	
-//    }
-    
-//    private static Class getCommonInterface(Project project) {
-//        List<Class> interfaces = new ArrayList<>(5);
-//        for(String[] classDescriptions : tokenDescriptions) {
-//            Class aClass = IntrospectionUtil.findClass(project, 
-//                            classDescriptions[0],
-//                            classDescriptions[1],
-//                            classDescriptions[2],
-//                            classDescriptions[3]);
-//            if (aClass == null) 
-//            	continue;
-//            	
-//            Class[] tokenInterfaces = aClass.getInterfaces();
-//            if(tokenInterfaces.length == 0) {
-//                return null;
-//            } else {
-//                if (interfaces.isEmpty()) {
-//                    interfaces.addAll(Arrays.asList(tokenInterfaces));
-//                } else {
-//                    interfaces.retainAll(Arrays.asList(tokenInterfaces));
-//                }
-//            }
-//        }
-//        if (interfaces.size() != 1) {
-//            return null;
-//        } else {
-//            return interfaces.get(0);
-//        }
-//    }
-//    public static Class getCommonInterface(Project project, String[][] aClassDescriptions) {
-//        List<Class> interfaces = new ArrayList<>(5);
-//        for(String[] classDescriptions : aClassDescriptions) {
-//            Class aClass = IntrospectionUtil.findClass(project, 
-//                            classDescriptions[0],
-//                            classDescriptions[1],
-//                            classDescriptions[2],
-//                            classDescriptions[3]);
-//            if (aClass == null) 
-//            	continue;
-//            	
-//           List<Class> tokenInterfaces = IntrospectionUtil.getAllInterfaces(aClass);
-//            if(tokenInterfaces.size() == 0) {
-//                return null;
-//            } else {
-//                if (interfaces.isEmpty()) {
-//                    interfaces.addAll(tokenInterfaces);
-//                } else {
-//                    interfaces.retainAll(tokenInterfaces);
-//                }
-//            }
-//        }
-//        if (interfaces.size() != 1) {
-//            return null;
-//        } else {
-//            return interfaces.get(0);
-//        }
-//    }
 }

@@ -15,7 +15,7 @@ import java.util.HashSet;
 public class UniqueCommandClassesTestCase extends BasicTestCase {
     
     private static final int CLASS_COUNT = 13;
-    private static final String[][] tokenDescriptions = new String[][]{{null, "call", ".*call.*", ".*call.*"},
+    /*private static final String[][] tokenDescriptions = new String[][]{{null, "call", ".*call.*", ".*call.*"},
                                                                        {null, "define", ".*define.*", ".*define.*"},
                                                                        {null, "move", ".*move.*", ".*move.*"},
                                                                        {null, "proceedAll", ".*proceedAll.*", ".*proceedAll.*"},
@@ -27,7 +27,7 @@ public class UniqueCommandClassesTestCase extends BasicTestCase {
                                                                        {null, "sleep", ".*sleep.*", ".*sleep.*"},
                                                                        {null, "thread", ".*thread.*", ".*thread.*"},
                                                                        {null, "undo", ".*undo.*", ".*undo.*"},
-                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
+                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};*/
 
     public UniqueCommandClassesTestCase() {
         super("Unique Class Per Command Token Test Case");
@@ -38,7 +38,7 @@ public class UniqueCommandClassesTestCase extends BasicTestCase {
         HashSet<Class> classesFound = new HashSet<>(13);
         HashSet<Class> classesUnique = new HashSet<>(13);
         
-        for(String[] description : tokenDescriptions) {
+        for(String[] description : CommandTokenDefinitions.baseCommandTokens()) {
             Class clazz = IntrospectionUtil.findClass(project, 
                                                     description[0],
                                                     description[1],

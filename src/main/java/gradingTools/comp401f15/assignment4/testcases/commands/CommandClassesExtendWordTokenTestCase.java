@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
+import static gradingTools.comp401f15.assignment2.testcases.BasicTokenDefinitions.wordTokenDescription;
 import java.util.HashSet;
 
 /**
@@ -15,8 +16,8 @@ import java.util.HashSet;
 public class CommandClassesExtendWordTokenTestCase extends BasicTestCase {
     
     private static final int CLASS_COUNT = 13;
-    private static final String[] wordTokenDescription = new String[] {null, "Word", ".*Word.*", ".*Word.*"};
-    private static final String[][] tokenDescriptions = new String[][]{{null, "call", ".*call.*", ".*call.*"},
+    //private static final String[] wordTokenDescription = new String[] {null, "Word", ".*Word.*", ".*Word.*"};
+    /*private static final String[][] tokenDescriptions = new String[][]{{null, "call", ".*call.*", ".*call.*"},
                                                                        {null, "define", ".*define.*", ".*define.*"},
                                                                        {null, "move", ".*move.*", ".*move.*"},
                                                                        {null, "proceedAll", ".*proceedAll.*", ".*proceedAll.*"},
@@ -28,7 +29,7 @@ public class CommandClassesExtendWordTokenTestCase extends BasicTestCase {
                                                                        {null, "sleep", ".*sleep.*", ".*sleep.*"},
                                                                        {null, "thread", ".*thread.*", ".*thread.*"},
                                                                        {null, "undo", ".*undo.*", ".*undo.*"},
-                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};
+                                                                       {null, "wait", ".*wait.*", ".*wait.*"}};*/
 
     public CommandClassesExtendWordTokenTestCase() {
         super("Command Classes Extend Word Token Test Case");
@@ -43,7 +44,7 @@ public class CommandClassesExtendWordTokenTestCase extends BasicTestCase {
                                                     wordTokenDescription[2],
                                                     wordTokenDescription[3]);
         
-        for(String[] description : tokenDescriptions) {
+        for(String[] description : CommandTokenDefinitions.baseCommandTokens()) {
             Class clazz = IntrospectionUtil.findClass(project, 
                                                     description[0],
                                                     description[1],

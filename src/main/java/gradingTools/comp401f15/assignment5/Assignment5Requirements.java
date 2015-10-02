@@ -1,4 +1,4 @@
-package gradingTools.comp401f15.assignment4;
+package gradingTools.comp401f15.assignment5;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
@@ -41,9 +41,9 @@ import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 
 
-public class Assignment4Requirements extends FrameworkProjectRequirements {
+public class Assignment5Requirements extends FrameworkProjectRequirements {
 
-    public Assignment4Requirements() {
+    public Assignment5Requirements() {
     	addDueDate("09/16/2015 23:59:00", 1.05);
     	addDueDate("09/18/2015 23:59:00", 1);
     	addDueDate("09/23/2015 23:59:00", 0.9);
