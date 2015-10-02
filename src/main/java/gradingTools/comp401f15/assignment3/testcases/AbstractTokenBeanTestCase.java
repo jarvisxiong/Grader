@@ -54,8 +54,9 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
         	Boolean missingClass = (Boolean) retVal.get(ExecutionUtil.MISSING_CLASS);
         	double penalty = 0.0;
         	String aMessage = "";
-        	
-        	
+        	// clear existing value
+    		getCheckable().getRequirements().putUserObject(classIdentifier(), null);
+
         	Boolean missingNullConstructor = null;
         	if (missingClass != null) {
         		return fail ("Class matching:" + Common.toString(beanDescriptions()) + " not found");

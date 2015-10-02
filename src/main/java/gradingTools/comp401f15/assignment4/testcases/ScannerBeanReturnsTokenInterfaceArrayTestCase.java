@@ -49,7 +49,9 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         ExtendedTokenDefinitions.findTokens(project);
         CommandTokenDefinitions.findTokens(project);
-        
+        // clear previous project data
+        getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, null);
+
         Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
