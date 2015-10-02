@@ -1,0 +1,538 @@
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Number Token Bean Case
+Finding class matching:null, Number, .*Number.*, .*Number.*
+Finding constructor matching:class java.lang.String
+calling method: public main.NumberToken(java.lang.String) 006500
+called method: public main.NumberToken(java.lang.String) 006500
+calling method: public void main.NumberToken.setInput(java.lang.String) with args 006500
+called method: public void main.NumberToken.setInput(java.lang.String) with args:006500 result:null
+calling method: public int main.NumberToken.getValue() with args 
+called method: public int main.NumberToken.getValue() with args: result:6500
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Word Token Bean Case
+Finding class matching:null, Word, .*Word.*, .*Word.*
+Finding constructor matching:class java.lang.String
+calling method: public main.WordToken(java.lang.String) MixedCamelCase
+called method: public main.WordToken(java.lang.String) MixedCamelCase
+calling method: public void main.WordToken.setInput(java.lang.String) with args MixedCamelCase
+called method: public void main.WordToken.setInput(java.lang.String) with args:MixedCamelCase result:null
+calling method: public java.lang.String main.WordToken.getValue() with args 
+called method: public java.lang.String main.WordToken.getValue() with args: result:mixedcamelcase
+*****************************(Single Property Token Beans)*****************************
+Testcase:Quote Token Bean Case
+Finding class matching:null, Quote, .*Quote.*, .*Quote.*
+Finding constructor matching:class java.lang.String
+calling method: public main.QuoteToken(java.lang.String) This is a Quote
+called method: public main.QuoteToken(java.lang.String) This is a Quote
+calling method: public void main.QuoteToken.setInput(java.lang.String) with args This is a Quote
+called method: public void main.QuoteToken.setInput(java.lang.String) with args:This is a Quote result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:Start Token Bean Case
+Finding class matching:null, Start, .*Start.*, .*Start.*
+Finding constructor matching:class java.lang.String
+calling method: public main.StartToken(java.lang.String) {
+called method: public main.StartToken(java.lang.String) {
+calling method: public void main.StartToken.setInput(java.lang.String) with args {
+called method: public void main.StartToken.setInput(java.lang.String) with args:{ result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:End
+Finding class matching:null, End, .*End.*, .*End.*
+Finding constructor matching:class java.lang.String
+calling method: public main.EndToken(java.lang.String) End
+called method: public main.EndToken(java.lang.String) End
+calling method: public void main.EndToken.setInput(java.lang.String) with args End
+called method: public void main.EndToken.setInput(java.lang.String) with args:End result:null
+*****************************(Command Classes Implemented)*****************************
+Testcase:Call Command Bean Case
+Finding class matching:null, call, .*call.*, .*call.*
+No class matching: null, call, .*call.*, .*call.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Define Command Bean Case
+Finding class matching:null, define, .*define.*, .*define.*
+No class matching: null, define, .*define.*, .*define.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Move Command Bean Case
+Finding class matching:null, move, .*move.*, .*move.*
+No class matching: null, move, .*move.*, .*move.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Proceed All Command Bean Case
+Finding class matching:null, proceedAll, .*proceedAll.*, .*proceedAll.*
+No class matching: null, proceedAll, .*proceedAll.*, .*proceedAll.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Redo Command Bean Case
+Finding class matching:null, redo, .*redo.*, .*redo.*
+No class matching: null, redo, .*redo.*, .*redo.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Repeat Command Bean Case
+Finding class matching:null, repeat, .*repeat.*, .*repeat.*
+No class matching: null, repeat, .*repeat.*, .*repeat.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Left Arm Command Bean Case
+Finding class matching:null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.*
+No class matching: null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Right Arm Command Bean Case
+Finding class matching:null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.*
+No class matching: null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Say Command Bean Case
+Finding class matching:null, say, .*say.*, .*say.*
+No class matching: null, say, .*say.*, .*say.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Sleep Command Bean Case
+Finding class matching:null, sleep, .*sleep.*, .*sleep.*
+No class matching: null, sleep, .*sleep.*, .*sleep.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Thread Command Bean Case
+Finding class matching:null, thread, .*thread.*, .*thread.*
+No class matching: null, thread, .*thread.*, .*thread.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Undo Command Bean Case
+Finding class matching:null, undo, .*undo.*, .*undo.*
+No class matching: null, undo, .*undo.*, .*undo.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Wait Command Bean Case
+Finding class matching:null, wait, .*wait.*, .*wait.*
+No class matching: null, wait, .*wait.*, .*wait.*
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args call 
+main.WordToken@7adaa227
+call
+call
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:call  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args call
+main.WordToken@5f1e5961
+call
+call
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:call result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args define 
+main.WordToken@6967061
+define
+define
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:define  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args define
+main.WordToken@214c7d8f
+define
+define
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:define result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args move 
+main.WordToken@ea8281b
+move
+move
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:move  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args move
+main.WordToken@2350adfe
+move
+move
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:move result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args proceedAll 
+main.WordToken@1670c48d
+proceedAll
+proceedall
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:proceedAll  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args proceedAll
+main.WordToken@549263c9
+proceedAll
+proceedall
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:proceedAll result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args redo 
+main.WordToken@1b3571b0
+redo
+redo
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:redo  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args redo
+main.WordToken@3dac1075
+redo
+redo
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:redo result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args repeat 
+main.WordToken@2d68ffe1
+repeat
+repeat
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:repeat  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args repeat
+main.WordToken@6a235dae
+repeat
+repeat
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:repeat result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateLeftArm 
+main.WordToken@5a2b09ab
+rotateLeftArm
+rotateleftarm
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateLeftArm
+main.WordToken@7d99523
+rotateLeftArm
+rotateleftarm
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateLeftArm result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateRightArm 
+main.WordToken@6d24e5ce
+rotateRightArm
+rotaterightarm
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateRightArm  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args rotateRightArm
+main.WordToken@538dc148
+rotateRightArm
+rotaterightarm
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:rotateRightArm result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args say 
+main.WordToken@3d606726
+say
+say
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:say  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args say
+main.WordToken@47d0e322
+say
+say
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:say result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args sleep 
+main.WordToken@73c00bae
+sleep
+sleep
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:sleep  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args sleep
+main.WordToken@4e7a031f
+sleep
+sleep
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:sleep result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args thread 
+main.WordToken@709d04a1
+thread
+thread
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:thread  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args thread
+main.WordToken@30142063
+thread
+thread
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:thread result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args undo 
+main.WordToken@43fad0b4
+undo
+undo
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:undo  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args undo
+main.WordToken@5d06512f
+undo
+undo
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:undo result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args wait 
+main.WordToken@45a6ee22
+wait
+wait
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:wait  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.AScannerBean() 
+called method: public main.AScannerBean() 
+calling method: public void main.AScannerBean.setScannedString(java.lang.String) with args wait
+main.WordToken@54a0c9cd
+wait
+wait
+called method: public void main.AScannerBean.setScannedString(java.lang.String) with args:wait result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:main.AScannerBean.<init>(java.lang.String)

@@ -2,8 +2,25 @@ package gradingTools.comp401f15.assignment4;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.EndTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberComputationTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.NumberTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.QuoteTokenBeanTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
+import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.CommonTokenInterfaceNotTTestCase;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.ScannerHasErrorPropertyTestCase;
@@ -48,6 +65,18 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/18/2015 23:59:00", 1);
     	addDueDate("09/23/2015 23:59:00", 0.9);
     	addDueDate("09/25/2015 23:59:00", 0.75);
+    	// 0 points for previous assignments data
+    	addFeature("Multi Property Token Beans", 0,
+    			new NumberTokenBeanTestCase(),
+    			new WordTokenBeanTestCase()
+    			);
+    	
+    	addFeature("Single Property Token Beans", 0,
+    			new QuoteTokenBeanTestCase(),
+    			new StartTokenBeanTestCase(),
+    			new EndTokenBeanTestCase()
+    			);
+    	
         
         //Do the command tokens exist and do word stuff
     	addFeature("Command Classes Implemented", 15,
