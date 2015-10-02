@@ -9,6 +9,8 @@ import gradingTools.comp110f15.assignment2.testcases.AEGK;
 import gradingTools.comp110f15.assignment2.testcases.AHJK;
 import gradingTools.comp110f15.assignment2.testcases.AttemptNumberTest;
 import gradingTools.comp110f15.assignment2.testcases.GameOverTest;
+import gradingTools.comp110f15.assignment2.testcases.IntegerAfterKTest;
+import gradingTools.comp110f15.assignment2.testcases.LoopedTest;
 
 public class Assignment2Requirements extends FrameworkProjectRequirements {
 	public Assignment2Requirements() {
@@ -23,5 +25,7 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		addFeature("AHJK Path",10,new AHJK());
 		addFeature("Attempt Number", 5, new AttemptNumberTest());
 		addFeature("GameOverTest", 5, new GameOverTest());
+		addFeature("LoopedTest", 10, new LoopedTest());
+		addFeature("IntegerAfterKTest", 5, new IntegerAfterKTest());
 	}
 }
