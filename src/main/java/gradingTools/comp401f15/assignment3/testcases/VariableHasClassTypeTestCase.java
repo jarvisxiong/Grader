@@ -12,6 +12,9 @@ public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 	public VariableHasClassTypeTestCase(String aMessage) {
 		super(aMessage);
 	}
+	public VariableHasClassTypeTestCase() {
+		super("variable has class type");
+	}
 	public static final String WARNING_NAME = "variableHasClassType";
 	@Override
 	public String regexLineFilter() {

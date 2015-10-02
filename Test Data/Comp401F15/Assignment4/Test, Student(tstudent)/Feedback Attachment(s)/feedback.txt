@@ -3,8 +3,9 @@ Grading result for: Test, Student(tstudent)
 Grading features...
 ----------------------------------
 Command Classes Implemented                            0.0 / 15.0
-Scanner bean returns token array                       0.0 / 10.0
-Scanner Makes Command Tokens                           0.0 / 20.0
+Scanner bean returns token array                       0.0 /  5.0
+Scanner Makes Command Tokens                           0.0 / 17.0
+Multiple scanner Sets check                            0.0 /  8.0
 Class has interface check                              4.5 /  5.0
 Variable has class type                                5.0 /  5.0
 Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
@@ -64,6 +65,9 @@ Scanner Makes Command Tokens:
   -- Scanner does not return token array
   -- Scanner does not return token array
   -- Scanner does not return token array
+
+Multiple scanner Sets check:
+  -- Pass 0: Scanner returned incorrect tokensPass 1: Scanner returned incorrect tokensPass 2: Scanner returned incorrect tokensPass 3: Scanner returned incorrect tokens
 
 Class has interface check:
   -- Class has no interface: Assignment3

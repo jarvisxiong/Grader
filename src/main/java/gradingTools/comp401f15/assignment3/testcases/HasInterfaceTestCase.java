@@ -22,6 +22,9 @@ public class HasInterfaceTestCase extends BasicTestCase {
     public HasInterfaceTestCase(String name) {
         super(name);
     }
+    public HasInterfaceTestCase() {
+    	super("Has interface");
+    }
     
     public boolean hasInstanceMethod (Class aClass) {
     	Method[] aMethods = aClass.getDeclaredMethods();

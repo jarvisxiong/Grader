@@ -26,12 +26,14 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
     String[] scannerTestValues = new String[]{"define greet { say \"Hello\" } ",
                                               "rotateRightArm Galahad 6 ",
                                               "repeat call greet 2 ",
-                                              "thread { rotatRightArm Robin -9 }"};
+                                              "thread { rotatRightArm Robin 9 }"};
     
     String[] scannerTestExpectedTags = new String[]{"define Word Start say Quote End",
                                                     "rotateRightArm Word Number",
                                                     "repeat call Word Number",
-                                                    "thread Begin rotatRightArm Word Minus Number End"};
+//                                                    "thread Begin rotatRightArm Word Minus Number End"};
+    												"thread Start rotateRightArm Word Number End"};
+
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -60,7 +62,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
         Method tokenMethod = (Method)getCheckable().getRequirements().getUserObject(TOKEN_METHOD);
         Method stringSetterMethod;
         try {
-            stringSetterMethod = scannerClass.getMethod("getScannedString", String.class);
+            stringSetterMethod = scannerClass.getMethod("setScannedString", String.class);
         } catch (NoSuchMethodException | SecurityException ex) {
             stringSetterMethod = null;
         }
@@ -90,9 +92,11 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
                 
                 if (tokens.length == expected.length) {
                     for(int j = 0; j < tokens.length; j ++) {
-                        if(!tokenClassMap.containsKey(expected[j]) || !tokenClassMap.get(expected[j]).isInstance(tokens[j])) {
-                            tests[i] = 0;
-                            break;
+                        if(!tokenClassMap.containsKey(expected[j]) || 
+                        		!tokenClassMap.get(expected[j]).isInstance(tokens[j])) {
+//                            tests[i] = 0;
+//                            break;
+                            continue;
                         }
                     }
                 } else if (i > 0) {
@@ -134,7 +138,8 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
         for(int test : tests) {
             sum += test;
         }
-        
+//        if (sum == 12) {
+
         if (sum == 16) {
             return pass();
         } else {
@@ -143,7 +148,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
             if (sum <= 0) {
                 return fail(message);
             } else {
-                return partialPass(sum/16, message);
+                return partialPass( (sum/16.0), message);
             }
         }
     }

@@ -3,8 +3,9 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Command Classes Implemented                            15.0 / 15.0
-Scanner bean returns token array                       9.0 / 10.0
-Scanner Makes Command Tokens                           20.0 / 20.0
+Scanner bean returns token array                       4.5 /  5.0
+Scanner Makes Command Tokens                           17.0 / 17.0
+Multiple scanner Sets check                            8.0 /  8.0
 Class has interface check                              4.7 /  5.0
 Variable has class type                                5.0 /  5.0
 Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
@@ -14,7 +15,7 @@ Rotating fixed line                                    4.5 /  6.0 (Extra credit)
 Rotating moving line                                   5.0 /  5.0 (Extra credit)
 Object Editor rotating, moving line                    0.0 / 24.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 64.7
+  Points Awarded: 65.2
 
 Grading restrictions...
 ----------------------------------
@@ -28,7 +29,7 @@ Interactive Run                             -5.0 /  -5.0
 ----------------------------------
   Points Deducted: -5.0
 
-  Features Score: 59.7
+  Features Score: 60.2
 
 Notes from grading features:
 ----------------------------------

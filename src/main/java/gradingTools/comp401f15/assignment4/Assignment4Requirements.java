@@ -22,6 +22,7 @@ import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.CommonTokenInterfaceNotTTestCase;
+import gradingTools.comp401f15.assignment4.testcases.MultiRunScannerBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.ScannerHasErrorPropertyTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.created.CallCommandCreatedTestCase;
@@ -101,9 +102,9 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
 //        addFeature("Command Tokens Extend Word Token", 30, new CommandClassesExtendWordTokenTestCase());
 
         // uses array (or they make an array to return, but checkstyle should catch that)
-        addFeature("Scanner bean returns token array", 10, new ScannerBeanReturnsTokenInterfaceArrayTestCase());
+        addFeature("Scanner bean returns token array", 5, new ScannerBeanReturnsTokenInterfaceArrayTestCase());
         //Correct output from scanner
-        addFeature("Scanner Makes Command Tokens", 20,
+        addFeature("Scanner Makes Command Tokens", 17,
     			new CallCommandCreatedTestCase(),
     			new DefineCommandCreatedTestCase(),
     			new MoveCommandCreatedTestCase(),
@@ -119,9 +120,10 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     			new WaitCommandCreatedTestCase()
     			);
         
-        
-    	addFeature("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
-    	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+    	addFeature("Multiple scanner Sets check", 8, new MultiRunScannerBeanTestCase());
+
+    	addFeature("Class has interface check", 5, new HasInterfaceTestCase());
+    	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase());
 
         addManualFeature("Scanner object displays properly in ObjectEditor and tests for every token type", 15);
         
