@@ -6,6 +6,7 @@ import gradingTools.comp110f15.assignment2.testcases.ABCK;
 import gradingTools.comp110f15.assignment2.testcases.ABDK;
 import gradingTools.comp110f15.assignment2.testcases.AEFK;
 import gradingTools.comp110f15.assignment2.testcases.AEGK;
+import gradingTools.comp110f15.assignment2.testcases.AHIIII;
 import gradingTools.comp110f15.assignment2.testcases.AHJK;
 import gradingTools.comp110f15.assignment2.testcases.AttemptNumberTest;
 import gradingTools.comp110f15.assignment2.testcases.GameOverTest;
@@ -27,5 +28,6 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 		addFeature("GameOverTest", 5, new GameOverTest());
 		addFeature("LoopedTest", 10, new LoopedTest());
 		addFeature("IntegerAfterKTest", 5, new IntegerAfterKTest());
+		addFeature("AHIIII... Path",15,new AHIIII());
 	}
 }
