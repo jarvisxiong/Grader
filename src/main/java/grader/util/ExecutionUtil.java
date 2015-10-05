@@ -47,7 +47,7 @@ public class ExecutionUtil {
 	public static final String CLASS_MATCHED = "Status.ClassMatched";
 	
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
-	public static final int METHOD_ITME_OUT = 2000;
+	public static final int METHOD_TIME_OUT = 2000;
 
 
 	public static Object timedInvoke(Object anObject, Method aMethod,
@@ -261,7 +261,7 @@ public class ExecutionUtil {
 					continue;
 				}
 				Object aValue = anInputs.get(aPropertyName);
-				timedInvoke(anObject, aWriteMethod, new Object[]{aValue}, METHOD_ITME_OUT);
+				timedInvoke(anObject, aWriteMethod, new Object[]{aValue}, METHOD_TIME_OUT);
 			}
 			for (String anOutputPropertyName:anOutputProperties) {
 				if (anOutputPropertyName == null)
@@ -279,7 +279,7 @@ public class ExecutionUtil {
 					anActualOutputs.put(MISSING_READ +"." + anOutputPropertyName, true);
 					continue;
 				}
-				Object result = timedInvoke(anObject, aReadMethod, emptyArgs, METHOD_ITME_OUT);
+				Object result = timedInvoke(anObject, aReadMethod, emptyArgs, METHOD_TIME_OUT);
 				anActualOutputs.put(anOutputPropertyName, result);				
 			}
 		}
