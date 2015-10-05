@@ -39,7 +39,7 @@ public class SystemExitTestCase extends BasicTestCase {
                 code = CodeTools.removeComments(code);
                 // Fail if we find a System.exit
                 if (code.contains("System.exit("))
-                    return fail("Object editor refresh() call found in " + description.getJavaClass().getSimpleName(), autoGrade);
+                    return fail("System.exut() found in " + description.getJavaClass().getSimpleName(), autoGrade);
             } catch (IOException e) {}
         }
         return pass(autoGrade);

@@ -87,7 +87,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
                 String testing = scannerTestValues[i];
                 String[] expected = scannerTestExpectedTags[i].split(" ");
                 Object[] args = {testing};
-                ExecutionUtil.timedInvoke(scanner, stringSetterMethod, args);
+                ExecutionUtil.timedInvoke(scanner, stringSetterMethod, testing);
 //                stringSetterMethod.invoke(scanner, testing);
                 Object[] tokens = (Object[]) tokenMethod.invoke(scanner);
                 Map<String, Class> tokenClassMap = new HashMap<>();

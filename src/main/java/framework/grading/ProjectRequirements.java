@@ -10,6 +10,7 @@ import grader.permissions.Permissible;
 import org.joda.time.DateTime;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,8 +56,10 @@ public interface ProjectRequirements extends Permissible{
     public List<CheckResult> checkRestrictions(Project project);
 
     public double checkDueDate(DateTime dateTime);
+    
 
 	Object getUserObject(Object aKey);
+	Map<Object, Object> getUserData();
 
 	void putUserObject(Object aKey, Object aValue);
 	Feature getInteractiveRunFeature();

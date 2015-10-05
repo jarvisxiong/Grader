@@ -51,7 +51,7 @@ public class ExecutionUtil {
 
 
 	public static Object timedInvoke(Object anObject, Method aMethod,
-			Object[] anArgs, long aMillSeconds) {
+			long aMillSeconds, Object... anArgs) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
@@ -70,8 +70,8 @@ public class ExecutionUtil {
 
 	}
 	public static Object timedInvoke(Object anObject, Method aMethod,
-			Object[] anArgs) {
-		return timedInvoke(anObject, aMethod, anArgs, METHOD_TIME_OUT);
+			Object... anArgs) {
+		return timedInvoke(anObject, aMethod, METHOD_TIME_OUT, anArgs);
 
 	}
 	public static Object timedInvoke(Constructor aMethod,
@@ -266,7 +266,7 @@ public class ExecutionUtil {
 					continue;
 				}
 				Object aValue = anInputs.get(aPropertyName);
-				timedInvoke(anObject, aWriteMethod, new Object[]{aValue}, METHOD_TIME_OUT);
+				timedInvoke(anObject, aWriteMethod, METHOD_TIME_OUT, new Object[]{aValue});
 			}
 			for (String anOutputPropertyName:anOutputProperties) {
 				if (anOutputPropertyName == null)
@@ -284,7 +284,7 @@ public class ExecutionUtil {
 					anActualOutputs.put(MISSING_READ +"." + anOutputPropertyName, true);
 					continue;
 				}
-				Object result = timedInvoke(anObject, aReadMethod, emptyArgs, METHOD_TIME_OUT);
+				Object result = timedInvoke(anObject, aReadMethod, METHOD_TIME_OUT, emptyArgs);
 				anActualOutputs.put(anOutputPropertyName, result);				
 			}
 		}

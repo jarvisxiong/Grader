@@ -228,4 +228,9 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 		return null;
 	}
 
+	@Override
+	public Map<Object, Object> getUserData() {
+		return userData;
+	}
+
 }
