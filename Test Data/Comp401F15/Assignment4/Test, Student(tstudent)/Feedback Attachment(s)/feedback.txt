@@ -1,0 +1,105 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Command Classes Implemented                            0.0 / 15.0
+Scanner bean returns token array                       0.0 /  5.0
+Scanner Makes Command Tokens                           0.0 / 17.0
+Multiple scanner Sets check                            0.0 /  8.0
+Class has interface check                              4.5 /  5.0
+Variable has class type                                5.0 /  5.0
+Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
+Scanner has error property                             0.0 /  5.0 (Extra credit)
+Scanner displays errors correctly                      0.0 /  5.0 (Extra credit)
+Rotating fixed line                                    0.0 /  6.0 (Extra credit)
+Rotating moving line                                   0.0 /  5.0 (Extra credit)
+Object Editor rotating, moving line                    0.0 / 24.0 (Extra credit)
+----------------------------------
+  Points Awarded: 9.5
+
+Grading restrictions...
+----------------------------------
+Multi Property Token Beans                             0.0 /  0.0
+Single Property Token Beans                            0.0 /  0.0
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              -39.0 /  -39.0
+Common token interface not T                0.0 /  -5.0
+Interactive Run                             -5.0 /  -5.0
+----------------------------------
+  Points Deducted: -44.0
+
+  Features Score: -34.5
+
+Notes from grading features:
+----------------------------------
+Command Classes Implemented:
+  -- Class matching:null, call, .*call.*, .*call.* not found
+  -- Class matching:null, define, .*define.*, .*define.* not found
+  -- Class matching:null, move, .*move.*, .*move.* not found
+  -- Class matching:null, proceedAll, .*proceedAll.*, .*proceedAll.* not found
+  -- Class matching:null, redo, .*redo.*, .*redo.* not found
+  -- Class matching:null, repeat, .*repeat.*, .*repeat.* not found
+  -- Class matching:null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.* not found
+  -- Class matching:null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.* not found
+  -- Class matching:null, say, .*say.*, .*say.* not found
+  -- Class matching:null, sleep, .*sleep.*, .*sleep.* not found
+  -- Class matching:null, thread, .*thread.*, .*thread.* not found
+  -- Class matching:null, undo, .*undo.*, .*undo.* not found
+  -- Class matching:null, wait, .*wait.*, .*wait.* not found
+
+Scanner bean returns token array:
+  -- No getTokens method or other method returning a token typed array
+
+Scanner Makes Command Tokens:
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+  -- Scanner does not return token array
+
+Multiple scanner Sets check:
+  -- Pass 0: Scanner returned incorrect tokensPass 1: Scanner returned incorrect tokensPass 2: Scanner returned incorrect tokensPass 3: Scanner returned incorrect tokens
+
+Class has interface check:
+  -- Class has no interface: Assignment3
+
+Scanner has error property:
+  -- No scanner error getter
+
+Rotating fixed line:
+  -- Cannot find rotating line class
+  -- Cannot find rotating line class
+
+Rotating moving line:
+  -- Cannot find rotating line class
+
+
+Notes from grading restrictions:
+----------------------------------
+Classes Tagged :
+  -- No class tagged: Call
+  -- No class tagged: Define
+  -- No class tagged: Move
+  -- No class tagged: ProceedAll
+  -- No class tagged: Redo
+  -- No class tagged: Repeat
+  -- No class tagged: RotateLeftArm
+  -- No class tagged: RotateRightArm
+  -- No class tagged: Say
+  -- No class tagged: Sleep
+  -- No class tagged: Thread
+  -- No class tagged: Undo
+  -- No class tagged: Wait
+
+
+Early benefit: 105.0%
+  Total Score: 0.0

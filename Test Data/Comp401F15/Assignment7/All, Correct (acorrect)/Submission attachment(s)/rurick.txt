@@ -1,0 +1,2 @@
+feature 1 30
+feature 2 20

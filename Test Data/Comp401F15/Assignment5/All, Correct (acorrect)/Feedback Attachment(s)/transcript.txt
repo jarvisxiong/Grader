@@ -1,47 +1,3 @@
-*****************************(Multi Property Token Beans)*****************************
-Testcase:Number Token Bean Case
-Finding class matching:null, Number, .*Number.*, .*Number.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.Number(java.lang.String) 006500
-called method: public mp.Number(java.lang.String) 006500
-calling method: public void mp.Number.setInput(java.lang.String) with args 006500
-called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
-calling method: public int mp.Number.getValue() with args 
-called method: public int mp.Number.getValue() with args: result:6500
-*****************************(Multi Property Token Beans)*****************************
-Testcase:Word Token Bean Case
-Finding class matching:null, Word, .*Word.*, .*Word.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.Word(java.lang.String) MixedCamelCase
-called method: public mp.Word(java.lang.String) MixedCamelCase
-calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
-called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
-calling method: public java.lang.String mp.Word.getValue() with args 
-called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
-*****************************(Single Property Token Beans)*****************************
-Testcase:Quote Token Bean Case
-Finding class matching:null, Quote, .*Quote.*, .*Quote.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.QuotedString(java.lang.String) This is a Quote
-called method: public mp.QuotedString(java.lang.String) This is a Quote
-calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
-called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
-*****************************(Single Property Token Beans)*****************************
-Testcase:Start Token Bean Case
-Finding class matching:null, Start, .*Start.*, .*Start.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.StartToken(java.lang.String) {
-called method: public mp.StartToken(java.lang.String) {
-calling method: public void mp.StartToken.setInput(java.lang.String) with args {
-called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
-*****************************(Single Property Token Beans)*****************************
-Testcase:End
-Finding class matching:null, End, .*End.*, .*End.*
-Finding constructor matching:class java.lang.String
-calling method: public mp.EndToken(java.lang.String) End
-called method: public mp.EndToken(java.lang.String) End
-calling method: public void mp.EndToken.setInput(java.lang.String) with args End
-called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
 *****************************(Command Classes Implemented)*****************************
 Testcase:Call Command Bean Case
 Finding class matching:null, call, .*call.*, .*call.*
@@ -181,7 +137,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args call 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:call  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@5c6dd4e5
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@434f4980
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Define Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -191,7 +147,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args define 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:define  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@52aa2118
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@4d88af99
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Move Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -201,7 +157,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args move 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:move  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@5695bf95
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@49b722f0
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Proceed All Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -211,7 +167,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args proceedAll 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:proceedAll  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@13972b23
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@cb5a5a2
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Redo Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -221,7 +177,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args redo 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:redo  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@216f0f48
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@350feefd
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Repeat Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -231,7 +187,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args repeat 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:repeat  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@224e589c
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@3df36ba2
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Rotate Left Arm Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -241,7 +197,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args rotateLeftArm 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@595c2257
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@4da37e4e
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Rotate Right Arm Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -251,7 +207,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args rotateRightArm 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:rotateRightArm  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@73b8d46c
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@6c9a5aed
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Say Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -261,7 +217,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args say 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:say  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@2a74801c
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@26283985
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Sleep Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -271,7 +227,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args sleep 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:sleep  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@7aaea776
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@a0e899
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Thread Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -281,7 +237,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args thread 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:thread  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@42586cee
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@56a7b7cd
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Undo Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -291,7 +247,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args undo 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:undo  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@77f6cb7d
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@68d4c2c6
 *****************************(Scanner Makes Command Tokens)*****************************
 Testcase:Wait Command Token Created Test Case
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
@@ -301,7 +257,7 @@ called method: public grail.BeanStringScanner4()
 calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args wait 
 called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:wait  result:null
 calling method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args 
-called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@798cc1ff
+called method: public mp.RawInput[] grail.BeanStringScanner4.getCompactTokenArray() with args: result:[Lmp.RawInput;@f573a48
 *****************************(Scanner has error property)*****************************
 Testcase:Scanner Has Error Property
 Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*

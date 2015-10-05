@@ -1,0 +1,334 @@
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Number Token Bean Case
+Finding class matching:null, Number, .*Number.*, .*Number.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Number(java.lang.String) 006500
+called method: public mp.Number(java.lang.String) 006500
+calling method: public void mp.Number.setInput(java.lang.String) with args 006500
+called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
+calling method: public int mp.Number.getValue() with args 
+called method: public int mp.Number.getValue() with args: result:6500
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Word Token Bean Case
+Finding class matching:null, Word, .*Word.*, .*Word.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Word(java.lang.String) MixedCamelCase
+called method: public mp.Word(java.lang.String) MixedCamelCase
+calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
+called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
+*****************************(Single Property Token Beans)*****************************
+Testcase:Quote Token Bean Case
+Finding class matching:null, Quote, .*Quote.*, .*Quote.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.QuotedString(java.lang.String) This is a Quote
+called method: public mp.QuotedString(java.lang.String) This is a Quote
+calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
+called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:Start Token Bean Case
+Finding class matching:null, Start, .*Start.*, .*Start.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.StartToken(java.lang.String) {
+called method: public mp.StartToken(java.lang.String) {
+calling method: public void mp.StartToken.setInput(java.lang.String) with args {
+called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:End
+Finding class matching:null, End, .*End.*, .*End.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.EndToken(java.lang.String) End
+called method: public mp.EndToken(java.lang.String) End
+calling method: public void mp.EndToken.setInput(java.lang.String) with args End
+called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
+*****************************(Command Classes Implemented)*****************************
+Testcase:Call Command Bean Case
+Finding class matching:null, call, .*call.*, .*call.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Call(java.lang.String) CAll
+called method: public mp.Call(java.lang.String) CAll
+calling method: public void mp.Word.setInput(java.lang.String) with args CAll
+called method: public void mp.Word.setInput(java.lang.String) with args:CAll result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:call
+*****************************(Command Classes Implemented)*****************************
+Testcase:Define Command Bean Case
+Finding class matching:null, define, .*define.*, .*define.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Define(java.lang.String) dEfInE
+called method: public mp.Define(java.lang.String) dEfInE
+calling method: public void mp.Word.setInput(java.lang.String) with args dEfInE
+called method: public void mp.Word.setInput(java.lang.String) with args:dEfInE result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:define
+*****************************(Command Classes Implemented)*****************************
+Testcase:Move Command Bean Case
+Finding class matching:null, move, .*move.*, .*move.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Move(java.lang.String) MoVe
+called method: public mp.Move(java.lang.String) MoVe
+calling method: public void mp.Word.setInput(java.lang.String) with args MoVe
+called method: public void mp.Word.setInput(java.lang.String) with args:MoVe result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:move
+*****************************(Command Classes Implemented)*****************************
+Testcase:Proceed All Command Bean Case
+Finding class matching:null, proceedAll, .*proceedAll.*, .*proceedAll.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.ProceedAll(java.lang.String) PROCEEDall
+called method: public mp.ProceedAll(java.lang.String) PROCEEDall
+calling method: public void mp.Word.setInput(java.lang.String) with args PROCEEDall
+called method: public void mp.Word.setInput(java.lang.String) with args:PROCEEDall result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:proceedall
+*****************************(Command Classes Implemented)*****************************
+Testcase:Redo Command Bean Case
+Finding class matching:null, redo, .*redo.*, .*redo.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Redo(java.lang.String) RedO
+called method: public mp.Redo(java.lang.String) RedO
+calling method: public void mp.Word.setInput(java.lang.String) with args RedO
+called method: public void mp.Word.setInput(java.lang.String) with args:RedO result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:redo
+*****************************(Command Classes Implemented)*****************************
+Testcase:Repeat Command Bean Case
+Finding class matching:null, repeat, .*repeat.*, .*repeat.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Repeat(java.lang.String) RePeAt
+called method: public mp.Repeat(java.lang.String) RePeAt
+calling method: public void mp.Word.setInput(java.lang.String) with args RePeAt
+called method: public void mp.Word.setInput(java.lang.String) with args:RePeAt result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:repeat
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Left Arm Command Bean Case
+Finding class matching:null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.RotateLeftArm(java.lang.String) rOtAtElEfTaRm
+called method: public mp.RotateLeftArm(java.lang.String) rOtAtElEfTaRm
+calling method: public void mp.Word.setInput(java.lang.String) with args rOtAtElEfTaRm
+called method: public void mp.Word.setInput(java.lang.String) with args:rOtAtElEfTaRm result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:rotateleftarm
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Right Arm Command Bean Case
+Finding class matching:null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.RotateRightArm(java.lang.String) rOtAtErIgHtArM
+called method: public mp.RotateRightArm(java.lang.String) rOtAtErIgHtArM
+calling method: public void mp.Word.setInput(java.lang.String) with args rOtAtErIgHtArM
+called method: public void mp.Word.setInput(java.lang.String) with args:rOtAtErIgHtArM result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:rotaterightarm
+*****************************(Command Classes Implemented)*****************************
+Testcase:Say Command Bean Case
+Finding class matching:null, say, .*say.*, .*say.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Say(java.lang.String) sAy
+called method: public mp.Say(java.lang.String) sAy
+calling method: public void mp.Word.setInput(java.lang.String) with args sAy
+called method: public void mp.Word.setInput(java.lang.String) with args:sAy result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:say
+*****************************(Command Classes Implemented)*****************************
+Testcase:Sleep Command Bean Case
+Finding class matching:null, sleep, .*sleep.*, .*sleep.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Sleep(java.lang.String) SLEEp
+called method: public mp.Sleep(java.lang.String) SLEEp
+calling method: public void mp.Word.setInput(java.lang.String) with args SLEEp
+called method: public void mp.Word.setInput(java.lang.String) with args:SLEEp result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:sleep
+*****************************(Command Classes Implemented)*****************************
+Testcase:Thread Command Bean Case
+Finding class matching:null, thread, .*thread.*, .*thread.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Thread(java.lang.String) tHReaD
+called method: public mp.Thread(java.lang.String) tHReaD
+calling method: public void mp.Word.setInput(java.lang.String) with args tHReaD
+called method: public void mp.Word.setInput(java.lang.String) with args:tHReaD result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:thread
+*****************************(Command Classes Implemented)*****************************
+Testcase:Undo Command Bean Case
+Finding class matching:null, undo, .*undo.*, .*undo.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Undo(java.lang.String) uNDo
+called method: public mp.Undo(java.lang.String) uNDo
+calling method: public void mp.Word.setInput(java.lang.String) with args uNDo
+called method: public void mp.Word.setInput(java.lang.String) with args:uNDo result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:undo
+*****************************(Command Classes Implemented)*****************************
+Testcase:Wait Command Bean Case
+Finding class matching:null, wait, .*wait.*, .*wait.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Wait(java.lang.String) WAIT
+called method: public mp.Wait(java.lang.String) WAIT
+calling method: public void mp.Word.setInput(java.lang.String) with args WAIT
+called method: public void mp.Word.setInput(java.lang.String) with args:WAIT result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:wait
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args call 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:call  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@648d21e8
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args define 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:define  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@28475d2c
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args move 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:move  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@610cdaac
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args proceedAll 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:proceedAll  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@26c8aff1
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args redo 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:redo  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@2b4748a1
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args repeat 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:repeat  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@397bded8
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args rotateLeftArm 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@3e25aae1
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args rotateRightArm 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:rotateRightArm  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@5df13df3
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args say 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:say  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@4ce274ac
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args sleep 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:sleep  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@2b08eef6
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args thread 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:thread  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@38693bd4
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args undo 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:undo  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@6ca3878f
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args wait 
+called method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args:wait  result:null
+calling method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args 
+called method: public mp.RawInput[] grail.BeanStringScanner4.getTokens() with args: result:[Lmp.RawInput;@33bbc9a3
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2 7654 @@ "987 
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
+called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.BeanStringScanner4.<init>(java.lang.String)
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner4() 
+called method: public grail.BeanStringScanner4() 
+calling method: public void grail.BeanStringScanner4.setScannedString(java.lang.String) with args { word @# 9+2 7654 @@ "987
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args 
+called method: public java.lang.String grail.BeanStringScanner4.getErrLog() with args: result:
+*****************************(Scanner has error property)*****************************
+Testcase:Scanner Has Error Property
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.BeanStringScanner4.<init>(java.lang.String)
