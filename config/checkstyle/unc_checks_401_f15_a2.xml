@@ -83,7 +83,7 @@
 		</module>
 		<module name="IllegalTypeImported">
 			<property name="legalPrefixes"
-				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayListjava.util.Vector, java.util.LinkedList, java.util.Iterator, java.util.NoSuchElementException" />
+				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayList, java.util.Vector, java.util.LinkedList, java.util.Iterator, java.util.NoSuchElementException" />
 		</module>
 		<module name="IllegalTypeDefined">
 			<property name="illegalTypeNames"
@@ -138,9 +138,9 @@
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
 		</module>
-		
 
-
+ 	<module name="InvalidPackageName">
+		</module>
 	</module>
 </module>
 

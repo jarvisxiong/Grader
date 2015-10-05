@@ -100,6 +100,10 @@
 		<module name="ExpectedSetters">
 			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
 		</module>
+			<module name="ExpectedSignatures">
+			<property name="expectedSignatures"
+				value="@Angle= @move:int;int->*| @scale:double->*, @Avatar= @move:int;int->* | @scale:double->*, @BridgeScene= @scroll:int->*" />
+		</module>
 
 		<module name="FunctionAssignsGlobal">
 			<property name="excludeMethodTags"
@@ -143,7 +147,8 @@
 			<property name="excludeProperties" value="this" />
 		</module>
 		
-
+ <module name="InvalidPackageName">
+		</module>
 
 	</module>
 </module>

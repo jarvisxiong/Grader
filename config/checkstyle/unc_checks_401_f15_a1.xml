@@ -142,7 +142,8 @@
 		</module>
 		<module name="MissingActualEditableProperty">
 		</module>
-
+ <module name="InvalidPackageName">
+		</module>
 
 
 	</module>
