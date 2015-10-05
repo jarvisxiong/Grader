@@ -5,10 +5,12 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
+import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
 import static gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase.TOKEN_METHOD;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -84,7 +86,9 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
             try {
                 String testing = scannerTestValues[i];
                 String[] expected = scannerTestExpectedTags[i].split(" ");
-                stringSetterMethod.invoke(scanner, testing);
+                Object[] args = {testing};
+                ExecutionUtil.timedInvoke(scanner, stringSetterMethod, args);
+//                stringSetterMethod.invoke(scanner, testing);
                 Object[] tokens = (Object[]) tokenMethod.invoke(scanner);
                 Map<String, Class> tokenClassMap = new HashMap<>();
                 tokenClassMap.putAll(ExtendedTokenDefinitions.extendedTokenClassMap);

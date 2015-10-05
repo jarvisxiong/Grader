@@ -69,6 +69,11 @@ public class ExecutionUtil {
 		}
 
 	}
+	public static Object timedInvoke(Object anObject, Method aMethod,
+			Object[] anArgs) {
+		return timedInvoke(anObject, aMethod, anArgs, METHOD_TIME_OUT);
+
+	}
 	public static Object timedInvoke(Constructor aMethod,
 			Object[] anArgs, long aMillSeconds) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
