@@ -1,6 +1,12 @@
 package gradingTools.comp401f15.assignment5;
 
 import framework.grading.FrameworkProjectRequirements;
+import framework.grading.testing.Restriction;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.MainClassTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
@@ -44,103 +50,29 @@ import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 public class Assignment5Requirements extends FrameworkProjectRequirements {
 
     public Assignment5Requirements() {
-    	addDueDate("09/16/2015 23:59:00", 1.05);
-    	addDueDate("09/18/2015 23:59:00", 1);
-    	addDueDate("09/23/2015 23:59:00", 0.9);
-    	addDueDate("09/25/2015 23:59:00", 0.75);
+    	addDueDate("09/23/2015 23:59:00", 1.05);
+    	addDueDate("09/25/2015 23:59:00", 1);
+    	addDueDate("09/30/2015 23:59:00", 0.9);
+    	addDueDate("10/02/2015 23:59:00", 0.75);
         
-        //Do the command tokens exist and do word stuff
-    	addFeature("Command Classes Implemented", 15,
-    			new CallCommandBeanTestCase(),
-    			new DefineCommandBeanTestCase(),
-    			new MoveCommandBeanTestCase(),
-    			new ProceedAllCommandBeanTestCase(),
-    			new RedoCommandBeanTestCase(),
-    			new RepeatCommandBeanTestCase(),
-    			new RotateLeftArmCommandBeanTestCase(),
-    			new RotateRightArmCommandBeanTestCase(),
-    			new SayCommandBeanTestCase(),
-    			new SleepCommandBeanTestCase(),
-    			new ThreadCommandBeanTestCase(),
-    			new UndoCommandBeanTestCase(),
-    			new WaitCommandBeanTestCase()
-    			);
-//        //Does each command has a unique class
-//        addFeature("Every Command Has Its Own Class", 10, new UniqueCommandClassesTestCase());
         
-//        //Do command tokens extend word
-//        addFeature("Command Tokens Extend Word Token", 30, new CommandClassesExtendWordTokenTestCase());
-
-        // uses array (or they make an array to return, but checkstyle should catch that)
-        addFeature("Scanner bean returns token array", 10, new ScannerBeanReturnsTokenInterfaceArrayTestCase());
-        //Correct output from scanner
-        addFeature("Scanner Makes Command Tokens", 20,
-    			new CallCommandCreatedTestCase(),
-    			new DefineCommandCreatedTestCase(),
-    			new MoveCommandCreatedTestCase(),
-    			new ProceedAllCommandCreatedTestCase(),
-    			new RedoCommandCreatedTestCase(),
-    			new RepeatCommandCreatedTestCase(),
-    			new RotateLeftArmCommandCreatedTestCase(),
-    			new RotateRightArmCommandCreatedTestCase(),
-    			new SayCommandCreatedTestCase(),
-    			new SleepCommandCreatedTestCase(),
-    			new ThreadCommandCreatedTestCase(),
-    			new UndoCommandCreatedTestCase(),
-    			new WaitCommandCreatedTestCase()
-    			);
         
         
     	addFeature("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
     	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
 
-        addManualFeature("Scanner object displays properly in ObjectEditor and tests for every token type", 15);
         
-        /*
-         * Interface stuff goes here. I think that is checkstyle, but I'm not sure what the case for that is
-         */
-        
-        // scanner error array
-    	addFeature("Scanner has error property", 5, true, new ScannerHasErrorPropertyTestCase());
-    	addManualFeature("Scanner displays errors correctly", 5, true);
-
-        // will do with warnings
-        
-//    	addFeature("Rotating line pattern", 2, true,
-//    			new RotatingLineStructurePatternTestCase()
-//    			);
-        addFeature("Rotating fixed line", 6, true,
-    				new RotatingLineDefinedTestCase(),
-
-                        new RotatingFixedLineMethodsTestCase() // add execution tests
-                        );
-        addFeature("Rotating moving line", 5, true,
-                        new RotatingMovingLineMethodsTestCase() // add execution tests
-                        );
-        
-        addManualFeature("Object Editor rotating, moving line", 24, true);
-        
-//        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
-        
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
-        addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
-        addRestriction("Classes Tagged ", 39, 
-        		new ClassDefinedTestCase("@Call"),
-        		new ClassDefinedTestCase("@Define"),
-        		new ClassDefinedTestCase("@Move"),
-        		new ClassDefinedTestCase("@ProceedAll"),
-        		new ClassDefinedTestCase("@Redo"),
-        		new ClassDefinedTestCase("@Repeat"),
-        		new ClassDefinedTestCase("@RotateLeftArm"),
-        		new ClassDefinedTestCase("@RotateRightArm"),
-        		new ClassDefinedTestCase("@Say"),
-        		new ClassDefinedTestCase("@Sleep"),
-        		new ClassDefinedTestCase("@Thread"),
-        		new ClassDefinedTestCase("@Undo"),
-        		new ClassDefinedTestCase("@Wait"));
-        addRestriction("Common token interface not T", 5, new CommonTokenInterfaceNotTTestCase());
+        addRestriction("Classes Tagged ", 9, 
+        		new ClassDefinedTestCase("@Angle"),
+        		new ClassDefinedTestCase("@Avatar"),
+        		new ClassDefinedTestCase("@BridgeScene")
+        	);
+        addRestriction(new Restriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case")));
+        addRestriction(new Restriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case")));
+        // TODO: Method/interface check
+        addRestriction(new Restriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case")));
 //        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.* | .*not in range.*", 0.3));
-        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range).*", ".*Assuming implicit pattern.*", 0.3));
+        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range).*", null, 0.3));
 
     }
 }
