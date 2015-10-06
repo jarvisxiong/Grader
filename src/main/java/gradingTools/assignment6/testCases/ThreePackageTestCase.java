@@ -30,7 +30,10 @@ public class ThreePackageTestCase extends BasicTestCase {
         Set<ClassDescription> descriptions = project.getClassesManager().get().getClassDescriptions();
         for (ClassDescription description : descriptions) {
             // Get the package
-            packages.add(description.getJavaClass().getPackage().getName());
+        	Class<?> clazz = description.getJavaClass();
+        	Package pkg = clazz.getPackage();
+        	String name = pkg.getName();
+            packages.add(name);
         }
 
         if (packages.size() >= 3)
