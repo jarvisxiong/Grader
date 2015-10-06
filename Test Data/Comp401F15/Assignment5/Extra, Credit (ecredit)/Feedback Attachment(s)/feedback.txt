@@ -2,28 +2,30 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
+Properties Defined                                     9.0 /  9.0
 Class has interface check                              4.7 /  5.0
 Variable has class type                                5.0 /  5.0
 ----------------------------------
-  Points Awarded: 9.7
+  Points Awarded: 18.7
 
 Grading restrictions...
 ----------------------------------
+Single main.Assignment                      0.0 /  -10.0
 Classes Tagged                              -9.0 /  -9.0
 No public variables.                        0.0 /  -5.0
-At least three packages.                    -5.0 /  -5.0
+At least three packages.                    0.0 /  -5.0
 No System.exit()                            0.0 /  -5.0
 Interactive Run                             -5.0 /  -5.0
 ----------------------------------
-  Points Deducted: -19.0
+  Points Deducted: -14.0
 
-  Features Score: -9.3
+  Features Score: 4.699999999999999
 
 Notes from grading features:
 ----------------------------------
 Class has interface check:
-  -- Class has no interface: BeanStringScanner
-Class has no interface: ExtBeanStringScanner
+  -- Class has no interface: ExtBeanStringScanner
+Class has no interface: BeanStringScanner
 
 
 Notes from grading restrictions:
@@ -35,4 +37,4 @@ Classes Tagged :
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 5.25
