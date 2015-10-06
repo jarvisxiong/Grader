@@ -23,6 +23,7 @@ public interface ClassDescription {
 	public long getSourceTime() ;
 	public void setSourceTime(long newVal);
 	public String getClassName();
+	public String getPackageName();
 	String[] getTags();
 	String getStructurePatternName();
 	String[] getPropertyNames();

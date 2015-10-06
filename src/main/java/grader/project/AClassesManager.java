@@ -33,7 +33,7 @@ public class AClassesManager implements ClassesManager {
     @Override
     public void setClassNameToDescription(
             Map<String, ClassDescription> classNameToDescription) {
-        classNameToDescription = classNameToDescription;
+        this.classNameToDescription = classNameToDescription;
     }
 
     /* (non-Javadoc)
@@ -50,7 +50,7 @@ public class AClassesManager implements ClassesManager {
     @Override
     public void setClassDescriptions(
             List<ClassDescription> classDescriptions) {
-        classDescriptions = classDescriptions;
+        this.classDescriptions = classDescriptions;
     }
 
     /* (non-Javadoc)
@@ -101,7 +101,7 @@ public class AClassesManager implements ClassesManager {
 		if (aTags == null)
 			return null;		
 		
-			Set<ClassDescription> aClassDescriptions = new HashSet();
+			Set<ClassDescription> aClassDescriptions = new HashSet<>();
 			aClassDescriptions.addAll(getClassDescriptions());
 			for (String aTag:aTags) {
 				Set<ClassDescription> aCurrentSet = tagToClassDescriptions(aTag);
@@ -138,7 +138,7 @@ public class AClassesManager implements ClassesManager {
      */
     @Override
     public Set<ClassDescription> tagsToClassDescriptions(String[] aTagList) {
-        Set<ClassDescription> retVal = new HashSet();
+        Set<ClassDescription> retVal = new HashSet<>();
         for (String tag : aTagList) {
             retVal.addAll(tagToClassDescriptions(tag));
         }
@@ -152,7 +152,7 @@ public class AClassesManager implements ClassesManager {
     public void putTag(String aTag, ClassDescription aClass) {
         Set<ClassDescription> classes = tagToDescription.get(aTag);
         if (classes == null) {
-            classes = new HashSet();
+            classes = new HashSet<>();
 
             // Added by Josh. The classes object is never added to the tagToDescription map
             tagToDescription.put(aTag, classes);
@@ -187,7 +187,7 @@ public class AClassesManager implements ClassesManager {
         String anActualProjectDirectory = aProjectDirectory;
         if (aSeparateSrcBin)
             anActualProjectDirectory += "/src";
-        List<ClassDescription> sources = new ArrayList(ESTIMATED_SOURCES_LENGTH);
+        List<ClassDescription> sources = new ArrayList<>(ESTIMATED_SOURCES_LENGTH);
         File projectFoider = new File(anActualProjectDirectory);
         makeClassDescriptions(projectFoider, projectFoider);
     }

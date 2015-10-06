@@ -3,10 +3,14 @@ package gradingTools.assignment6.testCases;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.project.ClassDescription;
+import grader.sakai.project.SakaiProject;
+import wrappers.framework.project.ProjectWrapper;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,17 +27,15 @@ public class ThreePackageTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotGradableException {
+    	SakaiProject sakaiProject = ((ProjectWrapper)project).getProject();
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
         Set<String> packages = new HashSet<String>();
-        Set<ClassDescription> descriptions = project.getClassesManager().get().getClassDescriptions();
+        List<ClassDescription> descriptions = sakaiProject.getClassesManager().getClassDescriptions();
         for (ClassDescription description : descriptions) {
             // Get the package
-        	Class<?> clazz = description.getJavaClass();
-        	Package pkg = clazz.getPackage();
-        	String name = pkg.getName();
-            packages.add(name);
+            packages.add(description.getPackageName());
         }
 
         if (packages.size() >= 3)
