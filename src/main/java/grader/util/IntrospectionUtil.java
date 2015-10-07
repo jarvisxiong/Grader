@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import util.annotations.Tags;
+import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.ResultWithOutput;
@@ -29,6 +30,72 @@ public class IntrospectionUtil {
 //        	return null;
 //        }
 //        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static Class find(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
+		for (ClassDescription aClass:aClasses) {
+			if (aClass.getJavaClass().isInterface())
+				continue;
+			return aClass.getJavaClass();
+		}
+		return null;
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static Class getOrFindClass(Project aProject, TestCase aTestCase, String aClassName) {
+		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(aClassName);
+		if (aClassObject == null) {
+			aClassObject = IntrospectionUtil.findClass(aProject, aClassName);
+			aTestCase.getCheckable().getRequirements().putUserObject(aClassName + "." + "class", aClassObject);
+		}
+		return aClassObject;
+	}
+	public static Class getOrFindInterface(Project aProject, TestCase aTestCase, String aClassName) {
+		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(aClassName);
+		if (aClassObject == null) {
+			aClassObject = IntrospectionUtil.findInterface(aProject, aClassName);
+			aTestCase.getCheckable().getRequirements().putUserObject(aClassName + "." + "interface", aClassObject);
+		}
+		return aClassObject;
+	}
+	
+	public static List<Method> getOrFindMethods(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
+		String aDescriptor = aClass.toString() + "." + aTag + "." + "list";
+		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable().getRequirements().getUserObject(aDescriptor);
+		if (aMethodObject == null) {
+			aMethodObject = IntrospectionUtil.findMethod(aClass, aTag);
+			aTestCase.getCheckable().getRequirements().putUserObject(aDescriptor, aMethodObject);
+		}
+		return aMethodObject;
+	}
+	static String toMethodDescriptor(Class aClass, String aTag) {
+		return aClass.getCanonicalName() + "." + aTag;
+	}
+	public static Method getMethod(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
+
+		return (Method) aTestCase.getCheckable().getRequirements().getUserObject(toMethodDescriptor(aClass, aTag));
+		
+	}
+	public static Method putMethod(Project aProject, TestCase aTestCase, Class aClass, String aTag, Method aMethod) {
+
+		return (Method) aTestCase.getCheckable().getRequirements().getUserObject(toMethodDescriptor(aClass, aTag));
+		
+	}
+	public static String toRegex(String aName) {
+		return ".*" + aName + ".*";
+	}
+	public static Class findClass(Project aProject, String aName) {
+		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
+		
+	}
+	public static Class findInterface(Project aProject, String aName) {
+		return findInterface(aProject, null, aName, toRegex(aName), toRegex(aName) );
 		
 	}
 	public static List<ClassDescription> findClassesByTag(Project aProject, String aTag) {
@@ -151,6 +218,10 @@ public class IntrospectionUtil {
 	        }
 	        return result;
 	    }
+	    public static List<Method> findMethod (Class aJavaClass, String aName) {
+	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName));
+	    }
+
 	    
 	    public static List<Method> findMethod (Class aJavaClass, String aName, String aTag, String aNameMatch, String aTagMatch) {
 	    	List<Method> result = new ArrayList();

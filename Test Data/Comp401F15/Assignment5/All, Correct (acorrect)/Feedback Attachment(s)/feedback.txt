@@ -2,30 +2,50 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Properties Defined                                     0.0 /  9.0
-Class has interface check                              5.0 /  5.0
-Variable has class type                                5.0 /  5.0
+Angle Bean                                             3.0 /  6.0
+Avatar Bean                                            10.0 / 15.0
+Bridge Scene Bean                                      10.0 / 10.0
+Angle connection                                       0.0 /  7.0
+Angle move                                             0.0 /  7.0
+Avatar connection                                      0.0 / 15.0
+Avatar move                                            0.0 / 15.0
+Bridge Scene Display Constraints                       0.0 /  5.0
+Scene  Demo                                            0.0 / 10.0
+Avatar Move Demo                                       0.0 / 10.0
+Avatar Scale Method                                    0.5 /  2.0 (Extra credit)
+Avatar scale demo                                      0.0 /  6.0 (Extra credit)
+Rotate arm demo                                        0.0 /  7.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 10.0
+  Points Awarded: 23.5
 
 Grading restrictions...
 ----------------------------------
+Class has interface check                   0.0 /  -5.0
+Variable has class type                     0.0 /  -5.0
 Single main.Assignment                      0.0 /  -10.0
 Classes Tagged                              0.0 /  -9.0
+No image files.                             -5.0 /  -5.0
 No public variables.                        0.0 /  -5.0
-At least three packages.                    0.0 /  -5.0
 No System.exit()                            0.0 /  -5.0
 Interactive Run                             -5.0 /  -5.0
 ----------------------------------
-  Points Deducted: -5.0
+  Points Deducted: -10.0
 
-  Features Score: 5.0
+  Features Score: 13.5
 
 Notes from grading features:
 ----------------------------------
-Properties Defined :
-  -- Property matching LeftLine not defined
+Angle Bean:
+  -- 'getLeftLine' method found, but without properreturn type 'RotateLine' in class 'VShape'
+  -- 'getRightLine' method found, but without properreturn type 'RotateLine' in class 'VShape'
+
+Avatar Bean:
+  -- Can't find 'Image Pattern' class
+  -- Can't find 'getBody' method in class 'Avatar'
+
+Avatar Scale Method:
+  -- 'scale' method found, but without properreturn type 'void' nor parameters ('double', 'double') in class 'Avatar'
 
 
 Early benefit: 105.0%
-  Total Score: 5.25
+  Total Score: 14.7

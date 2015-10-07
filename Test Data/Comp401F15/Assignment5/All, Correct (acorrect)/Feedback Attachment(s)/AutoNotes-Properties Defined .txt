@@ -1,1 +1,0 @@
-  -- Property matching LeftLine not defined

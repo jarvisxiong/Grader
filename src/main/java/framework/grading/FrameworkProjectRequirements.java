@@ -133,6 +133,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
      * @return A list of {@link CheckResult} corresponding to the features
      */
     public List<CheckResult> checkFeatures(Project project) {
+    	getUserData().clear();
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {

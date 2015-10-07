@@ -78,5 +78,11 @@ public class ManualClassesManager implements ClassesManager {
 		return null;
 	}
 
+	@Override
+	public List<ClassDescription> findClassByPattern(String tag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

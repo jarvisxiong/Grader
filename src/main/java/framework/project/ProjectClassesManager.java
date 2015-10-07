@@ -407,8 +407,11 @@ public class ProjectClassesManager implements ClassesManager {
     		result = findByClassName(aName);
     	if (!result.isEmpty())
     		return result;
+    	 
     	if (aTag != null)
-    		result = findClassByTag(aTag);    	
+    		result = findClassByTag(aTag);  
+    	if (aTag != null)
+    		result = findClassByPattern(aTag); 
     	if (!result.isEmpty())
     		return result;
     	if (aNameMatch != null) {
@@ -433,13 +436,29 @@ public class ProjectClassesManager implements ClassesManager {
     public List<ClassDescription> findClassByTag(String tag) {
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
-        	if (description.getJavaClass().isInterface())
-        		continue;
+//        	if (description.getJavaClass().isInterface())
+//        		continue;
             for (String t : description.getTags()) {
                 if (t.equalsIgnoreCase(tag)) {
                     classes.add(description);
                 }
             }
+        }
+        return classes;
+    }
+    
+    @Override
+    public List<ClassDescription> findClassByPattern(String tag) {
+        List<ClassDescription> classes = new ArrayList<>();
+        for (ClassDescription description : classDescriptions) {
+//        	if (description.getJavaClass().isInterface())
+//        		continue;
+        	String aPattern = description.getStructurePatternName();
+            
+                if (tag.equalsIgnoreCase(aPattern)) {
+                    classes.add(description);
+                }
+            
         }
         return classes;
     }

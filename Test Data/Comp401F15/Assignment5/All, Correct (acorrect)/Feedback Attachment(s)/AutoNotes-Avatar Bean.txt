@@ -1,0 +1,2 @@
+  -- Can't find 'Image Pattern' class
+  -- Can't find 'getBody' method in class 'Avatar'
