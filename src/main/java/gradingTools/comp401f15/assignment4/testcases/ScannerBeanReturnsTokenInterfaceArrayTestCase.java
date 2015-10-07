@@ -1,18 +1,15 @@
 package gradingTools.comp401f15.assignment4.testcases;
 
+import java.lang.reflect.Method;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import static gradingTools.comp401f15.assignment2.testcases.BasicTokenDefinitions.buildGroup;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
-import static gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions.extendedTokens;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
-import static gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions.baseCommandTokens;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 
 /**
  *
@@ -53,13 +50,13 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
         getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, null);
 
 //        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
-        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+        Class<?> tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
 
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
         getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, tokenInterface);
-        Class scannerClass = IntrospectionUtil.findClass(project, 
+        Class<?> scannerClass = IntrospectionUtil.findClass(project, 
                                 scannerDescriptions[0],
                                 scannerDescriptions[1],
                                 scannerDescriptions[2],
@@ -83,7 +80,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                         getTokensMethod = m;
                         break;
                     }
-                    Class retType = m.getReturnType();
+                    Class<?> retType = m.getReturnType();
                     if (retType.isArray()) {
                         if(retType.getComponentType().equals(tokenInterface)) {
                             getTokensMethod = m;
@@ -96,7 +93,7 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
             }
             getCheckable().getRequirements().putUserObject(TOKEN_METHOD, getTokensMethod);
 
-            Class returnType = getTokensMethod.getReturnType();
+            Class<?> returnType = getTokensMethod.getReturnType();
             if (!returnType.isArray()) {
                 if (getTokensNamedWrong) {
                     return partialPass(0.05, "getTokens method does not return an array and is named incorrectly");

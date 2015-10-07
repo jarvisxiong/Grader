@@ -1,14 +1,12 @@
 package gradingTools.comp401f15.assignment5.testcases.shapes;
 
-import gradingTools.comp401f15.assignment4.testcases.rotateLine.*;
+import java.lang.reflect.Method;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import util.annotations.Tags;
 
 /**
@@ -21,7 +19,7 @@ public class AngleShapeMethodsTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class aClass = IntrospectionUtil.findClass(project, 
+        Class<?> aClass = IntrospectionUtil.findClass(project, 
                             classDescriptions[0],
                             classDescriptions[1],
                             classDescriptions[2],
@@ -56,7 +54,7 @@ public class AngleShapeMethodsTestCase extends BasicTestCase {
                             methodsPresent[2][1] = true;
                         }
                         if(m.getParameterCount() == 2) {
-                            Class[] parameterTypes = m.getParameterTypes();
+                            Class<?>[] parameterTypes = m.getParameterTypes();
                             methodsPresent[2][2] = parameterTypes[0].equals(int.class) && parameterTypes[1].equals(int.class);
                         }
                         break;
@@ -88,7 +86,7 @@ public class AngleShapeMethodsTestCase extends BasicTestCase {
                                     methodsPresent[6][2] = true;
                                 }
                                 if(m.getParameterCount() == 2) {
-                                    Class[] parameterTypes = m.getParameterTypes();
+                                    Class<?>[] parameterTypes = m.getParameterTypes();
                                     methodsPresent[2][2] = parameterTypes[0].equals(int.class) && parameterTypes[1].equals(int.class);
                                 }
                             }
