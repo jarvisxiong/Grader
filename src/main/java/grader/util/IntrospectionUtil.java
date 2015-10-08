@@ -32,6 +32,23 @@ public class IntrospectionUtil {
 //        return aClasses.get(0).getJavaClass();
 		
 	}
+	public static List<Class> findClasses(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		List<Class> result = new ArrayList();
+		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
+		for (ClassDescription aClass:aClasses) {
+			if (aClass.getJavaClass().isInterface())
+				continue;
+			result.add(aClass.getJavaClass());
+		}
+		return result;
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
 	public static Class find(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
@@ -48,19 +65,39 @@ public class IntrospectionUtil {
 //        return aClasses.get(0).getJavaClass();
 		
 	}
+	static String toClassDescriptor(String aClassName) {
+		return aClassName + "." + "class";
+	}
+	static String toClassesDescriptor(String aClassName) {
+		return aClassName + "." + "classes";
+	}
+	static String toInterfacesDescriptor(String aClassName) {
+		return aClassName + "." + "interfaces";
+	}
+	static String toInterfaceDescriptor(String aClassName) {
+		return aClassName + "." + "interface";
+	}
 	public static Class getOrFindClass(Project aProject, TestCase aTestCase, String aClassName) {
-		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(aClassName);
+		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));
 		if (aClassObject == null) {
 			aClassObject = IntrospectionUtil.findClass(aProject, aClassName);
-			aTestCase.getCheckable().getRequirements().putUserObject(aClassName + "." + "class", aClassObject);
+			aTestCase.getCheckable().getRequirements().putUserObject(toClassDescriptor(aClassName), aClassObject);
+		}
+		return aClassObject;
+	}
+	public static Class getOrFindClasses(Project aProject, TestCase aTestCase, String aClassName) {
+		List<Class> aClassObject = (List<Class>)aTestCase.getCheckable().getRequirements().getUserObject(toClassesDescriptor(aClassName));
+		if (aClassObject == null) {
+			aClassObject = IntrospectionUtil.findClasses(aProject, aClassName);
+			aTestCase.getCheckable().getRequirements().putUserObject(toClassesDescriptor(aClassName), aClassObject);
 		}
 		return aClassObject;
 	}
 	public static Class getOrFindInterface(Project aProject, TestCase aTestCase, String aClassName) {
-		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(aClassName);
+		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toInterfaceDescriptor(aClassName));
 		if (aClassObject == null) {
 			aClassObject = IntrospectionUtil.findInterface(aProject, aClassName);
-			aTestCase.getCheckable().getRequirements().putUserObject(aClassName + "." + "interface", aClassObject);
+			aTestCase.getCheckable().getRequirements().putUserObject(toInterfaceDescriptor(aClassName), aClassObject);
 		}
 		return aClassObject;
 	}
@@ -94,8 +131,16 @@ public class IntrospectionUtil {
 		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
 		
 	}
+	public static List<Class> findClasses(Project aProject, String aName) {
+		return findClasses(aProject, null, aName, toRegex(aName), toRegex(aName) );
+		
+	}
 	public static Class findInterface(Project aProject, String aName) {
 		return findInterface(aProject, null, aName, toRegex(aName), toRegex(aName) );
+		
+	}
+	public static List<Class> findInterfaces(Project aProject, String aName) {
+		return findInterfaces(aProject, null, aName, toRegex(aName), toRegex(aName) );
 		
 	}
 	public static List<ClassDescription> findClassesByTag(Project aProject, String aTag) {
@@ -117,6 +162,23 @@ public class IntrospectionUtil {
 			return aClass.getJavaClass();
 		}
 		return null;
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static List<Class> findInterfaces(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		List<Class> result = new ArrayList();
+		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
+		for (ClassDescription aClass:aClasses) {
+			if (!aClass.getJavaClass().isInterface())
+				continue;
+			result.add(aClass.getJavaClass());
+		}
+		return result;
 		
 //		if (aClasses.size() != 1) {
 //        	return null;
