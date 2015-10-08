@@ -11,6 +11,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
+import java.util.Arrays;
 
 public class MethodDefinedTestCase extends BasicTestCase {
 	private String CLASS_TAG;
@@ -23,8 +24,8 @@ public class MethodDefinedTestCase extends BasicTestCase {
     private String[] METHOD_DESCRIPTIONS = new String[]{METHOD_NAME, METHOD_TAG, METHOD_REGEX, ".*"+METHOD_TAG+".*"};
   
     
-    private  Class<?> RETURN_TYPE;
-    private  Class<?>[] PARAMETER_TYPES;
+    private  Class<?>[] RETURN_TYPE;
+    private  Class<?>[][] PARAMETER_TYPES;
     Object returnObject;
     Object[] parameterObjects;
 
@@ -45,8 +46,18 @@ public class MethodDefinedTestCase extends BasicTestCase {
 		METHOD_NAME = methodName;
 		METHOD_TAG = methodTag;
 		METHOD_REGEX = methodRegex;
-		RETURN_TYPE = returnType;
-		PARAMETER_TYPES = parameterTypes;
+                if (returnType == null) {
+                    RETURN_TYPE = null;
+                } else {
+                    RETURN_TYPE = new Class<?>[]{returnType};
+                }
+                if(parameterTypes == null) {
+                    PARAMETER_TYPES = null;
+                } else {
+                    PARAMETER_TYPES = Arrays.stream(parameterTypes).map((c) -> new Class[]{c}).toArray(Class[][]::new);
+                }
+                
+		//PARAMETER_TYPES = parameterTypes;
 		
 	}
 	public MethodDefinedTestCase(String classTag, String methodName, String methodTag, String methodRegex, Object returnType, Object... parameterTypes) {
@@ -73,36 +84,41 @@ public class MethodDefinedTestCase extends BasicTestCase {
 //		RETURN_TYPE = returnType;
 //		PARAMETER_TYPES = parameterTypes;
 	}
-	Class toClass (Project aProject, Object aClass) {
+	Class[] toClasses (Project aProject, Object aClass) {
 		if (aClass instanceof Class) {
-			return (Class) aClass;
+			return new Class[]{(Class)aClass};
 		}
 		if (aClass instanceof String) {
-			Class retVal = IntrospectionUtil.getOrFindInterface(aProject, this, (String) aClass);
-			if (retVal != null)
-				return retVal;
-			return IntrospectionUtil.getOrFindClass(aProject, this, (String) aClass);
-			
+			List<Class> retVal = IntrospectionUtil.getOrFindInterfaces(aProject, this, (String) aClass);
+			if (retVal == null) {
+                            retVal = IntrospectionUtil.getOrFindClasses(aProject, this, (String) aClass);
+                        }
+			return retVal.toArray(new Class[retVal.size()]);
 			
 		}
 		return null;
 	}
-	Class[] toClass(Project aProject, Object[] aClasses) {
-		List<Class> result = new ArrayList();
+	Class[][] toClasses(Project aProject, Object[] aClasses) {
+		List<Class[]> result = new ArrayList();
 		for (Object aClass:aClasses) {
-			result.add(toClass(aProject, aClass));
+			result.add(toClasses(aProject, aClass));
 		}
-		return result.toArray(new Class[result.size()]);
+                int maxSize = result.stream().mapToInt((cList) -> cList.length).max().orElse(0);
+		return result.toArray(new Class[result.size()][maxSize]);
 		
 	}
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-		if (RETURN_TYPE == null || returnObject != null ) {
-			RETURN_TYPE = toClass(project, returnObject);
+	System.err.println("PARAMETERS: " + Arrays.toString(PARAMETER_TYPES));
+        System.err.println("RETURN: " + Arrays.toString(RETURN_TYPE));
+            if (RETURN_TYPE == null || returnObject != null ) {
+			RETURN_TYPE = toClasses(project, returnObject);
 		}
 		if (PARAMETER_TYPES == null || parameterObjects != null) {
-			PARAMETER_TYPES = toClass(project, parameterObjects);
+			PARAMETER_TYPES = toClasses(project, parameterObjects);
 		}
+        System.err.println("PARAMETERS: " + Arrays.toString(PARAMETER_TYPES));
+        System.err.println("RETURN: " + Arrays.toString(RETURN_TYPE));
 //		Class<?> clazz = IntrospectionUtil.findClass(project,
 //													 CLASS_DESCRIPTIONS[0],
 //													 CLASS_DESCRIPTIONS[1],
@@ -145,8 +161,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 		int matchedCount = 0;
 		for(Method m : methods) {
 			boolean[] curMatched = new boolean[]{false, false};
-			if (RETURN_TYPE.isAssignableFrom(m.getReturnType()) ||
-					m.getReturnType().isAssignableFrom(RETURN_TYPE)	// in case intyerface was not tagged correctly
+			if (isAssignableFromAny(m.getReturnType(), RETURN_TYPE)	// in case intyerface was not tagged correctly
 					) {
 				curMatched[0] = true;
 			} 
@@ -155,7 +170,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 
 				Class<?>[] mParameters = m.getParameterTypes();
 				for(int i = 0; i < PARAMETER_TYPES.length; i ++) {
-					if (!mParameters[i].isAssignableFrom(PARAMETER_TYPES[i])) {
+					if (!isAssignableFromAny(mParameters[i], PARAMETER_TYPES[i])) {
 						curMatched[1] = false;
 //						method = m;
 						break;
@@ -178,7 +193,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			}
 			message += " found" + " (" + methods + ")" + ", but without proper";
 			if (!matched[0]) {
-				message += "return type '" + RETURN_TYPE.getSimpleName() + "'"; //+ " actual type is:" + method.getReturnType().getSimpleName();
+				message += " return type '" + buildReturnString() + "'"; //+ " actual type is:" + method.getReturnType().getSimpleName();
 			}
 			if (!matched[1]) {
 				if (!matched[0]) {
@@ -187,11 +202,31 @@ public class MethodDefinedTestCase extends BasicTestCase {
 				message += " parameters " + buildParameterString();
 			}
 			message += " in class '" + clazz.getSimpleName() + "'";
-			return partialPass(0.25, message);
+                        double score = matchedCount == 0 ? 0.25 : 0.5;
+			return partialPass(score, message);
+                        
 		}
 		IntrospectionUtil.putMethod(project, this, clazz, METHOD_NAME, method);
 		return pass();
 	}
+        
+        private static boolean isAssignableFromAny(Class<?> a, Class<?>[] b) {
+            for(Class<?> c : b) {
+                if (a.isAssignableFrom(c) || c.isAssignableFrom(a)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        private static boolean isAssignableFromAny(Class<?>[] a, Class<?>[] b) {
+            for(Class<?> c : a) {
+                if (isAssignableFromAny(c, b)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 	
 	private static int countOf(boolean[] arr, boolean value) {
 		int count = 0;
@@ -205,11 +240,33 @@ public class MethodDefinedTestCase extends BasicTestCase {
 		StringBuilder retVal = new StringBuilder();
 		retVal.append("(");
 		for(int i = 0; i < PARAMETER_TYPES.length; i++) {
-			Class<?> type = PARAMETER_TYPES[i];
 			if (i != 0) {
 				retVal.append(", ");
 			}
-			retVal.append("'" + type.getSimpleName() + "'");
+                        retVal.append("(");
+			Class<?>[] types = PARAMETER_TYPES[i];
+                        for(int j = 0; j < types.length; j ++) {
+                            if (j != 0) {
+				retVal.append(", ");
+                            }
+                            Class<?> type = types[j];
+                            retVal.append("'").append(type.getSimpleName()).append("'");
+                        }
+                        retVal.append(")");
+		}
+		retVal.append(")");
+		return retVal.toString();
+	}
+        
+        private String buildReturnString() {
+		StringBuilder retVal = new StringBuilder();
+		retVal.append("(");
+		for(int i = 0; i < RETURN_TYPE.length; i++) {
+			if (i != 0) {
+				retVal.append(", ");
+			}
+                        Class<?> type = RETURN_TYPE[i];
+                        retVal.append("'").append(type.getSimpleName()).append("'");
 		}
 		retVal.append(")");
 		return retVal.toString();

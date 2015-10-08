@@ -410,7 +410,7 @@ public class ProjectClassesManager implements ClassesManager {
     	 
     	if (aTag != null)
     		result = findClassByTag(aTag);  
-    	if (aTag != null)
+    	if (aTag != null && result.isEmpty())
     		result = findClassByPattern(aTag); 
     	if (!result.isEmpty())
     		return result;

@@ -85,7 +85,7 @@ public class IntrospectionUtil {
 		}
 		return aClassObject;
 	}
-	public static Class getOrFindClasses(Project aProject, TestCase aTestCase, String aClassName) {
+	public static List<Class> getOrFindClasses(Project aProject, TestCase aTestCase, String aClassName) {
 		List<Class> aClassObject = (List<Class>)aTestCase.getCheckable().getRequirements().getUserObject(toClassesDescriptor(aClassName));
 		if (aClassObject == null) {
 			aClassObject = IntrospectionUtil.findClasses(aProject, aClassName);
@@ -93,6 +93,14 @@ public class IntrospectionUtil {
 		}
 		return aClassObject;
 	}
+        public static List<Class> getOrFindInterfaces(Project aProject, TestCase aTestCase, String aClassName) {
+		List<Class> aClassObject = (List<Class>)aTestCase.getCheckable().getRequirements().getUserObject(toInterfacesDescriptor(aClassName));
+		if (aClassObject == null) {
+			aClassObject = IntrospectionUtil.findInterfaces(aProject, aClassName);
+			aTestCase.getCheckable().getRequirements().putUserObject(toInterfacesDescriptor(aClassName), aClassObject);
+		}
+		return aClassObject;
+        }
 	public static Class getOrFindInterface(Project aProject, TestCase aTestCase, String aClassName) {
 		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toInterfaceDescriptor(aClassName));
 		if (aClassObject == null) {
