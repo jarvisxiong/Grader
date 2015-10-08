@@ -239,6 +239,9 @@ public class MethodDefinedTestCase extends BasicTestCase {
 	private String buildParameterString() {
 		StringBuilder retVal = new StringBuilder();
 		retVal.append("(");
+		if (PARAMETER_TYPES.length == 0) {
+			retVal.append(Common.toString(parameterObjects));
+		} else {
 		for(int i = 0; i < PARAMETER_TYPES.length; i++) {
 			if (i != 0) {
 				retVal.append(", ");
@@ -254,6 +257,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
                         }
                         retVal.append(")");
 		}
+		}
 		retVal.append(")");
 		return retVal.toString();
 	}
@@ -261,12 +265,16 @@ public class MethodDefinedTestCase extends BasicTestCase {
         private String buildReturnString() {
 		StringBuilder retVal = new StringBuilder();
 		retVal.append("(");
+		if (RETURN_TYPE.length == 0) {
+			retVal.append(returnObject);
+		} else {
 		for(int i = 0; i < RETURN_TYPE.length; i++) {
 			if (i != 0) {
 				retVal.append(", ");
 			}
                         Class<?> type = RETURN_TYPE[i];
                         retVal.append("'").append(type.getSimpleName()).append("'");
+		}
 		}
 		retVal.append(")");
 		return retVal.toString();
