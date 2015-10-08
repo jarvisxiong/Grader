@@ -1,2 +1,0 @@
-  -- 'getLeftLine' method found, but without properreturn type 'RotateLine' in class 'VShape'
-  -- 'getRightLine' method found, but without properreturn type 'RotateLine' in class 'VShape'

@@ -1,1 +1,1 @@
-  -- 'scale' method found, but without properreturn type 'void' nor parameters ('double', 'double') in class 'Avatar'
+  -- 'scale' method(s) found([public void grail.Avatar.scale(int)]), but without properreturn type 'void' nor parameters ('double', 'double') in class 'Avatar'

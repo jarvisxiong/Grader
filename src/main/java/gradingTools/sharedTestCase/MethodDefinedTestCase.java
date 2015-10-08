@@ -172,11 +172,11 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			}
 		}
 		if (method == null) {
-			String message = "'" + METHOD_NAME + "' method";
+			String message = "'" + METHOD_NAME + "' method(s)";
 			if (METHOD_TAG != null) {
-				message += " or method tagged '" + METHOD_TAG + "'";
+				message += " or method(s) tagged '" + METHOD_TAG + "'";
 			}
-			message += " found, but without proper";
+			message += " found" + " (" + methods + ")" + ", but without proper";
 			if (!matched[0]) {
 				message += "return type '" + RETURN_TYPE.getSimpleName() + "'"; //+ " actual type is:" + method.getReturnType().getSimpleName();
 			}
