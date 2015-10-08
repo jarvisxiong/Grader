@@ -90,7 +90,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 		}
 		if (aClass instanceof String) {
 			List<Class> retVal = IntrospectionUtil.getOrFindInterfaces(aProject, this, (String) aClass);
-			if (retVal == null) {
+			if (retVal == null || retVal.isEmpty()) {
                             retVal = IntrospectionUtil.getOrFindClasses(aProject, this, (String) aClass);
                         }
 			return retVal.toArray(new Class[retVal.size()]);

@@ -3,7 +3,7 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Angle Bean                                             6.0 /  6.0
-Avatar Bean                                            10.0 / 15.0
+Avatar Bean                                            11.3 / 15.0
 Bridge Scene Bean                                      10.0 / 10.0
 Angle connection                                       0.0 /  7.0
 Angle move                                             0.0 /  7.0
@@ -16,7 +16,7 @@ Avatar Scale Method                                    0.5 /  2.0 (Extra credit)
 Avatar scale demo                                      0.0 /  6.0 (Extra credit)
 Rotate arm demo                                        0.0 /  7.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 26.5
+  Points Awarded: 27.8
 
 Grading restrictions...
 ----------------------------------
@@ -31,17 +31,17 @@ Interactive Run                             -5.0 /  -5.0
 ----------------------------------
   Points Deducted: -10.0
 
-  Features Score: 16.5
+  Features Score: 17.8
 
 Notes from grading features:
 ----------------------------------
 Avatar Bean:
-  -- Can't find 'Image Pattern' class
+  -- 'getHead' method(s) found ([public grail.ImageShape grail.Avatar.getHead()]), but without proper return type '()' in class 'Avatar'
   -- Can't find 'getBody' method in class 'Avatar'
 
 Avatar Scale Method:
-  -- 'scale' method(s) found([public void grail.Avatar.scale(int)]), but without properreturn type 'void' nor parameters ('double', 'double') in class 'Avatar'
+  -- 'scale' method(s) found ([public void grail.Avatar.scale(int)]), but without proper return type '('void')' nor parameters (('double'), ('double')) in class 'Avatar'
 
 
 Early benefit: 105.0%
-  Total Score: 17.85
+  Total Score: 18.900000000000002

@@ -1,2 +1,2 @@
-  -- Can't find 'Image Pattern' class
+  -- 'getHead' method(s) found ([public grail.ImageShape grail.Avatar.getHead()]), but without proper return type '()' in class 'Avatar'
   -- Can't find 'getBody' method in class 'Avatar'
