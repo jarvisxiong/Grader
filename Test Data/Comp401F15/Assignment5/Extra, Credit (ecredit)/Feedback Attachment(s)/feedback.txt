@@ -62,8 +62,8 @@ Avatar Scale Method:
 Notes from grading restrictions:
 ----------------------------------
 Class has interface check:
-  -- Class has no interface: ExtBeanStringScanner
-Class has no interface: BeanStringScanner
+  -- Class has no interface: BeanStringScanner
+Class has no interface: ExtBeanStringScanner
 
 Classes Tagged :
   -- No class tagged: Angle
