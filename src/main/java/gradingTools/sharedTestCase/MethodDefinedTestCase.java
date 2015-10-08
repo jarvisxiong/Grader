@@ -248,6 +248,9 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			}
                         retVal.append("(");
 			Class<?>[] types = PARAMETER_TYPES[i];
+						if (types.length == 0) {
+							retVal.append(parameterObjects[i]);
+						} else {
                         for(int j = 0; j < types.length; j ++) {
                             if (j != 0) {
 				retVal.append(", ");
@@ -255,6 +258,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
                             Class<?> type = types[j];
                             retVal.append("'").append(type.getSimpleName()).append("'");
                         }
+						}
                         retVal.append(")");
 		}
 		}
