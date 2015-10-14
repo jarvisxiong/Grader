@@ -47,6 +47,7 @@ public class ExecutionUtil {
 	public static final String CLASS_MATCHED = "Status.ClassMatched";
 	
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
+	public static final int CONSTRUCTOR_TIME_OUT = 2000;
 	public static final int METHOD_TIME_OUT = 2000;
 
 
@@ -69,18 +70,55 @@ public class ExecutionUtil {
 		}
 
 	}
+        
+        public static Object timedInvokeWithExceptions(Object anObject, Method aMethod,
+			long aMillSeconds, Object... anArgs) throws Exception{
+//		 ExecutorService executor = Executors.newSingleThreadExecutor();
+
+
+		Future future = executor.submit(new AMethodExecutionCallable(anObject,
+				aMethod, anArgs));
+
+		try {
+			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			future.cancel(true);
+			System.out.println("Terminated execution after milliseconds:" + aMillSeconds);
+			throw e;
+		} finally {
+//			executor.shutdownNow();
+		}
+
+	}
+        
 	public static Object timedInvoke(Object anObject, Method aMethod,
 			Object... anArgs) {
 		return timedInvoke(anObject, aMethod, METHOD_TIME_OUT, anArgs);
 
 	}
-	public static Object timedInvoke(Constructor aMethod,
+        
+        
+	public static Object timedInvokeWithExceptions(Object anObject, Method aMethod,
+			Object... anArgs) throws Exception{
+		return timedInvokeWithExceptions(anObject, aMethod, METHOD_TIME_OUT, anArgs);
+
+	}
+        
+        public static Object timedInvoke(Constructor aConstructor, Object[] anArgs) {
+            return timedInvoke(aConstructor, anArgs, CONSTRUCTOR_TIME_OUT);
+        }
+        
+        public static Object timedInvokeWithExceptions(Constructor aConstructor, Object[] anArgs) throws Exception {
+            return timedInvokeWithExceptions(aConstructor, anArgs, CONSTRUCTOR_TIME_OUT);
+        }
+        
+	public static Object timedInvoke(Constructor aConstructor,
 			Object[] anArgs, long aMillSeconds) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
 		Future future = executor.submit(new AConstructorExecutionCallable(
-				aMethod, anArgs));
+				aConstructor, anArgs));
 
 		try {
 			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
@@ -88,6 +126,27 @@ public class ExecutionUtil {
 			future.cancel(true);
 			System.out.println("Terminated!");
 			return null;
+		} finally {
+			
+//			executor.shutdownNow();
+		}
+
+	}
+        
+        public static Object timedInvokeWithExceptions(Constructor aConstructor,
+			Object[] anArgs, long aMillSeconds) throws Exception {
+//		 ExecutorService executor = Executors.newSingleThreadExecutor();
+
+
+		Future future = executor.submit(new AConstructorExecutionCallable(
+				aConstructor, anArgs));
+
+		try {
+			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			future.cancel(true);
+			System.out.println("Terminated!");
+                        throw e;
 		} finally {
 			
 //			executor.shutdownNow();
