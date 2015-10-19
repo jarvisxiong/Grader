@@ -2,6 +2,7 @@ package gradingTools.comp401f15.assignment6.testcases.commands;
 
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
@@ -26,7 +27,9 @@ public class ApproachCommandCreatedTestCase extends AbstractCommandCreatedTestCa
 
     @Override
     public TestCaseResult test(Project p, boolean autoGrade) {
-        new ScannerBeanReturnsTokenInterfaceArrayTestCase().test(p, autoGrade);
+        TestCase testCase = new ScannerBeanReturnsTokenInterfaceArrayTestCase();
+        testCase.setCheckable(getCheckable());
+        testCase.test(p, autoGrade);
         return super.test(p, autoGrade);
     }
 }
