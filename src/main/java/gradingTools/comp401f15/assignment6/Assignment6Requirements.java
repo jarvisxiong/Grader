@@ -1,8 +1,10 @@
 package gradingTools.comp401f15.assignment6;
 
 import framework.grading.FrameworkProjectRequirements;
+import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
 import gradingTools.assignment6.testCases.*;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
+import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ConstructorInitTestCase;
 import gradingTools.comp401f15.assignment6.testcases.StandingAreaPlacementTestCase;
@@ -13,16 +15,11 @@ import gradingTools.comp401f15.assignment6.testcases.commands.methods.FailedMeth
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.PassedMethodFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.SayMethodFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.ScrollMethodFunctionTestCase;
+import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
-import gradingTools.sharedTestCase.MethodExecutionTestCase;
-import static gradingTools.sharedTestCase.MethodExecutionTestCase.DNC;
-import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
-import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodParameterReference;
+import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +30,10 @@ import java.util.logging.Logger;
  */
 public class Assignment6Requirements extends FrameworkProjectRequirements {
     public Assignment6Requirements() {
+    	addDueDate("09/30/2015 23:59:00", 1.05);
+    	addDueDate("10/02/2015 23:59:00", 1);
+    	addDueDate("09/07/2015 23:59:00", 0.9);
+    	addDueDate("10/09/2015 23:59:00", 0.75);
         
         addFeature("Gorge and Bridge Properites", 10,
                 new PropertyDefinedTestCase("BridgeScene", "Gorge",  Object.class)
@@ -46,25 +47,33 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
  
         addFeature("Avatar init in constructor", 10, new ConstructorInitTestCase());
         
-        addFeature("Approach method", 10, 
+        addFeature("Approach method", 7, 
                 new MethodDefinedTestCase("BridgeScene", "approach", void.class, "Avatar"),
                 new ApproachMethodFunctionTestCase()
-        
         );
-        addFeature("Passed method", 15,
+        
+        addManualFeature("Approach method demoed?", 3);
+        
+        addFeature("Passed method", 12,
                 new MethodDefinedTestCase("BridgeScene", "passed", void.class),
                 new PassedMethodFunctionTestCase()
         );
         
-        addFeature("Failed method", 15,
+        addManualFeature("Pass method demoed?", 3);
+        
+        addFeature("Failed method", 12,
                 new MethodDefinedTestCase("BridgeScene", "failed", void.class),
                 new FailedMethodFunctionTestCase()
         );
         
-        addFeature("Say method", 10,
+        addManualFeature("Fail method demoed?", 3);
+        
+        addFeature("Say method", 7,
                 new MethodDefinedTestCase("BridgeScene", "say", void.class, String.class),
                 new SayMethodFunctionTestCase()
         );
+        
+        addManualFeature("Say method demoed?", 3);
         
         addFeature("Token refactoring", 10,
                 new SingleInterfaceTestCase("Single interface test case")
@@ -72,12 +81,6 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
         addFeature("Approach Command", 10,
                 new ApproachCommandBeanTestCase(),
                 new ApproachCommandCreatedTestCase());
-
-        // Define extra credit
-
-        addManualFeature("Are there 3D effects for the gorge/bridge?", 3);
-        addManualFeature("Is there animated falling?", 3);
-        addManualFeature("Is there animated crossing?", 3);
 
         addFeature("Scroll method", 8, true,
                 new MethodDefinedTestCase("BridgeScene", "scroll", "scroll", ".*[sS]croll.*", void.class, int.class, int.class),
@@ -93,9 +96,14 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
         addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
         addRestriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case"));
         addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
-        // TODO: Method/interface check
+        addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+        addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
 
+        // TODO: Method/interface check
+        
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case"));
+        
+        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range).*", null, 0.3));
     }
 }
