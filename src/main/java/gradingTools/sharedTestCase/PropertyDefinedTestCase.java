@@ -15,7 +15,7 @@ public class PropertyDefinedTestCase extends MethodDefinedTestCase {
 	
 
 	public PropertyDefinedTestCase(String classTag, String propertyName,  Class<?> returnType) {
-		super(classTag, "get" + propertyName, null, null, returnType);
+		super(classTag, "get" + propertyName, propertyName, null, returnType);
 //		CLASS_TAG = classTag;
 //		METHOD_NAME = methodName;
 //		METHOD_TAG = methodTag;
@@ -26,7 +26,7 @@ public class PropertyDefinedTestCase extends MethodDefinedTestCase {
 	
 
 	public PropertyDefinedTestCase(String classTag,String propertyName,  Object returnType) {
-		super(classTag, "get" + propertyName, null, null, returnType);
+		super(classTag, "get" + propertyName, propertyName, null, returnType);
 
 	}
 	

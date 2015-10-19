@@ -109,8 +109,18 @@ public class IntrospectionUtil {
 		}
 		return aClassObject;
 	}
+        
+        public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String name, String aTag) {
+		String aDescriptor = aClass.toString() + "." + name + "." + "list";
+		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable().getRequirements().getUserObject(aDescriptor);
+		if (aMethodObject == null) {
+			aMethodObject = IntrospectionUtil.findMethod(aClass, name, aTag);
+			aTestCase.getCheckable().getRequirements().putUserObject(aDescriptor, aMethodObject);
+		}
+		return aMethodObject;
+	}
 	
-	public static List<Method> getOrFindMethods(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
+	public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
 		String aDescriptor = aClass.toString() + "." + aTag + "." + "list";
 		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable().getRequirements().getUserObject(aDescriptor);
 		if (aMethodObject == null) {
@@ -292,6 +302,9 @@ public class IntrospectionUtil {
 	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName));
 	    }
 
+            public static List<Method> findMethod (Class aJavaClass, String aName, String tag) {
+	    	return findMethod(aJavaClass, aName, tag, toRegex(aName), toRegex(tag));
+	    }
 	    
 	    public static List<Method> findMethod (Class aJavaClass, String aName, String aTag, String aNameMatch, String aTagMatch) {
 	    	List<Method> result = new ArrayList();

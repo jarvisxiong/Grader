@@ -1,17 +1,17 @@
 package gradingTools.sharedTestCase;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
+import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,52 +19,63 @@ import java.util.logging.Logger;
  */
 public class MethodExecutionTestCase extends BasicTestCase {
     
-    private final Constructor constructor;
+    public static final Object DNC = new Object();
+    
+    public static final MethodReturnReference M0_RET = new MethodReturnReference(0);
+    public static final MethodReturnReference M1_RET = new MethodReturnReference(1);
+    public static final MethodReturnReference M2_RET = new MethodReturnReference(2);
+    public static final MethodReturnReference M3_RET = new MethodReturnReference(2);
+    public static final PastObjectReference EX_TARGET = PastObjectReference.of(PastObjectReference.SourceType.TARGET_OBJECT);
+    
+    private final Constructor<?> constructor;
     private final Object[] constructorArgs;
     private final Object executionTarget;
     private final Method[] methods;
     private final Object[][] arguments;
+    private final MethodEnvironment[] methodEnvirons;
     private final Object[] expectedReturnValues;
     
     public MethodExecutionTestCase(String name, Object o, MethodEnvironment me, Object retVals) {
-        this(name, null, null, o, new Method[]{me.getMethod()}, new Object[][]{me.getArguments()}, new Object[]{retVals});
+        this(name, null, null, o, new Method[]{me.getMethod()}, new Object[][]{me.getArguments()}, new MethodEnvironment[]{me}, new Object[]{retVals});
     }
     
     public MethodExecutionTestCase(String name, Object o, Method m, Object[] args, Object retVals) {
-        this(name, null, null, o, new Method[]{m}, new Object[][]{args}, new Object[]{retVals});
+        this(name, null, null, o, new Method[]{m}, new Object[][]{args}, null, new Object[]{retVals});
     }
     
-    public MethodExecutionTestCase(String name, Object o, MethodEnvironment[] meArr, Object retVals) {
+    public MethodExecutionTestCase(String name, Object o, MethodEnvironment[] meArr, Object[] retVals) {
         this(name, null, null, o,
                 Arrays.stream(meArr).map((me)->me.getMethod()).toArray(Method[]::new),
                 Arrays.stream(meArr).map((me)->me.getArguments()).toArray(Object[][]::new),
-                new Object[]{retVals});
+                meArr,
+                retVals);
     }
     
     public MethodExecutionTestCase(String name, Object o, Method[] m, Object[][] args, Object[] retVals) {
-        this(name, null, null, o, m, args, retVals);
+        this(name, null, null, o, m, args, null, retVals);
     }
     
-    public MethodExecutionTestCase(String name, Constructor c, Object[] cArgs, MethodEnvironment me, Object retVals) {
-        this(name, c, cArgs, null, new Method[]{me.getMethod()}, new Object[][]{me.getArguments()}, new Object[]{retVals});
+    public MethodExecutionTestCase(String name, Constructor<?> c, Object[] cArgs, MethodEnvironment me, Object retVals) {
+        this(name, c, cArgs, null, new Method[]{me.getMethod()}, new Object[][]{me.getArguments()}, new MethodEnvironment[]{me}, new Object[]{retVals});
     }
     
-    public MethodExecutionTestCase(String name, Constructor c, Object[] cArgs, Method m, Object[] args, Object retVals) {
-        this(name, c, cArgs, null, new Method[]{m}, new Object[][]{args}, new Object[]{retVals});
+    public MethodExecutionTestCase(String name, Constructor<?> c, Object[] cArgs, Method m, Object[] args, Object retVals) {
+        this(name, c, cArgs, null, new Method[]{m}, new Object[][]{args},null, new Object[]{retVals});
     }
     
-    public MethodExecutionTestCase(String name, Constructor c, Object[] cArgs, Method[] m, Object[][] args, Object[] retVals) {
-        this(name, c, cArgs, null, m, args, retVals);
+    public MethodExecutionTestCase(String name, Constructor<?> c, Object[] cArgs, Method[] m, Object[][] args, Object[] retVals) {
+        this(name, c, cArgs, null, m, args, null, retVals);
     }
     
-    public MethodExecutionTestCase(String name, Constructor c, Object[] cArgs, MethodEnvironment[] meArr, Object[] retVals) {
+    public MethodExecutionTestCase(String name, Constructor<?> c, Object[] cArgs, MethodEnvironment[] meArr, Object[] retVals) {
         this(name, c, cArgs, null,
                 Arrays.stream(meArr).map((me)->me.getMethod()).toArray(Method[]::new),
                 Arrays.stream(meArr).map((me)->me.getArguments()).toArray(Object[][]::new),
-                new Object[]{retVals});
+                meArr,
+                retVals);
     }
     
-    private MethodExecutionTestCase(String name, Constructor c, Object[] cArgs, Object o, Method[] m, Object[][] args, Object[] retVals) {
+    private MethodExecutionTestCase(String name, Constructor<?> c, Object[] cArgs, Object o, Method[] m, Object[][] args, MethodEnvironment[] meArr, Object[] retVals) {
         super(name);
         constructor = c;
         constructorArgs = cArgs;
@@ -72,60 +83,203 @@ public class MethodExecutionTestCase extends BasicTestCase {
         methods = m;
         arguments = args;
         expectedReturnValues = retVals;
+        methodEnvirons = meArr;
     }
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
+        ExecutionUtil.redirectOutput();
+        String anOutput = "";
+        System.out.println("Testcase: " + name);
         Object[] details;
         if (constructor == null) {
-            details = invoke(executionTarget, methods, arguments);
+            System.out.println("Using provided object (" + executionTarget.getClass().getTypeName() + "): " + executionTarget);
+            anOutput += restoreOutputAndGetRedirectedOutput();
+            if (methodEnvirons != null) {
+                details = invoke(executionTarget, methodEnvirons);
+            } else {
+                details = invoke(executionTarget, methods, arguments);
+            }
         } else {
-            details = invoke(constructor, constructorArgs, methods, arguments);
+            System.out.print("Constructing object using constructor " + constructor.toGenericString() + " and arguments (");
+            for(int i = 0; i < constructorArgs.length; i ++) {
+                if (i > 0) {
+                    System.out.print(", ");
+                }
+                System.out.print(constructorArgs[i]);
+            }
+            System.out.println(")");
+            anOutput += restoreOutputAndGetRedirectedOutput();
+            if (methodEnvirons != null) {
+                details = invoke(constructor, constructorArgs, methodEnvirons);
+            } else {
+                details = invoke(constructor, constructorArgs, methods, arguments);
+               
+            }
         }
         if (details == null || details.length == 0) {
             return fail("Couldn't grade or find problems, something is very wrong"); 
         }
+        ExecutionUtil.redirectOutput();
         int passed = 0;
+        int dnc = 0;
         String errors = "";
         for(int i = 0; i < details.length; i ++) {
+            System.out.print("Invoked " + methods[i].toGenericString());
+            if (arguments[i].length == 0) {
+                System.out.println(" with no arguments");
+            } else {
+                System.out.print(" with arguments (");
+                for(int j = 0; j < arguments[i].length; j ++) {
+                    if (j > 0) {
+                        System.out.print(", ");
+                    }
+                    System.out.print(arguments[i][j]);
+                }
+                System.out.print(")\n");
+            }
+            System.out.println("Result (" + details[i].getClass().getTypeName() + "): " + details[i]);
+            if (DNC.equals(expectedReturnValues[i])) {
+                System.out.println("Expected: DO NOT CARE");
+            } else {
+                System.out.println("Expected (" + expectedReturnValues[i].getClass().getTypeName() + "): " + expectedReturnValues[i]);
+            }
             if (details[i] instanceof Exception) {
+                System.out.println("Error");
                 errors += errorToString(constructor, methods[i], (Exception)details[i]) + "\n";
             } else {
                 if (expectedReturnValues[i] == null) {
                     if (details[i] == null) {
                         passed ++;
+                        System.out.println("Match!");
                     } else {
+                        System.out.println("Wrong");
                         errors += errorToString(constructor, methods[i], null) + "\n";
                     }
-                } else if (expectedReturnValues[i].equals(details[i])) {
+                } else if (DNC.equals(expectedReturnValues[i])) {
+                    dnc ++;
+                    System.out.println("Ignored");
+                }else if (expectedReturnValues[i].equals(details[i])) {
                     passed ++;
+                    System.out.println("Match!");
                 } else {
+                    System.out.println("Wrong");
                     errors += errorToString(constructor, methods[i], null) + "\n";
                 }
             }
         }
-        if (passed == methods.length) {
+        anOutput += restoreOutputAndGetRedirectedOutput();
+        if (anOutput != null && !anOutput.isEmpty()) {
+            RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+        }
+        int total = methods.length - dnc;
+        if (passed == total) {
             return pass();
         } else if (passed == 0) {
             return fail(errors);
         } else {
-            return partialPass(((double)passed) / methods.length, errors);
+            return partialPass(((double)passed) / total, errors);
         }
     }
     
-    private static Object[] invoke(Constructor c, Object[] cArgs, MethodEnvironment[] meArr) {
-        Method[] mArr = Arrays.stream(meArr).map((me)->me.getMethod()).toArray(Method[]::new);
-        Object[][] pArr = Arrays.stream(meArr).map((me)->me.getArguments()).toArray(Object[][]::new);
-        return invoke(c, cArgs, mArr, pArr);
+    public static Object[] invoke(Constructor<?> c, Object[] cArgs, MethodEnvironment[] meArr) {
+        Object o;
+        try {
+            o = ExecutionUtil.timedInvokeWithExceptions(c, cArgs);
+            return invoke(o, meArr);
+        } catch (InstantiationException ex) {
+            return new Object[]{ex};
+        } catch (Exception e) {
+            return new Object[]{new ExecutionFailureException(e)};
+        }
     }
     
-    private static Object[] invoke(Object o, MethodEnvironment[] meArr) {
-        Method[] mArr = Arrays.stream(meArr).map((me)->me.getMethod()).toArray(Method[]::new);
-        Object[][] pArr = Arrays.stream(meArr).map((me)->me.getArguments()).toArray(Object[][]::new);
-        return invoke(o, mArr, pArr);
+    public static Object[] invoke(Object o, MethodEnvironment[] meArr) {
+        //Method[] mArr = Arrays.stream(meArr).map((me)->me.getMethod()).toArray(Method[]::new);
+        //Object[][] pArr = Arrays.stream(meArr).map((me)->me.getArguments()).toArray(Object[][]::new);
+        //return invoke(o, mArr, pArr);
+        Object[] ret;
+        ret = new Object[meArr.length];
+        for(int i = 0; i < meArr.length; i ++) {
+            MethodEnvironment me = meArr[i];
+            boolean error = false;
+            Object[] pArr = me.getArguments();
+            for(int j = 0; j < pArr.length; j ++) {
+                if (pArr[j] instanceof PastObjectReference) {
+                    PastObjectReference ref = (PastObjectReference)pArr[j];
+                    switch(ref.type) {
+                        case CONSTRUCTOR_ARGUMENT:
+                            ret[i] = new IllegalArgumentException("Constructor argument refrenced when unused");
+                            error = true;
+                            break;
+                        case TARGET_OBJECT:
+                            if (o != null) {
+                                pArr[j] = o;
+                            } else {
+                                ret[i] = new IllegalArgumentException("Target object refrenced when null");
+                                error = true;
+                            }
+                            break;
+                        case METHOD_PARAMETER:
+                            if (ref.method > i || ref.method < 0) {
+                                ret[i] = new IllegalArgumentException("Requested method out of range");
+                                error = true;
+                            } else {
+                                Object[] args = meArr[ref.method].getArguments();
+                                if (ref.paramNumber >= args.length || ref.paramNumber < 0) {
+                                    ret[i] = new IllegalArgumentException("Requested parameter out of range");
+                                    error = true;
+                                } else {
+                                    pArr[j] = args[ref.paramNumber];
+                                }
+                            }
+                            break;
+                        case METHOD_RETURN:
+                            if (ref.method >= i || ref.method < 0) {
+                                ret[i] = new IllegalArgumentException("Requested method out of range");
+                                error = true;
+                            } else {
+                                if (ret[ref.method] instanceof Exception) {
+                                    ret[i] = new IllegalArgumentException("Requested return was exception, can't evaluate");
+                                    error = true;
+                                } else {
+                                    pArr[j] = ret[ref.method];
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+            Object target = me.getTarget() == null ? o : me.getTarget();
+            if (target instanceof PastObjectReference) {
+                PastObjectReference ref = (PastObjectReference)target;
+                switch(ref.type) {
+                    case TARGET_OBJECT:
+                        target = o;
+                        break;
+                    case METHOD_RETURN:
+                        if (ref.method >= i || ref.method < 0) {
+                            ret[i] = new IllegalArgumentException("Requested method out of range");
+                            error = true;
+                        } else {
+                            if (ret[ref.method] instanceof Exception) {
+                                ret[i] = new IllegalArgumentException("Requested return was exception, can't evaluate");
+                                error = true;
+                            } else {
+                                target = ret[ref.method];
+                            }
+                        }
+                }
+            }
+            
+            if (!error) {
+                ret[i] = invoke(target, me.getMethod(), pArr);
+            }
+        }
+        return ret;
     }
     
-    private static Object[] invoke(Constructor c, Object[] cArgs, Method m[], Object[]... arguments) {
+    public static Object[] invoke(Constructor<?> c, Object[] cArgs, Method m[], Object[]... arguments) {
         Object o;
         try {
             o = ExecutionUtil.timedInvokeWithExceptions(c, cArgs);
@@ -137,7 +291,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         }
     }
     
-    private static Object[] invoke(Object o, Method m[], Object[]... arguments) {
+    public static Object[] invoke(Object o, Method m[], Object[]... arguments) {
         Object[] ret;
         if (m.length == arguments.length) {
             ret = new Object[m.length];
@@ -150,15 +304,15 @@ public class MethodExecutionTestCase extends BasicTestCase {
         return ret;
     }
     
-    private static Object invoke(Constructor c, Object[] cArgs, MethodEnvironment me) {
+    public static Object invoke(Constructor<?> c, Object[] cArgs, MethodEnvironment me) {
         return invoke(c, cArgs, me.getMethod(), me.getArguments());
     }
     
-    private static Object invoke(Object o, MethodEnvironment me) {
+    public static Object invoke(Object o, MethodEnvironment me) {
         return invoke(o, me.getMethod(), me.getArguments());
     }
     
-    private static Object invoke(Constructor c, Object[] cArgs, Method m, Object... arguments) {
+    public static Object invoke(Constructor<?> c, Object[] cArgs, Method m, Object... arguments) {
         Object o;
         try {
             o = ExecutionUtil.timedInvokeWithExceptions(c, cArgs);
@@ -170,7 +324,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         }
     }
     
-    private static Object invoke(Object o, Method m, Object... arguments) {
+    public static Object invoke(Object o, Method m, Object... arguments) {
         try {
             return ExecutionUtil.timedInvokeWithExceptions(o, m, arguments);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
@@ -180,7 +334,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         }
     }
     
-    private static String errorToString(Constructor c, Method m, Exception e) {
+    private static String errorToString(Constructor<?> c, Method m, Exception e) {
         String message = "Error running method '" + m.toGenericString()
                 + "' from class '" + m.getDeclaringClass().getTypeName() + "': ";
         if (e == null) {
@@ -210,14 +364,20 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static class MethodEnvironment {
         private final Method m;
         private final Object[] arguments;
+        private final Object target;
 
-        private MethodEnvironment(Method m, Object[] arguments) {
+        private MethodEnvironment(Object target, Method m, Object[] arguments) {
             this.m = m;
             this.arguments = arguments;
+            this.target = target;
+        }
+        
+        public static MethodEnvironment get(Object target, Method m, Object... arguments) {
+            return new MethodEnvironment(target, m, arguments);
         }
         
         public static MethodEnvironment get(Method m, Object... arguments) {
-            return new MethodEnvironment(m, arguments);
+            return new MethodEnvironment(null, m, arguments);
         }
 
         public Method getMethod() {
@@ -228,13 +388,65 @@ public class MethodExecutionTestCase extends BasicTestCase {
             return arguments;
         }
         
+        public Object getTarget() {
+            return target;
+        }
     }
     
-    static class ExecutionFailureException extends Exception {
+    public static class ExecutionFailureException extends Exception {
 
         private ExecutionFailureException(Exception e) {
             super(e);
         }
         
+    }
+    
+    public static class PastObjectReference {
+        private final SourceType type;
+        public int method, paramNumber;
+        
+        private PastObjectReference(SourceType type) {
+            this.type = type;
+            method = -1;
+            paramNumber = -1;
+        }
+        
+        @Override
+        public String toString() {
+            return "Data from other Object, target is " + type;
+        }
+        
+        public static PastObjectReference of(SourceType type) {
+            return new PastObjectReference(type);
+        }
+        
+        public static enum SourceType {
+            CONSTRUCTOR_ARGUMENT, TARGET_OBJECT, METHOD_PARAMETER, METHOD_RETURN
+        }
+    }
+    
+    public static class MethodParameterReference extends PastObjectReference {
+        public MethodParameterReference(int method, int paramNumber) {
+            super(SourceType.METHOD_PARAMETER);
+            this.method = method;
+            this.paramNumber = paramNumber;
+        }
+        
+        @Override
+        public String toString() {
+            return "Method " + method + " parameter " + paramNumber;
+        }
+    }
+    
+    public static class MethodReturnReference extends PastObjectReference {
+        public MethodReturnReference(int method) {
+            super(SourceType.METHOD_RETURN);
+            this.method = method;
+        }
+        
+        @Override
+        public String toString() {
+            return "Method " + method + " result";
+        }
     }
 }

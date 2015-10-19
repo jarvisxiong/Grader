@@ -74,7 +74,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 	}
 	public MethodDefinedTestCase(String classTag,String methodTag,  Object returnType, Object... parameterTypes) {
 		super("'" + methodTag + "' method exists test case");
-		init(classTag, methodTag, null, null, null, null);
+		init(classTag, methodTag, methodTag, null, null, null);
 		returnObject = returnType;
 		parameterObjects = parameterTypes;
 //		CLASS_TAG = classTag;
@@ -147,7 +147,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 //				METHOD_DESCRIPTIONS[1],
 //				METHOD_DESCRIPTIONS[2],
 //				METHOD_DESCRIPTIONS[3]);
-		List<Method> methods = IntrospectionUtil.getOrFindMethods(project, this, clazz, METHOD_NAME);
+		List<Method> methods = IntrospectionUtil.getOrFindMethodList(project, this, clazz, METHOD_NAME, METHOD_TAG);
 		if (methods.isEmpty()) {
 			String message = "Can't find '" + METHOD_NAME + "' method";
 			if (METHOD_TAG != null) {
