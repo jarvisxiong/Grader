@@ -8,10 +8,14 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
 import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import grader.util.IntrospectionUtil;
+import gradingTools.comp401f15.assignment6.testcases.commands.methods.FailedMethodFunctionTestCase;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -34,6 +38,17 @@ public class MethodExecutionTestCase extends BasicTestCase {
     private final Object[][] arguments;
     private final MethodEnvironment[] methodEnvirons;
     private final Object[] expectedReturnValues;
+    
+    
+    public static Method CYCLIC_GET_PROPERTY;
+    
+    static {
+        try {
+            CYCLIC_GET_PROPERTY = MethodExecutionTestCase.class.getMethod("cyclicGetProperty", Object.class, Method[].class);
+        } catch (NoSuchMethodException | SecurityException ex) {
+            CYCLIC_GET_PROPERTY = null;
+        }
+    }
     
     public MethodExecutionTestCase(String name, Object o, MethodEnvironment me, Object retVals) {
         this(name, null, null, o, new Method[]{me.getMethod()}, new Object[][]{me.getArguments()}, new MethodEnvironment[]{me}, new Object[]{retVals});
@@ -359,6 +374,42 @@ public class MethodExecutionTestCase extends BasicTestCase {
             }
         }
         return message;
+    }
+    
+    public static Object cyclicGetProperty(Object o, Method... methods) throws Exception {
+        for (Method method : methods) {
+            o = method.invoke(o);
+        }
+        return o;
+    }
+    
+    public static Method[] recursiveFindMethod(Class<?> root, String name, String tag) {
+        return recursiveFindMethod(root, name, tag, ".*" + name + ".*", ".*" + tag + ".*");
+    }
+    public static Method[] recursiveFindMethod(Class<?> root, String name, String tag, String nameRegex, String tagRegex) {
+        return recursiveFindMethod(root, name, tag, nameRegex, tagRegex, 3);
+    }
+    
+    public static Method[] recursiveFindMethod(Class<?> root, String name, String tag, String nameRegex, String tagRegex, int maxDepth) {
+        List<Method> methodList = IntrospectionUtil.findMethod(root, name, tag, nameRegex, tagRegex);
+        if (methodList.isEmpty()) {
+            if (maxDepth == 0) {
+                return null;
+            } else {
+                for (Method m : root.getMethods()) {
+                    Method[] methods = recursiveFindMethod(root, name, tag, nameRegex, tagRegex, maxDepth - 1);
+                    if (methods != null) {
+                        List<Method> ret = new ArrayList<>();
+                        ret.add(m);
+                        ret.addAll(Arrays.asList(methods));
+                        return ret.toArray(new Method[ret.size()]);
+                    }
+                }
+                return null;
+            }
+        } else {
+            return new Method[]{methodList.get(0)};
+        }
     }
     
     public static class MethodEnvironment {

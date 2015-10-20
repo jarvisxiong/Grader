@@ -44,12 +44,12 @@ public class ConstructorInitTestCase extends BasicTestCase {
         Method getRobin = null;
         Method getGalahad = null;
         Method getGuard = null;
-        Method getAvatarX = null;
+        Method[] getAvatarX = new Method[2];
         
         Method getKnightArea = null;
-        Method getKnightX = null;
+        Method[] getKnightX = null;
         Method getGuardArea = null;
-        Method getGuardX = null;
+        Method[] getGuardX = null;
         
         try {
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
@@ -58,12 +58,13 @@ public class ConstructorInitTestCase extends BasicTestCase {
             getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
             getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
             
-            getAvatarX = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "X").get(0);
+            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
+            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X").get(0);
             
             getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
-            getKnightX = IntrospectionUtil.getOrFindMethodList(project, this, getKnightArea.getReturnType(), "X").get(0);
+            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "X", "X");
             getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
-            getGuardX = IntrospectionUtil.getOrFindMethodList(project, this, getGuardArea.getReturnType(), "X").get(0);
+            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "X", "X");
         } catch (Exception e) {
             return fail("At least one of the following can't be found: getArthur, getLancelot, getRobin, getGalahad, getGuard, getKnightArea, getGuardArea, Avatar.getX, KnightArea.getX, GuardArea.getX");
         }
@@ -83,7 +84,7 @@ public class ConstructorInitTestCase extends BasicTestCase {
         }
     }
     
-    private static boolean[] checkConstructor(Constructor<?> bridgeSceneConstructor, Method getArthur, Method getLancelot, Method getRobin, Method getGalahad, Method getGuard, Method getKnightArea, Method getGuardArea, Method getAvatarX, Method getKnightX, Method getGuardX) {
+    private static boolean[] checkConstructor(Constructor<?> bridgeSceneConstructor, Method getArthur, Method getLancelot, Method getRobin, Method getGalahad, Method getGuard, Method getKnightArea, Method getGuardArea, Method[] getAvatarX, Method[] getKnightX, Method[] getGuardX) {
         boolean[] ret = new boolean[12];
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(getArthur),                                   // 0
@@ -93,13 +94,13 @@ public class ConstructorInitTestCase extends BasicTestCase {
             MethodEnvironment.get(getGuard),                                    // 4
             MethodEnvironment.get(getKnightArea),                               // 5
             MethodEnvironment.get(getGuardArea),                                // 6
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getAvatarX),  // 7
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getAvatarX),  // 8
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getAvatarX),  // 9
-            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getAvatarX),  // 10
-            MethodEnvironment.get(new MethodReturnReference(4), getAvatarX),    // 11
-            MethodEnvironment.get(new MethodReturnReference(5), getKnightX),    // 12
-            MethodEnvironment.get(new MethodReturnReference(6), getGuardX),     // 13
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getAvatarX),  // 7
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getAvatarX),  // 8
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getAvatarX),  // 9
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M3_RET, getAvatarX),  // 10
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, new MethodReturnReference(4), getAvatarX),    // 11
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, new MethodReturnReference(5), getKnightX),    // 12
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, new MethodReturnReference(6), getGuardX),     // 13
         };
         
         Object[] exData = MethodExecutionTestCase.invoke(bridgeSceneConstructor, new Object[]{}, methods);

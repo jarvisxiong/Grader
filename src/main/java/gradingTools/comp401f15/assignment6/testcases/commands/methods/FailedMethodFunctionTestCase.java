@@ -3,7 +3,6 @@ package gradingTools.comp401f15.assignment6.testcases.commands.methods;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
@@ -11,10 +10,14 @@ import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -51,9 +54,11 @@ public class FailedMethodFunctionTestCase extends BasicTestCase {
         Method getArthur = null;
         Method getLancelot = null;
         Method getGuard = null;
-        Method getAvatarX = null;
-        Method getAvatarY = null;
-        
+        Method[] getAvatarY = new Method[2];
+        //Method getHead = null;
+        //Method getAvatarX = null;
+        //Method getAvatarY = null;
+ 
         try {
             approach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
             say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
@@ -61,14 +66,14 @@ public class FailedMethodFunctionTestCase extends BasicTestCase {
             getKnightTurn = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
             getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
-            getAvatarX = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "X").get(0);
-            getAvatarY = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Y").get(0);
+            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().contains("rea")).collect(Collectors.toList()).get(0);
+            getAvatarY[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
+            getAvatarY[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarY[0].getReturnType(), "Y").get(0);
         } catch (Exception e) {
-            return fail("At least one of the following can't be found: approach, say, occupied getter, kngiht turn getter, getArthur, getLancelot, getGuard, Avatar.getX, Avatar.getY");
+            return fail("At least one of the following can't be found: approach, say, occupied getter, knight turn getter, getArthur, getLancelot, getGuard, Avatar.getY");
         }
 
-        boolean[] results = checkPass(bridgeSceneConstructor, fail, approach, say, getOccupied, getKnightTurn, getArthur, getLancelot, getGuard, getAvatarX, getAvatarY);
+        boolean[] results = checkPass(bridgeSceneConstructor, fail, approach, say, getOccupied, getKnightTurn, getArthur, getLancelot, getGuard, getAvatarY);
         
         int correct = count(results, true);
         int possible = results.length;
@@ -83,41 +88,41 @@ public class FailedMethodFunctionTestCase extends BasicTestCase {
         }
     }
     
-    private static boolean[] checkPass(Constructor<?> bridgeSceneConstructor, Method fail, Method approach, Method say, Method getOccupied, Method getKnightTurn, Method getArthur, Method getLancelot, Method getGuard, Method getX, Method getY) {
+    private static boolean[] checkPass(Constructor<?> bridgeSceneConstructor, Method fail, Method approach, Method say, Method getOccupied, Method getKnightTurn, Method getArthur, Method getLancelot, Method getGuard, Method[] getY) {
         boolean[] ret = new boolean[13];
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(getArthur),                                   // 0
             MethodEnvironment.get(getLancelot),                                 // 1
             MethodEnvironment.get(getGuard),                                    // 2
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 3
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 3
             MethodEnvironment.get(getOccupied),                                 // 4
             MethodEnvironment.get(getKnightTurn),                               // 5
             MethodEnvironment.get(fail),                                        // 6    // check fail after nothing
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 7
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 7
             MethodEnvironment.get(approach, MethodExecutionTestCase.M1_RET),    // 8
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getY),        // 9
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getY),        // 9
             MethodEnvironment.get(getOccupied),                                 // 10
             MethodEnvironment.get(getKnightTurn),                               // 11
             MethodEnvironment.get(fail),                                        // 12   // check fail after approach (knight fail)
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getY),        // 13
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 14
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getY),        // 13
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 14
             MethodEnvironment.get(getOccupied),                                 // 15   // should be false
             MethodEnvironment.get(getKnightTurn),                               // 16
             MethodEnvironment.get(fail),                                        // 17   // check fail after (hopefully successful) knight fail
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 18
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 18
             MethodEnvironment.get(approach, MethodExecutionTestCase.M0_RET),    // 19
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),        // 20
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),        // 20
             MethodEnvironment.get(say, "What is your name?"),                   // 21
             MethodEnvironment.get(getOccupied),                                 // 22
             MethodEnvironment.get(getKnightTurn),                               // 23
             MethodEnvironment.get(fail),                                        // 24   // check fail after approach, say (guard fail)
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),        // 25
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 26
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),        // 25
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 26
             MethodEnvironment.get(getOccupied),                                 // 27
             MethodEnvironment.get(getKnightTurn),                               // 28
             MethodEnvironment.get(fail),                                        // 29   // check fail after (hopefully successful) guard fail
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),        // 30
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getY),        // 31
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),        // 30
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getY),        // 31
             MethodEnvironment.get(getOccupied)                                  // 32   // should be true
         };
         

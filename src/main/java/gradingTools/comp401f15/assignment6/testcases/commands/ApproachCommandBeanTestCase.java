@@ -1,6 +1,5 @@
 package gradingTools.comp401f15.assignment6.testcases.commands;
 
-import gradingTools.comp401f15.assignment4.testcases.commands.function.*;
 import gradingTools.comp401f15.assignment3.testcases.AbstractTokenBeanTestCase;
 
 

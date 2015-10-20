@@ -49,10 +49,9 @@ public class PassedMethodFunctionTestCase extends BasicTestCase {
         Method getOccupied = null;
         Method getKnightTurn = null;
         Method getGorge = null;
-        Method getGorgeX = null;
+        Method[] getGorgeX = null;
         Method getArthur = null;
-        Method getAvatarX = null;
-        Method getAvatarY = null;
+        Method[] getAvatarX = new Method[2];
         
         try {
             approach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
@@ -60,15 +59,16 @@ public class PassedMethodFunctionTestCase extends BasicTestCase {
             getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
             getKnightTurn = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
             getGorge = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Gorge").get(0);
-            getGorgeX = IntrospectionUtil.getOrFindMethodList(project, this, getGorge.getReturnType(), "X").get(0);
+            getGorgeX = MethodExecutionTestCase.recursiveFindMethod(getGorge.getReturnType(), "X", "X");
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-            getAvatarX = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "X").get(0);
-            getAvatarY = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Y").get(0);
+            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
+            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X").get(0);
+            
         } catch (Exception e) {
-            return fail("At least one of the following can't be found: approach, say, occupied getter, kngiht turn getter, getGorge, getArthur, Avatar.getX, Avatar.getY");
+            return fail("At least one of the following can't be found: approach, say, occupied getter, knight turn getter, getGorge, Gorge.getX, getArthur, Avatar.getX");
         }
 
-        boolean[] results = checkPass(bridgeSceneConstructor, pass, approach, say, getOccupied, getKnightTurn, getGorge, getGorgeX, getArthur, getAvatarX, getAvatarY);
+        boolean[] results = checkPass(bridgeSceneConstructor, pass, approach, say, getOccupied, getKnightTurn, getGorge, getGorgeX, getArthur, getAvatarX);
         
         int correct = count(results, true);
         int possible = results.length;
@@ -83,30 +83,30 @@ public class PassedMethodFunctionTestCase extends BasicTestCase {
         }
     }
     
-    private static boolean[] checkPass(Constructor<?> bridgeSceneConstructor, Method pass, Method approach, Method say, Method getOccupied, Method getKnightTurn, Method getGorge, Method getGorgeX, Method getArthur, Method getX, Method getY) {
+    private static boolean[] checkPass(Constructor<?> bridgeSceneConstructor, Method pass, Method approach, Method say, Method getOccupied, Method getKnightTurn, Method getGorge, Method[] getGorgeX, Method getArthur, Method[] getX) {
         boolean[] ret = new boolean[7];
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(getGorge),                                    // 0
             MethodEnvironment.get(getArthur),                                   // 1
             MethodEnvironment.get(pass),                                        // 2
             MethodEnvironment.get(approach, MethodExecutionTestCase.M1_RET),    // 3
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),        // 4
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),        // 4
             MethodEnvironment.get(say, "What is your name?"),                   // 5
             MethodEnvironment.get(getOccupied),                                 // 6
             MethodEnvironment.get(getKnightTurn),                               // 7
             MethodEnvironment.get(pass),                                        // 8
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),        // 9
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),        // 9
             MethodEnvironment.get(say, "It is Arthur, King of the Britons"),    // 10
             MethodEnvironment.get(getOccupied),                                 // 11
             MethodEnvironment.get(getKnightTurn),                               // 12
             MethodEnvironment.get(pass),                                        // 13
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),        // 14
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),        // 14
             MethodEnvironment.get(getOccupied),                                 // 15
             MethodEnvironment.get(getKnightTurn),                               // 16
             MethodEnvironment.get(pass),                                        // 17
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),        // 18
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),        // 18
             MethodEnvironment.get(getOccupied),                                 // 19
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getGorgeX)    // 20
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getGorgeX)    // 20
         };
         
         Object[] exData = MethodExecutionTestCase.invoke(bridgeSceneConstructor, new Object[]{}, methods);

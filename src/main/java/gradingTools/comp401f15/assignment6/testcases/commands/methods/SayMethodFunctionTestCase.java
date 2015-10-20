@@ -71,10 +71,11 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
                     break;
                 }
             }
-            getText = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text").get(0);
-            if (getText == null) {
-                getText = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String").get(0);
+            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
+            if (lm.isEmpty()) {
+                lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
             }
+            getText = lm.get(0);
         } catch (Exception e) {
             return fail("At least one of the following can't be found: approach, pass, occupied getter, knight turn getter, getArthur, getLancelot, getGuard, avatar speech getter, String_Pattern getText/getString");
         }

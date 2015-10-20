@@ -47,20 +47,19 @@ public class ApproachMethodFunctionTestCase extends BasicTestCase {
         Method getOccupied = null;
         Method getArthur = null;
         Method getLancelot = null;
-        Method getAvatarX = null;
-        Method getAvatarY = null;
+        Method[] getAvatarX = new Method[2];
         
         try {
             getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
             getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-            getAvatarX = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "X").get(0);
-            getAvatarY = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Y").get(0);
+            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
+            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X").get(0);
         } catch (Exception e) {
-            return fail("Can't find at least one of the following: occupied getter, getArthur, getLancelot, Avatar.getX, Avatar.getY");
+            return fail("Can't find at least one of the following: occupied getter, getArthur, getLancelot, Avatar.getX");
         }
 
-        boolean[] results = checkMovement(bridgeSceneConstructor, approach, getOccupied, getArthur, getLancelot, getAvatarX, getAvatarY);
+        boolean[] results = checkMovement(bridgeSceneConstructor, approach, getOccupied, getArthur, getLancelot, getAvatarX);
         
         int correct = count(results, true);
         if (correct == 0) {
@@ -77,19 +76,19 @@ public class ApproachMethodFunctionTestCase extends BasicTestCase {
         }
     }
     
-    private static boolean[] checkMovement(Constructor<?> bridgeSceneConstructor, Method approach, Method occupied, Method getArthur, Method getLancelot, Method getX, Method getY) {
+    private static boolean[] checkMovement(Constructor<?> bridgeSceneConstructor, Method approach, Method occupied, Method getArthur, Method getLancelot, Method[] getX) {
         boolean[] ret = new boolean[]{false, false, false};
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(occupied),                                // 0
             MethodEnvironment.get(getArthur),                               // 1
             MethodEnvironment.get(getLancelot),                             // 2
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),    // 3
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getX),    // 4
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),    // 3
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getX),    // 4
             MethodEnvironment.get(approach, MethodExecutionTestCase.M1_RET),// 5
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getX),    // 6
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M1_RET, getX),    // 6
             MethodEnvironment.get(occupied),                                // 7
             MethodEnvironment.get(approach, MethodExecutionTestCase.M2_RET),// 8
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getX),    // 9
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M2_RET, getX),    // 9
             MethodEnvironment.get(occupied),                                // 10
         };
         

@@ -44,26 +44,26 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
             return fail("Can't find empty BridgeScene constructor");
         }
         Method getKnightArea = null;
-        Method getKnightX = null;
-        Method getKnightY = null;
+        Method[] getKnightX = null;
+        Method[] getKnightY = null;
         Method getGuardArea = null;
-        Method getGuardX = null;
-        Method getGuardY = null;
+        Method[] getGuardX = null;
+        Method[] getGuardY = null;
         
         boolean useKnightArea = true;
         boolean useGuardArea = true;
         
         try {
             getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
-            getKnightX = IntrospectionUtil.getOrFindMethodList(project, this, getKnightArea.getReturnType(), "X").get(0);
-            getKnightY = IntrospectionUtil.getOrFindMethodList(project, this, getKnightArea.getReturnType(), "Y").get(0);
+            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "X", "X");
+            getKnightY = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "Y", "Y");
         } catch (Exception e) {
             useKnightArea = false;
         }
         try {
             getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
-            getGuardX = IntrospectionUtil.getOrFindMethodList(project, this, getGuardArea.getReturnType(), "X").get(0);
-            getGuardY = IntrospectionUtil.getOrFindMethodList(project, this, getGuardArea.getReturnType(), "Y").get(0);
+            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "X", "X");
+            getGuardY = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "Y", "Y");
         } catch (Exception e) {
             useGuardArea = false;
         }
@@ -102,24 +102,24 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
         }
     }
     
-    private static int[] check1Area(Constructor<?> bridgeSceneConstructor, Method scroll, Method getArea, Method getX, Method getY) {
+    private static int[] check1Area(Constructor<?> bridgeSceneConstructor, Method scroll, Method getArea, Method[] getX, Method[] getY) {
         int[] ret = new int[]{1, 1, 1, 1};
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(getArea),                                 // 0
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getX),    // 1
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),    // 2
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),    // 1
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),    // 2
             MethodEnvironment.get(scroll, 1, 0),                            // 3
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getX),    // 4
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),    // 5
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),    // 4
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),    // 5
             MethodEnvironment.get(scroll, -1, 0),                           // 6
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getX),    // 7
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),    // 8
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),    // 7
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),    // 8
             MethodEnvironment.get(scroll, 0, 1),                            // 9
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getX),    // 10
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY),    // 11
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),    // 10
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),    // 11
             MethodEnvironment.get(scroll, 0, -1),                           // 12
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getX),    // 13
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getY)     // 14
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),    // 13
+            MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY)     // 14
         };
         
         Object[] exData = MethodExecutionTestCase.invoke(bridgeSceneConstructor, new Object[]{}, methods);
@@ -152,7 +152,7 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
         return ret;
     }
     
-    private static int[] check2Areas(Constructor<?> bridgeSceneConstructor, Method scroll, Method getArea1, Method getX1, Method getY1,  Method getArea2, Method getX2, Method getY2) {
+    private static int[] check2Areas(Constructor<?> bridgeSceneConstructor, Method scroll, Method getArea1, Method[] getX1, Method[] getY1,  Method getArea2, Method[] getX2, Method[] getY2) {
         int[] ret = check1Area(bridgeSceneConstructor, scroll, getArea1, getX1, getY1);
         int[] ret2 = check1Area(bridgeSceneConstructor, scroll, getArea2, getX2, getY2);
         

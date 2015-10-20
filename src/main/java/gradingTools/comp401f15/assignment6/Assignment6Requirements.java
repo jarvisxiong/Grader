@@ -15,7 +15,6 @@ import gradingTools.comp401f15.assignment6.testcases.commands.methods.FailedMeth
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.PassedMethodFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.SayMethodFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.commands.methods.ScrollMethodFunctionTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
@@ -90,9 +89,16 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
                 new MethodDefinedTestCase("ClearableHistory", "clear", "clear", ".*[cC]lear.*", void.class),
                 new ClearableHistoryFunctionTestCase()
         );
+        
 
         // Define the restrictions
 
+        
+        addRestriction("Helper Properties", -4,
+   	 		new PropertyDefinedTestCase("BridgeScene", "Occupied",  boolean.class),
+   	 		new PropertyDefinedTestCase("BridgeScene", "KnightTurn",  boolean.class)
+        );
+        
         addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
         addRestriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case"));
         addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
