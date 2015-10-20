@@ -46,6 +46,11 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
  
         addFeature("Avatar init in constructor", 10, new ConstructorInitTestCase());
         
+        addFeature("Helper Properties", 4,
+   	 		new PropertyDefinedTestCase("BridgeScene", "Occupied",  boolean.class),
+   	 		new PropertyDefinedTestCase("BridgeScene", "KnightTurn",  boolean.class)
+        );
+        
         addFeature("Approach method", 7, 
                 new MethodDefinedTestCase("BridgeScene", "approach", void.class, "Avatar"),
                 new ApproachMethodFunctionTestCase()
@@ -94,14 +99,14 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
         // Define the restrictions
 
         
-        addRestriction("Helper Properties", -4,
-   	 		new PropertyDefinedTestCase("BridgeScene", "Occupied",  boolean.class),
-   	 		new PropertyDefinedTestCase("BridgeScene", "KnightTurn",  boolean.class)
-        );
+//        addRestriction("Helper Properties", -4,
+//   	 		new PropertyDefinedTestCase("BridgeScene", "Occupied",  boolean.class),
+//   	 		new PropertyDefinedTestCase("BridgeScene", "KnightTurn",  boolean.class)
+//        );
         
-        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
-        addRestriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case"));
-        addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
+//        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
+        addRestriction("Interface object assignments.", 5, new InterfaceTypeTestCase("Interface type test case"));
+        addRestriction("At least three packages.", 5, new ThreePackageTestCase("Three package test case"));
         addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
         addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
 
