@@ -32,7 +32,7 @@ public class ARequirementsToCourseInfoTranslator {
 //		URL url2 = getClass().getResource("/bus/uigen/uiFrame.class");
 //		URL url3 = getClass().getResource("/oeall-22.jar");
 //		URL url4 = getClass().getResource("oeall-22.jar");
-        String[] aPathElements = System.getProperty("java.class.path").split(";");
+        String[] aPathElements = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
 
 //        System.out.println("Path elements:" + aPathElements);
         String aGraderPath = getGraderPath(aPathElements);
