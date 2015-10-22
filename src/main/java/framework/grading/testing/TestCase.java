@@ -19,8 +19,9 @@ public interface TestCase extends Permissible{
      * @param project The project to test
      * @return A {@link TestCaseResult} containing the result and any notes.
      * @throws NotAutomatableException
+     * @throws NoSuchFieldException 
      */
-    public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException;
+    public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException, NoSuchFieldException;
 
     /**
      * Sets the checkable containing this test case.
