@@ -28,7 +28,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static final MethodReturnReference M0_RET = new MethodReturnReference(0);
     public static final MethodReturnReference M1_RET = new MethodReturnReference(1);
     public static final MethodReturnReference M2_RET = new MethodReturnReference(2);
-    public static final MethodReturnReference M3_RET = new MethodReturnReference(2);
+    public static final MethodReturnReference M3_RET = new MethodReturnReference(3);
     public static final PastObjectReference EX_TARGET = PastObjectReference.of(PastObjectReference.SourceType.TARGET_OBJECT);
     
     private final Constructor<?> constructor;

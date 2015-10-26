@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -53,8 +54,13 @@ public class ApproachMethodFunctionTestCase extends BasicTestCase {
             getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
             getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
-            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X").get(0);
+            
+            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head");
+            lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
+            getAvatarX[0] = lm.get(0);
+            lm = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X");
+            lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
+            getAvatarX[1] = lm.get(0);
         } catch (Exception e) {
             return fail("Can't find at least one of the following: occupied getter, getArthur, getLancelot, Avatar.getX");
         }

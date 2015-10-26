@@ -55,15 +55,15 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
         
         try {
             getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
-            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "X", "X");
-            getKnightY = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "Y", "Y");
+            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getX", "X");
+            getKnightY = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getY", "Y");
         } catch (Exception e) {
             useKnightArea = false;
         }
         try {
             getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
-            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "X", "X");
-            getGuardY = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "Y", "Y");
+            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getX", "X");
+            getGuardY = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getY", "Y");
         } catch (Exception e) {
             useGuardArea = false;
         }

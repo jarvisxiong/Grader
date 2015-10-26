@@ -10,6 +10,7 @@ import framework.project.Project;
 import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
+import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 
 /**
  *
@@ -74,6 +75,10 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                 getTokensMethod = null;
                 getTokensNamedWrong = true;
             }
+            
+            ClearableHistoryFunctionTestCase.locateClearableHistory(project, this);
+            Method getClearableHistory = (Method)getCheckable().getRequirements().getUserObject(ClearableHistoryFunctionTestCase.CLEARABLE_HISTORY);
+            Class<?> clearableHistoryClass = getClearableHistory != null ? getClearableHistory.getReturnType() : null;
             if (getTokensMethod == null) {
                 for(Method m : scannerClass.getMethods()) {
                     if (m.getName().matches(methodRegex)) {
@@ -85,6 +90,8 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
                         if(retType.getComponentType().equals(tokenInterface)) {
                             getTokensMethod = m;
                         }
+                    } else if (clearableHistoryClass != null && retType.isAssignableFrom(clearableHistoryClass)) {
+                        getTokensMethod = m;
                     }
                 }
             }

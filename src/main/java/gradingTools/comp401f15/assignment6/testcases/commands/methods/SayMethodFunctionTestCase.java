@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 
@@ -63,7 +64,8 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
             getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
             getKnightTurn = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
+            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().contains("rea")).collect(Collectors.toList()).get(0);
+            //getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
             for(Method m : getArthur.getReturnType().getMethods()) {
                 StructurePattern structurePattern = m.getReturnType().getAnnotation(StructurePattern.class);
                 if (structurePattern != null && StructurePatternNames.STRING_PATTERN.equals(structurePattern.value())) {
@@ -72,8 +74,10 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
                 }
             }
             List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
+            lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             if (lm.isEmpty()) {
                 lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
+                lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             }
             getText = lm.get(0);
         } catch (Exception e) {
@@ -100,49 +104,51 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
         MethodEnvironment[] methods = new MethodEnvironment[]{
             MethodEnvironment.get(getArthur),                                       // 0
             MethodEnvironment.get(getGuard),                                        // 1
-            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getStringShape),  // 2
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getStringShape),  // 3
-            MethodEnvironment.get(getOccupied),                                     // 4
-            MethodEnvironment.get(getKnightTurn),                                   // 5
-            MethodEnvironment.get(say, "What is your name?"),                       // 6    // check say after nothing
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 7
-            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 8
-            MethodEnvironment.get(approach, MethodExecutionTestCase.M0_RET),        // 9
-            MethodEnvironment.get(getOccupied),                                     // 10
-            MethodEnvironment.get(getKnightTurn),                                   // 11
-            MethodEnvironment.get(say, "What is your name?"),                       // 12   // check say after approach
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 13
-            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 14
-            MethodEnvironment.get(getOccupied),                                     // 15
-            MethodEnvironment.get(getKnightTurn),                                   // 16
-            MethodEnvironment.get(say, "It is Arthur, King of the Brittons."),      // 17   // check say after approach, say
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 18
-            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 19
-            MethodEnvironment.get(getKnightTurn),                                   // 20
-            MethodEnvironment.get(pass),                                            // 21
-            MethodEnvironment.get(getOccupied),                                     // 22
-            MethodEnvironment.get(getKnightTurn),                                   // 23
-            MethodEnvironment.get(say, "What is your name?"),                       // 24   // check say after approach, say, pass
-            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 25
-            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText)          // 26
+            MethodEnvironment.get(MethodExecutionTestCase.M0_RET, getStringShape),  // 2    // arthur's text
+            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getStringShape),  // 3    // guard's text
+            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 4
+            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 5
+            MethodEnvironment.get(getOccupied),                                     // 6
+            MethodEnvironment.get(getKnightTurn),                                   // 7
+            MethodEnvironment.get(say, "What is your name?"),                       // 8    // check say after nothing
+            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 9
+            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 10
+            MethodEnvironment.get(approach, MethodExecutionTestCase.M0_RET),        // 11
+            MethodEnvironment.get(getOccupied),                                     // 12
+            MethodEnvironment.get(getKnightTurn),                                   // 13
+            MethodEnvironment.get(say, "What is your name?"),                       // 14   // check say after approach
+            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 15
+            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 16
+            MethodEnvironment.get(getOccupied),                                     // 17
+            MethodEnvironment.get(getKnightTurn),                                   // 18
+            MethodEnvironment.get(say, "It is Arthur, King of the Brittons."),      // 19   // check say after approach, say
+            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 20
+            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText),         // 21
+            MethodEnvironment.get(getKnightTurn),                                   // 22
+            MethodEnvironment.get(pass),                                            // 23
+            MethodEnvironment.get(getOccupied),                                     // 24
+            MethodEnvironment.get(getKnightTurn),                                   // 25
+            MethodEnvironment.get(say, "What is your name?"),                       // 26   // check say after approach, say, pass
+            MethodEnvironment.get(MethodExecutionTestCase.M2_RET, getText),         // 27
+            MethodEnvironment.get(MethodExecutionTestCase.M3_RET, getText)          // 28
         };
         
         Object[] exData = MethodExecutionTestCase.invoke(bridgeSceneConstructor, new Object[]{}, methods);
         System.err.println(Arrays.toString(exData));
         
-        ret[0] = checkNotIntance(exData, 6, Exception.class);
-        ret[1] = checkCorrectAction(exData, 2, 7, 4, 5, false);
-        ret[2] = checkCorrectAction(exData, 7, 13, 10, 11, true);
-        ret[3] = checkCorrectAction(exData, 8, 14, 10, 11, false);
-        ret[4] = checkEqual(exData, 14, "What is your name?");
-        ret[5] = checkIs(exData, 16, true);
-        ret[6] = checkCorrectAction(exData, 13, 18, 15, 16, true);
-        ret[7] = checkCorrectAction(exData, 14, 19, 15, 16, false);
-        ret[8] = checkEqual(exData, 18, "It is Arthur, King of the Brittons.");
-        ret[9] = checkIs(exData, 21, false);
-        ret[10] = checkNotIntance(exData, 24, Exception.class);
-        ret[11] = checkCorrectAction(exData, 18, 25, 22, 23, true);
-        ret[12] = checkCorrectAction(exData, 19, 26, 22, 23, false);
+        ret[0] = checkNotIntance(exData, 8, Exception.class);
+        ret[1] = checkCorrectAction(exData, 4, 9, 6, 7, false);
+        ret[2] = checkCorrectAction(exData, 9, 15, 12, 13, true);
+        ret[3] = checkCorrectAction(exData, 10, 16, 12, 13, false);
+        ret[4] = checkEqual(exData, 16, "What is your name?");
+        ret[5] = checkIs(exData, 18, true);
+        ret[6] = checkCorrectAction(exData, 15, 20, 17, 18, true);
+        ret[7] = checkCorrectAction(exData, 16, 21, 17, 18, false);
+        ret[8] = checkEqual(exData, 20, "It is Arthur, King of the Brittons.");
+        ret[9] = checkIs(exData, 24, false);
+        ret[10] = checkNotIntance(exData, 26, Exception.class);
+        ret[11] = checkCorrectAction(exData, 20, 27, 24, 25, true);
+        ret[12] = checkCorrectAction(exData, 21, 28, 24, 25, false);
         
         System.out.println(Arrays.toString(ret));
         return ret;
@@ -165,7 +171,7 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
         boolean same = checkEqual(results, original, now);
         boolean shouldChange = bOccupied && (Boolean.compare(bKnightTurn, checkKnight) == 0);
         
-        return (Boolean.compare(same, shouldChange)==0) || (!shouldChange && checkEqual(results, now, ""));
+        return (Boolean.compare(same, shouldChange)!=0) || (!shouldChange && checkEqual(results, now, ""));
     }
     
     private static boolean checkIs(Object[] results, int a, boolean b) {
@@ -177,11 +183,11 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
     }
     
     private static boolean checkInstance(Object[] results, int a, Class<?> c) {
-        return a < results.length && c.isInstance(results[a]);
+        return a <results.length && c.isInstance(results[a]);
     }
     
     private static boolean checkEqual(Object[] results, int a, Object value) {
-        if (a < results.length) {
+        if (a >= results.length) {
             return false;
         }
         
@@ -193,7 +199,7 @@ public class SayMethodFunctionTestCase extends BasicTestCase {
     }
     
     private static boolean checkEqual(Object[] results, int a, int b) {
-        if (a >= results.length || b > results.length) {
+        if (a >= results.length || b >= results.length) {
             return false;
         }
         Object oA = results[a];

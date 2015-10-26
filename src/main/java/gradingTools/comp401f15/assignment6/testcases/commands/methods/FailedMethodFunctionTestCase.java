@@ -67,8 +67,13 @@ public class FailedMethodFunctionTestCase extends BasicTestCase {
             getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
             getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
             getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().contains("rea")).collect(Collectors.toList()).get(0);
-            getAvatarY[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
-            getAvatarY[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarY[0].getReturnType(), "Y").get(0);
+
+            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head");
+            lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
+            getAvatarY[0] = lm.get(0);
+            lm = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarY[0].getReturnType(), "Y");
+            lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
+            getAvatarY[1] = lm.get(0);
         } catch (Exception e) {
             return fail("At least one of the following can't be found: approach, say, occupied getter, knight turn getter, getArthur, getLancelot, getGuard, Avatar.getY");
         }

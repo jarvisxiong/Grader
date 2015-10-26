@@ -3,6 +3,7 @@ package gradingTools.comp401f15.assignment6.testcases;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
@@ -20,8 +21,22 @@ import java.util.Objects;
  */
 public class ClearableHistoryFunctionTestCase extends BasicTestCase {
 
+    public static final String CLEARABLE_HISTORY = "ClearableHistory";
+    
     public ClearableHistoryFunctionTestCase() {
         super("ClearableHistory function Test Case");
+    }
+    
+    public static void locateClearableHistory(Project p, TestCase testCase) {
+        Class scannerBeanClass = IntrospectionUtil.getOrFindClass(p, testCase, "ScannerBean");
+        locateClearableHistory(p, testCase, scannerBeanClass);
+    }
+    
+    public static void locateClearableHistory(Project p, TestCase testCase, Class<?> scannerBeanClass) {
+        try {
+            Method getTokenList = IntrospectionUtil.getOrFindMethodList(p, testCase, scannerBeanClass, "TokenList").get(0);
+            testCase.getCheckable().getRequirements().putUserObject(CLEARABLE_HISTORY, getTokenList);
+        } catch (Exception e) { }
     }
 
     @Override
@@ -44,8 +59,9 @@ public class ClearableHistoryFunctionTestCase extends BasicTestCase {
         Method clear = null;
         Method getSize = null;
         
+        locateClearableHistory(project, this, scannerBeanClass);
         try {
-            setString = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "String").get(0);
+            setString = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "String").stream().filter((m)->m.getName().matches(".*set.*")).findAny().get();
             getTokenList = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "TokenList").get(0);
             clear = IntrospectionUtil.getOrFindMethodList(project, this, getTokenList.getReturnType(), "clear").get(0);
             List<Method> sizeList = IntrospectionUtil.getOrFindMethodList(project, this, getTokenList.getReturnType(), "size");
@@ -64,9 +80,9 @@ public class ClearableHistoryFunctionTestCase extends BasicTestCase {
             return fail("ClearableHistory does not work");
         } if (count == 1) {
             if (results[0]) {
-                return partialPass(0.25, "ClearableHistory didn't sart with contents");
-            } else {
                 return partialPass(0.25, "ClearableHistory didn't clear");
+            } else {
+                return partialPass(0.25, "ClearableHistory didn't start with contents");
             }
         } else {
             return pass();
@@ -76,18 +92,18 @@ public class ClearableHistoryFunctionTestCase extends BasicTestCase {
     private static boolean[] checkClear(Constructor<?> bridgeSceneConstructor, Method setString, Method getTokenList, Method clear, Method getSize) {
         boolean[] ret = new boolean[2];
         MethodEnvironment[] methods = new MethodEnvironment[]{
-            MethodEnvironment.get(setString, "0 a \"stuff\" "),                 // 1
-            MethodEnvironment.get(getTokenList),                                // 2
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getSize),     // 3
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, clear),       // 4
-            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getSize),     // 5
+            MethodEnvironment.get(setString, "0 a \"stuff\" "),                 // 0
+            MethodEnvironment.get(getTokenList),                                // 1
+            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getSize),     // 2
+            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, clear),       // 3
+            MethodEnvironment.get(MethodExecutionTestCase.M1_RET, getSize),     // 4
         };
         
         Object[] exData = MethodExecutionTestCase.invoke(bridgeSceneConstructor, new Object[]{}, methods);
         System.err.println(Arrays.toString(exData));
         
-        ret[0] = checkNEqual(exData, 3, 0);
-        ret[1] = checkEqual(exData, 5, 0);
+        ret[0] = checkNEqual(exData, 2, new Integer(0));
+        ret[1] = checkEqual(exData, 4, new Integer(0));
         
         System.out.println(Arrays.toString(ret));
         return ret;

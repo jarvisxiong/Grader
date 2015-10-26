@@ -12,6 +12,7 @@ import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodReturnReference
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -56,15 +57,24 @@ public class ConstructorInitTestCase extends BasicTestCase {
             getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
             getRobin = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
             getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
-            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
-            
+            List<Method> guardMethods = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard");
+            for(Method m : guardMethods) {
+                if (m.getName().matches(".*[aA]rea.*")) {
+                    getGuardArea = m;
+                } else {
+                    getGuard = m;
+                }
+            }
+            if (getGuard == null || getGuardArea == null) {
+                throw new Exception();
+            }
             getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
-            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X").get(0);
+            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "getX").get(0);
             
             getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
-            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "X", "X");
-            getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
-            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "X", "X");
+            getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getX", "X");
+            //getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
+            getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getX", "X");
         } catch (Exception e) {
             return fail("At least one of the following can't be found: getArthur, getLancelot, getRobin, getGalahad, getGuard, getKnightArea, getGuardArea, Avatar.getX, KnightArea.getX, GuardArea.getX");
         }

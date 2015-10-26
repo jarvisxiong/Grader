@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
@@ -14,6 +13,9 @@ import framework.project.Project;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
+import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
 
@@ -40,9 +42,8 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
     	if (getTokenswMethod != null) {
     		tokenPropertyName = getTokenswMethod.getName().substring(3);
     	} 
-    		return new String[]{tokenPropertyName};
-    	
-    	};
+        return new String[]{tokenPropertyName};
+    }
 
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
         Map<String, Object> anInputs = new HashMap();
@@ -54,8 +55,25 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
         }
         if (!anActualOutputs.containsKey(ExecutionUtil.MISSING_READ)) {
             Object tokenRet = anActualOutputs.get(tokenPropertyName);
-            if (tokenRet instanceof Object[]) {
+            Object token = null;
+            
+            ClearableHistoryFunctionTestCase.locateClearableHistory(aProject, this);
+            Method clearMethod = (Method)getCheckable().getRequirements().getUserObject(ClearableHistoryFunctionTestCase.CLEARABLE_HISTORY);
+            if (clearMethod != null) {
+                Class<?> clearableHistoryClass = clearMethod.getReturnType();
+                Method getTokens = Arrays.stream(clearableHistoryClass.getMethods()).filter((m)->m.getName().matches(".*get.*")).findFirst().orElse(null);
+                if (getTokens != null) {
+                    token = ExecutionUtil.timedInvoke(tokenRet, getTokens, (Object)0);
+                } else {
+                    return fail("Can't find method to get from clearable history");
+                }
+            } else if (tokenRet instanceof Object[]) {
                 Object[] tokens = (Object[])tokenRet;
+                token = tokens[0];
+            } else {
+                return fail("Can't find token getter");
+            }
+            if (token != null) {
                 Class aClass = IntrospectionUtil.findClass(aProject, 
                             commandDescriptions()[0],
                             commandDescriptions()[1],
@@ -64,14 +82,16 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
                 if (aClass == null) {
                     return fail("Cannot find a class for the '" + commandName() + "' command token");
                 }
-                if (aClass.isInstance(tokens[0])) {
+                if (aClass.isInstance(token)) {
                     return pass("Correctly creates '" + commandName() + "' command tokens");
                 } else {
                     return fail("Fails to create '" + commandName() + "' command tokens");
                 }
+            } else {
+                return fail("No token found");
             }
         }
-        return fail("Scanner does not return token array");
+        return fail("Can't find token getter");
     }
 
     @Override
