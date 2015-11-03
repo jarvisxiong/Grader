@@ -89,7 +89,7 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
         addFeature("Signed move", 8, true,
                 new ClassDefinedTestCase("@SignedMove"),
                 new SignedMoveCommandInterpretedTestCase());
-        addFeature("Error Resilient Command Interpreter", 7, 
+        addFeature("Error Resilient Command Interpreter", 7, true,
                 new ErrorResilientCommandInterpreterDefinedTestCase(),
                 new ErrorResilientCommandInterpreterFunctionTestCase());
         
