@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This configuration file was written by the eclipse-cs plugin configuration 
+	editor -->
+<!-- Checkstyle-Configuration: Test Description: none -->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+
+<module name="unc.tools.checkstyle.AnExtendibleChecker">
+
+	<property name="severity" value="warning" />
+
+
+	<module name="unc.tools.checkstyle.AnExtendibleTreeWalker">
+		<property name="severity" value="info" />
+
+		<module name="STBuilder">
+			<property name="includeTypeTags" value="*" />
+
+			<property name="severity" value="info" />
+			<property name="projectPackagePrefixes" value="main, test,lectures,mp, grail" />
+			<property name="existingClasses"
+				value="java.util.List, java.util.ArrayList, java.util.Vector, java.util.HashMap" />
+			<property name="importsAsExistingClasses" value="true" />
+
+		</module>
+
+	</module>
+
+
+	<module name="TreeWalker">
+		<module name="EqualsAvoidNull" />
+		<module name="EmptyStatement" />
+		<module name="MagicNumber" />
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+		<module name="StringLiteralEquality" />
+		<module name="NestedForDepth">
+			<property name="max" value="1" />
+		</module>
+		<module name="NestedIfDepth">
+			<property name="max" value="1" />
+		</module>
+		<module name="PackageDeclaration" />		
+		<module name="AvoidStarImport">
+		<module name="HiddenField"/>
+
+		</module>
+		
+		<module name="VisibilityModifier">
+			<property name="packageAllowed" value="true" />
+			<property name="protectedAllowed" value="true" />
+		</module>
+		<module name="ConstantName" />
+		<module name="TypeName" />
+		<module name="MethodName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="StaticVariableName" />
+		<module name="NeedBraces"/>
+		<module name="MultipleStringLiterals"/>
+		
+		<module name="NoDuplicateShortTypeName">
+		</module>
+		<module name="NoFullTypeName">
+		</module>
+
+		<module name="IllegalMethodCall">
+			<property name="disallowedCalls" value="Scanner, String" />
+			<property name="exceptionCalls"
+				value="String.substring, String.charAt, String.length, String.toLowerCase, String.equals, String.equalsIgnoreCase, Scanner.nextLine, Scanner.hasNext, Scanner.close" />
+		</module>
+		<module name="UnnecessaryMethodCall">
+			<property name="disallowedCalls" value="Scanner, String" />
+			<property name="exceptionCalls"
+				value="String.substring, String.charAt, String.length, String.equals, String.equalsIgnoreCase, String.toLowerCase, Scanner.nextLine, Scanner.close" />
+		</module>
+
+		<module name="IllegalInitCall">
+			<property name="includeTypeTags" value="*" />
+		</module>
+		<module name="IllegalComponentInstantiation">
+			<property name="includeTypeTags" value="*" />
+		</module>
+		<module name="IllegalTypeImported">
+			<property name="legalPrefixes"
+				value="bus.uigen, util, java.util.Scanner, java.util.List,  java.util.Iterator, java.util.ArrayList, java.util.Vector, java.util.LinkedList, java.util.NoSuchElementException, javax.swing, java.beans" />
+		</module>
+		<module name="IllegalTypeDefined">
+			<property name="illegalTypeNames"
+				value="PropertyChangeEvent, PropertyChangeListener, PropertyListenerRegisterer" />
+		</module>
+		<module name="ClassDefined">
+			<property name="severity" value="info" />
+			<property name="expectedTypes" value="main.Assignment(.*), @ScannerBean, @Number, @Word, @Quote, @Start, @End, @Plus, @Minus,@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @RotatingLine, @Angle, @Avatar, @BridgeScene, @Locatable, @BoundedShape, @Table" />
+		</module>
+		
+		<module name="ExpectedGetters">
+			<property name="expectedProperties" value="
+			@ScannerBean= ScannedString:String | Tokens:.*\[\] | TokenList:@LIST_PATTERN | TokenList:@ClearableHistory, 
+			@Word= Input:String | Value:String, 
+			@Number= Input:String | Value:int, 
+			@Quote= Input:String, 
+			@Start= Input:String, 
+			@End= Input:String, 
+			@Plus= Input:String, 
+			@Minus= Input:String, 
+			@Angle= LeftLine:@LINE_PATTERN | RightLine:@LINE_PATTERN, 
+			@Avatar= Text:@STRING_PATTERN | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, 
+			@BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar | Gorge:* | KnightArea:* | GuardArea:* | Occupied:boolean | KnightTurn:boolean
+			" />
+		</module>
+		<module name="ExpectedSetters">
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
+		</module>
+		<module name="ExpectedSignatures">
+			<property name="expectedSignatures"
+				value="@Angle= @move:int;int->*| @scale:double->*, @Avatar= @move:int;int->* | @scale:double->*, @BridgeScene= @scroll:int->* | @approach:@Avatar->*| @say:String->* | @passed:->* | @failed:->*" />
+		</module>
+		<module name="ExpectedConstructors">
+			<property name="expectedSignatures"
+				value="@BridgeScene =:, 
+				@Angle=:, 
+				
+				"/>
+		</module>
+		<module name="ExpectedInterfaces">
+			<property name="expectedInterfaces"
+				value="
+				@Angle= @Angle, 
+				@Avatar=@Avatar, 
+				@ScannerBean = @ScannerBean,			
+				"/>
+		</module>
+		<module name="ExpectedSuperTypes">
+			<property name="expectedSuperTypes"
+				value="
+				@LINE_PATTERN= @BoundedShape, 
+				@STRING_PATTERN= @BoundedShape, 
+				@IMAGE_PATTERN= @BoundedShape, 
+				@LABEL_PATTERN = @BoundedShape, 
+				@BoundedShape=@Locatable
+				"/>
+		</module>
+		
+		<module name="MissingMethodCall">
+			<property name="severity" value="info" />		
+			<property name="expectedCalls"
+				value="
+				 @Avatar=  @STRING_PATTERN!setX:int->void) | @Angle!move:int;int->void, 
+				 @BridgeScene = @Avatar!@move:int;int->void"/>
+		</module>
+		
+		<module name="ExpectedPattern">
+			<property name="expectedPattern"
+				value="@Table= MAP_PATTERN, @Angle= BEAN_PATTERN"/>
+		</module>
+
+		<module name="FunctionAssignsGlobal">
+			<property name="excludeMethodTags"
+				value="next(.*), pop(.*), delete(.*), remove(.*), read(.*), create(.*), set(.*), process(.*), scan(.*)" />
+
+		</module>
+		<module name="SetterAssignsGlobal">
+		</module>
+		<module name="MissingActualProperty">
+		</module>
+		<module name="MissingActualEditableProperty">
+		</module>
+		<module name="ClassHasAtLeastOneInterface">
+		</module>
+		<module name="ClassHasOneInterface">			
+		</module>
+		<module name="VariableHasClassType">
+
+		</module>
+
+		<module name="LinePattern">
+		</module>
+		<module name="OvalPattern">
+		</module>
+		<module name="RectanglePattern">
+		</module>
+		<module name="StringShapePattern">
+		</module>
+		<module name="PointPattern">
+		</module>
+		<module name="ImagePattern">
+		</module>
+		<module name="VectorPattern">
+		</module>
+		<module name="ListPattern">
+		</module>
+		<module name="MapPattern">
+		</module>
+
+		<module name="NoStructuredSetter">
+		</module>
+		<module name="IllegalPropertyNotification">
+			<property name="excludeProperties" value="this" />
+		</module>
+		
+
+	      <module name="PeerCommonProperties">
+			<property name="includeTypeTags" value="@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @LINE_PATTERN, @IMAGE_PATTERN, @STRING_PATTERN" />			
+			<property name="includeSets" value="@move | @say | @rotateLeftArm | @rotateRightArm |  @repeat | @define | @call |  @thread | @wait | @proceedAll |  @sleep |  @undo | @redo, @LINE_PATTERN | @IMAGE_PATTERN | @STRING_PATTERN" />		
+		  </module>
+		  <module name="InvalidPackageName">
+		</module>
+		  
+	</module>
+</module>
+
