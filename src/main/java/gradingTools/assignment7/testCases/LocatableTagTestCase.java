@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
 
@@ -23,15 +24,19 @@ public class LocatableTagTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-
-        if (project.getClassesManager().isEmpty())
-            throw new NotGradableException();
-
-        // Look for a class with the "Locatable" tag and that isn't inheriting from something else
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Locatable");
-        if (classDescription.isDefined())
-            return pass(autoGrade);
-        return fail("No superclass tagged \"Locatable\"", autoGrade);
+        if (IntrospectionUtil.findClass(project, "Locatable") != null) {
+            return pass();
+        } else {
+            return fail("Can't find class tagged Locatable");
+        }
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotGradableException();
+//
+//        // Look for a class with the "Locatable" tag and that isn't inheriting from something else
+//        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Locatable");
+//        if (classDescription.isDefined())
+//            return pass(autoGrade);
+//        return fail("No superclass tagged \"Locatable\"", autoGrade);
     }
 }
 

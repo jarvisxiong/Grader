@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
 
@@ -18,7 +19,7 @@ import scala.Option;
  */
 public class BoundedShapeTagTestCase extends BasicTestCase {
     public BoundedShapeTagTestCase() {
-        super("Bounded shape tag test case");
+        super("BoundedShape tag test case");
     }
 
     @Override
@@ -28,10 +29,16 @@ public class BoundedShapeTagTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Look for a class with the "Locatable" tag and that isn't inheriting from something else
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Bounded Shape");
-        if (classDescription.isDefined())
-            return pass(autoGrade);
-        return fail("No superclass tagged \"Bounded Shape\"", autoGrade);
+        //Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("BoundedShape");
+        if (IntrospectionUtil.findClass(project, "BoundedShape") != null) {
+            return pass();
+        } else {
+            return fail("Can't find class tagged BoundedShape");
+        }
+        
+        //if (classDescription.isDefined())
+        //    return pass(autoGrade);
+        //return fail("No superclass tagged \"BoundedShape\"", autoGrade);
     }
 }
 

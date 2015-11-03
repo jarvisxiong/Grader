@@ -6,6 +6,9 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import tools.ClassInheritanceChecker;
 import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
@@ -30,34 +33,75 @@ public class BoundedShapeInheritanceTestCase extends BasicTestCase {
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         // Make sure we can get the class description
-        if (project.getClassesManager().isEmpty())
-            throw new NotGradableException();
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Bounded Shape");
-        if (classDescription.isEmpty()) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            classDescription = ManualClassFinder.find(project, "Bounded Shape");
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotGradableException();
+//        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("BoundedShape");
+//        if (classDescription.isEmpty()) {
+//            if (autoGrade)
+//                throw new NotAutomatableException();
+//            classDescription = ManualClassFinder.find(project, "BoundedShape");
+//        }
+        Class<?> boundedShapeSuperclass = IntrospectionUtil.findClass(project, "BoundedShape");//classDescription.get().getJavaClass();
+        int methodCount = 0;
+        int extendCount = 0;
+        List<Class> errors = new ArrayList<>();
+        for(ClassDescription desc : project.getClassesManager().get().getClassDescriptions()) {
+            Class<?> clazz = desc.getJavaClass();
+            boolean hasWidth = false;
+            boolean hasHeight = false;
+            for(Method m : clazz.getMethods()) {
+                if (!hasWidth && m.getName().matches(".*[wW]idth.*")) {
+                    hasWidth = true;
+                } else if (!hasHeight && m.getName().matches(".*[hH]eight.*")) {
+                    hasWidth = true;
+                }
+                if (hasWidth && hasHeight) {
+                    methodCount ++;
+                    break;
+                }
+            }
+            if (hasWidth && hasHeight){
+                if (boundedShapeSuperclass.isAssignableFrom(clazz)) {
+                    extendCount ++;
+                } else {
+                    errors.add(clazz);
+                }
+            }
         }
-        Class<?> locatableSuperclass = classDescription.get().getJavaClass();
-
+        if (methodCount == extendCount) {
+            return pass();
+        } else if (extendCount == 0) {
+            return fail("No classes with height and width properties extend BoundedShape");
+        } else {
+            StringBuilder sb = new StringBuilder(50);
+            for(Class<?> c : errors) {
+                if (sb.length() != 0) {
+                    sb.append("\n");
+                }
+                sb.append("Class '").append(c.toGenericString()).append("' should extend BoundedShape");
+            }
+            return partialPass(((double)extendCount) / methodCount, sb.toString());
+        }
+        
+        
         // There should be at least three classes tagged "bounded shape" (bounded shape, line, image)
-        List<ClassDescription> locatables = project.getClassesManager().get().findClassByTag("Bounded Shape");
-        if (locatables.size() < 3)
-            return fail("Expected more classes tagged \"Bounded Shape\"", autoGrade);
-
-        // Make sure that everything that is tagged "bounded shape" extend the locatable class
-        int classCount = 0;
-        int correctClassCount = 0;
-        String notes = "";
-        for (ClassDescription description : locatables) {
-            classCount++;
-            if (ClassInheritanceChecker.isSubclass(description.getJavaClass(), locatableSuperclass))
-                correctClassCount++;
-            else
-                notes += "Class \"" + description.getJavaClass().getSimpleName() + "\" should extend Bounded Shape. ";
-        }
-
-        return partialPass(correctClassCount / classCount, notes, autoGrade);
+//        List<ClassDescription> locatables = project.getClassesManager().get().findClassByTag("BoundedShape");
+//        if (locatables.size() < 3)
+//            return fail("Expected more classes tagged \"BoundedShape\"", autoGrade);
+//
+//        // Make sure that everything that is tagged "bounded shape" extend the locatable class
+//        int classCount = 0;
+//        int correctClassCount = 0;
+//        String notes = "";
+//        for (ClassDescription description : locatables) {
+//            classCount++;
+//            if (ClassInheritanceChecker.isSubclass(description.getJavaClass(), boundedShapeSuperclass))
+//                correctClassCount++;
+//            else
+//                notes += "Class \"" + description.getJavaClass().getSimpleName() + "\" should extend BoundedShape. ";
+//        }
+//
+//        return partialPass(correctClassCount / classCount, notes, autoGrade);
     }
 }
 

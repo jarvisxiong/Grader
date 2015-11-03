@@ -6,6 +6,10 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
+import gradingTools.sharedTestCase.MethodExecutionTestCase;
+import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
+import java.lang.reflect.Constructor;
 import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
@@ -14,6 +18,8 @@ import javax.swing.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,54 +36,94 @@ public class PutExistingTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        if (project.getClassesManager().isEmpty())
-            throw new NotGradableException();
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Table");
-        if (classDescription.isEmpty()) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            classDescription = ManualClassFinder.find(project, "Table");
+        Class<?> tableClass = IntrospectionUtil.findClass(project, null, "Table", ".*[tT]able.*", ".*[tT]able.*");
+        Constructor<?> tableConstructor;
+        try {
+            tableConstructor = tableClass.getConstructor();
+        } catch (Exception e) {
+            return fail("No empty constructor for Table");
         }
 
+        Method putMethod;
+        Method getMethod;
         try {
-            // Get the put method
-            Class<?> _class = classDescription.get().getJavaClass();
-            Method method = _class.getMethod("put", String.class, Object.class);
-            Object table = _class.newInstance();
-
-            // Call it saving something
-            method.invoke(table, "test1", "Test1");
-            method.invoke(table, "test1", "Test2");
-
-            // It's hard to check exactly how it worked. This is making an assumption on the implementation
-            // Get an array property
-            Field[] fields = _class.getDeclaredFields();
-            for (Field field : fields) {
-                if (field.getType().equals(ArrayList.class)) {
-                    int size = ((ArrayList) field.get(table)).size();
-                    if (size == 1)
-                        pass(autoGrade);
-                    fail("There should only be one item in the array list", autoGrade);
-                }
-            }
-
-            // So, they didn't do an array list. We'll have to ask
-            if (autoGrade)
-                throw new NotAutomatableException();
-            return ask();
+            putMethod = tableClass.getMethod("put", String.class, Object.class);
+            getMethod = tableClass.getMethod("get", String.class);
         } catch (Exception e) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            return ask();
+            return fail("Can't find either the put or get method");
+        }
+
+        boolean[] results = checkTable(tableConstructor, putMethod, getMethod);
+
+        if (results[0] == false) {
+            return fail("Stored value did not change when putting with existing key");
+        } else {
+            if (results[1] == false) {
+                return fail("Stored value did not change properly when putting with existing key");
+            } else {
+                return pass();
+            }
         }
     }
-
-    private TestCaseResult ask() {
-        int result = JOptionPane.showConfirmDialog(null, "Does the put method overwrite values with an existing key?", "Put method", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (result == 0)
-            return pass(false);
-        else
-            return fail("Put method does not overwrite values with existing keys.", false);
+    
+    private static boolean[] checkTable(Constructor<?> tableConstructor, Method put, Method get) {
+        boolean[] ret = new boolean[2];
+        Object test = new Object();
+        MethodEnvironment[] methods = new MethodEnvironment[]{
+            MethodEnvironment.get(put, "hello", "world"),   // 0
+            MethodEnvironment.get(get, "hello"),            // 1
+            MethodEnvironment.get(put, "hello", test),    // 2
+            MethodEnvironment.get(get, "hello")             // 3
+        };
+        Object[] exData = MethodExecutionTestCase.invoke(tableConstructor, new Object[]{}, methods);
+        System.err.println(Arrays.toString(exData));
+        
+        ret[0] = checkNEqual(exData, 1, 3);
+        ret[1] = checkEqual(exData, 3, test);
+        
+        System.err.println(Arrays.toString(ret));
+        
+        return ret;
+    }
+    
+    private static boolean checkNEqual(Object[] results, int a, Object value) {
+        if (a >= results.length) {
+            return false;
+        }
+        
+        return !Objects.equals(results[a], value);
+    }
+    
+    private static boolean checkEqual(Object[] results, int a, Object value) {
+        if (a >= results.length) {
+            return false;
+        }
+        
+        return Objects.equals(results[a], value);
+    }
+    
+    private static boolean checkNEqual(Object[] results, int a, int b) {
+        if (a >= results.length || b > results.length) {
+            return false;
+        }
+        Object oA = results[a];
+        Object oB = results[b];
+        if ((oA instanceof Exception) || (oB instanceof Exception)) {
+            return false;
+        }
+        return !Objects.equals(oA, oB);
+    }
+    
+    private static boolean checkEqual(Object[] results, int a, int b) {
+        if (a >= results.length || b > results.length) {
+            return false;
+        }
+        Object oA = results[a];
+        Object oB = results[b];
+        if ((oA instanceof Exception) || (oB instanceof Exception)) {
+            return false;
+        }
+        return Objects.equals(oA, oB);
     }
 }
 

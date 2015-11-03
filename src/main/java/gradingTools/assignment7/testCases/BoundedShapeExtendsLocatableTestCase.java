@@ -6,6 +6,8 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
+import java.util.List;
 import tools.ClassInheritanceChecker;
 import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
@@ -21,38 +23,55 @@ import scala.Option;
 public class BoundedShapeExtendsLocatableTestCase extends BasicTestCase {
 
     public BoundedShapeExtendsLocatableTestCase() {
-        super("Bounded shape extends locatable test case");
+        super("BoundedShape extends locatable test case");
     }
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         // Make sure we can get the class description
-        if (project.getClassesManager().isEmpty())
-            throw new NotGradableException();
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotGradableException();
+//
+//        // Get the bounded shape "root" class
+//        Option<ClassDescription> boundedShapeDescription = new RootTagFinder(project).findClass("BoundedShape");
+//        if (boundedShapeDescription.isEmpty()) {
+//            if (autoGrade)
+//                throw new NotAutomatableException();
+//            boundedShapeDescription = ManualClassFinder.find(project, "BoundedShape");
+//        }
+//
+//        // Get the locatable "root" class
+//        Option<ClassDescription> locatableDescription = new RootTagFinder(project).findClass("Locatable");
+//        if (locatableDescription.isEmpty()) {
+//            if (autoGrade)
+//                throw new NotAutomatableException();
+//            locatableDescription = ManualClassFinder.find(project, "Locatable");
+//        }
 
-        // Get the bounded shape "root" class
-        Option<ClassDescription> boundedShapeDescription = new RootTagFinder(project).findClass("Bounded Shape");
-        if (boundedShapeDescription.isEmpty()) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            boundedShapeDescription = ManualClassFinder.find(project, "Bounded Shape");
+        Class<?> boundedClass = IntrospectionUtil.findClass(project, "BoundedShape");//boundedShapeDescription.get().getJavaClass();
+        List<Class> lc = IntrospectionUtil.findClasses(project, "Locatable");
+        for(int i = 0; i < lc.size(); i ++) {
+            for(int j = 1; j < lc.size();) {
+                if (lc.get(i).isAssignableFrom(lc.get(j))) {
+                    lc.remove(j);
+                } else if (lc.get(j).isAssignableFrom(lc.get(i))){
+                    lc.remove(i);
+                    i = 0;
+                    j = 1;
+                } else {
+                    j++;
+                }
+            }
         }
+        Class<?> locatableClass = lc.get(0);//IntrospectionUtil.findClass(project, "Locatable");//locatableDescription.get().getJavaClass();
 
-        // Get the locatable "root" class
-        Option<ClassDescription> locatableDescription = new RootTagFinder(project).findClass("Locatable");
-        if (locatableDescription.isEmpty()) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            locatableDescription = ManualClassFinder.find(project, "Locatable");
+        System.out.println("Locatable: " + locatableClass.toGenericString());
+        System.out.println("BoundedShape: " + boundedClass.toGenericString());
+        if (locatableClass.isAssignableFrom(boundedClass)) {//ClassInheritanceChecker.isSubclass(boundedClass, locatableClass))
+            return pass();
+        } else {
+            return fail("BoundedShape ("+boundedClass.getSimpleName() + ") should extend Locatable (" + locatableClass.getSimpleName() + ")", autoGrade);
         }
-
-        Class<?> boundedClass = boundedShapeDescription.get().getJavaClass();
-        Class<?> locatableClass = locatableDescription.get().getJavaClass();
-
-        if (ClassInheritanceChecker.isSubclass(boundedClass, locatableClass))
-            return pass(autoGrade);
-        else
-            return fail("Bounded shape should extend Locatable", autoGrade);
     }
 }
 

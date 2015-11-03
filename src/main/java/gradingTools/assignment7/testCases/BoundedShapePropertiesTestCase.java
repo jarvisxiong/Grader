@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import tools.classFinder.ManualClassFinder;
 import tools.classFinder.RootTagFinder;
 import scala.Option;
@@ -25,23 +26,23 @@ import java.util.List;
 public class BoundedShapePropertiesTestCase extends BasicTestCase {
 
     public BoundedShapePropertiesTestCase() {
-        super("Bounded shape width and height properties test case");
+        super("BoundedShape width and height properties test case");
     }
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
 
         // Make sure we can get the class description
-        if (project.getClassesManager().isEmpty())
-            throw new NotGradableException();
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Bounded Shape");
-        if (classDescription.isEmpty()) {
-            if (autoGrade)
-                throw new NotAutomatableException();
-            classDescription = ManualClassFinder.find(project, "Bounded Shape");
-        }
+//        if (project.getClassesManager().isEmpty())
+//            throw new NotGradableException();
+//        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("BoundedShape");
+//        if (classDescription.isEmpty()) {
+//            if (autoGrade)
+//                throw new NotAutomatableException();
+//            classDescription = ManualClassFinder.find(project, "BoundedShape");
+//        }
 
-        Class<?> _class = classDescription.get().getJavaClass();
+        Class<?> _class = IntrospectionUtil.findClass(project, "BoundedShape");//.get().getJavaClass();
         Method[] methods = _class.getMethods();
 
         // There should four methods: getWidth, getHeight, setWidth, setHeight

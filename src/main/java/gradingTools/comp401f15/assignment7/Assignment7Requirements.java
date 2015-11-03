@@ -7,22 +7,34 @@ import gradingTools.assignment6.testCases.SystemExitTestCase;
 import gradingTools.assignment6.testCases.ThreePackageTestCase;
 import gradingTools.assignment7.testCases.BasicPutAndGetTestCase;
 import gradingTools.assignment7.testCases.BoundedShapeExtendsLocatableTestCase;
+import gradingTools.assignment7.testCases.BoundedShapeInheritanceTestCase;
 import gradingTools.assignment7.testCases.BoundedShapePropertiesTestCase;
 import gradingTools.assignment7.testCases.BoundedShapeTagTestCase;
 import gradingTools.assignment7.testCases.CmdIntEditablePropTestCase;
 import gradingTools.assignment7.testCases.CmdIntTagTestCase;
 import gradingTools.assignment7.testCases.GetInvalidTestCase;
 import gradingTools.assignment7.testCases.GetNullTestCase;
+import gradingTools.assignment7.testCases.LocatableInheritanceTestCase;
 import gradingTools.assignment7.testCases.LocatablePropertiesTestCase;
 import gradingTools.assignment7.testCases.LocatableTagTestCase;
+import gradingTools.assignment7.testCases.PutExistingTestCase;
 import gradingTools.assignment7.testCases.PutNullTestCase;
 import gradingTools.assignment7.testCases.TableTagTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
+import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.ErrorResilientCommandInterpreterDefinedTestCase;
+import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.ErrorResilientCommandInterpreterFunctionTestCase;
+import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase;
+import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase;
+import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SignedMoveCommandInterpretedTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
+import gradingTools.sharedTestCase.PropertyDefinedTestCase;
+import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
+import gradingTools.sharedTestCase.ReflectiveInterfaceDefinedTestCase;
 
 
 public class Assignment7Requirements extends FrameworkProjectRequirements {
@@ -32,57 +44,55 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
     	addDueDate("09/18/2015 23:59:00", 1);
     	addDueDate("09/23/2015 23:59:00", 0.9);
     	addDueDate("09/25/2015 23:59:00", 0.75);
+        
         addFeature("Locatable class and interface", 15,
+                new ReflectiveClassDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
+                new ReflectiveInterfaceDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
+                new MethodDefinedTestCase("Locatable", "getX", null, "^((?![sS][eE][tT]).)*[xX].*", int.class),
+                new MethodDefinedTestCase("Locatable", "getY", null, "^((?![sS][eE][tT]).)*[yY].*", int.class),
                 new LocatableTagTestCase(),
-                new LocatablePropertiesTestCase()//,
-//                new LocatableInheritanceTestCase()
-                // TODO: More refactoring?
+                //new LocatablePropertiesTestCase(),
+                new LocatableInheritanceTestCase()
         );
 
-        addFeature("Bounded shape class and interface", 15,
+        addFeature("BoundedShape class and interface", 15,
+                new ReflectiveClassDefinedTestCase("BoundedShape", ".*[bB]ounded[sS]hape.*", ".*[bB]ounded[sS]hape.*"),
+                new ReflectiveInterfaceDefinedTestCase("BoundedShape", ".*[bB]ounded[sS]hape.*", ".*[bB]ounded[sS]hape.*"),
                 new BoundedShapeTagTestCase(),
-                new BoundedShapePropertiesTestCase(),
-//                new BoundedShapeInheritanceTestCase(),
+                //new BoundedShapePropertiesTestCase(),
+                new BoundedShapeInheritanceTestCase(),
                 new BoundedShapeExtendsLocatableTestCase()
-                // TODO: More refactoring?
         );
 
-        addFeature("Table class tagged", 5, new TableTagTestCase());
-        addFeature("Put and get methods", 30,
+        addFeature("Table class tagged", 5, new ReflectiveClassDefinedTestCase("Table"));
+        addFeature("Put and get methods", 24,
                 new BasicPutAndGetTestCase(),
                 new PutNullTestCase(),
                 new GetNullTestCase(),
-                new GetInvalidTestCase()
-
-//                new PutNewTestCase(),
-//                new PutExistingTestCase(),
-
-//        new QuestionTestCase("When adding an item w/ a new key, is it added?", "Put new test case"),
-//                new QuestionTestCase("When adding an item w/ an existing key, is it replaced?", "Put existing test case"),
-//                new QuestionTestCase("When adding an item w/ a null key, does nothing happen?", "Put null test case"),
-//                new QuestionTestCase("Is the put method demoed?", "Put method demo test case")
+                new GetInvalidTestCase(),
+                //new PutNewTestCase(),
+                new PutExistingTestCase()
                 );
-//        addFeature("Get method", 15,
-//                new QuestionTestCase("When getting an item w/ a key, is it return?", "Get value test case"),
-//                new QuestionTestCase("When getting an item w/ a non-existent key, is null returned?", "Get non-existent test case"),
-//                new QuestionTestCase("Is the get method demoed?", "Get method demo test case")
-//                );
+        addManualFeature("Table demoed", 6);
 
         // Command interpreter
 
-        addFeature("Command interpreter tag", 5, new CmdIntTagTestCase());
-        addFeature("Editable property", 5, new CmdIntEditablePropTestCase());
-        addManualFeature("Command interpretation", 25,
-                new QuestionTestCase("In the command interpreter, Does the command get scanned?", "Command interpreter scanning test case"),
-                new QuestionTestCase("Does the command interpreter correctly identify 'move' and 'say' commands?", "Command interpreter move/say test case"),
-                new QuestionTestCase("Does the command interpreter invoke the move or say method?", "Command interpreter method invoke test case"),
-                new QuestionTestCase("Is the command interpreter demoed?", "Command interpreter demo test case"));
+        addFeature("Command interpreter tag", 5, new ReflectiveClassDefinedTestCase("CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*"));
+        addFeature("Editable property", 5, new PropertyDefinedTestCase("CommandInterpreter", "Command", Object.class));
+        addFeature("Command interpretation", 20,
+                new SayCommandInterpretedTestCase(),
+                new MoveCommandInterpretedTestCase());
+        
+        addManualFeature("Is the command interpreter demoed?", 5);
 
         // Extra credit
-        addManualFeature("Move supports signs and is tagged", 5, true);
-        addManualFeature("Interpreter detects errors and is tagged", 5, true);
-        addManualFeature("Nice Demo", 5, true);
-
+        addFeature("Signed move", 8, true,
+                new ClassDefinedTestCase("@SignedMove"),
+                new SignedMoveCommandInterpretedTestCase());
+        addFeature("Error Resilient Command Interpreter", 7, 
+                new ErrorResilientCommandInterpreterDefinedTestCase(),
+                new ErrorResilientCommandInterpreterFunctionTestCase());
+        
         // Define the restrictions
 
         addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
