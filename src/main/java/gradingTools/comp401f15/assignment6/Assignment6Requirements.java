@@ -31,7 +31,7 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
     public Assignment6Requirements() {
     	addDueDate("09/30/2015 23:59:00", 1.05);
     	addDueDate("10/02/2015 23:59:00", 1);
-    	addDueDate("09/07/2015 23:59:00", 0.9);
+    	addDueDate("10/07/2015 23:59:00", 0.9);
     	addDueDate("10/09/2015 23:59:00", 0.75);
         
         addFeature("Gorge and Bridge Properites", 10,

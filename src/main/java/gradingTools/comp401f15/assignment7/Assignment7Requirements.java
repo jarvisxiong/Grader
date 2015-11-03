@@ -40,11 +40,11 @@ import gradingTools.sharedTestCase.ReflectiveInterfaceDefinedTestCase;
 public class Assignment7Requirements extends FrameworkProjectRequirements {
 
     public Assignment7Requirements() {
-    	addDueDate("09/16/2015 23:59:00", 1.05);
-    	addDueDate("09/18/2015 23:59:00", 1);
-    	addDueDate("09/23/2015 23:59:00", 0.9);
-    	addDueDate("09/25/2015 23:59:00", 0.75);
-        
+    	addDueDate("10/07/2015 23:59:00", 1.05);
+    	addDueDate("10/09/2015 23:59:00", 1);
+    	addDueDate("10/21/2015 23:59:00", 0.9);
+    	addDueDate("10/23/2015 23:59:00", 0.75);
+    	
         addFeature("Locatable class and interface", 15,
                 new ReflectiveClassDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
                 new ReflectiveInterfaceDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
