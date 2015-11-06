@@ -6,6 +6,7 @@ import gradingTools.comp110f15lab.lab2.testcases.ArrayChecker;
 import gradingTools.comp110f15lab.lab2.testcases.Average;
 import gradingTools.comp110f15lab.lab2.testcases.Both;
 import gradingTools.comp110f15lab.lab2.testcases.CorrectVars;
+import gradingTools.comp110f15lab.lab2.testcases.LoopChecker;
 import gradingTools.comp110f15lab.lab2.testcases.NotMultOfThree;
 import gradingTools.comp110f15lab.lab2.testcases.Sum;
 import gradingTools.comp110f15lab.lab2.testcases.Unrec;
@@ -21,7 +22,7 @@ public class Lab2Requirements extends FrameworkProjectRequirements {//Labs out o
 		addFeature("Contains proper Header",1,new ProperHeaderTestCase("Fall 2015"));
 		addFeature("Prints welcome (lenient mode)",1, new Welcome());
 		addFeature("Correct variable names",2,new CorrectVars());
-		addFeature("Uses loop to fill array (can use any kind of loop)",3,new BlankTestCase());
+		addFeature("Uses loop to fill array (can use any kind of loop)",3,new LoopChecker());
 		addFeature("Correctly Populates array w/ multiples of three",5,new ArrayChecker());
 		addFeature("Correctly notifies user when they do not enter mult of 3",2,new NotMultOfThree());
 		addFeature("Correctly computes sum when prompted to do so",2,new Sum());
