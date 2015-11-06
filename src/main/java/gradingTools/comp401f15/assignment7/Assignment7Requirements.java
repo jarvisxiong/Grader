@@ -2,24 +2,18 @@ package gradingTools.comp401f15.assignment7;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.EncapsulationTestCase;
-import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.assignment6.testCases.SystemExitTestCase;
 import gradingTools.assignment6.testCases.ThreePackageTestCase;
 import gradingTools.assignment7.testCases.BasicPutAndGetTestCase;
 import gradingTools.assignment7.testCases.BoundedShapeExtendsLocatableTestCase;
 import gradingTools.assignment7.testCases.BoundedShapeInheritanceTestCase;
-import gradingTools.assignment7.testCases.BoundedShapePropertiesTestCase;
 import gradingTools.assignment7.testCases.BoundedShapeTagTestCase;
-import gradingTools.assignment7.testCases.CmdIntEditablePropTestCase;
-import gradingTools.assignment7.testCases.CmdIntTagTestCase;
 import gradingTools.assignment7.testCases.GetInvalidTestCase;
 import gradingTools.assignment7.testCases.GetNullTestCase;
 import gradingTools.assignment7.testCases.LocatableInheritanceTestCase;
-import gradingTools.assignment7.testCases.LocatablePropertiesTestCase;
 import gradingTools.assignment7.testCases.LocatableTagTestCase;
 import gradingTools.assignment7.testCases.PutExistingTestCase;
 import gradingTools.assignment7.testCases.PutNullTestCase;
-import gradingTools.assignment7.testCases.TableTagTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
@@ -46,12 +40,11 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
     	addDueDate("10/23/2015 23:59:00", 0.75);
     	
         addFeature("Locatable class and interface", 15,
-                new ReflectiveClassDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
-                new ReflectiveInterfaceDefinedTestCase("Loctatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
+                new ReflectiveClassDefinedTestCase("Locatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
+                new ReflectiveInterfaceDefinedTestCase("Locatable", ".*[lL]ocatable.*", ".*[lL]ocatable.*"),
                 new MethodDefinedTestCase("Locatable", "getX", null, "^((?![sS][eE][tT]).)*[xX].*", int.class),
                 new MethodDefinedTestCase("Locatable", "getY", null, "^((?![sS][eE][tT]).)*[yY].*", int.class),
                 new LocatableTagTestCase(),
-                //new LocatablePropertiesTestCase(),
                 new LocatableInheritanceTestCase()
         );
 
@@ -59,7 +52,6 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
                 new ReflectiveClassDefinedTestCase("BoundedShape", ".*[bB]ounded[sS]hape.*", ".*[bB]ounded[sS]hape.*"),
                 new ReflectiveInterfaceDefinedTestCase("BoundedShape", ".*[bB]ounded[sS]hape.*", ".*[bB]ounded[sS]hape.*"),
                 new BoundedShapeTagTestCase(),
-                //new BoundedShapePropertiesTestCase(),
                 new BoundedShapeInheritanceTestCase(),
                 new BoundedShapeExtendsLocatableTestCase()
         );
@@ -70,7 +62,6 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
                 new PutNullTestCase(),
                 new GetNullTestCase(),
                 new GetInvalidTestCase(),
-                //new PutNewTestCase(),
                 new PutExistingTestCase()
                 );
         addManualFeature("Table demoed", 6);
@@ -95,13 +86,13 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
         
         // Define the restrictions
 
-        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
-        addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
+        addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
+        addRestriction("At least three packages.", 5, new ThreePackageTestCase("Three package test case"));
         // TODO: Method/interface check
-        addRestriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case"));
+        addRestriction("No System.exit()", 5, new SystemExitTestCase("System.exit test case"));
         
-    	addFeature("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
-    	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+    	addRestriction("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
+    	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
         
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         

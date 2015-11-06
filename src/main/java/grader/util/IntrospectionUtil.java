@@ -14,8 +14,37 @@ import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.ResultWithOutput;
+import java.util.HashSet;
+import java.util.Set;
 
 public class IntrospectionUtil {
+    
+    public static Class<?> getClassForInterface(Project project, Class<?> target) {
+        Set<ClassDescription> classes = project.getClassesManager().get().getClassDescriptions();
+	for (ClassDescription classDescription : classes) {
+            Class<?> clazz = classDescription.getJavaClass();
+            if (target.isAssignableFrom(clazz)) {
+                return clazz;
+            }
+        }
+        return null;
+    }
+    
+    public static Set<Class<?>> getClassesForInterface(Project project, Class<?> target) {
+        Set<ClassDescription> classes = project.getClassesManager().get().getClassDescriptions();
+        Set<Class<?>> ret = new HashSet<>();
+	for (ClassDescription classDescription : classes) {
+            Class<?> clazz = classDescription.getJavaClass();
+            if (!target.equals(clazz) && target.isAssignableFrom(clazz)) {
+                if (clazz.isInterface()) {
+                    ret.addAll(getClassesForInterface(project, clazz));
+                }
+                ret.add(clazz);
+            }
+        }
+        return ret;
+    }
+    
 	public static Class findClass(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);

@@ -63,6 +63,9 @@ public class BoundedShapeExtendsLocatableTestCase extends BasicTestCase {
                 }
             }
         }
+        if (lc.isEmpty()) {
+            return fail("Can't find Locatable class");
+        }
         Class<?> locatableClass = lc.get(0);//IntrospectionUtil.findClass(project, "Locatable");//locatableDescription.get().getJavaClass();
 
         System.out.println("Locatable: " + locatableClass.toGenericString());
