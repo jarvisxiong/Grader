@@ -3,6 +3,8 @@ package gradingTools.comp110f15.assignment3;
 import framework.grading.FrameworkProjectRequirements;
 import framework.project.Project;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
+import gradingTools.comp110f15.assignment3.testcases.GameOverTest;
+import gradingTools.comp110f15.assignment3.testcases.HoldingTest;
 import gradingTools.comp110f15.assignment3.testcases.RollResultTest;
 import gradingTools.comp110f15.assignment3.testcases.RollTest;
 import gradingTools.comp110f15.assignment3.testcases.SnakeEyesTest;
@@ -14,10 +16,11 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		addDueDate("11/07/2015 23:55:59", 0.5);
 		// Check for a main method
 		addFeature("Correct RollResult Method",20,new RollResultTest());
-		long methodsTimeout=3000L;
 		addFeature("Correct winningName Method",10,new winningNameTest());
 		addFeature("Correct Roll Method",15,new RollTest());
 		addFeature("Correct rolled one once method",15,new rolledOneOnlyOnceTest());
 		addFeature("Correct snakeEyes method",15,new SnakeEyesTest());
+		addFeature("Correct gameOver method",10,new GameOverTest());
+		addFeature("Correct Holding method",15,new HoldingTest());
 	}
 }

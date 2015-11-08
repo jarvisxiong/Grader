@@ -1,4 +1,6 @@
 package gradingTools.comp110f15.assignment3.testcases;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -24,16 +26,48 @@ public class RollResultTest extends BasicTestCase {
 			throw new NotAutomatableException();
 		}
 		ClassesManager manager = project.getClassesManager().get();
+		Class D = null;
+		Class G = null;
 		for (ClassDescription description : manager.getClassDescriptions() ) {
 			Class<?> javaClass = description.getJavaClass();
+			if(javaClass.getName().equalsIgnoreCase("die"))D=javaClass;
+			if(javaClass.getName().equalsIgnoreCase("game"))G=javaClass;
 			
-			for (Method method : javaClass.getDeclaredMethods()) {
-				boolean correctName = method.getName().toLowerCase().equals("rollresult");//decided to ignore case here
-    			boolean correctVisibility = Modifier.isPublic(method.getModifiers()); //should be public
-    			boolean correctReturnType = method.getReturnType().equals(Integer.TYPE);//should return a string
-    			if(correctName&&correctVisibility&&correctReturnType) return partialPass(0,"This method is meant to be handgraded do to other method invokations in here");
-    			}
-		}return fail("No method rollResult found in program, grader please confirm.");
+		}
+		Method rollResult=null;
+		for (Method m : G.getMethods()) {
+			if(m.getName().equals("rollResult"))rollResult=m;
+		}
+		Object d1=getInstanceOf(D);
+		Object d2=getInstanceOf(D);
+		boolean gotzero=false;
+		boolean gotnegone=false;
+		boolean gotother=false;
+		for(int i=0;i<10000;i++){
+			try {
+				int r=(int)rollResult.invoke(null,d1, d2);
+				if(r==0)gotzero=true;
+				if(r==-1)gotnegone=true;
+				if(r>0)gotother=true;
+				if(gotzero&&gotnegone&&gotother)return partialPass(0.5,"They roll their dice and many runs return all possible answers. Check if they use the boolean methods.");
+			} catch (IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return fail("After 10000 runs, we did not get all three possible return values.");
+		
 	}
+	 static Object getInstanceOf(Class klass) {
+		    try {
+		      Class[] parameterTypes = {};
+		      Constructor constructor = klass.getConstructor(parameterTypes);
+		      Object[] parameters = {};
+		      return constructor.newInstance(parameters);
+		    } catch(Exception e) {
+		      return null;
+		    }
+		  }
 
 }
