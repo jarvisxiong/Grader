@@ -28,11 +28,11 @@ public class ConsoleViewConstructorParameterTestCase extends BasicTestCase {
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Console Scene View");
+        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("ConsoleSceneView");
         if (classDescription.isEmpty()) {
             if (autoGrade)
                 throw new NotAutomatableException();
-            classDescription = ManualClassFinder.find(project, "Console Scene View");
+            classDescription = ManualClassFinder.find(project, "ConsoleSceneView");
         }
 
         // Get the constructors and look for one with parameters

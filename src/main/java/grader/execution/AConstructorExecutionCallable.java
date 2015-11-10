@@ -1,7 +1,6 @@
 package grader.execution;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 import util.misc.Common;
@@ -17,9 +16,9 @@ public class AConstructorExecutionCallable implements Callable{
 	}
 	@Override
 	public Object call() throws Exception {
-		System.out.println ("calling method: " + constructor + " " + Common.toString(args));
+		System.out.println ("calling constructor: " + constructor + " " + Common.toString(args));
 		Object retVal = constructor.newInstance(args);
-		System.out.println ("called method: " + constructor + " " + Common.toString(args));
+		System.out.println ("called constructor: " + constructor + " " + Common.toString(args));
 
 		return retVal;
 	}

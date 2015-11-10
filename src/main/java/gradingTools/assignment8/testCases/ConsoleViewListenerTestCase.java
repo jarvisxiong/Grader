@@ -30,11 +30,11 @@ public class ConsoleViewListenerTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("Console Scene View");
+        Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("ConsoleSceneView");
         if (classDescription.isEmpty()) {
             if (autoGrade)
                 throw new NotAutomatableException();
-            classDescription = ManualClassFinder.find(project, "Console Scene View");
+            classDescription = ManualClassFinder.find(project, "ConsoleSceneView");
         }
 
         if (PropertyChangeListener.class.isAssignableFrom(classDescription.get().getJavaClass()))
