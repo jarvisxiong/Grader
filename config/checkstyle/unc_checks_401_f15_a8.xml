@@ -17,7 +17,7 @@
 			<property name="includeTypeTags" value="*" />
 
 			<property name="severity" value="info" />
-			<property name="projectPackagePrefixes" value="test,lectures,mp, grail" />
+			<property name="projectPackagePrefixes" value="main, test,lectures,mp, grail" />
 			<property name="existingClasses"
 				value="java.util.List, java.util.ArrayList, java.util.Vector, java.util.HashMap" />
 			<property name="importsAsExistingClasses" value="true" />
@@ -83,7 +83,7 @@
 		</module>
 		<module name="IllegalTypeImported">
 			<property name="legalPrefixes"
-				value="bus.uigen, util, java.util.Scanner, java.util.List,  java.util.Iterator, java.util.NoSuchElementException, javax.swing, java.awt, java.util.ArrayList, java.util.Vector" />
+				value="bus.uigen, util, java.util.Scanner, java.util.List,  java.util.Iterator, java.util.ArrayList, java.util.Vector, java.util.LinkedList, java.util.NoSuchElementException, javax.swing, java.beans" />
 		</module>
 		<module name="IllegalTypeDefined">
 			<property name="illegalTypeNames"
@@ -91,15 +91,86 @@
 		</module>
 		<module name="ClassDefined">
 			<property name="severity" value="info" />
-			<property name="expectedTypes" value="main.Assignment(.*), @ScannerBean, @Number, @Word, @Quote, @Start, @End, @Plus, @Minus,@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @RotatingLine, @Angle, @Avatar, @BridgeScene" />
+			<property name="expectedTypes" value="main.Assignment(.*), @ScannerBean, @Number, @Word, @Quote, @Start, @End, @Plus, @Minus,@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @RotatingLine, @Angle, @Avatar, @BridgeScene, @Locatable, @BoundedShape, @Table, @CommandInterpreter" />
 		</module>
 		
 		<module name="ExpectedGetters">
-			<property name="expectedProperties" value="@ScannerBean= ScannedString:String | Tokens:.*\[\] , @Word= Input:String | Value:String, @Number= Input:String | Value:int, @Quote= Input:String, @Start= Input:String, @End= Input:String, @Plus= Input:String, @Minus= Input:String, @Angle= LeftLine:@LINE_PATTERN | RightLine:@LINE_PATTERN, @Avatar= Text:@STRING_PATTERN | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, @BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar" />
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String | Tokens:.*\[\] | TokenList:@LIST_PATTERN | TokenList:@ClearableHistory, @Word= Input:String | Value:String, @Number= Input:String | Value:int, @Quote= Input:String, @Start= Input:String, @End= Input:String, @Plus= Input:String, @Minus= Input:String, @Angle= LeftLine:@LINE_PATTERN | RightLine:@LINE_PATTERN, @Avatar= Text:@STRING_PATTERN | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, @BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar | Gorge:* | KnightArea:* | GuardArea:* | Occupied:boolean |KnightTurn:boolean, @CommandInterpreter = Command:String" />
 		</module>
 		<module name="ExpectedSetters">
 			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
 		</module>
+		<module name="ExpectedSignatures">
+			<property name="expectedSignatures"
+				value="@Angle= @move:int;int->*| @scale:double->*, @Avatar= @move:int;int->* | @scale:double->*, @BridgeScene= @scroll:int->* | @approach:@Avatar->*| @say:String->* | @passed:->* | @failed:->*" />
+		</module>
+		
+		<module name="ExpectedConstructors">
+			<property name="expectedSignatures"
+				value="@BridgeScene =:, 
+				@Angle=:, 
+				@CommandInterpreter = :@BridgeScene; @ScannerBean,
+				@ConsoleSceneView = :@BridgeScene,				
+				"/>
+		</module>
+		<module name="ExpectedInterfaces">
+			<property name="expectedInterfaces"
+				value="
+				@Angle= @Angle, 
+				@Avatar=@Avatar, 
+				@ScannerBean = @ScannerBean,
+				@CommandInterpreter = @CommandInterpreter,
+				@ConsoleSceneView = @ConsoleSceneView,
+				@ConsoleSceneView = PropertyChangeListener,				
+				@Locatable =  PropertyListenerRegistrar,
+				@BoundedShape = PropertyListenerRegistrar,
+				@Locatable =  @Locatable,
+				@BoundedShape = @BoundedShape,
+				"/>
+		</module>
+		<module name="ExpectedSuperTypes">
+			<property name="expectedSuperTypes"
+				value="
+				@LINE_PATTERN= @BoundedShape, 
+				@STRING_PATTERN= @Locatable, 
+				@IMAGE_PATTERN= @BoundedShape, 
+				@LABEL_PATTERN = @BoundedShape, 
+				@BoundedShape=@Locatable
+				"/>
+		</module>
+		
+		<module name="MissingMethodCall">
+			<property name="expectedCalls"
+				value="
+				@CommandInterpreter = 
+							(.*)!move:(int;int)->void |
+							(.*)!setString:String->void |
+					 		@Table!get:(.*)->(.*) |
+					 		@Table!put:(.*);(.*) -> (.*) |
+					 		@BridgeScene!getArthur:->(.*),					 		
+				 @Avatar=  @STRING_PATTERN!setX:int->void) | @Angle!move:int;int->void, 
+				 @BridgeScene = @Avatar!@move:int;int->void,
+				 @Locatable = (.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
+				 @BoundedShape = (.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
+				 @ConsoleSceneView = (.*)!addPropertyChangeListener:PropertyChangeListener->void) |
+				 						(.*)!getArms:-> @Angle|
+				 						(.*)!getLegs:-> @Angle |
+				 						(.*)!getLeftLine:-> @LINE_PATTERN |
+				 						(.*)!getRightLine:-> @LINE_PATTERN |
+				 						(.*)!getText:->@STRING_PATTERN,
+				 						
+				 						
+				 "/>
+		</module>
+		 
+		<module name="ExpectedPattern">
+			<property name="expectedPattern"
+				value="
+				@Table= MAP_PATTERN, 
+				@Angle= BEAN_PATTERN
+				"/>
+		</module>
+		
 
 		<module name="FunctionAssignsGlobal">
 			<property name="excludeMethodTags"
@@ -113,6 +184,8 @@
 		<module name="MissingActualEditableProperty">
 		</module>
 		<module name="ClassHasAtLeastOneInterface">
+		</module>
+		<module name="ClassHasOneInterface">			
 		</module>
 		<module name="VariableHasClassType">
 
@@ -142,11 +215,15 @@
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
 		</module>
-	
-		 <module name="InvalidPackageName">
+		
+
+	      <module name="PeerCommonProperties">
+			<property name="includeTypeTags" value="@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @LINE_PATTERN, @IMAGE_PATTERN, @STRING_PATTERN" />			
+			<property name="includeSets" value="@move | @say | @rotateLeftArm | @rotateRightArm |  @repeat | @define | @call |  @thread | @wait | @proceedAll |  @sleep |  @undo | @redo, @LINE_PATTERN | @IMAGE_PATTERN | @STRING_PATTERN" />		
+		  </module>
+		  <module name="InvalidPackageName">
 		</module>
-
-
+		  
 	</module>
 </module>
 

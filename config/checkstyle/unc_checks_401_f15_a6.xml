@@ -95,7 +95,7 @@
 		</module>
 		
 		<module name="ExpectedGetters">
-			<property name="expectedProperties" value="@ScannerBean= ScannedString:String | Tokens:.*\[\] , @Word= Input:String | Value:String, @Number= Input:String | Value:int, @Quote= Input:String, @Start= Input:String, @End= Input:String, @Plus= Input:String, @Minus= Input:String, @Angle= LeftLine:@LINE_PATTERN | RightLine:@LINE_PATTERN, @Avatar= Text:String | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, @BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar" />
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String | Tokens:.*\[\] , @Word= Input:String | Value:String, @Number= Input:String | Value:int, @Quote= Input:String, @Start= Input:String, @End= Input:String, @Plus= Input:String, @Minus= Input:String, @Angle= LeftLine:@LINE_PATTERN | RightLine:@LINE_PATTERN, @Avatar= Text:@STRING_PATTERN | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, @BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar" />
 		</module>
 		<module name="ExpectedSetters">
 			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
