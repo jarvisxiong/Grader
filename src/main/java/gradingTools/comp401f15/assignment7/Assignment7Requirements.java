@@ -113,7 +113,7 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
         		new ClassDefinedTestCase("@Undo"),
         		new ClassDefinedTestCase("@Wait"));
 //        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.* | .*not in range.*", 0.3));
-        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range).*", ".*Assuming implicit pattern.*", 0.3));
+        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range|Hashtable Pattern).*", ".*Assuming implicit pattern.*", 0.3));
 
     }
 }

@@ -201,7 +201,10 @@ public class MethodExecutionTestCase extends BasicTestCase {
     }
 
     public static Object[] invoke(Constructor<?> c, Object[] cArgs, MethodEnvironment[] meArr) {
-        return Arrays.stream(invokeGetEnvironment(c, cArgs, meArr)).map((exData) -> exData.getValue()).toArray(Object[]::new);
+        return Arrays.stream(invokeGetEnvironment(c, cArgs, meArr))
+                .filter((exData) -> !exData.isConstructor())
+                .map((exData) -> exData.getValue())
+                .toArray(Object[]::new);
     }
 
     public static ExecutionData[] invokeGetEnvironment(Constructor<?> c, Object[] cArgs, MethodEnvironment[] meArr) {
@@ -274,7 +277,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
                                     ret[i] = new ExecutionData(new IllegalArgumentException("Requested return was exception, can't evaluate"));
                                     error = true;
                                 } else {
-                                    pArr[j] = ret[ref.method];
+                                    pArr[j] = ret[ref.method].getRetVal();
                                 }
                             }
                             break;
@@ -297,14 +300,14 @@ public class MethodExecutionTestCase extends BasicTestCase {
                                 ret[i] = new ExecutionData(new IllegalArgumentException("Requested return was exception, can't evaluate"));
                                 error = true;
                             } else {
-                                target = ret[ref.method];
+                                target = ret[ref.method].getRetVal();
                             }
                         }
                 }
             }
 
             if (!error) {
-                ret[i] = invokeGetEnvironment(target, me.getMethod(), pArr);
+                ret[i] = invokeGetEnvironment(me.getTimeout(), target, me.getMethod(), pArr);
             }
         }
         return ret;
@@ -358,8 +361,12 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static Object invoke(Object o, Method m, Object... arguments) {
         return invokeGetEnvironment(o, m, arguments).getValue();
     }
-
+    
     public static ExecutionData invokeGetEnvironment(Object o, Method m, Object... arguments) {
+        return invokeGetEnvironment(-1, o, m, arguments);
+    }
+
+    public static ExecutionData invokeGetEnvironment(long timeout, Object o, Method m, Object... arguments) {
         Throwable exception = null;
         Object ret = null;
         String out = null;
@@ -368,7 +375,11 @@ public class MethodExecutionTestCase extends BasicTestCase {
         Optional<RedirectionEnvironment> errRedir = RedirectionEnvironment.redirectErr();
         
         try {
-            ret = ExecutionUtil.timedInvokeWithExceptions(o, m, arguments);
+            if (timeout > 0) {
+                ret = ExecutionUtil.timedInvokeWithExceptions(o, m, timeout, arguments);
+            } else {
+                ret = ExecutionUtil.timedInvokeWithExceptions(o, m, arguments);
+            }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             exception = ex;
         } catch (Exception e) {
@@ -501,19 +512,29 @@ public class MethodExecutionTestCase extends BasicTestCase {
         private final Method m;
         private final Object[] arguments;
         private final Object target;
+        private final long timeout;
 
-        private MethodEnvironment(Object target, Method m, Object[] arguments) {
+        private MethodEnvironment(Object target, Method m, Object[] arguments, long timeout) {
             this.m = m;
             this.arguments = arguments;
             this.target = target;
+            this.timeout = timeout;
         }
 
         public static MethodEnvironment get(Object target, Method m, Object... arguments) {
-            return new MethodEnvironment(target, m, arguments);
+            return new MethodEnvironment(target, m, arguments, -1);
+        }
+        
+        public static MethodEnvironment get(long timeout, Object target, Method m, Object... arguments) {
+            return new MethodEnvironment(target, m, arguments, timeout);
         }
 
         public static MethodEnvironment get(Method m, Object... arguments) {
-            return new MethodEnvironment(null, m, arguments);
+            return new MethodEnvironment(null, m, arguments, -1);
+        }
+        
+        public static MethodEnvironment get(long timeout, Method m, Object... arguments) {
+            return new MethodEnvironment(null, m, arguments, timeout);
         }
 
         public Method getMethod() {
@@ -526,6 +547,10 @@ public class MethodExecutionTestCase extends BasicTestCase {
 
         public Object getTarget() {
             return target;
+        }
+        
+        public long getTimeout() {
+            return timeout;
         }
     }
 
@@ -670,6 +695,10 @@ public class MethodExecutionTestCase extends BasicTestCase {
         
         public boolean isMethod() {
             return method != null;
+        }
+        
+        public boolean isConstructor() {
+            return constructor != null;
         }
 
         public Object getValue() {
