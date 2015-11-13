@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class ListenerAndPainterTagTestCase extends BasicTestCase {
     public ListenerAndPainterTagTestCase() {
-        super("Paint Listener and Observable Painter tag test case");
+        super("PaintListener and ObservableBridgeScenePainter tag test case");
     }
 
     @Override
@@ -28,16 +28,16 @@ public class ListenerAndPainterTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        List<ClassDescription> class1 = project.getClassesManager().get().findClassByTag("Paint Listener");
-        List<ClassDescription> class2 = project.getClassesManager().get().findClassByTag("Observable Painter");
+        List<ClassDescription> class1 = project.getClassesManager().get().findClassByTag("PaintListener");
+        List<ClassDescription> class2 = project.getClassesManager().get().findClassByTag("ObservableBridgeScenePainter");
         if (class1.isEmpty()) {
             if (class2.isEmpty())
-                return fail("Neither paint listener nor observable painter are tagged.",autoGrade);
+                return fail("Neither paint listener nor observable bridge scene painter are tagged.",autoGrade);
             else
                 return partialPass(0.5, "Paint listener is not tagged.", autoGrade);
         }
         if (class2.isEmpty())
-            return partialPass(0.5, "Observable painter is not tagged.", autoGrade);
+            return partialPass(0.5, "Observable bridge scene painter is not tagged.", autoGrade);
         return pass(autoGrade);
     }
 }

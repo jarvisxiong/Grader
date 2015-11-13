@@ -8,6 +8,7 @@ import framework.project.ClassDescription;
 import framework.project.Project;
 
 import java.awt.*;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.List;
@@ -30,17 +31,41 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Paint Listener");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("PaintListener");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"Paint Listener\"", autoGrade);
-        ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);
+            return fail("No class tagged \"PaintListener\"", autoGrade);
+        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
-        try {
-            classDescription.getJavaClass().getMethod("paint", Graphics2D.class);
-            return pass(autoGrade);
-        } catch (NoSuchMethodException e) {
-            return fail("No paint(Graphic2D) method found.", autoGrade);
-        }
+//        try {
+            boolean[] points = new boolean[3];
+            for(Method m : classDescription.getJavaClass().getMethods()) {
+                if (m.getName().matches(".*[pP]aint.*")) {
+                    points[0] = true;
+                    if (m.getParameterCount() > 0){
+                        for(Class<?> clazz : m.getParameterTypes()) {
+                            if (clazz.equals(Graphics2D.class)) {
+                                points[1] = true;
+                                break;
+                            }
+                        }
+                        if (points[1] == true && m.getParameterCount() == 1) {
+                            points[2] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+//            classDescription.getJavaClass().getMethod("paint", Graphics2D.class);
+            if (points[2]) {
+                return pass(autoGrade);
+            } else if (points[1]) {
+                return partialPass(0.5, "Paint method found but without a Graphics2D parameter");
+            } else {
+                return fail("No paint method found");
+            }
+//        } catch (NoSuchMethodException e) {
+//            return fail("No paint(Graphic2D) method found.", autoGrade);
+//        }
     }
 }
 

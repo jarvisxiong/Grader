@@ -25,7 +25,7 @@ import java.util.Set;
 public class PaintListenerListenersTestCase extends BasicTestCase {
 
     public PaintListenerListenersTestCase() {
-        super("Paint listener views are registered as listeners test case");
+        super("PaintListener views are registered as listeners test case");
     }
 
     @Override
@@ -33,14 +33,14 @@ public class PaintListenerListenersTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Paint Listener");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("PaintListener");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"Paint Listener\"", autoGrade);
-        ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);
+            return fail("No class tagged \"PaintListener\"", autoGrade);
+        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         // Get the views
         Class<?> paintListener = classDescription.getJavaClass();
-        List<ClassDescription> views = new ArrayList<ClassDescription>();
+        List<ClassDescription> views = new ArrayList<>();
         for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
             if (!description.getJavaClass().isInterface() && paintListener.isAssignableFrom(description.getJavaClass())) {
                 views.add(description);
@@ -68,7 +68,7 @@ public class PaintListenerListenersTestCase extends BasicTestCase {
                 if (found)
                     listenerCount++;
                 else
-                    notes += "Paint listener view " + view.getJavaClass().getSimpleName() + " doesn't register itself as a listener in its constructor.\n";
+                    notes += "PaintListener view " + view.getJavaClass().getSimpleName() + " doesn't register itself as a listener in its constructor.\n";
             } catch (IOException e) {
                 // Don't do anything here.
             }

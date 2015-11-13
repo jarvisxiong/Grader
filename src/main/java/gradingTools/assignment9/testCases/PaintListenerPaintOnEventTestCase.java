@@ -26,7 +26,7 @@ import java.util.Set;
 public class PaintListenerPaintOnEventTestCase extends BasicTestCase {
 
     public PaintListenerPaintOnEventTestCase() {
-        super("Paint listener calls paint on events test case");
+        super("PaintListener calls paint on events test case");
     }
 
     @Override
@@ -34,14 +34,14 @@ public class PaintListenerPaintOnEventTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Paint Listener");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("PaintListener");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"Paint Listener\"", autoGrade);
-        ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);
+            return fail("No class tagged \"PaintListener\"", autoGrade);
+        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         // Get the views
         Class<?> paintListener = classDescription.getJavaClass();
-        List<ClassDescription> views = new ArrayList<ClassDescription>();
+        List<ClassDescription> views = new ArrayList<>();
         for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
             if (!description.getJavaClass().isInterface() && paintListener.isAssignableFrom(description.getJavaClass())) {
                 views.add(description);

@@ -1,8 +1,6 @@
 package gradingTools.comp401f15.assignment9;
 
-import gradingTools.assignment9.*;
 import framework.grading.FrameworkProjectRequirements;
-import framework.grading.testing.Restriction;
 import gradingTools.assignment6.testCases.*;
 import gradingTools.assignment9.testCases.*;
 
@@ -18,43 +16,42 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
     public Assignment9Requirements() {
 
         // Add due date/times with a 30 minute grace period
-        addDueDate("10/31/2013 00:30:00", 1.05);
-        addDueDate("11/02/2013 00:30:00", 1);
-        addDueDate("11/05/2013 11:30:00", 0.9);
-        addDueDate("11/07/2013 11:30:00", 0.75);
+        addDueDate("10/28/2013 12:59:00", 1.05);
+        addDueDate("10/30/2013 12:59:00", 1);
+        addDueDate("11/03/2013 12:59:00", 0.9);
+        addDueDate("11/06/2013 12:59:00", 0.75);
 
         // Part 1
-        addManualFeature("Interpreter controller setter", 15, new QuestionTestCase("Does the controller call the interpreter setter?", "Controller object calls Interpreter’s setter test case"));
-        addManualFeature("GUI controls scene", 15, new QuestionTestCase("Does the interpreter GUI control the scene?", "GUI object can control scene test case"));
-        addManualFeature("Interpreter controller listener", 5, new QuestionTestCase("Does the controller register a listener for the GUI object", "Controller object registers as a listener for GUI object test case"));
+        addManualFeature("Does the controller call the interpreter setter?", 15);
+        addManualFeature("Does the interpreter GUI control the scene?", 15);
+        addManualFeature("Does the controller register a listener for the GUI object", 5);
 
         // Part 2
-        addFeature("(1) Scene painter tagged class", 5, new ScenePainterTagTestCase());
+        addFeature("(1) Inheriting Scene painter class tagged", 5, new ScenePainterTagTestCase());
         addFeature("(1) View extends component", 5, new ScenePainterExtendsComponentTestCase());
         addFeature("(1) View is listener of shapes", 10, new ScenePainterListenerTestCase());
         addFeature("(1) paint() called when events fire", 5, new ScenePainterPaintOnEventTestCase());
-        addManualFeature("(1) Overridden paint() draws everything", 25, new QuestionTestCase("Does the paint method draw everything in the view?", "Paint draws stuff test case."));
+        addManualFeature("Does the paint method draw everything in the view?", 25);
 
         // Part 2 (EC)
-        addFeature("(2) Listener & Painter tagged classes", 5, new ListenerAndPainterTagTestCase());
-        addFeature("(2) Observable Painter extends component", 5, new ObservablePainterExtendsComponentTestCase());
+        addFeature("(2) Listener & Observing Painter classes tagged", 5, new ListenerAndPainterTagTestCase());
+        addFeature("(2) Observable Bridge Scene Painter extends component", 5, new ObservablePainterExtendsComponentTestCase());
         addFeature("(2) Paint listener paint method", 5, new PaintListenerPaintMethodTestCase());
         addFeature("(2) View classes register as listener", 20, new PaintListenerListenersTestCase());
         addFeature("(2) Listeners notify on fired events", 10, new PaintListenerPaintOnEventTestCase());
-        addManualFeature("(2) Views paint objects", 25, new QuestionTestCase("Do the paint listener views do all the painting/drawing?", "Paint listener draw test case"));
-        addManualFeature("(1 & 2) Background & bridge beneath avatars", 5, new QuestionTestCase("Are the avatars drawn on top of the bridge and gorge?", "Avatars on top test case"));
+        addManualFeature("Do the paint listener views do all the painting/drawing?", 25);
+        addManualFeature("Are the avatars drawn on top of the bridge and gorge?", 5);
 
         // Part 3
-        addManualFeature("Demo", 10, new QuestionTestCase("Is there a demo?", "Demo test case"));
+        addManualFeature("Is there a demo?", 10);
 
         // Extra Credit
-        addManualFeature("Command interpreter errors", 5, true, new QuestionTestCase("Does the command interpreter display the error property?", "Command interpreter error test case"));
-        addManualFeature("Progress bar", 5, true, new QuestionTestCase("Is there a progress bar?", "Progress test case"));
-        addManualFeature("Interpreter has 2+ actions", 5, true, new QuestionTestCase("Does the interpreter have two or more action components?", "Interpreter has two or more actions test case"));
-        addFeature("Bridge scene controller", 10, true,
-                new BridgeSceneControllerTagTestCase(),
-                new QuestionTestCase("Does the bridge scene controller track the locations of mouse clicks?", "Mouse click tracking test case"),
-                new QuestionTestCase("Does the bridge scene controller support keyboard commands?", "Keyboard commands test case"));
+        addManualFeature("Does the command interpreter display the error property?", 5, true);
+        addManualFeature("Is there a progress bar?", 5, true);
+        addManualFeature("Does the interpreter have two or more action components?", 5, true);
+        addFeature("Bridge scene controller tagged", 2, true, new BridgeSceneControllerTagTestCase());
+        addManualFeature("Does the bridge scene controller track the locations of mouse clicks?", 4, true);
+        addManualFeature("Does the bridge scene controller support keyboard commands?", 4, true);
 
 
         // Define the restrictions

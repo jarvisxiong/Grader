@@ -21,7 +21,7 @@ import java.util.Set;
 public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
 
     public ObservablePainterExtendsComponentTestCase() {
-        super("Scene painter extends component test case");
+        super("Observable bridge scene painter extends component test case");
     }
 
     @Override
@@ -29,16 +29,16 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Observable Painter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("ObservableBridgeScenePainter");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"Observable Painter\"", autoGrade);
-        ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);
+            return fail("No class tagged \"ObservableBridgeScenePainter\"", autoGrade);
+        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         boolean extendsComponent = Component.class.isAssignableFrom(classDescription.getJavaClass());
         if (extendsComponent)
             return pass(autoGrade);
         else
-            return fail("The observable painter should extend Component.", autoGrade);
+            return fail("The observable bridge scene painter should extend Component.", autoGrade);
     }
 }
 

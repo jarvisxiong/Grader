@@ -58,20 +58,6 @@ public class Assignment8Requirements extends FrameworkProjectRequirements {
     	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
         addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
-        addRestriction("Classes Tagged ", 39, 
-        		new ClassDefinedTestCase("@Call"),
-        		new ClassDefinedTestCase("@Define"),
-        		new ClassDefinedTestCase("@Move"),
-        		new ClassDefinedTestCase("@ProceedAll"),
-        		new ClassDefinedTestCase("@Redo"),
-        		new ClassDefinedTestCase("@Repeat"),
-        		new ClassDefinedTestCase("@RotateLeftArm"),
-        		new ClassDefinedTestCase("@RotateRightArm"),
-        		new ClassDefinedTestCase("@Say"),
-        		new ClassDefinedTestCase("@Sleep"),
-        		new ClassDefinedTestCase("@Thread"),
-        		new ClassDefinedTestCase("@Undo"),
-        		new ClassDefinedTestCase("@Wait"));
         addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range|Hashtable Pattern).*", ".*Assuming implicit pattern.*", 0.3));
 
     }

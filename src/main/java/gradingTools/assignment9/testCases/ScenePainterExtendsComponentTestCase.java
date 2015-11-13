@@ -33,10 +33,10 @@ public class ScenePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("Inheriting Bridge Scene Painter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("InheritingBridgeScenePainter");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"Inheriting Bridge Scene Painter\"", autoGrade);
-        ClassDescription classDescription = new ArrayList<ClassDescription>(classDescriptions).get(0);
+            return fail("No class tagged \"InheritingBridgeScenePainter\"", autoGrade);
+        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         boolean extendsComponent = Component.class.isAssignableFrom(classDescription.getJavaClass());
         if (extendsComponent)
