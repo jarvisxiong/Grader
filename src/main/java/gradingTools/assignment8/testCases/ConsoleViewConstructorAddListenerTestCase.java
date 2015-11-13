@@ -51,10 +51,10 @@ public class ConsoleViewConstructorAddListenerTestCase extends BasicTestCase {
             for (ConstructorDeclaration constructor : constructors) {
                 String code = constructor.toString();
                 if (code.contains(".addPropertyChangeListener(this)"))
-                    return pass(autoGrade);
+                    return pass();
             }
 
-            return fail("Console view should add itself as a listener in the constructor.", autoGrade);
+            return fail("Console view should add itself as a listener in the constructor.");
         } catch (IOException e) {
             throw new NotGradableException();
         }

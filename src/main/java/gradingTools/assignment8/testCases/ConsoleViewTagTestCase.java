@@ -24,9 +24,9 @@ public class ConsoleViewTagTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         if (project.getClassesManager().get().findClassByTag("ConsoleSceneView").isEmpty())
-            return fail("No class found with tag \"ConsoleSceneView\"", autoGrade);
+            return fail("No class found with tag \"ConsoleSceneView\"");
         else
-            return pass(autoGrade);
+            return pass();
     }
 }
 

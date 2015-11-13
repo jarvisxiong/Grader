@@ -38,9 +38,9 @@ public class ConsoleViewListenerTestCase extends BasicTestCase {
         }
 
         if (PropertyChangeListener.class.isAssignableFrom(classDescription.get().getJavaClass()))
-            return pass(autoGrade);
+            return pass();
         else
-            return fail("Console scene view should implement PropertyChangeListener", autoGrade);
+            return fail("Console scene view should implement PropertyChangeListener");
     }
 }
 

@@ -34,7 +34,7 @@ public class Assignment8Requirements extends FrameworkProjectRequirements {
         // Part 2
         addFeature("Console View tag", 5, new ConsoleViewTagTestCase());
         addFeature("Console View is a listener", 5, new ConsoleViewListenerTestCase());
-        addFeature("Console View is a listener", 25,
+        addFeature("Console View is a listener 2", 25,
                 new ConsoleViewConstructorParameterTestCase(),
                 new ConsoleViewConstructorAddListenerTestCase());
         

@@ -39,9 +39,9 @@ public class ConsoleViewConstructorParameterTestCase extends BasicTestCase {
         Constructor<?>[] constructors = classDescription.get().getJavaClass().getDeclaredConstructors();
         for (Constructor<?> constructor : constructors) {
             if (constructor.getParameterTypes().length > 0)
-                return pass(autoGrade);
+                return pass();
         }
-        return fail("There should be a constructor that accepts parameters.", autoGrade);
+        return fail("There should be a constructor that accepts parameters.");
     }
 }
 
