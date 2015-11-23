@@ -1,11 +1,13 @@
 package gradingTools.comp401f15.assignment9.testCases;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
+import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
 import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.ExecutionData;
@@ -101,133 +103,142 @@ public class ResetAllAvatarsTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        if (GraphicsEnvironment.isHeadless()) {
-            throw new NotGradableException("Cannon run GUI on headless system");
-        }
-        if (!okay) {
-            throw new NotGradableException("Failed to initalize test case");
-        }
-
-        Constructor<?> bridgeSceneControllerConstructor = null;
-        Constructor<?> scenePainterConstructor = null;
-        Constructor<?> bridgeSceneConstructor = null;
-
-        Class<?> bridgeSceneControllerClass = IntrospectionUtil.findClass(project, null, "BridgeSceneController", ".*[bB]ridge[sS]cene[cC]ontroller.*", ".*[bB]ridge[sS]cene[cC]ontroller.*");
-        Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-        Class<?> bridgeScenePainter = IntrospectionUtil.findClass(project, null, "ObservableBridgeScenePainter", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*");
-        if (bridgeScenePainter == null) {
-            bridgeScenePainter = IntrospectionUtil.findClass(project, null, "InheritingBridgeScenePainter", "[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*", ".*[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*");
-        }
-
-        boolean controllerTakesComponent = false;
-        boolean controllerIsListener = MouseListener.class.isAssignableFrom(bridgeSceneControllerClass)
-                && KeyListener.class.isAssignableFrom(bridgeSceneControllerClass);
-
+        ExecutionUtil.redirectOutput();
         try {
-            for (Class<?> bridgeSceneInterface : bridgeSceneClass.getInterfaces()) {
-                if (bridgeSceneControllerConstructor == null) {
-                    for (Constructor<?> constructor : bridgeSceneControllerClass.getConstructors()) {
-                        if (constructor.getParameterCount() == 1) {
-                            if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
-                                bridgeSceneControllerConstructor = constructor;
-                            }
-                        } else if (constructor.getParameterCount() == 2) {
-                            if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
-                                if (Component.class.isAssignableFrom(constructor.getParameterTypes()[1])) {
+            if (GraphicsEnvironment.isHeadless()) {
+                throw new NotGradableException("Cannon run GUI on headless system");
+            }
+            if (!okay) {
+                throw new NotGradableException("Failed to initalize test case");
+            }
+
+            Constructor<?> bridgeSceneControllerConstructor = null;
+            Constructor<?> scenePainterConstructor = null;
+            Constructor<?> bridgeSceneConstructor = null;
+
+            Class<?> bridgeSceneControllerClass = IntrospectionUtil.findClass(project, null, "BridgeSceneController", ".*[bB]ridge[sS]cene[cC]ontroller.*", ".*[bB]ridge[sS]cene[cC]ontroller.*");
+            Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
+            Class<?> bridgeScenePainter = IntrospectionUtil.findClass(project, null, "ObservableBridgeScenePainter", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*");
+            if (bridgeScenePainter == null) {
+                bridgeScenePainter = IntrospectionUtil.findClass(project, null, "InheritingBridgeScenePainter", "[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*", ".*[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*");
+            }
+
+            boolean controllerTakesComponent = false;
+            boolean controllerIsListener = MouseListener.class.isAssignableFrom(bridgeSceneControllerClass)
+                    && KeyListener.class.isAssignableFrom(bridgeSceneControllerClass);
+
+            try {
+                for (Class<?> bridgeSceneInterface : bridgeSceneClass.getInterfaces()) {
+                    if (bridgeSceneControllerConstructor == null) {
+                        for (Constructor<?> constructor : bridgeSceneControllerClass.getConstructors()) {
+                            if (constructor.getParameterCount() == 1) {
+                                if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
                                     bridgeSceneControllerConstructor = constructor;
-                                    controllerTakesComponent = true;
+                                }
+                            } else if (constructor.getParameterCount() == 2) {
+                                if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
+                                    if (Component.class.isAssignableFrom(constructor.getParameterTypes()[1])) {
+                                        bridgeSceneControllerConstructor = constructor;
+                                        controllerTakesComponent = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (scenePainterConstructor == null) {
+                        for (Constructor<?> constructor : bridgeScenePainter.getConstructors()) {
+                            if (constructor.getParameterCount() == 1) {
+                                if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
+                                    scenePainterConstructor = constructor;
                                     break;
                                 }
                             }
                         }
                     }
                 }
-                if (scenePainterConstructor == null) {
-                    for (Constructor<?> constructor : bridgeScenePainter.getConstructors()) {
-                        if (constructor.getParameterCount() == 1) {
-                            if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
-                                scenePainterConstructor = constructor;
-                                break;
+                Objects.requireNonNull(bridgeSceneControllerConstructor);
+                Objects.requireNonNull(scenePainterConstructor);
+                bridgeSceneConstructor = bridgeSceneClass.getConstructor();
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+                return fail("Couldn't find correct constructor for BridgeSceneController, (Inheriting/Observable)BridgeScenePainter, or BridgeScene");
+            }
+
+            Method getArthur = null;
+            Method getGalahad = null;
+            Method getLancelot = null;
+            Method getRobin = null;
+            Method[] getX = new Method[2];
+            Method[] getY = new Method[2];
+            try {
+                getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+                getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
+                getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
+                getRobin = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
+                for (Method m : getArthur.getReturnType().getMethods()) {
+                    boolean doPick = false;
+                    Class<?> retType = m.getReturnType();
+                    StructurePattern structurePattern = m.getReturnType().getAnnotation(StructurePattern.class);
+                    if (m.getName().matches(".*[hH]ead.*")) {
+                        doPick = true;
+                    } else if (structurePattern == null) {
+                        if (retType.isInterface()) {
+                            for (Class<?> clazz : IntrospectionUtil.getClassesForInterface(project, retType)) {
+                                structurePattern = clazz.getAnnotation(StructurePattern.class);
+                                if (structurePattern != null
+                                        && (StructurePatternNames.IMAGE_PATTERN.equals(structurePattern.value())
+                                        || StructurePatternNames.LABEL_PATTERN.equals(structurePattern.value()))) {
+                                    doPick = true;
+                                    break;
+                                }
                             }
                         }
+                    } else if (StructurePatternNames.IMAGE_PATTERN.equals(structurePattern.value())
+                            || StructurePatternNames.LABEL_PATTERN.equals(structurePattern.value())) {
+                        doPick = true;
+                    }
+                    if (doPick) {
+                        getX[0] = m;
+                        getY[0] = m;
+                        break;
                     }
                 }
+                List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getX[0].getReturnType(), "X");
+                lm = lm.stream().filter((s) -> s.getName().contains("get")).collect(Collectors.toList());
+                getX[1] = lm.get(0);
+
+                lm = IntrospectionUtil.getOrFindMethodList(project, this, getY[0].getReturnType(), "Y");
+                lm = lm.stream().filter((s) -> s.getName().contains("get")).collect(Collectors.toList());
+                getY[1] = lm.get(0);
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+                return fail("At least one of the following can't be found: getArthur, getGalahad, getLancelot, getRobin , Avatar.getHead, Head.getX, Head.getY");
             }
-            Objects.requireNonNull(bridgeSceneControllerConstructor);
-            Objects.requireNonNull(scenePainterConstructor);
-            bridgeSceneConstructor = bridgeSceneClass.getConstructor();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            return fail("Couldn't find correct constructor for BridgeSceneController, (Inheriting/Observable)BridgeScenePainter, or BridgeScene");
-        }
 
-        Method getArthur = null;
-        Method getGalahad = null;
-        Method getLancelot = null;
-        Method getRobin = null;
-        Method[] getX = new Method[2];
-        Method[] getY = new Method[2];
-        try {
-            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-            getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
-            getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-            getRobin = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
-            for (Method m : getArthur.getReturnType().getMethods()) {
-                boolean doPick = false;
-                Class<?> retType = m.getReturnType();
-                StructurePattern structurePattern = m.getReturnType().getAnnotation(StructurePattern.class);
-                if (m.getName().matches(".*[hH]ead.*")) {
-                    doPick = true;
-                } else if (structurePattern == null) {
-                    if (retType.isInterface()) {
-                        for (Class<?> clazz : IntrospectionUtil.getClassesForInterface(project, retType)) {
-                            structurePattern = clazz.getAnnotation(StructurePattern.class);
-                            if (structurePattern != null
-                                    && (StructurePatternNames.IMAGE_PATTERN.equals(structurePattern.value())
-                                    || StructurePatternNames.LABEL_PATTERN.equals(structurePattern.value()))) {
-                                doPick = true;
-                                break;
-                            }
-                        }
-                    }
-                } else if (StructurePatternNames.IMAGE_PATTERN.equals(structurePattern.value())
-                        || StructurePatternNames.LABEL_PATTERN.equals(structurePattern.value())) {
-                    doPick = true;
-                }
-                if (doPick) {
-                    getX[0] = m;
-                    getY[0] = m;
-                    break;
-                }
+            boolean[] results = checkMovement(bridgeSceneControllerConstructor, scenePainterConstructor, bridgeSceneConstructor, getArthur, getGalahad, getLancelot, getRobin, getX, getY, controllerIsListener, controllerTakesComponent);
+
+            int correct = ExecutionResultTools.countBoolean(results, true);
+            if (results[0] == true) {
+                correct--;
             }
-            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getX[0].getReturnType(), "X");
-            lm = lm.stream().filter((s) -> s.getName().contains("get")).collect(Collectors.toList());
-            getX[1] = lm.get(0);
+            int possible = results.length - 1;
 
-            lm = IntrospectionUtil.getOrFindMethodList(project, this, getY[0].getReturnType(), "Y");
-            lm = lm.stream().filter((s) -> s.getName().contains("get")).collect(Collectors.toList());
-            getY[1] = lm.get(0);
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            return fail("At least one of the following can't be found: getArthur, getGalahad, getLancelot, getRobin , Avatar.getHead, Head.getX, Head.getY");
-        }
-
-        boolean[] results = checkMovement(bridgeSceneControllerConstructor, scenePainterConstructor, bridgeSceneConstructor, getArthur, getGalahad, getLancelot, getRobin, getX, getY, controllerIsListener, controllerTakesComponent);
-
-        int correct = ExecutionResultTools.countBoolean(results, true);
-        if (results[0] == true) {
-            correct--;
-        }
-        int possible = results.length - 1;
-
-        if (correct == possible) {
-            return pass();
-        } else {
-            String message = buildMessage(results);
-            if (results[1] == false || correct == 0) {
-                return fail(message);
+            if (correct == possible) {
+                return pass();
             } else {
-                return partialPass(((double) correct) / (possible), message);
+                String message = buildMessage(results);
+                if (results[1] == false || correct == 0) {
+                    return fail(message);
+                } else {
+                    return partialPass(((double) correct) / (possible), message);
+                }
+            }
+        } finally {
+            String anOutput = restoreOutputAndGetRedirectedOutput();
+            if (anOutput != null && !anOutput.isEmpty()) {
+             	System.out.println(anOutput);
+                RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
             }
         }
     }
