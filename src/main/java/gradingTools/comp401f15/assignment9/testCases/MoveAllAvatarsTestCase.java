@@ -129,13 +129,18 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
                 for(Class<?> bridgeSceneInterface : bridgeSceneClass.getInterfaces()) {
                     if (bridgeSceneControllerConstructor == null) {
                         for(Constructor<?> constructor : bridgeSceneControllerClass.getConstructors()) {
-                            if (constructor.getParameterCount() == 1) {
-                                if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
-                                    bridgeSceneControllerConstructor = constructor;
-                                }
-                            } else if (constructor.getParameterCount() == 2) {
-                                if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
-                                    if (Component.class.isAssignableFrom(constructor.getParameterTypes()[1])) {
+                            if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
+                                Class<?> p2 = constructor.getParameterTypes()[1];
+                                if (p2.isInterface()) {
+                                    for(Class<?> p2Class : IntrospectionUtil.getClassesForInterface(project, p2)) {
+                                        if (Component.class.isAssignableFrom(p2Class)) {
+                                            bridgeSceneControllerConstructor = constructor;
+                                            controllerTakesComponent = true;
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    if (Component.class.isAssignableFrom(p2)) {
                                         bridgeSceneControllerConstructor = constructor;
                                         controllerTakesComponent = true;
                                         break;
