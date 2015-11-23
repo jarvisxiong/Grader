@@ -40,12 +40,12 @@
 		<module name="NestedIfDepth">
 			<property name="max" value="1" />
 		</module>
-		<module name="PackageDeclaration" />
+		<module name="PackageDeclaration" />		
 		<module name="AvoidStarImport">
-			<module name="HiddenField" />
+		<module name="HiddenField"/>
 
 		</module>
-
+		
 		<module name="VisibilityModifier">
 			<property name="packageAllowed" value="true" />
 			<property name="protectedAllowed" value="true" />
@@ -56,9 +56,9 @@
 		<module name="LocalVariableName" />
 		<module name="MemberName" />
 		<module name="StaticVariableName" />
-		<module name="NeedBraces" />
-		<module name="MultipleStringLiterals" />
-
+		<module name="NeedBraces"/>
+		<module name="MultipleStringLiterals"/>
+		
 		<module name="NoDuplicateShortTypeName">
 		</module>
 		<module name="NoFullTypeName">
@@ -91,8 +91,7 @@
 		</module>
 		<module name="ClassDefined">
 			<property name="severity" value="info" />
-			<property name="expectedTypes"
-				value="
+			<property name="expectedTypes" value="
 			main.Assignment(.*), 
 			@ScannerBean, 
 			@Number, 
@@ -129,18 +128,13 @@
 			@PaintListener,
 			@BridgeSceneController,
 			@CommandInterpreterController,
-			@ObservableCommandInterpreter,
-			@Animator,
-			@AnimatingCommand,
-			@SayCommand,
-			@MoveCommand,
-			
+			@ObservableCommandInterpreter
 			" />
 		</module>
-
+		
 		<module name="ExpectedGetters">
-			<property name="expectedProperties"
-				value="@ScannerBean= ScannedString:String | Tokens:.*\[\] | TokenList:@LIST_PATTERN | TokenList:@ClearableHistory, 
+			<property name="expectedProperties" value=
+			"@ScannerBean= ScannedString:String | Tokens:.*\[\] | TokenList:@LIST_PATTERN | TokenList:@ClearableHistory, 
 			@Word= Input:String | Value:String, 
 			@Number= Input:String | Value:int, 
 			@Quote= Input:String, 
@@ -152,57 +146,31 @@
 			@Avatar= Text:@STRING_PATTERN | Head:@IMAGE_PATTERN | Arms:@Angle | Legs:@Angle, 
 			@BridgeScene= Arthur:@Avatar | Galahad:@Avatar | Lancelot:@Avatar | Robin:@Avatar | Guard:@Avatar | Gorge:* | KnightArea:* | GuardArea:* | Occupied:boolean |KnightTurn:boolean, 
 			@CommandInterpreter = Command:String,
-			@CommandInterpreterController = 
-				TextField:JTextField | 
-				MenuItem:JMenuItem | 
-				Button:JButton |
-				Say: JButton |
-				Approach: JButton |
-				Pass: JButton |
-				Fail: JButton,
-			@ProgressBarCreator =  ProgressBar:JProgressBar | Slider:JSlider,
+			@CommandInterpreterController = TextField:JTextField | MenuItem:JMenuItem | Button:JButton,
+			@ProgressBarCreator =  ProgressBar:JProgressBar | Slider:JSlider
 			" />
 		</module>
 		<module name="ExpectedSetters">
-			<property name="expectedProperties"
-				value="
-			@ScannerBean= ScannedString:String,
-			@CommandInterpreter = Command:String,
-			" />
+			<property name="expectedProperties" value="@ScannerBean= ScannedString:String" />
 		</module>
 		<module name="ExpectedSignatures">
 			<property name="expectedSignatures"
 				value="
 				@Angle= @move:int;int->*| @scale:double->*, 
 				@Avatar= @move:int;int->* | @scale:double->*, 
-				@BridgeScene= 
-					@scroll:int->* | 
-					@approach:@Avatar->*| 
-					@say:String->* | 
-					@passed:->* | 
-					@failed:->*	| 
-					pre((.*)):->boolean,
-				@CommandInterpreter = 
-					@parseSay:*->Runnable | 
-					@parseMove:*->Runnable | 
-					@asynchronousGalahad:->void	|
-					@asynchronousLancelot:->void |		
-					@asynchronousRobin:->void |	
-					@asynchronousArthur:->void |
-					@asynchronousGuard:->void,
-				@Animator = @animateAvatar:@Avatar->void
+				@BridgeScene= @scroll:int->* | @approach:@Avatar->*| @say:String->* | @passed:->* | @failed:->*				
 				" />
 		</module>
 		<module name="ExpectedDeclaredSignatures">
 			<property name="expectedSignatures"
 				value="
 				@InheritingBridgeScenePainter=paint:Graphics(.*)->void,
-				@ObservableBridgeScenePainter=paint:Graphics(.*)->void |@addPaintListener:@PaintListener->void,
-				@PaintListener=paint:Graphics(.*)->void		
+				@ObservableBridgeScenePainter=paint:Graphics(.*)->void,
+				@PaintListener=paint:Graphics(.*)->void |@addPaintListener:@PaintListener->void				
 								
 				" />
 		</module>
-
+		
 		<module name="ExpectedConstructors">
 			<property name="expectedSignatures"
 				value="@BridgeScene =:, 
@@ -211,11 +179,9 @@
 				@ConsoleSceneView = :@BridgeScene,
 				@InheritingBridgeScenePainter = :@BridgeScene,
 				@BridgeSceneController = :@BridgeScene,
-				@CommandInterpreterController = :@CommandInterpreter,
-				@MoveCommmand = :@Avatar; int; int,
-				@SayCommand = :@BridgeScene; String,
-																			
-				" />
+				@CommandInterpreterController = :@CommandInterpreter
+								
+				"/>
 		</module>
 		<module name="ExpectedInterfaces">
 			<property name="expectedInterfaces"
@@ -226,19 +192,14 @@
 				@CommandInterpreter = @CommandInterpreter,
 				@ConsoleSceneView = @ConsoleSceneView,
 				@ConsoleSceneView = PropertyChangeListener,				
-				@Locatable =  PropertyListenerRegistrer,
-				@BoundedShape = PropertyListenerRegistrer,
+				@Locatable =  PropertyListenerRegistrar,
+				@BoundedShape = PropertyListenerRegistrar,
 				@Locatable =  @Locatable,
 				@BoundedShape = @BoundedShape,
 				@PaintListener = @PaintListener,
 				@BridgeSceneController = MouseListener | KeyListener,
-				@ObservableCommandIntepreter = PropertyListenerRegistrer,
-				@SayCommand = Runnable,
-				@MoveCommand = Runnable,
-				@Animator = @Animator,
-				@AnimatingCommand = Runnable,
-				@BridgeScene = 	PropertyListenerRegistrer			
-				" />
+				@ObservableCommandIntepreter = PropertyListenerRegistrar				
+				"/>
 		</module>
 		<module name="ExpectedSuperTypes">
 			<property name="expectedSuperTypes"
@@ -250,9 +211,9 @@
 				@BoundedShape=@Locatable,
 				@InheritingBridgeScenePainter=Component,
 				@ObservableBridgeScenePainter=Component,
-				" />
+				"/>
 		</module>
-
+		
 		<module name="MissingMethodCall">
 			<property name="expectedCalls"
 				value="
@@ -261,13 +222,9 @@
 							(.*)!setString:String->void |
 					 		@Table!get:(.*)->(.*) |
 					 		@Table!put:(.*);(.*) -> (.*) |
-					 		@BridgeScene!getArthur:->(.*) |
-					 		@CommandInterpreter!@parseSay:*->Runnable |
-					 		@CommandInterpreter!@parseMove:*->Runnable,					 		
+					 		@BridgeScene!getArthur:->(.*),					 		
 				 @Avatar=  @STRING_PATTERN!setX:int->void) | @Angle!move:int;int->void, 
-				 @BridgeScene = 
-				 	@Avatar!@move:int;->void | 
-				 	(.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
+				 @BridgeScene = @Avatar!@move:int;->void,
 				 @Locatable = (.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
 				 @BoundedShape = (.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
 				 @ConsoleSceneView = (.*)!addPropertyChangeListener:PropertyChangeListener->void) |
@@ -288,29 +245,25 @@
 				 						@BridgeScene!getGalahad:-> @Avatar	|
 				 						@BridgeScene!getLancelot:-> @Avatar	|	
 				 						@BridgeScene!getRobin:-> @Avatar	|
-				 						@Avatar!move:int; int->void |				 						
-				 						@BridgeScene!@Say:@Avatar->void |
-				 						@BridgeScene!@Approach:@Avatar->void,
+				 						@Avatar!move:int; int->void,
 				 @ObservableCommandInterpreter = (.*)!(.*)notify(.*):PropertyChangeEvent->(.*),
 				 @InheritingBridgeScenePainter = 
 				 	Graphics(.*)!draw(.*):*->(.*) |
 				 	super!paint:Graphics->void(.*),
 				 @PaintListener = 
-				 	Graphics(.*)!draw(.*):*->(.*),
-				 @AnimatingCommand = @Animator!@AnimateAvatar:@Avatar->void
+				 	Graphics(.*)!draw(.*):*->(.*)  						
 				 						
-				 						
-				 " />
+				 "/>
 		</module>
-
+		 
 		<module name="ExpectedPattern">
 			<property name="expectedPattern"
 				value="
 				@Table= MAP_PATTERN, 
 				@Angle= BEAN_PATTERN
-				" />
+				"/>
 		</module>
-
+		
 
 		<module name="FunctionAssignsGlobal">
 			<property name="excludeMethodTags"
@@ -325,7 +278,7 @@
 		</module>
 		<module name="ClassHasAtLeastOneInterface">
 		</module>
-		<module name="ClassHasOneInterface">
+		<module name="ClassHasOneInterface">			
 		</module>
 		<module name="VariableHasClassType">
 
@@ -355,17 +308,15 @@
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
 		</module>
+		
 
-
-		<module name="PeerCommonProperties">
-			<property name="includeTypeTags"
-				value="@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @LINE_PATTERN, @IMAGE_PATTERN, @STRING_PATTERN" />
-			<property name="includeSets"
-				value="@move | @say | @rotateLeftArm | @rotateRightArm |  @repeat | @define | @call |  @thread | @wait | @proceedAll |  @sleep |  @undo | @redo, @LINE_PATTERN | @IMAGE_PATTERN | @STRING_PATTERN" />
+	      <module name="PeerCommonProperties">
+			<property name="includeTypeTags" value="@move, @say, @rotateLeftArm, @rotateRightArm,  @repeat, @define, @call,  @thread, @wait, @proceedAll,  @sleep,  @undo, @redo, @LINE_PATTERN, @IMAGE_PATTERN, @STRING_PATTERN" />			
+			<property name="includeSets" value="@move | @say | @rotateLeftArm | @rotateRightArm |  @repeat | @define | @call |  @thread | @wait | @proceedAll |  @sleep |  @undo | @redo, @LINE_PATTERN | @IMAGE_PATTERN | @STRING_PATTERN" />		
+		  </module>
+		  <module name="InvalidPackageName">
 		</module>
-		<module name="InvalidPackageName">
-		</module>
-
+		  
 	</module>
 </module>
 
