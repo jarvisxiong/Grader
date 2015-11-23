@@ -91,8 +91,8 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
                 && mousePressed!=null && mouseReleased!=null && mouseClicked!=null
                 && dispatchEvent != null;
         
-        mouseX = 200;
-        mouseY = 200;
+        mouseX = 12345;
+        mouseY = 54321;
     }
     
     public MoveAllAvatarsTestCase() {

@@ -91,8 +91,8 @@ public class ResetAllAvatarsTestCase extends BasicTestCase {
                 && mousePressed != null && mouseReleased != null && mouseClicked != null
                 && dispatchEvent != null;
 
-        mouseX = 200;
-        mouseY = 200;
+        mouseX = 10000;
+        mouseY = 10000;
         resetChar = 'o';
         resetCode = KeyEvent.VK_O;
     }

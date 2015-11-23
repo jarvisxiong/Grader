@@ -108,26 +108,26 @@ public class MoveSingleAvatarTestCase extends BasicTestCase {
             case "Arthur":
                 inputCharTemp = 'a';
                 inputCodeTemp = KeyEvent.VK_A;
-                mouseXTemp = 100;
-                mouseYTemp = 50;
+                mouseXTemp = 10000;
+                mouseYTemp = 5000;
                 break;
             case "Lancelot":
                 inputCharTemp = 'l';
                 inputCodeTemp = KeyEvent.VK_L;
-                mouseXTemp = 150;
-                mouseYTemp = 75;
+                mouseXTemp = 15000;
+                mouseYTemp = 7500;
                 break;
             case "Galahad":
                 inputCharTemp = 'g';
                 inputCodeTemp = KeyEvent.VK_R;
-                mouseXTemp = 90;
-                mouseYTemp = 200;
+                mouseXTemp = 9001;
+                mouseYTemp = 20000;
                 break;
             case "Robin":
                 inputCharTemp = 'r';
                 inputCodeTemp = KeyEvent.VK_G;
-                mouseXTemp = 125;
-                mouseYTemp = 245;
+                mouseXTemp = 12500;
+                mouseYTemp = 24500;
                 break;
             default:
                 okayTemp = false;
