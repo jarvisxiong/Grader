@@ -1,10 +1,10 @@
 package gradingTools.comp401f15.assignment10;
 
-import gradingTools.assignment10.*;
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment10.testCases.*;
+
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.comp401f15.assignment10.testCases.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,10 +18,11 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
     public Assignment10Requirements() {
 
         // Add due date/times with a 30 minute grace period
-        addDueDate("11/07/2013 00:30:00", 1.05);
-        addDueDate("11/09/2013 00:30:00", 1);
-        addDueDate("11/12/2013 11:30:00", 0.9);
-        addDueDate("11/14/2013 11:30:00", 0.75);
+    	   // Add due date/times with a 30 minute grace period
+        addDueDate("11/04/2015 12:59:00", 1.05);
+        addDueDate("11/06/2015 12:59:00", 1);
+        addDueDate("11/11/2015 12:59:00", 0.9);
+        addDueDate("11/13/2015 12:59:00", 0.75);
 
         // Precondition Methods (24 pts)
         addFeature("Precondition methods", 12,
@@ -29,8 +30,11 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
                 new PreconditionTestCase("say"),
                 new PreconditionTestCase("passed"),
                 new PreconditionTestCase("failed"));
-        addManualFeature("Console view shows precond events", 12, new QuestionTestCase("Do all four precondition events show up in the console view?", "Console view shows precondition events test case"));
-//        addFeature("Console view shows precond events", 12, new PreconditionEventsTestCase());
+        addFeature("Precondition methods", 14,
+        		new PreconditionChangedAndPropertyAnnouncedTestCase("Preconditions changed and announced"));
+//
+        addManualFeature("Console view buttons change as preconditions change", 12, true);
+        addFeature("Console view shows precond events", 12, new PreconditionEventsTestCase());
 
         // Command Objects (21 pts)
         addFeature("Say & move cmd objects", 5,
