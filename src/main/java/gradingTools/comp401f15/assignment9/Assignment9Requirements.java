@@ -1,8 +1,18 @@
 package gradingTools.comp401f15.assignment9;
 
 import framework.grading.FrameworkProjectRequirements;
+import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
 import gradingTools.assignment6.testCases.*;
 import gradingTools.assignment9.testCases.*;
+import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
+import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
+import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
+import gradingTools.comp401f15.assignment9.testCases.MoveAllAvatarsTestCase;
+import gradingTools.comp401f15.assignment9.testCases.MoveSingleAvatarTestCase;
+import gradingTools.comp401f15.assignment9.testCases.ResetAllAvatarsTestCase;
+import gradingTools.comp401f15.assignment9.testCases.ResetSingleAvatarTestCase;
+import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,10 +26,22 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
     public Assignment9Requirements() {
 
         // Add due date/times with a 30 minute grace period
-        addDueDate("10/28/2013 12:59:00", 1.05);
-        addDueDate("10/30/2013 12:59:00", 1);
-        addDueDate("11/03/2013 12:59:00", 0.9);
-        addDueDate("11/06/2013 12:59:00", 0.75);
+        addDueDate("10/28/2015 12:59:00", 1.05);
+        addDueDate("10/30/2015 12:59:00", 1);
+        addDueDate("11/03/2015 12:59:00", 0.9);
+        addDueDate("11/06/2015 12:59:00", 0.75);
+        
+        addFeature("Move Arthur", 2, new MoveSingleAvatarTestCase("Arthur"));
+        addFeature("Move Galahad", 2, new MoveSingleAvatarTestCase("Galahad"));
+        addFeature("Move Lancelot", 2, new MoveSingleAvatarTestCase("Lancelot"));
+        addFeature("Move Robin", 2, new MoveSingleAvatarTestCase("Robin"));
+        addFeature("Move All", 2, new MoveAllAvatarsTestCase());
+        
+        addFeature("Reset Arthur", 1, new ResetSingleAvatarTestCase("Arthur"));
+        addFeature("Reset Galahad", 1, new ResetSingleAvatarTestCase("Galahad"));
+        addFeature("Reset Lancelot", 1, new ResetSingleAvatarTestCase("Lancelot"));
+        addFeature("Reset Robin", 1, new ResetSingleAvatarTestCase("Robin"));
+        addFeature("Reset All", 6, new ResetAllAvatarsTestCase());
 
         // Part 1
         addManualFeature("Does the controller call the interpreter setter?", 15);
@@ -31,7 +53,7 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
         addFeature("(1) View extends component", 5, new ScenePainterExtendsComponentTestCase());
         addFeature("(1) View is listener of shapes", 10, new ScenePainterListenerTestCase());
         addFeature("(1) paint() called when events fire", 5, new ScenePainterPaintOnEventTestCase());
-        addManualFeature("Does the paint method draw everything in the view?", 25);
+        addManualFeature("(1) Does the paint method draw everything in the view?", 25);
 
         // Part 2 (EC)
         addFeature("(2) Listener & Observing Painter classes tagged", 5, new ListenerAndPainterTagTestCase());
@@ -39,8 +61,8 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
         addFeature("(2) Paint listener paint method", 5, new PaintListenerPaintMethodTestCase());
         addFeature("(2) View classes register as listener", 20, new PaintListenerListenersTestCase());
         addFeature("(2) Listeners notify on fired events", 10, new PaintListenerPaintOnEventTestCase());
-        addManualFeature("Do the paint listener views do all the painting/drawing?", 25);
-        addManualFeature("Are the avatars drawn on top of the bridge and gorge?", 5);
+        addManualFeature("(2) Do the paint listener views do all the painting/drawing?", 25);
+        addManualFeature("(2) Are the avatars drawn on top of the bridge and gorge?", 5);
 
         // Part 3
         addManualFeature("Is there a demo?", 10);
@@ -53,14 +75,16 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
         addManualFeature("Does the bridge scene controller track the locations of mouse clicks?", 4, true);
         addManualFeature("Does the bridge scene controller support keyboard commands?", 4, true);
 
-
         // Define the restrictions
-        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
-        addRestriction("Interface object assignments.", -5, new InterfaceTypeTestCase("Interface type test case"));
-        addRestriction("At least three packages.", -5, new ThreePackageTestCase("Three package test case"));
-        addRestriction("Main class in correct package.", -5, new MainClassTestCase("Assignment9", "Main method test case"));
-        addRestriction("No System.exit()", -5, new SystemExitTestCase("System.exit test case"));
-        addRestriction("No OE .refresh()", -5, new RefreshTestCase());
+        addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
+        addRestriction("At least three packages.", 5, new ThreePackageTestCase("Three package test case"));
+        // TODO: Method/interface check
+        addRestriction("No System.exit()", 5, new SystemExitTestCase("System.exit test case"));
+    	addRestriction("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
+    	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
+        addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range|Hashtable Pattern).*", ".*Assuming implicit pattern.*", 0.3));
 
     }
 }

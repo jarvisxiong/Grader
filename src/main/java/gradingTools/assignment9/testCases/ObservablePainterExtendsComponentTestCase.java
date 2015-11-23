@@ -31,14 +31,14 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
             throw new NotGradableException();
         List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("ObservableBridgeScenePainter");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"ObservableBridgeScenePainter\"", autoGrade);
+            return fail("No class tagged \"ObservableBridgeScenePainter\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         boolean extendsComponent = Component.class.isAssignableFrom(classDescription.getJavaClass());
         if (extendsComponent)
-            return pass(autoGrade);
+            return pass();
         else
-            return fail("The observable bridge scene painter should extend Component.", autoGrade);
+            return fail("The observable bridge scene painter should extend Component.");
     }
 }
 

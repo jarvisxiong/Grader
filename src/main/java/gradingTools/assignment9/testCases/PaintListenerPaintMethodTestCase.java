@@ -33,7 +33,7 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
             throw new NotGradableException();
         List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("PaintListener");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"PaintListener\"", autoGrade);
+            return fail("No class tagged \"PaintListener\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
 //        try {
@@ -57,7 +57,7 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
             }
 //            classDescription.getJavaClass().getMethod("paint", Graphics2D.class);
             if (points[2]) {
-                return pass(autoGrade);
+                return pass();
             } else if (points[1]) {
                 return partialPass(0.5, "Paint method found but without a Graphics2D parameter");
             } else {

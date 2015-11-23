@@ -147,7 +147,7 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
         boolean[] ret = new boolean[4];
         Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
         
-        MethodExecutionTestCase.MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{
+        MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{
             MethodEnvironment.get(bridgeSceneInstance, getArthur),
             MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),
             MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY),
@@ -256,9 +256,11 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
         }
         return count;
     }
+    
     public static void printOut(String line) {
         System.out.println(line);
     }
+    
     public static void printErr(String line) {
         System.err.println(line);
     }

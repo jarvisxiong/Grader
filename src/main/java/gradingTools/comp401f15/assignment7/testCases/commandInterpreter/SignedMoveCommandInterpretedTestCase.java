@@ -172,7 +172,7 @@ public class SignedMoveCommandInterpretedTestCase extends BasicTestCase {
         Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
         
         
-        MethodExecutionTestCase.MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{
+        MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{
             MethodEnvironment.get(bridgeSceneInstance, getArthur),                                                      // 0
             MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getX),   // 1
             MethodEnvironment.get(MethodExecutionTestCase.CYCLIC_GET_PROPERTY, MethodExecutionTestCase.M0_RET, getY) ,  // 2

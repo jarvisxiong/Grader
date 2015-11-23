@@ -108,14 +108,6 @@ public class MoveCommandInterpretedTestCase extends BasicTestCase {
                         break;
                     }
                 }
-//                List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head");
-//                lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
-//                if (lm.isEmpty()) {
-//                    lm = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Image");
-//                    lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
-//                }
-//                getX[0] = lm.get(0);
-//                getY[0] = lm.get(0);
                 List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getX[0].getReturnType(), "X");
                 lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
                 getX[1] = lm.get(0);

@@ -36,7 +36,7 @@ public class ScenePainterPaintOnEventTestCase extends BasicTestCase {
             throw new NotGradableException();
         List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("InheritingBridgeScenePainter");
         if (classDescriptions.isEmpty())
-            return fail("No class tagged \"InheritingBridgeScenePainter\"", autoGrade);
+            return fail("No class tagged \"InheritingBridgeScenePainter\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
 
         // It should register itself as a listener at least once in the constructor
@@ -46,9 +46,9 @@ public class ScenePainterPaintOnEventTestCase extends BasicTestCase {
             MethodDeclaration method = CompilationNavigation.getMethod(classDef, "propertyChange");
             String code = method.toString();
             if (code.contains("paint();"))
-                return pass(autoGrade);
+                return pass();
             else
-                return fail("The paint() method isn't fired from propertyChange()", autoGrade);
+                return fail("The paint() method isn't fired from propertyChange()");
         } catch (IOException e) {
             throw new NotGradableException();
         }
