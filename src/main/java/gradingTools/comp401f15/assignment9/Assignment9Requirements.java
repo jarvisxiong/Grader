@@ -26,25 +26,25 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
     public Assignment9Requirements() {
 
         // Add due date/times with a 30 minute grace period
-        addDueDate("10/28/2015 12:59:00", 1.05);
-        addDueDate("10/30/2015 12:59:00", 1);
-        addDueDate("11/03/2015 12:59:00", 0.9);
-        addDueDate("11/06/2015 12:59:00", 0.75);
+        addDueDate("10/29/2015 00:59:00", 1.05);
+        addDueDate("10/31/2015 00:59:00", 1);
+        addDueDate("11/04/2015 00:59:00", 0.9);
+        addDueDate("11/07/2015 00:59:00", 0.75);
 
         // Part 2
-        addFeature("(1) Inheriting Scene painter class tagged", 5, new ScenePainterTagTestCase());
+        addFeature("(1) Inheriting Scene painter class tagged", 2, new ScenePainterTagTestCase());
         addFeature("(1) View extends component", 5, new ScenePainterExtendsComponentTestCase());
         addFeature("(1) View is listener of shapes", 10, new ScenePainterListenerTestCase());
-        addFeature("(1) paint() called when events fire", 5, new ScenePainterPaintOnEventTestCase());
-        addManualFeature("(1) Does the paint method draw everything in the view?", 20);
+        addFeature("(1) paint() called when events fire", 10, new ScenePainterPaintOnEventTestCase());
+        addManualFeature("(1) Does the paint method draw everything in the view?", 25);
 
         // Part 2 (EC)
-        addFeature("(2) Listener & Observing Painter classes tagged", 5, new ListenerAndPainterTagTestCase());
+        addFeature("(2) Listener & Observing Painter classes tagged", 2, new ListenerAndPainterTagTestCase());
         addFeature("(2) Observable Bridge Scene Painter extends component", 5, new ObservablePainterExtendsComponentTestCase());
-        addFeature("(2) Paint listener paint method", 5, new PaintListenerPaintMethodTestCase());
+        addFeature("(2) Paint listener paint method", 10, new PaintListenerPaintMethodTestCase());
         addFeature("(2) View classes register as listener", 20, new PaintListenerListenersTestCase());
         addFeature("(2) Listeners notify on fired events", 10, new PaintListenerPaintOnEventTestCase());
-        addManualFeature("(2) Do the paint listener views do all the painting/drawing?", 20);
+        addManualFeature("(2) Do the paint listener views do all the painting/drawing?", 25);
         addManualFeature("(2) Are the avatars drawn on top of the bridge and gorge?", 5);
 
         // Part 3
@@ -65,10 +65,10 @@ public class Assignment9Requirements extends FrameworkProjectRequirements {
         
         
         // Extra Credit
-        addManualFeature("Is there an interface to manipulate the command interpreter?", 5, true);
-        addManualFeature("Does the command interpreter display the error property?", 5, true);
-        addManualFeature("Is there a progress bar?", 5, true);
-        addManualFeature("Does the interpreter have two or more action components?", 5, true);
+        addManualFeature("Custom user-interface to manipulate command interpreter?", 10, true);
+        addManualFeature("Command interpreter displays  error property?", 5, true);
+        addManualFeature("Progress bar?", 10, true);
+        addManualFeature("Interpeter UI has two or more action components?", 10, true);
 
         // Define the restrictions
         addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
