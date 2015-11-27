@@ -1,15 +1,7 @@
 package gradingTools.comp401f15.assignment11;
 
-import gradingTools.assignment11.*;
-import gradingTools.assignment11.checkers.AdditionalCommandObjectsChecker;
-import gradingTools.assignment11.checkers.CommandListCommandObjectChecker;
-import gradingTools.assignment11.checkers.ParserMethodChecker;
-import gradingTools.assignment11.checkers.RepeatCommandObjectChecker;
-import gradingTools.assignment11.testCases.AbstractAncestorTokenTestCase;
-import gradingTools.assignment11.testCases.AbstractBoundedShapeTestCase;
-import gradingTools.assignment11.testCases.AbstractLocatableTestCase;
-import gradingTools.assignment6.testCases.ManualTestCase;
-import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.comp401f15.assignment11.testcases.*;
+
 import wrappers.framework.grading.ExtendedProjectRequirements;
 
 /**
@@ -41,26 +33,26 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 
         //Parsing (70)
         addFeature("Methods for all 8 nonterminals", 10, new ParserMethodChecker());
-        addManualFeature("Recursive cmd list commands", 40,
-                new QuestionTestCase("Does the command list parser recursively parse?", "Recursive command list test case"),
-                new QuestionTestCase("Test the command interpreter. Do command lists work properly?", "Command list functionality test case"));
-        addManualFeature("Recursive repeat commands", 20,
-                new QuestionTestCase("Does the repeat command parser recursively parse?", "Recursive repeat command test case"),
-                new QuestionTestCase("Test the command interpreter. Do repeat commands work properly?", "Command list functionality test case"));
+//        addManualFeature("Recursive cmd list commands", 40,
+//                new QuestionTestCase("Does the command list parser recursively parse?", "Recursive command list test case"),
+//                new QuestionTestCase("Test the command interpreter. Do command lists work properly?", "Command list functionality test case"));
+//        addManualFeature("Recursive repeat commands", 20,
+//                new QuestionTestCase("Does the repeat command parser recursively parse?", "Recursive repeat command test case"),
+//                new QuestionTestCase("Test the command interpreter. Do repeat commands work properly?", "Command list functionality test case"));
 
         // Animation (20)
-        addFeature("Synchronized avatar methods", 10);
-        addFeature("Coordinated animation", 10);
+        addManualFeature("Synchronized avatar methods", 10);
+//        addManualFeature("Coordinated animation", 10);
 
         // Generics (10)
-        addFeature("Generic table", 10);
+        addManualFeature("Generic table", 10);
 
         // Extra Credit
-        addFeature("Lockstep animation", 3, true);
-        addFeature("Signed number parsing", 2, true);
-        addFeature("Extended grammar parsing", 15, true);
-        addFeature("Exceptions", 10, true);
-        addFeature("Undo/redo", 5, true);
+//        addFeature("Lockstep animation", 3, true);
+//        addFeature("Signed number parsing", 2, true);
+//        addFeature("Extended grammar parsing", 15, true);
+//        addFeature("Exceptions", 10, true);
+//        addFeature("Undo/redo", 5, true);
 
     }
 }
