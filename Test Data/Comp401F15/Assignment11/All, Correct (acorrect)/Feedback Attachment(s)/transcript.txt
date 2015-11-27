@@ -1,0 +1,60 @@
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Pass Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling constructor: public grail.scanner.BeanStringScanner7() 
+called constructor: public grail.scanner.BeanStringScanner7() 
+calling method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args pass 
+called method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args:pass  result:null
+calling method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args 
+called method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args: result:mp.tokens.Word@5825e1a1
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Pass Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.scanner.BeanStringScanner7.<init>(java.lang.String)
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Pass Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling constructor: public grail.scanner.BeanStringScanner7() 
+called constructor: public grail.scanner.BeanStringScanner7() 
+calling method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args pass
+called method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args:pass result:null
+calling method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args 
+called method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args: result:mp.tokens.Word@56e214d5
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Pass Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.scanner.BeanStringScanner7.<init>(java.lang.String)
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Fail Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling constructor: public grail.scanner.BeanStringScanner7() 
+called constructor: public grail.scanner.BeanStringScanner7() 
+calling method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args fail 
+called method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args:fail  result:null
+calling method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args 
+called method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args: result:mp.tokens.Word@52dd8ad1
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Fail Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.scanner.BeanStringScanner7.<init>(java.lang.String)
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Fail Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling constructor: public grail.scanner.BeanStringScanner7() 
+called constructor: public grail.scanner.BeanStringScanner7() 
+calling method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args fail
+called method: public void grail.scanner.BeanStringScanner7.setScannedString(java.lang.String) with args:fail result:null
+calling method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args 
+called method: public grail.scanner.ClearableHistory grail.scanner.BeanStringScanner7.getTokenList() with args: result:mp.tokens.Word@17df1eee
+*****************************(Scanner Makes Pass and Fail)*****************************
+Testcase:Fail Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.scanner.BeanStringScanner7.<init>(java.lang.String)
