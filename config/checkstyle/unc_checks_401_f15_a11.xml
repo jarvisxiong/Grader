@@ -139,6 +139,7 @@
 			@Animator,
 			@AnimatingCommand,
 			@FailCommand,
+			@ApproachCommand,
 			@RepeatCommand,
 			@CommandList,
 			@RotateLeftArm,
@@ -149,7 +150,8 @@
 			@Thread,			
 			@DefineCommand,
 			@CallCommand,
-			@ThreadCommand
+			@ThreadCommand,
+			@Parser
 			
 			
 			" />
@@ -247,7 +249,8 @@
 			<property name="expectedSignatures"
 				value="@BridgeScene =:, 
 				@Angle=:, 
-				@CommandInterpreter = :@BridgeScene; @ScannerBean,
+				@CommandInterpreter = :@BridgeScene,
+				@Parser = :@BridgeScene,
 				@ConsoleSceneView = :@BridgeScene,
 				@InheritingBridgeScenePainter = :@BridgeScene,
 				@BridgeSceneController = :@BridgeScene,
@@ -255,7 +258,7 @@
 				@MoveCommmand = :@Avatar; int; int,
 				@SayCommand = :@BridgeScene; String,
 				@FailCommand = :@BridgeScene,
-				@PassCommand = :@BridgeScene
+				@PassCommand = :@BridgeScene,
 				@ApproachCommand = :@BridgeScene;@Avatar,
 				@RepeatCommand = :int;@Runnable,
 				@RotateLeftArmCommand = :@Avatar; int,
@@ -377,7 +380,6 @@
 				 	@parseNumber:*->* |
 				 	@parseRotateLeftArm:*->Runnable |
 				 	@parseRotateRightArm:*->Runnable |
-				 	@parseNumber:*->* |
 					@parseDefine:*->Runnable |
 					@parseCall:*->Runnable |
 					@parseThread:*->Runnable |
@@ -446,7 +448,7 @@
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
 		</module>
-       <module name="ClassIsGeneric">
+	<module name="ClassIsGeneric">
 			<property name="includeTypeTags" value="Table" />
 		</module>
 

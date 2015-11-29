@@ -28,8 +28,8 @@ public class CommandListCommandObjectChecker extends AnAbstractFeatureChecker {
         CheckResult result = new ACheckResult();
 
         // Get the class that is tagged as "Command List"
-        Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Command List");
-        if (descriptions.isEmpty()) {
+        Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("CommandList");
+        if (descriptions == null || descriptions.isEmpty()) {
             result.setScore(0);
             result.getLog().add("No classed tagged \"Command List\"");
             return result;

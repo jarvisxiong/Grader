@@ -26,10 +26,13 @@ public class RepeatCommandObjectChecker extends AnAbstractFeatureChecker {
     @Override
     public CheckResult check() {
         CheckResult result = new ACheckResult();
+//        List<ClassDescription> aClasses = project.getClassesManager().get().findClass("Repeat", "Repeat", "Repeat", "Repeat");
+//
+//        aClasses = project.getClassesManager().get().findClass("Repeat", "Repeat", "Repeat", "Repeat");
 
         // Get the class that is tagged as "Command List"
         Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Repeat");
-        if (descriptions.isEmpty()) {
+        if (descriptions == null || descriptions.isEmpty()) {
             result.setScore(0);
             result.getLog().add("No classed tagged \"Repeat\"");
             return result;

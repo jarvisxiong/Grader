@@ -1,0 +1,83 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Abstract classes                                       0.0 /  5.0
+Pass/Fail Token Classes Implemented                    0.0 /  4.0
+Passed Failed Approach Command Objects                 0.0 /  6.0
+A11 Constructors                                       0.0 /  5.0
+CommandList Structure                                  0.0 /  5.0
+RepeatCommand Structure                                0.0 /  5.0
+Parser Properties                                      0.0 /  6.0
+Basic Parser Structure                                 0.0 / 16.0
+Synchronized Methods                                   0.0 / 10.0
+Signed Number Structure                                0.0 /  2.0 (Extra credit)
+Basic:approach Lancelot                                0.0 /  4.0
+Basic: passed                                          0.0 /  4.0
+1-Level List:{ move Lancelot  4 3 say “Name?” }        0.0 /  3.0
+Recursive List:{{{ move Lancelot  4 3 say “Name?” }}}  0.0 /  8.0
+1-Level Repeat: repeat 3  move Robin  2 3              0.0 /  4.0
+Mixed List Repeat: repeat 3 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
+Recursive Repeat: repeat 3 repeat 2 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
+Recursive Repeat and CL: repeat 3 repeat 2 {{{ move Lancelot  2 3 move Arthur 5 6 }}}  0.0 /  4.0
+demo of synchronized                                   0.0 / 10.0
+demo of refreshing commands                            0.0 / 10.0
+All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
+----------------------------------
+  Points Awarded: 0.0
+
+  Features Score: 0.0
+
+Notes from grading features:
+----------------------------------
+Abstract classes:
+  -- Locatable not found.
+  -- BoundedShape not found.
+
+Pass/Fail Token Classes Implemented:
+  -- Class matching:null, pass, .*pass.*, .*pass.* not found
+  -- Class matching:null, fail, .*fail.*, .*fail.* not found
+
+Passed Failed Approach Command Objects:
+  -- PassCommand not found.
+  -- FailCommand not found.
+  -- ApproachCommand not found.
+
+A11 Constructors:
+  -- Type PassCommandnot defined, cannot check
+  -- Type FailCommandnot defined, cannot check
+  -- Type ApproachCommandnot defined, cannot check
+  -- Type RepeatCommandnot defined, cannot check
+  -- Type Parsernot defined, cannot check
+
+CommandList Structure:
+  -- Command list object not found
+
+RepeatCommand Structure:
+  -- Repeat command object not found
+
+Parser Properties:
+  -- Did not find unique class for tag:Parser
+
+Basic Parser Structure:
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+  -- Type Parsernot defined, cannot check method
+
+Synchronized Methods:
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+
+Signed Number Structure:
+  -- Type Parsernot defined, cannot check method
+
+
+Late penalty: 0.0%
+  Total Score: 0.0

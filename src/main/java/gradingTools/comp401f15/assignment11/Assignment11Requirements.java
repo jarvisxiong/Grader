@@ -1,7 +1,10 @@
 package gradingTools.comp401f15.assignment11;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import gradingTools.comp401f15.assignment10.testCases.CommandListObjectTestCase;
 import gradingTools.comp401f15.assignment10.testCases.CommandObjectExistsTestCase;
 import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementedTestCase;
+import gradingTools.comp401f15.assignment10.testCases.RepeatCommandObjectTestCase;
 import gradingTools.comp401f15.assignment11.testcases.*;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.created.CallCommandCreatedTestCase;
@@ -61,14 +64,16 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
                 new AbstractClassTestCase("BoundedShape"));
 //                new AbstractAncestorTokenTestCase());
 //      //Do the command tokens exist and do word stuff
-        addFeature("Generic classes", 5,
-                new GenerictClassCheckStyleTestCase("Table"));
-    	addFeature("Pass/Fail Commands Implemented", 2,
+//        addFeature("Generic classes", 5,
+//                new GenerictClassCheckStyleTestCase("Table"));
+    	addFeature("Pass/Fail Token Classes Implemented", 4,
     		
-    			new CallCommandBeanTestCase(),
+//    			new CallCommandBeanTestCase(),
     			new PassCommandBeanTestCase(),
     			new FailCommandBeanTestCase()
+//    			new RepeatCommandBeanTestCase()
     			);
+
         
     	// for some  reason the following do not work
     	// initialize token array
@@ -81,31 +86,115 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 //    			new FailCommandCreatedTestCase()
 //    			
 //    			);
-//        addFeature("Passed failed approach cmd obj", 6, 
-//        		new CommandObjectExistsTestCase("PassCommand"),
-//        		new CommandObjectExistsTestCase("FailCommand"),
-//        		new CommandObjectExistsTestCase("ApproachCommand")
-//        				);
-//        
-        addFeature("Parser structure", 6, 
-        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
-        		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-        		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
+        addFeature("Passed Failed Approach Command Objects", 6, 
+        		new CommandObjectExistsTestCase("PassCommand"),
+        		new CommandObjectExistsTestCase("FailCommand"),
+        		new CommandObjectExistsTestCase("ApproachCommand")
+//        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+//        		new CheckstyleConstructorDefinedTestCase("FailCommand", ":@BridgeScene"),
+//        		new CheckstyleConstructorDefinedTestCase("ApproachCommand", ":@BridgeScene;@Avatar")
+        				);
+        addFeature("A11 Constructors", 5,
         		
-        				);		
-//        addFeature("Synchronized Methods", 10, 
-//        		new SynchronizedAnimationTestCase("asynchronousArthur"),
-//        		new SynchronizedAnimationTestCase("asynchronousGalahad"),
-//        		new SynchronizedAnimationTestCase("asynchronousLancelot"),
-//        		new SynchronizedAnimationTestCase("asynchronousRobin")
-//        		);
-        
+        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+        		new CheckstyleConstructorDefinedTestCase("FailCommand", ":@BridgeScene"),
+        		new CheckstyleConstructorDefinedTestCase("ApproachCommand", ":@BridgeScene;@Avatar"),
+        		new CheckstyleConstructorDefinedTestCase("RepeatCommand", ":int;@Runnable"),
+        		new CheckstyleConstructorDefinedTestCase("Parser", ":@BridgeScene")
+        		
+        );
+   	 addFeature("CommandList Structure", 5, new CommandListObjectTestCase());
+//   addFeature("Repeat command", 5, new RepeatCommandObjectChecker());
+   addFeature("RepeatCommand Structure", 5, new RepeatCommandObjectTestCase());
+   addFeature("Parser Properties", 6, new BeanTestCase("Parser",
+		   Arrays.asList(new String[] {"CommandObject"}),
+		   Arrays.asList(new String[] {"CommandText"})
+		   ));
 
+//   addFeature("Parser Structure", 6, 
+//   		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+//   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//   		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
+//   		
+//   	);
+   addFeature("Basic Parser Structure", 16, 
+//	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseApproach:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommand:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parsePass:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseFail:*->Runnable"),	   		
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRepeat:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommandList:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseMove:*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseSay:*->Runnable")
+// need to fix the call check as it returns null sometimes	   		
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseApproach:*->Runnable"),
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseCommand:*->Runnable"),
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parsePass:*->Runnable"),
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseFail:*->Runnable"),	   		
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRepeat:*->Runnable"),
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseCommandList:*->Runnable")
+	   		
+	   	);
+   addFeature("Synchronized Methods", 10, 
+   		new SynchronizedAnimationTestCase("asynchronousArthur"),
+   		new SynchronizedAnimationTestCase("asynchronousGalahad"),
+   		new SynchronizedAnimationTestCase("asynchronousLancelot"),
+   		new SynchronizedAnimationTestCase("asynchronousRobin")
+   		);
+   addFeature("Signed Number Structure", 2, true,
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*")
+	   		
+//	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseNumber:")
+
+	   	);
+   addManualFeature("Basic:approach Lancelot ", 4);
+   addManualFeature("Basic: passed ", 4);
+   addManualFeature("1-Level List:{ move Lancelot  4 3 say “Name?” } " , 8);
+   addManualFeature("Recursive List:{{{ move Lancelot  4 3 say “Name?” }}} " , 8);
+   addManualFeature("1-Level Repeat: repeat 3  move Robin  2 3 " , 6);
+   addManualFeature("Mixed List Repeat: repeat 3 { move Lancelot  2 3 move Arthur 5 6 } " , 4);
+   addManualFeature("Recursive Repeat: repeat 3 repeat 2 { move Lancelot  2 3 move Arthur 5 6 } " , 4);
+   addManualFeature("Recursive Repeat and CL: repeat 3 repeat 2 {{{ move Lancelot  2 3 move Arthur 5 6 }}} " , 4);
+   addManualFeature("demo of synchronized", 10);
+   addManualFeature("demo of refreshing commands", 10);
+   addManualFeature("All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}}" , 8, true);
+
+   
+   
+// addFeature("A11 Parser Structure", 24, 
+////	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseApproach:*->Runnable"),
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommand:*->Runnable"),
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parsePass:*->Runnable"),
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseFail:*->Runnable"),	   		
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRepeat:*->Runnable"),
+//	new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommandList:*->Runnable"),
+//	
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parseApproach:*->Runnable"),
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parseCommand:*->Runnable"),
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parsePass:*->Runnable"),
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parseFail:*->Runnable"),	   		
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parseRepeat:*->Runnable"),
+//	new CheckstyleMethodCalledTestCase("Parser", 	"@parseCommandList:*->Runnable")
+//	
+//);
+   
+        
+//        addFeature("Parser structure", 6, 
+//        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+//        		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//        		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
+//        		
+//        				);		
+      
+        
+        
         // New commands (17)
 ////        addFeature("Passed & failed", 2);
 //        addFeature("Passed failed approach cmd obj", 5, new AdditionalCommandObjectsChecker());
-//        addFeature("Command list cmd obj", 5, new CommandListCommandObjectChecker());
-//        addFeature("Repeat command", 5, new RepeatCommandObjectChecker());
+       
+
 //
 //        //Parsing (70)
 //        addFeature("Methods for all 8 nonterminals", 10, new ParserMethodChecker());

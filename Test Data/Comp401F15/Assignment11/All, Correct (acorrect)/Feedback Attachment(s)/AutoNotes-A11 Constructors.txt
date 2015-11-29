@@ -1,0 +1,5 @@
+  -- Constructor matching :@BridgeScene not defined in PassCommand
+  -- Constructor matching :@BridgeScene not defined in FailCommand
+  -- Constructor matching :@BridgeScene;@Avatar not defined in ApproachCommand
+  -- Type RepeatCommandnot defined, cannot check
+  -- Constructor matching :@BridgeScene not defined in ACommandParser

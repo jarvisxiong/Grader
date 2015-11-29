@@ -72,7 +72,7 @@ public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
 	@Override
 	public String failMessageSpecifier() {
 		// TODO Auto-generated method stub
-		return "Method call matching " + method + " not made by " + typeName;
+		return "Method call matching " + method + " not defined by " + typeName;
 	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {

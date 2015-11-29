@@ -3,13 +3,30 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Abstract classes                                       0.0 /  5.0
-Generic classes                                        0.0 /  5.0
-Pass/Fail Commands Implemented                         2.0 /  2.0
-Parser structure                                       0.0 /  6.0
+Pass/Fail Token Classes Implemented                    4.0 /  4.0
+Passed Failed Approach Command Objects                 6.0 /  6.0
+A11 Constructors                                       0.0 /  5.0
+CommandList Structure                                  5.0 /  5.0
+RepeatCommand Structure                                5.0 /  5.0
+Parser Properties                                      6.0 /  6.0
+Basic Parser Structure                                 16.0 / 16.0
+Synchronized Methods                                   10.0 / 10.0
+Signed Number Structure                                0.0 /  2.0 (Extra credit)
+Basic:approach Lancelot                                0.0 /  4.0
+Basic: passed                                          0.0 /  4.0
+1-Level List:{ move Lancelot  4 3 say “Name?” }        0.0 /  3.0
+Recursive List:{{{ move Lancelot  4 3 say “Name?” }}}  0.0 /  8.0
+1-Level Repeat: repeat 3  move Robin  2 3              0.0 /  4.0
+Mixed List Repeat: repeat 3 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
+Recursive Repeat: repeat 3 repeat 2 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
+Recursive Repeat and CL: repeat 3 repeat 2 {{{ move Lancelot  2 3 move Arthur 5 6 }}}  0.0 /  4.0
+demo of synchronized                                   0.0 / 10.0
+demo of refreshing commands                            0.0 / 10.0
+All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 2.0
+  Points Awarded: 52.0
 
-  Features Score: 2.0
+  Features Score: 52.0
 
 Notes from grading features:
 ----------------------------------
@@ -17,13 +34,15 @@ Abstract classes:
   -- Locatable is not abstract.
   -- BoundedShape is not abstract.
 
-Generic classes:
-  -- Table should be generic
-
-Parser structure:
+A11 Constructors:
   -- Constructor matching :@BridgeScene not defined in PassCommand
-  -- Method call matching @parseNumber:\*->\* not made by ACommandParser
-  -- Method matching @BridgeScene!@say:String->\* not defined in SayCommand
+  -- Constructor matching :@BridgeScene not defined in FailCommand
+  -- Constructor matching :@BridgeScene;@Avatar not defined in ApproachCommand
+  -- Type RepeatCommandnot defined, cannot check
+  -- Constructor matching :@BridgeScene not defined in ACommandParser
+
+Signed Number Structure:
+  -- Method call matching @parseNumber:\*->\* not defined by ACommandParser
 
 
 Late penalty: 0.0%
