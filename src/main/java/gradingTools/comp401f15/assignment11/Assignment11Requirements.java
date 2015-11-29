@@ -94,7 +94,7 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 //        		new CheckstyleConstructorDefinedTestCase("FailCommand", ":@BridgeScene"),
 //        		new CheckstyleConstructorDefinedTestCase("ApproachCommand", ":@BridgeScene;@Avatar")
         				);
-        addFeature("A11 Constructors", 5,
+        addFeature("A11 Constructors", 4,
         		
         		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
         		new CheckstyleConstructorDefinedTestCase("FailCommand", ":@BridgeScene"),
