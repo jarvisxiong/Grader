@@ -1,19 +1,17 @@
-package gradingTools.comp401f15.assignment3.testcases;
+package gradingTools.sharedTestCase;
 
 import java.util.List;
 
 import framework.grading.testing.TestCaseResult;
 import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.CheckStyleTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
 
 public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 	public VariableHasClassTypeTestCase(String aMessage) {
-		super(aMessage);
+		super(null, aMessage);
 	}
 	public VariableHasClassTypeTestCase() {
-		super("variable has class type");
+		super(null, "variable has class type");
 	}
 	public static final String WARNING_NAME = "variableHasClassType";
 	@Override
@@ -24,7 +22,7 @@ public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 
 	@Override
 	public String failMessageSpecifier() {
-		return null;
+		return "Variable has class type failed";
 	}
 	
 	String beautify (String aCheckstyleString) {

@@ -18,7 +18,7 @@ import wrappers.framework.project.ProjectWrapper;
 
 public class PackageDeclarationTestCase extends CheckStyleTestCase {
     public PackageDeclarationTestCase() {
-        super("Package declaration test case");
+        super(null, "Package declaration test case");
     }
     
  

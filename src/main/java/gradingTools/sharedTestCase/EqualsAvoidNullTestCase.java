@@ -17,7 +17,7 @@ import wrappers.framework.project.ProjectWrapper;
 
 public class EqualsAvoidNullTestCase extends CheckStyleTestCase {
 	 public EqualsAvoidNullTestCase() {
-	        super("Equal avoids null test case");
+	        super(null, "Equal avoids null test case");
 	    }
     
 	@Override

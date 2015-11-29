@@ -6,13 +6,13 @@ import gradingTools.assignment6.testCases.*;
 import gradingTools.assignment9.testCases.*;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
-import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment9.testCases.MoveAllAvatarsTestCase;
 import gradingTools.comp401f15.assignment9.testCases.MoveSingleAvatarTestCase;
 import gradingTools.comp401f15.assignment9.testCases.ResetAllAvatarsTestCase;
 import gradingTools.comp401f15.assignment9.testCases.ResetSingleAvatarTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
+import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 
 /**
  * Created with IntelliJ IDEA.

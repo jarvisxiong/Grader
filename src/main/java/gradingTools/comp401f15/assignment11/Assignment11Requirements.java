@@ -61,8 +61,8 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
                 new AbstractClassTestCase("BoundedShape"));
 //                new AbstractAncestorTokenTestCase());
 //      //Do the command tokens exist and do word stuff
-        addFeature("Genric classes", 5,
-                new GenerictClassTestCase("Table"));
+        addFeature("Generic classes", 5,
+                new GenerictClassCheckStyleTestCase("Table"));
     	addFeature("Pass/Fail Commands Implemented", 2,
     		
     			new CallCommandBeanTestCase(),
@@ -87,12 +87,12 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 //        		new CommandObjectExistsTestCase("ApproachCommand")
 //        				);
 //        
-//        addFeature("Parser structure", 6, 
-//        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
-//        		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-//        		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
-//        		
-//        				);		
+        addFeature("Parser structure", 6, 
+        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+        		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+        		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
+        		
+        				);		
 //        addFeature("Synchronized Methods", 10, 
 //        		new SynchronizedAnimationTestCase("asynchronousArthur"),
 //        		new SynchronizedAnimationTestCase("asynchronousGalahad"),

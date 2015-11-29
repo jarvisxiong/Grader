@@ -37,7 +37,6 @@ import gradingTools.comp401f15.assignment3.testcases.NumberEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
-import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
@@ -46,6 +45,7 @@ import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
 import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
+import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {

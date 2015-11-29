@@ -23,7 +23,7 @@ import wrappers.framework.project.ProjectWrapper;
 public class CheckstylePropertyDefinedTestCase extends CheckStyleTestCase {
 	 protected String descriptor;
 	 public CheckstylePropertyDefinedTestCase(String aDescriptor) {
-	        super(aDescriptor + " defined");
+	        super(null, aDescriptor + " defined");
 	        descriptor = aDescriptor;
 	  }
 	

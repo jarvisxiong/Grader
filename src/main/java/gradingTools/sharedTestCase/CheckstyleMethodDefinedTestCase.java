@@ -22,15 +22,18 @@ import wrappers.framework.project.ProjectWrapper;
 
 public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
 	 protected String method;
-	 protected String typeTag;
-	 protected String typeName;
+//	 protected String typeTag;
+//	 protected String typeName;
 	 public CheckstyleMethodDefinedTestCase(String aType, String aMethod) {
-	        super(aType + "!" + aMethod);
+	        super(aType, aType + "!" + aMethod);
 	        typeTag = aType;
 	        method = aMethod;
 	        
 	  }
-	
+	 @Override
+	 protected String typeTag() {
+			return typeTag;
+		}
     
 	@Override
 	public String regexLineFilter() {

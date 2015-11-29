@@ -7,6 +7,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
+import grader.util.IntrospectionUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,9 +20,27 @@ import wrappers.framework.project.ProjectWrapper;
 
 public abstract class CheckStyleTestCase extends BasicTestCase {
 	
-    public CheckStyleTestCase(String aName) {
+	protected boolean foundType;
+	protected String typeTag;
+	 protected String typeName;
+
+
+    public CheckStyleTestCase(String aTypeTag, String aName) {
         super(aName);
+        foundType = false;
+        typeTag = aTypeTag;
     }
+    
+	protected String typeTag() {
+		return typeTag;
+	}
+	protected boolean foundType() {
+		return foundType;
+	}
+	// interface defined should also use similar syntax
+	protected String typeRegex(String aTypeTag) {
+		return "(.*)" + "matching" + "(.*)" + aTypeTag + "(.*)";
+	}
     
     protected boolean failOnMatch() {
     	return true;
@@ -42,7 +61,16 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     public abstract String regexLineFilter();
     public abstract String failMessageSpecifier();
     protected TestCaseResult test(SakaiProject aProject, String[] aCheckStyleLines, boolean autoGrade) {
+    	String aTypeTag = typeTag();
+    	if (aTypeTag != null) {
+    	List<String> aTypeDefinedLines = matchedLines(aCheckStyleLines, typeRegex(aTypeTag));
+    	  this.foundType = aTypeDefinedLines.size() > 0;
+    	  if (!foundType) {
+    		  return fail (aTypeTag + " not found");
+    	  }
+    	}
     	List<String> aFailedLines = matchedLines(aCheckStyleLines, regexLineFilter());
+    	
     	return test(aProject, aCheckStyleLines, aFailedLines, autoGrade);    	
     }
     
@@ -54,7 +82,8 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	
     }
     protected TestCaseResult numMatchesResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
-    	int aNumFailedInstances = aFailedLines.size();    	
+    	int aNumFailedInstances = aFailedLines.size();   
+    	int i = 0;
     	double aScore = scoreForMatches(aNumFailedInstances);
         String aNotes = failMessageSpecifier() + " " + aNumFailedInstances + " number of times";
         return partialPass((1 - aScore), aNotes, autoGrade);    
@@ -113,6 +142,14 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
+        String aTypeTag = typeTag();
+        if (aTypeTag != null) {
+        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
+	     if (aClass == null) {
+	    	 return fail("Type " + aTypeTag + "not defined, cannot check");
+	     }
+	     typeName = aClass.getSimpleName();
+        }
         SakaiProject aProject = ((ProjectWrapper) project).getProject();
         String aCheckStyleText = aProject.getCheckstyleText();
         String aCheckStyleFileName = aProject.getCheckStyleFileName(); // can read lines from this, maybe more efficient

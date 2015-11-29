@@ -16,7 +16,6 @@ import gradingTools.assignment7.testCases.PutExistingTestCase;
 import gradingTools.assignment7.testCases.PutNullTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
-import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.ErrorResilientCommandInterpreterDefinedTestCase;
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.ErrorResilientCommandInterpreterFunctionTestCase;
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase;
@@ -29,6 +28,7 @@ import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveInterfaceDefinedTestCase;
+import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 
 
 public class Assignment7Requirements extends FrameworkProjectRequirements {

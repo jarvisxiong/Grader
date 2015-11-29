@@ -16,7 +16,6 @@ import gradingTools.comp401f15.assignment3.testcases.QuoteTokenBeanTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.StartTokenBeanTestCase;
-import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
@@ -57,6 +56,7 @@ import gradingTools.comp401f15.assignment4.testcases.rotateLine.RotatingMovingLi
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
+import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {

@@ -19,7 +19,7 @@ import wrappers.framework.project.ProjectWrapper;
 public class MinCalledMethodsTestCase extends CheckStyleTestCase {
 	int minimum;
 	 public MinCalledMethodsTestCase(int aMinimum) {
-	        super("Min called method test case");
+	        super(null, "Min called method test case");
 	        minimum = aMinimum;
 	    }
     

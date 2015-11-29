@@ -22,10 +22,10 @@ import wrappers.framework.project.ProjectWrapper;
 
 public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
 	 protected String constructor;
-	 protected String typeTag;
-	 protected String typeName;
+//	 protected String typeTag;
+//	 protected String typeName;
 	 public CheckstyleConstructorDefinedTestCase(String aType, String aConstructor) {
-	        super(aType + "!" + aConstructor);
+	        super(aType, aType + "!" + aConstructor);
 	        typeTag = aType;
 	        constructor = aConstructor;
 	        
@@ -37,20 +37,20 @@ public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
 		
 		return "(.*)Constructor(.*)" + constructor + "(.*)" + typeName + "(.*)";
 	}
-	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-	     Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
-	     if (aClass == null) {
-	    	 return fail("Type " + typeTag + "not defined, cannot check constructor");
-	     }
-	     typeName = aClass.getSimpleName();
-		 TestCaseResult aResult = super.test(project, autoGrade);
-//		 TestCaseResult aResult = fail("foo");
-	        return aResult;
-
-	        
-	        
-	        
-	 }
+//	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
+//	     Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
+//	     if (aClass == null) {
+//	    	 return fail("Type " + typeTag + "not defined, cannot check constructor");
+//	     }
+//	     typeName = aClass.getSimpleName();
+//		 TestCaseResult aResult = super.test(project, autoGrade);
+////		 TestCaseResult aResult = fail("foo");
+//	        return aResult;
+//
+//	        
+//	        
+//	        
+//	 }
 
 //	 protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
 ////	    	int aNumFailedInstances = aFailedLines.size();

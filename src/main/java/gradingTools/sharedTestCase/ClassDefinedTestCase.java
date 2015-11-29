@@ -23,7 +23,7 @@ import wrappers.framework.project.ProjectWrapper;
 public class ClassDefinedTestCase extends CheckStyleTestCase {
 	 protected String descriptor;
 	 public ClassDefinedTestCase(String aDescriptor) {
-	        super(aDescriptor + " defined");
+	        super(null, aDescriptor + " defined");
 	        descriptor = aDescriptor;
 	  }
 	 protected boolean failOnMatch() {

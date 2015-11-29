@@ -4,7 +4,6 @@ import framework.grading.FrameworkProjectRequirements;
 import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
 import gradingTools.assignment6.testCases.*;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
-import gradingTools.comp401f15.assignment3.testcases.VariableHasClassTypeTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ConstructorInitTestCase;
 import gradingTools.comp401f15.assignment6.testcases.StandingAreaPlacementTestCase;
@@ -19,6 +18,7 @@ import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
+import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 
 /**
  * Created with IntelliJ IDEA.

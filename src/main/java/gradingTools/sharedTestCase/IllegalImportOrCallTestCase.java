@@ -18,7 +18,7 @@ import wrappers.framework.project.ProjectWrapper;
 
 public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
 	 public IllegalImportOrCallTestCase() {
-	        super("Illegal import or call test case");
+	        super(null, "Illegal import or call test case");
 	    }
     
 	@Override

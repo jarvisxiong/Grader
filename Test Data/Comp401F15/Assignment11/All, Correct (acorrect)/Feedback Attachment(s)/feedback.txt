@@ -3,8 +3,9 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Abstract classes                                       0.0 /  5.0
-Genric classes                                         0.0 /  5.0
+Generic classes                                        0.0 /  5.0
 Pass/Fail Commands Implemented                         2.0 /  2.0
+Parser structure                                       0.0 /  6.0
 ----------------------------------
   Points Awarded: 2.0
 
@@ -15,6 +16,14 @@ Notes from grading features:
 Abstract classes:
   -- Locatable is not abstract.
   -- BoundedShape is not abstract.
+
+Generic classes:
+  -- Table should be generic
+
+Parser structure:
+  -- Constructor matching :@BridgeScene not defined in PassCommand
+  -- Method call matching @parseNumber:\*->\* not made by ACommandParser
+  -- Method matching @BridgeScene!@say:String->\* not defined in SayCommand
 
 
 Late penalty: 0.0%
