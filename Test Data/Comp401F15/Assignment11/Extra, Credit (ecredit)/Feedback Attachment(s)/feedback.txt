@@ -1,0 +1,14 @@
+Grading result for: Extra, Credit (ecredit)
+
+Grading features...
+----------------------------------
+Abstract classes                                       5.0 /  5.0
+Genric classes                                         0.0 /  5.0
+Pass/Fail Commands Implemented                         2.0 /  2.0
+----------------------------------
+  Points Awarded: 7.0
+
+  Features Score: 7.0
+
+Late penalty: 0.0%
+  Total Score: 0.0

@@ -434,12 +434,16 @@ public class ProjectClassesManager implements ClassesManager {
      */
     @Override
     public List<ClassDescription> findClassByTag(String tag) {
+    	String normalizedTag = tag.replaceAll("\\s","");
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
             for (String t : description.getTags()) {
-                if (t.equalsIgnoreCase(tag)) {
+            	String aNormalizedActualTag = t.replaceAll("\\s","");
+//                if (t.equalsIgnoreCase(tag)) {
+
+                if (aNormalizedActualTag.equalsIgnoreCase(normalizedTag)) {
                     classes.add(description);
                 }
             }

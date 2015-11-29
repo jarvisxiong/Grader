@@ -19,7 +19,7 @@
 			<property name="severity" value="info" />
 			<property name="projectPackagePrefixes" value="main, test,lectures,mp, grail" />
 			<property name="existingClasses"
-				value="java.util.List, java.util.ArrayList, java.util.Vector, java.util.HashMap" />
+				value="java.util.List, java.util.ArrayList, java.util.Vector, java.util.HashMap, java.lang.Thread" />
 			<property name="importsAsExistingClasses" value="true" />
 
 		</module>
@@ -187,7 +187,7 @@
 				value="
 			@ScannerBean= ScannedString:String,
 			@CommandInterpreter = Command:String,
-			@Parser = CommandText:String | CommandObject:Runnable
+			@Parser = CommandText:String 
 			" />
 		</module>
 
@@ -221,7 +221,7 @@
 				 	@parseFail:*->Runnable |						
 				 	@parseRepeat:*->Runnable |						
 				 	@parseCommandList:*->Runnable |						
-				 	@parseNumber:*->Runnable |
+				 	@parseNumber:*->* |
 				 	@parseRotateLeftArm:*->Runnable |
 				 	@parseRotateRightArm:*->Runnable |
 				 	@parseSleep:*->Runnable |
@@ -374,9 +374,10 @@
 				 	@parseFail:*->Runnable |						
 				 	@parseRepeat:*->Runnable |						
 				 	@parseCommandList:*->Runnable |						
-				 	@parseNumber:*->Runnable |
+				 	@parseNumber:*->* |
 				 	@parseRotateLeftArm:*->Runnable |
-				 	@parseRightArm:*->Runnable |
+				 	@parseRotateRightArm:*->Runnable |
+				 	@parseNumber:*->* |
 					@parseDefine:*->Runnable |
 					@parseCall:*->Runnable |
 					@parseThread:*->Runnable |
@@ -387,7 +388,7 @@
 				 @SleepCommand = @ThreadSupport!sleep:long->void,
 				 @DefineCommand = @Table!put:Object;Object->*,
 				 @CallCommand = @Table!get:Object->Object,				 
-				 @ThreadCommand = @Table!get:Object->Object | Thread!start(),
+				 @ThreadCommand = @Table!get:Object->Object | Thread!start:->void,
 				 			 						
 				 						
 				 " />
@@ -404,7 +405,7 @@
 
 		<module name="FunctionAssignsGlobal">
 			<property name="excludeMethodTags"
-				value="next(.*), pop(.*), delete(.*), remove(.*), read(.*), create(.*), set(.*), process(.*), scan(.*)" />
+				value="next(.*), pop(.*), delete(.*), remove(.*), read(.*), create(.*), set(.*), process(.*), scan(.*), parse(.*)" />
 
 		</module>
 		<module name="SetterAssignsGlobal">
@@ -444,6 +445,9 @@
 		</module>
 		<module name="IllegalPropertyNotification">
 			<property name="excludeProperties" value="this" />
+		</module>
+       <module name="ClassIsGeneric">
+			<property name="includeTypeTags" value="Table" />
 		</module>
 
 

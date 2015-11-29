@@ -28,6 +28,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
     private  Class<?>[][] PARAMETER_TYPES;
     Object returnObject;
     Object[] parameterObjects;
+    protected Method foundMethod;
 
 	public MethodDefinedTestCase(String classTag, String methodName, String methodTag, String methodRegex, Class<?> returnType, Class<?>... parameterTypes) {
 		super("'" + methodName + "' method exists test case");
@@ -207,6 +208,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
                         
 		}
 		IntrospectionUtil.putMethod(project, this, clazz, METHOD_NAME, method);
+		foundMethod = method;
 		return pass();
 	}
         

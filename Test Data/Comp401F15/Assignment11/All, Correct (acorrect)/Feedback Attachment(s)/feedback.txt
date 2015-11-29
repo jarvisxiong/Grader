@@ -1,0 +1,21 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Abstract classes                                       0.0 /  5.0
+Genric classes                                         0.0 /  5.0
+Pass/Fail Commands Implemented                         2.0 /  2.0
+----------------------------------
+  Points Awarded: 2.0
+
+  Features Score: 2.0
+
+Notes from grading features:
+----------------------------------
+Abstract classes:
+  -- Locatable is not abstract.
+  -- BoundedShape is not abstract.
+
+
+Late penalty: 0.0%
+  Total Score: 0.0

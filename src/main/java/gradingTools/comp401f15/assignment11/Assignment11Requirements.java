@@ -1,6 +1,7 @@
 package gradingTools.comp401f15.assignment11;
 
-import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementationTestCase;
+import gradingTools.comp401f15.assignment10.testCases.CommandObjectExistsTestCase;
+import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementedTestCase;
 import gradingTools.comp401f15.assignment11.testcases.*;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.created.CallCommandCreatedTestCase;
@@ -33,6 +34,9 @@ import gradingTools.comp401f15.assignment4.testcases.commands.function.SleepComm
 import gradingTools.comp401f15.assignment4.testcases.commands.function.ThreadCommandBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.function.UndoCommandBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.function.WaitCommandBeanTestCase;
+import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
+import gradingTools.sharedTestCase.CheckstyleMethodCalledTestCase;
+import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
 import wrappers.framework.grading.ExtendedProjectRequirements;
 
 /**
@@ -43,6 +47,7 @@ import wrappers.framework.grading.ExtendedProjectRequirements;
  * To change this template use File | Settings | File Templates.
  */
 public class Assignment11Requirements extends ExtendedProjectRequirements {
+	Class[] emptyParameterTypes;
 
     public Assignment11Requirements() {
         addDueDate("11/16/2013 00:30:00", 1.05);
@@ -56,56 +61,74 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
                 new AbstractClassTestCase("BoundedShape"));
 //                new AbstractAncestorTokenTestCase());
 //      //Do the command tokens exist and do word stuff
-//    	addFeature("Pass/Fail Commands Implemented", 2,
-//    		
-//
-//    			new PassCommandBeanTestCase(),
-//    			new FailCommandBeanTestCase()
-//    			);
-//        
+        addFeature("Genric classes", 5,
+                new GenerictClassTestCase("Table"));
+    	addFeature("Pass/Fail Commands Implemented", 2,
+    		
+    			new CallCommandBeanTestCase(),
+    			new PassCommandBeanTestCase(),
+    			new FailCommandBeanTestCase()
+    			);
+        
+    	// for some  reason the following do not work
     	// initialize token array
-    	addFeature("Scanner Initialization", 0,
-        		new ScannerBeanReturnsTokenInterfaceArrayTestCase()    			
-    			);
-    	addFeature("Scanner Makes Pass and Fail", 4,
-    			new PassCommandCreatedTestCase(),
-    			new FailCommandCreatedTestCase()
-    			
-    			);
-        addFeature("Passed failed approach cmd obj", 5, 
-        		new InterfaceImplementationTestCase("PassCommand", Runnable.class)
-        				);
-        		
-        		
+//    	addFeature("Scanner Initialization", 0,
+//        		new ScannerBeanReturnsTokenInterfaceArrayTestCase()    			
+//    			);
+//    	addFeature("Scanner Makes Pass and Fail", 4,
+//    			new CallCommandCreatedTestCase(),
+//    			new PassCommandCreatedTestCase(),
+//    			new FailCommandCreatedTestCase()
+//    			
+//    			);
+//        addFeature("Passed failed approach cmd obj", 6, 
+//        		new CommandObjectExistsTestCase("PassCommand"),
+//        		new CommandObjectExistsTestCase("FailCommand"),
+//        		new CommandObjectExistsTestCase("ApproachCommand")
+//        				);
+//        
+//        addFeature("Parser structure", 6, 
+//        		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
+//        		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//        		new CheckstyleMethodCalledTestCase("SayCommand", "@BridgeScene!@say:String->\\*")
+//        		
+//        				);		
+//        addFeature("Synchronized Methods", 10, 
+//        		new SynchronizedAnimationTestCase("asynchronousArthur"),
+//        		new SynchronizedAnimationTestCase("asynchronousGalahad"),
+//        		new SynchronizedAnimationTestCase("asynchronousLancelot"),
+//        		new SynchronizedAnimationTestCase("asynchronousRobin")
+//        		);
+        
 
         // New commands (17)
-//        addFeature("Passed & failed", 2);
-        addFeature("Passed failed approach cmd obj", 5, new AdditionalCommandObjectsChecker());
-        addFeature("Command list cmd obj", 5, new CommandListCommandObjectChecker());
-        addFeature("Repeat command", 5, new RepeatCommandObjectChecker());
-
-        //Parsing (70)
-        addFeature("Methods for all 8 nonterminals", 10, new ParserMethodChecker());
-//        addManualFeature("Recursive cmd list commands", 40,
-//                new QuestionTestCase("Does the command list parser recursively parse?", "Recursive command list test case"),
-//                new QuestionTestCase("Test the command interpreter. Do command lists work properly?", "Command list functionality test case"));
-//        addManualFeature("Recursive repeat commands", 20,
-//                new QuestionTestCase("Does the repeat command parser recursively parse?", "Recursive repeat command test case"),
-//                new QuestionTestCase("Test the command interpreter. Do repeat commands work properly?", "Command list functionality test case"));
-
-        // Animation (20)
-        addManualFeature("Synchronized avatar methods", 10);
-//        addManualFeature("Coordinated animation", 10);
-
-        // Generics (10)
-        addManualFeature("Generic table", 10);
-
-        // Extra Credit
-//        addFeature("Lockstep animation", 3, true);
-//        addFeature("Signed number parsing", 2, true);
-//        addFeature("Extended grammar parsing", 15, true);
-//        addFeature("Exceptions", 10, true);
-//        addFeature("Undo/redo", 5, true);
-
+////        addFeature("Passed & failed", 2);
+//        addFeature("Passed failed approach cmd obj", 5, new AdditionalCommandObjectsChecker());
+//        addFeature("Command list cmd obj", 5, new CommandListCommandObjectChecker());
+//        addFeature("Repeat command", 5, new RepeatCommandObjectChecker());
+//
+//        //Parsing (70)
+//        addFeature("Methods for all 8 nonterminals", 10, new ParserMethodChecker());
+////        addManualFeature("Recursive cmd list commands", 40,
+////                new QuestionTestCase("Does the command list parser recursively parse?", "Recursive command list test case"),
+////                new QuestionTestCase("Test the command interpreter. Do command lists work properly?", "Command list functionality test case"));
+////        addManualFeature("Recursive repeat commands", 20,
+////                new QuestionTestCase("Does the repeat command parser recursively parse?", "Recursive repeat command test case"),
+////                new QuestionTestCase("Test the command interpreter. Do repeat commands work properly?", "Command list functionality test case"));
+//
+//        // Animation (20)
+//        addManualFeature("Synchronized avatar methods", 10);
+////        addManualFeature("Coordinated animation", 10);
+//
+//        // Generics (10)
+//        addManualFeature("Generic table", 10);
+//
+//        // Extra Credit
+////        addFeature("Lockstep animation", 3, true);
+////        addFeature("Signed number parsing", 2, true);
+////        addFeature("Extended grammar parsing", 15, true);
+////        addFeature("Exceptions", 10, true);
+////        addFeature("Undo/redo", 5, true);
+//
     }
 }

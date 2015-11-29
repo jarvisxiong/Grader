@@ -173,9 +173,12 @@ public class IntrospectionUtil {
 	}
 	public static String toRegex(String aName) {
 		return ".*" + aName + ".*";
+		
 	}
 	public static Class findClass(Project aProject, String aName) {
-		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
+//		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
+		return findClass(aProject, null, aName, aName, aName );
+
 		
 	}
 	public static List<Class> findClasses(Project aProject, String aName) {
