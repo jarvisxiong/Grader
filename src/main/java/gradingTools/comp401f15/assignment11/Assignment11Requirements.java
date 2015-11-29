@@ -99,7 +99,7 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
         		new CheckstyleConstructorDefinedTestCase("PassCommand", ":@BridgeScene"),
         		new CheckstyleConstructorDefinedTestCase("FailCommand", ":@BridgeScene"),
         		new CheckstyleConstructorDefinedTestCase("ApproachCommand", ":@BridgeScene;@Avatar"),
-        		new CheckstyleConstructorDefinedTestCase("RepeatCommand", ":int;@Runnable"),
+//        		new CheckstyleConstructorDefinedTestCase("RepeatCommand", ":int;@Runnable"),
         		new CheckstyleConstructorDefinedTestCase("Parser", ":@BridgeScene")
         		
         );
