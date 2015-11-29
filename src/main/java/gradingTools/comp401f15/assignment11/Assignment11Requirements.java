@@ -53,10 +53,10 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 	Class[] emptyParameterTypes;
 
     public Assignment11Requirements() {
-        addDueDate("11/16/2013 00:30:00", 1.05);
-        addDueDate("11/19/2013 00:30:00", 1);
-        addDueDate("11/21/2013 00:30:00", 0.9);
-        addDueDate("11/23/2013 00:30:00", 0.75);
+        addDueDate("11/12/2015 00:30:00", 1.05);
+        addDueDate("11/14/2015 00:30:00", 1);
+        addDueDate("11/19/2015 00:30:00", 0.9);
+        addDueDate("11/21/2015 00:30:00", 0.75);
 
         // Abstract classes (3)
         addFeature("Abstract classes", 5,
