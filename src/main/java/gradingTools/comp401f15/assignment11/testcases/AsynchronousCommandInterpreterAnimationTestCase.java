@@ -138,11 +138,17 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 	Thread parentThread, childThread1, childThread2;
 	protected boolean child2AfterChild1;
 	protected boolean child1AfterChild2;
+	protected boolean eventInParentThread;
 	@Override
 	public void newEvent(Exception aTraceable) {
 		if (aTraceable instanceof PropertyChangeEventInfo) {
 			Thread currentThread = Thread.currentThread();
-			if (childThread1 == null ) {
+			if (currentThread == parentThread && !eventInParentThread) {
+				
+				System.out.println("event in parent thread");
+				eventInParentThread = true;
+
+			} else if (childThread1 == null ) {
 				childThread1 = currentThread;
 				System.out.println("child 1 starts");
 			} else if (childThread1 != currentThread && childThread2 == null){
@@ -183,11 +189,16 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 	
 	protected  TestCaseResult computeResult() {
 		if (childThread1 == null) {
-			return fail ("No property notification");
+			if (eventInParentThread) {
+				return fail ("Command not executed in separate thread");
+			}
+			return fail ("No property notification from thread");
 		}
-		if (childThread1 == parentThread) {
-			return fail ("Command not executed in separate thread");
-		}
+//		if (childThread1 == parentThread) {
+//		if (eventInParentThread) {
+//
+//			return fail ("Command not executed in separate thread");
+//		}
 		return pass();
 	}
 //	protected TestCaseResult computeResult() {
@@ -202,31 +213,52 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 //		}
 //		return pass();
 //	}
+	protected void stopThread(Thread aThread) {
+		System.out.println ("Stropping thread:" + aThread);
+//		aThread.interrupt();
+		aThread.suspend();
+		aThread.stop();
+	}
 	@Override
 	protected TestCaseResult callMethods() {
+		try {
 		System.out.println("calling methods");
 		parentThread = null;
 		childThread1 = null;
 		childThread2 = null;
 		child2AfterChild1 = false;
 		child1AfterChild2 = false;
+		eventInParentThread = false;
 		parentThread = Thread.currentThread();
   		ObjectAdapter anAdapter = ObjectEditor.toObjectAdapter(bridgeSceneInstance);
+		System.out.println ("Adding traceable listener");
   		TraceableBus.addTraceableListener(this);
   		callAsynchronousMethods();
+  		System.out.println ("waiting for threads");
 //		computeResult();
 		waitForThreads();
+  		System.out.println ("Finished waiting for threads");
+  		if (eventInParentThread) {
+  			System.out.println ("Found Event in Parent Thread");
+  		}
+
 		if (childThread1 != null) {
-			childThread1.stop();
+			stopThread(childThread1);
 		}
 		if (childThread2 != null) {
-			childThread2.stop();
+			stopThread(childThread2);
+//			childThread1.interrupt();
+//			childThread1.suspend();
+//			childThread2.stop();
 		}
 		// TODO Auto-generated method stub
 		return computeResult();
+		} finally {
+			processFinally();
+		}
 	}
-	@Override
 	protected void processFinally() {
+		System.out.println ("Removing traceable listener");
 		TraceableBus.removeTraceableListener(this);
 
 		// TODO Auto-generated method stub

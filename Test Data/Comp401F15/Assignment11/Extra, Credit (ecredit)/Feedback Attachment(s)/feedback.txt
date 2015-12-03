@@ -2,14 +2,14 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Abstract classes                                       5.0 /  5.0
+Abstract classes                                       2.5 /  5.0
 Pass/Fail Token Classes Implemented                    4.0 /  4.0
 Passed Failed Approach Command Objects                 6.0 /  6.0
-A11 Constructors                                       4.0 /  4.0
+A11 Constructors                                       0.0 /  4.0
 CommandList Structure                                  5.0 /  5.0
 RepeatCommand Structure                                5.0 /  5.0
 Parser Properties                                      6.0 /  6.0
-Basic Parser Structure                                 16.0 / 16.0
+Basic Parser Structure                                 0.0 / 16.0
 Synchronized Methods                                   10.0 / 10.0
 Signed Number Structure                                0.0 /  2.0 (Extra credit)
 Basic:approach Lancelot                                0.0 /  4.0
@@ -24,15 +24,34 @@ demo of synchronized                                   0.0 / 10.0
 demo of refreshing commands                            0.0 / 10.0
 All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 61.0
+  Points Awarded: 38.5
 
-  Features Score: 61.0
+  Features Score: 38.5
 
 Notes from grading features:
 ----------------------------------
+Abstract classes:
+  -- Locatable is not abstract.
+
+A11 Constructors:
+  -- PassCommand not found
+  -- FailCommand not found
+  -- ApproachCommand not found
+  -- Parser not found
+
+Basic Parser Structure:
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+  -- Parser not found
+
 Signed Number Structure:
-  -- Method call matching @parseNumber:\*->\* not defined by BasicCommandParser
+  -- Parser not found
 
 
 Early benefit: 105.0%
-  Total Score: 64.05
+  Total Score: 40.95

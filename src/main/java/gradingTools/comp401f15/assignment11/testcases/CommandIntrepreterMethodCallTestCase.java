@@ -27,7 +27,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 	public CommandIntrepreterMethodCallTestCase(String classTag,String methodTag,  Object returnType, Object... parameterTypes) {
 		super(classTag, methodTag, returnType, parameterTypes);
 	}
-	protected abstract void processFinally();
+//	protected abstract void processFinally();
 	protected abstract TestCaseResult callMethods() ;
 	 Object scannerBeanInstance ;
      Object bridgeSceneInstance ;
@@ -149,7 +149,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 			return fail("Could not instantiate aCommand Interpreter");
 		} finally {
 //			TraceableBus.removeTraceableListener(this);
-			processFinally();
+//			processFinally();
             String anOutput = restoreOutputAndGetRedirectedOutput();
             if (anOutput != null && !anOutput.isEmpty()) {
              	System.out.println(anOutput);
