@@ -62,7 +62,7 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
         addFeature("Generic classes", 10,
                 new GenerictClassCheckStyleTestCase("Table"));
         addFeature("Synchronized Methods", 10, 
-           		new WaitingAnimationTestCase("asynchronousArthur")
+           		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
            		
            		);
 //    	addFeature("Pass/Fail Token Classes Implemented", 4,

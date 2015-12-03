@@ -31,10 +31,11 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 //	protected abstract void processFinally();
 	protected abstract TestCaseResult callMethods() ;
 	 Object scannerBeanInstance ;
-     Object bridgeSceneInstance ;     
+     Object bridgeSceneInstance ;  
+     protected Class<?> commandInterpreterClass;
      
-     Object commandInterpreter;
-     Object broadcastingClearanceManagerInstance;
+     protected Object commandInterpreter;
+     protected Object broadcastingClearanceManagerInstance;
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
 
 //		parentThread = null;
@@ -49,7 +50,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
         ExecutionUtil.redirectOutput();
 
 		try {
-            Class<?> commandInterpreterClass = IntrospectionUtil.getOrFindClass(project, this, "CommandInterpreter");
+            commandInterpreterClass = IntrospectionUtil.getOrFindClass(project, this, "CommandInterpreter");
             Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
             Class<?> scannerBeanClass = IntrospectionUtil.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
             Class<?> broadcastingClearanceManagerClass = IntrospectionUtil.getOrFindClass(project, this, ".*BroadcastingClearanceManager.*");
@@ -77,6 +78,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
                     	 }
                     }
                     if (params.length != 2 && !bridgeOnly) {
+                    	System.out.println ("Discarding constructor with parms" + Arrays.asList(params));
                         continue;
                     }
                     commandInterpreterConstructor = c;
@@ -117,6 +119,10 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
             } catch(Exception e) {
                 e.printStackTrace(System.out);
                 return fail("Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean");
+            }
+            if (commandInterpreterConstructor == null) {
+                return fail("Couldn't find correct constructor for CommandInterpreter");
+
             }
             boolean[] ret = new boolean[3];
             if (!bridgeOnly &&!usesClearanceManager)

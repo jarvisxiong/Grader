@@ -12,6 +12,6 @@ Synchronized Methods                                   0.0 / 10.0
 Notes from grading features:
 ----------------------------------
 Synchronized Methods:
-  -- Could not instantiate aCommand Interpreter
+  -- Couldn't find correct constructor for CommandInterpreter
 
   Total Score: 10.0

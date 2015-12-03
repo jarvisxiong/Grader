@@ -28,114 +28,11 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 		super("CommandInterpreter", methodTag, Void.TYPE);
 	}
 
-//	public SynchronizedAnimationTestCase(String classTag,String methodTag,  Object returnType, Object... parameterTypes) {
-//		super(classTag, methodTag, returnType, parameterTypes);
-//	}
-//	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-//
-//		parentThread = null;
-//		childThread1 = null;
-//		childThread2 = null;
-//		child2AfterChild1 = false;
-//		child1AfterChild2 = false;
-//		TestCaseResult superValue = super.test(project, autoGrade);
-//		if (foundMethod == null) {
-//			return fail (superValue.getNotes());
-//		}
-//        ExecutionUtil.redirectOutput();
-//
-//		try {
-//            Class<?> commandInterpreterClass = IntrospectionUtil.getOrFindClass(project, this, "CommandInterpreter");
-//            Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-//            Class<?> scannerBeanClass = IntrospectionUtil.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
-//
-//            Constructor<?> commandInterpreterConstructor = null;
-//            Constructor<?> bridgeSceneConstructor;
-//            Constructor<?> scannerBeanConstructor;
-//
-//            boolean bridgeFirst = true;
-//            try {
-//                Constructor<?>[] commandInterpreterConstructors = commandInterpreterClass.getConstructors();
-//                for(Constructor<?> c : commandInterpreterConstructors) {
-//                    Object[] params = c.getParameterTypes();
-//                    if (params.length != 2) {
-//                        continue;
-//                    }
-//                    if (((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
-//                            && ((Class<?>)params[1]).isAssignableFrom(scannerBeanClass)) {
-//                        commandInterpreterConstructor = c;
-//                        bridgeFirst = true;
-//                    } else if (((Class<?>)params[0]).isAssignableFrom(scannerBeanClass)
-//                            && ((Class<?>)params[1]).isAssignableFrom(bridgeSceneClass)) {
-//                        commandInterpreterConstructor = c;
-//                        bridgeFirst = false;
-//                    }
-//                }
-//                Objects.requireNonNull(commandInterpreterConstructor);
-//                bridgeSceneConstructor = bridgeSceneClass.getConstructor();
-//                scannerBeanConstructor = scannerBeanClass.getConstructor();
-//            } catch(Exception e) {
-//                e.printStackTrace(System.out);
-//                return fail("Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean");
-//            }
-//            boolean[] ret = new boolean[3];
-//            Object scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[]{});
-//            Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
-//            
-//                   
-//            
-//            Object aCommandInterpreter;
-//            if (bridgeFirst) {
-//                aCommandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
-//                    new Object[]{bridgeSceneInstance, scannerBeanInstance});
-//            } else {
-//            	aCommandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
-//                    new Object[]{scannerBeanInstance, bridgeSceneInstance});
-//            }
-//            if (aCommandInterpreter == null || bridgeSceneInstance == null)
-//            	return fail("Could not instantiate aCommand Interpreter");
-//            parentThread = Thread.currentThread();
-//    		ObjectAdapter anAdapter = ObjectEditor.toObjectAdapter(bridgeSceneInstance);
-//    		TraceableBus.addTraceableListener(this);
-//
-//
-//
-//    		Object retVal = ExecutionUtil.timedInvoke(aCommandInterpreter, foundMethod);
-//    		retVal = ExecutionUtil.timedInvoke(aCommandInterpreter, foundMethod);
-//
-//    		Thread.sleep(2000);
-//    		if (childThread1 == null) {
-//    			return fail ("No property notification");
-//    		}
-//    		if (childThread1 == parentThread) {
-//    			return fail ("Command not executed in separate thread");
-//    		}
-//    		if (child1AfterChild2) {
-//    			return fail ("Interleaved threads");
-//    		}
-//    		return pass();
-////    		if (childThread1 != parentThread) {
-////    			childThread1.stop();
-////    			return pass ();
-////    		}
-////    		System.out.println("Executed method");
-//
-//		} catch (Exception e) {
-//			return fail("Could not instantiate aCommand Interpreter");
-//		} finally {
-//			TraceableBus.removeTraceableListener(this);
-//            String anOutput = restoreOutputAndGetRedirectedOutput();
-//            if (anOutput != null && !anOutput.isEmpty()) {
-//             	System.out.println(anOutput);
-//             	RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
-//            }
-//        }
-////		return superValue;
-//		
-//		
-//	}
+
 	
-	Thread parentThread, childThread1, childThread2;
+	protected Thread parentThread;
+	protected Thread childThread1;
+	protected Thread childThread2;
 	protected boolean child2AfterChild1;
 	protected boolean child1AfterChild2;
 	protected boolean eventInParentThread;
@@ -162,18 +59,7 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 				child1AfterChild2 = true;
 				System.out.println("child 1 executes after child 2");
 			}
-//			
-//			else if ()
-//			if (childThread2 == null ) {
-//				childThread1 = Thread.currentThread();
-//			} 
-//			
-//			else if (childThread1 != null && childThread)
-//			childThread1 = Thread.currentThread();
-//			PropertyChangeEventInfo aPropertyChange = (PropertyChangeEventInfo) aTraceable;
-//			System.out.println("Property change event:" + aTraceable);
-//			newThread.stop();
-//			System.out.println ("New thread == old thread:" + (newThread == initialThread));
+
 			
 		}
 		
