@@ -1,0 +1,8 @@
+*****************************(Synchronized Methods)*****************************
+calling constructor: public main.ScannerBean() 
+called constructor: public main.ScannerBean() 
+calling constructor: public mp.ABridgeScene() 
+called constructor: public mp.ABridgeScene() 
+calling constructor: null mp.ABridgeScene@5763b609, main.ScannerBean@111c76c8
+Terminated!
+### 'asynchronousArthur' method exists test case: 0.0

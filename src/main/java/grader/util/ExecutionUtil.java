@@ -123,6 +123,7 @@ public class ExecutionUtil {
 		try {
 			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
+			e.printStackTrace();
 			future.cancel(true);
 			System.out.println("Terminated!");
 			return null;

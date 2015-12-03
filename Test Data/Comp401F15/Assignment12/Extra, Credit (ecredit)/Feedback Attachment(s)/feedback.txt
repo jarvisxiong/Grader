@@ -1,0 +1,11 @@
+Grading result for: Extra, Credit (ecredit)
+
+Grading features...
+----------------------------------
+Generic classes                                        10.0 / 10.0
+Synchronized Methods                                   10.0 / 10.0
+----------------------------------
+  Points Awarded: 20.0
+
+  Features Score: 20.0
+  Total Score: 20.0

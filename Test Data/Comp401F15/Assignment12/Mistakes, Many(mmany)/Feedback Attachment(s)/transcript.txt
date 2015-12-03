@@ -1,0 +1,19 @@
+*****************************(Synchronized Methods)*****************************
+calling constructor: public mp.ui.ABridgeScene() 
+called constructor: public mp.ui.ABridgeScene() 
+calling constructor: public mp.bean.animation.ABroadcastingClearanceManager() 
+called constructor: public mp.bean.animation.ABroadcastingClearanceManager() 
+calling constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@6315d4c, mp.bean.animation.ABroadcastingClearanceManager@230d970
+called constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@6315d4c, mp.bean.animation.ABroadcastingClearanceManager@230d970
+calling methods
+Adding traceable listener
+calling method: public void mp.bean.ACommandInterpreter.asyncArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.asyncArthur() with args: result:null
+calling method: public void mp.bean.ACommandInterpreter.asyncArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.asyncArthur() with args: result:null
+waiting for threads
+child 1 starts
+Finished waiting for threads
+Stropping thread:Thread[Avatar Animator Thread 1,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener

@@ -19,6 +19,7 @@ import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
+import util.misc.BroadcastingClearanceManager;
 import util.trace.TraceableBus;
 import util.trace.TraceableListener;
 
@@ -30,11 +31,10 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 //	protected abstract void processFinally();
 	protected abstract TestCaseResult callMethods() ;
 	 Object scannerBeanInstance ;
-     Object bridgeSceneInstance ;
-     
-            
+     Object bridgeSceneInstance ;     
      
      Object commandInterpreter;
+     Object broadcastingClearanceManagerInstance;
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
 
 //		parentThread = null;
@@ -52,13 +52,18 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
             Class<?> commandInterpreterClass = IntrospectionUtil.getOrFindClass(project, this, "CommandInterpreter");
             Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
             Class<?> scannerBeanClass = IntrospectionUtil.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
+            Class<?> broadcastingClearanceManagerClass = IntrospectionUtil.getOrFindClass(project, this, ".*BroadcastingClearanceManager.*");
+           
 
             Constructor<?> commandInterpreterConstructor = null;
             Constructor<?> bridgeSceneConstructor;
             Constructor<?> scannerBeanConstructor = null;
+            Constructor<?> clearanceManagerConstructor = null;
 
             boolean bridgeFirst = true;
             boolean bridgeOnly = false;
+            boolean clearanceManagerFirst = false;
+            boolean usesClearanceManager = false;
             try {
                 Constructor<?>[] commandInterpreterConstructors = commandInterpreterClass.getConstructors();
                 for(Constructor<?> c : commandInterpreterConstructors) {
@@ -76,39 +81,64 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
                     }
                     commandInterpreterConstructor = c;
                     
-                    if (((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
+                    if (scannerBeanClass != null && ((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
                             && ((Class<?>)params[1]).isAssignableFrom(scannerBeanClass)) {
 //                        commandInterpreterConstructor = c;
                         bridgeFirst = true;
-                    } else if (((Class<?>)params[0]).isAssignableFrom(scannerBeanClass)
+                    } else if (scannerBeanClass != null && ((Class<?>)params[0]).isAssignableFrom(scannerBeanClass)
                             && ((Class<?>)params[1]).isAssignableFrom(bridgeSceneClass)) {
 //                        commandInterpreterConstructor = c;
                         bridgeFirst = false;
+                    } else if (broadcastingClearanceManagerClass != null && ((Class<?>)params[0]).isAssignableFrom(broadcastingClearanceManagerClass)
+                            && ((Class<?>)params[1]).isAssignableFrom(bridgeSceneClass)) {
+//                        commandInterpreterConstructor = c;
+                        usesClearanceManager = true;
+                        clearanceManagerFirst = true;
                     } 
+                    else if (broadcastingClearanceManagerClass != null && ((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
+                    && ((Class<?>)params[1]).isAssignableFrom(broadcastingClearanceManagerClass)) {
+                    	usesClearanceManager = true;
+                        clearanceManagerFirst = false;
+                    }
                 }
                 if (!bridgeOnly) {
-                Objects.requireNonNull(commandInterpreterConstructor);
+//                Objects.requireNonNull(commandInterpreterConstructor);
+                if (!usesClearanceManager) 
                 scannerBeanConstructor = scannerBeanClass.getConstructor();
+
+                else 
+                	clearanceManagerConstructor = broadcastingClearanceManagerClass.getConstructor();
 
                 }
                 bridgeSceneConstructor = bridgeSceneClass.getConstructor();
+//                if (usesClearanceManager)
+//                	clearanceManagerConstructor = broadcastingClearanceManagerClass.getConstructor();
 //                scannerBeanConstructor = scannerBeanClass.getConstructor();
             } catch(Exception e) {
                 e.printStackTrace(System.out);
                 return fail("Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean");
             }
             boolean[] ret = new boolean[3];
-            if (!bridgeOnly)
+            if (!bridgeOnly &&!usesClearanceManager)
             scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[]{});
             bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
+            if (usesClearanceManager)
+            	broadcastingClearanceManagerInstance = ExecutionUtil.timedInvoke(clearanceManagerConstructor, new Object[]{});
             
                    
 //            if (bridgeOnly) {
 //            	
 //            }
+//            int i = 0;
             if (bridgeOnly) {
             	 commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
                          new Object[]{bridgeSceneInstance});
+            } else if (usesClearanceManager && clearanceManagerFirst) {
+            	commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+                        new Object[]{broadcastingClearanceManagerInstance, bridgeSceneInstance});
+            } else if (usesClearanceManager && !clearanceManagerFirst) {
+            	commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+                        new Object[]{bridgeSceneInstance, broadcastingClearanceManagerInstance});
             } else if (bridgeFirst) {
                 commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
                     new Object[]{bridgeSceneInstance, scannerBeanInstance});

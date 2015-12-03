@@ -1,0 +1,19 @@
+*****************************(Synchronized Methods)*****************************
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling constructor: public mp.helpers.ABroadcastingClearanceManager() 
+called constructor: public mp.helpers.ABroadcastingClearanceManager() 
+calling constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) mp.helpers.ABroadcastingClearanceManager@724ec96b, main.ABridgeScene@374c4946
+called constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) mp.helpers.ABroadcastingClearanceManager@724ec96b, main.ABridgeScene@374c4946
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.animateArthur() with args 
+called method: public void main.ACommandInterpreter.animateArthur() with args: result:null
+calling method: public void main.ACommandInterpreter.animateArthur() with args 
+called method: public void main.ACommandInterpreter.animateArthur() with args: result:null
+waiting for threads
+child 1 starts
+Finished waiting for threads
+Stropping thread:Thread[Thread-7,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener
