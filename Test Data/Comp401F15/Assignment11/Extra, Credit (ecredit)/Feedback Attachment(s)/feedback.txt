@@ -2,7 +2,7 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Abstract classes                                       5.0 /  5.0
+Abstract classes                                       2.5 /  5.0
 Pass/Fail Token Classes Implemented                    4.0 /  4.0
 Passed Failed Approach Command Objects                 6.0 /  6.0
 A11 Constructors                                       4.0 /  4.0
@@ -24,12 +24,15 @@ demo of synchronized                                   0.0 / 10.0
 demo of refreshing commands                            0.0 / 10.0
 All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 51.0
+  Points Awarded: 48.5
 
-  Features Score: 51.0
+  Features Score: 48.5
 
 Notes from grading features:
 ----------------------------------
+Abstract classes:
+  -- Locatable is not abstract.
+
 Synchronized Methods:
   -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
   -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
@@ -41,4 +44,4 @@ Signed Number Structure:
 
 
 Early benefit: 105.0%
-  Total Score: 53.55
+  Total Score: 51.45

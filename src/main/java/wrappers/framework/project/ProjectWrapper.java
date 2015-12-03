@@ -31,6 +31,9 @@ public class ProjectWrapper extends StandardProject {
 
 //        this.project = project;
     }
+    public String toString() {
+    	return project.toString();
+    }
 
     public SakaiProject getProject() {
         return (SakaiProject) project;
