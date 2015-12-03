@@ -31,23 +31,15 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	public RunningProject checkStyle(String aSourceFileFlder) {
 		String aConfigurationFileName = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getAssignmentDataFolder().getCheckStyleConfigurationFileName();
 
-//        String windowsName = Common.toWindowsFileName(aSourceFileFlder);
 			String windowsName = aSourceFileFlder;
         
-//        String[] command = {compilerPath, windowsName, "-o",  fullObjName , EXECUTABLE_OPTION  + fullExecName};
         String[] command = {"java", "com.puppycrawl.tools.checkstyle.Main", "-c",  aConfigurationFileName ,   windowsName };
-// java com.puppycrawl.tools.checkstyle.Main -c ../UNCCheckStyle/unc_checks.xml \
-//        src/ > checkstyle.txt
-//        String[] command = {compilerPath, windowsName};
 
-//        String[] command = {"Test Data/Test C/Assignment1/All, Correct (acorrect)/Submission attachment(s)/program1/Program1/src/Simple.exe"};
         String[] args = {};
         Runner processRunner = new ProcessRunner(new File("."));
-        return processRunner.run(null, command, "", args, 2000);
-//		Common.exec(command);
+        RunningProject aReturnValue = processRunner.run(null, command, "", args, 2000);
+        return aReturnValue;
 
-//        Common.exec(command);
-//       WordOpenedFile.newCase(aFileName, this);
 
     }
 	

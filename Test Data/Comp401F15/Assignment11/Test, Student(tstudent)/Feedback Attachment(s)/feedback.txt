@@ -5,7 +5,7 @@ Grading features...
 Abstract classes                                       0.0 /  5.0
 Pass/Fail Token Classes Implemented                    0.0 /  4.0
 Passed Failed Approach Command Objects                 0.0 /  6.0
-A11 Constructors                                       0.0 /  5.0
+A11 Constructors                                       0.0 /  4.0
 CommandList Structure                                  0.0 /  5.0
 RepeatCommand Structure                                0.0 /  5.0
 Parser Properties                                      0.0 /  6.0
@@ -14,9 +14,9 @@ Synchronized Methods                                   0.0 / 10.0
 Signed Number Structure                                0.0 /  2.0 (Extra credit)
 Basic:approach Lancelot                                0.0 /  4.0
 Basic: passed                                          0.0 /  4.0
-1-Level List:{ move Lancelot  4 3 say “Name?” }        0.0 /  3.0
+1-Level List:{ move Lancelot  4 3 say “Name?” }        0.0 /  8.0
 Recursive List:{{{ move Lancelot  4 3 say “Name?” }}}  0.0 /  8.0
-1-Level Repeat: repeat 3  move Robin  2 3              0.0 /  4.0
+1-Level Repeat: repeat 3  move Robin  2 3              0.0 /  6.0
 Mixed List Repeat: repeat 3 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
 Recursive Repeat: repeat 3 repeat 2 { move Lancelot  2 3 move Arthur 5 6 }  0.0 /  4.0
 Recursive Repeat and CL: repeat 3 repeat 2 {{{ move Lancelot  2 3 move Arthur 5 6 }}}  0.0 /  4.0
@@ -47,7 +47,6 @@ A11 Constructors:
   -- Type PassCommandnot defined, cannot check
   -- Type FailCommandnot defined, cannot check
   -- Type ApproachCommandnot defined, cannot check
-  -- Type RepeatCommandnot defined, cannot check
   -- Type Parsernot defined, cannot check
 
 CommandList Structure:
@@ -79,5 +78,5 @@ Signed Number Structure:
   -- Type Parsernot defined, cannot check method
 
 
-Late penalty: 0.0%
+Early benefit: 105.0%
   Total Score: 0.0

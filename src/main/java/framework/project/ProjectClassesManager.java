@@ -13,7 +13,9 @@ import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -82,8 +84,16 @@ public class ProjectClassesManager implements ClassesManager {
 			RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
+			String[] aLines = aCheckStyleOutput.split("\n");			
 			try {
-				Common.writeText(aCheckStyleOutputFile, aCheckStyleOutput);
+				PrintWriter pw = new PrintWriter(new FileWriter(aCheckStyleOutputFile));
+				 
+				for (int i = 0; i < aLines.length; i++) {
+					pw.println(aLines[i]);
+				}
+			 
+				pw.close();
+//				Common.writeText(aCheckStyleOutputFile, aCheckStyleOutput);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
