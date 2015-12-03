@@ -8,7 +8,7 @@ Finding class matching:null, fail, .*fail.*, .*fail.*
 No class matching: null, fail, .*fail.*, .*fail.*
 *****************************(Synchronized Methods)*****************************
 java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:62)
+    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:63)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)
@@ -31,7 +31,7 @@ java.lang.NullPointerException
 ### 'asynchronousArthur' method exists test case: 0.0
 *****************************(Synchronized Methods)*****************************
 java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:62)
+    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:63)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)
@@ -54,7 +54,7 @@ java.lang.NullPointerException
 ### 'asynchronousGalahad' method exists test case: 0.0
 *****************************(Synchronized Methods)*****************************
 java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:62)
+    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:63)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)
@@ -77,7 +77,7 @@ java.lang.NullPointerException
 ### 'asynchronousLancelot' method exists test case: 0.0
 *****************************(Synchronized Methods)*****************************
 java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:62)
+    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:63)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)

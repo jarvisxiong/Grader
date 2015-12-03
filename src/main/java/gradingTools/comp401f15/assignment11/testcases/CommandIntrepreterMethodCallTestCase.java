@@ -55,40 +55,61 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 
             Constructor<?> commandInterpreterConstructor = null;
             Constructor<?> bridgeSceneConstructor;
-            Constructor<?> scannerBeanConstructor;
+            Constructor<?> scannerBeanConstructor = null;
 
             boolean bridgeFirst = true;
+            boolean bridgeOnly = false;
             try {
                 Constructor<?>[] commandInterpreterConstructors = commandInterpreterClass.getConstructors();
                 for(Constructor<?> c : commandInterpreterConstructors) {
                     Object[] params = c.getParameterTypes();
-                    if (params.length != 2) {
+                    if (params.length == 1) {
+                    	 if (((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
+                                /* && ((Class<?>)params[1]).isAssignableFrom(scannerBeanClass)*/) {
+                             commandInterpreterConstructor = c;
+                             bridgeOnly = true;
+                             break;
+                    	 }
+                    }
+                    if (params.length != 2 && !bridgeOnly) {
                         continue;
                     }
+                    commandInterpreterConstructor = c;
+                    
                     if (((Class<?>)params[0]).isAssignableFrom(bridgeSceneClass)
                             && ((Class<?>)params[1]).isAssignableFrom(scannerBeanClass)) {
-                        commandInterpreterConstructor = c;
+//                        commandInterpreterConstructor = c;
                         bridgeFirst = true;
                     } else if (((Class<?>)params[0]).isAssignableFrom(scannerBeanClass)
                             && ((Class<?>)params[1]).isAssignableFrom(bridgeSceneClass)) {
-                        commandInterpreterConstructor = c;
+//                        commandInterpreterConstructor = c;
                         bridgeFirst = false;
-                    }
+                    } 
                 }
+                if (!bridgeOnly) {
                 Objects.requireNonNull(commandInterpreterConstructor);
-                bridgeSceneConstructor = bridgeSceneClass.getConstructor();
                 scannerBeanConstructor = scannerBeanClass.getConstructor();
+
+                }
+                bridgeSceneConstructor = bridgeSceneClass.getConstructor();
+//                scannerBeanConstructor = scannerBeanClass.getConstructor();
             } catch(Exception e) {
                 e.printStackTrace(System.out);
                 return fail("Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean");
             }
             boolean[] ret = new boolean[3];
+            if (!bridgeOnly)
             scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[]{});
             bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
             
                    
-            
-            if (bridgeFirst) {
+//            if (bridgeOnly) {
+//            	
+//            }
+            if (bridgeOnly) {
+            	 commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+                         new Object[]{bridgeSceneInstance});
+            } else if (bridgeFirst) {
                 commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
                     new Object[]{bridgeSceneInstance, scannerBeanInstance});
             } else {

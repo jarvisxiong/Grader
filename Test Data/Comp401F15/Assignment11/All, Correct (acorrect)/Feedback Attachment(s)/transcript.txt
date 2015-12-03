@@ -23,8 +23,8 @@ calling constructor: public grail.scanner.BeanStringScanner7()
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@4b2e39b5, grail.scanner.BeanStringScanner7@45e9dea0
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@4b2e39b5, grail.scanner.BeanStringScanner7@45e9dea0
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@642d8a46, grail.scanner.BeanStringScanner7@6aea78b3
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@642d8a46, grail.scanner.BeanStringScanner7@6aea78b3
 calling methods
 E***Image file images/robin.jpg not found or corrupt.
 E***Image file images/galahad.jpg not found or corrupt.
@@ -74,8 +74,8 @@ calling constructor: public grail.scanner.BeanStringScanner7()
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@41d652c5, grail.scanner.BeanStringScanner7@6233c6c2
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@41d652c5, grail.scanner.BeanStringScanner7@6233c6c2
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@6ed5e136, grail.scanner.BeanStringScanner7@2bd77288
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@6ed5e136, grail.scanner.BeanStringScanner7@2bd77288
 calling methods
 calling method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args 
 called method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args: result:null
@@ -120,8 +120,8 @@ calling constructor: public grail.scanner.BeanStringScanner7()
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@4d4d49b, grail.scanner.BeanStringScanner7@3e8da625
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@4d4d49b, grail.scanner.BeanStringScanner7@3e8da625
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@23a0a20e, grail.scanner.BeanStringScanner7@1a367929
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@23a0a20e, grail.scanner.BeanStringScanner7@1a367929
 calling methods
 calling method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args 
 called method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args: result:null
@@ -166,8 +166,8 @@ calling constructor: public grail.scanner.BeanStringScanner7()
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@359a738a, grail.scanner.BeanStringScanner7@46295f86
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@359a738a, grail.scanner.BeanStringScanner7@46295f86
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@5babf708, grail.scanner.BeanStringScanner7@4bf88dc7
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@5babf708, grail.scanner.BeanStringScanner7@4bf88dc7
 calling methods
 calling method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args 
 called method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args: result:null

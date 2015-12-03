@@ -2,7 +2,7 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Abstract classes                                       2.5 /  5.0
+Abstract classes                                       5.0 /  5.0
 Pass/Fail Token Classes Implemented                    4.0 /  4.0
 Passed Failed Approach Command Objects                 6.0 /  6.0
 A11 Constructors                                       4.0 /  4.0
@@ -10,7 +10,7 @@ CommandList Structure                                  5.0 /  5.0
 RepeatCommand Structure                                5.0 /  5.0
 Parser Properties                                      6.0 /  6.0
 Basic Parser Structure                                 16.0 / 16.0
-Synchronized Methods                                   0.0 / 10.0
+Synchronized Methods                                   10.0 / 10.0
 Signed Number Structure                                0.0 /  2.0 (Extra credit)
 Basic:approach Lancelot                                0.0 /  4.0
 Basic: passed                                          0.0 /  4.0
@@ -24,24 +24,15 @@ demo of synchronized                                   0.0 / 10.0
 demo of refreshing commands                            0.0 / 10.0
 All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 48.5
+  Points Awarded: 61.0
 
-  Features Score: 48.5
+  Features Score: 61.0
 
 Notes from grading features:
 ----------------------------------
-Abstract classes:
-  -- Locatable is not abstract.
-
-Synchronized Methods:
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-
 Signed Number Structure:
   -- Method call matching @parseNumber:\*->\* not defined by BasicCommandParser
 
 
 Early benefit: 105.0%
-  Total Score: 51.45
+  Total Score: 64.05
