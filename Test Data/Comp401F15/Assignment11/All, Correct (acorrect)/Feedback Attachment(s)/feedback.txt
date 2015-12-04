@@ -9,7 +9,7 @@ A11 Constructors                                       0.0 /  4.0
 CommandList Structure                                  5.0 /  5.0
 RepeatCommand Structure                                5.0 /  5.0
 Parser Properties                                      6.0 /  6.0
-Basic Parser Structure                                 0.0 / 16.0
+Basic Parser Structure                                 16.0 / 16.0
 Synchronized Methods                                   10.0 / 10.0
 Signed Number Structure                                0.0 /  2.0 (Extra credit)
 Basic:approach Lancelot                                0.0 /  4.0
@@ -24,9 +24,9 @@ demo of synchronized                                   0.0 / 10.0
 demo of refreshing commands                            0.0 / 10.0
 All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 36.0
+  Points Awarded: 52.0
 
-  Features Score: 36.0
+  Features Score: 52.0
 
 Notes from grading features:
 ----------------------------------
@@ -35,24 +35,14 @@ Abstract classes:
   -- BoundedShape is not abstract.
 
 A11 Constructors:
-  -- PassCommand not found
-  -- FailCommand not found
-  -- ApproachCommand not found
-  -- Parser not found
-
-Basic Parser Structure:
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
-  -- Parser not found
+  -- Constructor matching :@BridgeScene not defined in PassCommand
+  -- Constructor matching :@BridgeScene not defined in FailCommand
+  -- Constructor matching :@BridgeScene;@Avatar not defined in ApproachCommand
+  -- Constructor matching :@BridgeScene not defined in ACommandParser
 
 Signed Number Structure:
-  -- Parser not found
+  -- Method call matching @parseNumber:\*->\* not defined by ACommandParser
 
 
 Early benefit: 105.0%
-  Total Score: 37.800000000000004
+  Total Score: 54.6

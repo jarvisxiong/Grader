@@ -36,31 +36,57 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 	protected boolean child2AfterChild1;
 	protected boolean child1AfterChild2;
 	protected boolean eventInParentThread;
+	protected long lastChild1Time;
+	protected long lastChild2Time;
+	protected boolean child1SleepsAfterChild2;
+	protected boolean child2SleepsAfterChild1;
+	int numChild1Sleeps;
+	int numChild2Sleeps;
+	public static final long MIN_SLEEP_TIME = 30;
 	@Override
 	public void newEvent(Exception aTraceable) {
 		if (aTraceable instanceof PropertyChangeEventInfo) {
-			Thread currentThread = Thread.currentThread();
-			if (currentThread == parentThread && !eventInParentThread) {
-				
-				System.out.println("event in parent thread");
-				eventInParentThread = true;
+			processPropertyChange();
+		}		
+	}
+   protected void processPropertyChange() {
+	   Thread currentThread = Thread.currentThread();
+		long currentTime = System.currentTimeMillis();
+		if (currentThread == parentThread && !eventInParentThread) {				
+			System.out.println("event in parent thread");
+			eventInParentThread = true;
 
-			} else if (childThread1 == null ) {
-				childThread1 = currentThread;
-				System.out.println("child 1 starts");
-			} else if (childThread1 != currentThread && childThread2 == null){
-				System.out.println("child 2 starts");
-				childThread2 = currentThread;
-			} else if (childThread1 != null && childThread2 != null && childThread2 == currentThread) {
-				child2AfterChild1 = true;
-				System.out.println("child 2 executes after child 1");
+		} else if (childThread1 == null ) {
+			childThread1 = currentThread;
+			System.out.println("child 1 starts");
+		} else if (childThread1 != currentThread && childThread2 == null){
+			System.out.println("child 2 starts");
+			childThread2 = currentThread;
+		} else if (!child2AfterChild1 && childThread1 != null && childThread2 != null && childThread2 == currentThread) {
+			child2AfterChild1 = true;
+			System.out.println("child 2 executes after child 1");
 
-			} else if  (childThread1 != null && childThread2 != null && childThread1 == currentThread) {
-				child1AfterChild2 = true;
-				System.out.println("child 1 executes after child 2");
+		} else if  (!child1AfterChild2 && childThread1 != null && childThread2 != null && childThread1 == currentThread) {
+			child1AfterChild2 = true;
+			System.out.println("child 1 executes after child 2");
+		}	
+		if (currentThread == childThread1)  {
+			if ((currentTime - lastChild1Time) > MIN_SLEEP_TIME) {
+				numChild1Sleeps++;
 			}
-
-			
+			lastChild1Time = currentTime;
+			if ((currentTime - lastChild2Time) > MIN_SLEEP_TIME) {
+				child1SleepsAfterChild2 = true;
+			}
+		}
+		if (currentThread == childThread2)  {
+			if ((currentTime - lastChild2Time) > MIN_SLEEP_TIME) {
+				numChild2Sleeps++;
+			}
+			lastChild2Time = currentTime;
+			if ((currentTime - lastChild1Time) > MIN_SLEEP_TIME) {
+				child2SleepsAfterChild1 = true;
+			}
 		}
 		
 	}
@@ -116,6 +142,12 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 		child1AfterChild2 = false;
 		eventInParentThread = false;
 		parentThread = Thread.currentThread();
+		lastChild1Time = System.currentTimeMillis();
+		lastChild2Time = lastChild1Time;
+		numChild1Sleeps = 0;
+		numChild2Sleeps = 0;
+		child1SleepsAfterChild2 = false;
+		child2SleepsAfterChild1 = false;
   		ObjectAdapter anAdapter = ObjectEditor.toObjectAdapter(bridgeSceneInstance);
 		System.out.println ("Adding traceable listener");
   		TraceableBus.addTraceableListener(this);
@@ -143,6 +175,7 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 			processFinally();
 		}
 	}
+	
 	protected void processFinally() {
 		System.out.println ("Removing traceable listener");
 		TraceableBus.removeTraceableListener(this);

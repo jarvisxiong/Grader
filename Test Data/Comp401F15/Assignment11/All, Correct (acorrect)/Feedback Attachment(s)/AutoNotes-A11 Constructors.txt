@@ -1,4 +1,4 @@
-  -- PassCommand not found
-  -- FailCommand not found
-  -- ApproachCommand not found
-  -- Parser not found
+  -- Constructor matching :@BridgeScene not defined in PassCommand
+  -- Constructor matching :@BridgeScene not defined in FailCommand
+  -- Constructor matching :@BridgeScene;@Avatar not defined in ApproachCommand
+  -- Constructor matching :@BridgeScene not defined in ACommandParser

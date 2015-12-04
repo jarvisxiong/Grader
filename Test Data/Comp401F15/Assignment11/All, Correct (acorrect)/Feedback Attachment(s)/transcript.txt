@@ -19,12 +19,13 @@ called method: public void mp.tokens.Word.setInput(java.lang.String) with args:F
 calling method: public java.lang.String mp.tokens.Word.getValue() with args 
 called method: public java.lang.String mp.tokens.Word.getValue() with args: result:fail
 *****************************(Synchronized Methods)*****************************
+Discarding constructor with parms[]
 calling constructor: public grail.scanner.BeanStringScanner7() 
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@75f50c0c, grail.scanner.BeanStringScanner7@7b32ecc2
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@75f50c0c, grail.scanner.BeanStringScanner7@7b32ecc2
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@3aa6ba8a, grail.scanner.BeanStringScanner7@346153ae
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@3aa6ba8a, grail.scanner.BeanStringScanner7@346153ae
 calling methods
 E***Image file images/robin.jpg not found or corrupt.
 E***Image file images/galahad.jpg not found or corrupt.
@@ -40,48 +41,19 @@ waiting for threads
 child 1 starts
 child 2 starts
 child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
 Finished waiting for threads
-Stropping thread:Thread[Thread-7,5,]
 Stropping thread:Thread[Thread-8,5,]
+Stropping thread:Thread[Thread-7,5,]
 ### 'asynchronousArthur' method exists test case: 1.0
 Removing traceable listener
 *****************************(Synchronized Methods)*****************************
+Discarding constructor with parms[]
 calling constructor: public grail.scanner.BeanStringScanner7() 
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7f0d677c, grail.scanner.BeanStringScanner7@3a0fe6f9
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7f0d677c, grail.scanner.BeanStringScanner7@3a0fe6f9
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@305ed1fa, grail.scanner.BeanStringScanner7@755c5995
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@305ed1fa, grail.scanner.BeanStringScanner7@755c5995
 calling methods
 Adding traceable listener
 calling method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args 
@@ -91,36 +63,6 @@ called method: public void grail.scanner.CommandInterpreter.asynchronousGalahad(
 waiting for threads
 child 1 starts
 child 2 starts
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
 child 2 executes after child 1
 Finished waiting for threads
 Stropping thread:Thread[Thread-9,5,]
@@ -128,12 +70,13 @@ Stropping thread:Thread[Thread-10,5,]
 ### 'asynchronousGalahad' method exists test case: 1.0
 Removing traceable listener
 *****************************(Synchronized Methods)*****************************
+Discarding constructor with parms[]
 calling constructor: public grail.scanner.BeanStringScanner7() 
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@67c718d8, grail.scanner.BeanStringScanner7@b7fbc1e
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@67c718d8, grail.scanner.BeanStringScanner7@b7fbc1e
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7aa1cf5e, grail.scanner.BeanStringScanner7@44630f87
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7aa1cf5e, grail.scanner.BeanStringScanner7@44630f87
 calling methods
 Adding traceable listener
 calling method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args 
@@ -144,48 +87,19 @@ waiting for threads
 child 1 starts
 child 2 starts
 child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
 Finished waiting for threads
-Stropping thread:Thread[Thread-11,5,]
 Stropping thread:Thread[Thread-12,5,]
+Stropping thread:Thread[Thread-11,5,]
 ### 'asynchronousLancelot' method exists test case: 1.0
 Removing traceable listener
 *****************************(Synchronized Methods)*****************************
+Discarding constructor with parms[]
 calling constructor: public grail.scanner.BeanStringScanner7() 
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@1f5d1c8a, grail.scanner.BeanStringScanner7@5a2019b6
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@1f5d1c8a, grail.scanner.BeanStringScanner7@5a2019b6
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@274c7f0, grail.scanner.BeanStringScanner7@1573a6da
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@274c7f0, grail.scanner.BeanStringScanner7@1573a6da
 calling methods
 Adding traceable listener
 calling method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args 
@@ -195,36 +109,6 @@ called method: public void grail.scanner.CommandInterpreter.asynchronousRobin() 
 waiting for threads
 child 1 starts
 child 2 starts
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
 child 2 executes after child 1
 Finished waiting for threads
 Stropping thread:Thread[Thread-13,5,]
