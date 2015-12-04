@@ -39,23 +39,31 @@ public class AnimatingMethodNewThreadTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
-        if (classDescription.isEmpty())
-            return fail("Looking for method in command interpreter, but the class was not found.", autoGrade);
-
+        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("CommandInterpreter", autoGrade, ClassType.CLASS);
+        if (classDescription.isEmpty()) {
+            return fail("Looking for method in command interpreter, but the class was not found.");
+        } else {
+            classDescription = ClassFinder.get(project).findByTag("ObservableCommandInterpreter", autoGrade, ClassType.CLASS);
+            if (classDescription.isEmpty()) {
+                return fail("Looking for method in command interpreter, but the class was not found.");
+            }
+        }
+        
         // Get the method
         List<Method> methods = classDescription.get().getTaggedMethods(tag);
         if (methods.isEmpty())
-            return fail("No method tagged: " + tag, autoGrade);
+            return fail("No method tagged: " + tag);
 
         try {
             // Look for .start() in the code
             ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(classDescription.get().parse());
             MethodDeclaration method = CompilationNavigation.getMethod(classDef, methods.get(0).getName());
             String code = method.toString();
-            if (code.contains(".start()"))
-                return pass(autoGrade);
-            return fail("Could not find .start() in the async method", autoGrade);
+            if (code.contains(".start()")) {
+                return pass();
+            } else {
+                return fail("Could not find .start() in the async method");
+            }
         } catch (IOException e) {
             throw new NotGradableException();
         }

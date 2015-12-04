@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
 
@@ -31,28 +32,34 @@ public class SayCommandConstructorTestCase extends BasicTestCase {
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("say command", autoGrade, ClassType.CLASS);
-        if (classDescription.isEmpty())
-            return fail("No say command object", autoGrade);
-        Class<?> _class = classDescription.get().getJavaClass();
+        
+        Class<?> sayCommandClass = IntrospectionUtil.findClass(project, null, "SayCommand", ".*[sS]ay[cC]ommand.*", ".*[sS]ay[cC]ommand.*");
+        //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("say command", autoGrade, ClassType.CLASS);
+        if (sayCommandClass == null) { //classDescription.isEmpty())
+            return fail("No say command object");
+        }
+        //Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Option<ClassDescription> sceneClassDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade, ClassType.CLASS);
-        if (sceneClassDescription.isEmpty())
-            return fail("No bridge scene class. This is needed for the constructor.", autoGrade);
-        Class<?> sceneClass = sceneClassDescription.get().getJavaClass();
-        List<Class<?>> sceneClasses = new ArrayList<Class<?>>(Arrays.asList(sceneClass.getInterfaces()));
-        sceneClasses.add(sceneClass);
-
+        Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge[sScene].*", ".*[bB]ridge[sScene].*");
+        //Option<ClassDescription> sceneClassDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade, ClassType.CLASS);
+        if (bridgeSceneClass == null) { //sceneClassDescription.isEmpty()) {
+            return fail("No bridge scene class. This is needed for the constructor.");
+        }
+        //Class<?> sceneClass = sceneClassDescription.get().getJavaClass();
+//        List<Class<?>> sceneClasses = Arrays.asList(bridgeSceneClass.getInterfaces());
+//        sceneClasses.add(bridgeSceneClass);
+        Class<?>[] sceneClasses = Arrays.copyOf(bridgeSceneClass.getInterfaces(), bridgeSceneClass.getInterfaces().length + 1);
+        sceneClasses[sceneClasses.length - 1] = bridgeSceneClass;
+        
         // Try both possible ordering of arguments with different classes.
         for (Class<?> scene : sceneClasses) {
-            if (checkForConstructor(_class, scene, String.class))
-                return pass(autoGrade);
-            if (checkForConstructor(_class, String.class, scene))
-                return pass(autoGrade);
+            if (checkForConstructor(sayCommandClass, scene, String.class))
+                return pass();
+            if (checkForConstructor(sayCommandClass, String.class, scene))
+                return pass();
         }
-        return fail("No constructor taking a scene and a string.", autoGrade);
+        return fail("No constructor taking a scene and a string.");
     }
 
     private boolean checkForConstructor(Class<?> _class, Class<?> ... argTypes) {

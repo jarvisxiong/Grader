@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import tools.classFinder2.ClassType;
 
 /**
@@ -41,31 +42,34 @@ public class SayMoveCommandInvokedTestCase extends BasicTestCase {
         // Get the command interpreter
         Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty())
-            return fail("Command interpreter not found.", autoGrade);
-        Class<?> _class = classDescription.get().getJavaClass();
+            return fail("Command interpreter not found.");
+        //Class<?> _class = classDescription.get().getJavaClass();
 
         // The approach to check this is to check
         //  1. find the caller of the parser methods
         //  2. check that run() is called
 
         // Get the parser methods
-        Option<Method> sayMethod = getMethodOption(classDescription, "say parser");
-        Option<Method> moveMethod = getMethodOption(classDescription, "move parser");
+        Option<Method> sayMethod = getMethodOption(classDescription, "parseSay");
+        Option<Method> moveMethod = getMethodOption(classDescription, "parseMove");
         if (sayMethod.isEmpty() && moveMethod.isEmpty())
-            return fail("Could not find parser methods", autoGrade);
+            return fail("Could not find either parser method");
 
         // Find where the parser methods are called.
-        Set<MethodDeclaration> callers = new HashSet<MethodDeclaration>();
+        Set<MethodDeclaration> callers = new HashSet<>();
         callers.addAll(findCallers(classDescription.get(), sayMethod));
         callers.addAll(findCallers(classDescription.get(), moveMethod));
 
         // Look in each caller function for ".run()"
-        for (MethodDeclaration caller : callers) {
-            String code = caller.toString();
-            if (code.contains(".run()"))
-                return pass(autoGrade);
+//        for (MethodDeclaration caller : callers) {
+//            String code = caller.toString();
+//            if (code.contains(".run()"))
+//                return pass();
+//        }
+        if (callers.parallelStream().anyMatch(caller -> caller.toString().contains(".run()"))) {
+            return pass();
         }
-        return fail("Couldn't find a parser invoker that called .run()", autoGrade);
+        return fail("Couldn't find a parser invoker that called .run()");
     }
 
     private Option<Method> getMethodOption(Option<ClassDescription> classDescription, String tag) {
@@ -75,24 +79,28 @@ public class SayMoveCommandInvokedTestCase extends BasicTestCase {
 
     private List<MethodDeclaration> findCallers(ClassDescription classDescription, Option<Method> method) throws NotGradableException {
         if (method.isEmpty())
-            return new ArrayList<MethodDeclaration>();
-        List<MethodDeclaration> callers = new ArrayList<MethodDeclaration>();
-
+            return new ArrayList<>();
+        List<MethodDeclaration> callers = new ArrayList<>();
+        
         // Get the name of the method
-        String name = method.get().getName();
+        String mName = method.get().getName();
 
         // Look in the code for places where it is called
         try {
             ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(classDescription.parse());
             List<MethodDeclaration> methods = CompilationNavigation.getMethods(classDef);
 
-            for (MethodDeclaration m : methods) {
-                if (!m.getName().equals(name)) {
-                    String code = m.toString();
-                    if (code.contains(name + "("))
-                        callers.add(m);
-                }
-            }
+            callers = methods.parallelStream()
+                    .filter(m -> !m.getName().equals(mName))
+                    .filter(m -> m.toString().contains(mName + "("))
+                    .collect(Collectors.toList());
+//            for (MethodDeclaration m : methods) {
+//                if (!m.getName().equals(name)) {
+//                    String code = m.toString();
+//                    if (code.contains(name + "("))
+//                        callers.add(m);
+//                }
+//            }
         } catch (IOException e) {
             throw new NotGradableException();
         }

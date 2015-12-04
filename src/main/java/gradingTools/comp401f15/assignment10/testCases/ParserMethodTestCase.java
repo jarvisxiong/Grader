@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
 import util.annotations.Tags;
@@ -24,10 +25,12 @@ import tools.classFinder2.ClassType;
 public class ParserMethodTestCase extends BasicTestCase {
 
     private String tag;
+    private String regexTag;
 
     public ParserMethodTestCase(String tag) {
         super(tag + " creates cmd object test case");
         this.tag = tag;
+        this.regexTag = ".*" + tag + ".*";
     }
 
     @Override
@@ -36,19 +39,22 @@ public class ParserMethodTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
-        if (classDescription.isEmpty())
-            return fail("Looking for method in command interpreter, but the class was not found.", autoGrade);
-
-        List<Method> methods = classDescription.get().getTaggedMethods(tag);
-        if (methods.isEmpty())
-            return fail("Couldn't find the " + tag + " method", autoGrade);
-
-        if (Runnable.class.isAssignableFrom(methods.get(0).getReturnType()))
-            return pass(autoGrade);
-        else
-            return fail(tag + " method should return a Runnable", autoGrade);
-
+        Class<?> commandInterpreterClass = IntrospectionUtil.findClass(project, null, "CommandInterpreter", ".*[cC]ommand[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+        //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
+        if (commandInterpreterClass == null) { //classDescription.isEmpty())
+            return fail("Looking for method in command interpreter, but the class was not found.");
+        }
+        
+        List<Method> methods = IntrospectionUtil.findMethod(commandInterpreterClass, null, tag, regexTag, regexTag); //classDescription.get().getTaggedMethods(tag);
+        if (methods.isEmpty()) {
+            return fail("Couldn't find the " + tag + " method");
+        }
+        
+        if (Runnable.class.isAssignableFrom(methods.get(0).getReturnType())) {
+            return pass();
+        } else {
+            return fail(tag + " method should return a Runnable");
+        }
     }
 }
 

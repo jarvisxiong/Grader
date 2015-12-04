@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
 
@@ -23,10 +24,12 @@ import tools.classFinder2.ClassType;
 public class AnimatingMethodTestCase extends BasicTestCase {
 
     private String tag;
+    private String regexTag;
 
     public AnimatingMethodTestCase(String tag) {
         super(tag + " animating method test case");
         this.tag = tag;
+        this.regexTag = ".*" + tag + ".*";
     }
 
     @Override
@@ -35,19 +38,24 @@ public class AnimatingMethodTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
-        if (classDescription.isEmpty())
-            return fail("Looking for method in command interpreter, but the class was not found.", autoGrade);
-
+        Class<?> commandInterpreterClass = IntrospectionUtil.findClass(project, null, "CommandInterpreter", ".*[cC]ommand[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+        //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
+        if (commandInterpreterClass == null) { //classDescription.isEmpty())
+            return fail("Looking for method in command interpreter, but the class was not found.");
+        }
+        
         // Get the method
-        List<Method> methods = classDescription.get().getTaggedMethods(tag);
-        if (methods.isEmpty())
-            return fail("No method tagged: " + tag, autoGrade);
+        List<Method> methods = IntrospectionUtil.findMethod(commandInterpreterClass, null, tag, regexTag, regexTag); //classDescription.get().getTaggedMethods(tag);
+        if (methods.isEmpty()) {
+            return fail("No method tagged: " + tag);
+        }
 
         // Check that it's parameterless
-        if (methods.get(0).getParameterTypes().length == 0)
-            return pass(autoGrade);
-        return partialPass(0.5, tag + " method should be parameterless", autoGrade);
+        if (methods.get(0).getParameterCount() == 0) {
+            return pass();
+        } else {
+            return partialPass(0.5, tag + " method should be parameterless");
+        }
     }
 }
 

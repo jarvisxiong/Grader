@@ -6,6 +6,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
+import grader.util.IntrospectionUtil;
 import java.lang.reflect.Constructor;
 import scala.Option;
 import tools.classFinder2.ClassFinder;
@@ -34,37 +35,40 @@ public class MoveCommandConstructorTestCase extends BasicTestCase {
             throw new NotGradableException();
         }
 
-        Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("move command", autoGrade, ClassType.CLASS);
-        if (classDescription.isEmpty()) {
-            return fail("No move command object", autoGrade);
+        Class<?> moveCommandClass = IntrospectionUtil.findClass(project, null, "MoveCommand", ".*[mM]ove[cC]ommand.*", ".*[mM]ove[cC]ommand.*");
+        //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("MoveCommand", autoGrade, ClassType.CLASS);
+        if (moveCommandClass == null) {//classDescription.isEmpty()) {
+            return fail("No move command object");
         }
-        Class<?> _class = classDescription.get().getJavaClass();
+        //Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Option<ClassDescription> avatarClassDescription = ClassFinder.get(project).findByTag("Avatar", autoGrade, ClassType.CLASS);
-        if (avatarClassDescription.isEmpty()) {
-            return fail("No single avatar class. This is needed for the constructor.", autoGrade);
+        Class<?> avatarClass = IntrospectionUtil.findClass(project, null, "Avatar", ".*[aA]vatar.*", ".*[aA]vatar.*");
+        //Option<ClassDescription> avatarClassDescription = ClassFinder.get(project).findByTag("Avatar", autoGrade, ClassType.CLASS);
+        if (avatarClass == null) { //avatarClassDescription.isEmpty()) {
+            return fail("No single avatar class. This is needed for the constructor.");
         }
-        Class<?> avatarClass = avatarClassDescription.get().getJavaClass();
-        List<Class<?>> avatarClasses = new ArrayList<Class<?>>(Arrays.asList(avatarClass.getInterfaces()));
-        avatarClasses.add(avatarClass);
+        //Class<?> avatarClass = avatarClassDescription.get().getJavaClass();
+        
+        Class<?>[] avatarClasses = Arrays.copyOf(avatarClass.getInterfaces(), avatarClass.getInterfaces().length + 1);
+        avatarClasses[avatarClasses.length - 1] = avatarClass;
 
         // Try all three possible ordering of arguments with different classes.
         for (Class<?> avatar : avatarClasses) {
-            if (checkForConstructor(_class, avatar, int.class, int.class)) 
-                return pass(autoGrade);
-            if (checkForConstructor(_class, avatar, Integer.class, Integer.class))
-                return pass(autoGrade);
-            if (checkForConstructor(_class, int.class, avatar, int.class))
-                return pass(autoGrade);
-            if (checkForConstructor(_class, Integer.class, avatar, Integer.class))
-                return pass(autoGrade);
-            if (checkForConstructor(_class, int.class, int.class, avatar))
-                return pass(autoGrade);
-            if (checkForConstructor(_class, Integer.class, Integer.class, avatar))
-                return pass(autoGrade);
+            if (checkForConstructor(moveCommandClass, avatar, int.class, int.class)) 
+                return pass();
+            if (checkForConstructor(moveCommandClass, avatar, Integer.class, Integer.class))
+                return pass();
+            if (checkForConstructor(moveCommandClass, int.class, avatar, int.class))
+                return pass();
+            if (checkForConstructor(moveCommandClass, Integer.class, avatar, Integer.class))
+                return pass();
+            if (checkForConstructor(moveCommandClass, int.class, int.class, avatar))
+                return pass();
+            if (checkForConstructor(moveCommandClass, Integer.class, Integer.class, avatar))
+                return pass();
         }
-        return fail("No constructor taking 1 avatar and 2 ints.", autoGrade);
+        return fail("No constructor taking 1 avatar and 2 ints.");
     }
 
     private boolean checkForConstructor(Class<?> _class, Class<?> ... argTypes) {
