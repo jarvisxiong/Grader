@@ -3,7 +3,8 @@ Grading result for: Test, Student(tstudent)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Synchronized Methods                                   0.0 / 10.0
+Coordinated animation starts                           0.0 / 18.0
+Lockstep Animation                                     0.0 / 10.0
 ----------------------------------
   Points Awarded: 10.0
 
@@ -11,7 +12,10 @@ Synchronized Methods                                   0.0 / 10.0
 
 Notes from grading features:
 ----------------------------------
-Synchronized Methods:
+Coordinated animation starts:
+  -- Couldn't find correct constructor for CommandInterpreter
+
+Lockstep Animation:
   -- Couldn't find correct constructor for CommandInterpreter
 
   Total Score: 10.0

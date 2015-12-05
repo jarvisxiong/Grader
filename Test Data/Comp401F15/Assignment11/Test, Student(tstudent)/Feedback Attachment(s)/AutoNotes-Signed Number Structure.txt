@@ -1,1 +1,1 @@
-  -- Type Parsernot defined, cannot check method
+  -- Method call matching @parseNumber:\*->\* not defined by AParser

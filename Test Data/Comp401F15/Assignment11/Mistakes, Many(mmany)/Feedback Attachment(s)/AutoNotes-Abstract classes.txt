@@ -1,2 +1,1 @@
-  -- Locatable not found.
-  -- BoundedShape not found.
+  -- Locatable is not abstract.

@@ -19,6 +19,7 @@ import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
+import scala.PartialFunction;
 import util.misc.ThreadSupport;
 import util.trace.TraceableBus;
 import util.trace.TraceableListener;
@@ -27,19 +28,37 @@ public class SynchronizedAnimationTestCase extends AsynchronousCommandInterprete
 	public SynchronizedAnimationTestCase(String methodTag) {
 		super(methodTag);
 	}
-
+	protected void waitForThreads() {
+		ThreadSupport.sleep(2000);
+	}
+	protected void callAsynchronousMethods() {
+		Object retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
+		retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
+		
+	}
 
 	protected TestCaseResult computeResult() {
 		if (childThread1 == null) {
-			return fail ("No property notification");
+			return fail ("No property notification from a thread");
 		}
-		if (childThread1 == parentThread) {
-			return fail ("Command not executed in separate thread");
+		if (eventInParentThread 
+//				|| numThreadsAfterExecution <= numThreadsBeforeExecution
+				) {
+  			return fail ("No threads created");
+  		}
+		int numThreadsCreated = numThreadsAfterExecution - numThreadsBeforeExecution;
+		if (numThreadsCreated < 2) {
+			return partialPass(0.5, "A single thread created:");
 		}
-		if (child1AfterChild2) {
-			return fail ("Interleaved threads");
+		if (childThread2 == null) {
+//			return fail ("No property notification from second thread");
+			return pass ();
+
 		}
-		return pass();
+		if (child2AfterChild1 && !child1AfterChild2) {
+			return pass();
+		}	
+		return partialPass(0.3, "Interleaved threads");
 	}
 
 }

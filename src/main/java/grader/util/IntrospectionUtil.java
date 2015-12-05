@@ -97,6 +97,9 @@ public class IntrospectionUtil {
 	static String toClassDescriptor(String aClassName) {
 		return aClassName + "." + "class";
 	}
+	static String toObjectDescriptor(String aTag) {
+		return aTag + "." + "instance";
+	}
 	static String toClassesDescriptor(String aClassName) {
 		return aClassName + "." + "classes";
 	}
@@ -105,6 +108,14 @@ public class IntrospectionUtil {
 	}
 	static String toInterfaceDescriptor(String aClassName) {
 		return aClassName + "." + "interface";
+	}
+	public static void putInstance (Project aProject, TestCase aTestCase, String aClassName, Object anObject) {
+		aTestCase.getCheckable().getRequirements().putUserObject(toObjectDescriptor(aClassName), anObject);
+
+	}
+	public static Object getInstance (Project aProject, TestCase aTestCase, String aClassName) {
+		return aTestCase.getCheckable().getRequirements().getUserObject(toObjectDescriptor(aClassName));
+
 	}
 	public static Class getOrFindClass(Project aProject, TestCase aTestCase, String aClassName) {
 		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));

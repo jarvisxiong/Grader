@@ -3,13 +3,13 @@ Grading result for: Test, Student(tstudent)
 Grading features...
 ----------------------------------
 Abstract classes                                       0.0 /  5.0
-Pass/Fail Token Classes Implemented                    0.0 /  4.0
+Pass/Fail Token Classes Implemented                    4.0 /  4.0
 Passed Failed Approach Command Objects                 0.0 /  6.0
-A11 Constructors                                       0.0 /  4.0
-CommandList Structure                                  0.0 /  5.0
-RepeatCommand Structure                                0.0 /  5.0
-Parser Properties                                      0.0 /  6.0
-Basic Parser Structure                                 0.0 / 16.0
+A11 Constructors                                       1.0 /  4.0
+CommandList Structure                                  5.0 /  5.0
+RepeatCommand Structure                                5.0 /  5.0
+Parser Properties                                      2.0 /  6.0
+Basic Parser Structure                                 16.0 / 16.0
 Synchronized Methods                                   0.0 / 10.0
 Signed Number Structure                                0.0 /  2.0 (Extra credit)
 Basic:approach Lancelot                                0.0 /  4.0
@@ -24,19 +24,15 @@ demo of synchronized                                   0.0 / 10.0
 demo of refreshing commands                            0.0 / 10.0
 All Extra: repeat -3 repeat +2 {{{ move Lancelot  -2 +3 move Arthur 5 6 }}} 0.0 /  8.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 0.0
+  Points Awarded: 33.0
 
-  Features Score: 0.0
+  Features Score: 33.0
 
 Notes from grading features:
 ----------------------------------
 Abstract classes:
-  -- Locatable not found.
-  -- BoundedShape not found.
-
-Pass/Fail Token Classes Implemented:
-  -- Class matching:null, pass, .*pass.*, .*pass.* not found
-  -- Class matching:null, fail, .*fail.*, .*fail.* not found
+  -- Locatable is not abstract.
+  -- BoundedShape is not abstract.
 
 Passed Failed Approach Command Objects:
   -- PassCommand not found.
@@ -47,36 +43,16 @@ A11 Constructors:
   -- Type PassCommandnot defined, cannot check
   -- Type FailCommandnot defined, cannot check
   -- Type ApproachCommandnot defined, cannot check
-  -- Type Parsernot defined, cannot check
-
-CommandList Structure:
-  -- Command list object not found
-
-RepeatCommand Structure:
-  -- Repeat command object not found
 
 Parser Properties:
-  -- Did not find unique class for tag:Parser
-
-Basic Parser Structure:
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
-  -- Type Parsernot defined, cannot check method
+  -- Unmatched properties:[CommandObject]Unmatched readonly properties:[CommandObject]
 
 Synchronized Methods:
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
-  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter
 
 Signed Number Structure:
-  -- Type Parsernot defined, cannot check method
+  -- Method call matching @parseNumber:\*->\* not defined by AParser
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 34.65

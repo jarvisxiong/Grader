@@ -1,9 +1,9 @@
-*****************************(Synchronized Methods)*****************************
+*****************************(Coordinated animation starts)*****************************
 Discarding constructor with parms[]
 calling constructor: public grail.scene.BasicBridgeScene() 
 called constructor: public grail.scene.BasicBridgeScene() 
-calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@483d1ee
-called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@483d1ee
+calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@7ba133a5
+called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@7ba133a5
 calling methods
 E***Class:grail.helpers.BasicTable does not follow declared pattern: Hashmap Pattern. Ignoring pattern declaration.
 W***Assuming implicit pattern: Hashtable Pattern instead of: Hashmap Pattern
@@ -16,551 +16,53 @@ calling method: public void grail.commander.BasicCommandInterpreter.startAnimati
 called method: public void grail.commander.BasicCommandInterpreter.startAnimation() with args: result:null
 waiting for threads
 child 1 starts
+Child 1 sleeps
 child 2 starts
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 2 executes after child 1
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
-child 1 executes after child 2
+Child 2 sleeps
+child 2 executes after child 1
+child 1 executes after child 2
+Child 1 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
 Finished waiting for threads
-Stropping thread:Thread[Thread-11,5,main]
-Stropping thread:Thread[Thread-12,5,main]
 ### 'startAnimation' method exists test case: 1.0
+Stopping thread:Thread[Thread-11,5,main]
+Child 2 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Child 1 sleeps
+Child 2 sleeps
+Stopping thread:Thread[Thread-12,5,]
 Removing traceable listener
+*****************************(Lockstep Animation)*****************************
+calling methods
+Adding traceable listener
+Removing traceable listener
+### 'lockstepGuard' method exists test case: 0.0

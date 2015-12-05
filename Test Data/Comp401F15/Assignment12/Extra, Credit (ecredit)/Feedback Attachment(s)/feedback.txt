@@ -3,9 +3,16 @@ Grading result for: Extra, Credit (ecredit)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Synchronized Methods                                   10.0 / 10.0
+Coordinated animation starts                           18.0 / 18.0
+Lockstep Animation                                     0.0 / 10.0
 ----------------------------------
-  Points Awarded: 20.0
+  Points Awarded: 28.0
 
-  Features Score: 20.0
-  Total Score: 20.0
+  Features Score: 28.0
+
+Notes from grading features:
+----------------------------------
+Lockstep Animation:
+  -- Could not instantiate aCommand Interpreter
+
+  Total Score: 28.0

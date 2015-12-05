@@ -1,100 +1,41 @@
 *****************************(Pass/Fail Token Classes Implemented)*****************************
 Testcase:Pass Command Bean Case
 Finding class matching:null, pass, .*pass.*, .*pass.*
-No class matching: null, pass, .*pass.*, .*pass.*
+Finding constructor matching:class java.lang.String
+calling constructor: public mp.tokens.PassToken(java.lang.String) PASS
+called constructor: public mp.tokens.PassToken(java.lang.String) PASS
+calling method: public void mp.tokens.ABasicToken.setInput(java.lang.String) with args PASS
+called method: public void mp.tokens.ABasicToken.setInput(java.lang.String) with args:PASS result:null
+calling method: public java.lang.String mp.tokens.AValueToken.getValue() with args 
+called method: public java.lang.String mp.tokens.AValueToken.getValue() with args: result:pass
 *****************************(Pass/Fail Token Classes Implemented)*****************************
 Testcase:Fail Command Bean Case
 Finding class matching:null, fail, .*fail.*, .*fail.*
-No class matching: null, fail, .*fail.*, .*fail.*
+Finding constructor matching:class java.lang.String
+calling constructor: public mp.tokens.FailToken(java.lang.String) FAIL
+called constructor: public mp.tokens.FailToken(java.lang.String) FAIL
+calling method: public void mp.tokens.ABasicToken.setInput(java.lang.String) with args FAIL
+called method: public void mp.tokens.ABasicToken.setInput(java.lang.String) with args:FAIL result:null
+calling method: public java.lang.String mp.tokens.AValueToken.getValue() with args 
+called method: public java.lang.String mp.tokens.AValueToken.getValue() with args: result:fail
 *****************************(Synchronized Methods)*****************************
-java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:69)
-    at framework.grading.testing.Checkable.check(Checkable.java:127)
-    at framework.grading.testing.Feature.check(Feature.java:111)
-    at framework.grading.testing.Checkable.check(Checkable.java:188)
-    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
-    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
-    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
-    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
-    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
-    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
-    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
-    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
-    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
-    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
-    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
-    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
-    at gradingTools.Driver.drive(Driver.java:299)
-    at gradingTools.Driver.main(Driver.java:364)
-### 'asynchronousArthur' method exists test case: 0.0
-*****************************(Synchronized Methods)*****************************
-java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:69)
-    at framework.grading.testing.Checkable.check(Checkable.java:127)
-    at framework.grading.testing.Feature.check(Feature.java:111)
-    at framework.grading.testing.Checkable.check(Checkable.java:188)
-    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
-    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
-    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
-    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
-    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
-    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
-    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
-    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
-    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
-    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
-    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
-    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
-    at gradingTools.Driver.drive(Driver.java:299)
-    at gradingTools.Driver.main(Driver.java:364)
-### 'asynchronousGalahad' method exists test case: 0.0
-*****************************(Synchronized Methods)*****************************
-java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:69)
-    at framework.grading.testing.Checkable.check(Checkable.java:127)
-    at framework.grading.testing.Feature.check(Feature.java:111)
-    at framework.grading.testing.Checkable.check(Checkable.java:188)
-    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
-    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
-    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
-    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
-    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
-    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
-    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
-    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
-    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
-    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
-    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
-    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
-    at gradingTools.Driver.drive(Driver.java:299)
-    at gradingTools.Driver.main(Driver.java:364)
-### 'asynchronousLancelot' method exists test case: 0.0
-*****************************(Synchronized Methods)*****************************
-java.lang.NullPointerException
-    at gradingTools.comp401f15.assignment11.testcases.CommandIntrepreterMethodCallTestCase.test(CommandIntrepreterMethodCallTestCase.java:69)
-    at framework.grading.testing.Checkable.check(Checkable.java:127)
-    at framework.grading.testing.Feature.check(Feature.java:111)
-    at framework.grading.testing.Checkable.check(Checkable.java:188)
-    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
-    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
-    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
-    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
-    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
-    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
-    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
-    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
-    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
-    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
-    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
-    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
-    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
-    at gradingTools.Driver.drive(Driver.java:299)
-    at gradingTools.Driver.main(Driver.java:364)
-### 'asynchronousRobin' method exists test case: 0.0
+calling constructor: public mp.ui.ABridgeScene() 
+called constructor: public mp.ui.ABridgeScene() 
+calling constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@16016840, null
+called constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@16016840, null
+calling methods
+Adding traceable listener
+calling method: public void mp.bean.ACommandInterpreter.asyncArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.asyncArthur() with args: result:null
+calling method: public void mp.bean.ACommandInterpreter.asyncArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.asyncArthur() with args: result:null
+child 1 starts:Avatar Animator Thread 1
+waiting for threads
+Num threads after execution:7
+Finished waiting for threads
+Stopping thread:Thread[Avatar Animator Thread 1,5,main]
+child 2 starts:Avatar Animator Thread 2
+Num threads after execution:7
+child 2 executes after child 1
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener

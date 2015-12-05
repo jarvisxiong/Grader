@@ -24,8 +24,8 @@ calling constructor: public grail.scanner.BeanStringScanner7()
 called constructor: public grail.scanner.BeanStringScanner7() 
 calling constructor: public grail.shape.BridgeScene() 
 called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@3aa6ba8a, grail.scanner.BeanStringScanner7@346153ae
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@3aa6ba8a, grail.scanner.BeanStringScanner7@346153ae
+calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@59fb8734, grail.scanner.BeanStringScanner7@573c627b
+called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@59fb8734, grail.scanner.BeanStringScanner7@573c627b
 calling methods
 E***Image file images/robin.jpg not found or corrupt.
 E***Image file images/galahad.jpg not found or corrupt.
@@ -35,83 +35,16 @@ E***Image file images/lancelot.jpg not found or corrupt.
 Adding traceable listener
 calling method: public void grail.scanner.CommandInterpreter.asynchronousArthur() with args 
 called method: public void grail.scanner.CommandInterpreter.asynchronousArthur() with args: result:null
+child 1 starts:Thread-7
+Num threads after execution:7
 calling method: public void grail.scanner.CommandInterpreter.asynchronousArthur() with args 
 called method: public void grail.scanner.CommandInterpreter.asynchronousArthur() with args: result:null
 waiting for threads
-child 1 starts
-child 2 starts
+child 2 starts:Thread-8
+Num threads after execution:8
 child 2 executes after child 1
 Finished waiting for threads
-Stropping thread:Thread[Thread-8,5,]
-Stropping thread:Thread[Thread-7,5,]
+Stopping thread:Thread[Thread-7,5,]
+Stopping thread:Thread[Thread-8,5,]
 ### 'asynchronousArthur' method exists test case: 1.0
-Removing traceable listener
-*****************************(Synchronized Methods)*****************************
-Discarding constructor with parms[]
-calling constructor: public grail.scanner.BeanStringScanner7() 
-called constructor: public grail.scanner.BeanStringScanner7() 
-calling constructor: public grail.shape.BridgeScene() 
-called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@305ed1fa, grail.scanner.BeanStringScanner7@755c5995
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@305ed1fa, grail.scanner.BeanStringScanner7@755c5995
-calling methods
-Adding traceable listener
-calling method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args: result:null
-calling method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousGalahad() with args: result:null
-waiting for threads
-child 1 starts
-child 2 starts
-child 2 executes after child 1
-Finished waiting for threads
-Stropping thread:Thread[Thread-9,5,]
-Stropping thread:Thread[Thread-10,5,]
-### 'asynchronousGalahad' method exists test case: 1.0
-Removing traceable listener
-*****************************(Synchronized Methods)*****************************
-Discarding constructor with parms[]
-calling constructor: public grail.scanner.BeanStringScanner7() 
-called constructor: public grail.scanner.BeanStringScanner7() 
-calling constructor: public grail.shape.BridgeScene() 
-called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7aa1cf5e, grail.scanner.BeanStringScanner7@44630f87
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@7aa1cf5e, grail.scanner.BeanStringScanner7@44630f87
-calling methods
-Adding traceable listener
-calling method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args: result:null
-calling method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousLancelot() with args: result:null
-waiting for threads
-child 1 starts
-child 2 starts
-child 2 executes after child 1
-Finished waiting for threads
-Stropping thread:Thread[Thread-12,5,]
-Stropping thread:Thread[Thread-11,5,]
-### 'asynchronousLancelot' method exists test case: 1.0
-Removing traceable listener
-*****************************(Synchronized Methods)*****************************
-Discarding constructor with parms[]
-calling constructor: public grail.scanner.BeanStringScanner7() 
-called constructor: public grail.scanner.BeanStringScanner7() 
-calling constructor: public grail.shape.BridgeScene() 
-called constructor: public grail.shape.BridgeScene() 
-calling constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@274c7f0, grail.scanner.BeanStringScanner7@1573a6da
-called constructor: public grail.scanner.CommandInterpreter(grail.shape.BridgeSceneInterface,grail.scanner.ScannerInterface) grail.shape.BridgeScene@274c7f0, grail.scanner.BeanStringScanner7@1573a6da
-calling methods
-Adding traceable listener
-calling method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args: result:null
-calling method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args 
-called method: public void grail.scanner.CommandInterpreter.asynchronousRobin() with args: result:null
-waiting for threads
-child 1 starts
-child 2 starts
-child 2 executes after child 1
-Finished waiting for threads
-Stropping thread:Thread[Thread-13,5,]
-Stropping thread:Thread[Thread-14,5,]
-### 'asynchronousRobin' method exists test case: 1.0
 Removing traceable listener

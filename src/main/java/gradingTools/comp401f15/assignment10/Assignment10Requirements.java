@@ -9,6 +9,8 @@ import gradingTools.comp401f15.assignment10.testCases.preConditions.ApproachMeth
 import gradingTools.comp401f15.assignment10.testCases.preConditions.FailedMethodPreconditionTestCase;
 import gradingTools.comp401f15.assignment10.testCases.preConditions.PassedMethodPreconditionTestCase;
 import gradingTools.comp401f15.assignment10.testCases.preConditions.SayMethodPreconditionTestCase;
+import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
+import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,29 +30,45 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
         addDueDate("11/13/2015 12:59:00", 0.75);
 
         // Precondition Methods (24 pts)
-        addFeature("Precondition methods", 12,
+        addFeature("Precondition structure", 12,
                 new PreconditionTestCase("approach"),
                 new PreconditionTestCase("say"),
                 new PreconditionTestCase("passed"),
                 new PreconditionTestCase("failed"));
-        addFeature("Precondition methods", 14,
-                new ApproachMethodPreconditionTestCase(),   // not done yet
-                new SayMethodPreconditionTestCase(),        // not done yet
-                new PassedMethodPreconditionTestCase(),     // not done yet
-                new FailedMethodPreconditionTestCase(),     // not done yet
-        		new PreconditionChangedAndPropertyAnnouncedTestCase("Preconditions changed and announced"));
-        addFeature("Console view shows precondition events", 6, new PreconditionEventsTestCase()); // reimplement
+        addFeature("Precondition execution", 14,
+                new ApproachMethodPreconditionTestCase()   
+//                new SayMethodPreconditionTestCase(),        // not done yet
+//                new PassedMethodPreconditionTestCase(),     // not done yet
+//                new FailedMethodPreconditionTestCase(),     // not done yet
+//        		new PreconditionChangedAndPropertyAnnouncedTestCase("Preconditions changed and announced"));
+//        addFeature("Console view shows precondition events", 6, new PreconditionEventsTestCase()
+                );
         
         // Command Objects (21 pts)
-        addFeature("Say & move cmd objects", 5,
-                new CommandImplementsRunnableTestCase("MoveCommand"),
-                new CommandImplementsRunnableTestCase("SayCommand"));
-        addFeature("Move cmd constructor", 3, new MoveCommandConstructorTestCase());
-        addFeature("Say cmd constructor", 3, new SayCommandConstructorTestCase());
+        addFeature("Move Say Command Objects", 5, 
+        		new CommandObjectExistsTestCase("SayCommand"),
+        		new CommandObjectExistsTestCase("MoveCommand")
+        		);
+//        addFeature("Say & move cmd objects", 5,
+//                new CommandImplementsRunnableTestCase("MoveCommand"),
+//                new CommandImplementsRunnableTestCase("SayCommand"));
+//        addFeature("Move cmd constructor", 3, new MoveCommandConstructorTestCase());
+//        addFeature("Say cmd constructor", 3, new SayCommandConstructorTestCase());
         
-        addFeature("Say and move parsers", 5,
-                new ParserMethodTestCase("parseMove"),
-                new ParserMethodTestCase("parseSay"));
+        addFeature("Say Move Constructors", 6,        		
+        		new CheckstyleConstructorDefinedTestCase("SayCommand", ":@BridgeScene; String"),
+        		new CheckstyleConstructorDefinedTestCase("MoveCommand", ":@Avatar; int; int")
+
+        );
+        
+        addFeature("Say Move Parse", 5, 
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseSay:*->Runnable"),
+    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseMove:*->Runnable"));
+        
+//        addFeature("Say and move parsers", 5,
+//                new ParserMethodTestCase("parseMove"),
+//                new ParserMethodTestCase("parseSay"));
         addFeature("Command object invoked", 5, new SayMoveCommandInvokedTestCase());
 
         // Asynchronous Animations (55 pts)

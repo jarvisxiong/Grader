@@ -17,34 +17,34 @@ import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestC
 public class WaitingAnimationTestCase extends AsynchronousCommandInterpreterAnimationTestCase{
 	Method waitMethod1;
 	Method waitMethod2;
-	Project project;
+//	Project project;
 	public WaitingAnimationTestCase(String aProceedMethod, String aWaitMethod1, String aWaitMethod2) {
 		super(aProceedMethod);
 		
 	}
 	
 	public TestCaseResult test(Project aProject, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-		project = aProject;
+//		project = aProject;
 		return super.test(aProject, autoGrade);
 	}
 	
-	protected Method getWaitingMethod (String aMethodName) {
-		List<Method> methods = IntrospectionUtil.getOrFindMethodList(project, this, commandInterpreterClass, aMethodName, aMethodName);
-		if (methods.size() < 1) {
-			System.out.println ("Could not find:" + aMethodName);
-			throw new NotGradableException();
-		}
-		if (methods.get(0).getParameterTypes().length != 0) {
-			System.out.println (aMethodName + " takes more than one parameter");
-			throw new NotGradableException();
-		}
-		return methods.get(0);
-	}
+//	protected Method getUniqueParameterlessMethod (String aMethodName) {
+//		List<Method> methods = IntrospectionUtil.getOrFindMethodList(project, this, commandInterpreterClass, aMethodName, aMethodName);
+//		if (methods.size() < 1) {
+//			System.out.println ("Could not find:" + aMethodName);
+//			throw new NotGradableException();
+//		}
+//		if (methods.get(0).getParameterTypes().length != 0) {
+//			System.out.println (aMethodName + " takes more than one parameter");
+//			throw new NotGradableException();
+//		}
+//		return methods.get(0);
+//	}
 	boolean proceedAllDone;
 	boolean didNotWait;
 	protected void callAsynchronousMethods() {
-		Method waitMethod1 = getWaitingMethod("waitingArthur");
-		Method waitMethod2 = getWaitingMethod("waitingLancelot");
+		Method waitMethod1 = getUniqueParameterlessMethod("waitingArthur");
+		Method waitMethod2 = getUniqueParameterlessMethod("waitingLancelot");
 		Object retVal = ExecutionUtil.timedInvoke(commandInterpreter, waitMethod1);
 		retVal = ExecutionUtil.timedInvoke(commandInterpreter, waitMethod2);
 

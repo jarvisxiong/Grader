@@ -7,6 +7,7 @@ import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementedTestCa
 import gradingTools.comp401f15.assignment10.testCases.RepeatCommandObjectTestCase;
 import gradingTools.comp401f15.assignment11.testcases.*;
 import gradingTools.comp401f15.assignment12.testcases.GenerictClassCheckStyleTestCase;
+import gradingTools.comp401f15.assignment12.testcases.LockstepAnimationTestCase;
 import gradingTools.comp401f15.assignment12.testcases.WaitingAnimationTestCase;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.created.CallCommandCreatedTestCase;
@@ -61,8 +62,12 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 
         addFeature("Generic classes", 10,
                 new GenerictClassCheckStyleTestCase("Table"));
-        addFeature("Synchronized Methods", 10, 
+        addFeature("Coordinated animation starts", 18, 
            		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
+           		
+           		);
+        addFeature("Lockstep Animation", 10, 
+           		new LockstepAnimationTestCase("lockstepGuard", "lockstepArthur")
            		
            		);
 //    	addFeature("Pass/Fail Token Classes Implemented", 4,

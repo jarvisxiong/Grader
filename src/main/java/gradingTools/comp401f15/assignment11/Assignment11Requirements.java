@@ -137,10 +137,10 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 	   		
 	   	);
    addFeature("Synchronized Methods", 10, 
-   		new SynchronizedAnimationTestCase("asynchronousArthur"),
-   		new SynchronizedAnimationTestCase("asynchronousGalahad"),
-   		new SynchronizedAnimationTestCase("asynchronousLancelot"),
-   		new SynchronizedAnimationTestCase("asynchronousRobin")
+   		new SynchronizedAnimationTestCase("asynchronousArthur")
+//   		new SynchronizedAnimationTestCase("asynchronousGalahad"),
+//   		new SynchronizedAnimationTestCase("asynchronousLancelot"),
+//   		new SynchronizedAnimationTestCase("asynchronousRobin")
    		);
    addFeature("Signed Number Structure", 2, true,
 	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*")

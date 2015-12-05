@@ -3,9 +3,19 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Synchronized Methods                                   10.0 / 10.0
+Coordinated animation starts                           0.0 / 18.0
+Lockstep Animation                                     0.0 / 10.0
 ----------------------------------
-  Points Awarded: 20.0
+  Points Awarded: 10.0
 
-  Features Score: 20.0
-  Total Score: 20.0
+  Features Score: 10.0
+
+Notes from grading features:
+----------------------------------
+Coordinated animation starts:
+  -- No proeprty notification after proceedAll
+
+Lockstep Animation:
+  -- Can't find 'lockstepGuard' method or method tagged 'lockstepGuard' in class 'ACommandInterpreter'
+
+  Total Score: 10.0

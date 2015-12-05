@@ -42,12 +42,13 @@ public class AnimatingMethodNewThreadTestCase extends BasicTestCase {
         Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("CommandInterpreter", autoGrade, ClassType.CLASS);
         if (classDescription.isEmpty()) {
             return fail("Looking for method in command interpreter, but the class was not found.");
-        } else {
-            classDescription = ClassFinder.get(project).findByTag("ObservableCommandInterpreter", autoGrade, ClassType.CLASS);
-            if (classDescription.isEmpty()) {
-                return fail("Looking for method in command interpreter, but the class was not found.");
-            }
-        }
+        } 
+//        else {
+//            classDescription = ClassFinder.get(project).findByTag("ObservableCommandInterpreter", autoGrade, ClassType.CLASS);
+//            if (classDescription.isEmpty()) {
+//                return fail("Looking for method in command interpreter, but the class was not found.");
+//            }
+//        }
         
         // Get the method
         List<Method> methods = classDescription.get().getTaggedMethods(tag);
