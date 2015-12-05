@@ -4,11 +4,11 @@ called constructor: public grail.scene.BasicBridgeScene()
 E***Class:grail.helpers.BasicTable does not follow declared pattern: Hashmap Pattern. Ignoring pattern declaration.
 W***Assuming implicit pattern: Hashtable Pattern instead of: Hashmap Pattern
 calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args 
-called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@1ab502f6
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@43cf5bff
 calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args 
-called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args: result:grail.avatar.BasicAvatar@796cf2b5
-calling method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args grail.avatar.BasicAvatar@1ab502f6
-called method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args:grail.avatar.BasicAvatar@1ab502f6 result:null
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args: result:grail.avatar.BasicAvatar@c697186
+calling method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args grail.avatar.BasicAvatar@43cf5bff
+called method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args:grail.avatar.BasicAvatar@43cf5bff result:null
 calling method: public boolean grail.scene.BasicBridgeScene.preApproach() with args 
 called method: public boolean grail.scene.BasicBridgeScene.preApproach() with args: result:false
 calling method: public boolean grail.scene.BasicBridgeScene.prePassed() with args 

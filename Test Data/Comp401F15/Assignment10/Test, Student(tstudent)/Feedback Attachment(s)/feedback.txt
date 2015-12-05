@@ -4,16 +4,16 @@ Grading features...
 ----------------------------------
 Precondition structure                                 12.0 / 12.0
 Precondition execution                                 0.0 / 14.0
-Move Say Command Objects                               2.5 /  5.0
+Move Say Command Objects                               5.0 /  5.0
 Say Move Constructors                                  6.0 /  6.0
-Say Move Parse                                         0.0 /  5.0
+Say Move Parse                                         5.0 /  5.0
 Animating methods                                      5.0 /  5.0
 Does each async animation method use an animating command class (Runnable)? 0.0 / 17.0
 Are there animator classes with an animating method?   0.0 / 17.0
 Console view buttons change as preconditions change    0.0 / 12.0 (Extra credit)
 Guard animation                                        5.0 /  5.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 30.5
+  Points Awarded: 38.0
 
 Grading restrictions...
 ----------------------------------
@@ -21,19 +21,12 @@ Missing demos                               -100.0 /  -100.0
 ----------------------------------
   Points Deducted: -100.0
 
-  Features Score: -69.5
+  Features Score: -62.0
 
 Notes from grading features:
 ----------------------------------
 Precondition execution:
   -- Incorrect or no approach
-
-Move Say Command Objects:
-  -- SayCommand not found.
-
-Say Move Parse:
-  -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
-  -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
 
 
 Early benefit: 105.0%

@@ -1,2 +1,0 @@
-  -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
-  -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter

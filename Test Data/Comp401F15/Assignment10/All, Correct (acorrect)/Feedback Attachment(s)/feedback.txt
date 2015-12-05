@@ -25,9 +25,6 @@ Missing demos                               -100.0 /  -100.0
 
 Notes from grading features:
 ----------------------------------
-Precondition execution:
-  -- Incorrect or no approach
-
 Say Move Parse:
   -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
   -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter

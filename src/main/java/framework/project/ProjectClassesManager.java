@@ -413,17 +413,23 @@ public class ProjectClassesManager implements ClassesManager {
     @Override
     public List<ClassDescription> findClass (String aName, String aTag, String aNameMatch, String aTagMatch) {
     	List<ClassDescription> result = new ArrayList();
+    	if (aTag != null)
+    		result = findClassByTag(aTag); 
+    	if (aTag != null && result.isEmpty())
+    		result = findClassByPattern(aTag); 
+    	if (!result.isEmpty())
+    		return result;
     	if (aName != null)
     		result = findByClassName(aName);
     	if (!result.isEmpty())
     		return result;
     	 
-    	if (aTag != null)
-    		result = findClassByTag(aTag);  
-    	if (aTag != null && result.isEmpty())
-    		result = findClassByPattern(aTag); 
-    	if (!result.isEmpty())
-    		return result;
+//    	if (aTag != null)
+//    		result = findClassByTag(aTag);  
+//    	if (aTag != null && result.isEmpty())
+//    		result = findClassByPattern(aTag); 
+//    	if (!result.isEmpty())
+//    		return result;
     	if (aNameMatch != null) {
     		result = findByClassNameMatch(aNameMatch);  		
     	}

@@ -25,13 +25,17 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 		if (clazz == null) {
 			return fail(tag + " not found.", autoGrade);
 		}
+		if (clazz.isInterface()) {
+			System.out.println("got interface instead of class");
+			return pass();
+		}
 		Class[] anInterfaces = clazz.getInterfaces();
 		for (Class anInterface:anInterfaces){
 			if (implementedInterface.isAssignableFrom(anInterface))
 				return pass(autoGrade);
 		}
 	
-        return fail(tag + " does not implement " + clazz);
+        return partialPass(0.5, tag + " does not implement " + implementedInterface);
 	}
 
 }
