@@ -1,0 +1,4 @@
+  -- No method tagged: asynchronousArthur
+  -- No method tagged: asynchronousGalahad
+  -- No method tagged: asynchronousLancelot
+  -- No method tagged: asynchronousRobin

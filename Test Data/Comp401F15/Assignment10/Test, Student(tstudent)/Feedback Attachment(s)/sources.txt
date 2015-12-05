@@ -1,0 +1,5086 @@
+//START OF FILE: src/grail/animation/animationcommandobject.java
+package grail.animation;
+
+import grail.avatar.Avatar;
+import util.annotations.Tags;
+
+@Tags({"AnimatingCommand"})
+public class AnimationCommandObject implements Runnable {
+	private Avatar currentAvatar;
+	private Animator animation;
+	private String command;
+	private String walkCommand = "walk";
+	private String clapCommand = "clap";
+	private int distanceToWalkorTimeToClap, sleepTime;
+	
+	public AnimationCommandObject(Animator toAnimate, String command, Avatar cAvatar) {
+		this.currentAvatar = cAvatar;
+		this.animation = toAnimate;
+		this.command = command;
+	}
+	
+	public AnimationCommandObject(Animator toAnimate, String command, Avatar cAvatar, int distanceToWalkorTimeToClap) {
+		this.currentAvatar = cAvatar;
+		this.animation = toAnimate;
+		this.command = command;
+		this.distanceToWalkorTimeToClap = distanceToWalkorTimeToClap;
+	}
+	
+	public AnimationCommandObject(Animator toAnimate, String command, Avatar cAvatar, int distanceToWalk, int sleepTime) {
+		this.currentAvatar = cAvatar;
+		this.animation = toAnimate;
+		this.command = command;
+		this.distanceToWalkorTimeToClap = distanceToWalk;
+		this.sleepTime = sleepTime;
+	}
+		
+	public void run() {
+		if (walkCommand.equals(this.command) && this.distanceToWalkorTimeToClap == 0 && this.sleepTime == 0) {
+			this.animation.walkAvatar(this.currentAvatar); /*- missingMethodCall: (AnimationCommandObject.java:1) has not made expected call @Animator!@AnimateAvatar:@Avatar-
+			 >void    This is that call.*/
+		} else if (walkCommand.equals(this.command) && this.sleepTime == 0) {
+			this.animation.walkAvatar(this.currentAvatar, this.distanceToWalkorTimeToClap);
+		} else if (walkCommand.equals(this.command)) {
+			this.animation.walkAvatar(this.currentAvatar, this.distanceToWalkorTimeToClap, this.sleepTime);
+		} else if (clapCommand.equals(this.command)) {
+			this.animation.clapAvatar(this.currentAvatar, this.distanceToWalkorTimeToClap);
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/animation/animator.java
+package grail.animation;
+
+import grail.avatar.Avatar;
+import util.annotations.Tags;
+
+@Tags({"Animator"})
+public interface Animator {
+	public void walkAvatar(Avatar toAnimate);	
+	public void walkAvatar(Avatar toAnimate, int distanceToWalk);
+	public void walkAvatar(Avatar toAnimate, int distanceToWalk, int sleepTime);
+	public void clapAvatar(Avatar toAnimate, int timeToClap);
+
+}
+//END OF FILE
+//START OF FILE: src/grail/animation/basicavataranimator.java
+package grail.animation;
+
+import grail.avatar.Avatar;
+import util.annotations.Tags;
+import util.misc.ThreadSupport;
+
+@Tags({"Animator"})
+public class BasicAvatarAnimator implements Animator {
+
+	
+	@Tags({"animateAvatar"})
+	public void walkAvatar(Avatar toAnimate) {
+		final int distanceToMarch = 100;
+		final int moveIncrementX = 10;
+		final int moveIncrementY = 0;
+		final int rotationAmount = 8;
+		final int sleepBetweenTimeMS = 200;
+		int distanceMarched = 0;
+		int position = 0;
+		while (distanceMarched < distanceToMarch) {
+			if (position == 0) {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(-rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 1;
+			} else {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 0;
+			}
+		}
+		
+	}
+	
+	public void walkAvatar(Avatar toAnimate, int distanceToWalk) {
+		int distanceToMarch = distanceToWalk;
+		final int moveIncrementX = 10;
+		final int moveIncrementY = 0;
+		final int rotationAmount = 8;
+		final int sleepBetweenTimeMS = 200;
+		int distanceMarched = 0;
+		int position = 0;
+		while (distanceMarched < distanceToMarch) {
+			if (position == 0) {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(-rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 1;
+			} else {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 0;
+			}
+		}
+	}
+	
+	public void walkAvatar(Avatar toAnimate, int distanceToWalk, int sleepTime) {
+		int distanceToMarch = distanceToWalk;
+		final int moveIncrementX = 10;
+		final int moveIncrementY = 0;
+		final int rotationAmount = 8;
+		int sleepBetweenTimeMS = sleepTime;
+		int distanceMarched = 0;
+		int position = 0;
+		while (distanceMarched < distanceToMarch) {
+			if (position == 0) {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(-rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 1;
+			} else {
+				toAnimate.move(moveIncrementX, moveIncrementY);
+				toAnimate.getLegs().rotate(rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 0;
+			}
+		}
+		
+	}
+
+	public void clapAvatar(Avatar toAnimate, int secondsToClap) {
+		final int clapMS = 200;
+		final int fullClapMS = 400;
+		final int msInASecond = 1000;
+		final int clapTimeInMS = secondsToClap * msInASecond;
+		final int clapRotate = 4;
+		final double originalArmLeft = toAnimate.getArms().getLeftLine().getAngle();
+		final double originalArmRight = toAnimate.getArms().getRightLine().getAngle();
+		toAnimate.getArms().getLeftLine().setAngle(Math.PI);
+		toAnimate.getArms().getRightLine().setAngle(Math.PI);
+		
+		int msClapped = 0;
+		while (msClapped < clapTimeInMS) {
+			toAnimate.getArms().getRightLine().rotate(clapRotate);
+			ThreadSupport.sleep(clapMS);
+			toAnimate.getArms().getRightLine().rotate(-clapRotate);
+			ThreadSupport.sleep(clapMS);
+			msClapped = msClapped + fullClapMS;
+		}
+		
+		toAnimate.getArms().getRightLine().setAngle(originalArmRight);
+		toAnimate.getArms().getLeftLine().setAngle(originalArmLeft);
+	}
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/avatar/avatar.java
+package grail.avatar;
+
+import java.awt.Color;
+import grail.draw.interfaces.AngleShape;
+import grail.draw.interfaces.ImageShape;
+import grail.draw.interfaces.RotatingShape;
+import grail.draw.interfaces.StringShape;
+import util.annotations.Tags;
+
+@Tags({"Avatar"})
+public interface Avatar {
+	public String getBasicText();
+	public void setBasicText(String setVal);
+	public ImageShape getHead();
+	public AngleShape getArms();
+	public AngleShape getLegs();
+	public RotatingShape getBody();
+	public void move(int x, int y);
+	public void scale(double scaleValue);
+	public void setText(StringShape text);
+	public StringShape getText();
+	public void setLocation(int x, int y);
+	public void setBodyColor(Color newBodyColor);
+	public void setTextColor(Color newTextColor);
+	public Color getBodyColor();
+	public Color getTextColor();
+	public int getHeight();
+	public int getWidth();
+	public int getX();
+	public void setX(int newVal);
+	public int getY();
+	public void setY(int newVal);
+
+}
+//END OF FILE
+//START OF FILE: src/grail/avatar/basicavatar.java
+package grail.avatar;
+
+import java.awt.Color;
+import java.beans.PropertyChangeListener;
+
+import grail.draw.interfaces.AngleShape;
+import grail.draw.interfaces.ImageShape;
+import grail.draw.interfaces.RotatingShape;
+import grail.draw.interfaces.StringShape;
+import grail.draw.objects.BasicAngleShape;
+import grail.draw.objects.BasicImageShape;
+import grail.draw.objects.BasicStringShape;
+import grail.draw.objects.LineRotatingShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Avatar"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Head", "Arms", "Legs", "Body", "X", "Y", "Height","Width","Text", "BasicText", "BodyColor", "TextColor"})
+@EditablePropertyNames({"X", "Y", "BasicText", "Text","BodyColor", "TextColor"})
+public class BasicAvatar implements Avatar{
+	private AngleShape arms, legs;
+	private RotatingShape body;
+	private ImageShape head;
+	private StringShape text;
+	private String basicText;
+	private Color bodyColor, textColor;
+	private int scaleFactor;
+	private int x,y;
+	
+	
+	public BasicAvatar(ImageShape head, int xPosStart, int yPosStart) {
+		super();
+		final int startingScaleFactor = 100;
+		this.scaleFactor = startingScaleFactor;
+		this.x = xPosStart;
+		this.y = yPosStart;
+		this.head = head;
+		this.text = new BasicStringShape("Default", 0, 0);
+		this.basicText = this.text.getText();
+		this.body = new LineRotatingShape();
+		this.arms = new BasicAngleShape(0, 0);
+		this.legs = new BasicAngleShape(0, 0);		
+		
+		
+		connectAvatar(xPosStart, yPosStart);
+		final int defaultArmPosition = 8;
+		this.arms.rotate(defaultArmPosition);
+		this.legs.rotate(-defaultArmPosition);
+		setBodyColor(Color.BLACK);
+		setTextColor(Color.BLACK);
+
+	}
+	
+	public BasicAvatar(String headImageString) {
+		this(new BasicImageShape(headImageString));
+		
+	}
+	
+	public BasicAvatar(ImageShape head) {
+		this (head, 0, 0);
+	}
+
+	
+	public String getBasicText() {
+		return this.basicText;
+	}
+
+	
+	public void setBasicText(String setVal) {
+		this.basicText = setVal;
+		this.text.setText(setVal);
+		
+	}
+
+	
+	public ImageShape getHead() {
+		return head;
+	}
+
+	
+	public AngleShape getArms() {
+		return arms;
+	}
+
+	
+	public AngleShape getLegs() {
+		return legs;
+	}
+
+	
+	public RotatingShape getBody() {
+		return body;
+	}
+
+	@Tags({"move"})
+	public void move(int x, int y) {
+		this.x = this.x + x;
+		this.y = this.y + y;
+		setLocation(this.x, this.y);
+		
+	}
+
+	
+	public void setX(int xPos) {
+		this.x = xPos;
+		setLocation(xPos, this.y);
+		
+		
+	}
+
+	
+	public void setY(int yPos) {
+		this.y = yPos;
+		setLocation(this.x, yPos);
+		
+	}
+
+
+	@Tags({"scale"})
+	public void scale(double scaleValue) {
+		this.scaleFactor = (int) (this.scaleFactor * scaleValue);
+		connectAvatar(this.x,this.y);
+	}
+
+	
+	public void setText(StringShape basicText) {
+		this.text = basicText;
+	}
+
+	
+	public StringShape getText() {
+		return this.text;
+	}
+	
+	public void setLocation(int x, int y) {
+		connectAvatar(x,y);
+		
+	}
+	
+	private void connectAvatar(int xPos, int yPos) {
+		int singleScaleFactor = this.scaleFactor;
+		this.x = xPos;
+		this.y = yPos;
+		int headWidth = head.getWidth();
+		int headHeight = head.getHeight();
+		int xBodyPosition = headWidth/2 + xPos;
+		int yBodyPosition = headHeight + yPos;
+		
+		this.head.setX(xPos);
+		this.head.setY(yPos);
+		
+		this.body.setX(xBodyPosition);
+		this.body.setY(yBodyPosition);
+		this.body.setRadius(singleScaleFactor);
+		this.body.setAngle(Math.PI/2);
+		
+		final double armScaleFactor = .40;
+		final double armLengthFactor = .5;
+		int armLocation = (int) (headHeight + yPos + singleScaleFactor * (armScaleFactor));
+		this.arms.setX(xBodyPosition);
+		this.arms.setY(armLocation);
+		this.arms.getRightLine().setRadius(singleScaleFactor * armLengthFactor);
+		this.arms.getLeftLine().setRadius(singleScaleFactor * armLengthFactor);
+		
+		final double legScaleFactor = .5;
+		int bodyLocation = headHeight + yPos + singleScaleFactor;
+		this.legs.setX(xBodyPosition);
+		this.legs.setY(bodyLocation);
+		this.legs.getRightLine().setRadius(singleScaleFactor * legScaleFactor);
+		this.legs.getLeftLine().setRadius(singleScaleFactor * legScaleFactor);
+
+		final int speachDistanceFromMouth = 10;
+		this.text.setX(headWidth + xPos + speachDistanceFromMouth);
+		this.text.setY(headHeight + yPos);
+		
+	}
+	
+	
+	public void setBodyColor(Color newBodyColor) {
+		this.bodyColor = newBodyColor;
+		this.body.setColor(newBodyColor);
+		this.arms.setColor(newBodyColor);
+		this.legs.setColor(newBodyColor);
+		
+	}
+
+	
+	public void setTextColor(Color newbasicTextColor) {
+		this.textColor = newbasicTextColor;
+		this.text.setTextColor(newbasicTextColor);
+		
+	}
+
+	
+	public Color getBodyColor() {
+		return bodyColor;
+	}
+
+	
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	
+	public int getHeight() {
+		return Math.abs(this.body.getHeight())+ Math.abs(this.head.getHeight()) + Math.abs(this.legs.getRightLine().getHeight());
+
+	}
+
+	
+	public int getWidth() {
+		return Math.abs(this.legs.getRightLine().getWidth())* 2;
+	}
+	
+
+	
+	public int getX() {
+		return this.x;
+	}
+
+	
+	public int getY() {
+		return this.y;
+	}
+	
+	public static void addBodyListener(Avatar avatar, PropertyChangeListener listener) {
+		avatar.getArms().addPropertyChangeListener(listener);
+		BasicAngleShape.addListenersToSubshapes(avatar.getArms(), listener);
+		avatar.getLegs().addPropertyChangeListener(listener);
+		BasicAngleShape.addListenersToSubshapes(avatar.getLegs(), listener);
+		avatar.getHead().addPropertyChangeListener(listener);
+		avatar.getBody().addPropertyChangeListener(listener);
+		avatar.getText().addPropertyChangeListener(listener);
+	}
+
+
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/approachcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"approach"})
+public class ApproachCommandToken extends WordStoreToken implements CommandToken {
+
+	public ApproachCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/callcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"call"})
+public class CallCommandToken extends WordStoreToken implements CommandToken  {
+
+	public CallCommandToken(String input) {
+		super(input);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/definecommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"define"})
+public class DefineCommandToken extends WordStoreToken implements CommandToken  {
+
+	public DefineCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/movecommandtoken.java
+package grail.command;
+
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"move"})
+
+public class MoveCommandToken extends WordStoreToken implements CommandToken {
+
+	public MoveCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/proceedallcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"proceedAll"})
+public class ProceedAllCommandToken extends WordStoreToken implements CommandToken  {
+
+	public ProceedAllCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/redocommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"redo"})
+public class RedoCommandToken extends WordStoreToken implements CommandToken {
+
+	public RedoCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/repeatcommandtoken.java
+package grail.command;
+
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"repeat"})
+public class RepeatCommandToken extends WordStoreToken implements CommandToken  {
+
+	public RepeatCommandToken(String input) {
+		super(input);
+		// TODO Auto-generated constructor stub
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/rotateleftarmcommandtoken.java
+package grail.command;
+
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"rotateLeftArm"})
+public class RotateLeftArmCommandToken extends WordStoreToken implements CommandToken {
+
+	public RotateLeftArmCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/rotaterightarmcommandtoken.java
+package grail.command;
+
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"rotateRightArm"})
+public class RotateRightArmCommandToken extends WordStoreToken implements CommandToken {
+
+	public RotateRightArmCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/saycommandtoken.java
+package grail.command;
+
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"say"})
+
+public class SayCommandToken extends WordStoreToken implements CommandToken {
+
+	public SayCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/sleepcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"sleep"})
+public class SleepCommandToken extends WordStoreToken implements CommandToken {
+
+	public SleepCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/threadcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"thread"})
+public class ThreadCommandToken extends WordStoreToken implements CommandToken {
+
+	public ThreadCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/undocommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"undo"})
+public class UndoCommandToken extends WordStoreToken implements CommandToken {
+
+	public UndoCommandToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/command/waitcommandtoken.java
+package grail.command;
+import grail.interfaces.CommandToken;
+import grail.tokens.WordStoreToken;
+import util.annotations.Tags;
+
+@Tags({"wait"})
+public class WaitCommandToken extends WordStoreToken implements CommandToken {
+
+	public WaitCommandToken(String input) {
+		super(input);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/commander/basiccommandinterpreter.java
+package grail.commander;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.animation.AnimationCommandObject;
+import grail.animation.Animator;
+import grail.animation.BasicAvatarAnimator;
+import grail.avatar.Avatar;
+import grail.command.MoveCommandToken;
+import grail.command.SayCommandToken;
+import grail.helpers.Table;
+import grail.interfaces.ScannerBean;
+import grail.interfaces.CommandToken;
+import grail.interfaces.NumberToken;
+import grail.interfaces.StoreToken;
+import grail.model.APropertyListenerSupport;
+import grail.model.PropertyListenerSupport;
+import grail.runnables.DefaultCommand;
+import grail.runnables.MoveCommand;
+import grail.runnables.SayCommand;
+import grail.scene.BridgeScene;
+import grail.tokens.MinusStoreToken;
+import grail.tokens.PlusStoreToken;
+import grail.tokens.QuotedStoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+
+@Tags({"CommandInterpreter", "SignedMove", "ErrorResilient"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"Command", "Errors"})
+@EditablePropertyNames({"Command"})
+public class BasicCommandInterpreter implements CommandInterpreter{
+	private BridgeScene scene;
+	private ScannerBean scanner;
+	private String currentCommand;
+	private String errors;
+	private Table knightList;
+	private int currentToken;
+	private String walkCommand = "walk";
+	private String clapCommand = "clap";
+	protected PropertyListenerSupport propertyListenerSupport = new APropertyListenerSupport();
+	
+	public BasicCommandInterpreter(BridgeScene scene, ScannerBean scanner) {
+		this.scene = scene;
+		this.scanner = scanner;
+		this.currentCommand = "";
+		this.errors = "";
+		this.knightList = scene.getKnightList();
+		currentToken = 0;
+	}
+
+	
+	public String getCommand() {
+		return currentCommand;
+		
+	}
+
+	
+	public void setCommand(String commandLine) {
+		String oldCommand = this.currentCommand;
+		this.currentCommand = commandLine;
+		scanner.setScannedString(commandLine);
+		currentToken = 0;
+		this.errors = "";
+		processCommandArray(scanner.getTokens());
+		if (propertyListenerSupport != null) {
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Command",oldCommand,this.currentCommand ));
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Errors", null, this.errors));
+		}
+		
+	}
+
+
+	@Tags({"ErrorResilient"})
+	public String getErrors() {
+		return this.errors;
+	}
+	
+	private void processCommandArray(StoreToken[] input) {
+		final String defaultError = "Command Found!";
+		while (currentToken < input.length) {
+			if (input.length > 0 && input[currentToken] instanceof CommandToken) {
+				this.errors = defaultError;
+				executeCommand(input, input[currentToken]);
+			
+			} else {
+				//Do Nothing;
+			}
+			currentToken++;
+		}
+		
+		if ("".equalsIgnoreCase(this.errors)) {
+			this.errors = "No Command was detected!";
+		} else if (defaultError.equals(this.errors)) {
+			this.errors = "No Errors Found!";
+		}
+
+	}
+
+	private void executeCommand(StoreToken[] input , StoreToken commandToken) {
+		Runnable command;
+		if (commandToken instanceof SayCommandToken) {
+			command = sayCommand(input);
+			this.errors = (command instanceof DefaultCommand)? "\"Say\" did not follow proper syntax. Syntax is: \"Say\" <QuotedString>":"No Errors Found in Say!";
+		} else if (commandToken instanceof MoveCommandToken) {
+			command = moveCommand(input);
+			this.errors = (command instanceof DefaultCommand)? "\"Move\" did not follow proper syntax. Syntax is: \"Move\" Avatar <Number> <Number>":"No Errors Found in Move!";
+		} else {
+			this.errors = "Sorry, unable to implement \"" + commandToken.getInput() + "\" at this time!";
+			command = new DefaultCommand();
+		}
+		command.run();
+	}
+	
+	@Tags({"parseSay"})
+	public Runnable sayCommand(StoreToken[] input) {
+	    int remainderLength = input.length - currentToken;
+		if (remainderLength > 1  && input[currentToken + 1] instanceof QuotedStoreToken) {
+			return new SayCommand(this.scene, input[currentToken + 1].getInput());
+		} else {
+			return new DefaultCommand();
+		}
+		
+	}
+	
+	@Tags({"parseMove"})
+	public Runnable moveCommand(StoreToken[] input) {
+		 int remainderLength = input.length - currentToken;
+		 int startPosition = currentToken;
+		 final int shortFormLength = 3;
+		 final int mediumFormLength = 4;
+		 final int longFormLength = 5;
+		 final int avatarPosition = ++startPosition;
+		 final int firstPosition = ++startPosition;
+		 final int secondPosition = ++startPosition;
+		 final int thirdPosition = ++startPosition;
+		 final int fourthPosition = ++startPosition;
+		 
+		 if (remainderLength > shortFormLength && isAvatar(input[avatarPosition]) && isNumber(input[firstPosition]) && isNumber(input[secondPosition])) {
+			Avatar currentAvatar = (Avatar) (this.knightList.get(input[currentToken + 1].getInput().toLowerCase()));
+			int valueX = ((NumberToken) input[firstPosition]).getValue();
+			int valueY = ((NumberToken) input[secondPosition]).getValue();
+			return new MoveCommand(currentAvatar,valueX,valueY);
+			
+		} else if (remainderLength > mediumFormLength && isAvatar(input[avatarPosition]) && isSign(input[firstPosition]) &&  isNumber(input[secondPosition]) && isNumber(input[thirdPosition]))  {
+			Avatar currentAvatar = (Avatar) (this.knightList.get(input[avatarPosition].getInput().toLowerCase()));
+			int whichSignX = (input[firstPosition] instanceof PlusStoreToken)? 1:-1; 
+			int valueX = whichSignX * ((NumberToken) input[secondPosition]).getValue();
+			int valueY = ((NumberToken) input[thirdPosition]).getValue();
+			return new MoveCommand(currentAvatar,valueX,valueY);
+			
+		} else if (remainderLength > mediumFormLength && isAvatar(input[avatarPosition]) && isNumber(input[firstPosition]) && isSign(input[secondPosition]) && isNumber(input[thirdPosition])) {
+			Avatar currentAvatar = (Avatar) (this.knightList.get(input[avatarPosition].getInput().toLowerCase()));
+			int whichSignY = (input[secondPosition] instanceof PlusStoreToken)? 1:-1; 
+			int valueX = ((NumberToken) input[firstPosition]).getValue();
+			int valueY = whichSignY * ((NumberToken) input[thirdPosition]).getValue();
+			return new MoveCommand(currentAvatar,valueX,valueY);
+			
+		} else if (remainderLength > longFormLength && isAvatar(input[avatarPosition]) && isSign(input[firstPosition]) && isNumber(input[secondPosition]) && isSign(input[thirdPosition]) && isNumber(input[fourthPosition]) ) {
+			Avatar currentAvatar = (Avatar) (this.knightList.get(input[avatarPosition].getInput().toLowerCase()));
+			int whichSignX = (input[firstPosition] instanceof PlusStoreToken)? 1:-1; 
+			int valueX = whichSignX * ((NumberToken) input[secondPosition]).getValue();
+			int whichSignY = (input[thirdPosition] instanceof PlusStoreToken)? 1:-1; 
+			int valueY = whichSignY * ((NumberToken) input[fourthPosition]).getValue();
+			return new MoveCommand(currentAvatar,valueX,valueY);
+			
+		} else {
+			return new DefaultCommand();
+		}
+	}
+		
+	private boolean isAvatar(StoreToken input) {
+		 	return (this.knightList.contains(input.getInput().toLowerCase()));
+		 
+	}	
+	
+		
+	private boolean isSign(StoreToken input) {
+		return (input instanceof PlusStoreToken || input instanceof MinusStoreToken);
+	}
+	
+	private boolean isNumber(StoreToken input) {
+		return input instanceof NumberToken;
+	}
+	
+	@Tags({"asynchronousArthur"})
+	public void asynchronousArthur() {
+		Animator animate = new BasicAvatarAnimator();
+		Runnable animateCommand = new AnimationCommandObject(animate, walkCommand, this.scene.getArthur());
+		Thread thread = new Thread(animateCommand);
+		thread.start();
+	}
+
+	@Tags({"asynchronousGalahad"})
+	public void asynchronousGalahad() {
+		final int distanceToWalk = 200;
+		Animator animate = new BasicAvatarAnimator();
+		Runnable animateCommand = new AnimationCommandObject(animate, walkCommand, this.scene.getGalahad(), distanceToWalk);
+		Thread thread = new Thread(animateCommand);
+		thread.start();
+	}
+	
+	@Tags({"asynchronousLancelot"})
+	public void asynchronousLancelot() {
+		final int distanceToWalk = 300;
+		final int sleepTime = 50;
+		Animator animate = new BasicAvatarAnimator();
+		Runnable animateCommand = new AnimationCommandObject(animate, walkCommand, this.scene.getLancelot(), distanceToWalk,sleepTime);
+		Thread thread = new Thread(animateCommand);
+		thread.start();
+	}
+	
+	@Tags({"asynchronousRobin"})
+	public void asynchronousRobin() {
+		final int distanceToWalk = 260;
+		Animator animate = new BasicAvatarAnimator();
+		Runnable animateCommand = new AnimationCommandObject(animate, walkCommand, this.scene.getRobin(), distanceToWalk);
+		Thread thread = new Thread(animateCommand);
+		thread.start();
+	}
+	
+	@Tags({"asynchronousGuard"})
+	public void asynchronousGuard() {
+		final int secondsToClap = 8;
+		Animator animate = new BasicAvatarAnimator();
+		Runnable animateCommand = new AnimationCommandObject(animate, clapCommand, this.scene.getGuard(), secondsToClap);
+		Thread thread = new Thread(animateCommand);
+		thread.start();
+	}
+	
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		propertyListenerSupport.addElement(arg0);
+		
+	}
+	
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/commander/commandinterpreter.java
+package grail.commander;
+import grail.interfaces.StoreToken;
+import util.models.PropertyListenerRegisterer;
+
+public interface CommandInterpreter extends PropertyListenerRegisterer  {
+	public String getCommand();
+	public void setCommand(String commandLine);
+	public String getErrors();
+	public Runnable moveCommand(StoreToken[] input);
+	public Runnable sayCommand(StoreToken[] input);
+	public void asynchronousArthur();
+	public void asynchronousGalahad();
+	public void asynchronousLancelot();
+	public void asynchronousRobin();
+	public void asynchronousGuard();
+}
+//END OF FILE
+//START OF FILE: src/grail/controllers/basicbridgecontroller.java
+package grail.controllers;
+
+import grail.avatar.Avatar;
+import grail.paint.AObservablePainter;
+import grail.paint.ObservablePainter;
+import grail.scene.BridgeScene;
+import util.annotations.Tags;
+import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+@Tags({"BridgeSceneController"})
+public class BasicBridgeController implements BridgeController{
+	private BridgeScene aScene;
+	private int clickedX, clickedY;
+	private Avatar arthur,galahad,robin,lancelot;
+	private ObservablePainter aModel;
+	
+	public BasicBridgeController(BridgeScene scene) {
+		this(scene, new AObservablePainter());
+	}
+	
+	public BasicBridgeController(BridgeScene scene, ObservablePainter model) {
+		this.aScene = scene;
+		setModel(model);
+		this.clickedX = 0;
+		this.clickedY = 0;
+		this.arthur = scene.getArthur();
+		this.galahad = scene.getGalahad();
+		this.robin = scene.getRobin();
+		this.lancelot = scene.getLancelot();
+	}
+
+	
+	public void keyTyped(KeyEvent e) {
+		char pressedKey = e.getKeyChar();
+		processKeyInput(pressedKey);
+	}
+	
+	public void setModel(ObservablePainter model) {
+		this.aModel = model;
+		((Component) model).addMouseListener(this);
+		((Component) model).addKeyListener(this);
+	}
+	
+	public ObservablePainter getModel() {return this.aModel;}
+
+	
+	public void keyPressed(KeyEvent e) {}
+
+	
+	public void keyReleased(KeyEvent e) {}
+
+	
+	public void mouseClicked(MouseEvent e) {
+		this.clickedX = e.getX();
+		this.clickedY = e.getY();
+	}
+
+	
+	public void mousePressed(MouseEvent e) {}
+
+	
+	public void mouseReleased(MouseEvent e) {}
+
+	
+	public void mouseEntered(MouseEvent e) {}
+
+	
+	public void mouseExited(MouseEvent e) {}
+	
+	private void processKeyInput(char key) {
+		if (key == 'a') {
+			this.arthur.setLocation(clickedX, clickedY);
+		} else if (key == 'l') {
+			this.lancelot.setLocation(clickedX, clickedY);
+		} else if (key == 'g') {
+			this.galahad.setLocation(clickedX, clickedY);
+		} else if (key == 'r') {
+			this.robin.setLocation(clickedX, clickedY);
+		} else if (key == 'o') {
+			this.aScene.setOriginalPositions();
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/controllers/bridgecontroller.java
+package grail.controllers;
+
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
+import grail.paint.ObservablePainter;
+
+public interface BridgeController extends MouseListener, KeyListener  {
+	public void setModel(ObservablePainter model);
+	public ObservablePainter getModel();
+}
+//END OF FILE
+//START OF FILE: src/grail/demo/assignment10demo.java
+package grail.demo;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.beans.PropertyChangeEvent;
+
+import javax.swing.JFrame;
+
+import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
+import grail.avatar.Avatar;
+import grail.avatar.BasicAvatar;
+import grail.commander.BasicCommandInterpreter;
+import grail.commander.CommandInterpreter;
+import grail.controllers.BasicBridgeController;
+import grail.controllers.BridgeController;
+import grail.helpers.AScannerBean;
+import grail.helpers.ComponentBuilder;
+import grail.interfaces.ScannerBean;
+import grail.paint.ObservablePainter;
+import grail.scene.BasicBridgeScene;
+import grail.scene.BridgeScene;
+import grail.toolkit.BasicCommandController;
+import grail.toolkit.ToolkitCommandViewer;
+import grail.view.BasicConsole;
+import grail.toolkit.CommandController;
+import grail.toolkit.AdvancedCommandViewer;
+import util.annotations.PropertyNames;
+import util.misc.ThreadSupport;
+
+@PropertyNames({"Progress"})
+public class Assignment10Demo extends BasicDemo implements NineDemo {
+	
+	private int progress;
+	
+	public Assignment10Demo() {
+	  progress = 0;
+	}
+	
+	@Override
+	public void run() {
+		final int frameWidth = 1600;
+		final int frameHeight = 1000;
+		final int interpreterViewLocation = 600;
+		
+		Avatar arthur = new BasicAvatar("arthur.jpg");
+		arthur.setBodyColor(Color.YELLOW);
+		arthur.setTextColor(Color.YELLOW);
+		
+		Avatar lancelot = new BasicAvatar("lancelot.jpg");
+		lancelot.setBodyColor(Color.RED);
+		lancelot.setTextColor(Color.RED);
+		
+		Avatar robin =  new BasicAvatar("robin.jpg");
+		robin.setBodyColor(Color.CYAN);
+		robin.setTextColor(Color.CYAN);
+		
+		Avatar galahad = new BasicAvatar("galahad.jpg");
+		galahad.setBodyColor(Color.PINK);
+		galahad.setTextColor(Color.PINK);
+		
+		Avatar guard = new BasicAvatar("guard.jpg");
+		guard.setBodyColor(Color.DARK_GRAY);
+		guard.setTextColor(Color.DARK_GRAY);
+		
+		BridgeScene scene = new BasicBridgeScene(arthur, lancelot, robin, galahad, guard);
+			
+		ObservablePainter singleComponentModel = ComponentBuilder.buildObservablePainterFromScene(scene);
+		
+
+		ScannerBean bean = new AScannerBean();
+		CommandInterpreter commander = new BasicCommandInterpreter(scene, bean);
+		
+		AdvancedCommandViewer commandView = new ToolkitCommandViewer(commander);
+		new BasicConsole(scene);
+
+		CommandController commandControl = new BasicCommandController(commander,commandView);
+		commandControl.setScene(scene);
+		BridgeController bridgeControl = new BasicBridgeController(scene);
+		bridgeControl.setModel(singleComponentModel);
+		
+		//Make frame and put ObservablePainter in the frame as a component
+
+		
+		OEFrame editor = ObjectEditor.edit(scene);
+		editor.setSize(frameWidth,frameHeight);
+		
+		JFrame frame = new JFrame("Window");	
+		frame.add(((Component) singleComponentModel));
+		frame.setSize(frameWidth, frameHeight);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+		
+		commandView.placeFrameOnTop();
+		commandView.getFrame().setLocation(0, interpreterViewLocation);
+		
+		animateScene(scene, commander);
+		
+	}
+
+	
+	private void animateScene(BridgeScene scene, CommandInterpreter command) {
+		final int reasonableWaitTime = 2000;
+		int progressOutOfSeven = 0;
+		
+		command.asynchronousGuard();
+		updateProgressBar(++progressOutOfSeven);
+		ThreadSupport.sleep(reasonableWaitTime);
+		
+		command.asynchronousArthur();
+		updateProgressBar(++progressOutOfSeven);
+		ThreadSupport.sleep(reasonableWaitTime);
+		
+		command.asynchronousGalahad();
+		updateProgressBar(++progressOutOfSeven);
+		ThreadSupport.sleep(reasonableWaitTime);
+		
+		command.asynchronousLancelot();
+		updateProgressBar(++progressOutOfSeven);
+		ThreadSupport.sleep(reasonableWaitTime);
+		
+		command.asynchronousRobin();
+		updateProgressBar(++progressOutOfSeven);
+		ThreadSupport.sleep(reasonableWaitTime);
+		
+		
+		final int tenSeconds = 10000;
+		ThreadSupport.sleep(tenSeconds);
+		
+		updateProgressBar(++progressOutOfSeven);
+		scene.setOriginalPositions();
+		scene.approach(scene.getArthur());
+		
+		ThreadSupport.sleep(reasonableWaitTime);
+		updateProgressBar(++progressOutOfSeven);
+		scene.say("I talked, so the Knight can't pass.");
+	}
+	
+	private void updateProgressBar(int number) {
+		final int progressIncrement = 14;
+		int oldVal = this.progress;
+		this.progress = number * progressIncrement;
+		if (propertyListener != null) {
+			propertyListener.notifyAllListeners(new PropertyChangeEvent(this,"Progress", oldVal, this.progress));
+		}
+		
+	}
+	
+	public int getProgress() {return this.progress;}
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/demo/basicdemo.java
+package grail.demo;
+
+import java.beans.PropertyChangeListener;
+
+import grail.model.APropertyListenerSupport;
+import grail.model.PropertyListenerSupport;
+
+public class BasicDemo implements Demo {
+	PropertyListenerSupport propertyListener;
+	
+	public BasicDemo() {
+		this.propertyListener = new APropertyListenerSupport();
+	}
+	
+	public void run() {
+		System.out.println("Default Demo. Nothing was run.");
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		this.propertyListener.addElement(arg0);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/demo/demo.java
+package grail.demo;
+
+import util.models.PropertyListenerRegisterer;
+
+public interface Demo extends PropertyListenerRegisterer{
+	public void run();
+}
+//END OF FILE
+//START OF FILE: src/grail/demo/ninedemo.java
+package grail.demo;
+
+public interface NineDemo extends Demo{
+ public int getProgress();
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/angleshape.java
+package grail.draw.interfaces;
+
+import java.awt.Color;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Angle"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public interface AngleShape extends MutableShape{
+		public RotatingShape getLeftLine();
+		public RotatingShape getRightLine();
+		public void move(int x, int y);
+		public void setRadius(double radius);
+		public void setAngle(double angle);
+		public void setColor(Color newColor);
+		public Color getColor();
+		public void rotate(int unit);
+		public double getRadius();
+		public double getAngle();
+		public void scale(double scaleFactor);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/bridgemoat.java
+package grail.draw.interfaces;
+
+public interface BridgeMoat extends MutableShape {
+	public RotatingShape getMoatLeft();
+	public RotatingShape getMoatRight();
+	public RotatingShape getBridgeBottom();
+	public RotatingShape getBridgeTop();
+	public RotatingShape getPlankOne();
+	public RotatingShape getPlankTwo();
+	public RotatingShape getPlankThree();
+	public RotatingShape getPlankFour();
+	public RotatingShape getPlankFive();
+	public RotatingShape getPlankSix();
+	public void setSize(int width, int height);
+	public void setLocation(int x, int y);
+	public void move(int x, int y);
+	public int getFallZoneX();
+	public int getFallZoneY();
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/colormutableshape.java
+package grail.draw.interfaces;
+
+import java.awt.Color;
+
+public interface ColorMutableShape extends MutableShape{
+	public void setColor(Color newColor);
+	public Color getColor();
+	public boolean getFilled();
+	public void setFilled(boolean input);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/coloredshape.java
+package grail.draw.interfaces;
+
+import java.awt.Color;
+
+import util.annotations.Tags;
+
+@Tags({"BoundedShape"})
+public interface ColoredShape extends Shape{
+	public Color getColor();
+	public void setColor(Color newColor);
+	public boolean getFilled();
+	public void setFilled(boolean filled);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/imageshape.java
+package grail.draw.interfaces;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.IMAGE_PATTERN)
+public interface ImageShape extends MutableShape {
+	public String getImageFileName();  
+    public void setImageFileName(String newName);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/locator.java
+package grail.draw.interfaces;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({"Locatable"})
+public interface Locator extends PropertyListenerRegisterer {
+	public int getX();
+	public void setX(int newX);
+	public int getY();
+	public void setY(int newY);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/mutableshape.java
+package grail.draw.interfaces;
+
+public interface MutableShape extends Shape {
+    public void setHeight(int newHeight);
+    public void setWidth(int newWidth);
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/ovalshape.java
+package grail.draw.interfaces;
+
+public interface OvalShape extends ColorMutableShape{
+	public boolean getFilled();
+	public void setFilled(boolean isFilled);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/platform.java
+package grail.draw.interfaces;
+
+import grail.avatar.Avatar;
+
+public interface Platform extends OvalShape {
+	public void setLocation(int x, int y);
+	public OvalShape getPlatform();
+	public OvalShape getShadow();
+	public int getAvatarX(Avatar aAvatar);
+	public int getAvatarY(Avatar aAvatar);
+	public void move(int x, int y);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/point.java
+package grail.draw.interfaces;
+
+public interface Point extends Locator {
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/rectangle.java
+package grail.draw.interfaces;
+
+public interface Rectangle extends ColorMutableShape{
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/rotatingshape.java
+package grail.draw.interfaces;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.LINE_PATTERN)
+public interface RotatingShape extends ColoredShape {
+	public void setRadius(double val);
+	public double getRadius();
+	public double getAngle();
+	public void setAngle(double val);
+	public void rotate(int units);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/shape.java
+package grail.draw.interfaces;
+
+import util.annotations.Tags;
+
+@Tags({"BoundedShape"})
+public interface Shape extends Locator{
+	public int getHeight();
+	public int getWidth();
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/interfaces/stringshape.java
+package grail.draw.interfaces;
+
+import java.awt.Color;
+
+public interface StringShape extends Locator{
+
+	public String getText();
+	public void setText(String text);
+	public Color getTextColor();
+	public void setTextColor(Color newColor);
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicangleshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.draw.interfaces.AngleShape;
+import grail.draw.interfaces.RotatingShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Angle"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"X", "Y", "Height", "Width", "Radius", "Angle", "LeftLine", "RightLine" , "Color"})
+@EditablePropertyNames({"X", "Y", "Height", "Width", "Radius", "Angle", "Color"})
+public class BasicAngleShape extends BasicMutableShape implements AngleShape {
+	private RotatingShape leftLine, rightLine;
+	private double radius, angle;
+	private Color color;
+	
+	public BasicAngleShape() {
+		this(0,0);
+	}
+	
+	public BasicAngleShape(int initialX, int initialY) {
+		super();
+		final double startingRadius = 50;
+		final double leftStartingAngle = Math.PI;
+		final double rightStartingAngle = 0;
+		
+		x = initialX;
+		y = initialY;
+		leftLine = new LineRotatingShape(x, y, startingRadius, leftStartingAngle);
+		rightLine = new LineRotatingShape(x, y, startingRadius, rightStartingAngle);
+		this.height = leftLine.getHeight();
+		this.width = rightLine.getWidth() + leftLine.getWidth();
+		setRadius(startingRadius);
+		setAngle(rightStartingAngle);
+		setColor(Color.BLACK);
+	}
+
+
+	
+	public void setX(int x) {
+		super.setX(x);
+		leftLine.setX(this.x);
+		rightLine.setX(this.x);
+	}
+
+
+	
+	public void setY(int y) {
+		super.setY(y);
+		leftLine.setY(this.y);
+		rightLine.setY(this.y);
+
+	}
+	
+	public RotatingShape getLeftLine() {
+		return leftLine;
+	}
+
+	
+	public RotatingShape getRightLine() {
+		return rightLine;
+	}
+
+	
+	@Tags({"move"})
+	public void move(int x, int y) {
+		this.x = this.x + x;
+		this.y = this.y + y;
+		setX(this.x);
+		setY(this.y);
+	}
+	
+	public void setRadius(double radius) {
+		double oldRadius = this.radius;
+		this.radius = radius;
+		leftLine.setRadius(radius);
+		rightLine.setRadius(radius);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Radius", oldRadius, this.radius));
+		}
+	}
+	
+	public void setAngle(double angle) {
+		double oldAngle = this.angle;
+		this.angle = angle;
+		double halfAngle = angle/2;
+		leftLine.setAngle(halfAngle + Math.PI);
+		rightLine.setAngle(-halfAngle);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Angle", oldAngle, this.angle));
+		}
+	}
+	
+	public void rotate(int units) {
+		int unitToMoveRight = -units;
+		int unitsToMoveLeft = units;
+		rightLine.rotate(unitToMoveRight);
+		leftLine.rotate(unitsToMoveLeft);
+	}
+
+	
+	public void setHeight(int height) {
+		int oldHeight = this.height;
+		int halfWidth = this.width/2;
+		double radius = (double) Math.sqrt((halfWidth * halfWidth) + (height * height));
+		this.leftLine.setRadius(radius);
+		this.rightLine.setRadius(radius);
+		double angle = (double) Math.sinh(height/radius);
+		this.rightLine.setAngle(-angle);
+		this.leftLine.setAngle(Math.PI + angle);
+		this.height = (this.leftLine.getHeight() >= this.rightLine.getHeight())? Math.abs(leftLine.getHeight()):Math.abs(this.rightLine.getHeight());
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldHeight, this.height));
+		}
+		
+	}
+
+	
+	public void setWidth(int width) {
+		int oldWidth = this.width;
+		this.width = width;
+		int halfWidth = this.width/2;
+		double radius = (double) Math.sqrt((halfWidth * halfWidth) + (height * height));
+		this.leftLine.setRadius(radius);
+		this.rightLine.setRadius(radius);
+		double angle = (double) Math.sinh(height/radius);
+		this.rightLine.setAngle(-angle);
+		this.leftLine.setAngle(Math.PI + angle);
+		this.width = Math.abs(this.leftLine.getWidth()) + Math.abs(this.rightLine.getWidth());
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, this.width));
+		}
+		
+	}
+	
+	@Override
+	public int getWidth() {
+		return Math.abs(this.leftLine.getWidth()) + Math.abs(this.rightLine.getWidth());
+	}
+	
+	@Override
+	public int getHeight() {
+		return (this.leftLine.getHeight() >= this.rightLine.getHeight())? Math.abs(leftLine.getHeight()):Math.abs(this.rightLine.getHeight());
+	}
+	
+	public double getRadius() {
+		return radius;
+	}
+
+	
+	public double getAngle() {
+		return angle;
+	}
+
+	
+	public Color getColor() {
+		return color;
+	}
+
+	
+	public void setColor(Color newColor) {
+		Color oldColor = this.color;
+		this.color = newColor;
+		this.leftLine.setColor(newColor);
+		this.rightLine.setColor(newColor);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Color", oldColor, this.color));
+		}
+		
+	}
+
+	
+	public void scale(double scaleFactor) {
+		this.rightLine.setRadius(this.rightLine.getRadius() * scaleFactor);
+		this.leftLine.setRadius(this.leftLine.getRadius() * scaleFactor);
+		
+	}
+	
+	public static void addListenersToSubshapes(AngleShape shape, PropertyChangeListener listener) {
+		shape.getLeftLine().addPropertyChangeListener(listener);
+		shape.getRightLine().addPropertyChangeListener(listener);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicbridgemoat.java
+package grail.draw.objects;
+
+import java.beans.PropertyChangeListener;
+
+import grail.draw.interfaces.BridgeMoat;
+import grail.draw.interfaces.RotatingShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"X", "Y", "Width", "Height", "MoatLeft", "MoatRight", "BridgeBottom", "BridgeTop","PlankOne", "PlankTwo", "PlankThree", "PlankFour", "PlankFive", "PlankSix", "FallZoneX", "FallZoneY"})
+@EditablePropertyNames({"X", "Y", "Width", "Height"})
+public class BasicBridgeMoat extends BasicMutableShape implements BridgeMoat{
+	private RotatingShape moatLeft, moatRight, bridgeTop, bridgeBottom, plankOne, plankTwo, plankThree, plankFour, plankFive, plankSix;
+	
+	public BasicBridgeMoat(int x, int y) {
+		super();
+		final int defaultHeight = 400;
+		final int defaultWidth = 200;
+		this.x = x;
+		this.y = y;
+		this.height = defaultHeight;
+		this.width = defaultWidth;
+		this.moatLeft = new LineRotatingShape();
+		this.moatRight = new LineRotatingShape();
+		this.bridgeTop = new LineRotatingShape();
+		this.bridgeBottom = new LineRotatingShape();
+		this.plankOne = new LineRotatingShape();
+		this.plankTwo = new LineRotatingShape();
+		this.plankThree = new LineRotatingShape();
+		this.plankFour = new LineRotatingShape();
+		this.plankFive = new LineRotatingShape();
+		this.plankSix = new LineRotatingShape();
+		
+		buildBridgeMoat(this.x, this.y,this.width, this.height);
+	}
+	
+	private void buildBridgeMoat(int xLocation, int yLocation, int widthInt, int heightInt) {
+		final double width = widthInt;
+		final double height = heightInt;
+		final double halfWidth = ((double)width)/2;
+		final int moatRightStartX =(int) (xLocation + width);
+		final int moatLeftStartX = (int) (xLocation + width/2);
+		final int moatRightStartY = yLocation;
+		final int moatLeftStartY = yLocation;
+		final double moatRadius = (Math.sqrt(halfWidth * halfWidth + height * height));
+		final double moatAngle = (Math.PI - Math.atan(height/halfWidth));
+		this.moatLeft.setX(moatLeftStartX);
+		this.moatLeft.setY(moatLeftStartY);
+		this.moatLeft.setRadius(moatRadius);
+		this.moatLeft.setAngle(moatAngle);
+		this.moatRight.setX(moatRightStartX);
+		this.moatRight.setY(moatRightStartY);
+		this.moatRight.setRadius(moatRadius);
+		this.moatRight.setAngle(moatAngle);
+		
+		
+		final double widthDivision = 6;
+		final double heightDivision = 3;
+		final double sixthOfWidth = width/widthDivision;
+		final double thirdOfHeight = height/heightDivision;
+		final double fiveSixthOfWidth = 5 * sixthOfWidth;
+		final int bridgeTopX = (int) (xLocation + (sixthOfWidth));
+		final int bridgeTopY = (int) (yLocation + (thirdOfHeight));
+		final double bridgeTopRadius = (fiveSixthOfWidth);
+		final double bridgeTopAngle = 0;
+		this.bridgeTop.setX(bridgeTopX);
+		this.bridgeTop.setY(bridgeTopY);
+		this.bridgeTop.setRadius(bridgeTopRadius);
+		this.bridgeTop.setAngle(bridgeTopAngle);
+		
+		final double twoThirdsOfHeight = 2 * thirdOfHeight;
+		final int bridgeBottomX = (xLocation);
+		final int bridgeBottomY = (int) (yLocation + (twoThirdsOfHeight));
+		final double bridgeBottomRadius = (fiveSixthOfWidth);
+		final double bridgeBottomAngle = 0;
+		this.bridgeBottom.setX(bridgeBottomX);
+		this.bridgeBottom.setY(bridgeBottomY);
+		this.bridgeBottom.setRadius(bridgeBottomRadius);
+		this.bridgeBottom.setAngle(bridgeBottomAngle);
+		
+	
+		
+		int plankNumber = 0;
+		int plankLineX =(int) (xLocation + plankNumber * (sixthOfWidth));
+		final int plankLineY =(int) (yLocation + (twoThirdsOfHeight));
+		final double plankLineRadius = (Math.sqrt(Math.pow(thirdOfHeight, 2) + Math.pow(sixthOfWidth, 2)));
+		final double plankAngle = (-(Math.atan((thirdOfHeight)/(sixthOfWidth))));
+		this.plankOne.setX(plankLineX);
+		this.plankOne.setY(plankLineY);
+		this.plankOne.setRadius(plankLineRadius);
+		this.plankOne.setAngle(plankAngle);
+		
+		plankNumber++;
+		plankLineX = (int)(xLocation + plankNumber * (sixthOfWidth));
+		this.plankTwo.setX(plankLineX);
+		this.plankTwo.setY(plankLineY);
+		this.plankTwo.setRadius(plankLineRadius);
+		this.plankTwo.setAngle(plankAngle);
+
+		plankNumber++;
+		plankLineX = (int)(xLocation + plankNumber * (sixthOfWidth));
+		this.plankThree.setX(plankLineX);
+		this.plankThree.setY(plankLineY);
+		this.plankThree.setRadius(plankLineRadius);
+		this.plankThree.setAngle(plankAngle);
+		
+		plankNumber++;
+		plankLineX = (int) (xLocation + plankNumber * (sixthOfWidth));
+		this.plankFour.setX(plankLineX);
+		this.plankFour.setY(plankLineY);
+		this.plankFour.setRadius(plankLineRadius);
+		this.plankFour.setAngle(plankAngle);
+		
+		plankNumber++;
+		plankLineX = (int)(xLocation + plankNumber * (sixthOfWidth));
+		this.plankFive.setX(plankLineX);
+		this.plankFive.setY(plankLineY);
+		this.plankFive.setRadius(plankLineRadius);
+		this.plankFive.setAngle(plankAngle);
+		
+		plankNumber++;
+		plankLineX = (int)(xLocation + plankNumber * (sixthOfWidth));
+		this.plankSix.setX(plankLineX);
+		this.plankSix.setY(plankLineY);
+		this.plankSix.setRadius(plankLineRadius);
+		this.plankSix.setAngle(plankAngle);
+			
+	}
+
+	public BasicBridgeMoat() {
+		this(0,0);
+	}
+	
+	public void setHeight(int newHeight) {
+		this.height = newHeight;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+	}
+
+
+
+	
+	public void setWidth(int newWidth) {
+		this.width = newWidth;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+		
+	}
+
+	
+	public void setX(int x) {
+		this.x = x;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+	}
+
+
+	
+	public void setY(int y) {
+		this.y = y;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+	}
+
+	
+	public RotatingShape getMoatLeft() {
+		return this.moatLeft;
+	}
+
+	
+	public RotatingShape getMoatRight() {
+		return this.moatRight;
+	}
+
+	
+	public RotatingShape getBridgeBottom() {
+		return this.bridgeBottom;
+	}
+
+	
+	public RotatingShape getBridgeTop() {
+		return this.bridgeTop;
+	}
+
+	
+	public RotatingShape getPlankOne() {
+		return this.plankOne;
+	}
+
+	
+	public RotatingShape getPlankTwo() {
+		return this.plankTwo;
+	}
+
+	
+	public RotatingShape getPlankThree() {
+		return this.plankThree;
+	}
+
+	
+	public RotatingShape getPlankFour() {
+		return this.plankFour;
+	}
+
+	
+	public RotatingShape getPlankFive() {
+		return this.plankFive;
+	}
+
+	
+	public void setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+		
+	}
+
+	
+	public void setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);
+	}
+
+	
+	public RotatingShape getPlankSix() {
+		return this.plankSix;
+	}
+
+	
+	public void move(int x, int y) {
+		this.x = this.x + x;
+		this.y = this.y + y;
+		buildBridgeMoat(this.x, this.y, this.width, this.height);	
+	}
+
+	
+	public int getFallZoneX() {
+		final int sectionSize = 3;
+		final int twoThirdsOfWidth = 2*this.width/sectionSize;
+		return this.x + Math.abs(twoThirdsOfWidth);
+	}
+
+	
+	public int getFallZoneY() {
+		final int sectionSize = 8;
+		final int eightOfHeight = this.height / sectionSize;
+		return this.y + Math.abs(eightOfHeight); 
+	}
+	
+	public static void addListenerToSubShapes(BridgeMoat shape, PropertyChangeListener listener) {
+		shape.getMoatLeft().addPropertyChangeListener(listener);
+		shape.getMoatRight().addPropertyChangeListener(listener);
+		shape.getBridgeBottom().addPropertyChangeListener(listener);
+		shape.getBridgeTop().addPropertyChangeListener(listener);
+		shape.getPlankOne().addPropertyChangeListener(listener);
+		shape.getPlankTwo().addPropertyChangeListener(listener);
+		shape.getPlankThree().addPropertyChangeListener(listener);
+		shape.getPlankFour().addPropertyChangeListener(listener);
+		shape.getPlankFive().addPropertyChangeListener(listener);
+		shape.getPlankSix().addPropertyChangeListener(listener);
+	}
+
+	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basiccolormutableshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import grail.draw.interfaces.ColorMutableShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+@PropertyNames({"X", "Y", "Height", "Width", "Color", "Filled"})
+@EditablePropertyNames({"X", "Y", "Height", "Width", "Color", "Filled"})
+public class BasicColorMutableShape extends BasicMutableShape implements ColorMutableShape{
+	protected Color color;
+	protected boolean filled;
+	
+	public BasicColorMutableShape() {
+		super();
+		this.color = Color.BLACK;
+		this.filled = false;
+	}
+
+	
+	public void setColor(Color newColor) {
+		Color oldVal = this.color;
+		this.color = newColor;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent (this,"Color", oldVal, this.color ));
+		}
+		
+	}
+
+	
+	public Color getColor() {
+		return color;
+	}
+	
+
+	
+	public boolean getFilled() {
+		return this.filled;
+	}
+
+	
+	public void setFilled(boolean isFilled) {
+		boolean oldVal = this.filled;
+		this.filled = isFilled;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent (this,"Filled", oldVal, this.filled ));
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basiccoloredshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import grail.draw.interfaces.ColoredShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+
+@PropertyNames({"X", "Y", "Width", "Height", "Color", "Filled"})
+@EditablePropertyNames({"X", "Y", "Color", "Filled"})
+public class BasicColoredShape extends BasicShape implements ColoredShape{
+	protected Color color;
+	protected boolean filled;
+	
+	public BasicColoredShape() {
+		super();
+		this.color = Color.BLACK;
+		this.filled = false;
+	}
+
+	
+	public Color getColor() {
+		return this.color;
+	}
+
+	
+	public void setColor(Color newColor) {
+		Color oldVal = this.color;
+		this.color = newColor;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent (this,"Color", oldVal, this.color ));
+		}
+		
+	}
+	
+	public boolean getFilled() {
+		return this.filled;
+	}
+
+	
+	public void setFilled(boolean isFilled) {
+		boolean oldVal = this.filled;
+		this.filled = isFilled;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent (this,"Filled", oldVal, this.filled ));
+		}
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicimageshape.java
+package grail.draw.objects;
+
+import java.beans.PropertyChangeEvent;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import grail.draw.interfaces.ImageShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.IMAGE_PATTERN)
+@PropertyNames({"Height", "Width", "X", "Y","ImageFileName"})
+@EditablePropertyNames({"Height", "Width", "X", "Y", "ImageFileName"})
+public class BasicImageShape extends BasicMutableShape implements ImageShape {
+	private String imageFileName;
+	private Icon image;
+	
+	public BasicImageShape(String imageFileName) {
+		super();
+		this.imageFileName = imageFileName;
+		try {
+			image = new ImageIcon(imageFileName);
+			this.height = image.getIconHeight();
+			this.width = image.getIconWidth();
+		} catch (Exception e) {
+			System.out.println("The image was not found!!");
+		}
+
+	}
+
+
+	
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	
+	public void setImageFileName(String newName) {
+		String oldFileName = this.imageFileName;
+		this.imageFileName = newName;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent (this,"ImageFileName", oldFileName, this.imageFileName ));
+		}
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basiclocator.java
+package grail.draw.objects;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.draw.interfaces.Locator;
+import grail.model.APropertyListenerSupport;
+import grail.model.PropertyListenerSupport;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@PropertyNames({"X", "Y"})
+@EditablePropertyNames({"X", "Y"})
+@Tags({"Locatable"})
+public class BasicLocator implements Locator{
+	protected int x,y;
+	protected PropertyListenerSupport propertyListenerSupport = 
+	         new APropertyListenerSupport();
+
+	
+	public BasicLocator() {
+		this.x = 0;
+		this.y = 0;
+	}
+	
+	public BasicLocator(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	
+	public int getX() {
+		return this.x;
+	}
+
+	
+	public void setX(int newX) {
+		int oldVal = this.x;
+		this.x = newX;
+		if (propertyListenerSupport != null) {
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal,this.x));
+		}
+		
+	}
+
+	
+	public int getY() {
+		return y;
+	}
+
+	
+	public void setY(int newY) {
+		int oldVal = this.y;
+		this.y = newY;
+		if (propertyListenerSupport != null) {
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldVal,this.y));
+		}
+		
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		this.propertyListenerSupport.addElement(arg0);
+		
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicmutableshape.java
+package grail.draw.objects;
+
+import java.beans.PropertyChangeEvent;
+
+import grail.draw.interfaces.MutableShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+@PropertyNames({"X", "Y", "Height", "Width"})
+@EditablePropertyNames({"X", "Y", "Height", "Width"})
+public class BasicMutableShape extends BasicShape implements MutableShape{
+
+	public BasicMutableShape() {
+		super();
+	}
+	
+	public BasicMutableShape(int x, int y) {
+		super(x,y);
+	}
+
+	
+	public void setHeight(int newHeight) {
+		int oldVal = this.height;
+		this.height = newHeight;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldVal, this.height));
+		}
+		
+		
+	}
+
+	
+	public void setWidth(int newWidth) {
+		int oldVal = this.height;
+		this.width = newWidth;
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldVal, this.width));
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicovalshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+
+import grail.draw.interfaces.OvalShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+
+@StructurePattern(StructurePatternNames.OVAL_PATTERN)
+@PropertyNames({"X", "Y", "Width", "Height", "Color", "Filled"})
+@EditablePropertyNames({"X", "Y", "Width", "Height", "Color", "Filled"})
+public class BasicOvalShape extends BasicColorMutableShape implements OvalShape{
+	
+	public BasicOvalShape() {
+		super();
+		final int defaultValue = 100;
+		this.x = defaultValue;
+		this.y = defaultValue;
+		this.height = defaultValue;
+		this.width = defaultValue;
+		this.color = Color.BLACK;
+		this.filled = true;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicrectangle.java
+package grail.draw.objects;
+
+import grail.draw.interfaces.Rectangle;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@StructurePattern(StructurePatternNames.RECTANGLE_PATTERN)
+@PropertyNames({"X", "Y", "Height", "Width"})
+@EditablePropertyNames({"X", "Y", "Height", "Width"})
+@Tags({"Locatable"})
+public class BasicRectangle extends BasicColorMutableShape implements Rectangle{
+
+	public BasicRectangle() {
+		super();
+		final int defaultWidthAndHeight = 100;
+		this.height = defaultWidthAndHeight;
+		this.width = defaultWidthAndHeight;
+	}
+	
+	public BasicRectangle(int width, int height) {
+		super();
+		this.width = width;
+		this.height = height;
+		
+	}
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicshape.java
+package grail.draw.objects;
+
+import grail.draw.interfaces.Shape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@PropertyNames({"X", "Y", "Height", "Width"})
+@EditablePropertyNames({"X", "Y"})
+@Tags({"BoundedShape"})
+public class BasicShape extends BasicLocator implements Shape{
+	protected int height, width;
+	
+	public BasicShape() {
+		super();
+	}
+	
+	public BasicShape(int x, int y) {
+		super(x,y);
+	}
+
+
+	
+	public int getHeight() {
+		return height;
+	}
+
+	
+	public int getWidth() {
+		return width;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/basicstringshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+
+import grail.draw.interfaces.StringShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.STRING_PATTERN)
+@PropertyNames({"X", "Y", "Text", "TextColor"})
+@EditablePropertyNames({"X", "Y", "Text", "TextColor"})
+public class BasicStringShape extends BasicLocator implements StringShape{
+	String text;
+	private Color textColor;
+	
+	public BasicStringShape() {
+		this("Default",0,0);
+		
+	}
+	
+	public BasicStringShape(String text) {
+		this(text,0,0);
+	}
+	
+	public BasicStringShape(String text, int xPos, int yPos) {
+		super();
+		this.x = xPos;
+		this.y = yPos;
+		this.text = text;
+		this.textColor = Color.black;
+	}
+
+	@Override
+	public String getText() {
+		return text;
+	}
+
+	@Override
+	public void setText(String text) {
+		String oldText = this.text;
+		this.text = text;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Text", oldText,this.text));
+		}
+	}
+	
+
+	@Override
+	public Color getTextColor() {
+		return this.textColor;
+	}
+
+	@Override
+	public void setTextColor(Color newColor) {
+		Color oldColor = this.textColor;
+		this.textColor = newColor;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "TextColor", oldColor,this.textColor));
+		}
+		
+	}
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/linerotatingshape.java
+package grail.draw.objects;
+
+import java.beans.PropertyChangeEvent;
+
+import grail.draw.interfaces.RotatingShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"RotatingLine"})
+@StructurePattern(StructurePatternNames.LINE_PATTERN)
+@PropertyNames({"X", "Y", "Height", "Width","Angle", "Radius" ,"Color", "Filled"})
+@EditablePropertyNames({"X", "Y","Angle", "Radius","Color", "Filled"})
+public class LineRotatingShape extends BasicColoredShape implements RotatingShape{
+	private double radius, angle;
+
+	public LineRotatingShape() {
+	this(0,0,0,0);
+	}
+	
+	public LineRotatingShape(int x, int y, double radius, double angle) {
+		super();
+		this.x = x;
+		this.y = y;
+		setRadius(radius);
+		setAngle(angle);
+	}
+
+
+	
+	public void setRadius(double val) {
+		int oldHeight = this.height;
+		int oldWidth = this.width;
+		this.radius = val;
+		double tempHeight =  this.radius * Math.sin(this.angle);
+		this.height = (int) tempHeight;
+		double tempWidth = this.radius * Math.cos(this.angle);
+		this.width = (int) tempWidth;
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this,"Height", oldHeight, this.height));
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this,"Width", oldWidth, this.width));
+		}
+		
+	}
+
+	
+	public void setAngle(double val) {
+		int oldHeight = this.height;
+		int oldWidth = this.width;
+		this.angle = val;
+		double tempHeight =  this.radius * Math.sin(this.angle);
+		this.height = (int) tempHeight;
+		double tempWidth = this.radius * Math.cos(this.angle);
+		this.width = (int) tempWidth;
+		
+		if (this.propertyListenerSupport != null) {
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this,"Height", oldHeight, this.height));
+			this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this,"Width", oldWidth, this.width));
+		}
+		
+	}
+
+	@Tags({"rotate"})
+	public void rotate(int units) {
+		final double secondsInAMinute = 60;
+		final double fullRotation = Math.PI * 2;
+		final double clockUnit = fullRotation/secondsInAMinute;
+		double distanceToRotate = units * clockUnit;
+		double angleToSet = this.angle + distanceToRotate;
+		setAngle(angleToSet);
+	}
+
+	
+	public double getRadius() {
+		return this.radius;
+	}
+	
+	public double getAngle() {
+		return this.angle;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/draw/objects/platformovalshape.java
+package grail.draw.objects;
+
+import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.avatar.Avatar;
+import grail.draw.interfaces.OvalShape;
+import grail.draw.interfaces.Platform;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"X", "Y", "Width", "Height", "Color", "Filled", "Platform", "Shadow"})
+@EditablePropertyNames({"X", "Y", "Width", "Height", "Color", "Filled"})
+public class PlatformOvalShape extends BasicOvalShape implements Platform{
+	private OvalShape platform, shadow;
+	
+	public PlatformOvalShape() {
+		this(0,0);
+		
+	}
+	
+	public PlatformOvalShape(int x, int y) {
+		final int defaultWidth = 120;
+		final int defaultHeight = 25;
+		this.x = x;
+		this.y = y;
+		this.color = Color.BLACK;
+		this.platform = new BasicOvalShape();
+		this.shadow = new BasicOvalShape();
+		this.platform.setColor(Color.DARK_GRAY);
+		this.shadow.setColor(Color.lightGray);
+		this.width = defaultWidth;
+		this.height = defaultHeight;
+		buildPlatform(this.width, this.height);
+	}
+
+	
+	public void setHeight(int newVal) {
+		int oldHeight = this.height;
+		this.height = newVal;
+		buildPlatform(this.width,this.height);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Height", oldHeight, this.height));
+		}
+	}
+
+	
+	public void setWidth(int newVal) {
+		int oldWidth = this.width;
+		this.width = newVal;
+		buildPlatform(this.width,this.height);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, this.width));
+		}
+	}
+
+
+	
+	public void setX(int x) {
+		int oldX = this.x;
+		this.x = x;
+		setLocation(this.x,this.y);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, this.x));
+		}
+	}
+	
+	public void setY(int y) {
+		int oldY = this.y;
+		this.y = y;
+		setLocation(this.x,this.y);
+		if (this.propertyListenerSupport != null){
+		this.propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, this.y));
+		}
+	}
+
+	
+	private void buildPlatform(int width, int height) {
+		final int platformHeight = height; //25
+		final int platformWidth = width; //100
+		final double scaleFactor = .2;
+		final double halfValue = 2;
+		final int shadowHeight = (int)((height * scaleFactor) + height);
+		final int shadowWidth =(int) ((width * scaleFactor) +  width);
+		this.platform.setX(x);
+		this.platform.setY(y);
+		this.platform.setHeight(platformHeight);
+		this.platform.setWidth(platformWidth);
+		
+		final int shadowOffX = (int)((width* scaleFactor)/halfValue);
+		final int shadowOffY = (int)((height * scaleFactor)/halfValue);
+		this.shadow.setX(x - shadowOffX);
+		this.shadow.setY(y - shadowOffY);
+		this.shadow.setHeight(shadowHeight);
+		this.shadow.setWidth(shadowWidth);
+		
+	}
+	
+	public void move(int x, int y) {
+		this.platform.setX(this.platform.getX() + x);
+		this.platform.setY(this.platform.getY() + y);
+		this.shadow.setX(this.shadow.getX() + x);
+		this.shadow.setY(this.shadow.getY()  + y);
+		this.x = this.x + x;
+		this.y = this.y + y;
+	}
+
+	
+	public void setLocation(int x, int y) {
+		int xChange = x - this.x;
+		int yChange = y - this.y;
+		move(xChange, yChange);	
+	}
+
+	
+	public OvalShape getShadow() {
+		return this.shadow;
+	}
+	
+	
+	public OvalShape getPlatform() {
+		return this.platform;
+	}
+
+	
+	public int getAvatarX(Avatar aAvatar) {
+		return this.x + Math.abs(this.width/2) - Math.abs(aAvatar.getHead().getWidth()/2);
+	}
+
+	
+	public int getAvatarY(Avatar aAvatar) {
+		return this.y - aAvatar.getHeight();
+	}
+	
+	public static void addListenersToSubshapes(Platform shape, PropertyChangeListener listener) {
+		shape.getPlatform().addPropertyChangeListener(listener);
+		shape.getShadow().addPropertyChangeListener(listener);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/ascannerbean.java
+package grail.helpers;
+
+import util.annotations.ComponentWidth;
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern; 
+import util.annotations.StructurePatternNames; 
+import util.annotations.Tags;
+import grail.interfaces.WordToken;
+import grail.model.APropertyListenerSupport;
+import grail.model.PropertyListenerSupport;
+import grail.tokens.EndStoreToken;
+import grail.tokens.MinusStoreToken;
+import grail.tokens.NumberStoreToken;
+import grail.tokens.PlusStoreToken;
+import grail.tokens.QuotedStoreToken;
+import grail.tokens.StartStoreToken;
+import grail.tokens.WordStoreToken;
+import grail.interfaces.NumberToken;
+import grail.interfaces.StoreToken;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.command.ApproachCommandToken;
+import grail.command.CallCommandToken;
+import grail.command.DefineCommandToken;
+import grail.command.MoveCommandToken;
+import grail.command.ProceedAllCommandToken;
+import grail.command.RedoCommandToken;
+import grail.command.RepeatCommandToken;
+import grail.command.RotateLeftArmCommandToken;
+import grail.command.RotateRightArmCommandToken;
+import grail.command.SayCommandToken;
+import grail.command.SleepCommandToken;
+import grail.command.ThreadCommandToken;
+import grail.command.UndoCommandToken;
+import grail.command.WaitCommandToken;
+import grail.interfaces.ScannerBean;
+import grail.interfaces.MutableIterator;
+
+@Tags({"ScannerBean"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"ScannedString", "Errors" , "Tokens", "TokenList"}) 
+@EditablePropertyNames({"ScannedString"})
+
+public class AScannerBean implements ScannerBean {
+	private String scannedString = ""; 
+	private StoreToken[] largeTokenArray;
+	private StoreToken[] smallTokenArray;
+	private int arrayPosition = 0;
+	private int errorPosition = 0;
+	private String[] errorString;
+	private TokenHistory tokenList;
+	private static final int COMPONENT_WIDTH = 600;
+	protected PropertyListenerSupport propertyListenerSupport = new APropertyListenerSupport();
+	
+	public AScannerBean() {
+		//fix null values in arrays
+		largeTokenArray = new StoreToken[0];
+		smallTokenArray = new StoreToken[0];
+		tokenList = new ATokenHistory();
+		errorString = new String[1];
+		String defaultError = "No Errors Found!";
+		errorString[0] = defaultError;
+	}
+	
+	public void setScannedString(String input) {
+		//initial values
+		scannedString = input;
+		arrayPosition = 0;
+		errorPosition = 0;
+		largeTokenArray = new StoreToken[input.length()];
+		this.errorString = new String[input.length()];
+		
+		//populate array
+		populateArray(scannedString);
+		smallTokenArray = parseArray(largeTokenArray);
+		errorString = errorCheck(errorString);
+		if (propertyListenerSupport != null) {
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "ScannedString", null, this.scannedString));
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Errors", null, this.errorString));
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "Tokens", null, this.smallTokenArray));
+			propertyListenerSupport.notifyAllListeners(new PropertyChangeEvent(this, "TokenList", null, this.tokenList));
+
+		}
+		
+	}
+	
+	@ComponentWidth (COMPONENT_WIDTH)
+	public String getScannedString() {
+		return scannedString;
+	}
+	
+	public StoreToken[] getTokens() {
+		return this.smallTokenArray;
+	}
+	
+	public String[] getErrors() {
+		return this.errorString;
+	}
+	
+	
+	private void populateArray(String input) {
+		MutableIterator scan = new QuoteMutableIterator(input);
+		while (scan.hasNext()) {
+			
+			String currentToken = scan.next();
+            addTokenToHistory(currentToken);
+            addTokenToArray(currentToken);
+		}
+		
+	}
+	
+	private StoreToken[] parseArray(StoreToken[] largeArray) {
+		int index = 0;
+		int smallSize = getParsedArraySize(largeArray);
+		StoreToken[] smallArray = new StoreToken[smallSize];
+		while (index < smallSize) {
+			smallArray[index] = largeArray[index];
+			index++;
+		}
+		
+		return smallArray;
+	}
+	
+	private int getParsedArraySize(StoreToken[] input) {
+		int currentSize = 0;
+		for (int i = 0; i < input.length; i++) {
+			if (!(input[i] == null)) {
+				currentSize++;
+			}
+		}
+		
+		return currentSize;
+	}
+	
+	private void addTokenToArray(String token) {
+		int currentTokenLength = token.length();
+			char currentChar = token.charAt(0);
+			if ((currentChar == '+') && currentTokenLength == 1) {
+				StoreToken output = new PlusStoreToken(token);
+				largeTokenArray[arrayPosition] = output;
+				
+				arrayPosition++;
+				
+			} else if (currentChar == '-' && currentTokenLength == 1) {
+				StoreToken output = new MinusStoreToken(token);
+				largeTokenArray[arrayPosition] = output;
+				
+				arrayPosition++;
+			} else if (currentChar == '"') {
+				if ((token.charAt(currentTokenLength - 1) == '"') && currentTokenLength >1){
+					token = processFinalToken(token);
+					StoreToken output = new QuotedStoreToken(token);
+					
+					largeTokenArray[arrayPosition] = output;
+					arrayPosition++;
+					
+				} else {
+					errorString[errorPosition] = token + " was missing an end quote. Stored as a single word quote.";
+					token = removeStartQuote(token);
+					StoreToken output = new QuotedStoreToken(token);
+					
+					largeTokenArray[arrayPosition] = output;
+					arrayPosition++;
+					errorPosition++;
+					
+				}
+			} else if (isNumber(token)) {
+				NumberToken numClass = new NumberStoreToken(token);
+				largeTokenArray[arrayPosition] = numClass;
+				arrayPosition++;
+				
+			} else if (isWord(token)) {
+				WordToken input = generateWordClass(token);
+				largeTokenArray[arrayPosition] = input;
+				arrayPosition++;
+				
+			} else if (currentChar == '{' && currentTokenLength == 1) {
+				StoreToken output = new StartStoreToken(token);
+				
+				largeTokenArray[arrayPosition] = output;
+				arrayPosition++;
+				
+			}else if (currentChar == '}' && currentTokenLength == 1) {
+				StoreToken output = new EndStoreToken(token);
+				
+				largeTokenArray[arrayPosition] = output;
+				arrayPosition++;
+				
+			}else {
+				errorString[errorPosition] = token + " is an illegal Token. Token was ignored.";
+				errorPosition++;
+			}
+		
+	}
+	
+	private WordToken generateWordClass(String input) {
+		WordToken ret;
+		if ("move".equalsIgnoreCase(input)) {
+			ret = new MoveCommandToken(input);
+		} else if ("say".equalsIgnoreCase(input)){
+			ret = new SayCommandToken(input);
+		} else if ("rotateleftarm".equalsIgnoreCase(input)){
+			ret = new RotateLeftArmCommandToken(input);
+		} else if ("rotaterightarm".equalsIgnoreCase(input)){
+			ret = new RotateRightArmCommandToken(input);
+		} else if ("repeat".equalsIgnoreCase(input)){
+			ret = new RepeatCommandToken(input);
+		} else if ("define".equalsIgnoreCase(input)){
+			ret = new DefineCommandToken(input);
+		} else if ("call".equalsIgnoreCase(input)){
+			ret = new CallCommandToken(input);
+		} else if ("thread".equalsIgnoreCase(input)){
+			ret = new ThreadCommandToken(input);
+		} else if ("wait".equalsIgnoreCase(input)){
+			ret = new WaitCommandToken(input);
+		} else if ("proceedall".equalsIgnoreCase(input)){
+			ret = new ProceedAllCommandToken(input);
+		} else if ("sleep".equalsIgnoreCase(input)){
+			ret = new SleepCommandToken(input);
+		} else if ("undo".equalsIgnoreCase(input)){
+			ret = new UndoCommandToken(input);
+		} else if ("redo".equalsIgnoreCase(input)){
+			ret = new RedoCommandToken(input);
+		} else if ("approach".equalsIgnoreCase(input)) {
+			ret = new ApproachCommandToken(input);
+		} else {
+			ret = new WordStoreToken(input);
+		}
+		return ret;
+	}
+	
+/*	private static boolean isLetter(char inputChar) {
+		return ((inputChar >= 'a' && inputChar <= 'z') || (inputChar >= 'A' && inputChar <= 'Z'));
+	} */
+	
+	private boolean checkForStartQuote(String token) {
+		if (token.length() > 0 && token.charAt(0) == '"') {
+			return true;
+		} 
+		return false;
+		
+	}
+	
+	private boolean checkForEndQuote(String token) {
+		if (token.length() > 0  && token.charAt(token.length() - 1) == '"') {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private String removeStartQuote(String token) {
+		String returnString = "";
+		int index = 0;
+		while (index < token.length() - 1) {
+			returnString = returnString + token.charAt(index + 1);
+			index++;
+		}
+		
+		return returnString;
+	} 
+	
+	private boolean isWord(String token) {
+		int index = 0;
+		while (index < token.length()) {
+			if (!Character.isLetter(token.charAt(index))) {
+				return false;
+			}
+			index++;
+		}
+		
+		return true;
+	}
+	
+	private boolean isNumber(String token){
+		int index = 0;
+		while (index < token.length()) {
+			if (!Character.isDigit(token.charAt(index))) {
+				return false;
+			}
+			index++;
+		}
+		
+		return true;
+	}
+	
+	
+	private String processFinalToken(String token) {
+		String returnString = token;
+		
+		if (checkForStartQuote(token) && checkForEndQuote(token)) {
+			returnString = returnString.substring(1, token.length() - 1);
+		}
+		
+		return returnString;
+	}
+	
+	private String[] errorCheck(String[] input) {
+		int currentSize = 0;
+		for (int i = 0; i < input.length; i++) {
+			if (!(input[i] == null)) {
+				currentSize++;
+			}
+		}
+		String[] ret;
+		if (currentSize > 0) {
+			ret = new String[currentSize];
+			int index = 0;
+			while (index < currentSize) {
+				ret[index] = input[index];
+				index++;
+			}
+		} else {
+			ret = new String[1];
+			ret[0] = "No Errors were Found!";
+		}
+		
+		return ret;
+	}
+
+	public TokenHistory getTokenList() {
+		return this.tokenList;
+	}
+	
+	private void addTokenToHistory(String token) {
+		int currentTokenLength = token.length();
+		char currentChar = token.charAt(0);
+		if ((currentChar == '+') && currentTokenLength == 1) {
+			StoreToken output = new PlusStoreToken(token);
+			tokenList.add(output);
+			
+		} else if (currentChar == '-' && currentTokenLength == 1) {
+			StoreToken output = new MinusStoreToken(token);
+			tokenList.add(output);
+		} else if (currentChar == '"') {
+			if ((token.charAt(currentTokenLength - 1) == '"') && currentTokenLength >1){
+				token = processFinalToken(token);
+				StoreToken output = new QuotedStoreToken(token);
+				tokenList.add(output);
+				
+			} else {
+				token = removeStartQuote(token);
+				StoreToken output = new QuotedStoreToken(token);
+				tokenList.add(output);
+				
+			}
+		} else if (isNumber(token)) {
+			NumberToken numClass = new NumberStoreToken(token);
+			tokenList.add(numClass);
+			
+		} else if (isWord(token)) {
+			WordToken input = generateWordClass(token);
+			tokenList.add(input);
+			
+		} else if (currentChar == '{' && currentTokenLength == 1) {
+			StoreToken output = new StartStoreToken(token);
+			tokenList.add(output);
+			
+		}else if (currentChar == '}' && currentTokenLength == 1) {
+			StoreToken output = new EndStoreToken(token);
+			tokenList.add(output);
+			
+		}else {
+			
+		}
+	}
+
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		propertyListenerSupport.addElement(arg0);
+		
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/atokenhistory.java
+package grail.helpers;
+
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"ClearableHistory"})
+@StructurePattern(StructurePatternNames.LIST_PATTERN) 
+@PropertyNames({}) 
+@EditablePropertyNames({})
+public class ATokenHistory implements TokenHistory {
+	public static final int MAX_SIZE = 100;
+	protected StoreToken[] contents = new StoreToken[MAX_SIZE];
+	protected int size = 0;
+	
+	public ATokenHistory() {
+	
+	}
+
+	public int size() {
+		return size;
+	}
+	
+	public StoreToken get(int index) {
+		return contents[index];
+	}
+
+	protected boolean isFull() {
+		return size == MAX_SIZE;
+
+	}
+	
+	public void add(StoreToken element) {
+		if (isFull()) {
+			clear();
+		}
+		else {
+			contents[size] = element;
+			size++;
+		}
+	} 
+	
+	public String toString() {
+		String retVal = "";
+		for (int i = 0; i < size; i++) {
+			String separator = (i == 0)?"":",";
+			retVal += separator + contents[i];
+		}		
+		return super.toString() + ":The tokens stored are:" + retVal;
+	}
+
+	@Tags({"clear"})
+	public void clear() {
+		for(int i = 0; i < size; i++) {
+			contents[i] = null;
+		}
+		size = 0;
+	}
+	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/basictable.java
+package grail.helpers;
+
+import java.util.ArrayList;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Table"})
+@StructurePattern(StructurePatternNames.MAP_PATTERN)
+public class BasicTable implements Table{
+	protected ArrayList<Object> valueColumn;
+	protected ArrayList<String> keyColumn;
+	
+	public BasicTable() {
+		this.valueColumn = new ArrayList<Object>();
+		this.keyColumn = new ArrayList<String>();
+		
+	}
+	
+	public void put(String key, Object val) {
+		int spotToCheck = 0;
+		if (this.keyColumn.contains(key) && !(key == null || val == null)) {
+			while (spotToCheck < this.keyColumn.size()) {
+				String currentKey = this.keyColumn.get(spotToCheck);
+				if (currentKey.equals(key)) {
+					this.valueColumn.set(spotToCheck, val);
+				}
+				spotToCheck++;
+	
+			}
+		} else if (!(key == null || val == null)){
+			this.keyColumn.add(key);
+			this.valueColumn.add(val);
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	
+	public Object get(String key) {
+		int spotToCheck = 0;
+		while (spotToCheck < this.keyColumn.size()) {
+			String currentKey = this.keyColumn.get(spotToCheck);
+			if (currentKey.equals(key)) {
+				return this.valueColumn.get(spotToCheck);
+			}
+			spotToCheck++;
+		}
+		return null;
+	}
+
+	public void print() {
+		int startingPoint = 0;
+		while (startingPoint < this.valueColumn.size()) {
+			String toPrint = "Key: " + this.keyColumn.get(startingPoint) + " Value: " + this.valueColumn.get(startingPoint);
+			System.out.println(toPrint);
+			startingPoint++;
+		}
+		
+	}
+
+	public boolean contains(String key) {
+		int spotToCheck = 0;
+		while (spotToCheck < this.keyColumn.size()) {
+			String currentKey = this.keyColumn.get(spotToCheck);
+			if (currentKey.equals(key)) {
+				return true;
+			}
+			spotToCheck++;
+		}
+		return false;
+	}
+
+	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/componentbuilder.java
+package grail.helpers;
+
+import java.awt.Color;
+import grail.draw.interfaces.Rectangle;
+import grail.draw.objects.BasicRectangle;
+import grail.paint.AObservablePainter;
+import grail.paint.ObservablePainter;
+import grail.scene.BridgeScene;
+import grail.view.ABackgroundView;
+import grail.view.AGorgeView;
+import grail.view.APlatformView;
+import grail.view.AnAvatarView;
+import grail.view.AvatarView;
+import grail.view.BackgroundView;
+import grail.view.GorgeView;
+import grail.view.PlatformView;
+
+public class ComponentBuilder {
+	
+	public static ObservablePainter buildObservablePainterFromScene(BridgeScene scene, Color backgroundcolor) {
+		final int frameWidth = 1600;
+		final int frameHeight = 1000;
+		
+		ObservablePainter singleComponentModel = new AObservablePainter();
+		
+		Rectangle backgroundRectangle = new BasicRectangle();
+		backgroundRectangle.setHeight(frameHeight);
+		backgroundRectangle.setWidth(frameWidth);
+		backgroundRectangle.setColor(backgroundcolor);
+		
+		//create views to go in ObservablePainter
+		BackgroundView background = new ABackgroundView(backgroundRectangle, singleComponentModel);
+		AvatarView arthurView = new AnAvatarView(scene.getArthur(), singleComponentModel);
+		AvatarView galahadView = new AnAvatarView(scene.getGalahad(), singleComponentModel);
+		AvatarView robinView = new AnAvatarView(scene.getRobin(), singleComponentModel);
+		AvatarView lancelotView = new AnAvatarView(scene.getLancelot(), singleComponentModel);
+		AvatarView guardView = new AnAvatarView(scene.getGuard(), singleComponentModel);
+		PlatformView knightPlatformView = new APlatformView(scene.getKnightArea(), singleComponentModel);
+		PlatformView guardPlatformView = new APlatformView(scene.getGuardArea(), singleComponentModel);
+		GorgeView gorgeView = new AGorgeView(scene.getGorge(), singleComponentModel);
+		
+		//Add views to ObservablePainter
+		
+		singleComponentModel.addPaintListener(background);
+		singleComponentModel.addPaintListener(knightPlatformView);
+		singleComponentModel.addPaintListener(guardPlatformView);
+		singleComponentModel.addPaintListener(gorgeView);
+		singleComponentModel.addPaintListener(arthurView);
+		singleComponentModel.addPaintListener(galahadView);
+		singleComponentModel.addPaintListener(robinView);
+		singleComponentModel.addPaintListener(lancelotView);
+		singleComponentModel.addPaintListener(guardView);
+
+		
+		return singleComponentModel;
+	}
+	
+	public static ObservablePainter buildObservablePainterFromScene(BridgeScene scene) {
+		return buildObservablePainterFromScene(scene, Color.WHITE);
+	} 
+
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/quotemutableiterator.java
+package grail.helpers;
+
+import grail.interfaces.MutableIterator;
+
+public class QuoteMutableIterator implements MutableIterator{
+	private int currentIndexPosition = 0;
+	private String inputString = "";
+	
+	
+	public QuoteMutableIterator(String input) {
+		inputString = input;
+	}
+
+	@Override
+	public boolean hasNext() {
+		char currentChar = 'a';
+		
+		//probes for another token. Returns false if it does not find one.
+		int currentPosition = currentIndexPosition;
+		int stringLength = inputString.length();
+		if ((currentPosition < stringLength)) {
+			currentChar = inputString.charAt(currentPosition);
+		}	
+		while ((currentChar == ' ') && currentPosition < stringLength) {
+			currentPosition++;
+			if ((currentPosition < stringLength)) {
+				currentChar = inputString.charAt(currentPosition);
+			} else {
+				break;
+			}
+		}
+		
+		if (currentPosition < (stringLength)) {
+			return true;
+		} 
+			return false;
+	}
+
+	@Override
+	public String next() {
+		String currentReturn = "";
+		
+		char currentChar = inputString.charAt(currentIndexPosition);
+		if ((currentChar == ' ')){
+			clearWhiteSpace();
+			if (currentIndexPosition < inputString.length()){
+				currentChar = inputString.charAt(currentIndexPosition);
+			}
+			if (currentChar == '"') {
+				currentReturn = processQuote();
+			} else {
+				currentReturn = createNextToken(currentReturn, currentChar);
+			}
+		} else {
+			if (currentIndexPosition < inputString.length()){
+				currentChar = inputString.charAt(currentIndexPosition);
+			}
+			
+			if (currentChar == '"') {
+				currentReturn = processQuote();
+			} else {
+				currentReturn = createNextToken(currentReturn, currentChar);
+			}
+
+		}
+		
+		return currentReturn;
+	}
+
+	
+	@Override
+	public void setString(String input) {
+		this.inputString = input;
+		
+	}
+
+	@Override
+	public void setCurrentPosition(int position) {
+		currentIndexPosition = position;
+		
+	}
+
+	@Override
+	public int getCurrentPosition() {
+		return currentIndexPosition;
+	}
+
+	@Override
+	public String getString() {
+		return inputString;
+	}
+
+	
+	private void clearWhiteSpace() {
+		char currentChar = 'a';
+		int stringLength = inputString.length();
+		if ((currentIndexPosition < stringLength)) {
+			currentChar = inputString.charAt(currentIndexPosition);
+		}	
+		while ((currentChar == ' ') && currentIndexPosition < stringLength) {
+			currentIndexPosition++;
+			if (!(currentIndexPosition >= stringLength)) {
+				currentChar = inputString.charAt(currentIndexPosition);
+			} else {
+				break;
+			}
+		}
+	}
+	
+	private String createNextToken(String currentReturn, char currentChar) {
+		int stringLength = inputString.length();
+		while(!(currentChar == ' ') && currentIndexPosition < stringLength) {
+			currentReturn = currentReturn + currentChar;
+			currentIndexPosition++;
+				if (currentIndexPosition < inputString.length()){
+				currentChar = inputString.charAt(currentIndexPosition);
+				}
+		}
+		
+		return currentReturn;
+	}
+	
+	private String processQuote() {
+		String returnString = "";
+		int tempIndex = currentIndexPosition;
+		int tempIndexQuote = currentIndexPosition;
+		String firstToken = "";
+		char currentChar = inputString.charAt(tempIndex);
+		returnString = returnString + currentChar;
+		
+		//makes the first token without a space in case one is not found.
+		while(!(currentChar == ' ') && tempIndex < inputString.length()) {
+			firstToken = firstToken + currentChar;
+			tempIndex++;
+				if (tempIndex < inputString.length()){
+				currentChar = inputString.charAt(tempIndex);
+				}
+		}
+		
+		tempIndexQuote++;
+		if ((tempIndexQuote < inputString.length())) {
+			currentChar = inputString.charAt(tempIndexQuote);
+		} else {
+			currentChar = inputString.charAt(currentIndexPosition);
+		}
+		
+		while(!(currentChar == '"') && tempIndexQuote < inputString.length()) {
+			returnString = returnString + currentChar;
+			tempIndexQuote++;
+				if (tempIndexQuote < inputString.length()){
+				currentChar = inputString.charAt(tempIndexQuote);
+				}
+		}
+		
+		if (currentChar == '"' && !(tempIndexQuote == inputString.length())) {
+			returnString = returnString + "\"";
+			tempIndexQuote++;
+			currentIndexPosition = tempIndexQuote;
+			return returnString;
+		} else {
+			currentIndexPosition = tempIndex;
+			return firstToken;
+		}
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/table.java
+package grail.helpers;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Table"})
+@StructurePattern(StructurePatternNames.MAP_PATTERN)
+public interface Table {
+	public void put (String key, Object val);
+	public Object get (String key);
+	public void print();
+	public boolean contains(String key);
+}
+//END OF FILE
+//START OF FILE: src/grail/helpers/tokenhistory.java
+package grail.helpers;
+
+import grail.interfaces.StoreToken;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"ClearableHistory"})
+@StructurePattern(StructurePatternNames.LIST_PATTERN)
+public interface TokenHistory {
+	public void add(StoreToken element);
+	public StoreToken get (int index); 
+	public int size();
+	public void clear();
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/commandtoken.java
+package grail.interfaces;
+
+public interface CommandToken extends WordToken{
+
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/mutableiterator.java
+package grail.interfaces;
+import java.util.Iterator;
+
+public interface MutableIterator extends Iterator<String> {
+
+	public void setString(String input);
+	public String getString();
+	public void setCurrentPosition(int position);
+	public int getCurrentPosition();
+
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/numbertoken.java
+package grail.interfaces;
+
+public interface NumberToken extends StoreToken {
+	public int getValue();
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/scannerbean.java
+package grail.interfaces;
+
+import grail.helpers.TokenHistory;
+import util.models.PropertyListenerRegisterer;
+
+public interface ScannerBean extends PropertyListenerRegisterer {
+	public void setScannedString(String scannedString);
+	public String getScannedString();
+	public StoreToken[] getTokens();
+	public String[] getErrors();
+	public TokenHistory getTokenList();
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/storetoken.java
+package grail.interfaces;
+
+public interface StoreToken {
+	public void setInput(String storedString);
+	public String getInput();
+}
+//END OF FILE
+//START OF FILE: src/grail/interfaces/wordtoken.java
+package grail.interfaces;
+
+public interface WordToken extends StoreToken {
+	public String getValue();
+}
+//END OF FILE
+//START OF FILE: src/grail/model/apropertylistenersupport.java
+package grail.model;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class APropertyListenerSupport implements PropertyListenerSupport{
+	private final int maxSize = 50;
+	PropertyChangeListener[] contents = new PropertyChangeListener[maxSize];
+	int size = 0;
+	
+	public int size() {
+		return size;
+	}
+
+	private boolean isFull() {
+		return size == maxSize;
+	}
+	
+	public PropertyChangeListener elementAt(int index) {
+		return contents[index];
+	}
+
+	
+	public void addElement(PropertyChangeListener l) {
+		if (isFull()) {
+			//do nothing
+		} else {
+			contents[size] = l;
+			size++;
+		}
+		
+	}
+
+	
+	public void notifyAllListeners(PropertyChangeEvent event) {
+		for (int index = 0; index < size(); index++) {
+			elementAt(index).propertyChange(event);
+	  }
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/model/propertylistenersupport.java
+package grail.model;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public interface PropertyListenerSupport {
+	public int size();
+	public PropertyChangeListener elementAt(int index);
+	public void addElement(PropertyChangeListener l);
+	public void notifyAllListeners(PropertyChangeEvent event);
+}
+//END OF FILE
+//START OF FILE: src/grail/paint/aobservablepainter.java
+package grail.paint;
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import util.annotations.Tags;
+
+@Tags({"ObservableBridgeScenePainter"})
+public class AObservablePainter extends Component implements ObservablePainter {
+	
+	ArrayList<PaintListener> listenerList = new ArrayList<PaintListener>();
+	
+	public AObservablePainter() {
+		setFocusable(true);
+	}
+	
+	
+    public void paint(Graphics g) {
+		int index = 0;
+    	while (index < listenerList.size()) {
+			PaintListener currentListener = listenerList.get(index);
+			currentListener.paint((Graphics2D)g);
+			index++;
+		}
+    }
+	
+	public void repaint() {
+		int index = 0;
+		while (index < listenerList.size()) {
+			PaintListener currentListener = listenerList.get(index);
+			currentListener.paint((Graphics2D)this.getGraphics());
+			index++;
+		}	
+		if (this.getParent() != null) {
+			this.getParent().repaint();
+		}
+	
+	}
+	
+	@Tags({"addPaintListener"})
+	public void addPaintListener(PaintListener listener) {
+		listenerList.add(listener);
+	}
+
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/paint/observablepainter.java
+package grail.paint;
+
+import java.awt.Graphics;
+
+import util.annotations.Tags;
+
+@Tags({"ObservableBridgeScenePainter"})
+public interface ObservablePainter {
+	public void addPaintListener(PaintListener listener);
+	public void repaint();
+	public void paint(Graphics g);
+}
+//END OF FILE
+//START OF FILE: src/grail/paint/paintlistener.java
+package grail.paint;
+
+import java.awt.Graphics2D;
+
+import util.annotations.Tags;
+
+@Tags({"PaintListener"})
+public interface PaintListener {
+	public void paint(Graphics2D g);
+}
+//END OF FILE
+//START OF FILE: src/grail/runnables/defaultcommand.java
+package grail.runnables;
+
+public class DefaultCommand implements Runnable {
+
+	public void run() {
+		//do nothing
+
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/runnables/movecommand.java
+package grail.runnables;
+
+import grail.avatar.Avatar;
+
+public class MoveCommand implements Runnable{
+	private Avatar avatar;
+	private int x,y;
+	
+	public MoveCommand(Avatar avatar, int moveX, int moveY) {
+		this.avatar = avatar;
+		this.x = moveX;
+		this.y = moveY;
+	}
+
+	public void run() {
+		this.avatar.move(this.x, this.y);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/runnables/saycommand.java
+package grail.runnables;
+
+import grail.scene.BridgeScene;
+
+public class SayCommand implements Runnable{
+	private BridgeScene scene;
+	private String toSay;
+	
+	public SayCommand(BridgeScene scene, String input) {
+		this.scene = scene;
+		this.toSay = input;
+	}
+	
+	public void run() {
+		this.scene.say(toSay);
+		
+	}
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/scene/basicbridgescene.java
+package grail.scene;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.avatar.Avatar;
+import grail.avatar.BasicAvatar;
+import grail.draw.interfaces.BridgeMoat;
+import grail.draw.interfaces.Platform;
+import grail.draw.objects.BasicBridgeMoat;
+import grail.draw.objects.PlatformOvalShape;
+import grail.helpers.BasicTable;
+import grail.helpers.Table;
+import grail.model.APropertyListenerSupport;
+import grail.model.PropertyListenerSupport;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.misc.ThreadSupport;
+
+@Tags({"BridgeScene"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"X", "Y", "Occupied", "KnightTurn", "KnightList","Arthur", "Lancelot", "Robin", "Galahad","Guard", "knightArea", "GuardArea", "Gorge"})
+@EditablePropertyNames({"X", "Y"})
+public class BasicBridgeScene implements BridgeScene {
+	
+	private Avatar arthur, lancelot, robin, galahad, guard;
+	private int xSceneLocation, ySceneLocation;
+	private Platform knightArea, guardArea;
+	private BridgeMoat gorge;
+	private boolean occupied, knightTurn;
+	private Avatar knightAtSpot;
+	private int questionNumber;
+	private Table knightList;
+	private PropertyListenerSupport propertyListenerList;
+
+	
+	public BasicBridgeScene() {
+		this(new BasicAvatar("arthur.jpg"), new BasicAvatar("lancelot.jpg"), new BasicAvatar("robin.jpg"), new BasicAvatar("galahad.jpg"), new BasicAvatar("guard.jpg"));
+	}
+	
+	public BasicBridgeScene(Avatar arthur, Avatar lancelot, Avatar robin, Avatar galahad, Avatar guard) {
+		this.knightList = new BasicTable();
+		
+		this.propertyListenerList = new APropertyListenerSupport();
+		this.arthur = arthur;
+		this.knightList.put("arthur", this.arthur);
+		this.lancelot = lancelot;
+		this.knightList.put("lancelot", this.lancelot);
+		this.galahad = galahad;
+		this.knightList.put("galahad", this.galahad);
+		this.robin = robin;
+		this.knightList.put("robin", this.robin);
+		this.guard = guard;
+		this.knightList.put("guard", this.guard);
+		
+		this.xSceneLocation = 0;
+		this.ySceneLocation = 0;
+		
+		this.knightArea = new PlatformOvalShape();
+		this.guardArea = new PlatformOvalShape();
+		this.gorge = new BasicBridgeMoat();
+		
+		setInitialScene(this.xSceneLocation, this.ySceneLocation);
+		
+		guard.setBasicText("I am the Guard!");
+		galahad.setBasicText("I am Galahad!");
+		robin.setBasicText("I am Robin!");
+		lancelot.setBasicText("I am Lancelot!");
+		arthur.setBasicText("Hello, I am Arthur!");
+		
+		
+		this.occupied = false;
+		this.knightTurn = false;
+		
+	}
+	
+	public Avatar getArthur() {
+		return arthur;
+	}
+
+
+	public Avatar getLancelot() {
+		return lancelot;
+	}
+
+	
+	public Avatar getRobin() {
+		return robin;
+	}
+
+	
+	public Avatar getGalahad() {
+		return galahad;
+	}
+
+	
+	public Avatar getGuard() {
+		return guard;
+	}
+	
+	public Platform getKnightArea() {
+		return this.knightArea;
+	}
+	
+	public Platform getGuardArea(){
+		return this.guardArea;
+	}
+	
+	private void setInitialScene(int xPos, int yPos) {
+		//positions and default locations
+		final int firstLinePosXY = 50;
+		final int secondLinePosY = 300;
+		final int secondLinePosX = 250;
+		final int platformPosY = 500;
+		final int guardPlotX = 600;
+		final int knightPlotX = 350;
+		final int bridgeX = 800;
+		
+		final int firstLineY = firstLinePosXY + yPos;
+		final int secondLineY = secondLinePosY + yPos;
+		final int lancelotAndGalahadX = secondLinePosX + xPos;
+		final int robinAndArthurX = firstLinePosXY + xPos;
+		final int platformY = platformPosY + yPos;
+		final int platformGuardX = guardPlotX + xPos;
+		final int platformKnightX = knightPlotX + xPos;
+		final int bridgeStartX = bridgeX + xPos;
+		final int moatSizeX = 500;
+		final int moatSizeY = 1000;
+	
+		arthur.setLocation(robinAndArthurX, firstLineY);
+	
+		lancelot.setLocation(lancelotAndGalahadX, firstLineY);
+		
+		robin.setLocation(robinAndArthurX, secondLineY);
+
+		galahad.setLocation(lancelotAndGalahadX, secondLineY);
+
+		this.knightArea.setLocation(platformKnightX, platformY);
+		this.guardArea.setLocation(platformGuardX, platformY);
+
+		guard.setLocation(this.guardArea.getAvatarX(guard), this.guardArea.getAvatarY(guard));
+
+		
+		this.gorge.setLocation(bridgeStartX, 0);
+		this.gorge.setSize(moatSizeX, moatSizeY);
+		
+	}
+	
+	public void setX(int x) {
+		this.xSceneLocation = x;
+//		setGraphicScene(this.xSceneLocation, this.ySceneLocation);
+	
+	}
+	
+	
+	public void setY(int y){
+		this.ySceneLocation = y;
+//		setGraphicScene(this.xSceneLocation, this.ySceneLocation);
+	}
+	
+	public int getX(){return this.xSceneLocation;}
+	
+	public int getY(){return this.ySceneLocation;}
+	
+	@Tags({"scroll"})
+	public void scroll(int x, int y) {
+		this.arthur.move(x, y);
+		this.galahad.move(x, y);
+		this.robin.move(x, y);
+		this.lancelot.move(x, y);
+		this.guard.move(x, y);
+		this.guardArea.move(x, y);
+		this.knightArea.move(x, y);
+		this.gorge.move(x, y);
+		this.xSceneLocation = this.xSceneLocation + x;
+		this.ySceneLocation = this.ySceneLocation + y;
+		
+	}
+
+	public BridgeMoat getGorge() {
+		return this.gorge;
+	}
+
+	public boolean preApproach() {
+		return !this.occupied;
+	}
+	
+	@Tags({"approach"})
+	public void approach(Avatar avatarToApproach) {
+		assert preApproach(): "The knight area is already occupied";
+		if (!this.occupied) {
+			avatarToApproach.setLocation(knightArea.getAvatarX(avatarToApproach), knightArea.getAvatarY(avatarToApproach));
+			this.occupied = true;
+			this.questionNumber = 0;
+			this.knightAtSpot = avatarToApproach;
+			this.knightTurn = false;
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", true));
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	
+	public boolean getOccupied() {
+		return this.occupied;
+	}
+
+	
+	public boolean preSay() {
+	return (this.occupied);	
+	}
+	
+	
+	@Tags({"say"})
+	public void say(String lineOfDialogue) {
+		final int maxQuestionsAllowed = 100;
+		assert preSay():"The Knight space is not occupied, Can't Say!";
+		if (this.occupied && !this.knightTurn) {
+			this.guard.setBasicText(lineOfDialogue);
+			this.knightTurn = true;
+			
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", false));
+			
+		} else if (this.occupied && this.knightTurn && this.questionNumber < maxQuestionsAllowed){
+			this.knightAtSpot.setBasicText(lineOfDialogue);
+			this.questionNumber++;
+			this.knightTurn = false;
+			
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", true));
+		} else if (this.occupied && this.knightTurn) {
+			this.knightTurn = false;
+			failed();
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	public boolean getKnightTurn() {
+		return this.knightTurn;
+	}
+
+	public boolean prePassed() {
+		return (this.occupied && !this.knightTurn);
+	}
+	
+	@Tags({"passed"})
+	public void passed() {
+		assert prePassed():"It is not the guards turn.";
+		if (this.occupied && !this.knightTurn) {
+			marchAvatar();
+			this.occupied = false;
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", false));
+			
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	public boolean preFailed() {
+		return this.occupied;
+	}
+	
+	@Tags({"failed"})
+	public void failed() {
+		assert preFailed():"The Knight space is not occupied!";
+		if (this.occupied && !this.knightTurn) {
+			this.knightAtSpot.setLocation(this.gorge.getFallZoneX(), this.gorge.getFallZoneY());
+			fallAvatar();
+			this.occupied = false;
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", false));
+		} else if (this.occupied && knightTurn) {
+			this.guard.setLocation(this.gorge.getFallZoneX(), this.gorge.getFallZoneY());
+			fallAvatar();
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "approach", true));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "say", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "failed", false));
+			this.propertyListenerList.notifyAllListeners(new PropertyChangeEvent(this, "this", "passed", false));
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	private void marchAvatar() {
+		final int distanceToMarch = 1000;
+		final int moveIncrementX = 20;
+		final int moveIncrementY = 0;
+		final int rotationAmount = 8;
+		final int sleepBetweenTimeMS = 200;
+		int distanceMarched = 0;
+		int position = 0;
+		this.occupied = false;
+		while (distanceMarched < distanceToMarch) {
+			if (position == 0) {
+				this.knightAtSpot.move(moveIncrementX, moveIncrementY);
+				this.knightAtSpot.getLegs().rotate(-rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 1;
+			} else {
+				this.knightAtSpot.move(moveIncrementX, moveIncrementY);
+				this.knightAtSpot.getLegs().rotate(rotationAmount);
+				distanceMarched = distanceMarched + moveIncrementX;
+				ThreadSupport.sleep(sleepBetweenTimeMS);
+				position = 0;
+			}
+		}
+		
+	}
+	
+	private void fallAvatar() {
+		final double shrinkFactor = .95;
+		final int shrinkTimes = 20;
+		final int waveRotate = 4;
+		final int sleepTimeMS = 200;
+		if (this.knightTurn) {
+			int count = 0;
+			while (count < shrinkTimes) {
+				this.guard.scale(shrinkFactor);
+				this.guard.getArms().rotate(waveRotate);
+				this.guard.getLegs().rotate(waveRotate);
+				count++;
+				ThreadSupport.sleep(sleepTimeMS);
+			}
+		} else {
+			int count = 0;
+			while (count < shrinkTimes) {
+				this.knightAtSpot.scale(shrinkFactor);
+				this.knightAtSpot.getArms().rotate(waveRotate);
+				this.knightAtSpot.getLegs().rotate(waveRotate);
+				count++;
+				ThreadSupport.sleep(sleepTimeMS);
+			}
+		} 
+		
+	}
+
+	
+	public Table getKnightList() {
+		return this.knightList;
+	}
+
+	public void setOriginalPositions() {
+		setInitialScene(this.xSceneLocation,this.ySceneLocation);
+		
+	}
+	
+	
+	public static void registerListenerToAllSceneObjects(BridgeScene scene, PropertyChangeListener listener) {
+		BasicAvatar.addBodyListener(scene.getArthur(), listener);
+		BasicAvatar.addBodyListener(scene.getGalahad(), listener);
+		BasicAvatar.addBodyListener(scene.getLancelot(), listener);
+		BasicAvatar.addBodyListener(scene.getRobin(), listener);
+		BasicAvatar.addBodyListener(scene.getGuard(), listener);
+		scene.getKnightArea().addPropertyChangeListener(listener);
+		PlatformOvalShape.addListenersToSubshapes(scene.getKnightArea(), listener);
+		scene.getGuardArea().addPropertyChangeListener(listener);
+		PlatformOvalShape.addListenersToSubshapes(scene.getGuardArea(), listener);
+		scene.getGorge().addPropertyChangeListener(listener);
+		BasicBridgeMoat.addListenerToSubShapes(scene.getGorge(), listener);
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		this.propertyListenerList.addElement(arg0);
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/scene/bridgescene.java
+package grail.scene;
+
+import grail.avatar.Avatar;
+import grail.draw.interfaces.BridgeMoat;
+import grail.draw.interfaces.Platform;
+import grail.helpers.Table;
+import util.models.PropertyListenerRegisterer;
+
+public interface BridgeScene extends PropertyListenerRegisterer{
+	public Avatar getArthur();
+	public Avatar getLancelot();
+	public Avatar getRobin();
+	public Avatar getGalahad();
+	public Avatar getGuard();
+	public BridgeMoat getGorge();
+	public Platform getKnightArea();
+	public Platform getGuardArea();
+	public void scroll(int x , int y);
+	public boolean getOccupied();
+	public void approach(Avatar avatarToApproach);
+	public void say(String lineOfDialogue);
+	public void passed();
+	public void failed();
+	public boolean getKnightTurn();
+	public Table getKnightList();
+	public void setOriginalPositions();
+	public boolean prePassed();
+	public boolean preFailed();
+	public boolean preSay();
+	public boolean preApproach();
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/basicstoretoken.java
+package grail.tokens;
+
+import grail.interfaces.StoreToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Basic"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+
+public class BasicStoreToken implements StoreToken {
+	private String storedString = "";
+	
+	public BasicStoreToken(String input) {
+		storedString = input;
+	}
+	
+	public void setInput(String input) {
+		storedString = input;
+	}
+	
+	public String getInput() {
+		return storedString;
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/endstoretoken.java
+package grail.tokens;
+
+import util.annotations.Tags;
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"End"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+
+public class EndStoreToken extends BasicStoreToken implements StoreToken {
+
+	public EndStoreToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/minusstoretoken.java
+package grail.tokens;
+
+import util.annotations.Tags;
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Minus"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+
+public class MinusStoreToken extends BasicStoreToken implements StoreToken {
+		
+	public MinusStoreToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/numberstoretoken.java
+package grail.tokens;
+
+import grail.interfaces.NumberToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.Tags;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Number"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input", "Value"}) 
+@EditablePropertyNames({"Input"})
+
+public class NumberStoreToken extends BasicStoreToken implements NumberToken {
+
+	public NumberStoreToken(String input) {
+		super(input);
+	}
+
+	public int getValue() {
+		return Integer.parseInt(getInput());
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/plusstoretoken.java
+package grail.tokens;
+
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.Tags;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Plus"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+
+public class PlusStoreToken extends BasicStoreToken implements StoreToken{
+
+	public PlusStoreToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/quotedstoretoken.java
+package grail.tokens;
+
+import util.annotations.Tags;
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Quote"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+public class QuotedStoreToken extends BasicStoreToken implements StoreToken{
+
+	public QuotedStoreToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/startstoretoken.java
+package grail.tokens;
+
+import util.annotations.Tags;
+import grail.interfaces.StoreToken;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Start"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input"}) 
+@EditablePropertyNames({"Input"})
+
+public class StartStoreToken extends BasicStoreToken implements StoreToken {
+
+	public StartStoreToken(String input) {
+		super(input);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/tokens/wordstoretoken.java
+package grail.tokens;
+
+import grail.interfaces.WordToken;
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags({"Word"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN) 
+@PropertyNames({"Input","Value"}) 
+@EditablePropertyNames({"Input"})
+
+public class WordStoreToken extends BasicStoreToken implements WordToken{
+
+	public WordStoreToken(String input) {
+		super(input);
+	}
+
+	public String getValue() {
+		return getInput().toLowerCase();
+	}
+
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/toolkit/advancedcommandviewer.java
+package grail.toolkit;
+
+import java.beans.PropertyChangeListener;
+import javax.swing.JFrame;
+
+public interface AdvancedCommandViewer extends CommandWidgets, PropertyChangeListener{
+	public JFrame getFrame();
+	public void placeFrameOnTop();
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/toolkit/basiccommandcontroller.java
+package grail.toolkit;
+
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JTextField;
+
+import grail.commander.CommandInterpreter;
+import grail.scene.BridgeScene;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@Tags({"CommandInterpreterController"})
+@PropertyNames({"MenuItem", "MenuItemTwo" , "Button", "ButtonTwo", "ButtonThree", "ButtonFour"}) 
+public class BasicCommandController implements CommandController {
+	CommandInterpreter currentInterpreter;
+	CommandWidgets aWidget;
+	JButton execute, arthurUp, arthurDown, arthurLeft, arthurRight, pass,say,fail,approach;
+	JMenuItem sayHello, sayGoodbye;
+	BridgeScene scene;
+	
+	
+	public BasicCommandController(CommandInterpreter interpreter, CommandWidgets widget) {
+		this.currentInterpreter = interpreter;
+		this.aWidget = widget;
+		this.execute = this.aWidget.getExecuteButton();
+		this.arthurUp = this.aWidget.getArthurUp();
+		this.arthurDown = this.aWidget.getArthurDown();
+		this.arthurLeft = this.aWidget.getArthurLeft();
+		this.arthurRight = this.aWidget.getArthurRight();
+		this.sayHello = this.aWidget.getArthurHello();
+		this.sayGoodbye = this.aWidget.getArthurGoodbye();
+		this.pass = this.aWidget.getPassed();
+		this.say = this.aWidget.getSay();
+		this.fail = this.aWidget.getFailed();
+		this.approach = this.aWidget.getApproach();
+		this.execute.addActionListener(this);
+		this.arthurUp.addActionListener(this);
+		this.arthurDown.addActionListener(this);
+		this.arthurLeft.addActionListener(this);
+		this.arthurRight.addActionListener(this);
+		this.sayHello.addActionListener(this);
+		this.sayGoodbye.addActionListener(this);
+		this.pass.addActionListener(this);
+		this.say.addActionListener(this);
+		this.fail.addActionListener(this);
+		this.approach.addActionListener(this);
+		this.say.setEnabled(false);
+		this.pass.setEnabled(false);
+		this.fail.setEnabled(false);
+		this.approach.setEnabled(false);
+	}
+	
+	public BasicCommandController(CommandInterpreter interpreter) {
+		this(interpreter, new ToolkitCommandViewer(interpreter));
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.execute) {
+			this.currentInterpreter.setCommand(this.aWidget.getCommandField().getText());
+		} else if (e.getSource() == this.arthurUp) {
+			this.currentInterpreter.setCommand("move arthur + 0 + 100");
+		} else if (e.getSource() == this.arthurDown) {
+			this.currentInterpreter.setCommand("move arthur + 0 - 100");
+		} else if (e.getSource() == this.arthurLeft) {
+			this.currentInterpreter.setCommand("move arthur - 100 + 0 ");
+		} else if (e.getSource() == this.arthurRight) {
+			this.currentInterpreter.setCommand("move arthur + 100 + 0");
+		} else if (e.getSource() == this.sayGoodbye) {
+			this.currentInterpreter.setCommand("say \"Goodbye\"");
+		} else if (e.getSource() == this.sayHello) {
+			this.currentInterpreter.setCommand("say \"Hello\"");
+		} else if (e.getSource() == this.say){
+			this.scene.say("Hello!");
+		} else if (e.getSource() == this.pass) {
+			this.scene.passed();
+		} else if (e.getSource() == this.fail) {
+			this.scene.failed();
+		} else if (e.getSource() == this.approach) {
+			this.scene.approach(this.scene.getArthur());
+		} else {
+			//do nothing
+		}
+		
+	}
+
+	public JTextField getTextField(){return this.aWidget.getCommandField();}
+	
+	public JMenuItem getMenuItem() {return this.sayHello;}
+
+	public JMenuItem getMenuItemTwo() {return this.sayGoodbye;}
+
+	public JButton getButton() {return this.arthurRight;}
+
+	public JButton getButtonTwo() {return this.arthurUp;}
+
+	public JButton getButtonThree() {return this.arthurLeft;}
+
+	public JButton getButtonFour() {return this.arthurDown;}
+	
+	public JButton getFail(){return this.fail;}
+	
+	public JButton getPass(){return this.pass;}
+	
+	public JButton getApproach(){return this.approach;}
+	
+	public JButton getSay(){return this.say;}
+	
+	public void setScene(BridgeScene scene) {
+		this.scene = scene;
+		this.scene.addPropertyChangeListener(this);
+		this.say.setEnabled(this.scene.preSay());
+		this.pass.setEnabled(this.scene.prePassed());
+		this.fail.setEnabled(this.scene.preFailed());
+		this.approach.setEnabled(this.scene.preApproach());
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("approach".equals(evt.getOldValue())) {
+			this.approach.setEnabled((boolean)evt.getNewValue());
+		} else if ("say".equals(evt.getOldValue())) {
+			this.say.setEnabled((boolean)evt.getNewValue());
+		} else if ("failed".equals(evt.getOldValue())) {
+			this.fail.setEnabled((boolean)evt.getNewValue());
+		} else if ("passed".equals(evt.getOldValue())) {
+			this.pass.setEnabled((boolean)evt.getNewValue());
+		} else {
+			//do nothing
+		}
+		
+	}
+	
+	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/toolkit/commandcontroller.java
+package grail.toolkit;
+
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+
+import grail.scene.BridgeScene;
+
+public interface CommandController extends ActionListener, PropertyChangeListener{
+	public JMenuItem getMenuItem();
+	public JMenuItem getMenuItemTwo();
+	public JButton getButton();
+	public JButton getButtonTwo();
+	public JButton getButtonThree();
+	public JButton getButtonFour();
+	public JButton getFail();
+	public JButton getPass();
+	public JButton getApproach();
+	public JButton getSay();
+	public void setScene(BridgeScene scene);
+}
+//END OF FILE
+//START OF FILE: src/grail/toolkit/commandwidgets.java
+package grail.toolkit;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public interface CommandWidgets {
+	public JTextField getCommandField();
+	
+	public JButton getExecuteButton();
+	
+	public JTextArea getErrorField();
+	
+	public JButton getArthurRight();
+	
+	public JButton getArthurLeft();
+	
+	public JButton getArthurUp();
+	
+	public JButton getArthurDown();
+	
+	public JMenuItem getArthurHello();
+	
+	public JMenuItem getArthurGoodbye();
+	
+	public JButton getSay();
+	
+	public JButton getApproach();
+	
+	public JButton getPassed();
+	
+	public JButton getFailed();
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/toolkit/toolkitcommandviewer.java
+package grail.toolkit;
+
+import java.beans.PropertyChangeEvent;
+import javax.swing.JFrame;
+import grail.commander.CommandInterpreter;
+import util.annotations.Tags;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+
+
+@Tags({"ObservableCommandInterpreter"})
+public class ToolkitCommandViewer implements AdvancedCommandViewer {
+	private JFrame frame;
+	private CommandInterpreter aModel;
+	private JButton btnExecuteCommand, btnMoveArthurRight, btnMoveArthurLeft, btnMoveArthurUp, btnMoveArthurDown, pass, say, approach, fail;
+	private JTextArea errorPane;
+	private JTextField commandField;
+	private JMenu mnSayCommands;
+	private JMenuItem mntmArthurSaygoodbye, mntmArthurSayhello;
+	
+	public ToolkitCommandViewer(CommandInterpreter model) {
+		frame = new JFrame("Command Toolkit");
+		this.aModel = model;
+		this.aModel.addPropertyChangeListener(this);
+		final int frameWidth = 500;
+		final int frameHeight = 525;
+		
+		frame.setSize(frameWidth, frameHeight);
+		frame.setResizable(false);
+		frame.getContentPane().setLayout(null);
+		frame.setFocusable(false);
+		
+		JMenuBar mnSay = new JMenuBar();
+		frame.setJMenuBar(mnSay);
+		
+		mnSayCommands = new JMenu("Say Commands");
+		mnSay.add(mnSayCommands);
+		
+		mntmArthurSayhello = new JMenuItem("Say \"Hello\"");
+		mnSayCommands.add(mntmArthurSayhello);
+		
+		mntmArthurSaygoodbye = new JMenuItem("Say \"Goodbye\"");
+		mnSayCommands.add(mntmArthurSaygoodbye);
+		
+		final int cLabelUX = 30;
+		final int cLabelUY = 32;
+		final int cLabelLX = 73;
+		final int cLabelLY = 16;
+		JLabel lblCommand = new JLabel("Command:");
+		lblCommand.setBounds(cLabelUX, cLabelUY, cLabelLX, cLabelLY);
+		frame.getContentPane().add(lblCommand);
+		
+		final int eButtonUX = 169;
+		final int eButtonUY = 60;
+		final int eButtonLX = 155;
+		final int eButtonLY = 29;
+		btnExecuteCommand = new JButton("Execute Command");
+		btnExecuteCommand.setBounds(eButtonUX, eButtonUY, eButtonLX, eButtonLY);
+		frame.getContentPane().add(btnExecuteCommand);
+		
+		final int eLabelUX = 30;
+		final int eLabelUY = 211;
+		final int eLabelLX = 61;
+		final int eLabelLY = 16;
+		JLabel lblErrors = new JLabel("Errors:");
+		lblErrors.setBounds(eLabelUX, eLabelUY, eLabelLX, eLabelLY);
+		frame.getContentPane().add(lblErrors);
+		
+		final int tAreaUX = 40;
+		final int tAreaUY = 239;
+		final int tAreaLX = 435;
+		final int tAreaLY = 110;
+		errorPane = new JTextArea();
+		errorPane.setLineWrap(true);
+		errorPane.setBounds(tAreaUX, tAreaUY, tAreaLX, tAreaLY);
+		frame.getContentPane().add(errorPane);
+		
+		final int pCommandUX = 30;
+		final int pCommandUY = 110;
+		final int pCommandLX = 155;
+		final int pCommandLY = 16;
+		JLabel lblPredefinedCommands = new JLabel("Predefined Commands:");
+		lblPredefinedCommands.setBounds(pCommandUX, pCommandUY, pCommandLX, pCommandLY);
+		frame.getContentPane().add(lblPredefinedCommands);
+		
+		final int bRightUX = 60;
+		final int bRightUY = 138;
+		final int bRightLX = 177;
+		final int bRightLY = 29;
+		btnMoveArthurRight = new JButton("Move Arthur +100 + 0");
+		btnMoveArthurRight.setBounds(bRightUX, bRightUY, bRightLX, bRightLY);
+		frame.getContentPane().add(btnMoveArthurRight);
+		
+		final int bLeftUX = 60;
+		final int bLeftUY = 180;
+		final int bLeftLX = 177;
+		final int bLeftLY = 29;
+		btnMoveArthurLeft = new JButton("Move Arthur - 100 + 0");
+		btnMoveArthurLeft.setBounds(bLeftUX, bLeftUY, bLeftLX, bLeftLY);
+		frame.getContentPane().add(btnMoveArthurLeft);
+		
+		
+		final int bUpUX = 272;
+		final int bUpUY = 138;
+		final int bUpLX = 177;
+		final int bUpLY = 29;
+		btnMoveArthurUp = new JButton("Move Arthur + 0 +100");
+		btnMoveArthurUp.setBounds(bUpUX, bUpUY, bUpLX , bUpLY);
+		frame.getContentPane().add(btnMoveArthurUp);
+		
+		final int bDownUX = 272;
+		final int bDownUY = 180;
+		final int bDownLX = 177;
+		final int bDownLY = 29;
+		btnMoveArthurDown = new JButton("Move Arthur + 0 - 100");
+		btnMoveArthurDown.setBounds(bDownUX, bDownUY, bDownLX, bDownLY);
+		frame.getContentPane().add(btnMoveArthurDown);
+		
+		final int cFieldUX = 115;
+		final int cFieldUY = 26;
+		final int cFieldLX = 360;
+		final int cFieldLY = 28;
+		commandField = new JTextField();
+		commandField.setBounds(cFieldUX, cFieldUY, cFieldLX, cFieldLY);
+		frame.getContentPane().add(commandField);
+		final int columnNumber = 10;
+		commandField.setColumns(columnNumber);
+		
+		final int aButtonUX = 60;
+		final int aButtonUY = 405;
+		final int aButtonLX = 177;
+		final int aButtonLY = 29;
+		approach = new JButton("Approach Arthur");
+		approach.setBounds(aButtonUX, aButtonUY, aButtonLX, aButtonLY);
+		frame.getContentPane().add(approach);
+		
+		final int sFieldUX = 30;
+		final int sFieldUY = 377;
+		final int sFieldLX = 108;
+		final int sFieldLY = 16;
+		JLabel lblSceneMethods = new JLabel("Scene Methods:");
+		lblSceneMethods.setBounds(sFieldUX, sFieldUY, sFieldLX, sFieldLY);
+		frame.getContentPane().add(lblSceneMethods);
+		
+		final int pButtonUX = 134;
+		final int pButtonUY = 440;
+		final int pButtonLX = 117;
+		final int pButtonLY = 29;
+		pass = new JButton("Pass");
+		pass.setBounds(pButtonUX, pButtonUY, pButtonLX, pButtonLY);
+		frame.getContentPane().add(pass);
+		
+		final int fButtonUX = 252;
+		final int fButtonUY = 440;
+		final int fButtonLX = 117;
+		final int fButtonLY = 29;
+		fail = new JButton("Failed");
+		fail.setBounds(fButtonUX, fButtonUY, fButtonLX, fButtonLY);
+		frame.getContentPane().add(fail);
+		
+		final int sButtonUX = 272;
+		final int sButtonUY = 405;
+		final int sButtonLX = 177;
+		final int sButtonLY = 29;
+		say = new JButton("Say \"Hello\"");
+		say.setBounds(sButtonUX, sButtonUY, sButtonLX, sButtonLY);
+		frame.getContentPane().add(say);
+		
+		frame.setVisible(true);
+	}
+	
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		this.commandField.setText(this.aModel.getCommand());
+		this.errorPane.setText(this.aModel.getErrors());
+	}
+	
+	public JButton getExecuteButton() {return this.btnExecuteCommand;}
+	
+	public JButton getArthurRight() { return this.btnMoveArthurRight;}
+	
+	public JButton getArthurLeft() {return this.btnMoveArthurLeft;}
+	
+	public JButton getArthurUp() {return this.btnMoveArthurUp;}
+	
+	public JButton getArthurDown() {return this.btnMoveArthurDown;}
+	
+	public JTextField getCommandField() {return this.commandField;}
+	
+	public JMenuItem getArthurHello() {return this.mntmArthurSayhello;}
+	
+	public JMenuItem getArthurGoodbye(){return this.mntmArthurSaygoodbye;}
+
+	public void placeFrameOnTop() {this.frame.toFront();}
+	
+	public JFrame getFrame() {return this.frame;}
+
+	public JTextArea getErrorField() {return this.errorPane;}
+
+	public JButton getSay() {return this.say;}
+
+	public JButton getApproach() {return this.approach;}
+
+	public JButton getPassed() {return this.pass;}
+
+	public JButton getFailed() {return this.fail;}
+}
+//END OF FILE
+//START OF FILE: src/grail/view/abackgroundview.java
+package grail.view;
+
+import java.awt.Graphics2D;
+import java.beans.PropertyChangeEvent;
+import grail.draw.interfaces.Rectangle;
+import grail.paint.ObservablePainter;
+
+public class ABackgroundView implements BackgroundView {
+	ObservablePainter aModel;
+	Rectangle aBackground;
+	
+	public ABackgroundView(Rectangle background, ObservablePainter model) {
+		this.aModel = model;
+		this.aBackground = background;
+		this.aBackground.addPropertyChangeListener(this);
+	}
+
+	
+	public void paint(Graphics2D g) {
+		g.setPaint(this.aBackground.getColor());
+		g.setBackground(this.aBackground.getColor());
+		draw(g,this.aBackground);
+	}
+	
+	public void draw(Graphics2D g, Rectangle background) {
+		g.fillRect(background.getX(), background.getY(), background.getWidth(), background.getHeight());
+	}
+
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		this.aModel.repaint();
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/agorgeview.java
+package grail.view;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.beans.PropertyChangeEvent;
+import grail.draw.interfaces.BridgeMoat;
+import grail.draw.interfaces.RotatingShape;
+import grail.draw.objects.BasicBridgeMoat;
+import grail.paint.ObservablePainter;
+
+public class AGorgeView implements GorgeView{
+	ObservablePainter aModel;
+	BridgeMoat moat;
+	
+	public AGorgeView(BridgeMoat moat, ObservablePainter model) {
+		this.aModel = model;
+		this.moat = moat;
+		this.moat.addPropertyChangeListener(this);
+		BasicBridgeMoat.addListenerToSubShapes(this.moat, this);
+	}
+
+	@Override
+	public void paint(Graphics2D g) {
+		g.setPaint(Color.BLACK);
+		draw(g, this.moat.getBridgeTop());
+		draw(g, this.moat.getBridgeBottom());
+		draw(g, this.moat.getMoatLeft());
+		draw(g, this.moat.getMoatRight());
+		draw(g, this.moat.getPlankOne());
+		draw(g, this.moat.getPlankTwo());
+		draw(g, this.moat.getPlankThree());
+		draw(g, this.moat.getPlankFour());
+		draw(g, this.moat.getPlankFive());
+		draw(g, this.moat.getPlankSix());
+		
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		this.aModel.repaint();
+		
+	}
+	
+    public void draw(Graphics2D g, RotatingShape line) {
+    	g.drawLine(line.getX(), line.getY(), line.getX() + line.getWidth(), line.getY() + line.getHeight());
+    }
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/aplatformview.java
+package grail.view;
+
+import java.awt.Graphics2D;
+import java.beans.PropertyChangeEvent;
+import grail.draw.interfaces.Platform;
+import grail.draw.objects.PlatformOvalShape;
+import grail.paint.ObservablePainter;
+
+public class APlatformView implements PlatformView{
+	Platform object;
+	ObservablePainter aModel;
+	
+	public APlatformView(Platform object , ObservablePainter model) {
+		this.aModel = model;
+		this.object = object;
+		this.object.addPropertyChangeListener(this);
+		PlatformOvalShape.addListenersToSubshapes(this.object, this);
+		
+	}
+
+
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		this.aModel.repaint();	
+	}
+
+
+
+	@Override
+	public void paint(Graphics2D g) {
+		g.setPaint(this.object.getShadow().getColor());
+		g.fillOval(this.object.getShadow().getX(), this.object.getShadow().getY(), this.object.getShadow().getWidth(), this.object.getShadow().getHeight());
+		g.setPaint(this.object.getPlatform().getColor());
+		g.fillOval(this.object.getPlatform().getX(), this.object.getPlatform().getY(), this.object.getPlatform().getWidth(), this.object.getPlatform().getHeight());
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/view/anavatarview.java
+package grail.view;
+
+import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import grail.avatar.Avatar;
+import grail.avatar.BasicAvatar;
+import grail.paint.ObservablePainter;
+import grail.draw.interfaces.ImageShape;
+import grail.draw.interfaces.RotatingShape;
+import grail.draw.interfaces.StringShape;
+import util.annotations.Tags;
+
+@Tags({"ObservingBridgeScenePainter"})
+public class AnAvatarView implements AvatarView{
+	Avatar currentAvatar;
+	ObservablePainter aModel;
+	
+	public AnAvatarView(Avatar avatar, ObservablePainter model) {
+		currentAvatar = avatar;
+		this.aModel = model;
+		BasicAvatar.addBodyListener(currentAvatar, this);
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		aModel.repaint();
+	}
+
+    public void paint(Graphics2D g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g.setColor(this.currentAvatar.getBodyColor());  
+        draw(g2, this.currentAvatar);
+    }
+    
+    public void draw(Graphics2D g, Avatar avatar) {
+    	draw(g, avatar.getBody());
+    	draw(g, avatar.getHead());
+    	draw(g, avatar.getText());
+    	draw(g, avatar.getLegs().getLeftLine());
+    	draw(g, avatar.getLegs().getRightLine());
+    	draw(g, avatar.getArms().getRightLine());
+    	draw(g, avatar.getArms().getLeftLine());
+        
+        
+    }
+
+    public void draw(Graphics2D g, StringShape aLabel) {
+        String s = aLabel.getText();
+        g.drawString(s, aLabel.getX(), aLabel.getY()); 
+    }
+    
+    public  void draw(Graphics2D g, ImageShape anImage) {
+        Image img = Toolkit.getDefaultToolkit().getImage(anImage.getImageFileName());
+        g.drawImage(img, anImage.getX(), anImage.getY(), ((Component)this.aModel));     
+    }
+    
+    public void draw(Graphics2D g, RotatingShape line) {
+    	g.drawLine(line.getX(), line.getY(), line.getX() + line.getWidth(), line.getY() + line.getHeight());
+    }
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/avatarview.java
+package grail.view;
+import java.awt.Graphics2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import grail.avatar.Avatar;
+import grail.draw.interfaces.ImageShape;
+import grail.draw.interfaces.RotatingShape;
+import grail.draw.interfaces.StringShape;
+import grail.paint.PaintListener;
+
+public interface AvatarView extends PaintListener, PropertyChangeListener {
+
+	public void propertyChange(PropertyChangeEvent evt); 
+
+    public void paint(Graphics2D g); 
+    
+    public void draw(Graphics2D g, Avatar avatar);
+
+    public void draw(Graphics2D g, StringShape aLabel);
+    
+    public  void draw(Graphics2D g, ImageShape anImage);
+    
+    public void draw(Graphics2D g, RotatingShape line);
+}
+//END OF FILE
+//START OF FILE: src/grail/view/backgroundview.java
+package grail.view;
+
+import java.beans.PropertyChangeListener;
+
+import grail.paint.PaintListener;
+
+public interface BackgroundView extends PaintListener, PropertyChangeListener{
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/view/basicconsole.java
+package grail.view;
+
+import java.beans.PropertyChangeEvent;
+
+import grail.avatar.BasicAvatar;
+import grail.draw.objects.BasicBridgeMoat;
+import grail.draw.objects.PlatformOvalShape;
+import grail.scene.BridgeScene;
+import util.annotations.Tags;
+
+@Tags({"ConsoleSceneView"})
+public class BasicConsole implements Console{
+	BridgeScene scene;
+	
+	public BasicConsole(BridgeScene listenerScene) {
+		setScene(listenerScene);
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getSource() == this.scene) {
+		System.out.println("Precondition in Scene was changed. Method Name: " + evt.getOldValue() + " PreCondition is now: " + evt.getNewValue());	
+		} else {
+		System.out.println("Source: " + evt.getSource() + " Property To Change: " + evt.getPropertyName() + " Old Value: " + evt.getOldValue() + " New Value: " + evt.getNewValue());
+		}
+	}
+
+	
+	public BridgeScene getScene() {
+		return this.scene;
+	}
+
+	
+	public void setScene(BridgeScene toListen) {
+		this.scene = toListen;
+	
+		BasicAvatar.addBodyListener(this.scene.getArthur(),this);
+		
+		BasicAvatar.addBodyListener(this.scene.getGalahad(),this);
+		
+		BasicAvatar.addBodyListener(this.scene.getGuard(), this);
+		
+		BasicAvatar.addBodyListener(this.scene.getLancelot(), this);
+		
+		BasicAvatar.addBodyListener(this.scene.getRobin(), this);
+		
+		this.scene.getGorge().addPropertyChangeListener(this);
+		BasicBridgeMoat.addListenerToSubShapes(this.scene.getGorge(), this);
+		
+		
+		this.scene.getGuardArea().addPropertyChangeListener(this);
+		PlatformOvalShape.addListenersToSubshapes(this.scene.getGuardArea(), this);
+		
+		this.scene.getKnightArea().addPropertyChangeListener(this);
+		PlatformOvalShape.addListenersToSubshapes(this.scene.getKnightArea(), this);
+		
+		this.scene.addPropertyChangeListener(this);
+		
+	}
+
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/basicprogressview.java
+package grail.view;
+
+import java.beans.PropertyChangeEvent;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+import javax.swing.JLabel;
+
+@Tags({"ProgressBarCreator"})
+@PropertyNames({"ProgressBar"}) 
+@EditablePropertyNames({"ProgressBarMax"})
+public class BasicProgressView implements ProgressView{
+	private JProgressBar progressBar;
+	private JFrame frame;
+	private int progressBarMax;
+	
+	public BasicProgressView() {
+		this.frame = new JFrame("Progress Bar");
+		final int progressBarMaxDefault = 100;
+		final int frameWidth = 400;
+		final int frameHeight = 100;
+		final int frameXLocation = 1100;
+		final int frameYLocation = 0;
+		
+		frame.setSize(frameWidth, frameHeight);
+		frame.setLocation(frameXLocation ,frameYLocation);
+		frame.setResizable(false);
+		frame.getContentPane().setLayout(null);
+		
+		final int upperX = 6;
+		final int upperY = 47;
+		final int lowerX = 388;
+		final int lowerY = 20;
+		this.progressBarMax = progressBarMaxDefault;
+		progressBar = new JProgressBar();
+		this.progressBar.setMaximum(progressBarMaxDefault);
+		progressBar.setBounds(upperX, upperY, lowerX, lowerY);
+		frame.getContentPane().add(progressBar);
+		
+		final int upperYTwo = 18;
+		final int lowerXTwo = 61;
+		final int lowerYTwo = 16;
+		JLabel lblProgress = new JLabel("Progress:");
+		lblProgress.setBounds(upperX, upperYTwo, lowerXTwo, lowerYTwo);
+		frame.getContentPane().add(lblProgress);
+		
+		frame.setVisible(true);
+		
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("Progress".equals(evt.getPropertyName())) {
+			int currentProgress = (int) evt.getNewValue();
+			this.progressBar.setValue(currentProgress);
+		}
+		frame.toFront();
+	}
+	
+	public void setProgressBarMax(int max) {
+		this.progressBarMax = max;
+		this.progressBar.setMaximum(max);
+	}
+	
+	public int getProgressBarMax() {
+		return this.progressBarMax;
+	}
+
+	public JProgressBar getProgressBar() {
+		return this.progressBar;
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/view/console.java
+package grail.view;
+
+import java.beans.PropertyChangeListener;
+
+import grail.scene.BridgeScene;
+import util.annotations.Tags;
+
+@Tags({"ConsoleSceneView"})
+public interface Console extends PropertyChangeListener {
+	public BridgeScene getScene();
+	public void setScene(BridgeScene toListen);
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/view/gorgeview.java
+package grail.view;
+
+import java.beans.PropertyChangeListener;
+
+import grail.paint.PaintListener;
+
+public interface GorgeView extends PaintListener, PropertyChangeListener {
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/platformview.java
+package grail.view;
+
+import java.beans.PropertyChangeListener;
+
+import grail.paint.PaintListener;
+
+public interface PlatformView extends PaintListener, PropertyChangeListener {
+
+}
+//END OF FILE
+//START OF FILE: src/grail/view/progressview.java
+package grail.view;
+
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JProgressBar;
+
+public interface ProgressView extends PropertyChangeListener{
+	public void setProgressBarMax(int max);
+	public JProgressBar getProgressBar();
+	public int getProgressBarMax();
+}
+//END OF FILE
+//START OF FILE: src/main/assignment10.java
+package main;
+
+import grail.demo.Assignment10Demo;
+import grail.demo.NineDemo;
+import grail.view.BasicProgressView;
+import grail.view.ProgressView;
+
+
+public class Assignment10 {
+	
+	public static void main(String[] args) {
+		NineDemo assignmentDemo = new Assignment10Demo();
+		ProgressView view = new BasicProgressView();
+		assignmentDemo.addPropertyChangeListener(view);
+		
+		assignmentDemo.run();
+	}
+	
+}
+//END OF FILE

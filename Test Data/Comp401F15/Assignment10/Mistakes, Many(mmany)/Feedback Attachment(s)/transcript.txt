@@ -1,0 +1,40 @@
+*****************************(Precondition execution)*****************************
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args: result:mp.shapes.AnAvatar@631c6d11
+calling method: public mp.shapes.Avatar main.ABridgeScene.getLancelot() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getLancelot() with args: result:mp.shapes.AnAvatar@7302ff13
+calling method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args mp.shapes.AnAvatar@631c6d11
+called method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args:mp.shapes.AnAvatar@631c6d11 result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:true
+calling method: null with args Arthur
+Terminated execution after milliseconds:2000
+calling method: public void main.ABridgeScene.passed() with args 
+called method: public void main.ABridgeScene.passed() with args: result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:false
+calling method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args mp.shapes.AnAvatar@7302ff13
+called method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args:mp.shapes.AnAvatar@7302ff13 result:null
+calling method: null with args Lancelot
+Terminated execution after milliseconds:2000
+calling method: public void main.ABridgeScene.failed() with args 
+called method: public void main.ABridgeScene.failed() with args: result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:false
+Pre tags:[approach, failed, say, say, passed, failed, approach, say, passed, approach, failed, say, say, passed, failed, approach, say, passed]
+Pre values:[false, true, true, true, true, false, true, false, false, false, true, true, true, true, false, true, false, false]
+### Approach Method Precondition Test Case: 0.0
