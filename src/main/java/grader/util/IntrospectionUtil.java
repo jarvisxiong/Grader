@@ -47,6 +47,7 @@ public class IntrospectionUtil {
     
 	public static Class findClass(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
+		int i = 0;
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass:aClasses) {
 			if (aClass.getJavaClass().isInterface())
@@ -188,7 +189,7 @@ public class IntrospectionUtil {
 	}
 	public static Class findClass(Project aProject, String aName) {
 //		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
-		return findClass(aProject, null, aName, aName, aName );
+		return findClass(aProject, aName, aName, aName, aName );
 
 		
 	}

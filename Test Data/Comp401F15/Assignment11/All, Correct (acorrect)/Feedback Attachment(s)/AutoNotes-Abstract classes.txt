@@ -1,2 +1,0 @@
-  -- Locatable is not abstract.
-  -- BoundedShape is not abstract.

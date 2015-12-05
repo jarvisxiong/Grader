@@ -37,11 +37,7 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
                 new PreconditionTestCase("failed"));
         addFeature("Precondition execution", 14,
                 new ApproachMethodPreconditionTestCase()   
-//                new SayMethodPreconditionTestCase(),        // not done yet
-//                new PassedMethodPreconditionTestCase(),     // not done yet
-//                new FailedMethodPreconditionTestCase(),     // not done yet
-//        		new PreconditionChangedAndPropertyAnnouncedTestCase("Preconditions changed and announced"));
-//        addFeature("Console view shows precondition events", 6, new PreconditionEventsTestCase()
+
                 );
         
         // Command Objects (21 pts)
@@ -69,7 +65,7 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
 //        addFeature("Say and move parsers", 5,
 //                new ParserMethodTestCase("parseMove"),
 //                new ParserMethodTestCase("parseSay"));
-        addFeature("Command object invoked", 5, new SayMoveCommandInvokedTestCase());
+//        addFeature("Command object invoked", 5, new SayMoveCommandInvokedTestCase());
 
         // Asynchronous Animations (55 pts)
         addFeature("Animating methods", 5,
@@ -77,11 +73,11 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
                 new AnimatingMethodTestCase("asynchronousGalahad"),
                 new AnimatingMethodTestCase("asynchronousLancelot"),
                 new AnimatingMethodTestCase("asynchronousRobin"));
-        addFeature("Methods start new threads", 10,
-                new AnimatingMethodNewThreadTestCase("asynchronousArthur"),
-                new AnimatingMethodNewThreadTestCase("asynchronousGalahad"),
-                new AnimatingMethodNewThreadTestCase("asynchronousLancelot"),
-                new AnimatingMethodNewThreadTestCase("asynchronousRobin"));
+//        addFeature("Methods start new threads", 10,
+//                new AnimatingMethodNewThreadTestCase("asynchronousArthur"),
+//                new AnimatingMethodNewThreadTestCase("asynchronousGalahad"),
+//                new AnimatingMethodNewThreadTestCase("asynchronousLancelot"),
+//                new AnimatingMethodNewThreadTestCase("asynchronousRobin"));
         addManualFeature("Does each async animation method use an animating command class (Runnable)?", 17);
         addManualFeature("Are there animator classes with an animating method?", 17);
 
