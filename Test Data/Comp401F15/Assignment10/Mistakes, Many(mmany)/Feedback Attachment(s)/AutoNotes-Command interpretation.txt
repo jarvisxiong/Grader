@@ -1,0 +1,3 @@
+  -- Exception when setting command
+Does not call say (or error in approach making say untestable)
+

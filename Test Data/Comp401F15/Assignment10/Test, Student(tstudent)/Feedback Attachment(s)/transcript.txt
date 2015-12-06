@@ -4,19 +4,27 @@ called constructor: public grail.scene.BasicBridgeScene()
 E***Class:grail.helpers.BasicTable does not follow declared pattern: Hashmap Pattern. Ignoring pattern declaration.
 W***Assuming implicit pattern: Hashtable Pattern instead of: Hashmap Pattern
 calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args 
-called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@43cf5bff
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@22aefae0
+forked thread Thread[Thread-11,5,main]
+forked thread Thread[Thread-13,5,main]
+forked thread Thread[Thread-14,5,main]
+forked thread Thread[Thread-12,5,main]
 calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args 
-called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args: result:grail.avatar.BasicAvatar@c697186
-calling method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args grail.avatar.BasicAvatar@43cf5bff
-called method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args:grail.avatar.BasicAvatar@43cf5bff result:null
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getLancelot() with args: result:grail.avatar.BasicAvatar@250a946
+calling method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args grail.avatar.BasicAvatar@22aefae0
+called method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args:grail.avatar.BasicAvatar@22aefae0 result:null
 calling method: public boolean grail.scene.BasicBridgeScene.preApproach() with args 
 called method: public boolean grail.scene.BasicBridgeScene.preApproach() with args: result:false
 calling method: public boolean grail.scene.BasicBridgeScene.prePassed() with args 
 called method: public boolean grail.scene.BasicBridgeScene.prePassed() with args: result:true
 calling method: public boolean grail.scene.BasicBridgeScene.preFailed() with args 
 called method: public boolean grail.scene.BasicBridgeScene.preFailed() with args: result:true
-calling method: null with args Arthur
-Terminated execution after milliseconds:2000
+calling method: public boolean grail.scene.BasicBridgeScene.preSay() with args 
+called method: public boolean grail.scene.BasicBridgeScene.preSay() with args: result:true
+calling method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args Name?
+called method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args:Name? result:null
+calling method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args Arthur?
+called method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args:Arthur? result:null
 calling method: public void grail.scene.BasicBridgeScene.passed() with args 
 Terminated execution after milliseconds:2000
 Terminated execution after milliseconds:2000
@@ -24,14 +32,132 @@ Terminated execution after milliseconds:2000
 Terminated execution after milliseconds:2000
 Terminated execution after milliseconds:2000
 Terminated execution after milliseconds:2000
-Terminated execution after milliseconds:2000
 called method: public void grail.scene.BasicBridgeScene.passed() with args: result:null
+calling method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args Name
+called method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args:Name result:null
+calling method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args Lancelot
+called method: public void grail.scene.BasicBridgeScene.say(java.lang.String) with args:Lancelot result:null
+calling method: public void grail.scene.BasicBridgeScene.failed() with args 
+called method: public void grail.scene.BasicBridgeScene.failed() with args: result:null
 calling method: public boolean grail.scene.BasicBridgeScene.preApproach() with args 
 called method: public boolean grail.scene.BasicBridgeScene.preApproach() with args: result:true
 calling method: public boolean grail.scene.BasicBridgeScene.preFailed() with args 
 called method: public boolean grail.scene.BasicBridgeScene.preFailed() with args: result:false
 calling method: public boolean grail.scene.BasicBridgeScene.prePassed() with args 
 called method: public boolean grail.scene.BasicBridgeScene.prePassed() with args: result:false
-Pre tags:[approach, say, failed, passed, approach, say, failed, passed]
-Pre values:[false, true, true, true, true, false, false, false]
-### Approach Method Precondition Test Case: 0.0
+Pre tags:[approach, say, failed, passed, approach, say, failed, passed, approach, say, failed, passed, approach, say, failed, passed]
+Pre values:[false, true, true, true, false, true, true, false, false, true, true, true, true, false, false, false]
+Expected pres:false, true, true, true, true, false, false, false, true, false, false
+Actial pres:  false, true, true, true, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, true, false, false
+Expected names: approach, passed, failed, say, pass, fail
+Actual name set: [approach, say, failed, passed, approach, say, failed, passed, approach, say, failed, passed, approach, say, failed, passed]
+### Precondition execution Test Case: 0.7454545454545454
+*****************************(Command interpretation)*****************************
+calling constructor: public grail.helpers.AScannerBean() 
+called constructor: public grail.helpers.AScannerBean() 
+calling constructor: public grail.scene.BasicBridgeScene() 
+called constructor: public grail.scene.BasicBridgeScene() 
+calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@73a1fbcc, grail.helpers.AScannerBean@42373a4
+called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@73a1fbcc, grail.helpers.AScannerBean@42373a4
+calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args 
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@52e99267
+calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getGuard() with args 
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getGuard() with args: result:grail.avatar.BasicAvatar@15c980c5
+calling method: public abstract grail.draw.interfaces.StringShape grail.avatar.Avatar.getText() with args 
+called method: public abstract grail.draw.interfaces.StringShape grail.avatar.Avatar.getText() with args: result:grail.draw.objects.BasicStringShape@694a662b
+calling method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args grail.avatar.BasicAvatar@52e99267
+called method: public void grail.scene.BasicBridgeScene.approach(grail.avatar.Avatar) with args:grail.avatar.BasicAvatar@52e99267 result:null
+calling method: public void grail.commander.BasicCommandInterpreter.setCommand(java.lang.String) with args say "What is your name?" 
+called method: public void grail.commander.BasicCommandInterpreter.setCommand(java.lang.String) with args:say "What is your name?"  result:null
+calling method: public java.lang.String grail.helpers.AScannerBean.getScannedString() with args 
+called method: public java.lang.String grail.helpers.AScannerBean.getScannedString() with args: result:say "What is your name?" 
+calling method: public abstract java.lang.String grail.draw.interfaces.StringShape.getText() with args 
+called method: public abstract java.lang.String grail.draw.interfaces.StringShape.getText() with args: result:What is your name?
+[grail.avatar.BasicAvatar@52e99267, grail.avatar.BasicAvatar@15c980c5, grail.draw.objects.BasicStringShape@694a662b, null, null, say "What is your name?" , What is your name?]
+[true, true, true]
+### Say command test case: 1.0
+*****************************(Command interpretation)*****************************
+calling constructor: public grail.helpers.AScannerBean() 
+called constructor: public grail.helpers.AScannerBean() 
+calling constructor: public grail.scene.BasicBridgeScene() 
+called constructor: public grail.scene.BasicBridgeScene() 
+calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@766b96f5, grail.helpers.AScannerBean@688f48f5
+called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@766b96f5, grail.helpers.AScannerBean@688f48f5
+calling method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args 
+called method: public grail.avatar.Avatar grail.scene.BasicBridgeScene.getArthur() with args: result:grail.avatar.BasicAvatar@31193289
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@bd861bf
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@bd861bf result:50
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@212e820f
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@212e820f result:50
+calling method: public void grail.commander.BasicCommandInterpreter.setCommand(java.lang.String) with args move Arthur 10 10 
+called method: public void grail.commander.BasicCommandInterpreter.setCommand(java.lang.String) with args:move Arthur 10 10  result:null
+calling method: public java.lang.String grail.helpers.AScannerBean.getScannedString() with args 
+called method: public java.lang.String grail.helpers.AScannerBean.getScannedString() with args: result:move Arthur 10 10 
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@bd861bf
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@bd861bf result:60
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@212e820f
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.avatar.BasicAvatar@31193289, [Ljava.lang.reflect.Method;@212e820f result:60
+[grail.avatar.BasicAvatar@31193289, 50, 50, null, move Arthur 10 10 , 60, 60]
+[true, true, true, true]
+### Move command test case: 1.0
+*****************************(Async Method Execution)*****************************
+calling constructor: public grail.helpers.AScannerBean() 
+called constructor: public grail.helpers.AScannerBean() 
+calling constructor: public grail.scene.BasicBridgeScene() 
+called constructor: public grail.scene.BasicBridgeScene() 
+calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@3374ae3f, grail.helpers.AScannerBean@4b814fa2
+called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene,grail.interfaces.ScannerBean) grail.scene.BasicBridgeScene@3374ae3f, grail.helpers.AScannerBean@4b814fa2
+calling methods
+Adding traceable listener
+calling method: public void grail.commander.BasicCommandInterpreter.asynchronousArthur() with args 
+called method: public void grail.commander.BasicCommandInterpreter.asynchronousArthur() with args: result:null
+waiting for threads
+child 1 starts:Thread-17
+Num threads after execution:10
+Finished waiting for threads
+Stopping thread:Thread[Thread-17,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.commander.BasicCommandInterpreter.asynchronousLancelot() with args 
+called method: public void grail.commander.BasicCommandInterpreter.asynchronousLancelot() with args: result:null
+waiting for threads
+child 1 starts:Thread-18
+Num threads after execution:10
+Finished waiting for threads
+Stopping thread:Thread[Thread-18,5,main]
+### 'asynchronousLancelot' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.commander.BasicCommandInterpreter.asynchronousRobin() with args 
+called method: public void grail.commander.BasicCommandInterpreter.asynchronousRobin() with args: result:null
+waiting for threads
+child 1 starts:Thread-19
+Num threads after execution:10
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[Thread-19,5,main]
+num threads after execution == before execution
+### 'asynchronousRobin' method exists test case: 0.2
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.commander.BasicCommandInterpreter.asynchronousGalahad() with args 
+called method: public void grail.commander.BasicCommandInterpreter.asynchronousGalahad() with args: result:null
+waiting for threads
+child 1 starts:Thread-20
+Num threads after execution:11
+child 2 starts:Thread-19
+Num threads after execution:11
+child 2 executes after child 1
+child 1 executes after child 2
+Finished waiting for threads
+Stopping thread:Thread[Thread-20,5,main]
+Stopping thread:Thread[Thread-19,5,main]
+### 'asynchronousGalahad' method exists test case: 1.0
+Removing traceable listener

@@ -1,2 +1,151 @@
 *****************************(Precondition execution)*****************************
-### Approach Method Precondition Test Case: 0.0
+Could not find method:prePassed
+Could not find method:preFailed
+calling constructor: public grail.scene.ABridgeScene() 
+called constructor: public grail.scene.ABridgeScene() 
+calling method: public grail.BodyInterface grail.scene.ABridgeScene.getArthur() with args 
+called method: public grail.BodyInterface grail.scene.ABridgeScene.getArthur() with args: result:grail.scene.BodyConstructor@4971f459
+calling method: public grail.BodyInterface grail.scene.ABridgeScene.getLancelot() with args 
+called method: public grail.BodyInterface grail.scene.ABridgeScene.getLancelot() with args: result:grail.scene.BodyConstructor@49edcb30
+calling method: public void grail.scene.ABridgeScene.approachArea(grail.BodyInterface) with args grail.scene.BodyConstructor@4971f459
+forked thread Thread[pool-3-thread-1,5,main]
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Terminated execution after milliseconds:2000
+Pre tags:[]
+Pre values:[]
+Expected pres:false, true, true, true, true, false, false, false, true, false, false
+Actial pres:  gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException
+Expected names: approach, passed, failed, say, pass, fail
+Actual name set: []
+### Precondition execution Test Case: 0.0
+*****************************(Command interpretation)*****************************
+Terminated!
+called method: public void grail.scene.ABridgeScene.approachArea(grail.BodyInterface) with args:grail.scene.BodyConstructor@4971f459 result:null
+calling constructor: public grail.scene.ABridgeScene() 
+called constructor: public grail.scene.ABridgeScene() 
+Terminated!
+calling constructor: public grail.ACommandInterpreter(grail.BridgeScene,grail.ScannerInterface) null, null
+Terminated!
+calling method: public grail.BodyInterface grail.scene.ABridgeScene.getArthur() with args 
+Terminated execution after milliseconds:2000
+calling method: public grail.BodyInterface grail.scene.ABridgeScene.getGuard() with args 
+Terminated execution after milliseconds:2000
+calling method: public void grail.ACommandInterpreter.setCommand(java.lang.String) with args say "What is your name?" 
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String grail.ScannerBean.getScannedString() with args 
+Terminated execution after milliseconds:2000
+[gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.NullPointerException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.NullPointerException, java.lang.IllegalArgumentException: Requested return was exception, can't evaluate, java.lang.IllegalArgumentException: Requested return was exception, can't evaluate, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.NullPointerException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.NullPointerException, java.lang.IllegalArgumentException: Requested return was exception, can't evaluate]
+[false, false, false]
+### Say command test case: 0.0
+*****************************(Command interpretation)*****************************
+calling constructor: public grail.ScannerBean() 
+called constructor: public grail.ScannerBean() 
+calling constructor: public grail.scene.ABridgeScene() 
+called constructor: public grail.scene.ABridgeScene() 
+calling constructor: public grail.ACommandInterpreter(grail.BridgeScene,grail.ScannerInterface) grail.scene.ABridgeScene@7230e6d8, grail.ScannerBean@330ea7a1
+called constructor: public grail.ACommandInterpreter(grail.BridgeScene,grail.ScannerInterface) grail.scene.ABridgeScene@7230e6d8, grail.ScannerBean@330ea7a1
+calling method: public grail.BodyInterface grail.scene.ABridgeScene.getArthur() with args 
+called method: public grail.BodyInterface grail.scene.ABridgeScene.getArthur() with args: result:grail.scene.BodyConstructor@7cc6d411
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@a2aee29
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@a2aee29 result:110
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@7f59df92
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@7f59df92 result:28
+calling method: public void grail.ACommandInterpreter.setCommand(java.lang.String) with args move Arthur 10 10 
+called method: public void grail.ACommandInterpreter.setCommand(java.lang.String) with args:move Arthur 10 10  result:null
+calling method: public java.lang.String grail.ScannerBean.getScannedString() with args 
+called method: public java.lang.String grail.ScannerBean.getScannedString() with args: result:move Arthur 10 10  
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@a2aee29
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@a2aee29 result:120
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@7f59df92
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:grail.scene.BodyConstructor@7cc6d411, [Ljava.lang.reflect.Method;@7f59df92 result:38
+[grail.scene.BodyConstructor@7cc6d411, 110, 28, null, move Arthur 10 10  , 120, 38]
+[true, false, true, true]
+### Move command test case: 0.75
+*****************************(Async Method Execution)*****************************
+calling constructor: public grail.ScannerBean() 
+called constructor: public grail.ScannerBean() 
+calling constructor: public grail.scene.ABridgeScene() 
+called constructor: public grail.scene.ABridgeScene() 
+calling constructor: public grail.ACommandInterpreter(grail.BridgeScene,grail.ScannerInterface) grail.scene.ABridgeScene@39ac5c77, grail.ScannerBean@7300610f
+called constructor: public grail.ACommandInterpreter(grail.BridgeScene,grail.ScannerInterface) grail.scene.ABridgeScene@39ac5c77, grail.ScannerBean@7300610f
+calling methods
+Adding traceable listener
+calling method: public void grail.ACommandInterpreter.animateArthur() with args 
+called method: public void grail.ACommandInterpreter.animateArthur() with args: result:null
+waiting for threads
+child 1 starts:arthur
+Num threads after execution:5
+Finished waiting for threads
+Stopping thread:Thread[arthur,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.ACommandInterpreter.animateLancelot() with args 
+called method: public void grail.ACommandInterpreter.animateLancelot() with args: result:null
+waiting for threads
+child 1 starts:lancelot
+Num threads after execution:6
+child 2 starts:arthur
+Num threads after execution:6
+child 2 executes after child 1
+child 1 executes after child 2
+Finished waiting for threads
+Stopping thread:Thread[lancelot,5,main]
+Stopping thread:Thread[arthur,5,main]
+### 'asynchronousLancelot' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.ACommandInterpreter.animateRobin() with args 
+called method: public void grail.ACommandInterpreter.animateRobin() with args: result:null
+waiting for threads
+child 1 starts:robin
+Num threads after execution:7
+child 2 starts:lancelot
+Num threads after execution:7
+child 2 executes after child 1
+child 1 executes after child 2
+Finished waiting for threads
+Stopping thread:Thread[robin,5,main]
+Stopping thread:Thread[lancelot,5,main]
+### 'asynchronousRobin' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void grail.ACommandInterpreter.animateGalahad() with args 
+called method: public void grail.ACommandInterpreter.animateGalahad() with args: result:null
+waiting for threads
+child 1 starts:galahad
+Num threads after execution:7
+child 2 starts:robin
+Num threads after execution:7
+child 2 executes after child 1
+child 1 executes after child 2
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[galahad,5,main]
+Stopping thread:Thread[robin,5,main]
+num threads after execution == before execution
+### 'asynchronousGalahad' method exists test case: 0.2
+Removing traceable listener

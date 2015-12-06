@@ -11,10 +11,10 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
-import gradingTools.comp401f15.assignment11.testcases.AsynchronousCommandInterpreterAnimationTestCase;
+import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
 import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestCase;
 
-public class WaitingAnimationTestCase extends AsynchronousCommandInterpreterAnimationTestCase{
+public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCase{
 	Method waitMethod1;
 	Method waitMethod2;
 //	Project project;

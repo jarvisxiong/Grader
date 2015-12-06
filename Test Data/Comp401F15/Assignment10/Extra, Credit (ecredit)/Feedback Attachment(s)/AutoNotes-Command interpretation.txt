@@ -1,0 +1,3 @@
+  -- Incorrect or no fail
+  -- The ScannerBean's ScannedString is not set properly
+

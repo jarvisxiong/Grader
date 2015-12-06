@@ -26,8 +26,8 @@ import util.misc.ThreadSupport;
 import util.trace.TraceableBus;
 import util.trace.TraceableListener;
 
-public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandIntrepreterMethodCallTestCase  implements TraceableListener{
-	public AsynchronousCommandInterpreterAnimationTestCase(String methodTag) {
+public  class CommandInterpreterAnimationTestCase extends CommandIntrepreterMethodCallTestCase  implements TraceableListener{
+	public CommandInterpreterAnimationTestCase(String methodTag) {
 		super("CommandInterpreter", methodTag, Void.TYPE);
 	}
 
@@ -67,7 +67,7 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 		}		
 	}
 	protected boolean isParentThread(Thread aThread) {
-		return (aThread == parentThread) || aThread.getName().contains("pool");
+		return (aThread == parentThread) || aThread.getName().contains("ool");
 	}
    protected synchronized void processPropertyChange() {
 	   Thread currentThread = Thread.currentThread();
@@ -87,6 +87,7 @@ public  class AsynchronousCommandInterpreterAnimationTestCase extends CommandInt
 		if (isParentThread(currentThread) && !eventInParentThread) {	// do not really know the future thread			
 			System.out.println("event in parent thread");
 			eventInParentThread = true;
+			return;
 
 		} else if (childThread1 == null ) {
 //	  		numThreadsAfterExecution = Math.max(Thread.activeCount(),numThreadsAfterExecution) ;

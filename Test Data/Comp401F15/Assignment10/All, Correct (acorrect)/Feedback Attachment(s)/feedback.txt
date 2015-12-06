@@ -2,42 +2,42 @@ Grading result for: All, Correct (acorrect)
 
 Grading features...
 ----------------------------------
-Precondition structure                                 12.0 / 12.0
-Precondition execution                                 0.0 / 14.0
-Move Say Command Objects                               5.0 /  5.0
-Say Move Constructors                                  6.0 /  6.0
-Say Move Parse                                         0.0 /  5.0
-Animating methods                                      0.0 /  5.0
-Does each async animation method use an animating command class (Runnable)? 0.0 / 17.0
-Are there animator classes with an animating method?   0.0 / 17.0
-Console view buttons change as preconditions change    0.0 / 12.0 (Extra credit)
-Guard animation                                        0.0 /  5.0 (Extra credit)
+Precondition signatures                                8.0 /  8.0
+Precondition execution                                 16.4 / 22.0
+A10 Classes                                            20.0 / 20.0
+A10 Constructors                                       6.0 /  6.0
+A10 Signatures                                         5.0 / 15.0
+A10 Calls                                              5.0 / 15.0
+Command interpretation                                 0.0 / 10.0
+Async Method Execution                                 0.0 / 28.0
 ----------------------------------
-  Points Awarded: 23.0
+  Points Awarded: 60.4
 
-Grading restrictions...
-----------------------------------
-Missing demos                               -100.0 /  -100.0
-----------------------------------
-  Points Deducted: -100.0
-
-  Features Score: -77.0
+  Features Score: 60.4
 
 Notes from grading features:
 ----------------------------------
-Say Move Parse:
+Precondition execution:
+  -- Values and/or tags did not match,see transcript:
+
+A10 Signatures:
   -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
   -- Type CommandInterpreter not defined, cannot check method:CommandInterpreter
 
-Animating methods:
-  -- No method tagged: asynchronousArthur
-  -- No method tagged: asynchronousGalahad
-  -- No method tagged: asynchronousLancelot
-  -- No method tagged: asynchronousRobin
+A10 Calls:
+  -- Type CommandInterpreternot defined, cannot check method
+  -- Type CommandInterpreternot defined, cannot check method
 
-Guard animation:
-  -- No method tagged: asynchronousGuard
+Command interpretation:
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+
+Async Method Execution:
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 63.0

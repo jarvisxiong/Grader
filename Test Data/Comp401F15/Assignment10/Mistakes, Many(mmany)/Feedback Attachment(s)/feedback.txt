@@ -2,36 +2,34 @@ Grading result for: Mistakes, Many(mmany)
 
 Grading features...
 ----------------------------------
-Precondition structure                                 12.0 / 12.0
-Precondition execution                                 0.0 / 14.0
-Move Say Command Objects                               5.0 /  5.0
-Say Move Constructors                                  6.0 /  6.0
-Say Move Parse                                         0.0 /  5.0
-Animating methods                                      5.0 /  5.0
-Does each async animation method use an animating command class (Runnable)? 0.0 / 17.0
-Are there animator classes with an animating method?   0.0 / 17.0
-Console view buttons change as preconditions change    0.0 / 12.0 (Extra credit)
-Guard animation                                        5.0 /  5.0 (Extra credit)
+Precondition signatures                                8.0 /  8.0
+Precondition execution                                 22.0 / 22.0
+A10 Classes                                            20.0 / 20.0
+A10 Constructors                                       6.0 /  6.0
+A10 Signatures                                         5.0 / 15.0
+A10 Calls                                              5.0 / 15.0
+Command interpretation                                 6.7 / 10.0
+Async Method Execution                                 28.0 / 28.0
 ----------------------------------
-  Points Awarded: 33.0
+  Points Awarded: 100.7
 
-Grading restrictions...
-----------------------------------
-Missing demos                               -100.0 /  -100.0
-----------------------------------
-  Points Deducted: -100.0
-
-  Features Score: -67.0
+  Features Score: 100.7
 
 Notes from grading features:
 ----------------------------------
-Precondition execution:
-  -- Incorrect or no approach
+A10 Signatures:
+  -- CommandInterpreter not found
+  -- CommandInterpreter not found
 
-Say Move Parse:
+A10 Calls:
   -- CommandInterpreter not found
   -- CommandInterpreter not found
+
+Command interpretation:
+  -- Exception when setting command
+Does not call say (or error in approach making say untestable)
+
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 106.05

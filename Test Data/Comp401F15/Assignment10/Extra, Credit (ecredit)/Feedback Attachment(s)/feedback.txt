@@ -2,36 +2,32 @@ Grading result for: Extra, Credit (ecredit)
 
 Grading features...
 ----------------------------------
-Precondition structure                                 12.0 / 12.0
-Precondition execution                                 0.0 / 14.0
-Move Say Command Objects                               5.0 /  5.0
-Say Move Constructors                                  6.0 /  6.0
-Say Move Parse                                         5.0 /  5.0
-Animating methods                                      5.0 /  5.0
-Does each async animation method use an animating command class (Runnable)? 0.0 / 17.0
-Are there animator classes with an animating method?   0.0 / 17.0
-Console view buttons change as preconditions change    0.0 / 12.0 (Extra credit)
-Guard animation                                        0.0 /  5.0 (Extra credit)
+Precondition signatures                                8.0 /  8.0
+Precondition execution                                 0.0 / 22.0
+A10 Classes                                            20.0 / 20.0
+A10 Constructors                                       6.0 /  6.0
+A10 Signatures                                         15.0 / 15.0
+A10 Calls                                              15.0 / 15.0
+Command interpretation                                 3.8 / 10.0
+Async Method Execution                                 22.4 / 28.0
 ----------------------------------
-  Points Awarded: 33.0
+  Points Awarded: 90.19999999999999
 
-Grading restrictions...
-----------------------------------
-Missing demos                               -100.0 /  -100.0
-----------------------------------
-  Points Deducted: -100.0
-
-  Features Score: -67.0
+  Features Score: 90.19999999999999
 
 Notes from grading features:
 ----------------------------------
 Precondition execution:
-  -- Can't find at least one of the following: say, getArthur, getLancelot, passed, failed
+  -- Values and/or tags did not match,see transcript:
 
-Guard animation:
-  -- No method tagged: asynchronousGuard
-  -- No method tagged: asynchronousGuard
+Command interpretation:
+  -- Incorrect or no fail
+  -- The ScannerBean's ScannedString is not set properly
+
+
+Async Method Execution:
+  -- No  thread created (maybe race conditions) by:public void grail.ACommandInterpreter.animateGalahad()
 
 
 Early benefit: 105.0%
-  Total Score: 0.0
+  Total Score: 94.5
