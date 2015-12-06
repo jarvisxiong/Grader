@@ -3,17 +3,21 @@ Grading result for: Test, Student(tstudent)
 Grading features...
 ----------------------------------
 Precondition signatures                                8.0 /  8.0
-Precondition execution                                 16.4 / 22.0
+Precondition execution                                 15.0 / 22.0
 A10 Classes                                            20.0 / 20.0
 A10 Constructors                                       6.0 /  6.0
 A10 Signatures                                         15.0 / 15.0
 A10 Calls                                              15.0 / 15.0
 Command interpretation                                 10.0 / 10.0
 Async Method Execution                                 22.4 / 28.0
+Guard method exists                                    1.0 /  1.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 112.80000000000001
+  Points Awarded: 112.4
 
-  Features Score: 112.80000000000001
+  Features Score: 112.4
 
 Notes from grading features:
 ----------------------------------
@@ -25,4 +29,4 @@ Async Method Execution:
 
 
 Early benefit: 105.0%
-  Total Score: 118.65
+  Total Score: 117.6

@@ -3,12 +3,25 @@ Grading result for: Test, Student(tstudent)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Coordinated animation starts                           0.0 / 18.0
+Coordinated animation starts                           0.0 / 10.0
 Lockstep Animation                                     0.0 / 10.0
+Extra Command Classes exist                            0.0 / 14.0 (Extra credit)
+Factory Classes Exist                                  0.0 /  4.0 (Extra credit)
+Exception Classes Exist                                0.0 /  4.0 (Extra credit)
+Command Constructors                                   0.0 / 12.0 (Extra credit)
+Command and Factory Signatures                         0.0 / 26.0 (Extra credit)
+Command and Factory Calls                              10.0 / 22.0 (Extra credit)
+Factory method execution                               0.0 / 12.0
+Undo Classes Exist                                     0.0 /  2.0 (Extra credit)
+Proceed all demo                                       0.0 /  7.0 (Extra credit)
+Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
+Lockstep method demo                                   0.0 /  7.0 (Extra credit)
+Undo demo                                              0.0 /  6.0 (Extra credit)
+Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 10.0
+  Points Awarded: 20.0
 
-  Features Score: 10.0
+  Features Score: 20.0
 
 Notes from grading features:
 ----------------------------------
@@ -18,4 +31,64 @@ Coordinated animation starts:
 Lockstep Animation:
   -- Couldn't find correct constructor for CommandInterpreter
 
-  Total Score: 10.0
+Extra Command Classes exist:
+  -- RotateLeftArmCommand does not implement interface java.lang.Runnable
+  -- RotateRightArmCommand does not implement interface java.lang.Runnable
+  -- SleepCommand does not implement interface java.lang.Runnable
+  -- DefineCommand does not implement interface java.lang.Runnable
+  -- CallCommand does not implement interface java.lang.Runnable
+  -- ThreadCommand does not implement interface java.lang.Runnable
+  -- ProceedAllCommand does not implement interface java.lang.Runnable
+
+Factory Classes Exist:
+  -- SingletonsCreator not found.
+  -- CustomSwingTextFieldFactory not found.
+
+Exception Classes Exist:
+  -- ScanningException not found.
+  -- ParsingException not found.
+
+Command Constructors:
+  -- Type @RotateLeftArmCommand not defined, cannot check
+  -- Type @RotateRightArmCommand not defined, cannot check
+  -- Type @SleepCommand not defined, cannot check
+  -- Type @DefineCommand not defined, cannot check
+  -- Type @CallCommand not defined, cannot check
+  -- Type @ThreadCommand not defined, cannot check
+
+Command and Factory Signatures:
+  -- Method call matching @parseRotateLeftArm:\*->Runnable not defined by AParser
+  -- Method call matching @parseRotateRightArm:\*->Runnable not defined by AParser
+  -- Method call matching @parseSleep:\*->Runnable not defined by AParser
+  -- Method call matching @parseDefine:\*->Runnable not defined by AParser
+  -- Method call matching @parseCall:\*->Runnable not defined by AParser
+  -- Method call matching @parseThread:\*->Runnable not defined by AParser
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+
+Command and Factory Calls:
+  -- Method matching @parseRotateLeftArm:\*->Runnable not called in AParser
+  -- Method matching @parseRotateRightArm:\*->Runnable not called in AParser
+  -- Method matching @parseSleep:\*->Runnable not called in AParser
+  -- Method matching @parseDefine:\*->Runnable not called in AParser
+  -- Method matching @parseCall:\*->Runnable not called in AParser
+  -- Method matching @parseThread:\*->Runnable not called in AParser
+
+Factory method execution:
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+
+Undo Classes Exist:
+  -- UndoCommand does not implement interface java.lang.Runnable
+  -- RedoCommand does not implement interface java.lang.Runnable
+
+  Total Score: 20.0

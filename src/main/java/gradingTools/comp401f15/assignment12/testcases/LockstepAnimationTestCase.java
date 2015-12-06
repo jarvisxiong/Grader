@@ -40,6 +40,7 @@ public class LockstepAnimationTestCase extends CommandInterpreterAnimationTestCa
 	protected void callAsynchronousMethods() {
 		Method waitMethod = getUniqueParameterlessMethod(coordinatedMethod);
 		if (waitMethod == null) {
+			System.out.println("Did not find coordinated method:" + coordinatedMethod);
 			return ;
 		}
 		

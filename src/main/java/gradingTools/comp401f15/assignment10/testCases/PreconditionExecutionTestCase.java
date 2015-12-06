@@ -259,6 +259,7 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
         ObjectAdapter anObjectAdapter = ObjectEditor.toObjectAdapter(bridgeSceneInstance);
         preTags.clear(); 
         preValues.clear();
+        System.out.println ("Adding traceable listner");
         TraceableBus.addTraceableListener(this);
         parentThread = Thread.currentThread();
         forkedThreads.clear();
@@ -275,13 +276,24 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
         
         return exData;
         } finally {
+        	System.out.println("removing traceable listner");
             TraceableBus.removeTraceableListener(this);
-            if (forkedThreads.size() > 0)
-            	ThreadSupport.sleep(1000); // give them time to register
-            for (Thread aThread:forkedThreads) {
-            	aThread.interrupt();
-            }
+            killThreads();
+//            if (forkedThreads.size() > 0)
+//            	ThreadSupport.sleep(1000); // give them time to register
+//            for (Thread aThread:forkedThreads) {
+//            	System.out.println("Interrupting:" + aThread);
+//            	aThread.interrupt();
+//            }
 
+        }
+    }
+    protected synchronized void killThreads() {
+    	if (forkedThreads.size() > 0)
+        	ThreadSupport.sleep(1000); // give them time to register
+        for (Thread aThread:forkedThreads) {
+        	System.out.println("Interrupting:" + aThread);
+        	aThread.interrupt();
         }
     }
 //    protected Integer getTransition (String aTag, Boolean fromValue, int fromIndex) {
@@ -370,16 +382,22 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
 		return (aThread == parentThread) || aThread.getName().contains("ool");
 	}
 
-    public void newEvent(Exception aTraceable) {
+    public synchronized void newEvent(Exception aTraceable) {
 		if (aTraceable instanceof ObjectAdapterReceivedPropertyChangeEvent) { // multiple PropertyChangeeventInfo will be sent
-			if (!isParentThread(Thread.currentThread())) {
-				System.out.println("forked thread " + Thread.currentThread());
-				if (!forkedThreads.contains(Thread.currentThread()))
-				forkedThreads.add(Thread.currentThread());
-			}
+			
 			PropertyChangeEventInfo aPropertyChange = (PropertyChangeEventInfo) aTraceable;
 			getPre(aPropertyChange.getPropertyChangeEvent());
 //			System.out.println("Property change:" + aPropertyChange.getPropertyChangeEvent() );
+			if (!isParentThread(Thread.currentThread())) {
+				System.out.println("forked thread, interrupting it " + Thread.currentThread());
+
+				Thread.currentThread().interrupt();
+//				if (!forkedThreads.contains(Thread.currentThread())) {
+//
+//				System.out.println("forked thread " + Thread.currentThread());
+//				forkedThreads.add(Thread.currentThread());
+//				}
+			}
 			
 			}
 			

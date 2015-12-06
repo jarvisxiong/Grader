@@ -170,6 +170,12 @@ public class IntrospectionUtil {
 		}
 		return aMethodObject;
 	}
+	public static Method getOrFindUniqueMethod(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
+		List<Method> retVal = getOrFindMethodList(aProject, aTestCase, aClass, aTag);
+		if (retVal.isEmpty() || retVal.size() > 1)
+			return null;
+		return retVal.get(0);
+	}
 	static String toMethodDescriptor(Class aClass, String aTag) {
 		return aClass.getCanonicalName() + "." + aTag;
 	}

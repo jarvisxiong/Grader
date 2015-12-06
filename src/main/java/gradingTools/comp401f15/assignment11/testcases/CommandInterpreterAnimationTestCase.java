@@ -62,6 +62,7 @@ public  class CommandInterpreterAnimationTestCase extends CommandIntrepreterMeth
 	public void newEvent(Exception aTraceable) {
 		if (aTraceable instanceof ObjectAdapterReceivedPropertyChangeEvent) {
 //		if (aTraceable instanceof PropertyChangeEventInfo) {
+//			   System.out.println("property:" + aTraceable);
 
 			processPropertyChange();
 		}		

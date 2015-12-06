@@ -43,11 +43,11 @@ public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
 
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-	     Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
-	     if (aClass == null) {
-	    	 return fail("Type " + typeTag + " not defined, cannot check method:" + typeTag);
-	     }
-	     typeName = aClass.getSimpleName();
+//	     Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
+//	     if (aClass == null) {
+//	    	 return fail("Type " + typeTag + " not defined, cannot check method:" + typeTag);
+//	     }
+//	     typeName = aClass.getSimpleName();
 		 TestCaseResult aResult = super.test(project, autoGrade);
 //		 TestCaseResult aResult = fail("foo");
 	        return aResult;

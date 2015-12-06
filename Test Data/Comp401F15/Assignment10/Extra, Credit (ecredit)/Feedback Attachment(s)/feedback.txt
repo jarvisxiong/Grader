@@ -3,17 +3,21 @@ Grading result for: Extra, Credit (ecredit)
 Grading features...
 ----------------------------------
 Precondition signatures                                8.0 /  8.0
-Precondition execution                                 0.0 / 22.0
+Precondition execution                                 17.6 / 22.0
 A10 Classes                                            20.0 / 20.0
 A10 Constructors                                       6.0 /  6.0
 A10 Signatures                                         15.0 / 15.0
 A10 Calls                                              15.0 / 15.0
-Command interpretation                                 3.8 / 10.0
-Async Method Execution                                 22.4 / 28.0
+Command interpretation                                 5.0 / 10.0
+Async Method Execution                                 28.0 / 28.0
+Guard method exists                                    0.0 /  1.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 90.19999999999999
+  Points Awarded: 114.6
 
-  Features Score: 90.19999999999999
+  Features Score: 114.6
 
 Notes from grading features:
 ----------------------------------
@@ -22,12 +26,10 @@ Precondition execution:
 
 Command interpretation:
   -- Incorrect or no fail
-  -- The ScannerBean's ScannedString is not set properly
 
-
-Async Method Execution:
-  -- No  thread created (maybe race conditions) by:public void grail.ACommandInterpreter.animateGalahad()
+Guard method exists:
+  -- No method tagged: asynchronousGuard
 
 
 Early benefit: 105.0%
-  Total Score: 94.5
+  Total Score: 120.75

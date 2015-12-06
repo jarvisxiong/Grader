@@ -119,14 +119,14 @@ public class Assignment11Requirements extends ExtendedProjectRequirements {
 //   	);
    addFeature("Basic Parser Structure", 16, 
 //	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseApproach:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommand:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parsePass:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseFail:*->Runnable"),	   		
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRepeat:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommandList:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseMove:*->Runnable"),
-	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseSay:*->Runnable")
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseApproach:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommand:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parsePass:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseFail:\\*->Runnable"),	   		
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRepeat:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCommandList:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseMove:\\*->Runnable"),
+	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseSay:\\*->Runnable")
 // need to fix the call check as it returns null sometimes	   		
 //	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseApproach:*->Runnable"),
 //	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseCommand:*->Runnable"),

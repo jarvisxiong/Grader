@@ -66,20 +66,21 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
         
         addFeature("A10 Signatures", 15, 
 //    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseSay:*->Runnable"),
-    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseMove:*->Runnable"),
-    	   		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:*->void")  	   		
+    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
+    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
+    	   		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")  	   		
 
         		);
         addFeature("A10 Calls", 15, 
 //    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseSay:*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseMove:*->Runnable"),
-        		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:*->void")
+    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
+    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
+        		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")
         		);
         addFeature("Command interpretation", 10,
-                new SayCommandInterpretedTestCase(),
-                new MoveCommandInterpretedTestCase());
+                new SayCommandPartiallyInterpretedTestCase(),
+                new MoveCommandPartiallyInterpretedTestCase()
+                );
 
 
        
@@ -98,6 +99,11 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
 //           		new SynchronizedAnimationTestCase("asynchronousLancelot"),
 //           		new SynchronizedAnimationTestCase("asynchronousRobin")
            		);
+      addFeature("Guard method exists", 2, true,
+      new AnimatingMethodTestCase("asynchronousGuard"));
+      addManualFeature("Guard claps", 4, true);
+      addManualFeature("Command Interpreter Buttons ", 5, true);
+      addManualFeature("Dynamically  Enabled Buttons", 5, true);
         
 //        addFeature("Animating methods", 5,
 //                new AnimatingMethodTestCase("asynchronousArthur"),

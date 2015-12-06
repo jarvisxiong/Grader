@@ -3,64 +3,26 @@ calling constructor: public mp.Scene.TheBridgeScene()
 called constructor: public mp.Scene.TheBridgeScene() 
 W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListener) for method public static void mp.Scene.AnAvatar.addPropertyChangeListener(mp.Scene.Avatar,java.beans.PropertyChangeListener)
 W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListener) for method public static void mp.Scene.TheGorge.addPropertyChangeListener(mp.Scene.Gorge,java.beans.PropertyChangeListener)
+Adding traceable listner
 calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args 
-called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@20a05b32
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@7829b776
 calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args 
-called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args: result:mp.Scene.AnAvatar@715d6168
-calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@20a05b32
-forked thread Thread[pool-3-thread-1,5,main]
-Terminated execution after milliseconds:2000
-Terminated execution after milliseconds:2000
-Terminated execution after milliseconds:2000
-Terminated execution after milliseconds:2000
-Terminated execution after milliseconds:2000
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@20a05b32 result:null
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args: result:mp.Scene.AnAvatar@346939bf
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@7829b776
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@7829b776 result:null
+calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:false
+calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args: result:true
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Name?
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Name? result:null
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Arthur?
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Arthur? result:null
 calling method: public void mp.Scene.TheBridgeScene.passedScene() with args 
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
 called method: public void mp.Scene.TheBridgeScene.passedScene() with args: result:null
 calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:true
@@ -70,59 +32,17 @@ calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with arg
 called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:false
 calling method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args: result:false
-calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@715d6168
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@715d6168 result:null
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@346939bf
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@346939bf result:null
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Name
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Name result:null
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Lancelot
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Lancelot result:null
 calling method: public void mp.Scene.TheBridgeScene.failedScene() with args 
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.Scene.ALine@1a47a1e8)
-forked thread Thread[pool-3-thread-1,5,main]
-W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.Scene.ALine@31b7d869)
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-W***Lower Y = -1 < 0 of .lancelot.torso (mp.Scene.ALine@21eee94f)
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-W***Lower Y = -10 < 0 of .lancelot.text (mp.Scene.AStringShape@724aefc3)
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
-forked thread Thread[pool-3-thread-1,5,main]
+W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.Scene.ALine@28d79cba)
+W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.Scene.ALine@281f23f2)
+W***Lower Y = -1 < 0 of .lancelot.torso (mp.Scene.ALine@49dbaaf3)
+W***Lower Y = -10 < 0 of .lancelot.text (mp.Scene.AStringShape@736f3e9e)
 called method: public void mp.Scene.TheBridgeScene.failedScene() with args: result:null
 calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:true
@@ -132,15 +52,17 @@ calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with arg
 called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:false
 Pre tags:[approach, say, pass, fail, pass, pass, approach, say, pass, fail, approach, say, pass, fail, pass, pass, approach, say, pass, fail]
 Pre values:[false, true, true, true, false, true, true, false, false, false, false, true, true, true, false, true, true, false, false, false]
+removing traceable listner
 Expected pres:false, true, true, true, true, false, false, false, true, false, false
-Actial pres:  gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.TimeoutException, true, false, false, false, true, false, false
+Actial pres:  false, true, true, true, true, false, false, false, true, false, false
 Expected names: approach, passed, failed, say, pass, fail
 Actual name set: [approach, say, pass, fail, pass, pass, approach, say, pass, fail, approach, say, pass, fail, pass, pass, approach, say, pass, fail]
-### Precondition execution Test Case: 0.7454545454545454
+### Precondition execution Test Case: 1.0
 *****************************(Command interpretation)*****************************
 java.lang.NullPointerException
     at java.util.Objects.requireNonNull(Objects.java:203)
     at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase.test(SayCommandInterpretedTestCase.java:66)
+    at gradingTools.comp401f15.assignment10.testCases.SayCommandPartiallyInterpretedTestCase.test(SayCommandPartiallyInterpretedTestCase.java:12)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)
@@ -163,6 +85,7 @@ java.lang.NullPointerException
 java.lang.NullPointerException
     at java.util.Objects.requireNonNull(Objects.java:203)
     at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase.test(MoveCommandInterpretedTestCase.java:65)
+    at gradingTools.comp401f15.assignment10.testCases.MoveCommandPartiallyInterpretedTestCase.test(MoveCommandPartiallyInterpretedTestCase.java:13)
     at framework.grading.testing.Checkable.check(Checkable.java:127)
     at framework.grading.testing.Feature.check(Feature.java:111)
     at framework.grading.testing.Checkable.check(Checkable.java:188)

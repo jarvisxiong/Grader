@@ -63,9 +63,10 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 			Class<?> bridgeSceneClass = IntrospectionUtil.findClass(aProject, null, "BridgeScene",
 					".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
 			bridgeSceneInstance = IntrospectionUtil.getInstance(aProject, this, "BridgeScene");
+			commandInterpreterClass = IntrospectionUtil.getOrFindClass(aProject, this, "CommandInterpreter");
 
 			if (commandInterpreter == null || bridgeSceneInstance == null) {
-				commandInterpreterClass = IntrospectionUtil.getOrFindClass(aProject, this, "CommandInterpreter");
+//				commandInterpreterClass = IntrospectionUtil.getOrFindClass(aProject, this, "CommandInterpreter");
 //				Class<?> bridgeSceneClass = IntrospectionUtil.findClass(aProject, null, "BridgeScene",
 //						".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
 				Class<?> scannerBeanClass = IntrospectionUtil.findClass(aProject, null, "ScannerBean",
@@ -197,8 +198,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 					return fail("Could not instantiate aCommand Interpreter");
 				IntrospectionUtil.putInstance(aProject, this, "CommandInterpreter", commandInterpreter);
 
-			}
-
+			} 
 
 			return callMethods();
 			// parentThread = Thread.currentThread();

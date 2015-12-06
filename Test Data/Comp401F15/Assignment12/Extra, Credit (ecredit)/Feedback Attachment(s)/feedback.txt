@@ -3,16 +3,52 @@ Grading result for: Extra, Credit (ecredit)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Coordinated animation starts                           18.0 / 18.0
-Lockstep Animation                                     0.0 / 10.0
+Coordinated animation starts                           10.0 / 10.0
+Lockstep Animation                                     10.0 / 10.0
+Extra Command Classes exist                            14.0 / 14.0 (Extra credit)
+Factory Classes Exist                                  2.0 /  4.0 (Extra credit)
+Exception Classes Exist                                0.0 /  4.0 (Extra credit)
+Command Constructors                                   0.0 / 12.0 (Extra credit)
+Command and Factory Signatures                         22.0 / 26.0 (Extra credit)
+Command and Factory Calls                              18.0 / 22.0 (Extra credit)
+Factory method execution                               10.0 / 12.0
+Undo Classes Exist                                     2.0 /  2.0 (Extra credit)
+Proceed all demo                                       0.0 /  7.0 (Extra credit)
+Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
+Lockstep method demo                                   0.0 /  7.0 (Extra credit)
+Undo demo                                              0.0 /  6.0 (Extra credit)
+Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 28.0
+  Points Awarded: 98.0
 
-  Features Score: 28.0
+  Features Score: 98.0
 
 Notes from grading features:
 ----------------------------------
-Lockstep Animation:
-  -- Could not instantiate aCommand Interpreter
+Factory Classes Exist:
+  -- CustomSwingTextFieldFactory not found.
 
-  Total Score: 28.0
+Exception Classes Exist:
+  -- ScanningException does not implement class java.lang.Object
+  -- ParsingException does not implement class java.lang.Object
+
+Command Constructors:
+  -- Type @RotateLeftArmCommand not defined, cannot check
+  -- Type @RotateRightArmCommand not defined, cannot check
+  -- Type @SleepCommand not defined, cannot check
+  -- Type @DefineCommand not defined, cannot check
+  -- Type @CallCommand not defined, cannot check
+  -- Type @ThreadCommand not defined, cannot check
+
+Command and Factory Signatures:
+  -- Method call matching @parseRotateLeftArm:\*->Runnable not defined by BasicCommandParser
+  -- Method call matching @parseRotateRightArm:\*->Runnable not defined by BasicCommandParser
+
+Command and Factory Calls:
+  -- Method matching @parseRotateLeftArm:\*->Runnable not called in BasicCommandParser
+  -- Method matching @parseRotateRightArm:\*->Runnable not called in BasicCommandParser
+
+Factory method execution:
+  -- Unique factory method:broadcastingClearanceManagerMethod not found.
+
+  Total Score: 98.0

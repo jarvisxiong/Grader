@@ -146,7 +146,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         if (aTypeTag != null) {
         Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
 	     if (aClass == null) {
-	    	 return fail("Type " + aTypeTag + "not defined, cannot check");
+	    	 return fail("Type " + aTypeTag + " not defined, cannot check");
 	     }
 	     typeName = aClass.getSimpleName();
         }

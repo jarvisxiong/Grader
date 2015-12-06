@@ -8,12 +8,16 @@ A10 Classes                                            20.0 / 20.0
 A10 Constructors                                       6.0 /  6.0
 A10 Signatures                                         5.0 / 15.0
 A10 Calls                                              5.0 / 15.0
-Command interpretation                                 6.7 / 10.0
+Command interpretation                                 10.0 / 10.0
 Async Method Execution                                 28.0 / 28.0
+Guard method exists                                    1.0 /  1.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 100.7
+  Points Awarded: 105.0
 
-  Features Score: 100.7
+  Features Score: 105.0
 
 Notes from grading features:
 ----------------------------------
@@ -25,11 +29,6 @@ A10 Calls:
   -- CommandInterpreter not found
   -- CommandInterpreter not found
 
-Command interpretation:
-  -- Exception when setting command
-Does not call say (or error in approach making say untestable)
-
-
 
 Early benefit: 105.0%
-  Total Score: 106.05
+  Total Score: 110.25

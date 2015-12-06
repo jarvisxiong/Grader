@@ -13,6 +13,7 @@ import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
 import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestCase;
+import util.misc.ThreadSupport;
 
 public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCase{
 	Method waitMethod1;
@@ -52,16 +53,29 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 		proceedAllDone = false;
 		didNotWait = false;
 		waitForThreads();
+		long currentTime = System.currentTimeMillis();
+		
 
+		
 		if (childThread1 != null) {
+			long aWaitTime = currentTime - lastChild1Time;
+			if (aWaitTime < 2000 && numChild1Sleeps > 2) { // waiting for 1500;
+//			if (aWaitTime < 2000 ) { // waiting for 1500; 
+
+				
 			System.out.println("child thread started before proceed");
 			didNotWait = true;
 			return;
+			}
 			
 		}
+		initThreadState(); // reset data to see if we get more events
 		retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
 
 		
+	}
+	protected void waitForThreads() {
+		ThreadSupport.sleep(3500);
 	}
 	protected  TestCaseResult computeResult() {
 		if (didNotWait) {

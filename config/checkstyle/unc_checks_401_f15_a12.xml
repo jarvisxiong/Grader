@@ -289,6 +289,7 @@
 				@RotateRightArmCommand = :@Avatar; int,
 				@SleepCommand = :long,
 				@DefineCommand = :String;@Runnable;@Table,	
+				@CallCommand = :String;@Runnable;@Table,					
 				@ThreadCommand = :String;@Table,
 												
 				" />

@@ -12,6 +12,7 @@ import grader.util.IntrospectionUtil;
 public class InterfaceImplementedTestCase extends BasicTestCase {
 	String tag;
 	Class implementedInterface;
+	// add something for interface being a tag, or auto check tag
 	public InterfaceImplementedTestCase (String aTag, Class anInterface) {
 		super (aTag + " Implements " + anInterface);
 		tag = aTag;
@@ -25,6 +26,9 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 		if (clazz == null) {
 			return fail(tag + " not found.", autoGrade);
 		}
+		if (implementedInterface == null) {
+			return pass();
+		}
 		if (clazz.isInterface()) {
 			System.out.println("got interface instead of class");
 			return pass();
@@ -35,7 +39,7 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 				return pass(autoGrade);
 		}
 	
-        return partialPass(0.5, tag + " does not implement " + implementedInterface);
+        return partialPass(0.0, tag + " does not implement " + implementedInterface);
 	}
 
 }
