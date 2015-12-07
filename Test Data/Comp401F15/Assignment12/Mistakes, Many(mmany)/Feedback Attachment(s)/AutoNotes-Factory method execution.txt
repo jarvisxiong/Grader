@@ -1,1 +1,6 @@
-  -- Unique factory method:broadcastingClearanceManagerMethod not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.

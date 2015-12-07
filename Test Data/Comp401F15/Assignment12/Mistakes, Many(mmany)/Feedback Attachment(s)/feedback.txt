@@ -3,39 +3,35 @@ Grading result for: Mistakes, Many(mmany)
 Grading features...
 ----------------------------------
 Generic classes                                        10.0 / 10.0
-Coordinated animation starts                           0.0 / 10.0
-Lockstep Animation                                     10.0 / 10.0
+Coordinated animation starts                           10.0 / 10.0
+Lockstep Animation                                     2.0 / 10.0
 Extra Command Classes exist                            14.0 / 14.0 (Extra credit)
-Factory Classes Exist                                  2.0 /  4.0 (Extra credit)
+Extra Command Constructors                             0.0 / 12.0 (Extra credit)
+Extra Command Signatures                               12.0 / 12.0 (Extra credit)
+Extra Command Calls                                    12.0 / 12.0 (Extra credit)
+Factory Classes Exist                                  0.0 /  4.0 (Extra credit)
+Factory Signatures                                     0.0 / 14.0 (Extra credit)
+Factory Calls                                          10.0 / 10.0 (Extra credit)
+Factory method execution                               0.0 / 12.0
 Exception Classes Exist                                0.0 /  4.0 (Extra credit)
-Command Constructors                                   0.0 / 12.0 (Extra credit)
-Command and Factory Signatures                         22.0 / 26.0 (Extra credit)
-Command and Factory Calls                              18.0 / 22.0 (Extra credit)
-Factory method execution                               10.0 / 12.0
-Undo Classes Exist                                     2.0 /  2.0 (Extra credit)
+Undo Classes Exist                                     0.0 /  2.0 (Extra credit)
 Proceed all demo                                       0.0 /  7.0 (Extra credit)
 Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
 Lockstep method demo                                   0.0 /  7.0 (Extra credit)
 Undo demo                                              0.0 /  6.0 (Extra credit)
 Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
+OE Factory Demo                                        0.0 /  6.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 88.0
+  Points Awarded: 70.0
 
-  Features Score: 88.0
+  Features Score: 70.0
 
 Notes from grading features:
 ----------------------------------
-Coordinated animation starts:
-  -- Did not wait for startAnimation
+Lockstep Animation:
+  -- controlled thread did not send property event
 
-Factory Classes Exist:
-  -- CustomSwingTextFieldFactory not found.
-
-Exception Classes Exist:
-  -- ScanningException does not implement class java.lang.Object
-  -- ParsingException does not implement class java.lang.Object
-
-Command Constructors:
+Extra Command Constructors:
   -- Type @RotateLeftArmCommand not defined, cannot check
   -- Type @RotateRightArmCommand not defined, cannot check
   -- Type @SleepCommand not defined, cannot check
@@ -43,15 +39,33 @@ Command Constructors:
   -- Type @CallCommand not defined, cannot check
   -- Type @ThreadCommand not defined, cannot check
 
-Command and Factory Signatures:
-  -- Method call matching @parseRotateLeftArm:\*->Runnable not defined by BasicCommandParser
-  -- Method call matching @parseRotateRightArm:\*->Runnable not defined by BasicCommandParser
+Factory Classes Exist:
+  -- SingletonsCreator not found.
+  -- CustomSwingTextFieldFactory not found.
 
-Command and Factory Calls:
-  -- Method matching @parseRotateLeftArm:\*->Runnable not called in BasicCommandParser
-  -- Method matching @parseRotateRightArm:\*->Runnable not called in BasicCommandParser
+Factory Signatures:
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
+  -- Type SingletonsCreator not defined, cannot check
 
 Factory method execution:
-  -- Unique factory method:broadcastingClearanceManagerMethod not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
+  -- Factory class:SingletonsCreator not found.
 
-  Total Score: 88.0
+Exception Classes Exist:
+  -- ScanningException not found.
+  -- ParsingException not found.
+
+Undo Classes Exist:
+  -- UndoCommand not found.
+  -- RedoCommand not found.
+
+  Total Score: 70.0

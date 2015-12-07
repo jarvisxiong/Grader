@@ -442,6 +442,8 @@
 				 @DefineCommand = @Table!put:Object;Object->*,
 				 @CallCommand = @Table!get:Object->Object,				 
 				 @ThreadCommand = @Table!get:Object->Object | Thread!start:->void,
+				 @CustomSwingTextFieldFactory = JTextField!setForeground:*->void | JTextField!setForeground:*->void,
+				 main.Assignment(.*) = ObjectEditor.initialize:->void
 			     
 				 			 						
 				 						

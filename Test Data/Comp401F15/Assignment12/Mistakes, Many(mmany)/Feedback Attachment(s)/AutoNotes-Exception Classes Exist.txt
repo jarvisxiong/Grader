@@ -1,2 +1,2 @@
-  -- ScanningException does not implement class java.lang.Object
-  -- ParsingException does not implement class java.lang.Object
+  -- ScanningException not found.
+  -- ParsingException not found.

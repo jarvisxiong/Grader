@@ -1,2 +1,0 @@
-  -- Method call matching @parseRotateLeftArm:\*->Runnable not defined by BasicCommandParser
-  -- Method call matching @parseRotateRightArm:\*->Runnable not defined by BasicCommandParser

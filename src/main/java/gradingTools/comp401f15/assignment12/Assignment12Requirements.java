@@ -63,14 +63,14 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
         addFeature("Generic classes", 10,
                 new GenerictClassCheckStyleTestCase("Table"));
         
-        addFeature("Coordinated animation starts", 10, 
-           		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
-           		
-           		);
-        addFeature("Lockstep Animation", 10, 
-           		new LockstepAnimationTestCase("lockstepGuard", "lockstepArthur")
-           		
-           		);
+//        addFeature("Coordinated animation starts", 10, 
+//           		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
+//           		
+//           		);
+//        addFeature("Lockstep Animation", 10, 
+//           		new LockstepAnimationTestCase("lockstepGuard", "lockstepArthur")
+//           		
+//           		);
      // Command Objects (21 pts)
         addFeature("Extra Command Classes exist", 14, true,
         		new CommandObjectExistsTestCase("RotateLeftArmCommand"),
@@ -83,12 +83,12 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
         		
         		);
         addFeature("Extra Command Constructors", 12, true,       		
-        		new CheckstyleConstructorDefinedTestCase("@RotateLeftArmCommand", ":@Avatar; int"),
-        		new CheckstyleConstructorDefinedTestCase("@RotateRightArmCommand", ":@Avatar; int"),
-        		new CheckstyleConstructorDefinedTestCase("@SleepCommand", ":long"),
-        		new CheckstyleConstructorDefinedTestCase("@DefineCommand", ":String;@Table"),
-        		new CheckstyleConstructorDefinedTestCase("@CallCommand", ":String;@Table"),
-        		new CheckstyleConstructorDefinedTestCase("@ThreadCommand", ":@String;@Table")
+        		new CheckstyleConstructorDefinedTestCase("RotateLeftArmCommand", ":@Avatar; int"),
+        		new CheckstyleConstructorDefinedTestCase("RotateRightArmCommand", ":@Avatar; int"),
+        		new CheckstyleConstructorDefinedTestCase("SleepCommand", ":long"),
+        		new CheckstyleConstructorDefinedTestCase("DefineCommand", ":String;@Table"),
+        		new CheckstyleConstructorDefinedTestCase("CallCommand", ":String;@Table"),
+        		new CheckstyleConstructorDefinedTestCase("ThreadCommand", ":@String;@Table")
         );
         addFeature("Extra Command Signatures", 12, true,
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
@@ -99,6 +99,14 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseThread:\\*->Runnable")    	   		
     	   		
         		);
+//        @RotateLeftArmCommand = @Avatar!@rotateLeftArm:int->void,
+//				 @RotateRightArmCommand = @Avatar!@rotateRightArm:int->void,
+//				 @SleepCommand = @ThreadSupport!sleep:long->void,
+//				 @DefineCommand = @Table!put:Object;Object->*,
+//				 @CallCommand = @Table!get:Object->Object,				 
+//				 @ThreadCommand = @Table!get:Object->Object | Thread!start:->void,
+//				 @CustomSwingTextFieldFactory = JTextField!setForeground:*->void | JTextField!setForeground:*->void,
+//				 main.Assignment(.*) = ObjectEditor.initialize:->void
         addFeature("Extra Command Calls", 12, true,
     	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
     	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateRightArm:\\*->Runnable"),
