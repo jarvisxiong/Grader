@@ -1,0 +1,49 @@
+*****************************(Coordinated animation starts)*****************************
+calling constructor: public mp.ui.ABridgeScene() 
+called constructor: public mp.ui.ABridgeScene() 
+calling constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@3095e7f5, null
+called constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@3095e7f5, null
+calling methods
+Adding traceable listener
+calling method: public void mp.bean.ACommandInterpreter.waitingArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.waitingArthur() with args: result:null
+calling method: public void mp.bean.ACommandInterpreter.waitingLancelot() with args 
+called method: public void mp.bean.ACommandInterpreter.waitingLancelot() with args: result:null
+child 1 starts:Avatar Animator Thread 2
+Num threads after execution:9
+child 2 starts:Avatar Animator Thread 1
+Num threads after execution:9
+child 1 executes after child 2
+child 2 executes after child 1
+calling method: public void mp.bean.ACommandInterpreter.startAnimation() with args 
+child 1 starts:Avatar Animator Thread 1
+Num threads after execution:9
+child 2 starts:Avatar Animator Thread 2
+Num threads after execution:9
+child 1 executes after child 2
+child 2 executes after child 1
+Terminated execution after milliseconds:2000
+waiting for threads
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[Avatar Animator Thread 1,5,main]
+Stopping thread:Thread[Avatar Animator Thread 2,5,main]
+### 'startAnimation' method exists test case: 1.0
+Removing traceable listener
+*****************************(Lockstep Animation)*****************************
+calling methods
+Adding traceable listener
+calling method: public void mp.bean.ACommandInterpreter.lockstepArthur() with args 
+called method: public void mp.bean.ACommandInterpreter.lockstepArthur() with args: result:null
+child 1 starts:Avatar Animator Thread 3
+Num threads after execution:8
+calling method: public void mp.bean.ACommandInterpreter.lockstepGuard() with args 
+called method: public void mp.bean.ACommandInterpreter.lockstepGuard() with args: result:null
+waiting for threads
+child 1 starts:Avatar Animator Thread guard 4
+Num threads after execution:9
+Finished waiting for threads
+Stopping thread:Thread[Avatar Animator Thread guard 4,5,main]
+Child thread nullnull
+### 'lockstepGuard' method exists test case: 0.2
+Removing traceable listener

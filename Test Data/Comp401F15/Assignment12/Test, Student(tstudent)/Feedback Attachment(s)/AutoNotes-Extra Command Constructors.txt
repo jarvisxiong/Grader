@@ -1,0 +1,6 @@
+  -- Type @RotateLeftArmCommand not defined, cannot check
+  -- Type @RotateRightArmCommand not defined, cannot check
+  -- Type @SleepCommand not defined, cannot check
+  -- Type @DefineCommand not defined, cannot check
+  -- Type @CallCommand not defined, cannot check
+  -- Type @ThreadCommand not defined, cannot check
