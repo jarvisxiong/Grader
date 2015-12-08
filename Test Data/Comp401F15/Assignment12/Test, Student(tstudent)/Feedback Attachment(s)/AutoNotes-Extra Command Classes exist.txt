@@ -1,7 +1,0 @@
-  -- RotateLeftArmCommand does not implement interface java.lang.Runnable
-  -- RotateRightArmCommand does not implement interface java.lang.Runnable
-  -- SleepCommand does not implement interface java.lang.Runnable
-  -- DefineCommand does not implement interface java.lang.Runnable
-  -- CallCommand does not implement interface java.lang.Runnable
-  -- ThreadCommand does not implement interface java.lang.Runnable
-  -- ProceedAllCommand does not implement interface java.lang.Runnable

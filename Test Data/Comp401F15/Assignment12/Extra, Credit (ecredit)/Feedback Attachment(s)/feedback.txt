@@ -5,16 +5,11 @@ Grading features...
 Generic classes                                        10.0 / 10.0
 Coordinated animation starts                           10.0 / 10.0
 Lockstep Animation                                     10.0 / 10.0
-Extra Command Classes exist                            14.0 / 14.0 (Extra credit)
-Extra Command Constructors                             0.0 / 12.0 (Extra credit)
-Extra Command Signatures                               8.0 / 12.0 (Extra credit)
-Extra Command Calls                                    8.0 / 12.0 (Extra credit)
-Factory Classes Exist                                  2.0 /  4.0 (Extra credit)
-Factory Signatures                                     14.0 / 14.0 (Extra credit)
-Factory Calls                                          10.0 / 10.0 (Extra credit)
+Extra Command Classes Structure                        28.0 / 38.0 (Extra credit)
+Factory Classes Structure                              11.6 / 13.0 (Extra credit)
 Factory method execution                               10.0 / 12.0
-Exception Classes Exist                                0.0 /  4.0 (Extra credit)
-Undo Classes Exist                                     2.0 /  2.0 (Extra credit)
+Exception Classes Structure                            0.0 /  4.0 (Extra credit)
+Undo Classes Structure                                 2.0 /  2.0 (Extra credit)
 Proceed all demo                                       0.0 /  7.0 (Extra credit)
 Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
 Lockstep method demo                                   0.0 /  7.0 (Extra credit)
@@ -22,36 +17,38 @@ Undo demo                                              0.0 /  6.0 (Extra credit)
 Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
 OE Factory Demo                                        0.0 /  6.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 98.0
+  Points Awarded: 81.6
 
-  Features Score: 98.0
+Grading restrictions...
+----------------------------------
+Previous Classes Exist (No pts)                        0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 81.6
 
 Notes from grading features:
 ----------------------------------
-Extra Command Constructors:
-  -- Type @RotateLeftArmCommand not defined, cannot check
-  -- Type @RotateRightArmCommand not defined, cannot check
-  -- Type @SleepCommand not defined, cannot check
-  -- Type @DefineCommand not defined, cannot check
-  -- Type @CallCommand not defined, cannot check
-  -- Type @ThreadCommand not defined, cannot check
+Lockstep Animation:
+  -- only one step in lockstep animation, probably a bug
 
-Extra Command Signatures:
+Extra Command Classes Structure :
+  -- RotateLeftArmCommand not found
+  -- RotateRightArmCommand not found
+  -- SleepCommand not found
   -- Method call matching @parseRotateLeftArm:\*->Runnable not defined by BasicCommandParser
   -- Method call matching @parseRotateRightArm:\*->Runnable not defined by BasicCommandParser
 
-Extra Command Calls:
-  -- Method matching @parseRotateLeftArm:\*->Runnable not called in BasicCommandParser
-  -- Method matching @parseRotateRightArm:\*->Runnable not called in BasicCommandParser
-
-Factory Classes Exist:
+Factory Classes Structure:
   -- CustomSwingTextFieldFactory not found.
 
 Factory method execution:
   -- Unique factory method:broadcastingClearanceManagerMethod not found.
 
-Exception Classes Exist:
+Exception Classes Structure:
   -- ScanningException does not implement class java.lang.Object
   -- ParsingException does not implement class java.lang.Object
 
-  Total Score: 98.0
+
+Early benefit: 105.0%
+  Total Score: 86.10000000000001

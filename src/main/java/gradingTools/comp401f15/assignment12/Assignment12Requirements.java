@@ -58,47 +58,77 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 	Class[] emptyParameterTypes;
 
     public Assignment12Requirements() {
-        addDueDate("12/03/2015 00:30:00", 1.0);
-        addDueDate("12/05/2015 00:30:00", 0.5);  
-        addFeature("Generic classes", 10,
+        addDueDate("12/03/2015 00:30:00", 1.05);
+        addDueDate("12/08/2015 00:30:00", 1.0);  
+        
+        addFeature("Previous Classes Exist (No pts)", 0, 
+        		new InterfaceImplementedTestCase("Parser", Object.class),
+        		new InterfaceImplementedTestCase("Table", Object.class),
+        		new InterfaceImplementedTestCase("CommandInterpreter", Object.class)
+
+        		);
+        addFeature("Generic classes", 15,
                 new GenerictClassCheckStyleTestCase("Table"));
         
-//        addFeature("Coordinated animation starts", 10, 
-//           		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
-//           		
-//           		);
-//        addFeature("Lockstep Animation", 10, 
-//           		new LockstepAnimationTestCase("lockstepGuard", "lockstepArthur")
-//           		
-//           		);
+        addFeature("Coordinated animation starts", 10, 
+           		new WaitingAnimationTestCase("startAnimation", "waitingArthur", "waitingLancelot")
+           		
+           		);
+      
+        
+        		// make sure teh right parser is found);
+
      // Command Objects (21 pts)
-        addFeature("Extra Command Classes exist", 14, true,
+        addFeature("Extra Command Classes Structure ", 38, true,
         		new CommandObjectExistsTestCase("RotateLeftArmCommand"),
         		new CommandObjectExistsTestCase("RotateRightArmCommand"),
         		new CommandObjectExistsTestCase("SleepCommand"),
         		new CommandObjectExistsTestCase("DefineCommand"),
         		new CommandObjectExistsTestCase("CallCommand"),
         		new CommandObjectExistsTestCase("ThreadCommand"),
-        		new CommandObjectExistsTestCase("ProceedAllCommand")
-        		
-        		);
-        addFeature("Extra Command Constructors", 12, true,       		
+        		new CommandObjectExistsTestCase("ProceedAllCommand"),        		
+
         		new CheckstyleConstructorDefinedTestCase("RotateLeftArmCommand", ":@Avatar; int"),
         		new CheckstyleConstructorDefinedTestCase("RotateRightArmCommand", ":@Avatar; int"),
         		new CheckstyleConstructorDefinedTestCase("SleepCommand", ":long"),
         		new CheckstyleConstructorDefinedTestCase("DefineCommand", ":String;@Table"),
         		new CheckstyleConstructorDefinedTestCase("CallCommand", ":String;@Table"),
-        		new CheckstyleConstructorDefinedTestCase("ThreadCommand", ":@String;@Table")
-        );
-        addFeature("Extra Command Signatures", 12, true,
+        		new CheckstyleConstructorDefinedTestCase("ThreadCommand", ":@String;@Table"),
+        		
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRotateRightArm:\\*->Runnable"),
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseSleep:\\*->Runnable"),
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseDefine:\\*->Runnable"),
     	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCall:\\*->Runnable"),
-    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseThread:\\*->Runnable")    	   		
-    	   		
+    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseThread:\\*->Runnable")   
+        		
         		);
+//        addFeature("Factory Classes Structure ", 4, true,
+//        		
+//        		new InterfaceImplementedTestCase("SingletonsCreator", null),
+//        		new InterfaceImplementedTestCase("CustomSwingTextFieldFactory", TextFieldFactory.class)
+//        		
+//        		);
+        
+//        
+//        addFeature("Extra Command Constructors", 12, true,       		
+//        		new CheckstyleConstructorDefinedTestCase("RotateLeftArmCommand", ":@Avatar; int"),
+//        		new CheckstyleConstructorDefinedTestCase("RotateRightArmCommand", ":@Avatar; int"),
+//        		new CheckstyleConstructorDefinedTestCase("SleepCommand", ":long"),
+//        		new CheckstyleConstructorDefinedTestCase("DefineCommand", ":String;@Table"),
+//        		new CheckstyleConstructorDefinedTestCase("CallCommand", ":String;@Table"),
+//        		new CheckstyleConstructorDefinedTestCase("ThreadCommand", ":@String;@Table")
+//        );
+//        addFeature("Extra Command Signatures", 12, true,
+//        		new InterfaceImplementedTestCase("Parser", Object.class),// make sure teh right parser is found
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseRotateRightArm:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseSleep:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseDefine:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseCall:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseThread:\\*->Runnable")    	   		
+//    	   		
+//        		);
 //        @RotateLeftArmCommand = @Avatar!@rotateLeftArm:int->void,
 //				 @RotateRightArmCommand = @Avatar!@rotateRightArm:int->void,
 //				 @SleepCommand = @ThreadSupport!sleep:long->void,
@@ -107,21 +137,36 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 //				 @ThreadCommand = @Table!get:Object->Object | Thread!start:->void,
 //				 @CustomSwingTextFieldFactory = JTextField!setForeground:*->void | JTextField!setForeground:*->void,
 //				 main.Assignment(.*) = ObjectEditor.initialize:->void
-        addFeature("Extra Command Calls", 12, true,
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateRightArm:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseSleep:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseDefine:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseCall:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseThread:\\*->Runnable")    	   		
-    	   		
-    	   		
-        		);
-        addFeature("Factory Classes Exist", 4, true,
+//        addFeature("Extra Command Calls", 12, true,
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateLeftArm:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseRotateRightArm:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseSleep:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseDefine:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseCall:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@parseThread:\\*->Runnable")    	   		
+//    	   		
+//    	   		
+//        		);
+        addFeature("Factory Classes Structure", 13, true,
         	
         		new InterfaceImplementedTestCase("SingletonsCreator", null),
-        		new InterfaceImplementedTestCase("CustomSwingTextFieldFactory", TextFieldFactory.class)
+        		new InterfaceImplementedTestCase("CustomSwingTextFieldFactory", TextFieldFactory.class),
         		
+        		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@parserFactoryMethod:->@Parser"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@bridgeSceneFactoryMethod:->@BridgeScene"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@avatarTableFactoryMethod:->@Table"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@commandInterpreterFactoryMethod:->@CommandInterpreter"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
+    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@broadcastingClearanceManagerMethod:->BroadcastingClearanceManager")
+//  can get false positives with calls   	   		
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@SingletonsCreator!@scannerFactoryMethod:->@ScannerBean"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parserFactoryMethod:->@Parser"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@bridgeSceneFactoryMethod:->@BridgeScene"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@avatarTableFactoryMethod:->@Table"),    	   		
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@BroadcastingClearanceManager!proceedAll:->void")
+
+        
         		
         		);
         
@@ -165,27 +210,27 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 //		@parserFactoryMethod:->@Parser
 
       
-      
-        addFeature("Factory Signatures", 14, true,    	     	   		
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@parserFactoryMethod:->@Parser"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@bridgeSceneFactoryMethod:->@BridgeScene"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@avatarTableFactoryMethod:->@Table"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@commandInterpreterFactoryMethod:->@CommandInterpreter"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
-    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@broadcastingClearanceManagerMethod:->BroadcastingClearanceManager")
-
-        		);
-     
-        addFeature("Factory Calls", 10, true,    	   		    	   		
-    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@SingletonsCreator!@scannerFactoryMethod:->@ScannerBean"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parserFactoryMethod:->@Parser"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@bridgeSceneFactoryMethod:->@BridgeScene"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@avatarTableFactoryMethod:->@Table"),    	   		
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@BroadcastingClearanceManager!proceedAll:->void")
-
-    	   		
-        		);
+//      
+//        addFeature("Factory Signatures", 14, true,    	     	   		
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@parserFactoryMethod:->@Parser"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@bridgeSceneFactoryMethod:->@BridgeScene"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@avatarTableFactoryMethod:->@Table"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@commandInterpreterFactoryMethod:->@CommandInterpreter"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@scannerFactoryMethod:->@ScannerBean"),
+//    	   		new CheckstyleMethodDefinedTestCase("SingletonsCreator", 	"@broadcastingClearanceManagerMethod:->BroadcastingClearanceManager")
+//
+//        		);
+//     
+//        addFeature("Factory Calls", 10, true,    	   		    	   		
+//    	   		new CheckstyleMethodCalledTestCase("Parser", 	"@SingletonsCreator!@scannerFactoryMethod:->@ScannerBean"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parserFactoryMethod:->@Parser"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@bridgeSceneFactoryMethod:->@BridgeScene"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@SingletonsCreator!@avatarTableFactoryMethod:->@Table"),    	   		
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@BroadcastingClearanceManager!proceedAll:->void")
+//
+//    	   		
+//        		);
      // do this early so following tests can use the instances
         // actuall do this late because the singleton is locked
         addFeature("Factory method execution", 12,
@@ -196,16 +241,20 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
                 new FactoryMethodTestCase("SingletonsCreator", "broadcastingClearanceManagerMethod", "BroadcastingClearanceManager" ),
                 new FactoryMethodTestCase("SingletonsCreator", "commandInterpreterFactoryMethod", "CommandInterpreter" )
                 ); 
-        addFeature("Exception Classes Exist", 4, true,
+        addFeature("Exception Classes Structure", 4, true,
             	
         		new InterfaceImplementedTestCase("ScanningException", Object.class),
         		new InterfaceImplementedTestCase("ParsingException", Object.class)       		
         		
         		);
-        addFeature("Undo Classes Exist", 2, true,
+        addFeature("Undo Classes Structure", 2, true,
         		new CommandObjectExistsTestCase("UndoCommand"),
         		new CommandObjectExistsTestCase("RedoCommand"));
-      addManualFeature("Proceed all demo", 7, true);
+     addFeature("Lockstep Animation", 10, true,
+           		new LockstepAnimationTestCase("lockstepGuard", "lockstepArthur")
+           		
+           		);
+      addManualFeature("Proceed all demo", 10, true);
       addManualFeature("Extended grammar lockstep demo", 20, true);
       addManualFeature("Lockstep method demo ", 7, true);
       addManualFeature("Undo demo ", 6, true);

@@ -38,7 +38,8 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 			if (implementedInterface.isAssignableFrom(anInterface))
 				return pass(autoGrade);
 		}
-	
+		// we did not find the right class
+		IntrospectionUtil.putClass(project, this, tag, null);	
         return partialPass(0.0, tag + " does not implement " + implementedInterface);
 	}
 

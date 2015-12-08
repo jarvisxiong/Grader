@@ -144,8 +144,11 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
             throw new NotGradableException();
         String aTypeTag = typeTag();
         if (aTypeTag != null) {
-        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
-	     if (aClass == null) {
+//        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
+        	// class exists check should have cached the class
+        Class aClass = IntrospectionUtil.getClass(project, this, typeTag); 
+
+        if (aClass == null) {
 	    	 return fail("Type " + aTypeTag + " not defined, cannot check");
 	     }
 	     typeName = aClass.getSimpleName();

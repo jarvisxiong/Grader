@@ -1,2 +1,0 @@
-  -- UndoCommand not found.
-  -- RedoCommand not found.

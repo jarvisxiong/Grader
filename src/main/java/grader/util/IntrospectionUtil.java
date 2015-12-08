@@ -119,12 +119,22 @@ public class IntrospectionUtil {
 
 	}
 	public static Class getOrFindClass(Project aProject, TestCase aTestCase, String aClassName) {
-		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));
+		Class aClassObject = getClass(aProject, aTestCase, aClassName);
+//		Class aClassObject = (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));
 		if (aClassObject == null) {
 			aClassObject = IntrospectionUtil.findClass(aProject, aClassName);
-			aTestCase.getCheckable().getRequirements().putUserObject(toClassDescriptor(aClassName), aClassObject);
+			putClass(aProject, aTestCase, aClassName, aClassObject);
+//			aTestCase.getCheckable().getRequirements().putUserObject(toClassDescriptor(aClassName), aClassObject);
 		}
 		return aClassObject;
+	}
+	public static Class getClass(Project aProject, TestCase aTestCase, String aClassName) {
+		return (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));
+		
+	}
+	public static void putClass(Project aProject, TestCase aTestCase, String aClassName, Class aClassObject) {
+		aTestCase.getCheckable().getRequirements().putUserObject(toClassDescriptor(aClassName), aClassObject);
+		
 	}
 	public static List<Class> getOrFindClasses(Project aProject, TestCase aTestCase, String aClassName) {
 		List<Class> aClassObject = (List<Class>)aTestCase.getCheckable().getRequirements().getUserObject(toClassesDescriptor(aClassName));
