@@ -1,8 +1,8 @@
 *****************************(Coordinated animation starts)*****************************
 calling constructor: public mp.ui.ABridgeScene() 
 called constructor: public mp.ui.ABridgeScene() 
-calling constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@13c68f93, null
-called constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@13c68f93, null
+calling constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@12e3fc87, null
+called constructor: public mp.bean.ACommandInterpreter(mp.ui.BridgeScene,mp.bean.animation.BroadcastingClearanceManager) mp.ui.ABridgeScene@12e3fc87, null
 calling methods
 Adding traceable listener
 calling method: public void mp.bean.ACommandInterpreter.waitingArthur() with args 
@@ -13,8 +13,8 @@ child 1 starts:Avatar Animator Thread 1
 Num threads after execution:11
 child 2 starts:Avatar Animator Thread 2
 Num threads after execution:11
-child 2 executes after child 1
 child 1 executes after child 2
+child 2 executes after child 1
 calling method: public void mp.bean.ACommandInterpreter.startAnimation() with args 
 Terminated execution after milliseconds:2000
 waiting for threads

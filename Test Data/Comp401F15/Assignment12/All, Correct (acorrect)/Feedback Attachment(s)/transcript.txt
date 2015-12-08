@@ -1,8 +1,8 @@
 *****************************(Coordinated animation starts)*****************************
 calling constructor: public main.ABridgeScene() 
 called constructor: public main.ABridgeScene() 
-calling constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@5303ec44
-called constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@5303ec44
+calling constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@54f3d820
+called constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@54f3d820
 calling methods
 Adding traceable listener
 calling method: public void main.ACommandInterpreter.waitingArthur() with args 
