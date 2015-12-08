@@ -1,0 +1,2 @@
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
+  -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
