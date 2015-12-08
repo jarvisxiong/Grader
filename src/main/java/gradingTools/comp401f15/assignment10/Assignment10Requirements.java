@@ -1,7 +1,6 @@
 package gradingTools.comp401f15.assignment10;
 
 import framework.grading.FrameworkProjectRequirements;
-
 import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment10.testCases.*;
@@ -27,30 +26,64 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
     public Assignment10Requirements() {
 
         // Add due date/times with a 30 minute grace period
-        addDueDate("11/04/2015 12:59:00", 1.05);
-        addDueDate("11/06/2015 12:59:00", 1);
-        addDueDate("11/11/2015 12:59:00", 0.9);
-        addDueDate("11/13/2015 12:59:00", 0.75);
+        addDueDate("11/05/2015 00:59:00", 1.05);
+        addDueDate("11/07/2015 00:59:00", 1);
+        addDueDate("11/12/2015 00:59:00", 0.9);
+        addDueDate("11/14/2015 00:59:00", 0.75);
+        
+        addFeature("Previous Classes Exist (No pts)", 0, 
+        		new InterfaceImplementedTestCase("CommandInterpreter", Object.class)
 
-        // Precondition Methods (24 pts)
-        addFeature("Precondition signatures", 8,
+        		);
+
+        addFeature("Precondition structure", 8,
                 new PreconditionTestCase("approach"),
                 new PreconditionTestCase("say"),
                 new PreconditionTestCase("passed"),
                 new PreconditionTestCase("failed"));
+        
         addFeature("Precondition execution", 22 ,
                 new PreconditionExecutionTestCase()   
 
                 );
-        
         // Command Objects (21 pts)
-        addFeature("A10 Classes", 20, 
+        addFeature("Command Classes Structure", 10, 
         		new CommandObjectExistsTestCase("SayCommand"),
         		new CommandObjectExistsTestCase("MoveCommand"),
         		new CommandObjectExistsTestCase("AnimatingCommand"),
-        		new InterfaceImplementedTestCase("Animator", Object.class)
+        		
+        		new CheckstyleConstructorDefinedTestCase("SayCommand", ":@BridgeScene; String"),
+        		new CheckstyleConstructorDefinedTestCase("MoveCommand", ":@Avatar; int; int")
+//        		new InterfaceImplementedTestCase("Animator", Object.class)
+        // should check for calls to animator
 
         		);
+        
+        addFeature("Animator Structure", 10, 
+        		new InterfaceImplementedTestCase("Animator", Object.class),
+    	   		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")  	   		
+        );
+        addFeature("Async Method Execution", 28, 
+           		new AsynchronousAnimationTestCase("asynchronousArthur"),
+           		new AsynchronousAnimationTestCase("asynchronousLancelot"),
+           		new AsynchronousAnimationTestCase("asynchronousRobin"),
+           		new AsynchronousAnimationTestCase("asynchronousGalahad")
+//           		new SynchronizedAnimationTestCase("asynchronousGalahad"),
+//           		new SynchronizedAnimationTestCase("asynchronousLancelot"),
+//           		new SynchronizedAnimationTestCase("asynchronousRobin")
+           		);		
+        		
+
+      
+        
+//        // Command Objects (21 pts)
+//        addFeature("Command Classes Structure", 20, 
+//        		new CommandObjectExistsTestCase("SayCommand"),
+//        		new CommandObjectExistsTestCase("MoveCommand"),
+//        		new CommandObjectExistsTestCase("AnimatingCommand"),
+//        		new InterfaceImplementedTestCase("Animator", Object.class)
+//
+//        		);
         
 //        addFeature("Say & move cmd objects", 5,
 //                new CommandImplementsRunnableTestCase("MoveCommand"),
@@ -58,26 +91,31 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
 //        addFeature("Move cmd constructor", 3, new MoveCommandConstructorTestCase());
 //        addFeature("Say cmd constructor", 3, new SayCommandConstructorTestCase());
         
-        addFeature("A10 Constructors", 6,        		
-        		new CheckstyleConstructorDefinedTestCase("SayCommand", ":@BridgeScene; String"),
-        		new CheckstyleConstructorDefinedTestCase("MoveCommand", ":@Avatar; int; int")
-
-        );
+//        addFeature("A10 Constructors", 6,        		
+//        		new CheckstyleConstructorDefinedTestCase("SayCommand", ":@BridgeScene; String"),
+//        		new CheckstyleConstructorDefinedTestCase("MoveCommand", ":@Avatar; int; int")
+//
+//        );
         
-        addFeature("A10 Signatures", 15, 
-//    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
-    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
-    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
-    	   		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")  	   		
-
-        		);
-        addFeature("A10 Calls", 15, 
+//        addFeature("A10 Signatures", 15, 
+////    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
+//    	   		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")  	   		
+//
+//        		);
+//        addFeature("A10 Calls", 15, 
+////    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
+//    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
+//        		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")
+//        		);
+        addFeature("Command Interpreter Structure", 8, 
 //    	   		new CheckstyleMethodDefinedTestCase("Parser", 	"@parseNumber:\\*->\\*"),
     	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseSay:\\*->Runnable"),
-    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable"),
-        		new CheckstyleMethodDefinedTestCase("Animator", "@animateAvatar:\\*->void")
+    	   		new CheckstyleMethodCalledTestCase("CommandInterpreter", 	"@parseMove:\\*->Runnable")
         		);
-        addFeature("Command interpretation", 10,
+        addFeature("Command interpreter Execution", 10,
                 new SayCommandPartiallyInterpretedTestCase(),
                 new MoveCommandPartiallyInterpretedTestCase()
                 );
@@ -89,16 +127,16 @@ public class Assignment10Requirements extends FrameworkProjectRequirements {
 //                new ParserMethodTestCase("parseSay"));
 //        addFeature("Command object invoked", 5, new SayMoveCommandInvokedTestCase());
 
-        // Asynchronous Animations (55 pts)
-        addFeature("Async Method Execution", 28, 
-           		new AsynchronousAnimationTestCase("asynchronousArthur"),
-           		new AsynchronousAnimationTestCase("asynchronousLancelot"),
-           		new AsynchronousAnimationTestCase("asynchronousRobin"),
-           		new AsynchronousAnimationTestCase("asynchronousGalahad")
-//           		new SynchronizedAnimationTestCase("asynchronousGalahad"),
-//           		new SynchronizedAnimationTestCase("asynchronousLancelot"),
-//           		new SynchronizedAnimationTestCase("asynchronousRobin")
-           		);
+//        // Asynchronous Animations (55 pts)
+//        addFeature("Async Method Execution", 28, 
+//           		new AsynchronousAnimationTestCase("asynchronousArthur"),
+//           		new AsynchronousAnimationTestCase("asynchronousLancelot"),
+//           		new AsynchronousAnimationTestCase("asynchronousRobin"),
+//           		new AsynchronousAnimationTestCase("asynchronousGalahad")
+////           		new SynchronizedAnimationTestCase("asynchronousGalahad"),
+////           		new SynchronizedAnimationTestCase("asynchronousLancelot"),
+////           		new SynchronizedAnimationTestCase("asynchronousRobin")
+//           		);
       addFeature("Guard method exists", 2, true,
       new AnimatingMethodTestCase("asynchronousGuard"));
       addManualFeature("Guard claps", 4, true);

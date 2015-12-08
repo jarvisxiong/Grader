@@ -5,11 +5,11 @@ W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListen
 W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListener) for method public static void mp.Scene.TheGorge.addPropertyChangeListener(mp.Scene.Gorge,java.beans.PropertyChangeListener)
 Adding traceable listner
 calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args 
-called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@7829b776
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@379ce046
 calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args 
-called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args: result:mp.Scene.AnAvatar@346939bf
-calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@7829b776
-called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@7829b776 result:null
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args: result:mp.Scene.AnAvatar@46d63dbb
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@379ce046
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@379ce046 result:null
 calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:false
 calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args 
@@ -32,17 +32,17 @@ calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with arg
 called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:false
 calling method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args: result:false
-calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@346939bf
-called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@346939bf result:null
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@46d63dbb
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@46d63dbb result:null
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Name
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Name result:null
 calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Lancelot
 called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Lancelot result:null
 calling method: public void mp.Scene.TheBridgeScene.failedScene() with args 
-W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.Scene.ALine@28d79cba)
-W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.Scene.ALine@281f23f2)
-W***Lower Y = -1 < 0 of .lancelot.torso (mp.Scene.ALine@49dbaaf3)
-W***Lower Y = -10 < 0 of .lancelot.text (mp.Scene.AStringShape@736f3e9e)
+W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.Scene.ALine@7fb53256)
+W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.Scene.ALine@3d90eeb3)
+W***Lower Y = -1 < 0 of .lancelot.torso (mp.Scene.ALine@138aa3cc)
+W***Lower Y = -10 < 0 of .lancelot.text (mp.Scene.AStringShape@30839e44)
 called method: public void mp.Scene.TheBridgeScene.failedScene() with args: result:null
 calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
 called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:true
@@ -58,7 +58,7 @@ Actial pres:  false, true, true, true, true, false, false, false, true, false, f
 Expected names: approach, passed, failed, say, pass, fail
 Actual name set: [approach, say, pass, fail, pass, pass, approach, say, pass, fail, approach, say, pass, fail, pass, pass, approach, say, pass, fail]
 ### Precondition execution Test Case: 1.0
-*****************************(Command interpretation)*****************************
+*****************************(Command interpreter Execution)*****************************
 java.lang.NullPointerException
     at java.util.Objects.requireNonNull(Objects.java:203)
     at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase.test(SayCommandInterpretedTestCase.java:66)
@@ -81,7 +81,7 @@ java.lang.NullPointerException
     at gradingTools.Driver.drive(Driver.java:299)
     at gradingTools.Driver.main(Driver.java:364)
 ### Say command test case: 0.0
-*****************************(Command interpretation)*****************************
+*****************************(Command interpreter Execution)*****************************
 java.lang.NullPointerException
     at java.util.Objects.requireNonNull(Objects.java:203)
     at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase.test(MoveCommandInterpretedTestCase.java:65)

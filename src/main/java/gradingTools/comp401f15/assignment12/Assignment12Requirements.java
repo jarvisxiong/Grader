@@ -232,7 +232,7 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 //    	   		
 //        		);
      // do this early so following tests can use the instances
-        // actuall do this late because the singleton is locked
+        // actuall do this late because the singleton may be locked
         addFeature("Factory method execution", 12,
                 new FactoryMethodTestCase("SingletonsCreator", "scannerFactoryMethod", "ScannerBean" ),
                 new FactoryMethodTestCase("SingletonsCreator", "bridgeSceneFactoryMethod", "BridgeScene" ),

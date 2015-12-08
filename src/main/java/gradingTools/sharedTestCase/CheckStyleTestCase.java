@@ -66,7 +66,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	List<String> aTypeDefinedLines = matchedLines(aCheckStyleLines, typeRegex(aTypeTag));
     	  this.foundType = aTypeDefinedLines.size() > 0;
     	  if (!foundType) {
-    		  return fail (aTypeTag + " not found");
+    		  return fail (aTypeTag + " not found by checkstyle");
     	  }
     	}
     	List<String> aFailedLines = matchedLines(aCheckStyleLines, regexLineFilter());
