@@ -2,22 +2,22 @@ Grading result for: Test, Student(tstudent)
 
 Grading features...
 ----------------------------------
-Generic classes                                        10.0 / 10.0
+Generic classes                                        15.0 / 15.0
 Coordinated animation starts                           0.0 / 10.0
-Lockstep Animation                                     0.0 / 10.0
 Extra Command Classes Structure                        0.0 / 38.0 (Extra credit)
 Factory Classes Structure                              0.0 / 13.0 (Extra credit)
 Factory method execution                               0.0 / 12.0
 Exception Classes Structure                            0.0 /  4.0 (Extra credit)
 Undo Classes Structure                                 0.0 /  2.0 (Extra credit)
-Proceed all demo                                       0.0 /  7.0 (Extra credit)
+Lockstep Animation                                     0.0 / 10.0 (Extra credit)
+Proceed all demo                                       0.0 / 10.0 (Extra credit)
 Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
 Lockstep method demo                                   0.0 /  7.0 (Extra credit)
 Undo demo                                              0.0 /  6.0 (Extra credit)
 Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
 OE Factory Demo                                        0.0 /  6.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 10.0
+  Points Awarded: 15.0
 
 Grading restrictions...
 ----------------------------------
@@ -25,14 +25,11 @@ Previous Classes Exist (No pts)                        0.0 /  0.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 10.0
+  Features Score: 15.0
 
 Notes from grading features:
 ----------------------------------
 Coordinated animation starts:
-  -- Couldn't find correct constructor for CommandInterpreter
-
-Lockstep Animation:
   -- Couldn't find correct constructor for CommandInterpreter
 
 Extra Command Classes Structure :
@@ -83,6 +80,9 @@ Undo Classes Structure:
   -- UndoCommand does not implement interface java.lang.Runnable
   -- RedoCommand does not implement interface java.lang.Runnable
 
+Lockstep Animation:
+  -- Couldn't find correct constructor for CommandInterpreter
+
 
 Early benefit: 105.0%
-  Total Score: 10.5
+  Total Score: 15.75

@@ -1,1 +1,1 @@
-  -- only one step in lockstep animation, probably a bug
+  -- controller thread did not send property event

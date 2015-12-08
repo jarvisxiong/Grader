@@ -2,8 +2,8 @@
 Discarding constructor with parms[]
 calling constructor: public grail.scene.BasicBridgeScene() 
 called constructor: public grail.scene.BasicBridgeScene() 
-calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@16016840
-called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@16016840
+calling constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@11f15cda
+called constructor: public grail.commander.BasicCommandInterpreter(grail.scene.BridgeScene) grail.scene.BasicBridgeScene@11f15cda
 calling methods
 E***Class:grail.helpers.BasicTable does not follow declared pattern: Hashmap Pattern. Ignoring pattern declaration.
 W***Assuming implicit pattern: Hashtable Pattern instead of: Hashmap Pattern
@@ -19,12 +19,12 @@ child 1 starts:Thread-12
 Num threads after execution:9
 child 2 starts:Thread-11
 Num threads after execution:9
-child 1 executes after child 2
 child 2 executes after child 1
+child 1 executes after child 2
 Finished waiting for threads
 No threads created
 Stopping thread:Thread[Thread-12,5,]
-Stopping thread:Thread[Thread-11,5,]
+Stopping thread:Thread[Thread-11,5,main]
 ### 'startAnimation' method exists test case: 1.0
 Removing traceable listener
 *****************************(Lockstep Animation)*****************************
@@ -35,14 +35,7 @@ called method: public void grail.commander.BasicCommandInterpreter.lockstepArthu
 calling method: public void grail.commander.BasicCommandInterpreter.lockstepGuard() with args 
 called method: public void grail.commander.BasicCommandInterpreter.lockstepGuard() with args: result:null
 waiting for threads
-child 1 starts:Thread-14
-Num threads after execution:9
-child 2 starts:Thread-13
-Num threads after execution:9
-child 1 executes after child 2
-child 2 executes after child 1
 Finished waiting for threads
-Stopping thread:Thread[Thread-14,5,main]
-Stopping thread:Thread[Thread-13,5,main]
-### 'lockstepGuard' method exists test case: 1.0
+No threads created
+### 'lockstepGuard' method exists test case: 0.1
 Removing traceable listener

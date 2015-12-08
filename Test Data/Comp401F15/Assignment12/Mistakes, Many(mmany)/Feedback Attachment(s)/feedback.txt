@@ -2,22 +2,22 @@ Grading result for: Mistakes, Many(mmany)
 
 Grading features...
 ----------------------------------
-Generic classes                                        10.0 / 10.0
+Generic classes                                        15.0 / 15.0
 Coordinated animation starts                           0.0 / 10.0
-Lockstep Animation                                     2.0 / 10.0
 Extra Command Classes Structure                        32.0 / 38.0 (Extra credit)
 Factory Classes Structure                              0.0 / 13.0 (Extra credit)
 Factory method execution                               0.0 / 12.0
 Exception Classes Structure                            0.0 /  4.0 (Extra credit)
 Undo Classes Structure                                 0.0 /  2.0 (Extra credit)
-Proceed all demo                                       0.0 /  7.0 (Extra credit)
+Lockstep Animation                                     2.0 / 10.0 (Extra credit)
+Proceed all demo                                       0.0 / 10.0 (Extra credit)
 Extended grammar lockstep demo                         0.0 / 20.0 (Extra credit)
 Lockstep method demo                                   0.0 /  7.0 (Extra credit)
 Undo demo                                              0.0 /  6.0 (Extra credit)
 Exceptions thrown and caught in source code            0.0 /  7.0 (Extra credit)
 OE Factory Demo                                        0.0 /  6.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 44.0
+  Points Awarded: 49.0
 
 Grading restrictions...
 ----------------------------------
@@ -25,20 +25,17 @@ Previous Classes Exist (No pts)                        0.0 /  0.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 44.0
+  Features Score: 49.0
 
 Notes from grading features:
 ----------------------------------
 Coordinated animation starts:
   -- No proeprty notification after proceedAll
 
-Lockstep Animation:
-  -- controlled thread did not send property event
-
 Extra Command Classes Structure :
-  -- RotateLeftArmCommand not found
-  -- RotateRightArmCommand not found
-  -- SleepCommand not found
+  -- RotateLeftArmCommand not found by checkstyle
+  -- RotateRightArmCommand not found by checkstyle
+  -- SleepCommand not found by checkstyle
 
 Factory Classes Structure:
   -- SingletonsCreator not found.
@@ -67,6 +64,9 @@ Undo Classes Structure:
   -- UndoCommand not found.
   -- RedoCommand not found.
 
+Lockstep Animation:
+  -- controlled thread did not send property event
+
 
 Early benefit: 105.0%
-  Total Score: 46.2
+  Total Score: 51.45

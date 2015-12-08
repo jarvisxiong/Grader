@@ -147,6 +147,8 @@ public class Assignment12Requirements extends ExtendedProjectRequirements {
 //    	   		
 //    	   		
 //        		);
+        
+        // add setForeground and background at some point
         addFeature("Factory Classes Structure", 13, true,
         	
         		new InterfaceImplementedTestCase("SingletonsCreator", null),
