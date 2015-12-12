@@ -35,6 +35,8 @@ import bus.uigen.ObjectEditor;
 import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.trace.ObjectAdapterReceivedPropertyChangeEvent;
 import bus.uigen.trace.PropertyChangeEventInfo;
+import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
+import java.util.Optional;
 
 /**
  *
@@ -57,106 +59,119 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
+        Optional<RedirectionEnvironment> outRedir = RedirectionEnvironment.redirectOut(); 
         try {
-    	ExecutionUtil.redirectOutput();
-    	Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
-        List<Method> approachMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach");
-        if (approachMList == null || approachMList.isEmpty()) {
-            return fail("Can't find approach method in class " + bridgeSceneClass.getTypeName());
-        }
-        Method approach = approachMList.get(0);
-        Constructor<?> bridgeSceneConstructor;
-        try {
-            bridgeSceneConstructor = bridgeSceneClass.getConstructor();
-        } catch (NoSuchMethodException | SecurityException ex) {
-            return fail("Can't access BridgeScene constructor");
-        }
-        if (bridgeSceneConstructor == null) {
-            return fail("Can't find empty BridgeScene constructor");
-        }
-        
-        Method say = null;
-        Method passed = null;
-        Method failed = null;
-        Method preSay = null;
-        Method prePassed = null;
-        Method preFailed = null;
-        Method preApproach = null;
-        Method getArthur = null;
-        Method getLancelot = null;
-        
-        try {
+//            ExecutionUtil.redirectOutput();
+            Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
+            List<Method> approachMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach");
+            if (approachMList == null || approachMList.isEmpty()) {
+                return fail("Can't find approach method in class " + bridgeSceneClass.getTypeName());
+            }
+            Method approach = approachMList.get(0);
+            Constructor<?> bridgeSceneConstructor;
+            try {
+                bridgeSceneConstructor = bridgeSceneClass.getConstructor();
+            } catch (NoSuchMethodException | SecurityException ex) {
+                return fail("Can't access BridgeScene constructor");
+            }
+            if (bridgeSceneConstructor == null) {
+                return fail("Can't find empty BridgeScene constructor");
+            }
 
-//            say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
-//            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-//            getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
+            Method say = null;
+            Method passed = null;
+            Method failed = null;
+            Method preSay = null;
+            Method prePassed = null;
+            Method preFailed = null;
+            Method preApproach = null;
+            Method getArthur = null;
+            Method getLancelot = null;
 
-//            passed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "passed").get(0);
-//            failed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "failed").get(0);
+            try {
+
+//                say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
+//                getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+//                getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
 //
-//            prePassed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "prePassed").get(0);
-//            preApproach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preApproach").get(0);
-//            preFailed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preFailed").get(0);
-//            prePassed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "prePassed").get(0);
-//            preSay = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preSay").get(0);
-//            
-//            say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
-//            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-//            getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-        	 say = getBridgeSceneMethod(project, bridgeSceneClass, "say");
-             getArthur = getBridgeSceneMethod(project, bridgeSceneClass, "Arthur");
-             getLancelot = getBridgeSceneMethod(project, bridgeSceneClass, "Lancelot");
-            passed = getBridgeSceneMethod(project, bridgeSceneClass, "passed");
-            if (passed == null)
-            	passed =  getBridgeSceneMethod(project, bridgeSceneClass, "pass");
-            failed = getBridgeSceneMethod(project, bridgeSceneClass, "failed");
-            if (failed == null)
-            	failed = getBridgeSceneMethod(project, bridgeSceneClass, "fail");
+//                passed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "passed").get(0);
+//                failed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "failed").get(0);
+//
+//                prePassed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "prePassed").get(0);
+//                preApproach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preApproach").get(0);
+//                preFailed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preFailed").get(0);
+//                prePassed = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "prePassed").get(0);
+//                preSay = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "preSay").get(0);
+//
+//                say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
+//                getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+//                getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
+                say = getBridgeSceneMethod(project, bridgeSceneClass, "say");
+                getArthur = getBridgeSceneMethod(project, bridgeSceneClass, "Arthur");
+                getLancelot = getBridgeSceneMethod(project, bridgeSceneClass, "Lancelot");
+                passed = getBridgeSceneMethod(project, bridgeSceneClass, "passed");
+                if (passed == null)
+                    passed =  getBridgeSceneMethod(project, bridgeSceneClass, "pass");
+                failed = getBridgeSceneMethod(project, bridgeSceneClass, "failed");
+                if (failed == null)
+                    failed = getBridgeSceneMethod(project, bridgeSceneClass, "fail");
 
-            prePassed = getBridgeSceneMethod(project, bridgeSceneClass, "prePassed");
-            if (prePassed == null)
-            	prePassed = getBridgeSceneMethod(project, bridgeSceneClass, "prePass");
-            preApproach = getBridgeSceneMethod(project, bridgeSceneClass, "preApproach");
-            preFailed = getBridgeSceneMethod(project, bridgeSceneClass, "preFailed");
-            if (preFailed == null)
-            	preFailed = getBridgeSceneMethod(project, bridgeSceneClass, "preFail");
-            preSay = getBridgeSceneMethod(project, bridgeSceneClass, "preSay");
+                prePassed = getBridgeSceneMethod(project, bridgeSceneClass, "prePassed");
+                if (prePassed == null)
+                    prePassed = getBridgeSceneMethod(project, bridgeSceneClass, "prePass");
+                preApproach = getBridgeSceneMethod(project, bridgeSceneClass, "preApproach");
+                preFailed = getBridgeSceneMethod(project, bridgeSceneClass, "preFailed");
+                if (preFailed == null)
+                    preFailed = getBridgeSceneMethod(project, bridgeSceneClass, "preFail");
+                preSay = getBridgeSceneMethod(project, bridgeSceneClass, "preSay");
 
 
-        } catch (Exception e) {
-            return fail("Can't find at least one of the following: say, preSay, preApproach, prePassed, preFailed, getArthur, getLancelot, passed, failed");
-        }
+            } catch (Exception e) {
+                return fail("Can't find at least one of the following: say, preSay, preApproach, prePassed, preFailed, getArthur, getLancelot, passed, failed");
+            }
 
-//        boolean[] results = checkMovement(bridgeSceneConstructor, approach, say, passed, failed, getArthur, getLancelot);
-        Object[] results = checkMovement(bridgeSceneConstructor, approach, say, passed, failed, getArthur, getLancelot, preApproach, prePassed, preFailed, preSay);
-        int numReturnValuesMatched = numMatches(expectedPre, preData);
-        Set<String> namesMatched = matches(expectedNames, preTags);
-        double percentValuesMatched = ((double) numReturnValuesMatched)/expectedPre.length;
-        double precentTagsMatched  =  ((double) namesMatched.size())/(expectedNames.length - 2); // two alternatives
-        if (percentValuesMatched == 1 && precentTagsMatched == 1)
-        	return pass();
-        double valueWeightage = 0.7;
-        double tagWeightage = 0.3;
-        double overallWeighage = valueWeightage*percentValuesMatched + tagWeightage*precentTagsMatched;
-        return partialPass (overallWeighage, "Values and/or tags did not match,see transcript:" );
-//        int correct = count(results, true);
-//        if (correct == 0) {
-//            return fail("Incorrect or no approach");
-//        } else if (correct == 3) {
-//            return pass();
-//        } else {
-//            int raw = results[0] ? 1 : 0;
-//            raw += results[1] ? 2 : 0;
-//            raw += results[2] ? 2 : 0;
-//            double score = ((double)raw) / 5;
-//            String message = buildMessage(results);
-//            return partialPass(score, message);
-//        }
+//            boolean[] results = checkMovement(bridgeSceneConstructor, approach, say, passed, failed, getArthur, getLancelot);
+            Object[] results = checkMovement(bridgeSceneConstructor, approach, say, passed, failed, getArthur, getLancelot, preApproach, prePassed, preFailed, preSay);
+            int numReturnValuesMatched = numMatches(expectedPre, preData);
+            Set<String> namesMatched = matches(expectedNames, preTags);
+            double percentValuesMatched = ((double) numReturnValuesMatched)/expectedPre.length;
+            double precentTagsMatched  =  ((double) namesMatched.size())/(expectedNames.length - 2); // two alternatives
+            if (percentValuesMatched == 1 && precentTagsMatched == 1)
+                    return pass();
+            double valueWeightage = 0.7;
+            double tagWeightage = 0.3;
+            double overallWeighage = valueWeightage*percentValuesMatched + tagWeightage*precentTagsMatched;
+            return partialPass (overallWeighage, "Values and/or tags did not match,see transcript:" );
+//            int correct = count(results, true);
+//            if (correct == 0) {
+//                return fail("Incorrect or no approach");
+//            } else if (correct == 3) {
+//                return pass();
+//            } else {
+//                int raw = results[0] ? 1 : 0;
+//                raw += results[1] ? 2 : 0;
+//                raw += results[2] ? 2 : 0;
+//                double score = ((double)raw) / 5;
+//                String message = buildMessage(results);
+//                return partialPass(score, message);
+//            }
         } finally {
-        	String anOutput = restoreOutputAndGetRedirectedOutput();
-            if (anOutput != null && !anOutput.isEmpty()) {
-             	System.out.println(anOutput);
-                RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+            try {
+                if (outRedir.isPresent()) {
+                    String out = RedirectionEnvironment.restore(outRedir.get()).orElse("");
+//                    System.gc();
+                    RunningProject.appendToTranscriptFile(project, getCheckable().getName(), out);
+                }
+//                String anOutput = restoreOutputAndGetRedirectedOutput();
+//                if (anOutput != null && !anOutput.isEmpty()) {
+//                    System.out.println(anOutput);
+//                    RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+//                }
+            } catch(OutOfMemoryError e) {
+                System.gc();
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

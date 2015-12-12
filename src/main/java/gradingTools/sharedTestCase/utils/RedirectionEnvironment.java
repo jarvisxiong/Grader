@@ -149,13 +149,14 @@ public class RedirectionEnvironment implements AutoCloseable {
             try {
                 newStream.flush();
                 sb.ensureCapacity((int) Files.size(bufferPath) / Character.BYTES);
-                List<String> lines = Files.readAllLines(bufferPath);
-                lines.stream().forEachOrdered((line) -> sb.append(line).append("\n"));
+                /*List<String> lines = */Files.lines(bufferPath)//Files.readAllLines(bufferPath);
+                /*lines.stream()*/.forEachOrdered((line) -> sb.append(line).append("\n"));
                 if (sb.length() > 0) { 
                     sb.setLength(Math.max(0, sb.length() - 1));
                 }
             } catch (Exception ex) {
                 valid.set(false);
+                ex.printStackTrace(defaultStreams.getOrDefault("stderr", System.err));
                 return Optional.empty();
             }
             return Optional.of(sb.toString());
