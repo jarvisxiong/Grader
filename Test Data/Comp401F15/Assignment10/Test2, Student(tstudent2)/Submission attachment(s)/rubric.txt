@@ -1,0 +1,21 @@
+Assignment 10
+Precondition Methods and Extended Console View(30 pts)
+(12) Public precondition method for each method: approach, say, passed, and failed, and use assert the precondition methods in these there methods - DONE
+(12) Notify all observers of the scene class of the corresponding event when you change some value in the precondition methods - DONE
+(6) Rigster Console Scene View as an observer of a scene class, thus, it can print Property Change Events from precondition methods - DONE
+Command Objects for Parsing(11 pts)
+(5) Create two new command class, tagged 'SayCommand' and 'MoveCommand' and implement Runnable - DONE
+(3) Move command only takes Avatar and two integers as arguments in its constructor - DONE
+(3) Say command only takes a String and Scene as arguments in its constructor - DONE
+Command Interpreter with Command Objects(11 pts)
+(5) Creat Two separate parsing methods for say and move command that return Runnable-typed objects. Tagged 'parseSay' and 'parseMove' - DONE
+(5) Caller of 'parseSay' and 'parseMove' executes command using the Runnable object - DONE
+Asynchronous Animations (49 pts)
+(5) Animating methods in interpreter tagged 'asynchronousArthur', 'asynchronousGalahad', 'asynchronousLancelot' and 'asynchronousRobin'. - DONE
+(10) Each method starts and runs the animation in its own thread. Animations must be demoed to run simultaneously to receive credit for this!- DONE
+(17) Animation uses one or more animating command classes that implement Runnable. Class(es) tagged 'AnimatingCommand' - DONE
+(17) Each animation uses some animator class with an animating method. Class(es) tagged 'Animator', and method(s) tagged 'animateAvatar' if for animate Avatars - DONE
+
+
+Demo
+Demo all of the features specified in the Assignment 10 pdf to get credit for them! - DONE
