@@ -1,1 +1,0 @@
-  -- Can't find 'lockstepGuard' method or method tagged 'lockstepGuard' in class 'ACommandInterpreter'

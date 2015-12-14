@@ -1,1 +1,0 @@
-  -- controlled thread did not send property event

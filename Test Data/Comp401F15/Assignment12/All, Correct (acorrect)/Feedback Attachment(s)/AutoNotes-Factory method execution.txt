@@ -1,2 +1,0 @@
-  -- Instantiated class:BroadcastingClearanceManager not found.
-  -- Instanitaion caused exception:main.ACommandInterpreter.<init>()

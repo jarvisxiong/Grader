@@ -1,3 +1,0 @@
-  -- RotateLeftArmCommand not found by checkstyle
-  -- RotateRightArmCommand not found by checkstyle
-  -- SleepCommand not found by checkstyle

@@ -1,6 +1,0 @@
-  -- Factory class:SingletonsCreator not found.
-  -- Factory class:SingletonsCreator not found.
-  -- Factory class:SingletonsCreator not found.
-  -- Factory class:SingletonsCreator not found.
-  -- Factory class:SingletonsCreator not found.
-  -- Factory class:SingletonsCreator not found.

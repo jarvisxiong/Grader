@@ -1,9 +1,0 @@
-  -- SingletonsCreator not found.
-  -- CustomSwingTextFieldFactory not found.
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check
-  -- Type SingletonsCreator not defined, cannot check

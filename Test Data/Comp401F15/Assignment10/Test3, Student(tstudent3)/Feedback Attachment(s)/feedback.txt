@@ -1,4 +1,4 @@
-Grading result for: Pena, Blaise(blaisep)
+Grading result for: Test3, Student(tstudent3)
 
 Grading features...
 ----------------------------------
@@ -6,15 +6,15 @@ Precondition structure                                 0.0 /  8.0
 Precondition execution                                 0.0 / 22.0
 Command Classes Structure                              0.0 / 10.0
 Animator Structure                                     0.0 / 10.0
-Async Method Execution                                 0.0 / 28.0
-Command Interpreter Structure                          0.0 /  8.0
+Async Method Execution                                 11.2 / 28.0
+Command Interpreter Structure                          8.0 /  8.0
 Command interpreter Execution                          0.0 / 10.0
 Guard method exists                                    0.0 /  2.0 (Extra credit)
 Guard claps                                            0.0 /  4.0 (Extra credit)
 Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
 Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 0.0
+  Points Awarded: 19.2
 
 Grading restrictions...
 ----------------------------------
@@ -22,7 +22,7 @@ Previous Classes Exist (No pts)                        0.0 /  0.0
 ----------------------------------
   Points Deducted: 0.0
 
-  Features Score: 0.0
+  Features Score: 19.2
 
 Notes from grading features:
 ----------------------------------
@@ -32,11 +32,9 @@ Precondition structure:
   -- Could not find a precondition method associated with: passed
   -- Could not find a precondition method associated with: failed
 
-Validated by instructor.
 Precondition execution:
   -- Can't find approach method in class grail.CharacterAnimation.BridgeScene
 
-Validated by instructor.
 Command Classes Structure:
   -- SayCommand not found.
   -- MoveCommand not found.
@@ -44,36 +42,22 @@ Command Classes Structure:
   -- Type SayCommand not defined, cannot check
   -- Type MoveCommand not defined, cannot check
 
-Validated by instructor.
 Animator Structure:
   -- Animator not found.
   -- Type Animator not defined, cannot check
 
-Validated by instructor.
 Async Method Execution:
-  -- No  thread created (maybe race conditions) by:public void main.ACommandInterpreter.animateLancelot()
-  -- No  thread created (maybe race conditions) by:public void main.ACommandInterpreter.animateRobin()
-  -- No  thread created (maybe race conditions) by:public void main.ACommandInterpreter.animateGalahad()
+  -- No  thread created (maybe race conditions) by:public void main.CommandInterpreter.asynLancelot()
+  -- No  thread created (maybe race conditions) by:public void main.CommandInterpreter.asynRobin()
+  -- No  thread created (maybe race conditions) by:public void main.CommandInterpreter.asynGalahad()
 
-Validated by instructor.
-Command Interpreter Structure:
-Validated by instructor.
 Command interpreter Execution:
   -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
   -- Couldn't find correct constructor for CommandInterpreter, BridgeScene, or ScannerBean
 
-Validated by instructor.
 Guard method exists:
   -- No method tagged: asynchronousGuard
 
-Validated by instructor.
-Guard claps:
-
-
 
 Late penalty: 0.0%
-
-Overall Comments:
-----------------------------------
-Will be regraded as 8 so grade TBD.----------------------------------
   Total Score: 0.0

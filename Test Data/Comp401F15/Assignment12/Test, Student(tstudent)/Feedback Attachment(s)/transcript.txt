@@ -1,6 +1,0 @@
-*****************************(Coordinated animation starts)*****************************
-Discarding constructor with parms[interface mp.BridgeScene, interface main.ScannerBeanInterface, interface main.BroadcastingClearanceManager]
-### 'startAnimation' method exists test case: 0.0
-*****************************(Lockstep Animation)*****************************
-Discarding constructor with parms[interface mp.BridgeScene, interface main.ScannerBeanInterface, interface main.BroadcastingClearanceManager]
-### 'lockstepGuard' method exists test case: 0.0
