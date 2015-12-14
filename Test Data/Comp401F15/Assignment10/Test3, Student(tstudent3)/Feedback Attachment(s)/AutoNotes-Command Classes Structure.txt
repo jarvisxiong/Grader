@@ -1,0 +1,5 @@
+  -- SayCommand not found.
+  -- MoveCommand not found.
+  -- AnimatingCommand not found.
+  -- Type SayCommand not defined, cannot check
+  -- Type MoveCommand not defined, cannot check

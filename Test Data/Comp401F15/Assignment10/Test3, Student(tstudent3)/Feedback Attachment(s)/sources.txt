@@ -1,0 +1,2736 @@
+//START OF FILE: src/grail/characteranimation/apropertylistenersupport.java
+package grail.CharacterAnimation;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+public class APropertyListenerSupport implements PropertyListenerSupport {
+    public final int MAX_SIZE = 50;
+    PropertyChangeListener[] contents = new PropertyChangeListener[MAX_SIZE];
+    int size = 0;
+
+    public int size() {
+        return size;
+    }
+    
+    public PropertyChangeListener get (int index) {
+        return contents[index];
+    }
+
+    public boolean isFull() {
+        return size == MAX_SIZE;
+
+    }
+
+    public void add(PropertyChangeListener l) {
+        if (isFull()) {
+			System.out.println("Adding item to a full collection");
+		}
+        else {
+            contents[size] = l;
+            size++;
+        }
+    }  
+    public void notifyAllListeners(PropertyChangeEvent event) {
+        for (int index = 0; index < size(); index++) {
+            get(index).propertyChange(event);
+        }
+    }
+    public void remove(PropertyChangeListener element) {
+        contents[indexOf(element)] = contents[size - 1];
+        size--;
+    }
+
+    public void remove(int startIndex) {
+        shiftUp(startIndex);
+        size--;
+    }
+
+    void shiftUp(int startIndex) {
+        for (int index = startIndex; index + 1 < size; index++) {
+			contents[index] = contents[index + 1];
+		}
+    }
+
+    public int indexOf(PropertyChangeListener element) {
+        int index;
+        for (index = 0; index < size && !element.equals(contents[index]); index++) {
+		}
+        return index;
+    }
+
+    public boolean member(PropertyChangeListener element) {
+        return indexOf(element) < size;
+
+    }
+
+    public void clear() {
+        size = 0;
+    }
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/armlegvshape.java
+package grail.CharacterAnimation;
+
+
+import util.annotations.Tags;
+
+@Tags({"Angle"})
+
+public class ArmLegVshape implements VshapeInterface {
+
+	PointInterface pivotLocation;
+	LineInterface leftLine;
+	LineInterface rightLine;
+	
+	public LineInterface getLeftLine() {
+		return leftLine;
+	}
+
+	public LineInterface getRightLine() {
+		return rightLine;
+	}
+	
+	public void movePoint(int x, int y) {
+		
+		int tempX = pivotLocation.getX() + x;
+		pivotLocation.setX(tempX);
+		
+		int tempY = pivotLocation.getY() + y;
+		pivotLocation.setY(tempY);
+		
+		leftLine.setXY(tempX, tempY);
+		rightLine.setXY(tempX, tempY);
+	}
+	
+
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/avatar.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeListener;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@StructurePattern("Bean Pattern")
+@Tags({"Avatar"})
+@PropertyNames({"arms","legs","head","body","speech"})
+@EditablePropertyNames({"speech"})
+public class Avatar implements AvatarInterface{
+	
+	VshapeInterface arms;
+	VshapeInterface legs;
+	HeadInterface head;
+	LineInterface body;
+	PointInterface location;
+	StringShapeInterface speech;
+	
+	final int xMod = 20;
+	final int yMod = 33;
+	final int headHeightMod = 33;
+	final int headWidthMod = 64;
+	final int bodyMod = 100;
+	final int speechXMod = 40;
+	final int speechYMod = -5;
+		
+	public Avatar(String name, PointInterface initLocation){
+		location = initLocation;
+		int initX = initLocation.getX();
+		int initY = initLocation.getY();
+		location.setX(initX + xMod);
+		location.setY(initY + yMod);
+		head = new CharacterHead(name, initLocation.getX() - xMod, initLocation.getY() - yMod, headHeightMod, headWidthMod);
+		body = new Line(location,0,bodyMod);
+		arms = new CharArms(location);
+		legs = new CharLegs(location);
+		speech = new StringShape("", initX + speechXMod, initY + speechYMod);
+	}
+	
+	public void setSpeech(String newText) {
+		speech.setText(newText);
+		
+	}
+
+	public StringShapeInterface getSpeech() {
+		return speech;
+	}
+	
+	public HeadInterface getHead() {
+		return head;
+	}
+
+	public VshapeInterface getArms() {
+		return arms;
+	}
+
+	public VshapeInterface getLegs() {
+		return legs;
+	}
+
+	public LineInterface getBody() {
+		return body;
+	}
+
+	public void move(int x, int y){
+		@Tags({"move"})
+		PointInterface tempPoint = body.getLocation();
+		int newX = x + tempPoint.getX();
+		int newY = y + tempPoint.getY();
+		tempPoint.setX(newX);
+		tempPoint.setY(newY);
+		
+		
+		
+		body.setLocation(tempPoint);
+		arms.movePoint( x , y);
+		legs.movePoint( x , y);
+		head.setX(head.getX() + x);
+		head.setY(head.getY() + y);
+		speech.setX(speech.getX() + x);
+		speech.setY(speech.getY() + y);
+	}
+	
+	public void scale(int scale){
+		body.setHeight(body.getHeight() * scale);
+		arms.getLeftLine().setHeight(arms.getLeftLine().getHeight() * scale);
+		arms.getRightLine().setHeight(arms.getRightLine().getHeight() * scale);
+		legs.getLeftLine().setHeight(legs.getLeftLine().getHeight() * scale);
+		legs.getRightLine().setHeight(legs.getRightLine().getHeight() * scale);
+		body.setHeight(body.getHeight() * scale);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/avatarinterface.java
+package grail.CharacterAnimation;
+
+public interface AvatarInterface {
+	
+	public void setSpeech(String newText);
+	public StringShapeInterface getSpeech();
+	public HeadInterface getHead();
+	public VshapeInterface getArms();
+	public VshapeInterface getLegs();
+	public LineInterface getBody();
+	public void scale(int scale);
+	public void move(int x, int y);
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/boundedshape.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+
+@PropertyNames({"width","height","location","x","y"})
+@EditablePropertyNames({"width","height","location","x","y"})
+public class BoundedShape extends LocatableShape implements BoundedShapeInt{
+    protected int width, height;
+    PointInterface location;
+    public final int MAX_SIZE = 50;
+    PropertyChangeListener[] contents = new PropertyChangeListener[MAX_SIZE];
+    int size = 0;
+	
+    public PointInterface getLocation(){return location;}
+    public void setLocation(PointInterface newLocation){
+    	location = newLocation;
+    	setXY(location.getX(),location.getY());
+    }
+    
+    public int getWidth() {return width;}
+    public void setWidth(int newVal) {
+    	int oldVal = width;
+    	width = newVal;
+    	notifyAllListeners(new PropertyChangeEvent(this, "WIDTH", oldVal, newVal));
+    }
+    
+    public int getHeight() {return height;}
+    public void setHeight(int newHeight) {
+    	int oldVal = height;
+    	height = newHeight;
+    	notifyAllListeners(new PropertyChangeEvent(this, "HEIGHT", oldVal, newHeight));
+    }
+    
+
+	public void rotate(int rotation) {
+		int oldVal = width;
+		width = width + rotation;
+		notifyAllListeners(new PropertyChangeEvent(this, "width", oldVal, width));
+		
+	}
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/boundedshapeint.java
+package grail.CharacterAnimation;
+
+public interface BoundedShapeInt extends PropertyListenerSupport , LocatableShapeInt {
+
+	 public PointInterface getLocation();
+	    public void setLocation(PointInterface tempPoint);
+	    public int getWidth();
+	    public void setWidth(int newVal);
+	    public int getHeight() ;
+	    public void setHeight(int newVal);
+	    public void rotate(int rotation);
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/bridgescene.java
+package grail.CharacterAnimation;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+@ObserverRegisterer(value = "1")
+@Tags({"BridgeScene"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public class BridgeScene implements BridgeSceneInterface {
+	String name;
+	PointInterface place;
+	AvatarInterface arthur;
+	AvatarInterface galahad;
+	AvatarInterface lancelot;
+	AvatarInterface robin;
+	AvatarInterface guard;
+	Boolean occupied = false;
+	Boolean knightTurn = false;
+	GorgeAndBridgeInterface sceneDetails = new GorgeAndBridge();
+	AvatarInterface currentKnight;
+	
+	final int mod100 = 100;
+	final int mod200 = 200;
+	final int mod250 = 250;
+	final int mod350 = 350;
+	final int mod480 = 480;
+	final int mod700 = 700;
+	final int mod50 = 50;
+	final int mod80 = 80;
+	final int mod5 = 5;
+	final int mod1300 = 1300;
+	final int mod500 = 500;
+		
+	public BridgeScene(){
+	name = "arthur.jpg";
+	place = new Point(mod100, mod100);
+	arthur = new Avatar(name, place);
+	
+	name = "galahad.jpg";
+	place = new Point(mod200, mod100);
+	galahad = new Avatar(name, place);
+	
+	name = "lancelot.jpg";
+	place = new Point(mod100,mod350);
+	lancelot = new Avatar(name, place);
+	
+	name = "robin.jpg";
+	place = new Point(mod200, mod350);
+	robin = new Avatar(name, place);
+	
+	name = "guard.jpg";
+	place = new Point(mod480, mod700);
+	guard = new Avatar(name, place);
+	
+	arthur.getArms().getLeftLine().addPropertyChangeListener(this);
+	arthur.getArms().getRightLine().addPropertyChangeListener(this);
+	arthur.getLegs().getLeftLine().addPropertyChangeListener(this);
+	arthur.getLegs().getRightLine().addPropertyChangeListener(this);
+	arthur.getHead().addPropertyChangeListener(this);
+	arthur.getBody().addPropertyChangeListener(this);
+	arthur.getSpeech().addPropertyChangeListener(this);
+	
+	galahad.getArms().getLeftLine().addPropertyChangeListener(this);
+	galahad.getArms().getRightLine().addPropertyChangeListener(this);
+	galahad.getLegs().getLeftLine().addPropertyChangeListener(this);
+	galahad.getLegs().getRightLine().addPropertyChangeListener(this);
+	galahad.getHead().addPropertyChangeListener(this);
+	galahad.getBody().addPropertyChangeListener(this);
+	galahad.getSpeech().addPropertyChangeListener(this);
+	
+	lancelot.getArms().getLeftLine().addPropertyChangeListener(this);
+	lancelot.getArms().getRightLine().addPropertyChangeListener(this);
+	lancelot.getLegs().getLeftLine().addPropertyChangeListener(this);
+	lancelot.getLegs().getRightLine().addPropertyChangeListener(this);
+	lancelot.getHead().addPropertyChangeListener(this);
+	lancelot.getBody().addPropertyChangeListener(this);
+	lancelot.getSpeech().addPropertyChangeListener(this);
+	
+	robin.getArms().getLeftLine().addPropertyChangeListener(this);
+	robin.getArms().getRightLine().addPropertyChangeListener(this);
+	robin.getLegs().getLeftLine().addPropertyChangeListener(this);
+	robin.getLegs().getRightLine().addPropertyChangeListener(this);
+	robin.getHead().addPropertyChangeListener(this);
+	robin.getBody().addPropertyChangeListener(this);
+	robin.getSpeech().addPropertyChangeListener(this);
+	
+	guard.getArms().getLeftLine().addPropertyChangeListener(this);
+	guard.getArms().getRightLine().addPropertyChangeListener(this);
+	guard.getLegs().getLeftLine().addPropertyChangeListener(this);
+	guard.getLegs().getRightLine().addPropertyChangeListener(this);
+	guard.getHead().addPropertyChangeListener(this);
+	guard.getBody().addPropertyChangeListener(this);
+	guard.getSpeech().addPropertyChangeListener(this);
+	
+	
+	}
+	
+	public AvatarInterface getArthur(){
+		return arthur;
+	}
+	
+	public AvatarInterface getGalahad(){
+		return galahad;
+	}
+	
+	public AvatarInterface getLancelot(){
+		return lancelot;
+	}
+	
+	public AvatarInterface getRobin(){
+		return robin;
+	}
+	
+	public AvatarInterface getGuard(){
+		return guard;
+	}
+	
+	public void rotateAvatarArms(int wave){
+		arthur.getArms().getLeftLine().rotate(wave);
+	}
+	
+	/*public void move(){
+		robin.move(5, 5);
+	}*/
+	@Tags({"Aproach"})
+	public void moveToCircle(AvatarInterface next){
+		int newX = 0;
+		int newY = 0;
+		currentKnight = next;
+		
+		if (next.getBody().getLocation().getX() != sceneDetails.getKnightArea().getLocation().getX() + mod50){
+			if (next.getBody().getLocation().getX() > sceneDetails.getKnightArea().getLocation().getX() + mod50){
+				newX = sceneDetails.getKnightArea().getLocation().getX() - next.getBody().getLocation().getX();
+			}
+			else {
+				newX = mod5;
+			}
+		}		
+			
+		if (next.getBody().getLocation().getY() != sceneDetails.getKnightArea().getLocation().getY() - mod80){
+			if (next.getBody().getLocation().getY() > sceneDetails.getKnightArea().getLocation().getY() - mod80){
+				newY = (int) (sceneDetails.getKnightArea().getLocation().getY() - next.getBody().getLocation().getY() - mod80);
+			}
+			else{
+				newY = mod5;
+			}
+		}		
+			
+		next.move(newX, newY);
+		if (next.getBody().getLocation().getX() == (sceneDetails.getKnightArea().getLocation().getX() + mod50) &&
+				next.getBody().getLocation().getY() == (sceneDetails.getKnightArea().getLocation().getY() - mod80)) {
+			occupied = true;
+		}
+	}
+	
+	public void scaleAvatar(int scale ){
+		lancelot.scale(scale);		
+	}
+	
+	public GorgeAndBridgeInterface getSceneDetails(){
+		return sceneDetails;
+	}
+	
+	public void setOccupied(){
+		if (occupied){
+			occupied = false;
+		}
+		else {
+			occupied = true;
+		}
+	}
+	public boolean getOccupied(){
+		return occupied;
+	}
+	
+	public Boolean getKnightTurn(){
+		return knightTurn;
+	}
+	
+	
+	@Tags({"Say"})
+	public void sayScene(String speech){
+
+		if (occupied){
+			if (!knightTurn){
+				knightTurn = true;
+				guard.setSpeech(speech);
+			}
+			else {
+				currentKnight.setSpeech(speech);
+				knightTurn = false;
+			}
+		}
+
+		
+	}
+
+	@Tags({"Passed"})
+	public boolean passed(){
+		if (occupied){
+			currentKnight.move(mod5,0);
+		}
+		if (currentKnight.getBody().getLocation().getX() > mod1300){
+			occupied = false;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}	
+	
+	@Tags({"Failed"})
+	public  void failed(){
+		if (occupied ){
+			if (!knightTurn ){
+				currentKnight.move(mod500, mod350);
+				occupied = false;
+			}
+		}
+	}
+	
+	@Tags({"Scroll"})
+	public void scroll(int xScroll, int yScroll){
+		arthur.move(xScroll, yScroll);
+		galahad.move(xScroll, yScroll);
+		lancelot.move(xScroll, yScroll);
+		robin.move(xScroll, yScroll);
+		guard.move(xScroll, yScroll);
+		sceneDetails.moveAll(xScroll, yScroll);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/bridgesceneinterface.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeListener;
+
+public interface BridgeSceneInterface extends PropertyChangeListener {
+	public AvatarInterface getArthur();
+	public AvatarInterface getGalahad();
+	public AvatarInterface getLancelot();
+	public AvatarInterface getRobin();
+	public AvatarInterface getGuard();
+	public void rotateAvatarArms(int wave);
+	//public void move();
+	public void scaleAvatar(int scale);
+	public void setOccupied();
+	public boolean getOccupied();
+	public GorgeAndBridgeInterface getSceneDetails();
+	public void moveToCircle(AvatarInterface next);
+	public void sayScene(String speech);
+	public boolean passed();
+	public  void failed();
+	public void scroll(int xScroll, int yScroll);
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/chararms.java
+package grail.CharacterAnimation;
+
+import util.annotations.StructurePattern;
+
+@StructurePattern("Bean Pattern")
+public class CharArms extends ArmLegVshape {
+
+	final int mod25 = 25;
+	final int mod50 = 25;
+	final int mod20 = 20;
+	
+	
+	public CharArms(PointInterface initPoint){
+		pivotLocation = new Point(initPoint.getX(), initPoint.getY() + mod20);
+		leftLine = new Line(pivotLocation, -mod25, mod50);
+		rightLine = new Line(pivotLocation, mod25, mod50);
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/charlegs.java
+package grail.CharacterAnimation;
+
+import util.annotations.StructurePattern;
+
+@StructurePattern("Bean Pattern")
+public class CharLegs extends ArmLegVshape{
+	
+	final int mod25 = 25;
+	final int mod50 = 25;
+	final int mod20 = 20;
+	final int mod100 = 100;
+	
+	public CharLegs(PointInterface initPoint){
+		
+		pivotLocation = new Point(initPoint.getX(), initPoint.getY() + mod100);
+		leftLine = new Line(pivotLocation, -mod25, mod50);
+		rightLine = new Line(pivotLocation, mod25, mod50);
+	}
+	
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/characterhead.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.LABEL_PATTERN)
+public class CharacterHead extends LocatableShape implements HeadInterface {
+
+	 String imageFileName;
+     int x, y, height, width;
+     PropertyChangeListener[] contents = new PropertyChangeListener[MAX_SIZE];
+     
+     public CharacterHead (String initImageFileName, int initX, int initY, int initHeight, int initWidth) {	
+    	imageFileName = initImageFileName;
+    	x = initX;
+    	y = initY;    
+    	height = initHeight;
+    	width = initWidth;
+     }          
+
+    public int getX() {
+    	return x;
+    }
+    
+  	public void setX(int newX) {
+  		int oldX = x;
+  		x = newX;
+  		notifyAllListeners(new PropertyChangeEvent(this, "x", oldX, newX));
+  	}
+  	
+  	public int getY() {
+  		return y;
+  	}
+  	
+  	public void setXY(int newX, int newY){
+  		int oldX = x;
+  		x = newX;
+  		notifyAllListeners(new PropertyChangeEvent(this, "X", oldX, newX));
+  		int oldY = y;
+  		y = newY;
+  		notifyAllListeners(new PropertyChangeEvent(this, "y", oldY, newY));
+  		}
+  	
+  	public void setY(int newY) {
+  		int oldY = y;
+  		y = newY;
+  		notifyAllListeners(new PropertyChangeEvent(this, "Y", oldY, newY));
+  		
+  	}
+  	
+    public int getHeight() { return height; }
+  	public void setHeight(int newHeight) {
+  		height = newHeight;
+  	}
+  	
+  	public int getWidth() { return width; }
+  	public void setWidth(int newWidth) {
+  		width = newWidth;
+  	}
+  	
+    public String getImageFileName() {return imageFileName;}  
+    public void setImageFileName(String newVal) {imageFileName = newVal ;}     
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/circle.java
+package grail.CharacterAnimation;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+@StructurePattern(StructurePatternNames.OVAL_PATTERN) 
+@PropertyNames({"width","height","location","x","y"})
+@EditablePropertyNames({"width","height","location","x","y"})
+public class Circle extends BoundedShape implements CircleInterface {
+
+	public Circle (PointInterface initLocation, int initWidth, int initHeight) {
+		location = initLocation;
+		width = initWidth;
+		height = initHeight;   
+	}
+	public Circle (int newX, int newY, int initWidth, int initHeight){
+		location = new Point(newX,newY);  	
+		width = initWidth;
+		height = initHeight;
+		x = newX;
+		y = newY;
+	}
+	
+	public void rotate(int rotation) {
+		//DOES NOTHING		
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/circleinterface.java
+package grail.CharacterAnimation;
+
+public interface CircleInterface extends LineInterface {
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/commandinterpreter.java
+package grail.CharacterAnimation;
+
+import util.annotations.Tags;
+import mp.CommanProcessing.DefaultInterface;
+import mp.CommanProcessing.Move;
+import mp.CommanProcessing.NumberInterface;
+import mp.CommanProcessing.Say;
+import mp.CommanProcessing.ScannerBean;
+import mp.CommanProcessing.ScannerBeanInterface;
+import mp.CommanProcessing.SignInterface;
+
+
+@Tags({"CommandInterpreter","ErrorResilient"})
+public class CommandInterpreter implements CommandInterpreterInt {
+
+	String command;
+	ScannerBeanInterface scanner;
+	DefaultInterface[] commandArray;
+	int commandExecutionIndex = 0;
+	TableInt table = new Table();
+	BridgeSceneInterface scene;
+	String status;
+	
+	public CommandInterpreter(BridgeSceneInterface newScene){
+		scene = newScene;
+		table.put("arthur", scene.getArthur());
+		table.put("galahad", scene.getGalahad());
+		table.put("lancelot", scene.getLancelot());
+		table.put("robin", scene.getRobin());
+		table.put("guard", scene.getGuard());
+		
+		
+	}
+	
+	
+
+	public void setCommand(String newCommand) {
+		command = newCommand;
+		scanner = new ScannerBean();
+		scanner.tokenFinder(command);
+		commandArray = scanner.getCompactArray();
+		status = "";
+		
+
+		if (commandArray[0] instanceof Say){
+			if (commandArray.length>0){
+				scene.sayScene(commandArray[1].getInput());
+
+			}
+			else{
+				status = "Error: Say command missing text.";
+			}
+		}
+		else if (commandArray[0] instanceof Move){
+			if (commandArray.length==2+1+1){
+				((AvatarInterface) table.get(commandArray[1].getInput())).move
+				(((NumberInterface) commandArray[2]).getValue(),((NumberInterface)
+						commandArray[2+1]).getValue());
+			
+			}
+			else {
+				status = "Error: Move command missing required info.";
+			}
+		}
+		else {
+			status = "Error: Command is not supported or is invalid.";
+		}
+		
+
+	}
+
+	public String getCommand() {
+		return command;
+	}
+	
+	public String getStatus(){
+		return status;
+	}
+
+}	
+
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/commandinterpreterint.java
+package grail.CharacterAnimation;
+
+public interface CommandInterpreterInt {
+
+	public String getCommand();
+	public void setCommand(String command);
+	public String getStatus();
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/consolesceneview.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import util.annotations.ObserverRegisterer;
+import util.annotations.Tags;
+
+@ObserverRegisterer(value = "2")
+@Tags({"ConsoleSceneView"})
+public class ConsoleSceneView implements PropertyChangeListener {
+
+	public ConsoleSceneView (BridgeSceneInterface scene){
+		scene.getArthur().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getArthur().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getArthur().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getArthur().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getArthur().getHead().addPropertyChangeListener(this);
+		scene.getArthur().getBody().addPropertyChangeListener(this);
+		scene.getArthur().getSpeech().addPropertyChangeListener(this);
+		
+		
+		scene.getGalahad().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getGalahad().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getGalahad().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getGalahad().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getGalahad().getHead().addPropertyChangeListener(this);
+		scene.getGalahad().getBody().addPropertyChangeListener(this);
+		scene.getGalahad().getSpeech().addPropertyChangeListener(this);
+		
+		scene.getLancelot().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getLancelot().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getLancelot().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getLancelot().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getLancelot().getHead().addPropertyChangeListener(this);
+		scene.getLancelot().getBody().addPropertyChangeListener(this);
+		scene.getLancelot().getSpeech().addPropertyChangeListener(this);
+		
+		scene.getRobin().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getRobin().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getRobin().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getRobin().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getRobin().getHead().addPropertyChangeListener(this);
+		scene.getRobin().getBody().addPropertyChangeListener(this);
+		scene.getRobin().getSpeech().addPropertyChangeListener(this);
+		
+		scene.getGuard().getArms().getLeftLine().addPropertyChangeListener(this);
+		scene.getGuard().getArms().getRightLine().addPropertyChangeListener(this);
+		scene.getGuard().getLegs().getLeftLine().addPropertyChangeListener(this);
+		scene.getGuard().getLegs().getRightLine().addPropertyChangeListener(this);
+		scene.getGuard().getHead().addPropertyChangeListener(this);
+		scene.getGuard().getBody().addPropertyChangeListener(this);
+		scene.getGuard().getSpeech().addPropertyChangeListener(this);
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println(evt);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/gorgeandbridge.java
+package grail.CharacterAnimation;
+
+import util.annotations.StructurePattern;
+import util.annotations.Tags;
+
+@StructurePattern("Bean Pattern")
+public class GorgeAndBridge implements GorgeAndBridgeInterface {
+
+	LineInterface gorge1, gorge2, gorge3, gorge4, gorge5, gorge6, gorge7, gorge8;
+	//ArmLegVshape tri1, tri2, tri3, tri4;
+	LineInterface bridge1, bridge2, bridge3, bridge4;
+	Point ref;
+	CircleInterface knightArea, guardArea;
+	HeadInterface gorgeImg1, gorgeImg2;
+	
+	public GorgeAndBridge(){
+		final int mod500 = 500;
+		final int mod100 = 100;
+		final int mod600 = 600;
+		final int mod900 = 900;
+		final int mod1050 = 1050;
+		final int mod1000 = 1000;
+		final int mod550 = 550;
+		final int mod1150 = 1150;
+		final int mod850 = 850;
+		final int mod700 = 700;
+		final int mod650 = 650;
+		final int mod250 = 350;
+		final int mod675 = 675;
+		final int mod450 = 450;
+		final int mod825 = 825;
+		final int mod25 = 25;
+		final int mod302 = 302;
+		
+		
+		gorge1 = new Line(mod500,0,mod100,mod100);
+		gorge2 = new Line(mod600,mod100,0,mod550);
+		gorge3 = new Line(mod600,mod900,0,mod100);
+		gorge4 = new Line(mod600,mod1000,-mod100,mod100);
+		gorge5 = new Line(mod1150,0,-mod100,mod100);
+		gorge6 = new Line(mod1050,mod100,0,mod550);
+		gorge7 = new Line(mod1050,mod900,0,mod100);
+		gorge8 = new Line(mod1050,mod1000,mod100,mod100);
+		bridge1 = new Line(mod550,mod900,mod550,0);
+		bridge2 = new Line(mod550,mod850,mod550,0);
+		bridge3 = new Line(mod550,mod700,mod550,0);
+		bridge4 = new Line(mod550,mod650,mod550,0);
+		knightArea = new Circle(mod250,mod675,mod100,mod100);
+		guardArea = new Circle(mod450,mod825,mod100,mod100);
+		gorgeImg1 = new CharacterHead("gorge1.jpg", mod600,mod25,mod650,mod450);
+		gorgeImg2 = new CharacterHead("gorge2.jpg", mod600,mod900,mod302,mod450);
+	}
+	public void moveAll(int x , int y){
+		gorge1.getLocation().setXY(gorge1.getLocation().getX() + x, gorge1.getLocation().getY() + y);
+		gorge2.getLocation().setXY(gorge2.getLocation().getX() + x, gorge2.getLocation().getY() + y);
+		gorge3.getLocation().setXY(gorge3.getLocation().getX() + x, gorge3.getLocation().getY() + y);
+		gorge4.getLocation().setXY(gorge4.getLocation().getX() + x, gorge4.getLocation().getY() + y);
+		gorge5.getLocation().setXY(gorge5.getLocation().getX() + x, gorge5.getLocation().getY() + y);
+		gorge6.getLocation().setXY(gorge6.getLocation().getX() + x, gorge6.getLocation().getY() + y);
+		gorge7.getLocation().setXY(gorge7.getLocation().getX() + x, gorge7.getLocation().getY() + y);
+		gorge8.getLocation().setXY(gorge8.getLocation().getX() + x, gorge8.getLocation().getY() + y);
+		bridge1.getLocation().setXY(bridge1.getLocation().getX() + x, bridge1.getLocation().getY() + y);
+		bridge2.getLocation().setXY(bridge2.getLocation().getX() + x, bridge2.getLocation().getY() + y);
+		bridge3.getLocation().setXY(bridge3.getLocation().getX() + x, bridge3.getLocation().getY() + y);
+		bridge4.getLocation().setXY(bridge4.getLocation().getX() + x, bridge4.getLocation().getY() + y);
+		knightArea.getLocation().setXY(knightArea.getLocation().getX() + x, knightArea.getLocation().getY() + y);
+		guardArea.getLocation().setXY(guardArea.getLocation().getX() + x, guardArea.getLocation().getY() + y);
+		gorgeImg1.setXY(gorgeImg1.getX() + x, gorgeImg1.getY() + y);
+		gorgeImg2.setXY(gorgeImg2.getX() + x, gorgeImg2.getY() + y);
+		
+	}
+	
+	public LineInterface getGorge1() {
+		
+		return gorge1;
+	}
+
+	
+	public LineInterface getGorge2() {
+	
+		return gorge2;
+	}
+
+	
+	public LineInterface getGorge3() {
+
+		return gorge3;
+	}
+
+	
+	public LineInterface getGorge4() {
+		
+		return gorge4;
+	}
+
+	
+	public LineInterface getGorge5() {
+	
+		return gorge5;
+	}
+
+	
+	public LineInterface getGorge6() {
+
+		return gorge6;
+	}
+
+	
+	public LineInterface getGorge7() {
+
+		return gorge7;
+	}
+
+	public LineInterface getGorge8() {
+		
+		return gorge8;
+	}
+
+	/*
+	public ArmLegVshape getTri1() {
+	
+		return null;
+	}
+
+	
+	public ArmLegVshape getTri2() {
+	
+		return null;
+	}
+
+	
+	public ArmLegVshape getTri3() {
+		
+		return null;
+	}
+
+
+	public ArmLegVshape getTri4() {
+
+		return null;
+	}
+	*/
+
+	public LineInterface getBridge1() {
+	
+		return bridge1;
+	}
+
+
+	public LineInterface getBridge2() {
+
+		return bridge2;
+	}
+
+
+	public LineInterface getBridge3() {
+
+		return bridge3;
+	}
+
+
+	public LineInterface getBridge4() {
+
+		return bridge4;
+	}
+	
+	@Tags({"KnightArea"})
+	public CircleInterface getKnightArea(){
+
+		return knightArea;
+	}
+	
+	@Tags({"GuardArea"})
+	public CircleInterface getGuardArea(){
+		
+		return guardArea;
+	}
+	
+	public HeadInterface getGorgeImg1(){
+		
+		return gorgeImg1;
+	}
+	
+	public HeadInterface getGorgeImg2(){
+
+		return gorgeImg2;
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/gorgeandbridgeinterface.java
+package grail.CharacterAnimation;
+
+public interface GorgeAndBridgeInterface {
+	public LineInterface getGorge1();
+	public LineInterface getGorge2();
+	public LineInterface getGorge3();
+	public LineInterface getGorge4();
+	public LineInterface getGorge5();
+	public LineInterface getGorge6();
+	public LineInterface getGorge7();
+	public LineInterface getGorge8();
+	//public ArmLegVshape getTri1();
+	//public ArmLegVshape getTri2();
+	//public ArmLegVshape getTri3();
+	//public ArmLegVshape getTri4();
+	public LineInterface getBridge1(); 
+	public LineInterface getBridge2(); 
+	public LineInterface getBridge3(); 
+	public LineInterface getBridge4(); 
+	public CircleInterface getKnightArea();
+	public CircleInterface getGuardArea();
+	public HeadInterface getGorgeImg1();
+	public HeadInterface getGorgeImg2();
+	public void moveAll(int x , int y);
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/headinterface.java
+package grail.CharacterAnimation;
+
+public interface HeadInterface extends LocatableShapeInt{
+
+    public String getImageFileName() ;  
+    public void setImageFileName(String newVal);
+
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/line.java
+package grail.CharacterAnimation;
+
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@PropertyNames({"width","height","x","y"})
+@EditablePropertyNames({"width","height","x","y"})
+@StructurePattern(StructurePatternNames.LINE_PATTERN) 
+public class Line extends BoundedShape implements LineInterface{
+
+    public Line (PointInterface initLocation, int initWidth, int initHeight) {
+    	location = initLocation;
+        width = initWidth;
+        height = initHeight;
+        x = initLocation.getX();
+        y = initLocation.getY();
+    }
+    public Line (int newX, int newY, int initWidth, int initHeight){
+    	location = new Point(newX,newY);    	
+        width = initWidth;
+        height = initHeight; 
+        x = newX;
+        y = newY;
+        
+    }
+    
+   
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/lineinterface.java
+package grail.CharacterAnimation;
+
+
+public interface LineInterface extends BoundedShapeInt {
+   
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/locatableshape.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeEvent;
+
+
+
+import java.beans.PropertyChangeListener;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.ObserverRegisterer;
+import util.annotations.PropertyNames;
+
+
+@PropertyNames({"x","y"})
+@EditablePropertyNames({"x","y"})
+@ObserverRegisterer(value = "LocatableShape")
+public class LocatableShape implements LocatableShapeInt {
+
+    public final int MAX_SIZE = 50;
+    PropertyChangeListener[] contents = new PropertyChangeListener[MAX_SIZE];
+    int size = 0;
+    PropertyListenerSupport propertySupport = new APropertyListenerSupport();
+    
+	protected int x, y;
+
+	public int getX() { return x; }
+	public int getY() { return y; }
+	
+	public void setX(int newX) {
+		int oldVal = x;
+		x = newX;
+		notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal, newX));
+		}
+	
+	public void setY(int newY) {
+		int oldVal = y;
+		y = newY;
+		notifyAllListeners(new PropertyChangeEvent(this, "Y", oldVal, newY));
+		}
+	
+	public void setXY(int newX, int newY){
+		int oldValX = x;
+		int oldValY = y;
+		x = newX;
+		y = newY;
+		notifyAllListeners(new PropertyChangeEvent(this, "x", oldValX, newX));
+		notifyAllListeners(new PropertyChangeEvent(this, "y", oldValY, newY));
+	}
+	
+	public int size() {
+        return size;
+    }
+    
+    public PropertyChangeListener get (int index) {
+        return contents[index];
+    }
+
+    public boolean isFull() {
+        return size == MAX_SIZE;
+
+    }
+
+    public void add(PropertyChangeListener l) {
+        if (isFull()) {
+			System.out.println("Adding item to a full collection");
+		}
+        else {
+            contents[size] = l;
+            size++;
+        }
+    }  
+    public void notifyAllListeners(PropertyChangeEvent event) {
+        for (int index = 0; index < size(); index++) {
+            get(index).propertyChange(event);
+        }
+    }
+    public void remove(PropertyChangeListener element) {
+        contents[indexOf(element)] = contents[size - 1];
+        size--;
+    }
+
+    public void remove(int startIndex) {
+        shiftUp(startIndex);
+        size--;
+    }
+
+    void shiftUp(int startIndex) {
+        for (int index = startIndex; index + 1 < size; index++) {
+			contents[index] = contents[index + 1];
+		}
+    }
+
+    public int indexOf(PropertyChangeListener element) {
+        int index;
+        for (index = 0; index < size && !element.equals(contents[index]); index++) {
+		}
+        return index;
+    }
+
+    public boolean member(PropertyChangeListener element) {
+        return indexOf(element) < size;
+
+    }
+
+    public void clear() {
+        size = 0;
+    }
+    @ObserverRegisterer(value = "LocatableShape")
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+		add(listener);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/locatableshapeint.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeListener;
+
+public interface LocatableShapeInt extends PropertyListenerSupport{
+	public int getX(); 
+	public int getY(); 
+	public void setX(int newX);
+	public void setY(int newY);
+	public void setXY(int newX, int newY);
+	public void addPropertyChangeListener(PropertyChangeListener listener);
+	
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/point.java
+package grail.CharacterAnimation;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.Explanation;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Explanation("Uses Cartesian representation.")
+@PropertyNames({"x","y"})
+@EditablePropertyNames({"x","y"})
+public class Point extends LocatableShape implements PointInterface {	
+
+	
+	public Point(int theX, int theY) {
+		x = theX;
+		y = theY;
+	}
+
+	
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/pointinterface.java
+package grail.CharacterAnimation;
+import util.annotations.Explanation;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Explanation("Location in Java coordinate System.")
+public interface PointInterface extends LocatableShapeInt{
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/proceedall.java
+package grail.CharacterAnimation;
+
+import mp.CommanProcessing.WordInterface;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"proceedAll"})
+
+public class ProceedAll implements WordInterface{
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/propertychangemonitor.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeListener;
+
+public interface PropertyChangeMonitor extends PropertyChangeListener{
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/propertylistenersupport.java
+package grail.CharacterAnimation;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+public interface PropertyListenerSupport {
+    public void add(PropertyChangeListener l);
+    public PropertyChangeListener get(int index); 
+    public int size();
+    public void notifyAllListeners(PropertyChangeEvent event);
+    public void remove(PropertyChangeListener element) ;
+    public void remove(int startIndex) ;
+    public int indexOf(PropertyChangeListener element);
+    public boolean member(PropertyChangeListener element);
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/stringshape.java
+package grail.CharacterAnimation;
+
+import java.beans.PropertyChangeEvent;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+@StructurePattern(StructurePatternNames.STRING_PATTERN)
+@PropertyNames({"x","y","text"})
+@EditablePropertyNames({"x","y","text"})
+public class StringShape extends LocatableShape implements StringShapeInterface {
+	String text;
+
+
+	public StringShape(String initText, int initX, int initY) {
+		text = initText;
+		x = initX;
+		y = initY;
+	}
+
+	public String getText() {return text;}
+	public void setText(String newVal) {
+		String oldVal = text;
+		text = newVal;
+		notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal, newVal));
+	}
+	
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/stringshapeinterface.java
+package grail.CharacterAnimation;
+
+public interface StringShapeInterface extends LocatableShapeInt {
+
+	public String getText();
+	public void setText(String newText);
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/table.java
+package grail.CharacterAnimation;
+
+import java.util.ArrayList;
+
+import util.annotations.Tags;
+
+@Tags({"Table"})
+
+public class Table implements TableInt {
+
+	ArrayList<String> keyTable;
+	ArrayList<Object> values;	
+
+	public Table(){
+		keyTable = new ArrayList<String>();
+		values = new ArrayList<Object>();
+	}
+
+
+	public void put(String key, Object val) {
+		if (key != null && val != null){
+			if (keyTable.indexOf(key)==-1){
+				keyTable.add(key);
+				values.add(keyTable.indexOf(key), val);
+				System.out.println(key);
+				System.out.println(val);
+			}
+		}
+	}
+
+
+	public Object get(String key) {
+		//simplified my code by removing this variable and assignment
+		//int index; index = keyTable.indexOf(key);
+
+		if (keyTable.indexOf(key) == -1){
+			return null;
+		}
+		else {
+			return values.get(keyTable.indexOf(key));
+		}
+
+
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/tableint.java
+package grail.CharacterAnimation;
+
+import util.annotations.Tags;
+
+
+@Tags({"Table"})
+public interface TableInt {
+
+	public void put(String Key, Object val);
+	public Object get (String key);
+}
+//END OF FILE
+//START OF FILE: src/grail/characteranimation/vshapeinterface.java
+package grail.CharacterAnimation;
+
+public interface VshapeInterface {
+	
+	public LineInterface getLeftLine();
+	public LineInterface getRightLine();
+	public void movePoint(int x, int y);
+	
+}
+//END OF FILE
+//START OF FILE: src/main/assignment8.java
+package main;
+
+import java.beans.PropertyChangeListener;
+
+import util.misc.ThreadSupport;
+import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
+import grail.CharacterAnimation.BridgeScene;
+import grail.CharacterAnimation.BridgeSceneInterface;
+import grail.CharacterAnimation.CommandInterpreter;
+import grail.CharacterAnimation.CommandInterpreterInt;
+import grail.CharacterAnimation.ConsoleSceneView;
+import grail.CharacterAnimation.PropertyChangeMonitor;
+
+
+
+public class Assignment8 {
+
+	public static void main(String[] args) {
+		final int boardSize = 1200;
+		final int mod30 = 30;
+		final int mod10 = 10;
+		final int mod5 = 5;
+		final int movementPause = 50;
+		final int longPause = 800;
+		
+
+		
+		BridgeSceneInterface scene = new BridgeScene();
+		PropertyChangeListener console = new ConsoleSceneView(scene);
+		OEFrame editor = ObjectEditor.edit(scene);
+		editor.setSize(boardSize,boardSize);
+		editor.hideMainPanel();
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getArms().getLeftLine().rotate(mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getArms().getRightLine().rotate(mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getLegs().getLeftLine().rotate(mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getLegs().getRightLine().rotate(mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getArms().getLeftLine().rotate(-mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getArms().getRightLine().rotate(-mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getLegs().getLeftLine().rotate(-mod10);
+		ThreadSupport.sleep(longPause);
+		scene.getArthur().getLegs().getRightLine().rotate(-mod10);
+		ThreadSupport.sleep(longPause);
+		
+		scene.getRobin().setSpeech("CHARGE!");
+		for (int index = 0 ; index <= mod30 ; index++){
+			scene.getRobin().move(mod5, mod5);
+			ThreadSupport.sleep(movementPause);
+		}
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/anuppercasefilter.java
+package mp.CommanProcessing;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+@StructurePattern("Bean Pattern")
+@PropertyNames({"UppercaseLetters","InputString"})
+@EditablePropertyNames({"InputString" })
+
+
+public class AnUppercaseFilter implements UppercaseFilter {
+	
+	String inputString;
+	String uppercaseLetters = "";
+	
+	private void uppercaseFinder()
+	{
+		uppercaseLetters = "";
+		for (int index = 0 ; index < inputString.length() -1 ; index++ )
+		{
+			if ((inputString.charAt(index)>=65) && (inputString.charAt(index) <= 90))
+			{
+				uppercaseLetters = uppercaseLetters + inputString.substring(index,index+1);
+			}
+		}		
+	}
+	
+	public String getUppercaseLetters() {
+		System.out.println("getUppercaseLetters");
+		return uppercaseLetters;
+		
+	}
+
+	public void setInputString(String newString) {
+		inputString = newString;
+		System.out.println("setInputString");
+		uppercaseFinder();
+	}
+	
+	public String getInputString(){
+		System.out.println("getInputString");
+		return inputString;
+	}
+
+	
+	
+	
+
+
+	
+}
+
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/approach.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Approach"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class Approach implements DefaultInterface{
+	String input;
+
+	public void setInput(String newString) {
+		input = newString;
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/call.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"call"})
+
+public class Call implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/defaultinterface.java
+package mp.CommanProcessing;
+
+public interface DefaultInterface {
+
+	void setInput(String newString);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/define.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"define"})
+
+public class Define implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/driver.java
+package mp.CommanProcessing;
+import bus.uigen.ObjectEditor;
+
+public class Driver {
+
+	public static void main(String[] args) {
+		
+		UppercaseFilter filter = new AnUppercaseFilter();
+		filter.setInputString("Initial Input");
+		ObjectEditor.edit(filter);
+
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/end.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"End"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class End implements SignInterface{
+
+	String input;
+	
+		
+	
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/minus.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Minus"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class Minus implements SignInterface {
+
+	String input;
+	
+	
+	
+	
+	@Override
+	public void setInput(String newString) {
+		input = newString;		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/move.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"move"})
+
+public class Move implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/number.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Number"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"value"})
+@EditablePropertyNames({"input"})
+
+
+public class Number implements NumberInterface , DefaultInterface {
+
+	int value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public int getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = Integer.parseInt(input);
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/numberinterface.java
+package mp.CommanProcessing;
+
+
+public interface NumberInterface extends DefaultInterface{
+
+	int getValue();
+
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/plus.java
+package mp.CommanProcessing;
+
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Plus"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class Plus implements SignInterface {
+
+	String input;
+	
+	
+	
+	
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/quotedstring.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Quote"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class QuotedString implements SignInterface {
+
+	String input;
+	
+	
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/redo.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"redo"})
+
+public class Redo implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/repeat.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"repeat"})
+
+public class Repeat implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/rotateleftarm.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"rotateLeftArm"})
+
+public class RotateLeftArm implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/rotaterightarm.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"rotateRightArm"})
+
+public class RotateRightArm implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/say.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"say"})
+
+public class Say implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/scannerbean.java
+package mp.CommanProcessing;
+
+import grail.CharacterAnimation.ProceedAll;
+
+import java.lang.reflect.Array;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"ScannerBean"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({"UserInput" , "CompactArray" , /*"ErrorArray" ,*/ "ScannedString"})
+@EditablePropertyNames({"UserInput"})
+
+public class ScannerBean implements ScannerBeanInterface {
+	final int arraySize = 100;
+	String scannedString = "";
+	int universalCounter = 0;
+	String userInput = "";
+	DefaultInterface[] oversizeArray = new DefaultInterface[arraySize];
+	//String[] errorArray = new String[100];
+	
+	public void tokenFinder (String userInput)
+	{
+		int index = 0;
+		int tokenStart = 0;
+		int tokenEnd = 0;
+		int quoteCounter = 0;
+		boolean working = true;
+		universalCounter = 0;
+		int errorCounter = 0;
+		
+		for (int i = 0; i < oversizeArray.length; i++)
+		{
+			oversizeArray[i] = null;
+		}
+		
+		/*for (int i = 0; i < errorArray.length; i++)
+		{
+			errorArray[i] = null;
+		}*/
+
+		for (int i=0; i < userInput.length(); i++)
+	    {
+	        if (userInput.charAt(i) == '"')
+	        {
+	             quoteCounter++;
+	        }
+	    }
+		
+		if (quoteCounter % 2 == 1)
+		{
+			System.out.println("Error: Missing quotation, string improperly parsed.");
+		}
+		
+		
+		while (index <= userInput.length() -1)
+		{
+			String wordSub;
+			if (Character.isDigit(userInput.charAt(index)) && index < userInput.length()  ) 
+			{
+				tokenStart = index;
+				tokenEnd = tokenStart;
+
+				while (working) 
+				{
+					if (tokenEnd <= userInput.length() - 1 && Character.isDigit(userInput.charAt(tokenEnd)))
+					{
+						tokenEnd++;
+						index = tokenEnd;
+					}
+					else
+					{
+						working = false;
+					}
+				}
+				Number numToken = new Number();
+				numToken.setInput(userInput.substring(tokenStart, tokenEnd));
+				oversizeArray[universalCounter] =  numToken;
+				universalCounter++;
+			}
+						
+			else if (userInput.charAt(index) == '"' && index < userInput.length() )
+			{
+				tokenStart = index + 1;
+				tokenEnd = tokenStart;
+				index++;
+
+				{
+					while (!(userInput.charAt(index) == '"') && tokenEnd < userInput.length() - 1)
+					{
+						tokenEnd++;
+						index = tokenEnd;
+					}
+				}
+				QuotedString quoteToken = new QuotedString();
+				quoteToken.setInput(userInput.substring(tokenStart, tokenEnd));
+				oversizeArray[universalCounter] =  quoteToken;
+				universalCounter++;
+			}
+			else if (letterCheck(userInput.charAt(index)) && index < userInput.length() )
+			{
+				tokenStart = index;
+				tokenEnd = tokenStart;
+
+				while (working) 
+				{
+					if (tokenEnd <= userInput.length() - 1 && letterCheck(userInput.charAt(tokenEnd)))
+					{
+						tokenEnd++;
+						index = tokenEnd;
+					}
+					else
+					{
+						working = false;	
+					}
+				}
+				wordSub = userInput.substring(tokenStart, tokenEnd);
+				if (wordSub.equalsIgnoreCase("move"))
+				{
+					WordInterface moveCommand = new Move();
+					moveCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  moveCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("say"))
+				{
+					WordInterface sayCommand = new Say();
+					sayCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  sayCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("rotateleftarm"))
+				{
+					WordInterface rotateLeftArmCommand = new RotateLeftArm();
+					rotateLeftArmCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  rotateLeftArmCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("rotaterightarm"))
+				{
+					WordInterface rotateRightArmCommand = new RotateRightArm();
+					rotateRightArmCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  rotateRightArmCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("repeat"))
+				{
+					WordInterface repeatCommand = new Repeat();
+					repeatCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  repeatCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("define"))
+				{
+					WordInterface defineCommand = new Define();
+					defineCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  defineCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("call"))
+				{
+					WordInterface callCommand = new Call();
+					callCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  callCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("thread"))
+				{
+					WordInterface threadCommand = new Thread();
+					threadCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  threadCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("wait"))
+				{
+					WordInterface waitCommand = new Wait();
+					waitCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  waitCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("proceedall"))
+				{
+					WordInterface proceedAllCommand = new ProceedAll();
+					proceedAllCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  proceedAllCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("sleep"))
+				{
+					WordInterface sleepCommand = new Sleep();
+					sleepCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  sleepCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("undo"))
+				{
+					WordInterface undoCommand = new Undo();
+					undoCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  undoCommand;
+				}
+				else if (wordSub.equalsIgnoreCase("redo"))
+				{
+					WordInterface redoCommand = new Redo();
+					redoCommand.setInput(wordSub);
+					oversizeArray[universalCounter] =  redoCommand;
+				}	
+				else if (wordSub.equalsIgnoreCase("approach"))
+				{
+					DefaultInterface approachCommand = new Approach();
+					approachCommand.setInput(wordSub);
+					oversizeArray[universalCounter] = approachCommand;
+				}		
+				else
+				{
+					WordInterface wordToken = new Word();
+					wordToken.setInput(wordSub);
+					oversizeArray[universalCounter] =  wordToken;
+				}
+				universalCounter++;
+			}
+			else if ( userInput.charAt(index) == '+' && index <= userInput.length() )
+			{
+				//printer("sign: "+ userInput.charAt(index));
+				SignInterface plusToken = new Plus();
+				plusToken.setInput(userInput.substring(index , index + 1 ));				
+				index++;
+				oversizeArray[universalCounter] =  plusToken;
+				universalCounter++;
+			}
+			
+			else if (userInput.charAt(index) == '-' && index <= userInput.length() )
+			{
+				//printer("sign: "+ userInput.charAt(index));
+				SignInterface minusToken = new Minus();
+				minusToken.setInput(userInput.substring(index , index + 1 ));				
+				index++;
+				oversizeArray[universalCounter] =  minusToken;
+				universalCounter++;
+			}
+			
+			else if (userInput.charAt(index) == '{' && index <= userInput.length() )
+			{
+				SignInterface startToken = new Start();
+				startToken.setInput(userInput.substring(index , index + 1 ));
+				index++;
+				oversizeArray[universalCounter] =  startToken;
+				universalCounter++;
+			}
+			
+			else if (userInput.charAt(index) == '}' && index <= userInput.length() )
+			{
+				//printer("End Token: "+ userInput.charAt(index));
+				SignInterface endToken = new End();
+				endToken.setInput(userInput.substring(index , index + 1 ));	
+				index++;
+				oversizeArray[universalCounter] =  endToken;
+				universalCounter++;
+			}
+			
+			
+			else if ((userInput.charAt(index) == ' '))
+			{
+				while ((userInput.charAt(index + 1) == ' ') && (index < userInput.length()))
+				{
+					index++;
+				}
+			}
+			else
+			{
+				//errorArray[index] = userInput.substring(index, index + 1);
+			}
+			working = true;
+			index++;
+		}
+
+		//System.out.println("Input processing completed.");
+
+	} 
+	
+	public void setUserInput(String rawString)
+	{
+		userInput = rawString;
+		tokenFinder(userInput);
+	}
+	
+	public String getScannedString()
+	{
+		return scannedString;
+	}
+
+	private static void printer (String output)
+	{
+		System.out.println(output);
+	}
+
+	public boolean letterCheck (char input)
+	{
+		final int mod65 = 65;
+		final int mod90 = 90;
+		final int mod97 = 97;
+		final int mod122 = 122;
+		
+		
+		int ascii = (int) input;
+		return (ascii>=mod65 && ascii<=mod90) || (ascii>=mod97 && ascii<=mod122);
+	}
+
+	public DefaultInterface[] getCompactArray()
+	{
+		DefaultInterface[] compactArray = new DefaultInterface[universalCounter];
+		for ( int i = 0; i < universalCounter; i++){
+			compactArray[i] = oversizeArray[i];
+		}
+		return compactArray;
+	}
+
+	public String getUserInput()
+	{
+		return userInput;
+	}
+	/*public String[] getErrorArray()
+	{
+		return errorArray;
+	}*/
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/scannerbeaninterface.java
+package mp.CommanProcessing;
+
+
+public interface ScannerBeanInterface {
+
+	public DefaultInterface[] getCompactArray();
+	public void tokenFinder (String userInput);
+	public void setUserInput(String rawString);
+	public String getScannedString();
+	public String getUserInput();
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/signinterface.java
+package mp.CommanProcessing;
+
+
+public interface SignInterface extends DefaultInterface {
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/sleep.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"sleep"})
+
+public class Sleep implements WordInterface{
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/start.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Start"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({})
+@EditablePropertyNames({"Input"})
+
+
+public class Start implements SignInterface {
+
+	String input;
+	
+	
+	
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/thread.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"thread"})
+
+public class Thread implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/undo.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"undo"})
+
+public class Undo implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/uppercasefilter.java
+package mp.CommanProcessing;
+
+public interface UppercaseFilter {
+	public String getUppercaseLetters();
+	void setInputString(String newString);
+
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/wait.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"wait"})
+
+public class Wait implements WordInterface {
+
+	String value;
+	String input;
+	
+	
+	
+	
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+	@Override
+	public String getInput() {
+		return input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/word.java
+package mp.CommanProcessing;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@PropertyNames({ "input" , "value"})
+@EditablePropertyNames({"Input"})
+
+
+public class Word implements WordInterface , DefaultInterface{
+
+	String value;
+	String input;
+	
+	
+	
+	
+
+	public String getValue() {
+		return value;
+	}
+
+
+	public void setInput(String newString) {
+		input = newString;
+		value = input.toLowerCase();
+		
+	}
+
+
+	public String getInput() {
+		return input;
+	}
+
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/commanprocessing/wordinterface.java
+package mp.CommanProcessing;
+
+
+public interface WordInterface extends DefaultInterface {
+
+	String getValue();
+
+}
+//END OF FILE

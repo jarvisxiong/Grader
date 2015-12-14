@@ -1,0 +1,4 @@
+  -- Could not find a precondition method associated with: approach
+  -- Could not find a precondition method associated with: say
+  -- Could not find a precondition method associated with: passed
+  -- Could not find a precondition method associated with: failed

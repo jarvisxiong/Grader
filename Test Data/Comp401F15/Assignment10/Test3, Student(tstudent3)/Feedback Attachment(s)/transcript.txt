@@ -1,0 +1,186 @@
+*****************************(Precondition execution)*****************************
+### Precondition execution Test Case: 0.0*****************************(Async Method Execution)*****************************
+calling constructor: public grail.CharacterAnimation.BridgeScene() 
+called constructor: public grail.CharacterAnimation.BridgeScene() 
+calling constructor: public grail.CharacterAnimation.CommandInterpreter(grail.CharacterAnimation.BridgeSceneInterface) grail.CharacterAnimation.BridgeScene@3cef493a
+arthur
+grail.CharacterAnimation.Avatar@72c6d825
+galahad
+grail.CharacterAnimation.Avatar@458c42d4
+lancelot
+grail.CharacterAnimation.Avatar@c389789
+robin
+grail.CharacterAnimation.Avatar@4ad8b9ad
+guard
+grail.CharacterAnimation.Avatar@e9b5723
+called constructor: public grail.CharacterAnimation.CommandInterpreter(grail.CharacterAnimation.BridgeSceneInterface) grail.CharacterAnimation.BridgeScene@3cef493a
+calling methods
+E***For editable property speech of Avatar please define a setter with the header:
+    public void setSpeech(grail.CharacterAnimation.StringShapeInterface <parameter name>)
+W***public void grail.CharacterAnimation.LocatableShape.addPropertyChangeListener(java.beans.PropertyChangeListener) should be associated with annotation: @ObserverRegisterer(Property Listener)
+W***Implicit property full of  Line ignored as it is not in property names list. 
+ Associate annotation @Visible(false) with its getter.
+W***Implicit property location of  Line ignored as it is not in property names list. 
+ Associate annotation @Visible(false) with its getter.
+W***Implicitly editable property: locationof class class grail.CharacterAnimation.Line not considered editable as it is not in editable property names list. 
+
+W***Implicit property full of  StringShape ignored as it is not in property names list. 
+ Associate annotation @Visible(false) with its getter.
+W***Implicit property full of  Circle ignored as it is not in property names list. 
+ Associate annotation @Visible(false) with its getter.
+Adding traceable listener
+child 1 starts:Thread-13
+calling method: public void main.CommandInterpreter.asynArthur() with args 
+Num threads after execution:10
+Terminated execution after milliseconds:2000
+waiting for threads
+child 2 starts:Thread-11
+Num threads after execution:10
+child 2 executes after child 1
+child 1 executes after child 2
+W***Lower Y = -19 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -20 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -1 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+W***Lower Y = -21 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -1 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -2 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -2 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -2 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+W***Lower Y = -22 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -2 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -3 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -3 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -3 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+W***Lower Y = -23 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -3 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -4 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -4 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -4 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+W***Lower Y = -24 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -4 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -5 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -5 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -5 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+Finished waiting for threads
+Stopping thread:Thread[Thread-13,5,main]
+Stopping thread:Thread[Thread-11,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void main.CommandInterpreter.asynLancelot() with args 
+Terminated execution after milliseconds:2000
+waiting for threads
+child 1 starts:Thread-11
+Num threads after execution:10
+child 2 starts:Thread-13
+Num threads after execution:10
+child 1 executes after child 2
+child 2 executes after child 1
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[Thread-11,5,main]
+Stopping thread:Thread[Thread-13,5,main]
+num threads after execution == before execution
+### 'asynchronousLancelot' method exists test case: 0.2
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+child 1 starts:Thread-13
+Num threads after execution:9
+calling method: public void main.CommandInterpreter.asynRobin() with args 
+child 2 starts:Thread-14
+Num threads after execution:9
+Terminated execution after milliseconds:2000
+child 1 executes after child 2
+waiting for threads
+child 2 executes after child 1
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[Thread-13,5,main]
+Stopping thread:Thread[Thread-14,5,main]
+num threads after execution == before execution
+### 'asynchronousRobin' method exists test case: 0.2
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void main.CommandInterpreter.asynGalahad() with args 
+Terminated execution after milliseconds:2000
+waiting for threads
+child 1 starts:Thread-12
+Num threads after execution:9
+child 2 starts:Thread-11
+Num threads after execution:9
+child 1 executes after child 2
+child 2 executes after child 1
+W***Lower Y = -25 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -5 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -6 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -6 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+W***Lower Y = -6 < 0 of .lancelot.torso (mp.shapes.ALineShape@3e2d44f3)
+W***Lower Y = -26 < 0 of .lancelot.text (mp.shapes.AStringShape@349f0ca4)
+W***Lower Y = -6 < 0 of .lancelot.head (mp.shapes.AnImageShape@b3fc6d8)
+W***Lower Y = -7 < 0 of .lancelot.arms.leftLine (mp.shapes.ALineShape@7e58f697)
+W***Lower Y = -7 < 0 of .lancelot.arms.rightLine (mp.shapes.ALineShape@5cc3e49b)
+Finished waiting for threads
+No threads created
+Stopping thread:Thread[Thread-12,5,main]
+Stopping thread:Thread[Thread-11,5,main]
+num threads after execution == before execution
+### 'asynchronousGalahad' method exists test case: 0.2
+Removing traceable listener
+*****************************(Command interpreter Execution)*****************************
+java.lang.NullPointerException
+    at java.util.Objects.requireNonNull(Objects.java:203)
+    at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase.test(SayCommandInterpretedTestCase.java:66)
+    at gradingTools.comp401f15.assignment10.testCases.SayCommandPartiallyInterpretedTestCase.test(SayCommandPartiallyInterpretedTestCase.java:12)
+    at framework.grading.testing.Checkable.check(Checkable.java:127)
+    at framework.grading.testing.Feature.check(Feature.java:111)
+    at framework.grading.testing.Checkable.check(Checkable.java:188)
+    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
+    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
+    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
+    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
+    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
+    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
+    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
+    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
+    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
+    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
+    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
+    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
+    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
+    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
+    at gradingTools.Driver.drive(Driver.java:299)
+    at gradingTools.Driver.main(Driver.java:364)
+### Say command test case: 0.0
+*****************************(Command interpreter Execution)*****************************
+java.lang.NullPointerException
+    at java.util.Objects.requireNonNull(Objects.java:203)
+    at gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase.test(MoveCommandInterpretedTestCase.java:65)
+    at gradingTools.comp401f15.assignment10.testCases.MoveCommandPartiallyInterpretedTestCase.test(MoveCommandPartiallyInterpretedTestCase.java:13)
+    at framework.grading.testing.Checkable.check(Checkable.java:127)
+    at framework.grading.testing.Feature.check(Feature.java:111)
+    at framework.grading.testing.Checkable.check(Checkable.java:188)
+    at framework.grading.FrameworkProjectRequirements.checkFeatures(FrameworkProjectRequirements.java:152)
+    at grader.steppers.AnAutoVisitBehavior.autoGrade(AnAutoVisitBehavior.java:614)
+    at grader.steppers.AnAutoVisitBehavior.setProject(AnAutoVisitBehavior.java:258)
+    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:508)
+    at grader.steppers.AnOverviewProjectStepper.setProject(AnOverviewProjectStepper.java:296)
+    at grader.steppers.AMainProjectStepper.setProject(AMainProjectStepper.java:92)
+    at grader.steppers.AComplexProjectStepper.setProject(AComplexProjectStepper.java:132)
+    at grader.steppers.AGradedProjectNavigator.move(AGradedProjectNavigator.java:543)
+    at grader.steppers.AnOverviewProjectStepper.move(AnOverviewProjectStepper.java:1545)
+    at grader.steppers.AMainProjectStepper.move(AMainProjectStepper.java:180)
+    at grader.steppers.AComplexProjectStepper.move(AComplexProjectStepper.java:184)
+    at grader.navigation.automatic.AnAutomaticProjectNavigator.navigate(AnAutomaticProjectNavigator.java:78)
+    at grader.navigation.hybrid.AHybridProjectNavigator.navigate(AHybridProjectNavigator.java:22)
+    at grader.navigation.AProjectNavigator.navigate(AProjectNavigator.java:24)
+    at gradingTools.Driver.drive(Driver.java:299)
+    at gradingTools.Driver.main(Driver.java:364)
+### Move command test case: 0.0
