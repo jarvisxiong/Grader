@@ -67,4 +67,7 @@ public interface Project {
 			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException;
+
+	RunningProject launch(String input, String[] anArgs, int timeout)
+			throws NotRunnableException;
 }

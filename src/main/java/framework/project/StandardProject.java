@@ -202,6 +202,10 @@ public class StandardProject implements Project {
     public RunningProject launch( String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, timeout);
     }
+    @Override
+    public RunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(input, anArgs, timeout);
+    }
 
     @Override
     public RunningProject launchInteractive() throws NotRunnableException {

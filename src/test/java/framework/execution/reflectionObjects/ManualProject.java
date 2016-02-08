@@ -90,4 +90,11 @@ public class ManualProject implements Project {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public RunningProject launch(String input, String[] anArgs, int timeout)
+			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
