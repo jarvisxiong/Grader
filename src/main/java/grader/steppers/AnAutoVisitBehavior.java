@@ -62,6 +62,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 import javax.swing.JTextArea;
@@ -508,6 +510,27 @@ public class AnAutoVisitBehavior implements
 
     }
 	RunningProject runningProject;
+	
+	public static String[] computeArgs(String subjectString) {
+		List<String> matchList = new ArrayList<String>();
+		Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+		Matcher regexMatcher = regex.matcher(subjectString);
+		while (regexMatcher.find()) {
+		    if (regexMatcher.group(1) != null) {
+		        // Add double-quoted string without the quotes
+		        matchList.add(regexMatcher.group(1));
+		    } else if (regexMatcher.group(2) != null) {
+		        // Add single-quoted string without the quotes
+		        matchList.add(regexMatcher.group(2));
+		    } else {
+		        // Add unquoted word
+		        matchList.add(regexMatcher.group());
+		    }
+		} 
+		String[] result = new String[matchList.size()];
+		return matchList.toArray(result);
+
+	}
 
     public void run() {
 		if (preTerminate())
@@ -531,7 +554,8 @@ public class AnAutoVisitBehavior implements
 		if (anArgString == null) {
 			 runningProject = project.getWrapper().launchInteractive();
 		} else {
-			 String[] anArgs = new String[]{anArgString};
+//			 String[] anArgs = new String[]{anArgString};
+			String[] anArgs = computeArgs(anArgString);
 			 runningProject = project.getWrapper().launchInteractive(anArgs);
 		}
 
