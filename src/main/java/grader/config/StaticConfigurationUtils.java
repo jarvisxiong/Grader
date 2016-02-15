@@ -358,6 +358,13 @@ public class StaticConfigurationUtils {
 				"", new String[0]);
 
 	}
+	public static String[] getExecutionCommand(Project aProject,
+			File aBuildFolder, String anEntryPoint, String[] anArgs) {
+
+		return getExecutionCommand(aProject, null, aBuildFolder, anEntryPoint,
+				"", anArgs);
+
+	}
 
 	public static List<String> getBasicCommand() {
 		if (basicCommand == null) {

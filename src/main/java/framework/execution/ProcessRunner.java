@@ -653,7 +653,7 @@ public class ProcessRunner implements Runner {
 			String[] args, int timeout) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
 		String[] command = StaticConfigurationUtils.getExecutionCommand(project, getFolder(),
-				anEntryPoint);
+				anEntryPoint, args); // added args
 		return run(aDynamicInputProvider, command, input, args, timeout);
 
 	}
