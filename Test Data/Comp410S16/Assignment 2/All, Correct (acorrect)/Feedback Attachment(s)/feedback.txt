@@ -1,0 +1,10 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Functionality                                          27.0 / 27.0
+----------------------------------
+  Points Awarded: 27.0
+
+  Features Score: 27.0
+  Total Score: 27.0
