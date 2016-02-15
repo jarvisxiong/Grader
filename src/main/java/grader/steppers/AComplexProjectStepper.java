@@ -27,13 +27,15 @@ import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
+import util.models.DynamicEnum;
 import util.models.LabelBeanModel;
 @ComponentsVisible(false)
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AComplexProjectStepper implements ComplexProjectStepper{
 	MainProjectStepper mainProjectStepper;
 	
-	@Position(0)
+//	@Position(0)
+	@Row(0)
 	@Visible(true)
 	@Label("Main")
 	@Override
@@ -101,7 +103,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public void propertyChange(PropertyChangeEvent arg0) {
 		mainProjectStepper.propertyChange(arg0);
 	}
-	@Visible(true)
+//	@Visible(true)
 	public void openSource() {
 		mainProjectStepper.openSource();
 	}
@@ -208,7 +210,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		return mainProjectStepper.getPhoto();
 	}
 	@Visible(true)
-	@Position(1)
+//	@Position(1)
+	@Row(1)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("The contents of the summary seen by the student.")
 	public String getFeedback() {
@@ -220,7 +223,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(false)
-	@Position(4)
+//	@Position(4)
+	@Row(4)
 	@Explanation("Changes to filter settings will be used in subsequent navigation commands.")
 	public NavigationSetter getNavigationSetter() {
 		return mainProjectStepper.getNavigationSetter();
@@ -409,7 +413,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(false)
-	@Position(2)
+//	@Position(2)
+	@Row(2)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Correct result (if provided) diffed with actual result.")
 	public String getResultDiff() {
@@ -417,7 +422,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
-	@Position(2)
+//	@Position(2)
+	@Row(3)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Results of style checker")
 	public String getSourceChecks() {
@@ -425,7 +431,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
-	@Position(3)
+//	@Position(3)
+	@Row(3)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("Comment on the source code by editing it.")
 	public String getSource() {
@@ -433,7 +440,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
-	@Position(4)
+//	@Position(4)
+	@Row(4)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions on this problem.")
 	public String getProblemHistory() {
@@ -442,7 +450,8 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	
 	@Override
 	@Visible(true)
-	@Position(5)
+//	@Position(5)
+	@Row(5)
 	@PreferredWidgetClass(JTextArea.class)
 	@Explanation("History of manual interventions for this student.")
 	public String getStudentHistory() {
@@ -461,7 +470,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 		mainProjectStepper.setResultDiff(newValue);
 	}
 	@Override
-	@Visible(true)
+//	@Visible(true)
 	public void run() {
 		mainProjectStepper.run();
 		
@@ -499,16 +508,19 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
+	@Position(4)
 	public void cleanAllFeedbackFolders() {
 		mainProjectStepper.cleanAllFeedbackFolders();
 		
 	}
 	@Override
+	@Position(2)
 	@Visible(true)
 	public void cleanFeedbackFolder() {
 		mainProjectStepper.cleanFeedbackFolder();		
 	}
 	@Visible(true)
+	@Position(3)
 	public void resetFeatureSpreadsheet() {
 		mainProjectStepper.resetFeatureSpreadsheet();
 		
@@ -520,6 +532,7 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
+	@Position(4)
 	public void restoreFeatureSpreadsheet() {
 		mainProjectStepper.restoreFeatureSpreadsheet();
 		
@@ -627,12 +640,19 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	}
 	@Override
 	@Visible(true)
+	@Position(1)
 	public void terminate() {
 		mainProjectStepper.terminate();
 	}
 	@Override
 	public boolean preRun() {
 		return mainProjectStepper.preRun();
+	}
+	@Override
+	@Visible(true)
+	@Position(0)
+	public DynamicEnum runArgs() {
+		return mainProjectStepper.runArgs();
 	}
 
 

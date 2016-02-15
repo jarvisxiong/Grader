@@ -527,9 +527,16 @@ public class AnAutoVisitBehavior implements
 //			}
 //		}
 //		project.setCurrentGradingFeature(newVal);
-	
-		 
-		 runningProject = project.getWrapper().launchInteractive();
+		String anArgString = projectStepper.runArgs().getValue();
+		if (anArgString == null) {
+			 runningProject = project.getWrapper().launchInteractive();
+		} else {
+			 String[] anArgs = new String[]{anArgString};
+			 runningProject = project.getWrapper().launchInteractive(anArgs);
+		}
+
+//		 String[] anArgs = new String[]{};
+//		 runningProject = project.getWrapper().launchInteractive(anArgs);
 		 project.setCurrentRunningProject(runningProject);
 //			Feature anInteractiveFeature = projectDatabase.getProjectRequirements().getInteractiveRun();
 //			project.setCurrentGradingFeature(anInteractiveFeature);

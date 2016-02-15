@@ -12,6 +12,7 @@ import grader.project.folder.ARootCodeFolder;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import tools.TimedProcess;
+import util.misc.Common;
 import util.pipe.InputGenerator;
 
 import java.io.*;
@@ -80,6 +81,9 @@ public class InteractiveConsoleProcessRunner implements Runner {
     public RunningProject run(String input) throws NotRunnableException {
         return run(input, -1);
     }
+    public RunningProject run(String input, String[] anArgs) throws NotRunnableException {
+        return run(input, anArgs, -1);
+    }
 
     /**
      * This runs the project with no arguments with a timeout
@@ -104,7 +108,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
     @Override
 	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
-    	String[] command = StaticConfigurationUtils.getExecutionCommand(project, folder, anEntryPoint);
+    	String[] command = StaticConfigurationUtils.getExecutionCommand(project, folder, anEntryPoint, args);
     	return run(null, command, input, args, timeout);
 	}
     @Override
@@ -209,8 +213,11 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
 	             builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
-	        	else
+	        	else {
 	        		builder = new ProcessBuilder(command);
+	        		System.out.println("Running command:"
+							+ Common.toString(command, " "));
+	        	}
 
 	        	builder.directory(folder);
 

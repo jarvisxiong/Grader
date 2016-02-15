@@ -97,4 +97,11 @@ public class ManualProject implements Project {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public RunningProject launchInteractive(String[] args)
+			throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
