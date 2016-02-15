@@ -37,7 +37,9 @@ public class FlexibleProgramRunner {
     }
 
     public String runWithSpaces() throws NotRunnableException {
-         runningProject = project.launch(spacedInput, Timeout);
+        runningProject = project.launch(spacedInput, Timeout);
+
+//         runningProject = project.launch(spacedInput, new String[]{"foo", "bar"}, Timeout);
         
         return runningProject.await();
     }

@@ -23,6 +23,7 @@ import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
+import util.models.DynamicEnum;
 import util.models.LabelBeanModel;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AMainProjectStepper implements MainProjectStepper {
@@ -637,6 +638,11 @@ public class AMainProjectStepper implements MainProjectStepper {
 	@Override
 	public boolean preRun() {
 		return overviewProjectStepper.preRun();
+	}
+	@Override
+	public DynamicEnum runArgs() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.runArgs();
 	}
 	
 //	@Override

@@ -1,11 +1,14 @@
 package grader.steppers;
 
+import java.util.List;
+
 import bus.uigen.models.PropertyFocusListener;
 import util.annotations.Visible;
+import util.models.DynamicEnum;
 import grader.sakai.project.ProjectStepper;
 
 public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNavigator, GradedProjectOverview{
-
+	DynamicEnum<String> runArgs();
 	String getSource();
 
 	void internalSetSource(String newValue);

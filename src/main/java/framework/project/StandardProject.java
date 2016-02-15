@@ -214,6 +214,13 @@ public class StandardProject implements Project {
     	return retVal;
 //        return new InteractiveConsoleProcessRunner(this).run("");
     }
+    @Override
+    public RunningProject launchInteractive(String[] args) throws NotRunnableException {
+    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
+//    	retVal.createFeatureTranscript();
+    	return retVal;
+//        return new InteractiveConsoleProcessRunner(this).run("");
+    }
 
     @Override
     public Option<ClassesManager> getClassesManager() {

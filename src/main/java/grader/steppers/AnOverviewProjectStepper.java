@@ -114,7 +114,9 @@ import util.annotations.Visible;
 import util.misc.AClearanceManager;
 import util.misc.Common;
 import util.misc.ThreadSupport;
+import util.models.ADynamicEnum;
 import util.models.ALabelBeanModel;
+import util.models.DynamicEnum;
 import util.models.LabelBeanModel;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
@@ -177,6 +179,8 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	String studentHistory = "";
 	TACommentsExtractor taCommentsExtractor;
 	String taComments = "";
+//	ArgsHolder argsHolder = new AnArgsHolder();
+	DynamicEnum runArgs = new ADynamicEnum();
 
 	
 	public AnOverviewProjectStepper() {
@@ -1816,6 +1820,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	}
 	public static void main(String[] args) {
 		ObjectEditor.edit(new AnOverviewProjectStepper());
+	}
+	@Override
+	public DynamicEnum runArgs() {
+		// TODO Auto-generated method stub
+		return runArgs;
 	}
 	
 }

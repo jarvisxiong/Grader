@@ -70,4 +70,6 @@ public interface Project {
 
 	RunningProject launch(String input, String[] anArgs, int timeout)
 			throws NotRunnableException;
+
+	RunningProject launchInteractive(String[] args) throws NotRunnableException;
 }
