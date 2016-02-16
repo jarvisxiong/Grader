@@ -49,49 +49,37 @@ public class FunctionalityTestCase extends BasicTestCase {
             input[3] = "gamma";
 
             // Initialize score and feedback message
-            double score = 1;
             String message = "";
 
             RunningProject runningProject = project.launch("", input,10);
 
             String output=runningProject.await().toLowerCase();
             System.out.println("output: "+output);
+            boolean correct = output.contains("1\n" +
+                    "1\n"+
+                    "greek\n"+
+                    "greek\n"+
+                    "0\n"+
+                    "0\n"+
+                    "alpha\n"+
+                    "alpha\n"+
+                    "2\n"+
+                    "2\n"+
+                    "beta\n"+
+                    "beta\n"+
+                    "1\n"+
+                    "1\n"+
+                    "gamma\n"+
+                    "gamma\n"+
+                    "0\n"+
+                    "0");
+            System.out.println("correct: "+correct);
 
-            //Get Stack Class
-            Object queueInstance = null;
-            try {
-                queueInstance = queue.newInstance();
-            } catch (InstantiationException | IllegalAccessException e1) {
-                e1.printStackTrace();
-            }
-
-            Method main = null;
-
-            //Extract methods
-            for (Method method : queue.getDeclaredMethods()) {
-               if(method.getName().equals("main")) {
-                    main = method;
-                }
-            }
-
-//            final Object[] args = new Object[1];
-//            args[0] = new String[] {input[0]};
-//            try{
-//                if(main!=null) {
-//                    String[] i =  (String[]) main.invoke(queueInstance, args);
-//                    System.out.println("result: " +i);
-//                }
-//            } catch (Exception e) {
-//                message += "Main throws error \n";
-//            }
-
-
-
-            if(score == 1){
+            if(correct){
                 return pass();
             }
             else{
-                return partialPass(score, message);
+                return partialPass(.5, message);
             }
 
         } catch (NotRunnableException e) {

@@ -12,18 +12,18 @@ Variable spaces                                        2.5 /  5.0 (Extra credit)
 Handle invalid chars                                   2.5 /  5.0 (Extra credit)
 Screenshots enclosed                                   10.0 / 10.0
 Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
-Interactive Run                                        20.0 / 20.0 (Extra credit)
+Interactive Run                                        0.0 / 20.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 85.0
+  Points Awarded: 65.0
 
 Grading restrictions...
 ----------------------------------
-Interactive Run                                        20.0 / 20.0 (Extra credit)
+Interactive Run                                        0.0 / 20.0 (Extra credit)
 Illegal import or call                      0.0 /  -25.0
 ----------------------------------
-  Points Deducted: 20.0
+  Points Deducted: 0.0
 
-  Features Score: 105.0
+  Features Score: 65.0
 
 Notes from grading features:
 ----------------------------------
@@ -42,6 +42,15 @@ Variable spaces:
 Handle invalid chars:
   -- Correct output but errors
 
+Interactive Run:
+  -- No graded in auto run
+
+
+Notes from grading restrictions:
+----------------------------------
+Illegal import or call:
+  -- No project run interactively
+
 
 Early benefit: 105.0%
-  Total Score: 110.25
+  Total Score: 68.25

@@ -1,15 +1,22 @@
 *****************************(Functionality)*****************************
 MAIN ARGS(Functionality)
 [greek,alpha,beta,gamma[OUTPUT(Functionality)
-the args: []
 1
 1
-null
-null
+greek
+greek
 0
 0
-
-ERRORS(Functionality)
-java.lang.ArrayIndexOutOfBoundsException: 0
-	at BridgeQueueListDemo.main(BridgeQueueListDemo.java:27)
+alpha
+alpha
+2
+2
+beta
+beta
+1
+1
+gamma
+gamma
+0
+0
 

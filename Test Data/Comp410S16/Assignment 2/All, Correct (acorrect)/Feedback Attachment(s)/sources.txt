@@ -5,11 +5,13 @@
 //==================================================================
 
 //==== client code =================================================
-import java.util.*;
+
+import java.util.List;
+
 public class BridgeQueueListDemo {
 
   public static void main( String[] args ) {
-    System.out.println("the args: " + Arrays.toString(args));
+
     // create front end objects, of type abstract Queue
     // but with different back end implementation objects
     
