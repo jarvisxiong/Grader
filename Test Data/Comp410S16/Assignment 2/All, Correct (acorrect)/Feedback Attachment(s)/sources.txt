@@ -6,64 +6,7 @@
 
 //==== client code =================================================
 
-import java.util.List;
 
-public class BridgeQueueListDemo {
-
-  public static void main( String[] args ) {
-
-    // create front end objects, of type abstract Queue
-    // but with different back end implementation objects
-    
-    Queue qL = new Queue("links"); // one implemented with linked cells
-    Queue qA = new Queue("array"); // one implemented with array
-    
-    // speak the same interface "language" to each
-    // show the results of each are the same
-    
-    // take data from the comman line args
-    // take ops to perform from the assignment writeup
- 
-    // (1) take the first command line arg and add it to both queues
-      String item = null;
-    try {
-         item= args[0];
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    qL.enq(item);
-    qA.enq(item);
-    // (2) print the size of each queue
-    System.out.println(qL.size());
-    System.out.println(qA.size());
-    // (3) print the item on front each queue
-    System.out.println(qL.front());
-    System.out.println(qA.front());
-    // (4) remove an item from each queue
-    qL.deq();
-    qA.deq();
-    // (5) print the size of each queue
-    System.out.println(qL.size());
-    System.out.println(qA.size());
-
-    // now add all other command line args to each queue
-    for (int i=1; i<args.length; i++) {
-      qL.enq(args[i]); 
-      qA.enq(args[i]);
-    }
-    for (int i=1; i<args.length; i++) {
-      // (1) print front element on each queue
-      System.out.println(qL.front());
-      System.out.println(qA.front());
-      // (2) do a deq on each queue
-      qL.deq();
-      qA.deq();
-      // (5) print the size of each queue
-      System.out.println(qL.size());
-      System.out.println(qA.size());
-    }
-  } 
-}
 
 //=== Abstraction side ==================================
 // this is the "front end"
@@ -101,7 +44,7 @@ interface ListImp {
   boolean empty();
 }
 
-class ListImpLinks implements ListImp { 
+class ListImpLinks implements ListImp {
   private class Cell {
     String val=null;
     Cell next=null;
@@ -154,7 +97,7 @@ class ListImpLinks implements ListImp {
 }
 
 
-class ListImpArray implements ListImp { 
+class ListImpArray implements ListImp {
   private String[] elts = new String[2000]; 
   private int count = 0;
   public void ins( String val, int loc ) {  
@@ -171,6 +114,61 @@ class ListImpArray implements ListImp {
   public boolean empty() { return (count==0); }
 }
 
+ class BridgeQueueListDemo {
 
+    public static void main( String[] args ) {
+
+        // create front end objects, of type abstract Queue
+        // but with different back end implementation objects
+
+        Queue qL = new Queue("links"); // one implemented with linked cells
+        Queue qA = new Queue("array"); // one implemented with array
+
+        // speak the same interface "language" to each
+        // show the results of each are the same
+
+        // take data from the comman line args
+        // take ops to perform from the assignment writeup
+
+        // (1) take the first command line arg and add it to both queues
+        String item = null;
+        try {
+            item= args[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        qL.enq(item);
+        qA.enq(item);
+        // (2) print the size of each queue
+        System.out.println(qL.size());
+        System.out.println(qA.size());
+        // (3) print the item on front each queue
+        System.out.println(qL.front());
+        System.out.println(qA.front());
+        // (4) remove an item from each queue
+        qL.deq();
+        qA.deq();
+        // (5) print the size of each queue
+        System.out.println(qL.size());
+        System.out.println(qA.size());
+
+        // now add all other command line args to each queue
+        for (int i=1; i<args.length; i++) {
+            qL.enq(args[i]);
+            qA.enq(args[i]);
+        }
+        for (int i=1; i<args.length; i++) {
+            // (1) print front element on each queue
+            System.out.println(qL.front());
+            System.out.println(qA.front());
+            // (2) do a deq on each queue
+            qL.deq();
+            qA.deq();
+            // (5) print the size of each queue
+            System.out.println(qL.size());
+            System.out.println(qA.size());
+        }
+    }
+}
 
 //END OF FILE

@@ -3,15 +3,12 @@ Grading result for: All, Correct (acorrect)
 Grading features...
 ----------------------------------
 Functionality                                          27.0 / 27.0
-No illegal import or call                              0.0 / 47.0
+No illegal import or call                              47.0 / 47.0
+Classes Defined                                        15.0 / 15.0
+Interface Defined                                      0.0 /  3.0
+One of each impl in main method                        0.0 /  8.0
 ----------------------------------
-  Points Awarded: 27.0
+  Points Awarded: 89.0
 
-  Features Score: 27.0
-
-Notes from grading features:
-----------------------------------
-No illegal import or call:
-  -- Illegal type or call
-
-  Total Score: 27.0
+  Features Score: 89.0
+  Total Score: 89.0

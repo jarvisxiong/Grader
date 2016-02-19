@@ -14,8 +14,11 @@ public class Assignment2Requirements extends FrameworkProjectRequirements{
         addDueDate("02/03/2016 23:59:00", 1.0);
         addFeature("Functionality", 27, new FunctionalityTestCase());
         addFeature("No illegal import or call", 47, new IllegalImportOrCallTestCase());
-        addFeature("Classes Defined",26, new ClassDefinedTestCase());
 
+        addFeature("Classes Defined",15, new ClassDefinedTestCase("@ListArray"),new ClassDefinedTestCase("@ListLinked"),
+                new ClassDefinedTestCase("@ListMain"),new ClassDefinedTestCase("@QueueAbstraction"));
+        addManualFeature("Interface Defined", 3, false);
+        addManualFeature("One of each impl in main method", 8, false);
 
     }
 }

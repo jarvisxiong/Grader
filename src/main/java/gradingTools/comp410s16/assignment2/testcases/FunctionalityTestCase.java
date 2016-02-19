@@ -39,7 +39,7 @@ public class FunctionalityTestCase extends BasicTestCase {
             Option<ClassesManager> classesManager = project.getClassesManager();
 
             System.out.println("class descriptions: "+classesManager.get().getClassDescriptions());
-            List<ClassDescription> cd = classesManager.get().findByClassName("BridgeQueueListDemo");
+            List<ClassDescription> cd = classesManager.get().findByClassName(classesManager.get().getClassDescriptions().toArray()[0].toString());
             Class<String> queue = (Class<String>) cd.get(0).getJavaClass();
 
             String[] input = new String[4];
