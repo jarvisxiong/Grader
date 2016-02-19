@@ -1401,7 +1401,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public boolean runProjectsInteractively(String aGoToOnyen) throws MissingOnyenException, InvalidOnyenRangeException {
 		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		if (onyens.size() == 0) {
-			String message = "No onyens found in specified range.";
+			String message = "Start or end onyen not found in specified range, see console.";
 //			JOptionPane.showMessageDialog(null, message);
 			InvalidOnyenRangeException invalidOnyenRangeException = InvalidOnyenRangeException.newCase(message, this);
 //			throw new InvalidOnyenRangeException(message);
