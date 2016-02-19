@@ -91,11 +91,11 @@ public class AlphabeticNavigationList implements NavigationListCreator {
             }
         }
         if (!foundStart) {
-        	System.out.println ("Did not find start onyen in:" + files);
+        	System.out.println ("Did not find start onyen:" +  aStartOnyen + " in:" + Arrays.toString(files));
 
         }
         if (include) { // did not find ending onyen
-        	System.out.println ("Did not find end onyen in:" + files);
+        	System.out.println ("Did not find end onyen:" + anEndOnyen + " in:" + Arrays.toString(files));
 
         	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
