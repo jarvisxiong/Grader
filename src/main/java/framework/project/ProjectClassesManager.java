@@ -159,6 +159,7 @@ public class ProjectClassesManager implements ClassesManager {
 
                 } catch (Exception e) {
                     System.out.println("Compilation failed: " + e.toString());
+                    e.printStackTrace();
                     project.setCanBeCompiled(false);
                 }
             }
@@ -172,7 +173,9 @@ public class ProjectClassesManager implements ClassesManager {
 			// System.out.println(className);
 			try {
 				Class c = null;
-				if (AProject.isLoadClasses()) {
+				if (AProject.isLoadClasses() && 
+						proxyClassLoader != null) // if we are precompiling or cleaning up, this will be null
+				{
 //					c = classLoader.loadClass(className);
 					c = proxyClassLoader.loadClass(className);
 				}
