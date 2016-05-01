@@ -139,8 +139,10 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public void init() {
-
-        setGraderStarted(false);
+//    	graderSettingsManager.init();
+    	projectDatabase = null; // added this for reusing this for multiple drive invocations
+        currentProblem = null; // so that it is refreshed in refreshAll
+    	setGraderStarted(false);
         //graderStarted = false;
 //		configuration = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration();
 //		dynamicConfiguration = GradingEnvironment.get().getConfigurationManager().getDynamicConfiguration();
@@ -178,10 +180,21 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     public String getCurrentModule() {
         return currentModule;
     }
+    // never claled other than from setCurrentModule
+    void basicSetCurrentModule(String newValue) {
+    	System.out.println ("Current module to:" + newValue);
+        ModuleUserChange.newCase(currentModule, this, this);
+        currentModule = newValue;
+//        refreshAll();
+//		 ModuleUserChange.newCase(currentModule, this, this);
+
+    }
 
     void setCurrentModule(String newValue) {
-
-        currentModule = newValue;
+//    	System.out.println ("Current module to:" + newValue);
+//        ModuleUserChange.newCase(currentModule, this, this);
+//        currentModule = newValue;
+    	basicSetCurrentModule(newValue);
         refreshAll();
 //		 ModuleUserChange.newCase(currentModule, this, this);
 
@@ -224,15 +237,20 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //				Tracer.error("No folder found for:" + downloadPath);				
             } else {
                 File gradesFile = new File(problemDownloadPath + "/grades.csv"); // is this a sakai assignment folder
-
+//                String aFolderName = null;
                 if (gradesFile.exists()) {
                     if (currentProblem == null) {
-                        currentProblem = folder.getName();
+//                    	aFolderName = folder.getName();
+                    	basicSetCurrentProblem(folder.getName());
+//                        currentProblem = folder.getName();
                     }
                     folder = folder.getParentFile();
                 }
 //				try {
                 moduleDownloadPath = folder.getAbsolutePath();
+//                if (aFolderName != null && currentProblem == null) {
+//                	setCurrentProblem(aFolderName);
+//                }
 //				} catch (IOException e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
@@ -290,7 +308,10 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 
     void refreshProblemDownloadPath() {
         if (problemDownloadPath != null) {
+        	System.out.println ("refreshing problem download path:" + problemDownloadPath);
             fileBrowsing.getDownloadFolder().setText(problemDownloadPath);
+        } else {
+        	System.out.println("Null problem download path");
         }
 
     }
@@ -495,6 +516,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         String endingOnyen = onyens.getEndingOnyen();
         GraderSettings.get().set(START_ONYEN, startingOnyen);
         GraderSettings.get().set(END_ONYEN, endingOnyen);
+        System.out.println ("Saving PROBLEM_PATH:" + downloadPath);
         GraderSettings.get().set(PROBLEM_PATH, downloadPath);
         GradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
@@ -679,9 +701,17 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 //		boolean retVal = database.getAssigmentDataFolder().restoreFeatureGradeFile();
 //		
 //	}
+    
+    void basicSetCurrentProblem(String aProblem) {
+        ProblemUserChange.newCase(currentProblem, this, this);
+    	System.out.println("Setting current problem to:" + aProblem);
+        currentProblem = aProblem;
+    }
 
     void setCurrentProblem(String aProblem) {
-        currentProblem = aProblem;
+//    	System.out.println("Setting current problem to:" + aProblem);
+//        currentProblem = aProblem;
+    	basicSetCurrentProblem(aProblem);
 //        problemDownloadPath = moduleDownloadPath + "\\" + currentProblem;
         problemDownloadPath = moduleDownloadPath + System.getProperty("file.separator") + currentProblem;
         refreshProblemDownloadPath();
@@ -865,7 +895,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
                 return;
             }
             setCurrentProblem(moduleProblemSelector.getProblem().getValue());
-            ProblemUserChange.newCase(currentProblem, this, this);
+//            ProblemUserChange.newCase(currentProblem, this, this);
 
 //			currentProblem = moduleProblemSelector.getProblem().getValue();
 //			problemDownloadPath = moduleDownloadPath + "/" +  currentModule;
@@ -875,7 +905,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
                 return;
             }
             setCurrentModule(moduleProblemSelector.getModule().getValue());
-            ModuleUserChange.newCase(currentModule, this, this);
+//            ModuleUserChange.newCase(currentModule, this, this);
 
         } else if (evt.getSource() == fileBrowsing.getDownloadFolder().getLabel()) {
             String newPath = fileBrowsing.getDownloadFolder().getLabel().getText();

@@ -48,6 +48,8 @@ public class AProject implements Project {
 
     public static final String ZIP_SUFFIX_1 = ".zip";
     public static final String ZIP_SUFFIX_2 = ".jar";
+//    public static final String ZIP_SUFFIX_2 = ".zip"; // forget about jars, but keep another suffix
+
     public static final String DEFAULT_PROJECT_FOLDER = ".";
     public static final String DEFAULT_GRADING_FOLDER = "C:/Users/dewan/Downloads/GraderData";
     public static final String DEFAULT_TRANSCRIPT_FILE_PREFIX = "transcript";

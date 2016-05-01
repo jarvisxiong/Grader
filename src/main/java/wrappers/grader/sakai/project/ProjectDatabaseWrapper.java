@@ -76,7 +76,15 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             String onyens = "";
             Boolean include = false;
             Set<String> onyenSet = new TreeSet<String>();
-            File files[] = new File(GraderSettings.get().get("path")).listFiles();
+            String aFileName = GraderSettings.get().get("path");
+            System.out.println ("Path file name:" + aFileName);
+            File aFile = new File(aFileName);
+            File files[] = aFile.listFiles();
+            if (files == null) {
+            	System.err.println("Null files");
+            	return null;
+            }
+//            File files[] = new File(GraderSettings.get().get("path")).listFiles();
             Arrays.sort(files, new AFileObjectSorter(FileNameSorterSelector.getSorter())) ;
 
             //maybe this is the only sort we need now, at least we do not need it in getStudentIds, but will keep it for now

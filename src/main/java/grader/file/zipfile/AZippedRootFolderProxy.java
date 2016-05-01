@@ -70,6 +70,8 @@ public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements
 
                 continue; // we got a file at the top level
             rootLocalName = rootLocalName(name);
+//            Exception e= new Exception();
+//            e.printStackTrace();
             Tracer.info(this, "Local name:" + rootLocalName + " of zip file" + zipFile.getName());
             return;
         }

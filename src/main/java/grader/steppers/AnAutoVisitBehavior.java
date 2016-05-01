@@ -1,6 +1,7 @@
 package grader.steppers;
 
 import framework.execution.RunningProject;
+import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
@@ -22,6 +23,7 @@ import grader.navigation.NavigationKind;
 import grader.navigation.filter.ADispatchingFilter;
 import grader.navigation.filter.BasicNavigationFilter;
 import grader.photos.APhotoReader;
+import grader.project.AProject;
 import grader.project.Project;
 import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.ProjectStepper;
@@ -641,11 +643,25 @@ public class AnAutoVisitBehavior implements
             }
 
 //		if (!isNotRunnable()) {
-            featureResults = projectDatabase.getProjectRequirements()
+            ProjectRequirements aProjectRequirements = projectDatabase.getProjectRequirements();
+            System.out.println ("Projeect requirements:" + aProjectRequirements);
+//            System.out.println("SLEEPING");
+//            try {
+//				Thread.sleep(2000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+            featureResults = aProjectRequirements
                     .checkFeatures(wrappedProject);
 
-            restrictionResults = projectDatabase.getProjectRequirements()
+            restrictionResults = aProjectRequirements
                     .checkRestrictions(wrappedProject);
+//            featureResults = projectDatabase.getProjectRequirements()
+//                    .checkFeatures(wrappedProject);
+//
+//            restrictionResults = projectDatabase.getProjectRequirements()
+//                    .checkRestrictions(wrappedProject);
 
             FeaturesAutoGraded.newCase(projectDatabase, projectStepper, project, this);
 //		}

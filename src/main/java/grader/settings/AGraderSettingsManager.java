@@ -36,6 +36,12 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     public AGraderSettingsManager() {
         maybeConvertToDynamicConfiguration();
     }
+    @Override
+    public void init() {
+    	dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+    	moduleProblemManager = ModuleProblemManagerSelector.getModuleProblemManager();
+    	maybeConvertToDynamicConfiguration();
+    }
 //	   @Override
 //	   public void init (ModuleProblemManager initValue) {
 //		   moduleProblemManager = initValue;
@@ -248,8 +254,13 @@ public class AGraderSettingsManager implements GraderSettingsManager {
         	System.err.println(" Null dynamic configuration");
         	return null;
         }
+        if (modules.size() == 0) {
+        	System.err.println(" No modules specified");
+        	return "";
+        }
 
         String aModule = dynamicConfiguration.getString(MODULE, modules.get(0));
+        System.out.println ("Returning module:" + aModule);
         return aModule;
     }
 
@@ -352,6 +363,7 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     public String replaceModuleProblemVars(String original) {
         String moduleName = getModule();
         String problemName = getNormalizedProblem(moduleName);
+        System.out.println ("Problem name:" + problemName);
         String retVal = original;
 //		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
         retVal = retVal.replace("{moduleName}", moduleName);

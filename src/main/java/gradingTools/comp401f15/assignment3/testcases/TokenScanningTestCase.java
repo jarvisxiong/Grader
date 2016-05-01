@@ -68,6 +68,10 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
    
 	
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
+    	String[] anExpectedOutputs = expectedOutputs();
+    	if (anExpectedOutputs == null) { // maybe there should be an expecption thrown
+    		return fail ("Did not find class with appropriate tag");
+    	}
     	Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
         Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
@@ -83,7 +87,9 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;
-        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, expectedOutputs());
+        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, anExpectedOutputs);
+
+//        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, expectedOutputs());
         if (getsReturnedSets && correctTokensPrinted) {
         	return pass();
         }

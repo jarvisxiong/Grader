@@ -26,14 +26,23 @@ public class AModuleProblemManager implements ModuleProblemManager{
 //	GraderSettingsManager graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
 	List<String> modules;
 	public AModuleProblemManager() {
+		init();
 		
 				
 //				GraderSettingsManagerSelector.getGraderSettingsManager();
+//		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+//		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
+//		courseConfiguration = ConfigurationManagerSelector.getConfigurationManager().getCourseConfiguration();
+//		dynamicModuleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicModuleConfiguration();
+		
+	}
+	// this may be executed twice
+	@Override
+	public void init() {
 		configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 		dynamicConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicConfiguration();
 		courseConfiguration = ConfigurationManagerSelector.getConfigurationManager().getCourseConfiguration();
 		dynamicModuleConfiguration = ConfigurationManagerSelector.getConfigurationManager().getDynamicModuleConfiguration();
-		
 	}
 //	@Override
 //	public void init(GraderSettingsManager aGraderSettingsManager) {

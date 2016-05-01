@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -224,7 +225,7 @@ public class AConfigurationManager implements ConfigurationManager {
 //		           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());
             UserPropertyWriter userProperties = new UserPropertyWriter(dynamicConfigName);
 // this seems to be Andrew's code duplicating the properties in a thread specific file
-            
+            System.out.println ("Writing user properties:" + Arrays.toString(args));
             userProperties.setUserProperties(args);
             userPropsFile = Paths.get(dynamicConfigName).toFile();
             

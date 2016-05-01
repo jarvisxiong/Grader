@@ -62,6 +62,7 @@ public interface GraderSettingsManager {
 	void setDiff(String newValue);
 	String getPythonInterpreterPath();
 	void setPythonInterpreterPath(String aNewValue);
+	void init();
 	
 
 }

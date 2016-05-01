@@ -25,7 +25,7 @@ public class GraderWithProjectRequirementsExample {
             addFeature("Test feature 2", 15, new FailingTestCase());
             addFeature("Test feature 3", 10, new ErrorMessageTestCase());
         }};
-        database.addProjectRequirements(requirements);
+        database.setProjectRequirements(requirements);
 
         // You can still run it as normal
         try {

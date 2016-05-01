@@ -15,6 +15,7 @@ import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
+import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.language.LanguageDependencyManager;
@@ -40,6 +41,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import util.trace.TraceableBus;
+import util.trace.Tracer;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
@@ -61,8 +63,11 @@ public class Driver {
     static GraderSettingsModel settingsModel;
 
     static File userPropsFile;
+    static boolean headlessExitOnComplete = true;
 
-    public static ProjectRequirements getProjectRequirements() {
+    
+
+	public static ProjectRequirements getProjectRequirements() {
         return StaticConfigurationUtils.getProjectRequirements(configuration, graderSettingsManager);
 
     }
@@ -78,7 +83,8 @@ public class Driver {
         configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
         // moved
         // , in progress
-        (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
+        // this does nothing but slow things down, we should use some other mechanism to find requirements
+//        (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
 
         controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
 //        if (!controller.equals("AHeadlessGradingManager")) {
@@ -92,7 +98,9 @@ public class Driver {
         TraceableBus.addTraceableListener(interactionLogWriter);
 
         moduleProgramManager = ModuleProblemManagerSelector.getModuleProblemManager();
+        moduleProgramManager.init();
         graderSettingsManager = GraderSettingsManagerSelector.getGraderSettingsManager();
+        graderSettingsManager.init();
         if (isHeadless()) {
             setupHeadlessGrader(args);
         }
@@ -260,15 +268,24 @@ public class Driver {
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(database);
         // moved code from above
         requirements = getProjectRequirements();
+        System.out.println ("got requirements:" + requirements);
+//        System.out.println ("SLEEPING");
+//        try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
         recorder.setProjectRequirements(requirements);
         if (requirements == null) {
-            System.err.println("Exiting because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
-            System.exit(-1);
+            System.err.println("Returning because selected assignment does not have any associated requirements. Please add requirements or select correct assignment after restarting.");
+            return;
+//            System.exit(-1);
         }
 
         initLoggers(requirements, configuration);
 
-        database.addProjectRequirements(requirements);
+        database.setProjectRequirements(requirements);
 
             ConglomerateRecorder.getInstance().setBasicFeatureGradeRecorder(BasicFeatureGradeRecorderSelector.createFeatureGradeRecorder(database));
 
@@ -298,7 +315,7 @@ public class Driver {
         if (isNotHeadless()) {
             database.getProjectNavigator().navigate(settingsModel, settingsFrame, true);
         } else {
-            database.getAutomaticProjectNavigator().navigate(settingsModel, null, true);
+            database.getAutomaticProjectNavigator().navigate(settingsModel, null, isHeadlessExitOnComplete());
         }
     }
 
@@ -363,7 +380,7 @@ public class Driver {
     public static void main(String[] args) {
         drive(args, 0, 0);
     }
-
+   
     public static void setTracing() {
 //		Tracer.showInfo(true);
 //		Tracer.setKeywordPrintStatus(OverallNotesChanged.class, true);
@@ -423,4 +440,13 @@ public class Driver {
     public static void setConfiguration(PropertiesConfiguration configuration) {
         Driver.configuration = configuration;
     }
+    public static boolean isHeadlessExitOnComplete() {
+		return headlessExitOnComplete;
+	}
+
+	public static void setHeadlessExitOnComplete(boolean headlessExitOnComplete) {
+		Tracer.showInfo(true);
+		Tracer.setKeywordPrintStatus(AZippedRootFolderProxy.class, true);
+		Driver.headlessExitOnComplete = headlessExitOnComplete;
+	}
 }

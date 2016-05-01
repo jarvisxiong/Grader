@@ -68,7 +68,8 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     void initializeBullkDownloadChidren() {
 //        rootBulkDownloadFolder = ARootFolderCreator.createRootFolder(bulkDownloadDirectory);
-        rootBulkDownloadFolder = RootFolderCreatorFactory.getSingleton().createRootFolder(bulkDownloadDirectory);
+        System.out.println (" Initializing root folder" + bulkDownloadDirectory);
+    	rootBulkDownloadFolder = RootFolderCreatorFactory.getSingleton().createRootFolder(bulkDownloadDirectory);
 
         isZippedRootFolder = rootBulkDownloadFolder instanceof AZippedRootFolderProxy;
         bulkDownloadDirectory = rootBulkDownloadFolder.getAbsoluteName(); // normalize name

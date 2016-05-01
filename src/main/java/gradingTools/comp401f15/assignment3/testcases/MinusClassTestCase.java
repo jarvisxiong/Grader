@@ -63,6 +63,8 @@ public class MinusClassTestCase extends TokenScanningTestCase{
 
    protected String[] expectedOutputs() {
 	   Class aClass =  (Class) this.getCheckable().getRequirements().getUserObject(MinusTokenBeanTestCase.TAG);
+	   if (aClass == null)
+		   return null;
 	   String aPattern = ".*" + aClass.getCanonicalName() + ".*";
 	   return new String[] {aPattern, aPattern};
 	   

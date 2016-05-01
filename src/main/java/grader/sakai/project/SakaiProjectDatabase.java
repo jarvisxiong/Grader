@@ -129,7 +129,7 @@ public interface SakaiProjectDatabase {
 	public void setProjectStepper(ProjectStepper projectStepper) ;
 	ProjectStepper getOrCreateProjectStepper();
 
-	void addProjectRequirements(ProjectRequirements requirements);
+	void setProjectRequirements(ProjectRequirements requirements);
 
 	ProjectRequirements getProjectRequirements();
 

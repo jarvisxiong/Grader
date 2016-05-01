@@ -11,6 +11,7 @@ import util.trace.Tracer;
 public interface ModuleProblemManager {
 	public List<String> getModules();
     public String getModulePrefix(String aModule) ;
+	void init();
     
 //    public String getCurrentModule() ;
 

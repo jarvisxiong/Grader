@@ -1367,7 +1367,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	 *            database
 	 */
 	@Override
-	public void addProjectRequirements(ProjectRequirements requirements) {
+	public void setProjectRequirements(ProjectRequirements requirements) {
 		projectRequirements = requirements;
 		List<GradingFeature> gradingFeatures = new ArrayList<GradingFeature>();
 		if (requirements != null) {
