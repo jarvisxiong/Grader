@@ -87,6 +87,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     	List<File> aRetVal = new ArrayList();
     	File[] aFiles = aFolder.listFiles();
     	for (File aFile:aFiles) {
+    		System.out.println ("Examining file:" + aFile.getName());
     		if (aFile.getName().matches(aRegex)) {
     			aRetVal.add(aFile);
     		}
@@ -121,6 +122,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
         File aFile = new File(checkStyleConfigurationFileName);
         if (!aFile.exists()) {
+        	System.out.println("Searching for checkstyle file");
         	aFile = getMatchingFile(rootFolder, ".*check.*xml");
         }
         if (!aFile.exists()) {
