@@ -21,6 +21,7 @@ import java.nio.file.Files;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,6 +82,23 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 			e.printStackTrace();
 		}
     }
+    
+    public static List<File> getMatchingFiles(File aFolder, String aRegex) {
+    	List<File> aRetVal = new ArrayList();
+    	File[] aFiles = aFolder.listFiles();
+    	for (File aFile:aFiles) {
+    		if (aFile.getName().matches(aRegex)) {
+    			aRetVal.add(aFile);
+    		}
+    	}
+    	return aRetVal;
+    }
+    public static File getMatchingFile(File aFolder, String aRegex) {
+    	List<File> aRetVal = getMatchingFiles(aFolder, aRegex);
+    	if (aRetVal.size() == 1)
+    		return aRetVal.get(0);
+    	return null;
+    }
 
     void initGraderData() {
 
@@ -99,8 +117,12 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
         logFileName = rootFolder.getAbsolutePath() + "/" + DEFAULT_LOG_FILE_NAME;
 //        checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + DEFAULT_CONFIGURATION_FILE;
         checkStyleConfigurationFileName = rootFolder.getAbsolutePath() + "/"  + StaticConfigurationUtils.getCheckStyleFile();
+//        File aFoundFile =  getMatchingFile(rootFolder, ".*check.*xml");
 
         File aFile = new File(checkStyleConfigurationFileName);
+        if (!aFile.exists()) {
+        	aFile = getMatchingFile(rootFolder, ".*check.*xml");
+        }
         if (!aFile.exists()) {
         	Tracer.warning("Could not find checkstyle file:" + checkStyleConfigurationFileName);
         	checkStyleConfigurationFileName = AConfigurationManager.CONFIG_DIR + "/"  + DEFAULT_CONFIGURATION_FILE;
