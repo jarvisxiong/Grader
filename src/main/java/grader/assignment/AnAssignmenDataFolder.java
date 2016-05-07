@@ -87,8 +87,10 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
     	List<File> aRetVal = new ArrayList();
     	File[] aFiles = aFolder.listFiles();
     	for (File aFile:aFiles) {
-    		System.out.println ("Examining file:" + aFile.getName());
+//    		System.out.println ("Examining file:" + aFile.getName());
     		if (aFile.getName().matches(aRegex)) {
+//        		System.out.println ("Returning file:" + aFile.getName());
+
     			aRetVal.add(aFile);
     		}
     	}
@@ -122,8 +124,14 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
         File aFile = new File(checkStyleConfigurationFileName);
         if (!aFile.exists()) {
-        	System.out.println("Searching for checkstyle file");
-        	aFile = getMatchingFile(rootFolder, ".*check.*xml");
+//        	System.out.println("Searching for checkstyle file");
+        	File aFoundFile = getMatchingFile(rootFolder, ".*check.*xml");
+        	if (aFoundFile != null) {
+        		aFile = aFoundFile;
+        		checkStyleConfigurationFileName = aFoundFile.getAbsolutePath();
+        		System.out.println ("Found check style file:" + checkStyleConfigurationFileName);
+
+        	}
         }
         if (!aFile.exists()) {
         	Tracer.warning("Could not find checkstyle file:" + checkStyleConfigurationFileName);
