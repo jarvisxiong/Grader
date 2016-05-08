@@ -94,6 +94,7 @@ import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
+import util.introspect.ClassLoaderFactory;
 import util.misc.AClearanceManager;
 import util.misc.Common;
 import util.misc.ThreadSupport;
@@ -239,6 +240,8 @@ public class AnAutoVisitBehavior implements
             }
             wrappedProject = new ProjectWrapper(project, GradingEnvironment
                     .get().getAssignmentName());
+            ClassLoaderFactory.setCurrentClassLoader(
+            		wrappedProject.getClassesManager().get().getClassLoader());
             studentFolder = ProjectWrapper.getStudentFolder(projectStepper.getOnyen());
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
