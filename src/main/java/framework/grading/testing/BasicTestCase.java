@@ -44,6 +44,8 @@ public abstract class BasicTestCase implements TestCase {
     public BasicTestCase(String name) {
         this.name = name;
     }
+    public BasicTestCase() {
+    }
    
     @Override
     public Checkable getCheckable() {
@@ -58,6 +60,11 @@ public abstract class BasicTestCase implements TestCase {
     @Override
     public String getName() {
         return name;
+    }
+    
+    @Override
+    public void setName (String aName) {
+    	name = aName;
     }
 
     protected TestCaseResult partialPass(double percentage, boolean autograded) {

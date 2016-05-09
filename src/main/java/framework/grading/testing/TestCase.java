@@ -12,6 +12,8 @@ public interface TestCase extends Permissible{
      * @return A name or short description about the test case.
      */
     public String getName();
+    
+    public void setName(String aName);
 
     /**
      * This tests the project to see if somethings is the way it is supposed to be

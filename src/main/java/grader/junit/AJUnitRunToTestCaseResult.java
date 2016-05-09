@@ -7,7 +7,7 @@ import org.junit.runner.notification.RunListener;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.TestCaseResult;
 
-public class AJUnitToTestCaseResult extends RunListener {
+public class AJUnitRunToTestCaseResult extends RunListener {
 	TestCaseResult checkResult;
 	String name = "";
 	

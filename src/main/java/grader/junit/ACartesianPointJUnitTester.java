@@ -5,6 +5,16 @@ package grader.junit;
 import org.junit.Assert;
 import org.junit.Test;
 
+import util.annotations.Explanation;
+import util.annotations.Group;
+import util.annotations.IsExtra;
+import util.annotations.IsRestriction;
+import util.annotations.MaxValue;
+@IsExtra(true)
+@IsRestriction(false)
+@MaxValue(15)
+@Explanation("Radius and Angle Correctly Computed")
+@Group("Polar Computation")
 public class ACartesianPointJUnitTester {	
 	@Test
 	public void test() {
