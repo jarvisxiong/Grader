@@ -28,4 +28,6 @@ public interface TestCase extends Permissible{
     public void setCheckable(Checkable checkable);
 
 	Checkable getCheckable();
+	 public double getPointWeight() ;
+	public void setPointWeight(double pointWeight) ;
 }

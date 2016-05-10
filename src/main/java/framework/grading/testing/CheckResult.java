@@ -138,11 +138,23 @@ public class CheckResult implements Describable {
      * @param result The result to save and process
      */
     public void save(TestCaseResult result) {
+//    	if (result == null) return;
+//    	String testNotes =  result.getNotes();
+//    	if (!testNotes.isEmpty())
+//    		autoNotes += "  -- " + result.getNotes() + "\n";
+//        score += result.getPercentage() * pointWeight;
+//        results.add(result);
+    	save(result, pointWeight);
+    }
+    public void save(TestCaseResult result, double aPointWeight) {
+    	if (aPointWeight < 0) {
+    		aPointWeight = pointWeight;
+    	}
     	if (result == null) return;
     	String testNotes =  result.getNotes();
     	if (!testNotes.isEmpty())
     		autoNotes += "  -- " + result.getNotes() + "\n";
-        score += result.getPercentage() * pointWeight;
+        score += result.getPercentage() * aPointWeight;
         results.add(result);
     }
     

@@ -40,9 +40,16 @@ public abstract class BasicTestCase implements TestCase {
     protected Checkable checkable;
     
 	protected String name;
+	
+	protected double pointWeight = -1;
 
-    public BasicTestCase(String name) {
+   
+	public BasicTestCase(String name) {
         this.name = name;
+    }
+	public BasicTestCase(String name, double aPointWeight) {
+        this.name = name;
+        pointWeight = aPointWeight;
     }
     public BasicTestCase() {
     }
@@ -105,5 +112,11 @@ public abstract class BasicTestCase implements TestCase {
     @JsonIgnore
 	public Object[] getPermissions() {
 		return checkable.getPermissions();
+	}
+    public double getPointWeight() {
+		return pointWeight;
+	}
+	public void setPointWeight(double pointWeight) {
+		this.pointWeight = pointWeight;
 	}
 }
