@@ -1,5 +1,10 @@
 package grader.junit;
 
+import org.junit.runner.Runner;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.InitializationError;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -20,12 +25,21 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase {
 	long maxScore;
 	String explanation;
 	String group;
+	RunNotifier aRunNotifier = new RunNotifier();
+	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
 	
 	public AJUnitTestToGraderTestCase (Class aJUnitClass) {
+		init();
 		setJUnitClass(aJUnitClass);
+	
 	}
 	
 	public AJUnitTestToGraderTestCase () {
+		init();
+	}
+	public void init() {
+		aRunNotifier.addListener(runListener);
+
 	}
 	
 	public Class getJUnitClass() {
@@ -116,7 +130,23 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		// TODO Auto-generated method stub
+		try {
+			Class aJUnitClass = getJUnitClass();
+			runListener.setJUnitName(aJUnitClass.getName());
+			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
+			aRunner.run(aRunNotifier);
+
+			
+		} catch (InitializationError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return fail(e.getMessage());
+		}
+		// InitializationError
+//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitTester.class);
+//		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);
+		// IniitializationError
+//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
 		return null;
 	}
 	public static void main (String[] args) {
