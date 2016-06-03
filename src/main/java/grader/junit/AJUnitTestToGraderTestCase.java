@@ -17,21 +17,21 @@ import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 
-public class AJUnitTestToGraderTestCase extends BasicTestCase {
+public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTestToGraderTestCase{
 	public static int DEFAULT_SCORE = 10;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;
 	boolean isExtra;
+	boolean isRestriction;
 	long maxScore;
 	String explanation;
-	String group;
+	String group = "";
 	RunNotifier aRunNotifier = new RunNotifier();
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
 	
 	public AJUnitTestToGraderTestCase (Class aJUnitClass) {
 		init();
-		setJUnitClass(aJUnitClass);
-	
+		setJUnitClass(aJUnitClass);	
 	}
 	
 	public AJUnitTestToGraderTestCase () {
@@ -65,9 +65,9 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase {
 	public void setIsRestriction (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(IsRestriction.class)) {
 			IsRestriction anIsRestriction =  (IsRestriction) aJUnitClass.getAnnotation(IsRestriction.class);
-			isExtra = anIsRestriction.value();
+			isRestriction = anIsRestriction.value();
 		} else {
-			isExtra = false;
+			isRestriction = false;
 		}
 	}
 	public void setIsExtra (Class aJUnitClass) {
@@ -97,7 +97,10 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase {
 			group = explanation;
 		}
 	}
-	
+	@Override
+	public String getGroup() {
+		return group;
+	}
 	public void setJUnitClass(Class aJUnitClass) {
 		setExplanation(aJUnitClass);
 		setMaxScore(aJUnitClass);
@@ -114,9 +117,12 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase {
 		
 	}
 	public boolean isRestriction() {
+		return isRestriction;
+	}
+	public boolean isExtra() {
 		return isExtra;
-	}	
-	public long isMaxScore() {
+	}
+	public long getMaxScore() {
 		return maxScore;
 	}	
 	public String getExplanation() {

@@ -14,7 +14,7 @@ import util.annotations.MaxValue;
 @IsRestriction(false)
 @MaxValue(15)
 @Explanation("Radius and Angle Correctly Computed")
-@Group("Polar Computation")
+@Group(CartesianPointSuite.POLAR_COORDINATES)
 public class ACartesianPointJUnitTester {	
 	@Test
 	public void test() {

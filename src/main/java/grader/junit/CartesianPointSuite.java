@@ -11,6 +11,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
    AReflectionBasedCartesianPointJUnitTester.class
 })
 public class CartesianPointSuite {
+	public static final String POLAR_COORDINATES = "Polar Coordinates";
 	public static void main (String[] args) {
 		Suite.SuiteClasses aSuiteClassAnnotation = CartesianPointSuite.class.getAnnotation(Suite.SuiteClasses.class);
 		Class[] aTestClasses = aSuiteClassAnnotation.value();
