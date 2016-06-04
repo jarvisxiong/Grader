@@ -1,5 +1,7 @@
 package grader.junit;
 
+import grader.junit.test.ACartesianPointJUnitTester;
+
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;

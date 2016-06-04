@@ -1,4 +1,4 @@
-package grader.junit;
+package grader.junit.test;
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;

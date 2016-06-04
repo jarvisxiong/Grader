@@ -37,7 +37,7 @@ public class AConfigurationManager implements ConfigurationManager {
     public static final String DYNAMIC_MODULE_CONFIGURATION_FILE_NAME = "./" + CONFIG_DIR + "/" + DYNAMIC_MODULES_FILE;
 
 
-    private static PropertiesConfiguration staticConfiguration;
+    private static PropertiesConfiguration staticConfiguration = new PropertiesConfiguration();
     static File userPropsFile;
     PropertiesConfiguration dynamicConfiguration;
     PropertiesConfiguration moduleConfiguration, dynamicModuleConfiguration;

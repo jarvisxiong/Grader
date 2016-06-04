@@ -1,4 +1,4 @@
-package grader.junit;
+package grader.junit.test;
 
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
@@ -17,8 +17,14 @@ public class ACartesianPoint implements Point {
 	}
 	public int getX() { return x; }
 	public int getY() { return y; } 	
-	public double getAngle() { return Math.atan2(y, x); }
-	public double getRadius() { return Math.sqrt(x*x + y*y); }	
+	public double getAngle() { 
+//		return Math.atan2(y, x); 
+		return 0;
+	}
+	public double getRadius() { 
+		return Math.sqrt(x*x + y*y); 
+//		return 0;
+	}	
 	public static void main(String args[]) {
 		Point point =  new ACartesianPoint (50, 100);
 		ObjectEditor.edit(point);

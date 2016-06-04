@@ -8,6 +8,8 @@ import java.util.Set;
 import org.apache.maven.project.MissingProjectException;
 
 import util.misc.Common;
+import framework.project.Project;
+import framework.project.StandardProject;
 import grader.compilation.ClassFilesCompiler;
 import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.compilation.c.CFilesCompilerSelector;
@@ -33,10 +35,10 @@ import java.nio.file.Paths;
 
 public class ARootCodeFolder implements RootCodeFolder {
 
-    public static final String SOURCE = "src";
-    public static final String BINARY = "bin";
-    public static final String BINARY_2 = "out";
-    public static final String BINARY_3 = "build"; // net beans
+//    public static final String SOURCE = "src";
+//    public static final String BINARY = "bin";
+//    public static final String BINARY_2 = "out";
+//    public static final String BINARY_3 = "build"; // net beans
 //	 static  String sourceFileSuffix = ".java";
 //	 static Map<String, String> languageToSourceFileSuffix = new HashMap<>();
 //	 static Map<String, String> languageToBinaryFileSuffix = new HashMap<>();
@@ -51,8 +53,8 @@ public class ARootCodeFolder implements RootCodeFolder {
 //	
 //	public static  String binaryFileSuffix = ".class";
 
-    String sourceFolderName = SOURCE;
-    String binaryFolderName = BINARY;
+    String sourceFolderName = Project.SOURCE;
+    String binaryFolderName = Project.BINARY;
     RootFolderProxy root;
     String projectFolder;
     // changing sourceFolder to rootfolderproxy from FileProxy as we do not need the more general type
@@ -98,17 +100,17 @@ public class ARootCodeFolder implements RootCodeFolder {
         root = aRoot;
         setSeparateSourceBinary();
         // should we not be doing this only if there is a separate source and binary?
-        sourceFolderName = getFolderWithName(aRoot, SOURCE);
+        sourceFolderName = getFolderWithName(aRoot, Project.SOURCE);
 //        sourceFolderName = getEntryWithSuffixAndrew(aRoot, SOURCE);
-        binaryFolderName = getFolderWithName(aRoot, BINARY);
+        binaryFolderName = getFolderWithName(aRoot, Project.BINARY);
 //        binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY);
         // allow a set here
         if (binaryFolderName == null) {
-            binaryFolderName = getFolderWithName(aRoot, BINARY_2);
+            binaryFolderName = getFolderWithName(aRoot, Project.BINARY_2);
 //            binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY_2);
         }
         if (binaryFolderName == null) {
-            binaryFolderName = getFolderWithName(aRoot, BINARY_3);
+            binaryFolderName = getFolderWithName(aRoot, Project.BINARY_3);
 //            binaryFolderName = getEntryWithSuffixAndrew(aRoot, BINARY_3);
         }
 //		if (sourceFolderName == null || binaryFolderName == null) {
@@ -190,8 +192,8 @@ public class ARootCodeFolder implements RootCodeFolder {
 
     void setSeparateSourceBinary() {
         Set<String> names = root.getEntryNames();
-        String srcPattern = SOURCE + "/";
-        String binPattern = BINARY + "/";
+        String srcPattern = Project.SOURCE + "/";
+        String binPattern = Project.BINARY + "/";
         for (String name : names) {
             if (!hasSource && name.indexOf(srcPattern) != -1) {
                 hasSource = true;
@@ -361,7 +363,7 @@ public class ARootCodeFolder implements RootCodeFolder {
     public FileProxy sourceFile(String aClassName) {
         String sourceFileName = Common.classNameToSourceFileName(aClassName);
         if (separateSourceBinary) {
-            sourceFileName = SOURCE + "/" + sourceFileName;
+            sourceFileName = Project.SOURCE + "/" + sourceFileName;
         }
         return root.getFileEntry(sourceFileName);
     }
@@ -380,7 +382,7 @@ public class ARootCodeFolder implements RootCodeFolder {
     public FileProxy binaryFile(String aClassName) {
         String binaryFileName = Common.classNameToBinaryFileName(aClassName);
         if (separateSourceBinary) {
-            binaryFileName += BINARY + "/" + binaryFileName;
+            binaryFileName += Project.BINARY + "/" + binaryFileName;
         }
         return root.getFileEntry(binaryFileName);
     }

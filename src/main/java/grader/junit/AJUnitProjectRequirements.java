@@ -10,10 +10,12 @@ import org.junit.runners.Suite;
 import framework.grading.FrameworkProjectRequirements;
 
 
-public class AJUnitProjectRequirements extends FrameworkProjectRequirements{
+public class AJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
+	@Override
 	public void addJUnitTestSuite (Class<?> aJUnitSuiteClass) {
 		Class[] aJUnitClasses = getJUnitTestClasses(aJUnitSuiteClass);
 		Map<String, List<JUnitTestToGraderTestCase>>  aGroupedTestCases = createAndCollectTestCases(aJUnitClasses);
+		addGroupedTestCases(aGroupedTestCases);
 		
 	}
 	static JUnitTestToGraderTestCase[] testCasesType = {};
@@ -31,13 +33,8 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements{
 				addRestriction(aGroup, aTotalScore, aJUnitTestToGraderTestCases.toArray(testCasesType));
 			} else {
 				addFeature(aGroup, aTotalScore, anIsExtraCredit, aJUnitTestToGraderTestCases.toArray(testCasesType));
-			}
-
-			
-			
-			
-		}
-		
+			}			
+		}		
 	}
 	
 	
@@ -81,6 +78,9 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements{
 	}
 	
 	public static void main (String[] args) {
+		JUnitProjectRequirements aJUnitProjectRequirements = new AJUnitProjectRequirements();
+		aJUnitProjectRequirements.addJUnitTestSuite(CartesianPointSuite.class);
+		aJUnitProjectRequirements.checkFeatures(null);
 //		addJUnitTestSuite (CartesianPointSuite.class);
 		
 	}

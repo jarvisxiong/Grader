@@ -11,6 +11,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
+import grader.junit.test.ACartesianPointJUnitTester;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;
@@ -39,7 +40,6 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	}
 	public void init() {
 		aRunNotifier.addListener(runListener);
-
 	}
 	
 	public Class getJUnitClass() {
@@ -84,7 +84,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 			Explanation anExplanation =  (Explanation) aJUnitClass.getAnnotation(Explanation.class);
 			explanation = anExplanation.value();
 		} else {
-			explanation = aJUnitClass.getName();
+			explanation = aJUnitClass.getSimpleName();
 		}
 		setName(explanation);
 	}	
@@ -128,11 +128,6 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	public String getExplanation() {
 		return explanation;
 	}	
-	
-	
-
-	
-
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {

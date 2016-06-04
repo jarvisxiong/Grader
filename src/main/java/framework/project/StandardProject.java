@@ -9,6 +9,7 @@ import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
+import grader.util.IntrospectionUtil;
 import scala.Option;
 import tools.DirectoryUtils;
 import util.pipe.InputGenerator;
@@ -24,6 +25,7 @@ import java.util.Set;
  * A "standard" project. That is, an IDE-based java project.
  */
 public class StandardProject implements Project {
+    
 
     private File directory;
     private File sourceFolder;
@@ -77,7 +79,9 @@ public class StandardProject implements Project {
         }
     	project = aProject;
     	directory = aDirectory;
-        Option<File> src = DirectoryUtils.locateFolder(aDirectory, "src");
+//        Option<File> src = DirectoryUtils.locateFolder(aDirectory, "src");
+        Option<File> src = DirectoryUtils.locateFolder(aDirectory, Project.SOURCE);
+
         if (src.isEmpty()) {
         	System.out.println(SourceFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
 
@@ -107,6 +111,7 @@ public class StandardProject implements Project {
 //            if (AProject.isMakeClassDescriptions())
             classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
         } catch (Exception e) {
+        	e.printStackTrace();
             classesManager = Option.empty();
         }
 
@@ -123,10 +128,19 @@ public class StandardProject implements Project {
      */
     public File getBuildFolder(String preferredClass) throws FileNotFoundException {
 //        Option<File> out = DirectoryUtils.locateFolder(directory, "out");
-        Option<File> out = DirectoryUtils.locateFolder(directory, ARootCodeFolder.BINARY_2);
+        Option<File> out = DirectoryUtils.locateFolder(directory, Project.BINARY_2);
+//        if (out.isEmpty())
+//        	out = DirectoryUtils.locateFolder(directory, Project.BINARY_0);
+
+        
 
 //        Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
-        Option<File> bin = DirectoryUtils.locateFolder(directory,  ARootCodeFolder.BINARY);
+        Option<File> bin = DirectoryUtils.locateFolder(directory,  Project.BINARY_0); // just to handle grader itself, as it has execuot.c
+        if (bin.isEmpty())
+//        Option<File> bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
+        	bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
+
+
 
 
         // If there is no 'out' or 'bin' folder then give up
@@ -136,7 +150,7 @@ public class StandardProject implements Project {
                 } 
 //            throw new FileNotFoundException();
         	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
-        	File retVal = new File(directory, ARootCodeFolder.BINARY);
+        	File retVal = new File(directory, Project.BINARY);
         	retVal.mkdirs();
 //        	project.getClassLoader().setBinaryFileSystemFolderName(retVal.getAbsolutePath());
         	BinaryFolderMade.newCase(retVal.getAbsolutePath(), this);
@@ -230,5 +244,16 @@ public class StandardProject implements Project {
     @Override
     public File getSourceFolder() {
         return sourceFolder;
+    }
+    public static void main (String[] args) {
+    	try {
+			AProject.setLoadClasses(true);
+			Project aProject = new StandardProject(null, new File("."), null);
+			Class aClass = IntrospectionUtil.findClass(aProject, "ACartesianPoint");
+			System.out.println (aClass);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

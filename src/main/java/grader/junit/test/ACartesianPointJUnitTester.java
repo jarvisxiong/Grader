@@ -1,4 +1,4 @@
-package grader.junit;
+package grader.junit.test;
 
 
 //import org.junit.Test;
@@ -14,7 +14,7 @@ import util.annotations.MaxValue;
 @IsRestriction(false)
 @MaxValue(15)
 @Explanation("Radius and Angle Correctly Computed")
-@Group(CartesianPointSuite.POLAR_COORDINATES)
+//@Group(CartesianPointSuite.POLAR_COORDINATES)
 public class ACartesianPointJUnitTester {	
 	@Test
 	public void test() {
@@ -31,7 +31,7 @@ public class ACartesianPointJUnitTester {
 		double computedRadius = point.getRadius();
 		double computedAngle = point.getAngle();	
 		Assert.assertTrue(
-				"computedRadius != correctRadius && computedAngle != correctAngle:0.0", 
+				"computedRadius != correctRadius || computedAngle != correctAngle:0.0", 
 				computedRadius == theCorrectRadius || computedAngle == theCorrectAngle);
 		Assert.assertTrue("computedAngle != correctAngle:0.5", computedAngle == theCorrectAngle);
 		Assert.assertTrue("computedRadius != correctRadius:0.5", computedRadius == theCorrectRadius);	

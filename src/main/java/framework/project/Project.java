@@ -17,6 +17,12 @@ import java.util.Map;
  * Based on {@link grader.project.Project}
  */
 public interface Project {
+	public static final String SOURCE = "src";
+	public static final String BINARY_0 = "classes";
+
+	public static final String BINARY = "bin";
+    public static final String BINARY_2 = "out";
+    public static final String BINARY_3 = "build"; // net beans
 
     /**
      * Attempts to start the project in the same process

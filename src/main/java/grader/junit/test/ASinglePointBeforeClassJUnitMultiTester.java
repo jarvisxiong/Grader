@@ -1,4 +1,4 @@
-package grader.junit;
+package grader.junit.test;
 
 
 import org.junit.Assert;

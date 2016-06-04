@@ -145,7 +145,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 //        		continue;
         	if (isInteractiveRun(feature))
         		results.add(feature.check(project, false));
-            if (sakaiProject != null) {
+            if (sakaiProject != null) { // should we do the check anyway, regardless of whether sakaiProject is null or not
                 sakaiProject.setCurrentGradingFeature(feature);
             
             try {

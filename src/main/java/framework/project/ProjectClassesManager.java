@@ -65,7 +65,9 @@ public class ProjectClassesManager implements ClassesManager {
         if (AProject.isLoadClasses() ) {
 //        	classLoader = project.getClassLoader();
 //        	if (classLoader == null)
+        	if (project != null) {
         	proxyClassLoader = project.getClassLoader();
+        	}
             classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
         }
         classDescriptions = new HashSet<ClassDescription>();
@@ -164,9 +166,10 @@ public class ProjectClassesManager implements ClassesManager {
                 }
             }
         }
-        
+        if (project != null) {
         project.setHasBeenLoaded(true);
         project.setCanBeLoaded(true);
+        }
 
 		for (File file : sourceFiles) {
 			String className = getClassName(file);
@@ -179,10 +182,15 @@ public class ProjectClassesManager implements ClassesManager {
 //					c = classLoader.loadClass(className);
 					c = proxyClassLoader.loadClass(className);
 				}
-
+				if (AProject.isLoadClasses() && proxyClassLoader == null) {
+					c = classLoader.loadClass(className);
+				}
 				if (c != null) {
 					classDescriptions.add(new BasicClassDescription(c, file));
-				}
+				} 
+//				else if (AProject.isLoadClasses()) {
+//					c = classLoader.loadClass(className);
+//				}
 			} catch (IncompatibleClassChangeError e) {
 				System.out.println("IncompatibleClassChangeError :" + file + " "+  e.getMessage());
 			} catch (UnsupportedClassVersionError e) {
