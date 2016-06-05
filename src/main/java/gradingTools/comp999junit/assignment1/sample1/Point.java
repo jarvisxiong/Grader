@@ -1,4 +1,4 @@
-package grader.junit.test;
+package gradingTools.comp999junit.assignment1.sample1;
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;

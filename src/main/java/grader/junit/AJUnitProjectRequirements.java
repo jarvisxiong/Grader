@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.runners.Suite;
 
 import framework.grading.FrameworkProjectRequirements;
+import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
 
 
 public class AJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
@@ -79,7 +80,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	
 	public static void main (String[] args) {
 		JUnitProjectRequirements aJUnitProjectRequirements = new AJUnitProjectRequirements();
-		aJUnitProjectRequirements.addJUnitTestSuite(CartesianPointSuite.class);
+		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
 		aJUnitProjectRequirements.checkFeatures(null);
 //		addJUnitTestSuite (CartesianPointSuite.class);
 		

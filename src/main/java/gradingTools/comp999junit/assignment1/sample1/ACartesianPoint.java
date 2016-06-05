@@ -1,4 +1,4 @@
-package grader.junit.test;
+package gradingTools.comp999junit.assignment1.sample1;
 
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
@@ -18,8 +18,8 @@ public class ACartesianPoint implements Point {
 	public int getX() { return x; }
 	public int getY() { return y; } 	
 	public double getAngle() { 
-//		return Math.atan2(y, x); 
-		return 0;
+		return Math.atan2(y, x); 
+//		return 0;
 	}
 	public double getRadius() { 
 		return Math.sqrt(x*x + y*y); 

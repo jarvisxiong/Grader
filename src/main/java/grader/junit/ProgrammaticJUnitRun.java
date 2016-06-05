@@ -1,6 +1,6 @@
 package grader.junit;
 
-import grader.junit.test.ACartesianPointJUnitTester;
+import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 import org.junit.runner.Description;
 import org.junit.runner.Runner;

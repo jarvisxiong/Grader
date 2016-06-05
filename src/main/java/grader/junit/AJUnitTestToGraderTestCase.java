@@ -11,7 +11,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.junit.test.ACartesianPointJUnitTester;
+import grader.junit.test.directreference.ACartesianPointJUnitTester;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;

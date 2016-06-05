@@ -1,7 +1,10 @@
-package grader.junit.test;
+package grader.junit.test.directreference;
 
 
 //import org.junit.Test;
+import gradingTools.comp999junit.assignment1.sample1.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.sample1.Point;
+
 import org.junit.Assert;
 import org.junit.Test;
 
