@@ -85,7 +85,7 @@ public class OriginalStandardProject implements Project {
         if (src.isEmpty()) {
         	System.out.println(SourceFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
 
-        	Set<File> sourceFiles = DirectoryUtils.getSourceFiles(aDirectory);
+        	Set<File> sourceFiles = DirectoryUtils.getSourceFiles(aDirectory, null);
         	if (!sourceFiles.isEmpty()) {
                     File aSourceFile = sourceFiles.iterator().next();
                     sourceFolder = aSourceFile.getParentFile(); // assuming no packages!
@@ -109,7 +109,7 @@ public class OriginalStandardProject implements Project {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
 //            if (AProject.isMakeClassDescriptions())
-            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
+            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder, null));
         } catch (Exception e) {
         	e.printStackTrace();
             classesManager = Option.empty();

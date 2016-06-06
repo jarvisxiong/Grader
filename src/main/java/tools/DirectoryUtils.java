@@ -1,11 +1,7 @@
 package tools;
 
-import scala.Option;
-import util.misc.Common;
-import util.trace.Tracer;
 import framework.utils.GradingEnvironment;
 import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,17 +9,15 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ProcessBuilder.Redirect;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import bus.uigen.misc.OEMisc;
-
-import java.util.Collections;
+import scala.Option;
+import util.misc.Common;
+import util.trace.Tracer;
 
 /**
  * A set of utilities to assist with the recursive nature of directories.
@@ -113,12 +107,19 @@ public class DirectoryUtils {
         return allFiles;
     }
 
-	public static Set<File> getSourceFiles(File sourceFolder) {
+	public static Set<File> getSourceFiles(File sourceFolder, String aSourceFilePattern) {
 	Set<File> javaFiles = getFiles(sourceFolder, new FileFilter() {
 		@Override
 		public boolean accept(File pathname) {
 //			return pathname.getName().endsWith(".java");
-			return !pathname.getName().startsWith(".") && pathname.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix());
+			
+			try {
+				return ((aSourceFilePattern == null) || pathname.getCanonicalPath().contains(aSourceFilePattern)) &&					
+						!pathname.getName().startsWith(".") && pathname.getName().endsWith(LanguageDependencyManager.getSourceFileSuffix());
+			} catch (IOException e) {				
+				e.printStackTrace();
+				return false; // should never happen
+			}
 
 		}
 	});

@@ -40,7 +40,7 @@ public class StandardProject extends BasicProject implements Project {
     protected Option<ClassesManager> createClassesManager(File buildFolder) throws ClassNotFoundException, IOException {
 //      classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
 
-     return Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
+     return Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder, sourceFilePattern));
 
   }
     /**
@@ -81,8 +81,8 @@ public class StandardProject extends BasicProject implements Project {
 //		
 //	}
     // rewriting Josh's code
-    public StandardProject(SakaiProject aProject, File aDirectory, String name) throws FileNotFoundException {
-        super(aProject, aDirectory, name);
+    public StandardProject(SakaiProject aProject, File aDirectory, String name, String aFilePattern) throws FileNotFoundException {
+        super(aProject, aDirectory, name, aFilePattern);
         project = aProject; 
 //    	// Find the folder. We could be there or it could be in a different folder
 //    	if (aDirectory == null) {

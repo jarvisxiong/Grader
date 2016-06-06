@@ -1,26 +1,29 @@
 package framework.project;
 
-import framework.execution.*;
+import framework.execution.InteractiveConsoleProcessRunner;
+import framework.execution.NotRunnableException;
+import framework.execution.ProcessRunner;
+import framework.execution.ReflectionRunner;
+import framework.execution.RunningProject;
 import grader.project.AProject;
-import grader.project.folder.ARootCodeFolder;
-import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
 import grader.util.IntrospectionUtil;
-import scala.Option;
-import tools.DirectoryUtils;
-import util.pipe.InputGenerator;
-import util.trace.TraceableLog;
-import util.trace.TraceableLogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
+
+import scala.Option;
+import tools.DirectoryUtils;
+import util.pipe.InputGenerator;
+import util.trace.TraceableLog;
+import util.trace.TraceableLogFactory;
 
 /**
  * A "standard" project. That is, an IDE-based java project.
@@ -33,6 +36,7 @@ public class BasicProject implements Project {
     protected Option<ClassesManager> classesManager;
     protected TraceableLog traceableLog;
     protected boolean noSrc;
+    protected String sourceFilePattern = null;
 //    protected SakaiProject project;
 
     /**
@@ -77,11 +81,12 @@ public class BasicProject implements Project {
     }
     // rewriting Josh's code
     // going back to Josh';s code
-    public BasicProject(Object aProject, File aDirectory, String name) throws FileNotFoundException {
+    public BasicProject(Object aProject, File aDirectory, String name, String aSourceFilePattern) throws FileNotFoundException {
         // Find the folder. We could be there or it could be in a different folder
     	if (aDirectory == null) {
             throw new FileNotFoundException("No directory given");
         }
+    	sourceFilePattern = aSourceFilePattern;
     	setProject(aProject);
     	
     	// will do this in standardproject
@@ -93,7 +98,7 @@ public class BasicProject implements Project {
         if (src.isEmpty()) {
         	System.out.println(SourceFolderNotFound.newCase(aDirectory.getAbsolutePath(), this).getMessage());
 
-        	Set<File> sourceFiles = DirectoryUtils.getSourceFiles(aDirectory);
+        	Set<File> sourceFiles = DirectoryUtils.getSourceFiles(aDirectory, sourceFilePattern);
         	if (!sourceFiles.isEmpty()) {
                     File aSourceFile = sourceFiles.iterator().next();
                     sourceFolder = aSourceFile.getParentFile(); // assuming no packages!
@@ -132,7 +137,7 @@ public class BasicProject implements Project {
     protected Option<ClassesManager> createClassesManager(File buildFolder) throws ClassNotFoundException, IOException {
 //        classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
 
-       return Option.apply((ClassesManager) new BasicProjectClassesManager(null, buildFolder, sourceFolder));
+       return Option.apply((ClassesManager) new BasicProjectClassesManager(null, buildFolder, sourceFolder, sourceFilePattern));
 
     }
 
@@ -266,7 +271,7 @@ public class BasicProject implements Project {
     	try {
 			AProject.setLoadClasses(true);
 //			Project aProject = new BasicProject(null, new File("."), null);
-			Project aProject = new BasicProject(null, new File("."), null);
+			Project aProject = new BasicProject(null, new File("."), null, null);
 
 			Class aClass = IntrospectionUtil.findClass(aProject, "ACartesianPoint");
 			System.out.println (aClass);

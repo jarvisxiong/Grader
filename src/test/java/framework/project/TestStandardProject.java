@@ -30,7 +30,7 @@ public class TestStandardProject {
 
     @Test
     public void testCreation() throws FileNotFoundException {
-        Project project = new StandardProject(null, directory, name);
+        Project project = new StandardProject(null, directory, name, null);
         assertTrue("Creation succeeds", true);
     }
 

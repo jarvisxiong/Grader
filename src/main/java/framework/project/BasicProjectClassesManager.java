@@ -30,16 +30,16 @@ import java.util.logging.Logger;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
+//import javax.tools.StandardJavaFileManager;
+//import javax.tools.ToolProvider;
 
 import org.apache.commons.io.FileUtils;
 
-import scala.Option;
+//import scala.Option;
 import tools.DirectoryUtils;
-import util.annotations.Tags;
-import util.misc.Common;
-import util.trace.javac.CompilerNotFound;
+//import util.annotations.Tags;
+//import util.misc.Common;
+//import util.trace.javac.CompilerNotFound;
 
 /**
  * @see ClassesManager
@@ -51,6 +51,7 @@ public class BasicProjectClassesManager implements ClassesManager {
     protected ClassLoader classLoader;
     protected ProxyClassLoader proxyClassLoader;
     protected final Set<ClassDescription> classDescriptions;
+    protected String sourceFilePattern;
     List<String> classNamesToCompile = new ArrayList();
     // removing SakaiProject to make this more modular, will make ProjectClassesManager handle this
 //    SakaiProject project;
@@ -104,9 +105,10 @@ public class BasicProjectClassesManager implements ClassesManager {
     public BasicProjectClassesManager(
     		/*SakaiProject aProject,*/ 
     		Object aProject, // do not want any dependencies on type
-    		File buildFolder, File sourceFolder) throws IOException,
+    		File buildFolder, File sourceFolder, String aSourceFilePattern) throws IOException,
             ClassNotFoundException {
     	setProject(aProject);
+    	sourceFilePattern = aSourceFilePattern;
 //        project = aProject;
         // Set the build and source folders for the project
         this.buildFolder = buildFolder;
@@ -165,7 +167,7 @@ public class BasicProjectClassesManager implements ClassesManager {
      */
     private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
     	
-        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder);
+        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder, sourceFilePattern);
 //		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
 //			@Override
 //			public boolean accept(File pathname) {

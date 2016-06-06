@@ -57,9 +57,9 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	project = (SakaiProject) aProject;
     }
 
-    public ProjectClassesManager(SakaiProject aProject, File buildFolder, File sourceFolder) throws IOException,
+    public ProjectClassesManager(SakaiProject aProject, File buildFolder, File sourceFolder, String aSourceFilePattern) throws IOException,
             ClassNotFoundException {
-    	super(aProject, buildFolder, sourceFolder);
+    	super(aProject, buildFolder, sourceFolder, aSourceFilePattern);
 //        project = aProject;
         // Set the build and source folders for the project
 //        this.buildFolder = buildFolder;

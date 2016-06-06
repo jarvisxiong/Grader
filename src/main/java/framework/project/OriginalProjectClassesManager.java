@@ -112,7 +112,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
      */
     private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
     	
-        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder);
+        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder, null);
 //		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
 //			@Override
 //			public boolean accept(File pathname) {
