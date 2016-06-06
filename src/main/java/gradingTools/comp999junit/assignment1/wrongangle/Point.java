@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.sample1;
+package gradingTools.comp999junit.assignment1.wrongangle;
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;

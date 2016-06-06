@@ -271,10 +271,16 @@ public class BasicProject implements Project {
     	try {
 			AProject.setLoadClasses(true);
 //			Project aProject = new BasicProject(null, new File("."), null);
-			Project aProject = new BasicProject(null, new File("."), null, null);
+			Project anAllCorrectProject = new BasicProject(null, new File("."), null, "allcorrect");
 
-			Class aClass = IntrospectionUtil.findClass(aProject, "ACartesianPoint");
-			System.out.println (aClass);
+			Class anAllCorrectClass = IntrospectionUtil.findClass(anAllCorrectProject, "ACartesianPoint");
+			System.out.println (anAllCorrectClass);
+			Project aWrongAngleProject = new BasicProject(null, new File("."), null, "wrongangle");
+
+			Class aWrongAngleClass = IntrospectionUtil.findClass(anAllCorrectProject, "ACartesianPoint");
+			System.out.println (aWrongAngleClass);
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
