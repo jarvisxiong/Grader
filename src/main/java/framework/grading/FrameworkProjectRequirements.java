@@ -5,6 +5,7 @@ import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
+import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
@@ -134,6 +135,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
      */
     public List<CheckResult> checkFeatures(Project project) {
     	getUserData().clear();
+    	CurrentProjectHolder.setProject(project); // for Junit test cases
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {

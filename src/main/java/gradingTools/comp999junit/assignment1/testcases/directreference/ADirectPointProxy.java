@@ -3,8 +3,12 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.allcorrect.Point;
+//import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.wrongangle.ACartesianPoint;
+
+//import gradingTools.comp999junit.assignment1.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.wrongangle.Point;
+
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 
 import java.lang.reflect.Constructor;
@@ -66,10 +70,6 @@ public class ADirectPointProxy implements PointProxy{
 		return checkStructure;
 	}
 	
-	public Class getCartesianPointClass() throws ClassNotFoundException  {
-		return Class.forName("gradingTools.comp999junit.assignment1.sample1.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
-
-	}
 	@Override
 	public void createCartesianPoint(int theX, int theY) throws Exception {
 //		aCartesianPointClass = Class.forName("grader.junit.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());

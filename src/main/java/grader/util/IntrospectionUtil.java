@@ -358,8 +358,21 @@ public class IntrospectionUtil {
 	        }
 	        return result;
 	    }
+	    // returns the first matching method 
+	    public static Method findMethod (Class aJavaClass, String aName, Class[] aParameterTypes) {
+	    	List<Method> aMethods = findMethod (aJavaClass, aName);
+//	    	Method aRetVal = null;
+	    	for (Method aMethod: aMethods) {
+	    		if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+	    			return aMethod; // there can be other matching methods
+	    		}
+	    	}
+	    	return null;
+	    }
 	    public static List<Method> findMethod (Class aJavaClass, String aName) {
-	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName));
+//	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName)); //why was there no name, 
+	    	return findMethod(aJavaClass, aName, aName, toRegex(aName), toRegex(aName)); // to be consistent with clases should not have regexes
+
 	    }
 
             public static List<Method> findMethod (Class aJavaClass, String aName, String tag) {

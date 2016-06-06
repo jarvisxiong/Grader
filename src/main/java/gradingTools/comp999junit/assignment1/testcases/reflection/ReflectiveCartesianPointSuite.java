@@ -1,7 +1,9 @@
 package gradingTools.comp999junit.assignment1.testcases.reflection;
 
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -11,6 +13,7 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.directreference.DirectCartesianPointSuite;
 
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
@@ -37,9 +40,14 @@ public class ReflectiveCartesianPointSuite {
 //		Suite.SuiteClasses aSuiteClassAnnotation = ReflectiveCartesianPointSuite.class.getAnnotation(Suite.SuiteClasses.class);
 //		Class[] aTestClasses = aSuiteClassAnnotation.value();
 //		System.out.println(Arrays.toString(aTestClasses));
-		PointProxyFactory.setPointProxy(new AReflectivePointProxy());
-		JUnitCore.runClasses(ReflectiveCartesianPointSuite.class);
+		PointProxyFactory.setPointProxy(new AReflectivePointProxy());		
+		Result aResult = JUnitCore.runClasses(ReflectiveCartesianPointSuite.class);
+		for (Failure failure : aResult.getFailures()) {
+	         System.out.println(failure.toString());
+	      }
+	    System.out.println(aResult.wasSuccessful());
 	}
+	
 
 }
 

@@ -1,7 +1,9 @@
 package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -28,7 +30,11 @@ public class DirectCartesianPointSuite {
 
 	public static void main (String[] args) {
 		PointProxyFactory.setPointProxy(new ADirectPointProxy());
-		JUnitCore.runClasses(DirectCartesianPointSuite.class);
+		Result aResult = JUnitCore.runClasses(DirectCartesianPointSuite.class);
+		for (Failure failure : aResult.getFailures()) {
+	         System.out.println(failure.toString());
+	      }
+	      System.out.println(aResult.wasSuccessful());
 	}
 
 }
