@@ -36,6 +36,8 @@ public class AReflectivePointProxy implements PointProxy{
 //	public static final double ANGLE_MINUS_180 = 0.1;
 //	int testNumber = 0;
 	protected boolean checkStructure;
+	protected Method radiusMethod;
+	protected Method angleMethod;
 	protected double fractionComplete = 0.0;	
 	public  AReflectivePointProxy() {
 		checkStructure = true;
@@ -84,16 +86,27 @@ public class AReflectivePointProxy implements PointProxy{
 		System.out.println ("Successfully Created Cartesian Point:" + point + " with parameters, x: " + theX + " y " + theY);
 	}
 	
-	public Method getRadiusMethod() throws Exception {
+	public Method findRadiusMethod() throws Exception {
 		return aCartesianPointClass.getMethod("getRadius", emptyClassArray);
 	}
-	
-	public Method getAngleMethod() throws Exception {
+	protected Method getOrFindRadiusMethod() throws Exception {
+		if (radiusMethod == null ) {
+			radiusMethod = findRadiusMethod();
+		}
+		return radiusMethod;
+	}
+	protected Method getOrFindAngleMethod() throws Exception {
+		if (angleMethod == null ) {
+			angleMethod = findRadiusMethod();
+		}
+		return angleMethod;
+	}
+	public Method findAngleMethod() throws Exception {
 		return aCartesianPointClass.getMethod("getAngle", emptyClassArray);
 	}
 	@Override
 	public double getRadius() throws Exception {
-		Method aGetRadius = getRadiusMethod();
+		Method aGetRadius = getOrFindRadiusMethod();
 		if (checkStructure())
 		   fractionComplete += CORRECT_RADIUS_METHOD;
 		Double retVal =  (Double) aGetRadius.invoke(point, emptyObjectArray);
@@ -104,8 +117,7 @@ public class AReflectivePointProxy implements PointProxy{
 	}
 	@Override
 	public double getAngle() throws Exception {
-		Method aGetAngle = getAngleMethod();
-
+		Method aGetAngle = getOrFindAngleMethod();
 		if (checkStructure())
 			fractionComplete += CORRECT_ANGLE_METHOD;
 		Double retVal =  (Double) aGetAngle.invoke(point, emptyObjectArray);

@@ -37,11 +37,11 @@ public class ATaggingPointProxy extends AReflectivePointProxy implements PointPr
 	}
 
 	
-	public Method getRadiusMethod() throws Exception {
+	public Method findRadiusMethod() throws Exception {
 		return IntrospectionUtil.findMethod(aCartesianPointClass, "getRadius", emptyClassArray);
 	}
 	
-	public Method getAngleMethod() throws Exception {
+	public Method findAngleMethod() throws Exception {
 		return IntrospectionUtil.findMethod(aCartesianPointClass, "getAngle", emptyClassArray);
 	}
 
