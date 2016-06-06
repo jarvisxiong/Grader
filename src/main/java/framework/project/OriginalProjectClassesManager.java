@@ -44,7 +44,7 @@ import util.trace.javac.CompilerNotFound;
 /**
  * @see ClassesManager
  */
-public class OriginalCombinedProjectClassesManager implements ClassesManager {
+public class OriginalProjectClassesManager implements ClassesManager {
 
     private final File buildFolder;
     private final File sourceFolder;
@@ -54,7 +54,7 @@ public class OriginalCombinedProjectClassesManager implements ClassesManager {
     List<String> classNamesToCompile = new ArrayList();
     SakaiProject project;
 
-    public OriginalCombinedProjectClassesManager(SakaiProject aProject, File buildFolder, File sourceFolder) throws IOException,
+    public OriginalProjectClassesManager(SakaiProject aProject, File buildFolder, File sourceFolder) throws IOException,
             ClassNotFoundException {
         project = aProject;
         // Set the build and source folders for the project

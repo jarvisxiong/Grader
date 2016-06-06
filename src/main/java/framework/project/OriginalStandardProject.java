@@ -18,22 +18,21 @@ import util.trace.TraceableLogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * A "standard" project. That is, an IDE-based java project.
  */
-public class BasicProject implements Project {
+public class OriginalStandardProject implements Project {
     
 
-    protected File directory;
-    protected File sourceFolder;
-    protected Option<ClassesManager> classesManager;
-    protected TraceableLog traceableLog;
-    protected boolean noSrc;
-//    protected SakaiProject project;
+    private File directory;
+    private File sourceFolder;
+    private Option<ClassesManager> classesManager;
+    private TraceableLog traceableLog;
+    boolean noSrc;
+    protected SakaiProject project;
 
     /**
      * Basic constructor
@@ -72,20 +71,13 @@ public class BasicProject implements Project {
 //	public StandardProject(SakaiProject project, File aDirectory, String name) throws FileNotFoundException {
 //		
 //	}
-    protected void setProject (Object aProject) {
-    	
-    }
     // rewriting Josh's code
-    // going back to Josh';s code
-    public BasicProject(Object aProject, File aDirectory, String name) throws FileNotFoundException {
+    public OriginalStandardProject(SakaiProject aProject, File aDirectory, String name) throws FileNotFoundException {
         // Find the folder. We could be there or it could be in a different folder
     	if (aDirectory == null) {
             throw new FileNotFoundException("No directory given");
         }
-    	setProject(aProject);
-    	
-    	// will do this in standardproject
-//    	project = aProject;
+    	project = aProject;
     	directory = aDirectory;
 //        Option<File> src = DirectoryUtils.locateFolder(aDirectory, "src");
         Option<File> src = DirectoryUtils.locateFolder(aDirectory, Project.SOURCE);
@@ -117,10 +109,7 @@ public class BasicProject implements Project {
 //            File sourceFolder = new File(this.directory, "src");
             File buildFolder = getBuildFolder("main." + name);
 //            if (AProject.isMakeClassDescriptions())
-//            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
-            classesManager = createClassesManager(buildFolder);
-
-        
+            classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
         } catch (Exception e) {
         	e.printStackTrace();
             classesManager = Option.empty();
@@ -128,12 +117,6 @@ public class BasicProject implements Project {
 
         // Create the traceable log
         traceableLog = TraceableLogFactory.getTraceableLog();
-    }
-    protected Option<ClassesManager> createClassesManager(File buildFolder) throws ClassNotFoundException, IOException {
-//        classesManager = Option.apply((ClassesManager) new ProjectClassesManager(project, buildFolder, sourceFolder));
-
-       return Option.apply((ClassesManager) new BasicProjectClassesManager(null, buildFolder, sourceFolder));
-
     }
 
     /**
@@ -265,9 +248,7 @@ public class BasicProject implements Project {
     public static void main (String[] args) {
     	try {
 			AProject.setLoadClasses(true);
-//			Project aProject = new BasicProject(null, new File("."), null);
-			Project aProject = new BasicProject(null, new File("."), null);
-
+			Project aProject = new OriginalStandardProject(null, new File("."), null);
 			Class aClass = IntrospectionUtil.findClass(aProject, "ACartesianPoint");
 			System.out.println (aClass);
 		} catch (FileNotFoundException e) {
