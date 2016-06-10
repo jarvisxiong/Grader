@@ -11,6 +11,7 @@ import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.compilation.SourceFileCompiled;
+import grader.util.IntrospectionUtil;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,7 +34,9 @@ import javax.tools.JavaFileObject;
 //import javax.tools.StandardJavaFileManager;
 //import javax.tools.ToolProvider;
 
+
 import org.apache.commons.io.FileUtils;
+
 
 //import scala.Option;
 import tools.DirectoryUtils;
@@ -493,11 +496,15 @@ public class BasicProjectClassesManager implements ClassesManager {
     }
     @Override
     public List<ClassDescription> findClass (String aName, String aTag, String aNameMatch, String aTagMatch) {
+    	return findClass(aName, new String[] { aTag}, aNameMatch, aTagMatch);
+    }
+    @Override
+    public List<ClassDescription> findClass (String aName, String[] aTag, String aNameMatch, String aTagMatch) {
     	List<ClassDescription> result = new ArrayList();
     	if (aTag != null)
     		result = findClassByTag(aTag); 
-    	if (aTag != null && result.isEmpty())
-    		result = findClassByPattern(aTag); 
+    	if (aTag != null && aTag.length > 0 && result.isEmpty())
+    		result = findClassByPattern(aTag[0]); 
     	if (!result.isEmpty())
     		return result;
     	if (aName != null)
@@ -521,7 +528,10 @@ public class BasicProjectClassesManager implements ClassesManager {
     	}
     	return result;
     }
-    
+    @Override
+    public List<ClassDescription> findClassByTag(String aTag) {
+    	return findClassByTag (new String[] {aTag});
+    }
 
     /**
      * Looks for all class descriptions with a particular tag
@@ -530,20 +540,27 @@ public class BasicProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findClassByTag(String tag) {
-    	String normalizedTag = tag.replaceAll("\\s","");
+    public List<ClassDescription> findClassByTag(String[] aTags) {
+//    	String normalizedTag = tag.replaceAll("\\s","");
+    	IntrospectionUtil.normalizeTags(aTags); // using array instead
+    	List<String> aSpecificationList = Arrays.asList(aTags);
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
-            for (String t : description.getTags()) {
-            	String aNormalizedActualTag = t.replaceAll("\\s","");
-//                if (t.equalsIgnoreCase(tag)) {
-
-                if (aNormalizedActualTag.equalsIgnoreCase(normalizedTag)) {
-                    classes.add(description);
-                }
-            }
+        	String[] anActualTags = description.getTags();
+        	if (IntrospectionUtil.matchesTags(aSpecificationList, anActualTags )) {
+        		 classes.add(description);
+        	}
+//            for (String t : description.getTags()) {
+//            
+//            	String aNormalizedActualTag = t.replaceAll("\\s","");
+////                if (t.equalsIgnoreCase(tag)) {
+//
+//                if (aNormalizedActualTag.equalsIgnoreCase(normalizedTag)) {
+//                    classes.add(description);
+//                }
+//            }
         }
         return classes;
     }

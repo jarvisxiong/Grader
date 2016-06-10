@@ -14,6 +14,7 @@ import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.ResultWithOutput;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,8 +45,12 @@ public class IntrospectionUtil {
         }
         return ret;
     }
+    public static Class findClass(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+    	return findClass(aProject, aName, new String[] {aTag}, aNameMatch, aTagMatch);
+    }
     
-	public static Class findClass(Project aProject, String aName, String aTag,
+	public static Class findClass(Project aProject, String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		int i = 0;
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
@@ -161,7 +166,7 @@ public class IntrospectionUtil {
 		return aClassObject;
 	}
         
-        public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String name, String aTag) {
+        public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String name, String[] aTag) {
 		String aDescriptor = aClass.toString() + "." + name + "." + "list";
 		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable().getRequirements().getUserObject(aDescriptor);
 		if (aMethodObject == null) {
@@ -170,6 +175,10 @@ public class IntrospectionUtil {
 		}
 		return aMethodObject;
 	}
+        public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String name, String aTag) {
+    		return getOrFindMethodList(aProject, aTestCase, aClass, name, new String[] {aTag});
+    	}
+        
 	
 	public static List<Method> getOrFindMethodList(Project aProject, TestCase aTestCase, Class aClass, String aTag) {
 		String aDescriptor = aClass.toString() + "." + aTag + "." + "list";
@@ -218,10 +227,38 @@ public class IntrospectionUtil {
 		
 	}
 	public static List<Class> findInterfaces(Project aProject, String aName) {
-		return findInterfaces(aProject, null, aName, toRegex(aName), toRegex(aName) );
+		return findInterfaces(aProject, null, new String[] {aName}, toRegex(aName), toRegex(aName) );
 		
 	}
 	public static List<ClassDescription> findClassesByTag(Project aProject, String aTag) {
+		return aProject.getClassesManager().get().findClass(null, new String[] {aTag}, null, null);
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static Class findUniqueClassByTag(Project aProject, String[] aTags) {
+		ClassDescription aClassDescription = findUniqueClassDescriptionByTag(aProject, aTags);
+		if (aClassDescription == null) {
+			return null;
+		}
+		return aClassDescription.getJavaClass();
+	}
+	public static ClassDescription findUniqueClassDescriptionByTag(Project aProject, String[] aTags) {
+		List<ClassDescription> aClasses = findClassesByTag(aProject, aTags);
+		if (aClasses.size() != 1)
+			return null;
+		return aClasses.get(0);
+		
+//		if (aClasses.size() != 1) {
+//        	return null;
+//        }
+//        return aClasses.get(0).getJavaClass();
+		
+	}
+	public static List<ClassDescription> findClassesByTag(Project aProject, String[] aTag) {
 		return aProject.getClassesManager().get().findClass(null, aTag, null, null);
 		
 //		if (aClasses.size() != 1) {
@@ -248,6 +285,10 @@ public class IntrospectionUtil {
 		
 	}
 	public static List<Class> findInterfaces(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		return findInterfaces (aProject, aName, new String[] {aTag}, aNameMatch, aTagMatch);
+	}
+	public static List<Class> findInterfaces(Project aProject, String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		List<Class> result = new ArrayList();
 		List<ClassDescription> aClasses = aProject.getClassesManager().get().findClass(aName, aTag, aNameMatch, aTagMatch);
@@ -291,24 +332,54 @@ public class IntrospectionUtil {
 	            return new String[]{};
 	        }
 	    }
+	    public static Method  findUniqueMethodByTag(Class aClass, String[] aSpecification, Class[] aParameterTypes) {
+	    	List<Method> aMethods = findMethodsByTag(aClass, aSpecification);
+	    	return selectMethod(aMethods, aParameterTypes);
+//	    	if (aMethods.size() != 1)
+//	    		return null;
+//	    	return aMethods.get(0);
+	    }
+
 	    /**
 	     * Looks for all methods with a particular tag
 	     *
 	     * @param aSpecification The tag to search for
 	     * @return The set of matching class descriptions
 	     */
-	    
-	    public static List<Method>  findMethodByTag(Class aClass, String aSpecification) {
+	    public static List<Method>  findMethodsByTag(Class aClass, String[] aSpecification) {
+	//    	Set aSpecificationSet = new HashSet(Arrays.asList(aSpecification));
+	    	normalizeTags(aSpecification);
+	    	List aSpecificationList = Arrays.asList(aSpecification);
+
 	        List<Method> result = new ArrayList<>();
 	        for (Method aMethod : aClass.getMethods()) {
 	        	
-	            for (String t : getTags(aMethod)) {
-	                if (t.equalsIgnoreCase(aSpecification)) {
-	                    result.add(aMethod);
-	                }
-	            }
+	        	if (matchesTags(aSpecificationList, getTags(aMethod))) {
+	        		result.add(aMethod);
+	        	}
+//	        	Set anActualSet = new HashSet(Arrays.asList(getTags(aMethod).clone())) ;
+//	        	if (anActualSet.containsAll(aSpecificationList)) {
+//	        		result.add(aMethod);
+//	        	}
+//	            for (String t : getTags(aMethod)) {
+//	                if (t.equalsIgnoreCase(aSpecification)) {
+//	                    result.add(aMethod);
+//	                }
+//	            }
 	        }
 	        return result;
+	    }
+	    public static void normalizeTags(String[] aTags) {
+	    	
+	    	for (int i = 0; i < aTags.length; i++) {
+	    		aTags[i] = aTags[i].replaceAll("\\s","").toLowerCase();
+	    	}
+	    }
+	    public static boolean matchesTags (List<String> aSpecification, String[] anActual) {
+	    	String[] anActualsClone = anActual.clone();
+	    	normalizeTags(anActualsClone);
+	    	Set anActualSet = new HashSet(Arrays.asList(anActualsClone)) ;
+        	return(anActualSet.containsAll(aSpecification)) ;
 	    }
 	    /**
 	     * Looks for all methods with a particular tag match
@@ -358,35 +429,54 @@ public class IntrospectionUtil {
 	        }
 	        return result;
 	    }
+	    public static Method selectMethod(List<Method> aMethods, Class[] aParameterTypes) {
+	    	Method aRetVal = null;
+	    	for (Method aMethod: aMethods) {
+	    		if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+	    			if (aRetVal != null)
+	    				return null;
+	    			aRetVal = aMethod;
+//	    			return aMethod; // there can be other matching methods
+	    		}
+	    	}
+	    	return aRetVal;
+	    }
 	    // returns the first matching method 
 	    public static Method findMethod (Class aJavaClass, String aName, Class[] aParameterTypes) {
 	    	List<Method> aMethods = findMethod (aJavaClass, aName);
+	    	return selectMethod(aMethods, aParameterTypes);
 //	    	Method aRetVal = null;
-	    	for (Method aMethod: aMethods) {
-	    		if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
-	    			return aMethod; // there can be other matching methods
-	    		}
-	    	}
-	    	return null;
+//	    	for (Method aMethod: aMethods) {
+//	    		if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+//	    			return aMethod; // there can be other matching methods
+//	    		}
+//	    	}
+//	    	return null;
 	    }
 	    public static List<Method> findMethod (Class aJavaClass, String aName) {
 //	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName)); //why was there no name, 
-	    	return findMethod(aJavaClass, aName, aName, toRegex(aName), toRegex(aName)); // to be consistent with clases should not have regexes
+	    	return findMethod(aJavaClass, aName, new String[] {aName}, toRegex(aName), toRegex(aName)); // to be consistent with clases should not have regexes
 
 	    }
-
-            public static List<Method> findMethod (Class aJavaClass, String aName, String tag) {
-	    	return findMethod(aJavaClass, aName, tag, toRegex(aName), toRegex(tag));
+	    public static String[] emptyStringArray = {};
+            public static List<Method> findMethod (Class aJavaClass, String aName, String[] tag) {
+            
+	    	return findMethod(aJavaClass, aName, tag, toRegex(aName), 
+	    			tag.length == 0?"": toRegex(tag[0]));
 	    }
+    	    public static List<Method> findMethod (Class aJavaClass, String aName, String aTag, String aNameMatch, String aTagMatch) {
+    	    return findMethod(aJavaClass, aName, new String[] {aTag}, aNameMatch, aTagMatch);
+    	    }
+
 	    
-	    public static List<Method> findMethod (Class aJavaClass, String aName, String aTag, String aNameMatch, String aTagMatch) {
+	    public static List<Method> findMethod (Class aJavaClass, String aName, String[] aTag, String aNameMatch, String aTagMatch) {
 	    	List<Method> result = new ArrayList();
 	    	if (aName != null)
 	    		result = findMethodByName(aJavaClass, aName);
 	    	if (!result.isEmpty())
 	    		return result;
 	    	if (aTag != null)
-	    		result = findMethodByTag(aJavaClass, aTag);    	
+	    		result = findMethodsByTag(aJavaClass, aTag);    	
 	    	if (!result.isEmpty())
 	    		return result;
 	    	if (aNameMatch != null) {
@@ -441,5 +531,11 @@ public class IntrospectionUtil {
 //		
 //		
 //	}
-
+//	    public static void main (String[] args) {
+//	    	String[] a1 = {"Hello", new String ("Goodbye")};
+//	    	String[] a2 = {"Goodbye", "Hello"};
+//	    	Set<String> a1Set = new HashSet( Arrays.asList(a1));
+//	    	Set<String> a2Set = new HashSet( Arrays.asList(a2));
+//	    	System.out.println (a1Set.equals(a2Set));
+//	    }
 }

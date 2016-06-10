@@ -75,7 +75,7 @@ public class AReflectivePointProxy implements PointProxy{
 //		aCartesianPointClass = Class.forName("grader.junit.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
 		aCartesianPointClass = getCartesianPointClass();
 
-		if (checkStructure())
+		if (aCartesianPointClass != null && checkStructure())
 			fractionComplete += CORRECT_CLASS;;
 		Constructor aConstructor = aCartesianPointClass.getConstructor(new Class[]{Integer.TYPE, Integer.TYPE});
 		if (checkStructure())
@@ -97,7 +97,7 @@ public class AReflectivePointProxy implements PointProxy{
 	}
 	protected Method getOrFindAngleMethod() throws Exception {
 		if (angleMethod == null ) {
-			angleMethod = findRadiusMethod();
+			angleMethod = findAngleMethod();
 		}
 		return angleMethod;
 	}

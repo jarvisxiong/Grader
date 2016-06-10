@@ -530,6 +530,19 @@ public class OriginalProjectClassesManager implements ClassesManager {
     public void setClassNamesToCompile(List<String> classNamesToCompile) {
         this.classNamesToCompile = classNamesToCompile;
     }
+
+	@Override
+	public List<ClassDescription> findClassByTag(String[] aTags) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassDescription> findClass(String aName, String[] aTag,
+			String aNameMatch, String aTagMatch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
    
 }

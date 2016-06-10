@@ -38,8 +38,9 @@ public class TaggingCartesianPointSuite {
 
 		PointProxyFactory.setPointProxy(new ATaggingPointProxy());
 		try {
-			CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
-		
+//			CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
+			CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+
 		Result aResult = JUnitCore.runClasses(TaggingCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {
 	         System.out.println(failure.toString());

@@ -51,6 +51,11 @@ public interface ClassesManager {
 
 	List<ClassDescription> findClassByPattern(String tag);
 
+	List<ClassDescription> findClassByTag(String[] aTags);
+
+	List<ClassDescription> findClass(String aName, String[] aTag,
+			String aNameMatch, String aTagMatch);
+
 //	List<Method> findMethodByName(Class aClass, String aSpecification);
 //
 //	List<Method> findMethodByNameMatch(Class aClass, String aSpecification);

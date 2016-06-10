@@ -3,8 +3,10 @@ package gradingTools.comp999junit.assignment1.allcorrect;
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
+@Tags({"cartesian", "point"})
 public class ACartesianPoint implements Point {	
 	protected int x, y;
 	public ACartesianPoint(int theX, int theY) {
@@ -21,6 +23,7 @@ public class ACartesianPoint implements Point {
 		return Math.atan2(y, x); 
 //		return 0;
 	}
+	@Tags({"radius", "getter"})	
 	public double getRadius() { 
 		return Math.sqrt(x*x + y*y); 
 //		return 0;

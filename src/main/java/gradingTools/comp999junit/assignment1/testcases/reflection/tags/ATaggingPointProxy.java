@@ -32,13 +32,15 @@ public class ATaggingPointProxy extends AReflectivePointProxy implements PointPr
 	
 	public Class getCartesianPointClass() throws ClassNotFoundException  {
 		Project aProject = CurrentProjectHolder.getOrCreateCurrentProject();
-		return IntrospectionUtil.findClass(aProject, "ACartesianPoint");
+//		return IntrospectionUtil.findClass(aProject, "ACartesianPoint");
+		return IntrospectionUtil.findUniqueClassByTag(aProject, new String[] {"cartesian", "point"});
 
 	}
 
 	
 	public Method findRadiusMethod() throws Exception {
-		return IntrospectionUtil.findMethod(aCartesianPointClass, "getRadius", emptyClassArray);
+//		return IntrospectionUtil.findMethod(aCartesianPointClass, "getRadius", emptyClassArray);
+		return IntrospectionUtil.findUniqueMethodByTag(aCartesianPointClass, new String[] {"Radius", "Getter"}, emptyClassArray);
 	}
 	
 	public Method findAngleMethod() throws Exception {
