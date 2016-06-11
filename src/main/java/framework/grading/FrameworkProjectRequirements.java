@@ -9,6 +9,7 @@ import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
+import grader.util.IntrospectionUtil;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -136,6 +137,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public List<CheckResult> checkFeatures(Project project) {
     	getUserData().clear();
     	CurrentProjectHolder.setProject(project); // for Junit test cases
+    	IntrospectionUtil.clearProjectCaches(); // all th eclasses and methods cached
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {
