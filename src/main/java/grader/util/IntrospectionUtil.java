@@ -4,10 +4,13 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import util.annotations.Tags;
 import framework.grading.testing.TestCase;
@@ -239,12 +242,40 @@ public class IntrospectionUtil {
 //        return aClasses.get(0).getJavaClass();
 		
 	}
+	static Map<String, Class> tagsToClass = new HashMap();
+	static Map<String, Method> tagsToMethod = new HashMap();
+
+	public static void clearProjectCaches() {
+		tagsToClass.clear();
+		tagsToMethod.clear();
+	}
+	
+	public static Class findUniqueClassByTag(Project aProject, Class aProxy) {
+		String[] aTags = getTags(aProxy);
+		return findUniqueClassByTag(aProject, aTags);
+	}
+
+	
 	public static Class findUniqueClassByTag(Project aProject, String[] aTags) {
+		Arrays.sort(aTags);
+		String aKey =  Arrays.toString(aTags);
+		Class aCachedClass = tagsToClass.get(aKey);
+		if (aCachedClass == null) {
+		
 		ClassDescription aClassDescription = findUniqueClassDescriptionByTag(aProject, aTags);
 		if (aClassDescription == null) {
+			aCachedClass = Object.class;
+	
+		}
+		
+		aCachedClass = aClassDescription.getJavaClass();
+		tagsToClass.put(aKey, aCachedClass);
+		
+		}
+		if (aCachedClass == Object.class) {
 			return null;
 		}
-		return aClassDescription.getJavaClass();
+		return aCachedClass;
 	}
 	public static ClassDescription findUniqueClassDescriptionByTag(Project aProject, String[] aTags) {
 		List<ClassDescription> aClasses = findClassesByTag(aProject, aTags);
@@ -259,6 +290,8 @@ public class IntrospectionUtil {
 		
 	}
 	public static List<ClassDescription> findClassesByTag(Project aProject, String[] aTag) {
+//		List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
+	
 		return aProject.getClassesManager().get().findClass(null, aTag, null, null);
 		
 //		if (aClasses.size() != 1) {
@@ -332,9 +365,42 @@ public class IntrospectionUtil {
 	            return new String[]{};
 	        }
 	    }
+	 public static String[] getTags(Class<?> aClass) {
+	        try {
+	            return aClass.getAnnotation(Tags.class).value();
+	        } catch (Exception e) {
+	            return new String[]{};
+	        }
+	    }
+	 public static Method findUniqueMethodByTag(Class aClass, Method aProxy) {
+		 String[] aTags = getTags(aProxy);
+		 Class[] aParameterTypes = aProxy.getParameterTypes();
+		 return findUniqueMethodByTag(aClass, aTags,aParameterTypes);
+	 }
+	 static Class[] emptyClassArray = {};
 	    public static Method  findUniqueMethodByTag(Class aClass, String[] aSpecification, Class[] aParameterTypes) {
-	    	List<Method> aMethods = findMethodsByTag(aClass, aSpecification);
-	    	return selectMethod(aMethods, aParameterTypes);
+	    	try {
+	    	Arrays.sort(aSpecification);
+	    	String aKey = aClass.getName() + ":" + Arrays.toString(aSpecification) + ":" + Arrays.toString(aParameterTypes);
+	    	Method aMethod = tagsToMethod.get(aKey);
+	    	if (aMethod == null) {
+	    		List<Method> aMethods = findMethodsByTag(aClass, aSpecification);
+	    		aMethod = selectMethod(aMethods, aParameterTypes);
+	    		if (aMethod == null) {
+	    		
+	    			aMethod = Object.class.getMethod("wait", emptyClassArray);
+	    		}
+	    		tagsToMethod.put(aKey, aMethod);
+	    	}
+	    	if (aMethod == Object.class.getMethod("wait", emptyClassArray)) {
+	    		return null;
+	    	}
+	    	return aMethod;
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    		return null;
+	    	}
+	    		
 //	    	if (aMethods.size() != 1)
 //	    		return null;
 //	    	return aMethods.get(0);
