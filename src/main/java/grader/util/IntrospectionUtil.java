@@ -216,10 +216,20 @@ public class IntrospectionUtil {
 		
 	}
 	public static Class findClass(Project aProject, String aName) {
+		Class aClass = tagsToClass.get(aName);
+		if (aClass == null) {
+			aClass = findClass(aProject, aName, aName, aName, aName );
+			if (aClass ==null) {
+				aClass = Object.class;
+			}
+			tagsToClass.put(aName, aClass);
+		}
+		if (aClass == Object.class) {
+			return null;
+		}
+		return aClass;
 //		return findClass(aProject, null, aName, toRegex(aName), toRegex(aName) );
-		return findClass(aProject, aName, aName, aName, aName );
-
-		
+//		return findClass(aProject, aName, aName, aName, aName );		
 	}
 	public static List<Class> findClasses(Project aProject, String aName) {
 		return findClasses(aProject, null, aName, toRegex(aName), toRegex(aName) );
@@ -509,8 +519,23 @@ public class IntrospectionUtil {
 	    }
 	    // returns the first matching method 
 	    public static Method findMethod (Class aJavaClass, String aName, Class[] aParameterTypes) {
+	    	try {
+	    	String aTag = aName + ":" + Arrays.toString(aParameterTypes);
+	    	Method aMethod = tagsToMethod.get(aTag);
+	    	if (aMethod == null) {
+	    		
+	    	
 	    	List<Method> aMethods = findMethod (aJavaClass, aName);
-	    	return selectMethod(aMethods, aParameterTypes);
+	    	aMethod = selectMethod(aMethods, aParameterTypes);
+	    	if (aMethod == null) {
+	    			aMethod = Object.class.getMethod("wait");
+	    	}
+	    	tagsToMethod.put(aTag, aMethod);
+	    	}
+	    	if (aMethod == Object.class.getMethod("wait")) {
+	    		return null;
+	    	}
+	    	return aMethod;
 //	    	Method aRetVal = null;
 //	    	for (Method aMethod: aMethods) {
 //	    		if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
@@ -518,6 +543,10 @@ public class IntrospectionUtil {
 //	    		}
 //	    	}
 //	    	return null;
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    		return null;
+	    	}
 	    }
 	    public static List<Method> findMethod (Class aJavaClass, String aName) {
 //	    	return findMethod(aJavaClass, null, aName, toRegex(aName), toRegex(aName)); //why was there no name, 
