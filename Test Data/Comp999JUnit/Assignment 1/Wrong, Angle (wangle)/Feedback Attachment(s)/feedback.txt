@@ -1,0 +1,12 @@
+Grading result for: Wrong, Angle (wangle)
+
+Grading features...
+----------------------------------
+Angle Tests                                            0.0 / 16.0
+APointRadiusTest                                       0.0 / 15.0 (Extra credit)
+AnAutoPointProxy                                       0.0 /  6.0
+----------------------------------
+  Points Awarded: 0.0
+
+  Features Score: 0.0
+  Total Score: 0.0

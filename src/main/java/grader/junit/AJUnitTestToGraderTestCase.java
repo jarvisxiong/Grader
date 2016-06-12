@@ -35,9 +35,9 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 		setJUnitClass(aJUnitClass);	
 	}
 	
-	public AJUnitTestToGraderTestCase () {
-		init();
-	}
+//	public AJUnitTestToGraderTestCase () {
+//		init();
+//	}
 	public void init() {
 		aRunNotifier.addListener(runListener);
 	}
@@ -102,6 +102,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 		return group;
 	}
 	public void setJUnitClass(Class aJUnitClass) {
+		jUnitClass = aJUnitClass;
 		setExplanation(aJUnitClass);
 		setMaxScore(aJUnitClass);
 		setIsRestriction(aJUnitClass);
@@ -151,8 +152,8 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 		return null;
 	}
 	public static void main (String[] args) {
-		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase();
-		foo.setJUnitClass(ACartesianPointJUnitTester.class);
+		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class);
+//		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
 	}
 }
