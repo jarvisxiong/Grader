@@ -459,7 +459,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 
         // First search the simple names
         for (ClassDescription description : classDescriptions) {
-            if (description.getJavaClass().getSimpleName().equalsIgnoreCase(className)) {
+            if (description.getJavaClass().getSimpleName().equalsIgnoreCase(className) || description.getJavaClass().getName().equalsIgnoreCase(className) ) {
                classes.add(description);
             }
         }

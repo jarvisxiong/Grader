@@ -50,11 +50,13 @@ public class ExecutionUtil {
 	public static final int CONSTRUCTOR_TIME_OUT = 2000;
 	public static final int METHOD_TIME_OUT = 2000;
 
-
+	static Object[] emptyObjectArray = {};
 	public static Object timedInvoke(Object anObject, Method aMethod,
 			long aMillSeconds, Object... anArgs) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
-
+		if (anArgs == null) {
+			anArgs = emptyObjectArray;
+		}
 
 		Future future = executor.submit(new AMethodExecutionCallable(anObject,
 				aMethod, anArgs));

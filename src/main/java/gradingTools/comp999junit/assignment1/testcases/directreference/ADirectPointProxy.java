@@ -70,10 +70,17 @@ public class ADirectPointProxy implements PointProxy{
 		return checkStructure;
 	}
 	
+	protected Point instantiatePoint(int theX, int theY) {
+		return new ACartesianPoint(theX, theY);
+	}
+	
 	@Override
 	public void createCartesianPoint(int theX, int theY) throws Exception {
 //		aCartesianPointClass = Class.forName("grader.junit.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
-		 point = new ACartesianPoint(theX, theY);
+//		 point = new ACartesianPoint(theX, theY);
+//		 point = new ACartesianPoint(theX, theY);
+		 point = instantiatePoint(theX, theY);
+
 		if (checkStructure) {
 			fractionComplete += CORRECT_CLASS;;
 		
