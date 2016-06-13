@@ -459,17 +459,18 @@ public class BasicProjectClassesManager implements ClassesManager {
 
         // First search the simple names
         for (ClassDescription description : classDescriptions) {
-            if (description.getJavaClass().getSimpleName().equalsIgnoreCase(className) || description.getJavaClass().getName().equalsIgnoreCase(className) ) {
+            if (description.getJavaClass().getSimpleName().equalsIgnoreCase(className) || 
+            		description.getJavaClass().getCanonicalName().equalsIgnoreCase(className)) {
                classes.add(description);
             }
         }
 
         // Next search the canonical names
-        for (ClassDescription description : classDescriptions) {
-            if (description.getJavaClass().getCanonicalName().equalsIgnoreCase(className)) {
-                classes.add(description);
-            }
-        }
+//        for (ClassDescription description : classDescriptions) {
+//            if (description.getJavaClass().getCanonicalName().equalsIgnoreCase(className)) {
+//                classes.add(description);
+//            }
+//        }
         return classes;
     }
     

@@ -137,6 +137,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 			runListener.setJUnitName(aJUnitClass.getName());
 			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
 			aRunner.run(aRunNotifier);
+			return runListener.getTestCaseResult();
 
 			
 		} catch (InitializationError e) {
@@ -149,7 +150,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 //		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);
 		// IniitializationError
 //		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
-		return null;
+//		return null;
 	}
 	public static void main (String[] args) {
 		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class);

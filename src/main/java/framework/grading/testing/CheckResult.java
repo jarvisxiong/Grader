@@ -22,6 +22,7 @@ public class CheckResult implements Describable {
     // Values for grading, not needed later
     private CheckStatus status;
     private double pointWeight;
+    private double totalPoints;
     String autoNotes = "";
 
     
@@ -32,9 +33,10 @@ public class CheckResult implements Describable {
      * @param pointWeight How many points each test case is worth.
      * @param target The gradable feature/restriction
      */
-    public CheckResult(double pointWeight, Gradable target) {
+    public CheckResult(double aTotalPoints, double pointWeight, Gradable target) {
         this.pointWeight = pointWeight;
         this.target = target;
+        totalPoints = aTotalPoints;
         score = 0;
         results = new ArrayList<TestCaseResult>();
         notes = "";
@@ -147,14 +149,14 @@ public class CheckResult implements Describable {
     	save(result, pointWeight);
     }
     public void save(TestCaseResult result, double aPointWeight) {
-    	if (aPointWeight < 0) {
+    	if (aPointWeight <= 0) {
     		aPointWeight = pointWeight;
     	}
     	if (result == null) return;
     	String testNotes =  result.getNotes();
     	if (!testNotes.isEmpty())
     		autoNotes += "  -- " + result.getNotes() + "\n";
-        score += result.getPercentage() * aPointWeight;
+        score += result.getPercentage() * aPointWeight * totalPoints;
         results.add(result);
     }
     

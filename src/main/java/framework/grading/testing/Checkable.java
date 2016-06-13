@@ -115,8 +115,10 @@ public abstract class Checkable implements Gradable {
     		 return new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, this);
         if (testCases.isEmpty())
             return new CheckResult(0, "", CheckResult.CheckStatus.Failed, this);
-        double pointWeight = points / testCases.size();
-        CheckResult result = new CheckResult(pointWeight, this);
+//        double pointWeight = points / testCases.size();
+        double pointWeight = 1 / testCases.size();
+
+        CheckResult result = new CheckResult(points, pointWeight, this);
         try {
             for (TestCase testCase : testCases) {
             	if (testCase == null)

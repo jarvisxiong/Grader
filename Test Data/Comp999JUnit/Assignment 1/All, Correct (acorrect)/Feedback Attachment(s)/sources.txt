@@ -1,4 +1,4 @@
-//START OF FILE: assignment1/src/acartesianpoint.java
+//START OF FILE: src/acartesianpoint.java
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -36,7 +36,7 @@ public class ACartesianPoint implements Point {
 	}
 }
 //END OF FILE
-//START OF FILE: assignment1/src/point.java
+//START OF FILE: src/point.java
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;

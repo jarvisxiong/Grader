@@ -15,7 +15,7 @@ public class TestCheckResult {
 
     @Test
     public void testSaveAndGetResults() {
-        CheckResult result = new CheckResult(1, null);
+        CheckResult result = new CheckResult(1, 1, null);
         result.save(new TestCaseResult(1, "one"));
         result.save(new TestCaseResult(1, "two"));
         result.save(new TestCaseResult(1, "three"));
@@ -24,7 +24,7 @@ public class TestCheckResult {
 
     @Test
     public void testGetScore() {
-        CheckResult result = new CheckResult(2, null);
+        CheckResult result = new CheckResult(2, 1, null);
         result.save(new TestCaseResult(1, "one"));
         result.save(new TestCaseResult(0.5, "two"));
         result.save(new TestCaseResult(0, "three"));

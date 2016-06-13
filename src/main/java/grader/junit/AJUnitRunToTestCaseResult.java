@@ -18,6 +18,10 @@ public class AJUnitRunToTestCaseResult extends RunListener {
 	public String getJUnitName() {
 		return name;
 	}
+	public void testStarted(Description description) throws Exception {
+			checkResult = new TestCaseResult(true, 
+					"", name, true);
+    }
 
 	@Override
 	public void testFailure(Failure failure) {
@@ -27,7 +31,7 @@ public class AJUnitRunToTestCaseResult extends RunListener {
 			String aMessage = aThrowable.getMessage();
 			String[] aNotesAndScore = aMessage.split(":");
 			String aNotes = aNotesAndScore[0];
-			if (aNotesAndScore.length == 1) {
+			if (aNotesAndScore.length == 1) { // assume zero percentage
 				checkResult = new TestCaseResult(false, 
 						aNotes, name, true);
 			} else {
@@ -56,6 +60,9 @@ public class AJUnitRunToTestCaseResult extends RunListener {
 			e.printStackTrace();
 		};
 		
+	}
+	public TestCaseResult getTestCaseResult() {
+		return checkResult;
 	}
 
 }
