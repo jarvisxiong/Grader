@@ -138,7 +138,14 @@ public class AGradedProjectTextOverview  implements
 		photoLabelBeanModel = new ALabelBeanModel("");
 //		addPropertyChangeListener(this); // listen to yourself to see if you have changed
 	}
-	
+	protected int maxFeatureScore;
+	protected void setMaxFeatureScore(SakaiProjectDatabase aProjectDatabase) {
+		GradingFeatureList gradingFeatures = projectDatabase
+				.getGradingFeatures();
+		for (GradingFeature aGradingFeature : gradingFeatures) {
+			maxFeatureScore += aGradingFeature.getMax();
+		}
+	}
 	public void setProjectDatabase(SakaiProjectDatabase aProjectDatabase) {
 		graderSettings = GraderSettingsModelSelector.getGraderSettingsModel();
 		projectDatabase = aProjectDatabase;
@@ -306,7 +313,7 @@ public class AGradedProjectTextOverview  implements
 	@Override
 	public void setScoreColor() {
 		if (projectStepper.isSettingUpProject()) return;
-		nextScoreColor = projectDatabase.getScoreColorer().color(score);
+		nextScoreColor = projectDatabase.getScoreColorer().color(score/maxFeatureScore);
 		if (currentScoreColor == nextScoreColor ) return;
 		setColor("Score",  nextScoreColor);
 		currentScoreColor = nextScoreColor;
