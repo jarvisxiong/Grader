@@ -758,7 +758,8 @@ public class IntrospectionUtil {
 			}
 			Constructor aConstructor = anActualClass
 					.getConstructor(aConctructArgsTypes);
-			Object anActualObject = aConstructor.newInstance(anArgs);
+//			Object anActualObject = aConstructor.newInstance(anArgs);
+			Object anActualObject = ExecutionUtil.timedInvoke(aConstructor, anArgs);
 
 			InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
 					anActualObject);

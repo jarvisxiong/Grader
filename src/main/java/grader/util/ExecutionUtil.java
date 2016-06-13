@@ -199,9 +199,14 @@ public class ExecutionUtil {
 	static FileOutputStream aFileStream;
 	static PrintStream teeStream;
 	static File tmpFile;
+	static boolean outputRedirected;
 	public static void redirectOutput() {
-	 
+		if (outputRedirected) {
+			System.out.println ("Output already redirected, ignoring redirect call");
+			return;
+		}
 		try {
+			outputRedirected = true;
 			aFileStream = new FileOutputStream(
 					tmpFileName);
 			tmpFile = new File(tmpFileName);
@@ -214,6 +219,7 @@ public class ExecutionUtil {
 	}
 	public static String restoreOutputAndGetRedirectedOutput() {
 		try {
+			outputRedirected = false;
 //			System.out.flush();
 //			originalOut.flush();
 			aFileStream.flush();
