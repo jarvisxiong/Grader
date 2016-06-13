@@ -149,7 +149,7 @@ public class CheckResult implements Describable {
     	save(result, pointWeight);
     }
     public void save(TestCaseResult result, double aPointWeight) {
-    	if (aPointWeight <= 0) {
+    	if (aPointWeight < 0) {
     		aPointWeight = pointWeight;
     	}
     	if (result == null) return;

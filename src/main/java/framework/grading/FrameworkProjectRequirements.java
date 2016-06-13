@@ -1,5 +1,6 @@
 package framework.grading;
 
+import framework.execution.RunningProject;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
@@ -9,6 +10,7 @@ import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
+import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 
 import org.joda.time.DateTime;
@@ -147,15 +149,24 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         for (Feature feature : features) {
 //        	if (feature.isManual()) 
 //        		continue;
+        	ExecutionUtil.redirectOutput();
         	if (isInteractiveRun(feature))
-        		results.add(feature.check(project, false));
+        		results.add(feature.check(project, false)); // added again below
             if (sakaiProject != null) { // should we do the check anyway, regardless of whether sakaiProject is null or not
                 sakaiProject.setCurrentGradingFeature(feature);
             
             try {
-                results.add(feature.check(project));
+                results.add(feature.check(project)); //so the feature is added twice?
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+            
+        			String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
+        			 if (anOutput != null && !anOutput.isEmpty()) {
+                     	RunningProject.appendToTranscriptFile(project, feature.getName(), anOutput);
+                     }
+        			
+        		
             }
             }
         }
