@@ -1,5 +1,6 @@
 package framework.project;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.JavaClassFilesCompilerSelector;
@@ -35,7 +36,9 @@ import javax.tools.JavaFileObject;
 //import javax.tools.ToolProvider;
 
 
+
 import org.apache.commons.io.FileUtils;
+
 
 
 //import scala.Option;
@@ -92,7 +95,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 //    	return project.hasBeenCompiled();
     	return true;
     }
-    protected void appendOutputAndErrorsToTranscriptFile(RunningProject aRunningProject) {
+    protected void appendOutputAndErrorsToTranscriptFile(BasicRunningProject aRunningProject) {
 //    	aRunningProject.appendOutputAndErrorsToTranscriptFile(project);
 
     }
@@ -141,7 +144,7 @@ public class BasicProjectClassesManager implements ClassesManager {
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
-			RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
+    	    BasicRunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");			
@@ -205,7 +208,7 @@ public class BasicProjectClassesManager implements ClassesManager {
                 	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+                    BasicRunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
                     if (runningProject != null) {
                         //					String outputAndErrors = runningProject.getOutputAndErrors();
 //                        runningProject.appendOutputAndErrorsToTranscriptFile(project);
@@ -275,7 +278,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
 //					recompiledFileList.add(file);
 					System.out.println("Recompiling files:" + recompiledFileList);
-					RunningProject runningProject = LanguageDependencyManager
+					BasicRunningProject runningProject = LanguageDependencyManager
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);
 //					project.setCanBeCompiled(true);
@@ -290,7 +293,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 
 
 					if (runningProject != null) {
-						appendOutputAndErrorsToTranscriptFile(runningProject);
+						appendOutputAndErrorsToTranscriptFile( runningProject);
 //						runningProject
 //								.appendOutputAndErrorsToTranscriptFile(project);
 

@@ -3,6 +3,7 @@ package gradingTools.comp110.assignment2.testcases;
 import java.util.ArrayList;
 import java.util.Random;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -35,7 +36,7 @@ public class PalindromeTestCase extends BasicTestCase {
 			String[] requiredParts, String[] missingParts) throws NotRunnableException,
 			NotAutomatableException {
 
-		RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
+		BasicRunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
 		String output = runningProjectWithInput.await();
 
 		if (!output.startsWith(prompt)) {
@@ -113,7 +114,7 @@ public class PalindromeTestCase extends BasicTestCase {
 			String message = "";
 			double score = 1.0;
 
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1);
 			String prompt = runningProject.await();
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);

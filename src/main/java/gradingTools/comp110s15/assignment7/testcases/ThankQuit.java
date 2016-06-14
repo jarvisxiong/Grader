@@ -1,5 +1,6 @@
 package gradingTools.comp110s15.assignment7.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -19,17 +20,17 @@ public class ThankQuit extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,
 				"a\n");
 		String output0 = Project0.await().toLowerCase();
 		boolean thankgood=false;
 		boolean quitgood=false;
-		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project1 = RunningProjectUtils.runProject(project, 10,
 				"max\nquit\n");
 		String output1 = Project1.await().toLowerCase();
 		output1=output1.substring(output0.length()-1);
 		if(output1.contains("thank"))thankgood=true;
-		RunningProject Project2 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project2 = RunningProjectUtils.runProject(project, 10,
 				"a\nquit\nINCORRECT");
 		String output2 = Project2.await().toLowerCase();
 		output2=output2.substring(output0.length()-1);

@@ -1,5 +1,6 @@
 package gradingTools.comp110s15.assignment4.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -18,17 +19,17 @@ public class InputUNC extends BasicTestCase{
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject Project2 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project2 = RunningProjectUtils.runProject(project, 10,
 				"UNC\n");
 		String out2=Project2.await().toLowerCase();
 		int numright=0;
-		RunningProject Project3 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project3 = RunningProjectUtils.runProject(project, 10,
 				"UNC\n5\n");
 		String out3 = Project3.await().toLowerCase();
-		RunningProject Project4 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project4 = RunningProjectUtils.runProject(project, 10,
 				"UNC\n4\n");
 		String out4=Project4.await().toLowerCase();
-		RunningProject Project5 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project5 = RunningProjectUtils.runProject(project, 10,
 				"UNC\n1000\n");
 		String out5 = Project5.await().toLowerCase();
 		if(out3.substring(out2.length()).contains("true fan"))numright++;

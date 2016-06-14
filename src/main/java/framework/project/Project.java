@@ -1,5 +1,6 @@
 package framework.project;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 
@@ -27,26 +28,26 @@ public interface Project {
     /**
      * Attempts to start the project in the same process
      */
-    public RunningProject start(String input) throws NotRunnableException;
+    public BasicRunningProject start(String input) throws NotRunnableException;
 
     /**
      * Attempts to launch the project in a new process
      */
-    public RunningProject launch(String input) throws NotRunnableException;
+    public BasicRunningProject launch(String input) throws NotRunnableException;
 
     /**
      * Attempts to start the project in the same process
      */
-    public RunningProject start(String input, int timeout) throws NotRunnableException;
+    public BasicRunningProject start(String input, int timeout) throws NotRunnableException;
 
     /**
      * Attempts to launch the project in a new process
      */
-    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
+    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
-    public RunningProject launch(String input, int timeout) throws NotRunnableException;
+    public BasicRunningProject launch(String input, int timeout) throws NotRunnableException;
 
-    public RunningProject launchInteractive() throws NotRunnableException;
+    public BasicRunningProject launchInteractive() throws NotRunnableException;
 
     /**
      * @return The {@link ClassesManager} for this project. This can be used to look at the source code.
@@ -69,13 +70,13 @@ public interface Project {
      */
     public TraceableLog getTraceableLog();
 
-	RunningProject launch(
+    BasicRunningProject launch(
 			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException;
 
-	RunningProject launch(String input, String[] anArgs, int timeout)
+	BasicRunningProject launch(String input, String[] anArgs, int timeout)
 			throws NotRunnableException;
 
-	RunningProject launchInteractive(String[] args) throws NotRunnableException;
+	BasicRunningProject launchInteractive(String[] args) throws NotRunnableException;
 }

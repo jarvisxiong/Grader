@@ -1,5 +1,6 @@
 package grader.steppers;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
@@ -514,7 +515,7 @@ public class AnAutoVisitBehavior implements
         }
 
     }
-	RunningProject runningProject;
+    BasicRunningProject runningProject;
 	
 	public static String[] computeArgs(String subjectString) {
 		List<String> matchList = new ArrayList<String>();
@@ -656,7 +657,7 @@ public class AnAutoVisitBehavior implements
 //				e.printStackTrace();
 //			}
             featureResults = aProjectRequirements
-                    .checkFeatures(wrappedProject);
+                    .checkFeatures(wrappedProject); // this where we will need to fork a process if required in configuration
 
             restrictionResults = aProjectRequirements
                     .checkRestrictions(wrappedProject);

@@ -2,6 +2,7 @@ package gradingTools.comp110f14lab.lab3.testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -40,15 +41,15 @@ public class DoesRestTestCase extends BasicTestCase {
 		
 		
 		
-		RunningProject goo0=RunningProjectUtils.runProject(project, 3,worksforAString1);
+		BasicRunningProject goo0=RunningProjectUtils.runProject(project, 3,worksforAString1);
 		String output0=goo0.await();
-		RunningProject goo2=RunningProjectUtils.runProject(project, 3,worksforBString1);
+		BasicRunningProject goo2=RunningProjectUtils.runProject(project, 3,worksforBString1);
 		String output2=goo2.await();
-		RunningProject goo4=RunningProjectUtils.runProject(project, 3,worksforCString1);
+		BasicRunningProject goo4=RunningProjectUtils.runProject(project, 3,worksforCString1);
 		String output4=goo4.await();
-		RunningProject goo6=RunningProjectUtils.runProject(project, 3,lengthprint1);
+		BasicRunningProject goo6=RunningProjectUtils.runProject(project, 3,lengthprint1);
 		String output6=goo6.await();
-		RunningProject goo7=RunningProjectUtils.runProject(project, 3,lengthprint2);
+		BasicRunningProject goo7=RunningProjectUtils.runProject(project, 3,lengthprint2);
 		String output7=goo7.await();
 		
 		String partialmessage="";

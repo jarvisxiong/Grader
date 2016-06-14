@@ -2,6 +2,7 @@ package gradingTools.comp110file.assignment1.testcases;
 
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -42,19 +43,19 @@ public class FilePromptTestCase extends BasicTestCase {
 			String outputFileName = projectFolderName + "/" + FilePromptTestCase.OUTPUT_FILE_NAME;	;		
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			BasicRunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
 			 noInputPrompt = Common.toText(outputFileName).toString();
 
 			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
+			 BasicRunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
 					"1");
 			String integerInputPrompt = integerInputRunningProject.await();
 			integerInputPrompt = Common.toText(outputFileName).toString();
 			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
 
 			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
+			BasicRunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
 					"1.4");
 			String doubleInputPrompt = doubleInputRunningProject.await();
 			doubleInputPrompt = Common.toText(outputFileName).toString();

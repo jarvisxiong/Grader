@@ -2,6 +2,7 @@ package gradingTools.comp110.assignment2.testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -49,7 +50,7 @@ public class PromptTestCase extends BasicTestCase {
 		try {
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			BasicRunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
 
 			// Check the prompt

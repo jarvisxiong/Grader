@@ -1,5 +1,6 @@
 package gradingTools.comp110f14.assignment2testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -18,12 +19,12 @@ public class PromptTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
 		String output0=Project0.await().toLowerCase();
 		boolean hasdepo=false;
 		if(output0.contains("depo"))hasdepo=true;
 		
-		RunningProject Project1 = RunningProjectUtils.runProject(project,10,"5");
+		BasicRunningProject Project1 = RunningProjectUtils.runProject(project,10,"5");
 		String output1=Project1.await().toLowerCase();
 		boolean haswithd=false;
 		if(output1.contains("withd"))haswithd=true;

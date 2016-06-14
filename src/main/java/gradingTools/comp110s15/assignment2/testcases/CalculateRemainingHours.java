@@ -2,6 +2,7 @@ package gradingTools.comp110s15.assignment2.testcases;
 
 import java.util.Scanner;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -26,7 +27,7 @@ public class CalculateRemainingHours extends BasicTestCase {
 		int enrolled = 20;
 		int remaining = hoursRequired-(taken+enrolled);
 		
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+taken+'\n'+ enrolled);
+		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+taken+'\n'+ enrolled);
 		
 		String hoursOutput=runningProject.await();
 		

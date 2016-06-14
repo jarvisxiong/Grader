@@ -1,5 +1,6 @@
 package gradingTools.comp110s15.assignment6.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -19,16 +20,16 @@ public class RespondNo extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,
 				"");
 		String output0 = Project0.await().toLowerCase();
 
-		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project1 = RunningProjectUtils.runProject(project, 10,
 				"deposit\n45\nyes\ndeposit");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 		
-		RunningProject Project2 = RunningProjectUtils.runProject(project, 10, "deposit\n45\nno\ndeposit");
+		BasicRunningProject Project2 = RunningProjectUtils.runProject(project, 10, "deposit\n45\nno\ndeposit");
 		String output2 = Project2.await().toLowerCase();
 		output2 = output2.substring(output0.length()-1);
 		

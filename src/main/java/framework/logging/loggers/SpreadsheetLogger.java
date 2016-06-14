@@ -97,7 +97,7 @@ public class SpreadsheetLogger implements Logger {
 	@Override
 	public void save(RecordingSession recordingSession) {
 
-		if (!workbookCreated) {
+		if (!workbookCreated) { // this should already be created if running in slave process
 			createWorkbook();
 		}
 

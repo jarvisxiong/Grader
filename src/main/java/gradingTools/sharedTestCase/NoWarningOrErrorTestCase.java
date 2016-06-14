@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wrappers.framework.project.ProjectWrapper;
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -60,7 +61,7 @@ public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
     }
     
    
-    RunningProject lastRunningProject;
+    BasicRunningProject lastRunningProject;
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -68,7 +69,7 @@ public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
         	if (!autoGrade || project == null)
         		return fail("No graded in auto run");
         	SakaiProject aSakaiProject = ((ProjectWrapper) project).getProject();
-        	RunningProject aRunner = aSakaiProject.getCurrentRunningProject();
+        	BasicRunningProject aRunner = aSakaiProject.getCurrentRunningProject();
         	if (aRunner == null ) {
         		System.err.println("No project run interactively");
         		return fail("No project run interactively");

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.misc.Common;
+import framework.execution.BasicRunningProject;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
 import framework.execution.RunningProject;
@@ -42,7 +43,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
             }
 	}
 	
-	public RunningProject compileFile(String aFileName, String workingDirectory) {
+	public BasicRunningProject compileFile(String aFileName, String workingDirectory) {
         String windowsName = Common.toWindowsFileName(aFileName);
         int extensionIndex = aFileName.indexOf(LanguageDependencyManager.getSourceFileSuffix());
         if (extensionIndex < 1)
@@ -100,7 +101,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
     }
 
 	@Override
-	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
+	public BasicRunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
 			throws IOException, IllegalStateException {
 		List<String> commandList= new ArrayList(sourceFiles.size() + 1);
 		commandList.add(compilerPath);

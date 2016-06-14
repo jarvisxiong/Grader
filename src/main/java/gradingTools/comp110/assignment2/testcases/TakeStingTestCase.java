@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment2.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -19,9 +20,9 @@ public class TakeStingTestCase extends BasicTestCase {
 			throws NotGradableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 3);
 			String output = runningProject.await();
-			RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3,
+			BasicRunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 3,
 					input);
 			String outputAfterInput = runningProjectWithInput.await();
 

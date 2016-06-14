@@ -3,6 +3,7 @@ package gradingTools.comp110f14.assignment2testcases;
 import java.util.Random;
 import java.util.Scanner;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -28,11 +29,11 @@ public class BalancePrintingTestCase extends BasicTestCase {
 			withd=r.nextInt(depo);
 		}
 		int result=depo-withd;
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+depo);
+		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 10,""+depo);
 		String initialbalanceoutput=runningProject.await();
 		boolean print1=false;
 		if(initialbalanceoutput.contains(""+depo))print1=true;
-		RunningProject runningProject2=RunningProjectUtils.runProject(project, 10,""+depo+"\n"+withd);
+		BasicRunningProject runningProject2=RunningProjectUtils.runProject(project, 10,""+depo+"\n"+withd);
 		String finalbalanceoutput=runningProject2.await();
 		boolean print2=false;
 		if(finalbalanceoutput.contains(""+(depo-withd)))print2=true;

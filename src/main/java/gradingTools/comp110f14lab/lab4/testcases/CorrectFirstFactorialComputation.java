@@ -1,5 +1,6 @@
 package gradingTools.comp110f14lab.lab4.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -26,18 +27,18 @@ public class CorrectFirstFactorialComputation extends BasicTestCase {
 		
 		String errorCase = "0\n";
 
-		RunningProject project0 = RunningProjectUtils.runProject(project, 1,"");
+		BasicRunningProject project0 = RunningProjectUtils.runProject(project, 1,"");
 		String prompt = project0.await();
 		
-		RunningProject project1 = RunningProjectUtils.runProject(project, 1,case1);
+		BasicRunningProject project1 = RunningProjectUtils.runProject(project, 1,case1);
 		String output1 = project1.await();
 		output1 = output1.substring(prompt.length());
 		
-		RunningProject project2 = RunningProjectUtils.runProject(project, 1,case2);
+		BasicRunningProject project2 = RunningProjectUtils.runProject(project, 1,case2);
 		String output2 = project2.await();
 		output2 = output2.substring(prompt.length());
 		
-		RunningProject project3 = RunningProjectUtils.runProject(project, 1,errorCase);
+		BasicRunningProject project3 = RunningProjectUtils.runProject(project, 1,errorCase);
 		String errorOutput = project3.await();
 		errorOutput = errorOutput.substring(prompt.length());
 		

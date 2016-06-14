@@ -1,5 +1,6 @@
 package gradingTools.comp110s15.assignment5.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -18,7 +19,7 @@ public class addtorialTest extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject Project0=RunningProjectUtils.runProject(project, 10, "13\n");
+		BasicRunningProject Project0=RunningProjectUtils.runProject(project, 10, "13\n");
 		String output0=Project0.await();
 		if(output0.contains("91"))return pass();
 		else return fail("did not correctly compute sum of 0 to number given by user");

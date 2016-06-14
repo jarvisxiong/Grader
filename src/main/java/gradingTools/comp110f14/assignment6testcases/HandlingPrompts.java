@@ -2,6 +2,7 @@ package gradingTools.comp110f14.assignment6testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -25,7 +26,7 @@ public class HandlingPrompts extends BasicTestCase {
 		String partialMessage = "";
 
 		// -------------order stuff---------------//
-		RunningProject order = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject order = RunningProjectUtils.runProject(project, 10,
 				"order\n5\n");
 		String outputorder = order.await();
 		// break up output
@@ -45,7 +46,7 @@ public class HandlingPrompts extends BasicTestCase {
 		// ---------------end order stuff---------------//
 
 		// ---------------print stuff--------------------//
-		RunningProject print = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject print = RunningProjectUtils.runProject(project, 10,
 				"order\n5\nprint\n");
 		String outputprint = print.await();
 		// break up output
@@ -73,7 +74,7 @@ public class HandlingPrompts extends BasicTestCase {
 		// ---------------end print stuff---------------//
 		// --------Begin finish----------//
 
-		RunningProject finish = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject finish = RunningProjectUtils.runProject(project, 10,
 				"finish\n");
 		String outputfinish = finish.await();
 		String[] outputfinishfoo = outputfinish.split("\n");

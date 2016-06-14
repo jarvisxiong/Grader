@@ -3,6 +3,7 @@
  */
 package gradingTools.comp110s15.assignment3.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -25,7 +26,7 @@ public class WelcomePromptTest extends BasicTestCase{
 		// TODO Auto-generated method stub
 		boolean hasWelcome=false;
 		try{
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 10,"");
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 10,"");
 			String output=runningProject.await().toLowerCase();
 			if( output.contains("welcome") ) {
 				hasWelcome=true;

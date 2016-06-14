@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.misc.Common;
+import framework.execution.BasicRunningProject;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
 import framework.execution.RunningProject;
@@ -28,7 +29,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	
 
 	
-	public RunningProject checkStyle(String aSourceFileFlder) {
+	public BasicRunningProject checkStyle(String aSourceFileFlder) {
 		String aConfigurationFileName = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getAssignmentDataFolder().getCheckStyleConfigurationFileName();
 
 			String windowsName = aSourceFileFlder;
@@ -37,7 +38,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 
         String[] args = {};
         Runner processRunner = new ProcessRunner(new File("."));
-        RunningProject aReturnValue = processRunner.run(null, command, "", args, 2000);
+        BasicRunningProject aReturnValue = processRunner.run(null, command, "", args, 2000);
         return aReturnValue;
 
 
@@ -56,7 +57,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 			System.err.println("No file");
 			
 		} else {
-			RunningProject aProject;
+			BasicRunningProject aProject;
 			try {
 				aProject = checkStyleInvoker.checkStyle (aFile.getCanonicalPath());
 			

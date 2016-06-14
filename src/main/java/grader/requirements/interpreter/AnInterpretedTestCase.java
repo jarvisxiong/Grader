@@ -1,6 +1,7 @@
 package grader.requirements.interpreter;
 
 import wrappers.framework.project.ProjectWrapper;
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.Feature;
@@ -35,7 +36,7 @@ public class AnInterpretedTestCase extends BasicTestCase{
 		String anInput = InterpretedVariablesSubstituter.getInput(csvRequirementsSpecification, featureNumber);
 		Integer aTimeOut = csvRequirementsSpecification.getTimeOut(featureNumber);
 		String anOutput = "";
-		RunningProject runningProject = null;
+		BasicRunningProject runningProject = null;
 		if (aTimeOut != null) {
 		 runningProject = RunningProjectUtils.runProject(project, aTimeOut, anInput);
 		anOutput = runningProject.await();

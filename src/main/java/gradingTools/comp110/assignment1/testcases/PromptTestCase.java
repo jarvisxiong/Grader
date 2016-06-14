@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment1.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -34,17 +35,17 @@ public class PromptTestCase extends BasicTestCase {
 		try {
 
 			// Get the output when we have no input from the user
-			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			BasicRunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 			String noInputPrompt = noInputRunningProject.await();
 
 			// Get the output when we have integer input from the user
-			RunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
+			BasicRunningProject integerInputRunningProject = RunningProjectUtils.runProject(project, 1,
 					"1");
 			String integerInputPrompt = integerInputRunningProject.await();
 			integerInputPrompt = integerInputPrompt.substring(noInputPrompt.length());
 
 			// Get the output when we have double input from the user
-			RunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
+			BasicRunningProject doubleInputRunningProject = RunningProjectUtils.runProject(project, 1,
 					"1.4");
 			String doubleInputPrompt = doubleInputRunningProject.await();
 			doubleInputPrompt = doubleInputPrompt.substring(noInputPrompt.length());

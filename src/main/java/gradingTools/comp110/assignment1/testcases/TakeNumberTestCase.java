@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment1.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -19,13 +20,13 @@ public class TakeNumberTestCase extends BasicTestCase {
 			throws NotGradableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 3);
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 3);
 			String output = runningProject.await();
 			int run1 = output.length();
-			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 3, input1);
+			BasicRunningProject runningProject2 = RunningProjectUtils.runProject(project, 3, input1);
 			String output2 = runningProject2.await();
 			int run2 = output2.length();
-			RunningProject runningProject3 = RunningProjectUtils.runProject(project, 3, input1,
+			BasicRunningProject runningProject3 = RunningProjectUtils.runProject(project, 3, input1,
 					input2);
 			String output3 = runningProject3.await();
 			int run3 = output3.length();

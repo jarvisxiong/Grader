@@ -1,5 +1,6 @@
 package gradingTools.comp110f14.assignment3testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
@@ -19,7 +20,7 @@ public class SharedOutput {
 	
 	public synchronized String getOutput(Project project) {
 		if (this.project != project) {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, timeout, input);
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, timeout, input);
 			output = runningProject.await();
 			this.project = project;
 		}

@@ -1,6 +1,8 @@
 package gradingTools.example.testCases;
 
 import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
+
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -29,7 +31,7 @@ public class NoStringBuilderReverseTestCase extends BasicTestCase {
         try {
             Integer preCount = (Integer) StringBuilder.class.getField("reverseCount").get(null);
 
-            RunningProject runningProject = project.start("Hello world\n");
+            BasicRunningProject runningProject = project.start("Hello world\n");
             runningProject.await();
 
             Integer postCount = (Integer) StringBuilder.class.getField("reverseCount").get(null);

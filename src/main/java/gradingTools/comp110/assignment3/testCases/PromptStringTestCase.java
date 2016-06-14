@@ -2,6 +2,7 @@ package gradingTools.comp110.assignment3.testCases;
 
 
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -54,7 +55,7 @@ public class PromptStringTestCase extends BasicTestCase {
 		try {
 
 			// Get the output after inputting one string, as both prompts should now be up
-			RunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, "hello");
+			BasicRunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, "hello");
 			String oneInputPrompt = oneInputRunningProject.await();
 
 			// Check the prompt

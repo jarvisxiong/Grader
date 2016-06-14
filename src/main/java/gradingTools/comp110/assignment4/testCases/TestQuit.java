@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment4.testCases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.TestCaseResult;
@@ -22,7 +23,7 @@ public class TestQuit extends TestGerbilInputWithCommand {
 	}
 	
 	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
-		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
+		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
 		runningProject.await();
 		String output = runningProject.getErrorOutput();
 		return checkOutputString(output);

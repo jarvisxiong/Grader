@@ -1,5 +1,6 @@
 package gradingTools.comp110.assignment2.testcases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
@@ -18,7 +19,7 @@ public class ErrorTestCase extends PalindromeTestCase {
 			NotAutomatableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
+			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1);
 			String prompt = runningProject.await();
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);

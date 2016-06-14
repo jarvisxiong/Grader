@@ -1,5 +1,6 @@
 package gradingTools.example.testCases;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -18,7 +19,7 @@ public class ReversePrinterTestCase extends BasicTestCase {
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         try {
 
-            RunningProject runningProject = project.launch("Hello world\n");
+        	BasicRunningProject runningProject = project.launch("Hello world\n");
             String output = runningProject.await();
             if (output.contains("dlrow olleH"))
                 return pass(autoGrade);

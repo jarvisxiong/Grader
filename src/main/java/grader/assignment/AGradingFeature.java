@@ -373,7 +373,7 @@ public class AGradingFeature implements GradingFeature {
 	@Position(5)
 	@ComponentWidth(70)
 	public boolean isGraded() {
-		return graded;
+		return graded; // this value is loaded from spreadsheets
 	}
 	@Visible(false)
 	@Override

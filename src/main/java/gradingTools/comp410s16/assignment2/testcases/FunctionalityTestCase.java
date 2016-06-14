@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -51,7 +52,7 @@ public class FunctionalityTestCase extends BasicTestCase {
             // Initialize score and feedback message
             String message = "";
 
-            RunningProject runningProject = project.launch("", input,10);
+            BasicRunningProject runningProject = project.launch("", input,10);
 
             String output=runningProject.await().toLowerCase();
             System.out.println("output: "+output);

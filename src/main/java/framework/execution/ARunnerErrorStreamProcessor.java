@@ -1,17 +1,13 @@
 package framework.execution;
 
 import java.io.InputStream;
-import java.util.Scanner;
-import java.util.concurrent.Semaphore;
-
-import tools.TimedProcess;
 
 public class ARunnerErrorStreamProcessor extends ARunnerErrorOrOutStreamProcessor implements Runnable {
 //	protected Scanner scanner ;
 //	protected InputStream out;
 //	protected RunningProject runner;
 	public ARunnerErrorStreamProcessor(InputStream aProcessErrorOut, 
-			RunningProject aRunner, 
+			BasicRunningProject aRunner, 
 			/*Semaphore aSemaphore, */
 			String aProcessName,
 			Boolean anOnlyProcess) {

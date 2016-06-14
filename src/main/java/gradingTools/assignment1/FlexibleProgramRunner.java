@@ -1,5 +1,6 @@
 package gradingTools.assignment1;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.project.Project;
@@ -14,7 +15,7 @@ public class FlexibleProgramRunner {
     private Project project;
     private String input;
     private String spacedInput = "";
-    RunningProject runningProject;
+    BasicRunningProject runningProject;
 
   
 
@@ -48,7 +49,7 @@ public class FlexibleProgramRunner {
          runningProject = project.launch(input, Timeout);
         return runningProject.await();
     }
-    public RunningProject getRunningProject() {
+    public BasicRunningProject getRunningProject() {
   		return runningProject;
   	}
 

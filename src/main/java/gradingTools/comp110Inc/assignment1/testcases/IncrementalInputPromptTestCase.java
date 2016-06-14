@@ -1,6 +1,7 @@
 package gradingTools.comp110Inc.assignment1.testcases;
 
 import util.pipe.InputGenerator;
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -61,7 +62,7 @@ public class IncrementalInputPromptTestCase extends PromptTestCase {
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 			OutputBasedMixedArithmeticInputGenerator anOutputBasedInputGenerator = new AnOutputBasedMixedArithmeticInputGenerator(1, 1.4);
-			RunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 1,
+			BasicRunningProject interactiveInputProject = RunningProjectUtils.runProject(project, 1,
 					anOutputBasedInputGenerator);
 			String incOutput = interactiveInputProject.await();
 			if (anOutputBasedInputGenerator.foundDoublePrompt() && anOutputBasedInputGenerator.foundIntPrompt())

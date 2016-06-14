@@ -2,6 +2,7 @@ package gradingTools.comp110f14lab.lab5.testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -20,7 +21,7 @@ public class PromptTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject run0 = RunningProjectUtils.runProject(project, 10,"");
+		BasicRunningProject run0 = RunningProjectUtils.runProject(project, 10,"");
 		String output0 = run0.await();
 		Pattern prompt = Pattern.compile(".*pl|in|en|num|val|size|len.*");
 		boolean hasPrompt=prompt.matcher(output0.toLowerCase()).find();

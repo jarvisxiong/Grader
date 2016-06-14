@@ -40,7 +40,7 @@ public class ASakaiStudentAssignment implements StudentAssignment {
     List<String> documents = new ArrayList();
     String commentsFileName, checkStyleFileName;
     FileProxy studentFolder;
-
+    // for remote grading, this will need to take a file as an argument, which is then convreted to a file proxy
     public ASakaiStudentAssignment(String aStudentDescription, FileProxy aFileProxy) {
         try {
             studentDescription = aStudentDescription;

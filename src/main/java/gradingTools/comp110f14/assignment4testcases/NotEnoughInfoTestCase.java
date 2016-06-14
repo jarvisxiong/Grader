@@ -2,6 +2,7 @@ package gradingTools.comp110f14.assignment4testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -20,7 +21,7 @@ public class NotEnoughInfoTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		RunningProject noInfo = RunningProjectUtils.runProject(project, 10,"ba");
+		BasicRunningProject noInfo = RunningProjectUtils.runProject(project, 10,"ba");
 		String noInfoOutput=noInfo.await();
 		boolean hasMessage=false;
 		boolean askAgain=false;

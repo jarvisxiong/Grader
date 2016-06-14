@@ -2,6 +2,7 @@ package gradingTools.comp110f14.assignment5testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -25,7 +26,7 @@ public class HandlingYesNo extends BasicTestCase {
 		String partialMessage = "";
 		
 		//-------------yes stuff---------------//
-		RunningProject yes = RunningProjectUtils.runProject(project, 10, "ThatIsTheQuestion\nyes\nToBeorNotToBE\n");
+		BasicRunningProject yes = RunningProjectUtils.runProject(project, 10, "ThatIsTheQuestion\nyes\nToBeorNotToBE\n");
 		String outputyes = yes.await();
 		//break up output
 		String[] outputyesfoo = outputyes.split("\n");
@@ -44,7 +45,7 @@ public class HandlingYesNo extends BasicTestCase {
 		//---------------end yes stuff---------------//
 		
 		//---------------no stuff--------------------//
-		RunningProject no = RunningProjectUtils.runProject(project, 10, "ToBeIsTheQuestion\nyes\nfooBear\nno\n");
+		BasicRunningProject no = RunningProjectUtils.runProject(project, 10, "ToBeIsTheQuestion\nyes\nfooBear\nno\n");
 		String outputno= no.await();
 		//break up output
 		String[] outputnofoo = outputno.split("\n");

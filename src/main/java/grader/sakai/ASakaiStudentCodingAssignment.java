@@ -33,7 +33,7 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
     public void setProject(Project newVal) {
         this.project = newVal;
     }
-
+    // this needs a constructor that takes a file name instead of a FileProxy
     public ASakaiStudentCodingAssignment(String aFolderName, FileProxy aFileProxy) {
         super(aFolderName, aFileProxy);
         if (isSubmitted()) {

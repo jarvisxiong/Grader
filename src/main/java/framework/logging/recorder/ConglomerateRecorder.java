@@ -272,7 +272,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void setGrade(String aStudentName, String anOnyen, double aScore) {
         checkSession(anOnyen);
-        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore);
+        basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore); // so this is pd's recorder, and the recording session is josh's.
         recordingSession.setScore(aScore);
     }
 

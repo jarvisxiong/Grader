@@ -1,5 +1,6 @@
 package framework.project;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.InteractiveConsoleProcessRunner;
 import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
@@ -216,42 +217,42 @@ public class BasicProject implements Project {
     }
 
     @Override
-    public RunningProject launch(String input) throws NotRunnableException {
+    public BasicRunningProject launch(String input) throws NotRunnableException {
         return new ProcessRunner(this).run(input);
     }
 
     @Override
-    public RunningProject start(String input, int timeout) throws NotRunnableException {
+    public BasicRunningProject start(String input, int timeout) throws NotRunnableException {
         return new ReflectionRunner(this).run(input, timeout);
     }
 
     @Override
-    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
     }
     @Override
-    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
     }
     
     @Override
-    public RunningProject launch( String input, int timeout) throws NotRunnableException {
+    public BasicRunningProject launch( String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, timeout);
     }
     @Override
-    public RunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
+    public BasicRunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, anArgs, timeout);
     }
 
     @Override
-    public RunningProject launchInteractive() throws NotRunnableException {
+    public BasicRunningProject launchInteractive() throws NotRunnableException {
     	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
 //    	retVal.createFeatureTranscript();
     	return retVal;
 //        return new InteractiveConsoleProcessRunner(this).run("");
     }
     @Override
-    public RunningProject launchInteractive(String[] args) throws NotRunnableException {
+    public BasicRunningProject launchInteractive(String[] args) throws NotRunnableException {
     	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
 //    	retVal.createFeatureTranscript();
     	return retVal;

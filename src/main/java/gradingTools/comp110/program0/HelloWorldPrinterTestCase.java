@@ -2,6 +2,7 @@ package gradingTools.comp110.program0;
 
 import java.util.concurrent.TimeUnit;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -21,7 +22,7 @@ public class HelloWorldPrinterTestCase extends BasicTestCase {
         try {
 
             // Run the project with any input and collect the output
-            RunningProject runningProject = project.launch("", 5);
+        	BasicRunningProject runningProject = project.launch("", 5);
             String output = runningProject.await();
 
             // Now you can test the output for certain things

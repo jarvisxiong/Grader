@@ -2,6 +2,7 @@ package gradingTools.comp110s15.assignment4.testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -41,12 +42,12 @@ public class InputOther extends BasicTestCase{
 		Pattern moreThanUNCPattern = Pattern.compile(".*okay.*");
 		
 		//Project for comparison
-		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,
 				"");
 		String output0 = Project0.await().toLowerCase();
 
 		//Project for just school name
-		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project1 = RunningProjectUtils.runProject(project, 10,
 				"Brown");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
@@ -56,7 +57,7 @@ public class InputOther extends BasicTestCase{
 		}
 		
 		//Project for School and Less Wins
-		RunningProject Project2 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project2 = RunningProjectUtils.runProject(project, 10,
 				"Brown"+'\n'+otherWin2);
 		String output2 = Project2.await().toLowerCase();
 		output2 = output2.substring(output0.length() - 1);
@@ -66,7 +67,7 @@ public class InputOther extends BasicTestCase{
 			partialMessage += "-- Did not Handle Team with Less Wins Correctly ";
 		}
 		//Project for School and More wins
-		RunningProject Project3 = RunningProjectUtils.runProject(project, 10,
+		BasicRunningProject Project3 = RunningProjectUtils.runProject(project, 10,
 				"Brown"+'\n'+otherWin1);
 		String output3 = Project3.await().toLowerCase();
 		output3 = output3.substring(output0.length() - 1);

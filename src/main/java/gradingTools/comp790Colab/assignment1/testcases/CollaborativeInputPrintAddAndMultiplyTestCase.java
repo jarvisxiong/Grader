@@ -2,6 +2,7 @@ package gradingTools.comp790Colab.assignment1.testcases;
 
 import java.util.regex.Pattern;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
@@ -21,11 +22,11 @@ public class CollaborativeInputPrintAddAndMultiplyTestCase extends BasicTestCase
 			throws NotRunnableException {
 
 		// Get the output when we have integer input from the user
-		RunningProject oneInputRunningProject = CollaborativeInputPromptTestCase.runAliceBobProject(project, 5, input1);
+		BasicRunningProject oneInputRunningProject = CollaborativeInputPromptTestCase.runAliceBobProject(project, 5, input1);
 		String oneInputOutput = oneInputRunningProject.await();
 
 		// Get the output when we have double input from the user
-		RunningProject twoInputsRunningProject;
+		BasicRunningProject twoInputsRunningProject;
 		
 		String twoInputsOutput;
 		twoInputsRunningProject = CollaborativeInputPromptTestCase.runAliceBobProject(project, 5, input1,

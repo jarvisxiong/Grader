@@ -3,6 +3,7 @@ package framework.grading.testing;
 import java.util.List;
 
 import util.misc.Common;
+import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.project.Project;
@@ -83,7 +84,7 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
     }
     
    protected  OutputErrorStatus test (Project project, String anInput, String[] anExpectedStrings, boolean autoGrade) {
-    	RunningProject runner = project.launch(anInput, 1);
+	   BasicRunningProject runner = project.launch(anInput, 1);
         String output = runner.await();
         boolean validOutput = isValidOutput(output, anExpectedStrings);
         String error = runner.getErrorOutput();

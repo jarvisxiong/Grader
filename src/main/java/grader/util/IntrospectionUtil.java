@@ -359,6 +359,9 @@ public class IntrospectionUtil {
 		String[] aTags = getTags(aProxy);
 		return findUniqueClassByTag(aProject, aTags);
 	}
+	public static Class findUniqueClassByTag(Project aProject, String aTag) {
+		return findUniqueClassByTag(aProject, new String[] {aTag});
+	}
 
 	public static Class findUniqueClassByTag(Project aProject, String[] aTags) {
 		Arrays.sort(aTags);

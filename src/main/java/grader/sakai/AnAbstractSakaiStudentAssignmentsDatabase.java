@@ -50,7 +50,7 @@ public abstract class AnAbstractSakaiStudentAssignmentsDatabase<GenericAssignmen
               
                 Tracer.info(this, "Folder:" + aFolderName);
 
-                GenericAssignment studentAssignment = createAssignment(studentId, aFolderName);
+                GenericAssignment studentAssignment = createAssignment(studentId, aFolderName); // this part should be called independenly in new process
                 nameToStudentAssignment.put(studentId, studentAssignment);
             } catch (Exception e) {
                 e.printStackTrace();

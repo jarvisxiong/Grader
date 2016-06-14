@@ -1,5 +1,6 @@
 package framework.project;
 
+import framework.execution.BasicRunningProject;
 import framework.execution.RunningProject;
 import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.JavaClassFilesCompilerSelector;
@@ -130,7 +131,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
-			RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
+    	    BasicRunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");			
