@@ -48,6 +48,7 @@ public class AutoProxyCartesianPointSuite {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.exit(0); // proxy makes the main hang around?
 	}
 
 }

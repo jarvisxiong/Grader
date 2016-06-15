@@ -20,6 +20,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 /**
@@ -85,7 +86,10 @@ public class SayMoveCommandInvokedTestCase extends BasicTestCase {
 
         // Look in the code for places where it is called
         try {
-            ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(classDescription.parse());
+//            ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(classDescription.parse());
+            ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(
+            		((ParsableClassDescription) classDescription).parse()
+            		);
             List<MethodDeclaration> methods = CompilationNavigation.getMethods(classDef);
 
             for (MethodDeclaration m : methods) {

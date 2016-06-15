@@ -14,6 +14,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 /**
@@ -42,7 +43,7 @@ public class ScenePainterListenerTestCase extends BasicTestCase {
         // It should register itself as a listener at least once in the constructor
         // Get the constructor code
         try {
-            ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(classDescription.parse());
+            ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(((ParsableClassDescription) classDescription).parse());
             List<ConstructorDeclaration> constructors = CompilationNavigation.getConstructors(classDef);
 
             // Look for one assignment in any constructor

@@ -20,8 +20,8 @@ import com.github.antlrjavaparser.api.CompilationUnit;
 public class BasicClassDescription implements ClassDescription {
 
     private Class<?> javaClass;
-    private File source;
-    private CompilationUnit compilationUnit;
+    protected File source;
+//    private CompilationUnit compilationUnit;
 
     public BasicClassDescription(Class<?> javaClass, File source) {
         this.javaClass = javaClass;
@@ -74,12 +74,12 @@ public class BasicClassDescription implements ClassDescription {
         }
     }
 
-    @Override
-    public CompilationUnit parse() throws IOException {
-        if (compilationUnit == null)
-            compilationUnit = JavaParser.parse(source);
-        return compilationUnit;
-    }
+//    @Override
+//    public CompilationUnit parse() throws IOException {
+//        if (compilationUnit == null)
+//            compilationUnit = JavaParser.parse(source);
+//        return compilationUnit;
+//    }
 
     @Override
     public List<Method> getTaggedMethods(String tag) {

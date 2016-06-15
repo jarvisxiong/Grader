@@ -49,6 +49,9 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //        loadClasses(sourceFolder);
 //        checkStyle(project, sourceFolder);
     }
+    protected ClassDescription createClassDescription (Class<?> javaClass, File source) {
+    	return new AParsableClassDescription(javaClass, source);
+    }
     protected void setOtherLoaders() {
     	if (project != null) {
         	proxyClassLoader = project.getClassLoader();

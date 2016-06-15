@@ -13,6 +13,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 /**
@@ -53,7 +54,7 @@ public class PaintListenerPaintOnEventTestCase extends BasicTestCase {
         for (ClassDescription view : views) {
             // Get the constructors
             try {
-                ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(view.parse());
+                ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(((ParsableClassDescription) view).parse());
                 MethodDeclaration method = CompilationNavigation.getMethod(classDef, "propertyChange");
                 if (method == null) {
                     notes += "Paint listener view " + view.getJavaClass().getSimpleName() + " doesn't have a propertyChange method.";

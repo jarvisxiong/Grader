@@ -12,6 +12,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 /**
@@ -34,7 +35,9 @@ public class NoStringToolsTestCase extends BasicTestCase {
             for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
 
                 // The CompilationNavigation class offers methods to help navigate and work with the compilation unit
-                ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(description.parse());
+                ClassOrInterfaceDeclaration classDef = CompilationNavigation.getClassDef(
+                		((ParsableClassDescription) description).parse()
+                		);
 
                 // With antlr parse object, you can call toString at any level to convert it to Java code.
                 String code = classDef.toString();

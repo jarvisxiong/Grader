@@ -34,6 +34,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 public abstract class CodeInspectorTestCase extends BasicTestCase{//mdaum mod
@@ -331,7 +332,7 @@ public abstract class CodeInspectorTestCase extends BasicTestCase{//mdaum mod
 			try {
 
 				// Get the comment free code
-				CompilationUnit compilationUnit = description.parse();
+				CompilationUnit compilationUnit = ((ParsableClassDescription) description).parse();
 
 				for (ImportDeclaration importDecl : compilationUnit.getImports()) {
 					inspectImportDecl(importDecl);

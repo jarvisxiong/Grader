@@ -26,6 +26,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 import framework.project.Project;
 
 public class RestrictedStringOutsideComments extends BasicTestCase {
@@ -158,7 +159,7 @@ public class RestrictedStringOutsideComments extends BasicTestCase {
 			try {
 
 				// Get the comment free code
-				CompilationUnit compilationUnit = description.parse();
+				CompilationUnit compilationUnit = ((ParsableClassDescription) description).parse();
 
 				for (ImportDeclaration importDecl : compilationUnit.getImports()) {
 					if (containsRestrictedString(importDecl)) {

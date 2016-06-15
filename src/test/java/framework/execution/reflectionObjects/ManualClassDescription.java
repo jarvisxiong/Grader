@@ -8,6 +8,7 @@ import java.util.List;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
 import framework.project.ClassDescription;
+import framework.project.ParsableClassDescription;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +17,7 @@ import framework.project.ClassDescription;
  * Time: 11:55 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ManualClassDescription implements ClassDescription {
+public class ManualClassDescription implements ParsableClassDescription {
 
     private Class<?> _class;
 

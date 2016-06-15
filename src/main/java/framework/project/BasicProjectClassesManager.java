@@ -24,6 +24,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 
 
+
 //import scala.Option;
 import tools.DirectoryUtils;
 //import util.annotations.Tags;
@@ -148,6 +149,10 @@ public class BasicProjectClassesManager implements ClassesManager {
 			}
 		
     }
+    
+    protected ClassDescription createClassDescription (Class<?> javaClass, File source) {
+    	return new BasicClassDescription(javaClass, source);
+    }
 
     /**
      * This loads all the classes based on the source code files.
@@ -239,7 +244,9 @@ public class BasicProjectClassesManager implements ClassesManager {
 					c = classLoader.loadClass(className);
 				}
 				if (c != null) {
-					classDescriptions.add(new BasicClassDescription(c, file));
+//					classDescriptions.add(new BasicClassDescription(c, file));
+					classDescriptions.add(createClassDescription(c, file));
+
 				} 
 //				else if (AProject.isLoadClasses()) {
 //					c = classLoader.loadClass(className);

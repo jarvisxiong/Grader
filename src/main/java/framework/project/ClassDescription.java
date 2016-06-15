@@ -45,7 +45,7 @@ public interface ClassDescription {
     /**
      * @return The parsed code
      */
-    public CompilationUnit parse() throws IOException;
+//    public CompilationUnit parse() throws IOException;
 
     /**
      * Looks for and returns all method within the class which have been tagged with the given tag
