@@ -13,10 +13,13 @@ import grader.execution.ResultWithOutput;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -193,7 +196,8 @@ public class ExecutionUtil {
 
 		}
 	}
-	static String tmpFilePrefix = "tmpMethodOut" ;
+	static String tmpOutFilePrefix = "tmpMethodOut" ;
+	static String tmpInFileName = "tmpIn";
 //	static PrintStream previousOut = System.out;
 //	static FileOutputStream aFileStream;
 	static PrintStream teeStream;
@@ -202,11 +206,32 @@ public class ExecutionUtil {
 //	static int numRedirections = 0;
 	static Stack<File> tmpFileStack = new Stack();
 	static PrintStream previousOut = System.out;
+	static InputStream originalIn = System.in;
+	static FileInputStream newIn;
 	static Stack<PrintStream> originalOutStack = new Stack();
 	static Stack<FileOutputStream> fileOutStack = new Stack();
 	static String computeNextTmpFileName () {
-		return tmpFilePrefix + tmpFileStack.size() + ".txt";
+		return tmpOutFilePrefix + tmpFileStack.size() + ".txt";
 	}
+	public static synchronized void redirectInputOutput(String anInput) {
+		try {
+			
+//			Common.writeText(tmpInFileName, anInput);
+			try(  PrintWriter out = new PrintWriter( tmpInFileName )  ){
+			    out.println( anInput );
+			}
+			newIn = new FileInputStream(
+					tmpInFileName);
+			System.setIn(newIn);
+			redirectOutput();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 	public static synchronized void redirectOutput() {
 //		if (outputRedirected) {
 //			System.out.println ("Output already redirected, ignoring redirect call");
@@ -226,12 +251,14 @@ public class ExecutionUtil {
 			PrintStream teeStream = new TeePrintStream(aFileStream, previousOut);
 			System.setOut(teeStream);
 			previousOut = teeStream;
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
-	public static String restoreOutputAndGetRedirectedOutput() {
+	public static synchronized String restoreOutputAndGetRedirectedOutput() {
 		try {
 //			System.out.flush();
 //			originalOut.flush();
@@ -242,6 +269,14 @@ public class ExecutionUtil {
 //			ThreadSupport.sleep(2000);
 			String anOutput = Common.toText(tmpFile);
 			tmpFile.delete();
+			if (newIn != null) {
+				newIn.close();
+				File aTempInputFile = new File(tmpInFileName);
+				if (aTempInputFile.exists()) {
+					aTempInputFile.delete();
+				}
+				System.setIn(originalIn);
+			}
 			return anOutput;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

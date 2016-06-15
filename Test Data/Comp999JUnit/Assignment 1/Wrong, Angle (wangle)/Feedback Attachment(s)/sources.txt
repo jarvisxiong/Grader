@@ -1,4 +1,4 @@
-//START OF FILE: src/acartesianpoint.java
+//START OF FILE: assignment1/src/acartesianpoint.java
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
@@ -36,7 +36,27 @@ public class ACartesianPoint implements Point {
 	}
 }
 //END OF FILE
-//START OF FILE: src/point.java
+//START OF FILE: assignment1/src/main.java
+
+import java.util.Scanner;
+
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner aScanner = new Scanner (System.in);
+		String anXLine = aScanner.nextLine();
+		String aYLine = aScanner.nextLine();
+		int anX = Integer.parseInt(anXLine);
+		int aY = Integer.parseInt(aYLine);
+		Point aPoint =  new ACartesianPoint (anX, aY);
+		System.out.println (aPoint.getRadius());
+		System.out.println (aPoint.getAngle());
+//		
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment1/src/point.java
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
