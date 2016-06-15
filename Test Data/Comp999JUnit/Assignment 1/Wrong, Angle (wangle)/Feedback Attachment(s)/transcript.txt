@@ -3,8 +3,8 @@
 calling constructor: public ACartesianPoint(int,int) 10, 0
 called constructor: public ACartesianPoint(int,int) 10, 0
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@608d83ff
-Successfully Created Cartesian Point:ACartesianPoint@608d83ff with parameters, x: 10 y 0
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@41ef18bf
+Successfully Created Cartesian Point:ACartesianPoint@41ef18bf with parameters, x: 10 y 0
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:10.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -13,8 +13,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 0, 10
 called constructor: public ACartesianPoint(int,int) 0, 10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@3db2de9b
-Successfully Created Cartesian Point:ACartesianPoint@3db2de9b with parameters, x: 0 y 10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@7b06a880
+Successfully Created Cartesian Point:ACartesianPoint@7b06a880 with parameters, x: 0 y 10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:10.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -24,8 +24,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@56f070de
-Successfully Created Cartesian Point:ACartesianPoint@56f070de with parameters, x: 10 y 10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@cf648dd
+Successfully Created Cartesian Point:ACartesianPoint@cf648dd with parameters, x: 10 y 10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:14.142135623730951
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -35,8 +35,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@5c8fa07c
-Successfully Created Cartesian Point:ACartesianPoint@5c8fa07c with parameters, x: 0 y -10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@574ceed4
+Successfully Created Cartesian Point:ACartesianPoint@574ceed4 with parameters, x: 0 y -10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:10.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -47,8 +47,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@50115269
-Successfully Created Cartesian Point:ACartesianPoint@50115269 with parameters, x: 10 y 10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@6edf3e62
+Successfully Created Cartesian Point:ACartesianPoint@6edf3e62 with parameters, x: 10 y 10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:14.142135623730951
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -56,8 +56,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 5, 0
 called constructor: public ACartesianPoint(int,int) 5, 0
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@f723830
-Successfully Created Cartesian Point:ACartesianPoint@f723830 with parameters, x: 5 y 0
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@2ed7aab7
+Successfully Created Cartesian Point:ACartesianPoint@2ed7aab7 with parameters, x: 5 y 0
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:5.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -65,8 +65,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 0, 7
 called constructor: public ACartesianPoint(int,int) 0, 7
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@55aaa1ad
-Successfully Created Cartesian Point:ACartesianPoint@55aaa1ad with parameters, x: 0 y 7
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@396cbd21
+Successfully Created Cartesian Point:ACartesianPoint@396cbd21 with parameters, x: 0 y 7
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:7.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -74,8 +74,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@4e8a2856
-Successfully Created Cartesian Point:ACartesianPoint@4e8a2856 with parameters, x: 10 y 10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@7cd74cc
+Successfully Created Cartesian Point:ACartesianPoint@7cd74cc with parameters, x: 10 y 10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:14.142135623730951
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -83,8 +83,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@1f8aa999
-Successfully Created Cartesian Point:ACartesianPoint@1f8aa999 with parameters, x: 0 y -10
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@778f2b3e
+Successfully Created Cartesian Point:ACartesianPoint@778f2b3e with parameters, x: 0 y -10
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:10.0
 calling method: public double ACartesianPoint.getAngle() with args 
@@ -94,8 +94,8 @@ called method: public double ACartesianPoint.getAngle() with args: result:0.0
 calling constructor: public ACartesianPoint(int,int) 0, 0
 called constructor: public ACartesianPoint(int,int) 0, 0
 calling method: public java.lang.String java.lang.Object.toString() with args 
-called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@1a7a1e0
-Successfully Created Cartesian Point:ACartesianPoint@1a7a1e0 with parameters, x: 0 y 0
+called method: public java.lang.String java.lang.Object.toString() with args: result:ACartesianPoint@641ea56a
+Successfully Created Cartesian Point:ACartesianPoint@641ea56a with parameters, x: 0 y 0
 calling method: public double ACartesianPoint.getRadius() with args 
 called method: public double ACartesianPoint.getRadius() with args: result:0.0
 calling method: public double ACartesianPoint.getAngle() with args 
