@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -188,28 +189,43 @@ public class ExecutionUtil {
 		} catch (Exception e) {
 			return new AResultWithOutput(null, null);
 		} finally {
-			System.setOut(originalOut);
+			System.setOut(previousOut);
 
 		}
 	}
-	static String tmpFileName = "tmpMethodOut.txt" ;
-	static PrintStream originalOut = System.out;
-	static FileOutputStream aFileStream;
+	static String tmpFilePrefix = "tmpMethodOut" ;
+//	static PrintStream previousOut = System.out;
+//	static FileOutputStream aFileStream;
 	static PrintStream teeStream;
-	static File tmpFile;
-	static boolean outputRedirected;
-	public static void redirectOutput() {
-		if (outputRedirected) {
-			System.out.println ("Output already redirected, ignoring redirect call");
-			return;
-		}
+//	static File tmpFile;
+//	static boolean outputRedirected;
+//	static int numRedirections = 0;
+	static Stack<File> tmpFileStack = new Stack();
+	static PrintStream previousOut = System.out;
+	static Stack<PrintStream> originalOutStack = new Stack();
+	static Stack<FileOutputStream> fileOutStack = new Stack();
+	static String computeNextTmpFileName () {
+		return tmpFilePrefix + tmpFileStack.size() + ".txt";
+	}
+	public static synchronized void redirectOutput() {
+//		if (outputRedirected) {
+//			System.out.println ("Output already redirected, ignoring redirect call");
+//			return;
+//		}
+//		numRedirections++;
 		try {
-			outputRedirected = true;
-			aFileStream = new FileOutputStream(
-					tmpFileName);
-			tmpFile = new File(tmpFileName);
-			PrintStream teeStream = new TeePrintStream(aFileStream, originalOut);
+			String aNextTempFileName = computeNextTmpFileName();
+			FileOutputStream aFileStream = new FileOutputStream(
+					aNextTempFileName);
+			File aTmpFile = new File(aNextTempFileName);
+			fileOutStack.push(aFileStream);
+			tmpFileStack.push(aTmpFile);
+			originalOutStack.push(previousOut); // this should be System.out;
+			
+			
+			PrintStream teeStream = new TeePrintStream(aFileStream, previousOut);
 			System.setOut(teeStream);
+			previousOut = teeStream;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -217,11 +233,12 @@ public class ExecutionUtil {
 	}
 	public static String restoreOutputAndGetRedirectedOutput() {
 		try {
-			outputRedirected = false;
 //			System.out.flush();
 //			originalOut.flush();
+			FileOutputStream aFileStream = fileOutStack.pop();
 			aFileStream.flush();
 			aFileStream.close();
+			File tmpFile = tmpFileStack.pop();
 //			ThreadSupport.sleep(2000);
 			String anOutput = Common.toText(tmpFile);
 			tmpFile.delete();
@@ -230,7 +247,8 @@ public class ExecutionUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	finally {
-			System.setOut(originalOut);
+			previousOut = originalOutStack.pop();
+			System.setOut(previousOut);
 
 		}
 		return null;
