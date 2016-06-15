@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import scala.Option;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -25,12 +25,12 @@ public class StackTestCase extends BasicTestCase {
 			throws NotRunnableException {
 
 		// Get the output when we have integer input from the user
-		BasicRunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, input1);
+		RunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, input1);
 		String oneInputOutput = oneInputRunningProject.await();
 
 		// Get the output when we have double input from the user
 		// changed the timeout as a test case failed in the distriuted case
-		BasicRunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 6, input1,
+		RunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 6, input1,
 				input2);
 		String twoInputsOutput = twoInputsRunningProject.await();
 		twoInputsOutput = twoInputsOutput.substring(oneInputOutput.length());

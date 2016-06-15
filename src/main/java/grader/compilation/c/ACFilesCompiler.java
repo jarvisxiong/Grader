@@ -1,8 +1,8 @@
 package grader.compilation.c;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
+import framework.execution.RunningProject;
 import grader.compilation.ClassFilesCompiler;
 import grader.language.LanguageDependencyManager;
 import grader.settings.GraderSettingsManagerSelector;
@@ -38,7 +38,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
             }
 	}
 	
-	public BasicRunningProject compileFile(String aFileName, String workingDirectory) {
+	public RunningProject compileFile(String aFileName, String workingDirectory) {
         String windowsName = Common.toWindowsFileName(aFileName);
         int extensionIndex = aFileName.indexOf(LanguageDependencyManager.getSourceFileSuffix());
         if (extensionIndex < 1)
@@ -96,7 +96,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
     }
 
 	@Override
-	public BasicRunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
+	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles)
 			throws IOException, IllegalStateException {
 		List<String> commandList= new ArrayList(sourceFiles.size() + 1);
 		commandList.add(compilerPath);

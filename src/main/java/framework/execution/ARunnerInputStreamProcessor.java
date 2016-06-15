@@ -7,7 +7,7 @@ import java.util.concurrent.Semaphore;
 
 public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	protected OutputStream input;
-	protected BasicRunningProject runner;
+	protected RunningProject runner;
 	protected Semaphore semaphore; //not sure what we can do with this but symmetry with error and out
 	protected String processName;
 	protected Boolean onlyProcess;
@@ -16,7 +16,7 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	String inPrefix = IN_PROMPT;
 	
 	public ARunnerInputStreamProcessor(
-			OutputStream anInput, BasicRunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess
+			OutputStream anInput, RunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess
 			) {
 		input = anInput;
 		 inputWriter = new OutputStreamWriter(
@@ -61,7 +61,7 @@ public class ARunnerInputStreamProcessor implements RunnerInputStreamProcessor{
 	public OutputStream getInput() {
 		return input;
 	}
-	public BasicRunningProject getRunner() {
+	public RunningProject getRunner() {
 		return runner;
 	}
 	public Semaphore getSemaphore() {

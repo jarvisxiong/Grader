@@ -1,7 +1,7 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import grader.language.LanguageDependencyManager;
 import grader.project.AProject;
 import grader.sakai.project.SakaiProject;
@@ -100,7 +100,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
-    	    BasicRunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
+    	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");			

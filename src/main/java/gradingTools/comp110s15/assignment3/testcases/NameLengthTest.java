@@ -1,6 +1,6 @@
 package gradingTools.comp110s15.assignment3.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -20,11 +20,11 @@ public class NameLengthTest extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		String disclaimer="Note that during this test we check if the program gives a desired keyword, this insinuates we take off all points"
 				+ "if student tries to trick the grader by simply printing both keywords instead of using conditionals.";
-		BasicRunningProject proj0 = RunningProjectUtils.runProject(project, 10, "LILIES\n");
+		RunningProject proj0 = RunningProjectUtils.runProject(project, 10, "LILIES\n");
 		String out0=proj0.await();
-		BasicRunningProject proj1 = RunningProjectUtils.runProject(project,10,"LILIES\nmaxwell\n");
+		RunningProject proj1 = RunningProjectUtils.runProject(project,10,"LILIES\nmaxwell\n");
 		String out1=proj1.await();
-		BasicRunningProject proj2 = RunningProjectUtils.runProject(project,10,"LILIES\nmax\n");
+		RunningProject proj2 = RunningProjectUtils.runProject(project,10,"LILIES\nmax\n");
 		String out2 = proj2.await();
 		boolean goodshort,goodlong;
 		if(out1.substring(out0.length()-1).contains("long"))goodlong=true;

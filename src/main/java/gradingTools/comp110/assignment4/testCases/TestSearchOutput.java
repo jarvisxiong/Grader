@@ -2,7 +2,7 @@ package gradingTools.comp110.assignment4.testCases;
 
 import java.util.regex.Pattern;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
@@ -54,7 +54,7 @@ public class TestSearchOutput extends TestGerbilInputWithCommand {
 	
 	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
 		// Check for correct result of search
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\nSB2");
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\nSB2");
 		String output = runningProject.await();
 		if (!output.startsWith(prompt)) {
 			throw new NotAutomatableException();

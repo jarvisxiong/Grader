@@ -2,9 +2,9 @@ package grader.util;
 
 import framework.execution.ARunningProject;
 import framework.execution.BasicProcessRunner;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
 import framework.execution.Runner;
+import framework.execution.RunningProject;
 import framework.project.Project;
 import grader.execution.AConstructorExecutionCallable;
 import grader.execution.AMethodExecutionCallable;
@@ -466,7 +466,7 @@ public class ExecutionUtil {
 		 	String aClassPath = System.getProperty("java.class.path");
 	        String[] command = {"java",  "-cp",  aClassPath,aProxyClass.getName()};
 	        Runner processRunner = new BasicProcessRunner(new File("."));
-	       BasicRunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
+	       RunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
 	       return aRunningProject.await();
 
 		}

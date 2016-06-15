@@ -1,8 +1,8 @@
 package grader.checkStyle;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 
 public interface CheckStyleInvoker {
-	public BasicRunningProject checkStyle(String aSourceFileFlder);
+	public RunningProject checkStyle(String aSourceFileFlder);
 
 }

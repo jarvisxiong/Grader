@@ -7,8 +7,8 @@ import java.util.Map;
 import scala.Option;
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 
 /**
  * Based on {@link grader.project.Project}
@@ -24,26 +24,26 @@ public interface Project {
     /**
      * Attempts to start the project in the same process
      */
-    public BasicRunningProject start(String input) throws NotRunnableException;
+    public RunningProject start(String input) throws NotRunnableException;
 
     /**
      * Attempts to launch the project in a new process
      */
-    public BasicRunningProject launch(String input) throws NotRunnableException;
+    public RunningProject launch(String input) throws NotRunnableException;
 
     /**
      * Attempts to start the project in the same process
      */
-    public BasicRunningProject start(String input, int timeout) throws NotRunnableException;
+    public RunningProject start(String input, int timeout) throws NotRunnableException;
 
     /**
      * Attempts to launch the project in a new process
      */
-    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
-    public BasicRunningProject launch(String input, int timeout) throws NotRunnableException;
+    public RunningProject launch(String input, int timeout) throws NotRunnableException;
 
-    public BasicRunningProject launchInteractive() throws NotRunnableException;
+    public RunningProject launchInteractive() throws NotRunnableException;
 
     /**
      * @return The {@link ClassesManager} for this project. This can be used to look at the source code.
@@ -66,13 +66,13 @@ public interface Project {
      */
     public TraceableLog getTraceableLog();
 
-    BasicRunningProject launch(
+    RunningProject launch(
 			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException;
 
-	BasicRunningProject launch(String input, String[] anArgs, int timeout)
+	RunningProject launch(String input, String[] anArgs, int timeout)
 			throws NotRunnableException;
 
-	BasicRunningProject launchInteractive(String[] args) throws NotRunnableException;
+	RunningProject launchInteractive(String[] args) throws NotRunnableException;
 }

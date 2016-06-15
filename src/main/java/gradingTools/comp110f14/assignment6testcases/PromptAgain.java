@@ -2,7 +2,7 @@ package gradingTools.comp110f14.assignment6testcases;
 
 	import java.util.regex.Pattern;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -23,7 +23,7 @@ import gradingTools.utils.RunningProjectUtils;
 			//pattern searching for
 			Pattern again = Pattern.compile(".*order|print|finish.*");
 			//invoke instance of assignment five input string w/ timeout
-			BasicRunningProject againInfo = RunningProjectUtils.runProject(project, 10, "order\n5");
+			RunningProject againInfo = RunningProjectUtils.runProject(project, 10, "order\n5");
 			//grab everything after input up to point waiting for input
 			String outagainInfo= againInfo.await();
 

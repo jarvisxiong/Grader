@@ -1,7 +1,7 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
@@ -67,7 +67,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
-    	    BasicRunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
+    	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");			
@@ -130,7 +130,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
                 	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-                    BasicRunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
                     if (runningProject != null) {
                         //					String outputAndErrors = runningProject.getOutputAndErrors();
                         ((ARunningProject) runningProject).appendOutputAndErrorsToTranscriptFile(project);
@@ -192,7 +192,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
 					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
 //					recompiledFileList.add(file);
 					System.out.println("Recompiling files:" + recompiledFileList);
-					BasicRunningProject runningProject = LanguageDependencyManager
+					RunningProject runningProject = LanguageDependencyManager
 							.getSourceFilesCompiler().compile(sourceFolder,
 									buildFolder, recompiledFileList);
 					project.setCanBeCompiled(true);

@@ -1,7 +1,7 @@
 package gradingTools.comp110f14.assignment2testcases;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -22,7 +22,7 @@ public class WelcomeThankYouTest extends BasicTestCase {
 		boolean hasWelcome=false;
 		boolean hasThankYou=false;
 		try{
-			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 10,"200\n55");
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 10,"200\n55");
 			String output=runningProject.await().toLowerCase();
 			if(output.contains("welcome")||output.contains("hi")||output.contains("hello"))
 				hasWelcome=true;

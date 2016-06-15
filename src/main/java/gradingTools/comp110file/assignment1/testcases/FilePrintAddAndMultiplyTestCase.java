@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -24,7 +24,7 @@ public class FilePrintAddAndMultiplyTestCase extends BasicTestCase {
 			throws NotRunnableException {
 
 		// Get the output when we have integer input from the user
-		BasicRunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, input1);
+		RunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, input1);
 		String oneInputOutput = oneInputRunningProject.await();
 		SakaiProject sakaiProject = ((ProjectWrapper) project).getProject();
 		String projectFolderName = sakaiProject.getBinaryProjectFolderName();
@@ -32,7 +32,7 @@ public class FilePrintAddAndMultiplyTestCase extends BasicTestCase {
 
 		// Get the output when we have double input from the user
 		// chnaged the timeout as a test case failed in the distriuted case
-		BasicRunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 6, input1,
+		RunningProject twoInputsRunningProject = RunningProjectUtils.runProject(project, 6, input1,
 				input2);
 		String twoInputsOutput = twoInputsRunningProject.await();
 			

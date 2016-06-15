@@ -6,7 +6,7 @@ public class ABasicRunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamPr
 //	protected Scanner scanner ;
 //	protected InputStream out;
 //	protected RunningProject runner;
-	public ABasicRunnerOutputStreamProcessor(InputStream aProcessErrorOut, BasicRunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
+	public ABasicRunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		super(aProcessErrorOut, aRunner, /*aSemaphore,*/ aProcessName, anOnlyProcess);
 		
 	}

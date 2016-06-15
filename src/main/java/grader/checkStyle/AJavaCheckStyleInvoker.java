@@ -3,9 +3,9 @@ package grader.checkStyle;
 import java.io.File;
 import java.io.IOException;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
+import framework.execution.RunningProject;
 import grader.sakai.project.ASakaiProjectDatabase;
 
 public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
@@ -16,7 +16,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	
 
 	
-	public BasicRunningProject checkStyle(String aSourceFileFlder) {
+	public RunningProject checkStyle(String aSourceFileFlder) {
 		String aConfigurationFileName = ASakaiProjectDatabase.getCurrentSakaiProjectDatabase().getAssignmentDataFolder().getCheckStyleConfigurationFileName();
 
 			String windowsName = aSourceFileFlder;
@@ -25,7 +25,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 
         String[] args = {};
         Runner processRunner = new ProcessRunner(new File("."));
-        BasicRunningProject aReturnValue = processRunner.run(null, command, "", args, 2000);
+        RunningProject aReturnValue = processRunner.run(null, command, "", args, 2000);
         return aReturnValue;
 
 
@@ -44,7 +44,7 @@ public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 			System.err.println("No file");
 			
 		} else {
-			BasicRunningProject aProject;
+			RunningProject aProject;
 			try {
 				aProject = checkStyleInvoker.checkStyle (aFile.getCanonicalPath());
 			

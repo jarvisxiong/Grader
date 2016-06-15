@@ -1,6 +1,6 @@
 package gradingTools.comp110s15.assignment3.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -21,7 +21,7 @@ public class NotCarry extends BasicTestCase {
 		
 		String flowerType = "tulips";
 		
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project,
+		RunningProject runningProject = RunningProjectUtils.runProject(project,
 				10, ""+ flowerType+ '\n');
 		
 		String flowerOutput=runningProject.await();

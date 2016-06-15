@@ -1,7 +1,7 @@
 package gradingTools.comp110.assignment2.testcases;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
@@ -22,7 +22,7 @@ public class PalindromeIgnoreCaseTestCase extends PalindromeTestCase {
 
 			String casedPalindrome = "A!bB!a";
 
-			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1);
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 1);
 			String prompt = runningProject.await();
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);

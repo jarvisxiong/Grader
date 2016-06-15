@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import util.tags.DistributedTags;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,7 +19,7 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
     protected boolean client1HasInitialDoublePrompt ;
     protected boolean client2HasInitialIntPrompt ;
     protected StringBuffer client1NoInputOutput, client2NoInputOutput;
-    protected BasicRunningProject noInputRunningProject;
+    protected RunningProject noInputRunningProject;
     protected String noInputPrompt;
 	
 	public CollaborativeInputPromptTestCase() {
@@ -42,7 +42,7 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
 			return fail("Program does not contain prompt for double");
 	}
 	
-	public static BasicRunningProject runAliceBobProject(Project project, int timeout, Integer anInteger, Double aDouble) {
+	public static RunningProject runAliceBobProject(Project project, int timeout, Integer anInteger, Double aDouble) {
 		Map<String, String> processToInput = new HashMap();
 		if (anInteger != null)
 			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(anInteger.toString()));
@@ -51,15 +51,15 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
 		return RunningProjectUtils.runProject(project, timeout, processToInput);
 		
 	}
-	public static BasicRunningProject runAliceBobProject(Project project, int timeout,  Double aDouble) {
+	public static RunningProject runAliceBobProject(Project project, int timeout,  Double aDouble) {
 		return runAliceBobProject(project, timeout, null, aDouble);
 		
 	}
-	public static BasicRunningProject runAliceBobProject(Project project, int timeout,  Integer anInteger) {
+	public static RunningProject runAliceBobProject(Project project, int timeout,  Integer anInteger) {
 		return runAliceBobProject(project, timeout, anInteger, null);
 		
 	}
-	public static BasicRunningProject runAliceBobProject(Project project, int timeout) {
+	public static RunningProject runAliceBobProject(Project project, int timeout) {
 		return runAliceBobProject(project, timeout, null, null);
 		
 	}

@@ -1,6 +1,6 @@
 package gradingTools.comp110f14.assignment4testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -18,15 +18,15 @@ public class EyeColorTest extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		BasicRunningProject nocolor = RunningProjectUtils.runProject(project, 10, "baaBaab");
+		RunningProject nocolor = RunningProjectUtils.runProject(project, 10, "baaBaab");
 		String outputnocolor = nocolor.await();
-		BasicRunningProject blue = RunningProjectUtils.runProject(project, 10, "werbbaj");
+		RunningProject blue = RunningProjectUtils.runProject(project, 10, "werbbaj");
 		String outputblue = blue.await();
-		BasicRunningProject brown1 = RunningProjectUtils.runProject(project, 10, "abBaf");
+		RunningProject brown1 = RunningProjectUtils.runProject(project, 10, "abBaf");
 		String outputbrown1 = brown1.await();
-		BasicRunningProject brown2 = RunningProjectUtils.runProject(project, 10, "aaffBbaow");
+		RunningProject brown2 = RunningProjectUtils.runProject(project, 10, "aaffBbaow");
 		String outputbrown2 = brown2.await();
-		BasicRunningProject brown3 = RunningProjectUtils.runProject(project, 10, "aBBwf");
+		RunningProject brown3 = RunningProjectUtils.runProject(project, 10, "aBBwf");
 		String outputbrown3 = brown3.await();
 		boolean[] goo = new boolean[5];
 		int numright=0;

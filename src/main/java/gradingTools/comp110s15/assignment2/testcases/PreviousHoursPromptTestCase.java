@@ -2,7 +2,7 @@
  * 
  */
 package gradingTools.comp110s15.assignment2.testcases;
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -25,7 +25,7 @@ public class PreviousHoursPromptTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
 		String output0=Project0.await().toLowerCase();
 		boolean hasPrevHoursPrompt=false;
 		if(output0.contains("until")||output0.contains("semester")) {

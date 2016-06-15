@@ -1,7 +1,7 @@
 package gradingTools.comp110.program0;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,7 +19,7 @@ public class HelloWorldPrinterTestCase extends BasicTestCase {
         try {
 
             // Run the project with any input and collect the output
-        	BasicRunningProject runningProject = project.launch("", 5);
+        	RunningProject runningProject = project.launch("", 5);
             String output = runningProject.await();
 
             // Now you can test the output for certain things

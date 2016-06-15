@@ -1,6 +1,6 @@
 package gradingTools.comp110s15.assignment3.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -21,7 +21,7 @@ public class RoseOutputPromptTest extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,"roses\n3\n");
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"roses\n3\n");
 		String output0=Project0.await().toLowerCase();
 		boolean hasRoseOutPrompt=true;
 		if(!output0.contains("dozen") ){

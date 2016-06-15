@@ -1,6 +1,6 @@
 package gradingTools.comp110f14.assignment4testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -15,7 +15,7 @@ public class promptCase extends BasicTestCase {
 	}
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
 		String prompt=Project0.await().toLowerCase();
 		boolean hasPrompt=false;
 		if(prompt.contains("gene"))hasPrompt=true;

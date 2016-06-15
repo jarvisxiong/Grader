@@ -781,7 +781,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 //
 //	}
 	
-	protected BasicRunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
+	protected RunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
 		return new ARunningProject(aProject, anOutputBasedInputGenerator, anInput);
 	}
 	
@@ -822,13 +822,13 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	protected String[] maybeToExecutorCommand(String[] aCommand) {
 		return ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);
 	}
-	protected  RunnerErrorOrOutStreamProcessor createRunnerOutputStreamProcessor(InputStream aProcessErrorOut, BasicRunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
+	protected  RunnerErrorOrOutStreamProcessor createRunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 	  return new ARunnerOutputStreamProcessor(
 			 aProcessErrorOut, aRunner, /*outputSemaphore,*/
 			aProcessName, anOnlyProcess);
 	}
 	protected RunnerErrorOrOutStreamProcessor createRunnerErrorStreamProcessor (InputStream aProcessErrorOut, 
-			BasicRunningProject aRunner, 
+			RunningProject aRunner, 
 			/*Semaphore aSemaphore, */
 			String aProcessName,
 			Boolean anOnlyProcess) {
@@ -837,7 +837,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 			aProcessName, anOnlyProcess);
 	}
 	protected RunnerInputStreamProcessor createRunnerInputStreamProcessor(OutputStream anInput, 
-			BasicRunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
+			RunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
 		return new ARunnerInputStreamProcessor(anInput, aRunner, aProcessName,  anOnlyProcess);
 	}
 	

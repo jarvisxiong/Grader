@@ -7,13 +7,13 @@ import java.util.concurrent.Semaphore;
 public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrOutStreamProcessor {
 	protected Scanner scanner ;
 	protected InputStream errorOrOut;
-	protected BasicRunningProject runner;
+	protected RunningProject runner;
 	protected Semaphore semaphore;
 	protected String processName;
 	protected Boolean onlyProcess;
 	protected String outPrefix = "";
 
-	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, BasicRunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
+	public ARunnerErrorOrOutStreamProcessor(InputStream aProcessErrorOrOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		// Print error output to the console
 		errorOrOut = aProcessErrorOrOut;
 		scanner = new Scanner(errorOrOut);
@@ -56,7 +56,7 @@ public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrO
 		}
 
 
-		public BasicRunningProject getRunner() {
+		public RunningProject getRunner() {
 			return runner;
 		}
 

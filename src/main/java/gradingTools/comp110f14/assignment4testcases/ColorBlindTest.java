@@ -1,6 +1,6 @@
 package gradingTools.comp110f14.assignment4testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,15 +19,15 @@ public class ColorBlindTest extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		BasicRunningProject noinfo = RunningProjectUtils.runProject(project, 10, "iwjefoiwejfoweijfBB");
+		RunningProject noinfo = RunningProjectUtils.runProject(project, 10, "iwjefoiwejfoweijfBB");
 		String outputnoInfo=noinfo.await();
-		BasicRunningProject blindA = RunningProjectUtils.runProject(project, 10, "bwfeijBbiojefcww");
+		RunningProject blindA = RunningProjectUtils.runProject(project, 10, "bwfeijBbiojefcww");
 		String outputblindA=blindA.await();
-		BasicRunningProject blindB = RunningProjectUtils.runProject(project, 10, "woejcbbwefjoij");
+		RunningProject blindB = RunningProjectUtils.runProject(project, 10, "woejcbbwefjoij");
 		String outputblindB=blindB.await();
-		BasicRunningProject fineA = RunningProjectUtils.runProject(project, 10, "wefiojbBowjC");
+		RunningProject fineA = RunningProjectUtils.runProject(project, 10, "wefiojbBowjC");
 		String outputfineA=fineA.await();
-		BasicRunningProject fineB = RunningProjectUtils.runProject(project, 10, "wefoiioCBB");
+		RunningProject fineB = RunningProjectUtils.runProject(project, 10, "wefoiioCBB");
 		String outputfineB=fineB.await();
 		int numright=5;
 		String partialMessage="";

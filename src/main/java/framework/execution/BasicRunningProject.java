@@ -23,7 +23,7 @@ import framework.project.Project;
  * execution. This provides support for synchronization via semaphores and
  * output manipulation.
  */
-public class BasicRunningProject implements ProcessInputListener {
+public class BasicRunningProject implements ProcessInputListener, RunningProject {
 
     private Semaphore runningState = new Semaphore(1);
 //	protected Map<String, String> processToInput = new HashMap();
@@ -149,15 +149,18 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void start() throws InterruptedException {
+    @Override
+	public void start() throws InterruptedException {
         runningState.acquire();
     }
 
-    public void end() {
+    @Override
+	public void end() {
         runningState.release();
     }
 
-    public void appendCumulativeOutput(String newVal) {
+    @Override
+	public void appendCumulativeOutput(String newVal) {
         if (this.output == null && newVal != null) {
             this.output = "";
         }
@@ -170,11 +173,13 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public Map<String, StringBuffer> getProcessOutput() {
+    @Override
+	public Map<String, StringBuffer> getProcessOutput() {
         return processToOutput;
     }
 
-    public void appendProcessOutput(String aProcess, String newVal) {
+    @Override
+	public void appendProcessOutput(String aProcess, String newVal) {
 //		if (aProcess == null) { // it will never be null
 //			return;
 //		}
@@ -210,7 +215,8 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void appendErrorOutput(String aProcess, String newVal) {
+    @Override
+	public void appendErrorOutput(String aProcess, String newVal) {
         String processErrors = processToErrors.get(aProcess);
         if (processErrors == null && newVal != null) {
             processErrors = "";
@@ -221,7 +227,8 @@ public class BasicRunningProject implements ProcessInputListener {
         appendErrorAndOutput(aProcess, newVal);
     }
 
-    public void appendErrorAndOutput(String aProcess, String newVal) {
+    @Override
+	public void appendErrorAndOutput(String aProcess, String newVal) {
         String processOutputAndErrors = processToOutputAndErrors.get(aProcess);
         processOutputAndErrors += newVal;
 
@@ -229,19 +236,23 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void setOutput(String output) {
+    @Override
+	public void setOutput(String output) {
         this.output = output;
     }
 
-    public String getOutput() {
+    @Override
+	public String getOutput() {
         return output;
     }
 
-    public String getOutputAndErrors() {
+    @Override
+	public String getOutputAndErrors() {
         return outputAndErrors;
     }
 
-    public void appendErrorOutput(String anErrorOutput) {
+    @Override
+	public void appendErrorOutput(String anErrorOutput) {
         if (this.errorOutput == null && anErrorOutput != null) {
             this.errorOutput = "";
         }
@@ -250,21 +261,21 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void setErrorOutput(String errorOutput) {
+    @Override
+	public void setErrorOutput(String errorOutput) {
         this.errorOutput = errorOutput;
     }
 
-    public String getErrorOutput() {
+    @Override
+	public String getErrorOutput() {
         return errorOutput;
     }
 
-    public void error() {
+    @Override
+	public void error() {
         this.exception = new NotRunnableException();
         exception.announce();
     }
-
-    public static final String FEATURE_HEADER_PREFIX = "*****************************(";
-    public static final String FEATURE_HEADER_SUFFIX = ")*****************************";
 
     public static String featureHeader(String aFeatureName) {
         return FEATURE_HEADER_PREFIX + aFeatureName + FEATURE_HEADER_SUFFIX;
@@ -345,7 +356,8 @@ public class BasicRunningProject implements ProcessInputListener {
 
 //    }
 
-   public void appendCumulativeOutput() {
+   @Override
+public void appendCumulativeOutput() {
 //        if (projectOutput == null) {
 //            return;
 //        }
@@ -403,7 +415,8 @@ public class BasicRunningProject implements ProcessInputListener {
 //         }
     }
 
-    public String await() throws NotRunnableException {
+    @Override
+	public String await() throws NotRunnableException {
         if (exception != null) {
             throw exception;
         }
@@ -441,7 +454,8 @@ public class BasicRunningProject implements ProcessInputListener {
 //        }
     }
 
-    @Override
+    
+	@Override
     public void newInputLine(String aProcessName, String anInput) {
     	System.out.println("New input " + anInput + "for " + aProcessName );
     	if (aProcessName != null)
@@ -473,7 +487,8 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void terminateTeam() {
+    @Override
+	public void terminateTeam() {
         Set<String> aProcesses = nameToProcess.keySet();
         for (String aProcess : aProcesses) {
             terminateProcess(aProcess);
@@ -537,7 +552,7 @@ public class BasicRunningProject implements ProcessInputListener {
 //		}
     }
 
-    @Override
+	@Override
     public void inputTerminated(String aProcessName) {
 //		System.out.println("Terminating input");
         terminateProcess(aProcessName);
@@ -545,7 +560,8 @@ public class BasicRunningProject implements ProcessInputListener {
 
     }
 
-    public void terminateProcess(String aProcess) {
+    @Override
+	public void terminateProcess(String aProcess) {
         System.out.println("Terminating:" + aProcess);
 //
         try {
@@ -564,44 +580,52 @@ public class BasicRunningProject implements ProcessInputListener {
         timedProcess.getProcess().destroy();
     }
 
-    public RunnerInputStreamProcessor getProcessIn(String aProcessName) {
+    @Override
+	public RunnerInputStreamProcessor getProcessIn(String aProcessName) {
         return processToIn.get(aProcessName);
     }
 
     // the mapping could be passed to this object rather than the individual processIn's
 
-    public void setProcessIn(String aProcess, RunnerInputStreamProcessor processIn) {
+    @Override
+	public void setProcessIn(String aProcess, RunnerInputStreamProcessor processIn) {
 //		this.processIn = processIn;
         processToIn.put(aProcess, processIn);
     }
 
-    public RunnerErrorOrOutStreamProcessor getProcessOut(String aProcessName) {
+    @Override
+	public RunnerErrorOrOutStreamProcessor getProcessOut(String aProcessName) {
         return processToOut.get(aProcessName);
     }
 
     // the mapping could be passed to this object rather than the individual processIn's
 
-    public void setProcessOut(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
+    @Override
+	public void setProcessOut(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
 //		this.processIn = processIn;
         processToOut.put(aProcess, newVal);
     }
 
-    public RunnerErrorOrOutStreamProcessor getProcessErr(String aProcessName) {
+    @Override
+	public RunnerErrorOrOutStreamProcessor getProcessErr(String aProcessName) {
         return processToErr.get(aProcessName);
     }
 
     // the mapping could be passed to this object rather than the individual processIn's
 
-    public void setProcessErr(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
+    @Override
+	public void setProcessErr(String aProcess, RunnerErrorOrOutStreamProcessor newVal) {
 //		this.processIn = processIn;
         processToErr.put(aProcess, newVal);
     }
 
-    public TimedProcess getProcess(String aProcessName) {
+    @Override
+	public TimedProcess getProcess(String aProcessName) {
         return nameToProcess.get(aProcessName);
     }
 
-    public void setProcess(String aProcessName, TimedProcess aTimedProcess) {
+    @Override
+	public void setProcess(String aProcessName, TimedProcess aTimedProcess) {
 //		this.processIn = processIn;
         nameToProcess.put(aProcessName, aTimedProcess);
     }
@@ -609,23 +633,28 @@ public class BasicRunningProject implements ProcessInputListener {
 //    public SakaiProject getProject() {
 //        return project;
 //    }
-    public boolean isDestroyed() {
+    @Override
+	public boolean isDestroyed() {
 		return destroyed;
 	}
 
+	@Override
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
 	
+	@Override
 	public void addDependentThread(Thread aThread) {
 		dependentThreads.add(aThread);
 	}
 	
+	@Override
 	public void addDependentCloseable(Closeable aCloseable) {
 		dependentCloseables.add(aCloseable);
 	}
 
-    public void destroy() {
+    @Override
+	public void destroy() {
     	setDestroyed(true);
     	currentProcess.destroy();
     	for (Thread dependentThread:dependentThreads) {
@@ -641,10 +670,12 @@ public class BasicRunningProject implements ProcessInputListener {
     	}
     	end();
     }
-    public TimedProcess getCurrentTimedProcess() {
+    @Override
+	public TimedProcess getCurrentTimedProcess() {
 		return currentProcess;
 	}
 
+	@Override
 	public void setCurrentTimeProcess(TimedProcess currentProcess) {
 		this.currentProcess = currentProcess;
 	}

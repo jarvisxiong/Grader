@@ -1,6 +1,6 @@
 package gradingTools.comp110s15.assignment7.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,10 +19,10 @@ public class NegBalance extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
 				"max\nwithdraw\nchecking\n5\n");
 		String output0 = Project0.await().toLowerCase();
-		BasicRunningProject Project1 = RunningProjectUtils.runProject(project, 10,
+		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
 				"max\nwithdraw\nchecking\n5\nprint\n");
 		String output1 = Project1.await().toLowerCase().substring(output0.length()-1);
 		if(output1.contains("-25"))return pass();

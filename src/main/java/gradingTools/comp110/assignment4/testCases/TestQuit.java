@@ -1,6 +1,6 @@
 package gradingTools.comp110.assignment4.testCases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
@@ -21,7 +21,7 @@ public class TestQuit extends TestGerbilInputWithCommand {
 	}
 	
 	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
 		runningProject.await();
 		String output = runningProject.getErrorOutput();
 		return checkOutputString(output);

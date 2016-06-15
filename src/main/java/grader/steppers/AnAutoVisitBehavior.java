@@ -1,6 +1,6 @@
 package grader.steppers;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
@@ -458,7 +458,7 @@ public class AnAutoVisitBehavior implements
         }
 
     }
-    BasicRunningProject runningProject;
+    RunningProject runningProject;
 	
 	public static String[] computeArgs(String subjectString) {
 		List<String> matchList = new ArrayList<String>();

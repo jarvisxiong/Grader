@@ -1,6 +1,6 @@
 package gradingTools.comp110.assignment4.testCases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -36,7 +36,7 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 	protected abstract TestCaseResult checkOutputString(String result);
 
 	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + command);
 		String output = runningProject.await();
 		if (!output.startsWith(prompt)) {
 			throw new NotAutomatableException();
@@ -50,7 +50,7 @@ public abstract class TestGerbilInputWithCommand extends BasicTestCase{
 			NotGradableException {
 		
 		String setupInput = getSetupInput();
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, setupInput);
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, setupInput);
 		String prompt = runningProject.await();
 		if (prompt.endsWith("\n")) {
 			prompt = prompt.substring(0, prompt.length() - 1);

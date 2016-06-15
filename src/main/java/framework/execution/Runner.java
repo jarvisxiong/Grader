@@ -9,25 +9,25 @@ import util.pipe.InputGenerator;
 public interface Runner {
 	
 
-    public BasicRunningProject run(String input) throws NotRunnableException;
+    public RunningProject run(String input) throws NotRunnableException;
 
-    public BasicRunningProject run(String input, int timeout) throws NotRunnableException;
+    public RunningProject run(String input, int timeout) throws NotRunnableException;
     
-    public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
+    public RunningProject run(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException;
 
 
-    public BasicRunningProject run(String input, String[] args, int timeout) throws NotRunnableException;
+    public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException;
 
-    BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+    RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException;
 
-    BasicRunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+    RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException;
 
-	TimedProcess run(BasicRunningProject aRunner, InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	TimedProcess run(RunningProject aRunner, InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout, String aProcess, boolean wait) throws NotRunnableException;
 
-	BasicRunningProject run(InputGenerator aDynamicInputProvider,
+	RunningProject run(InputGenerator aDynamicInputProvider,
 			String input,
 			String[] args, int timeout) throws NotRunnableException;
 

@@ -2,8 +2,8 @@ package gradingTools.comp110.assignment3.testCases;
 
 import java.util.regex.Pattern;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -42,7 +42,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 			NotGradableException {
 
 		try {
-			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
 			String prompt = runningProject.await();
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);

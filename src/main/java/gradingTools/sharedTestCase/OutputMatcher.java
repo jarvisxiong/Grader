@@ -1,7 +1,7 @@
 package gradingTools.sharedTestCase;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.project.Project;
@@ -29,7 +29,7 @@ public abstract class OutputMatcher extends BasicTestCase {
 			String[] requiredParts, String[] missingParts) throws NotRunnableException,
 			NotAutomatableException {
 
-		BasicRunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
+		RunningProject runningProjectWithInput = RunningProjectUtils.runProject(project, 1, input);
 		String output = runningProjectWithInput.await();
 
 		if (!output.startsWith(prompt)) {

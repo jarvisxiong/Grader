@@ -1,6 +1,6 @@
 package gradingTools.comp110.assignment4.testCases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
@@ -19,7 +19,7 @@ public class TestRestart extends TestGerbilInputWithCommand {
 
 	protected TestCaseResult checkOutput(String prompt, String command, Project project) {
 		// Check for correct result of search
-		BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + super.getSetupInput());
+		RunningProject runningProject = RunningProjectUtils.runProject(project, 1, getSetupInput() + "\n" + super.getSetupInput());
 		String output = runningProject.await();
 		String errorOutput = runningProject.getErrorOutput();
 		if (errorOutput.length() == 0

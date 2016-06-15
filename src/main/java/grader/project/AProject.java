@@ -1,6 +1,6 @@
 package grader.project;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
@@ -85,7 +85,7 @@ public class AProject implements Project {
     StringBuffer currentInput = new StringBuffer();
     
     TestCase currentTestCase;
-    BasicRunningProject currentRunningProject;
+    RunningProject currentRunningProject;
 
 
 
@@ -732,12 +732,12 @@ public class AProject implements Project {
 			this.entryPoints = entryPoints;
 		}
 		@Override
-		public BasicRunningProject getCurrentRunningProject() {
+		public RunningProject getCurrentRunningProject() {
 			return currentRunningProject;
 		}
 		@Override
 
-		public void setCurrentRunningProject(BasicRunningProject currentRunningProject) {
+		public void setCurrentRunningProject(RunningProject currentRunningProject) {
 			this.currentRunningProject = currentRunningProject;
 		}
 		  @Override

@@ -7,7 +7,7 @@ public class ARunnerErrorStreamProcessor extends ARunnerErrorOrOutStreamProcesso
 //	protected InputStream out;
 //	protected RunningProject runner;
 	public ARunnerErrorStreamProcessor(InputStream aProcessErrorOut, 
-			BasicRunningProject aRunner, 
+			RunningProject aRunner, 
 			/*Semaphore aSemaphore, */
 			String aProcessName,
 			Boolean anOnlyProcess) {

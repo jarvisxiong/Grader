@@ -1,6 +1,6 @@
 package gradingTools.comp110s15.assignment6.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,17 +19,17 @@ public class PrintCheck extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,
 				"");
 		String output0 = Project0.await().toLowerCase();
 
-		BasicRunningProject Project1 = RunningProjectUtils.runProject(project, 10,
+		RunningProject Project1 = RunningProjectUtils.runProject(project, 10,
 				"deposit\n145\nyes\nwithdraw\n25\nno\n");
 		String output1 = Project1.await().toLowerCase();
 		output1 = output1.substring(output0.length() - 1);
 
 		
-		BasicRunningProject Project4 = RunningProjectUtils
+		RunningProject Project4 = RunningProjectUtils
 				.runProject(project, 10,
 						"deposit\n150\nyes\nwithdraw\n25\nyes\nwithdraw\n60\nyes\nprint\nno\n");
 		String output4 = Project4.await().toLowerCase();

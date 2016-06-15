@@ -1,7 +1,7 @@
 package gradingTools.example.testCases;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -19,7 +19,7 @@ public class ForwardPrinterTestCase extends BasicTestCase {
         try {
 
             // This is how you can run a project with any input and collect the output
-        	BasicRunningProject runningProject = project.launch("Hello world\n");
+        	RunningProject runningProject = project.launch("Hello world\n");
             String output = runningProject.await();
 
             // Now you can test the output for certain things

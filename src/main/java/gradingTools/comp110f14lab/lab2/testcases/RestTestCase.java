@@ -2,7 +2,7 @@ package gradingTools.comp110f14lab.lab2.testcases;
 
 import java.util.regex.Pattern;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -25,7 +25,7 @@ public class RestTestCase extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		// TODO Auto-generated method stub
-		BasicRunningProject goo=RunningProjectUtils.runProject(project, 3,"");
+		RunningProject goo=RunningProjectUtils.runProject(project, 3,"");
 		String output=goo.await();
 		boolean concat=false;
 		boolean len=false;

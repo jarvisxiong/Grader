@@ -2,7 +2,7 @@ package gradingTools.comp110f14.assignment4testcases;
 
 import java.util.regex.Pattern;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -20,7 +20,7 @@ public class HandlingAskingAgain extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		BasicRunningProject promptcap= RunningProjectUtils.runProject(project, 10, "");
+		RunningProject promptcap= RunningProjectUtils.runProject(project, 10, "");
 		String outputpromptcap = promptcap.await();
 		String[] goo = outputpromptcap.split("\n");
 		String prompt="";
@@ -33,7 +33,7 @@ public class HandlingAskingAgain extends BasicTestCase {
 		}//have prompting
 		int numwrong=0;
 		String partialMessage = "";
-		BasicRunningProject yes = RunningProjectUtils.runProject(project, 10, "BBC\nyes\n");
+		RunningProject yes = RunningProjectUtils.runProject(project, 10, "BBC\nyes\n");
 		String outputyes = yes.await();
 		String[] outputyesgoo = outputyes.split("\n");
 		int numencounters=0;
@@ -45,7 +45,7 @@ public class HandlingAskingAgain extends BasicTestCase {
 			numwrong++;
 			partialMessage+="Did not ask again for input upon user confirming wish to enter another gene sequence.";
 		}
-		BasicRunningProject no = RunningProjectUtils.runProject(project, 10, "BBC\nno\n");
+		RunningProject no = RunningProjectUtils.runProject(project, 10, "BBC\nno\n");
 		String outputno= no.await();
 		String[] outputnogoo = outputno.split("\n");
 		int noencounters=0;
@@ -56,7 +56,7 @@ public class HandlingAskingAgain extends BasicTestCase {
 			numwrong++;
 			partialMessage+="Asked for another gene sequence despite user entering no\n";
 		}
-		BasicRunningProject other = RunningProjectUtils.runProject(project, 10, "BBC\nother\n");
+		RunningProject other = RunningProjectUtils.runProject(project, 10, "BBC\nother\n");
 		String otheroutput = other.await();
 		if(!otheroutput.toLowerCase().contains("error")){
 			numwrong++;

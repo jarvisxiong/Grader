@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 public interface RunnerStreamProcessor {
 	
 
-	public BasicRunningProject getRunner() ;
+	public RunningProject getRunner() ;
 
 
 	public Semaphore getSemaphore() ;

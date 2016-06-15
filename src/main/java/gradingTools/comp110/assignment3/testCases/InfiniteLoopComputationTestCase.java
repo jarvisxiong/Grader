@@ -1,7 +1,7 @@
 package gradingTools.comp110.assignment3.testCases;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -30,14 +30,14 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 			NotGradableException {
 
 		try {
-			BasicRunningProject runningProject = RunningProjectUtils.runProject(project, 1, input1,
+			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input1,
 					choice1);
 			String output1 = runningProject.await();
 			if (output1.endsWith("\n")) {
 				output1 = output1.substring(0, output1.length() - 1);
 			}
 
-			BasicRunningProject runningProject2 = RunningProjectUtils.runProject(project, 2, input1,
+			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 2, input1,
 					choice1, input2, choice2);
 			String output2 = runningProject2.await();
 			if (output2.startsWith(output1)) {

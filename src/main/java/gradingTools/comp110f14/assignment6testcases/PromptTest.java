@@ -1,6 +1,6 @@
 package gradingTools.comp110f14.assignment6testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -21,7 +21,7 @@ public class PromptTest extends BasicTestCase {
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
 		//invoke instance of code and time out
-		BasicRunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
+		RunningProject Project0 = RunningProjectUtils.runProject(project, 10,"");
 		//grabs user prompt String and sets it to lower case so ignores case
 		String prompt=Project0.await().toLowerCase();
 		//initialize boolean

@@ -1,11 +1,11 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.execution.BasicRunningProject;
 import framework.execution.InteractiveConsoleProcessRunner;
 import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
+import framework.execution.RunningProject;
 import grader.project.AProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
@@ -199,30 +199,30 @@ public class OriginalStandardProject implements Project {
     }
 
     @Override
-    public BasicRunningProject launch(String input) throws NotRunnableException {
+    public RunningProject launch(String input) throws NotRunnableException {
         return new ProcessRunner(this).run(input);
     }
 
     @Override
-    public BasicRunningProject start(String input, int timeout) throws NotRunnableException {
+    public RunningProject start(String input, int timeout) throws NotRunnableException {
         return new ReflectionRunner(this).run(input, timeout);
     }
 
     @Override
-    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
     }
     @Override
-    public BasicRunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
     }
     
     @Override
-    public BasicRunningProject launch( String input, int timeout) throws NotRunnableException {
+    public RunningProject launch( String input, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, timeout);
     }
     @Override
-    public BasicRunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
+    public RunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
         return new ProcessRunner(this).run(input, anArgs, timeout);
     }
 

@@ -1,6 +1,6 @@
 package gradingTools.comp110f14lab.lab5.testcases;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -18,7 +18,7 @@ public class AvgPrintout extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		BasicRunningProject goo = RunningProjectUtils.runProject(project, 10, "10");
+		RunningProject goo = RunningProjectUtils.runProject(project, 10, "10");
 		String output=goo.await();
 		if(output.contains("4.5"))return pass();
 		return fail("did not correctly compute average");

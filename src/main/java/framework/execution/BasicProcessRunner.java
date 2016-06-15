@@ -61,7 +61,7 @@ public class BasicProcessRunner implements Runner {
 	protected Map<String, String> processToInput;
 	protected String processTeam;
 	protected List<String> processes;
-	protected BasicRunningProject runner;
+	protected RunningProject runner;
 	protected List<String> processesWithStartTags;
 	protected void initializeExecutionState() {
 //		executionSpecification = ExecutionSpecificationSelector
@@ -168,7 +168,7 @@ public class BasicProcessRunner implements Runner {
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public BasicRunningProject run(String input) throws NotRunnableException {
+	public RunningProject run(String input) throws NotRunnableException {
 		return run(input, -1);
 	}
 
@@ -184,22 +184,22 @@ public class BasicProcessRunner implements Runner {
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public BasicRunningProject run(String input, int timeout)
+	public RunningProject run(String input, int timeout)
 			throws NotRunnableException {
 		return run(input, new String[] {}, timeout);
 	}
 	
 	@Override
-	public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, String input, int timeout)
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String input, int timeout)
 			throws NotRunnableException {
 		return run(anOutputBasedInputGenerator, input, new String[] {}, timeout);
 	}
 	
-	public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, Map<String, String> processToInput, int timeout)
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, Map<String, String> processToInput, int timeout)
 			throws NotRunnableException {
 		return run(anOutputBasedInputGenerator, processToInput, new String[] {}, timeout);
 	}
-	public BasicRunningProject run( Map<String, String> processToInput, int timeout)
+	public RunningProject run( Map<String, String> processToInput, int timeout)
 			throws NotRunnableException {
 		return run(null, processToInput, timeout);
 	}
@@ -227,7 +227,7 @@ public class BasicProcessRunner implements Runner {
 	 * @throws NotRunnableException
 	 */
 	@Override
-	public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, String input, String[] args, int timeout )
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String input, String[] args, int timeout )
 			throws NotRunnableException {
 		// String[] command =
 		// StaticConfigurationUtils.getExecutionCommand(folder,
@@ -244,7 +244,7 @@ public class BasicProcessRunner implements Runner {
 		else
 			return runDefaultProcessTeam(aProcessTeams, input, args, timeout, anOutputBasedInputGenerator);
 	}
-	public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, String[] args, int timeout )
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, String[] args, int timeout )
 			throws NotRunnableException {
 		// String[] command =
 		// StaticConfigurationUtils.getExecutionCommand(folder,
@@ -273,7 +273,7 @@ public class BasicProcessRunner implements Runner {
 	 * @see framework.execution.Runner#run(java.lang.String, java.lang.String[], int)
 	 */
 	@Override
-	public BasicRunningProject run(String input, String[] args, int timeout)
+	public RunningProject run(String input, String[] args, int timeout)
 			throws NotRunnableException {
 		return run(null, input, args, timeout);
 	}
@@ -285,7 +285,7 @@ public class BasicProcessRunner implements Runner {
 //		return executionSpecification.getTerminatingProcesses(firstTeam);
 		return null;
 	}
-	public BasicRunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout, InputGenerator anOutputBasedInputGenerator)
+	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, String input, String[] args, int timeout, InputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 	
 		String firstTeam = aProcessTeams.get(0);
@@ -304,7 +304,7 @@ public class BasicProcessRunner implements Runner {
 		return run(firstTeam, timeout, anOutputBasedInputGenerator, aProcessToInput); //ignoring args, should have processToArgs in this method
 		
 	}
-	public BasicRunningProject runDefaultProcessTeam(List<String> aProcessTeams, Map<String, String> aProcessToInput, String[] args, int timeout, InputGenerator anOutputBasedInputGenerator)
+	public RunningProject runDefaultProcessTeam(List<String> aProcessTeams, Map<String, String> aProcessToInput, String[] args, int timeout, InputGenerator anOutputBasedInputGenerator)
 			throws NotRunnableException {
 	
 		String firstTeam = aProcessTeams.get(0);
@@ -413,7 +413,7 @@ public class BasicProcessRunner implements Runner {
 		return null;
 	}
 
-	public BasicRunningProject run(String aProcessTeam,
+	public RunningProject run(String aProcessTeam,
 			int aTimeout, InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput)
 			throws NotRunnableException {
 //		executionSpecification = ExecutionSpecificationSelector
@@ -772,7 +772,7 @@ public class BasicProcessRunner implements Runner {
 		return null;
 	}
 	@Override
-	public BasicRunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(project, getFolder(),
@@ -783,7 +783,7 @@ public class BasicProcessRunner implements Runner {
 
 	}
 	
-	protected BasicRunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
+	protected RunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
 		return new BasicRunningProject(aProject, anOutputBasedInputGenerator, anInput);
 	}
 	
@@ -792,17 +792,17 @@ public class BasicProcessRunner implements Runner {
 		return null;
 	}
 	// move this to some util
-	public BasicRunningProject runMainClass(Class aClass, String input,
+	public RunningProject runMainClass(Class aClass, String input,
 			String[] args, int timeout) throws NotRunnableException {
         String[] command = {"java",  "-cp",  System.getProperty("java.class.path",aClass.getName())};
        return run(null, command, input, args, timeout);
 
 	}
 	
-	public BasicRunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
 //		RunningProject retVal = new RunningProject(project, anOutputBasedInputGenerator, input);
-		BasicRunningProject retVal = createRunningProject(project, anOutputBasedInputGenerator, input);
+		RunningProject retVal = createRunningProject(project, anOutputBasedInputGenerator, input);
 
 
 		TimedProcess process = run(retVal, anOutputBasedInputGenerator, command, input, args,
@@ -825,13 +825,13 @@ public class BasicProcessRunner implements Runner {
 	protected String[] maybeToExecutorCommand(String[] aCommand) {
 		return ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);
 	}
-	protected  RunnerErrorOrOutStreamProcessor createRunnerOutputStreamProcessor(InputStream aProcessErrorOut, BasicRunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
+	protected  RunnerErrorOrOutStreamProcessor createRunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 	  return new ARunnerOutputStreamProcessor(
 			 aProcessErrorOut, aRunner, /*outputSemaphore,*/
 			aProcessName, anOnlyProcess);
 	}
 	protected RunnerErrorOrOutStreamProcessor createRunnerErrorStreamProcessor (InputStream aProcessErrorOut, 
-			BasicRunningProject aRunner, 
+			RunningProject aRunner, 
 			/*Semaphore aSemaphore, */
 			String aProcessName,
 			Boolean anOnlyProcess) {
@@ -840,7 +840,7 @@ public class BasicProcessRunner implements Runner {
 			aProcessName, anOnlyProcess);
 	}
 	protected RunnerInputStreamProcessor createRunnerInputStreamProcessor(OutputStream anInput, 
-			BasicRunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
+			RunningProject aRunner,  String aProcessName, /*Semaphore aSemaphore,*/ Boolean anOnlyProcess) {
 		return new ARunnerInputStreamProcessor(anInput, aRunner, aProcessName,  anOnlyProcess);
 	}
 	protected void maybeSetInputAndArgs(String input, String[] args) {
@@ -852,7 +852,7 @@ public class BasicProcessRunner implements Runner {
 	}
 
 	@Override
-	public TimedProcess run (BasicRunningProject runner, InputGenerator anOutputBasedInputGenerator,
+	public TimedProcess run (RunningProject runner, InputGenerator anOutputBasedInputGenerator,
 			String[] aCommand, String input, String[] args, int timeout,
 			String aProcessName, boolean anOnlyProcess) throws NotRunnableException {
 		// final RunningProject runner = new RunningProject(project);

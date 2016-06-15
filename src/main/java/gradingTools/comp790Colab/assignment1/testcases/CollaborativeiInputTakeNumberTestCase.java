@@ -1,7 +1,7 @@
 package gradingTools.comp790Colab.assignment1.testcases;
 
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -18,18 +18,18 @@ public class CollaborativeiInputTakeNumberTestCase extends BasicTestCase {
 			throws NotGradableException {
 
 		try {
-			BasicRunningProject runningProject = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3);
+			RunningProject runningProject = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3);
 			String output = runningProject.await();
 			int run1 = output.length();
 			String output2 = null;			
-			BasicRunningProject runningProject2 = null;
+			RunningProject runningProject2 = null;
 			if (input1First)
 			runningProject2 = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3, input1);
 			else
 				runningProject2 = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3, input2);	
 			 output2 = runningProject2.await();
 			int run2 = output2.length();
-			BasicRunningProject runningProject3 = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3, input1,
+			RunningProject runningProject3 = CollaborativeInputPromptTestCase.runAliceBobProject(project, 3, input1,
 					input2);
 			String output3 = runningProject3.await();
 			int run3 = output3.length();

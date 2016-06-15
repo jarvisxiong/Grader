@@ -1,6 +1,6 @@
 package grader.project;
 
-import framework.execution.BasicRunningProject;
+import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import grader.execution.MainClassFinder;
@@ -142,8 +142,8 @@ public interface Project {
 	public Map<String, String> getEntryPoints() ;
 	public void setEntryPoints(Map<String, String> entryPoints) ;
 
-	BasicRunningProject getCurrentRunningProject();
-	void setCurrentRunningProject(BasicRunningProject currentRunningProject);
+	RunningProject getCurrentRunningProject();
+	void setCurrentRunningProject(RunningProject currentRunningProject);
 	ProjectWrapper getWrapper();
 	
 		void setWrapper(ProjectWrapper newValue);

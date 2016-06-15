@@ -4,8 +4,8 @@ import java.util.List;
 
 import scala.Option;
 import wrappers.framework.project.ProjectWrapper;
-import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
+import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -43,7 +43,7 @@ public class FunctionalityTestCase extends BasicTestCase {
             // Initialize score and feedback message
             String message = "";
 
-            BasicRunningProject runningProject = project.launch("", input,10);
+            RunningProject runningProject = project.launch("", input,10);
 
             String output=runningProject.await().toLowerCase();
             System.out.println("output: "+output);
