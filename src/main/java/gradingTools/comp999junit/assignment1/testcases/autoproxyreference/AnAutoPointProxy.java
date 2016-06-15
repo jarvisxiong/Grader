@@ -5,12 +5,12 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 import grader.junit.JUnitUtils;
 import grader.util.IntrospectionUtil;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.wrongangle.ACartesianPoint;
 
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
-import gradingTools.comp999junit.assignment1.wrongangle.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 import gradingTools.comp999junit.assignment1.testcases.directreference.ADirectPointProxy;
+import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
+import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

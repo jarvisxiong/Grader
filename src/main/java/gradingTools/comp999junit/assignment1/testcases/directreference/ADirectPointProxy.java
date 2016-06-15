@@ -4,12 +4,11 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.wrongangle.ACartesianPoint;
 
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
-import gradingTools.comp999junit.assignment1.wrongangle.Point;
-
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
+import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
+import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +40,8 @@ public class ADirectPointProxy implements PointProxy{
 //	public static final double ANGLE_180 = 0.1;
 //	public static final double ANGLE_MINUS_180 = 0.1;
 //	int testNumber = 0;
-	boolean checkStructure;
-	double fractionComplete = 0.0;	
+	protected boolean checkStructure;
+	protected double fractionComplete = 0.0;	
 	public  ADirectPointProxy() {
 		checkStructure = true;
 	}

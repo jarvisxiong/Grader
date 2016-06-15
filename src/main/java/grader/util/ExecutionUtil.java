@@ -1,5 +1,10 @@
 package grader.util;
 
+import framework.execution.BasicProcessRunner;
+import framework.execution.BasicRunningProject;
+import framework.execution.NotRunnableException;
+import framework.execution.ProcessRunner;
+import framework.execution.Runner;
 import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.project.ClassDescription;
@@ -463,4 +468,13 @@ public class ExecutionUtil {
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
+	 public static String runMain(Class aProxyClass, String input,
+				String[] args, int timeout) throws NotRunnableException {
+		 	String aClassPath = System.getProperty("java.class.path");
+	        String[] command = {"java",  "-cp",  aClassPath,aProxyClass.getName()};
+	        Runner processRunner = new BasicProcessRunner(new File("."));
+	       BasicRunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
+	       return aRunningProject.await();
+
+		}
 }

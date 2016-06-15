@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.allcorrect;
+package gradingTools.testables.comp999junit.assignment1.allcorrect;
 
 import util.annotations.Explanation;
 import util.annotations.StructurePattern;

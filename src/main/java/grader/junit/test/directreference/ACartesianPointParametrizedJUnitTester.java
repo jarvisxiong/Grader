@@ -1,10 +1,12 @@
 package grader.junit.test.directreference;
 
-import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.allcorrect.Point;
+import gradingTools.testables.comp999junit.assignment1.allcorrect.ACartesianPoint;
+import gradingTools.testables.comp999junit.assignment1.allcorrect.Point;
 
 import java.util.Arrays;
 import java.util.Collection;
+
+
 
 
 
