@@ -1,21 +1,16 @@
 package framework.execution;
 
-import java.io.Closeable;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Semaphore;
-
 import framework.project.Project;
 import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
-import tools.TimedProcess;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;
 import util.pipe.InputGenerator;
@@ -29,7 +24,7 @@ import wrappers.framework.project.ProjectWrapper;
  * execution. This provides support for synchronization via semaphores and
  * output manipulation.
  */
-public class RunningProject extends BasicRunningProject implements ProcessInputListener {
+public class ARunningProject extends BasicRunningProject implements ProcessInputListener {
 
 //    private Semaphore runningState = new Semaphore(1);
 ////	protected Map<String, String> processToInput = new HashMap();
@@ -67,7 +62,7 @@ public class RunningProject extends BasicRunningProject implements ProcessInputL
 //    protected Map<String, RunnerErrorOrOutStreamProcessor> processToErr = new HashMap();
 //    List<String> processes;
 
-    public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, List<String> aProcesses, Map<String, String> aProcessToInput) {
+    public ARunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, List<String> aProcesses, Map<String, String> aProcessToInput) {
     	super(aProject, anOutputBasedInputGenerator, aProcesses, aProcessToInput);
 //        exception = null;
 //        output = null;
@@ -132,7 +127,7 @@ public class RunningProject extends BasicRunningProject implements ProcessInputL
         }
    }
 //
-    public RunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
+    public ARunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
     	super(aProject, anOutputBasedInputGenerator, anInput);
 //        this(aProject, anOutputBasedInputGenerator, null, (Map) null);
 ////		exception = null;
@@ -384,7 +379,7 @@ public class RunningProject extends BasicRunningProject implements ProcessInputL
             String anOutputFileName = aProject.getOutputFileName();
             FileWriter fileWriter = new FileWriter(anOutputFileName, true);
             fileWriter.append(aText);
-            OverallTranscriptSaved.newCase(null, null, aProject, anOutputFileName, aText, RunningProject.class);
+            OverallTranscriptSaved.newCase(null, null, aProject, anOutputFileName, aText, ARunningProject.class);
 //			if (project.getCurrentGradingFeature() != null)
 //			FeatureTranscriptSaved.newCase(null, null, project,  project.getCurrentGradingFeature()., outputFileName, transcript, this);;
             fileWriter.close();

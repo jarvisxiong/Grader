@@ -1,12 +1,12 @@
 package gradingTools.comp110f14.assignment6testcases;
 
-import com.github.antlrjavaparser.api.expr.VariableDeclarationExpr;
-
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
+
+import com.github.antlrjavaparser.api.expr.VariableDeclarationExpr;
 
 public class VariableTest extends CodeInspectorTestCase{
 	boolean hasList=false;

@@ -13,11 +13,9 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JTextArea;
 
-import bus.uigen.ObjectEditor;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.Explanation;
-import util.annotations.Label;
 import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -25,6 +23,7 @@ import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.models.DynamicEnum;
 import util.models.LabelBeanModel;
+import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AMainProjectStepper implements MainProjectStepper {
 	OverviewProjectStepper overviewProjectStepper;

@@ -4,11 +4,11 @@ import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
 import grader.util.GraderFileUtils;
-import util.misc.Common;
 
 import java.util.List;
+
+import util.misc.Common;
 
 // this makes the class descriptions providing the text to each class
 // It uses the file proxy

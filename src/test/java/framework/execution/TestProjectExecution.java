@@ -1,10 +1,11 @@
 package framework.execution;
 
-import framework.execution.reflectionObjects.ManualProject;
-import framework.project.Project;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import framework.execution.reflectionObjects.ManualProject;
+import framework.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

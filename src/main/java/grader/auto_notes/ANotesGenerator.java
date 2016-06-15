@@ -1,11 +1,10 @@
 package grader.auto_notes;
 
-import java.util.List;
-
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ProjectStepper;
-import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+
+import java.util.List;
 
 public class ANotesGenerator implements NotesGenerator{
 	

@@ -1,8 +1,8 @@
 package tools.classModifier.test;
 
-import util.trace.TraceableLogFactory;
-
 import java.util.List;
+
+import util.trace.TraceableLogFactory;
 
 /*
  * Run with the following VM option:

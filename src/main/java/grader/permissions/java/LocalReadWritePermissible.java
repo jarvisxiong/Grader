@@ -1,8 +1,8 @@
 package grader.permissions.java;
 
-import java.io.FilePermission;
-
 import grader.permissions.Permissible;
+
+import java.io.FilePermission;
 
 public class LocalReadWritePermissible implements Permissible {
 	protected final String directoryName;

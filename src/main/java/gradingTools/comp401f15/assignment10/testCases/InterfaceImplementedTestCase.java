@@ -1,7 +1,5 @@
 package gradingTools.comp401f15.assignment10.testCases;
 
-import java.lang.reflect.Modifier;
-
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;

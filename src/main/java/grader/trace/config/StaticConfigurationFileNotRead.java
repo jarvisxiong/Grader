@@ -1,7 +1,6 @@
 package grader.trace.config;
 
 import util.trace.UncheckedTraceableException;
-import grader.trace.execution.UserProcessExecutionStarted;
 
 public class StaticConfigurationFileNotRead extends UncheckedTraceableException{
 	String configurationFileName;

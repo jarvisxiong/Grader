@@ -1,11 +1,6 @@
 package grader.project.source;
 
 
-import grader.project.AClassesManager;
-import grader.project.AProject;
-import grader.project.ClassesManager;
-import grader.project.Project;
-import grader.project.view.AClassViewManager;
 import grader.project.view.ClassViewManager;
 import grader.project.view.ViewableClassDescription;
 import grader.sakai.project.SakaiProject;

@@ -1,10 +1,9 @@
 package gradingTools.comp790ColabInc.assignment1.testcases;
 
+import gradingTools.comp110Inc.assignment1.testcases.AnOutputBasedMixedArithmeticInputGenerator;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import util.pipe.AnAbstractInputGenerator;
-import gradingTools.comp110Inc.assignment1.testcases.AnOutputBasedMixedArithmeticInputGenerator;
 
 public class ACollaborativeOutputBasedMixedArithmeticInputGenerator 
 	extends AnOutputBasedMixedArithmeticInputGenerator

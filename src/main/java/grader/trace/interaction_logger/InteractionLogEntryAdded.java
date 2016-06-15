@@ -1,7 +1,6 @@
 package grader.trace.interaction_logger;
 
 import grader.trace.file.FileInfo;
-import grader.trace.file.SerializableFileInfo;
 
 public class InteractionLogEntryAdded extends FileInfo {
 	String entry;

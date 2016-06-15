@@ -1,9 +1,8 @@
 package grader.trace.sakai_bulk_folder;
 
-import java.util.Collection;
-import java.util.Set;
-
 import grader.trace.GraderInfo;
+
+import java.util.Collection;
 
 public class StudentFolderNamesSorted extends GraderInfo{
 	Collection<String> studentNames;

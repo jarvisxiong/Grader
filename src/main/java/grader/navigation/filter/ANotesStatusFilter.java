@@ -5,7 +5,6 @@ import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
-import grader.trace.settings.GradingStatusUserChange;
 import grader.trace.settings.NotesStatusUserChange;
 
 public class ANotesStatusFilter extends AnAbstractNavigationFilter<NotesStatus>implements NavigationFilter<NotesStatus>{

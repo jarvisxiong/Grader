@@ -1,23 +1,16 @@
 package grader.execution;
 
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import framework.execution.NotRunnableException;
+import grader.project.Project;
+import grader.project.folder.RootCodeFolder;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
-import grader.file.FileProxy;
-import grader.file.RootFolderProxy;
-import grader.project.Project;
-import grader.project.folder.RootCodeFolder;
-import grader.sakai.project.SakaiProject;
-import util.misc.Common;
-import wrappers.framework.project.ProjectWrapper;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AnExecutableFinder implements MainClassFinder {
 	public static String EXECUTABLE_SUFFIX = ".exe";

@@ -1,11 +1,10 @@
 package grader.execution;
 
-import java.util.List;
-import java.util.Map;
-
 import framework.execution.NotRunnableException;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
+
+import java.util.Map;
 
 public interface MainClassFinder {
 	public static final String MAIN_ENTRY_POINT = "main";

@@ -1,25 +1,15 @@
 package gradingTools.comp401f15.assignment2;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment1.testCases.*;
-import gradingTools.assignment6.testCases.ManualTestCase;
-import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
-import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
-import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
-import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
 import gradingTools.comp401f15.assignment2.testcases.MissingQuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.ModularScannerBeanTestCase;
 import gradingTools.comp401f15.assignment2.testcases.NumberTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.PlusMinusTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
-import gradingTools.comp401f15.assignment2.testcases.ScannerBeanTestCase;
-import gradingTools.comp401f15.assignment2.testcases.VarialbleSpaceTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
-import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
-import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
 
 
 public class Assignment2Requirements extends FrameworkProjectRequirements {

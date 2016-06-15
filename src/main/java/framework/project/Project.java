@@ -1,18 +1,14 @@
 package framework.project;
 
-import framework.execution.BasicRunningProject;
-import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
-
-import org.joda.time.DateTime;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Map;
 
 import scala.Option;
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Map;
+import framework.execution.BasicRunningProject;
+import framework.execution.NotRunnableException;
 
 /**
  * Based on {@link grader.project.Project}

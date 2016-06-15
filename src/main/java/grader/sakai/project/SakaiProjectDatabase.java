@@ -1,44 +1,5 @@
 package grader.sakai.project;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import javax.swing.Icon;
-
-import util.misc.ClearanceManager;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.Checkable;
 import grader.assignment.AssignmentDataFolder;
@@ -56,7 +17,6 @@ import grader.navigation.filter.BasicNavigationFilter;
 import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
 import grader.photos.PhotoReader;
-import grader.project.Project;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
@@ -66,6 +26,15 @@ import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.Icon;
+
+import util.misc.ClearanceManager;
 
 public interface SakaiProjectDatabase {
 	public BulkAssignmentFolder getBulkAssignmentFolder();

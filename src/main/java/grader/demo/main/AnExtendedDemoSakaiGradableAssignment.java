@@ -1,42 +1,25 @@
 package grader.demo.main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import bus.uigen.ObjectEditor;
-import bus.uigen.attributes.AttributeNames;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.checkers.AFailingChecker;
 import grader.checkers.AProjectTracer;
-import grader.checkers.AnEncapsulationChecker;
-import grader.checkers.FeatureChecker;
 import grader.demo.feedback.ATracingAllTextSourceDisplayer;
 import grader.demo.feedback.ATracingAutoFeedbackFileWriter;
 import grader.demo.feedback.ATracingManualFeedbackFileDisplayer;
 import grader.demo.feedback.ATracingScoreFeedbackFileWriter;
 import grader.demo.scores.ATracingFeatureScoreRecorder;
-import grader.demo.scores.ATracingFinalScoreRecorder;
-import grader.feedback.AManualFeedbackManager;
-import grader.feedback.AScoreFeedbackFileWriter;
-import grader.feedback.AnAllTextSourceDisplayer;
-import grader.feedback.AnAutoFeedbackManager;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
 import grader.file.FileProxy;
-import grader.project.AProject;
-import grader.sakai.ASakaiBulkAssignmentFolder;
-import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorder;
-import grader.spreadsheet.FeatureGradeRecorderSelector;
-import grader.spreadsheet.FinalGradeRecorder;
-import grader.spreadsheet.FinalGradeRecorderSelector;
-import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.trace.settings.InvalidOnyenRangeException;
+
+import java.util.List;
+import java.util.Set;
 
 public class AnExtendedDemoSakaiGradableAssignment extends ADemoSakaiGradableAssignment {
 

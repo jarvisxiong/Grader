@@ -1,18 +1,16 @@
 package framework.grading.testing;
 
-import framework.grading.ProjectRequirements;
-import framework.project.Project;
-import grader.assignment.GradingFeature;
-import grader.trace.feature.FeatureChecked;
-
 import java.util.Arrays;
 import java.util.List;
-
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
+import framework.grading.ProjectRequirements;
+import framework.project.Project;
+import grader.assignment.GradingFeature;
+import grader.trace.feature.FeatureChecked;
 
 /**
  * The idea for this class is that features and restrictions both check their test cases. This handles that process.

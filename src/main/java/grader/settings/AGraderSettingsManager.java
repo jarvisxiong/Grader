@@ -1,5 +1,12 @@
 package grader.settings;
 
+import framework.utils.GraderSettings;
+import framework.utils.GradingEnvironment;
+import grader.config.ConfigurationManagerSelector;
+import grader.modules.ModuleProblemManager;
+import grader.modules.ModuleProblemManagerSelector;
+import grader.navigation.NavigationKind;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,14 +14,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import util.misc.Common;
-import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
-import grader.config.ConfigurationManagerSelector;
-import grader.modules.AModuleProblemSelector;
-import grader.modules.ModuleProblemManager;
-import grader.modules.ModuleProblemManagerSelector;
-import grader.navigation.NavigationKind;
-import grader.navigation.filter.NavigationFilter;
 
 public class AGraderSettingsManager implements GraderSettingsManager {
 

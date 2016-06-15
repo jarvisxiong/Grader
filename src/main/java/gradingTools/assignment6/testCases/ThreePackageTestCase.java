@@ -1,17 +1,16 @@
 package gradingTools.assignment6.testCases;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.project.ClassDescription;
 import grader.sakai.project.SakaiProject;
-import wrappers.framework.project.ProjectWrapper;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

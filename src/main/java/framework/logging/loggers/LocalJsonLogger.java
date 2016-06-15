@@ -1,17 +1,13 @@
 package framework.logging.loggers;
 
-import framework.grading.testing.CheckResult;
-import framework.logging.loggers.Logger;
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GradingEnvironment;
-
-import org.apache.commons.io.FileUtils;
-import org.codehaus.jackson.map.ObjectMapper;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * This saves data to a local location

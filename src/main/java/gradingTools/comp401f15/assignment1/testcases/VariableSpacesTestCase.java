@@ -1,14 +1,11 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
 import framework.execution.NotRunnableException;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
+import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.grading.testing.OutputAndErrorCheckingTestCase.OutputErrorStatus;
 import framework.project.Project;
-import gradingTools.assignment1.FlexibleProgramRunner;
 
 /**
  * Created with IntelliJ IDEA.

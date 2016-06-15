@@ -1,10 +1,6 @@
 package grader.trace.settings;
 
-import java.util.Date;
-
 import grader.settings.GraderSettingsModel;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class AnimationPauseTimeUserChange extends GraderSettingsInfo {
 	

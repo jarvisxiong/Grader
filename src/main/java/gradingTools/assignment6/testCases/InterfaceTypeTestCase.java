@@ -1,17 +1,18 @@
 package gradingTools.assignment6.testCases;
 
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
-import org.apache.commons.io.FileUtils;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
+
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.ClassDescription;
+import framework.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

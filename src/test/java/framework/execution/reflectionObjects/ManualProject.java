@@ -1,16 +1,16 @@
 package framework.execution.reflectionObjects;
 
-import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
-import framework.project.ClassesManager;
-import framework.project.Project;
-import scala.Option;
-import util.pipe.InputGenerator;
-import util.trace.TraceableLog;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
+
+import scala.Option;
+import util.pipe.InputGenerator;
+import util.trace.TraceableLog;
+import framework.execution.ARunningProject;
+import framework.execution.NotRunnableException;
+import framework.project.ClassesManager;
+import framework.project.Project;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,29 +28,29 @@ public class ManualProject implements Project {
     }
 
     @Override
-    public RunningProject start(String input) {
+    public ARunningProject start(String input) {
         //To change body of implemented methods use File | Settings | File Templates.
         return null;
     }
 
     @Override
-    public RunningProject launch(String input) {
+    public ARunningProject launch(String input) {
         //To change body of implemented methods use File | Settings | File Templates.
         return null;
     }
 
     @Override
-    public RunningProject start(String input, int timeout) throws NotRunnableException {
+    public ARunningProject start(String input, int timeout) throws NotRunnableException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public RunningProject launch(String input, int timeout) throws NotRunnableException {
+    public ARunningProject launch(String input, int timeout) throws NotRunnableException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public RunningProject launchInteractive() throws NotRunnableException {
+    public ARunningProject launchInteractive() throws NotRunnableException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -75,7 +75,7 @@ public class ManualProject implements Project {
     }
 
 	@Override
-	public RunningProject launch(
+	public ARunningProject launch(
 			InputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
@@ -83,7 +83,7 @@ public class ManualProject implements Project {
 	}
 
 	@Override
-	public RunningProject launch(
+	public ARunningProject launch(
 			InputGenerator anOutputBasedInputGenerator,
 			Map<String, String> aProcessToInput, int timeout)
 			throws NotRunnableException {
@@ -92,14 +92,14 @@ public class ManualProject implements Project {
 	}
 
 	@Override
-	public RunningProject launch(String input, String[] anArgs, int timeout)
+	public ARunningProject launch(String input, String[] anArgs, int timeout)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RunningProject launchInteractive(String[] args)
+	public ARunningProject launchInteractive(String[] args)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;

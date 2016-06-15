@@ -4,11 +4,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import tools.classFinder.RootTagFinder;
-import scala.Option;
 
 /**
  * Created with IntelliJ IDEA.

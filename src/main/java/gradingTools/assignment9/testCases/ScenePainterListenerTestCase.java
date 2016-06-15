@@ -1,22 +1,20 @@
 package gradingTools.assignment9.testCases;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import tools.CompilationNavigation;
+
 import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
 import com.github.antlrjavaparser.api.body.ConstructorDeclaration;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-import tools.CompilationNavigation;
-import tools.classFinder.ManualClassFinder;
-import tools.classFinder.RootTagFinder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,14 +1,12 @@
 package grader.settings;
 
-import java.beans.PropertyChangeListener;
-
 import grader.modules.ModuleProblemSelector;
 import grader.settings.folders.GraderFilesSetterModel;
 import grader.settings.folders.OnyenRangeModel;
 import grader.settings.navigation.NavigationSetter;
-import util.annotations.ComponentHeight;
-import util.annotations.Row;
-import util.annotations.Visible;
+
+import java.beans.PropertyChangeListener;
+
 import util.models.PropertyListenerRegisterer;
 
 public interface GraderSettingsModel extends PropertyListenerRegisterer, PropertyChangeListener{

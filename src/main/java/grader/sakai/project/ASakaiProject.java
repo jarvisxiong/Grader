@@ -5,12 +5,9 @@ import grader.project.AProject;
 import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
 
-import java.io.File;
 import java.util.List;
 
 import javax.swing.Icon;
-
-import wrappers.framework.project.ProjectWrapper;
 
 public class ASakaiProject extends AProject implements SakaiProject {
     StudentCodingAssignment studentAssignment;

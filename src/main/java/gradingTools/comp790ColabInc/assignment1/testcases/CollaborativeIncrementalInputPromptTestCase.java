@@ -1,20 +1,12 @@
 package gradingTools.comp790ColabInc.assignment1.testcases;
 
-import java.util.Map;
-
-import util.pipe.InputGenerator;
-import util.tags.DistributedTags;
-import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import gradingTools.comp110.assignment1.testcases.PromptTestCase;
-import gradingTools.comp110Inc.assignment1.testcases.OutputBasedMixedArithmeticInputGenerator;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+
+import java.util.Map;
+
+import util.tags.DistributedTags;
 
 public class CollaborativeIncrementalInputPromptTestCase extends CollaborativeInputPromptTestCase {
 	public CollaborativeIncrementalInputPromptTestCase() {

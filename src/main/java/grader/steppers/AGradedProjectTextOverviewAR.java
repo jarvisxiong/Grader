@@ -1,6 +1,5 @@
 package grader.steppers;
 
-import grader.settings.ABeginActionModel;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

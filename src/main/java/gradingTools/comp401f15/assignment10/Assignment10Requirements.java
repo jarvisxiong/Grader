@@ -1,15 +1,14 @@
 package gradingTools.comp401f15.assignment10;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment6.testCases.ManualTestCase;
-import gradingTools.assignment6.testCases.QuestionTestCase;
-import gradingTools.comp401f15.assignment10.testCases.*;
-import gradingTools.comp401f15.assignment10.testCases.preConditions.FailedMethodPreconditionTestCase;
-import gradingTools.comp401f15.assignment10.testCases.preConditions.PassedMethodPreconditionTestCase;
-import gradingTools.comp401f15.assignment10.testCases.preConditions.SayMethodPreconditionTestCase;
-import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestCase;
-import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase;
-import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase;
+import gradingTools.comp401f15.assignment10.testCases.AnimatingMethodTestCase;
+import gradingTools.comp401f15.assignment10.testCases.AsynchronousAnimationTestCase;
+import gradingTools.comp401f15.assignment10.testCases.CommandObjectExistsTestCase;
+import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementedTestCase;
+import gradingTools.comp401f15.assignment10.testCases.MoveCommandPartiallyInterpretedTestCase;
+import gradingTools.comp401f15.assignment10.testCases.PreconditionExecutionTestCase;
+import gradingTools.comp401f15.assignment10.testCases.PreconditionTestCase;
+import gradingTools.comp401f15.assignment10.testCases.SayCommandPartiallyInterpretedTestCase;
 import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
 import gradingTools.sharedTestCase.CheckstyleMethodCalledTestCase;
 import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;

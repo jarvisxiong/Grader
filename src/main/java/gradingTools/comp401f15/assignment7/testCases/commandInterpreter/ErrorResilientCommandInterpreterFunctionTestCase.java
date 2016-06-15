@@ -1,16 +1,7 @@
 package gradingTools.comp401f15.assignment7.testCases.commandInterpreter;
 
-import framework.execution.RunningProject;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ExecutionUtil;
 import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
-import grader.util.IntrospectionUtil;
-import gradingTools.sharedTestCase.MethodExecutionTestCase;
-import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -21,7 +12,18 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+
 import util.annotations.Tags;
+import framework.execution.ARunningProject;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
+import grader.util.ExecutionUtil;
+import grader.util.IntrospectionUtil;
+import gradingTools.sharedTestCase.MethodExecutionTestCase;
+import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
 /**
  *
@@ -124,7 +126,7 @@ public class ErrorResilientCommandInterpreterFunctionTestCase extends BasicTestC
             String anOutput = restoreOutputAndGetRedirectedOutput();
             if (anOutput != null && !anOutput.isEmpty()) {
              	System.out.println(anOutput);
-             	RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+             	ARunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
             }
         }
     }

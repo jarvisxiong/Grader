@@ -1,13 +1,13 @@
 package grader.photos;
 
+import grader.sakai.project.SakaiProjectDatabase;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
-import grader.sakai.project.SakaiProjectDatabase;
 
 public class APhotoReader implements PhotoReader{
 	SakaiProjectDatabase projectDatabase;

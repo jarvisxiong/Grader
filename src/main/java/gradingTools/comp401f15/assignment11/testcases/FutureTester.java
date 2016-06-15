@@ -1,8 +1,8 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
-import java.lang.reflect.Method;
-
 import grader.util.ExecutionUtil;
+
+import java.lang.reflect.Method;
 
 public class FutureTester {
 	public void test() {

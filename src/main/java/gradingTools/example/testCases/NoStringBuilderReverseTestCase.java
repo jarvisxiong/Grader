@@ -1,19 +1,11 @@
 package gradingTools.example.testCases;
 
-import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
-
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
-import tools.CodeTools;
-import tools.CompilationNavigation;
-
-import java.io.IOException;
 
 /**
  * This test case looks for the usage of StringBuilder.reverse by using modified classes.

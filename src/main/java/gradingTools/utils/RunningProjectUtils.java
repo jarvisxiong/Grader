@@ -5,7 +5,6 @@ import java.util.Map;
 import util.pipe.InputGenerator;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.project.Project;
 
 /*

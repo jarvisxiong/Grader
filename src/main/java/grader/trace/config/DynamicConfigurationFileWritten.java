@@ -1,6 +1,5 @@
 package grader.trace.config;
 
-import grader.trace.execution.UserProcessExecutionStarted;
 
 public class DynamicConfigurationFileWritten extends ConfigurationFileInfo{
 

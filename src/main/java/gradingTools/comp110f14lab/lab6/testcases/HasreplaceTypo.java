@@ -2,7 +2,6 @@ package gradingTools.comp110f14lab.lab6.testcases;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -11,8 +10,6 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
-import gradingTools.sharedTestCase.ASimpleMethodMatcher;
-import gradingTools.sharedTestCase.MethodMatcher;
 
 public class HasreplaceTypo extends BasicTestCase {
 	String methodName;

@@ -7,7 +7,6 @@ import gradingTools.assignment11.checkers.RepeatCommandObjectChecker;
 import gradingTools.assignment11.testCases.AbstractAncestorTokenTestCase;
 import gradingTools.assignment11.testCases.AbstractBoundedShapeTestCase;
 import gradingTools.assignment11.testCases.AbstractLocatableTestCase;
-import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import wrappers.framework.grading.ExtendedProjectRequirements;
 

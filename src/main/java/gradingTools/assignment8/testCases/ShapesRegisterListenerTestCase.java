@@ -1,5 +1,6 @@
 package gradingTools.assignment8.testCases;
 
+import util.models.PropertyListenerRegisterer;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -7,7 +8,6 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
-import util.models.PropertyListenerRegisterer;
 
 /**
  * Created with IntelliJ IDEA.

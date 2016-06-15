@@ -1,11 +1,11 @@
 package framework.logging.serializers;
 
-import framework.logging.recorder.RecordingSession;
-import org.codehaus.jackson.map.ObjectMapper;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import framework.logging.recorder.RecordingSession;
 
 /**
  * Created with IntelliJ IDEA.

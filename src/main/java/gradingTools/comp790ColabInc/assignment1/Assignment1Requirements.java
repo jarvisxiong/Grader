@@ -1,18 +1,10 @@
 package gradingTools.comp790ColabInc.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment6.testCases.ManualTestCase;
-import gradingTools.comp110.assignment1.testcases.AddAndMultiplyTestCase;
-import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
-import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;
-import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
-import gradingTools.comp110.assignment1.testcases.TakeNumberTestCase;
-import gradingTools.comp110Inc.assignment1.testcases.IncrementalInputPromptTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputAddAndMultiplyTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputMainMethodTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPrintAddAndMultiplyTestCase;
-import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeiInputTakeNumberTestCase;
 import gradingTools.comp790ColabInc.assignment1.testcases.CollaborativeIncrementalInputPromptTestCase;
 

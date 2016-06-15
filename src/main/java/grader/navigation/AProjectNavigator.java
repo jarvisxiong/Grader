@@ -1,8 +1,8 @@
 package grader.navigation;
 
-import bus.uigen.OEFrame;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
+import bus.uigen.OEFrame;
 
 public class AProjectNavigator implements ProjectNavigator {
 	SakaiProjectDatabase database;

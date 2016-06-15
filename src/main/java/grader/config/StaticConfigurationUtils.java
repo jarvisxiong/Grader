@@ -14,14 +14,10 @@ import grader.settings.GraderSettingsManagerSelector;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
-
-import util.misc.Common;
 
 public class StaticConfigurationUtils {
 

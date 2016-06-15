@@ -1,11 +1,6 @@
 package framework.grading.testing;
 
-import java.security.Permission;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.junit.Ignore;
-
-import framework.project.Project;
 
 
 /**

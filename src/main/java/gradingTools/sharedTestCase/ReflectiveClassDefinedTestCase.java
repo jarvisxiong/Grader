@@ -1,12 +1,13 @@
 package gradingTools.sharedTestCase;
 
+import java.util.List;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import java.util.List;
 
 /**
  *

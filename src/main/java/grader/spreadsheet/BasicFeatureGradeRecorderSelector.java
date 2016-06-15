@@ -1,9 +1,7 @@
 package grader.spreadsheet;
 
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.spreadsheet.csv.AFeatureAndFinalGradeRecorderFactory;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
-import grader.spreadsheet.csv.AFinalGradeRecorderFactory;
 
 public class BasicFeatureGradeRecorderSelector {
 	static FeatureGradeRecorderFactory factory = new AFeatureGradeRecorderFactory();

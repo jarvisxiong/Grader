@@ -1,11 +1,7 @@
 package grader.trace.settings;
 
-import java.util.Date;
-
 import grader.navigation.filter.GradingStatus;
 import grader.settings.GraderSettingsModel;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class GradingStatusUserChange extends GraderSettingsInfo {
 	

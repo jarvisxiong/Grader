@@ -1,25 +1,18 @@
 package gradingTools.assignment7.testCases;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Objects;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
-import java.lang.reflect.Constructor;
-import tools.classFinder.ManualClassFinder;
-import tools.classFinder.RootTagFinder;
-import scala.Option;
-
-import javax.swing.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.

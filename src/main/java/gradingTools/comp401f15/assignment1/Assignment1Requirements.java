@@ -1,8 +1,10 @@
 package gradingTools.comp401f15.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment1.testCases.*;
-import gradingTools.assignment6.testCases.ManualTestCase;
+import gradingTools.assignment1.testCases.MultipleTokensTestCase;
+import gradingTools.assignment1.testCases.ProductTestCase;
+import gradingTools.assignment1.testCases.SingleTokenTestCase;
+import gradingTools.assignment1.testCases.SumTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.ImageEnclosedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.InvalidCharacterTestCase;
@@ -10,10 +12,7 @@ import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
-import gradingTools.sharedTestCase.MinCalledMethodsTestCase;
-import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 
 /**

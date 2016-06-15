@@ -1,5 +1,12 @@
 package wrappers.framework.project;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import tools.DirectoryUtils;
 import framework.navigation.SakaiStudentFolder;
 import framework.navigation.StudentFolder;
 import framework.project.StandardProject;
@@ -7,15 +14,7 @@ import framework.utils.GraderSettings;
 import grader.project.AProject;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.trace.file.load.RootZipFileFolderLoaded;
 import grader.trace.file.load.FileUnzipped;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import tools.DirectoryUtils;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 
 /**
  * This transforms a "grader" project into a "framework" project.

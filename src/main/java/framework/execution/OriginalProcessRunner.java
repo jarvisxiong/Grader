@@ -2,16 +2,12 @@ package framework.execution;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 
 import tools.TimedProcess;
@@ -20,25 +16,18 @@ import util.misc.ThreadSupport;
 import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
-import framework.grading.testing.TestCase;
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
-import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
 import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
-import grader.project.MultipleClassesWithTag;
-import grader.project.NoClassWithTag;
-import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;
@@ -387,7 +376,7 @@ public class OriginalProcessRunner implements Runner {
 
 		processes = executionSpecification.getProcesses(aProcessTeam);
 
-		runner = new RunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
+		runner = new ARunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
 		acquireIOLocks();
 //		try {
 //			runner.start();
@@ -649,7 +638,7 @@ public class OriginalProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	public ARunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
 //		String[] command = StaticConfigurationUtils.getExecutionCommand(folder,
 		String[] command = StaticConfigurationUtils.getExecutionCommand(project, getFolder(),
@@ -658,9 +647,9 @@ public class OriginalProcessRunner implements Runner {
 
 	}
 
-	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public ARunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		RunningProject retVal = new RunningProject(project, anOutputBasedInputGenerator, input);
+		ARunningProject retVal = new ARunningProject(project, anOutputBasedInputGenerator, input);
 
 		TimedProcess process = run(retVal, anOutputBasedInputGenerator, command, input, args,
 				timeout, MainClassFinder.MAIN_ENTRY_POINT, true);

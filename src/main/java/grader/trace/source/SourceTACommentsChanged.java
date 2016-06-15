@@ -3,9 +3,6 @@ package grader.trace.source;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.steppers.OverviewProjectStepper;
-import grader.trace.SerializableGraderInfo;
-import grader.trace.file.FileInfo;
-import grader.trace.project.SourceFolderIdentified;
 import grader.trace.steppers.SerializableStepperInfo;
 
 public class SourceTACommentsChanged extends SerializableStepperInfo {

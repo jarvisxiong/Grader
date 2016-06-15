@@ -1,14 +1,6 @@
 package gradingTools.comp401f15.assignment4.testcases.rotateLine;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.IntrospectionUtil;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -16,6 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
+import grader.util.IntrospectionUtil;
 
 /**
  *

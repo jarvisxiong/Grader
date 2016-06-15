@@ -1,10 +1,9 @@
 package grader.sakai.project;
 
-import javax.swing.Icon;
-
-import wrappers.framework.project.ProjectWrapper;
 import grader.project.Project;
 import grader.sakai.StudentAssignment;
+
+import javax.swing.Icon;
 
 public interface SakaiProject extends Project {
     public StudentAssignment getStudentAssignment();

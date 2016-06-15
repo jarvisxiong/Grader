@@ -1,9 +1,13 @@
 package grader.models;
 
-import bus.uigen.ObjectEditor;
-import util.annotations.*;
+import javax.swing.JTextArea;
 
-import javax.swing.*;
+import util.annotations.Column;
+import util.annotations.ComponentHeight;
+import util.annotations.ComponentWidth;
+import util.annotations.Label;
+import util.annotations.PreferredWidgetClass;
+import util.annotations.Row;
 
 // the idea is to show the ungraded and graded stdents and tow show how the ideal UI should be created
 public class AStudentBrowser {

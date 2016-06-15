@@ -1,7 +1,5 @@
 package demoAndTest;
 
-import java.beans.PropertyChangeListener;
-
 import util.misc.ClearanceManager;
 import util.models.PropertyListenerRegisterer;
 

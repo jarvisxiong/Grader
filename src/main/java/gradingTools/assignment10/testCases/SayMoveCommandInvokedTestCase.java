@@ -1,24 +1,26 @@
 package gradingTools.assignment10.testCases;
 
-import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
-import com.github.antlrjavaparser.api.body.MethodDeclaration;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
-import scala.Option;
-import tools.CompilationNavigation;
-import tools.classFinder2.ClassFinder;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import scala.Option;
+import tools.CompilationNavigation;
+import tools.classFinder2.ClassFinder;
 import tools.classFinder2.ClassType;
+
+import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
+import com.github.antlrjavaparser.api.body.MethodDeclaration;
+
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.ClassDescription;
+import framework.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

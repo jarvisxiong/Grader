@@ -1,13 +1,6 @@
 package grader.demo.feedback;
 
-import java.util.List;
-
-import util.misc.Common;
-import grader.assignment.GradingFeature;
 import grader.feedback.AScoreFeedbackFileWriter;
-import grader.feedback.ScoreFeedback;
-import grader.file.FileProxy;
-import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.ProjectStepper;
 
 public class ATracingScoreFeedbackFileWriter extends AScoreFeedbackFileWriter  {

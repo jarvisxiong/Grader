@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import au.com.bytecode.opencsv.CSVReader;
-import framework.grading.GradingManager;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
@@ -23,7 +22,6 @@ import framework.logging.recorder.RecordingSession;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.assignment.GradingFeature;
-import grader.modules.ModuleProblemManagerSelector;
 import grader.settings.GraderSettingsManagerSelector;
 
 /**

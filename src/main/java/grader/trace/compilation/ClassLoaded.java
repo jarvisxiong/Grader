@@ -1,7 +1,6 @@
 package grader.trace.compilation;
 
 import grader.trace.file.FileInfo;
-import grader.trace.file.SerializableFileInfo;
 
 public class ClassLoaded extends FileInfo {
 

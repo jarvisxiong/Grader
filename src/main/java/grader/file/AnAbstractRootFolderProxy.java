@@ -1,10 +1,16 @@
 package grader.file;
 
-import util.misc.Common;
 import grader.trace.file.load.RootFolderProxyLoaded;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import util.misc.Common;
 
 public abstract class AnAbstractRootFolderProxy extends AnAbstractProxy implements RootFolderProxy {
     protected Map<String, FileProxy> nameToFileProxy = new HashMap();

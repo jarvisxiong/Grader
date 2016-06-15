@@ -1,18 +1,18 @@
 package framework.execution;
 
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
-import tools.TimedProcess;
-import util.misc.TeePrintStream;
-import util.pipe.InputGenerator;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
+import tools.TimedProcess;
+import util.misc.TeePrintStream;
+import util.pipe.InputGenerator;
+import framework.project.ClassDescription;
+import framework.project.ClassesManager;
+import framework.project.Project;
 
 /**
  * Runs a project in the same JVM using reflection to invoke the main method.
@@ -33,12 +33,12 @@ public class ReflectionRunner implements Runner {
      * @throws NotRunnableException
      */
     @Override
-    public RunningProject run(String input) throws NotRunnableException {
+    public ARunningProject run(String input) throws NotRunnableException {
         return run(input, new String[]{}, -1);
     }
 
     @Override
-    public RunningProject run(String input, int timeout) throws NotRunnableException {
+    public ARunningProject run(String input, int timeout) throws NotRunnableException {
         // TODO: Add timeout
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -51,8 +51,8 @@ public class ReflectionRunner implements Runner {
      * @throws NotRunnableException
      */
     @Override
-    public RunningProject run(final String input, final String[] args, int timeout) throws NotRunnableException {
-        final RunningProject runner = new RunningProject(project, null, input);
+    public ARunningProject run(final String input, final String[] args, int timeout) throws NotRunnableException {
+        final ARunningProject runner = new ARunningProject(project, null, input);
         try {
             runner.start();
         } catch (InterruptedException e) {
@@ -136,14 +136,14 @@ public class ReflectionRunner implements Runner {
     }
 
 	@Override
-	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public ARunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	public ARunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub
 		return null;
@@ -158,7 +158,7 @@ public class ReflectionRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(InputGenerator aDynamicInputProvider, String input, String[] args,
+	public ARunningProject run(InputGenerator aDynamicInputProvider, String input, String[] args,
 			int timeout)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
@@ -166,7 +166,7 @@ public class ReflectionRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(
+	public ARunningProject run(
 			InputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub

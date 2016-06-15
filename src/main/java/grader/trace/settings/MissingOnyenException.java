@@ -1,9 +1,6 @@
 package grader.trace.settings;
 
-import grader.settings.GraderSettingsModel;
 import grader.trace.UncheckedGraderException;
-
-import java.io.IOException;
 
 public class MissingOnyenException extends UncheckedGraderException { // will be user error
 	

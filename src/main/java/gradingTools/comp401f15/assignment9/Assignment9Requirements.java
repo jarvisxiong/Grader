@@ -1,9 +1,19 @@
 package gradingTools.comp401f15.assignment9;
 
 import framework.grading.FrameworkProjectRequirements;
-import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
-import gradingTools.assignment6.testCases.*;
-import gradingTools.assignment9.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
+import gradingTools.assignment9.testCases.BridgeSceneControllerTagTestCase;
+import gradingTools.assignment9.testCases.ListenerAndPainterTagTestCase;
+import gradingTools.assignment9.testCases.ObservablePainterExtendsComponentTestCase;
+import gradingTools.assignment9.testCases.PaintListenerListenersTestCase;
+import gradingTools.assignment9.testCases.PaintListenerPaintMethodTestCase;
+import gradingTools.assignment9.testCases.PaintListenerPaintOnEventTestCase;
+import gradingTools.assignment9.testCases.ScenePainterExtendsComponentTestCase;
+import gradingTools.assignment9.testCases.ScenePainterListenerTestCase;
+import gradingTools.assignment9.testCases.ScenePainterPaintOnEventTestCase;
+import gradingTools.assignment9.testCases.ScenePainterTagTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment9.testCases.MoveAllAvatarsTestCase;

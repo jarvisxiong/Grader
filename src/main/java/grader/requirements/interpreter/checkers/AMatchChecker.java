@@ -1,12 +1,5 @@
 package grader.requirements.interpreter.checkers;
 
-import java.io.File;
-import java.io.IOException;
-
-import tools.DirectoryUtils;
-import util.misc.Common;
-import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
-import grader.trace.CSVSerializable;
 
 public class AMatchChecker implements InterpretedChecker{
 	

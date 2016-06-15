@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import util.annotations.Explanation;
-import util.annotations.Group;
 import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;

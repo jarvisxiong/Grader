@@ -1,6 +1,5 @@
 package grader.interaction_logger;
 
-import java.beans.PropertyChangeListener;
 import java.util.Set;
 
 import util.models.PropertyListenerRegisterer;

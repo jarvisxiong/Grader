@@ -1,10 +1,8 @@
 package framework.grading.testing;
 
-import framework.project.Project;
-
-import java.security.Permission;
-import java.util.Arrays;
 import java.util.List;
+
+import framework.project.Project;
 
 /**
  * Features are aspects of the program that it "should" have.

@@ -1,19 +1,15 @@
 package gradingTools.assignment9.testCases;
 
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-import tools.classFinder.ManualClassFinder;
-import tools.classFinder.RootTagFinder;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

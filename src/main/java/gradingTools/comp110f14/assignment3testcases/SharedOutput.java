@@ -1,7 +1,6 @@
 package gradingTools.comp110f14.assignment3testcases;
 
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 

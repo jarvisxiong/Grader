@@ -12,7 +12,6 @@ import grader.trace.steppers.NavigationListCreated;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import util.misc.Common;

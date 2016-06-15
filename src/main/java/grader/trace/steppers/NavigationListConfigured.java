@@ -1,13 +1,10 @@
 package grader.trace.steppers;
 
-import java.util.List;
-
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
+
+import java.util.List;
 
 public class NavigationListConfigured extends StepperInfo {
 	List<String> onyens;

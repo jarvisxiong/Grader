@@ -4,9 +4,15 @@ import grader.file.AnAbstractFileProxy;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.util.GraderFileUtils;
-import util.misc.Common;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import util.misc.Common;
 
 // file system translated to common interface for zip file and file system
 public class AFileSystemFileProxy extends AnAbstractFileProxy implements FileProxy {

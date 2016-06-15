@@ -1,11 +1,11 @@
 package tools.classFinder;
 
-import framework.project.ClassDescription;
-import framework.project.Project;
-import scala.Option;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import scala.Option;
+import framework.project.ClassDescription;
+import framework.project.Project;
 
 /**
  * This is part of the manual class locator system.

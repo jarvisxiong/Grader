@@ -1,6 +1,5 @@
 package grader.checkStyle;
 
-import grader.compilation.ClassFilesCompiler;
 
 public class JavaCheckStyleInvokerFactory {
 	static CheckStyleInvoker checkStyleInvoker ;

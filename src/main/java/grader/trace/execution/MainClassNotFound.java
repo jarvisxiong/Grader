@@ -1,7 +1,6 @@
 package grader.trace.execution;
 
 import util.trace.UncheckedTraceableException;
-import grader.trace.execution.UserProcessExecutionStarted;
 
 public class MainClassNotFound extends UncheckedTraceableException{
 	String mainClassName;

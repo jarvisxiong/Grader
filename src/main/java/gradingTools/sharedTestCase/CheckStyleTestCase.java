@@ -1,21 +1,16 @@
 package gradingTools.sharedTestCase;
 
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
-import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 import wrappers.framework.project.ProjectWrapper;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
+import grader.sakai.project.SakaiProject;
+import grader.util.IntrospectionUtil;
 
 
 public abstract class CheckStyleTestCase extends BasicTestCase {

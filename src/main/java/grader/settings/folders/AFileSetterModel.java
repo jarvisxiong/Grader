@@ -3,16 +3,13 @@ package grader.settings.folders;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import bus.uigen.OEFrame;
-import bus.uigen.ObjectEditor;
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
-import util.annotations.ComponentWidth;
-import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
-import util.models.LabelBeanModel;
+import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AFileSetterModel extends ALabelSetterModel implements FileSetterModel {
 	

@@ -1,26 +1,12 @@
 package framework.project;
 
-import framework.execution.*;
-import grader.project.AProject;
-import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
-import grader.trace.project.BinaryFolderMade;
-import grader.trace.project.BinaryFolderNotFound;
-import grader.trace.project.ProjectFolderNotFound;
-import grader.trace.project.SourceFolderAssumed;
-import grader.trace.project.SourceFolderNotFound;
-import grader.util.IntrospectionUtil;
-import scala.Option;
-import tools.DirectoryUtils;
-import util.pipe.InputGenerator;
-import util.trace.TraceableLog;
-import util.trace.TraceableLogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
+
+import scala.Option;
 
 /**
  * A "standard" project. That is, an IDE-based java project.

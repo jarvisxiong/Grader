@@ -3,7 +3,6 @@ package grader.interaction_logger;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
-import grader.modules.ModuleProblemManagerSelector;
 import grader.trace.CSVSerializable;
 import grader.trace.interaction_logger.InteractionLogEntryAdded;
 import grader.trace.interaction_logger.InteractionLogFileCreatedOrLoaded;
@@ -27,14 +26,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import util.misc.Common;
-import util.trace.TraceableBus;
 
 public class AnInteractionLogWriter implements InteractionLogWriter {
 

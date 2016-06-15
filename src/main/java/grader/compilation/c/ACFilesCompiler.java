@@ -1,23 +1,18 @@
 package grader.compilation.c;
 
+import framework.execution.BasicRunningProject;
+import framework.execution.ProcessRunner;
+import framework.execution.Runner;
+import grader.compilation.ClassFilesCompiler;
+import grader.language.LanguageDependencyManager;
+import grader.settings.GraderSettingsManagerSelector;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import util.misc.Common;
-import framework.execution.BasicRunningProject;
-import framework.execution.ProcessRunner;
-import framework.execution.Runner;
-import framework.execution.RunningProject;
-import framework.utils.GradingEnvironment;
-import grader.compilation.ClassFilesCompiler;
-import grader.documents.AWordDocumentDisplayer;
-import grader.documents.DocumentDisplayer;
-import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
-import grader.settings.GraderSettingsManagerSelector;
-import grader.trace.file.open.WordOpenedFile;
 
 public class ACFilesCompiler implements ClassFilesCompiler {
 	

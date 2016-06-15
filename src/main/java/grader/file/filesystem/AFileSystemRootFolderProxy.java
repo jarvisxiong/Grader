@@ -4,16 +4,11 @@ import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.AnAbstractRootFolderProxy;
 import grader.file.RootFolderProxy;
 import grader.trace.file.load.RootFileSystemFolderLoaded;
-import grader.trace.file.load.RootFolderProxyLoaded;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import util.misc.Common;
 

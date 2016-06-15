@@ -1,7 +1,5 @@
 package grader.config;
 
-import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
 import framework.utils.UserPropertyWriter;
 import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
@@ -12,11 +10,8 @@ import grader.trace.config.StaticConfigurationFileRead;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;

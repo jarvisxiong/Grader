@@ -1,11 +1,11 @@
 package framework.project;
 
+import framework.execution.ARunningProject;
 import framework.execution.BasicRunningProject;
 import framework.execution.InteractiveConsoleProcessRunner;
 import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
-import framework.execution.RunningProject;
 import grader.project.AProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
@@ -212,7 +212,7 @@ public class BasicProject implements Project {
     }
 
     @Override
-    public RunningProject start(String input) throws NotRunnableException {
+    public ARunningProject start(String input) throws NotRunnableException {
         return new ReflectionRunner(this).run(input);
     }
 
@@ -246,14 +246,14 @@ public class BasicProject implements Project {
 
     @Override
     public BasicRunningProject launchInteractive() throws NotRunnableException {
-    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
+    	ARunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
 //    	retVal.createFeatureTranscript();
     	return retVal;
 //        return new InteractiveConsoleProcessRunner(this).run("");
     }
     @Override
     public BasicRunningProject launchInteractive(String[] args) throws NotRunnableException {
-    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
+    	ARunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
 //    	retVal.createFeatureTranscript();
     	return retVal;
 //        return new InteractiveConsoleProcessRunner(this).run("");

@@ -1,8 +1,12 @@
 package grader.models;
 
-import bus.uigen.ObjectEditor;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
 import util.annotations.ComponentWidth;
 import util.annotations.PropertyNames;
 import util.annotations.StructurePattern;
@@ -10,9 +14,6 @@ import util.annotations.StructurePatternNames;
 import util.misc.ASuffixFileFilter;
 import util.models.AListenableVector;
 import util.models.ListenableVector;
-
-import javax.swing.*;
-import java.io.File;
 
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 @PropertyNames({"StudentName", "StudentId", "Features", "Comment"})

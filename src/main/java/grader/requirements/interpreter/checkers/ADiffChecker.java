@@ -5,8 +5,6 @@ import java.io.IOException;
 
 import tools.DirectoryUtils;
 import util.misc.Common;
-import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
-import grader.trace.CSVSerializable;
 
 public class ADiffChecker implements InterpretedChecker{
 	protected String diffTool;

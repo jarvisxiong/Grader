@@ -1,18 +1,5 @@
 package framework.navigation;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.junit.Before;
-import org.junit.Test;
-import framework.project.StandardProject;
-import scala.Option;
-import tools.TestConfig;
-
-import java.io.File;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link SakaiStudentFolder}

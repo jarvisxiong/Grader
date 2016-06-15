@@ -1,11 +1,11 @@
 package grader.colorers;
 
-import java.awt.Color;
-
 import grader.letter_grade.AScoreToLetterGradeMapper;
 import grader.letter_grade.LetterGrade;
 import grader.letter_grade.ScoreToLetterGradeMapper;
 import grader.sakai.project.SakaiProjectDatabase;
+
+import java.awt.Color;
 
 public class AScoreColorer implements Colorer<Double>{
 	SakaiProjectDatabase database; // context for coloring

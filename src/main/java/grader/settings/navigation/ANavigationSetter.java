@@ -2,16 +2,10 @@ package grader.settings.navigation;
 
 import grader.navigation.NavigationKind;
 import grader.settings.GraderSettingsModel;
-import grader.settings.GraderSettingsModelSelector;
 import grader.trace.settings.NavigationKindChange;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 import javax.swing.JRadioButton;
 
@@ -21,8 +15,6 @@ import util.annotations.PreferredWidgetClass;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
-import util.models.ADynamicEnum;
-import util.models.DynamicEnum;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)

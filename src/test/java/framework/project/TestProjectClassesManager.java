@@ -1,22 +1,16 @@
 package framework.project;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import grader.config.ConfigurationManagerSelector;
 import grader.project.AProject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import scala.Option;
 import tools.TestConfig;
 
 /**

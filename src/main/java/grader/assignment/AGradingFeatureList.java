@@ -1,7 +1,7 @@
 package grader.assignment;
 
-import util.models.AListenableVector;
 import util.annotations.Visible;
+import util.models.AListenableVector;
 
 public class AGradingFeatureList extends AListenableVector<GradingFeature> implements GradingFeatureList{
 	

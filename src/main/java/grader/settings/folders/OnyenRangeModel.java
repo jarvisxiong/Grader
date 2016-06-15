@@ -1,7 +1,5 @@
 package grader.settings.folders;
 
-import java.beans.PropertyChangeListener;
-
 import util.models.PropertyListenerRegisterer;
 
 public interface OnyenRangeModel extends PropertyListenerRegisterer{

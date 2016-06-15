@@ -1,7 +1,5 @@
 package framework.utils;
 
-import grader.config.AConfigurationManager;
-import grader.config.ConfigurationManager;
 import grader.config.StaticConfigurationUtils;
 
 import java.io.File;

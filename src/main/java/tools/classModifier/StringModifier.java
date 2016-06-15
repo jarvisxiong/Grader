@@ -1,6 +1,11 @@
 package tools.classModifier;
 
-import javassist.*;
+import javassist.CannotCompileException;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtMethod;
+import javassist.Modifier;
+import javassist.NotFoundException;
 
 public class StringModifier extends ClassModifier<String> {
     protected StringModifier() {

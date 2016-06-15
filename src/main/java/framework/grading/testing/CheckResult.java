@@ -1,9 +1,9 @@
 package framework.grading.testing;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * This represents the result of doing some "check" on the project.

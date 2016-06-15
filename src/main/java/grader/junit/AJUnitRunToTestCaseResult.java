@@ -4,7 +4,6 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-import framework.grading.testing.CheckResult;
 import framework.grading.testing.TestCaseResult;
 
 public class AJUnitRunToTestCaseResult extends RunListener {

@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;

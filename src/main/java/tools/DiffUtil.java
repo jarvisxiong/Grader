@@ -1,10 +1,7 @@
 package tools;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
-
-import util.misc.Common;
 
 public class DiffUtil {
 	

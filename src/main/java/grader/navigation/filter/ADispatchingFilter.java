@@ -1,10 +1,10 @@
 package grader.navigation.filter;
 
-import util.models.DynamicEnum;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.navigation.NavigationFilterRepository;
 import grader.settings.navigation.NavigationFilterSetter;
+import util.models.DynamicEnum;
 
 public class ADispatchingFilter implements BasicNavigationFilter{
 	NavigationFilterSetter navigationFilterSetter;

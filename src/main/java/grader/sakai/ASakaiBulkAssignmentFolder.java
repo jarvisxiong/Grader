@@ -1,8 +1,6 @@
 package grader.sakai;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import grader.file.FileProxy;
-import grader.file.ARootFolderCreator;
 import grader.file.RootFolderCreatorFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
@@ -13,7 +11,6 @@ import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
 import grader.trace.sakai_bulk_folder.StudentFolderLoaded;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;

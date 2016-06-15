@@ -1,8 +1,5 @@
 package grader.junit.test.reflection;
 
-import java.util.List;
-
-import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;

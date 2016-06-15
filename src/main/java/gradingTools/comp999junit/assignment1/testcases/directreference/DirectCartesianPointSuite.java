@@ -1,18 +1,17 @@
 package gradingTools.comp999junit.assignment1.testcases.directreference;
 
+import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
 
 //@RunWith(Suite.class)
 @RunWith(Suite.class)

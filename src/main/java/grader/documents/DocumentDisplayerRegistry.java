@@ -1,9 +1,9 @@
 package grader.documents;
 
-import util.misc.Common;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import util.misc.Common;
 
 public class DocumentDisplayerRegistry {
     public static Map<String, DocumentDisplayer> suffixToDisplayer = new HashMap();

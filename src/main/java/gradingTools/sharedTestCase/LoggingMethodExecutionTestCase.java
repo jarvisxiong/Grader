@@ -1,21 +1,22 @@
 package gradingTools.sharedTestCase;
 
-import framework.execution.RunningProject;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ExecutionUtil;
 import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
-import grader.util.IntrospectionUtil;
-import gradingTools.comp401f15.assignment6.testcases.commands.methods.FailedMethodFunctionTestCase;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import framework.execution.ARunningProject;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
+import grader.util.ExecutionUtil;
+import grader.util.IntrospectionUtil;
 
 /**
  *
@@ -185,7 +186,7 @@ public class LoggingMethodExecutionTestCase extends BasicTestCase {
         }
         anOutput += restoreOutputAndGetRedirectedOutput();
         if (anOutput != null && !anOutput.isEmpty()) {
-            RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+            ARunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
         }
         int total = methods.length - dnc;
         if (passed == total) {

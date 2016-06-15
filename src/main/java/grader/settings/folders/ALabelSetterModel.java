@@ -2,8 +2,6 @@ package grader.settings.folders;
 
 import util.annotations.Column;
 import util.annotations.ComponentHeight;
-import util.annotations.ComponentWidth;
-import util.annotations.Row;
 import util.annotations.Visible;
 import util.models.ALabelBeanModel;
 import util.models.LabelBeanModel;

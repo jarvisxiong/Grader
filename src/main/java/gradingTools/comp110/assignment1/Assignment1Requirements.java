@@ -1,7 +1,6 @@
 package gradingTools.comp110.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.comp110.assignment1.testcases.AddAndMultiplyTestCase;
 import gradingTools.comp110.assignment1.testcases.MainMethodTestCase;
 import gradingTools.comp110.assignment1.testcases.PrintAddAndMultiplyTestCase;

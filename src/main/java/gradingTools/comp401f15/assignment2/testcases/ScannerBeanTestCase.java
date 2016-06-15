@@ -5,12 +5,10 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Set;
 
 import wrappers.framework.project.ProjectWrapper;
-import framework.execution.RunningProject;
+import framework.execution.ARunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
@@ -78,7 +76,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
                     	ResultWithOutput aResultWithOutput = ExecutionUtil.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
                         String anOutput = aResultWithOutput.getOutput();
                         if (anOutput != null && !anOutput.isEmpty()) {
-                        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), anOutput);
+                        	ARunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), anOutput);
                         }
                     	return pass(autoGrade);
                     }

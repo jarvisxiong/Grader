@@ -1,8 +1,6 @@
 package framework.grading.testing;
 
-import util.trace.Tracer;
 import grader.trace.UncheckedGraderException;
-import grader.trace.settings.InvalidOnyenRangeException;
 
 /**
  * Created with IntelliJ IDEA.

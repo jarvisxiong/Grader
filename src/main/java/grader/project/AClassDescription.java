@@ -1,36 +1,24 @@
 //non Java doc reg exp: (?s)/\*[^*](?:(?!\*/).)*\(non-javadoc\)(?:(?!\*/).)*\*/
 package grader.project;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import com.github.antlrjavaparser.JavaParser;
-import com.github.antlrjavaparser.api.CompilationUnit;
-
 import framework.utils.GradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
-import grader.trace.compilation.SourceTextCompiledInMemory;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;
 import grader.trace.compilation.ClassFileNotFound;
 import grader.trace.compilation.ClassLoaded;
 import grader.trace.compilation.CompilationUnitCreated;
 import grader.trace.compilation.JavacSourceClassCreated;
 import grader.trace.compilation.QDoxClassCreated;
+import grader.trace.compilation.SourceTextCompiledInMemory;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
 
-import com.thoughtworks.qdox.JavaDocBuilder;
-import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.JavaSource;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 import util.annotations.EditablePropertyNames;
 import util.annotations.PropertyNames;
@@ -47,6 +35,12 @@ import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.local.AClassProxy;
 // gets the source from AClassesManager
 // converts class name to class object
+
+import com.github.antlrjavaparser.JavaParser;
+import com.github.antlrjavaparser.api.CompilationUnit;
+import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.JavaSource;
 
 public class AClassDescription implements ClassDescription {
 

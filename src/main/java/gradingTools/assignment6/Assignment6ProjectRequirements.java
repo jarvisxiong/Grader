@@ -3,7 +3,14 @@ package gradingTools.assignment6;
 import framework.grading.FrameworkProjectRequirements;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
-import gradingTools.assignment6.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.MainClassTestCase;
+import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.assignment6.testCases.SingleInterfaceTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.TaggedMethodTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,7 +1,5 @@
 package framework.logging.recorder;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import framework.grading.FrameworkProjectRequirements;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
@@ -17,13 +15,13 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.file.FileProxy;
 import grader.spreadsheet.FeatureGradeRecorder;
-import grader.spreadsheet.FeatureGradeRecorderSelector;
-import tools.DirectoryUtils;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+
+import tools.DirectoryUtils;
 
 /**
  * Created with IntelliJ IDEA.

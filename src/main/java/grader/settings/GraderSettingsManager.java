@@ -1,8 +1,6 @@
 package grader.settings;
 
-import grader.modules.ModuleProblemManager;
 import grader.navigation.NavigationKind;
-import grader.navigation.filter.NavigationFilter;
 
 public interface GraderSettingsManager {
 	

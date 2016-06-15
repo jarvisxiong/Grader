@@ -4,11 +4,10 @@ import framework.grading.testing.Checkable;
 import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import util.annotations.Visible;
-import util.models.PropertyListenerRegisterer;
 
-import java.awt.Color;
 import java.beans.PropertyChangeListener;
+
+import util.models.PropertyListenerRegisterer;
 
 public interface GradingFeature extends PropertyListenerRegisterer {
     public String getFeatureName();

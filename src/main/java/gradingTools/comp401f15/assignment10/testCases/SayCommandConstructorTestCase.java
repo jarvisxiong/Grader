@@ -1,19 +1,13 @@
 package gradingTools.comp401f15.assignment10.testCases;
 
+import java.util.Arrays;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import scala.Option;
-import tools.classFinder2.ClassFinder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,11 +1,17 @@
 package tools.classFinder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+
+import scala.Option;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-
-import javax.swing.*;
-import java.util.*;
 
 /**
  * This keeps track of classes and their corresponding tags. If it has no tag then it asks the user.

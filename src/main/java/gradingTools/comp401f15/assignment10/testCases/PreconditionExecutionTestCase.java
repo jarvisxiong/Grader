@@ -1,42 +1,33 @@
 package gradingTools.comp401f15.assignment10.testCases;
 
-import gradingTools.comp401f15.assignment6.testcases.commands.methods.*;
-import framework.execution.RunningProject;
+import java.beans.PropertyChangeEvent;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import util.misc.Common;
+import util.misc.ThreadSupport;
+import util.trace.TraceableBus;
+import util.trace.TraceableListener;
+import bus.uigen.ObjectEditor;
+import bus.uigen.oadapters.ObjectAdapter;
+import bus.uigen.trace.ObjectAdapterReceivedPropertyChangeEvent;
+import bus.uigen.trace.PropertyChangeEventInfo;
+import framework.execution.ARunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
-import util.misc.Common;
-import util.misc.ThreadSupport;
-import util.trace.TraceableBus;
-import util.trace.TraceableListener;
-
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
-
-import java.beans.PropertyChangeEvent;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
-import bus.uigen.ObjectEditor;
-import bus.uigen.oadapters.ObjectAdapter;
-import bus.uigen.trace.ObjectAdapterReceivedPropertyChangeEvent;
-import bus.uigen.trace.PropertyChangeEventInfo;
 import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
-import java.util.Optional;
 
 /**
  *
@@ -160,7 +151,7 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
                 if (outRedir.isPresent()) {
                     String out = RedirectionEnvironment.restore(outRedir.get()).orElse("");
 //                    System.gc();
-                    RunningProject.appendToTranscriptFile(project, getCheckable().getName(), out);
+                    ARunningProject.appendToTranscriptFile(project, getCheckable().getName(), out);
                 }
 //                String anOutput = restoreOutputAndGetRedirectedOutput();
 //                if (anOutput != null && !anOutput.isEmpty()) {

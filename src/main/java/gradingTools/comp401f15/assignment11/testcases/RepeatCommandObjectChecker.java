@@ -1,18 +1,18 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
-import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
-import com.github.antlrjavaparser.api.body.MethodDeclaration;
-import com.github.antlrjavaparser.api.stmt.Statement;
 import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
 import grader.project.ClassDescription;
-import tools.CompilationNavigation;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
+
+import tools.CompilationNavigation;
+
+import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
+import com.github.antlrjavaparser.api.body.MethodDeclaration;
 
 /**
  * Created with IntelliJ IDEA.

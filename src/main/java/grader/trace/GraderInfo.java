@@ -1,7 +1,5 @@
 package grader.trace;
 
-import java.util.Date;
-
 import util.trace.TraceableInfo;
 
 public class GraderInfo extends TraceableInfo  {

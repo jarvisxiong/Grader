@@ -1,18 +1,5 @@
 package gradingTools.sharedTestCase;
 
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
-import grader.sakai.project.SakaiProject;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
-import wrappers.framework.project.ProjectWrapper;
 
 
 public class EqualsAvoidNullTestCase extends CheckStyleTestCase {

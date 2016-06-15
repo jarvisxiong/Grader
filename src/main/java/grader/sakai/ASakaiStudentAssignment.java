@@ -9,11 +9,8 @@ import grader.trace.sakai_bulk_folder.SubmissionFolderLoaded;
 import grader.trace.sakai_bulk_folder.SubmissionFolderNotFound;
 import grader.trace.sakai_bulk_folder.TimestampFileLoaded;
 import grader.util.GraderCommon;
-import util.misc.Common;
-import util.trace.Tracer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +18,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+
+import util.misc.Common;
+import util.trace.Tracer;
 
 public class ASakaiStudentAssignment implements StudentAssignment {
 

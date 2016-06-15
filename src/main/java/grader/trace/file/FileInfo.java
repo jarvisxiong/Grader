@@ -1,7 +1,6 @@
 package grader.trace.file;
 
 import grader.trace.GraderInfo;
-import grader.trace.SerializableGraderInfo;
 
 public class FileInfo extends GraderInfo {
 	

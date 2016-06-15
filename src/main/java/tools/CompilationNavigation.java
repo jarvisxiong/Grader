@@ -1,10 +1,14 @@
 package tools;
 
-import com.github.antlrjavaparser.api.CompilationUnit;
-import com.github.antlrjavaparser.api.body.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.antlrjavaparser.api.CompilationUnit;
+import com.github.antlrjavaparser.api.body.BodyDeclaration;
+import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
+import com.github.antlrjavaparser.api.body.ConstructorDeclaration;
+import com.github.antlrjavaparser.api.body.MethodDeclaration;
+import com.github.antlrjavaparser.api.body.TypeDeclaration;
 
 /**
  * This is a utility to help with navigating the CompilationUnit that JavaParser returns.

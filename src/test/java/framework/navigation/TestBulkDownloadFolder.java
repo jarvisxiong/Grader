@@ -1,13 +1,16 @@
 package framework.navigation;
 
-import org.junit.Before;
-import org.junit.Test;
-import tools.TestConfig;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import tools.TestConfig;
 
 /**
  * Tests for {@link framework.navigation.BulkDownloadFolder}

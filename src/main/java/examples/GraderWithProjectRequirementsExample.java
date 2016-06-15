@@ -1,11 +1,11 @@
 package examples;
 
-import framework.grading.FrameworkProjectRequirements;
-import grader.trace.settings.InvalidOnyenRangeException;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
+import framework.grading.FrameworkProjectRequirements;
+import grader.trace.settings.InvalidOnyenRangeException;
 
 /**
  * This demonstrates how you can use the FrameworkProjectRequirements object with the "grader" system

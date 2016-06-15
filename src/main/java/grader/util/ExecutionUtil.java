@@ -1,13 +1,10 @@
 package grader.util;
 
+import framework.execution.ARunningProject;
 import framework.execution.BasicProcessRunner;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.ProcessRunner;
 import framework.execution.Runner;
-import framework.execution.RunningProject;
-import framework.grading.testing.Checkable;
-import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.execution.AConstructorExecutionCallable;
 import grader.execution.AMethodExecutionCallable;
@@ -23,20 +20,16 @@ import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import util.misc.Common;
 import util.misc.TeePrintStream;
-import util.misc.ThreadSupport;
 import util.trace.Tracer;
 
 public class ExecutionUtil {
@@ -374,7 +367,7 @@ public class ExecutionUtil {
 		} finally {
 			anOutput = restoreOutputAndGetRedirectedOutput();
 			 if (anOutput != null && !anOutput.isEmpty()) {
-             	RunningProject.appendToTranscriptFile(aProject, aFeatureName, anOutput);
+             	ARunningProject.appendToTranscriptFile(aProject, aFeatureName, anOutput);
              }
 			anActualOutputs.put(PRINTS, anOutput);
 			

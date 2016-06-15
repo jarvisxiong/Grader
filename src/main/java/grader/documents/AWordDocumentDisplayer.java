@@ -2,7 +2,6 @@ package grader.documents;
 
 
 import grader.settings.GraderSettingsManagerSelector;
-import grader.trace.file.open.DefaultProgramOpenedFile;
 import grader.trace.file.open.WordOpenedFile;
 import util.misc.Common;
 

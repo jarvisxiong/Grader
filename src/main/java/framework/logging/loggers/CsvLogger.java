@@ -13,12 +13,10 @@ import framework.logging.serializers.SerializationUtils;
 import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.utils.GraderSettings;
-import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.TotalScoreRecorderSelector;
-import grader.spreadsheet.csv.AFinalGradeRecorderFactory;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 public class CsvLogger implements Logger {

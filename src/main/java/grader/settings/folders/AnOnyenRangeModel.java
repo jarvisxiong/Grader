@@ -1,12 +1,12 @@
 package grader.settings.folders;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import grader.settings.GraderSettingsModel;
 import grader.trace.settings.EndOnyenUserChange;
 import grader.trace.settings.StartOnyenUserChange;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import util.annotations.Explanation;
 import util.annotations.Label;
 import util.annotations.Row;

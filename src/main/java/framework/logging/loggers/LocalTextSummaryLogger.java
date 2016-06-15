@@ -1,17 +1,13 @@
 package framework.logging.loggers;
 
-import framework.grading.testing.CheckResult;
-import framework.logging.loggers.Logger;
-import framework.logging.recorder.RecordingSession;
-import framework.logging.serializers.SerializationUtils;
-import framework.utils.GradingEnvironment;
+import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
+import framework.logging.recorder.RecordingSession;
+import framework.logging.serializers.SerializationUtils;
+import framework.utils.GradingEnvironment;
 
 /**
  * Saves a text summary to a local file.

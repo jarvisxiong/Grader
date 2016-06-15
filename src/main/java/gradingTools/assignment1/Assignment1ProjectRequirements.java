@@ -1,8 +1,13 @@
 package gradingTools.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment1.testCases.*;
-import gradingTools.assignment6.testCases.ManualTestCase;
+import gradingTools.assignment1.testCases.MultipleTokensTestCase;
+import gradingTools.assignment1.testCases.NoSplitTestCase;
+import gradingTools.assignment1.testCases.ProductTestCase;
+import gradingTools.assignment1.testCases.RemovePrecedingZerosTestCase;
+import gradingTools.assignment1.testCases.SingleTokenTestCase;
+import gradingTools.assignment1.testCases.SumTestCase;
+import gradingTools.assignment1.testCases.TwoMethodTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 

@@ -1,9 +1,9 @@
 package tools.resultTools;
 
-import org.codehaus.plexus.util.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
+
+import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Created with IntelliJ IDEA.

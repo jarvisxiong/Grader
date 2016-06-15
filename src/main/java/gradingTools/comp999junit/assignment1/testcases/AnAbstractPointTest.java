@@ -1,9 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import org.junit.Assert;
-
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointProxy;
+
+import org.junit.Assert;
 
 public abstract class AnAbstractPointTest {
 	public static final String ANGLE_TESTS = "Angle Tests";

@@ -1,8 +1,8 @@
 package demoAndTest.multiparadigm.java;
 
-import demoAndTest.GraderDemoerAndTester;
 import tools.DirectoryUtils;
 import util.trace.Tracer;
+import demoAndTest.GraderDemoerAndTester;
 /*
  * This is a test not of the student programs but of the grader on Java non distributed programs
  */

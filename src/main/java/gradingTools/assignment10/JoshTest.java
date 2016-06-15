@@ -1,12 +1,8 @@
 package gradingTools.assignment10;
 
-import bus.uigen.ObjectEditor;
-import bus.uigen.sadapters.BeanToRecord;
-import bus.uigen.trace.ConcreteStructureNodeCreated;
-import bus.uigen.trace.LogicalStructureNodeCreated;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
-import util.trace.Tracer;
+import bus.uigen.ObjectEditor;
 
 /**
  * Created with IntelliJ IDEA.

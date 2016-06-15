@@ -1,12 +1,6 @@
 package grader.modules;
 
-import grader.navigation.NavigationKind;
-import grader.navigation.filter.NavigationFilter;
-import grader.settings.GraderSettingsManager;
-
 import java.util.List;
-
-import util.trace.Tracer;
 
 public interface ModuleProblemManager {
 	public List<String> getModules();

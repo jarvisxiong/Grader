@@ -1,6 +1,5 @@
 package grader.settings.navigation;
 
-import grader.settings.folders.AnOnyenRangeModel;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

@@ -1,6 +1,5 @@
 package framework.execution;
 
-import framework.grading.testing.NotGradableException;
 import grader.trace.UncheckedGraderException;
 
 /**

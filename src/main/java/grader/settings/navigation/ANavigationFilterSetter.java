@@ -7,10 +7,7 @@ import grader.trace.settings.NavigationFilterUserChange;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JRadioButton;
 
@@ -24,8 +21,8 @@ import util.models.ADynamicEnum;
 import util.models.DynamicEnum;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
-import bus.uigen.introspect.Attribute;
 import bus.uigen.attributes.AttributeNames;
+import bus.uigen.introspect.Attribute;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class ANavigationFilterSetter implements NavigationFilterSetter {
 //	NavigationKind navigationKind = NavigationKind.AUTOMATIC_THEN_MANUAL;

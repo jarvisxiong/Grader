@@ -1,27 +1,6 @@
 package grader.demo.scores;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
-
-import grader.assignment.AssignmentDataFolder;
-import grader.assignment.GradingFeature;
-import grader.file.FileProxy;
-import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.spreadsheet.FeatureGradeRecorder;
-import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 public class ATracingFeatureScoreRecorder extends ASakaiCSVFeatureGradeManager  {

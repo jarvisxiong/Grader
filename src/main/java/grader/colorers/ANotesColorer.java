@@ -1,8 +1,8 @@
 package grader.colorers;
 
-import java.awt.Color;
-
 import grader.sakai.project.SakaiProjectDatabase;
+
+import java.awt.Color;
 
 public class ANotesColorer implements Colorer<String>{
 	SakaiProjectDatabase database; // context for coloring

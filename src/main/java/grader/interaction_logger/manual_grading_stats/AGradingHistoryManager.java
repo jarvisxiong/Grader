@@ -1,10 +1,8 @@
 package grader.interaction_logger.manual_grading_stats;
 
-import framework.utils.GradingEnvironment;
 import grader.interaction_logger.AnInteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
-import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
 
 import java.io.File;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import bus.uigen.undo.NameTokenizer;
 import util.misc.Common;
 
 public class AGradingHistoryManager implements GradingHistoryManager {

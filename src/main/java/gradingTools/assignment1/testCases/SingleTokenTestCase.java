@@ -1,7 +1,6 @@
 package gradingTools.assignment1.testCases;
 
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;

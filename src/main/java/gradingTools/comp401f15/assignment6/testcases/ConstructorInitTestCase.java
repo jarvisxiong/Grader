@@ -1,5 +1,11 @@
 package gradingTools.comp401f15.assignment6.testcases;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -9,11 +15,6 @@ import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodReturnReference;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 /**
  *

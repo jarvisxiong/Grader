@@ -1,35 +1,15 @@
 package grader.settings;
 
-import java.awt.GraphicsEnvironment;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JOptionPane;
-
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-
-import framework.project.ProjectClassesManager;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
 import grader.executor.ExecutorSelector;
-import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.modules.AModuleProblemSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.navigation.NavigationKind;
-import grader.navigation.filter.NavigationFilter;
 import grader.project.AProject;
 import grader.sakai.StudentAssignment;
 import grader.sakai.project.SakaiProject;
@@ -38,19 +18,28 @@ import grader.settings.folders.AGraderFilesSetterModel;
 import grader.settings.folders.AnOnyenRangeModel;
 import grader.settings.folders.GraderFilesSetterModel;
 import grader.settings.folders.OnyenRangeModel;
-import grader.settings.navigation.ANavigationFilterSetter;
 import grader.settings.navigation.ANavigationSetter;
 import grader.settings.navigation.NavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
-import grader.steppers.OverviewProjectStepper;
 import grader.trace.settings.DownloadPathUserChange;
 import grader.trace.settings.GraderSettingsEnded;
 import grader.trace.settings.GraderSettingsStarted;
 import grader.trace.settings.ModuleUserChange;
 import grader.trace.settings.NavigationInitiated;
 import grader.trace.settings.ProblemUserChange;
-import grader.trace.settings.StartOnyenUserChange;
 import gradingTools.Driver;
+
+import java.awt.GraphicsEnvironment;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import util.annotations.ComponentHeight;
 import util.annotations.Explanation;
 import util.annotations.Label;
@@ -60,8 +49,6 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import util.misc.Common;
-import util.models.DynamicEnum;
-import util.trace.TraceableBus;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import wrappers.grader.sakai.project.ProjectDatabaseWrapper;

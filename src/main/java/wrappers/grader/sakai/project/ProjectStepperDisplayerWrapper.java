@@ -10,14 +10,13 @@ import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
-import wrappers.framework.project.ProjectWrapper;
-import wrappers.framework.grading.testing.TestCaseWrapper;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
-import grader.sakai.project.*;
-import org.joda.time.DateTime;
-import scala.Option;
-import tools.DirectoryUtils;
+import grader.sakai.project.AProjectStepper;
+import grader.sakai.project.ProjectStepper;
+import grader.sakai.project.ProjectStepperDisplayer;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -26,6 +25,13 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.DateTime;
+
+import scala.Option;
+import tools.DirectoryUtils;
+import wrappers.framework.grading.testing.TestCaseWrapper;
+import wrappers.framework.project.ProjectWrapper;
 
 /**
  * This wraps the "framework" GUI in a {@link ProjectStepperDisplayer}

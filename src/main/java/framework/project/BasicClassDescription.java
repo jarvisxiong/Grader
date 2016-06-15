@@ -1,17 +1,18 @@
 package framework.project;
 
-import com.github.antlrjavaparser.JavaParser;
-import com.github.antlrjavaparser.api.CompilationUnit;
-import util.annotations.EditablePropertyNames;
-import util.annotations.PropertyNames;
-import util.annotations.StructurePattern;
-import util.annotations.Tags;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.Tags;
+
+import com.github.antlrjavaparser.JavaParser;
+import com.github.antlrjavaparser.api.CompilationUnit;
 
 /**
  * @see ClassDescription

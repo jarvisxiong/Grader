@@ -12,18 +12,14 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import demoAndTest.ADemoAndTestingClearanceManager;
-import demoAndTest.DemoAndTestingClearanceManager;
-import demoAndTest.GraderDemoerAndTester;
+import tools.DirectoryUtils;
+import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-import tools.DirectoryUtils;
-import util.misc.AClearanceManager;
-import util.misc.ClearanceManager;
-import util.misc.Common;
-import util.misc.ThreadSupport;
-import util.trace.Tracer;
+import demoAndTest.ADemoAndTestingClearanceManager;
+import demoAndTest.DemoAndTestingClearanceManager;
+import demoAndTest.GraderDemoerAndTester;
 /*
  * This is different from Driver in that it has a particular assignment hardwired.
  * This is assignment 3 from Jacob's 110. It would have been better to do Assignment 1

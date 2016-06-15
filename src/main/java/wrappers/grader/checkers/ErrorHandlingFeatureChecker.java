@@ -4,8 +4,9 @@ import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
 
-import javax.swing.*;
 import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 /**
  * This extends the abstract feature check so as to allow for exceptions to be thrown and turns them into failures.

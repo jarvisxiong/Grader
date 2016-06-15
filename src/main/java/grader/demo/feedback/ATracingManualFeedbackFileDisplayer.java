@@ -1,7 +1,6 @@
 package grader.demo.feedback;
 
 import grader.assignment.GradingFeature;
-import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.AManualFeedbackManager;
 import grader.feedback.ManualFeedback;
 

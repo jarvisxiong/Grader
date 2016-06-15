@@ -3,7 +3,6 @@ package gradingTools.sharedTestCase;
 import java.util.List;
 
 import framework.grading.testing.TestCaseResult;
-import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
 
 public class VariableHasClassTypeTestCase extends CheckStyleTestCase {

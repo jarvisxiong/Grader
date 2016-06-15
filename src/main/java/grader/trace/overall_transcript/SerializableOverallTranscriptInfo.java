@@ -1,14 +1,9 @@
 package grader.trace.overall_transcript;
 
-import grader.assignment.GradingFeature;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
-import grader.trace.feature.SerializableFeatureInfo;
 import grader.trace.steppers.SerializableStepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class SerializableOverallTranscriptInfo extends SerializableStepperInfo {
 String transcript;

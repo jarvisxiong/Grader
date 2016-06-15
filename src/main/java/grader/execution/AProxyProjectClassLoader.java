@@ -3,7 +3,6 @@ package grader.execution;
 import grader.file.FileProxy;
 import grader.file.filesystem.AFileSystemFileProxy;
 import grader.project.Project;
-import grader.project.folder.ARootCodeFolder;
 import grader.project.folder.RootCodeFolder;
 
 import java.io.File;
@@ -16,7 +15,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassLoader {
     public static final String CLASS_MAIN = "main.finalAssignment";

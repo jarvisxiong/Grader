@@ -1,19 +1,9 @@
 package grader.steppers;
 
-import util.annotations.ComponentWidth;
-import util.annotations.Row;
-import util.annotations.Visible;
-import util.misc.ClearanceManager;
-import util.models.LabelBeanModel;
-import util.models.PropertyListenerRegisterer;
-import grader.assignment.GradingFeatureList;
-import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.navigation.NavigationSetter;
 import grader.trace.settings.MissingOnyenException;
-
-import java.beans.PropertyChangeListener;
+import util.models.PropertyListenerRegisterer;
 
 
 public interface GradedProjectNavigator   extends /*ClearanceManager,*/ PropertyListenerRegisterer/*, PropertyChangeListener*/{

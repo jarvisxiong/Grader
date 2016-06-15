@@ -1,51 +1,15 @@
 package gradingTools.comp401f15.assignment12;
 
-import bus.uigen.widgets.TextFieldFactory;
-import edu.emory.mathcs.backport.java.util.Arrays;
-import gradingTools.comp401f15.assignment10.testCases.CommandListObjectTestCase;
 import gradingTools.comp401f15.assignment10.testCases.CommandObjectExistsTestCase;
 import gradingTools.comp401f15.assignment10.testCases.InterfaceImplementedTestCase;
-import gradingTools.comp401f15.assignment10.testCases.RepeatCommandObjectTestCase;
-import gradingTools.comp401f15.assignment11.testcases.*;
 import gradingTools.comp401f15.assignment12.testcases.FactoryMethodTestCase;
 import gradingTools.comp401f15.assignment12.testcases.GenerictClassCheckStyleTestCase;
 import gradingTools.comp401f15.assignment12.testcases.LockstepAnimationTestCase;
 import gradingTools.comp401f15.assignment12.testcases.WaitingAnimationTestCase;
-import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.CallCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.DefineCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.FailCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.MoveCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.PassCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.ProceedAllCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.RedoCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.RepeatCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.RotateLeftArmCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.RotateRightArmCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.SayCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.SleepCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.ThreadCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.UndoCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.created.WaitCommandCreatedTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.CallCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.DefineCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.FailCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.MoveCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.PassCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.ProceedAllCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.RedoCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.RepeatCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.RotateLeftArmCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.RotateRightArmCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.SayCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.SleepCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.ThreadCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.UndoCommandBeanTestCase;
-import gradingTools.comp401f15.assignment4.testcases.commands.function.WaitCommandBeanTestCase;
 import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
-import gradingTools.sharedTestCase.CheckstyleMethodCalledTestCase;
 import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
 import wrappers.framework.grading.ExtendedProjectRequirements;
+import bus.uigen.widgets.TextFieldFactory;
 
 /**
  * Created with IntelliJ IDEA.

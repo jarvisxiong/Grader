@@ -1,9 +1,10 @@
 package gradingTools.comp401f15.assignment10.testCases;
 
 import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.util.List;
 import java.util.Set;
+
+import tools.CompilationNavigation;
+import wrappers.framework.project.ProjectWrapper;
 
 import com.github.antlrjavaparser.api.body.ClassOrInterfaceDeclaration;
 import com.github.antlrjavaparser.api.body.MethodDeclaration;
@@ -13,13 +14,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.checkers.ACheckResult;
-import grader.checkers.CheckResult;
 import grader.project.ClassDescription;
 import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
-import tools.CompilationNavigation;
-import wrappers.framework.project.ProjectWrapper;
 
 public class RepeatCommandObjectTestCase extends BasicTestCase {
 	

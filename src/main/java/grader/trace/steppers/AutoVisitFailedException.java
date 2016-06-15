@@ -1,9 +1,6 @@
 package grader.trace.steppers;
 
-import grader.settings.GraderSettingsModel;
 import grader.trace.UncheckedGraderException;
-
-import java.io.IOException;
 
 public class AutoVisitFailedException extends UncheckedGraderException { // will be user error
 	

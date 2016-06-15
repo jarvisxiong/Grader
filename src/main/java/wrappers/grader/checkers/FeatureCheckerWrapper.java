@@ -1,15 +1,14 @@
 package wrappers.grader.checkers;
 
+import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
-import wrappers.framework.project.ProjectWrapper;
 import grader.checkers.ACheckResult;
 import grader.checkers.CheckResult;
-import grader.sakai.project.SakaiProject;
 
 /**
  * This wraps a {@link Checkable} in a feature checker so as to handle the exceptions.

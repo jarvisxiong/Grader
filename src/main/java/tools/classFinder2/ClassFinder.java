@@ -1,12 +1,18 @@
 package tools.classFinder2;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+
+import scala.Option;
 import framework.grading.testing.NotAutomatableException;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-
-import javax.swing.*;
-import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.

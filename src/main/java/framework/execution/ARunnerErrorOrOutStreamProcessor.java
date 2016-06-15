@@ -4,8 +4,6 @@ import java.io.InputStream;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
-import tools.TimedProcess;
-
 public abstract class ARunnerErrorOrOutStreamProcessor implements RunnerErrorOrOutStreamProcessor {
 	protected Scanner scanner ;
 	protected InputStream errorOrOut;

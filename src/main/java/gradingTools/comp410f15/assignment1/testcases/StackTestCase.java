@@ -1,14 +1,11 @@
 package gradingTools.comp410f15.assignment1.testcases;
 
-import java.util.Set;
-import java.util.regex.Pattern;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
+import scala.Option;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -17,7 +14,6 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import gradingTools.utils.RunningProjectUtils;
-import scala.Option;
 
 public class StackTestCase extends BasicTestCase {
 

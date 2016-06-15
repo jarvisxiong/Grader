@@ -1,11 +1,11 @@
 package gradingTools.assignment6.testCases;
 
+import javax.swing.JOptionPane;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-
-import javax.swing.*;
 
 /**
  * Created with IntelliJ IDEA.

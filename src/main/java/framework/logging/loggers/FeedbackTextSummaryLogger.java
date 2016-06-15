@@ -1,11 +1,5 @@
 package framework.logging.loggers;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
-
-import util.misc.Common;
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
@@ -13,6 +7,13 @@ import grader.project.AProject;
 import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.trace.feedback.FeedbackSaved;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
+import util.misc.Common;
 
 /**
  * Saves the text summary to the student's feedback folder

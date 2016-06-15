@@ -1,13 +1,13 @@
 package grader.executor;
 
+import framework.utils.GradingEnvironment;
+import grader.compilation.c.CFilesCompilerSelector;
+import grader.config.StaticConfigurationUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import framework.utils.GradingEnvironment;
-import grader.compilation.c.CFilesCompilerSelector;
-import grader.config.StaticConfigurationUtils;
 
 public class AnExecutor implements Executor {
 	String executorDirectory;

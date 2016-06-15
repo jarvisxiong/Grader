@@ -1,25 +1,24 @@
 package gradingTools.sharedTestCase;
 
-import framework.execution.RunningProject;
+import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import framework.execution.ARunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
 import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
-import java.io.File;
-import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -188,7 +187,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         }
         anOutput += restoreOutputAndGetRedirectedOutput();
         if (anOutput != null && !anOutput.isEmpty()) {
-            RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+            ARunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
         }
         int total = methods.length - dnc;
         if (passed == total) {

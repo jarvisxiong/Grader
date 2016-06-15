@@ -1,12 +1,15 @@
 package wrappers.framework.grading.testing;
 
-import framework.grading.testing.*;
-import framework.project.Project;
 import wrappers.framework.project.ProjectWrapper;
 import wrappers.grader.sakai.project.SakaiProjectWrapper;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
 import grader.assignment.GradingFeature;
-import grader.checkers.*;
 import grader.checkers.CheckResult;
+import grader.checkers.FeatureChecker;
 import grader.sakai.project.SakaiProject;
 
 /**

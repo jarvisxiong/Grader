@@ -1,8 +1,6 @@
 package gradingTools.testables.comp999junit.assignment1.wrongangle;
 
 import util.annotations.Explanation;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")

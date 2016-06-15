@@ -6,7 +6,6 @@ import java.util.Map;
 import util.tags.DistributedTags;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;

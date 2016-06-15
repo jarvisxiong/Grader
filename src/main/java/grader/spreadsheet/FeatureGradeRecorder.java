@@ -1,8 +1,8 @@
 package grader.spreadsheet;
 
-import framework.grading.testing.CheckResult;
 import java.util.List;
 
+import framework.grading.testing.CheckResult;
 import framework.grading.testing.TestCaseResult;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;

@@ -1,9 +1,9 @@
 package grader.trace.execution;
 
-import java.lang.reflect.Method;
-
 import grader.project.Project;
 import grader.trace.GraderInfo;
+
+import java.lang.reflect.Method;
 
 public class UserThreadExecutionInfo extends GraderInfo{
 	  String projectName;

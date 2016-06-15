@@ -1,15 +1,10 @@
 package grader.trace.overall_notes;
 
-import java.awt.Color;
-
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
-import grader.trace.steppers.SerializableStepperInfo;
-import grader.trace.steppers.StepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
+
+import java.awt.Color;
 
 public class OverallNotesColored extends OverallNotesInfo {
 	Color overviewNotesColor;

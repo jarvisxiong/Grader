@@ -5,7 +5,6 @@ import gradingTools.assignment2.testCases.BeanClassTestCase;
 import gradingTools.assignment3.testCases.NamingConventionsTestCase;
 import gradingTools.assignment3.testCases.ScannerBeanWordOutputTestCase;
 import gradingTools.assignment6.testCases.MainClassTestCase;
-import gradingTools.sharedTestCase.PackageDeclarationTestCase;
 
 /**
  * Created with IntelliJ IDEA.

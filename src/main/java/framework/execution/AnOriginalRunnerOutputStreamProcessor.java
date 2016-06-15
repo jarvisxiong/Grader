@@ -11,7 +11,7 @@ public class AnOriginalRunnerOutputStreamProcessor extends ARunnerErrorOrOutStre
 //	protected Scanner scanner ;
 //	protected InputStream out;
 //	protected RunningProject runner;
-	public AnOriginalRunnerOutputStreamProcessor(InputStream aProcessErrorOut, RunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
+	public AnOriginalRunnerOutputStreamProcessor(InputStream aProcessErrorOut, ARunningProject aRunner, /*Semaphore aSemaphore,*/ String aProcessName, Boolean anOnlyProcess) {
 		super(aProcessErrorOut, aRunner, /*aSemaphore,*/ aProcessName, anOnlyProcess);
 		
 	}

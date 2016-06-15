@@ -1,12 +1,8 @@
 package grader.project;
 
-import com.thoughtworks.qdox.JavaDocBuilder;
-
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
-import grader.assignment.GradingFeature;
 import grader.execution.MainClassFinder;
 import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
@@ -18,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import wrappers.framework.project.ProjectWrapper;
+
+import com.thoughtworks.qdox.JavaDocBuilder;
 
 public interface Project {
 

@@ -1,7 +1,6 @@
 package grader.assignment;
 
 import framework.grading.testing.Checkable;
-import framework.grading.testing.Feature;
 import grader.auto_notes.NotesGenerator;
 import grader.checkers.CheckResult;
 import grader.checkers.FeatureChecker;
@@ -19,11 +18,7 @@ import grader.trace.feature.auto_result_format.FeatureAutoResultFormatChanged;
 import grader.trace.feature.auto_result_format.FeatureAutoResultFormatLoaded;
 import grader.trace.feature.manual_notes.FeatureManualNotesLoaded;
 import grader.trace.feature.manual_notes.FeatureManualNotesSaved;
-import grader.trace.feature.manual_notes.FeatureManualNotesUserChange;
 import grader.trace.feature.score.FeatureScoreUserChange;
-import util.annotations.*;
-import util.misc.Common;
-import util.trace.Tracer;
 
 import java.awt.Color;
 import java.beans.PropertyChangeListener;
@@ -32,6 +27,14 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+
+import util.annotations.ComponentWidth;
+import util.annotations.Label;
+import util.annotations.Position;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Visible;
+import util.trace.Tracer;
 
 // a feature to be implemented by a student
 @util.annotations.Explanation("grading feature tooltip")

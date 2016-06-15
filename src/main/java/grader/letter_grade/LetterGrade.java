@@ -1,6 +1,5 @@
 package grader.letter_grade;
 
-import grader.navigation.filter.NotesStatus;
 
 public enum LetterGrade {
 	A,

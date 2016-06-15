@@ -1,9 +1,13 @@
 package framework.execution;
 
+import framework.project.Project;
+import grader.config.StaticConfigurationUtils;
+import grader.sakai.project.SakaiProject;
+import grader.trace.overall_transcript.OverallTranscriptSaved;
+
 import java.io.Closeable;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,10 +15,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import framework.project.Project;
-import grader.config.StaticConfigurationUtils;
-import grader.sakai.project.SakaiProject;
-import grader.trace.overall_transcript.OverallTranscriptSaved;
 import tools.TimedProcess;
 import util.models.ALocalGlobalTranscriptManager;
 import util.models.LocalGlobalTranscriptManager;

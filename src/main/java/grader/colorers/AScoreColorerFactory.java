@@ -1,6 +1,5 @@
 package grader.colorers;
 
-import grader.assignment.GradingFeature;
 import grader.sakai.project.SakaiProjectDatabase;
 
 public class AScoreColorerFactory implements ColorerFactory<Double> {

@@ -1,6 +1,5 @@
 package grader.requirements.interpreter.checkers;
 
-import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 
 public interface InterpretedChecker {
 //	public boolean isExpandFiles();

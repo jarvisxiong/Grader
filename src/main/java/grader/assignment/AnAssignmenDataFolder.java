@@ -1,5 +1,6 @@
 package grader.assignment;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import framework.utils.GradingEnvironment;
 import grader.config.AConfigurationManager;
 import grader.config.StaticConfigurationUtils;
@@ -12,15 +13,10 @@ import grader.trace.assignment_data.FeatureGradeFileCreatedFromFinalGradeFile;
 import grader.trace.assignment_data.FeatureGradeFileLoaded;
 import grader.trace.assignment_data.FeatureGradeFileRestored;
 import grader.trace.assignment_data.InputFileFound;
-import grader.trace.checkStyle.CheckStyleFileLoaded;
-import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

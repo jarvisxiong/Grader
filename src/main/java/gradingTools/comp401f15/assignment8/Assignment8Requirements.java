@@ -1,13 +1,19 @@
 package gradingTools.comp401f15.assignment8;
 
 import framework.grading.FrameworkProjectRequirements;
-import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
-import gradingTools.assignment6.testCases.*;
-import gradingTools.assignment8.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewConstructorAddListenerTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewConstructorParameterTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewListenerTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewTagTestCase;
+import gradingTools.assignment8.testCases.ListenerCollectionTestCase;
+import gradingTools.assignment8.testCases.SettersNotifyTestCase;
+import gradingTools.assignment8.testCases.ShapesRegisterListenerTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment8.testCase.ConsoleScenePrintsTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;

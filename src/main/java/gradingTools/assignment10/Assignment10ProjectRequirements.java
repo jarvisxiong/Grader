@@ -1,8 +1,14 @@
 package gradingTools.assignment10;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment10.testCases.*;
-import gradingTools.assignment6.testCases.ManualTestCase;
+import gradingTools.assignment10.testCases.AnimatingMethodNewThreadTestCase;
+import gradingTools.assignment10.testCases.AnimatingMethodTestCase;
+import gradingTools.assignment10.testCases.CommandImplementsRunnableTestCase;
+import gradingTools.assignment10.testCases.MoveCommandConstructorTestCase;
+import gradingTools.assignment10.testCases.ParserMethodTestCase;
+import gradingTools.assignment10.testCases.PreconditionTestCase;
+import gradingTools.assignment10.testCases.SayCommandConstructorTestCase;
+import gradingTools.assignment10.testCases.SayMoveCommandInvokedTestCase;
 import gradingTools.assignment6.testCases.QuestionTestCase;
 
 /**

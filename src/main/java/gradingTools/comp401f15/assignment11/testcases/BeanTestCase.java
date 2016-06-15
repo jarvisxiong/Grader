@@ -4,23 +4,16 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import wrappers.framework.project.ProjectWrapper;
-import framework.execution.RunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
 import framework.project.Project;
-import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
-import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 
 public class BeanTestCase extends OutputAndErrorCheckingTestCase{

@@ -1,9 +1,10 @@
 package gradingTools.comp401f15.assignment2.testcases;
 
-import framework.project.Project;
-import grader.util.IntrospectionUtil;
 import java.util.HashMap;
 import java.util.Map;
+
+import framework.project.Project;
+import grader.util.IntrospectionUtil;
 
 /**
  *

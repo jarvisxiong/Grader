@@ -1,9 +1,5 @@
 package grader.compilation;
 
-import framework.execution.RunningProject;
-import framework.utils.GradingEnvironment;
-import grader.trace.compilation.SourceFileCompiled;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +12,9 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import util.trace.javac.CompilerNotFound;
+import framework.execution.ARunningProject;
+import framework.utils.GradingEnvironment;
+import grader.trace.compilation.SourceFileCompiled;
 
 public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 	/**
@@ -26,7 +25,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 	 *            ArrayList of .java files
 	 * @throws IOException
 	 */
-	public RunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
+	public ARunningProject compile(File sourceFolder, File buildFolder, List<File> sourceFiles) throws IOException, IllegalStateException {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 	

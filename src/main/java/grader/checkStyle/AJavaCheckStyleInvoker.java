@@ -2,24 +2,11 @@ package grader.checkStyle;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import util.misc.Common;
 import framework.execution.BasicRunningProject;
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
-import framework.execution.RunningProject;
-import framework.utils.GradingEnvironment;
-import grader.assignment.AnAssignmenDataFolder;
-import grader.compilation.ClassFilesCompiler;
-import grader.documents.AWordDocumentDisplayer;
-import grader.documents.DocumentDisplayer;
-import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.ASakaiProjectDatabase;
-import grader.settings.GraderSettingsManagerSelector;
-import grader.trace.file.open.WordOpenedFile;
 
 public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	

@@ -1,8 +1,6 @@
 package gradingTools.comp110f14.assignment5testcases;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.sql.Array;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;

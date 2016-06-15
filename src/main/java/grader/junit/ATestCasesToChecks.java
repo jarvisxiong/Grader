@@ -1,9 +1,5 @@
 package grader.junit;
 
-import java.util.List;
-
-import framework.grading.testing.Checkable;
-import framework.grading.testing.TestCase;
 
 public class ATestCasesToChecks {
 	

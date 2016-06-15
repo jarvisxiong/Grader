@@ -1,15 +1,11 @@
 package gradingTools.comp410s16.assignment2.testcases;
 
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
+import scala.Option;
+import wrappers.framework.project.ProjectWrapper;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -18,11 +14,6 @@ import framework.project.ClassDescription;
 import framework.project.ClassesManager;
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import gradingTools.utils.RunningProjectUtils;
-import scala.Option;
-import wrappers.framework.project.ProjectWrapper;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by andrewwg94 on 2/11/16.

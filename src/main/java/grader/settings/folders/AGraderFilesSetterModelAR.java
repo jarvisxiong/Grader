@@ -2,7 +2,6 @@ package grader.settings.folders;
 
 import java.awt.Color;
 
-import grader.sakai.project.AProjectStepper;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

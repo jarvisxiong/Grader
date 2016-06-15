@@ -1,17 +1,17 @@
 package gradingTools.assignment7.testCases;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import scala.Option;
+import tools.classFinder.ManualClassFinder;
+import tools.classFinder.RootTagFinder;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import tools.classFinder.ManualClassFinder;
-import tools.classFinder.RootTagFinder;
-import scala.Option;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Created with IntelliJ IDEA.

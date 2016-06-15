@@ -3,13 +3,11 @@ package gradingTools.comp401f15.assignment2.testcases;
 import java.util.List;
 
 import framework.execution.NotRunnableException;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
+import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import gradingTools.assignment1.FlexibleProgramRunner;
 
 
 public abstract class AbstractTokensTestCase extends OutputAndErrorCheckingTestCase {

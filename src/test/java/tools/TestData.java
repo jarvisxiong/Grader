@@ -1,10 +1,9 @@
 package tools;
 
+import java.io.File;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.

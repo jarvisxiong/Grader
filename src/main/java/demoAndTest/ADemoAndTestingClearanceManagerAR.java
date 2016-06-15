@@ -1,8 +1,5 @@
 package demoAndTest;
 
-import grader.steppers.AMainProjectStepper;
-
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 
 import bus.uigen.ObjectEditor;

@@ -1,31 +1,28 @@
 package gradingTools.comp401f15.assignment8.testCase;
 
-import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.*;
-import framework.execution.RunningProject;
+import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import framework.execution.ARunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
 import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.ExecutionData;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
-import java.beans.PropertyChangeEvent;
-import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
 
 /**
  *
@@ -138,7 +135,7 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
             String anOutput = restoreOutputAndGetRedirectedOutput();
             if (anOutput != null && !anOutput.isEmpty()) {
              	System.out.println(anOutput);
-             	RunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
+             	ARunningProject.appendToTranscriptFile(project, getCheckable().getName(), anOutput);
             }
         }
     }

@@ -1,9 +1,10 @@
 package framework.gui;
 
-import framework.grading.testing.CheckResult;
-
-import javax.swing.*;
 import java.util.List;
+
+import javax.swing.JLabel;
+
+import framework.grading.testing.CheckResult;
 
 /**
  * Created with IntelliJ IDEA.

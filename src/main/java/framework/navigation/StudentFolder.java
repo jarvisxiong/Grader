@@ -1,10 +1,11 @@
 package framework.navigation;
 
-import org.joda.time.DateTime;
-import framework.project.Project;
-import scala.Option;
-
 import java.io.File;
+
+import org.joda.time.DateTime;
+
+import scala.Option;
+import framework.project.Project;
 
 /**
  * Based on {@link grader.sakai.StudentAssignment}

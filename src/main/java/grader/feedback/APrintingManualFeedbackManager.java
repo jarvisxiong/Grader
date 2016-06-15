@@ -1,7 +1,6 @@
 package grader.feedback;
 
 import grader.assignment.GradingFeature;
-import grader.documents.DocumentDisplayerRegistry;
 
 public class APrintingManualFeedbackManager implements ManualFeedback {
 

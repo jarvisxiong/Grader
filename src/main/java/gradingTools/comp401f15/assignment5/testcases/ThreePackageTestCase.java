@@ -1,13 +1,13 @@
 package gradingTools.comp401f15.assignment5.testcases;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

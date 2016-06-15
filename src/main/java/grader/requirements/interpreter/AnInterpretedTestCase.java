@@ -2,9 +2,7 @@ package grader.requirements.interpreter;
 
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.Feature;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;

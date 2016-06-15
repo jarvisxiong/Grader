@@ -1,14 +1,12 @@
 package gradingTools.assignment11.tools;
 
+import java.util.List;
+
+import scala.Option;
+import tools.classFinder2.ClassFinder;
 import framework.grading.testing.NotAutomatableException;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-import tools.classFinder2.ClassFinder;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

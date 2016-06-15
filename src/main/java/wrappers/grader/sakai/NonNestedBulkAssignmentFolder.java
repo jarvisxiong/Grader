@@ -2,7 +2,6 @@ package wrappers.grader.sakai;
 
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
-import wrappers.grader.file.SimplifiedFileProxy;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.sakai.BulkAssignmentFolder;
@@ -11,6 +10,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.HashSet;
 import java.util.Set;
+
+import wrappers.grader.file.SimplifiedFileProxy;
 
 /**
  * Similar to {@link grader.sakai.ASakaiBulkAssignmentFolder} but it doesn't assume it is nested within another folder

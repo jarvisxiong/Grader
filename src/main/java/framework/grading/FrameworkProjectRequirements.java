@@ -1,6 +1,17 @@
 package framework.grading;
 
-import framework.execution.RunningProject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import wrappers.framework.project.ProjectWrapper;
+import framework.execution.ARunningProject;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
@@ -12,19 +23,6 @@ import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import wrappers.framework.project.ProjectWrapper;
-
-import java.security.Permission;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This is the fundamental container which holds all the features and
@@ -163,7 +161,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
             
         			String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
         			 if (anOutput != null && !anOutput.isEmpty()) {
-                     	RunningProject.appendToTranscriptFile(project, feature.getName(), anOutput);
+                     	ARunningProject.appendToTranscriptFile(project, feature.getName(), anOutput);
                      }
         			
         		

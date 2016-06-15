@@ -1,13 +1,17 @@
 package grader.project;
 
-import util.misc.Common;
-import wrappers.framework.project.ProjectWrapper;
 import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
 import grader.util.GraderFileUtils;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import util.misc.Common;
 
 // this makes the class descriptions providing the text to each class
 // It does not seem to use the proxy

@@ -1,6 +1,5 @@
 package grader.settings.navigation;
 
-import util.annotations.Column;
 
 public interface AutomaticNavigationSetter {
 	public boolean getAnimateGrades() ;

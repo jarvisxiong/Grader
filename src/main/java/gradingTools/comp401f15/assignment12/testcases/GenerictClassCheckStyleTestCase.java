@@ -1,18 +1,10 @@
 package gradingTools.comp401f15.assignment12.testcases;
 
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
-
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.CheckStyleTestCase;
+
+import java.util.List;
 
 public class GenerictClassCheckStyleTestCase extends CheckStyleTestCase {
 	public GenerictClassCheckStyleTestCase (String aTypeTag) {

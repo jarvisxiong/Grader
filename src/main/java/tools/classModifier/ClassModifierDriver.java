@@ -1,8 +1,8 @@
 package tools.classModifier;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * This is the starting point for creating custom classes.

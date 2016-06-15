@@ -1,22 +1,12 @@
 package grader.modules;
 
-import grader.config.AConfigurationManager;
 import grader.config.ConfigurationManagerSelector;
-import grader.navigation.NavigationKind;
-import grader.navigation.filter.NavigationFilter;
-import grader.settings.AGraderSettingsModel;
-import grader.settings.GraderSettingsManager;
-import grader.settings.GraderSettingsManagerSelector;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-
-import util.annotations.Explanation;
-import util.trace.Tracer;
 
 public class AModuleProblemManager implements ModuleProblemManager{
 	public static final String MODULES = "modules";

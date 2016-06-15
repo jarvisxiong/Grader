@@ -5,9 +5,9 @@ import grader.junit.test.directreference.ACartesianPointJUnitTester;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.runner.notification.RunListener;
 
 public class ProgrammaticJUnitRun  extends RunListener {
 	@Override

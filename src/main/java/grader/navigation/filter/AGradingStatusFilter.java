@@ -1,16 +1,12 @@
 package grader.navigation.filter;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import util.annotations.Explanation;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
 import grader.trace.settings.GradingStatusUserChange;
-import grader.trace.settings.NavigationParameterChange;
+import util.annotations.Explanation;
 
 @Explanation("Student record selection based on whether they have been been graded fully or automatically.")
 public class AGradingStatusFilter extends AnAbstractNavigationFilter<GradingStatus> implements NavigationFilter<GradingStatus>{

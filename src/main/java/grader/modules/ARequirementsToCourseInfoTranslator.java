@@ -4,6 +4,7 @@ import grader.config.StaticConfigurationUtils;
 import grader.file.RootFolderProxy;
 import grader.file.filesystem.AFileSystemRootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -14,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class ARequirementsToCourseInfoTranslator {

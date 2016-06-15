@@ -1,17 +1,18 @@
 package framework.grading;
 
-import framework.grading.testing.CheckResult;
-import framework.grading.testing.Feature;
-import framework.grading.testing.Restriction;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+
 import testObjects.SimpleTestCase;
-
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
+import framework.grading.testing.CheckResult;
+import framework.grading.testing.Feature;
+import framework.grading.testing.Restriction;
 
 /**
  * Created with IntelliJ IDEA.

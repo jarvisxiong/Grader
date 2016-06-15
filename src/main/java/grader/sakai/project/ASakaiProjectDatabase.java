@@ -15,11 +15,7 @@ import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.auto_notes.ANotesGenerator;
 import grader.auto_notes.NotesGenerator;
-import grader.colorers.AGradingFeatureColorer;
-import grader.colorers.ANotesColorer;
-import grader.colorers.AScoreColorer;
 import grader.colorers.Colorer;
-import grader.colorers.GradingFeatureColorer;
 import grader.colorers.GradingFeatureColorerSelector;
 import grader.colorers.MultiplierColorerSelector;
 import grader.colorers.NotesColorerSelector;
@@ -27,21 +23,16 @@ import grader.colorers.OverallScoreColorerSelector;
 import grader.documents.AWordDocumentDisplayer;
 import grader.documents.DocumentDisplayer;
 import grader.documents.DocumentDisplayerRegistry;
-import grader.execution.AMainClassFinder;
 import grader.execution.AReflectionBasedProjectRunner;
-import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.MainClassFinder;
-import grader.feedback.AManualFeedbackManager;
 import grader.feedback.APrintingAutoFeedbackManager;
 import grader.feedback.APrintingManualFeedbackManager;
 import grader.feedback.AScoreFeedbackFileWriter;
 import grader.feedback.AnAllTextSourceDisplayer;
-import grader.feedback.AnAutoFeedbackManager;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.feedback.ScoreFeedback;
 import grader.feedback.SourceDisplayer;
-import grader.file.FileProxyUtils;
 import grader.file.RootFolderProxy;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.AProjectNavigator;
@@ -54,39 +45,24 @@ import grader.navigation.hybrid.AHybridProjectNavigator;
 import grader.navigation.hybrid.HybridProjectNavigator;
 import grader.navigation.manual.AManualProjectNavigator;
 import grader.navigation.manual.ManualProjectNavigator;
-import grader.navigation.sorter.AnAlphabeticFileNameSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
 import grader.project.AProject;
-import grader.project.Project;
-import grader.project.folder.ARootCodeFolder;
 import grader.project.source.ClassesTextManager;
 import grader.requirements.interpreter.specification.ACSVRequirementsSpecification;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
 import grader.sakai.ASakaiBulkAssignmentFolder;
-import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
-import grader.sakai.AnAbstractSakaiStudentAssignmentsDatabase;
 import grader.sakai.BulkAssignmentFolder;
 import grader.sakai.GenericStudentAssignmentDatabase;
-import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
 import grader.settings.GraderSettingsModel;
-import grader.settings.navigation.AnAutomaticNavigationSetter;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.FinalGradeRecorder;
-import grader.spreadsheet.FinalGradeRecorderSelector;
-import grader.spreadsheet.TotalScoreRecorderSelector;
-import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
-import grader.spreadsheet.csv.ASakaiCSVFinalGradeManager;
-import grader.spreadsheet.xlsx.ASakaiSpreadsheetGradeRecorder;
-import grader.steppers.ABasicProjectStepper;
 import grader.steppers.AComplexProjectStepper;
 import grader.steppers.AGradedProjectNavigator;
-import grader.steppers.AMainProjectStepper;
-import grader.steppers.AnOverviewProjectStepper;
 import grader.steppers.OverviewProjectStepper;
 import grader.trace.assignment_data.AssignmentDataFolderCreated;
 import grader.trace.assignment_data.AssignmentDataFolderLoaded;
@@ -110,23 +86,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import javax.swing.Icon;
 import javax.swing.JFrame;
@@ -135,12 +97,10 @@ import javax.swing.JOptionPane;
 import util.misc.AClearanceManager;
 import util.misc.ClearanceManager;
 import util.misc.Common;
-import util.models.AListenableVector;
 import util.models.Hashcodetable;
 import util.trace.Tracer;
 import wrappers.grader.checkers.FeatureCheckerWrapper;
 import bus.uigen.OEFrame;
-import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
 import bus.uigen.uiFrameList;
 import bus.uigen.widgets.VirtualComponent;

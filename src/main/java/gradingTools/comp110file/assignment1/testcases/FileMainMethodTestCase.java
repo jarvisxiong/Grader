@@ -2,15 +2,15 @@ package gradingTools.comp110file.assignment1.testcases;
 
 	
 	import java.lang.reflect.Method;
-	import java.lang.reflect.Modifier;
+import java.lang.reflect.Modifier;
 
-	import framework.grading.testing.BasicTestCase;
-	import framework.grading.testing.NotAutomatableException;
-	import framework.grading.testing.NotGradableException;
-	import framework.grading.testing.TestCaseResult;
-	import framework.project.ClassDescription;
-	import framework.project.ClassesManager;
-	import framework.project.Project;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.ClassDescription;
+import framework.project.ClassesManager;
+import framework.project.Project;
 
 	public class FileMainMethodTestCase extends BasicTestCase {
 

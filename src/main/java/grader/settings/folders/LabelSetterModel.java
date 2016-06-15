@@ -1,6 +1,5 @@
 package grader.settings.folders;
 
-import util.annotations.Visible;
 import util.models.LabelBeanModel;
 
 public interface LabelSetterModel {

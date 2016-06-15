@@ -1,11 +1,7 @@
 package grader.trace.settings;
 
-import java.util.Date;
-
 import grader.navigation.NavigationKind;
 import grader.settings.GraderSettingsModel;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class NavigationKindChange extends GraderSettingsInfo {
 	

@@ -1,9 +1,5 @@
 package grader.interaction_logger.manual_grading_stats;
 
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-
 import grader.interaction_logger.AnInteractionLogReader;
 import grader.interaction_logger.AnInteractionLogWriter;
 import grader.interaction_logger.InteractionLogReader;
@@ -13,7 +9,6 @@ import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryFill
 import grader.trace.settings.AutomaticNavigationEnded;
 import grader.trace.settings.AutomaticNavigationStarted;
 import grader.trace.settings.GraderSettingsInfo;
-import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.NavigationStarted;
 import grader.trace.steppers.FeedbackVisited;
@@ -21,11 +16,14 @@ import grader.trace.steppers.ProblemHistoryVisited;
 import grader.trace.steppers.ProjectStepAborted;
 import grader.trace.steppers.ProjectStepEnded;
 import grader.trace.steppers.ProjectStepStarted;
-import grader.trace.steppers.ProjectStepperEnded;
 import grader.trace.steppers.ProjectStepperStarted;
 import grader.trace.steppers.SourceVisited;
 import grader.trace.steppers.StudentHistoryVisited;
 import grader.trace.steppers.UserQuit;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 public class AGradingHistoryParser implements GradingHistoryParser {
 

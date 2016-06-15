@@ -1,9 +1,9 @@
 package framework.navigation;
 
-import framework.project.Project;
-import framework.project.StandardProject;
-import grader.project.AProject;
-import tools.DirectoryUtils;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
@@ -11,11 +11,10 @@ import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
 import scala.Option;
+import tools.DirectoryUtils;
 import util.misc.Common;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
+import framework.project.StandardProject;
+import grader.project.AProject;
 
 /**
  * A Sakai-structured student folder.

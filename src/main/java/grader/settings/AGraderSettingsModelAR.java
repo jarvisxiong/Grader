@@ -1,8 +1,5 @@
 package grader.settings;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import bus.uigen.undo.ExecutableCommand;

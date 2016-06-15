@@ -1,12 +1,11 @@
 package gradingTools.comp790Colab.assignment1;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment6.testCases.ManualTestCase;
+import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputAddAndMultiplyTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputMainMethodTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPrintAddAndMultiplyTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
-import gradingTools.comp110.assignment1.testcases.ProperHeaderTestCase;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeiInputTakeNumberTestCase;
 
 public class Assignment1Requirements extends FrameworkProjectRequirements {

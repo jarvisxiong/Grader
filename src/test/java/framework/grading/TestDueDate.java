@@ -1,11 +1,10 @@
 package framework.grading;
 
+import java.lang.reflect.Field;
+
 import org.joda.time.DateTime;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.lang.reflect.Field;
 
 /**
  * Created with IntelliJ IDEA.

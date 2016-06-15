@@ -3,12 +3,8 @@ package grader.trace.feature.auto_notes;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
 import grader.trace.feature.GradingFeatureInfo;
-import grader.trace.steppers.StepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class FeatureAutoNotesLoaded extends GradingFeatureInfo {
 	String featureAutoNotesFileName;

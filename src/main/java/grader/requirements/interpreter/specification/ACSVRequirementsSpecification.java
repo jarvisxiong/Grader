@@ -1,32 +1,15 @@
 package grader.requirements.interpreter.specification;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-//import bus.uigen.Message;
-import scala.xml.dtd.DEFAULT;
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
 import framework.grading.FrameworkProjectRequirements;
 import grader.file.FileProxy;
-import grader.requirements.interpreter.InterpretedRequirements;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.spreadsheet.FinalGradeRecorder;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import au.com.bytecode.opencsv.CSVReader;
+//import bus.uigen.Message;
 
 public class ACSVRequirementsSpecification implements CSVRequirementsSpecification {
 	public static final String TYPE_NAME = "Type";

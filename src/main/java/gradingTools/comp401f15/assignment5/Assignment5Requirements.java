@@ -4,13 +4,11 @@ import util.annotations.StructurePatternNames;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.assignment6.testCases.EncapsulationTestCase;
 import gradingTools.assignment6.testCases.SystemExitTestCase;
-import gradingTools.assignment6.testCases.ThreePackageTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
-import gradingTools.sharedTestCase.CheckstylePropertyDefinedTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
 

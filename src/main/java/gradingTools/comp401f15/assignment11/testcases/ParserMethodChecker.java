@@ -4,11 +4,12 @@ import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
 import grader.project.ClassDescription;
-import util.annotations.Tags;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
+
+import util.annotations.Tags;
 
 /**
  * Created with IntelliJ IDEA.

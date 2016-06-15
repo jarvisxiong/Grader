@@ -1,20 +1,19 @@
 package grader.navigation.manual;
 
-import java.awt.GraphicsEnvironment;
-
-import javax.print.attribute.standard.JobMessageFromOperator;
-import javax.swing.JOptionPane;
-
-import bus.uigen.OEFrame;
-//import framework.execution.reflectionObjects.ManualProject;
-import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.ManualNavigationEnded;
 import grader.trace.settings.ManualNavigationStarted;
 import grader.trace.settings.MissingOnyenException;
+
+import java.awt.GraphicsEnvironment;
+
+import javax.swing.JOptionPane;
+
 import util.trace.Tracer;
+import bus.uigen.OEFrame;
+//import framework.execution.reflectionObjects.ManualProject;
 
 public class AManualProjectNavigator implements ManualProjectNavigator {
 	SakaiProjectDatabase database;

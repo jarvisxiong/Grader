@@ -1,14 +1,9 @@
 package grader.project;
 
-import com.thoughtworks.qdox.JavaDocBuilder;
-
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
-import framework.grading.testing.Feature;
 import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
-import grader.assignment.GradingFeature;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.MainClassFinder;
 import grader.execution.ProjectRunnerSelector;
@@ -37,13 +32,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
+
+import com.thoughtworks.qdox.JavaDocBuilder;
 
 public class AProject implements Project {
 

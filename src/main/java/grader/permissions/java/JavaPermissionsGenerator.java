@@ -1,17 +1,15 @@
 package grader.permissions.java;
 
+import framework.project.Project;
+import grader.permissions.PermissionsGenerator;
+import grader.sakai.project.ASakaiProjectDatabase;
+
 import java.io.File;
 import java.io.IOException;
 import java.security.Permission;
 
 import util.misc.Common;
 import util.models.Hashcodetable;
-import wrappers.framework.project.ProjectWrapper;
-import framework.project.Project;
-import grader.file.FileProxy;
-import grader.permissions.PermissionsGenerator;
-import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.SakaiProjectDatabase;
 
 public class JavaPermissionsGenerator implements PermissionsGenerator{
 	Hashcodetable<Object[], File> permissionsToFile = new Hashcodetable<>();

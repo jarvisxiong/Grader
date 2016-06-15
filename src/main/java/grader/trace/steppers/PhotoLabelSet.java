@@ -2,11 +2,8 @@ package grader.trace.steppers;
 
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
 import util.models.LabelBeanModel;
-import util.trace.TraceableInfo;
 
 public class PhotoLabelSet extends StepperInfo {
 	LabelBeanModel labelModel;

@@ -1,11 +1,12 @@
 package tools.resultTools;
 
-import com.google.gson.Gson;
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
+import com.google.gson.Gson;
 
 /**
  * This is a simple score holder. Use this turn the .json result files into some usable object.

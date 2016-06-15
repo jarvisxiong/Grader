@@ -1,7 +1,9 @@
 package grader.spreadsheet.csv;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import grader.file.FileProxy;
+import grader.sakai.project.SakaiProjectDatabase;
+import grader.spreadsheet.FinalGradeRecorder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,25 +11,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-
-
-//import bus.uigen.Message;
-import scala.xml.dtd.DEFAULT;
 import util.misc.Common;
 import util.trace.Tracer;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-import grader.file.FileProxy;
-import grader.sakai.project.SakaiProjectDatabase;
-import grader.spreadsheet.FinalGradeRecorder;
+//import bus.uigen.Message;
 
 public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;

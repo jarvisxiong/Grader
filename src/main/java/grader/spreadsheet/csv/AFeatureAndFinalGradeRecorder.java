@@ -1,12 +1,8 @@
 package grader.spreadsheet.csv;
 
-import grader.assignment.GradingFeature;
 import grader.file.FileProxy;
-import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
-
-import java.util.List;
 
 public class AFeatureAndFinalGradeRecorder implements FinalGradeRecorder {
 	FinalGradeRecorder finalGradeRecorder, featureGradeRecorder;

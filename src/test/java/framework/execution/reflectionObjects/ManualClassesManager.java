@@ -1,12 +1,11 @@
 package framework.execution.reflectionObjects;
 
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import scala.Option;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import framework.project.ClassDescription;
+import framework.project.ClassesManager;
 
 /**
  * Created with IntelliJ IDEA.

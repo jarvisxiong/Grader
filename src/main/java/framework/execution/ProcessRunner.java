@@ -1,23 +1,5 @@
 package framework.execution;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
-import tools.TimedProcess;
-import util.misc.Common;
-import util.misc.ThreadSupport;
-import util.pipe.InputGenerator;
-import util.trace.Tracer;
-import wrappers.framework.project.ProjectWrapper;
 import framework.project.Project;
 import framework.utils.GradingEnvironment;
 import grader.config.StaticConfigurationUtils;
@@ -25,16 +7,21 @@ import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
 import grader.execution.MainClassFinder;
-import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.sakai.project.SakaiProject;
-import grader.trace.execution.UserProcessExecutionFinished;
-import grader.trace.execution.UserProcessExecutionStarted;
-import grader.trace.execution.UserProcessExecutionTimedOut;
 import grader.util.IntrospectionUtil;
+
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
+
+import util.pipe.InputGenerator;
+import wrappers.framework.project.ProjectWrapper;
 
 /**
  * This runs the program in a new process.
@@ -795,7 +782,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 //	}
 	
 	protected BasicRunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
-		return new RunningProject(aProject, anOutputBasedInputGenerator, anInput);
+		return new ARunningProject(aProject, anOutputBasedInputGenerator, anInput);
 	}
 	
 	protected String mainEntryPoint() {

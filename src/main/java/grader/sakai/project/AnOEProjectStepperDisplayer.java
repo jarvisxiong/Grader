@@ -1,16 +1,10 @@
 package grader.sakai.project;
 
-import java.awt.Color;
-
-import util.trace.TraceableWarning;
 import framework.utils.GradingEnvironment;
-import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeatureList;
-import bus.uigen.OEFrame;
+import util.trace.TraceableWarning;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;
-import bus.uigen.attributes.AttributeNames;
-import bus.uigen.oadapters.ObjectAdapter;
 import bus.uigen.trace.IllegalSourceOfPropertyNotification;
 import bus.uigen.trace.UnknownPropertyNotification;
 

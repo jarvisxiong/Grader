@@ -1,30 +1,9 @@
 package demoAndTest.colabInput;
 
-import grader.assignment.GradingFeature;
-import grader.navigation.NavigationKind;
-import grader.navigation.filter.GradingStatus;
-import grader.project.source.ATACommentsExtractor;
-import grader.steppers.ComplexProjectStepper;
-import grader.steppers.OverviewProjectStepper;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
-import demoAndTest.GraderDemoerAndTester;
-import demoAndTest.basic.AJavaPalindromeBasedGraderDemoerAndTester;
-import demoAndTest.multiparadigm.C.ACMixedArithmeticGraderDemoerAndTester;
-import demoAndTest.multiparadigm.distributed.ADistributedMixedArithmeticGraderDemoerAndTester;
-import demoAndTest.multiparadigm.java.AJavaMixedArithmeticGraderDemoerAndTester;
-import bus.uigen.OEFrame;
-import bus.uigen.ObjectEditor;
-import bus.uigen.attributes.AttributeNames;
-//import bus.uigen.pipe.DemoerAndTester;
-import tools.DirectoryUtils;
-import util.misc.AClearanceManager;
-import util.misc.ClearanceManager;
-import util.misc.ThreadSupport;
 import util.trace.Tracer;
+import demoAndTest.GraderDemoerAndTester;
+import demoAndTest.multiparadigm.distributed.ADistributedMixedArithmeticGraderDemoerAndTester;
+//import bus.uigen.pipe.DemoerAndTester;
 /*
  * 
 

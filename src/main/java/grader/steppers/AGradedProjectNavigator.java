@@ -1,7 +1,6 @@
 package grader.steppers;
 
 import grader.feedback.ScoreFeedback;
-import grader.file.FileProxyUtils;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.BasicNavigationFilter;
@@ -19,7 +18,6 @@ import grader.trace.steppers.ProjectStepAborted;
 import grader.trace.steppers.ProjectStepEnded;
 import grader.trace.steppers.ProjectStepStarted;
 import grader.trace.steppers.ProjectStepperEnded;
-import grader.trace.steppers.ProjectStepperStarted;
 import grader.trace.steppers.UserNextStep;
 import grader.trace.steppers.UserPreviousStep;
 import grader.trace.steppers.UserQuit;
@@ -31,7 +29,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 

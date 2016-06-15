@@ -1,7 +1,6 @@
 package gradingTools.comp410s16.assignment2;
 
 import framework.grading.FrameworkProjectRequirements;
-import framework.grading.testing.Restriction;
 import gradingTools.comp410s16.assignment2.testcases.FunctionalityTestCase;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;

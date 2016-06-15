@@ -1,14 +1,13 @@
 package examples;
 
-import framework.grading.AGUIGradingManager;
-import framework.grading.FrameworkProjectRequirements;
+import java.io.IOException;
+
 import examples.checkers.testCases.ErrorTestCase;
 import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
+import framework.grading.AGUIGradingManager;
+import framework.grading.FrameworkProjectRequirements;
 import framework.grading.GradingManager;
-
-
-import java.io.IOException;
 
 /**
  * This demonstrates using the "framework" grading system

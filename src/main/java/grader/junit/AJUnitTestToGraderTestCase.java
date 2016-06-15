@@ -5,18 +5,17 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCase;
-import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.junit.test.directreference.ACartesianPointJUnitTester;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
+import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.NotAutomatableException;
+import framework.grading.testing.NotGradableException;
+import framework.grading.testing.TestCaseResult;
+import framework.project.Project;
+import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTestToGraderTestCase{
 	public static int DEFAULT_SCORE = 10;	

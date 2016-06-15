@@ -11,14 +11,15 @@ import grader.project.ClassDescription;
 import grader.project.ClassesManager;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
-import util.misc.Common;
-import wrappers.framework.project.ProjectWrapper;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import util.misc.Common;
+import wrappers.framework.project.ProjectWrapper;
 
 public class AMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";

@@ -1,8 +1,5 @@
 package grader.sakai;
 
-import util.misc.Common;
-import util.trace.Tracer;
-import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
 import framework.navigation.SakaiStudentFolder;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -12,9 +9,11 @@ import grader.settings.folders.OnyenRangeModel;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import util.misc.Common;
+import util.trace.Tracer;
 
 public abstract class AnAbstractSakaiStudentAssignmentsDatabase<GenericAssignment> implements GenericStudentAssignmentDatabase<GenericAssignment> {
     BulkAssignmentFolder bulkAssignmentFolder;

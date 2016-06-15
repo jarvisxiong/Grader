@@ -1,13 +1,13 @@
 package examples;
 
+import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
+import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
 import framework.grading.FrameworkProjectRequirements;
 import framework.utils.GradingEnvironment;
 import grader.trace.settings.InvalidOnyenRangeException;
-import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
-import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,12 +1,11 @@
 package tools.classModifier;
 
+import java.io.IOException;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.

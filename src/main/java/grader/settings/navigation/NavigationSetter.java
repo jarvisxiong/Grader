@@ -1,9 +1,6 @@
 package grader.settings.navigation;
 
 import grader.navigation.NavigationKind;
-
-import java.beans.PropertyChangeListener;
-
 import util.models.PropertyListenerRegisterer;
 
 public interface NavigationSetter extends PropertyListenerRegisterer {

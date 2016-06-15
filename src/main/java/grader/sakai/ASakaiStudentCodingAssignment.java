@@ -12,9 +12,6 @@ import grader.trace.project.RubrickFileLoaded;
 import java.nio.file.Paths;
 import java.util.Set;
 
-import util.misc.Common;
-import util.trace.Tracer;
-
 public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment implements StudentCodingAssignment {
 
     public static final String RUBRICK_SUBSTRING = "rubric";

@@ -1,10 +1,10 @@
 package framework.logging.recorder;
 
+import java.util.List;
+
 import framework.grading.testing.CheckResult;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
-
-import java.util.List;
 
 /**
  * A class that can be converted to JSON.

@@ -3,17 +3,13 @@ package grader.project;
 import grader.file.FileProxy;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import com.github.antlrjavaparser.api.CompilationUnit;
 
 import util.javac.SourceClass;
+import bus.uigen.reflect.ClassProxy;
 
+import com.github.antlrjavaparser.api.CompilationUnit;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaSource;
-
-import bus.uigen.reflect.ClassProxy;
 // gets source and object file for a class
 public interface ClassDescription {
 	public ClassProxy getClassProxy() ;

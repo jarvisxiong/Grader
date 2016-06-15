@@ -1,9 +1,8 @@
 package grader.trace.assignment_data;
 
-import java.util.Collection;
-import java.util.Set;
-
 import grader.trace.GraderInfo;
+
+import java.util.Collection;
 
 public class StudentFolderNamesWrittenInOnyenFile extends GraderInfo{
 	Collection<String> studentNames;

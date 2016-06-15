@@ -3,10 +3,6 @@ package grader.feedback;
 import grader.assignment.GradingFeature;
 import grader.checkers.CheckResult;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
 public class APrintingAutoFeedbackManager extends AManualFeedbackManager implements AutoFeedback {
 
     @Override

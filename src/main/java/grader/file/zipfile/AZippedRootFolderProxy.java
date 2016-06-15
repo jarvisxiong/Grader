@@ -3,13 +3,14 @@ package grader.file.zipfile;
 import grader.file.AnAbstractRootFolderProxy;
 import grader.file.RootFolderProxy;
 import grader.trace.file.load.RootFileSystemFolderLoaded;
-import util.misc.Common;
-import util.trace.Tracer;
 
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import util.misc.Common;
+import util.trace.Tracer;
 
 public class AZippedRootFolderProxy extends AnAbstractRootFolderProxy implements RootFolderProxy {
     ZipFile zipFile;

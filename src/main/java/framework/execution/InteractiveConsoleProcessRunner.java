@@ -1,25 +1,24 @@
 package framework.execution;
 
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
-import framework.utils.GradingEnvironment;
-import grader.config.StaticConfigurationUtils;
-import grader.execution.JavaMainClassFinderSelector;
-import grader.execution.MainClassFinder;
-import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
-import grader.trace.execution.MainClassFound;
-import grader.trace.execution.MainClassNotFound;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Map;
+import java.util.Scanner;
+
 import tools.TimedProcess;
 import util.misc.Common;
 import util.pipe.InputGenerator;
-
-import java.io.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.concurrent.Semaphore;
+import framework.project.Project;
+import framework.utils.GradingEnvironment;
+import grader.config.StaticConfigurationUtils;
+import grader.execution.MainClassFinder;
+import grader.language.LanguageDependencyManager;
+import grader.trace.execution.MainClassFound;
+import grader.trace.execution.MainClassNotFound;
 
 /**
  * This runs the program in a new process.
@@ -78,10 +77,10 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-    public RunningProject run(String input) throws NotRunnableException {
+    public ARunningProject run(String input) throws NotRunnableException {
         return run(input, -1);
     }
-    public RunningProject run(String input, String[] anArgs) throws NotRunnableException {
+    public ARunningProject run(String input, String[] anArgs) throws NotRunnableException {
         return run(input, anArgs, -1);
     }
 
@@ -93,7 +92,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-    public RunningProject run(String input, int timeout) throws NotRunnableException {
+    public ARunningProject run(String input, int timeout) throws NotRunnableException {
         return run(input, new String[]{}, timeout);
     }
 
@@ -106,13 +105,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @throws framework.execution.NotRunnableException
      */
     @Override
-	public RunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
+	public ARunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,
 			String[] args, int timeout) throws NotRunnableException {
     	String[] command = StaticConfigurationUtils.getExecutionCommand(project, folder, anEntryPoint, args);
     	return run(null, command, input, args, timeout);
 	}
     @Override
-    public RunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
+    public ARunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
     	return run (null, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
 //    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //    	return run(command, input, args, timeout);
@@ -193,16 +192,16 @@ public class InteractiveConsoleProcessRunner implements Runner {
     static OutputStreamWriter osw;
     static BufferedWriter bw;
     static Scanner scanner = new Scanner(System.in);
-    static RunningProject runner; // need the runner to change for single input thread
+    static ARunningProject runner; // need the runner to change for single input thread
     // only one of these should be executing at one time as static vars are accessed
 //    protected RunningProject getRunningProject() {
 //    	return runner;
 //    }
 	@Override
-	public RunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public ARunningProject run(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
 //		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
-		runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
+		runner = new ARunningProject(project, anOutputBasedInputGenerator,  input);
 
 	        try {
 //	            runner.start();
@@ -342,9 +341,9 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	        return runner;
 	}
 	
-	public RunningProject runJosh(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
+	public ARunningProject runJosh(InputGenerator anOutputBasedInputGenerator, String[] command, String input,
 			String[] args, int timeout) throws NotRunnableException {
-		 final RunningProject runner = new RunningProject(project, anOutputBasedInputGenerator,  input);
+		 final ARunningProject runner = new ARunningProject(project, anOutputBasedInputGenerator,  input);
 
 	        try {
 //	            runner.start();
@@ -476,7 +475,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(InputGenerator aDynamicInputProvider, String input, String[] args,
+	public ARunningProject run(InputGenerator aDynamicInputProvider, String input, String[] args,
 			int timeout)
 			throws NotRunnableException {
 		// TODO Auto-generated method stub
@@ -484,7 +483,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
 
 	@Override
-	public RunningProject run(
+	public ARunningProject run(
 			InputGenerator anOutputBasedInputGenerator,
 			String input, int timeout) throws NotRunnableException {
 		// TODO Auto-generated method stub

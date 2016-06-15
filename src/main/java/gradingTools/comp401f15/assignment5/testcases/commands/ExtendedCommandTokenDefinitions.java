@@ -1,12 +1,14 @@
 package gradingTools.comp401f15.assignment5.testcases.commands;
 
-import framework.project.Project;
-import grader.util.IntrospectionUtil;
 import static gradingTools.comp401f15.assignment2.testcases.BasicTokenDefinitions.buildGroup;
-import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 import static gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions.baseCommandTokens;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import framework.project.Project;
+import grader.util.IntrospectionUtil;
+import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 
 /**
  *

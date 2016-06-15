@@ -5,17 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryCreated;
-import grader.trace.interaction_logger.SavedAllStudentsProblemGradingHistoryFilled;
-import grader.trace.settings.AutomaticNavigationEnded;
-import grader.trace.settings.AutomaticNavigationStarted;
-import grader.trace.settings.GraderSettingsInfo;
-import grader.trace.settings.ManualNavigationEnded;
-import grader.trace.settings.ManualNavigationStarted;
-import grader.trace.steppers.ProjectStepEnded;
-import grader.trace.steppers.ProjectStepStarted;
-import grader.trace.steppers.ProjectStepperStarted;
-
 public class AGradingHistoryUnparser implements GradingHistoryUnparser  {
 	
 	public static final int EXPECTED_UNPARSE_SINGLE_STUDENTS_SIZE = 4096;

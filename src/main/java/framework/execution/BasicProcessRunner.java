@@ -428,7 +428,7 @@ public class BasicProcessRunner implements Runner {
 //		processes = executionSpecification.getProcesses(aProcessTeam);
 		processes = getProcesses(aProcessTeam);
 
-		runner = new RunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
+		runner = new ARunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
 		acquireIOLocks();
 //		try {
 //			runner.start();

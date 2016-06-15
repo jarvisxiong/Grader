@@ -1,8 +1,5 @@
 package grader.navigation.filter;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import grader.letter_grade.AScoreToLetterGradeMapper;
 import grader.letter_grade.LetterGrade;
 import grader.letter_grade.ScoreToLetterGradeMapper;
@@ -10,7 +7,6 @@ import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.settings.GraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
-import grader.trace.settings.GradingStatusUserChange;
 import grader.trace.settings.LetterGradeUserChange;
 
 public class ALetterGradeBasedFilter extends AnAbstractNavigationFilter<LetterGrade>implements NavigationFilter<LetterGrade>{

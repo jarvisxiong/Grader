@@ -1,11 +1,12 @@
 package grader.checkers;
 
-import bus.uigen.reflect.ClassProxy;
-import bus.uigen.reflect.FieldProxy;
 import grader.project.ClassDescription;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
+
+import bus.uigen.reflect.ClassProxy;
+import bus.uigen.reflect.FieldProxy;
 
 public class AnEncapsulationChecker extends AnAbstractFeatureChecker implements FeatureChecker {
 

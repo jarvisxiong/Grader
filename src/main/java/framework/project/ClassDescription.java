@@ -1,11 +1,11 @@
 package framework.project;
 
-import com.github.antlrjavaparser.api.CompilationUnit;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import com.github.antlrjavaparser.api.CompilationUnit;
 
 /**
  * Based on {@link grader.project.ClassDescription}

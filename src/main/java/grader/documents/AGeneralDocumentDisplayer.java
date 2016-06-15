@@ -3,7 +3,7 @@ package grader.documents;
 
 import grader.trace.file.open.DefaultProgramOpenedFile;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

@@ -1,16 +1,14 @@
 package wrappers.grader.sakai.project;
 
 import framework.project.Project;
-import wrappers.grader.file.SimplifiedFileProxy;
 import grader.language.LanguageDependencyManager;
-import grader.project.folder.ARootCodeFolder;
 import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProject;
-import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.SakaiProject;
 
 import java.io.File;
+
+import wrappers.grader.file.SimplifiedFileProxy;
 
 /**
  * Created with IntelliJ IDEA.

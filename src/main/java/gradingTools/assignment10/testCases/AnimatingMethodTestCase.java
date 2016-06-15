@@ -1,17 +1,17 @@
 package gradingTools.assignment10.testCases;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
+import scala.Option;
+import tools.classFinder2.ClassFinder;
+import tools.classFinder2.ClassType;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import scala.Option;
-import tools.classFinder2.ClassFinder;
-
-import java.lang.reflect.Method;
-import java.util.List;
-import tools.classFinder2.ClassType;
 
 /**
  * Created with IntelliJ IDEA.

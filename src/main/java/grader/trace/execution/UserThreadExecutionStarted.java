@@ -1,10 +1,10 @@
 package grader.trace.execution;
 
+import grader.project.Project;
+
 import java.lang.reflect.Method;
 
 import util.misc.Common;
-import grader.project.Project;
-import grader.trace.GraderInfo;
 
 public class UserThreadExecutionStarted extends UserThreadExecutionInfo{
 

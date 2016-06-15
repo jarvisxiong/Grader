@@ -1,8 +1,8 @@
 package gradingTools.assignment1;
 
+import framework.execution.ARunningProject;
 import framework.execution.BasicRunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.project.Project;
 
 /**
@@ -53,7 +53,7 @@ public class FlexibleProgramRunner {
   		return runningProject;
   	}
 
-  	public void setRunningProject(RunningProject runningProject) {
+  	public void setRunningProject(ARunningProject runningProject) {
   		this.runningProject = runningProject;
   	}
 

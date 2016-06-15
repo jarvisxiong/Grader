@@ -2,11 +2,8 @@ package grader.trace.source_points;
 
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
 import grader.trace.steppers.SerializableStepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class SerializableSourcePointsInfo extends SerializableStepperInfo {
 double featureAutoScore;

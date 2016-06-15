@@ -1,16 +1,17 @@
 package examples;
 
-import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
+import examples.checkers.featureCheckers.ErrorFeatureChecker;
+import examples.checkers.featureCheckers.FailingFeatureChecker;
+import examples.checkers.featureCheckers.PassingFeatureChecker;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.trace.settings.InvalidOnyenRangeException;
-import examples.checkers.featureCheckers.ErrorFeatureChecker;
-import examples.checkers.featureCheckers.FailingFeatureChecker;
-import examples.checkers.featureCheckers.PassingFeatureChecker;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
 /**
  * This demonstrates how the GUI from the "framework" system works with the "grader" system

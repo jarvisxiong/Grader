@@ -4,7 +4,6 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -12,18 +11,16 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import util.annotations.Tags;
 import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
-import grader.execution.ResultWithOutput;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class IntrospectionUtil {
 

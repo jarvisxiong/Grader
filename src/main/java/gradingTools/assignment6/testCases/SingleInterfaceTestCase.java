@@ -1,13 +1,13 @@
 package gradingTools.assignment6.testCases;
 
+import java.util.Set;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

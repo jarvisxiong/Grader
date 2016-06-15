@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;

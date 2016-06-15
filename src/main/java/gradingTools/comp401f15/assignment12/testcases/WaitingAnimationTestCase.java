@@ -1,18 +1,14 @@
 package gradingTools.comp401f15.assignment12.testcases;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
-import bus.uigen.trace.PropertyChangeEventInfo;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
-import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestCase;
+
+import java.lang.reflect.Method;
+
 import util.misc.ThreadSupport;
 
 public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCase{

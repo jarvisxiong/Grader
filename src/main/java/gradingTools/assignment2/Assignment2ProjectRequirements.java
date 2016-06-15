@@ -1,8 +1,11 @@
 package gradingTools.assignment2;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.assignment2.testCases.*;
-import gradingTools.assignment6.testCases.ManualTestCase;
+import gradingTools.assignment2.testCases.BeanClassTestCase;
+import gradingTools.assignment2.testCases.IsLetterTestCase;
+import gradingTools.assignment2.testCases.NumberTokensTestCase;
+import gradingTools.assignment2.testCases.QuotedStringTestCase;
+import gradingTools.assignment2.testCases.WordTokensTestCase;
 
 /**
  * Created with IntelliJ IDEA.

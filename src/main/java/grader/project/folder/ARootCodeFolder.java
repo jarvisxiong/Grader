@@ -1,23 +1,13 @@
 package grader.project.folder;
 
-import java.util.HashMap;
+import java.io.File;
+import java.nio.file.Paths;
+//a root folder containing source and binary directories
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import org.apache.maven.project.MissingProjectException;
 
 import util.misc.Common;
 import framework.project.Project;
-import framework.project.StandardProject;
-import grader.compilation.ClassFilesCompiler;
-import grader.compilation.JavaClassFilesCompilerSelector;
-import grader.compilation.c.CFilesCompilerSelector;
-import grader.execution.AMainClassFinder;
-import grader.execution.AnExecutableFinder;
-import grader.execution.ExecutableFinderSelector;
-import grader.execution.JavaMainClassFinderSelector;
-import grader.execution.MainClassFinder;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
@@ -28,10 +18,6 @@ import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderIdentified;
 import grader.trace.project.SourceFolderNotFound;
-
-import java.io.File;
-import java.nio.file.Paths;
-//a root folder containing source and binary directories
 
 public class ARootCodeFolder implements RootCodeFolder {
 

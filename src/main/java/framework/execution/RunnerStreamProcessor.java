@@ -1,7 +1,5 @@
 package framework.execution;
 
-import java.io.InputStream;
-import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 public interface RunnerStreamProcessor {

@@ -1,7 +1,5 @@
 package grader.file;
 
-import grader.sakai.ASakaiGradeSpreadsheetExtractor;
-import grader.sakai.GradeSpreadsheetExtractor;
 
 public class RootFolderCreatorFactory {
 	static RootFolderCreator singleton;

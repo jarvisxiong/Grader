@@ -1,20 +1,15 @@
 package grader.trace.steppers;
 
+import grader.assignment.GradingFeature;
+import grader.sakai.project.SakaiProject;
+import grader.sakai.project.SakaiProjectDatabase;
+import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
+import grader.steppers.OverviewProjectStepper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import grader.assignment.GradingFeature;
-import grader.sakai.project.SakaiProject;
-import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
-import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
-import grader.steppers.OverviewProjectStepper;
-import grader.trace.CSVDeSerializable;
-import grader.trace.SerializableGraderInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class ProjectStepEnded extends SerializableStepperInfo  {
 

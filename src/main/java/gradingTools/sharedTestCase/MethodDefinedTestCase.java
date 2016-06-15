@@ -2,6 +2,7 @@ package gradingTools.sharedTestCase;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import util.misc.Common;
@@ -11,7 +12,6 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.IntrospectionUtil;
-import java.util.Arrays;
 
 public class MethodDefinedTestCase extends BasicTestCase {
 	private String CLASS_TAG;

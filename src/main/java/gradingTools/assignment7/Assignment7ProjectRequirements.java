@@ -2,8 +2,24 @@ package gradingTools.assignment7;
 
 import framework.grading.FrameworkProjectRequirements;
 import framework.grading.testing.Restriction;
-import gradingTools.assignment6.testCases.*;
-import gradingTools.assignment7.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.MainClassTestCase;
+import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
+import gradingTools.assignment7.testCases.BasicPutAndGetTestCase;
+import gradingTools.assignment7.testCases.BoundedShapeExtendsLocatableTestCase;
+import gradingTools.assignment7.testCases.BoundedShapePropertiesTestCase;
+import gradingTools.assignment7.testCases.BoundedShapeTagTestCase;
+import gradingTools.assignment7.testCases.CmdIntEditablePropTestCase;
+import gradingTools.assignment7.testCases.CmdIntTagTestCase;
+import gradingTools.assignment7.testCases.GetInvalidTestCase;
+import gradingTools.assignment7.testCases.GetNullTestCase;
+import gradingTools.assignment7.testCases.LocatablePropertiesTestCase;
+import gradingTools.assignment7.testCases.LocatableTagTestCase;
+import gradingTools.assignment7.testCases.PutNullTestCase;
+import gradingTools.assignment7.testCases.TableTagTestCase;
 
 /**
  * Created with IntelliJ IDEA.

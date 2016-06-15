@@ -1,7 +1,12 @@
 package gradingTools.example;
 
 import framework.grading.FrameworkProjectRequirements;
-import gradingTools.example.testCases.*;
+import gradingTools.example.testCases.CommonInterfaceTestCase;
+import gradingTools.example.testCases.ForwardPrinterTestCase;
+import gradingTools.example.testCases.NoStringBuilderReverseTestCase;
+import gradingTools.example.testCases.NoStringToolsTestCase;
+import gradingTools.example.testCases.NoVowelPrinterTestCase;
+import gradingTools.example.testCases.ReversePrinterTestCase;
 
 /**
  * This is an example on how to define requirements and test cases for an assignment. You just extend the

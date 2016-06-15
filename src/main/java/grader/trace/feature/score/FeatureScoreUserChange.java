@@ -3,11 +3,7 @@ package grader.trace.feature.score;
 import grader.assignment.GradingFeature;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.steppers.OverviewProjectStepper;
-import grader.trace.steppers.SerializableStepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class FeatureScoreUserChange extends SerializableFeatureScoreInfo {
 //String overallScore;

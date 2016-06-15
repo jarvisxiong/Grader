@@ -1,15 +1,14 @@
 package grader.spreadsheet.csv;
 
-import java.io.File;
-import java.util.List;
-
 import grader.assignment.AnAssignmenDataFolder;
 import grader.assignment.AssignmentDataFolder;
 import grader.file.FileProxy;
 import grader.file.filesystem.AFileSystemFileProxy;
-import grader.sakai.BulkAssignmentFolder;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.FinalGradeRecorder;
+
+import java.io.File;
+import java.util.List;
 
 public class ASakaiFeatureGradeSheetMerger implements SakaiFeatureGradeSheetMerger{
 	AssignmentDataFolder[] sourceAssignmentDataFolders;

@@ -1,18 +1,11 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
-import java.util.List;
-
-import wrappers.framework.project.ProjectWrapper;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
 import grader.execution.MainClassFinder;
-import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
+
+import java.util.List;
 
 public class MainClassDefinedTestCase extends ClassDefinedTestCase {
 

@@ -1,7 +1,8 @@
 package grader.spreadsheet.xlsx;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import grader.file.FileProxy;
+import grader.spreadsheet.FinalGradeRecorder;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -10,9 +11,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-import grader.file.FileProxy;
-import grader.spreadsheet.FinalGradeRecorder;
 
 public class ASakaiSpreadsheetGradeRecorder implements FinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;

@@ -1,10 +1,5 @@
 package grader.junit;
 
-import util.annotations.Explanation;
-import util.annotations.Group;
-import util.annotations.IsExtra;
-import util.annotations.IsRestriction;
-import util.annotations.MaxValue;
 import framework.grading.testing.TestCase;
 
 public interface JUnitTestToGraderTestCase extends TestCase {

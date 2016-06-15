@@ -1,12 +1,6 @@
 package grader.trace.assignment_data;
 
-import grader.sakai.project.SakaiProject;
-import grader.sakai.project.SakaiProjectDatabase;
-import grader.settings.GraderSettingsModel;
 import grader.trace.file.FileInfo;
-import grader.trace.steppers.StepperInfo;
-import bus.uigen.trace.ConstantsMenuAdditionEnded;
-import util.trace.TraceableInfo;
 
 public class LogFileCreated extends FileInfo {
 

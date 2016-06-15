@@ -1,8 +1,11 @@
 package gradingTools.comp401f15.assignment6;
 
 import framework.grading.FrameworkProjectRequirements;
-import static framework.grading.ProjectRequirements.INTERACTIVE_RUN;
-import gradingTools.assignment6.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.SingleInterfaceTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ConstructorInitTestCase;

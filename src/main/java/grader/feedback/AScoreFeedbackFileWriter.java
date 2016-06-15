@@ -4,9 +4,10 @@ import grader.assignment.GradingFeature;
 import grader.file.FileProxy;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.sakai.project.ProjectStepper;
-import util.misc.Common;
 
 import java.util.List;
+
+import util.misc.Common;
 
 public class AScoreFeedbackFileWriter implements ScoreFeedback {
 

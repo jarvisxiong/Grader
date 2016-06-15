@@ -1,17 +1,17 @@
 package gradingTools.comp401f15.assignment5.testcases;
 
+import java.io.IOException;
+import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
+
+import tools.CodeTools;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import org.apache.commons.io.FileUtils;
-import tools.CodeTools;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

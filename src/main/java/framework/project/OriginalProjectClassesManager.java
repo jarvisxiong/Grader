@@ -1,46 +1,29 @@
 package framework.project;
 
+import framework.execution.ARunningProject;
 import framework.execution.BasicRunningProject;
-import framework.execution.RunningProject;
-import grader.checkStyle.JavaCheckStyleInvokerFactory;
-import grader.compilation.JavaClassFilesCompilerSelector;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.AProject;
-import grader.project.folder.ARootCodeFolder;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
-import grader.trace.compilation.SourceFileCompiled;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
 
 import org.apache.commons.io.FileUtils;
 
 import scala.Option;
 import tools.DirectoryUtils;
-import util.annotations.Tags;
-import util.misc.Common;
-import util.trace.javac.CompilerNotFound;
 
 /**
  * @see ClassesManager
@@ -150,7 +133,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
                     BasicRunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
                     if (runningProject != null) {
                         //					String outputAndErrors = runningProject.getOutputAndErrors();
-                        ((RunningProject) runningProject).appendOutputAndErrorsToTranscriptFile(project);
+                        ((ARunningProject) runningProject).appendOutputAndErrorsToTranscriptFile(project);
 
                     }
                     System.out.println("Compilation attempt finished.");
@@ -222,7 +205,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
 
 
 					if (runningProject != null) {
-						((RunningProject) runningProject)
+						((ARunningProject) runningProject)
 								.appendOutputAndErrorsToTranscriptFile(project);
 
 					}

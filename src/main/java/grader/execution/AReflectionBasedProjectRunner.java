@@ -1,12 +1,10 @@
 package grader.execution;
 
-import util.misc.TeePrintStream;
 import framework.execution.NotRunnableException;
 import grader.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserThreadExecutionFinished;
 import grader.trace.execution.UserThreadExecutionStarted;
-import grader.trace.feature.transcript.FeatureTranscriptSaved;
 import grader.trace.overall_transcript.OverallTranscriptSaved;
 
 import java.io.File;
@@ -15,7 +13,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
-import java.util.List;
+
+import util.misc.TeePrintStream;
 
 public class AReflectionBasedProjectRunner implements Runnable {
     public static final String DEFAULT_OUTPUT_FILE_NAME = "output.txt";

@@ -1,10 +1,10 @@
 package tools.resultTools;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * This copies the .json files from the student folders in the Sakai bulk download folder to a local log folder.

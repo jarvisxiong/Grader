@@ -3,7 +3,6 @@ package framework.logging.serializers;
 import framework.grading.testing.CheckResult;
 import framework.logging.recorder.RecordingSession;
 import grader.assignment.GradingFeature;
-import grader.assignment.GradingFeatureList;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
 
 /**

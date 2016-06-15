@@ -1,12 +1,11 @@
 package framework.project;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.

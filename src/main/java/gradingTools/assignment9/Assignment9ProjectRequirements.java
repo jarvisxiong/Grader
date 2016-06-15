@@ -1,9 +1,23 @@
 package gradingTools.assignment9;
 
 import framework.grading.FrameworkProjectRequirements;
-import framework.grading.testing.Restriction;
-import gradingTools.assignment6.testCases.*;
-import gradingTools.assignment9.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.MainClassTestCase;
+import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
+import gradingTools.assignment9.testCases.BridgeSceneControllerTagTestCase;
+import gradingTools.assignment9.testCases.ListenerAndPainterTagTestCase;
+import gradingTools.assignment9.testCases.ObservablePainterExtendsComponentTestCase;
+import gradingTools.assignment9.testCases.PaintListenerListenersTestCase;
+import gradingTools.assignment9.testCases.PaintListenerPaintMethodTestCase;
+import gradingTools.assignment9.testCases.PaintListenerPaintOnEventTestCase;
+import gradingTools.assignment9.testCases.RefreshTestCase;
+import gradingTools.assignment9.testCases.ScenePainterExtendsComponentTestCase;
+import gradingTools.assignment9.testCases.ScenePainterListenerTestCase;
+import gradingTools.assignment9.testCases.ScenePainterPaintOnEventTestCase;
+import gradingTools.assignment9.testCases.ScenePainterTagTestCase;
 
 /**
  * Created with IntelliJ IDEA.

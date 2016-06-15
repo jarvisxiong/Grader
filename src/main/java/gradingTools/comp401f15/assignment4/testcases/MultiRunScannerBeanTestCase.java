@@ -1,5 +1,13 @@
 package gradingTools.comp401f15.assignment4.testcases;
 
+import static gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase.TOKEN_METHOD;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -8,14 +16,7 @@ import framework.project.Project;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
-import static gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase.TOKEN_METHOD;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *

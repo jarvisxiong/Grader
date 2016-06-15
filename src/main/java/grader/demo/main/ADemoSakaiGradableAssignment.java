@@ -1,20 +1,17 @@
 package grader.demo.main;
 
+import grader.assignment.AGradingFeature;
+import grader.assignment.GradingFeature;
+import grader.checkers.AnEncapsulationChecker;
+import grader.checkers.FeatureChecker;
+import grader.sakai.project.ASakaiProjectDatabase;
+import grader.sakai.project.SakaiProjectDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-import bus.uigen.viewgroups.AVectorNavigator;
-
-import grader.assignment.AGradingFeature;
-import grader.assignment.GradingFeature;
-import grader.checkers.AnEncapsulationChecker;
-import grader.checkers.FeatureChecker;
-import grader.project.AProject;
-import grader.sakai.ASakaiBulkAssignmentFolder;
-import grader.sakai.project.ASakaiProjectDatabase;
-import grader.sakai.project.SakaiProjectDatabase;
 
 public class ADemoSakaiGradableAssignment extends ASakaiProjectDatabase {
 

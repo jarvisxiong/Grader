@@ -1,10 +1,19 @@
 package gradingTools.assignment8;
 
 import framework.grading.FrameworkProjectRequirements;
-import framework.grading.testing.Feature;
-import framework.grading.testing.Restriction;
-import gradingTools.assignment6.testCases.*;
-import gradingTools.assignment8.testCases.*;
+import gradingTools.assignment6.testCases.EncapsulationTestCase;
+import gradingTools.assignment6.testCases.InterfaceTypeTestCase;
+import gradingTools.assignment6.testCases.MainClassTestCase;
+import gradingTools.assignment6.testCases.QuestionTestCase;
+import gradingTools.assignment6.testCases.SystemExitTestCase;
+import gradingTools.assignment6.testCases.ThreePackageTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewConstructorAddListenerTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewConstructorParameterTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewListenerTestCase;
+import gradingTools.assignment8.testCases.ConsoleViewTagTestCase;
+import gradingTools.assignment8.testCases.ListenerCollectionTestCase;
+import gradingTools.assignment8.testCases.SettersNotifyTestCase;
+import gradingTools.assignment8.testCases.ShapesRegisterListenerTestCase;
 
 /**
  * Project 8 requirements.

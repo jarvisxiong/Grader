@@ -1,14 +1,30 @@
 package gradingTools;
 
+import static framework.grading.GradingMangerType.A_HEADLESS_GRADING_MANAGER;
+
+import java.io.File;
+import java.util.List;
+
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+
+import util.trace.TraceableBus;
+import util.trace.Tracer;
+import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
+import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import framework.grading.GradingManager;
 import framework.grading.GradingMangerType;
-import static framework.grading.GradingMangerType.A_HEADLESS_GRADING_MANAGER;
 import framework.grading.ProjectRequirements;
 import framework.gui.SettingsWindow;
-import framework.logging.loggers.*;
+import framework.logging.loggers.CsvLogger;
+import framework.logging.loggers.FeedbackJsonLogger;
+import framework.logging.loggers.FeedbackTextSummaryLogger;
+import framework.logging.loggers.LocalJsonLogger;
+import framework.logging.loggers.LocalTextSummaryLogger;
+import framework.logging.loggers.SpreadsheetLogger;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GraderSettings;
@@ -19,7 +35,6 @@ import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
 import grader.language.LanguageDependencyManager;
-import grader.modules.ARequirementsToCourseInfoTranslator;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.NavigationKind;
@@ -33,17 +48,6 @@ import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.settings.GraderSettingsDisplayed;
-
-import java.io.File;
-import java.util.List;
-
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-
-import util.trace.TraceableBus;
-import util.trace.Tracer;
-import wrappers.grader.sakai.project.ProjectDatabaseWrapper;
-import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 
 /**
  * This is the entry class for the grading tools that Maven will reference. Use
