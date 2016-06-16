@@ -5,11 +5,13 @@ import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
 import framework.execution.Runner;
 import framework.execution.RunningProject;
+import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.execution.AConstructorExecutionCallable;
 import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
 import grader.execution.ResultWithOutput;
+import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
@@ -51,6 +53,7 @@ public class ExecutionUtil {
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
 	public static final int CONSTRUCTOR_TIME_OUT = 2000;
 	public static final int METHOD_TIME_OUT = 2000;
+	public static final int PROCESS_TIME_OUT = 4000;
 
 	static Object[] emptyObjectArray = {};
 	public static Object timedInvoke(Object anObject, Method aMethod,
@@ -514,13 +517,46 @@ public class ExecutionUtil {
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static String runMain(Class aProxyClass, String input,
+	 public static String forkMain(Class aProxyClass, String input,
 				String[] args, int timeout) throws NotRunnableException {
+			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+
 		 	String aClassPath = System.getProperty("java.class.path");
-	        String[] command = {"java",  "-cp",  aClassPath,aProxyClass.getName()};
+	        String[] command = {"java",  "-cp",  aClassPath,aMainClass.getName()};
 	        Runner processRunner = new BasicProcessRunner(new File("."));
 	       RunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
 	       return aRunningProject.await();
 
+		}
+	 public static String forkMain(Class aProxyClass, String input,String[] args) {
+		 return forkMain(aProxyClass, input, args, PROCESS_TIME_OUT);
+	 }
+
+	 public static String invokeCorrespondingMain(Class aProxyClass, String anInput,
+				String[] args) throws NotRunnableException {
+		 try {
+			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			return invokeMain(aMainClass, anInput, args);		
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+		 	
+
+		}
+	 public static String invokeMain(Class aMainClass, String anInput,
+				String[] args) throws NotRunnableException {
+		 try {
+		 ExecutionUtil.redirectInputOutput(anInput);		
+			
+			Method aMainMethod = IntrospectionUtil.findMethod(aMainClass, "main", new Class[] {String[].class});
+			ExecutionUtil.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
+//			aMainMethod.invoke(aMainClass, new Object[] {args});		
+			String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
+			return anOutput;	
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 return null;
+		 }
 		}
 }

@@ -1,6 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 import org.junit.Test;
+import org.junit.internal.runners.statements.InvokeMethod;
 
 import grader.util.ExecutionUtil;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
@@ -12,10 +13,8 @@ public class ADirectPointMainTest extends AnAbstractPointMainTest {
 
 	@Override
 	protected String runMain(String anInput, String[] anArgs) {
-		ExecutionUtil.redirectInputOutput(anInput);
-		Main.main(anArgs);
-		String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
-		return anOutput;		
+		return ExecutionUtil.invokeMain(Main.class, anInput, anArgs);
+				
 	}
 	@Test
 	public void test() {

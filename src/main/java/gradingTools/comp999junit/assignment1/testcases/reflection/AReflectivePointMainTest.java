@@ -16,18 +16,19 @@ public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 
 	@Override
 	protected String runMain(String anInput, String[] anArgs) {
-		try {
-		ExecutionUtil.redirectInputOutput(anInput);		
-		Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), Main.class);
-		
-		Method aMainMethod = IntrospectionUtil.findMethod(aMainClass, "main", new Class[] {String[].class});
-		aMainMethod.invoke(aMainClass, new Object[] { new String[]{}});		
-		String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
-		return anOutput;	
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		}
+//		try {
+//		ExecutionUtil.redirectInputOutput(anInput);		
+//		Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), Main.class);
+//		
+//		Method aMainMethod = IntrospectionUtil.findMethod(aMainClass, "main", new Class[] {String[].class});
+//		aMainMethod.invoke(aMainClass, new Object[] { new String[]{}});		
+//		String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
+//		return anOutput;	
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "";
+//		}
+		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
 	}
 	@Test
 	public void test() {

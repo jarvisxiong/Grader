@@ -17,9 +17,9 @@ public class AMethodExecutionCallable implements Callable{
 	
 	@Override
 	public Object call() throws Exception {
-		System.out.println ("calling method: " + method + " with args " + Common.toString(args));
+//		System.out.println ("calling method: " + method + " with args " + Common.toString(args));
 		Object retVal = method.invoke(object, args);
-		System.out.println ("called method: " + method + " with args:" + Common.toString(args) + " result:" + retVal );
+//		System.out.println ("called method: " + method + " with args:" + Common.toString(args) + " result:" + retVal );
 
 		return retVal;
 	}
