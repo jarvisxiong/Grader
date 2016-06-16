@@ -58,7 +58,7 @@ public class IntrospectionUtil {
 		return findClass(aProject, aName, new String[] { aTag }, aNameMatch,
 				aTagMatch);
 	}
-
+	//not unique class
 	public static Class findClass(Project aProject, String aName,
 			String[] aTag, String aNameMatch, String aTagMatch) {
 		int i = 0;
@@ -293,6 +293,13 @@ public class IntrospectionUtil {
 	}
 
 	public static Class findClass(Project aProject, Class aClass) {
+		String[] aTags = getTags(aClass);
+		Class retVal = findUniqueClassByTag(aProject, aTags);
+		if (retVal != null)
+			return retVal;
+		retVal = findClass(aProject, aClass.getCanonicalName());
+		if (retVal != null) 
+			return retVal;
 		return findClass(aProject, aClass.getSimpleName());
 	}
 
@@ -361,6 +368,9 @@ public class IntrospectionUtil {
 	}
 
 	public static Class findUniqueClassByTag(Project aProject, String[] aTags) {
+		if (aTags.length == 0) {
+			return null;
+		}		
 		Arrays.sort(aTags);
 		String aKey = Arrays.toString(aTags);
 		Class aCachedClass = tagsToClass.get(aKey);
@@ -803,6 +813,7 @@ public class IntrospectionUtil {
 		return retVal;
 
 	}
+	
 
 	public static Class getCommonInterface(Project project,
 			String[][] aClassDescriptions) {

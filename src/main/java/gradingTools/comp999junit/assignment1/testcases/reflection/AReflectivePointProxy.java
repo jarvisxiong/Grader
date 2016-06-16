@@ -60,8 +60,8 @@ public class AReflectivePointProxy implements PointProxy{
 	}
 	
 	public Class getCartesianPointClass() throws ClassNotFoundException  {
-//		return Class.forName("gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
-		return Class.forName("gradingTools.comp999junit.assignment1.wrongangle.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
+		return Class.forName("gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
+//		return Class.forName("gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint", true, ClassLoaderFactory.getCurrentClassLoader());
 
 	}
 	@Override

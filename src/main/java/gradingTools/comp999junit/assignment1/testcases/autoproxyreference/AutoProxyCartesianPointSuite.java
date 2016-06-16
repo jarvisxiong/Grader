@@ -9,6 +9,7 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTe
 import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ import org.junit.runners.Suite;
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+   AReflectivePointMainTest.class,
    AnAutoPointProxy.class,
    APointAngleZeroDegreeTest.class,
    APointAngleNinetyDegreeTest.class,

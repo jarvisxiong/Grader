@@ -12,8 +12,8 @@ public class Main {
 		int anX = Integer.parseInt(anXLine);
 		int aY = Integer.parseInt(aYLine);
 		Point aPoint =  new ACartesianPoint (anX, aY);
-		System.out.println (aPoint.getRadius());
-		System.out.println (aPoint.getAngle());
+		System.out.println ("" + aPoint.getRadius());
+		System.out.println ("" + aPoint.getAngle());
 //		
 	}
 

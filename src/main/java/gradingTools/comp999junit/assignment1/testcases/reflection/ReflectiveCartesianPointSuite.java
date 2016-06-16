@@ -16,6 +16,7 @@ import org.junit.runners.Suite;
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+   AReflectivePointMainTest.class,
    AReflectivePointProxy.class,
    APointAngleZeroDegreeTest.class,
    APointAngleNinetyDegreeTest.class,
