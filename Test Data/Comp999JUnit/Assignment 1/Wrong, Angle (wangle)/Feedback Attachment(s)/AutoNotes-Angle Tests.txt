@@ -1,3 +1,0 @@
-  -- computedAngle 0.0 != correctAngle 1.5707963267948966 
-  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
-  -- computedAngle 0.0 != correctAngle -1.5707963267948966 

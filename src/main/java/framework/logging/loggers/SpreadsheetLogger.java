@@ -25,7 +25,8 @@ import grader.assignment.GradingFeature;
 import grader.settings.GraderSettingsManagerSelector;
 
 /**
- * This maintains a spreadsheet of all students and their grades
+ * This maintains a spreadsheet of all students and their grades, saving
+ * saves the log in log file, not really necessary
  */
 public class SpreadsheetLogger implements Logger {
 
@@ -216,6 +217,10 @@ public class SpreadsheetLogger implements Logger {
 			String[] line;
 			int rowCounter = 1;
 			while ((line = reader.readNext()) != null) {
+				if (line.length < 4) {
+					System.err.println ("csv file " + csvFile + " row " + rowCounter + " has less than 4 columns, ignoring rest of file");
+					break;
+				}
 				row = sheet.createRow(rowCounter++);
 				row.createCell(0).setCellValue(line[0]);
 				row.createCell(1).setCellValue(line[1]);

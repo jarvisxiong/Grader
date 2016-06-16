@@ -28,6 +28,11 @@ public class AJUnitRunToTestCaseResult extends RunListener {
 			super.testFailure(failure);
 			Throwable aThrowable = failure.getException();
 			String aMessage = aThrowable.getMessage();
+			if (aMessage == null) { // some exception
+				checkResult = new TestCaseResult(false, 
+						aThrowable.toString(), name, true);
+				return;
+			}
 			String[] aNotesAndScore = aMessage.split(":");
 			String aNotes = aNotesAndScore[0];
 			if (aNotesAndScore.length == 1) { // assume zero percentage

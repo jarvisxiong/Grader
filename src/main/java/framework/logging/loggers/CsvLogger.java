@@ -18,7 +18,7 @@ import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
 import grader.spreadsheet.TotalScoreRecorderSelector;
 import grader.spreadsheet.csv.ASakaiCSVFeatureGradeManager;
-
+// this is logging both the feedback and final grade to through my Final grade recorder, which seems to be adding an extra line
 public class CsvLogger implements Logger {
 
 	@Override

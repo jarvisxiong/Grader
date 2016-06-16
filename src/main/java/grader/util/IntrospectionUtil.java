@@ -632,6 +632,9 @@ public class IntrospectionUtil {
 	 */
 	public static List<Method> findMethodByName(Class aClass,
 			String aSpecification) {
+		if (aClass == null) {
+			return null;
+		}
 		List<Method> result = new ArrayList<>();
 		for (Method aMethod : aClass.getMethods()) {
 
@@ -787,11 +790,11 @@ public class IntrospectionUtil {
 		List<Method> result = new ArrayList();
 		if (aName != null)
 			result = findMethodByName(aJavaClass, aName);
-		if (!result.isEmpty())
+		if (result != null && !result.isEmpty())
 			return result;
 		if (aTag != null)
 			result = findMethodsByTag(aJavaClass, aTag);
-		if (!result.isEmpty())
+		if (result != null && !result.isEmpty())
 			return result;
 		if (aNameMatch != null) {
 			result = findMethodByNameMatch(aJavaClass, aNameMatch);

@@ -5,8 +5,9 @@ Grading features...
 Angle Tests                                            16.0 / 16.0
 APointRadiusTest                                       15.0 / 15.0 (Extra credit)
 AnAutoPointProxy                                       6.0 /  6.0
+AReflectivePointMainTest                               10.0 / 10.0
 ----------------------------------
-  Points Awarded: 37.0
+  Points Awarded: 47.0
 
-  Features Score: 37.0
-  Total Score: 37.0
+  Features Score: 47.0
+  Total Score: 47.0

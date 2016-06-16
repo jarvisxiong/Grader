@@ -16,7 +16,7 @@ import util.trace.Tracer;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 //import bus.uigen.Message;
-
+// This is the class that manages the grades.csv file. Josh's stuff might interfere with this
 public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;
 	public static final int GRADE_COLUMN = 4;
@@ -30,7 +30,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	
 	List<String[]>  table;
   
-
+	int originalTableSize;
 	public ASakaiCSVFinalGradeManager(FileProxy aGradeSpreadsheet) {
 		gradeSpreadsheet = aGradeSpreadsheet;		
 	}
@@ -52,6 +52,9 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 			InputStream input = gradeSpreadsheet.getInputStream();
 			CSVReader csvReader 	=	new CSVReader(new InputStreamReader(input));
 		     table = csvReader.readAll();
+		     System.out.println ("Read spreadsheet table of size:" + table.size());
+		     originalTableSize = table.size();
+		     
 			csvReader.close();
 			input.close();
 			
@@ -171,11 +174,14 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 			return;
 		}
 		CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(output));
+		if (table.size() != originalTableSize) {
+			System.err.println ("Spreadsheet table size:" + table.size() + " != " + originalTableSize); // should we delete extra rows?
+		}
 		csvWriter.writeAll(table);
 		try {
 			csvWriter.close();
 			output.close();
-			removeQuotes();
+			removeQuotesAndTrim();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -251,10 +257,12 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		
 	}
 	
-	void removeQuotes() {
+	void removeQuotesAndTrim() {
 		String aFileName = gradeSpreadsheet.getAbsoluteName();
 		StringBuffer aText = Common.toText(aFileName);
 		String aNewText = aText.toString().replaceAll("\"", "");
+//		 aNewText = aNewText.toString().replaceAll("\\n\\n", "\\n");
+		 aNewText = aNewText.trim(); //an extra line is added when graded
 		try {
 			Common.writeText(aFileName, aNewText);
 		} catch (IOException e) {

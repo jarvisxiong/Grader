@@ -536,6 +536,8 @@ public class ExecutionUtil {
 				String[] args) throws NotRunnableException {
 		 try {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			if (aMainClass == null)
+				return null;
 			return invokeMain(aMainClass, anInput, args);		
 		 } catch (Exception e) {
 			 e.printStackTrace();
