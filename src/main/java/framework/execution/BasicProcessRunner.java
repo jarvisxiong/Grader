@@ -19,7 +19,7 @@ import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 //import grader.config.StaticConfigurationUtils;
 //import grader.execution.ExecutionSpecification;
 //import grader.config.StaticConfigurationUtils;
@@ -820,7 +820,8 @@ public class BasicProcessRunner implements Runner {
 		return JavaProjectToPermissionFile.getPermissionFile(project);
 	}
 	protected String getClassPath() {
-		return GradingEnvironment.get().getClasspath();
+//		return GradingEnvironment.get().getClasspath();
+		return System.getProperty("java.class.path");
 	}
 	protected String[] maybeToExecutorCommand(String[] aCommand) {
 		return ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);

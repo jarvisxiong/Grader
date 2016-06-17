@@ -1,7 +1,7 @@
 package framework.execution;
 
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
@@ -817,7 +817,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 		return JavaProjectToPermissionFile.getPermissionFile(project);
 	}
 	protected String getClassPath() {
-		return GradingEnvironment.get().getClasspath();
+		return BasicGradingEnvironment.get().getClasspath();
 	}
 	protected String[] maybeToExecutorCommand(String[] aCommand) {
 		return ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);

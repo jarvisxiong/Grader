@@ -17,7 +17,7 @@ import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
@@ -676,7 +676,7 @@ public class OriginalProcessRunner implements Runner {
 			runner.start();
 
 			// // Prepare to run the process
-			String classPath = GradingEnvironment.get().getClasspath();
+			String classPath = BasicGradingEnvironment.get().getClasspath();
 			// // ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 			// GradingEnvironment.get()
 			// // .getClasspath(), entryPoint);
@@ -704,7 +704,7 @@ public class OriginalProcessRunner implements Runner {
 				// ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 				// GradingEnvironment.get().getClasspath(), entryPoint);
 				builder = new ProcessBuilder("java", 
-						"-cp", GradingEnvironment.get().getClasspath(), 
+						"-cp", BasicGradingEnvironment.get().getClasspath(), 
 						"-Djava.security.manager",
 						"-Djava.security.policy==\"" + aPermissionsFile.getAbsolutePath() + "\"",						
 						getEntryPoints().get(

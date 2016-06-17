@@ -5,7 +5,7 @@ import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.navigation.StudentFolder;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
@@ -182,7 +182,7 @@ public class AnAutoVisitBehavior implements
             if (project.isNoProjectFolder()) {
                 return false;
             }
-            wrappedProject = new ProjectWrapper(project, GradingEnvironment
+            wrappedProject = new ProjectWrapper(project, BasicGradingEnvironment
                     .get().getAssignmentName());
             ClassLoaderFactory.setCurrentClassLoader(
             		wrappedProject.getClassesManager().get().getClassLoader());

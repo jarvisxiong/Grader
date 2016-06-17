@@ -1,7 +1,7 @@
 package wrappers.grader.sakai;
 
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.sakai.BulkAssignmentFolder;
@@ -57,11 +57,11 @@ public class NonNestedBulkAssignmentFolder implements BulkAssignmentFolder {
 
     @Override
     public String getAssignmentName() {
-        return GradingEnvironment.get().getAssignmentName().toLowerCase();
+        return BasicGradingEnvironment.get().getAssignmentName().toLowerCase();
     }
 
     @Override
     public String getMixedCaseAssignmentName() {
-        return GradingEnvironment.get().getAssignmentName();
+        return BasicGradingEnvironment.get().getAssignmentName();
     }
 }

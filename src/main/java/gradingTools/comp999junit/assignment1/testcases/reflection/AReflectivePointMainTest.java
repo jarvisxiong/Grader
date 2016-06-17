@@ -28,7 +28,9 @@ public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 //			e.printStackTrace();
 //			return "";
 //		}
-		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
+//		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
+		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
+
 	}
 	@Test
 	public void test() {

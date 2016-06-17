@@ -3,7 +3,7 @@ package wrappers.grader.sakai.project;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.ProjectRequirements;
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AnAssignmenDataFolder;
 import grader.navigation.sorter.AFileObjectSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
@@ -28,7 +28,7 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
 	// replacing this with the configuration setting
 //    private static final String GraderPath = "./GraderData/";
 	
-    private static final String GraderPath = GradingEnvironment.get().getDefaultAssignmentsDataFolderName() + "/";	
+    private static final String GraderPath = BasicGradingEnvironment.get().getDefaultAssignmentsDataFolderName() + "/";	
 
     private ProjectRequirements projectRequirements;
     private boolean projectsMade = false;
@@ -62,7 +62,7 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
     private static String getDataFolder() {
 
         // Make sure the appropriate folder exists
-    	String assignmentName = GradingEnvironment.get().getAssignmentName();
+    	String assignmentName = BasicGradingEnvironment.get().getAssignmentName();
 //        File dataFolder = new File(GraderPath + GradingEnvironment.get().getAssignmentName());
         File dataFolder = new File(GraderPath + assignmentName);
 

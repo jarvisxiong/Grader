@@ -1,7 +1,7 @@
 //non Java doc reg exp: (?s)/\*[^*](?:(?!\*/).)*\(non-javadoc\)(?:(?!\*/).)*\*/
 package grader.project;
 
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;
@@ -104,7 +104,7 @@ public class AClassDescription implements ClassDescription {
                             // compilation errors
                             // for now letting it be
                             // so as long as we have one class programs, we are fine it seems
-                            byte[] classBytes = ParserMain.compile(aClassName, aText, GradingEnvironment
+                            byte[] classBytes = ParserMain.compile(aClassName, aText, BasicGradingEnvironment
                                     .get().getClasspath());
                             if (classBytes != null) {
                                 SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
@@ -293,7 +293,7 @@ public class AClassDescription implements ClassDescription {
     public SourceClass getJavacSourceClass() {
         if (javacSourceClass == null) {
             // added classpath, should not really be accessed
-            javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className, GradingEnvironment
+            javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className, BasicGradingEnvironment
                     .get().getClasspath());
             JavacSourceClassCreated.newCase(className, this);
 

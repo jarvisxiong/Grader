@@ -1,6 +1,6 @@
 package grader.executor;
 
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.compilation.c.CFilesCompilerSelector;
 import grader.config.StaticConfigurationUtils;
 
@@ -28,7 +28,7 @@ public class AnExecutor implements Executor {
 		try {
 			CFilesCompilerSelector.getClassFilesCompiler().compile(new File(executorDirectory + "/src") , 
 					new File (executorDirectory + "/bin"), sourceFiles);
-			if (GradingEnvironment.get().isNotWindows()) {
+			if (BasicGradingEnvironment.get().isNotWindows()) {
 				String fileNames = executorDirectory + "/bin/" + EXECUTOR_FILE + "*";
 				Runtime.getRuntime().exec("setuid nobody " + fileNames);
 			}

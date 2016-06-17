@@ -9,7 +9,7 @@ import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.settings.GraderSettingsManager;
 
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class AHeadlessGradingManager implements GradingManager {
         
         String editor = graderSettingsManager.getEditor();
         if (editor != null) {
-            GradingEnvironment.get().setEditor(editor);
+            BasicGradingEnvironment.get().setEditor(editor);
         }
     }
 

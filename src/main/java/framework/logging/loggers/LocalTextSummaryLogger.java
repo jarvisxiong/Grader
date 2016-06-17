@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 
 /**
  * Saves a text summary to a local file.
@@ -28,7 +28,7 @@ public class LocalTextSummaryLogger implements Logger {
         }
     }
     File logFile(String aUserId) {
-		File folder = new File("log/" + GradingEnvironment.get().getAssignmentName());
+		File folder = new File("log/" + BasicGradingEnvironment.get().getAssignmentName());
 		return new File(folder, aUserId + ".txt");
 	}
 

@@ -1,7 +1,7 @@
 package grader.settings;
 
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
 import grader.executor.ExecutorSelector;
@@ -308,9 +308,9 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         String editor;
         if (GraderSettings.get().has("editor")) {
             editor = GraderSettings.get().get("editor");
-            GradingEnvironment.get().setEditor(editor); // why not for path also, perhaps its not used later?
+            BasicGradingEnvironment.get().setEditor(editor); // why not for path also, perhaps its not used later?
         } else {
-            editor = GradingEnvironment.get().getEditor();
+            editor = BasicGradingEnvironment.get().getEditor();
         }
         fileBrowsing.getTextEditor().getLabel().setText(editor);
 //        String downloadPath;
@@ -505,7 +505,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         GraderSettings.get().set(END_ONYEN, endingOnyen);
         System.out.println ("Saving PROBLEM_PATH:" + downloadPath);
         GraderSettings.get().set(PROBLEM_PATH, downloadPath);
-        GradingEnvironment.get().setAssignmentName(currentProblem);
+        BasicGradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
         GraderSettings.get().set("editor", editor);
         GraderSettings.get().set("diff", diff);

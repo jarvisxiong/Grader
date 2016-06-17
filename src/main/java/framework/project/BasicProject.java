@@ -17,6 +17,7 @@ import grader.util.IntrospectionUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -141,8 +142,11 @@ public class BasicProject implements Project {
        return Option.apply((ClassesManager) new BasicProjectClassesManager(null, buildFolder, sourceFolder, sourceFilePattern));
 
     }
-
+    protected Option<File> out;
+    protected Option<File> bin;
+    protected Map<String, File> preferredClassToBuildFolder = new HashMap(); // wonder if it will ever have more than one entry
     /**
+     * Caching version of Josh's code
      * This figures out where the build folder is, taking into account variations due to IDE
      *
      * @param preferredClass The name of the class that has the main method, such as "main.Assignment1"
@@ -150,24 +154,102 @@ public class BasicProject implements Project {
      * @throws FileNotFoundException
      */
     public File getBuildFolder(String preferredClass) throws FileNotFoundException {
+    	  File retVal = preferredClassToBuildFolder.get(preferredClass);
+    	  if (retVal == null) {
+    		  retVal = searchBuildFolder(preferredClass);
+    		  if (retVal == null)
+    			  return null;
+    		  preferredClassToBuildFolder.put(preferredClass, retVal);
+    	  }
+    	  return retVal;
+    }
+    
+    protected File searchBuildFolder(String preferredClass) throws FileNotFoundException {
+  	  
+//      Option<File> out = DirectoryUtils.locateFolder(directory, "out");
+        if (out == null)
+  	  out = DirectoryUtils.locateFolder(directory, Project.BINARY_2);
+//      if (out.isEmpty())
+//      	out = DirectoryUtils.locateFolder(directory, Project.BINARY_0);
+
+      
+
+//      Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
+        if (bin == null)
+      bin = DirectoryUtils.locateFolder(directory,  Project.BINARY_0); // just to handle grader itself, as it has execuot.c
+      if (bin.isEmpty())
+//      Option<File> bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
+      	bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
+
+
+
+
+      // If there is no 'out' or 'bin' folder then give up
+      if (out.isEmpty() && bin.isEmpty()) {
+      	if (noSrc) {
+                  return sourceFolder;
+              } 
+//          throw new FileNotFoundException();
+      	BinaryFolderNotFound.newCase(directory.getAbsolutePath(), this);
+      	File retVal = new File(directory, Project.BINARY);
+      	retVal.mkdirs();
+//      	project.getClassLoader().setBinaryFileSystemFolderName(retVal.getAbsolutePath());
+      	BinaryFolderMade.newCase(retVal.getAbsolutePath(), this);
+      	return retVal.getAbsoluteFile();
+      	
+      } else {
+          // There can be more folders under it, so look around some more
+          // But first check the class name to see what we are looking for
+          File dir = null;
+          if (out.isDefined()) {
+              dir = out.get();
+          }
+          if (bin.isDefined()) {
+              dir = bin.get();
+          }
+          if (preferredClass == null || preferredClass.isEmpty()) {
+              return dir;
+          }
+
+          if (preferredClass.contains(".")) {
+              Option<File> packageDir = DirectoryUtils.locateFolder(dir, preferredClass.split("\\.")[0]);
+              if (packageDir.isDefined()) {
+                  return packageDir.get().getParentFile();
+              } else {
+                  return dir;
+              }
+          } else {
+              return dir;
+          }
+      }
+  }
+    
+    /**
+     * This figures out where the build folder is, taking into account variations due to IDE
+     *
+     * @param preferredClass The name of the class that has the main method, such as "main.Assignment1"
+     * @return The build folder
+     * @throws FileNotFoundException
+     */
+    public File getNonCachingBuildFolder(String preferredClass) throws FileNotFoundException {
 //        Option<File> out = DirectoryUtils.locateFolder(directory, "out");
-        Option<File> out = DirectoryUtils.locateFolder(directory, Project.BINARY_2);
+        Option<File> anOut = DirectoryUtils.locateFolder(directory, Project.BINARY_2);
 //        if (out.isEmpty())
 //        	out = DirectoryUtils.locateFolder(directory, Project.BINARY_0);
 
         
 
 //        Option<File> bin = DirectoryUtils.locateFolder(directory, "bin");
-        Option<File> bin = DirectoryUtils.locateFolder(directory,  Project.BINARY_0); // just to handle grader itself, as it has execuot.c
-        if (bin.isEmpty())
+        Option<File> aBin = DirectoryUtils.locateFolder(directory,  Project.BINARY_0); // just to handle grader itself, as it has execuot.c
+        if (aBin.isEmpty())
 //        Option<File> bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
-        	bin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
+        	aBin = DirectoryUtils.locateFolder(directory,  Project.BINARY);
 
 
 
 
         // If there is no 'out' or 'bin' folder then give up
-        if (out.isEmpty() && bin.isEmpty()) {
+        if (anOut.isEmpty() && aBin.isEmpty()) {
         	if (noSrc) {
                     return sourceFolder;
                 } 
@@ -183,11 +265,11 @@ public class BasicProject implements Project {
             // There can be more folders under it, so look around some more
             // But first check the class name to see what we are looking for
             File dir = null;
-            if (out.isDefined()) {
-                dir = out.get();
+            if (anOut.isDefined()) {
+                dir = anOut.get();
             }
-            if (bin.isDefined()) {
-                dir = bin.get();
+            if (aBin.isDefined()) {
+                dir = aBin.get();
             }
             if (preferredClass == null || preferredClass.isEmpty()) {
                 return dir;

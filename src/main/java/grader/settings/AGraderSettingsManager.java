@@ -1,7 +1,7 @@
 package grader.settings;
 
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
@@ -215,9 +215,9 @@ public class AGraderSettingsManager implements GraderSettingsManager {
         String editor = dynamicConfiguration.getString(EDITOR);
         if (editor != null) {
 //				editor = GraderSettings.get().get("editor");
-            GradingEnvironment.get().setEditor(editor); // why not for path also, perhaps its not used later?
+            BasicGradingEnvironment.get().setEditor(editor); // why not for path also, perhaps its not used later?
         } else {
-            editor = GradingEnvironment.get().getEditor();
+            editor = BasicGradingEnvironment.get().getEditor();
         }
         return editor;
     }
@@ -233,9 +233,9 @@ public class AGraderSettingsManager implements GraderSettingsManager {
         String diff = dynamicConfiguration.getString(DIFF);
         if (diff != null) {
 //				editor = GraderSettings.get().get("editor");
-            GradingEnvironment.get().setDiff(diff); // why not for path also, perhaps its not used later?
+            BasicGradingEnvironment.get().setDiff(diff); // why not for path also, perhaps its not used later?
         } else {
-        	diff = GradingEnvironment.get().getDiff();
+        	diff = BasicGradingEnvironment.get().getDiff();
         }
         return diff;
     }

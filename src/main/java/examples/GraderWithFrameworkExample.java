@@ -6,7 +6,7 @@ import examples.checkers.testCases.ErrorMessageTestCase;
 import examples.checkers.testCases.FailingTestCase;
 import examples.checkers.testCases.PassingTestCase;
 import framework.grading.FrameworkProjectRequirements;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.trace.settings.InvalidOnyenRangeException;
 
 /**
@@ -19,7 +19,7 @@ import grader.trace.settings.InvalidOnyenRangeException;
 public class GraderWithFrameworkExample {
     public static void main(String[] args) {
 
-        GradingEnvironment.get().setAssignmentName("Assignment 7");
+        BasicGradingEnvironment.get().setAssignmentName("Assignment 7");
         String bulkFolder = "/Users/josh/Downloads/a7";
         String dataFolder = "/Users/josh/Documents/School/Fall 2013/COMP401/Grader2/GraderData";
 

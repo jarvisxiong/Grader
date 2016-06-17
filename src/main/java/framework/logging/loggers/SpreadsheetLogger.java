@@ -20,7 +20,7 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.logging.recorder.RecordingSession;
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeature;
 import grader.settings.GraderSettingsManagerSelector;
 
@@ -46,7 +46,7 @@ public class SpreadsheetLogger implements Logger {
 		PropertiesConfiguration configuration = new PropertiesConfiguration(
 				"./config/config.properties");
 		String spreadsheetPath = configuration.getString("grader.logger.spreadsheetFilename")
-				.replace("{projectName}", GradingEnvironment.get().getAssignmentName());
+				.replace("{projectName}", BasicGradingEnvironment.get().getAssignmentName());
 //		spreadsheetPath = ModuleProblemManagerSelector.getModuleProblemManager().replaceModuleProblemVars(spreadsheetPath);
 		spreadsheetPath = GraderSettingsManagerSelector.getGraderSettingsManager().replaceModuleProblemVars(spreadsheetPath);
 

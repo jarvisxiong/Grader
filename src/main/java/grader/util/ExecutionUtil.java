@@ -562,10 +562,11 @@ public class ExecutionUtil {
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static String forkMain(Class aProxyClass, String input,
+	 public static String forkProjectMain(Class aProxyClass, String input,
 				String[] args, int timeout) throws NotRunnableException {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
-
+			// this should depend on whether class path
+			
 		 	String aClassPath = System.getProperty("java.class.path");
 	        String[] command = {"java",  "-cp",  aClassPath,aMainClass.getName()};
 	        Runner processRunner = new BasicProcessRunner(new File("."));
@@ -573,8 +574,8 @@ public class ExecutionUtil {
 	       return aRunningProject.await();
 
 		}
-	 public static String forkMain(Class aProxyClass, String input,String[] args) {
-		 return forkMain(aProxyClass, input, args, PROCESS_TIME_OUT);
+	 public static String forkProjectMain(Class aProxyClass, String input,String[] args) {
+		 return forkProjectMain(aProxyClass, input, args, PROCESS_TIME_OUT);
 	 }
 
 	 public static String invokeCorrespondingMain(Class aProxyClass, String anInput,

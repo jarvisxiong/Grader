@@ -33,7 +33,7 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.navigation.StudentFolder;
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -373,19 +373,19 @@ public class GradingWindow {
         openSakaiFolderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GradingEnvironment.get().open(folder.getFolder());
+                BasicGradingEnvironment.get().open(folder.getFolder());
             }
         });
         viewCodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GradingEnvironment.get().edit(project.get().getSourceFolder());
+                BasicGradingEnvironment.get().edit(project.get().getSourceFolder());
             }
         });
         openFolderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GradingEnvironment.get().open(project.get().getSourceFolder());
+                BasicGradingEnvironment.get().open(project.get().getSourceFolder());
             }
         });
         runButton.addActionListener(new ActionListener() {

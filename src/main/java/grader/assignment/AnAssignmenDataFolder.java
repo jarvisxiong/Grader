@@ -1,7 +1,7 @@
 package grader.assignment;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.AConfigurationManager;
 import grader.config.StaticConfigurationUtils;
 import grader.file.FileProxy;
@@ -62,7 +62,7 @@ public class AnAssignmenDataFolder extends AFileSystemRootFolderProxy implements
 
     public AnAssignmenDataFolder(String aRootFolderName, FileProxy aFinalGradeFile) {
         super(aRootFolderName);
-        String userName = GradingEnvironment.get().getUserName();
+        String userName = BasicGradingEnvironment.get().getUserName();
         if (userName != null && !userName.isEmpty())
         	featureGradeFileName =  userName + "_" + featureGradeFileName;
         finalGradeFile = aFinalGradeFile;

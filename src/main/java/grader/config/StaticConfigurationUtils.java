@@ -2,7 +2,7 @@ package grader.config;
 
 import framework.grading.ProjectRequirements;
 import framework.project.Project;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AnAssignmenDataFolder;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.requirements.interpreter.AnInterpretedRequirements;
@@ -535,7 +535,7 @@ public class StaticConfigurationUtils {
 //				command = command.replace(CLASS_PATH_VAR, "\""
 //						+ GradingEnvironment.get().getClasspath() + "\"");
 				command = command.replace(CLASS_PATH_VAR, 
-						GradingEnvironment.get().getClasspath());
+						BasicGradingEnvironment.get().getClasspath());
 
 				// } else if (command.contains(PERMISSIONS_VAR)) {
 				// command = command.replace(PERMISSIONS_VAR,
@@ -547,11 +547,11 @@ public class StaticConfigurationUtils {
 //				command = command.replace(CLASS_PATH_VAR, "\""
 //				+ GradingEnvironment.get().getClasspath() + "\"");
 		         command = command.replace(OE_PATH_VAR, 
-				GradingEnvironment.get().getClasspath());
+				BasicGradingEnvironment.get().getClasspath());
 
 	      } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
 	    	   command = command.replace(OE_AND_CLASS_PATH_VAR, 
-	   				GradingEnvironment.get().getClasspath());
+	   				BasicGradingEnvironment.get().getClasspath());
 	      }
 			else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
 				// URL policyFileURL =

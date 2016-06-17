@@ -28,6 +28,7 @@ import framework.logging.loggers.SpreadsheetLogger;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GraderSettings;
+import framework.utils.BasicGradingEnvironment;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
@@ -79,8 +80,10 @@ public class Driver {
 
     public static void drive(String[] args, int settingsFrameX, int settingsFrameY) {
 //	  ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
+//        BasicGradingEnvironment.set(new GradingEnvironment());
 
         setTracing();
+
 //	  ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 
         ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
@@ -93,12 +96,15 @@ public class Driver {
 
         controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
 //        if (!controller.equals("AHeadlessGradingManager")) {
+        // want static confoguration utils to be set by this time, so this should not happen prematurely
+        BasicGradingEnvironment.set(new GradingEnvironment()); 
         if (isHeadless()) {
             ObjectEditor.setShowStartView(false);
         } else {
             ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_SYSTEM_MENUS, false);
             ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
         }
+
         interactionLogWriter = InteractionLogWriterSelector.getInteractionLogWriter();
         TraceableBus.addTraceableListener(interactionLogWriter);
 
@@ -113,7 +119,9 @@ public class Driver {
         AProject.setForceCompile(StaticConfigurationUtils.getForceCompileClasses(configuration, graderSettingsManager));
         // Get the project name
         String projectName = configuration.getString("project.name");
-        GradingEnvironment.get().setAssignmentName(projectName);
+      
+
+        BasicGradingEnvironment.get().setAssignmentName(projectName);
 
         ProjectRequirements requirements = null;
 
@@ -224,7 +232,7 @@ public class Driver {
             initAssignmentDataFolder();
 
             projectName = settingsModel.getCurrentProblem(); // get the current one
-            GradingEnvironment.get().setAssignmentName(projectName);
+            BasicGradingEnvironment.get().setAssignmentName(projectName);
 
             // moving code below
 //            requirements = getProjectRequirements();
@@ -342,7 +350,7 @@ public class Driver {
     public static void initAssignmentDataFolder() {
         String defaultAssignmentsDataFolderName = configuration.getString("grader.defaultAssignmentsDataFolderName");
         defaultAssignmentsDataFolderName = graderSettingsManager.replaceModuleProblemVars(defaultAssignmentsDataFolderName);
-        GradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
+        BasicGradingEnvironment.get().setDefaultAssignmentsDataFolderName(defaultAssignmentsDataFolderName);
     }
 
     public static void initLoggers(ProjectRequirements requirements, PropertiesConfiguration configuration) {

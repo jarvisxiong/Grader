@@ -1,6 +1,6 @@
 package grader.sakai.project;
 
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeatureList;
 import util.trace.TraceableWarning;
 import bus.uigen.ObjectEditor;
@@ -21,7 +21,7 @@ public class AnOEProjectStepperDisplayer implements ProjectStepperDisplayer<uiFr
 
 		GradingFeatureList gradingFeatures = aProjectStepper.getGradingFeatures();
 		String assignmentName = aProjectStepper.getProjectDatabase().getBulkAssignmentFolder().getAssignmentName();
-		String userName = GradingEnvironment.get().getUserName();
+		String userName = BasicGradingEnvironment.get().getUserName();
 		if (userName != null && !userName.isEmpty()) {
 			oeFrame.setTitle("Grading Assistant to " + userName + " for " + assignmentName);
 

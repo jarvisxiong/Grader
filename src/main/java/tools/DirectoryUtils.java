@@ -1,6 +1,6 @@
 package tools;
 
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.language.LanguageDependencyManager;
 
 import java.io.BufferedReader;
@@ -150,7 +150,7 @@ public class DirectoryUtils {
 	}
 	
 	public static String diffWithResult( String anOptions, File correctChild, File testChild, String anOutputFileName) {
-		String diffTool = GradingEnvironment.get().getDiff();
+		String diffTool = BasicGradingEnvironment.get().getDiff();
 		if ((diffTool == null || diffTool.isEmpty())) {
 			System.out.println("cannot diff as no difftool provided");
 			return "";
@@ -220,7 +220,7 @@ public class DirectoryUtils {
 		
 	}
 	public static void diff( String anOptions, File anOriginalFile, File aModifiedFile, String anOutputFileName) {
-		String diffTool = GradingEnvironment.get().getDiff();
+		String diffTool = BasicGradingEnvironment.get().getDiff();
 		if ((diffTool == null || diffTool.isEmpty())) {
 			System.out.println("cannot diff as no difftool provided");
 			return;

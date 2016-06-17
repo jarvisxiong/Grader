@@ -9,7 +9,7 @@ import framework.gui.GradingWindow;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.sakai.project.AProjectStepper;
@@ -104,7 +104,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
 //                project.setCanBeRun(true);
 //                project.setHasBeenRun(true);
                 project.maybeMakeClassDescriptions();
-                framework.project.Project wrappedProject = new ProjectWrapper(this.project, GradingEnvironment.get().getAssignmentName());
+                framework.project.Project wrappedProject = new ProjectWrapper(this.project, BasicGradingEnvironment.get().getAssignmentName());
                 featureResults = requirements.checkFeatures(wrappedProject);
                 restrictionResults = requirements.checkRestrictions(wrappedProject);
                 window = GradingWindow.create(requirements, studentFolder, Option.apply(wrappedProject), featureResults, restrictionResults);

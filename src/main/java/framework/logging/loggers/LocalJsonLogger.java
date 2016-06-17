@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 
 /**
  * This saves data to a local location
@@ -39,7 +39,7 @@ public class LocalJsonLogger implements Logger {
     }
 
     File logFile(String aUserId) {
-        File folder = new File("log/" + GradingEnvironment.get().getAssignmentName());
+        File folder = new File("log/" + BasicGradingEnvironment.get().getAssignmentName());
         return new File(folder, aUserId + ".json");
 
     }

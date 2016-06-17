@@ -1,6 +1,6 @@
 package grader.interaction_logger;
 
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.trace.CSVSerializable;
@@ -70,7 +70,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
         if (interactionLogFolder == null) {
             return;
         }
-        String userName = GradingEnvironment.get().getUserName();
+        String userName = BasicGradingEnvironment.get().getUserName();
 
         if (userName == null || userName.isEmpty()) {
             userName = "";
@@ -124,7 +124,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
     }
 
     public String createLogFileName(String suffix) {
-        String userName = GradingEnvironment.get().getUserName();
+        String userName = BasicGradingEnvironment.get().getUserName();
 
         if (userName == null || userName.isEmpty()) {
             userName = "";
@@ -141,7 +141,7 @@ public class AnInteractionLogWriter implements InteractionLogWriter {
     }
 
     void createOrLoadAppendableFile(String suffix) {
-        String userName = GradingEnvironment.get().getUserName();
+        String userName = BasicGradingEnvironment.get().getUserName();
 //
 //		if (userName == null || userName.isEmpty())
 //			userName = "";

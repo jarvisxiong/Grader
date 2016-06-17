@@ -6,7 +6,7 @@ import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.AGradingFeatureList;
 import grader.assignment.AnAssignmenDataFolder;
@@ -1198,7 +1198,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 				assignmentRoot, fileNameSorter);
 		String assignmentName = bulkFolder.getAssignmentName();
 		if (assignmentsDataFolderName == null)
-			assignmentsDataFolderName = GradingEnvironment.get()
+			assignmentsDataFolderName = BasicGradingEnvironment.get()
 					.getDefaultAssignmentsDataFolderName();
 		// if (assignmentsDataFolderName.startsWith("null"))
 		// assignmentsDataFolderName = null;

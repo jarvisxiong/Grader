@@ -21,7 +21,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import framework.utils.GraderSettings;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,9 +52,9 @@ public class SettingsWindow {
         // Get previous settings
         if (GraderSettings.get().has("editor")) {
             editor = GraderSettings.get().get("editor");
-            GradingEnvironment.get().setEditor(editor);
+            BasicGradingEnvironment.get().setEditor(editor);
         } else
-            editor = GradingEnvironment.get().getEditor();
+            editor = BasicGradingEnvironment.get().getEditor();
         editorLabel.setText(editor);
         if (GraderSettings.get().has("path")) {
             downloadPath = GraderSettings.get().get("path");
@@ -93,7 +93,7 @@ public class SettingsWindow {
                 int returnValue = fileChooser.showOpenDialog(frame);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     String _editor = fileChooser.getSelectedFile().getAbsolutePath();
-                    GradingEnvironment.get().setEditor(_editor);
+                    BasicGradingEnvironment.get().setEditor(_editor);
                     editor = _editor;
                     editorLabel.setText(_editor);
                 }

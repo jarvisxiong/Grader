@@ -19,7 +19,7 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
 import framework.logging.recorder.ConglomerateRecorder;
 import framework.navigation.StudentFolder;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
@@ -675,7 +675,7 @@ public class AProjectStepper extends AClearanceManager implements
 		// return false;
 		// }
 		try {
-			wrappedProject = new ProjectWrapper(project, GradingEnvironment
+			wrappedProject = new ProjectWrapper(project, BasicGradingEnvironment
 					.get().getAssignmentName());
 			studentFolder = ProjectWrapper.getStudentFolder(onyen);
 		} catch (FileNotFoundException e) {

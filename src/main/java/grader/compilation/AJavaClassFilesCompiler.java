@@ -13,7 +13,7 @@ import javax.tools.ToolProvider;
 
 import util.trace.javac.CompilerNotFound;
 import framework.execution.ARunningProject;
-import framework.utils.GradingEnvironment;
+import framework.utils.BasicGradingEnvironment;
 import grader.trace.compilation.SourceFileCompiled;
 
 public class AJavaClassFilesCompiler implements ClassFilesCompiler{
@@ -37,7 +37,7 @@ public class AJavaClassFilesCompiler implements ClassFilesCompiler{
 			String buildFolderPath = buildFolder.getCanonicalPath();
 //			String graderClassPath = GradingEnvironment
 //					.get().getClasspath();
-			String graderClassPath = GradingEnvironment
+			String graderClassPath = BasicGradingEnvironment
 					.get().getCanonicalClasspath();
 //			String graderClassPath = GradingEnvironment
 //					.get().getClasspath();
