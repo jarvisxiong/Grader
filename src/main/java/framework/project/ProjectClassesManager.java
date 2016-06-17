@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.ARunningProject;
 import framework.execution.RunningProject;
+import framework.utils.BasicGradingEnvironment;
 import grader.language.LanguageDependencyManager;
 import grader.project.AProject;
 import grader.sakai.project.SakaiProject;
@@ -97,7 +98,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     }
     
     protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
-    		if (!AProject.isCheckStyle())
+    		if (!BasicGradingEnvironment.get().isCheckStyle())
     			return;    		
     	    File aFile = new File (aProject.getCheckStyleFileName());
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?

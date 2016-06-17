@@ -1,5 +1,6 @@
 package grader.project;
 
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
@@ -30,7 +31,7 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
         ProxyClassLoader classLoader = null;
         // we no longer need this check as we are allowing classes to be loaded before running
 //        if (aProject.canBeRun() && aProject.hasBeenRun()) {
-        if (AProject.isLoadClasses())
+        if (BasicGradingEnvironment.get().isLoadClasses())
             classLoader = aProject.getClassLoader();
 //        }
         makeClassDescriptions(aProject.getSourceProjectFolderName(), entries, classLoader, aProject);

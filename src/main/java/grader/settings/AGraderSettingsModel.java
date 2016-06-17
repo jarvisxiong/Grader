@@ -809,7 +809,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public boolean maybePreUnzip() {
-        if (!AProject.isUnzipFiles()) {
+        if (!BasicGradingEnvironment.get().isUnzipFiles()) {
             return false;
         }
         maybeCreateProjectDatabase();
@@ -846,7 +846,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     @Override
     @Visible(false)
     public boolean maybePreCompile() {
-        if (!AProject.isPreCompileMissingObjectCode()) {
+        if (!BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
             return false;
         }
         maybeCreateProjectDatabase();

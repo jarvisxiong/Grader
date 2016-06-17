@@ -2,6 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
+import framework.utils.BasicGradingEnvironment;
 import grader.project.AProject;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
@@ -38,7 +39,7 @@ public class AutoProxyCartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 		PointProxyFactory.setPointProxy(new AnAutoPointProxy());
-		AProject.setLoadClasses(true);
+		BasicGradingEnvironment.get().setLoadClasses(true);
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 

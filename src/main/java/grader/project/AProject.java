@@ -4,6 +4,7 @@ import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.MainClassFinder;
 import grader.execution.ProjectRunnerSelector;
@@ -106,20 +107,14 @@ public class AProject implements Project {
 
     List<String> classNamesCompiled = new ArrayList();
 
-    static boolean loadClasses = false;
-
-    static boolean compileMissingObjectCode = false;
-    static boolean unzipFiles = false;
- 
-
-	static boolean preCompileMissingObjectCode = false;
+    
      boolean filesCompiled = false;
      boolean filesUnzipped = false;
 
    
 
-	static boolean forceCompile = false; //compile whether that is needed or not
-	static boolean checkStyle = false; 
+//	static boolean forceCompile = false; //compile whether that is needed or not
+//	static boolean checkStyle = false; 
 	Map<String, String> entryPoints;
 	
 	ProjectWrapper wrapper;
@@ -189,7 +184,7 @@ public class AProject implements Project {
     }
     @Override
     public void setNewClassLoader() {
-    	if (AProject.isLoadClasses()) {
+    	if (BasicGradingEnvironment.get().isLoadClasses()) {
             if (rootCodeFolder.hasValidBinaryFolder()) {
                 proxyClassLoader = new AProxyProjectClassLoader(rootCodeFolder);
             } else {
@@ -646,39 +641,45 @@ public class AProject implements Project {
         classNamesCompiled.add(newVal);
 
     }
-
-    public static boolean isLoadClasses() {
-        return loadClasses;
-    }
-
-    public static void setLoadClasses(boolean makeClassDescriptions) {
-        AProject.loadClasses = makeClassDescriptions;
-    }
-
-    public static boolean isCompileMissingObjectCode() {
-        return compileMissingObjectCode;
-    }
-
-    public static void setCompileMissingObjectCode(boolean newVal) {
-        AProject.compileMissingObjectCode = newVal;
-    }
-
-    public static boolean isForceCompile() {
-        return forceCompile;
-    }
-
-    public static void setForceCompile(boolean forceCompile) {
-        AProject.forceCompile = forceCompile;
-    }
-
-    public static boolean isPreCompileMissingObjectCode() {
-        return preCompileMissingObjectCode;
-    }
-
-    public static void setPrecompileMissingObjectCode(
-            boolean preCompileMissingObjectCode) {
-        AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
-    }
+//    static boolean loadClasses = false;
+//
+//    static boolean compileMissingObjectCode = false;
+//    static boolean unzipFiles = false;
+// 
+//
+//	static boolean preCompileMissingObjectCode = false;
+//    public static boolean isLoadClasses() {
+//        return loadClasses;
+//    }
+//
+//    public static void setLoadClasses(boolean makeClassDescriptions) {
+//        AProject.loadClasses = makeClassDescriptions;
+//    }
+//
+//    public static boolean isCompileMissingObjectCode() {
+//        return compileMissingObjectCode;
+//    }
+//
+//    public static void setCompileMissingObjectCode(boolean newVal) {
+//        AProject.compileMissingObjectCode = newVal;
+//    }
+//
+//    public static boolean isForceCompile() {
+//        return forceCompile;
+//    }
+//
+//    public static void setForceCompile(boolean forceCompile) {
+//        AProject.forceCompile = forceCompile;
+//    }
+//
+//    public static boolean isPreCompileMissingObjectCode() {
+//        return preCompileMissingObjectCode;
+//    }
+//
+//    public static void setPrecompileMissingObjectCode(
+//            boolean preCompileMissingObjectCode) {
+//        AProject.preCompileMissingObjectCode = preCompileMissingObjectCode;
+//    }
     @Override
     public  boolean isFilesCompiled() {
         return filesCompiled;
@@ -696,13 +697,13 @@ public class AProject implements Project {
 	public  void setFilesUnzipped(boolean filesUnzipped) {
 		this.filesUnzipped = filesUnzipped;
 	}
-	   public static boolean isUnzipFiles() {
-			return unzipFiles;
-		}
-
-		public static void setUnzipFiles(boolean unzipFiles) {
-			AProject.unzipFiles = unzipFiles;
-		}
+//	   public static boolean isUnzipFiles() {
+//			return unzipFiles;
+//		}
+//
+//		public static void setUnzipFiles(boolean unzipFiles) {
+//			AProject.unzipFiles = unzipFiles;
+//		}
 		public TestCase getCurrentTestCase() {
 			return currentTestCase;
 		}
@@ -711,13 +712,13 @@ public class AProject implements Project {
 			this.currentTestCase = currentTestCase;
 		}
 
-	    public static boolean isCheckStyle() {
-			return checkStyle;
-		}
+//	    public static boolean isCheckStyle() {
+//			return checkStyle;
+//		}
 
-	    public static void setCheckStyle(boolean checkStyle) {
-			AProject.checkStyle = checkStyle;
-		}
+//	    public static void setCheckStyle(boolean checkStyle) {
+//			AProject.checkStyle = checkStyle;
+//		}
 	    public Map<String, String> getEntryPoints() {
 	    	if (entryPoints == null) {
 				entryPoints = LanguageDependencyManager.getMainClassFinder()

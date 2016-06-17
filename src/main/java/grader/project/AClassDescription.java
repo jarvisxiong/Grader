@@ -74,7 +74,7 @@ public class AClassDescription implements ClassDescription {
             PrintStream stderr = System.err;
             try {
 //			javaClass = Class.forName(aClassName);
-                if (AProject.isLoadClasses()) {
+                if (BasicGradingEnvironment.get().isLoadClasses()) {
                     javaClass = aClassLoader.loadClass(aClassName);
                     if (javaClass == null) {
                         ClassFileNotFound classFileNotfound = ClassFileNotFound.newCase(aClassName, this);
@@ -94,7 +94,7 @@ public class AClassDescription implements ClassDescription {
                         classFileNotfound.printStackTrace();
                         Tracer.error(classFileNotfound.getMessage());
 
-                        if (AProject.isCompileMissingObjectCode()) {
+                        if (BasicGradingEnvironment.get().isCompileMissingObjectCode()) {
                             String compileClassMessage = "Attempting to compile class:" + aClassName;
                             Tracer.error(compileClassMessage);
 				// need to compile multiple files in one shot because of dependencies
@@ -177,7 +177,7 @@ public class AClassDescription implements ClassDescription {
         }
 
         className = aClassName;
-        if (AProject.isLoadClasses()) {
+        if (BasicGradingEnvironment.get().isLoadClasses()) {
             packageName = Common.classNameToPackageName(aClassName);
         }
 //		qdoxClass = getQdoxClass();

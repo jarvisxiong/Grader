@@ -6,6 +6,7 @@ import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
 import framework.execution.RunningProject;
+import framework.utils.BasicGradingEnvironment;
 import grader.project.AProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;
@@ -352,7 +353,7 @@ public class BasicProject implements Project {
     }
     public static void main (String[] args) {
     	try {
-			AProject.setLoadClasses(true);
+			BasicGradingEnvironment.get().setLoadClasses(true);
 //			Project aProject = new BasicProject(null, new File("."), null);
 			Project anAllCorrectProject = new BasicProject(null, new File("."), null, "allcorrect");
 

@@ -2,6 +2,7 @@ package framework.project;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import framework.utils.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.project.AProject;
 
@@ -38,7 +39,7 @@ public class TestProjectClassesManager {
         canonicalClassName = TestConfig.getConfig().getString("test.exampleSakai.example1.canonicalName");
         invalidName = "__doesntexist__";
         
-        AProject.setLoadClasses(true);
+        BasicGradingEnvironment.get().setLoadClasses(true);
         
         assertNotNull(validBuildLocation, "Config option test.exampleSakai.example1.build read as null");
         assertNotNull(validSrcLocation, "Config option test.exampleSakai.example1.source read as null");

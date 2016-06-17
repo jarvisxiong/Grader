@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.ARunningProject;
 import framework.execution.RunningProject;
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
@@ -46,7 +47,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
         this.sourceFolder = sourceFolder;
 
         // Create the Class Loader and load the classes
-        if (AProject.isLoadClasses() ) {
+        if (BasicGradingEnvironment.get().isLoadClasses() ) {
 //        	classLoader = project.getClassLoader();
 //        	if (classLoader == null)
         	if (project != null) {
@@ -61,14 +62,14 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
     
     protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
-    		if (!AProject.isCheckStyle())
+    		if (!BasicGradingEnvironment.get().isCheckStyle())
     			return;    		
-    	    File aFile = new File (aProject.getCheckStyleFileName());
+    	    File aFile = new File (project.getCheckStyleFileName());
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
     	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
-			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
+			String aCheckStyleOutputFile = project.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");			
 			try {
@@ -103,9 +104,9 @@ public class OriginalProjectClassesManager implements ClassesManager {
 //				return pathname.getName().endsWith(".java");
 //			}
 //		});
-        if (AProject.isCompileMissingObjectCode()
-                || AProject.isForceCompile()
-                || AProject.isPreCompileMissingObjectCode()) {
+        if (BasicGradingEnvironment.get().isCompileMissingObjectCode()
+                || BasicGradingEnvironment.get().isForceCompile()
+                || BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
 
             // Check if any files need to be compiled
             ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -120,7 +121,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
             if (aFilesToCompile.size() > 0) {
                 if (GraderSettingsModelSelector.getGraderSettingsModel() != null
                         && GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC
-                        && !AProject.isPreCompileMissingObjectCode()) {
+                        && !BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
                     return;
                 }
                 try {
@@ -160,19 +161,19 @@ public class OriginalProjectClassesManager implements ClassesManager {
 			// System.out.println(className);
 			try {
 				Class c = null;
-				if (AProject.isLoadClasses() && 
+				if (BasicGradingEnvironment.get().isLoadClasses() && 
 						proxyClassLoader != null) // if we are precompiling or cleaning up, this will be null
 				{
 //					c = classLoader.loadClass(className);
 					c = proxyClassLoader.loadClass(className);
 				}
-				if (AProject.isLoadClasses() && proxyClassLoader == null) {
+				if (BasicGradingEnvironment.get().isLoadClasses() && proxyClassLoader == null) {
 					c = classLoader.loadClass(className);
 				}
 				if (c != null) {
 					classDescriptions.add(new BasicClassDescription(c, file));
 				} 
-//				else if (AProject.isLoadClasses()) {
+//				else if (BasicGradingEnvironment.get().isLoadClasses()) {
 //					c = classLoader.loadClass(className);
 //				}
 			} catch (IncompatibleClassChangeError e) {
@@ -212,7 +213,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
 					System.out.println("Compilation attempt finished.");
 
 					Class c = null;
-					if (AProject.isLoadClasses()) {
+					if (BasicGradingEnvironment.get().isLoadClasses()) {
 //						c = classLoader.loadClass(className);
 						c = proxyClassLoader.loadClass(className);
 
@@ -313,7 +314,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
     	String className = classFile.getName();
         return !project.hasBeenCompiled() && !classFile.getName().startsWith("_") &&
         		!javaFile.getName().startsWith("._") &&
-        		( AProject.isForceCompile()
+        		( BasicGradingEnvironment.get().isForceCompile()
                 || !classFile.exists()
                 || classFile.lastModified() < javaFile.lastModified());
 //				(classFile.lastModified() - javaFile.lastModified()) < 1000;

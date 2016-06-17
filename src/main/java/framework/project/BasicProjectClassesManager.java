@@ -1,6 +1,7 @@
 package framework.project;
 
 import framework.execution.RunningProject;
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+
 
 
 
@@ -107,7 +109,7 @@ public class BasicProjectClassesManager implements ClassesManager {
         this.sourceFolder = sourceFolder;
 
         // Create the Class Loader and load the classes
-        if (AProject.isLoadClasses() ) {
+        if (BasicGradingEnvironment.get().isLoadClasses() ) {
 //        	classLoader = project.getClassLoader();
 //        	if (classLoader == null)
         	setOtherLoaders();
@@ -124,7 +126,7 @@ public class BasicProjectClassesManager implements ClassesManager {
     }
     
     protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
-    		if (!AProject.isCheckStyle())
+    		if (!BasicGradingEnvironment.get().isCheckStyle())
     			return;    		
     	    File aFile = new File (aProject.getCheckStyleFileName());
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
@@ -170,9 +172,9 @@ public class BasicProjectClassesManager implements ClassesManager {
 //				return pathname.getName().endsWith(".java");
 //			}
 //		});
-        if (AProject.isCompileMissingObjectCode()
-                || AProject.isForceCompile()
-                || AProject.isPreCompileMissingObjectCode()) {
+        if (BasicGradingEnvironment.get().isCompileMissingObjectCode()
+                || BasicGradingEnvironment.get().isForceCompile()
+                || BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
 
             // Check if any files need to be compiled
             ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -187,7 +189,7 @@ public class BasicProjectClassesManager implements ClassesManager {
             if (aFilesToCompile.size() > 0) {
                 if (GraderSettingsModelSelector.getGraderSettingsModel() != null
                         && GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC
-                        && !AProject.isPreCompileMissingObjectCode()) {
+                        && !BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
                     return;
                 }
                 try {
@@ -234,13 +236,13 @@ public class BasicProjectClassesManager implements ClassesManager {
 			// System.out.println(className);
 			try {
 				Class c = null;
-				if (AProject.isLoadClasses() && 
+				if (BasicGradingEnvironment.get().isLoadClasses() && 
 						proxyClassLoader != null) // if we are precompiling or cleaning up, this will be null
 				{
 //					c = classLoader.loadClass(className);
 					c = proxyClassLoader.loadClass(className);
 				}
-				if (AProject.isLoadClasses() && proxyClassLoader == null) {
+				if (BasicGradingEnvironment.get().isLoadClasses() && proxyClassLoader == null) {
 					c = classLoader.loadClass(className);
 				}
 				if (c != null) {
@@ -293,7 +295,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 					System.out.println("Compilation attempt finished.");
 
 					Class c = null;
-					if (AProject.isLoadClasses()) {
+					if (BasicGradingEnvironment.get().isLoadClasses()) {
 //						c = classLoader.loadClass(className);
 						c = proxyClassLoader.loadClass(className);
 
@@ -397,7 +399,7 @@ public class BasicProjectClassesManager implements ClassesManager {
 //        		!project.hasBeenCompiled() 
         		&& !classFile.getName().startsWith("_") &&
         		!javaFile.getName().startsWith("._") &&
-        		( AProject.isForceCompile()
+        		( BasicGradingEnvironment.get().isForceCompile()
                 || !classFile.exists()
                 || classFile.lastModified() < javaFile.lastModified());
 //				(classFile.lastModified() - javaFile.lastModified()) < 1000;

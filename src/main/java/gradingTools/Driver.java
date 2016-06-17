@@ -115,8 +115,8 @@ public class Driver {
         if (isHeadless()) {
             setupHeadlessGrader(args);
         }
-        AProject.setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
-        AProject.setForceCompile(StaticConfigurationUtils.getForceCompileClasses(configuration, graderSettingsManager));
+        BasicGradingEnvironment.get().setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
+        BasicGradingEnvironment.get().setForceCompile(StaticConfigurationUtils.getForceCompileClasses(configuration, graderSettingsManager));
         // Get the project name
         String projectName = configuration.getString("project.name");
       
@@ -263,13 +263,13 @@ public class Driver {
         // Create the database
 //        ProjectDatabaseWrapper database = new ProjectDatabaseWrapper();
         boolean loadClasses = StaticConfigurationUtils.getLoadClasses(configuration, graderSettingsManager);
-        AProject.setLoadClasses(loadClasses);
+        BasicGradingEnvironment.get().setLoadClasses(loadClasses);
         String language = StaticConfigurationUtils.getLanguage();
         LanguageDependencyManager.setLanguage(language);
-        AProject.setCompileMissingObjectCode(StaticConfigurationUtils.getAllowCompileClasses(configuration, graderSettingsManager));
-        AProject.setUnzipFiles(StaticConfigurationUtils.getUnzipFiles(configuration, graderSettingsManager));
+        BasicGradingEnvironment.get().setCompileMissingObjectCode(StaticConfigurationUtils.getAllowCompileClasses(configuration, graderSettingsManager));
+        BasicGradingEnvironment.get().setUnzipFiles(StaticConfigurationUtils.getUnzipFiles(configuration, graderSettingsManager));
 //        AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle(configuration, graderSettingsManager));
-        AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle());
+        BasicGradingEnvironment.get().setCheckStyle(StaticConfigurationUtils.getCheckStyle());
         ExecutionUtil.setUseMethodAndConstructorTimeOut(true);
 
         // before we load the database, see if we need to precompile

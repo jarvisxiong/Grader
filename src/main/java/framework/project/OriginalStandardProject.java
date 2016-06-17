@@ -6,6 +6,7 @@ import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
 import framework.execution.RunningProject;
+import framework.utils.BasicGradingEnvironment;
 import grader.project.AProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
@@ -252,7 +253,7 @@ public class OriginalStandardProject implements Project {
     }
     public static void main (String[] args) {
     	try {
-			AProject.setLoadClasses(true);
+			BasicGradingEnvironment.get().setLoadClasses(true);
 			Project aProject = new OriginalStandardProject(null, new File("."), null);
 			Class aClass = IntrospectionUtil.findClass(aProject, "ACartesianPoint");
 			System.out.println (aClass);

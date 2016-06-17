@@ -2,6 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
+import framework.utils.BasicGradingEnvironment;
 import grader.project.AProject;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
@@ -33,7 +34,7 @@ import org.junit.runners.Suite;
 public class TaggingCartesianPointSuite {
 
 	public static void main (String[] args) {
-		AProject.setLoadClasses(true);
+		BasicGradingEnvironment.get().setLoadClasses(true);
 
 		PointProxyFactory.setPointProxy(new ATaggingPointProxy());
 		try {

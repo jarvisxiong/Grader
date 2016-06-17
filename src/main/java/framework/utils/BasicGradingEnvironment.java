@@ -1,5 +1,7 @@
 package framework.utils;
 
+import grader.project.AProject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -32,7 +34,8 @@ public class BasicGradingEnvironment {
         "C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
         "notepad"
     };
-    String userName;
+    
+    protected String userName;
    
 
 	protected String osName;
@@ -247,6 +250,60 @@ public class BasicGradingEnvironment {
     public void setAssignmentName(String assignmentName) {
         this.assignmentName = assignmentName;
     }
+    protected boolean loadClasses = false;
+
+    protected boolean compileMissingObjectCode = false;
+    protected boolean unzipFiles = false;
+ 
+    protected boolean forceCompile = false; //compile whether that is needed or not
+    protected boolean checkStyle = false; 
+    protected boolean preCompileMissingObjectCode = false;
+    public  boolean isLoadClasses() {
+        return loadClasses;
+    }
+
+    public  void setLoadClasses(boolean makeClassDescriptions) {
+        loadClasses = makeClassDescriptions;
+    }
+
+    public  boolean isCompileMissingObjectCode() {
+        return compileMissingObjectCode;
+    }
+
+    public void setCompileMissingObjectCode(boolean newVal) {
+        compileMissingObjectCode = newVal;
+    }
+
+    public boolean isForceCompile() {
+        return forceCompile;
+    }
+
+    public void setForceCompile(boolean forceCompile) {
+        this.forceCompile = forceCompile;
+    }
+
+    public  boolean isPreCompileMissingObjectCode() {
+        return preCompileMissingObjectCode;
+    }
+
+    public  void setPrecompileMissingObjectCode(
+            boolean preCompileMissingObjectCode) {
+        this.preCompileMissingObjectCode = preCompileMissingObjectCode;
+    }
+    public  boolean isUnzipFiles() {
+		return unzipFiles;
+	}
+
+	public  void setUnzipFiles(boolean unzipFiles) {
+		this.unzipFiles = unzipFiles;
+	}
+	 public  boolean isCheckStyle() {
+			return checkStyle;
+		}
+
+	    public  void setCheckStyle(boolean checkStyle) {
+			this.checkStyle = checkStyle;
+		}
 
     // Singleton methods
     private static BasicGradingEnvironment singleton = null;
