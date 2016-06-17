@@ -7,6 +7,7 @@ import framework.execution.Runner;
 import framework.execution.RunningProject;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
+import framework.utils.BasicGradingEnvironment;
 import grader.execution.AConstructorExecutionCallable;
 import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
@@ -567,9 +568,21 @@ public class ExecutionUtil {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			// this should depend on whether class path
 			
-		 	String aClassPath = System.getProperty("java.class.path");
-	        String[] command = {"java",  "-cp",  aClassPath,aMainClass.getName()};
-	        Runner processRunner = new BasicProcessRunner(new File("."));
+//		 	String aClassPath = System.getProperty("java.class.path");
+		 	String aClassPath = BasicGradingEnvironment.get().getClasspath();
+		 	String aMainClassName = aMainClass.getName();
+	        String[] command = {"java",  "-cp",  aClassPath, aMainClassName};
+	        
+	        File aBuildFolder = null;
+	        try {
+	            aBuildFolder = CurrentProjectHolder.getOrCreateCurrentProject().getBuildFolder(aMainClassName);
+	        } catch (Exception e) {
+	        	e.printStackTrace();
+	        	return null;
+	        }
+//	        Runner processRunner = new BasicProcessRunner(new File("."));
+	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
+
 	       RunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
 	       return aRunningProject.await();
 

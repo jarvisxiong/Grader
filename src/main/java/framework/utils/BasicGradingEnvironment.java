@@ -36,8 +36,9 @@ public class BasicGradingEnvironment {
     };
     
     protected String userName;
-   
+    protected boolean nativeExecution = true;
 
+	
 	protected String osName;
 	protected String editor;
     protected String diff;
@@ -64,23 +65,25 @@ public class BasicGradingEnvironment {
 //		classpath = findClasspath(":");
 //	}
 
-	protected BasicGradingEnvironment() {
+	public BasicGradingEnvironment() {
+        nativeExecution = true;
+        // the rest of the stuff may not be needed in basic execution
         osName = System.getProperty("os.name");
         userName = System.getProperty("user.name");
         if (osName.equals("Mac OS X")) {
             osName = "Mac";
             browser = "open";
             editor = findEditor(macEditors);
-            classpath = findClasspath(":");
+            classpath = findClasspathAndSetAssociatedClassPaths(":");
         } else if (osName.equals("Linux")) {
             browser = "nautilus";
             editor = findEditor(linuxEditors);
-            classpath = findClasspath(":");
+            classpath = findClasspathAndSetAssociatedClassPaths(":");
         } else {
             osName = "Windows";
             browser = "explorer";
             editor = findEditor(windowsEditors);
-            classpath = findClasspath(";");
+            classpath = findClasspathAndSetAssociatedClassPaths(";");
         }
     }
 
@@ -91,8 +94,12 @@ public class BasicGradingEnvironment {
         }
         return "";
     }
-  protected  String findClasspath(String separator) {
-	  return System.getProperty("java.class.path");
+    // as the name indicates this is a badly designed method
+  protected  String findClasspathAndSetAssociatedClassPaths(String separator) {
+	  String retVal = System.getProperty("java.class.path");
+	  canonicalOEClassPath = retVal; 
+	  oeClassPath = findOEClassPath(separator);
+	  return retVal;
   }
 
 
@@ -316,6 +323,13 @@ public class BasicGradingEnvironment {
     public static void set(BasicGradingEnvironment anEnvironment) {
     	singleton = anEnvironment;
     }
+    public boolean isNativeExecution() {
+		return nativeExecution;
+	}
+
+	public void setNativeExecution(boolean basicExecution) {
+		this.nativeExecution = basicExecution;
+	}
 //    public ConfigurationManager getConfigurationManager() {
 //		return configurationManager;
 //	}

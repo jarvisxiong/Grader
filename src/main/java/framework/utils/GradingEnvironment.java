@@ -123,8 +123,12 @@ public class GradingEnvironment extends BasicGradingEnvironment {
 //    	}
 //    	return null;
 //    }
+	public GradingEnvironment() {
+		super();
+		nativeExecution = false; // invoked through Driver
+	}
 	@Override
-    protected  String findClasspath(String separator) {
+    protected  String findClasspathAndSetAssociatedClassPaths(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
 //    	String originalClassPath = systemClassPath;

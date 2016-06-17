@@ -2,38 +2,55 @@
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 0
 called constructor: public ACartesianPoint(int,int) 10, 0
-Successfully Created Cartesian Point:ACartesianPoint@6619661b with parameters, x: 10 y 0
+Successfully Created Cartesian Point:ACartesianPoint@3fab235a with parameters, x: 10 y 0
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, 10
 called constructor: public ACartesianPoint(int,int) 0, 10
-Successfully Created Cartesian Point:ACartesianPoint@68de94a8 with parameters, x: 0 y 10
+Successfully Created Cartesian Point:ACartesianPoint@316ccadf with parameters, x: 0 y 10
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@6ce10d6b with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@3553482a with parameters, x: 10 y 10
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
-Successfully Created Cartesian Point:ACartesianPoint@29e39e93 with parameters, x: 0 y -10
+Successfully Created Cartesian Point:ACartesianPoint@7051c0e4 with parameters, x: 0 y -10
 *****************************(APointRadiusTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.APointRadiusTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@4671c0a with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@16068c47 with parameters, x: 10 y 10
 calling constructor: public ACartesianPoint(int,int) 5, 0
 called constructor: public ACartesianPoint(int,int) 5, 0
-Successfully Created Cartesian Point:ACartesianPoint@1800b3fa with parameters, x: 5 y 0
+Successfully Created Cartesian Point:ACartesianPoint@416b966a with parameters, x: 5 y 0
 calling constructor: public ACartesianPoint(int,int) 0, 7
 called constructor: public ACartesianPoint(int,int) 0, 7
-Successfully Created Cartesian Point:ACartesianPoint@7c6e6fc4 with parameters, x: 0 y 7
+Successfully Created Cartesian Point:ACartesianPoint@6ed68475 with parameters, x: 0 y 7
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@49cc61dc with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@107e3fab with parameters, x: 10 y 10
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
-Successfully Created Cartesian Point:ACartesianPoint@7577a3a3 with parameters, x: 0 y -10
+Successfully Created Cartesian Point:ACartesianPoint@32b8fd57 with parameters, x: 0 y -10
 *****************************(AnAutoPointProxy)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.autoproxyreference.AnAutoPointProxy: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, 0
 called constructor: public ACartesianPoint(int,int) 0, 0
-Successfully Created Cartesian Point:ACartesianPoint@68f55194 with parameters, x: 0 y 0
+Successfully Created Cartesian Point:ACartesianPoint@2ffde5ac with parameters, x: 0 y 0
+*****************************(AReflectivePointMainTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest: 1.0
+Returning module:Comp999JUnit
+Running command:java -cp ".;..;C:\Users\Dewan\.m2\repository\edu\unc\oeall\22\oeall-22.jar" Main
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp999JUnit\Assignment 1\All, Correct (acorrect)\Submission attachment(s)\Assignment1\Assignment1\bin
+$10
+10
+Process line:14.142135623730951
+14.142135623730951
+New output 14.142135623730951
+ aprocess null
+Returning module:Comp999JUnit
+Process line:0.7853981633974483
+0.7853981633974483
+New output 0.7853981633974483
+ aprocess null
+Returning module:Comp999JUnit
