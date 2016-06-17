@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,8 @@ import util.misc.TeePrintStream;
 import util.trace.Tracer;
 
 public class ExecutionUtil {
+	static boolean useMethodAndConstructorTimeOut = false;
+	
 	public static final String PRINTS = "System.out";
 	public static final String MISSING_CLASS = "Status.NoClass";
 	public static final String MISSING_PROPERTY = "Status.NoProperty";
@@ -51,11 +54,29 @@ public class ExecutionUtil {
 	public static final String CLASS_MATCHED = "Status.ClassMatched";
 	
 	static ExecutorService executor = Executors.newSingleThreadExecutor();
-	public static final int CONSTRUCTOR_TIME_OUT = 2000;
-	public static final int METHOD_TIME_OUT = 2000;
+	public static final int DEFAULT_CONSTRUCTOR_TIME_OUT = 2000;
+	public static final int DEFAULT_METHOD_TIME_OUT = 2000;
 	public static final int PROCESS_TIME_OUT = 4000;
+	protected static int constructorTimeOut = DEFAULT_CONSTRUCTOR_TIME_OUT;
+	
+	protected static int methodTimeOut = DEFAULT_METHOD_TIME_OUT;
 
 	static Object[] emptyObjectArray = {};
+	public static int getConstructorTimeOut() {
+		return constructorTimeOut;
+	}
+
+	public static void setConstructorTimeOut(int constructorTimeOut) {
+		ExecutionUtil.constructorTimeOut = constructorTimeOut;
+	}
+
+	public static int getMethodTimeOut() {
+		return methodTimeOut;
+	}
+
+	public static void setMethodTimeOut(int methodTimeOut) {
+		ExecutionUtil.methodTimeOut = methodTimeOut;
+	}
 	public static Object timedInvoke(Object anObject, Method aMethod,
 			long aMillSeconds, Object... anArgs) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -100,23 +121,47 @@ public class ExecutionUtil {
         
 	public static Object timedInvoke(Object anObject, Method aMethod,
 			Object... anArgs) {
-		return timedInvoke(anObject, aMethod, METHOD_TIME_OUT, anArgs);
+		if (isUseMethodAndConstructorTimeOut())
+			return timedInvoke(anObject, aMethod, getMethodTimeOut(), anArgs);
+		else {
+			try {
+				return aMethod.invoke(anObject, anArgs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
 
 	}
-        
+	public static boolean isUseMethodAndConstructorTimeOut() {
+		return useMethodAndConstructorTimeOut;
+	}
+
+	public static void setUseMethodAndConstructorTimeOut(
+			boolean useMethodAndConstructorTimeOut) {
+		ExecutionUtil.useMethodAndConstructorTimeOut = useMethodAndConstructorTimeOut;
+	}     
         
 	public static Object timedInvokeWithExceptions(Object anObject, Method aMethod,
 			Object... anArgs) throws Exception{
-		return timedInvokeWithExceptions(anObject, aMethod, METHOD_TIME_OUT, anArgs);
+		return timedInvokeWithExceptions(anObject, aMethod, getMethodTimeOut(), anArgs);
 
 	}
         
         public static Object timedInvoke(Constructor aConstructor, Object[] anArgs) {
-            return timedInvoke(aConstructor, anArgs, CONSTRUCTOR_TIME_OUT);
+        	if (isUseMethodAndConstructorTimeOut())
+            return timedInvoke(aConstructor, anArgs, getConstructorTimeOut());
+			else
+				try {
+					return aConstructor.newInstance(anArgs);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
         }
         
         public static Object timedInvokeWithExceptions(Constructor aConstructor, Object[] anArgs) throws Exception {
-            return timedInvokeWithExceptions(aConstructor, anArgs, CONSTRUCTOR_TIME_OUT);
+            return timedInvokeWithExceptions(aConstructor, anArgs, getConstructorTimeOut());
         }
         
 	public static Object timedInvoke(Constructor aConstructor,
@@ -388,7 +433,7 @@ public class ExecutionUtil {
 					continue;
 				}
 				Object aValue = anInputs.get(aPropertyName);
-				timedInvoke(anObject, aWriteMethod, METHOD_TIME_OUT, new Object[]{aValue});
+				timedInvoke(anObject, aWriteMethod, getMethodTimeOut(), new Object[]{aValue});
 			}
 			for (String anOutputPropertyName:anOutputProperties) {
 				if (anOutputPropertyName == null)
@@ -406,7 +451,7 @@ public class ExecutionUtil {
 					anActualOutputs.put(MISSING_READ +"." + anOutputPropertyName, true);
 					continue;
 				}
-				Object result = timedInvoke(anObject, aReadMethod, METHOD_TIME_OUT, emptyArgs);
+				Object result = timedInvoke(anObject, aReadMethod, getMethodTimeOut(), emptyArgs);
 				anActualOutputs.put(anOutputPropertyName, result);				
 			}
 		}

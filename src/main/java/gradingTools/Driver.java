@@ -48,6 +48,7 @@ import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.settings.GraderSettingsDisplayed;
+import grader.util.ExecutionUtil;
 
 /**
  * This is the entry class for the grading tools that Maven will reference. Use
@@ -261,6 +262,7 @@ public class Driver {
         AProject.setUnzipFiles(StaticConfigurationUtils.getUnzipFiles(configuration, graderSettingsManager));
 //        AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle(configuration, graderSettingsManager));
         AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle());
+        ExecutionUtil.setUseMethodAndConstructorTimeOut(true);
 
         // before we load the database, see if we need to precompile
         settingsModel.maybePreCompile();
