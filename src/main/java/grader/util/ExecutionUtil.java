@@ -3,7 +3,10 @@ package grader.util;
 import framework.execution.ARunningProject;
 import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
+import framework.execution.ProcessRunner;
+import framework.execution.ProcessRunnerFactory;
 import framework.execution.Runner;
+import framework.execution.RunnerSelector;
 import framework.execution.RunningProject;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
@@ -563,7 +566,7 @@ public class ExecutionUtil {
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static String forkProjectMain(Class aProxyClass, String input,
+	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String input,
 				String[] args, int timeout) throws NotRunnableException {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			// this should depend on whether class path
@@ -580,13 +583,45 @@ public class ExecutionUtil {
 	        	e.printStackTrace();
 	        	return null;
 	        }
-//	        Runner processRunner = new BasicProcessRunner(new File("."));
 	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
 
 	       RunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
 	       return aRunningProject.await();
 
+	}
+	 public static String forkProjectMain(Class aProxyClass, String input,
+				String[] args, int timeout) throws NotRunnableException {	
+		 	// use tags for search if necessary, hence the finding. Duplicated work in main class finder unfortunately
+			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			String aMainClassName =null;
+			if (aMainClass != null)
+				aMainClassName = aMainClass.getName();
+//			// this should depend on whether class path
+//			
+////		 	String aClassPath = System.getProperty("java.class.path");
+//		 	String aClassPath = BasicGradingEnvironment.get().getClasspath();
+////		 	String aMainClassName = aMainClass.getName();
+//	        String[] command = {"java",  "-cp",  aClassPath, aMainClassName};
+//	        
+//	        File aBuildFolder = null;
+//	        try {
+//	            aBuildFolder = CurrentProjectHolder.getOrCreateCurrentProject().getBuildFolder(aMainClassName);
+//	        } catch (Exception e) {
+//	        	e.printStackTrace();
+//	        	return null;
+//	        }
+//	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
+//			Runner aProcessRunner = new ProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+//			Runner aProcessRunner = new ProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+		   Runner aProcessRunner = RunnerSelector.createProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+
+	       RunningProject aRunningProject = aProcessRunner.run(input, args, timeout);
+	       return aRunningProject.await();
+
 		}
+	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String input,String[] args) {
+		 return forkProjectMainWithExplicitCommand(aProxyClass, input, args, PROCESS_TIME_OUT);
+	 }
 	 public static String forkProjectMain(Class aProxyClass, String input,String[] args) {
 		 return forkProjectMain(aProxyClass, input, args, PROCESS_TIME_OUT);
 	 }

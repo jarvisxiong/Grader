@@ -1,7 +1,7 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
+import framework.execution.BasicProcessRunner;
 import framework.grading.testing.TestCaseResult;
-import grader.execution.MainClassFinder;
 import grader.sakai.project.SakaiProject;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 
@@ -50,9 +50,9 @@ public class MainClassDefinedTestCase extends ClassDefinedTestCase {
 		 if (aResult.getPercentage() != 1.0) {
 			
 
-			 if (aProject.getEntryPoints() == null || aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT) == null)
+			 if (aProject.getEntryPoints() == null || aProject.getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT) == null)
 				 return aResult;
-			 String aMainClassUsed = aProject.getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT);
+			 String aMainClassUsed = aProject.getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT);
 			 if (aMainClassUsed.matches(descriptor))
 				 return pass();
 			 if (aMainClassUsed.contains("main.") || aMainClassUsed.contains("Main.") ) {

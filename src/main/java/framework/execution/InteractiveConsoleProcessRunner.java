@@ -15,7 +15,6 @@ import util.pipe.InputGenerator;
 import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
-import grader.execution.MainClassFinder;
 import grader.language.LanguageDependencyManager;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
@@ -37,13 +36,13 @@ public class InteractiveConsoleProcessRunner implements Runner {
         try {
 //            entryPoint = getEntryPoint(aProject);
 //            entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject);
+            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject, null);
 
-            folder = aProject.getBuildFolder(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
+            folder = aProject.getBuildFolder(entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
             project = aProject;
-            MainClassFound.newCase(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
+            MainClassFound.newCase(entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
         } catch (Exception e) {
-        	MainClassNotFound.newCase(entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
+        	MainClassNotFound.newCase(entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT), project.getSourceFolder().getName(), this);
             throw new NotRunnableException();
         }
     }
@@ -112,7 +111,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 	}
     @Override
     public ARunningProject run(String input, String[] args, int timeout) throws NotRunnableException {
-    	return run (null, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
+    	return run (null, entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT), input, args, timeout);
 //    	String[] command = StaticConfigurationUtils.getExecutionCommand(folder, entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
 //    	return run(command, input, args, timeout);
     	
@@ -211,7 +210,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
+	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	        	else {
 	        		builder = new ProcessBuilder(command);
 	        		System.out.println("Running command:"
@@ -353,7 +352,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
+	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	        	else
 	        		builder = new ProcessBuilder(command);
 

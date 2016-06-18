@@ -12,7 +12,6 @@ import grader.project.ClassDescription;
 import grader.project.ClassesManager;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
-import grader.util.IntrospectionUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,43 +22,28 @@ import java.util.Map;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 
-public class AMainClassFinder implements MainClassFinder {
+public class AnOriginalMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
-    protected boolean isEntryPoint (String aCandidate,
-    		framework.project.Project aProject
-//    		framework.project.ClassesManager manager
-    		) {
+    protected boolean isEntryPoint (String aCandidate, framework.project.ClassesManager manager) {
     	if (aCandidate == null)
     		return false;
-    	Class aCandidateClass = IntrospectionUtil.findClass(aProject, aCandidate);
-    	if (aCandidateClass == null) {
-    		return false;
-    	}
-    	try {
-    	Method method = aCandidateClass.getMethod("main", String[].class);
-		return method != null;
+    	for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+			try {
+				if (!description.getJavaClass().getCanonicalName().equals(aCandidate))
+					continue;
+				Method method = description.getJavaClass().getMethod("main", String[].class);
+				
+				return method != null;
+				
+//				return description.getJavaClass().getCanonicalName();
+//				return description.getJavaClass().getCanonicalName();
 
-    	} catch (NoSuchMethodException e) {
-    		return false;
-    	}
-		
-//    	for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
-//			try {
-//				if (!description.getJavaClass().getCanonicalName().equals(aCandidate))
-//					continue;
-//				Method method = description.getJavaClass().getMethod("main", String[].class);
-//				
-//				return method != null;
-//				
-////				return description.getJavaClass().getCanonicalName();
-////				return description.getJavaClass().getCanonicalName();
-//
-//			} catch (NoSuchMethodException e) {
-//				return false;
-//			}
-//		}
-//    	return false;
+			} catch (NoSuchMethodException e) {
+				return false;
+			}
+		}
+    	return false;
     	
     }
     
@@ -94,7 +78,7 @@ public class AMainClassFinder implements MainClassFinder {
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
      * @throws framework.execution.NotRunnableException
-     * @see grader.execution.AMainClassFinder which repeats this code (sigh)
+     * @see grader.execution.AnOriginalMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
     public Map<String, String> getEntryPoints(framework.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
@@ -103,26 +87,12 @@ public class AMainClassFinder implements MainClassFinder {
         ProjectWrapper projectWrapper = (ProjectWrapper) project;
 		Map<String, String> entryPoints = new HashMap();
 
-//        framework.project.ClassesManager manager = project.getClassesManager().get();
-        
-//        String aCandidate = StaticConfigurationUtils.getEntryPoint();
-        String aCandidate = aSpecifiedMainClass;
-        if (aCandidate != null) {
-//        	if (isEntryPoint(aCandidate, manager))  {
-            if (isEntryPoint(aCandidate, project))  {
-
-        		entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, aCandidate);
-        		return entryPoints;
-        	}
-        }
-//		if (isEntryPoint(aCandidate, manager)) {
-		if (isEntryPoint(aCandidate, project)) {
-
+        framework.project.ClassesManager manager = project.getClassesManager().get();
+        String aCandidate = StaticConfigurationUtils.getEntryPoint();
+		if (isEntryPoint(aCandidate, manager)) {
 			entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, aCandidate);
 			return entryPoints;
 		}
-        framework.project.ClassesManager manager = project.getClassesManager().get();
-
         for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);

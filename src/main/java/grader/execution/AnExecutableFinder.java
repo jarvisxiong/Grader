@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
 import grader.project.Project;
 import grader.project.folder.RootCodeFolder;
@@ -19,7 +20,7 @@ public class AnExecutableFinder implements MainClassFinder {
     }
     
 
-    public Map<String, String> getEntryPoints(framework.project.Project frameworkProject) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(framework.project.Project frameworkProject, String aSpecifiedMainClass) throws NotRunnableException {
         try {
     	File binaryFolder = frameworkProject.getBuildFolder("");
     	File[] binaryChildren =  binaryFolder.listFiles();
@@ -27,7 +28,7 @@ public class AnExecutableFinder implements MainClassFinder {
     	Map<String, String> retVal = new HashMap();
         for ( File child:binaryChildren) {
         	if (child.getName().endsWith(EXECUTABLE_SUFFIX)) {
-        		retVal.put(MAIN_ENTRY_POINT, child.getName());
+        		retVal.put(BasicProcessRunner.MAIN_ENTRY_POINT, child.getName());
         		return retVal;
 //        		return child.getName();
         	}

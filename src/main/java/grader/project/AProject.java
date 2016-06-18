@@ -722,7 +722,7 @@ public class AProject implements Project {
 	    public Map<String, String> getEntryPoints() {
 	    	if (entryPoints == null) {
 				entryPoints = LanguageDependencyManager.getMainClassFinder()
-						.getEntryPoints(getWrapper());
+						.getEntryPoints(getWrapper(), null);
 
 			}
 			return entryPoints;

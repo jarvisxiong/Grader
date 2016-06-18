@@ -22,7 +22,6 @@ import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
-import grader.execution.MainClassFinder;
 import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.executor.ExecutorSelector;
@@ -93,14 +92,14 @@ public class OriginalProcessRunner implements Runner {
 	public Map<String, String> getEntryPoints() {
 		if (entryPoints == null) {
 			entryPoints = LanguageDependencyManager.getMainClassFinder()
-					.getEntryPoints(project);
+					.getEntryPoints(project, null);
 
 		}
 		return entryPoints;
 	}
 
 	public File getFolder() {
-		return getFolder(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT));
+		return getFolder(getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	}
 
 	public File getFolder(String aMainClass) {
@@ -217,7 +216,7 @@ public class OriginalProcessRunner implements Runner {
 		List<String> aProcessTeams = executionSpecification.getProcessTeams();
 		if (aProcessTeams.isEmpty())		
 			return run(anOutputBasedInputGenerator,
-				getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT), input, args, timeout);
+				getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT), input, args, timeout);
 		else
 			return runDefaultProcessTeam(aProcessTeams, input, args, timeout, anOutputBasedInputGenerator);
 	}
@@ -237,7 +236,7 @@ public class OriginalProcessRunner implements Runner {
 			}
 			
 			return run(anOutputBasedInputGenerator,
-				getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT), anInput, args, timeout);
+				getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT), anInput, args, timeout);
 		} else
 			return runDefaultProcessTeam(aProcessTeams, aProcessToInput, args, timeout, anOutputBasedInputGenerator);
 	}
@@ -652,7 +651,7 @@ public class OriginalProcessRunner implements Runner {
 		ARunningProject retVal = new ARunningProject(project, anOutputBasedInputGenerator, input);
 
 		TimedProcess process = run(retVal, anOutputBasedInputGenerator, command, input, args,
-				timeout, MainClassFinder.MAIN_ENTRY_POINT, true);
+				timeout, BasicProcessRunner.MAIN_ENTRY_POINT, true);
 		return retVal;
 	}
 
@@ -708,12 +707,12 @@ public class OriginalProcessRunner implements Runner {
 						"-Djava.security.manager",
 						"-Djava.security.policy==\"" + aPermissionsFile.getAbsolutePath() + "\"",						
 						getEntryPoints().get(
-						MainClassFinder.MAIN_ENTRY_POINT));
+						BasicProcessRunner.MAIN_ENTRY_POINT));
 				
 				
 				System.out.println("Running process: java -cp \"" + classPath
 						+ "\" "
-						+ entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT));
+						+ entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
 			} else {
 				aCommand = ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);
 				builder = new ProcessBuilder(aCommand);
@@ -741,7 +740,7 @@ public class OriginalProcessRunner implements Runner {
 				UserProcessExecutionStarted.newCase(
 						folder.getAbsolutePath(),
 						(entryPoints != null) ? entryPoints
-								.get(MainClassFinder.MAIN_ENTRY_POINT) : null,
+								.get(BasicProcessRunner.MAIN_ENTRY_POINT) : null,
 						classPath, this);
 
 			// Print output to the console
@@ -881,7 +880,7 @@ public class OriginalProcessRunner implements Runner {
 					UserProcessExecutionFinished.newCase(
 							folder.getAbsolutePath(),
 							(entryPoints != null) ? entryPoints
-									.get(MainClassFinder.MAIN_ENTRY_POINT) : null,
+									.get(BasicProcessRunner.MAIN_ENTRY_POINT) : null,
 							classPath, this);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -891,7 +890,7 @@ public class OriginalProcessRunner implements Runner {
 					errorRunnable.getSemaphore().release();
 					String entryPoint = "";
 					if (entryPoints != null)
-						entryPoint = entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT);
+						entryPoint = entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT);
 					UserProcessExecutionTimedOut.newCase(
 							folder.getAbsolutePath(),
 //							entryPoints.get(MainClassFinder.MAIN_ENTRY_POINT),

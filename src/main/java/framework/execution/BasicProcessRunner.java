@@ -63,35 +63,52 @@ public class BasicProcessRunner implements Runner {
 	protected List<String> processes;
 	protected RunningProject runner;
 	protected List<String> processesWithStartTags;
+	protected String specifiedMainClass;
+	public static final String MAIN_ENTRY_POINT = "main";
 	protected void initializeExecutionState() {
 //		executionSpecification = ExecutionSpecificationSelector
 //				.getExecutionSpecification();
 	}
-	public BasicProcessRunner(Project aProject) throws NotRunnableException {
+	// At some point we need a constructor with a map of entry points, called by this constructor
+	public BasicProcessRunner(Project aProject, String aSpecifiedProxyMainClass) throws NotRunnableException {
 		try {
-			initializeExecutionState();
-//			executionSpecification = ExecutionSpecificationSelector
-//					.getExecutionSpecification();
-			// entryPoint = getEntryPoint(aProject);
-			// entryPoint =
-			// JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-
-			// ideally, should gather entry points only if they are required
-			// but need the entry point to find execution folder
-			// need to make this entry points so that we can execute distributed
-			// programs
-//			entryPoints = LanguageDependencyManager.getMainClassFinder()
-//					.getEntryPoints(aProject);
-//
-//			// throw an exception if no entry point)
-//			folder = aProject.getBuildFolder(entryPoints
-//					.get(MainClassFinder.MAIN_ENTRY_POINT));
-			// entryPoint = folder + "\\" + entryPoint;
-			project = aProject;
+		specifiedMainClass = aSpecifiedProxyMainClass;
+		project = aProject;
+		initializeExecutionState();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NotRunnableException();
 		}
+		
+	}
+
+	public BasicProcessRunner(Project aProject) throws NotRunnableException {
+		this (aProject, null);
+
+//		try {
+////			initializeExecutionState();
+////			executionSpecification = ExecutionSpecificationSelector
+////					.getExecutionSpecification();
+//			// entryPoint = getEntryPoint(aProject);
+//			// entryPoint =
+//			// JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
+//
+//			// ideally, should gather entry points only if they are required
+//			// but need the entry point to find execution folder
+//			// need to make this entry points so that we can execute distributed
+//			// programs
+////			entryPoints = LanguageDependencyManager.getMainClassFinder()
+////					.getEntryPoints(aProject);
+////
+////			// throw an exception if no entry point)
+////			folder = aProject.getBuildFolder(entryPoints
+////					.get(MainClassFinder.MAIN_ENTRY_POINT));
+//			// entryPoint = folder + "\\" + entryPoint;
+//			project = aProject;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new NotRunnableException();
+//		}
 	}
 
 	// use it without project
@@ -99,6 +116,7 @@ public class BasicProcessRunner implements Runner {
 
 	}
 	public Map<String, String> getEntryPoints() {
+		
 //		if (entryPoints == null) {
 //			entryPoints = LanguageDependencyManager.getMainClassFinder()
 //					.getEntryPoints(project);
@@ -206,9 +224,10 @@ public class BasicProcessRunner implements Runner {
 	protected String getMainEntryPoint() {
 		return "main";
 	}
+	static final List<String> emptyStringList = new ArrayList();
 	protected List<String> getProcessTeams() {
 //		return executionSpecification.getProcessTeams();
-		return null;
+		return emptyStringList;
 	}
 
 	/**

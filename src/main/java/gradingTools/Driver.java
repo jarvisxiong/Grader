@@ -15,6 +15,8 @@ import wrappers.grader.sakai.project.ProjectStepperDisplayerWrapper;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
+import framework.execution.ProcessRunnerFactory;
+import framework.execution.RunnerSelector;
 import framework.grading.GradingManager;
 import framework.grading.GradingMangerType;
 import framework.grading.ProjectRequirements;
@@ -98,6 +100,7 @@ public class Driver {
 //        if (!controller.equals("AHeadlessGradingManager")) {
         // want static confoguration utils to be set by this time, so this should not happen prematurely
         BasicGradingEnvironment.set(new GradingEnvironment()); 
+        RunnerSelector.setFactory(new ProcessRunnerFactory());
         if (isHeadless()) {
             ObjectEditor.setShowStartView(false);
         } else {

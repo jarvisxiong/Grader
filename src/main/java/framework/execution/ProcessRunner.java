@@ -6,7 +6,6 @@ import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
-import grader.execution.MainClassFinder;
 import grader.execution.TagNotFound;
 import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
@@ -53,6 +52,9 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 		executionSpecification = ExecutionSpecificationSelector
 				.getExecutionSpecification();
 	}
+	public ProcessRunner(Project aProject, String aSpecifiedMainClass) throws NotRunnableException {
+		super(aProject, aSpecifiedMainClass);
+	}
 	public ProcessRunner(Project aProject) throws NotRunnableException {
 		super(aProject);
 //		try {
@@ -89,14 +91,14 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	public Map<String, String> getEntryPoints() {
 		if (entryPoints == null) {
 			entryPoints = LanguageDependencyManager.getMainClassFinder()
-					.getEntryPoints(project);
+					.getEntryPoints(project, specifiedMainClass);
 
 		}
 		return entryPoints;
 	}
 
 	public File getFolder() {
-		return getFolder(getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT));
+		return getFolder(getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	}
 
 //	public File getFolder(String aMainClass) {
@@ -189,7 +191,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 //		return run(null, processToInput, timeout);
 //	}
 	protected String getMainEntryPoint() {
-		return getEntryPoints().get(MainClassFinder.MAIN_ENTRY_POINT);
+		return getEntryPoints().get(BasicProcessRunner.MAIN_ENTRY_POINT);
 	}
 
 	/**
@@ -503,7 +505,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 //	protected void waitForPortsOfTerminatedProcessesToBeReleased() {
 //		ThreadSupport.sleep(PORT_RELEASE_TIME);
 //	}
-	
+	// need an equivalent of this for basicprocessrunner
 	protected String searchForEntryPoint (String aProcess) {
 		List<String> basicCommand = StaticConfigurationUtils
 				.getBasicCommand(aProcess);
@@ -786,7 +788,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	}
 	
 	protected String mainEntryPoint() {
-		return  MainClassFinder.MAIN_ENTRY_POINT;
+		return  BasicProcessRunner.MAIN_ENTRY_POINT;
 	}
 //	// move this to some util
 //	public BasicRunningProject runMainClass(Class aClass, String input,
