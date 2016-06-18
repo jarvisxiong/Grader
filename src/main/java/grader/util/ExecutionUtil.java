@@ -14,8 +14,10 @@ import framework.utils.BasicGradingEnvironment;
 import grader.execution.AConstructorExecutionCallable;
 import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
+import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.ResultWithOutput;
 import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
+import gradingTools.utils.RunningProjectUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
@@ -34,10 +36,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.codehaus.jackson.map.ser.PropertyBuilder.EmptyStringChecker;
 
 import util.misc.Common;
 import util.misc.TeePrintStream;
@@ -93,11 +100,18 @@ public class ExecutionUtil {
 
 		try {
 			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
-		} catch (Exception e) {
-			future.cancel(true);
-			System.out.println("Terminated execution after milliseconds:" + aMillSeconds);
+		} catch (CancellationException | InterruptedException | TimeoutException e) {
+			e.printStackTrace(); 
+			future.cancel(true); // not needed really
+			System.err.println("Terminated execution after milliseconds:" + aMillSeconds);
 			return null;
-		} finally {
+		} catch (ExecutionException e) {
+			System.err.println("Future execution exception" );
+			e.printStackTrace();
+			return null;
+
+		}
+		finally {
 //			executor.shutdownNow();
 		}
 
@@ -113,11 +127,17 @@ public class ExecutionUtil {
 
 		try {
 			return future.get(aMillSeconds, TimeUnit.MILLISECONDS);
-		} catch (Exception e) {
-			future.cancel(true);
-			System.out.println("Terminated execution after milliseconds:" + aMillSeconds);
+		} catch (CancellationException | InterruptedException e) {
+			future.cancel(true); //not needed really
+//			e.printStackTrace();
+			System.err.println("Terminated execution after milliseconds:" + aMillSeconds);
 			throw e;
-		} finally {
+		} catch (ExecutionException e) {
+			System.err.println("Future execution exception" );
+			throw e;
+
+		}
+		finally {
 //			executor.shutdownNow();
 		}
 
@@ -566,8 +586,8 @@ public class ExecutionUtil {
 				 aConstructorArgs, anInputs, anOutputProperties);
 	 
 	 }
-	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String input,
-				String[] args, int timeout) throws NotRunnableException {
+	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String[] args,
+				int timeout, String... input) throws NotRunnableException {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			// this should depend on whether class path
 			
@@ -585,65 +605,132 @@ public class ExecutionUtil {
 	        }
 	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
 
-	       RunningProject aRunningProject = processRunner.run(null, command, input, args, timeout);
+	       RunningProject aRunningProject = processRunner.run(null, command, RunningProjectUtils.toInputString(input), args, timeout);
 	       return aRunningProject.await();
 
 	}
-	 public static String forkProjectMain(Class aProxyClass, String input,
-				String[] args, int timeout) throws NotRunnableException {	
+	 public static String forkProjectMain(Class aProxyClass, String[] args,
+				int timeout, String... input) throws NotRunnableException {	
 		 	// use tags for search if necessary, hence the finding. Duplicated work in main class finder unfortunately
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			String aMainClassName =null;
 			if (aMainClass != null)
 				aMainClassName = aMainClass.getName();
-//			// this should depend on whether class path
-//			
-////		 	String aClassPath = System.getProperty("java.class.path");
-//		 	String aClassPath = BasicGradingEnvironment.get().getClasspath();
-////		 	String aMainClassName = aMainClass.getName();
-//	        String[] command = {"java",  "-cp",  aClassPath, aMainClassName};
-//	        
-//	        File aBuildFolder = null;
-//	        try {
-//	            aBuildFolder = CurrentProjectHolder.getOrCreateCurrentProject().getBuildFolder(aMainClassName);
-//	        } catch (Exception e) {
-//	        	e.printStackTrace();
-//	        	return null;
-//	        }
-//	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
-//			Runner aProcessRunner = new ProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
-//			Runner aProcessRunner = new ProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+			return forkMain(aMainClassName, args, timeout, input);
+
+//		   Runner aProcessRunner = RunnerSelector.createProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+//
+//	       RunningProject aRunningProject = aProcessRunner.run(input, args, timeout);
+//	       return aRunningProject.await();
+
+	}
+	 public static String forkMain(String aMainClassName, String[] args,
+				String... input) throws NotRunnableException {	
+		 return forkMain(aMainClassName, args, PROCESS_TIME_OUT, input);
+	 }
+	 public static String forkMain(
+				String[] args, String... input) throws NotRunnableException {	
+		 return forkMain(null, args, PROCESS_TIME_OUT, input);
+	 }
+	 public static String forkMain(String aMainClassName, String[] args,
+				int timeout, String... input) throws NotRunnableException {	
+		 	
+
 		   Runner aProcessRunner = RunnerSelector.createProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
 
-	       RunningProject aRunningProject = aProcessRunner.run(input, args, timeout);
+	       RunningProject aRunningProject = aProcessRunner.run(RunningProjectUtils.toInputString(input), args, timeout);
 	       return aRunningProject.await();
 
-		}
-	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String input,String[] args) {
-		 return forkProjectMainWithExplicitCommand(aProxyClass, input, args, PROCESS_TIME_OUT);
+	}
+	 public static String forkMainWithExplicitCommand(Class aProxyClass, String[] args,String... input) {
+		 return forkProjectMainWithExplicitCommand(aProxyClass, args, PROCESS_TIME_OUT, input);
 	 }
-	 public static String forkProjectMain(Class aProxyClass, String input,String[] args) {
-		 return forkProjectMain(aProxyClass, input, args, PROCESS_TIME_OUT);
+	 public static String forkMain(Class aProxyClass, String[] args,String... input) {
+		 return forkProjectMain(aProxyClass, args, PROCESS_TIME_OUT, input);
+	 }
+	 static final String[] emptyStringArray = new String[]{};
+	 public static String callCorrespondingMain(Class aProxyClass, String... anInput) throws NotRunnableException {
+		 return callCorrespondingMain(aProxyClass, emptyStringArray, anInput);
+	 }
+	 public static String callMain(String aMainName, String[] args,
+				String... anInput) throws NotRunnableException {
+		 if (BasicGradingEnvironment.get().isForkMain()) {
+			 return forkMain(aMainName, args, anInput);
+		 } else {
+			 return invokeMain(aMainName, args, anInput);
+		 }
+	 }
+	 public static String callMain(String... anInput) throws NotRunnableException {
+		 if (BasicGradingEnvironment.get().isForkMain()) {
+			 return forkMain( emptyStringArray, anInput);
+		 } else {
+			 return invokeMain(emptyStringArray, anInput);
+		 }
+	 }
+	 public static String callMain(String[] args,
+				String... anInput) throws NotRunnableException {
+		 if (BasicGradingEnvironment.get().isForkMain()) {
+			 return forkMain(anInput, args);
+		 } else {
+			 return invokeMain(args, anInput);
+		 }
+	 }
+	 
+	 public static String callCorrespondingMain(Class aProxyClass, String[] args,
+				String... anInput) throws NotRunnableException {
+		 if (BasicGradingEnvironment.get().isForkMain()) {
+			 return forkMain(aProxyClass, args, anInput);
+		 } else {
+			 return invokeCorrespondingMain(aProxyClass, args, anInput);
+		 }
 	 }
 
-	 public static String invokeCorrespondingMain(Class aProxyClass, String anInput,
-				String[] args) throws NotRunnableException {
+	 public static String invokeCorrespondingMain(Class aProxyClass, String[] args,
+				String... anInput) throws NotRunnableException {
 		 try {
 			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			if (aMainClass == null)
 				return null;
-			return invokeMain(aMainClass, anInput, args);		
+			return invokeMain(aMainClass, args, anInput);		
 		 } catch (Exception e) {
 			 e.printStackTrace();
 			 return null;
 		 }
-		 	
 
 		}
-	 public static String invokeMain(Class aMainClass, String anInput,
-				String[] args) throws NotRunnableException {
+	 public static String invokeMain(String aMainClassName, String[] args,
+				String... anInput) throws NotRunnableException {
 		 try {
-		 ExecutionUtil.redirectInputOutput(anInput);		
+			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+			if (aMainClass == null)
+				return null;
+			return invokeMain(aMainClass, args, anInput);		
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+
+		}
+	 public static String invokeMain(String[] args,
+				String... anInput) throws NotRunnableException {
+		 try {
+			Map<String, String> anEntryPoints = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoints(CurrentProjectHolder.getOrCreateCurrentProject(), null);
+			String aMainEntryPoint = anEntryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT);
+			if (aMainEntryPoint == null) 
+				throw new NotRunnableException("No entry point found");
+		
+			return invokeMain(aMainEntryPoint, args, anInput);		
+		 } catch (Exception e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+
+		}
+	 
+	 public static String invokeMain(Class aMainClass, String[] args,
+				String... anInput) throws NotRunnableException {
+		 try {
+		 ExecutionUtil.redirectInputOutput(RunningProjectUtils.toInputString(anInput));		
 			
 			Method aMainMethod = IntrospectionUtil.findMethod(aMainClass, "main", new Class[] {String[].class});
 			ExecutionUtil.timedInvoke(aMainClass, aMainMethod, new Object[] {args});

@@ -15,7 +15,7 @@ import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
 public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 
 	@Override
-	protected String runMain(String anInput, String[] anArgs) {
+	protected String runMain(String[] anArgs, String... anInput) {
 //		try {
 //		ExecutionUtil.redirectInputOutput(anInput);		
 //		Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), Main.class);
@@ -29,7 +29,9 @@ public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 //			return "";
 //		}
 //		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
-		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
+//		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
+		return ExecutionUtil.callCorrespondingMain(Main.class, anArgs, anInput);
+
 
 	}
 	@Test

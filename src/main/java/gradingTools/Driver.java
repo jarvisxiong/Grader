@@ -120,6 +120,8 @@ public class Driver {
         }
         BasicGradingEnvironment.get().setPrecompileMissingObjectCode(StaticConfigurationUtils.getPrecompileClasses(configuration, graderSettingsManager));
         BasicGradingEnvironment.get().setForceCompile(StaticConfigurationUtils.getForceCompileClasses(configuration, graderSettingsManager));
+        BasicGradingEnvironment.get().setForkMain(StaticConfigurationUtils.isForkMainProcess());
+
         // Get the project name
         String projectName = configuration.getString("project.name");
       

@@ -70,7 +70,8 @@ public class StaticConfigurationUtils {
 	public static final String DEFAULT_IMPLICIT_REQUIRMENTS_ROOT = "gradingTools";
 	public static final String USE_EXECEUTOR = "useExecutor";
 	public static final String EXECEUTOR = "executor";
-	public static final String C_OBJ = "language.C.obj";
+	public static final String C_OBJ = "language.C.obj";	
+	public static final String FORK_MAIN = "forkMain";
 	public static  List<String> basicCommand;
 
 	// public static final String ENTRY_TAG_VAR = toVariable(ENTRY_TAG);
@@ -167,6 +168,11 @@ public class StaticConfigurationUtils {
 		return getInheritedBooleanModuleProblemProperty(
 				 CHECK_STYLE, false);
 
+	}
+	
+	public static boolean isForkMainProcess (){
+		return getInheritedBooleanModuleProblemProperty(
+				 FORK_MAIN, true);
 	}
 	
 	public static String getCheckStyleFile() {

@@ -12,8 +12,8 @@ import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
 public class ADirectPointMainTest extends AnAbstractPointMainTest {
 
 	@Override
-	protected String runMain(String anInput, String[] anArgs) {
-		return ExecutionUtil.invokeMain(Main.class, anInput, anArgs);
+	protected String runMain(String[] anArgs, String... anInput) {
+		return ExecutionUtil.invokeMain(Main.class, anArgs, anInput);
 				
 	}
 	@Test

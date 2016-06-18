@@ -6,13 +6,14 @@ import grader.util.ExecutionUtil;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointTest;
 import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
+import gradingTools.utils.RunningProjectUtils;
 
 
 public class ADirectPointMainTest extends AnAbstractPointMainTest {
 
 	@Override
-	protected String runMain(String anInput, String[] anArgs) {
-		ExecutionUtil.redirectInputOutput(anInput);
+	protected String runMain(String[] anArgs, String... anInput) {
+		ExecutionUtil.redirectInputOutput(RunningProjectUtils.toInputString(anInput));
 		Main.main(anArgs);
 		String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
 		return anOutput;		

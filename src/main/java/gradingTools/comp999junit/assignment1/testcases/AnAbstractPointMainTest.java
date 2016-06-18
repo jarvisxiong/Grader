@@ -6,12 +6,16 @@ import org.junit.Assert;
 
 public abstract class AnAbstractPointMainTest extends AnAbstractPointTest {
 	
-	protected abstract  String runMain (String anInput, String[] anArgs) ;
+	protected abstract  String runMain (String[] anArgs, String... anInput) ;
 	protected  void testMain(int theX, int theY, double aCorrectRadius,
 			double aCorrectAngle) {
 		double fractionComplete = 0.0;
-		String anInput = theX + "\n" + theY;
-		String anOutput = runMain(anInput, new String[]{});
+//		String anInput = theX + "\n" + theY;
+//		String anOutput = runMain(new String[]{}, anInput);
+		String anOutput = runMain(new String[]{}, "" + theX, "" + theY);
+		String anOutput2 = runMain(new String[]{}, "" + theX, "" + theY);
+
+		
 		String[] anOutputLines = anOutput.split("\n");
 		if (anOutputLines.length != 2) {
 			Assert.assertTrue("Expecting exactly two output lines:" + fractionComplete, false);

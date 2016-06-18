@@ -46,6 +46,7 @@ public class BasicGradingEnvironment {
     protected String classpath, canonicalClassPath, oeClassPath, canonicalOEClassPath;
     protected String assignmentName;
     protected String defaulAssignmentsDataFolderName;
+    protected boolean forkMain;
 //    ConfigurationManager configurationManager;  // maybe it does not belong here
 
 	
@@ -325,6 +326,14 @@ public class BasicGradingEnvironment {
     }
     public boolean isNativeExecution() {
 		return nativeExecution;
+	}
+    
+    public boolean isForkMain() {
+    	return forkMain;
+    }
+    
+    public void setForkMain(boolean newValue) {
+		forkMain = newValue;
 	}
 
 	public void setNativeExecution(boolean basicExecution) {
