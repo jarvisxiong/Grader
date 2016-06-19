@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
 
-import scala.Option;
+import framework.project.Option;
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
 import util.annotations.StructurePattern;

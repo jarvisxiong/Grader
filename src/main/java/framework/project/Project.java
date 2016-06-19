@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import scala.Option;
+//import scala.Option;
+import framework.project.Option;
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import framework.execution.NotRunnableException;

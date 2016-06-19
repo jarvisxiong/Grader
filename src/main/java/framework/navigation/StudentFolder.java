@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.joda.time.DateTime;
 
-import scala.Option;
+import framework.project.Option;
 import framework.project.Project;
 
 /**

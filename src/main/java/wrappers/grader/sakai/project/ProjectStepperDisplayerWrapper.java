@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import scala.Option;
+import framework.project.Option;
 import tools.DirectoryUtils;
 import wrappers.framework.grading.testing.TestCaseWrapper;
 import wrappers.framework.project.ProjectWrapper;

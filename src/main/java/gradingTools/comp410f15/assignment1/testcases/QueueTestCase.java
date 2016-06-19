@@ -3,7 +3,7 @@ package gradingTools.comp410f15.assignment1.testcases;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import scala.Option;
+import framework.project.Option;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;

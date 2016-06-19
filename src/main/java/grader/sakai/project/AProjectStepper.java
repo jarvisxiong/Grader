@@ -65,7 +65,7 @@ import javax.swing.JTextArea;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
-import scala.Option;
+import framework.project.Option;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.PreferredWidgetClass;

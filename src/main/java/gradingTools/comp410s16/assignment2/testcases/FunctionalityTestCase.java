@@ -2,7 +2,8 @@ package gradingTools.comp410s16.assignment2.testcases;
 
 import java.util.List;
 
-import scala.Option;
+//import scala.Option;
+import framework.project.Option;
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;

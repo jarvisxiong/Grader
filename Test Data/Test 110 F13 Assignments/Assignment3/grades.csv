@@ -2,11 +2,11 @@ Assignment 1,Points,,,
 ,,,,
 Display ID,ID,Last Name,First Name,grade
 acorrect,acorrect,All,Correct,130.0
-aonce,aonce,Ask,Once,110.0
+aonce,aonce,Ask,Once,112.0
 binmiss,binmiss,Bin,Missing,120.0
 classmiss,classmiss,Class,Missing,120.0
 compileno,compileno,Compile,No,0.0
-jbartel,jbartel,Bartel,Jacob,110.0
+jbartel,jbartel,Bartel,Jacob,105.0
 iloop,iloop,Infinite,Loop,110.0
 cwrong,cwrong,Counts,UniqueWrong,110.0
 skproject,skproject,Sakai,Project,8

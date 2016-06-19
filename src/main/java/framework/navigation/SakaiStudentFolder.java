@@ -10,7 +10,7 @@ import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
-import scala.Option;
+import framework.project.Option;
 import tools.DirectoryUtils;
 import util.misc.Common;
 import framework.project.StandardProject;

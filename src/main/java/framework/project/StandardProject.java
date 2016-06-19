@@ -6,7 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import scala.Option;
+//import scala.Option;
+import framework.project.Option;
 
 /**
  * A "standard" project. That is, an IDE-based java project.

@@ -22,7 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import scala.Option;
+//import scala.Option;
+import framework.project.Option;
 import tools.DirectoryUtils;
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;

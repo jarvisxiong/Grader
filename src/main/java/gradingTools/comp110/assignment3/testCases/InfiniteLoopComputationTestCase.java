@@ -34,15 +34,15 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input1,
 //					choice1);
 //			String output1 = runningProject.await();
-			String output1 = ExecutionUtil.callMain(choice1);
-			if (output1.endsWith("\n")) {
-				output1 = output1.substring(0, output1.length() - 1);
-			}
-
+			String output1 = ExecutionUtil.callMain(input1, choice1);
+//			if (output1.endsWith("\n")) {
+//				output1 = output1.substring(0, output1.length() - 1);
+//			}
+//
 //			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 2, input1,
 //					choice1, input2, choice2);
 //			String output2 = runningProject2.await();
-			String output2 = ExecutionUtil.callMain(choice1, input2, choice1);
+			String output2 = ExecutionUtil.callMain(input1, choice1, input2, choice2);
 			if (output2.startsWith(output1)) {
 				if (output2.length() > output1.length() + 1) {
 					return pass();
