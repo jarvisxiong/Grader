@@ -63,32 +63,32 @@ public class AFlexibleMainClassFinder extends ABasicMainClassFinder implements F
 //    	
 //    }
 //    
-//    private List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
-//		if (project.getClassesManager() == null)
-//			throw new NotRunnableException();
-//		List<String> entryPoints = new ArrayList();
-//	
-//
-//		ClassesManager manager = project.getClassesManager();
-////		String aCandidate = StaticConfigurationUtils.getEntryPoint();
-////		if (isEntryPoint(aCandidate, manager)) {
-////			entryPoints.add(aCandidate);
-////			return entryPoints;
-////		}
-//		for (ClassDescription description : manager.getClassDescriptions()) {
-//			try {
-//				description.getJavaClass().getMethod("main", String[].class);
-//				entryPoints.add(description.getJavaClass().getCanonicalName());
-//				return entryPoints;
-////				return description.getJavaClass().getCanonicalName();
-////				return description.getJavaClass().getCanonicalName();
-//
-//			} catch (NoSuchMethodException e) {
-//				// Move along
-//			}
+    protected List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
+		if (project.getClassesManager() == null)
+			throw new NotRunnableException();
+		List<String> entryPoints = new ArrayList();
+	
+
+		ClassesManager manager = project.getClassesManager();
+//		String aCandidate = StaticConfigurationUtils.getEntryPoint();
+//		if (isEntryPoint(aCandidate, manager)) {
+//			entryPoints.add(aCandidate);
+//			return entryPoints;
 //		}
-//		throw new NotRunnableException();
-//	}
+		for (ClassDescription description : manager.getClassDescriptions()) {
+			try {
+				description.getJavaClass().getMethod("main", String[].class);
+				entryPoints.add(description.getJavaClass().getCanonicalName());
+				return entryPoints;
+//				return description.getJavaClass().getCanonicalName();
+//				return description.getJavaClass().getCanonicalName();
+
+			} catch (NoSuchMethodException e) {
+				// Move along
+			}
+		}
+		throw new NotRunnableException();
+	}
 //    /**
 //     * This figures out what class is the "entry point", or, what class has main(args)
 //     * @param project The project to run
@@ -136,6 +136,13 @@ public class AFlexibleMainClassFinder extends ABasicMainClassFinder implements F
 //        throw new NotRunnableException();
 //    }
 //    
+	@Override
+	  protected void setEntryPoints(framework.project.Project project, Map<String, String> anEntryPoints) {
+	      ProjectWrapper projectWrapper = (ProjectWrapper) project;
+	      projectWrapper.getProject().setEntryPoints(anEntryPoints);
+
+
+	    }
     public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
     	try {
 			return  aProxyClassLoader.loadClass(getEntryPoints(aProxyClassLoader, aProject).get(0));

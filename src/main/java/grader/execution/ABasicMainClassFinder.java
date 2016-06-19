@@ -3,15 +3,9 @@ package grader.execution;
 
 import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
-import grader.config.StaticConfigurationUtils;
-//import framework.project.ClassDescription;
-//import framework.project.ClassesManager;
-//import framework.project.Project;
-import grader.file.FileProxy;
 import grader.project.ClassDescription;
 import grader.project.ClassesManager;
-import grader.project.Project;
-import grader.project.folder.RootCodeFolder;
+//import grader.project.Project;
 import grader.util.IntrospectionUtil;
 
 import java.lang.reflect.Method;
@@ -19,9 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import util.misc.Common;
-import wrappers.framework.project.ProjectWrapper;
+//import framework.project.ClassDescription;
+//import framework.project.ClassesManager;
+//import framework.project.Project;
 
 public class ABasicMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
@@ -63,32 +57,38 @@ public class ABasicMainClassFinder implements MainClassFinder {
     	
     }
     
-    protected List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
-		if (project.getClassesManager() == null)
-			throw new NotRunnableException();
-		List<String> entryPoints = new ArrayList();
-	
-
-		ClassesManager manager = project.getClassesManager();
-//		String aCandidate = StaticConfigurationUtils.getEntryPoint();
-//		if (isEntryPoint(aCandidate, manager)) {
-//			entryPoints.add(aCandidate);
-//			return entryPoints;
+//    protected List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
+//		if (project.getClassesManager() == null)
+//			throw new NotRunnableException();
+//		List<String> entryPoints = new ArrayList();
+//	
+//
+//		ClassesManager manager = project.getClassesManager();
+////		String aCandidate = StaticConfigurationUtils.getEntryPoint();
+////		if (isEntryPoint(aCandidate, manager)) {
+////			entryPoints.add(aCandidate);
+////			return entryPoints;
+////		}
+//		for (ClassDescription description : manager.getClassDescriptions()) {
+//			try {
+//				description.getJavaClass().getMethod("main", String[].class);
+//				entryPoints.add(description.getJavaClass().getCanonicalName());
+//				return entryPoints;
+////				return description.getJavaClass().getCanonicalName();
+////				return description.getJavaClass().getCanonicalName();
+//
+//			} catch (NoSuchMethodException e) {
+//				// Move along
+//			}
 //		}
-		for (ClassDescription description : manager.getClassDescriptions()) {
-			try {
-				description.getJavaClass().getMethod("main", String[].class);
-				entryPoints.add(description.getJavaClass().getCanonicalName());
-				return entryPoints;
-//				return description.getJavaClass().getCanonicalName();
-//				return description.getJavaClass().getCanonicalName();
+//		throw new NotRunnableException();
+//	}
+    protected void setEntryPoints(framework.project.Project project, Map<String, String> anEntryPoints) {
+//      ProjectWrapper projectWrapper = (ProjectWrapper) project;
+//      projectWrapper.getProject().setEntryPoints(anEntryPoints);
 
-			} catch (NoSuchMethodException e) {
-				// Move along
-			}
-		}
-		throw new NotRunnableException();
-	}
+
+    }
     /**
      * This figures out what class is the "entry point", or, what class has main(args)
      * @param project The project to run
@@ -100,7 +100,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
     public Map<String, String> getEntryPoints(framework.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
-        ProjectWrapper projectWrapper = (ProjectWrapper) project;
+//        ProjectWrapper projectWrapper = (ProjectWrapper) project;
 		Map<String, String> entryPoints = new HashMap();
 
 //        framework.project.ClassesManager manager = project.getClassesManager().get();
@@ -127,7 +127,8 @@ public class ABasicMainClassFinder implements MainClassFinder {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
                 entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());
-                projectWrapper.getProject().setEntryPoints(entryPoints);
+//                projectWrapper.getProject().setEntryPoints(entryPoints);
+                setEntryPoints(project, entryPoints);
                 return entryPoints;
 //                return description.getJavaClass().getCanonicalName();
             } catch (NoSuchMethodException e) {
@@ -136,59 +137,59 @@ public class ABasicMainClassFinder implements MainClassFinder {
         throw new NotRunnableException();
     }
     
-    public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
-    	try {
-			return  aProxyClassLoader.loadClass(getEntryPoints(aProxyClassLoader, aProject).get(0));
-		} catch (ClassNotFoundException e1) {
-			
-			e1.printStackTrace();
-			return null;
-		} catch (NotRunnableException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return null;
-		}
-    }
-    
-
-    public Class mainClass(RootCodeFolder aRootCodeFolder, ProxyClassLoader aProxyClassLoader, String expectedName, Project aProject) {
-        
-    	
-    	String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
-        String mainFolderName = binaryFolderName + "/" + DEFAULT_MAIN_PACKAGE_NAME;
-        List<FileProxy> mainBinaryChildren = aRootCodeFolder.getRootFolder().getChildrenOf(
-                mainFolderName);
-        if (mainBinaryChildren.size() != 1) {
-        	return  nonPackagedMainClass(aProxyClassLoader, aProject);
-        }
-
-        else if (mainBinaryChildren.size() == 1) {
-            String mainClassAbsoluteFileName = mainBinaryChildren.get(0).getMixedCaseAbsoluteName();
-            String classFileName = Common.absoluteNameToLocalName(mainClassAbsoluteFileName);
-            int dotIndex = classFileName.indexOf('.');
-            String className = classFileName.substring(0, dotIndex);
-
-            String mainClassFileName = DEFAULT_MAIN_PACKAGE_NAME + "." + className;
-            try {
-                return aProxyClassLoader.loadClass(mainClassFileName);
-            } catch (ClassNotFoundException e) {
-            	// not sure of this makes sense
-            	return  nonPackagedMainClass(aProxyClassLoader, aProject);
-//                try {
-//					return  aProxyClassLoader.loadClass(getEntryPoint(aProject));
-//				} catch (ClassNotFoundException e1) {
-//					
-//					e1.printStackTrace();
-//					return null;
-//				} catch (NotRunnableException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//					return null;
-//				}
-            }
-        }
-
-        return null;
-    }
+//    public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
+//    	try {
+//			return  aProxyClassLoader.loadClass(getEntryPoints(aProxyClassLoader, aProject).get(0));
+//		} catch (ClassNotFoundException e1) {
+//			
+//			e1.printStackTrace();
+//			return null;
+//		} catch (NotRunnableException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//			return null;
+//		}
+//    }
+//    
+//
+//    public Class mainClass(RootCodeFolder aRootCodeFolder, ProxyClassLoader aProxyClassLoader, String expectedName, Project aProject) {
+//        
+//    	
+//    	String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();
+//        String mainFolderName = binaryFolderName + "/" + DEFAULT_MAIN_PACKAGE_NAME;
+//        List<FileProxy> mainBinaryChildren = aRootCodeFolder.getRootFolder().getChildrenOf(
+//                mainFolderName);
+//        if (mainBinaryChildren.size() != 1) {
+//        	return  nonPackagedMainClass(aProxyClassLoader, aProject);
+//        }
+//
+//        else if (mainBinaryChildren.size() == 1) {
+//            String mainClassAbsoluteFileName = mainBinaryChildren.get(0).getMixedCaseAbsoluteName();
+//            String classFileName = Common.absoluteNameToLocalName(mainClassAbsoluteFileName);
+//            int dotIndex = classFileName.indexOf('.');
+//            String className = classFileName.substring(0, dotIndex);
+//
+//            String mainClassFileName = DEFAULT_MAIN_PACKAGE_NAME + "." + className;
+//            try {
+//                return aProxyClassLoader.loadClass(mainClassFileName);
+//            } catch (ClassNotFoundException e) {
+//            	// not sure of this makes sense
+//            	return  nonPackagedMainClass(aProxyClassLoader, aProject);
+////                try {
+////					return  aProxyClassLoader.loadClass(getEntryPoint(aProject));
+////				} catch (ClassNotFoundException e1) {
+////					
+////					e1.printStackTrace();
+////					return null;
+////				} catch (NotRunnableException e1) {
+////					// TODO Auto-generated catch block
+////					e1.printStackTrace();
+////					return null;
+////				}
+//            }
+//        }
+//
+//        return null;
+//    }
 
 }
