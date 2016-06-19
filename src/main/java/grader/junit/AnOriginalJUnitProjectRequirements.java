@@ -7,15 +7,14 @@ import java.util.Map;
 
 import org.junit.runners.Suite;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
 
 
-public class AJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
+public class AnOriginalJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
 	@Override
 	public void addJUnitTestSuite (Class<?> aJUnitSuiteClass) {
-		List<Class> aJUnitClasses = getJUnitTestClassesDeep(aJUnitSuiteClass);
+		Class[] aJUnitClasses = getJUnitTestClasses(aJUnitSuiteClass);
 		Map<String, List<JUnitTestToGraderTestCase>>  aGroupedTestCases = createAndCollectTestCases(aJUnitClasses);
 		addGroupedTestCases(aGroupedTestCases);
 		
@@ -58,7 +57,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		}
 	}
 	
-	public  Map<String, List<JUnitTestToGraderTestCase>> createAndCollectTestCases(List<Class> aJUnitClasses) {
+	public  Map<String, List<JUnitTestToGraderTestCase>> createAndCollectTestCases(Class[] aJUnitClasses) {
 		Map<String, List<JUnitTestToGraderTestCase>> aResult = new HashMap();
 		for (Class aJUnitClass:aJUnitClasses) {
 			JUnitTestToGraderTestCase aJUnitTestToGraderTestCase =
@@ -74,25 +73,16 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		return aResult;
 	}
 	
-	public static List<Class> getJUnitTestClassesDeep (Class<?> aJUnitSuiteClass) {
+	public static Class[] getJUnitTestClasses (Class<?> aJUnitSuiteClass) {
 		Suite.SuiteClasses aSuiteClassAnnotation = aJUnitSuiteClass.getAnnotation(Suite.SuiteClasses.class);
 		if (aSuiteClassAnnotation == null)
 			return null;
 		Class[] aTestClasses = aSuiteClassAnnotation.value();
-		List<Class> retVal = new ArrayList();
-		for (Class aTestClass: aTestClasses) {
-			List<Class> aSubList = getJUnitTestClassesDeep(aTestClass);
-			if (aSubList == null) {
-				retVal.add(aTestClass);
-			} else {
-				retVal.addAll(aSubList);
-			}
-		}
-		return retVal;
+		return aTestClasses;
 	}
 	
 	public static void main (String[] args) {
-		JUnitProjectRequirements aJUnitProjectRequirements = new AJUnitProjectRequirements();
+		JUnitProjectRequirements aJUnitProjectRequirements = new AnOriginalJUnitProjectRequirements();
 		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
 		aJUnitProjectRequirements.checkFeatures(null);
 //		addJUnitTestSuite (CartesianPointSuite.class);

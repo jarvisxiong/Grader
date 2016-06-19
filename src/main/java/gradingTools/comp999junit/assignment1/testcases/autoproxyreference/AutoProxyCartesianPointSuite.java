@@ -27,11 +27,11 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    AReflectivePointMainTest.class,
    AnAutoPointProxy.class,
-//   PointAngleSuite.class,
-   APointAngleZeroDegreeTest.class,
-   APointAngleNinetyDegreeTest.class,
-   APointAngleFortyFiveDegreeTest.class,
-   APointAngleMinusNinetyDegreeTest.class,
+   PointAngleSuite.class,
+//   APointAngleZeroDegreeTest.class,
+//   APointAngleNinetyDegreeTest.class,
+//   APointAngleFortyFiveDegreeTest.class,
+//   APointAngleMinusNinetyDegreeTest.class,
    APointRadiusTest.class,
    
 })
