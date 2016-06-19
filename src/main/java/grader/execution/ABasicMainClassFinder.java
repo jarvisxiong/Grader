@@ -3,8 +3,8 @@ package grader.execution;
 
 import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
-import grader.project.ClassDescription;
-import grader.project.ClassesManager;
+import grader.project.flexible.FlexibleClassDescription;
+import grader.project.flexible.FlexibleClassesManager;
 //import grader.project.Project;
 import grader.util.IntrospectionUtil;
 

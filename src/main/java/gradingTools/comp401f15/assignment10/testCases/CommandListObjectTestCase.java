@@ -17,7 +17,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 import grader.sakai.project.SakaiProject;
 
 public class CommandListObjectTestCase extends BasicTestCase {
@@ -31,7 +31,7 @@ public class CommandListObjectTestCase extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		ProjectWrapper aProjectWrapper = (ProjectWrapper) project;
 		SakaiProject aSakaiProject = aProjectWrapper.getProject();
-		Set<ClassDescription> descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("CommandList");
+		Set<FlexibleClassDescription> descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("CommandList");
 		if (descriptions == null || descriptions.isEmpty()) {
 			descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("Command List");
 		}
@@ -39,8 +39,8 @@ public class CommandListObjectTestCase extends BasicTestCase {
 			return fail ("Command list object not found");
 		}
 		boolean foundRunnable = false;
-		ClassDescription description = null;
-		for (ClassDescription aClassDescription:descriptions) {
+		FlexibleClassDescription description = null;
+		for (FlexibleClassDescription aClassDescription:descriptions) {
 			foundRunnable = Runnable.class.isAssignableFrom(aClassDescription.getJavaClass());
 			if (foundRunnable) {
 				description = aClassDescription;

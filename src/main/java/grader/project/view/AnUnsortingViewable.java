@@ -1,9 +1,9 @@
 package grader.project.view;
 
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 public class AnUnsortingViewable extends AViewableClassDescription<String> {
-	public AnUnsortingViewable(ClassDescription aClassDescription) {
+	public AnUnsortingViewable(FlexibleClassDescription aClassDescription) {
 		super(aClassDescription);
 	}
 	@Override

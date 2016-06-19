@@ -1,6 +1,6 @@
 package grader.checkers;
 
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
@@ -20,10 +20,10 @@ public class AnEncapsulationChecker extends AnAbstractFeatureChecker implements 
 
     void checkPublicVariables() {
         checkResult = new ACheckResult();
-        List<ClassDescription> classDescriptions = project.getClassesManager().getClassDescriptions();
+        List<FlexibleClassDescription> classDescriptions = project.getClassesManager().getClassDescriptions();
         int numVariables = 0;
         int numPublicVariables = 0;
-        for (ClassDescription classDescription : classDescriptions) {
+        for (FlexibleClassDescription classDescription : classDescriptions) {
             ClassProxy classProxy = classDescription.getClassProxy();
             FieldProxy[] fields = classProxy.getDeclaredFields();
             numVariables += fields.length;

@@ -3,7 +3,7 @@ package framework.logging.loggers;
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.StudentCodingAssignment;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.trace.feedback.FeedbackSaved;
@@ -20,7 +20,7 @@ import util.misc.Common;
  */
 public class FeedbackTextSummaryLogger implements Logger {
 
-	public static void logNoSrcFolder(AProject project) {
+	public static void logNoSrcFolder(AFlexibleProject project) {
 		String text = "No project folder found that could be used to grade your project. This is likely because you did not submit a .zip file or your .zip file was corrupted.";
 		
 		try {

@@ -1,11 +1,11 @@
 package grader.sakai.project;
 
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.sakai.StudentAssignment;
 
 import javax.swing.Icon;
 
-public interface SakaiProject extends Project {
+public interface SakaiProject extends FlexibleProject {
     public StudentAssignment getStudentAssignment();
 
     public void displaySource(SakaiProjectDatabase aSakaiProjectDatabase);

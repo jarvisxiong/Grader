@@ -1,6 +1,6 @@
 package grader.sakai;
 
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
 public class ASakaiStudentCodingAssignmentsDatabase extends AnAbstractSakaiStudentAssignmentsDatabase<StudentCodingAssignment> {
 	public static final String  DEFAULT_DATA_FOLDER_NAME = "C:/Users/dewan/Downloads/GraderData/Assignment11";
 
-	Map<String,Project> onyenToProject = new HashMap();
+	Map<String,FlexibleProject> onyenToProject = new HashMap();
 
 	public ASakaiStudentCodingAssignmentsDatabase(BulkAssignmentFolder aBulkAssignmentFolder) {
 		super(aBulkAssignmentFolder);

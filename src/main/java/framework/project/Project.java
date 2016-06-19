@@ -11,7 +11,7 @@ import framework.execution.NotRunnableException;
 import framework.execution.RunningProject;
 
 /**
- * Based on {@link grader.project.Project}
+ * Based on {@link grader.project.flexible.FlexibleProject}
  */
 public interface Project {
 	public static final String SOURCE = "src";

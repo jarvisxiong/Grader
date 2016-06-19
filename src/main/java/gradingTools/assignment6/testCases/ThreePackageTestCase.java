@@ -9,7 +9,7 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 import grader.sakai.project.SakaiProject;
 
 /**
@@ -31,8 +31,8 @@ public class ThreePackageTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         Set<String> packages = new HashSet<String>();
-        List<ClassDescription> descriptions = sakaiProject.getClassesManager().getClassDescriptions();
-        for (ClassDescription description : descriptions) {
+        List<FlexibleClassDescription> descriptions = sakaiProject.getClassesManager().getClassDescriptions();
+        for (FlexibleClassDescription description : descriptions) {
             // Get the package
             packages.add(description.getPackageName());
         }

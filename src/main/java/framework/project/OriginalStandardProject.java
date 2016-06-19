@@ -7,7 +7,7 @@ import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
 import framework.execution.RunningProject;
 import framework.utils.BasicGradingEnvironment;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
 import grader.trace.project.BinaryFolderNotFound;

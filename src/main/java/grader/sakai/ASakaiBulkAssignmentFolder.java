@@ -4,7 +4,7 @@ import grader.file.FileProxy;
 import grader.file.RootFolderCreatorFactory;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.trace.sakai_bulk_folder.AssignmentRootFolderLoaded;
 import grader.trace.sakai_bulk_folder.FinalGradeFileLoaded;
 import grader.trace.sakai_bulk_folder.FinalGradeFileNotFound;
@@ -34,7 +34,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     boolean isZippedRootFolder;
     RootFolderProxy assignmentFolder;
     Set<String> studentFolderNames;
-    Set<Project> studentFolders;
+    Set<FlexibleProject> studentFolders;
 //    FileProxy submissionFolder;
     FileProxy gradeSpreadsheet;
     Comparator<String> fileNameComparator;

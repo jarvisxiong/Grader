@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import framework.utils.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 
 import java.io.File;
 import java.io.IOException;

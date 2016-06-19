@@ -3,8 +3,8 @@ package grader.sakai;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
-import grader.project.AProject;
-import grader.project.Project;
+import grader.project.flexible.AFlexibleProject;
+import grader.project.flexible.FlexibleProject;
 import grader.trace.project.ProjectFolderAssumed;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.RubrickFileLoaded;
@@ -18,16 +18,16 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
 
     FileProxy rubrick;
     RootFolderProxy projectFolder;
-    Project project;
+    FlexibleProject project;
     FileProxy zipFile;
 
     
 
-	public Project getProject() {
+	public FlexibleProject getProject() {
         return project;
     }
 
-    public void setProject(Project newVal) {
+    public void setProject(FlexibleProject newVal) {
         this.project = newVal;
     }
     // this needs a constructor that takes a file name instead of a FileProxy
@@ -46,8 +46,8 @@ public class ASakaiStudentCodingAssignment extends ASakaiStudentAssignment imple
         		continue;
         	}
 //            if (childName.endsWith(".zip")) {
-            if (childName.endsWith(AProject.ZIP_SUFFIX_1) || 
-            		childName.endsWith(AProject.ZIP_SUFFIX_2)) {
+            if (childName.endsWith(AFlexibleProject.ZIP_SUFFIX_1) || 
+            		childName.endsWith(AFlexibleProject.ZIP_SUFFIX_2)) {
 
                 return submissionFolder.getFileEntry(childName);
             }

@@ -1,9 +1,9 @@
 package grader.project.view;
 
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 // an object that applies a fllter to the class name view
 public class AClassNameViewable extends AViewableClassDescription<String> {
-	public AClassNameViewable(ClassDescription aClassDescription) {
+	public AClassNameViewable(FlexibleClassDescription aClassDescription) {
 		super(aClassDescription);
 	}
 	@Override

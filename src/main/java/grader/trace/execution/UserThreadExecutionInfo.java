@@ -1,6 +1,6 @@
 package grader.trace.execution;
 
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.trace.GraderInfo;
 
 import java.lang.reflect.Method;
@@ -9,7 +9,7 @@ public class UserThreadExecutionInfo extends GraderInfo{
 	  String projectName;
 	    String mainClassName;
 	    String[][] mainArgs;
-	    Project project;
+	    FlexibleProject project;
 	    String[] outputFiles;
 	    String[] inputFiles;
 	    Method mainMethod;
@@ -18,7 +18,7 @@ public class UserThreadExecutionInfo extends GraderInfo{
 	public UserThreadExecutionInfo(String aMessage, 
 			String aProjectName,
 			String aMainClassName,
-			Project aProject,
+			FlexibleProject aProject,
 		    String[][] aMainArgs,
 		    String[] anOutputFiles,
 		    String[] anInputFiles,
@@ -61,11 +61,11 @@ public class UserThreadExecutionInfo extends GraderInfo{
 		this.mainArgs = mainArgs;
 	}
 
-	public Project getProject() {
+	public FlexibleProject getProject() {
 		return project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(FlexibleProject project) {
 		this.project = project;
 	}
 

@@ -3,7 +3,7 @@ package gradingTools.assignment11.checkers;
 import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -28,11 +28,11 @@ public class AdditionalCommandObjectsChecker extends AnAbstractFeatureChecker {
         for (String tag : tags) {
 
             // Get the class with the tag
-            Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions(tag);
+            Set<FlexibleClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions(tag);
             if (descriptions.isEmpty())
                 result.getLog().add("No class tagged with " + tag);
             else {
-                ClassDescription description = new ArrayList<ClassDescription>(descriptions).get(0);
+                FlexibleClassDescription description = new ArrayList<FlexibleClassDescription>(descriptions).get(0);
                 if (Runnable.class.isAssignableFrom(description.getJavaClass()))
                     validCount++;
                 else

@@ -1,6 +1,6 @@
 package grader.project.view;
 
-import grader.project.ClassesManager;
+import grader.project.flexible.FlexibleClassesManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Set;
 // applies
 public class AClassViewManager implements ClassViewManager<String> {
-	ClassesManager classesManager;
+	FlexibleClassesManager classesManager;
 	Map<String, List<ViewableClassDescription<String>>> views = new HashMap();
-	public AClassViewManager (ClassesManager aClassesManager) {
+	public AClassViewManager (FlexibleClassesManager aClassesManager) {
 		classesManager = aClassesManager;	
 		initViews();
 		

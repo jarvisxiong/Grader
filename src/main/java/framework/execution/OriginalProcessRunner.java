@@ -283,9 +283,9 @@ public class OriginalProcessRunner implements Runner {
 		if (anEntryTag == null)
 			return "";
 		if (project instanceof ProjectWrapper) {
-			grader.project.Project graderProject = ((ProjectWrapper) project)
+			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
 					.getProject();
-			grader.project.ClassDescription aClassDescription = graderProject
+			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
 					.getClassesManager()
 					.tagToUniqueClassDescription(anEntryTag);
 			return aClassDescription.getClassName();
@@ -307,9 +307,9 @@ public class OriginalProcessRunner implements Runner {
 		if (anEntryTag == null)
 			return "";
 		if (project instanceof ProjectWrapper) {
-			grader.project.Project graderProject = ((ProjectWrapper) project)
+			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
 					.getProject();
-			grader.project.ClassDescription aClassDescription = graderProject
+			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
 					.getClassesManager()
 					.tagsToUniqueClassDescription(anEntryTag);
 			return aClassDescription.getClassName();

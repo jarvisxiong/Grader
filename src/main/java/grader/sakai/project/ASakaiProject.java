@@ -1,7 +1,7 @@
 package grader.sakai.project;
 
 import grader.file.FileProxy;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.StudentAssignment;
 import grader.sakai.StudentCodingAssignment;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-public class ASakaiProject extends AProject implements SakaiProject {
+public class ASakaiProject extends AFlexibleProject implements SakaiProject {
     StudentCodingAssignment studentAssignment;
     Icon studentPhoto;
 //    ProjectWrapper wrapper;

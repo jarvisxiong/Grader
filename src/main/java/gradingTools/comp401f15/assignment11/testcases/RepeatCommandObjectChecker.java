@@ -3,7 +3,7 @@ package gradingTools.comp401f15.assignment11.testcases;
 import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,13 +31,13 @@ public class RepeatCommandObjectChecker extends AnAbstractFeatureChecker {
 //        aClasses = project.getClassesManager().get().findClass("Repeat", "Repeat", "Repeat", "Repeat");
 
         // Get the class that is tagged as "Command List"
-        Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Repeat");
+        Set<FlexibleClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Repeat");
         if (descriptions == null || descriptions.isEmpty()) {
             result.setScore(0);
             result.getLog().add("No classed tagged \"Repeat\"");
             return result;
         }
-        ClassDescription description = new ArrayList<ClassDescription>(descriptions).get(0);
+        FlexibleClassDescription description = new ArrayList<FlexibleClassDescription>(descriptions).get(0);
 
         // Check that it loops and runs the command within the loop
         try {

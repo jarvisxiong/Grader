@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Based on {@link grader.project.ClassesManager}
+ * Based on {@link grader.project.flexible.FlexibleClassesManager}
  */
 public interface ClassesManager {
 

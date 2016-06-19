@@ -1,8 +1,8 @@
 package grader.project.view;
 
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 public interface ViewableClassDescriptionFactory<FilterType> {
-	 ViewableClassDescription createViewable(ClassDescription aClassDescription);
+	 ViewableClassDescription createViewable(FlexibleClassDescription aClassDescription);
 
 }

@@ -1,6 +1,6 @@
 package framework.utils;
 
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 
 import java.io.File;
 import java.io.IOException;

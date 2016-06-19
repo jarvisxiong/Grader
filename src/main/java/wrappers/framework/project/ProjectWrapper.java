@@ -11,8 +11,8 @@ import framework.navigation.SakaiStudentFolder;
 import framework.navigation.StudentFolder;
 import framework.project.StandardProject;
 import framework.utils.GraderSettings;
-import grader.project.AProject;
-import grader.project.Project;
+import grader.project.flexible.AFlexibleProject;
+import grader.project.flexible.FlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.file.load.FileUnzipped;
 
@@ -115,12 +115,12 @@ public class ProjectWrapper extends StandardProject {
 //            System.out.println("is File:" + path);
 
 //            if (path.getName().endsWith(".zip")) {
-            if (path.getName().endsWith(AProject.ZIP_SUFFIX_1) || path.getName().endsWith(AProject.ZIP_SUFFIX_2)) {
+            if (path.getName().endsWith(AFlexibleProject.ZIP_SUFFIX_1) || path.getName().endsWith(AFlexibleProject.ZIP_SUFFIX_2)) {
 //                System.out.println("is Zip suffix:" + path);
 
                 // A zip file, so unzip
 //                File dir = new File(path.getParentFile(), path.getName().replace(".zip", ""));
-            	String aFileName = path.getName().replace(AProject.ZIP_SUFFIX_1, "").replace(AProject.ZIP_SUFFIX_2, "");
+            	String aFileName = path.getName().replace(AFlexibleProject.ZIP_SUFFIX_1, "").replace(AFlexibleProject.ZIP_SUFFIX_2, "");
 //                File dir = new File(path.getParentFile(), path.getName().replace(AProject.ZIP_SUFFIX_1, ""));
 
             	File dir = new File(path.getParentFile(), aFileName);
@@ -155,7 +155,7 @@ public class ProjectWrapper extends StandardProject {
      * @param project The grader project
      * @return The student folder
      */
-    public static StudentFolder getStudentFolder(Project project) {
+    public static StudentFolder getStudentFolder(FlexibleProject project) {
         File path = new File(project.getProjectFolderName());
         return new SakaiStudentFolder(path.getParentFile().getParentFile());
     }

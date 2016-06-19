@@ -3,7 +3,7 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;

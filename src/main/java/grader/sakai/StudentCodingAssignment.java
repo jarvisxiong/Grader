@@ -2,7 +2,7 @@ package grader.sakai;
 
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 
 public interface StudentCodingAssignment extends StudentAssignment {
 
@@ -10,9 +10,9 @@ public interface StudentCodingAssignment extends StudentAssignment {
 
     public RootFolderProxy getProjectFolder();
 
-    public Project getProject();
+    public FlexibleProject getProject();
 
-    public void setProject(Project newVal);
+    public void setProject(FlexibleProject newVal);
 
 	FileProxy getZipFile();
 

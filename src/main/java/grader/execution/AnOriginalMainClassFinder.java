@@ -8,9 +8,9 @@ import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
 import grader.file.FileProxy;
-import grader.project.ClassDescription;
-import grader.project.ClassesManager;
-import grader.project.Project;
+import grader.project.flexible.FlexibleClassDescription;
+import grader.project.flexible.FlexibleClassesManager;
+import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 
 import java.lang.reflect.Method;
@@ -47,19 +47,19 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
     	
     }
     
-    private List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
+    private List<String> getEntryPoints(ProxyClassLoader aLoader, FlexibleProject project) throws NotRunnableException {
 		if (project.getClassesManager() == null)
 			throw new NotRunnableException();
 		List<String> entryPoints = new ArrayList();
 	
 
-		ClassesManager manager = project.getClassesManager();
+		FlexibleClassesManager manager = project.getClassesManager();
 //		String aCandidate = StaticConfigurationUtils.getEntryPoint();
 //		if (isEntryPoint(aCandidate, manager)) {
 //			entryPoints.add(aCandidate);
 //			return entryPoints;
 //		}
-		for (ClassDescription description : manager.getClassDescriptions()) {
+		for (FlexibleClassDescription description : manager.getClassDescriptions()) {
 			try {
 				description.getJavaClass().getMethod("main", String[].class);
 				entryPoints.add(description.getJavaClass().getCanonicalName());
@@ -106,7 +106,7 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
         throw new NotRunnableException();
     }
     
-    public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, Project aProject) {
+    public Class nonPackagedMainClass ( ProxyClassLoader aProxyClassLoader, FlexibleProject aProject) {
     	try {
 			return  aProxyClassLoader.loadClass(getEntryPoints(aProxyClassLoader, aProject).get(0));
 		} catch (ClassNotFoundException e1) {
@@ -121,7 +121,7 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
     }
     
 
-    public Class mainClass(RootCodeFolder aRootCodeFolder, ProxyClassLoader aProxyClassLoader, String expectedName, Project aProject) {
+    public Class mainClass(RootCodeFolder aRootCodeFolder, ProxyClassLoader aProxyClassLoader, String expectedName, FlexibleProject aProject) {
         
     	
     	String binaryFolderName = aRootCodeFolder.getBinaryProjectFolderName();

@@ -1,4 +1,4 @@
-package grader.project;
+package grader.project.flexible;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
@@ -42,7 +42,7 @@ import wrappers.framework.project.ProjectWrapper;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
-public class AProject implements Project {
+public class AFlexibleProject implements FlexibleProject {
 
     public static final String ZIP_SUFFIX_1 = ".zip";
     public static final String ZIP_SUFFIX_2 = ".jar";
@@ -124,16 +124,16 @@ public class AProject implements Project {
 
 	
 
-	public AProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
+	public AFlexibleProject(String aProjectFolder, String anOutputFolder, boolean aZippedFolder) {
         init(aProjectFolder, anOutputFolder, aZippedFolder);
     }
 
-    public AProject(StudentCodingAssignment aStudentCodingAssignment) {
+    public AFlexibleProject(StudentCodingAssignment aStudentCodingAssignment) {
         //init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
         init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getMixedCaseAbsoluteName());
     }
 
-    public AProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
+    public AFlexibleProject(StudentCodingAssignment aStudentCodingAssignment, String aSourceSuffix, String anOutputSuffix) {
         sourceSuffix = aSourceSuffix;
         outputSuffix = anOutputSuffix;
         //init(aStudentCodingAssignment.getProjectFolder(), aStudentCodingAssignment.getFeedbackFolder().getAbsoluteName());
@@ -448,12 +448,12 @@ public class AProject implements Project {
         return runProject();
     }
 
-    public AProject(String aProjectFolder, String anOutputFolder) {
+    public AFlexibleProject(String aProjectFolder, String anOutputFolder) {
         init(aProjectFolder, anOutputFolder, aProjectFolder.endsWith(ZIP_SUFFIX_1) || aProjectFolder.endsWith(ZIP_SUFFIX_2) );
 
     }
 
-    public AProject(String aProjectFolder) {
+    public AFlexibleProject(String aProjectFolder) {
         init(aProjectFolder, outputFolder, aProjectFolder.endsWith(ZIP_SUFFIX_1) || aProjectFolder.endsWith(ZIP_SUFFIX_2));
 
     }

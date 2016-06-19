@@ -343,9 +343,9 @@ public class BasicProcessRunner implements Runner {
 			String aRetVal = aClass.getName();
 		}
 		if (project instanceof ProjectWrapper) {
-			grader.project.Project graderProject = ((ProjectWrapper) project)
+			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
 					.getProject();
-			grader.project.ClassDescription aClassDescription = graderProject
+			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
 					.getClassesManager()
 					.tagToUniqueClassDescription(anEntryTag); // looks like we should use IntrpspectUtil
 			return aClassDescription.getClassName();
@@ -372,9 +372,9 @@ public class BasicProcessRunner implements Runner {
 		}
 		// we should not have to do what is below
 		if (project instanceof ProjectWrapper) {
-			grader.project.Project graderProject = ((ProjectWrapper) project)
+			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
 					.getProject();
-			grader.project.ClassDescription aClassDescription = graderProject
+			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
 					.getClassesManager()
 					.tagsToUniqueClassDescription(anEntryTags);
 			return aClassDescription.getClassName();

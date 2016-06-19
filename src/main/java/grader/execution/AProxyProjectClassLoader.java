@@ -2,7 +2,7 @@ package grader.execution;
 
 import grader.file.FileProxy;
 import grader.file.filesystem.AFileSystemFileProxy;
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 
 import java.io.File;
@@ -122,7 +122,7 @@ public class AProxyProjectClassLoader extends ClassLoader implements ProxyClassL
     	}
     }
 
-    public static void run(Project aProject, String mainClassName) {
+    public static void run(FlexibleProject aProject, String mainClassName) {
         try {
             ClassLoader classLoader = new AProxyProjectClassLoader(aProject.getRootCodeFolder());
             Class mainClass = classLoader.loadClass(mainClassName);

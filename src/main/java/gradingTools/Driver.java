@@ -43,7 +43,7 @@ import grader.language.LanguageDependencyManager;
 import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.navigation.NavigationKind;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.ProjectStepper;
 import grader.settings.GraderSettingsManager;
 import grader.settings.GraderSettingsManagerSelector;

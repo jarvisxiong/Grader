@@ -1,6 +1,6 @@
 package grader.trace.execution;
 
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 
 import java.lang.reflect.Method;
 
@@ -9,7 +9,7 @@ import util.misc.Common;
 public class UserThreadExecutionFinished extends UserThreadExecutionInfo{
 
 	public UserThreadExecutionFinished(String aMessage, String aProjectName,
-			String aMainClassName, Project aProject, String[][] aMainArgs,
+			String aMainClassName, FlexibleProject aProject, String[][] aMainArgs,
 			String[] anOutputFiles, String[] anInputFiles, Method aMainMethod,
 			Class aMainClass, Object aFinder) {
 		super(aMessage, aProjectName, aMainClassName, aProject, aMainArgs,
@@ -18,7 +18,7 @@ public class UserThreadExecutionFinished extends UserThreadExecutionInfo{
 	
 	
 	public static UserThreadExecutionFinished newCase (String aProjectName,
-			String aMainClassName, Project aProject, String[][] aMainArgs,
+			String aMainClassName, FlexibleProject aProject, String[][] aMainArgs,
 			String[] anOutputFiles, String[] anInputFiles, Method aMainMethod,
 			Class aMainClass, Object aFinder) {
 		String aMessage = "User thread ended; project: " + aProjectName +

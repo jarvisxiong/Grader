@@ -1,4 +1,4 @@
-package grader.project;
+package grader.project.flexible;
 
 import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyBasedClassesManager;
@@ -13,7 +13,7 @@ import util.misc.Common;
 
 // this makes the class descriptions providing the text to each class
 // It uses the file proxy
-public class AProxyBasedClassesManager extends AClassesManager implements ProxyBasedClassesManager {
+public class AProxyBasedClassesManager extends AFlexibleClassesManager implements ProxyBasedClassesManager {
 
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#makeSourceCodeDescriptions(java.lang.String, boolean)
@@ -21,11 +21,11 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
     // ignoring second parameter
     @Override
     public void makeClassDescriptions(String aProjectDirectory, boolean aSeparateSrcBin) {
-        Project project = new AProject(aProjectDirectory);
+        FlexibleProject project = new AFlexibleProject(aProjectDirectory);
         makeClassDescriptions(project);
     }
 
-    public void makeClassDescriptions(Project aProject) {
+    public void makeClassDescriptions(FlexibleProject aProject) {
         List<FileProxy> entries = aProject.getRootCodeFolder().getFileEntries();
         String projectPath = aProject.getRootCodeFolder().getAbsoluteName();
         ProxyClassLoader classLoader = null;
@@ -40,7 +40,7 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
     /* (non-Javadoc)
      * @see grader.project.ClassesManager#makeClassDescriptions(java.io.File, java.io.File)
      */
-    void makeClassDescriptions(String srcFolderName, List<FileProxy> aFiles, ProxyClassLoader aClassLoder, Project aProject) {
+    void makeClassDescriptions(String srcFolderName, List<FileProxy> aFiles, ProxyClassLoader aClassLoder, FlexibleProject aProject) {
         for (FileProxy aFile : aFiles) {
             String locaName = aFile.getMixedCaseLocalName();
 
@@ -51,7 +51,7 @@ public class AProxyBasedClassesManager extends AClassesManager implements ProxyB
                 String relativeName = GraderFileUtils.toRelativeName(srcFolderName, aFile.getMixedCaseAbsoluteName());
                 String className = Common.projectRelativeNameToClassName(relativeName);
                 StringBuffer text = Common.toText(aFile.getInputStream());
-                ClassDescription classDescription = new AClassDescription(className, text, aFile.getTime(), aClassLoder, aProject, aFile);
+                FlexibleClassDescription classDescription = new AClassDescription(className, text, aFile.getTime(), aClassLoder, aProject, aFile);
                 put(className, classDescription);
 
                 // Added by Josh: The tag to class description map is never added to. This is doing just that.

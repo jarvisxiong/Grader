@@ -1,6 +1,6 @@
 package grader.project.view;
 
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,14 +23,14 @@ public class ClassesViewRegistrar {
 		return factories.keySet();
 	}
 	// returns sorted filtered class descriptions
-	public static List<ViewableClassDescription<String>> createView(List<ClassDescription> classes, String aViewName) {
+	public static List<ViewableClassDescription<String>> createView(List<FlexibleClassDescription> classes, String aViewName) {
 		ViewableClassDescriptionFactory factory = factories.get(aViewName);
 		if (factory == null) {
 			Tracer.error("Factory for view " + aViewName + " not registered.");
 			return null;
 		}
 		List<ViewableClassDescription<String>> retVal = new ArrayList();
-		for (ClassDescription aClassDescription:classes) {
+		for (FlexibleClassDescription aClassDescription:classes) {
 			retVal.add(factory.createViewable(aClassDescription));			
 		}
 		Collections.sort(retVal);

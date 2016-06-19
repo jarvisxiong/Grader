@@ -8,7 +8,7 @@ import java.util.List;
 import com.github.antlrjavaparser.api.CompilationUnit;
 
 /**
- * Based on {@link grader.project.ClassDescription}
+ * Based on {@link grader.project.flexible.FlexibleClassDescription}
  */
 public interface ClassDescription {
 

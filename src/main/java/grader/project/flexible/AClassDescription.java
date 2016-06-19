@@ -1,5 +1,5 @@
 //non Java doc reg exp: (?s)/\*[^*](?:(?!\*/).)*\(non-javadoc\)(?:(?!\*/).)*\*/
-package grader.project;
+package grader.project.flexible;
 
 import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
@@ -42,7 +42,7 @@ import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaSource;
 
-public class AClassDescription implements ClassDescription {
+public class AClassDescription implements FlexibleClassDescription {
 
     ClassProxy classProxy;
     Class javaClass;
@@ -52,7 +52,7 @@ public class AClassDescription implements ClassDescription {
     String className;
     JavaClass qdoxClass;
     JavaSource javaSource;
-    Project project;
+    FlexibleProject project;
     FileProxy sourceFile;
     SourceClass javacSourceClass;
 //	List<String> classNamesThatCouldNotBeCompiled = new ArrayList();
@@ -61,7 +61,7 @@ public class AClassDescription implements ClassDescription {
 
     private CompilationUnit compilationUnit;
 
-    public AClassDescription(String aClassName, StringBuffer aText, long aSourceTime, ProxyClassLoader aClassLoader, Project aProject, FileProxy aFileProxy) {
+    public AClassDescription(String aClassName, StringBuffer aText, long aSourceTime, ProxyClassLoader aClassLoader, FlexibleProject aProject, FileProxy aFileProxy) {
 //		text = Common.toText(aClassName);
         sourceFile = aFileProxy;
         project = aProject;
@@ -224,7 +224,7 @@ public class AClassDescription implements ClassDescription {
     }
 
     @Override
-    public Project getProject() {
+    public FlexibleProject getProject() {
         return project;
     }
 

@@ -2,7 +2,7 @@ package grader.execution;
 
 import framework.execution.NotRunnableException;
 import framework.project.BasicProject;
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 
 import java.util.Map;

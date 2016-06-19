@@ -14,7 +14,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 import grader.sakai.project.SakaiProject;
 
 public class RepeatCommandObjectTestCase extends BasicTestCase {
@@ -28,7 +28,7 @@ public class RepeatCommandObjectTestCase extends BasicTestCase {
 			throws NotAutomatableException, NotGradableException {
 		ProjectWrapper aProjectWrapper = (ProjectWrapper) project;
 		SakaiProject aSakaiProject = aProjectWrapper.getProject();
-		Set<ClassDescription> descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("RepeatCommand");
+		Set<FlexibleClassDescription> descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("RepeatCommand");
 		if (descriptions == null || descriptions.isEmpty()) {
 			descriptions = aSakaiProject.getClassesManager().tagToClassDescriptions("Repeat");
 		}
@@ -36,8 +36,8 @@ public class RepeatCommandObjectTestCase extends BasicTestCase {
 			return fail ("Repeat command object not found");
 		}
 		boolean foundRunnable = false;
-		ClassDescription description = null;
-		for (ClassDescription aClassDescription:descriptions) {
+		FlexibleClassDescription description = null;
+		for (FlexibleClassDescription aClassDescription:descriptions) {
 			foundRunnable = Runnable.class.isAssignableFrom(aClassDescription.getJavaClass());
 			if (foundRunnable) {
 				description = aClassDescription;

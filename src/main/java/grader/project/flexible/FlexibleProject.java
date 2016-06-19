@@ -1,4 +1,4 @@
-package grader.project;
+package grader.project.flexible;
 
 import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
@@ -17,9 +17,9 @@ import wrappers.framework.project.ProjectWrapper;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 
-public interface Project {
+public interface FlexibleProject {
 
-    public ClassesManager getClassesManager();
+    public FlexibleClassesManager getClassesManager();
 
     public void setClassesManager(ProxyBasedClassesManager aClassesManager);
 

@@ -3,7 +3,7 @@ package gradingTools.comp401f15.assignment11.testcases;
 import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -25,20 +25,20 @@ public class ParserMethodChecker extends AnAbstractFeatureChecker {
         CheckResult result = new ACheckResult();
 
         // Get the command interpreter
-        Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Command Interpreter");
+        Set<FlexibleClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("Command Interpreter");
         if (descriptions.isEmpty()) {
             result.setScore(0);
             result.getLog().add("Couldn't find the command interpreter class.");
             return result;
         }
-        ClassDescription commandInterpreter = new ArrayList<ClassDescription>(descriptions).get(0);
+        FlexibleClassDescription commandInterpreter = new ArrayList<FlexibleClassDescription>(descriptions).get(0);
 
-        Set<ClassDescription> parserDescriptions = project.getClassesManager().tagToClassDescriptions("Parser");
+        Set<FlexibleClassDescription> parserDescriptions = project.getClassesManager().tagToClassDescriptions("Parser");
         parserDescriptions.add(commandInterpreter);
 
         double passes = 0;
 
-        for (ClassDescription description : parserDescriptions) {
+        for (FlexibleClassDescription description : parserDescriptions) {
             Class<?> _class = description.getJavaClass();
             String[] tags = new String[] {
                     "command parser", "say parser", "move parser", "approach parser", "pass parser", "fail parser",

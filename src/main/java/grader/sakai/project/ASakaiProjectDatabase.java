@@ -48,7 +48,7 @@ import grader.navigation.manual.ManualProjectNavigator;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.photos.APhotoReader;
 import grader.photos.PhotoReader;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.project.source.ClassesTextManager;
 import grader.requirements.interpreter.specification.ACSVRequirementsSpecification;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;
@@ -136,7 +136,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	String sourceFileNameSuffix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
 	String sourceFileNamePrefix = ClassesTextManager.DEFAULT_SOURCES_FILE_SUFFIX;
 
-	String outputSuffix = AProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
+	String outputSuffix = AFlexibleProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 //
 	ScoreFeedback scoreFeedback;
 	AutoFeedback autoFeedback;
@@ -352,7 +352,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public String outputSuffix() {
 
-		return AProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
+		return AFlexibleProject.DEFAULT_TRANSCRIPT_FILE_SUFFIX;
 	}
 
 	public GradingFeatureList getGradingFeatures() {
@@ -512,7 +512,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public String getDefaultOutputFileName() {
 
-		return AProject.DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
+		return AFlexibleProject.DEFAULT_TRANSCRIPT_FILE_PREFIX + outputSuffix;
 	}
 
 	public String[] getOutputFileNames(SakaiProject aProject,

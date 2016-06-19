@@ -14,7 +14,7 @@ import scala.Option;
 import tools.DirectoryUtils;
 import util.misc.Common;
 import framework.project.StandardProject;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 
 /**
  * A Sakai-structured student folder.
@@ -96,8 +96,8 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
         Option<File> zipFile = DirectoryUtils.find(submissionFolder, new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-            	return pathname.getName().endsWith(AProject.ZIP_SUFFIX_1) 
-                		|| pathname.getName().endsWith(AProject.ZIP_SUFFIX_2); // let us see if this works
+            	return pathname.getName().endsWith(AFlexibleProject.ZIP_SUFFIX_1) 
+                		|| pathname.getName().endsWith(AFlexibleProject.ZIP_SUFFIX_2); // let us see if this works
 //                return pathname.getName().endsWith(".zip") 
 //                		|| pathname.getName().endsWith(".jar"); // let us see if this works
             }

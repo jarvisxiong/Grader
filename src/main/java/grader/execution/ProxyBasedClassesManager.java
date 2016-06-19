@@ -1,11 +1,11 @@
 package grader.execution;
 
-import grader.project.ClassesManager;
-import grader.project.Project;
+import grader.project.flexible.FlexibleClassesManager;
+import grader.project.flexible.FlexibleProject;
 
 
-public interface ProxyBasedClassesManager extends ClassesManager {
-    public void makeClassDescriptions(Project aProject);
+public interface ProxyBasedClassesManager extends FlexibleClassesManager {
+    public void makeClassDescriptions(FlexibleProject aProject);
 
 
 }

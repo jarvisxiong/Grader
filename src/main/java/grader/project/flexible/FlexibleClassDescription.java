@@ -1,4 +1,4 @@
-package grader.project;
+package grader.project.flexible;
 
 import grader.file.FileProxy;
 
@@ -11,7 +11,7 @@ import com.github.antlrjavaparser.api.CompilationUnit;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaSource;
 // gets source and object file for a class
-public interface ClassDescription {
+public interface FlexibleClassDescription {
 	public ClassProxy getClassProxy() ;
 	public void setClassProxy(ClassProxy classProxy) ;
 	public StringBuffer getText() ;
@@ -32,7 +32,7 @@ public interface ClassDescription {
     CompilationUnit getCompilationUnit() throws IOException;
     public FileProxy getSourceFile() ;
 	public void setSourceFile(FileProxy sourceFile) ;
-	Project getProject();
+	FlexibleProject getProject();
 	
 	
 //	public List<String> getClassNamesThatCouldNotBeCompiled();

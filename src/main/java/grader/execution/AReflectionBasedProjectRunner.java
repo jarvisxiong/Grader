@@ -1,7 +1,7 @@
 package grader.execution;
 
 import framework.execution.NotRunnableException;
-import grader.project.Project;
+import grader.project.flexible.FlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserThreadExecutionFinished;
 import grader.trace.execution.UserThreadExecutionStarted;
@@ -22,7 +22,7 @@ public class AReflectionBasedProjectRunner implements Runnable {
     String projectName;
     String mainClassName;
     String[][] mainArgs;
-    Project project;
+    FlexibleProject project;
     String[] outputFiles;
     String[] inputFiles;
     Method mainMethod;
@@ -30,7 +30,7 @@ public class AReflectionBasedProjectRunner implements Runnable {
     boolean appendedToTranscript;
 
 
-    public AReflectionBasedProjectRunner(String aMainClassName, String[][] aMainArgs, Project aProject, String[] anInputFiles, String[] anOutputFiles, Class aMainClass, Method aMainMethod) {
+    public AReflectionBasedProjectRunner(String aMainClassName, String[][] aMainArgs, FlexibleProject aProject, String[] anInputFiles, String[] anOutputFiles, Class aMainClass, Method aMainMethod) {
         projectName = aProject.getProjectFolderName();
         mainClassName = aMainClassName;
         mainArgs = aMainArgs;

@@ -4,7 +4,7 @@ import framework.execution.ARunningProject;
 import framework.execution.RunningProject;
 import framework.utils.BasicGradingEnvironment;
 import grader.language.LanguageDependencyManager;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 
 import java.io.File;

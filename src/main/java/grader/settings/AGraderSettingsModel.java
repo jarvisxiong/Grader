@@ -10,7 +10,7 @@ import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.navigation.NavigationKind;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.StudentAssignment;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;

@@ -3,7 +3,7 @@ package gradingTools.comp401f15.assignment11.testcases;
 import grader.checkers.ACheckResult;
 import grader.checkers.AnAbstractFeatureChecker;
 import grader.checkers.CheckResult;
-import grader.project.ClassDescription;
+import grader.project.flexible.FlexibleClassDescription;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -30,13 +30,13 @@ public class CommandListCommandObjectChecker extends AnAbstractFeatureChecker {
         CheckResult result = new ACheckResult();
 
         // Get the class that is tagged as "Command List"
-        Set<ClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("CommandList");
+        Set<FlexibleClassDescription> descriptions = project.getClassesManager().tagToClassDescriptions("CommandList");
         if (descriptions == null || descriptions.isEmpty()) {
             result.setScore(0);
             result.getLog().add("No classed tagged \"Command List\"");
             return result;
         }
-        ClassDescription description = new ArrayList<ClassDescription>(descriptions).get(0);
+        FlexibleClassDescription description = new ArrayList<FlexibleClassDescription>(descriptions).get(0);
         double passedTests = 1;
 
         // Check for the List of Vector

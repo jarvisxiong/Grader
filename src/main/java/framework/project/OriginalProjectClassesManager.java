@@ -6,7 +6,7 @@ import framework.utils.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
-import grader.project.AProject;
+import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 
