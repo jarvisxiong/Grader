@@ -19,6 +19,6 @@ Angle Tests:
   -- computedAngle 0.0 != correctAngle -1.5707963267948966 
 
 AReflectivePointMainTest:
-  -- java.lang.NullPointerException
+  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
 
   Total Score: 23.0

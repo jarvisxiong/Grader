@@ -60,7 +60,8 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	public  Map<String, List<JUnitTestToGraderTestCase>> createAndCollectTestCases(Class[] aJUnitClasses) {
 		Map<String, List<JUnitTestToGraderTestCase>> aResult = new HashMap();
 		for (Class aJUnitClass:aJUnitClasses) {
-			JUnitTestToGraderTestCase aJUnitTestToGraderTestCase = new AJUnitTestToGraderTestCase(aJUnitClass);
+			JUnitTestToGraderTestCase aJUnitTestToGraderTestCase =
+					 	new AJUnitTestToGraderTestCase(aJUnitClass, new AJUnitTestToGraderProperties(aJUnitClass));
 			String aGroup = aJUnitTestToGraderTestCase.getGroup();
 			List<JUnitTestToGraderTestCase> aClasses = aResult.get(aGroup);
 			if (aClasses == null) {

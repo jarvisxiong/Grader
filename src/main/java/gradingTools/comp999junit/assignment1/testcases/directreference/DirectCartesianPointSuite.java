@@ -5,13 +5,13 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDeg
 import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
-
 import org.junit.runners.Suite;
 
 //@RunWith(Suite.class)
@@ -19,10 +19,11 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    ADirectPointMainTest.class,
    ADirectPointProxy.class,
-   APointAngleZeroDegreeTest.class,
-   APointAngleNinetyDegreeTest.class,
-   APointAngleFortyFiveDegreeTest.class,
-   APointAngleMinusNinetyDegreeTest.class,
+   PointAngleSuite.class,
+//   APointAngleZeroDegreeTest.class,
+//   APointAngleNinetyDegreeTest.class,
+//   APointAngleFortyFiveDegreeTest.class,
+//   APointAngleMinusNinetyDegreeTest.class,
    APointRadiusTest.class,
    
 })

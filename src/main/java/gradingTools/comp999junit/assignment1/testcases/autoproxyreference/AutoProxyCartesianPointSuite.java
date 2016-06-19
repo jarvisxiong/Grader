@@ -9,6 +9,7 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDeg
 import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest;
 
@@ -26,6 +27,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    AReflectivePointMainTest.class,
    AnAutoPointProxy.class,
+//   PointAngleSuite.class,
    APointAngleZeroDegreeTest.class,
    APointAngleNinetyDegreeTest.class,
    APointAngleFortyFiveDegreeTest.class,
@@ -40,8 +42,8 @@ public class AutoProxyCartesianPointSuite {
 		try {
 		PointProxyFactory.setPointProxy(new AnAutoPointProxy());
 		BasicGradingEnvironment.get().setLoadClasses(true);
-//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
-		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
+		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 
 		Result aResult = JUnitCore.runClasses(AutoProxyCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {
