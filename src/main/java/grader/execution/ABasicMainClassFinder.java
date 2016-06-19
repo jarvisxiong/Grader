@@ -23,7 +23,7 @@ import java.util.Map;
 import util.misc.Common;
 import wrappers.framework.project.ProjectWrapper;
 
-public class AMainClassFinder implements MainClassFinder {
+public class ABasicMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
     protected boolean isEntryPoint (String aCandidate,
@@ -63,7 +63,7 @@ public class AMainClassFinder implements MainClassFinder {
     	
     }
     
-    private List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
+    protected List<String> getEntryPoints(ProxyClassLoader aLoader, Project project) throws NotRunnableException {
 		if (project.getClassesManager() == null)
 			throw new NotRunnableException();
 		List<String> entryPoints = new ArrayList();
@@ -94,7 +94,7 @@ public class AMainClassFinder implements MainClassFinder {
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
      * @throws framework.execution.NotRunnableException
-     * @see grader.execution.AMainClassFinder which repeats this code (sigh)
+     * @see grader.execution.ABasicMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
     public Map<String, String> getEntryPoints(framework.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {

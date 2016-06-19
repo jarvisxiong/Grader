@@ -6,6 +6,7 @@ import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
 import framework.utils.BasicGradingEnvironment;
 import grader.execution.AProxyProjectClassLoader;
+import grader.execution.FlexibleMainClassFinder;
 import grader.execution.MainClassFinder;
 import grader.execution.ProjectRunnerSelector;
 import grader.execution.ProxyBasedClassesManager;
@@ -395,7 +396,7 @@ public class AProject implements Project {
             inputFiles = anInputFiles;
             outputFiles = anOutputFiles;
             if (mainClass == null) {
-                mainClass = mainClassFinder.mainClass(rootCodeFolder, proxyClassLoader, mainClassName, this);
+                mainClass = ((FlexibleMainClassFinder) mainClassFinder).mainClass(rootCodeFolder, proxyClassLoader, mainClassName, this);
             }
             if (mainClass == null) {
 //                System.out.println("Missing main class:" + mainClassName + " for student:" + getProjectFolderName());

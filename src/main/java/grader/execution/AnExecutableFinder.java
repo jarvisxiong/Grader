@@ -62,12 +62,12 @@ public class AnExecutableFinder implements MainClassFinder {
     }
 
 
-	@Override
-	public Class mainClass(RootCodeFolder aRootCodeFolder,
-			ProxyClassLoader aProxyClassLoader, String expectedName,
-			Project aProject) {
-		return null;
-	}
+//	@Override
+//	public Class mainClass(RootCodeFolder aRootCodeFolder,
+//			ProxyClassLoader aProxyClassLoader, String expectedName,
+//			Project aProject) {
+//		return null;
+//	}
     
     
 

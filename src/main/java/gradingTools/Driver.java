@@ -34,6 +34,8 @@ import framework.utils.BasicGradingEnvironment;
 import framework.utils.GradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
+import grader.execution.AFlexibleMainClassFinder;
+import grader.execution.JavaMainClassFinderSelector;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.interaction_logger.InteractionLogWriter;
 import grader.interaction_logger.InteractionLogWriterSelector;
@@ -101,6 +103,7 @@ public class Driver {
         // want static confoguration utils to be set by this time, so this should not happen prematurely
         BasicGradingEnvironment.set(new GradingEnvironment()); 
         RunnerSelector.setFactory(new ProcessRunnerFactory());
+        JavaMainClassFinderSelector.setMainClassFinder(new AFlexibleMainClassFinder());
         if (isHeadless()) {
             ObjectEditor.setShowStartView(false);
         } else {
