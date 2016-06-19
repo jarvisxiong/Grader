@@ -43,22 +43,22 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 			NotGradableException {
 
 		try {
-			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
-			String prompt = runningProject.await();
-			String prompt2 = ExecutionUtil.callMain(input); // writing to a file replaces tab with spaces
+//			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
+//			String prompt = runningProject.await();
+			String prompt = ExecutionUtil.callMain(input); // writing to a file replaces tab with spaces
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);
 			}
-			if (!prompt.equals(prompt2)) {
-				System.out.println (prompt + "\n != \n" + prompt2);
-			}
+//			if (!prompt.equals(prompt2)) {
+//				System.out.println (prompt + "\n != \n" + prompt2);
+//			}
 
-			runningProject = RunningProjectUtils.runProject(project, 1, input, choice);
-			String output = runningProject.await();
-			String output2 = ExecutionUtil.callMain(input, choice);
-			if (!output.equals(output2)) {
-				System.out.println (output + "\n != \n" + output2);
-			}
+//			runningProject = RunningProjectUtils.runProject(project, 1, input, choice);
+//			String output = runningProject.await();
+			String output = ExecutionUtil.callMain(input, choice);
+//			if (!output.equals(output2)) {
+//				System.out.println (output + "\n != \n" + output2);
+//			}
 			if (output.startsWith(prompt)) {
 				output = output.substring(prompt.length());
 

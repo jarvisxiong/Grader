@@ -106,8 +106,8 @@ public class ExecutionUtil {
 			System.err.println("Terminated execution after milliseconds:" + aMillSeconds);
 			return null;
 		} catch (ExecutionException e) {
-			System.err.println("Future execution exception" );
-			e.printStackTrace();
+			System.err.println("Execution exception caused by invocation exception caused by:" );
+			e.getCause().getCause().printStackTrace();
 			return null;
 
 		}
