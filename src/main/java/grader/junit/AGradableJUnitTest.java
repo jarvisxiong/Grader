@@ -10,6 +10,7 @@ import util.annotations.Group;
 import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
+import util.annotations.Visible;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -37,22 +38,24 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 //	public AJUnitTestToGraderTestCase () {
 //		init();
 //	}
+	@Visible(false)
 	public void init() {
 		runNotifier.addListener(runListener);
 	}
-	
+	@Visible(false)
 	public Class getJUnitClass() {
 		return jUnitClass;
 	}
-	
+	@Visible(false)
+
 	public void setDefaultScore(int aDefaultScore) {
 		defaultScore = aDefaultScore;
 	}
-	
+	@Visible(false)
 	public int getDefaultScore() {
 		return defaultScore;
 	}
-	
+	@Visible(false)
 	public void setMaxScore (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(MaxValue.class)) {
 			MaxValue aMaxValue =  (MaxValue) aJUnitClass.getAnnotation(MaxValue.class);
@@ -61,6 +64,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			maxScore = null;
 		}
 	}
+	@Visible(false)
 	public void setIsRestriction (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(IsRestriction.class)) {
 			IsRestriction anIsRestriction =  (IsRestriction) aJUnitClass.getAnnotation(IsRestriction.class);
@@ -69,6 +73,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			isRestriction = false;
 		}
 	}
+	@Visible(false)
 	public void setIsExtra (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(IsExtra.class)) {
 			IsExtra anIsExtra =  (IsExtra) aJUnitClass.getAnnotation(IsExtra.class);
@@ -77,7 +82,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			isExtra = false;
 		}
 	}
-	
+	@Visible(false)
 	public void setExplanation (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(Explanation.class)) {
 			Explanation anExplanation =  (Explanation) aJUnitClass.getAnnotation(Explanation.class);
@@ -87,7 +92,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		}
 //		setName(explanation);
 	}	
-
+	@Visible(false)
 	public void setGroup (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(Group.class)) {
 			Group aGroup =  (Group) aJUnitClass.getAnnotation(Group.class);
@@ -97,9 +102,11 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		}
 	}
 	@Override
+	@Visible(false)
 	public String getGroup() {
 		return group;
 	}
+	@Visible(false)
 	public void setJUnitClass(Class aJUnitClass) {
 		jUnitClass = aJUnitClass;
 		setExplanation(aJUnitClass);
@@ -116,18 +123,22 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 //		}
 		
 	}
+	@Visible(false)
 	public boolean isRestriction() {
 		return isRestriction;
 	}
 	public boolean isExtra() {
 		return isExtra;
 	}
+	@Visible(false)
 	public Double getMaxScore() {
 		return maxScore;
-	}	
+	}
+	@Visible(false)
 	public String getExplanation() {
 		return explanation;
 	}	
+	@Visible(false)
 	public TestCaseResult test()
 			throws NotAutomatableException, NotGradableException {
 		try {
@@ -151,37 +162,45 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 //		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
 //		return null;
 	}
-	public static void main (String[] args) {
-		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
-//		foo.setJUnitClass(ACartesianPointJUnitTester.class);
-		System.out.println (foo);
-	}
-
+	
+	@Visible(false)
 	@Override
 	public void setMaxScore(double aMaxScore) {
 		maxScore = aMaxScore;
 	}
-
+	@Visible(false)
 	@Override
 	public void setGroup(String newVal) {
 		group = newVal;
 		
 	}
-
+	@Visible(false)
 	@Override
 	public void setRestriction(boolean newVal) {
-		isRestriction = newVal;
-		
+		isRestriction = newVal;		
 	}
-
+	@Visible(false)
 	@Override
 	public void setExtra(boolean newVal) {
-		isExtra = newVal;
-		
+		isExtra = newVal;		
 	}
-
+	@Visible(false)
 	@Override
 	public void setExplanation(String newVal) {
 		explanation = newVal;		
+	}
+	protected String description = null;
+	public String getDescription() {
+		if (description == null) {
+		String aScore = "[" + maxScore + " pts" + "]";
+		String anExtra = isExtra?"(extra credit)":"";
+		description = explanation + aScore + anExtra;
+		}
+		return description;
+	}
+	public static void main (String[] args) {
+		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
+//		foo.setJUnitClass(ACartesianPointJUnitTester.class);
+		System.out.println (foo);
 	}
 }

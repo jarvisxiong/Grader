@@ -12,5 +12,8 @@ public class AGradableJUnitTestSuite extends AGradableJUnitTest implements Grada
 	public List<GradableJUnitTest> getJUnitTests() {
 		return children;
 	}
+	public String getDescription() {
+		return getExplanation();
+	}
 	
 }

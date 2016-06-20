@@ -70,7 +70,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		aGroupedGradables.putAll(aGroupedTopLevelGradables);
 		aGroupedGradables.putAll(aGroupedSuiteGradables);
 		List<GradableJUnitTest> aGradableTree = toGradableTree(aGroupedGradables);
-//		ObjectEditor.treeEdit(aGradableTree);
+		ObjectEditor.treeEdit(aGradableTree);
 		Map<String, List<GraderTestCase>> aGroupedTestCases = toGraderTestCaseMap(aGroupedGradables);		
 		addGroupedTwoLevelTestCases(aGroupedTestCases);		
 	}
@@ -211,16 +211,15 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 
 			List<GradableJUnitTest> aGradables = new ArrayList();
 			for (Class aLeafTestCase:aLeafTestCases) {
-				GradableJUnitTest aTestCaseProperties = new AGradableJUnitTest(aLeafTestCase); 
+				GradableJUnitTest aGradable = new AGradableJUnitTest(aLeafTestCase); 
 				if (aTestMaxScore != null) {
-					aTestCaseProperties.setMaxScore(aTestMaxScore);	
-					aTestCaseProperties.setGroup(aSuiteGradable.getExplanation());
-					aTestCaseProperties.setRestriction(aSuiteGradable.isRestriction());
-					aTestCaseProperties.setExtra(aSuiteGradable.isExtra());
+					aGradable.setMaxScore(aTestMaxScore);	
+					aGradable.setGroup(aSuiteGradable.getExplanation());
+					aGradable.setRestriction(aSuiteGradable.isRestriction());
+					aGradable.setExtra(aSuiteGradable.isExtra());
 				}
-				GraderTestCase aJUnitTestToGraderTestCase =
-					 	new AGraderTestCase(aTestCaseProperties);
-				aGradables.add(aJUnitTestToGraderTestCase);
+				
+				aGradables.add(aGradable);
 			}
 			aSuiteGradable.getJUnitTests().addAll(aGradables);
 //			if (aGradables.size() > 1) { // they need a parent
