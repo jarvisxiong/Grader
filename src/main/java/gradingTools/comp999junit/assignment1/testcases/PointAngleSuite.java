@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
+import util.annotations.MaxValue;
+
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -20,6 +22,7 @@ import org.junit.runners.Suite;
 //   APointRadiusTest.class,
    
 })
+@MaxValue(13)
 public class PointAngleSuite {
 //	public static final String ANGLE_TESTS = "Angle Tests";
 

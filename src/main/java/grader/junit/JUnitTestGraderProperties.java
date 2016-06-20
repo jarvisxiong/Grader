@@ -10,6 +10,7 @@ public interface JUnitTestGraderProperties  {
 	public int getDefaultScore() ;
 	
 	public void setMaxScore (Class aJUnitClass) ;
+	public void setMaxScore (double aMaxScore);
 	public void setIsRestriction (Class aJUnitClass) ;
 	public void setIsExtra (Class aJUnitClass) ;
 	
@@ -20,8 +21,11 @@ public interface JUnitTestGraderProperties  {
 	public void setJUnitClass(Class aJUnitClass) ;
 	public boolean isRestriction() ;
 	public boolean isExtra();
-	public long getMaxScore() ;
+	public Double getMaxScore() ;
 	public String getExplanation() ;
 	String getGroup();
+	public void setGroup(String newVal);
+	void setRestriction(boolean newVal);
+	void setExtra(boolean newVal);
 
 }

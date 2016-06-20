@@ -2,23 +2,23 @@ Grading result for: Wrong, Angle (wangle)
 
 Grading features...
 ----------------------------------
-Angle Tests                                            2.0 / 16.0
-APointRadiusTest                                       15.0 / 15.0 (Extra credit)
 AnAutoPointProxy                                       6.0 /  6.0
-AReflectivePointMainTest                               0.0 / 10.0
+AReflectivePointMainTest                               0.0 /  5.0
+PointAngleSuite                                        3.3 / 13.0
+APointRadiusTest                                       15.0 / 15.0 (Extra credit)
 ----------------------------------
-  Points Awarded: 23.0
+  Points Awarded: 24.3
 
-  Features Score: 23.0
+  Features Score: 24.3
 
 Notes from grading features:
 ----------------------------------
-Angle Tests:
+AReflectivePointMainTest:
+  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
+
+PointAngleSuite:
   -- computedAngle 0.0 != correctAngle 1.5707963267948966 
   -- computedAngle 0.0 != correctAngle 0.7853981633974483 
   -- computedAngle 0.0 != correctAngle -1.5707963267948966 
 
-AReflectivePointMainTest:
-  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
-
-  Total Score: 23.0
+  Total Score: 24.0

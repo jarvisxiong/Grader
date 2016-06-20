@@ -18,12 +18,12 @@ import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
-	public static int DEFAULT_SCORE = 10;	
+	public static int DEFAULT_SCORE = 0;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;
 	boolean isExtra;
 	boolean isRestriction;
-	long maxScore;
+	Double maxScore;
 	String explanation;
 	String group = "";
 	RunNotifier aRunNotifier = new RunNotifier();
@@ -56,9 +56,9 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 	public void setMaxScore (Class aJUnitClass) {
 		if (aJUnitClass.isAnnotationPresent(MaxValue.class)) {
 			MaxValue aMaxValue =  (MaxValue) aJUnitClass.getAnnotation(MaxValue.class);
-			maxScore = aMaxValue.value();
+			maxScore = (double) aMaxValue.value();
 		} else {
-			maxScore = defaultScore;
+			maxScore = null;
 		}
 	}
 	public void setIsRestriction (Class aJUnitClass) {
@@ -122,7 +122,7 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 	public boolean isExtra() {
 		return isExtra;
 	}
-	public long getMaxScore() {
+	public Double getMaxScore() {
 		return maxScore;
 	}	
 	public String getExplanation() {
@@ -155,5 +155,28 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 		AJUnitTestToGraderProperties foo = new AJUnitTestToGraderProperties(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
+	}
+
+	@Override
+	public void setMaxScore(double aMaxScore) {
+		maxScore = aMaxScore;
+	}
+
+	@Override
+	public void setGroup(String newVal) {
+		group = newVal;
+		
+	}
+
+	@Override
+	public void setRestriction(boolean newVal) {
+		isRestriction = newVal;
+		
+	}
+
+	@Override
+	public void setExtra(boolean newVal) {
+		isExtra = newVal;
+		
 	}
 }

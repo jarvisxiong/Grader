@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import org.junit.Test;
 
+import util.annotations.MaxValue;
 import framework.project.CurrentProjectHolder;
 import grader.util.ExecutionUtil;
 import grader.util.IntrospectionUtil;
@@ -11,7 +12,7 @@ import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointTest;
 import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
 
-
+@MaxValue(5)
 public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 
 	@Override

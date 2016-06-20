@@ -23,7 +23,7 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	Class jUnitClass;
 	boolean isExtra;
 	boolean isRestriction;
-	long maxScore;
+	double maxScore;
 	String explanation;
 	String group = "";
 	RunNotifier aRunNotifier = new RunNotifier();
@@ -122,8 +122,8 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	public boolean isExtra() {
 		return isExtra;
 	}
-	public long getMaxScore() {
-		return maxScore;
+	public Double getMaxScore() {
+		return  maxScore;
 	}	
 	public String getExplanation() {
 		return explanation;
@@ -155,5 +155,29 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 		AnOriginalJUnitTestToGraderTestCase foo = new AnOriginalJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
+	}
+
+	@Override
+	public void setMaxScore(double aMaxScore) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGroup(String newVal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRestriction(boolean newVal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setExtra(boolean newVal) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -13,7 +13,7 @@ public abstract class AnAbstractPointMainTest extends AnAbstractPointTest {
 //		String anInput = theX + "\n" + theY;
 //		String anOutput = runMain(new String[]{}, anInput);
 		String anOutput = runMain(new String[]{}, "" + theX, "" + theY);
-		String anOutput2 = runMain(new String[]{}, "" + theX, "" + theY);
+//		String anOutput2 = runMain(new String[]{}, "" + theX, "" + theY);
 
 		
 		String[] anOutputLines = anOutput.split("\n");

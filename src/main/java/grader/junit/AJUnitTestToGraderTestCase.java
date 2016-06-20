@@ -120,7 +120,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	public boolean isExtra() {
 		return graderProperties.isExtra();
 	}
-	public long getMaxScore() {
+	public Double getMaxScore() {
 		return graderProperties.getMaxScore();
 	}	
 	public String getExplanation() {
@@ -153,5 +153,29 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class, new AJUnitTestToGraderProperties(ACartesianPointJUnitTester.class));
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
+	}
+
+	@Override
+	public void setMaxScore(double aMaxScore) {
+		graderProperties.setMaxScore(aMaxScore);
+		
+	}
+
+	@Override
+	public void setGroup(String newVal) {
+		graderProperties.setGroup(newVal);
+		
+	}
+
+	@Override
+	public void setRestriction(boolean newVal) {
+		graderProperties.setRestriction(newVal);
+		
+	}
+
+	@Override
+	public void setExtra(boolean newVal) {
+		graderProperties.setExtra(newVal);
+		
 	}
 }
