@@ -180,4 +180,10 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public TestCaseResult test() {
+			return null;
+		
+	}
 }

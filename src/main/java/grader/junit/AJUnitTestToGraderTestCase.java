@@ -20,21 +20,21 @@ import grader.junit.test.directreference.ACartesianPointJUnitTester;
 public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTestToGraderTestCase{
 //	public static int DEFAULT_SCORE = 10;	
 //	int defaultScore = DEFAULT_SCORE;
-	Class jUnitClass;
+//	Class jUnitClass;
 //	boolean isExtra;
 //	boolean isRestriction;
 //	long maxScore;
 //	String explanation;
 //	String group = "";
-	RunNotifier runNotifier = new RunNotifier();
-	JUnitTestGraderProperties graderProperties;
+//	RunNotifier runNotifier = new RunNotifier();
+	GradableJUnitTest graderProperties;
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
 	
-	public AJUnitTestToGraderTestCase (Class aJUnitClass, JUnitTestGraderProperties aGraderProperties) {
+	public AJUnitTestToGraderTestCase (Class aJUnitClass, GradableJUnitTest aGraderProperties) {
 	
-		init();
+//		init();
 		graderProperties = aGraderProperties;
-		jUnitClass = aJUnitClass;
+//		jUnitClass = aJUnitClass;
 
 //		setJUnitClass(aJUnitClass);	
 	}
@@ -43,11 +43,11 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 //		init();
 //	}
 	public void init() {
-		runNotifier.addListener(runListener);
+		graderProperties.init();
 	}
 	
 	public Class getJUnitClass() {
-		return jUnitClass;
+		return graderProperties.getJUnitClass();
 	}
 	
 	public void setDefaultScore(int aDefaultScore) {
@@ -129,28 +129,24 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		try {
-			Class aJUnitClass = getJUnitClass();
-			runListener.setJUnitName(aJUnitClass.getName());
-			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
-			aRunner.run(runNotifier);
-			return runListener.getTestCaseResult();
+		return test();
+//		try {
+//			Class aJUnitClass = getJUnitClass();
+//			runListener.setJUnitName(aJUnitClass.getName());
+//			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
+//			aRunner.run(runNotifier);
+//			return runListener.getTestCaseResult();
+//
+//			
+//		} catch (InitializationError e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return fail(e.getMessage());
+//		}
 
-			
-		} catch (InitializationError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return fail(e.getMessage());
-		}
-		// InitializationError
-//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitTester.class);
-//		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);
-		// IniitializationError
-//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
-//		return null;
 	}
 	public static void main (String[] args) {
-		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class, new AJUnitTestToGraderProperties(ACartesianPointJUnitTester.class));
+		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class, new AGradableJUnitTest(ACartesianPointJUnitTester.class));
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
 	}
@@ -177,5 +173,10 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	public void setExtra(boolean newVal) {
 		graderProperties.setExtra(newVal);
 		
+	}
+
+	@Override
+	public TestCaseResult test() {
+		return graderProperties.test();
 	}
 }

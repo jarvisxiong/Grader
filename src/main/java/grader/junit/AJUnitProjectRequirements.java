@@ -121,7 +121,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	public  Map<String, List<JUnitTestToGraderTestCase>> createAndCollectSuiteTestCases(List<Class> aSuiteClasses) {
 		Map<String, List<JUnitTestToGraderTestCase>> aResult = new HashMap();
 		for (Class aSuiteClass:aSuiteClasses) {
-			JUnitTestGraderProperties aSuiteProperties = new AJUnitTestToGraderProperties(aSuiteClass);
+			GradableJUnitTest aSuiteProperties = new AGradableJUnitTest(aSuiteClass);
 //			String aFeatureName =  aProperties.getExplanation();
 			Double aFeatureScore = aSuiteProperties.getMaxScore();
 			List<Class> aLeafTestCases = getJUnitTestClassesDeep(aSuiteClass);
@@ -132,7 +132,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 
 			List<JUnitTestToGraderTestCase> aTestCases = new ArrayList();
 			for (Class aLeafTestCase:aLeafTestCases) {
-				JUnitTestGraderProperties aTestCaseProperties = new AJUnitTestToGraderProperties(aLeafTestCase); 
+				GradableJUnitTest aTestCaseProperties = new AGradableJUnitTest(aLeafTestCase); 
 				if (aTestMaxScore != null) {
 					aTestCaseProperties.setMaxScore(aTestMaxScore);	
 					aTestCaseProperties.setGroup(aSuiteProperties.getExplanation());
@@ -155,7 +155,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		Map<String, List<JUnitTestToGraderTestCase>> aResult = new HashMap();
 		for (Class aJUnitClass:aJUnitClasses) {
 			JUnitTestToGraderTestCase aJUnitTestToGraderTestCase =
-					 	new AJUnitTestToGraderTestCase(aJUnitClass, new AJUnitTestToGraderProperties(aJUnitClass));
+					 	new AJUnitTestToGraderTestCase(aJUnitClass, new AGradableJUnitTest(aJUnitClass));
 			String aGroup = aJUnitTestToGraderTestCase.getGroup();
 			List<JUnitTestToGraderTestCase> aClasses = aResult.get(aGroup);
 			if (aClasses == null) {

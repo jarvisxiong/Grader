@@ -1,7 +1,9 @@
 package grader.junit;
 
+import framework.grading.testing.TestCaseResult;
 
-public interface JUnitTestGraderProperties  {
+
+public interface GradableJUnitTest  {
 	public void init() ;
 	public Class getJUnitClass() ;
 	
@@ -27,5 +29,6 @@ public interface JUnitTestGraderProperties  {
 	public void setGroup(String newVal);
 	void setRestriction(boolean newVal);
 	void setExtra(boolean newVal);
+	TestCaseResult test();
 
 }

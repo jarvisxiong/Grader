@@ -17,7 +17,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
-public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
+public class AGradableJUnitTest implements GradableJUnitTest{
 	public static int DEFAULT_SCORE = 0;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;
@@ -26,10 +26,10 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 	Double maxScore;
 	String explanation;
 	String group = "";
-	RunNotifier aRunNotifier = new RunNotifier();
+	RunNotifier runNotifier = new RunNotifier();
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
 	
-	public AJUnitTestToGraderProperties (Class aJUnitClass) {
+	public AGradableJUnitTest (Class aJUnitClass) {
 		init();
 		setJUnitClass(aJUnitClass);	
 	}
@@ -38,7 +38,7 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 //		init();
 //	}
 	public void init() {
-		aRunNotifier.addListener(runListener);
+		runNotifier.addListener(runListener);
 	}
 	
 	public Class getJUnitClass() {
@@ -128,31 +128,31 @@ public class AJUnitTestToGraderProperties implements JUnitTestGraderProperties{
 	public String getExplanation() {
 		return explanation;
 	}	
-//	@Override
-//	public TestCaseResult test(Project project, boolean autoGrade)
-//			throws NotAutomatableException, NotGradableException {
-//		try {
-//			Class aJUnitClass = getJUnitClass();
-//			runListener.setJUnitName(aJUnitClass.getName());
-//			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
-//			aRunner.run(aRunNotifier);
-//			return runListener.getTestCaseResult();
-//
-//			
-//		} catch (InitializationError e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+	public TestCaseResult test()
+			throws NotAutomatableException, NotGradableException {
+		try {
+			Class aJUnitClass = getJUnitClass();
+			runListener.setJUnitName(aJUnitClass.getName());
+			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
+			aRunner.run(runNotifier);
+			return runListener.getTestCaseResult();
+
+			
+		} catch (InitializationError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new TestCaseResult(false, e.getMessage(), getExplanation(), true);
 //			return fail(e.getMessage());
-//		}
-//		// InitializationError
-////		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitTester.class);
-////		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);
-//		// IniitializationError
-////		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
-////		return null;
-//	}
+		}
+		// InitializationError
+//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitTester.class);
+//		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);
+		// IniitializationError
+//		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
+//		return null;
+	}
 	public static void main (String[] args) {
-		AJUnitTestToGraderProperties foo = new AJUnitTestToGraderProperties(ACartesianPointJUnitTester.class);
+		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
 	}

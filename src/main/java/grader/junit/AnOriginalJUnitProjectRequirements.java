@@ -61,7 +61,7 @@ public class AnOriginalJUnitProjectRequirements extends FrameworkProjectRequirem
 		Map<String, List<JUnitTestToGraderTestCase>> aResult = new HashMap();
 		for (Class aJUnitClass:aJUnitClasses) {
 			JUnitTestToGraderTestCase aJUnitTestToGraderTestCase =
-					 	new AJUnitTestToGraderTestCase(aJUnitClass, new AJUnitTestToGraderProperties(aJUnitClass));
+					 	new AJUnitTestToGraderTestCase(aJUnitClass, new AGradableJUnitTest(aJUnitClass));
 			String aGroup = aJUnitTestToGraderTestCase.getGroup();
 			List<JUnitTestToGraderTestCase> aClasses = aResult.get(aGroup);
 			if (aClasses == null) {
