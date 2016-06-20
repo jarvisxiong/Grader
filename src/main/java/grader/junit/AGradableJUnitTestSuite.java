@@ -8,11 +8,23 @@ public class AGradableJUnitTestSuite extends AGradableJUnitTest implements Grada
 	public AGradableJUnitTestSuite(Class aJUnitClass) {
 		super(aJUnitClass);
 	}
-	@Override
-	public List<GradableJUnitTest> getJUnitTests() {
-		return children;
+	public GradableJUnitTest get(int anIndex) {
+		return children.get(anIndex);
 	}
-	public String getDescription() {
+	public int size() {
+		return children.size();
+	}
+	public void add(GradableJUnitTest anElement) {
+		children.add(anElement);
+	}
+	public void addAll(List<GradableJUnitTest> anElement) {
+		children.addAll(anElement);
+	}
+//	@Override
+//	public List<GradableJUnitTest> getJUnitTests() {
+//		return children;
+//	}
+	public String getName() {
 		return getExplanation();
 	}
 	

@@ -221,7 +221,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 				
 				aGradables.add(aGradable);
 			}
-			aSuiteGradable.getJUnitTests().addAll(aGradables);
+			aSuiteGradable.addAll(aGradables);
 //			if (aGradables.size() > 1) { // they need a parent
 				aGradables.add(0, aSuiteGradable); // for consistency add it always
 //			}
@@ -264,7 +264,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 			}
 			aSuite = (GradableJUnitSuite) aClasses.get(0);
 			aClasses.add(aGradableJUnitTest);
-			aSuite.getJUnitTests().add(aGradableJUnitTest);
+			aSuite.add(aGradableJUnitTest);
 		}
 		return aResult;
 	}

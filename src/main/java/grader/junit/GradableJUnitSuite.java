@@ -6,7 +6,10 @@ import framework.grading.testing.TestCaseResult;
 
 
 public interface GradableJUnitSuite extends GradableJUnitTest{
-	List<GradableJUnitTest> getJUnitTests();
+//	List<GradableJUnitTest> getJUnitTests();
+	public int size() ;
+	public void add(GradableJUnitTest anElement) ;
+	public void addAll(List<GradableJUnitTest> anElement) ;
 	
 
 }

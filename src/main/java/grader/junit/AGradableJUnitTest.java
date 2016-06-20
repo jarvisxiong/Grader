@@ -127,6 +127,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public boolean isRestriction() {
 		return isRestriction;
 	}
+	@Visible(false)
 	public boolean isExtra() {
 		return isExtra;
 	}
@@ -190,7 +191,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		explanation = newVal;		
 	}
 	protected String description = null;
-	public String getDescription() {
+	public String getName() {
 		if (description == null) {
 		String aScore = "[" + maxScore + " pts" + "]";
 		String anExtra = isExtra?"(extra credit)":"";
