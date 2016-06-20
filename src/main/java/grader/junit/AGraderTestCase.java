@@ -179,4 +179,9 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public TestCaseResult test() {
 		return graderProperties.test();
 	}
+
+	@Override
+	public void setExplanation(String newVal) {
+		graderProperties.setExplanation(newVal);
+	}
 }

@@ -29,6 +29,7 @@ public interface GradableJUnitTest  {
 	public void setGroup(String newVal);
 	void setRestriction(boolean newVal);
 	void setExtra(boolean newVal);
+	void setExplanation(String newVal);
 	TestCaseResult test();
 
 }

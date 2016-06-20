@@ -18,7 +18,7 @@ import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 public class AGradableJUnitTest implements GradableJUnitTest{
-	public static int DEFAULT_SCORE = 0;	
+	static int DEFAULT_SCORE = 0;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;
 	boolean isExtra;
@@ -178,5 +178,10 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public void setExtra(boolean newVal) {
 		isExtra = newVal;
 		
+	}
+
+	@Override
+	public void setExplanation(String newVal) {
+		explanation = newVal;		
 	}
 }

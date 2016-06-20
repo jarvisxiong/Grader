@@ -186,4 +186,9 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 			return null;
 		
 	}
+
+	@Override
+	public void setExplanation(String newVal) {
+		
+	}
 }

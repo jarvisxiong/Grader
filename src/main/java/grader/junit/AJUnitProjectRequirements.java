@@ -25,26 +25,28 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 //		aGroupedTestCases.putAll(aGroupedSuiteTestCases);		
 //		addGroupedTwoLevelTestCases(aGroupedTestCases);		
 //	}
-	protected Map<String,List<GraderTestCase>>  toGraderTestCaseMap (Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap) {
+	public static  Map<String,List<GraderTestCase>>  toGraderTestCaseMap (Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap) {
 		Map<String,List<GraderTestCase>> retVal = new HashMap();
 		for (String aGroup:aGradableJUnitTestCaseMap.keySet()) {
 			retVal.put(aGroup, toGraderTestCaseList(aGradableJUnitTestCaseMap.get(aGroup)));
 		}
 		return retVal;
 	}
-	protected GraderTestCase toGraderTestCase(GradableJUnitTest aGradableJUnitCase){
+	public static GraderTestCase toGraderTestCase(GradableJUnitTest aGradableJUnitCase){
 		return new AGraderTestCase(aGradableJUnitCase);
 	}
-	protected List<GraderTestCase> toGraderTestCaseList(List<GradableJUnitTest> aGradableJUnitCaseList){
+	public static  List<GraderTestCase> toGraderTestCaseList(List<GradableJUnitTest> aGradableJUnitCaseList){
 		List<GraderTestCase> retVal = new ArrayList();
 		for (GradableJUnitTest aGradableJUnitTestCase:aGradableJUnitCaseList) {
+			if (aGradableJUnitTestCase instanceof GradableJUnitSuite)  
+				continue; // that is just for display and hierarchy purposes
 			retVal.add(new AGraderTestCase(aGradableJUnitTestCase));
 		}
 		return retVal;
 	}
 	@Override
 	public void addJUnitTestSuite (Class<?> aJUnitSuiteClass) {
-		List<Class> aJUnitOrSuiteClasses = getTopLevelJUnitTestClassesAndSuites(aJUnitSuiteClass);
+		List<Class> aJUnitOrSuiteClasses = getTopLevelJUnitTestsAndSuites(aJUnitSuiteClass);
 		List<Class> aSuiteClasses = selectJUnitSuites(aJUnitOrSuiteClasses);
 		List<Class> aTestCases = new ArrayList(aJUnitOrSuiteClasses);
 		aTestCases.removeAll(aSuiteClasses);
@@ -53,12 +55,10 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		Map<String,List<GradableJUnitTest>> aGroupedGradables = new HashMap();
 		aGroupedGradables.putAll(aGroupedTopLevelGradables);
 		aGroupedGradables.putAll(aGroupedSuiteGradables);
-		Map<String, List<GraderTestCase>> aGroupedTestCases = toGraderTestCaseMap(aGroupedGradables);
-		
-		addGroupedTwoLevelTestCases(aGroupedTestCases);
-		
+		Map<String, List<GraderTestCase>> aGroupedTestCases = toGraderTestCaseMap(aGroupedGradables);		
+		addGroupedTwoLevelTestCases(aGroupedTestCases);		
 	}
-	public List<Class> selectJUnitSuites (List<Class> aJUnitSuiteAndTestCases) {
+	public static List<Class> selectJUnitSuites (List<Class> aJUnitSuiteAndTestCases) {
 		List<Class> retVal = new ArrayList();
 		for (Class aJUnitTestCase:aJUnitSuiteAndTestCases) {
 			if (isJUnitSuite(aJUnitTestCase)) {
@@ -67,6 +67,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		}
 		return retVal;
 	}
+	
 //	public void addJUnitTestSuiteFlat (Class<?> aJUnitSuiteClass) {
 //		List<Class> aJUnitClasses = getJUnitTestClassesDeep(aJUnitSuiteClass);
 //		Map<String, List<JUnitTestToGraderTestCase>>  aGroupedTestCases = createAndCollectTopLevelTestCases(aJUnitClasses);
@@ -127,7 +128,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 //	}
 	
 	
-	public double  computeTotalScore (List<GraderTestCase> aJUnitTestToGraderTestCases) {
+	public static double  computeTotalScore (List<GraderTestCase> aJUnitTestToGraderTestCases) {
 		double aRetVal = 0;
 		for (GraderTestCase aJUnitTestToGraderTestCase:aJUnitTestToGraderTestCases) {
 			Double aMaxScore = aJUnitTestToGraderTestCase.getMaxScore();
@@ -136,12 +137,12 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		}
 		return aRetVal;
 	}
-	public void setPointWeights (List<GraderTestCase> aJUnitTestToGraderTestCases) {
+	public static void setPointWeights (List<GraderTestCase> aJUnitTestToGraderTestCases) {
 		double aTotalScore = computeTotalScore(aJUnitTestToGraderTestCases);
 		setPointWeights(aJUnitTestToGraderTestCases, aTotalScore);
 	}
 	
-	public void setPointWeights (List<GraderTestCase> aJUnitTestToGraderTestCases, double aTotalScore) {
+	public static void setPointWeights (List<GraderTestCase> aJUnitTestToGraderTestCases, double aTotalScore) {
 		for (GraderTestCase aJUnitTestToGraderTestCase:aJUnitTestToGraderTestCases) {
 			Double aMaxScore = aJUnitTestToGraderTestCase.getMaxScore();
 			if (aMaxScore != null)
@@ -182,31 +183,34 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	public  Map<String, List<GradableJUnitTest>> toSuiteGradables(List<Class> aSuiteClasses) {
 		Map<String, List<GradableJUnitTest>> aResult = new HashMap();
 		for (Class aSuiteClass:aSuiteClasses) {
-			GradableJUnitTest aSuiteProperties = new AGradableJUnitTest(aSuiteClass);
+			GradableJUnitSuite aSuiteGradable = new AGradableJUnitTestSuite(aSuiteClass);
 //			String aFeatureName =  aProperties.getExplanation();
-			Double aFeatureScore = aSuiteProperties.getMaxScore();
+			Double aFeatureScore = aSuiteGradable.getMaxScore();
 			List<Class> aLeafTestCases = getJUnitTestClassesDeep(aSuiteClass);
 			Double aTestMaxScore = null;
-			if (aSuiteProperties.getMaxScore() != null) {
-				aTestMaxScore = aSuiteProperties.getMaxScore()/
+			if (aSuiteGradable.getMaxScore() != null) {
+				aTestMaxScore = aSuiteGradable.getMaxScore()/
 						aLeafTestCases.size();
 			}
 
-			List<GradableJUnitTest> aTestCases = new ArrayList();
+			List<GradableJUnitTest> aGradables = new ArrayList();
 			for (Class aLeafTestCase:aLeafTestCases) {
 				GradableJUnitTest aTestCaseProperties = new AGradableJUnitTest(aLeafTestCase); 
 				if (aTestMaxScore != null) {
 					aTestCaseProperties.setMaxScore(aTestMaxScore);	
-					aTestCaseProperties.setGroup(aSuiteProperties.getExplanation());
-					aTestCaseProperties.setRestriction(aSuiteProperties.isRestriction());
-					aTestCaseProperties.setExtra(aSuiteProperties.isExtra());
+					aTestCaseProperties.setGroup(aSuiteGradable.getExplanation());
+					aTestCaseProperties.setRestriction(aSuiteGradable.isRestriction());
+					aTestCaseProperties.setExtra(aSuiteGradable.isExtra());
 				}
 				GraderTestCase aJUnitTestToGraderTestCase =
 					 	new AGraderTestCase(aTestCaseProperties);
-				aTestCases.add(aJUnitTestToGraderTestCase);
+				aGradables.add(aJUnitTestToGraderTestCase);
 			}
-			
-			aResult.put(aSuiteProperties.getExplanation(), aTestCases);
+			aSuiteGradable.getJUnitTests().addAll(aGradables);
+//			if (aGradables.size() > 1) { // they need a parent
+				aGradables.add(0, aSuiteGradable); // for consistency add it always
+//			}
+			aResult.put(aSuiteGradable.getExplanation(), aGradables);
 			
 		}
 		return aResult;
@@ -235,11 +239,17 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 			GradableJUnitTest aGradableJUnitTest = new AGradableJUnitTest(aJUnitClass);			
 			String aGroup = aGradableJUnitTest.getGroup();
 			List<GradableJUnitTest> aClasses = aResult.get(aGroup);
+			GradableJUnitSuite aSuite;
 			if (aClasses == null) {
 				aClasses = new ArrayList();
 				aResult.put(aGroup, aClasses);
+				aSuite = new AGradableJUnitTestSuite(aJUnitClass);
+				aSuite.setExplanation(aGroup);
+				aClasses.add(aSuite);
 			}
-			aClasses.add(aGradableJUnitTest);			
+			aSuite = (GradableJUnitSuite) aClasses.get(0);
+			aClasses.add(aGradableJUnitTest);
+			aSuite.getJUnitTests().add(aGradableJUnitTest);
 		}
 		return aResult;
 	}
@@ -278,7 +288,7 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	public static boolean isJUnitSuite (Class<?> aClass) {
 		return aClass.getAnnotation(Suite.SuiteClasses.class) != null;
 	}
-	public static List<Class> getTopLevelJUnitTestClassesAndSuites (Class<?> aJUnitSuiteClass) {
+	public static List<Class> getTopLevelJUnitTestsAndSuites (Class<?> aJUnitSuiteClass) {
 		Suite.SuiteClasses aSuiteClassAnnotation = aJUnitSuiteClass.getAnnotation(Suite.SuiteClasses.class);
 		if (aSuiteClassAnnotation == null)
 			return null;
