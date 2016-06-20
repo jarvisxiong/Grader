@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.junit.runners.Suite;
 
+import bus.uigen.ObjectEditor;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
@@ -29,6 +30,19 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		Map<String,List<GraderTestCase>> retVal = new HashMap();
 		for (String aGroup:aGradableJUnitTestCaseMap.keySet()) {
 			retVal.put(aGroup, toGraderTestCaseList(aGradableJUnitTestCaseMap.get(aGroup)));
+		}
+		return retVal;
+	}
+	public static  List<GradableJUnitTest> toGradableTree (Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap) {
+		List<GradableJUnitTest> retVal = new ArrayList();
+		for (String aGroup:aGradableJUnitTestCaseMap.keySet()) {
+			List<GradableJUnitTest> aGradables = aGradableJUnitTestCaseMap.get(aGroup);
+			if (aGradables.size() == 2) { // an ungrouped test
+				retVal.add(aGradables.get(1));
+			} else {
+				retVal.add(aGradables.get(0)); // will also have the children
+			}
+//			retVal.put(aGroup, toGraderTestCaseList(aGradableJUnitTestCaseMap.get(aGroup)));
 		}
 		return retVal;
 	}
@@ -55,6 +69,8 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 		Map<String,List<GradableJUnitTest>> aGroupedGradables = new HashMap();
 		aGroupedGradables.putAll(aGroupedTopLevelGradables);
 		aGroupedGradables.putAll(aGroupedSuiteGradables);
+		List<GradableJUnitTest> aGradableTree = toGradableTree(aGroupedGradables);
+//		ObjectEditor.treeEdit(aGradableTree);
 		Map<String, List<GraderTestCase>> aGroupedTestCases = toGraderTestCaseMap(aGroupedGradables);		
 		addGroupedTwoLevelTestCases(aGroupedTestCases);		
 	}
