@@ -2,10 +2,10 @@ Grading result for: Wrong, Angle (wangle)
 
 Grading features...
 ----------------------------------
+APointRadiusTest                                       15.0 / 15.0 (Extra credit)
 AnAutoPointProxy                                       6.0 /  6.0
 AReflectivePointMainTest                               0.0 /  5.0
 PointAngleSuite                                        3.3 / 13.0
-APointRadiusTest                                       15.0 / 15.0 (Extra credit)
 ----------------------------------
   Points Awarded: 24.3
 

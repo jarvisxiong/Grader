@@ -17,7 +17,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
-public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTestToGraderTestCase{
+public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public static int DEFAULT_SCORE = 10;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;

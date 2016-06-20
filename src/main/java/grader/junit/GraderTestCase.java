@@ -2,7 +2,7 @@ package grader.junit;
 
 import framework.grading.testing.TestCase;
 
-public interface JUnitTestToGraderTestCase extends TestCase, GradableJUnitTest {
+public interface GraderTestCase extends TestCase, GradableJUnitTest {
 	public void init() ;
 	public Class getJUnitClass() ;
 	

@@ -17,7 +17,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
-public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTestToGraderTestCase{
+public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 //	public static int DEFAULT_SCORE = 10;	
 //	int defaultScore = DEFAULT_SCORE;
 //	Class jUnitClass;
@@ -30,7 +30,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 	GradableJUnitTest graderProperties;
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
 	
-	public AJUnitTestToGraderTestCase (Class aJUnitClass, GradableJUnitTest aGraderProperties) {
+	public AGraderTestCase (GradableJUnitTest aGraderProperties) {
 	
 //		init();
 		graderProperties = aGraderProperties;
@@ -146,7 +146,7 @@ public class AJUnitTestToGraderTestCase extends BasicTestCase implements JUnitTe
 
 	}
 	public static void main (String[] args) {
-		AJUnitTestToGraderTestCase foo = new AJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class, new AGradableJUnitTest(ACartesianPointJUnitTester.class));
+		AGraderTestCase foo = new AGraderTestCase( new AGradableJUnitTest(ACartesianPointJUnitTester.class));
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
 	}
