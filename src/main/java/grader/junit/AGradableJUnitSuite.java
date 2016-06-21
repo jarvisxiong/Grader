@@ -3,9 +3,12 @@ package grader.junit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AGradableJUnitTestSuite extends AGradableJUnitTest implements GradableJUnitSuite{
+import util.annotations.Position;
+import util.annotations.Visible;
+
+public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJUnitSuite{
 	List<GradableJUnitTest> children = new ArrayList();
-	public AGradableJUnitTestSuite(Class aJUnitClass) {
+	public AGradableJUnitSuite(Class aJUnitClass) {
 		super(aJUnitClass);
 	}
 	public GradableJUnitTest get(int anIndex) {
@@ -26,6 +29,19 @@ public class AGradableJUnitTestSuite extends AGradableJUnitTest implements Grada
 //	}
 	public String getName() {
 		return getExplanation();
+	}
+	public void open(GradableJUnitTest aTest) {
+		System.out.println ("opened: " + aTest);
+		aTest.test();
+	}
+	@Visible(false)
+	public String getStatus() {
+		return "";
+	}
+	@Position(1)
+	@Visible(false)
+	public String getMessage() {
+		return "";
 	}
 	
 }

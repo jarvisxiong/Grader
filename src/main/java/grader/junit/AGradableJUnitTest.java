@@ -5,11 +5,13 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
+import bus.uigen.ObjectEditor;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
+import util.annotations.Position;
 import util.annotations.Visible;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -29,6 +31,8 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	String group = "";
 	RunNotifier runNotifier = new RunNotifier();
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
+	String status = "Not Tested";
+	String message = "";
 	
 	public AGradableJUnitTest (Class aJUnitClass) {
 		init();
@@ -139,6 +143,10 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public String getExplanation() {
 		return explanation;
 	}	
+	protected void showResult (TestCaseResult aTestCaseResult) {
+		status = aTestCaseResult.getPercentage()*100 + " % complete";
+		message = aTestCaseResult.getNotes();
+	}
 	@Visible(false)
 	public TestCaseResult test()
 			throws NotAutomatableException, NotGradableException {
@@ -147,13 +155,19 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			runListener.setJUnitName(aJUnitClass.getName());
 			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
 			aRunner.run(runNotifier);
-			return runListener.getTestCaseResult();
+			TestCaseResult aTestCaseResult = runListener.getTestCaseResult();
+			showResult(aTestCaseResult);
+//			status = aTestCaseResult.getPercentage()*100 + " % complete";
+//			message = aTestCaseResult.getNotes();			
+			return aTestCaseResult;
 
 			
 		} catch (InitializationError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new TestCaseResult(false, e.getMessage(), getExplanation(), true);
+			TestCaseResult aTestCaseResult = new TestCaseResult(false, e.getMessage(), getExplanation(), true);
+			showResult(aTestCaseResult);
+			return aTestCaseResult;
 //			return fail(e.getMessage());
 		}
 		// InitializationError
@@ -199,7 +213,17 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		}
 		return description;
 	}
+	@Visible(true)
+	@Position(0)
+	public String getStatus() {
+		return status;
+	}
+	@Position(1)
+	public String getMessage() {
+		return message;
+	}
 	public static void main (String[] args) {
+		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
 		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);

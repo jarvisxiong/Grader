@@ -258,7 +258,7 @@ public class BasicGradingEnvironment {
     public void setAssignmentName(String assignmentName) {
         this.assignmentName = assignmentName;
     }
-    protected boolean loadClasses = false;
+    protected boolean loadClasses = true;
 
     protected boolean compileMissingObjectCode = false;
     protected boolean unzipFiles = false;

@@ -3,6 +3,8 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
+import grader.junit.GradableJUnitSuite;
+import grader.junit.JUnitUtils;
 import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
@@ -21,6 +23,8 @@ import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
+
+import bus.uigen.ObjectEditor;
 
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
@@ -41,10 +45,11 @@ public class AutoProxyCartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 		PointProxyFactory.setPointProxy(new AnAutoPointProxy());
-		BasicGradingEnvironment.get().setLoadClasses(true);
+		//BasicGradingEnvironment.get().setLoadClasses(true);
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
-
+		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(AutoProxyCartesianPointSuite.class);
+		ObjectEditor.treeEdit(aGradable);
 		Result aResult = JUnitCore.runClasses(AutoProxyCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {
 	         System.out.println(failure.toString());
@@ -53,7 +58,7 @@ public class AutoProxyCartesianPointSuite {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.exit(0); // proxy makes the main hang around?
+//		System.exit(0); // proxy makes the main hang around?
 	}
 
 }
