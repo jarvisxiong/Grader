@@ -1,5 +1,7 @@
 package grader.junit;
 
+import java.beans.PropertyChangeListener;
+
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -189,6 +191,24 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 
 	@Override
 	public void setExplanation(String newVal) {
+		
+	}
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }

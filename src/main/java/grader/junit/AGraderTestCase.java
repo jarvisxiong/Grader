@@ -1,5 +1,7 @@
 package grader.junit;
 
+import java.beans.PropertyChangeListener;
+
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -183,5 +185,21 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	@Override
 	public void setExplanation(String newVal) {
 		graderProperties.setExplanation(newVal);
+	}
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return graderProperties.getMessage();
+	}
+
+	@Override
+	public String getStatus() {
+		return graderProperties.getStatus();
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		graderProperties.addPropertyChangeListener(arg0);		
 	}
 }

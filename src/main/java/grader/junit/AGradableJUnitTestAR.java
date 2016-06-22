@@ -14,7 +14,8 @@ public class AGradableJUnitTestAR implements ExecutableCommand {
 		ObjectEditor.setAttribute(AGradableJUnitTest.class, AttributeNames.USE_NAME_AS_LABEL, true);
 //		ObjectEditor.setAttribute(AGradableJUnitTest.class, AttributeNames.COMPONENT_FOREGROUND, Color.RED);
 //		ObjectEditor.setAttribute(AGradableJUnitTest.class, AttributeNames.CONTAINER_BACKGROUND, Color.RED);
-		ObjectEditor.setAttribute(AGradableJUnitTest.class, AttributeNames.COMPONENT_FOREGROUND, Color.RED);
+// Cannot be overidden by temp dynamic attribute
+//		ObjectEditor.setAttribute(AGradableJUnitTest.class, AttributeNames.COMPONENT_FOREGROUND, Color.RED);
 
 
 

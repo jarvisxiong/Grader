@@ -1,9 +1,10 @@
 package grader.junit;
 
+import util.models.PropertyListenerRegisterer;
 import framework.grading.testing.TestCaseResult;
 
 
-public interface GradableJUnitTest  {
+public interface GradableJUnitTest extends PropertyListenerRegisterer  {
 	public void init() ;
 	public Class getJUnitClass() ;
 	
@@ -31,5 +32,7 @@ public interface GradableJUnitTest  {
 	void setExtra(boolean newVal);
 	void setExplanation(String newVal);
 	TestCaseResult test();
+	String getMessage();
+	String getStatus();
 
 }

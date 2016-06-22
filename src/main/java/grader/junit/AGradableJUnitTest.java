@@ -1,11 +1,17 @@
 package grader.junit;
 
+import java.awt.Color;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
 import bus.uigen.ObjectEditor;
+import bus.uigen.attributes.AttributeNames;
+import bus.uigen.introspect.Attribute;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;
@@ -21,9 +27,15 @@ import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 public class AGradableJUnitTest implements GradableJUnitTest{
+	public static final Color UNTESTED_COLOR = Color.BLACK;
+	public static final Color ALL_FAIL_COLOR = Color.RED;
+	public static final Color MOSTLY_FAIL_COLOR = Color.PINK;
+	public static final Color MOSTLY_PASS_COLOR = Color.ORANGE;
+	public static final Color ALL_PASS_COLOR = Color.GREEN;
 	static int DEFAULT_SCORE = 0;	
 	int defaultScore = DEFAULT_SCORE;
 	Class jUnitClass;
+	Color color = UNTESTED_COLOR;
 	boolean isExtra;
 	boolean isRestriction;
 	Double maxScore;
@@ -31,8 +43,12 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	String group = "";
 	RunNotifier runNotifier = new RunNotifier();
 	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
+	int numTests = 0;
+	double fractionComplete = 0;
 	String status = "Not Tested";
 	String message = "";
+	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+	
 	
 	public AGradableJUnitTest (Class aJUnitClass) {
 		init();
@@ -144,18 +160,30 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		return explanation;
 	}	
 	protected void showResult (TestCaseResult aTestCaseResult) {
+		String oldStatus = status;
+		String oldMessage = message;
 		status = aTestCaseResult.getPercentage()*100 + " % complete";
 		message = aTestCaseResult.getNotes();
+		
+		propertyChangeSupport.firePropertyChange("Status", oldStatus, status);
+		propertyChangeSupport.firePropertyChange("Message", oldMessage, message);
+		Color oldColor = color;
+		Color color = computeColor();
+		propertyChangeSupport.firePropertyChange("this", oldColor,
+				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
+		
 	}
 	@Visible(false)
 	public TestCaseResult test()
 			throws NotAutomatableException, NotGradableException {
 		try {
+			numTests++;
 			Class aJUnitClass = getJUnitClass();
 			runListener.setJUnitName(aJUnitClass.getName());
 			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
 			aRunner.run(runNotifier);
 			TestCaseResult aTestCaseResult = runListener.getTestCaseResult();
+			fractionComplete = aTestCaseResult.getPercentage();
 			showResult(aTestCaseResult);
 //			status = aTestCaseResult.getPercentage()*100 + " % complete";
 //			message = aTestCaseResult.getNotes();			
@@ -215,17 +243,48 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	}
 	@Visible(true)
 	@Position(0)
+	@Override
 	public String getStatus() {
 		return status;
 	}
 	@Position(1)
+	@Override
 	public String getMessage() {
 		return message;
 	}
+	public void open(String aField) {
+//		System.out.println ("opened: " + aTest);
+		test();
+	}
+	protected Color computeColor() {
+		if (numTests == 0)
+			return UNTESTED_COLOR;
+		if (fractionComplete == 1)
+			return ALL_PASS_COLOR;
+		if (fractionComplete == 0)
+			return ALL_FAIL_COLOR;		
+		if (fractionComplete >= 0.5)
+			return MOSTLY_PASS_COLOR;
+		return MOSTLY_FAIL_COLOR;
+	}
+//	double aFractionCorrect = ((double) numTestsSuceeded())/children.size());
+//	if (aFractionCorrect == 1)
+//		return ALL_PASS_COLOR;
+//	else if (aFractionCorrect == 0) {
+//		
+//	}
+//}
+	
 	public static void main (String[] args) {
 		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
 		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		propertyChangeSupport.addPropertyChangeListener(arg0);
+		
 	}
 }

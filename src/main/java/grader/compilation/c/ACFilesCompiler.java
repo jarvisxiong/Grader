@@ -33,7 +33,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
             try {
 		 compilerPath = GraderSettingsManagerSelector.getGraderSettingsManager().getCCompilerPath();
 //		compilerPath = COMPILER_COMMAND;
-            } catch (ExceptionInInitializerError e) {
+            } catch (ExceptionInInitializerError | NoSuchMethodError e) {
                 e.printStackTrace();
             }
 	}

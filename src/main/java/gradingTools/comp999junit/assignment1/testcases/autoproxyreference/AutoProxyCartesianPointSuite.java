@@ -45,7 +45,7 @@ public class AutoProxyCartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 		PointProxyFactory.setPointProxy(new AnAutoPointProxy());
-		//BasicGradingEnvironment.get().setLoadClasses(true);
+//		BasicGradingEnvironment.get().setLoadClasses(false);
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(AutoProxyCartesianPointSuite.class);
