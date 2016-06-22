@@ -202,4 +202,19 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 		graderProperties.addPropertyChangeListener(arg0);		
 	}
+
+	@Override
+	public int numTests() {
+		return graderProperties.numTests();
+	}
+
+	@Override
+	public void addPropertyChangeListenerRecursive(PropertyChangeListener arg0) {
+		graderProperties.addPropertyChangeListener(arg0);		
+	}
+
+	@Override
+	public double getFractionComplete() {
+		return graderProperties.getFractionComplete();
+	}
 }

@@ -211,4 +211,22 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int numTests() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addPropertyChangeListenerRecursive(PropertyChangeListener arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getFractionComplete() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -158,19 +158,26 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	@Visible(false)
 	public String getExplanation() {
 		return explanation;
-	}	
+	}
+	protected void showColor() {
+		Color oldColor = color;
+		color = computeColor();
+		propertyChangeSupport.firePropertyChange("this", oldColor,
+				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
+	}
 	protected void showResult (TestCaseResult aTestCaseResult) {
 		String oldStatus = status;
 		String oldMessage = message;
-		status = aTestCaseResult.getPercentage()*100 + " % complete";
+		status = aTestCaseResult.getPercentage()*100 + "% complete";
 		message = aTestCaseResult.getNotes();
 		
 		propertyChangeSupport.firePropertyChange("Status", oldStatus, status);
 		propertyChangeSupport.firePropertyChange("Message", oldMessage, message);
-		Color oldColor = color;
-		Color color = computeColor();
-		propertyChangeSupport.firePropertyChange("this", oldColor,
-				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
+		showColor();
+//		Color oldColor = color;
+//		Color color = computeColor();
+//		propertyChangeSupport.firePropertyChange("this", oldColor,
+//				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
 		
 	}
 	@Visible(false)
@@ -252,20 +259,38 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public String getMessage() {
 		return message;
 	}
+	@Visible(false)
 	public void open(String aField) {
 //		System.out.println ("opened: " + aTest);
 		test();
 	}
-	protected Color computeColor() {
-		if (numTests == 0)
+	@Override
+	@Visible(false)
+	public int numTests() {
+		return numTests;
+	}
+	protected Color computeColor(int aNumTests,double aFractionComplete) {
+		if (aNumTests == 0)
 			return UNTESTED_COLOR;
-		if (fractionComplete == 1)
+		if (aFractionComplete == 1)
 			return ALL_PASS_COLOR;
-		if (fractionComplete == 0)
+		if (aFractionComplete == 0)
 			return ALL_FAIL_COLOR;		
-		if (fractionComplete >= 0.5)
+		if (aFractionComplete >= 0.5)
 			return MOSTLY_PASS_COLOR;
 		return MOSTLY_FAIL_COLOR;
+	}
+	protected Color computeColor() {
+		return computeColor(numTests, fractionComplete);
+//		if (numTests == 0)
+//			return UNTESTED_COLOR;
+//		if (fractionComplete == 1)
+//			return ALL_PASS_COLOR;
+//		if (fractionComplete == 0)
+//			return ALL_FAIL_COLOR;		
+//		if (fractionComplete >= 0.5)
+//			return MOSTLY_PASS_COLOR;
+//		return MOSTLY_FAIL_COLOR;
 	}
 //	double aFractionCorrect = ((double) numTestsSuceeded())/children.size());
 //	if (aFractionCorrect == 1)
@@ -274,17 +299,25 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 //		
 //	}
 //}
-	
+	@Override
+	@Visible(false)
+	public double getFractionComplete() {
+		return fractionComplete;
+	}
+	@Override
+	@Visible(false)
+	public void addPropertyChangeListenerRecursive(PropertyChangeListener arg0) {
+		addPropertyChangeListener(arg0);
+	}
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		propertyChangeSupport.addPropertyChangeListener(arg0);
+		
+	}
 	public static void main (String[] args) {
 		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
 		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
-	}
-
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener arg0) {
-		propertyChangeSupport.addPropertyChangeListener(arg0);
-		
 	}
 }

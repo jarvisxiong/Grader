@@ -25,11 +25,17 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	public int size() {
 		return children.size();
 	}
+	@Visible(false)
 	public void add(GradableJUnitTest anElement) {
 		children.add(anElement);
+		anElement.addPropertyChangeListener(this);
 	}
+	@Visible(false)
 	public void addAll(List<GradableJUnitTest> anElement) {
 		children.addAll(anElement);
+		for (GradableJUnitTest aTest:anElement) {
+			aTest.addPropertyChangeListenerRecursive(this);
+		}
 	}
 //	@Override
 //	public List<GradableJUnitTest> getJUnitTests() {
@@ -38,6 +44,7 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	public String getName() {
 		return getExplanation();
 	}
+	@Visible(false)
 	public void open(GradableJUnitTest aTest) {
 //		System.out.println ("opened: " + aTest);
 		aTest.test();
@@ -54,10 +61,24 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	protected int numTestsSuceeded() {
 		int retVal = 0;
 		for (GradableJUnitTest aTest:children) {
-			if (aTest.getMessage().isEmpty())
+			if (aTest.getFractionComplete() == 1.0)
 				retVal++;
 		}
 		return retVal;
+	}
+	@Visible(false)
+	public int numTests() {
+		int retVal = 0;
+		for (GradableJUnitTest aTest:children) {
+				
+				retVal += aTest.numTests() > 0?1:0;;
+		}
+		return retVal;
+	}
+	// does not retiurn a result
+	@Override
+	public void testAll() {
+		test();
 	}
 	@Visible(false)
 	public TestCaseResult test()
@@ -72,17 +93,27 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 			return new TestCaseResult(((double) aNumSuccesses)/children.size(), getExplanation());
 		}
 	}
-//	protected Color computeColor() {
-//		double aFractionCorrect = ((double) numTestsSuceeded())/children.size());
-//		if (aFractionCorrect == 1)
-//			return ALL_PASS_COLOR;
-//		else if (aFractionCorrect == 0) {
-//			
-//		}
-//	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
+		if (!"Status".equals(evt.getPropertyName())) 
+				return; // do not want this computed multiple times for different properties of test
+		numTests = numTests();
+		fractionComplete = ((double) numTestsSuceeded())/children.size();
+		showColor();
+		
+	}
+	@Override
+	@Visible(false)
+	public void addPropertyChangeListenerRecursive(PropertyChangeListener arg0) {
+		for (GradableJUnitTest aTest:children) {
+			aTest.addPropertyChangeListener(arg0);
+	}		
+	}
+	@Override
+	@Visible(false)
+	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		super.addPropertyChangeListener(arg0);	
 		
 	}
 	
