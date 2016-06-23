@@ -3,6 +3,8 @@ package grader.junit;
 import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
@@ -48,6 +50,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	String status = "Not Tested";
 	String message = "";
 	PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+	TestCaseResult testCaseResult;
 	
 	
 	public AGradableJUnitTest (Class aJUnitClass) {
@@ -180,6 +183,27 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 //				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
 		
 	}
+	@Override
+	@Visible(false)
+	public List<Double> getPercentages() {
+		List<Double> retVal = new ArrayList();
+		retVal.add(fractionComplete);
+		return retVal;
+	}
+	@Override
+	@Visible(false)
+	public List<String> getMessages() {
+		List<String> retVal = new ArrayList();
+		retVal.add(message);
+		return retVal;
+	}
+	@Override
+	@Visible(false)
+	public List<TestCaseResult> getTestCaseResults() {
+		List<TestCaseResult> retVal = new ArrayList();
+		retVal.add(testCaseResult);
+		return retVal;
+	}
 	@Visible(false)
 	public TestCaseResult test()
 			throws NotAutomatableException, NotGradableException {
@@ -189,12 +213,12 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			runListener.setJUnitName(aJUnitClass.getName());
 			Runner aRunner = new BlockJUnit4ClassRunner(aJUnitClass);
 			aRunner.run(runNotifier);
-			TestCaseResult aTestCaseResult = runListener.getTestCaseResult();
-			fractionComplete = aTestCaseResult.getPercentage();
-			showResult(aTestCaseResult);
+			testCaseResult = runListener.getTestCaseResult();
+			fractionComplete = testCaseResult.getPercentage();
+			showResult(testCaseResult);
 //			status = aTestCaseResult.getPercentage()*100 + " % complete";
 //			message = aTestCaseResult.getNotes();			
-			return aTestCaseResult;
+			return testCaseResult;
 
 			
 		} catch (InitializationError e) {

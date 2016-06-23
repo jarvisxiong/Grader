@@ -25,7 +25,7 @@ public class TableTagTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // There should be one class tagged with "Table"
-        if (project.getClassesManager().get().findClassByTag("Table").size() == 1)
+        if (project.getClassesManager().get().findClassesAndInterfacesByTag("Table").size() == 1)
             return pass(autoGrade);
         else
             return fail("There should be one class tagged with \"Table\".", autoGrade);

@@ -55,12 +55,12 @@ public class BucketSortTestCase extends BasicTestCase {
 		    System.setOut(new PrintStream(baos));
 		    
 			//Get MovieDatabase Class
-			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassName(MovieDatabaseClassName);
+			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
 			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.get(0).getJavaClass();
 			Object MovieDatabaseInstance = null;
 			
 			//Get Movie Class
-			List<ClassDescription> MovieDescription = classesManager.findByClassName(MovieClassName);
+			List<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
 			Class<String> Movie = (Class<String>) MovieDescription.get(0).getJavaClass();
 			
 			// Sort 10 elements - 5 points

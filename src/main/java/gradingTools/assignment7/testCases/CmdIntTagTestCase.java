@@ -28,7 +28,7 @@ public class CmdIntTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        List<ClassDescription> classes = project.getClassesManager().get().findClassByTag("Command Interpreter");
+        List<ClassDescription> classes = project.getClassesManager().get().findClassesAndInterfacesByTag("Command Interpreter");
         if (classes.size() == 1)
             return pass(autoGrade);
         return fail("There should be one class tagged \"Command Interpreter\"", autoGrade);

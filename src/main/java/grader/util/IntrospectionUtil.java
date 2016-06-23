@@ -15,8 +15,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import util.annotations.Tags;
+import util.introspect.JavaIntrospectUtility;
 import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.CurrentProjectHolder;
@@ -52,55 +54,184 @@ public class IntrospectionUtil {
 		}
 		return ret;
 	}
-
+	static String[] emptyStrings = {};
 	public static Class findClass(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
-		return findClass(aProject, aName, new String[] { aTag }, aNameMatch,
+		String[] aTags = (aTag == null)? emptyStrings:new String[] { aTag };
+	
+		return findClass(aProject, aName, aTags, aNameMatch,
 				aTagMatch);
 	}
 	//not unique class
+	// why is this not calling fincClasses
+//	public static Class findClass(Project aProject, String aName,
+//			String[] aTag, String aNameMatch, String aTagMatch) {
+//		int i = 0;
+//		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+//				.findClass(aName, aTag, aNameMatch, aTagMatch);
+//		for (ClassDescription aClass : aClasses) {
+//			if (aClass.getJavaClass().isInterface())
+//				continue;
+//			return aClass.getJavaClass();
+//		}
+//		return null;
+//
+//		// if (aClasses.size() != 1) {
+//		// return null;
+//		// }
+//		// return aClasses.get(0).getJavaClass();
+//
+//	}
 	public static Class findClass(Project aProject, String aName,
 			String[] aTag, String aNameMatch, String aTagMatch) {
-		int i = 0;
-		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClass(aName, aTag, aNameMatch, aTagMatch);
-		for (ClassDescription aClass : aClasses) {
-			if (aClass.getJavaClass().isInterface())
-				continue;
-			return aClass.getJavaClass();
-		}
-		return null;
+		List<Class> aClasses = findClasses(aProject, aName, aTag, aNameMatch, aTagMatch);
+		
+//		int i = 0;
+//		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+//				.findClass(aName, aTag, aNameMatch, aTagMatch);
+//		for (ClassDescription aClass : aClasses) {
+//			if (aClass.getJavaClass().isInterface())
+//				continue;
+//			return aClass.getJavaClass();
+//		}
+//		return null;
 
-		// if (aClasses.size() != 1) {
-		// return null;
-		// }
-		// return aClasses.get(0).getJavaClass();
+		 if (aClasses.size() != 1) {
+		 return null;
+		 }
+		 return aClasses.get(0);
 
 	}
+	public static Class findClassByMethods(Project aProject, Method[] aMethods) {
+		Set<Class> aClasses = findClassesByMethods(aProject, aMethods);
+		
+		
+//		int i = 0;
+//		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+//				.findClass(aName, aTag, aNameMatch, aTagMatch);
+//		for (ClassDescription aClass : aClasses) {
+//			if (aClass.getJavaClass().isInterface())
+//				continue;
+//			return aClass.getJavaClass();
+//		}
+//		return null;
 
+		 if (aClasses.size() != 1) {
+		 return null;
+		 }
+		 return aClasses.iterator().next();
+
+	}
+	public static boolean implementsOneOf (Class aClass, Set<Class> anInterfaces) {
+		// recursively get all interfaces
+		Vector<Class> aClassInterfaces = new Vector();
+		JavaIntrospectUtility.addInterfaces(aClassInterfaces, aClass);
+		Set<Class> aClassInterfacesSet = new HashSet(aClassInterfaces);
+		aClassInterfacesSet.retainAll(anInterfaces);
+		return aClassInterfacesSet.size() != 0;		
+	}
+	
+	public static boolean matchesParameters(Class[] aCandidates, Class[] aProxies) {
+		if (aCandidates.length != aProxies.length) return false;
+		for (int anIndex = 0; anIndex < aProxies.length; anIndex++) {
+			if (aCandidates[anIndex] == aProxies[anIndex])
+				continue;
+			if (aProxies[anIndex].getCanonicalName().startsWith("java")) {
+				return false; // means this is not a user defined class
+			}
+		}
+		return true;		
+		
+	}
+	public static Set<Class> findClassesByMethods(Project aProject,  Method[] aMethods) {
+		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
+		 Set<Class> aResult = new HashSet();
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getClass();
+				if (aClass.isInterface()) {
+					continue;
+				}
+				if (matchesMethods(aClass, aMethods))
+					aResult.add(aClass);
+				
+			}
+		 return aResult;		 
+	}
+	// why are these not all sets?
 	public static List<Class> findClasses(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
 		List<Class> result = new ArrayList();
 		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClass(aName, aTag, aNameMatch, aTagMatch);
+				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
+		Set<Class> aMatchedInterfaces = new HashSet();
 		for (ClassDescription aClass : aClasses) {
-			if (aClass.getJavaClass().isInterface())
+			if (aClass.getJavaClass().isInterface()) {
+				aMatchedInterfaces.add(aClass.getJavaClass());
 				continue;
+			}
 			result.add(aClass.getJavaClass());
 		}
+		if (!result.isEmpty())
+			return result;
+		if (aMatchedInterfaces.isEmpty())
+			return result;
+		// now see if ant of the classes implement any of the matched interfaces
+		for (ClassDescription aClassDescription : aClasses) {
+			Class aClass = aClassDescription.getJavaClass();
+			if (aClass.isInterface()) {
+				continue;
+			}
+			if (implementsOneOf(aClass, aMatchedInterfaces)) {
+			   result.add(aClassDescription.getJavaClass());
+			}
+		}
 		return result;
-
 		// if (aClasses.size() != 1) {
 		// return null;
 		// }
 		// return aClasses.get(0).getJavaClass();
 
 	}
+	// why are these not all sets?
+		public static List<Class> findClasses(Project aProject, String aName,
+				String[] aTag, String aNameMatch, String aTagMatch) {
+			List<Class> result = new ArrayList();
+			List<ClassDescription> aClasses = aProject.getClassesManager().get()
+					.findClassAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
+			Set<Class> aMatchedInterfaces = new HashSet();
+			for (ClassDescription aClass : aClasses) {
+				if (aClass.getJavaClass().isInterface()) {
+					aMatchedInterfaces.add(aClass.getJavaClass());
+					continue;
+				}
+				result.add(aClass.getJavaClass());
+			}
+			if (!result.isEmpty())
+				return result;
+			if (aMatchedInterfaces.isEmpty())
+				return result;
+			// now see if ant of the classes implement any of the matched interfaces
+			for (ClassDescription aClassDescription : aClasses) {
+				Class aClass = aClassDescription.getJavaClass();
+				if (aClass.isInterface()) {
+					continue;
+				}
+				if (implementsOneOf(aClass, aMatchedInterfaces)) {
+				   result.add(aClassDescription.getJavaClass());
+				}
+			}
+			return result;
+			// if (aClasses.size() != 1) {
+			// return null;
+			// }
+			// return aClasses.get(0).getJavaClass();
+
+		}
 
 	public static Class find(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClass(aName, aTag, aNameMatch, aTagMatch);
+				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (aClass.getJavaClass().isInterface())
 				continue;
@@ -288,19 +419,25 @@ public class IntrospectionUtil {
 	}
 
 	public static String toRegex(String aName) {
+		if (aName == null)
+			return null;
 		return ".*" + aName + ".*";
 
 	}
+	
 
-	public static Class findClass(Project aProject, Class aClass) {
-		String[] aTags = getTags(aClass);
+	public static Class findClass(Project aProject, Class aProxyClass) {
+		String[] aTags = getTags(aProxyClass);
 		Class retVal = findUniqueClassByTag(aProject, aTags);
 		if (retVal != null)
 			return retVal;
-		retVal = findClass(aProject, aClass.getCanonicalName());
+		retVal = findClass(aProject, aProxyClass.getCanonicalName());
 		if (retVal != null) 
 			return retVal;
-		return findClass(aProject, aClass.getSimpleName());
+		retVal = findClass(aProject, aProxyClass.getSimpleName());
+		if (retVal != null)
+			return retVal;
+		return findClassByMethods(aProject, aProxyClass.getMethods());
 	}
 
 	public static Class findClass(Project aProject, String aName) {
@@ -342,7 +479,7 @@ public class IntrospectionUtil {
 	public static List<ClassDescription> findClassesByTag(Project aProject,
 			String aTag) {
 		return aProject.getClassesManager().get()
-				.findClass(null, new String[] { aTag }, null, null);
+				.findClassAndInterfaces(null, new String[] { aTag }, null, null);
 
 		// if (aClasses.size() != 1) {
 		// return null;
@@ -412,7 +549,7 @@ public class IntrospectionUtil {
 		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
 
 		return aProject.getClassesManager().get()
-				.findClass(null, aTag, null, null);
+				.findClassAndInterfaces(null, aTag, null, null);
 
 		// if (aClasses.size() != 1) {
 		// return null;
@@ -424,7 +561,7 @@ public class IntrospectionUtil {
 	public static Class findInterface(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
 		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClass(aName, aTag, aNameMatch, aTagMatch);
+				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (!aClass.getJavaClass().isInterface())
 				continue;
@@ -449,7 +586,7 @@ public class IntrospectionUtil {
 			String[] aTag, String aNameMatch, String aTagMatch) {
 		List<Class> result = new ArrayList();
 		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClass(aName, aTag, aNameMatch, aTagMatch);
+				.findClassAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (!aClass.getJavaClass().isInterface())
 				continue;
@@ -582,6 +719,7 @@ public class IntrospectionUtil {
 
 	public static boolean matchesTags(List<String> aSpecification,
 			String[] anActual) {
+		if (aSpecification == null) return true;
 		String[] anActualsClone = anActual.clone();
 		normalizeTags(anActualsClone);
 		Set anActualSet = new HashSet(Arrays.asList(anActualsClone));
@@ -645,12 +783,37 @@ public class IntrospectionUtil {
 		}
 		return result;
 	}
+	// we have tried equals
+	public static boolean isPermutationOf(Class[] anActualParameterTypes, Class[] aTargetParameterTypes) {
+		if (anActualParameterTypes.length != aTargetParameterTypes.length) return false;
+		if (aTargetParameterTypes.length == 1) return false; // no new permutations
+		Permutations<Class> permutations = new Permutations<Class> (aTargetParameterTypes);
+		while (permutations.hasNext()) {
+			Class[] aPermutedTargetParameterTypes = permutations.next();
+			if (matchesParameters(anActualParameterTypes, aPermutedTargetParameterTypes)) {// we have alrady tried this
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static Method selectMethod(List<Method> aMethods,
 			Class[] aParameterTypes) {
 		Method aRetVal = null;
 		for (Method aMethod : aMethods) {
 			if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+				if (aRetVal != null)
+					return null;
+				aRetVal = aMethod;
+				// return aMethod; // there can be other matching methods
+			}
+		}
+		if (aRetVal != null) {
+			return aRetVal;
+		}
+		// now we should try all permutations of method parameter types
+		for (Method aMethod : aMethods) {
+			if (isPermutationOf(aMethod.getParameterTypes(), aParameterTypes)) {
 				if (aRetVal != null)
 					return null;
 				aRetVal = aMethod;
@@ -664,6 +827,13 @@ public class IntrospectionUtil {
 		return findMethod(aJavaClass, aProxy.getName(),
 				aProxy.getParameterTypes());
 	}
+	public static boolean matchesMethods(Class aJavaClass, Method[] aProxyMethods) {
+		for (Method aProxyMethod:aProxyMethods) {
+			if (findMethod(aJavaClass, aProxyMethod) == null)
+				return false;
+		}
+		return true;
+	}
 
 	// returns the first matching method
 	public static Method findMethod(Class aJavaClass, String aName,
@@ -676,6 +846,8 @@ public class IntrospectionUtil {
 				List<Method> aMethods = findMethod(aJavaClass, aName);
 				aMethod = selectMethod(aMethods, aParameterTypes);
 				if (aMethod == null) {
+					// should we now try again with null name and select all methods 
+					// and use argument types instead
 					aMethod = Object.class.getMethod("wait");
 				}
 				tagsToMethod.put(aTag, aMethod);
@@ -697,11 +869,15 @@ public class IntrospectionUtil {
 			return null;
 		}
 	}
+	
 
 	public static List<Method> findMethod(Class aJavaClass, String aName) {
 		// return findMethod(aJavaClass, null, aName, toRegex(aName),
 		// toRegex(aName)); //why was there no name,
-		return findMethod(aJavaClass, aName, new String[] { aName },
+		String[] aTags = aName == null?emptyStringArray:new String[] { aName };
+		return findMethod(aJavaClass, aName, 
+				aTags,
+//				new String[] { aName },
 				toRegex(aName), toRegex(aName)); // to be consistent with clases
 													// should not have regexes
 
@@ -776,7 +952,7 @@ public class IntrospectionUtil {
 
 			InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
 					anActualObject);
-			return Proxy.newProxyInstance(aProxyClass.getClassLoader(),
+			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), // should this not be actual class?
 					aProxyClass.getInterfaces(), aHandler);
 		} catch (Exception e) {
 			e.printStackTrace();

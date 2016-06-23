@@ -32,7 +32,7 @@ public class MinHeapTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MinHeap Class
-			List<ClassDescription> MinHeapDescription = classesManager.findByClassName(MinHeapClassName);
+			List<ClassDescription> MinHeapDescription = classesManager.findByClassOrInterfaceName(MinHeapClassName);
 			Class<String> MinHeap = (Class<String>) MinHeapDescription.get(0).getJavaClass();
 			Object MinHeapInstance = null;
 			

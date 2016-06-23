@@ -56,7 +56,7 @@ public class LargerElementsTestCase extends BasicTestCase {
 			boolean testPassed;
 			
 			//Get AVLTree Class
-			List<ClassDescription> AVLTreeDescription = classesManager.findByClassName(AVLTreeClassName);
+			List<ClassDescription> AVLTreeDescription = classesManager.findByClassOrInterfaceName(AVLTreeClassName);
 			Class<String> AVLTree = (Class<String>) AVLTreeDescription.get(0).getJavaClass();
 			Object AVLTreeInstance = null;
 			

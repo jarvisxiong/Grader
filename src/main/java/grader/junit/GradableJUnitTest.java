@@ -1,6 +1,7 @@
 package grader.junit;
 
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import util.models.PropertyListenerRegisterer;
 import framework.grading.testing.TestCaseResult;
@@ -39,5 +40,8 @@ public interface GradableJUnitTest extends PropertyListenerRegisterer  {
 	int numTests();
 	void addPropertyChangeListenerRecursive(PropertyChangeListener arg0);
 	double getFractionComplete();
+	List<Double> getPercentages();
+	List<String> getMessages();
+	List<TestCaseResult> getTestCaseResults();
 
 }

@@ -93,6 +93,31 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 			return new TestCaseResult(((double) aNumSuccesses)/children.size(), getExplanation());
 		}
 	}
+	@Override
+	@Visible(false)
+	public List<Double>  getPercentages(){
+		List retVal = new ArrayList();
+		for (GradableJUnitTest aTest:children) {
+			retVal.addAll(aTest.getPercentages());
+		}
+		return retVal;
+	}
+	@Visible(false)
+	public List<String>  getMessages(){
+		List<String> retVal = new ArrayList();
+		for (GradableJUnitTest aTest:children) {
+			retVal.addAll(aTest.getMessages());
+		}
+		return retVal;
+	}
+	@Visible(false)
+	public List<TestCaseResult>  getTestCaseResults(){
+		List<TestCaseResult> retVal = new ArrayList();
+		for (GradableJUnitTest aTest:children) {
+			retVal.addAll(aTest.getTestCaseResults());
+		}
+		return retVal;
+	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

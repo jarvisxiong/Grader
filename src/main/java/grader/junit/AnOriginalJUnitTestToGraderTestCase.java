@@ -1,6 +1,7 @@
 package grader.junit;
 
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
@@ -228,5 +229,23 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	public double getFractionComplete() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Double> getPercentages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getMessages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TestCaseResult> getTestCaseResults() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

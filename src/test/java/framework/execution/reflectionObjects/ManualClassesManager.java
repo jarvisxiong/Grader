@@ -31,7 +31,7 @@ public class ManualClassesManager implements ClassesManager {
 
 
     @Override
-    public List<ClassDescription> findClassByTag(String tag) {
+    public List<ClassDescription> findClassesAndInterfacesByTag(String tag) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -53,7 +53,7 @@ public class ManualClassesManager implements ClassesManager {
 	}
 
 	@Override
-	public List<ClassDescription> findByClassName(String className) {
+	public List<ClassDescription> findByClassOrInterfaceName(String className) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -65,32 +65,32 @@ public class ManualClassesManager implements ClassesManager {
 	}
 
 	@Override
-	public List<ClassDescription> findByClassNameMatch(String className) {
+	public List<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClass(String aName, String aTag,
+	public List<ClassDescription> findClassesAndInterfaces(String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassByPattern(String tag) {
+	public List<ClassDescription> findClassesAndInterfacesByPattern(String tag) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassByTag(String[] aTags) {
+	public List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClass(String aName, String[] aTag,
+	public List<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;

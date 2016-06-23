@@ -29,7 +29,7 @@ public class ObservablePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("ObservableBridgeScenePainter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("ObservableBridgeScenePainter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"ObservableBridgeScenePainter\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);

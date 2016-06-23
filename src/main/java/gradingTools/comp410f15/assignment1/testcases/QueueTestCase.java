@@ -88,7 +88,7 @@ public class QueueTestCase extends BasicTestCase {
 			String message = "";
 			
 			//Get Stack Class
-			Option<ClassDescription> cd = (Option<ClassDescription>) classesManager.get().findByClassName(queueClassName);			
+			Option<ClassDescription> cd = (Option<ClassDescription>) classesManager.get().findByClassOrInterfaceName(queueClassName);			
 			Class<String> queue = (Class<String>) cd.get().getJavaClass();
 			Object queueInstance = null;
 			try {

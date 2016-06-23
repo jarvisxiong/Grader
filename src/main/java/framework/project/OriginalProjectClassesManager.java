@@ -366,7 +366,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
      * was found.
      */
     @Override
-    public List<ClassDescription> findByClassName(String className) {
+    public List<ClassDescription> findByClassOrInterfaceName(String className) {
         List<ClassDescription> classes = new ArrayList<>();
 
         // First search the simple names
@@ -386,7 +386,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findByClassNameMatch(String className) {
+    public List<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
         List<ClassDescription> classes = new ArrayList<>();
         if (className == null) return classes;
 
@@ -407,16 +407,16 @@ public class OriginalProjectClassesManager implements ClassesManager {
         return classes;
     }
     @Override
-    public List<ClassDescription> findClass (String aName, String aTag, String aNameMatch, String aTagMatch) {
+    public List<ClassDescription> findClassesAndInterfaces (String aName, String aTag, String aNameMatch, String aTagMatch) {
     	List<ClassDescription> result = new ArrayList();
     	if (aTag != null)
-    		result = findClassByTag(aTag); 
+    		result = findClassesAndInterfacesByTag(aTag); 
     	if (aTag != null && result.isEmpty())
-    		result = findClassByPattern(aTag); 
+    		result = findClassesAndInterfacesByPattern(aTag); 
     	if (!result.isEmpty())
     		return result;
     	if (aName != null)
-    		result = findByClassName(aName);
+    		result = findByClassOrInterfaceName(aName);
     	if (!result.isEmpty())
     		return result;
     	 
@@ -427,7 +427,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
 //    	if (!result.isEmpty())
 //    		return result;
     	if (aNameMatch != null) {
-    		result = findByClassNameMatch(aNameMatch);  		
+    		result = findByClassOrInterfaceNameMatch(aNameMatch);  		
     	}
     	if (!result.isEmpty())
     		return result;
@@ -445,7 +445,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findClassByTag(String tag) {
+    public List<ClassDescription> findClassesAndInterfacesByTag(String tag) {
     	String normalizedTag = tag.replaceAll("\\s","");
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
@@ -464,7 +464,7 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findClassByPattern(String tag) {
+    public List<ClassDescription> findClassesAndInterfacesByPattern(String tag) {
         List<ClassDescription> classes = new ArrayList<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
@@ -517,13 +517,13 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
 
 	@Override
-	public List<ClassDescription> findClassByTag(String[] aTags) {
+	public List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClass(String aName, String[] aTag,
+	public List<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;

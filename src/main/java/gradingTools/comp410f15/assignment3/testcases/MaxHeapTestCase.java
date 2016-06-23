@@ -32,7 +32,7 @@ public class MaxHeapTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MaxHeap Class
-			List<ClassDescription> MaxHeapDescription = classesManager.findByClassName(MaxHeapClassName);
+			List<ClassDescription> MaxHeapDescription = classesManager.findByClassOrInterfaceName(MaxHeapClassName);
 			Class<String> MaxHeap = (Class<String>) MaxHeapDescription.get(0).getJavaClass();
 			Object MaxHeapInstance = null;
 			

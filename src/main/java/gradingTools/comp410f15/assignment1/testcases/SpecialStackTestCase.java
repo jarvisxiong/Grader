@@ -108,7 +108,7 @@ public class SpecialStackTestCase extends BasicTestCase {
 			input[9] = "eeeeee";
 			
 			//Get Stack Class
-			Option<ClassDescription> cd = (Option<ClassDescription>) classesManager.get().findByClassName(StackClassName);			
+			Option<ClassDescription> cd = (Option<ClassDescription>) classesManager.get().findByClassOrInterfaceName(StackClassName);			
 			Class<String> stack = (Class<String>) cd.get().getJavaClass();
 			Object stackInstance = null;
 			try {

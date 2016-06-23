@@ -50,15 +50,15 @@ public class MergeTestCase extends BasicTestCase {
 			String output;
 			
 		 	//Get MovieDatabase Class
-			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassName(MovieDatabaseClassName);
+			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
 			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.get(0).getJavaClass();
 			
 			//Get Movie Class
-			List<ClassDescription> MovieDescription = classesManager.findByClassName(MovieClassName);
+			List<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
 			Class<String> Movie = (Class<String>) MovieDescription.get(0).getJavaClass();
 			
 			//Get MovieSorter Class
-			List<ClassDescription> MovieSorterDescription = classesManager.findByClassName(MovieSorterClassName);
+			List<ClassDescription> MovieSorterDescription = classesManager.findByClassOrInterfaceName(MovieSorterClassName);
 			Class<String> MovieSorter = (Class<String>) MovieSorterDescription.get(0).getJavaClass();
 			Object MovieSorterInstance = null;
 			

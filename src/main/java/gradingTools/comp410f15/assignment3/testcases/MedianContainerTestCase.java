@@ -32,7 +32,7 @@ public class MedianContainerTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MedianContainer Class
-			List<ClassDescription> MedianContainerDescription = classesManager.findByClassName(MedianContainerClassName);
+			List<ClassDescription> MedianContainerDescription = classesManager.findByClassOrInterfaceName(MedianContainerClassName);
 			Class<String> MedianContainer = (Class<String>) MedianContainerDescription.get(0).getJavaClass();
 			Object MedianContainerInstance = null;
 			

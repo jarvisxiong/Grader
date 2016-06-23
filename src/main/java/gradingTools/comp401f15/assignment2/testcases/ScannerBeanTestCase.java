@@ -55,7 +55,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
             throw new NotGradableException();
      	SakaiProject aProject = ((ProjectWrapper) project).getProject();
         
-        List<ClassDescription> aClasses = project.getClassesManager().get().findClass(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+        List<ClassDescription> aClasses = project.getClassesManager().get().findClassesAndInterfaces(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
         if (aClasses.size() != 1) {
         	return  fail ("Cannot find unique scanner bean class");
         }

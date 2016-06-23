@@ -35,7 +35,7 @@ public class ScenePainterPaintOnEventTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassByTag("InheritingBridgeScenePainter");
+        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("InheritingBridgeScenePainter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"InheritingBridgeScenePainter\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
