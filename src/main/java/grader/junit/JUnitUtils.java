@@ -4,8 +4,10 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.runners.Suite;
@@ -224,7 +226,7 @@ public class JUnitUtils {
 		return aResult;
 	}
 	public static Map<String,List<GradableJUnitTest>> toGroupedGradables(Class<?> aJUnitSuiteClass) {
-		List<Class> aJUnitOrSuiteClasses = JUnitUtils.getTopLevelJUnitTestsAndSuites(aJUnitSuiteClass);
+		List<Class> aJUnitOrSuiteClasses = JUnitUtils.getComponentTestsAndSuites(aJUnitSuiteClass);
 		List<Class> aSuiteClasses = JUnitUtils.selectJUnitSuites(aJUnitOrSuiteClasses);
 		List<Class> aTestCases = new ArrayList(aJUnitOrSuiteClasses);
 		aTestCases.removeAll(aSuiteClasses);
@@ -304,10 +306,47 @@ public class JUnitUtils {
 		}
 		return retVal;
 	}
+//	public static List<Class> getTopLevelSuites(List<Class> aSuiteOrTestClasses) {
+//		
+//	}
 	public static boolean isJUnitSuite (Class<?> aClass) {
 		return aClass.getAnnotation(Suite.SuiteClasses.class) != null;
 	}
-	public static List<Class> getTopLevelJUnitTestsAndSuites (Class<?> aJUnitSuiteClass) {
+	public static List<Class> selectSuites(List<Class> aClasses) {
+		List<Class> result = new ArrayList();
+		for (Class aClass:aClasses) {
+			if (isJUnitSuite(aClass)) {
+				result.add(aClass);
+			}
+		}
+		return result;
+	}
+	public static List<Class> getComponentSuites(Class aContainingSuite) {
+		List<Class> aTestsAndSuites = getComponentTestsAndSuites (aContainingSuite);
+		return selectSuites(aTestsAndSuites);		
+	}
+	public static Set<Class> getAllComponentSuites(List<Class> aSuites) {
+		Set<Class>	result = new HashSet();	
+		for (Class aSuite:aSuites) {
+			result.addAll(getComponentSuites(aSuite));
+		}
+		return result;
+		
+	}
+	
+	public static Set<Class> findTopLevelSuites(List<Class> aClasses) {
+		List<Class> aSuites = selectSuites(aClasses);
+		return selectTopLevelSuites(aClasses);		
+	}
+	
+	public static Set<Class> selectTopLevelSuites(List<Class> aClasses) {
+		Set<Class> aComponentSuites = getAllComponentSuites(aClasses);
+		Set<Class> aResult = new HashSet(aClasses);
+		aResult.removeAll(aComponentSuites);
+		return aResult;		
+		
+	}
+	public static List<Class> getComponentTestsAndSuites (Class<?> aJUnitSuiteClass) {
 		Suite.SuiteClasses aSuiteClassAnnotation = aJUnitSuiteClass.getAnnotation(Suite.SuiteClasses.class);
 		if (aSuiteClassAnnotation == null)
 			return null;

@@ -38,7 +38,7 @@ import bus.uigen.ObjectEditor;
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
    APointRadiusTest.class,
-   APointPrintTest.class
+//   APointPrintTest.class
    
 })
 public class AutoProxyCartesianPointSuite {

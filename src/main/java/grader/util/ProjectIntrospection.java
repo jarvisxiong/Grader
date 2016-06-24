@@ -172,6 +172,50 @@ public class ProjectIntrospection {
 		return true;		
 		
 	}
+	public static List<Class> getAllClasses(Project aProject) {
+		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
+		 List<Class> aResult = new ArrayList();
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getClass();
+				if (!aClass.isInterface()) {
+					aResult.add(aClass);;
+				}				
+				
+			}
+		 return aResult;		 
+	}
+	public static List<Class> getAllInterfaces() {
+		return getAllInterfaces(CurrentProjectHolder.getOrCreateCurrentProject());
+	}
+	public static List<Class> getAllClasses() {
+		return getAllClasses(CurrentProjectHolder.getOrCreateCurrentProject());
+	}
+	public static List<Class> getAllClassesAndInterfaces() {
+		return getAllClassesAndInterfaces(CurrentProjectHolder.getOrCreateCurrentProject());
+	}
+
+	public static List<Class> getAllInterfaces(Project aProject) {
+		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
+		 List<Class> aResult = new ArrayList();
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getClass();
+				if (aClass.isInterface()) {
+					aResult.add(aClass);
+				}				
+				
+			}
+		 return aResult;		 
+	}
+	public static List<Class> getAllClassesAndInterfaces(Project aProject) {
+		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
+		 List<Class> aResult = new ArrayList();
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getClass();
+					aResult.add(aClass);					
+				
+		 }
+		 return aResult;		 
+	}
 	public static List<Class> findClassesByMethods(Project aProject,  Method[] aMethods) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
 		 List<Class> aResult = new ArrayList();
