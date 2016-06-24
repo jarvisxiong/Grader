@@ -4,7 +4,7 @@ import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
-@Tags({"cartesian", "point"})
+//@Tags({"cartesian", "point"})
 public class ACartesianPoint implements Point {	
 	protected int x, y;
 	public ACartesianPoint(int theX, int theY) {

@@ -82,15 +82,19 @@ public class Permutations<E> implements  Iterator<E[]>{
     public void remove() {
 
     }
+    public int[] getIndices() {
+    	return indices;
+    }
     public static void main(String[] args) {
     	Class[] aTypes = {
-//    			Object.class, 
+    			Object.class, 
     			Integer.TYPE, 
 //    			Double.class, 
     			Integer.TYPE
     			};
     	Permutations permutations = new Permutations(aTypes);
     	while (permutations.hasNext()) {
+    		System.out.println("Indices:" + Arrays.toString(permutations.getIndices()));
     		System.out.println ("permutation" + Arrays.toString(permutations.next()));
     	}
     }
