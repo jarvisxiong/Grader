@@ -5,7 +5,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 public class InterfaceImplementedTestCase extends BasicTestCase {
 	String tag;
@@ -20,7 +20,7 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		Class<?> clazz = IntrospectionUtil.getOrFindClass(project, this, tag);
+		Class<?> clazz = ProjectIntrospection.getOrFindClass(project, this, tag);
 		if (clazz == null) {
 			return fail(tag + " not found.", autoGrade);
 		}
@@ -37,7 +37,7 @@ public class InterfaceImplementedTestCase extends BasicTestCase {
 				return pass(autoGrade);
 		}
 		// we did not find the right class
-		IntrospectionUtil.putClass(project, this, tag, null);	
+		ProjectIntrospection.putClass(project, this, tag, null);	
         return partialPass(0.0, tag + " does not implement " + implementedInterface);
 	}
 

@@ -16,7 +16,7 @@ import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.ResultWithOutput;
-import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.utils.RunningProjectUtils;
 
 import java.beans.PropertyDescriptor;
@@ -50,7 +50,7 @@ import util.misc.Common;
 import util.misc.TeePrintStream;
 import util.trace.Tracer;
 
-public class ExecutionUtil {
+public class ProjectExecution {
 	static boolean useMethodAndConstructorTimeOut = false;
 	
 	public static final String PRINTS = "System.out";
@@ -78,7 +78,7 @@ public class ExecutionUtil {
 	}
 
 	public static void setConstructorTimeOut(int constructorTimeOut) {
-		ExecutionUtil.constructorTimeOut = constructorTimeOut;
+		ProjectExecution.constructorTimeOut = constructorTimeOut;
 	}
 
 	public static int getMethodTimeOut() {
@@ -86,7 +86,7 @@ public class ExecutionUtil {
 	}
 
 	public static void setMethodTimeOut(int methodTimeOut) {
-		ExecutionUtil.methodTimeOut = methodTimeOut;
+		ProjectExecution.methodTimeOut = methodTimeOut;
 	}
 	public static Object timedInvoke(Object anObject, Method aMethod,
 			long aMillSeconds, Object... anArgs) {
@@ -163,7 +163,7 @@ public class ExecutionUtil {
 
 	public static void setUseMethodAndConstructorTimeOut(
 			boolean useMethodAndConstructorTimeOut) {
-		ExecutionUtil.useMethodAndConstructorTimeOut = useMethodAndConstructorTimeOut;
+		ProjectExecution.useMethodAndConstructorTimeOut = useMethodAndConstructorTimeOut;
 	}     
         
 	public static Object timedInvokeWithExceptions(Object anObject, Method aMethod,
@@ -422,7 +422,7 @@ public class ExecutionUtil {
 		redirectOutput();
 		System.out.println("Testcase:" + aCheckName);
 		System.out.println ("Finding class matching:" + Common.toString(aBeanDescriptions));
-		Class aClass = IntrospectionUtil.findClass(aProject, 
+		Class aClass = ProjectIntrospection.findClass(aProject, 
         		aBeanDescriptions[0],
         		aBeanDescriptions[1],
         		aBeanDescriptions[2],
@@ -442,7 +442,7 @@ public class ExecutionUtil {
 			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 600);
 			for (String aPropertyName:anInputs.keySet()) {
 				if (aPropertyName == null) continue;
-				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, aPropertyName);
+				PropertyDescriptor aProperty = ProjectIntrospection.findProperty(aClass, aPropertyName);
 				if (aProperty == null) {
 					anActualOutputs.put(MISSING_PROPERTY, true);
 					anActualOutputs.put(MISSING_PROPERTY+"." + aPropertyName, true);
@@ -462,7 +462,7 @@ public class ExecutionUtil {
 			for (String anOutputPropertyName:anOutputProperties) {
 				if (anOutputPropertyName == null)
 					continue;
-				PropertyDescriptor aProperty = IntrospectionUtil.findProperty(aClass, anOutputPropertyName);
+				PropertyDescriptor aProperty = ProjectIntrospection.findProperty(aClass, anOutputPropertyName);
 				if (aProperty == null) {
 					
 //					System.out.println("Property " +  aPropertyName + "not found");
@@ -497,7 +497,7 @@ public class ExecutionUtil {
 			anActualOutputs.put(PRINTS, anOutput);
 			
 		}
-		boolean getsReturnSets = ExecutionUtil.getsReturnedSets(anInputs, anActualOutputs);
+		boolean getsReturnSets = ProjectExecution.getsReturnedSets(anInputs, anActualOutputs);
 		anActualOutputs.put(GETS_EQUAL_SETS, getsReturnSets);
 		return anActualOutputs;
 	}
@@ -588,7 +588,7 @@ public class ExecutionUtil {
 	 }
 	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String[] args,
 				int timeout, String... input) throws NotRunnableException {
-			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			// this should depend on whether class path
 			
 //		 	String aClassPath = System.getProperty("java.class.path");
@@ -612,7 +612,7 @@ public class ExecutionUtil {
 	 public static String forkProjectMain(Class aProxyClass, String[] args,
 				int timeout, String... input) throws NotRunnableException {	
 		 	// use tags for search if necessary, hence the finding. Duplicated work in main class finder unfortunately
-			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			String aMainClassName =null;
 			if (aMainClass != null)
 				aMainClassName = aMainClass.getName();
@@ -688,7 +688,7 @@ public class ExecutionUtil {
 	 public static String invokeCorrespondingMain(Class aProxyClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			if (aMainClass == null)
 				return null;
 			return invokeMain(aMainClass, args, anInput);		
@@ -701,7 +701,7 @@ public class ExecutionUtil {
 	 public static String invokeMain(String aMainClassName, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-			Class aMainClass = IntrospectionUtil.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
 			if (aMainClass == null)
 				return null;
 			return invokeMain(aMainClass, args, anInput);		
@@ -730,12 +730,12 @@ public class ExecutionUtil {
 	 public static String invokeMain(Class aMainClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-		 ExecutionUtil.redirectInputOutput(RunningProjectUtils.toInputString(anInput));		
+		 ProjectExecution.redirectInputOutput(RunningProjectUtils.toInputString(anInput));		
 			
-			Method aMainMethod = IntrospectionUtil.findMethod(aMainClass, "main", new Class[] {String[].class});
-			ExecutionUtil.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
+			Method aMainMethod = ProjectIntrospection.findMethod(aMainClass, "main", new Class[] {String[].class});
+			ProjectExecution.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
 //			aMainMethod.invoke(aMainClass, new Object[] {args});		
-			String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
+			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
 			return anOutput;	
 		 } catch (Exception e) {
 			 e.printStackTrace();

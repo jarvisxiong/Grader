@@ -1,6 +1,6 @@
 package gradingTools.sharedTestCase;
 
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,8 +16,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
 
 /**
@@ -105,7 +105,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ExecutionUtil.redirectOutput();
+        ProjectExecution.redirectOutput();
         String anOutput = "";
         System.out.println("Testcase: " + name);
         Object[] details;
@@ -137,7 +137,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         if (details == null || details.length == 0) {
             return fail("Couldn't grade or find problems, something is very wrong");
         }
-        ExecutionUtil.redirectOutput();
+        ProjectExecution.redirectOutput();
         int passed = 0;
         int dnc = 0;
         String errors = "";
@@ -315,7 +315,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static Object[] invoke(Constructor<?> c, Object[] cArgs, Method m[], Object[]... arguments) {
         Object o;
         try {
-            o = ExecutionUtil.timedInvokeWithExceptions(c, cArgs);
+            o = ProjectExecution.timedInvokeWithExceptions(c, cArgs);
             return invoke(o, m, arguments);
         } catch (InstantiationException ex) {
             return new Object[]{ex};
@@ -348,7 +348,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static Object invoke(Constructor<?> c, Object[] cArgs, Method m, Object... arguments) {
         Object o;
         try {
-            o = ExecutionUtil.timedInvokeWithExceptions(c, cArgs);
+            o = ProjectExecution.timedInvokeWithExceptions(c, cArgs);
             return invoke(o, m, arguments);
         } catch (InstantiationException ex) {
             return ex;
@@ -375,9 +375,9 @@ public class MethodExecutionTestCase extends BasicTestCase {
         
         try {
             if (timeout > 0) {
-                ret = ExecutionUtil.timedInvokeWithExceptions(o, m, timeout, arguments);
+                ret = ProjectExecution.timedInvokeWithExceptions(o, m, timeout, arguments);
             } else {
-                ret = ExecutionUtil.timedInvokeWithExceptions(o, m, arguments);
+                ret = ProjectExecution.timedInvokeWithExceptions(o, m, arguments);
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             exception = ex;
@@ -407,7 +407,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         Object o = null;
         
         try {
-            o = ExecutionUtil.timedInvokeWithExceptions(constructor, arguments);
+            o = ProjectExecution.timedInvokeWithExceptions(constructor, arguments);
         } catch (Exception e) {
             exception = e;
         }
@@ -485,7 +485,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     }
 
     public static Method[] recursiveFindMethod(Class<?> root, String name, String tag, String nameRegex, String tagRegex, int maxDepth) {
-        List<Method> methodList = IntrospectionUtil.findMethod(root, name, tag, nameRegex, tagRegex);
+        List<Method> methodList = ProjectIntrospection.findMethod(root, name, tag, nameRegex, tagRegex);
         if (methodList.isEmpty()) {
             if (maxDepth == 0) {
                 return null;

@@ -3,11 +3,15 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
-import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
-import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
+//import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
+//import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
+
+
 
 import org.junit.Test;
 
@@ -57,7 +61,7 @@ public class ADirectPointProxy implements PointProxy{
 	boolean checkStructure() {
 		return checkStructure;
 	}
-	
+	// make this public
 	protected Point instantiatePoint(int theX, int theY) {
 		return new ACartesianPoint(theX, theY);
 	}
@@ -97,6 +101,15 @@ public class ADirectPointProxy implements PointProxy{
 			fractionComplete += CORRECT_ANGLE_METHOD;		
 		return retVal;
 
+	}
+	@Override
+	public void print(String aString, Point aPoint) {
+		point.print(aString, aPoint);
+		
+	}
+	@Override
+	public Point getPoint() {
+		return point;
 	}
 
 

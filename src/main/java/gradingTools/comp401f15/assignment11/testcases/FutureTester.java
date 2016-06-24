@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
-import grader.util.ExecutionUtil;
+import grader.util.ProjectExecution;
 
 import java.lang.reflect.Method;
 
@@ -13,7 +13,7 @@ public class FutureTester {
 		try {
 		FutureTester futureTester = new FutureTester();
 		Method test = FutureTester.class.getMethod("test");
-		ExecutionUtil.timedInvoke(futureTester, test, new Object[]{});
+		ProjectExecution.timedInvoke(futureTester, test, new Object[]{});
 		} catch (Exception e) {
 			
 		}

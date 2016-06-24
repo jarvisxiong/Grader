@@ -11,7 +11,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodReturnReference;
@@ -28,7 +28,7 @@ public class ConstructorInitTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
+        Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
 
         Constructor<?> bridgeSceneConstructor;
         try {
@@ -54,11 +54,11 @@ public class ConstructorInitTestCase extends BasicTestCase {
         Method[] getGuardX = null;
         
         try {
-            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-            getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-            getRobin = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
-            getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
-            List<Method> guardMethods = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard");
+            getArthur = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+            getLancelot = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
+            getRobin = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
+            getGalahad = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
+            List<Method> guardMethods = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Guard");
             for(Method m : guardMethods) {
                 if (m.getName().matches(".*[aA]rea.*")) {
                     getGuardArea = m;
@@ -69,10 +69,10 @@ public class ConstructorInitTestCase extends BasicTestCase {
             if (getGuard == null || getGuardArea == null) {
                 throw new Exception();
             }
-            getAvatarX[0] = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
-            getAvatarX[1] = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "getX").get(0);
+            getAvatarX[0] = ProjectIntrospection.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head").get(0);
+            getAvatarX[1] = ProjectIntrospection.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "getX").get(0);
             
-            getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
+            getKnightArea = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
             getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getX", "X");
             //getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
             getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getX", "X");

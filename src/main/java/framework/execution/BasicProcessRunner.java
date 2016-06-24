@@ -36,7 +36,7 @@ import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;
 import grader.trace.execution.UserProcessExecutionTimedOut;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * This runs the program in a new process.
@@ -338,7 +338,7 @@ public class BasicProcessRunner implements Runner {
 	public String classWithEntryTagTarget(String anEntryTag) {
 		if (anEntryTag == null)
 			return "";
-		Class aClass = IntrospectionUtil.findUniqueClassByTag(project, anEntryTag);
+		Class aClass = ProjectIntrospection.findUniqueClassByTag(project, anEntryTag);
 		if (aClass != null) {
 			String aRetVal = aClass.getName();
 		}
@@ -366,7 +366,7 @@ public class BasicProcessRunner implements Runner {
 	public String classWithEntryTagsTarget(List<String> anEntryTags) {
 		if (anEntryTags == null)
 			return "";
-		Class aClass = IntrospectionUtil.findUniqueClassByTag(project, anEntryTags.toArray(emptyStringArray));
+		Class aClass = ProjectIntrospection.findClassByTags(project, anEntryTags.toArray(emptyStringArray));
 		if (aClass != null) {
 			String aRetVal = aClass.getName();
 		}

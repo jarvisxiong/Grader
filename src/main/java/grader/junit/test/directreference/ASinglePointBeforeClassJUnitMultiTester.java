@@ -1,8 +1,8 @@
 package grader.junit.test.directreference;
 
 
-import gradingTools.testables.comp999junit.assignment1.allcorrect.ACartesianPoint;
-import gradingTools.testables.comp999junit.assignment1.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

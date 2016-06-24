@@ -1,4 +1,4 @@
-package gradingTools.testables.comp999junit.assignment1.wrongangle;
+package gradingTools.comp999junit.assignment1.testables.allcorrect;
 
 import java.util.Scanner;
 

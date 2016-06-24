@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  *
@@ -39,7 +39,7 @@ public class ReflectiveClassDefinedTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        List<Class> classList = IntrospectionUtil.findClasses(project, myName, tag, nameRegex, tagRegex);
+        List<Class> classList = ProjectIntrospection.findClasses(project, myName, tag, nameRegex, tagRegex);
         if (classList.isEmpty()) {
             if (myName != null) {
                 return fail("Class '" + myName + "' not found");

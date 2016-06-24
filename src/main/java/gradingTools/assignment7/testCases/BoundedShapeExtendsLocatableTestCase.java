@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,8 +44,8 @@ public class BoundedShapeExtendsLocatableTestCase extends BasicTestCase {
 //            locatableDescription = ManualClassFinder.find(project, "Locatable");
 //        }
 
-        Class<?> boundedClass = IntrospectionUtil.findClass(project, "BoundedShape");//boundedShapeDescription.get().getJavaClass();
-        List<Class> lc = IntrospectionUtil.findClasses(project, "Locatable");
+        Class<?> boundedClass = ProjectIntrospection.findClass(project, "BoundedShape");//boundedShapeDescription.get().getJavaClass();
+        List<Class> lc = ProjectIntrospection.findClasses(project, "Locatable");
         for(int i = 0; i < lc.size(); i ++) {
             for(int j = 1; j < lc.size();) {
                 if (lc.get(i).isAssignableFrom(lc.get(j))) {

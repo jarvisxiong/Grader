@@ -8,7 +8,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,14 +34,14 @@ public class AnimatingMethodTestCase extends BasicTestCase {
             throw new NotGradableException();
 
         // Get the command interpreter
-        Class<?> commandInterpreterClass = IntrospectionUtil.findClass(project, null, "CommandInterpreter", ".*[cC]ommand[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+        Class<?> commandInterpreterClass = ProjectIntrospection.findClass(project, null, "CommandInterpreter", ".*[cC]ommand[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
         //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("Command Interpreter", autoGrade, ClassType.CLASS);
         if (commandInterpreterClass == null) { //classDescription.isEmpty())
             return fail("Looking for method in command interpreter, but the class was not found.");
         }
         
         // Get the method
-        List<Method> methods = IntrospectionUtil.findMethod(commandInterpreterClass, null, tag, regexTag, regexTag); //classDescription.get().getTaggedMethods(tag);
+        List<Method> methods = ProjectIntrospection.findMethod(commandInterpreterClass, null, tag, regexTag, regexTag); //classDescription.get().getTaggedMethods(tag);
         if (methods.isEmpty()) {
             return fail("No method tagged: " + tag);
         }

@@ -6,7 +6,7 @@ import framework.execution.NotRunnableException;
 import grader.project.flexible.FlexibleClassDescription;
 import grader.project.flexible.FlexibleClassesManager;
 //import grader.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
     		) {
     	if (aCandidate == null)
     		return false;
-    	Class aCandidateClass = IntrospectionUtil.findClass(aProject, aCandidate);
+    	Class aCandidateClass = ProjectIntrospection.findClass(aProject, aCandidate);
     	if (aCandidateClass == null) {
     		return false;
     	}

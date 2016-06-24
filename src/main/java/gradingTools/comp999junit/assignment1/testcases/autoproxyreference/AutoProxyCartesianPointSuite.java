@@ -10,6 +10,7 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegre
 import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.APointPrintTest;
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
 import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
@@ -37,6 +38,7 @@ import bus.uigen.ObjectEditor;
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
    APointRadiusTest.class,
+   APointPrintTest.class
    
 })
 public class AutoProxyCartesianPointSuite {

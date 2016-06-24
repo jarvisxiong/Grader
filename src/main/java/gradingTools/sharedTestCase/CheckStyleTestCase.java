@@ -10,7 +10,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 
 public abstract class CheckStyleTestCase extends BasicTestCase {
@@ -141,7 +141,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         if (aTypeTag != null) {
 //        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
         	// class exists check should have cached the class
-        Class aClass = IntrospectionUtil.getClass(project, this, typeTag); 
+        Class aClass = ProjectIntrospection.getClass(project, this, typeTag); 
 
         if (aClass == null) {
 	    	 return fail("Type " + aTypeTag + " not defined, cannot check");

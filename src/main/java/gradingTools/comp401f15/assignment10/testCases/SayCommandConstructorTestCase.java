@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +27,7 @@ public class SayCommandConstructorTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
         
-        Class<?> sayCommandClass = IntrospectionUtil.findClass(project, null, "SayCommand", ".*[sS]ay[cC]ommand.*", ".*[sS]ay[cC]ommand.*");
+        Class<?> sayCommandClass = ProjectIntrospection.findClass(project, null, "SayCommand", ".*[sS]ay[cC]ommand.*", ".*[sS]ay[cC]ommand.*");
         //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("say command", autoGrade, ClassType.CLASS);
         if (sayCommandClass == null) { //classDescription.isEmpty())
             return fail("No say command object");
@@ -35,7 +35,7 @@ public class SayCommandConstructorTestCase extends BasicTestCase {
         //Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge[sScene].*", ".*[bB]ridge[sScene].*");
+        Class<?> bridgeSceneClass = ProjectIntrospection.findClass(project, null, "BridgeScene", ".*[bB]ridge[sScene].*", ".*[bB]ridge[sScene].*");
         //Option<ClassDescription> sceneClassDescription = ClassFinder.get(project).findByTag("Bridge Scene", autoGrade, ClassType.CLASS);
         if (bridgeSceneClass == null) { //sceneClassDescription.isEmpty()) {
             return fail("No bridge scene class. This is needed for the constructor.");

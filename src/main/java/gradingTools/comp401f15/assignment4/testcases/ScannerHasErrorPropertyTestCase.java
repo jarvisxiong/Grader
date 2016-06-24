@@ -9,8 +9,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 
 public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
 
@@ -36,7 +36,7 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
     String[] outputPropertyNames = {};
 
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
-        Class aClass = IntrospectionUtil.findClass(aProject,
+        Class aClass = ProjectIntrospection.findClass(aProject,
                 scannerDescriptions[0],
                 scannerDescriptions[1],
                 scannerDescriptions[2],
@@ -61,8 +61,8 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
         anInputs.put("ScannedString", aScannedString);
         String errorPropertyName = errorPropertyGetter.getName().substring(3);
         outputPropertyNames = new String[]{errorPropertyName};
-        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, scannerDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
-        if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
+        Map<String, Object> anActualOutputs = ProjectExecution.testBean(getCheckable().getName(), getName(), aProject, scannerDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
+        if (anActualOutputs.get(ProjectExecution.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
         }
         if (errorPropertyGetter.getReturnType().isArray()) {

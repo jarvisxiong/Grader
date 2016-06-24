@@ -1,13 +1,13 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
 import framework.execution.ARunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 
 import java.lang.reflect.Constructor;
@@ -45,23 +45,23 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 		if (foundMethod == null) {
 			return fail(superValue.getNotes());
 		}
-		ExecutionUtil.redirectOutput();
+		ProjectExecution.redirectOutput();
 
 		try {
-			commandInterpreter = IntrospectionUtil.getInstance(aProject, this, "CommandInterpreter");
+			commandInterpreter = ProjectIntrospection.getInstance(aProject, this, "CommandInterpreter");
 			
-			Class<?> bridgeSceneClass = IntrospectionUtil.findClass(aProject, null, "BridgeScene",
+			Class<?> bridgeSceneClass = ProjectIntrospection.findClass(aProject, null, "BridgeScene",
 					".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-			bridgeSceneInstance = IntrospectionUtil.getInstance(aProject, this, "BridgeScene");
-			commandInterpreterClass = IntrospectionUtil.getOrFindClass(aProject, this, "CommandInterpreter");
+			bridgeSceneInstance = ProjectIntrospection.getInstance(aProject, this, "BridgeScene");
+			commandInterpreterClass = ProjectIntrospection.getOrFindClass(aProject, this, "CommandInterpreter");
 
 			if (commandInterpreter == null || bridgeSceneInstance == null) {
 //				commandInterpreterClass = IntrospectionUtil.getOrFindClass(aProject, this, "CommandInterpreter");
 //				Class<?> bridgeSceneClass = IntrospectionUtil.findClass(aProject, null, "BridgeScene",
 //						".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-				Class<?> scannerBeanClass = IntrospectionUtil.findClass(aProject, null, "ScannerBean",
+				Class<?> scannerBeanClass = ProjectIntrospection.findClass(aProject, null, "ScannerBean",
 						".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
-				Class<?> broadcastingClearanceManagerClass = IntrospectionUtil.getOrFindClass(aProject, this,
+				Class<?> broadcastingClearanceManagerClass = ProjectIntrospection.getOrFindClass(aProject, this,
 						".*BroadcastingClearanceManager.*");
 
 				Constructor<?> commandInterpreterConstructor = null;
@@ -142,24 +142,24 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 				boolean[] ret = new boolean[3];
 				if (!bridgeOnly && !usesClearanceManager) {
 
-					scannerBeanInstance = IntrospectionUtil.getInstance(aProject, this, "ScannerBean");
+					scannerBeanInstance = ProjectIntrospection.getInstance(aProject, this, "ScannerBean");
 					if (scannerBeanInstance == null) {
-						scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[] {});
-						IntrospectionUtil.putInstance(aProject, this, "ScannerBean", scannerBeanInstance);
+						scannerBeanInstance = ProjectExecution.timedInvoke(scannerBeanConstructor, new Object[] {});
+						ProjectIntrospection.putInstance(aProject, this, "ScannerBean", scannerBeanInstance);
 					}
 				}
-				bridgeSceneInstance = IntrospectionUtil.getInstance(aProject, this, "BridgeScene");
+				bridgeSceneInstance = ProjectIntrospection.getInstance(aProject, this, "BridgeScene");
 				if (bridgeSceneInstance == null) {
-				bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[] {});
-				IntrospectionUtil.putInstance(aProject, this, "BridgeScene", bridgeSceneInstance);
+				bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[] {});
+				ProjectIntrospection.putInstance(aProject, this, "BridgeScene", bridgeSceneInstance);
 
 				}
 				if (usesClearanceManager) {
-					broadcastingClearanceManagerInstance = IntrospectionUtil.getInstance(aProject, this, "BroadcastingClearanceManager");
+					broadcastingClearanceManagerInstance = ProjectIntrospection.getInstance(aProject, this, "BroadcastingClearanceManager");
 					if (broadcastingClearanceManagerInstance != null) {
-					broadcastingClearanceManagerInstance = ExecutionUtil.timedInvoke(clearanceManagerConstructor,
+					broadcastingClearanceManagerInstance = ProjectExecution.timedInvoke(clearanceManagerConstructor,
 							new Object[] {});
-					IntrospectionUtil.putInstance(aProject, this, "BroadcastingClearanceManager", broadcastingClearanceManagerInstance);
+					ProjectIntrospection.putInstance(aProject, this, "BroadcastingClearanceManager", broadcastingClearanceManagerInstance);
 
 					}
 				}
@@ -169,24 +169,24 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 				// }
 				// int i = 0;
 				if (bridgeOnly) {
-					commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance });
 				} else if (usesClearanceManager && clearanceManagerFirst) {
-					commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { broadcastingClearanceManagerInstance, bridgeSceneInstance });
 				} else if (usesClearanceManager && !clearanceManagerFirst) {
-					commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance, broadcastingClearanceManagerInstance });
 				} else if (bridgeFirst) {
-					commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance, scannerBeanInstance });
 				} else {
-					commandInterpreter = ExecutionUtil.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { scannerBeanInstance, bridgeSceneInstance });
 				}
 				if (commandInterpreter == null || bridgeSceneInstance == null)
 					return fail("Could not instantiate aCommand Interpreter");
-				IntrospectionUtil.putInstance(aProject, this, "CommandInterpreter", commandInterpreter);
+				ProjectIntrospection.putInstance(aProject, this, "CommandInterpreter", commandInterpreter);
 
 			} 
 
@@ -277,7 +277,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 	//
 	// }
 	protected Method getUniqueParameterlessMethod(String aMethodName) {
-		List<Method> methods = IntrospectionUtil.getOrFindMethodList(project, this, commandInterpreterClass,
+		List<Method> methods = ProjectIntrospection.getOrFindMethodList(project, this, commandInterpreterClass,
 				aMethodName, aMethodName);
 		if (methods.size() < 1) {
 			System.out.println("Could not find:" + aMethodName);

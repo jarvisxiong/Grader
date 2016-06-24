@@ -3,6 +3,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 
 import java.lang.reflect.Constructor;
@@ -118,6 +119,15 @@ public class AReflectivePointProxy implements PointProxy{
 		fractionComplete += 0.1;
 		return retVal;
 
+	}
+	@Override
+	public void print(String aString, Point aPoint) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Point getPoint() {
+		return null;
 	}
 
 

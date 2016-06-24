@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment7.testCases.commandInterpreter;
 
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -20,8 +20,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -41,11 +41,11 @@ public class ErrorResilientCommandInterpreterFunctionTestCase extends BasicTestC
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ExecutionUtil.redirectOutput();
+        ProjectExecution.redirectOutput();
         try {
-            Class<?> commandInterpreterClass = IntrospectionUtil.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
-            Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-            Class<?> scannerBeanClass = IntrospectionUtil.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
+            Class<?> commandInterpreterClass = ProjectIntrospection.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+            Class<?> bridgeSceneClass = ProjectIntrospection.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
+            Class<?> scannerBeanClass = ProjectIntrospection.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
 
             Tags tags = commandInterpreterClass.getAnnotation(Tags.class);
             if (tags != null) {
@@ -97,7 +97,7 @@ public class ErrorResilientCommandInterpreterFunctionTestCase extends BasicTestC
             Method getError = null;
 
             try {
-                setCommand = IntrospectionUtil.getOrFindMethodList(project, this, commandInterpreterClass, "Command").stream().filter((Method m) -> m.getName().contains("set")).collect(Collectors.toList()).get(0);
+                setCommand = ProjectIntrospection.getOrFindMethodList(project, this, commandInterpreterClass, "Command").stream().filter((Method m) -> m.getName().contains("set")).collect(Collectors.toList()).get(0);
                 getError = (Method)getCheckable().getRequirements().getUserObject(ErrorResilientCommandInterpreterDefinedTestCase.COMMAND_INTERPETER_ERROR_METHOD);
                 Objects.requireNonNull(getError);
             } catch (Exception e) {
@@ -133,8 +133,8 @@ public class ErrorResilientCommandInterpreterFunctionTestCase extends BasicTestC
         
     private static boolean[] checkInterpretSay(Constructor<?> commandInterpreterConstructor, Constructor<?> bridgeSceneConstructor, Constructor<?> scannerBeanConstructor, boolean bridgeFirst, Method setCommand, Method getError) {
         boolean[] ret = new boolean[10];
-        Object scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[]{});
-        Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
+        Object scannerBeanInstance = ProjectExecution.timedInvoke(scannerBeanConstructor, new Object[]{});
+        Object bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
         
         
         Method conditionalTransform = null;

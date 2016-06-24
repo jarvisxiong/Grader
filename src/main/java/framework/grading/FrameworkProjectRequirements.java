@@ -21,8 +21,8 @@ import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 
 /**
  * This is the fundamental container which holds all the features and
@@ -137,7 +137,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public List<CheckResult> checkFeatures(Project project) {
     	getUserData().clear();
     	CurrentProjectHolder.setProject(project); // for Junit test cases
-    	IntrospectionUtil.clearProjectCaches(); // all th eclasses and methods cached
+    	ProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {
@@ -147,7 +147,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         for (Feature feature : features) {
 //        	if (feature.isManual()) 
 //        		continue;
-        	ExecutionUtil.redirectOutput();
+        	ProjectExecution.redirectOutput();
         	if (isInteractiveRun(feature))
         		results.add(feature.check(project, false)); // added again below
             if (sakaiProject != null) { // should we do the check anyway, regardless of whether sakaiProject is null or not
@@ -159,7 +159,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
                 e.printStackTrace();
             } finally {
             
-        			String anOutput = ExecutionUtil.restoreOutputAndGetRedirectedOutput();
+        			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
         			 if (anOutput != null && !anOutput.isEmpty()) {
                      	ARunningProject.appendToTranscriptFile(project, feature.getName(), anOutput);
                      }

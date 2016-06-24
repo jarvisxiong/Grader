@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
@@ -51,13 +51,13 @@ public class ScannerBeanReturnsTokenInterfaceArrayTestCase extends BasicTestCase
         getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, null);
 
 //        Class tokenInterface = IntrospectionUtil.getCommonInterface(project, buildGroup(extendedTokens(), baseCommandTokens()));
-        Class<?> tokenInterface = IntrospectionUtil.getCommonInterface(project, tokenDescriptions);
+        Class<?> tokenInterface = ProjectIntrospection.getCommonInterface(project, tokenDescriptions);
 
         if (tokenInterface == null) {
             return fail("No common interface for all tokens");
         }
         getCheckable().getRequirements().putUserObject(COMMON_TOKEN_INTERFACE, tokenInterface);
-        Class<?> scannerClass = IntrospectionUtil.findClass(project, 
+        Class<?> scannerClass = ProjectIntrospection.findClass(project, 
                                 scannerDescriptions[0],
                                 scannerDescriptions[1],
                                 scannerDescriptions[2],

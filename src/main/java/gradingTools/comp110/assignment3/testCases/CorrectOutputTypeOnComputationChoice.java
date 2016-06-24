@@ -9,7 +9,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
+import grader.util.ProjectExecution;
 import gradingTools.utils.RunningProjectUtils;
 
 public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
@@ -45,7 +45,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 		try {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
 //			String prompt = runningProject.await();
-			String prompt = ExecutionUtil.callMain(input); // writing to a file replaces tab with spaces
+			String prompt = ProjectExecution.callMain(input); // writing to a file replaces tab with spaces
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);
 			}
@@ -55,7 +55,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 
 //			runningProject = RunningProjectUtils.runProject(project, 1, input, choice);
 //			String output = runningProject.await();
-			String output = ExecutionUtil.callMain(input, choice);
+			String output = ProjectExecution.callMain(input, choice);
 //			if (!output.equals(output2)) {
 //				System.out.println (output + "\n != \n" + output2);
 //			}

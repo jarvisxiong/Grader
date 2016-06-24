@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  *
@@ -40,7 +40,7 @@ public class UniqueCommandClassesTestCase extends BasicTestCase {
         HashSet<Class> classesUnique = new HashSet<>(13);
         
         for(String[] description : CommandTokenDefinitions.baseCommandTokens()) {
-            Class clazz = IntrospectionUtil.findClass(project, 
+            Class clazz = ProjectIntrospection.findClass(project, 
                                                     description[0],
                                                     description[1],
                                                     description[2],

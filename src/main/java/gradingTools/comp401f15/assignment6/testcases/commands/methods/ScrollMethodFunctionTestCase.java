@@ -10,7 +10,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -26,8 +26,8 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
-        List<Method> scrollMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "scroll");
+        Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
+        List<Method> scrollMList = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "scroll");
         if (scrollMList == null || scrollMList.isEmpty()) {
             return fail("Can't find scroll method in class " + bridgeSceneClass.getTypeName());
         }
@@ -52,14 +52,14 @@ public class ScrollMethodFunctionTestCase extends BasicTestCase {
         boolean useGuardArea = true;
         
         try {
-            getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
+            getKnightArea = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
             getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getX", "X");
             getKnightY = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getY", "Y");
         } catch (Exception e) {
             useKnightArea = false;
         }
         try {
-            getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
+            getGuardArea = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
             getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getX", "X");
             getGuardY = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getY", "Y");
         } catch (Exception e) {

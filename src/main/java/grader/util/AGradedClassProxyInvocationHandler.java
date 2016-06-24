@@ -16,18 +16,18 @@ public class AGradedClassProxyInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method aProxyMethod, Object[] args)
 			throws Throwable {
-		Method anActualMethod = IntrospectionUtil.findMethod(actualClass, aProxyMethod);
+		Method anActualMethod = ProjectIntrospection.findMethod(actualClass, aProxyMethod);
 		if (anActualMethod == null) {
 			return null;
 		}
-		int[] aPermutedIndices= IntrospectionUtil.getArgIndices(actualClass, aProxyMethod);
+		int[] aPermutedIndices= ProjectIntrospection.getArgIndices(actualClass, aProxyMethod);
 		if (aPermutedIndices != null) {
 			Object[] anOriginalArgs = Arrays.copyOf(args, args.length);
 			for (int i = 0; i < args.length; i++) {
 				args[i] = anOriginalArgs[aPermutedIndices[i]];
 			}
 		}
-		return ExecutionUtil.timedInvoke(actualObject, anActualMethod, args);
+		return ProjectExecution.timedInvoke(actualObject, anActualMethod, args);
 	}
 
 }

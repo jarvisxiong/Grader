@@ -11,7 +11,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 public class MethodDefinedTestCase extends BasicTestCase {
 	private String CLASS_TAG;
@@ -90,9 +90,9 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			return new Class[]{(Class)aClass};
 		}
 		if (aClass instanceof String) {
-			List<Class> retVal = IntrospectionUtil.getOrFindInterfaces(aProject, this, (String) aClass);
+			List<Class> retVal = ProjectIntrospection.getOrFindInterfaces(aProject, this, (String) aClass);
 			if (retVal == null || retVal.isEmpty()) {
-                            retVal = IntrospectionUtil.getOrFindClasses(aProject, this, (String) aClass);
+                            retVal = ProjectIntrospection.getOrFindClasses(aProject, this, (String) aClass);
                         }
 			return retVal.toArray(new Class[retVal.size()]);
 			
@@ -125,7 +125,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 //													 CLASS_DESCRIPTIONS[1],
 //													 CLASS_DESCRIPTIONS[2],
 //													 CLASS_DESCRIPTIONS[3]);
-		Class<?> clazz = IntrospectionUtil.getOrFindClass(project, this, CLASS_TAG);
+		Class<?> clazz = ProjectIntrospection.getOrFindClass(project, this, CLASS_TAG);
 //		if (clazz == null)
 //			clazz = IntrospectionUtil.getOrFindClass(project, this, CLASS_TAG);
 		if (clazz == null) {
@@ -148,7 +148,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 //				METHOD_DESCRIPTIONS[1],
 //				METHOD_DESCRIPTIONS[2],
 //				METHOD_DESCRIPTIONS[3]);
-		List<Method> methods = IntrospectionUtil.getOrFindMethodList(project, this, clazz, METHOD_NAME, METHOD_TAG);
+		List<Method> methods = ProjectIntrospection.getOrFindMethodList(project, this, clazz, METHOD_NAME, METHOD_TAG);
 		if (methods.isEmpty()) {
 			String message = "Can't find '" + METHOD_NAME + "' method";
 			if (METHOD_TAG != null) {
@@ -207,7 +207,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			return partialPass(score, message);
                         
 		}
-		IntrospectionUtil.putMethod(project, this, clazz, METHOD_NAME, method);
+		ProjectIntrospection.putMethod(project, this, clazz, METHOD_NAME, method);
 		foundMethod = method;
 		return pass();
 	}

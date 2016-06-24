@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import util.annotations.MaxValue;
 import framework.project.CurrentProjectHolder;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointTest;
-import gradingTools.testables.comp999junit.assignment1.wrongangle.Main;
 
 @MaxValue(5)
 public class AReflectivePointMainTest extends AnAbstractPointMainTest {
@@ -31,7 +31,7 @@ public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 //		}
 //		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
 //		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
-		return ExecutionUtil.callCorrespondingMain(Main.class, anArgs, anInput);
+		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput);
 
 
 	}

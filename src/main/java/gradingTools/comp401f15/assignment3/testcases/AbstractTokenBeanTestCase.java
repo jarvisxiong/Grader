@@ -9,7 +9,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
+import grader.util.ProjectExecution;
 
 
 public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
@@ -44,9 +44,9 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
     }
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         try {
-        	Map<String, Object> retVal = ExecutionUtil.testBeanWithStringConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), input(), inputPropertyName(), input(), outputPropertyName(), value());
-        	Boolean missingExpectedConstructor = (Boolean) retVal.get(ExecutionUtil.MISSING_CONSTRUCTOR);
-        	Boolean missingClass = (Boolean) retVal.get(ExecutionUtil.MISSING_CLASS);
+        	Map<String, Object> retVal = ProjectExecution.testBeanWithStringConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), input(), inputPropertyName(), input(), outputPropertyName(), value());
+        	Boolean missingExpectedConstructor = (Boolean) retVal.get(ProjectExecution.MISSING_CONSTRUCTOR);
+        	Boolean missingClass = (Boolean) retVal.get(ProjectExecution.MISSING_CLASS);
         	double penalty = 0.0;
         	String aMessage = "";
         	// clear existing value
@@ -56,19 +56,19 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
         	if (missingClass != null) {
         		return fail ("Class matching:" + Common.toString(beanDescriptions()) + " not found");
         	} else {
-        		getCheckable().getRequirements().putUserObject(classIdentifier(), retVal.get(ExecutionUtil.CLASS_MATCHED));
+        		getCheckable().getRequirements().putUserObject(classIdentifier(), retVal.get(ProjectExecution.CLASS_MATCHED));
         	}
         	if (missingExpectedConstructor != null) {
-            	 retVal = ExecutionUtil.testBeanWithNoConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), inputPropertyName(), input(), outputPropertyName(), value());
+            	 retVal = ProjectExecution.testBeanWithNoConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), inputPropertyName(), input(), outputPropertyName(), value());
             	 penalty += missingExpectedConstructorPenalty();
             	 aMessage += "Expected constructor missing ";
 
         	}
         	
         	        	
-        	boolean getterReturnsSetter = isNullOrTrue((Boolean) retVal.get(ExecutionUtil.EXPECTED_EQUAL_ACTUAL));
-        	boolean correctDependent = isNullOrTrue((Boolean) retVal.get(ExecutionUtil.EXPECTED_EQUAL_ACTUAL));
-        	boolean missingProperty = isNotNullAndTrue((Boolean) retVal.get(ExecutionUtil.MISSING_PROPERTY));
+        	boolean getterReturnsSetter = isNullOrTrue((Boolean) retVal.get(ProjectExecution.EXPECTED_EQUAL_ACTUAL));
+        	boolean correctDependent = isNullOrTrue((Boolean) retVal.get(ProjectExecution.EXPECTED_EQUAL_ACTUAL));
+        	boolean missingProperty = isNotNullAndTrue((Boolean) retVal.get(ProjectExecution.MISSING_PROPERTY));
         	if (missingProperty) {
         		penalty += missingPropertyPenalty();
         		aMessage += "Property missing " ;

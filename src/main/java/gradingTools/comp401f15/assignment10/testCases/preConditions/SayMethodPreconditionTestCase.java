@@ -14,7 +14,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -30,8 +30,8 @@ public class SayMethodPreconditionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
-        List<Method> sayMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say", "say");
+        Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
+        List<Method> sayMList = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "say", "say");
         if (sayMList == null || sayMList.isEmpty()) {
             return fail("Can't find say method in class " + bridgeSceneClass.getTypeName());
         }
@@ -57,12 +57,12 @@ public class SayMethodPreconditionTestCase extends BasicTestCase {
         Method getText = null;
         
         try {
-            approach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
-            pass = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "pass").get(0);
-            getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
-            getKnightTurn = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
-            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-            getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().contains("rea")).collect(Collectors.toList()).get(0);
+            approach = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
+            pass = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "pass").get(0);
+            getOccupied = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
+            getKnightTurn = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
+            getArthur = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+            getGuard = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().contains("rea")).collect(Collectors.toList()).get(0);
             //getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").get(0);
             for(Method m : getArthur.getReturnType().getMethods()) {
                 StructurePattern structurePattern = m.getReturnType().getAnnotation(StructurePattern.class);
@@ -71,10 +71,10 @@ public class SayMethodPreconditionTestCase extends BasicTestCase {
                     break;
                 }
             }
-            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
+            List<Method> lm = ProjectIntrospection.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
             lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             if (lm.isEmpty()) {
-                lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
+                lm = ProjectIntrospection.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
                 lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             }
             getText = lm.get(0);

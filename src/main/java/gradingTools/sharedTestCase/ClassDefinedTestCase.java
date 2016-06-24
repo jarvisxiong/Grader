@@ -8,7 +8,7 @@ import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 
 public class ClassDefinedTestCase extends CheckStyleTestCase {
@@ -38,7 +38,7 @@ public class ClassDefinedTestCase extends CheckStyleTestCase {
 	        	return aResult;
 	        }
 	        
-	        	List<ClassDescription> aClasses = IntrospectionUtil.findClassesByTag(project, aTag);
+	        	List<ClassDescription> aClasses = ProjectIntrospection.findClassesByTag(project, aTag);
 	        	if (aClasses.size() == 1) {
 	        		return pass();
 	        	}

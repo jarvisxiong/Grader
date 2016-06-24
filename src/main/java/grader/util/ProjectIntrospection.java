@@ -24,7 +24,7 @@ import framework.project.ClassDescription;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 
-public class IntrospectionUtil {
+public class ProjectIntrospection {
 
 	public static Class<?> getClassForInterface(Project project, Class<?> target) {
 		Set<ClassDescription> classes = project.getClassesManager().get()
@@ -160,7 +160,7 @@ public class IntrospectionUtil {
 			String aProxySimpleName = aProxies[anIndex].getSimpleName();
 			String aCandidateSimpleName = aCandidates[anIndex].getSimpleName();
 			if (
-					IntrospectionUtil.getCachedClass(aProxySimpleName) != aCandidates[anIndex] &&
+					ProjectIntrospection.getCachedClass(aProxySimpleName) != aCandidates[anIndex] &&
 					!aProxySimpleName.equals(aCandidateSimpleName)) { // if am inteface and the class has not been looked up
 				return false;
 			}
@@ -240,7 +240,7 @@ public class IntrospectionUtil {
 			if (aMatchedInterfaces.isEmpty())
 				return result;
 			// now see if ant of the classes implement any of the matched interfaces
-			for (ClassDescription aClassDescription : aClasses) {
+			for (ClassDescription aClassDescription : aProject.getClassesManager().get().getClassDescriptions()) {
 				Class aClass = aClassDescription.getJavaClass();
 				if (aClass.isInterface()) {
 					continue;
@@ -315,7 +315,7 @@ public class IntrospectionUtil {
 		// Class aClassObject =
 		// (Class)aTestCase.getCheckable().getRequirements().getUserObject(toClassDescriptor(aClassName));
 		if (aClassObject == null) {
-			aClassObject = IntrospectionUtil.findClass(aProject, aClassName);
+			aClassObject = ProjectIntrospection.findClass(aProject, aClassName);
 			putClass(aProject, aTestCase, aClassName, aClassObject);
 			// aTestCase.getCheckable().getRequirements().putUserObject(toClassDescriptor(aClassName),
 			// aClassObject);
@@ -343,7 +343,7 @@ public class IntrospectionUtil {
 				.getRequirements()
 				.getUserObject(toClassesDescriptor(aClassName));
 		if (aClassObject == null) {
-			aClassObject = IntrospectionUtil.findClasses(aProject, aClassName);
+			aClassObject = ProjectIntrospection.findClasses(aProject, aClassName);
 			aTestCase
 					.getCheckable()
 					.getRequirements()
@@ -359,7 +359,7 @@ public class IntrospectionUtil {
 				.getRequirements()
 				.getUserObject(toInterfacesDescriptor(aClassName));
 		if (aClassObject == null) {
-			aClassObject = IntrospectionUtil.findInterfaces(aProject,
+			aClassObject = ProjectIntrospection.findInterfaces(aProject,
 					aClassName);
 			aTestCase
 					.getCheckable()
@@ -375,7 +375,7 @@ public class IntrospectionUtil {
 		Class aClassObject = (Class) aTestCase.getCheckable().getRequirements()
 				.getUserObject(toInterfaceDescriptor(aClassName));
 		if (aClassObject == null) {
-			aClassObject = IntrospectionUtil
+			aClassObject = ProjectIntrospection
 					.findInterface(aProject, aClassName);
 			aTestCase
 					.getCheckable()
@@ -392,7 +392,7 @@ public class IntrospectionUtil {
 		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable()
 				.getRequirements().getUserObject(aDescriptor);
 		if (aMethodObject == null) {
-			aMethodObject = IntrospectionUtil.findMethod(aClass, name, aTag);
+			aMethodObject = ProjectIntrospection.findMethod(aClass, name, aTag);
 			aTestCase.getCheckable().getRequirements()
 					.putUserObject(aDescriptor, aMethodObject);
 		}
@@ -411,7 +411,7 @@ public class IntrospectionUtil {
 		List<Method> aMethodObject = (List<Method>) aTestCase.getCheckable()
 				.getRequirements().getUserObject(aDescriptor);
 		if (aMethodObject == null) {
-			aMethodObject = IntrospectionUtil.findMethod(aClass, aTag);
+			aMethodObject = ProjectIntrospection.findMethod(aClass, aTag);
 			aTestCase.getCheckable().getRequirements()
 					.putUserObject(aDescriptor, aMethodObject);
 		}
@@ -454,10 +454,30 @@ public class IntrospectionUtil {
 
 	}
 	
+	public static String[] getInterfaceNames(Class aClass) {
+		Class[] anInterfaces = getInterfaces(aClass);
+		String[] aResult = new String[anInterfaces.length];
+		for (int i= 0; i < anInterfaces.length; i++) {
+			aResult[i] = aClass.getName();
+		}
+		return aResult;
+	}
+	public static String[] getComputedInterfaceTags(Class aClass) {
+		Class[] anInterfaces = getInterfaces(aClass);
+		Set<String> aTagSet = new HashSet();
+		for (Class anInterface:anInterfaces) {
+			aTagSet.add(anInterface.getSimpleName());
+			String[] aTags = getTags(anInterface);
+			aTagSet.addAll(Arrays.asList(aTags));			
+		}
+		List<String> aTagList = new ArrayList(aTagSet);
+		String[] aResult = aTagList.toArray(emptyStringArray);
+		return aResult;
+	}
 
 	public static Class findClass(Project aProject, Class aProxyClass) {
 		String[] aTags = getTags(aProxyClass);
-		Class retVal = findUniqueClassByTag(aProject, aTags);
+		Class retVal = findClassByTags(aProject, aTags);
 		if (retVal != null)
 			return retVal;
 		retVal = findClass(aProject, aProxyClass.getCanonicalName());
@@ -466,6 +486,11 @@ public class IntrospectionUtil {
 		retVal = findClass(aProject, aProxyClass.getSimpleName());
 		if (retVal != null)
 			return retVal;
+		// see if the interfaces of the desired class match
+		// do not need this as we are already checking for interfaces in findClass(aProxyClass.getSimpleName()), which uses the namealso as a tag, but keep this
+		String[] aComputedTags = getComputedInterfaceTags(aProxyClass);
+		retVal = findClassByTags(aProject, aComputedTags);
+		
 		return findClassByMethods(aProject, aProxyClass.getMethods());
 	}
 	
@@ -533,13 +558,13 @@ public class IntrospectionUtil {
 
 	public static Class findUniqueClassByTag(Project aProject, Class aProxy) {
 		String[] aTags = getTags(aProxy);
-		return findUniqueClassByTag(aProject, aTags);
+		return findClassByTags(aProject, aTags);
 	}
 	public static Class findUniqueClassByTag(Project aProject, String aTag) {
-		return findUniqueClassByTag(aProject, new String[] {aTag});
+		return findClassByTags(aProject, new String[] {aTag});
 	}
 
-	public static Class findUniqueClassByTag(Project aProject, String[] aTags) {
+	public static Class findClassByTags(Project aProject, String[] aTags) {
 		if (aTags.length == 0) {
 			return null;
 		}		
@@ -548,14 +573,21 @@ public class IntrospectionUtil {
 		Class aCachedClass = keyToClass.get(aKey);
 		if (aCachedClass == null) {
 
-			ClassDescription aClassDescription = findUniqueClassDescriptionByTag(
+//			ClassDescription aClassDescription = findClassDescriptionByTag(
+//					aProject, aTags);
+//			if (aClassDescription == null) {
+//				aCachedClass = Object.class;
+//
+//			}
+
+			Class aClass = findClassByTag(
 					aProject, aTags);
-			if (aClassDescription == null) {
+			if (aProject == null) {
 				aCachedClass = Object.class;
 
 			}
 
-			aCachedClass = aClassDescription.getJavaClass();
+			aCachedClass = aClass;
 			keyToClass.put(aKey, aCachedClass);
 
 		}
@@ -565,9 +597,23 @@ public class IntrospectionUtil {
 		return aCachedClass;
 	}
 
-	public static ClassDescription findUniqueClassDescriptionByTag(
+	public static ClassDescription findClassDescriptionByTag(
 			Project aProject, String[] aTags) {
-		List<ClassDescription> aClasses = findClassesByTag(aProject, aTags);
+		List<ClassDescription> aClasses = findClassDescriptionsByTag(aProject, aTags);
+		if (aClasses.size() != 1)
+			return null;
+		return aClasses.get(0);
+
+		// if (aClasses.size() != 1) {
+		// return null;
+		// }
+		// return aClasses.get(0).getJavaClass();
+
+	}
+	public static Class findClassByTag(
+			Project aProject, String[] aTags) {
+		List<Class> aClasses = findClassesByTag(aProject, aTags);
+		aClasses = removeSuperTypes(aClasses);
 		if (aClasses.size() != 1)
 			return null;
 		return aClasses.get(0);
@@ -579,12 +625,30 @@ public class IntrospectionUtil {
 
 	}
 
-	public static List<ClassDescription> findClassesByTag(Project aProject,
+	public static List<ClassDescription> findClassDescriptionsByTag(Project aProject,
 			String[] aTag) {
 		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
 
 		return aProject.getClassesManager().get()
 				.findClassAndInterfaces(null, aTag, null, null);
+
+		// if (aClasses.size() != 1) {
+		// return null;
+		// }
+		// return aClasses.get(0).getJavaClass();
+
+	}
+	public static List<Class> findClassesByTag(Project aProject,
+			String[] aTag) {
+		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
+
+		List<ClassDescription> aClassDescriptions = aProject.getClassesManager().get()
+				.findClassAndInterfaces(null, aTag, null, null);
+		List<Class> aResult = new ArrayList();
+		for (ClassDescription aDescription:aClassDescriptions) {
+			aResult.add(aDescription.getJavaClass());
+		}
+		return aResult;
 
 		// if (aClasses.size() != 1) {
 		// return null;
@@ -616,7 +680,7 @@ public class IntrospectionUtil {
 		return findInterfaces(aProject, aName, new String[] { aTag },
 				aNameMatch, aTagMatch);
 	}
-
+	
 	public static List<Class> findInterfaces(Project aProject, String aName,
 			String[] aTag, String aNameMatch, String aTagMatch) {
 		List<Class> result = new ArrayList();
@@ -664,6 +728,10 @@ public class IntrospectionUtil {
 			return new String[] {};
 		}
 	}
+	
+//	public static <T> T[] removeDuplicates (T[] anOriginal) {
+//		
+//	}
 
 	public static String[] getTags(Class<?> aClass) {
 		try {
@@ -1007,11 +1075,20 @@ public class IntrospectionUtil {
 		toPrimitiveTypes(aParameterTypes);
 		return createInstance(aProxyClass, aParameterTypes, anArgs);
 	}
+	
+	public static Class[] getInterfaces (Class aClassOrInterface) {
+		Class[] anInterfaces = null;
+		if (aClassOrInterface.isInterface())
+			anInterfaces = new Class[] {aClassOrInterface};
+		else
+			anInterfaces = aClassOrInterface.getInterfaces();
+		return anInterfaces;
+	}
 
 	public static Object createInstance(Class aProxyClass,
 			Class[] aConctructArgsTypes, Object[] anArgs) {
 		try {
-			Class anActualClass = IntrospectionUtil.findClass(
+			Class anActualClass = ProjectIntrospection.findClass(
 					CurrentProjectHolder.getCurrentProject(), aProxyClass);
 			if (anActualClass == null) {
 				return null;
@@ -1019,12 +1096,19 @@ public class IntrospectionUtil {
 			Constructor aConstructor = anActualClass
 					.getConstructor(aConctructArgsTypes);
 //			Object anActualObject = aConstructor.newInstance(anArgs);
-			Object anActualObject = ExecutionUtil.timedInvoke(aConstructor, anArgs);
+			Object anActualObject = ProjectExecution.timedInvoke(aConstructor, anArgs);
 
 			InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
 					anActualObject);
-			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), // should this not be actual class, actually not, as proxy is not a aware of actual class?
-					aProxyClass.getInterfaces(), aHandler);
+			Class[] anInterfaces = null;
+//			if (aProxyClass.isInterface())
+//				anInterfaces = new Class[] {aProxyClass};
+//			else
+//				anInterfaces = aProxyClass.getInterfaces();
+//			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+//					aProxyClass.getInterfaces(), aHandler);
+			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+					getInterfaces(aProxyClass), aHandler);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -1069,13 +1153,13 @@ public class IntrospectionUtil {
 			String[][] aClassDescriptions) {
 		List<Class> interfaces = new ArrayList<>(5);
 		for (String[] classDescriptions : aClassDescriptions) {
-			Class aClass = IntrospectionUtil.findClass(project,
+			Class aClass = ProjectIntrospection.findClass(project,
 					classDescriptions[0], classDescriptions[1],
 					classDescriptions[2], classDescriptions[3]);
 			if (aClass == null)
 				continue;
 
-			List<Class> tokenInterfaces = IntrospectionUtil
+			List<Class> tokenInterfaces = ProjectIntrospection
 					.getAllInterfaces(aClass);
 			if (tokenInterfaces.size() == 0) {
 				return null;

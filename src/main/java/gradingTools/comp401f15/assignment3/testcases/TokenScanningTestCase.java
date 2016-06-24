@@ -10,7 +10,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
+import grader.util.ProjectExecution;
 
 public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestCase{
 
@@ -62,16 +62,16 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
     	}
     	Map<String, Object> anInputs = new HashMap();
         anInputs.put("ScannedString", aScannedString);
-        Map<String, Object> anActualOutputs = ExecutionUtil.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
+        Map<String, Object> anActualOutputs = ProjectExecution.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
 //        String aTranscript = (String) anActualOutputs.get("System.out");
 //        if (aTranscript != null && !aTranscript.isEmpty()) {
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);
 //        }
-        if (anActualOutputs.get(ExecutionUtil.MISSING_CLASS) != null) { // only output, no object
+        if (anActualOutputs.get(ProjectExecution.MISSING_CLASS) != null) { // only output, no object
         	return fail ("Could not find scanner bean");
         }
-        Boolean getsReturnedSets = (Boolean) anActualOutputs.get(ExecutionUtil.GETS_EQUAL_SETS);
-        String anOutput = (String) anActualOutputs.get(ExecutionUtil.PRINTS);
+        Boolean getsReturnedSets = (Boolean) anActualOutputs.get(ProjectExecution.GETS_EQUAL_SETS);
+        String anOutput = (String) anActualOutputs.get(ProjectExecution.PRINTS);
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;

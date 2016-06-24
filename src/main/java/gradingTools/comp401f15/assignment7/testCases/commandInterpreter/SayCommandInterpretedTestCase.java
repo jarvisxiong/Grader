@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment7.testCases.commandInterpreter;
 
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -17,8 +17,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -37,11 +37,11 @@ public class SayCommandInterpretedTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ExecutionUtil.redirectOutput();
+        ProjectExecution.redirectOutput();
         try {
-            Class<?> commandInterpreterClass = IntrospectionUtil.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
-            Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-            Class<?> scannerBeanClass = IntrospectionUtil.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
+            Class<?> commandInterpreterClass = ProjectIntrospection.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+            Class<?> bridgeSceneClass = ProjectIntrospection.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
+            Class<?> scannerBeanClass = ProjectIntrospection.findClass(project, null, "ScannerBean", ".*[sS]canner.*[bB]ean.*", ".*[sS]canner[bB]ean.*");
 
             Constructor<?> commandInterpreterConstructor = null;
             Constructor<?> bridgeSceneConstructor;
@@ -82,18 +82,18 @@ public class SayCommandInterpretedTestCase extends BasicTestCase {
             Method getText = null;
 
             try {
-                setCommand = IntrospectionUtil.getOrFindMethodList(project, this, commandInterpreterClass, "Command").stream().filter((Method m) -> m.getName().contains("set")).collect(Collectors.toList()).get(0);
-                getScannedString = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "ScannedString").stream().filter((Method m) -> m.getName().contains("get")).collect(Collectors.toList()).get(0);
-                approach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
-                getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-                getGuard = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().matches(".*[aA]r[ae].*")).collect(Collectors.toList()).get(0);
+                setCommand = ProjectIntrospection.getOrFindMethodList(project, this, commandInterpreterClass, "Command").stream().filter((Method m) -> m.getName().contains("set")).collect(Collectors.toList()).get(0);
+                getScannedString = ProjectIntrospection.getOrFindMethodList(project, this, scannerBeanClass, "ScannedString").stream().filter((Method m) -> m.getName().contains("get")).collect(Collectors.toList()).get(0);
+                approach = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
+                getArthur = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+                getGuard = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Guard").stream().filter((Method m) -> !m.getName().matches(".*[aA]r[ae].*")).collect(Collectors.toList()).get(0);
                 for(Method m : getArthur.getReturnType().getMethods()) {
                     boolean doPick = false;
                     Class<?> retType = m.getReturnType();
                     StructurePattern structurePattern = m.getReturnType().getAnnotation(StructurePattern.class);
                     if (structurePattern == null) {
                         if (retType.isInterface()) {
-                            for(Class<?> clazz : IntrospectionUtil.getClassesForInterface(project, retType)) {
+                            for(Class<?> clazz : ProjectIntrospection.getClassesForInterface(project, retType)) {
                                 structurePattern = clazz.getAnnotation(StructurePattern.class);
                                 if (structurePattern != null 
                                         && StructurePatternNames.STRING_PATTERN.equals(structurePattern.value())) {
@@ -110,10 +110,10 @@ public class SayCommandInterpretedTestCase extends BasicTestCase {
                         break;
                     }
                 }
-                List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
+                List<Method> lm = ProjectIntrospection.getOrFindMethodList(project, this, getStringShape.getReturnType(), "Text");
                 lm = lm.stream().filter((s)->s.getName().contains("get")&&CharSequence.class.isAssignableFrom(s.getReturnType())).collect(Collectors.toList());
                 if (lm.isEmpty()) {
-                    lm = IntrospectionUtil.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
+                    lm = ProjectIntrospection.getOrFindMethodList(project, this, getStringShape.getReturnType(), "String");
                     lm = lm.stream().filter((s)->s.getName().contains("get")&&CharSequence.class.isAssignableFrom(s.getReturnType())).collect(Collectors.toList());
                 }
                 getText = lm.get(0);
@@ -150,8 +150,8 @@ public class SayCommandInterpretedTestCase extends BasicTestCase {
         
     private static boolean[] checkInterpretSay(Constructor<?> commandInterpreterConstructor, Constructor<?> bridgeSceneConstructor, Constructor<?> scannerBeanConstructor, boolean bridgeFirst, Method setCommand, Method getScannedString, Method approach, Method getArthur, Method getGuard, Method getStringShape, Method getText) {
         boolean[] ret = new boolean[3];
-        Object scannerBeanInstance = ExecutionUtil.timedInvoke(scannerBeanConstructor, new Object[]{});
-        Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
+        Object scannerBeanInstance = ProjectExecution.timedInvoke(scannerBeanConstructor, new Object[]{});
+        Object bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
         
         
         MethodExecutionTestCase.MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{

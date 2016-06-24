@@ -10,7 +10,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +38,7 @@ public class BoundedShapePropertiesTestCase extends BasicTestCase {
 //            classDescription = ManualClassFinder.find(project, "BoundedShape");
 //        }
 
-        Class<?> _class = IntrospectionUtil.findClass(project, "BoundedShape");//.get().getJavaClass();
+        Class<?> _class = ProjectIntrospection.findClass(project, "BoundedShape");//.get().getJavaClass();
         Method[] methods = _class.getMethods();
 
         // There should four methods: getWidth, getHeight, setWidth, setHeight

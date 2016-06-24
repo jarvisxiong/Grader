@@ -10,7 +10,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +27,7 @@ public class LocatableInheritanceTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-Class<?> locatableSuperclass = IntrospectionUtil.findClass(project, "Locatable");//classDescription.get().getJavaClass();
+Class<?> locatableSuperclass = ProjectIntrospection.findClass(project, "Locatable");//classDescription.get().getJavaClass();
         int methodCount = 0;
         int extendCount = 0;
         List<Class> errors = new ArrayList<>();

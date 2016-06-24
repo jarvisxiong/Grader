@@ -8,8 +8,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 
 /**
  *
@@ -27,12 +27,12 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class angleShapeClass = IntrospectionUtil.findClass(project, 
+        Class angleShapeClass = ProjectIntrospection.findClass(project, 
                                                             classDescriptions[0],
                                                             classDescriptions[1],
                                                             classDescriptions[2],
                                                             classDescriptions[3]);
-        Class lineClass = IntrospectionUtil.findClass(project, 
+        Class lineClass = ProjectIntrospection.findClass(project, 
                                                             lineDescriptions[0],
                                                             lineDescriptions[1],
                                                             lineDescriptions[2],
@@ -73,7 +73,7 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
     }
     
     private TestCaseResult testEmptyConstructor(Constructor emptyConstructor, Class angleShapeClass) {
-        ExecutionUtil.timedInvoke(emptyConstructor, null, CONSTRUCTOR_TIMEOUT);
+        ProjectExecution.timedInvoke(emptyConstructor, null, CONSTRUCTOR_TIMEOUT);
         return pass();
     }
     
@@ -81,12 +81,12 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
         if (lineClass == null) {
             return fail("Can't find empty constructor\nCan't find line class to test fallback line parameter constructor");
         }
-        Object line1 = ExecutionUtil.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
-        Object line2 = ExecutionUtil.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
+        Object line1 = ProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
+        Object line2 = ProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
         if (line1 == null || line2 == null) {
             return fail("Can't find empty constructor\nFailed to instantiate lines to test fallback line parameter constructor");
         }
-        Object angleShape = ExecutionUtil.timedInvoke(lineParamConstructor, new Object[]{line1, line2}, CONSTRUCTOR_TIMEOUT);
+        Object angleShape = ProjectExecution.timedInvoke(lineParamConstructor, new Object[]{line1, line2}, CONSTRUCTOR_TIMEOUT);
         if (angleShape == null) {
             return fail("Can't find empty constructor\nFailed to instantiate line parameter constructor");
         }

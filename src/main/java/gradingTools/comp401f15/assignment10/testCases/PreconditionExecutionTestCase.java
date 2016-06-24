@@ -23,8 +23,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
@@ -39,7 +39,7 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
         super("Precondition execution Test Case");
     }
     public Method getBridgeSceneMethod(Project project, Class bridgeSceneClass, String aTag) {
-       List<Method> aMethod = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, aTag);
+       List<Method> aMethod = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, aTag);
        if (aMethod.size() == 0) {
     	   System.out.println("Could not find method:" + aTag);
     	   return null;
@@ -53,8 +53,8 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
         Optional<RedirectionEnvironment> outRedir = RedirectionEnvironment.redirectOut(); 
         try {
 //            ExecutionUtil.redirectOutput();
-            Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
-            List<Method> approachMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach");
+            Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
+            List<Method> approachMList = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "approach");
             if (approachMList == null || approachMList.isEmpty()) {
                 return fail("Can't find approach method in class " + bridgeSceneClass.getTypeName());
             }
@@ -256,7 +256,7 @@ public class PreconditionExecutionTestCase extends BasicTestCase implements Trac
         };
         Object bridgeSceneInstance = null;
         try {
-         bridgeSceneInstance = ExecutionUtil.timedInvokeWithExceptions(bridgeSceneConstructor, new Object[]{});
+         bridgeSceneInstance = ProjectExecution.timedInvokeWithExceptions(bridgeSceneConstructor, new Object[]{});
         } catch (Exception e) {
         	return new Object[] {e};
         	

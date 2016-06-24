@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  *
@@ -41,7 +41,7 @@ public class CommandTokenDefinitions {
             }
         }
         for(String[] description : baseCommandTokens()) {
-            Class clazz = IntrospectionUtil.findClass(p, description[0],
+            Class clazz = ProjectIntrospection.findClass(p, description[0],
                                                          description[1],
                                                          description[2],
                                                          description[3]);

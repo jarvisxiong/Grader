@@ -8,8 +8,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 
 public class FactoryMethodTestCase extends BasicTestCase {
 	String factoryClassTag;
@@ -25,17 +25,17 @@ public class FactoryMethodTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project aProject, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		Class<?> factoryClass = IntrospectionUtil.getOrFindClass(aProject, this, factoryClassTag);
+		Class<?> factoryClass = ProjectIntrospection.getOrFindClass(aProject, this, factoryClassTag);
 		if (factoryClass == null) {
 			return fail("Factory class:" + factoryClassTag + " not found.");
 		}
-		Method factoryMethod =	IntrospectionUtil.getOrFindUniqueMethod(aProject, this, factoryClass, factoryMethodTag);
+		Method factoryMethod =	ProjectIntrospection.getOrFindUniqueMethod(aProject, this, factoryClass, factoryMethodTag);
 		if (factoryMethod == null) {
 			return fail("Unique factory method:" + factoryMethodTag + " not found.");
 
 		}		
 		// at some point, expect an interface here
-		Class instantiatedClass = IntrospectionUtil.getOrFindClass(aProject, this, instantiatedTypeTag);
+		Class instantiatedClass = ProjectIntrospection.getOrFindClass(aProject, this, instantiatedTypeTag);
 		if (instantiatedClass == null) {
 			return fail("Instantiated class:" + instantiatedTypeTag + " not found.");
 		}
@@ -45,13 +45,13 @@ public class FactoryMethodTestCase extends BasicTestCase {
 			return fail("Instantiated class does not have parameterless constructor:");		
 		}
 		
-		Object instantiatedObject = ExecutionUtil.timedInvoke(aConstructor, new Object[]{});
+		Object instantiatedObject = ProjectExecution.timedInvoke(aConstructor, new Object[]{});
 		if (instantiatedObject == null) {
 			return fail ("Instantiation returned null");
 		}
 		Object anActualClass = instantiatedObject.getClass();
 		if (instantiatedClass.isAssignableFrom(instantiatedClass)) {
-			IntrospectionUtil.putInstance(aProject, this, instantiatedTypeTag, instantiatedObject);
+			ProjectIntrospection.putInstance(aProject, this, instantiatedTypeTag, instantiatedObject);
 			return pass();
 		}
 		return partialPass (0.7, "Actual class:" + anActualClass + " not assignable from:" + instantiatedClass );

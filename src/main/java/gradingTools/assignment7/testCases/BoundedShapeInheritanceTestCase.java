@@ -10,7 +10,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.ClassDescription;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,7 +36,7 @@ public class BoundedShapeInheritanceTestCase extends BasicTestCase {
 //                throw new NotAutomatableException();
 //            classDescription = ManualClassFinder.find(project, "BoundedShape");
 //        }
-        Class<?> boundedShapeSuperclass = IntrospectionUtil.findClass(project, "BoundedShape");//classDescription.get().getJavaClass();
+        Class<?> boundedShapeSuperclass = ProjectIntrospection.findClass(project, "BoundedShape");//classDescription.get().getJavaClass();
         int methodCount = 0;
         int extendCount = 0;
         List<Class> errors = new ArrayList<>();

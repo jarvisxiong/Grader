@@ -15,7 +15,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 /**
  *
@@ -53,7 +53,7 @@ public class RotatingLineFunctionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class aClass = IntrospectionUtil.findClass(project, 
+        Class aClass = ProjectIntrospection.findClass(project, 
                             classDescriptions[0],
                             classDescriptions[1],
                             classDescriptions[2],
@@ -129,7 +129,7 @@ public class RotatingLineFunctionTestCase extends BasicTestCase {
         if (toNonPrimitiveClass(returnType).equals(Void.class)) {
             expectedValue = null;
         }
-        List<Method> methods = IntrospectionUtil.findMethodByName(clazz, methodName);
+        List<Method> methods = ProjectIntrospection.findMethodByName(clazz, methodName);
         if (methods.isEmpty()) {
             return "No method found for '" + methodName + "'";
         }
@@ -194,7 +194,7 @@ public class RotatingLineFunctionTestCase extends BasicTestCase {
                 }
                 return "Can't compre expected and actual return values of method '" + methodName + "'";
             } else {
-                List<Method> equalsMethods = IntrospectionUtil.findMethodByName(clazz, "equals");
+                List<Method> equalsMethods = ProjectIntrospection.findMethodByName(clazz, "equals");
                 Method equalsMethod = null;
                 for(Method m : equalsMethods) {
                    if (Arrays.equals(m.getParameterTypes(), new Class[]{Object.class}) && m.getReturnType().equals(boolean.class)) {

@@ -10,7 +10,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -26,7 +26,7 @@ public class StandingAreaPlacementTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
+        Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
 
         Constructor<?> bridgeSceneConstructor;
         try {
@@ -45,9 +45,9 @@ public class StandingAreaPlacementTestCase extends BasicTestCase {
         Method[] getGuardX = null;
         
         try {
-            getKnightArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
+            getKnightArea = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "KnightArea").get(0);
             getKnightX = MethodExecutionTestCase.recursiveFindMethod(getKnightArea.getReturnType(), "getX", "X");
-            getGuardArea = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
+            getGuardArea = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "GuardArea").get(0);
             getGuardX = MethodExecutionTestCase.recursiveFindMethod(getGuardArea.getReturnType(), "getX", "X");
         } catch (Exception e) {
             return fail("At least one of the following can't be found: getKnightArea, getGuardArea, KnightArea.getX, GuardArea.getX");

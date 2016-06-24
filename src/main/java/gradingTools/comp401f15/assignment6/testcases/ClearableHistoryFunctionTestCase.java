@@ -12,7 +12,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -29,20 +29,20 @@ public class ClearableHistoryFunctionTestCase extends BasicTestCase {
     }
     
     public static void locateClearableHistory(Project p, TestCase testCase) {
-        Class scannerBeanClass = IntrospectionUtil.getOrFindClass(p, testCase, "ScannerBean");
+        Class scannerBeanClass = ProjectIntrospection.getOrFindClass(p, testCase, "ScannerBean");
         locateClearableHistory(p, testCase, scannerBeanClass);
     }
     
     public static void locateClearableHistory(Project p, TestCase testCase, Class<?> scannerBeanClass) {
         try {
-            Method getTokenList = IntrospectionUtil.getOrFindMethodList(p, testCase, scannerBeanClass, "TokenList").get(0);
+            Method getTokenList = ProjectIntrospection.getOrFindMethodList(p, testCase, scannerBeanClass, "TokenList").get(0);
             testCase.getCheckable().getRequirements().putUserObject(CLEARABLE_HISTORY, getTokenList);
         } catch (Exception e) { }
     }
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class scannerBeanClass = IntrospectionUtil.getOrFindClass(project, this, "ScannerBean");
+        Class scannerBeanClass = ProjectIntrospection.getOrFindClass(project, this, "ScannerBean");
 
         Constructor<?> scannerBeanConstructor;
         try {
@@ -62,12 +62,12 @@ public class ClearableHistoryFunctionTestCase extends BasicTestCase {
         
         locateClearableHistory(project, this, scannerBeanClass);
         try {
-            setString = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "String").stream().filter((m)->m.getName().matches(".*set.*")).findAny().get();
-            getTokenList = IntrospectionUtil.getOrFindMethodList(project, this, scannerBeanClass, "TokenList").get(0);
-            clear = IntrospectionUtil.getOrFindMethodList(project, this, getTokenList.getReturnType(), "clear").get(0);
-            List<Method> sizeList = IntrospectionUtil.getOrFindMethodList(project, this, getTokenList.getReturnType(), "size");
+            setString = ProjectIntrospection.getOrFindMethodList(project, this, scannerBeanClass, "String").stream().filter((m)->m.getName().matches(".*set.*")).findAny().get();
+            getTokenList = ProjectIntrospection.getOrFindMethodList(project, this, scannerBeanClass, "TokenList").get(0);
+            clear = ProjectIntrospection.getOrFindMethodList(project, this, getTokenList.getReturnType(), "clear").get(0);
+            List<Method> sizeList = ProjectIntrospection.getOrFindMethodList(project, this, getTokenList.getReturnType(), "size");
             if (sizeList.isEmpty()) {
-                sizeList = IntrospectionUtil.getOrFindMethodList(project, this, getTokenList.getReturnType(), "Size");
+                sizeList = ProjectIntrospection.getOrFindMethodList(project, this, getTokenList.getReturnType(), "Size");
             }
             getSize = sizeList.get(0);
         } catch (Exception e) {

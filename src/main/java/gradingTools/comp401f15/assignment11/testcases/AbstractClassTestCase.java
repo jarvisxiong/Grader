@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 
 public class AbstractClassTestCase extends BasicTestCase {
 	String tag;
@@ -19,7 +19,7 @@ public class AbstractClassTestCase extends BasicTestCase {
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
-		Class<?> clazz = IntrospectionUtil.getOrFindClass(project, this, tag);
+		Class<?> clazz = ProjectIntrospection.getOrFindClass(project, this, tag);
 		if (clazz == null) {
 			return fail(tag + " not found.", autoGrade);
 		}

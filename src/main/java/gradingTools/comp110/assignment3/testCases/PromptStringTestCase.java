@@ -9,7 +9,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
+import grader.util.ProjectExecution;
 import gradingTools.utils.RunningProjectUtils;
 
 public class PromptStringTestCase extends BasicTestCase {
@@ -57,7 +57,7 @@ public class PromptStringTestCase extends BasicTestCase {
 			// Get the output after inputting one string, as both prompts should now be up
 //			RunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, "hello");
 //			String oneInputPrompt = oneInputRunningProject.await();
-			String oneInputPrompt = ExecutionUtil.callMain("hello");
+			String oneInputPrompt = ProjectExecution.callMain("hello");
 
 			// Check the prompt
 			return testForStringPrompt(oneInputPrompt);

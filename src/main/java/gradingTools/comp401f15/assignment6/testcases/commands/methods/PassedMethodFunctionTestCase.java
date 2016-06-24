@@ -11,7 +11,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -27,8 +27,8 @@ public class PassedMethodFunctionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class bridgeSceneClass = IntrospectionUtil.getOrFindClass(project, this, "BridgeScene");
-        List<Method> passMList = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "pass", "passed");
+        Class bridgeSceneClass = ProjectIntrospection.getOrFindClass(project, this, "BridgeScene");
+        List<Method> passMList = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "pass", "passed");
         if (passMList == null || passMList.isEmpty()) {
             return fail("Can't find passed method in class " + bridgeSceneClass.getTypeName());
         }
@@ -53,18 +53,18 @@ public class PassedMethodFunctionTestCase extends BasicTestCase {
         Method[] getAvatarX = new Method[2];
         
         try {
-            approach = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
-            say = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
-            getOccupied = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
-            getKnightTurn = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
-            getGorge = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Gorge").get(0);
+            approach = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "approach").get(0);
+            say = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "say").get(0);
+            getOccupied = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Occupied").get(0);
+            getKnightTurn = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "KnightTurn").get(0);
+            getGorge = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Gorge").get(0);
             getGorgeX = MethodExecutionTestCase.recursiveFindMethod(getGorge.getReturnType(), "getX", "X");
-            getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+            getArthur = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
             
-            List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head");
+            List<Method> lm = ProjectIntrospection.getOrFindMethodList(project, this, getArthur.getReturnType(), "Head");
             lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             getAvatarX[0] = lm.get(0);
-            lm = IntrospectionUtil.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X");
+            lm = ProjectIntrospection.getOrFindMethodList(project, this, getAvatarX[0].getReturnType(), "X");
             lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
             getAvatarX[1] = lm.get(0);    
         } catch (Exception e) {

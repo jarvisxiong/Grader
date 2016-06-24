@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment9.testCases;
 
-import static grader.util.ExecutionUtil.restoreOutputAndGetRedirectedOutput;
+import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
@@ -27,8 +27,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ExecutionUtil;
-import grader.util.IntrospectionUtil;
+import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.ExecutionData;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
@@ -100,7 +100,7 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ExecutionUtil.redirectOutput();
+        ProjectExecution.redirectOutput();
         try {
             if (GraphicsEnvironment.isHeadless()) {
                 throw new NotGradableException("Cannon run GUI on headless system");
@@ -113,11 +113,11 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
             Constructor<?> scenePainterConstructor = null;
             Constructor<?> bridgeSceneConstructor = null;
 
-            Class<?> bridgeSceneControllerClass = IntrospectionUtil.findClass(project, null, "BridgeSceneController", ".*[bB]ridge[sS]cene[cC]ontroller.*", ".*[bB]ridge[sS]cene[cC]ontroller.*");
-            Class<?> bridgeSceneClass = IntrospectionUtil.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
-            Class<?> bridgeScenePainter = IntrospectionUtil.findClass(project, null, "ObservableBridgeScenePainter", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*");
+            Class<?> bridgeSceneControllerClass = ProjectIntrospection.findClass(project, null, "BridgeSceneController", ".*[bB]ridge[sS]cene[cC]ontroller.*", ".*[bB]ridge[sS]cene[cC]ontroller.*");
+            Class<?> bridgeSceneClass = ProjectIntrospection.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
+            Class<?> bridgeScenePainter = ProjectIntrospection.findClass(project, null, "ObservableBridgeScenePainter", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*", ".*[oO]bservable[bB]ridge[sS]cene[pP]ainter.*");
             if (bridgeScenePainter == null) {
-                bridgeScenePainter = IntrospectionUtil.findClass(project, null, "InheritingBridgeScenePainter", "[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*", ".*[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*");
+                bridgeScenePainter = ProjectIntrospection.findClass(project, null, "InheritingBridgeScenePainter", "[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*", ".*[iI]nheriting[bB]ridge[sS]cene[pP]ainter.*");
             }
 
             boolean controllerTakesComponent = false;
@@ -131,7 +131,7 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
                             if (bridgeSceneInterface.isAssignableFrom(constructor.getParameterTypes()[0])) {
                                 Class<?> p2 = constructor.getParameterTypes()[1];
                                 if (p2.isInterface()) {
-                                    for(Class<?> p2Class : IntrospectionUtil.getClassesForInterface(project, p2)) {
+                                    for(Class<?> p2Class : ProjectIntrospection.getClassesForInterface(project, p2)) {
                                         if (Component.class.isAssignableFrom(p2Class)) {
                                             bridgeSceneControllerConstructor = constructor;
                                             controllerTakesComponent = true;
@@ -174,10 +174,10 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
             Method[] getX = new Method[2];
             Method[] getY = new Method[2];
             try {
-                getArthur = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
-                getGalahad = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
-                getLancelot = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
-                getRobin = IntrospectionUtil.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
+                getArthur = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Arthur").get(0);
+                getGalahad = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Galahad").get(0);
+                getLancelot = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Lancelot").get(0);
+                getRobin = ProjectIntrospection.getOrFindMethodList(project, this, bridgeSceneClass, "Robin").get(0);
                 for(Method m : getArthur.getReturnType().getMethods()) {
                     boolean doPick = false;
                     Class<?> retType = m.getReturnType();
@@ -186,7 +186,7 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
                         doPick = true;
                     } else if (structurePattern == null) {
                         if (retType.isInterface()) {
-                            for(Class<?> clazz : IntrospectionUtil.getClassesForInterface(project, retType)) {
+                            for(Class<?> clazz : ProjectIntrospection.getClassesForInterface(project, retType)) {
                                 structurePattern = clazz.getAnnotation(StructurePattern.class);
                                 if (structurePattern != null 
                                         && (StructurePatternNames.IMAGE_PATTERN.equals(structurePattern.value())
@@ -206,11 +206,11 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
                         break;
                     }
                 }
-                List<Method> lm = IntrospectionUtil.getOrFindMethodList(project, this, getX[0].getReturnType(), "X");
+                List<Method> lm = ProjectIntrospection.getOrFindMethodList(project, this, getX[0].getReturnType(), "X");
                 lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
                 getX[1] = lm.get(0);
 
-                lm = IntrospectionUtil.getOrFindMethodList(project, this, getY[0].getReturnType(), "Y");
+                lm = ProjectIntrospection.getOrFindMethodList(project, this, getY[0].getReturnType(), "Y");
                 lm = lm.stream().filter((s)->s.getName().contains("get")).collect(Collectors.toList());
                 getY[1] = lm.get(0);
             } catch (Exception e) {
@@ -242,8 +242,8 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
     }
     
     private boolean[] checkMovement(Constructor<?> bridgeSceneControllerConstructor, Constructor<?> scenePainterConstructor, Constructor<?> bridgeSceneConstructor, Method getArthur, Method getGalahad, Method getLancelot, Method getRobin, Method[] getX, Method[] getY, boolean controllerIsListener, boolean controllerTakesComponent) {
-        Object bridgeSceneInstance = ExecutionUtil.timedInvoke(bridgeSceneConstructor, new Object[]{});
-        Object scenePainter = ExecutionUtil.timedInvoke(scenePainterConstructor, new Object[]{bridgeSceneInstance});
+        Object bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
+        Object scenePainter = ProjectExecution.timedInvoke(scenePainterConstructor, new Object[]{bridgeSceneInstance});
         
         Object bridgeSceneController;
         Component component = null;
@@ -252,7 +252,7 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
             if (scenePainter instanceof Component) {
                 component = (Component)scenePainter;
                 try {
-                    bridgeSceneController = ExecutionUtil.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance, component});
+                    bridgeSceneController = ProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance, component});
                 } catch (Exception ex) {
                     return new boolean[]{false};
                 }
@@ -261,7 +261,7 @@ public class MoveAllAvatarsTestCase extends BasicTestCase {
             }
         } else {
             try {
-                bridgeSceneController = ExecutionUtil.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance});
+                bridgeSceneController = ProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance});
             } catch (Exception ex) {
                 return new boolean[]{false};
             }
