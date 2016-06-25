@@ -10,8 +10,11 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import util.annotations.Position;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
-
+// why is the implicit pattern stack pattern?
+@StructurePattern(StructurePatternNames.LIST_PATTERN)
 public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJUnitSuite, PropertyChangeListener{
 	List<GradableJUnitTest> children = new ArrayList();
 

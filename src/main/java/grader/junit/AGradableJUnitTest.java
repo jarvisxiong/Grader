@@ -20,6 +20,8 @@ import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 import util.annotations.Position;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -27,7 +29,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
-
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGradableJUnitTest implements GradableJUnitTest{
 	public static final Color UNTESTED_COLOR = Color.BLACK;
 	public static final Color ALL_FAIL_COLOR = Color.RED;
