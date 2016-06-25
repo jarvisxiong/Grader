@@ -43,6 +43,7 @@ public class BasicGradingEnvironment {
 	protected String editor;
     protected String diff;
     protected String browser;
+    protected String classpathSeparator;
     protected String classpath, canonicalClassPath, oeClassPath, canonicalOEClassPath;
     protected String assignmentName;
     protected String defaulAssignmentsDataFolderName;
@@ -75,18 +76,27 @@ public class BasicGradingEnvironment {
             osName = "Mac";
             browser = "open";
             editor = findEditor(macEditors);
-            classpath = findClasspathAndSetAssociatedClassPaths(":");
+            classpathSeparator = ":";
+//            classpath = findClasspathAndSetAssociatedClassPaths(":");
         } else if (osName.equals("Linux")) {
             browser = "nautilus";
             editor = findEditor(linuxEditors);
-            classpath = findClasspathAndSetAssociatedClassPaths(":");
+            classpathSeparator = ":";
+//            classpath = findClasspathAndSetAssociatedClassPaths(":");
         } else {
             osName = "Windows";
             browser = "explorer";
             editor = findEditor(windowsEditors);
-            classpath = findClasspathAndSetAssociatedClassPaths(";");
+            classpathSeparator = ";";
+
+//            classpath = findClasspathAndSetAssociatedClassPaths(";");
         }
+        maybeSetClasspaths();
     }
+	
+	protected void maybeSetClasspaths() {
+		setClasspaths();
+	}
 
     private static String findEditor(String[] editors) {
         for (String editor : editors) {
@@ -96,11 +106,15 @@ public class BasicGradingEnvironment {
         return "";
     }
     // as the name indicates this is a badly designed method
-  protected  String findClasspathAndSetAssociatedClassPaths(String separator) {
+  protected  String findClasspathAndSetAssociatedClasspaths(String separator) {
 	  String retVal = System.getProperty("java.class.path");
 	  canonicalOEClassPath = retVal; 
 	  oeClassPath = findOEClassPath(separator);
 	  return retVal;
+  }
+  
+  public void setClasspaths() {
+	  classpath = findClasspathAndSetAssociatedClasspaths(classpathSeparator);
   }
 
 
