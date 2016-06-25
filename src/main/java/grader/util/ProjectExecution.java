@@ -269,6 +269,7 @@ public class ProjectExecution {
 		}
 	}
 	static String tmpOutFilePrefix = "tmpMethodOut" ;
+	static String tmpErrFilePrefix = "tmpMethodErr" ;
 	static String tmpInFileName = "tmpIn";
 //	static PrintStream previousOut = System.out;
 //	static FileOutputStream aFileStream;
@@ -276,16 +277,25 @@ public class ProjectExecution {
 //	static File tmpFile;
 //	static boolean outputRedirected;
 //	static int numRedirections = 0;
-	static Stack<File> tmpFileStack = new Stack();
+	static Stack<File> tmpOutFileStack = new Stack();
+	static Stack<File> tmpErrFileStack = new Stack();
 	static PrintStream previousOut = System.out;
+	static PrintStream previousErr = System.err;
 	static InputStream originalIn = System.in;
 	static FileInputStream newIn;
 	static Stack<PrintStream> originalOutStack = new Stack();
+	static Stack<PrintStream> originalErrStack = new Stack();
+
 	static Stack<FileOutputStream> fileOutStack = new Stack();
-	static String computeNextTmpFileName () {
-		return tmpOutFilePrefix + tmpFileStack.size() + ".txt";
+	static Stack<FileOutputStream> fileErrStack = new Stack();
+
+	static String computeNextTmpOutFileName () {
+		return tmpOutFilePrefix + tmpOutFileStack.size() + ".txt";
 	}
-	public static synchronized void redirectInputOutput(String anInput) {
+	static String computeNextTmpErrFileName () {
+		return tmpErrFilePrefix + tmpErrFileStack.size() + ".txt";
+	}
+	public static synchronized void redirectInputOutputError(String anInput) {
 		try {
 			
 //			Common.writeText(tmpInFileName, anInput);
@@ -296,6 +306,7 @@ public class ProjectExecution {
 					tmpInFileName);
 			System.setIn(newIn);
 			redirectOutput();
+			redirectError();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -303,7 +314,27 @@ public class ProjectExecution {
 		
 		
 	}
-
+    public static synchronized void redirectError() {
+    	try {			
+			// err
+			String aNextTempErrFileName = computeNextTmpErrFileName();
+			FileOutputStream anErrFileStream = new FileOutputStream(
+					aNextTempErrFileName);
+			File aTmpOutFile = new File(aNextTempErrFileName);
+			fileErrStack.push(anErrFileStream);
+			tmpErrFileStack.push(aTmpOutFile);
+			originalErrStack.push(previousOut); // this should be System.out;			
+			PrintStream teeErrStream = new TeePrintStream(anErrFileStream, previousErr);
+			System.setErr(teeErrStream);
+			previousErr = teeErrStream;
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+    	
+    }
 	public static synchronized void redirectOutput() {
 //		if (outputRedirected) {
 //			System.out.println ("Output already redirected, ignoring redirect call");
@@ -311,15 +342,14 @@ public class ProjectExecution {
 //		}
 //		numRedirections++;
 		try {
-			String aNextTempFileName = computeNextTmpFileName();
+			// output
+			String aNextTempFileName = computeNextTmpOutFileName();
 			FileOutputStream aFileStream = new FileOutputStream(
 					aNextTempFileName);
 			File aTmpFile = new File(aNextTempFileName);
 			fileOutStack.push(aFileStream);
-			tmpFileStack.push(aTmpFile);
-			originalOutStack.push(previousOut); // this should be System.out;
-			
-			
+			tmpOutFileStack.push(aTmpFile);
+			originalOutStack.push(previousOut); // this should be System.out;			
 			PrintStream teeStream = new TeePrintStream(aFileStream, previousOut);
 			System.setOut(teeStream);
 			previousOut = teeStream;
@@ -330,17 +360,79 @@ public class ProjectExecution {
 			e.printStackTrace();
 		}		
 	}
+	public static synchronized void restoreInput() {
+		try {
+		if (newIn != null) {
+			newIn.close();
+			File aTempInputFile = new File(tmpInFileName);
+			if (aTempInputFile.exists()) {
+				aTempInputFile.delete();
+			}
+			System.setIn(originalIn); // should be in finally?
+		} } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	public static synchronized String restoreAndGetOut() {
+		try {
+		FileOutputStream aFileOutputStream = fileOutStack.pop();
+		aFileOutputStream.flush();
+		aFileOutputStream.close();
+		File tmpOutFile = tmpOutFileStack.pop();
+//		ThreadSupport.sleep(2000);
+		String anOutput = Common.toText(tmpOutFile);
+		tmpOutFile.delete();
+		return anOutput;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	finally {
+			previousOut = originalOutStack.pop();
+			System.setOut(previousOut);
+
+		}
+		return null;
+		
+	}
+	public static synchronized String restoreAndGetErr() {
+		try {
+		FileOutputStream aFileOutputStream = fileErrStack.pop();
+		aFileOutputStream.flush();
+		aFileOutputStream.close();
+		File tmpErrFile = tmpErrFileStack.pop();
+//		ThreadSupport.sleep(2000);
+		String anErr = Common.toText(tmpErrFile);
+		tmpErrFile.delete();
+		return anErr;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	finally {
+			previousErr = originalErrStack.pop();
+			System.setErr(previousErr);
+
+		}
+		return null;
+		
+	}
+	public static synchronized ResultingOutErr restoreAndGetRedirectedIOStreams() {
+		restoreInput();
+		String anOutput = restoreAndGetOut();
+		String anErrors = restoreAndGetErr();
+		return new ResultingOutErr(anOutput, anErrors);		
+	}
 	public static synchronized String restoreOutputAndGetRedirectedOutput() {
 		try {
 //			System.out.flush();
 //			originalOut.flush();
-			FileOutputStream aFileStream = fileOutStack.pop();
-			aFileStream.flush();
-			aFileStream.close();
-			File tmpFile = tmpFileStack.pop();
+			FileOutputStream aFileOutputStream = fileOutStack.pop();
+			aFileOutputStream.flush();
+			aFileOutputStream.close();
+			File tmpOutFile = tmpOutFileStack.pop();
 //			ThreadSupport.sleep(2000);
-			String anOutput = Common.toText(tmpFile);
-			tmpFile.delete();
+			String anOutput = Common.toText(tmpOutFile);
+			tmpOutFile.delete();
 			if (newIn != null) {
 				newIn.close();
 				File aTempInputFile = new File(tmpInFileName);
@@ -360,6 +452,7 @@ public class ProjectExecution {
 		}
 		return null;
 	}
+	
 	public static ResultWithOutput timedInteractiveInvoke(
 			Constructor aConstructor, Object[] anArgs, long aMillSeconds) {
 //		 ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -609,7 +702,7 @@ public class ProjectExecution {
 	       return aRunningProject.await();
 
 	}
-	 public static String forkProjectMain(Class aProxyClass, String[] args,
+	 public static ResultingOutErr forkProjectMain(Class aProxyClass, String[] args,
 				int timeout, String... input) throws NotRunnableException {	
 		 	// use tags for search if necessary, hence the finding. Duplicated work in main class finder unfortunately
 			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
@@ -624,35 +717,38 @@ public class ProjectExecution {
 //	       return aRunningProject.await();
 
 	}
-	 public static String forkMain(String aMainClassName, String[] args,
+	 public static ResultingOutErr forkMain(String aMainClassName, String[] args,
 				String... input) throws NotRunnableException {	
 		 return forkMain(aMainClassName, args, PROCESS_TIME_OUT, input);
 	 }
-	 public static String forkMain(
+	 public static ResultingOutErr forkMain(
 				String[] args, String... input) throws NotRunnableException {	
 		 return forkMain(null, args, PROCESS_TIME_OUT, input);
 	 }
-	 public static String forkMain(String aMainClassName, String[] args,
+	 public static ResultingOutErr forkMain(String aMainClassName, String[] args,
 				int timeout, String... input) throws NotRunnableException {	
 		 	
 
 		   Runner aProcessRunner = RunnerSelector.createProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
 
 	       RunningProject aRunningProject = aProcessRunner.run(RunningProjectUtils.toInputString(input), args, timeout);
-	       return aRunningProject.await();
+	       String anOutput = aRunningProject.await();
+	       String anError = aRunningProject.getErrorOutput();
+	       return new ResultingOutErr(anOutput, anError);
+//	       return anOutput;
 
 	}
 	 public static String forkMainWithExplicitCommand(Class aProxyClass, String[] args,String... input) {
 		 return forkProjectMainWithExplicitCommand(aProxyClass, args, PROCESS_TIME_OUT, input);
 	 }
-	 public static String forkMain(Class aProxyClass, String[] args,String... input) {
+	 public static ResultingOutErr forkMain(Class aProxyClass, String[] args,String... input) {
 		 return forkProjectMain(aProxyClass, args, PROCESS_TIME_OUT, input);
 	 }
 	 static final String[] emptyStringArray = new String[]{};
-	 public static String callCorrespondingMain(Class aProxyClass, String... anInput) throws NotRunnableException {
+	 public static ResultingOutErr callCorrespondingMain(Class aProxyClass, String... anInput) throws NotRunnableException {
 		 return callCorrespondingMain(aProxyClass, emptyStringArray, anInput);
 	 }
-	 public static String callMain(String aMainName, String[] args,
+	 public static ResultingOutErr callMain(String aMainName, String[] args,
 				String... anInput) throws NotRunnableException {
 		 if (BasicGradingEnvironment.get().isForkMain()) {
 			 return forkMain(aMainName, args, anInput);
@@ -660,14 +756,14 @@ public class ProjectExecution {
 			 return invokeMain(aMainName, args, anInput);
 		 }
 	 }
-	 public static String callMain(String... anInput) throws NotRunnableException {
+	 public static ResultingOutErr callMain(String... anInput) throws NotRunnableException {
 		 if (BasicGradingEnvironment.get().isForkMain()) {
 			 return forkMain( emptyStringArray, anInput);
 		 } else {
 			 return invokeMain(emptyStringArray, anInput);
 		 }
 	 }
-	 public static String callMain(String[] args,
+	 public static ResultingOutErr callMain(String[] args,
 				String... anInput) throws NotRunnableException {
 		 if (BasicGradingEnvironment.get().isForkMain()) {
 			 return forkMain(anInput, args);
@@ -676,7 +772,7 @@ public class ProjectExecution {
 		 }
 	 }
 	 
-	 public static String callCorrespondingMain(Class aProxyClass, String[] args,
+	 public static ResultingOutErr callCorrespondingMain(Class aProxyClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 if (BasicGradingEnvironment.get().isForkMain()) {
 			 return forkMain(aProxyClass, args, anInput);
@@ -685,7 +781,7 @@ public class ProjectExecution {
 		 }
 	 }
 
-	 public static String invokeCorrespondingMain(Class aProxyClass, String[] args,
+	 public static ResultingOutErr invokeCorrespondingMain(Class aProxyClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
 			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
@@ -698,7 +794,7 @@ public class ProjectExecution {
 		 }
 
 		}
-	 public static String invokeMain(String aMainClassName, String[] args,
+	 public static ResultingOutErr invokeMain(String aMainClassName, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
 			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
@@ -711,7 +807,7 @@ public class ProjectExecution {
 		 }
 
 		}
-	 public static String invokeMain(String[] args,
+	 public static ResultingOutErr invokeMain(String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
 			Map<String, String> anEntryPoints = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoints(CurrentProjectHolder.getOrCreateCurrentProject(), null);
@@ -727,16 +823,18 @@ public class ProjectExecution {
 
 		}
 	 
-	 public static String invokeMain(Class aMainClass, String[] args,
+	 public static ResultingOutErr invokeMain(Class aMainClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-		 ProjectExecution.redirectInputOutput(RunningProjectUtils.toInputString(anInput));		
+		 ProjectExecution.redirectInputOutputError(RunningProjectUtils.toInputString(anInput));		
 			
 			Method aMainMethod = ProjectIntrospection.findMethod(aMainClass, "main", new Class[] {String[].class});
 			ProjectExecution.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
 //			aMainMethod.invoke(aMainClass, new Object[] {args});		
-			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
-			return anOutput;	
+//			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
+			ResultingOutErr aResult = ProjectExecution.restoreAndGetRedirectedIOStreams();
+			return aResult;
+//			return anOutput;	
 		 } catch (Exception e) {
 			 e.printStackTrace();
 			 return null;

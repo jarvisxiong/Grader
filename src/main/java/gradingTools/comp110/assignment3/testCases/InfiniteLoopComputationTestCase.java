@@ -34,7 +34,7 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input1,
 //					choice1);
 //			String output1 = runningProject.await();
-			String output1 = ProjectExecution.callMain(input1, choice1);
+			String output1 = ProjectExecution.callMain(input1, choice1).out;
 //			if (output1.endsWith("\n")) {
 //				output1 = output1.substring(0, output1.length() - 1);
 //			}
@@ -42,7 +42,7 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 //			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 2, input1,
 //					choice1, input2, choice2);
 //			String output2 = runningProject2.await();
-			String output2 = ProjectExecution.callMain(input1, choice1, input2, choice2);
+			String output2 = ProjectExecution.callMain(input1, choice1, input2, choice2).out;
 			if (output2.startsWith(output1)) {
 				if (output2.length() > output1.length() + 1) {
 					return pass();

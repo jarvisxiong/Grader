@@ -45,7 +45,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 		try {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
 //			String prompt = runningProject.await();
-			String prompt = ProjectExecution.callMain(input); // writing to a file replaces tab with spaces
+			String prompt = ProjectExecution.callMain(input).out; // writing to a file replaces tab with spaces
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);
 			}
@@ -55,7 +55,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 
 //			runningProject = RunningProjectUtils.runProject(project, 1, input, choice);
 //			String output = runningProject.await();
-			String output = ProjectExecution.callMain(input, choice);
+			String output = ProjectExecution.callMain(input, choice).out;
 //			if (!output.equals(output2)) {
 //				System.out.println (output + "\n != \n" + output2);
 //			}

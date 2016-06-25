@@ -14,7 +14,7 @@ public class ADirectPointMainTest extends AnAbstractPointMainTest {
 
 	@Override
 	protected String runMain(String[] anArgs, String... anInput) {
-		return ProjectExecution.invokeMain(Main.class, anArgs, anInput);
+		return ProjectExecution.invokeMain(Main.class, anArgs, anInput).out;
 				
 	}
 	@Test

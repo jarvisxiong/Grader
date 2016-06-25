@@ -31,7 +31,7 @@ public class AReflectivePointMainTest extends AnAbstractPointMainTest {
 //		}
 //		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
 //		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
-		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput);
+		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
 
 
 	}
