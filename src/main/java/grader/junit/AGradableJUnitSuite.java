@@ -110,6 +110,16 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		}
 		return retVal;
 	}
+	@Visible(true)
+	@Position(0)
+	@Override
+	public double  getScore(){
+		double retVal = 0;
+		for (GradableJUnitTest aTest:children) {
+			retVal += aTest.getScore();
+		}
+		return retVal;
+	}
 	@Visible(false)
 	public List<TestCaseResult>  getTestCaseResults(){
 		List<TestCaseResult> retVal = new ArrayList();
@@ -121,11 +131,14 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (!"Status".equals(evt.getPropertyName())) 
-				return; // do not want this computed multiple times for different properties of test
+//		if (!"Status".equals(evt.getPropertyName())) 
+//				return; // do not want this computed multiple times for different properties of test
+		if (!"Score".equals(evt.getPropertyName())) 
+			return; // do not want this computed multiple times for different properties of test
 		numTests = numTests();
 		fractionComplete = ((double) numTestsSuceeded())/children.size();
 		showColor();
+		showScore();
 		
 	}
 	@Override

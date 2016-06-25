@@ -248,4 +248,10 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public double getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

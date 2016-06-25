@@ -41,6 +41,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	boolean isExtra;
 	boolean isRestriction;
 	Double maxScore;
+	Double score = 0.0;
 	String explanation;
 	String group = "";
 	RunNotifier runNotifier = new RunNotifier();
@@ -168,15 +169,25 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		propertyChangeSupport.firePropertyChange("this", oldColor,
 				new Attribute(AttributeNames.COMPONENT_FOREGROUND, color));
 	}
+	protected void showScore() {
+		Double oldScore = score;
+		score = getScore();
+		propertyChangeSupport.firePropertyChange("Score", oldScore,
+				score);
+	}
 	protected void showResult (TestCaseResult aTestCaseResult) {
 		String oldStatus = status;
 		String oldMessage = message;
+		double oldScore = score;
 		status = aTestCaseResult.getPercentage()*100 + "% complete";
 		message = aTestCaseResult.getNotes();
-		
-		propertyChangeSupport.firePropertyChange("Status", oldStatus, status);
+		score = getScore();		
+		propertyChangeSupport.firePropertyChange("Score", oldScore, score);
+//		propertyChangeSupport.firePropertyChange("Status", oldStatus, status);
+
 		propertyChangeSupport.firePropertyChange("Message", oldMessage, message);
 		showColor();
+//		showScore();
 //		Color oldColor = color;
 //		Color color = computeColor();
 //		propertyChangeSupport.firePropertyChange("this", oldColor,
@@ -272,7 +283,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		}
 		return description;
 	}
-	@Visible(true)
+	@Visible(false)
 	@Position(0)
 	@Override
 	public String getStatus() {
@@ -337,6 +348,12 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 		propertyChangeSupport.addPropertyChangeListener(arg0);
 		
+	}
+	@Visible(true)
+	@Position(0)
+	@Override
+	public double getScore() {
+		return maxScore*fractionComplete;
 	}
 	public static void main (String[] args) {
 		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
