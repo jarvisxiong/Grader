@@ -1,6 +1,6 @@
 package tools.classFinder;
 
-import java.util.List;
+import java.util.Set;
 
 import scala.Option;
 import framework.project.ClassDescription;
@@ -23,7 +23,7 @@ public class RootTagFinder {
 
     private Option<ClassDescription> find(String tag, boolean isInterface) {
         try {
-            List<ClassDescription> classes = project.getClassesManager().get().findClassesAndInterfacesByTag(tag);
+            Set<ClassDescription> classes = project.getClassesManager().get().findByTag(tag);
             for (ClassDescription description : classes) {
                 Class<?> _class = description.getJavaClass();
                 Class<?> superclass = _class.getSuperclass();

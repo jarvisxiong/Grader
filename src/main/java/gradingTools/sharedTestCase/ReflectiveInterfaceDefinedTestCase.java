@@ -1,6 +1,7 @@
 package gradingTools.sharedTestCase;
 
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -39,7 +40,7 @@ public class ReflectiveInterfaceDefinedTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        List<Class> classList = ProjectIntrospection.findInterfaces(project, myName, tag, nameRegex, tagRegex);
+        Set<Class> classList = ProjectIntrospection.findInterfaces(project, myName, tag, nameRegex, tagRegex);
         if (classList.isEmpty()) {
             if (myName != null) {
                 return fail("Interface '" + myName + "' not found");

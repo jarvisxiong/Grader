@@ -3,6 +3,7 @@ package gradingTools.comp410f15.assignment3.testcases;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -32,8 +33,8 @@ public class MinHeapTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MinHeap Class
-			List<ClassDescription> MinHeapDescription = classesManager.findByClassOrInterfaceName(MinHeapClassName);
-			Class<String> MinHeap = (Class<String>) MinHeapDescription.get(0).getJavaClass();
+			Set<ClassDescription> MinHeapDescription = classesManager.findByClassOrInterfaceName(MinHeapClassName);
+			Class<String> MinHeap = (Class<String>) MinHeapDescription.iterator().next().getJavaClass();
 			Object MinHeapInstance = null;
 			
 			

@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -30,7 +31,7 @@ public class PaintListenerPaintMethodTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("PaintListener");
+        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("PaintListener");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"PaintListener\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);

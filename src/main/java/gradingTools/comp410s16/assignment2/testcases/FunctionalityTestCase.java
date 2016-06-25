@@ -1,6 +1,6 @@
 package gradingTools.comp410s16.assignment2.testcases;
 
-import java.util.List;
+import java.util.Set;
 
 //import scala.Option;
 import framework.project.Option;
@@ -32,8 +32,8 @@ public class FunctionalityTestCase extends BasicTestCase {
             Option<ClassesManager> classesManager = project.getClassesManager();
 
             System.out.println("class descriptions: "+classesManager.get().getClassDescriptions());
-            List<ClassDescription> cd = classesManager.get().findByClassOrInterfaceName(classesManager.get().getClassDescriptions().toArray()[0].toString());
-            Class<String> queue = (Class<String>) cd.get(0).getJavaClass();
+            Set<ClassDescription> cd = classesManager.get().findByClassOrInterfaceName(classesManager.get().getClassDescriptions().toArray()[0].toString());
+            Class<String> queue = (Class<String>) cd.iterator().next().getJavaClass();
 
             String[] input = new String[4];
             input[0] = "greek";

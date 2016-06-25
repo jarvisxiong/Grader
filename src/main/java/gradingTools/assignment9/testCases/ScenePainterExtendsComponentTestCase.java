@@ -3,6 +3,7 @@ package gradingTools.assignment9.testCases;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -29,7 +30,7 @@ public class ScenePainterExtendsComponentTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("InheritingBridgeScenePainter");
+        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("InheritingBridgeScenePainter");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"InheritingBridgeScenePainter\"");
         ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);

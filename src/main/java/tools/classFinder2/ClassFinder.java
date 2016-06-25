@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -65,7 +66,7 @@ public class ClassFinder {
         }
 
         // We haven't search for that yet. Let's look starting with the tags
-        List<ClassDescription> descriptions = project.getClassesManager().get().findClassesAndInterfacesByTag(tag);
+        Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag(tag);
         if (!type.equals(ClassType.UNDEFINED)) {
             for(ClassDescription description : descriptions.toArray(new ClassDescription[descriptions.size()])) {
                 if (!ClassType.getClassType(description.getJavaClass()).equals(type)) {

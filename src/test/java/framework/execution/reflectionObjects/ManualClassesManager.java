@@ -31,7 +31,7 @@ public class ManualClassesManager implements ClassesManager {
 
 
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByTag(String tag) {
+    public Set<ClassDescription> findByTag(String tag) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -53,44 +53,44 @@ public class ManualClassesManager implements ClassesManager {
 	}
 
 	@Override
-	public List<ClassDescription> findByClassOrInterfaceName(String className) {
+	public Set<ClassDescription> findByClassOrInterfaceName(String className) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findByTagMatch(String regex) {
+	public Set<ClassDescription> findByTagMatch(String regex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
+	public Set<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassesAndInterfaces(String aName, String aTag,
+	public Set<ClassDescription> findClassesAndInterfaces(String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassesAndInterfacesByPattern(String tag) {
+	public Set<ClassDescription> finByPattern(String tag) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags) {
+	public Set<ClassDescription> findByTag(String[] aTags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
+	public Set<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;

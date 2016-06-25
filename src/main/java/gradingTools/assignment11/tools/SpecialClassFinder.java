@@ -1,6 +1,7 @@
 package gradingTools.assignment11.tools;
 
 import java.util.List;
+import java.util.Set;
 
 import scala.Option;
 import tools.classFinder2.ClassFinder;
@@ -19,7 +20,7 @@ public class SpecialClassFinder {
 
     public static Option<ClassDescription> getLocatable(Project project, boolean autoGrade) throws NotAutomatableException {
 
-        List<ClassDescription> descriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("locatable");
+        Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag("locatable");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("locatable", autoGrade);
 
@@ -34,7 +35,7 @@ public class SpecialClassFinder {
     }
 
     public static Option<ClassDescription> getBoundedShape(Project project, boolean autoGrade) throws NotAutomatableException {
-        List<ClassDescription> descriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("bounded shape");
+        Set<ClassDescription> descriptions = project.getClassesManager().get().findByTag("bounded shape");
         if (descriptions.isEmpty())
             return ClassFinder.get(project).findByTag("bounded shape", autoGrade);
 

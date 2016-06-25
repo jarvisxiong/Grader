@@ -6,6 +6,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Set;
 
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.ARunningProject;
@@ -18,6 +19,7 @@ import framework.project.Project;
 import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
 import grader.util.ProjectExecution;
+import grader.util.ProjectIntrospection;
 
 public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 
@@ -55,22 +57,28 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
             throw new NotGradableException();
      	SakaiProject aProject = ((ProjectWrapper) project).getProject();
         
-        List<ClassDescription> aClasses = project.getClassesManager().get().findClassesAndInterfaces(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+//        Set<ClassDescription> aClasses = project.getClassesManager().get().findClassesAndInterfaces(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+        Set<Class> aClasses = ProjectIntrospection.findClasses(project, null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+
         if (aClasses.size() != 1) {
         	return  fail ("Cannot find unique scanner bean class");
         }
-        ClassDescription description = aClasses.get(0);
+//        ClassDescription description = aClasses.iterator().next();
+        Class description = aClasses.iterator().next();
+
 //        
 //        // Look in each class for something that satisfies the bean class requirements
 //        for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
 
             // There should be a string property with a getter and setter
             try {
-                BeanInfo info = Introspector.getBeanInfo(description.getJavaClass());
+//                BeanInfo info = Introspector.getBeanInfo(description.getJavaClass());
+                BeanInfo info = Introspector.getBeanInfo(description);
+
                 for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
                     if (descriptor.getName().equalsIgnoreCase("ScannedString") && descriptor.getPropertyType() == String.class && descriptor.getReadMethod() != null &&
                             descriptor.getWriteMethod() != null) {
-                        Object anInstance = createScannerBean((description.getJavaClass()));
+                        Object anInstance = createScannerBean((description));
                         
 
                     	ResultWithOutput aResultWithOutput = ProjectExecution.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);

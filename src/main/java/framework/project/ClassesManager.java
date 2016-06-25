@@ -19,7 +19,7 @@ public interface ClassesManager {
      * @param className The name of the class to find
      * @return The {@link ClassDescription} wrapped in an {@link scala.Option} in case none is found.
      */
-    public List<ClassDescription> findByClassOrInterfaceName(String className);
+    public Set<ClassDescription> findByClassOrInterfaceName(String className);
 
     /**
      * Attempts to find a class description based on a tag
@@ -27,7 +27,7 @@ public interface ClassesManager {
      * @param tag The tag to search for
      * @return The {@link ClassDescription} wrapped in an {@link scala.Option} in case none is found.
      */
-    public List<ClassDescription> findClassesAndInterfacesByTag(String tag);
+    public Set<ClassDescription> findByTag(String tag);
 
     /**
      * @return All the {@link ClassDescription}
@@ -39,18 +39,18 @@ public interface ClassesManager {
 	void setClassNamesToCompile(List<String> classNamesToCompile);
 
 
-	List<ClassDescription> findByTagMatch(String regex);
+	Set<ClassDescription> findByTagMatch(String regex);
 
-	List<ClassDescription> findByClassOrInterfaceNameMatch(String className);
+	Set<ClassDescription> findByClassOrInterfaceNameMatch(String className);
 
-	List<ClassDescription> findClassesAndInterfaces(String aName, String aTag,
+	Set<ClassDescription> findClassesAndInterfaces(String aName, String aTag,
 			String aNameMatch, String aTagMatch);
 
-	List<ClassDescription> findClassesAndInterfacesByPattern(String tag);
+	Set<ClassDescription> finByPattern(String tag);
 
-	List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags);
+	Set<ClassDescription> findByTag(String[] aTags);
 
-	List<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
+	Set<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
 			String aNameMatch, String aTagMatch);
 
 //	List<Method> findMethodByName(Class aClass, String aSpecification);

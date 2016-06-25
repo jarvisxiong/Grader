@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -366,8 +367,8 @@ public class OriginalProjectClassesManager implements ClassesManager {
      * was found.
      */
     @Override
-    public List<ClassDescription> findByClassOrInterfaceName(String className) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByClassOrInterfaceName(String className) {
+        Set<ClassDescription> classes = new HashSet<>();
 
         // First search the simple names
         for (ClassDescription description : classDescriptions) {
@@ -386,8 +387,8 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
+        Set<ClassDescription> classes = new HashSet<>();
         if (className == null) return classes;
 
 //        // First search the simple names
@@ -407,12 +408,12 @@ public class OriginalProjectClassesManager implements ClassesManager {
         return classes;
     }
     @Override
-    public List<ClassDescription> findClassesAndInterfaces (String aName, String aTag, String aNameMatch, String aTagMatch) {
-    	List<ClassDescription> result = new ArrayList();
+    public Set<ClassDescription> findClassesAndInterfaces (String aName, String aTag, String aNameMatch, String aTagMatch) {
+    	Set<ClassDescription> result = new HashSet();
     	if (aTag != null)
-    		result = findClassesAndInterfacesByTag(aTag); 
+    		result = findByTag(aTag); 
     	if (aTag != null && result.isEmpty())
-    		result = findClassesAndInterfacesByPattern(aTag); 
+    		result = finByPattern(aTag); 
     	if (!result.isEmpty())
     		return result;
     	if (aName != null)
@@ -445,9 +446,9 @@ public class OriginalProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByTag(String tag) {
+    public Set<ClassDescription> findByTag(String tag) {
     	String normalizedTag = tag.replaceAll("\\s","");
-        List<ClassDescription> classes = new ArrayList<>();
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
@@ -464,8 +465,8 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByPattern(String tag) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> finByPattern(String tag) {
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
@@ -486,8 +487,8 @@ public class OriginalProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findByTagMatch(String regex) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByTagMatch(String regex) {
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
             for (String t : description.getTags()) {
                 if (t.matches(regex)) {
@@ -517,13 +518,13 @@ public class OriginalProjectClassesManager implements ClassesManager {
     }
 
 	@Override
-	public List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags) {
+	public Set<ClassDescription> findByTag(String[] aTags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
+	public Set<ClassDescription> findClassAndInterfaces(String aName, String[] aTag,
 			String aNameMatch, String aTagMatch) {
 		// TODO Auto-generated method stub
 		return null;

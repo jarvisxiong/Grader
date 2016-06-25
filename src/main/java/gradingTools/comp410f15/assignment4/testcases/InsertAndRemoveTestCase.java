@@ -3,6 +3,7 @@ package gradingTools.comp410f15.assignment4.testcases;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -31,8 +32,8 @@ public class InsertAndRemoveTestCase extends BasicTestCase {
 			boolean testPassed;
 			
 			//Get AVLTree Class
-			List<ClassDescription> AVLTreeDescription = classesManager.findByClassOrInterfaceName(AVLTreeClassName);
-			Class<String> AVLTree = (Class<String>) AVLTreeDescription.get(0).getJavaClass();
+			Set<ClassDescription> AVLTreeDescription = classesManager.findByClassOrInterfaceName(AVLTreeClassName);
+			Class<String> AVLTree = (Class<String>) AVLTreeDescription.iterator().next().getJavaClass();
 			Object AVLTreeInstance = null;
 			
 			

@@ -1,6 +1,8 @@
 package gradingTools.assignment7.testCases;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -45,7 +47,8 @@ public class BoundedShapeExtendsLocatableTestCase extends BasicTestCase {
 //        }
 
         Class<?> boundedClass = ProjectIntrospection.findClass(project, "BoundedShape");//boundedShapeDescription.get().getJavaClass();
-        List<Class> lc = ProjectIntrospection.findClasses(project, "Locatable");
+        Set<Class> ls = ProjectIntrospection.findClasses(project, "Locatable");
+        List<Class> lc = new ArrayList(ls);
         for(int i = 0; i < lc.size(); i ++) {
             for(int j = 1; j < lc.size();) {
                 if (lc.get(i).isAssignableFrom(lc.get(j))) {

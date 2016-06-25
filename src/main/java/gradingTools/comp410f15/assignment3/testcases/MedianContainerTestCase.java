@@ -3,6 +3,7 @@ package gradingTools.comp410f15.assignment3.testcases;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -32,8 +33,8 @@ public class MedianContainerTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MedianContainer Class
-			List<ClassDescription> MedianContainerDescription = classesManager.findByClassOrInterfaceName(MedianContainerClassName);
-			Class<String> MedianContainer = (Class<String>) MedianContainerDescription.get(0).getJavaClass();
+			Set<ClassDescription> MedianContainerDescription = classesManager.findByClassOrInterfaceName(MedianContainerClassName);
+			Class<String> MedianContainer = (Class<String>) MedianContainerDescription.iterator().next().getJavaClass();
 			Object MedianContainerInstance = null;
 			
 			

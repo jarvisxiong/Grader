@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import util.misc.Common;
 import framework.grading.testing.BasicTestCase;
@@ -90,7 +91,7 @@ public class MethodDefinedTestCase extends BasicTestCase {
 			return new Class[]{(Class)aClass};
 		}
 		if (aClass instanceof String) {
-			List<Class> retVal = ProjectIntrospection.getOrFindInterfaces(aProject, this, (String) aClass);
+			Set<Class> retVal = ProjectIntrospection.getOrFindInterfaces(aProject, this, (String) aClass);
 			if (retVal == null || retVal.isEmpty()) {
                             retVal = ProjectIntrospection.getOrFindClasses(aProject, this, (String) aClass);
                         }

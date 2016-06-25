@@ -1,6 +1,7 @@
 package gradingTools.sharedTestCase;
 
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
@@ -38,7 +39,7 @@ public class ClassDefinedTestCase extends CheckStyleTestCase {
 	        	return aResult;
 	        }
 	        
-	        	List<ClassDescription> aClasses = ProjectIntrospection.findClassesByTag(project, aTag);
+	        	Set<ClassDescription> aClasses = ProjectIntrospection.findClassesByTag(project, aTag);
 	        	if (aClasses.size() == 1) {
 	        		return pass();
 	        	}

@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -55,13 +56,13 @@ public class BucketSortTestCase extends BasicTestCase {
 		    System.setOut(new PrintStream(baos));
 		    
 			//Get MovieDatabase Class
-			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
-			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.get(0).getJavaClass();
+			Set<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
+			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.iterator().next().getJavaClass();
 			Object MovieDatabaseInstance = null;
 			
 			//Get Movie Class
-			List<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
-			Class<String> Movie = (Class<String>) MovieDescription.get(0).getJavaClass();
+			Set<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
+			Class<String> Movie = (Class<String>) MovieDescription.iterator().next().getJavaClass();
 			
 			// Sort 10 elements - 5 points
 			try {

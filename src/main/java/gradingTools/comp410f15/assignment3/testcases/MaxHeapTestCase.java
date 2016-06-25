@@ -3,6 +3,7 @@ package gradingTools.comp410f15.assignment3.testcases;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -32,8 +33,8 @@ public class MaxHeapTestCase extends BasicTestCase {
 			boolean testPassed = false;
 			
 			//Get MaxHeap Class
-			List<ClassDescription> MaxHeapDescription = classesManager.findByClassOrInterfaceName(MaxHeapClassName);
-			Class<String> MaxHeap = (Class<String>) MaxHeapDescription.get(0).getJavaClass();
+			Set<ClassDescription> MaxHeapDescription = classesManager.findByClassOrInterfaceName(MaxHeapClassName);
+			Class<String> MaxHeap = (Class<String>) MaxHeapDescription.iterator().next().getJavaClass();
 			Object MaxHeapInstance = null;
 			
 			

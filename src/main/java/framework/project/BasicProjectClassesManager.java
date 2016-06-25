@@ -452,8 +452,8 @@ public class BasicProjectClassesManager implements ClassesManager {
      * was found.
      */
     @Override
-    public List<ClassDescription> findByClassOrInterfaceName(String className) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByClassOrInterfaceName(String className) {
+        Set<ClassDescription> classes = new HashSet<>();
 
         // First search the simple names
         for (ClassDescription description : classDescriptions) {
@@ -485,8 +485,8 @@ public class BasicProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByClassOrInterfaceNameMatch(String className) {
+        Set<ClassDescription> classes = new HashSet<>();
         if (className == null) return classes;
 
 //        // First search the simple names
@@ -506,19 +506,19 @@ public class BasicProjectClassesManager implements ClassesManager {
         return classes;
     }
     @Override
-    public List<ClassDescription> findClassesAndInterfaces (String aName, String aTag, String aNameMatch, String aTagMatch) {
+    public Set<ClassDescription> findClassesAndInterfaces (String aName, String aTag, String aNameMatch, String aTagMatch) {
     	return findClassAndInterfaces(aName, new String[] { aTag}, aNameMatch, aTagMatch);
     }
     @Override
-    public List<ClassDescription> findClassAndInterfaces (String aName, String[] aTag, String aNameMatch, String aTagMatch) {
+    public Set<ClassDescription> findClassAndInterfaces (String aName, String[] aTag, String aNameMatch, String aTagMatch) {
     	if (aName == null && (aTag == null || aTag.length == 0) && aNameMatch == null && aTagMatch == null) {
     		return findByClassOrInterfaceName(null); // return all classes
     	}
-    	List<ClassDescription> result = new ArrayList();
+    	Set<ClassDescription> result = new HashSet();
     	if (aTag != null)
-    		result = findClassesAndInterfacesByTag(aTag); 
+    		result = findByTag(aTag); 
     	if (aTag != null && aTag.length > 0 && result.isEmpty())
-    		result = findClassesAndInterfacesByPattern(aTag[0]); 
+    		result = finByPattern(aTag[0]); 
     	if (!result.isEmpty())
     		return result;
     	if (aName != null)
@@ -543,8 +543,8 @@ public class BasicProjectClassesManager implements ClassesManager {
     	return result;
     }
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByTag(String aTag) {
-    	return findClassesAndInterfacesByTag (new String[] {aTag});
+    public Set<ClassDescription> findByTag(String aTag) {
+    	return findByTag (new String[] {aTag});
     }
 
     /**
@@ -554,11 +554,11 @@ public class BasicProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByTag(String[] aTags) {
+    public Set<ClassDescription> findByTag(String[] aTags) {
 //    	String normalizedTag = tag.replaceAll("\\s","");
     	ProjectIntrospection.normalizeTags(aTags); // using array instead
     	List<String> aSpecificationList = Arrays.asList(aTags);
-        List<ClassDescription> classes = new ArrayList<>();
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
@@ -580,8 +580,8 @@ public class BasicProjectClassesManager implements ClassesManager {
     }
     
     @Override
-    public List<ClassDescription> findClassesAndInterfacesByPattern(String tag) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> finByPattern(String tag) {
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
@@ -602,8 +602,8 @@ public class BasicProjectClassesManager implements ClassesManager {
      * @return The set of matching class descriptions
      */
     @Override
-    public List<ClassDescription> findByTagMatch(String regex) {
-        List<ClassDescription> classes = new ArrayList<>();
+    public Set<ClassDescription> findByTagMatch(String regex) {
+        Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
             for (String t : description.getTags()) {
                 if (t.matches(regex)) {

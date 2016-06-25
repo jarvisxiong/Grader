@@ -2,7 +2,9 @@ package gradingTools.assignment9.testCases;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import tools.CompilationNavigation;
 
@@ -35,14 +37,16 @@ public class PaintListenerListenersTestCase extends BasicTestCase {
         // Make sure we can get the class description
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
-        List<ClassDescription> classDescriptions = project.getClassesManager().get().findClassesAndInterfacesByTag("PaintListener");
+        Set<ClassDescription> classDescriptions = project.getClassesManager().get().findByTag("PaintListener");
         if (classDescriptions.isEmpty())
             return fail("No class tagged \"PaintListener\"");
-        ClassDescription classDescription = new ArrayList<>(classDescriptions).get(0);
+//        ClassDescription classDescription = new HashSet<>(classDescriptions).get(0);
+        ClassDescription classDescription = new HashSet<>(classDescriptions).iterator().next();
+
 
         // Get the views
         Class<?> paintListener = classDescription.getJavaClass();
-        List<ClassDescription> views = new ArrayList<>();
+        Set<ClassDescription> views = new HashSet<>();
         for (ClassDescription description : project.getClassesManager().get().getClassDescriptions()) {
             if (!description.getJavaClass().isInterface() && paintListener.isAssignableFrom(description.getJavaClass())) {
                 views.add(description);

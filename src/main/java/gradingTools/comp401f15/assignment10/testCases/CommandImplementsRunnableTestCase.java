@@ -34,7 +34,7 @@ public class CommandImplementsRunnableTestCase extends BasicTestCase {
         // Find the class
         String notes = "";
         double score = 1;
-        if (project.getClassesManager().get().findClassesAndInterfacesByTag(tag).isEmpty()) {
+        if (project.getClassesManager().get().findByTag(tag).isEmpty()) {
             score = 0.5;
             notes = "Class was not tagged.";
         }

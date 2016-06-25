@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
@@ -50,16 +51,16 @@ public class MergeTestCase extends BasicTestCase {
 			String output;
 			
 		 	//Get MovieDatabase Class
-			List<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
-			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.get(0).getJavaClass();
+			Set<ClassDescription> MovieDatabaseDescription = classesManager.findByClassOrInterfaceName(MovieDatabaseClassName);
+			Class<String> MovieDatabase = (Class<String>) MovieDatabaseDescription.iterator().next().getJavaClass();
 			
 			//Get Movie Class
-			List<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
-			Class<String> Movie = (Class<String>) MovieDescription.get(0).getJavaClass();
+			Set<ClassDescription> MovieDescription = classesManager.findByClassOrInterfaceName(MovieClassName);
+			Class<String> Movie = (Class<String>) MovieDescription.iterator().next().getJavaClass();
 			
 			//Get MovieSorter Class
-			List<ClassDescription> MovieSorterDescription = classesManager.findByClassOrInterfaceName(MovieSorterClassName);
-			Class<String> MovieSorter = (Class<String>) MovieSorterDescription.get(0).getJavaClass();
+			Set<ClassDescription> MovieSorterDescription = classesManager.findByClassOrInterfaceName(MovieSorterClassName);
+			Class<String> MovieSorter = (Class<String>) MovieSorterDescription.iterator().next().getJavaClass();
 			Object MovieSorterInstance = null;
 			
 		    //Create int input

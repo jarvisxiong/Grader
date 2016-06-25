@@ -1,6 +1,7 @@
 package gradingTools.assignment7.testCases;
 
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -28,7 +29,7 @@ public class CmdIntTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        List<ClassDescription> classes = project.getClassesManager().get().findClassesAndInterfacesByTag("Command Interpreter");
+        Set<ClassDescription> classes = project.getClassesManager().get().findByTag("Command Interpreter");
         if (classes.size() == 1)
             return pass(autoGrade);
         return fail("There should be one class tagged \"Command Interpreter\"", autoGrade);

@@ -84,7 +84,7 @@ public class ProjectIntrospection {
 //	}
 	public static Class findClass(Project aProject, String aName,
 			String[] aTag, String aNameMatch, String aTagMatch) {
-		List<Class> aClasses = findClasses(aProject, aName, aTag, aNameMatch, aTagMatch);
+		Set<Class> aClasses = findClasses(aProject, aName, aTag, aNameMatch, aTagMatch);
 		
 //		int i = 0;
 //		List<ClassDescription> aClasses = aProject.getClassesManager().get()
@@ -99,11 +99,11 @@ public class ProjectIntrospection {
 		 if (aClasses.size() != 1) {
 		 return null;
 		 }
-		 return aClasses.get(0);
+		 return aClasses.iterator().next();
 
 	}
 	public static Class findClassByMethods(Project aProject, Method[] aMethods) {
-		List<Class> aClasses = findClassesByMethods(aProject, aMethods);
+		Set<Class> aClasses = findClassesByMethods(aProject, aMethods);
 		
 		
 //		int i = 0;
@@ -122,7 +122,7 @@ public class ProjectIntrospection {
 		 return aClasses.iterator().next();
 
 	}
-	public static boolean implementsOneOf (Class aClass, List<Class> anInterfaces) {
+	public static boolean implementsOneOf (Class aClass, Set<Class> anInterfaces) {
 		// recursively get all interfaces
 		Vector<Class> aClassInterfaces = new Vector();
 		JavaIntrospectUtility.addInterfaces(aClassInterfaces, aClass);
@@ -130,7 +130,7 @@ public class ProjectIntrospection {
 		aClassInterfacesSet.retainAll(anInterfaces);
 		return aClassInterfacesSet.size() != 0;		
 	}
-	public static boolean isSuperTypeOfOneOf (Class aClass, List<Class> aTypes) {
+	public static boolean isSuperTypeOfOneOf (Class aClass, Set<Class> aTypes) {
 		// recursively get all interfaces
 		for (Class aType: aTypes) {
 			Vector<Class> aSuperTypes = JavaIntrospectUtility.getTypes(aType);
@@ -141,9 +141,9 @@ public class ProjectIntrospection {
 		return false;		
 	}
 	
-	public static List<Class> removeSuperTypes(List<Class> anOriginal) {
+	public static Set<Class> removeSuperTypes(Set<Class> anOriginal) {
 		if (anOriginal.size() <= 1) return anOriginal;
-		List<Class> aRetVal = new ArrayList();
+		Set<Class> aRetVal = new HashSet();
 		for (Class aClass:anOriginal) {
 			if (!isSuperTypeOfOneOf(aClass, anOriginal)) {
 				aRetVal.add(aClass);
@@ -172,9 +172,9 @@ public class ProjectIntrospection {
 		return true;		
 		
 	}
-	public static List<Class> getAllClasses(Project aProject) {
+	public static Set<Class> getAllClasses(Project aProject) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
-		 List<Class> aResult = new ArrayList();
+		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
 				Class aClass = aClassDescription.getClass();
 				if (!aClass.isInterface()) {
@@ -184,19 +184,19 @@ public class ProjectIntrospection {
 			}
 		 return aResult;		 
 	}
-	public static List<Class> getAllInterfaces() {
+	public static Set<Class> getAllInterfaces() {
 		return getAllInterfaces(CurrentProjectHolder.getOrCreateCurrentProject());
 	}
-	public static List<Class> getAllClasses() {
+	public static Set<Class> getAllClasses() {
 		return getAllClasses(CurrentProjectHolder.getOrCreateCurrentProject());
 	}
-	public static List<Class> getAllClassesAndInterfaces() {
+	public static Set<Class> getAllClassesAndInterfaces() {
 		return getAllClassesAndInterfaces(CurrentProjectHolder.getOrCreateCurrentProject());
 	}
 
-	public static List<Class> getAllInterfaces(Project aProject) {
+	public static Set<Class> getAllInterfaces(Project aProject) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
-		 List<Class> aResult = new ArrayList();
+		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
 				Class aClass = aClassDescription.getClass();
 				if (aClass.isInterface()) {
@@ -206,9 +206,9 @@ public class ProjectIntrospection {
 			}
 		 return aResult;		 
 	}
-	public static List<Class> getAllClassesAndInterfaces(Project aProject) {
+	public static Set<Class> getAllClassesAndInterfaces(Project aProject) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
-		 List<Class> aResult = new ArrayList();
+		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
 				Class aClass = aClassDescription.getClass();
 					aResult.add(aClass);					
@@ -216,9 +216,9 @@ public class ProjectIntrospection {
 		 }
 		 return aResult;		 
 	}
-	public static List<Class> findClassesByMethods(Project aProject,  Method[] aMethods) {
+	public static Set<Class> findClassesByMethods(Project aProject,  Method[] aMethods) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
-		 List<Class> aResult = new ArrayList();
+		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
 				Class aClass = aClassDescription.getClass();
 				if (aClass.isInterface()) {
@@ -231,12 +231,12 @@ public class ProjectIntrospection {
 		 return aResult;		 
 	}
 	// why are these not all sets?
-	public static List<Class> findClasses(Project aProject, String aName,
+	public static Set<Class> findClasses(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
-		List<Class> result = new ArrayList();
-		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+		Set<Class> result = new HashSet();
+		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
 				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
-		List<Class> aMatchedInterfaces = new ArrayList();
+		Set<Class> aMatchedInterfaces = new HashSet();
 		for (ClassDescription aClass : aClasses) {
 			if (aClass.getJavaClass().isInterface()) {
 				aMatchedInterfaces.add(aClass.getJavaClass());
@@ -266,12 +266,12 @@ public class ProjectIntrospection {
 
 	}
 	// why are these not all sets?
-		public static List<Class> findClasses(Project aProject, String aName,
+		public static Set<Class> findClasses(Project aProject, String aName,
 				String[] aTag, String aNameMatch, String aTagMatch) {
-			List<Class> result = new ArrayList();
-			List<ClassDescription> aClasses = aProject.getClassesManager().get()
+			Set<Class> result = new HashSet();
+			Set<ClassDescription> aClasses = aProject.getClassesManager().get()
 					.findClassAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
-			List<Class> aMatchedInterfaces = new ArrayList();
+			Set<Class> aMatchedInterfaces = new HashSet();
 			for (ClassDescription aClass : aClasses) {
 				if (aClass.getJavaClass().isInterface()) {
 					aMatchedInterfaces.add(aClass.getJavaClass());
@@ -303,7 +303,7 @@ public class ProjectIntrospection {
 
 	public static Class find(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
-		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
 				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (aClass.getJavaClass().isInterface())
@@ -381,9 +381,9 @@ public class ProjectIntrospection {
 
 	}
 
-	public static List<Class> getOrFindClasses(Project aProject,
+	public static Set<Class> getOrFindClasses(Project aProject,
 			TestCase aTestCase, String aClassName) {
-		List<Class> aClassObject = (List<Class>) aTestCase.getCheckable()
+		Set<Class> aClassObject = (Set<Class>) aTestCase.getCheckable()
 				.getRequirements()
 				.getUserObject(toClassesDescriptor(aClassName));
 		if (aClassObject == null) {
@@ -397,9 +397,9 @@ public class ProjectIntrospection {
 		return aClassObject;
 	}
 
-	public static List<Class> getOrFindInterfaces(Project aProject,
+	public static Set<Class> getOrFindInterfaces(Project aProject,
 			TestCase aTestCase, String aClassName) {
-		List<Class> aClassObject = (List<Class>) aTestCase.getCheckable()
+		Set<Class> aClassObject = (Set<Class>) aTestCase.getCheckable()
 				.getRequirements()
 				.getUserObject(toInterfacesDescriptor(aClassName));
 		if (aClassObject == null) {
@@ -514,7 +514,7 @@ public class ProjectIntrospection {
 			String[] aTags = getTags(anInterface);
 			aTagSet.addAll(Arrays.asList(aTags));			
 		}
-		List<String> aTagList = new ArrayList(aTagSet);
+		Set<String> aTagList = new HashSet(aTagSet);
 		String[] aResult = aTagList.toArray(emptyStringArray);
 		return aResult;
 	}
@@ -560,7 +560,7 @@ public class ProjectIntrospection {
 		// return findClass(aProject, aName, aName, aName, aName );
 	}
 
-	public static List<Class> findClasses(Project aProject, String aName) {
+	public static Set<Class> findClasses(Project aProject, String aName) {
 		return findClasses(aProject, null, aName, toRegex(aName),
 				toRegex(aName));
 
@@ -572,13 +572,13 @@ public class ProjectIntrospection {
 
 	}
 
-	public static List<Class> findInterfaces(Project aProject, String aName) {
+	public static Set<Class> findInterfaces(Project aProject, String aName) {
 		return findInterfaces(aProject, null, new String[] { aName },
 				toRegex(aName), toRegex(aName));
 
 	}
 
-	public static List<ClassDescription> findClassesByTag(Project aProject,
+	public static Set<ClassDescription> findClassesByTag(Project aProject,
 			String aTag) {
 		return aProject.getClassesManager().get()
 				.findClassAndInterfaces(null, new String[] { aTag }, null, null);
@@ -643,10 +643,10 @@ public class ProjectIntrospection {
 
 	public static ClassDescription findClassDescriptionByTag(
 			Project aProject, String[] aTags) {
-		List<ClassDescription> aClasses = findClassDescriptionsByTag(aProject, aTags);
+		Set<ClassDescription> aClasses = findClassDescriptionsByTag(aProject, aTags);
 		if (aClasses.size() != 1)
 			return null;
-		return aClasses.get(0);
+		return aClasses.iterator().next();
 
 		// if (aClasses.size() != 1) {
 		// return null;
@@ -656,11 +656,11 @@ public class ProjectIntrospection {
 	}
 	public static Class findClassByTag(
 			Project aProject, String[] aTags) {
-		List<Class> aClasses = findClassesByTag(aProject, aTags);
+		Set<Class> aClasses = findClassesByTag(aProject, aTags);
 		aClasses = removeSuperTypes(aClasses);
 		if (aClasses.size() != 1)
 			return null;
-		return aClasses.get(0);
+		return aClasses.iterator().next();
 
 		// if (aClasses.size() != 1) {
 		// return null;
@@ -669,7 +669,7 @@ public class ProjectIntrospection {
 
 	}
 
-	public static List<ClassDescription> findClassDescriptionsByTag(Project aProject,
+	public static Set<ClassDescription> findClassDescriptionsByTag(Project aProject,
 			String[] aTag) {
 		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
 
@@ -682,13 +682,13 @@ public class ProjectIntrospection {
 		// return aClasses.get(0).getJavaClass();
 
 	}
-	public static List<Class> findClassesByTag(Project aProject,
+	public static Set<Class> findClassesByTag(Project aProject,
 			String[] aTag) {
 		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
 
-		List<ClassDescription> aClassDescriptions = aProject.getClassesManager().get()
+		Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get()
 				.findClassAndInterfaces(null, aTag, null, null);
-		List<Class> aResult = new ArrayList();
+		Set<Class> aResult = new HashSet();
 		for (ClassDescription aDescription:aClassDescriptions) {
 			aResult.add(aDescription.getJavaClass());
 		}
@@ -703,7 +703,7 @@ public class ProjectIntrospection {
 
 	public static Class findInterface(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
-		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
 				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (!aClass.getJavaClass().isInterface())
@@ -719,16 +719,16 @@ public class ProjectIntrospection {
 
 	}
 
-	public static List<Class> findInterfaces(Project aProject, String aName,
+	public static Set<Class> findInterfaces(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
 		return findInterfaces(aProject, aName, new String[] { aTag },
 				aNameMatch, aTagMatch);
 	}
 	
-	public static List<Class> findInterfaces(Project aProject, String aName,
+	public static Set<Class> findInterfaces(Project aProject, String aName,
 			String[] aTag, String aNameMatch, String aTagMatch) {
-		List<Class> result = new ArrayList();
-		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+		Set<Class> result = new HashSet();
+		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
 				.findClassAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
 		for (ClassDescription aClass : aClasses) {
 			if (!aClass.getJavaClass().isInterface())
@@ -1182,8 +1182,8 @@ public class ProjectIntrospection {
 		return result;
 	}
 
-	public static List<Class> getAllInterfaces(Class aClass) {
-		List<Class> retVal = new ArrayList();
+	public static Set<Class> getAllInterfaces(Class aClass) {
+		Set<Class> retVal = new HashSet();
 		while (aClass != null) {
 			retVal.addAll(Arrays.asList(aClass.getInterfaces()));
 			aClass = aClass.getSuperclass();
@@ -1195,7 +1195,7 @@ public class ProjectIntrospection {
 
 	public static Class getCommonInterface(Project project,
 			String[][] aClassDescriptions) {
-		List<Class> interfaces = new ArrayList<>(5);
+		Set<Class> interfaces = new HashSet<>(5);
 		for (String[] classDescriptions : aClassDescriptions) {
 			Class aClass = ProjectIntrospection.findClass(project,
 					classDescriptions[0], classDescriptions[1],
@@ -1203,7 +1203,7 @@ public class ProjectIntrospection {
 			if (aClass == null)
 				continue;
 
-			List<Class> tokenInterfaces = ProjectIntrospection
+			Set<Class> tokenInterfaces = ProjectIntrospection
 					.getAllInterfaces(aClass);
 			if (tokenInterfaces.size() == 0) {
 				return null;
@@ -1218,7 +1218,7 @@ public class ProjectIntrospection {
 		if (interfaces.size() != 1) {
 			return null;
 		} else {
-			return interfaces.get(0);
+			return interfaces.iterator().next();
 		}
 	}
 	// public static String setPropertyInteractive (Class aClass, Method

@@ -1,6 +1,7 @@
 package gradingTools.assignment9.testCases;
 
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
@@ -26,8 +27,8 @@ public class ListenerAndPainterTagTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
 
-        List<ClassDescription> class1 = project.getClassesManager().get().findClassesAndInterfacesByTag("PaintListener");
-        List<ClassDescription> class2 = project.getClassesManager().get().findClassesAndInterfacesByTag("ObservableBridgeScenePainter");
+        Set<ClassDescription> class1 = project.getClassesManager().get().findByTag("PaintListener");
+        Set<ClassDescription> class2 = project.getClassesManager().get().findByTag("ObservableBridgeScenePainter");
         if (class1.isEmpty()) {
             if (class2.isEmpty())
                 return fail("Neither paint listener nor observable bridge scene painter are tagged.");
