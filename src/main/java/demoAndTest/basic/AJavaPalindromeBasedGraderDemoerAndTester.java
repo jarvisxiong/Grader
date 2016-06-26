@@ -293,7 +293,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("nosub");
 		Driver.getSettingsModel().getOnyens().setDisplayedStartingOnyen("acorrect");
 
-		Driver.getSettingsModel().cleanSlate();
+		Driver.getSettingsModel().cleanSlateAll();
 		}
 
 	}
@@ -594,7 +594,7 @@ public class AJavaPalindromeBasedGraderDemoerAndTester implements  GraderDemoerA
 
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 			if (!generatingCorrectDir)
-			Driver.getSettingsModel().cleanSlate();
+			Driver.getSettingsModel().cleanSlateAll();
 
 		}
 		System.exit(0);

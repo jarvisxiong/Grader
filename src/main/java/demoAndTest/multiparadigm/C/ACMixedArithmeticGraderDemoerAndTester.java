@@ -118,7 +118,7 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 		Driver.getSettingsModel().getOnyens().setDisplayedEndingOnyen("jbartel");
 		Driver.getSettingsModel().getOnyens().setDisplayedStartingOnyen("acorrect");
 
-		Driver.getSettingsModel().cleanSlate();
+		Driver.getSettingsModel().cleanSlateAll();
 		}
 
 	}
@@ -210,7 +210,7 @@ public class ACMixedArithmeticGraderDemoerAndTester extends AJavaPalindromeBased
 
 			((OverviewProjectStepper) Driver.getDatabase().getProjectStepper()).quit();
 			if (!generatingCorrectDir)
-			Driver.getSettingsModel().cleanSlate();
+			Driver.getSettingsModel().cleanSlateAll();
 
 		}
 		System.exit(0);

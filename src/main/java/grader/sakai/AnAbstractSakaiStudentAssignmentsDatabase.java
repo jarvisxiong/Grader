@@ -36,7 +36,7 @@ public abstract class AnAbstractSakaiStudentAssignmentsDatabase<GenericAssignmen
     	OnyenRangeModel anOnyenRangeModel = aGraderSettingsModel.getOnyens();
     	String aStartOnyen = anOnyenRangeModel.getStartingOnyen();
     	String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
-    	String aGotoOnyen = anOnyenRangeModel.getGoToOnyen();
+    	String aGotoOnyen = anOnyenRangeModel.getGoToOnyens();
         Set<String> studentFolderNames = bulkAssignmentFolder.getStudentFolderNames();
         createStudentAssinments(studentFolderNames);
         // we are duplicating the task done by alphbaetical navigator of Josh/Jacob, at some point we may want to disable this code 

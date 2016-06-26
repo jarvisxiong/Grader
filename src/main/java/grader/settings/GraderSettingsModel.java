@@ -27,7 +27,7 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	void setModuleProblemSelector(ModuleProblemSelector moduleProblemSelector);
 	void cleanAllSubmissionFolders();
 	void resetFeatureSpreadsheet();
-	void cleanSlate();
+	void cleanSlateAll();
 	String getCurrentModule();
 	boolean isSettingsLoaded();
 	void init();
@@ -39,5 +39,6 @@ public interface GraderSettingsModel extends PropertyListenerRegisterer, Propert
 	void cleanSlate(String anOnyen);
 	boolean maybePreUnzip();
 	void compileExecutor();
+	void cleanSlateSpecified();
 
 }

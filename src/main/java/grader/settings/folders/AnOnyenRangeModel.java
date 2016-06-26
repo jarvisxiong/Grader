@@ -65,8 +65,9 @@ public class AnOnyenRangeModel implements OnyenRangeModel{
 	}
 	@Row(2)
 	@Override
-	@Explanation("The onyen you will start at when you review grades")
-	public String getGoToOnyen() {
+//	@Explanation("The onyen you will start at when you review grades")
+	@Explanation("A comma separated list of onyens, which overrides the start..end range and is not saved")
+	public String getGoToOnyens() {
 		return goToOnyen;
 	}
     @Override

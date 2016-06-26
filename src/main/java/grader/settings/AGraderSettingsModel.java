@@ -10,6 +10,7 @@ import grader.modules.ModuleProblemManager;
 import grader.modules.ModuleProblemManagerSelector;
 import grader.modules.ModuleProblemSelector;
 import grader.navigation.NavigationKind;
+import grader.navigation.NavigationListManagerFactory;
 import grader.project.flexible.AFlexibleProject;
 import grader.sakai.StudentAssignment;
 import grader.sakai.project.SakaiProject;
@@ -744,29 +745,35 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
 
     @Override
-    @Position(3)
+    @Position(4)
+    // making this 3 causes OE to put it at position 2, bug in OE
     public void resetFeatureSpreadsheet() {
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
     }
 
     @Override
-    @Position(0)
-    public void cleanSlate() {
+    @Explanation("Reset grades of all students in the class, cleaning the entire spreadsheet")
+    @Position(2)
+    public void cleanSlateAll() {
+    	System.out.println("Clearing scores of all students");
         maybeCreateProjectDatabase();
         projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
         projectDatabase.getStudentAssignmentDatabase().cleanAllFeedbackAndSubmissionFolders();
     }
 
     @Override
-    @Position(5)
+    @Position(6)
     public void compileExecutor() {
         ExecutorSelector.getExecutor().compile();
     }
 
     @Override
-    @Position(1)
+    @Position(0)
+    @Explanation("Reset grades of student specified as argument of this operation")
     public void cleanSlate(String anOnyen) {
+    	System.out.println("Clearing scores of student:" + anOnyen);
+
         maybeCreateProjectDatabase();
         FeatureGradeRecorder featureGradeRecorder = projectDatabase.getFeatureGradeRecorder();
 
@@ -784,6 +791,16 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 
 //        projectDatabase.getAssignmentDataFolder().removeFeatureGradeFile();
 //        projectDatabase.getStudentAssignmentDatabase().cleanFeedbackAndSubmissionFolder(anOnyen);
+    }
+    @Override
+    @Position(1)
+    @Explanation("Reset grades of student specified by start, end, and gotoonyens")
+    public void cleanSlateSpecified() {
+    	List<String> anOnyens = NavigationListManagerFactory.getNavigationListManager().getRawOnyenNavigationList();
+    	for (String anOnyen:anOnyens) {
+    		cleanSlate(anOnyen);
+    	}
+    	
     }
 
 //	public void maybePreCompile() {
@@ -921,7 +938,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         this.privacyMode = newValue;
         propertyChangeSupport.firePropertyChange("onyens", null, onyens);
     }
-    @Position(4)
+    @Position(5)
     public void togglePrivacyMode() {
         setPrivacyMode(!privacyMode);
     }

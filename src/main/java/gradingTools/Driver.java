@@ -216,7 +216,7 @@ public class Driver {
                 if (args[i].equals("--clean-slate")) {
                     i++;
                     if (i == args.length || args[i].startsWith("-")) {
-                        settingsModel.cleanSlate();
+                        settingsModel.cleanSlateAll();
                         break;
                     } else {
                         String onyenArg = args[i];
@@ -262,7 +262,7 @@ public class Driver {
                 settingsModel.preSettings();
                 settingsModel.postSettings();
                 settingsModel.begin();
-                settingsModel.cleanSlate();
+                settingsModel.cleanSlateAll();
             }
 //            settingsModel.maybePreCompile();
             initAssignmentDataFolder();

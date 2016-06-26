@@ -41,7 +41,7 @@ public class AManualProjectNavigator implements ManualProjectNavigator {
 		ManualNavigationStarted.newCase(settingsModel, database, this);
 		if (settingsModel == null) return;
 		while (true) {
-		String goToOnyen = settingsModel.getOnyens().getGoToOnyen();
+		String goToOnyen = settingsModel.getOnyens().getGoToOnyens();
 		Object aFrame = null;
 		try {
 		

@@ -47,7 +47,7 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 	}
 	// this should go somehere else, maybe Grader settings model
 	public static List<String> maybeGetGoToOnyenList() {
-		String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyen();
+		String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyens();
     	if (aGoToOnyen != null && !aGoToOnyen.isEmpty()) {
     		String[] anOnyens = aGoToOnyen.split(",");
     		if (anOnyens.length > 0) {
@@ -73,7 +73,7 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
         File aDirectory = new File(GraderSettings.get().get("path"));
         String aStartOnyen = GraderSettings.get().get("start");
     	String anEndOnyen = GraderSettings.get().get("end");
-    	String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyen();
+    	String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyens();
 //    	if (aStartOnyen == null ||
 //    			aStartOnyen.isEmpty() ||
 //    			anEndOnyen == null ||
@@ -189,7 +189,7 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
     	File aDirectory = new File(GraderSettings.get().get("path"));
         String aStartOnyen = GraderSettings.get().get("start");
     	String anEndOnyen = GraderSettings.get().get("end");
-    	String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyen();
+    	String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyens();
 
 //    	if (aStartOnyen == null ||
 //    			aStartOnyen.isEmpty() ||
