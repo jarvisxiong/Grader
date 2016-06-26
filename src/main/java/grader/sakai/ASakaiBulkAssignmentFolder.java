@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import util.trace.Tracer;
+
 
 public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
     public static String DEFAULT_BULK_DOWNLOAD_FOLDER = "C:/Users/dewan/Downloads/bulk_download";
@@ -65,7 +67,7 @@ public class ASakaiBulkAssignmentFolder implements BulkAssignmentFolder {
 
     void initializeBullkDownloadChidren() {
 //        rootBulkDownloadFolder = ARootFolderCreator.createRootFolder(bulkDownloadDirectory);
-        System.out.println (" Initializing root folder" + bulkDownloadDirectory);
+        Tracer.info (this, " Initializing root folder" + bulkDownloadDirectory);
     	rootBulkDownloadFolder = RootFolderCreatorFactory.getSingleton().createRootFolder(bulkDownloadDirectory);
 
         isZippedRootFolder = rootBulkDownloadFolder instanceof AZippedRootFolderProxy;

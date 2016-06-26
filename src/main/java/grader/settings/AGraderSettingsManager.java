@@ -14,6 +14,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import util.misc.Common;
+import util.trace.Tracer;
 
 public class AGraderSettingsManager implements GraderSettingsManager {
 
@@ -259,7 +260,7 @@ public class AGraderSettingsManager implements GraderSettingsManager {
         }
 
         String aModule = dynamicConfiguration.getString(MODULE, modules.get(0));
-        System.out.println ("Returning module:" + aModule);
+//        System.out.println ("Returning module:" + aModule);
         return aModule;
     }
 
@@ -369,7 +370,7 @@ public class AGraderSettingsManager implements GraderSettingsManager {
     public String replaceModuleProblemVars(String original) {
         String moduleName = getModule();
         String problemName = getNormalizedProblem(moduleName);
-        System.out.println ("Problem name:" + problemName);
+        Tracer.info (this, "Problem name:" + problemName);
         String retVal = original;
 //		String problemName = dynamicConfiguration.getString(AGraderSettingsModel.MODULE + "." + AGraderSettingsModel.MODULE);
         retVal = retVal.replace("{moduleName}", moduleName);

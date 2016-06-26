@@ -1,9 +1,11 @@
 package grader.sakai.project;
 
+import grader.navigation.NavigationListManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnUnsortedNavigationListCreator implements NavigationListCreator {
+public class AnUnsortedNavigationListCreator implements NavigationListManager {
 
 	@Override
 	public List<String> getOnyenNavigationList(

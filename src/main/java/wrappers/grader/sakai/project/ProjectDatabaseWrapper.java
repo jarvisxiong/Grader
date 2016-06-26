@@ -5,6 +5,9 @@ import framework.grading.ProjectRequirements;
 import framework.utils.GraderSettings;
 import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AnAssignmenDataFolder;
+import grader.navigation.AlphabeticNavigationListManager;
+import grader.navigation.NavigationListManager;
+import grader.navigation.NavigationListManagerFactory;
 import grader.navigation.sorter.AFileObjectSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
@@ -20,6 +23,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 
 import util.misc.Common;
+import util.trace.Tracer;
 
 /**
  * This extends the project database class to support adding FrameworkProjectRequirements
@@ -43,7 +47,9 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
         super(GraderSettings.get().get("path"), getDataFolder(),true);
 
         // We want to go alphabetically, so set the NavigationListCreator
-        setNavigationListCreator(new AlphabeticNavigationList());
+//        setNavigationListCreator(new AlphabeticNavigationListManager());
+        setNavigationListCreator(NavigationListManagerFactory.getNavigationListManager());
+
     }
 
     public ProjectDatabaseWrapper(String aBulkAssignmentsFolderName, String anAssignmentsDataFolderName) {
@@ -75,7 +81,7 @@ public class ProjectDatabaseWrapper extends ASakaiProjectDatabase {
             Boolean include = false;
             Set<String> onyenSet = new TreeSet<String>();
             String aFileName = GraderSettings.get().get("path");
-            System.out.println ("Path file name:" + aFileName);
+            Tracer.info (ProjectDatabaseWrapper.class, "Path file name:" + aFileName);
             File aFile = new File(aFileName);
             File files[] = aFile.listFiles();
             if (files == null) {

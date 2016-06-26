@@ -36,6 +36,7 @@ import grader.feedback.SourceDisplayer;
 import grader.file.RootFolderProxy;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.AProjectNavigator;
+import grader.navigation.NavigationListManager;
 import grader.navigation.ProjectNavigator;
 import grader.navigation.automatic.AnAutomaticProjectNavigator;
 import grader.navigation.automatic.AutomaticProjectNavigator;
@@ -736,21 +737,21 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 	}
 
 
-	NavigationListCreator navigationListCreator;
+	NavigationListManager navigationListCreator;
 
 
-	public NavigationListCreator getNavigationListCreator() {
+	public NavigationListManager getNavigationListCreator() {
 		return navigationListCreator;
 	}
 
 
 	public void setNavigationListCreator(
-			NavigationListCreator navigationListCreator) {
+			NavigationListManager navigationListCreator) {
 
 		this.navigationListCreator = navigationListCreator;
 	}
 
-	NavigationListCreator createNavigationListCreator() {
+	NavigationListManager createNavigationListCreator() {
 
 //		return new AnUnsortedNavigationListCreator();
 		return NavigationListCreatorSelector.getNavigationListCreator();
@@ -1236,7 +1237,7 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 		// studentAssignmentDatabase = new
 		// ASakaiStudentCodingAssignmentsDatabase(bulkFolder);
 
-		System.out.println(aStudentAssignmentDatabase.getStudentIds());
+		System.out.println("Student ids from assignment database:" + aStudentAssignmentDatabase.getStudentIds());
 		Collection<StudentCodingAssignment> studentAssignments = aStudentAssignmentDatabase
 				.getStudentAssignments();
 		// ClearanceManager clearanceManager = new ACodeDatababaseStepper();

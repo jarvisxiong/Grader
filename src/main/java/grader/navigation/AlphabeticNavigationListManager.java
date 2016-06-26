@@ -1,9 +1,8 @@
-package wrappers.grader.sakai.project;
+package grader.navigation;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
+//import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GraderSettings;
 import grader.navigation.sorter.AFileObjectSorter;
-import grader.sakai.project.NavigationListCreator;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.steppers.OverviewProjectStepper;
@@ -12,9 +11,11 @@ import grader.trace.steppers.NavigationListCreated;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import util.misc.Common;
+import util.trace.Tracer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,13 +24,38 @@ import util.misc.Common;
  * Time: 9:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AlphabeticNavigationList implements NavigationListCreator {
+public class AlphabeticNavigationListManager implements NavigationListManager {
+	List<String> savedOnyens = null;
+	String savedDirectoryName = null;
+	String savedStartOnyen = null;
+	String savedEndOnyen = null;
+	List<String> emptyOnyenList = new ArrayList();
     @Override
     public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase) {
-        List<String> onyens = new ArrayList<String>();
-        File directory = new File(GraderSettings.get().get("path"));
+        File aDirectory = new File(GraderSettings.get().get("path"));
+        String aStartOnyen = GraderSettings.get().get("start");
+    	String anEndOnyen = GraderSettings.get().get("end");
+    	if (aStartOnyen == null ||
+    			aStartOnyen.isEmpty() ||
+    			anEndOnyen == null ||
+    			anEndOnyen.isEmpty() ||
+    			aDirectory.getName().isEmpty()) {
+    		System.out.println("Returning empty onyen list");
+    		return emptyOnyenList;
+    	}
+    	if (
+    		aStartOnyen.equals(savedStartOnyen) &&
+    		anEndOnyen.equals(savedEndOnyen) &&
+    		aDirectory.getName().equals(savedDirectoryName)) {
+    		return savedOnyens;
+    	}
+    	savedStartOnyen = aStartOnyen;
+    	savedEndOnyen = anEndOnyen;
+    	savedDirectoryName = aDirectory.getName();    		
+        List<String> anOnyens = new ArrayList<String>();
+	
         boolean include = false;
-        File[] files = directory.listFiles();
+        File[] files = aDirectory.listFiles();
 //		Arrays.sort(files, new Comparator<Object>() {
 //
 //			@Override
@@ -53,8 +79,8 @@ public class AlphabeticNavigationList implements NavigationListCreator {
 		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), this);
 		
 		
-    	String aStartOnyen = GraderSettings.get().get("start");
-    	String anEndOnyen = GraderSettings.get().get("end");
+//    	String aStartOnyen = GraderSettings.get().get("start");
+//    	String anEndOnyen = GraderSettings.get().get("end");
     	String aStartFilePart = "(" + aStartOnyen + ")";
     	String anEndFilePart = "(" + anEndOnyen + ")";
     	System.out.println(" Searching for onyens between:" + aStartOnyen + "->" + anEndOnyen);
@@ -79,7 +105,7 @@ public class AlphabeticNavigationList implements NavigationListCreator {
                 		;
                 	} else {
 //                    onyens.add(file.getName().substring(file.getName().indexOf("(") + 1, file.getName().indexOf(")")));
-                    onyens.add(anOnyen);
+                    anOnyens.add(anOnyen);
                 	}
                 }
                 if (file.getName().contains("(" + GraderSettings.get().get("end") + ")")) {
@@ -96,11 +122,11 @@ public class AlphabeticNavigationList implements NavigationListCreator {
         if (include) { // did not find ending onyen
         	System.out.println ("Did not find end onyen:" + anEndOnyen + " in:" + Arrays.toString(files));
 
-        	onyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
+        	anOnyens.clear(); // maybe should throw OnyenRangeError rather than let caller throw it
         }
         if (aSakaiProjectDatabase.getProjectStepper() != null)
-		NavigationListCreated.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), onyens, this);
-		
-        return onyens;
+		NavigationListCreated.newCase(aSakaiProjectDatabase, (OverviewProjectStepper) aSakaiProjectDatabase.getProjectStepper(), aSakaiProjectDatabase.getProjectStepper().getProject(), anOnyens, this);
+		savedOnyens = anOnyens;
+        return anOnyens;
     }
 }

@@ -1,14 +1,16 @@
 package grader.sakai.project;
 
-public class NavigationListCreatorSelector {
-	static NavigationListCreator navigationListCreator = new AnUnsortedNavigationListCreator();
+import grader.navigation.NavigationListManager;
 
-	public static NavigationListCreator getNavigationListCreator() {
+public class NavigationListCreatorSelector {
+	static NavigationListManager navigationListCreator = new AnUnsortedNavigationListCreator();
+
+	public static NavigationListManager getNavigationListCreator() {
 		return navigationListCreator;
 	}
 
 	public static void setNavigationListCreator(
-			NavigationListCreator navigationListCreator) {
+			NavigationListManager navigationListCreator) {
 		NavigationListCreatorSelector.navigationListCreator = navigationListCreator;
 	}
 

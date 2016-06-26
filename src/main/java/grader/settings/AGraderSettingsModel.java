@@ -169,7 +169,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     }
     // never claled other than from setCurrentModule
     void basicSetCurrentModule(String newValue) {
-    	System.out.println ("Current module to:" + newValue);
+    	Tracer.info(this, "Setting Current module to:" + newValue);
         ModuleUserChange.newCase(currentModule, this, this);
         currentModule = newValue;
 //        refreshAll();
@@ -295,10 +295,10 @@ public class AGraderSettingsModel implements GraderSettingsModel {
 
     void refreshProblemDownloadPath() {
         if (problemDownloadPath != null) {
-        	System.out.println ("refreshing problem download path:" + problemDownloadPath);
+        	Tracer.info (this, "Refreshing problem download path:" + problemDownloadPath);
             fileBrowsing.getDownloadFolder().setText(problemDownloadPath);
         } else {
-        	System.out.println("Null problem download path");
+        	Tracer.error("Null problem download path");
         }
 
     }
@@ -503,7 +503,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         String endingOnyen = onyens.getEndingOnyen();
         GraderSettings.get().set(START_ONYEN, startingOnyen);
         GraderSettings.get().set(END_ONYEN, endingOnyen);
-        System.out.println ("Saving PROBLEM_PATH:" + downloadPath);
+        Tracer.info (this, "Saving PROBLEM_PATH:" + downloadPath);
         GraderSettings.get().set(PROBLEM_PATH, downloadPath);
         BasicGradingEnvironment.get().setAssignmentName(currentProblem);
 //        ASakaiProjectDatabase.setCurrentSakaiProjectDatabase(new ASakaiProjectDatabase(downloadPath, null));
@@ -691,7 +691,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
     
     void basicSetCurrentProblem(String aProblem) {
         ProblemUserChange.newCase(currentProblem, this, this);
-    	System.out.println("Setting current problem to:" + aProblem);
+    	Tracer.info(this, "Setting current problem to:" + aProblem);
         currentProblem = aProblem;
     }
 

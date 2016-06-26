@@ -35,6 +35,8 @@ public abstract class AnAbstractSakaiStudentAssignmentsDatabase<GenericAssignmen
     	String anEndOnyen = anOnyenRangeModel.getEndingOnyen();
     	String aGotoOnyen = anOnyenRangeModel.getGoToOnyen();
         Set<String> studentFolderNames = bulkAssignmentFolder.getStudentFolderNames();
+        // we are duplicating the task done by alphbaetical navigator of Josh/Jacob, at some point we may want to disable this code 
+        Tracer.info (this, "Finding student ids");
         for (String aFolderName : studentFolderNames) {
             try {
                 String studentId = Common.shortFileName(aFolderName);
