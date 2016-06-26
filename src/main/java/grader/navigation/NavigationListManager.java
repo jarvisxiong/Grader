@@ -7,4 +7,6 @@ import java.util.List;
 public interface NavigationListManager {
 	public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase);
 
+	List<String> getRawOnyenNavigationList();
+
 }
