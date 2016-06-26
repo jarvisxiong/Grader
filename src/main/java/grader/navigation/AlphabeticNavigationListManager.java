@@ -3,8 +3,10 @@ package grader.navigation;
 //import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.utils.GraderSettings;
 import grader.navigation.sorter.AFileObjectSorter;
+import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.GraderSettingsModelSelector;
 import grader.steppers.OverviewProjectStepper;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 import grader.trace.steppers.NavigationListCreated;
@@ -30,8 +32,36 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 	String savedStartOnyen = null;
 	String savedEndOnyen = null;
 	List<String> emptyOnyenList = new ArrayList();
+	public static void trim (String[] aStrings) {
+		for (int i = 0; i < aStrings.length; i++) {
+			aStrings[i] = aStrings[i].trim();
+		}
+	}
+	// this should go somehere else, maybe Grader settings model
+	public static List<String> maybeGetGoToOnyenList() {
+		String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyen();
+    	if (aGoToOnyen != null && !aGoToOnyen.isEmpty()) {
+    		String[] anOnyens = aGoToOnyen.split(",");
+    		if (anOnyens.length > 0) {
+    			trim(anOnyens);
+    			Arrays.sort(anOnyens);
+    			
+    			return Arrays.asList(anOnyens); // we will navigate only to this list if more than one entry
+    			// actually why autograde other assignments, let us autograde only go to ones.
+    		}
+    	}
+    	return null;
+	}
+	public static boolean isGoToOnyenList() {
+		return maybeGetGoToOnyenList() != null;
+	}
+	// the argument does not really matter now
     @Override
     public List<String> getOnyenNavigationList(SakaiProjectDatabase aSakaiProjectDatabase) {
+    	List<String> aGoToOnyensList = maybeGetGoToOnyenList();
+    	if (aGoToOnyensList != null) {
+    		return aGoToOnyensList;
+    	}
         File aDirectory = new File(GraderSettings.get().get("path"));
         String aStartOnyen = GraderSettings.get().get("start");
     	String anEndOnyen = GraderSettings.get().get("end");
@@ -75,7 +105,9 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 //				return onyen1.compareTo(onyen2);
 //			}
 //		});
-		Arrays.sort(files, new AFileObjectSorter(aSakaiProjectDatabase.getFileNameSorter())) ;
+//		Arrays.sort(files, new AFileObjectSorter(aSakaiProjectDatabase.getFileNameSorter())) ;
+		Arrays.sort(files, new AFileObjectSorter(FileNameSorterSelector.getSorter())) ;
+
 		StudentFolderNamesSorted.newCase(Common.arrayToArrayList(files), this);
 		
 		

@@ -7,6 +7,7 @@ import grader.assignment.GradingFeatureList;
 import grader.auto_notes.NotesGenerator;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
+import grader.navigation.AlphabeticNavigationListManager;
 import grader.project.source.TACommentsExtractor;
 import grader.project.source.TACommentsExtractorSelector;
 import grader.sakai.project.SakaiProject;
@@ -1375,7 +1376,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 //		List<String> onyens = projectDatabase.getOnyenNavigationList();
 		
 		String anOnyen = aGoToOnyen;
-		if (aGoToOnyen.isEmpty()) {
+		if (aGoToOnyen.isEmpty() || AlphabeticNavigationListManager.isGoToOnyenList()) {
 		
 			anOnyen= onyens.get(gradedProjectNavigator.getCurrentOnyenIndex());
 		} else {
