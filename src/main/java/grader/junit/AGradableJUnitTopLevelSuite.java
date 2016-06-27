@@ -14,7 +14,15 @@ public class AGradableJUnitTopLevelSuite extends AGradableJUnitSuite {
 
 	@Visible(false)
 	public String getName() {
-		return getExplanation();
+		return super.getName();
 	}
+	
+//	public String getText() {
+//		String retVal = getName() + "\n";
+//		for (GradableJUnitTest aTest:children) {
+//			retVal += aTest + "\n";
+//		}
+//		return retVal;
+//	}
 	
 }

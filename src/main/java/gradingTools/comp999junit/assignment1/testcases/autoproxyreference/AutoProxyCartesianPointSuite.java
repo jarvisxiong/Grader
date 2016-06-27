@@ -38,7 +38,7 @@ import bus.uigen.ObjectEditor;
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
    APointRadiusTest.class,
-//   APointPrintTest.class
+   APointPrintTest.class
    
 })
 public class AutoProxyCartesianPointSuite {
@@ -51,6 +51,8 @@ public class AutoProxyCartesianPointSuite {
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(AutoProxyCartesianPointSuite.class);
+		aGradable.testAll();
+		System.out.println(aGradable.getText());
 		ObjectEditor.treeEdit(aGradable);
 		Result aResult = JUnitCore.runClasses(AutoProxyCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {

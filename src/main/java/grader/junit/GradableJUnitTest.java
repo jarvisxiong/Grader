@@ -44,5 +44,7 @@ public interface GradableJUnitTest extends PropertyListenerRegisterer  {
 	List<String> getMessages();
 	List<TestCaseResult> getTestCaseResults();
 	double getScore();
+	String getText();
+	double getComputedMaxScore();
 
 }

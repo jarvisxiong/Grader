@@ -242,4 +242,16 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 		// TODO Auto-generated method stub
 		return graderProperties.getScore();
 	}
+
+	@Override
+	public String getText() {
+		// TODO Auto-generated method stub
+		return graderProperties.getText();
+	}
+
+	@Override
+	public double getComputedMaxScore() {
+		// TODO Auto-generated method stub
+		return graderProperties.getComputedMaxScore();
+	}
 }

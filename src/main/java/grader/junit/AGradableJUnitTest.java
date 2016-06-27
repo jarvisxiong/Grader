@@ -43,6 +43,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	boolean isExtra;
 	boolean isRestriction;
 	Double maxScore;
+	Double computedMaxScore;
 	Double score = 0.0;
 	String explanation;
 	String group = "";
@@ -88,7 +89,11 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 			maxScore = (double) aMaxValue.value();
 		} else {
 			maxScore = null;
+			maybeSetDefaultMaxScore();
 		}
+	}
+	protected void maybeSetDefaultMaxScore() {
+		maxScore = (double) DEFAULT_SCORE;
 	}
 	@Visible(false)
 	public void setIsRestriction (Class aJUnitClass) {
@@ -254,7 +259,11 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	@Override
 	public void setMaxScore(double aMaxScore) {
 		maxScore = aMaxScore;
+//		maybeSetChildrenMaxScores();
 	}
+//	protected void maybeSetChildrenMaxScores() {
+//		
+//	}
 	@Visible(false)
 	@Override
 	public void setGroup(String newVal) {
@@ -279,7 +288,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	protected String description = null;
 	public String getName() {
 		if (description == null) {
-		String aScore = "[" + maxScore + " pts" + "]";
+		String aScore = "[" + getComputedMaxScore() + " pts" + "]";
 		String anExtra = isExtra?"(extra credit)":"";
 		description = explanation + aScore + anExtra;
 		}
@@ -344,11 +353,12 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	@Override
 	@Visible(false)
 	public void addPropertyChangeListenerRecursive(PropertyChangeListener arg0) {
-		addPropertyChangeListener(arg0);
+		addPropertyChangeListener(arg0);		
 	}
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 		propertyChangeSupport.addPropertyChangeListener(arg0);
+		showColor();
 		
 	}
 	@Visible(true)
@@ -356,6 +366,19 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	@Override
 	public double getScore() {
 		return maxScore*fractionComplete;
+	}
+	@Override
+	@Visible(false)
+	public String getText() {
+		return getName() + "," + getScore() +  "," + getMessage();
+	}
+	public String toString() {
+		return getName();
+	}
+	@Visible(false)
+	@Override
+	public double getComputedMaxScore() {
+		return maxScore;
 	}
 	public static void main (String[] args) {
 		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());

@@ -13,13 +13,12 @@ import util.annotations.MaxValue;
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//   ADirectPointMainTest.class,
-//   ADirectPointProxy.class,
+
    APointAngleZeroDegreeTest.class,
    APointAngleNinetyDegreeTest.class,
    APointAngleFortyFiveDegreeTest.class,
    APointAngleMinusNinetyDegreeTest.class,
-//   APointRadiusTest.class,
+
    
 })
 @MaxValue(13)

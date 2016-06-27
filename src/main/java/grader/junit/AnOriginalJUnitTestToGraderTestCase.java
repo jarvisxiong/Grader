@@ -254,4 +254,16 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String getText() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	public double getComputedMaxScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -32,21 +32,32 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	public void add(GradableJUnitTest anElement) {
 		children.add(anElement);
 		anElement.addPropertyChangeListener(this);
+//		maybeSetChildrenMaxScores();
 	}
+	
+//	protected void maybeSetChildrenMaxScores() {
+//		if (maxScore == null) 
+//			return;
+//		for  (GradableJUnitTest aTest:children) {
+//			double aChildScore = maxScore/children.size();
+//			aTest.setMaxScore(aChildScore);
+//		}
+//	}
 	@Visible(false)
 	public void addAll(List<GradableJUnitTest> anElement) {
 		children.addAll(anElement);
 		for (GradableJUnitTest aTest:anElement) {
 			aTest.addPropertyChangeListenerRecursive(this);
 		}
+//		maybeSetChildrenMaxScores();
 	}
 //	@Override
 //	public List<GradableJUnitTest> getJUnitTests() {
 //		return children;
 //	}
-	public String getName() {
-		return getExplanation();
-	}
+//	public String getName() {
+//		return getExplanation();
+//	}
 	@Visible(false)
 	public void open(GradableJUnitTest aTest) {
 //		System.out.println ("opened: " + aTest);
@@ -124,10 +135,44 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		return retVal;
 	}
 	@Visible(false)
+	public Double  getMaxScore(){
+//		if (maxScore == null) {
+//		double retVal = 0;
+//		for (GradableJUnitTest aTest:children) {
+//			retVal += aTest.getMaxScore();
+//		}
+//		maxScore =  retVal;
+//		}
+		return maxScore;
+	}
+	@Visible(false)
+	public double  getComputedMaxScore(){
+		if (computedMaxScore == null) {
+		double retVal = 0;
+		for (GradableJUnitTest aTest:children) {
+			retVal += aTest.getComputedMaxScore();
+		}
+		computedMaxScore =  retVal;
+		}
+		return computedMaxScore;
+	}
+	// do nothing as we need to know if the score was set or not
+	protected void maybeSetDefaultMaxScore() {
+		
+	}
+	@Visible(false)
 	public List<TestCaseResult>  getTestCaseResults(){
 		List<TestCaseResult> retVal = new ArrayList();
 		for (GradableJUnitTest aTest:children) {
 			retVal.addAll(aTest.getTestCaseResults());
+		}
+		return retVal;
+	}
+	@Visible(false)
+	public String getText() {
+		String retVal = getName() + "," + getScore()  + "\n";
+		for (GradableJUnitTest aTest:children) {
+			retVal += aTest.getText() + "\n";
 		}
 		return retVal;
 	}
@@ -157,5 +202,7 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		super.addPropertyChangeListener(arg0);	
 		
 	}
+	
+	
 	
 }
