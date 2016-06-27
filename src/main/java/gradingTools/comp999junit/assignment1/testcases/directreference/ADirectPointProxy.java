@@ -3,7 +3,7 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.CartesianPoint;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
@@ -63,7 +63,7 @@ public class ADirectPointProxy implements PointProxy{
 	}
 	// make this public
 	protected Point instantiatePoint(int theX, int theY) {
-		return new ACartesianPoint(theX, theY);
+		return new CartesianPoint(theX, theY);
 	}
 	
 	@Override

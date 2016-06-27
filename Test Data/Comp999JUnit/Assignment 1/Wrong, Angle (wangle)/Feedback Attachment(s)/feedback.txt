@@ -9,6 +9,12 @@ PointAngleSuite                                        3.3 / 13.0
 ----------------------------------
   Points Awarded: 24.3
 
+Grading restrictions...
+----------------------------------
+APointPrintTest                                        0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
   Features Score: 24.3
 
 Notes from grading features:
@@ -20,5 +26,11 @@ PointAngleSuite:
   -- computedAngle 0.0 != correctAngle 1.5707963267948966 
   -- computedAngle 0.0 != correctAngle 0.7853981633974483 
   -- computedAngle 0.0 != correctAngle -1.5707963267948966 
+
+
+Notes from grading restrictions:
+----------------------------------
+APointPrintTest:
+  -- java.lang.NullPointerException null
 
   Total Score: 24.0

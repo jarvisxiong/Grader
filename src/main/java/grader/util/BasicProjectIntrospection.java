@@ -220,7 +220,7 @@ public class BasicProjectIntrospection {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
 		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
-				Class aClass = aClassDescription.getClass();
+				Class aClass = aClassDescription.getJavaClass();
 				if (aClass.isInterface()) {
 					continue;
 				}
@@ -265,6 +265,7 @@ public class BasicProjectIntrospection {
 		// return aClasses.get(0).getJavaClass();
 
 	}
+	
 	// why are these not all sets?
 		public static Set<Class> findClasses(Project aProject, String aName,
 				String[] aTag, String aNameMatch, String aTagMatch) {
@@ -520,23 +521,53 @@ public class BasicProjectIntrospection {
 	}
 
 	public static Class findClass(Project aProject, Class aProxyClass) {
+		Class aCachedClass = keyToClass.get(aProxyClass.getName());
+		if (aCachedClass == null) {
 		String[] aTags = getTags(aProxyClass);
 		Class retVal = findClassByTags(aProject, aTags);
-		if (retVal != null)
-			return retVal;
+		if (retVal == null)
 		retVal = findClass(aProject, aProxyClass.getCanonicalName());
-		if (retVal != null) 
-			return retVal;
+		if (retVal == null) 
 		retVal = findClass(aProject, aProxyClass.getSimpleName());
-		if (retVal != null)
-			return retVal;
+		if (retVal == null) {
 		// see if the interfaces of the desired class match
 		// do not need this as we are already checking for interfaces in findClass(aProxyClass.getSimpleName()), which uses the namealso as a tag, but keep this
 		String[] aComputedTags = getComputedInterfaceTags(aProxyClass);
 		retVal = findClassByTags(aProject, aComputedTags);
+		}
+		if (retVal == null)
 		
-		return findClassByMethods(aProject, aProxyClass.getMethods());
+		retVal = findClassByMethods(aProject, aProxyClass.getMethods());
+		if (retVal == null)
+			retVal = Object.class;
+		aCachedClass = retVal;
+
+		keyToClass.put(aProxyClass.getName(), aCachedClass);
+		}
+		if (aCachedClass == Object.class)
+			return null;
+		return aCachedClass;
 	}
+//		public static Class findClass(Project aProject, Class aProxyClass) {
+//			Class aCachedClass = keyToClass.get(aProxyClass.getName());
+//			if (aCachedClass == null) {
+//			String[] aTags = getTags(aProxyClass);
+//			Class retVal = findClassByTags(aProject, aTags);
+//			if (retVal != null)
+//				return retVal;
+//			retVal = findClass(aProject, aProxyClass.getCanonicalName());
+//			if (retVal != null) 
+//				return retVal;
+//			retVal = findClass(aProject, aProxyClass.getSimpleName());
+//			if (retVal != null)
+//				return retVal;
+//			// see if the interfaces of the desired class match
+//			// do not need this as we are already checking for interfaces in findClass(aProxyClass.getSimpleName()), which uses the namealso as a tag, but keep this
+//			String[] aComputedTags = getComputedInterfaceTags(aProxyClass);
+//			retVal = findClassByTags(aProject, aComputedTags);
+//			
+//			return findClassByMethods(aProject, aProxyClass.getMethods());
+//		}
 	
 	public static Class getCachedClass(String aName) {
 		return keyToClass.get(aName);
@@ -623,22 +654,14 @@ public class BasicProjectIntrospection {
 	public static Class findClassByTags(Project aProject, String[] aTags) {
 		if (aTags.length == 0) {
 			return null;
-		}		
+		}	
 		Arrays.sort(aTags);
 		String aKey = Arrays.toString(aTags);
 		Class aCachedClass = keyToClass.get(aKey);
 		if (aCachedClass == null) {
+			Class aClass = findClass(aProject, null, aTags, null, null);
 
-//			ClassDescription aClassDescription = findClassDescriptionByTag(
-//					aProject, aTags);
-//			if (aClassDescription == null) {
-//				aCachedClass = Object.class;
-//
-//			}
-
-			Class aClass = findClassByTag(
-					aProject, aTags);
-			if (aProject == null) {
+			if (aClass == null) {
 				aCachedClass = Object.class;
 
 			}
@@ -652,6 +675,38 @@ public class BasicProjectIntrospection {
 		}
 		return aCachedClass;
 	}
+//	public static Class findClassByTags(Project aProject, String[] aTags) {
+//		if (aTags.length == 0) {
+//			return null;
+//		}		
+//		Arrays.sort(aTags);
+//		String aKey = Arrays.toString(aTags);
+//		Class aCachedClass = keyToClass.get(aKey);
+//		if (aCachedClass == null) {
+//
+////			ClassDescription aClassDescription = findClassDescriptionByTag(
+////					aProject, aTags);
+////			if (aClassDescription == null) {
+////				aCachedClass = Object.class;
+////
+////			}
+//
+//			Class aClass = findClassByTag(
+//					aProject, aTags);
+//			if (aProject == null) {
+//				aCachedClass = Object.class;
+//
+//			}
+//
+//			aCachedClass = aClass;
+//			keyToClass.put(aKey, aCachedClass);
+//
+//		}
+//		if (aCachedClass == Object.class) {
+//			return null;
+//		}
+//		return aCachedClass;
+//	}
 
 	public static ClassDescription findClassDescriptionByTag(
 			Project aProject, String[] aTags) {
@@ -1047,7 +1102,7 @@ public class BasicProjectIntrospection {
 				}
 				keyToMethod.put(aTag, aMethod);
 			}
-			if (aMethod == Object.class.getMethod("wait")) {
+			if (aMethod.equals( Object.class.getMethod("wait"))) {
 				return null;
 			}
 			return aMethod;

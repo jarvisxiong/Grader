@@ -1,25 +1,27 @@
+*****************************(APointPrintTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.APointPrintTest: 0.0
 *****************************(APointRadiusTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.APointRadiusTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@6d1e8562 with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@7f2a39a6 with parameters, x: 10 y 10
 calling constructor: public ACartesianPoint(int,int) 5, 0
 called constructor: public ACartesianPoint(int,int) 5, 0
-Successfully Created Cartesian Point:ACartesianPoint@13d34eec with parameters, x: 5 y 0
+Successfully Created Cartesian Point:ACartesianPoint@d044f0e with parameters, x: 5 y 0
 calling constructor: public ACartesianPoint(int,int) 0, 7
 called constructor: public ACartesianPoint(int,int) 0, 7
-Successfully Created Cartesian Point:ACartesianPoint@280692d3 with parameters, x: 0 y 7
+Successfully Created Cartesian Point:ACartesianPoint@22609ad with parameters, x: 0 y 7
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@23e519ad with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@47c230ec with parameters, x: 10 y 10
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
-Successfully Created Cartesian Point:ACartesianPoint@3a49bd26 with parameters, x: 0 y -10
+Successfully Created Cartesian Point:ACartesianPoint@751b32d8 with parameters, x: 0 y -10
 *****************************(AnAutoPointProxy)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.autoproxyreference.AnAutoPointProxy: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, 0
 called constructor: public ACartesianPoint(int,int) 0, 0
-Successfully Created Cartesian Point:ACartesianPoint@244be039 with parameters, x: 0 y 0
+Successfully Created Cartesian Point:ACartesianPoint@77846190 with parameters, x: 0 y 0
 *****************************(AReflectivePointMainTest)*****************************
 INPUT(AReflectivePointMainTest)
 10
@@ -47,19 +49,19 @@ New output 0.0
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 0
 called constructor: public ACartesianPoint(int,int) 10, 0
-Successfully Created Cartesian Point:ACartesianPoint@531cd91b with parameters, x: 10 y 0
+Successfully Created Cartesian Point:ACartesianPoint@14809e29 with parameters, x: 10 y 0
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, 10
 called constructor: public ACartesianPoint(int,int) 0, 10
-Successfully Created Cartesian Point:ACartesianPoint@416f7a9d with parameters, x: 0 y 10
+Successfully Created Cartesian Point:ACartesianPoint@42938905 with parameters, x: 0 y 10
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest: 0.0
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 10, 10
 called constructor: public ACartesianPoint(int,int) 10, 10
-Successfully Created Cartesian Point:ACartesianPoint@2b8d8654 with parameters, x: 10 y 10
+Successfully Created Cartesian Point:ACartesianPoint@6e32fe7d with parameters, x: 10 y 10
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest: 0.0
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest: 1.0
 calling constructor: public ACartesianPoint(int,int) 0, -10
 called constructor: public ACartesianPoint(int,int) 0, -10
-Successfully Created Cartesian Point:ACartesianPoint@503ce134 with parameters, x: 0 y -10
+Successfully Created Cartesian Point:ACartesianPoint@3aee9aca with parameters, x: 0 y -10
 ### gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest: 0.0
