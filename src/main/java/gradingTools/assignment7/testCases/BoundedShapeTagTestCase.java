@@ -5,7 +5,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +27,7 @@ public class BoundedShapeTagTestCase extends BasicTestCase {
 
         // Look for a class with the "Locatable" tag and that isn't inheriting from something else
         //Option<ClassDescription> classDescription = new RootTagFinder(project).findClass("BoundedShape");
-        if (ProjectIntrospection.findClass(project, "BoundedShape") != null) {
+        if (BasicProjectIntrospection.findClass(project, "BoundedShape") != null) {
             return pass();
         } else {
             return fail("Can't find class tagged BoundedShape");

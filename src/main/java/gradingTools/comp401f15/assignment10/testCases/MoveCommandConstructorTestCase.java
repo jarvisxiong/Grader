@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +28,7 @@ public class MoveCommandConstructorTestCase extends BasicTestCase {
             throw new NotGradableException();
         }
 
-        Class<?> moveCommandClass = ProjectIntrospection.findClass(project, null, "MoveCommand", ".*[mM]ove[cC]ommand.*", ".*[mM]ove[cC]ommand.*");
+        Class<?> moveCommandClass = BasicProjectIntrospection.findClass(project, null, "MoveCommand", ".*[mM]ove[cC]ommand.*", ".*[mM]ove[cC]ommand.*");
         //Option<ClassDescription> classDescription = ClassFinder.get(project).findByTag("MoveCommand", autoGrade, ClassType.CLASS);
         if (moveCommandClass == null) {//classDescription.isEmpty()) {
             return fail("No move command object");
@@ -36,7 +36,7 @@ public class MoveCommandConstructorTestCase extends BasicTestCase {
         //Class<?> _class = classDescription.get().getJavaClass();
 
         // Find the avatar class and interface(s)
-        Class<?> avatarClass = ProjectIntrospection.findClass(project, null, "Avatar", ".*[aA]vatar.*", ".*[aA]vatar.*");
+        Class<?> avatarClass = BasicProjectIntrospection.findClass(project, null, "Avatar", ".*[aA]vatar.*", ".*[aA]vatar.*");
         //Option<ClassDescription> avatarClassDescription = ClassFinder.get(project).findByTag("Avatar", autoGrade, ClassType.CLASS);
         if (avatarClass == null) { //avatarClassDescription.isEmpty()) {
             return fail("No single avatar class. This is needed for the constructor.");

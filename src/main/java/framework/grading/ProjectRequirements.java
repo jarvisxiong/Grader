@@ -59,11 +59,13 @@ public interface ProjectRequirements extends Permissible{
     
 
 	Object getUserObject(Object aKey);
-	Map<Object, Object> getUserData();
+//	Map<Object, Object> getUserData();
 
 	void putUserObject(Object aKey, Object aValue);
 	Feature getInteractiveRunFeature();
 
 	Restriction getInteractiveRunRestriction();
+
+	void clearUserObjects();
 
 }

@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 
 
 //import org.junit.Test;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACartesianPoint;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 import gradingTools.comp999junit.assignment1.testcases.directreference.ADirectPointProxy;
@@ -18,7 +18,7 @@ import util.annotations.MaxValue;
 public class AnAutoPointProxy extends ADirectPointProxy implements PointProxy{	
 	@Override
 	protected Point instantiatePoint(int theX, int theY) {
-		return (Point) ProjectIntrospection.createInstance(Point.class, new Object[] { theX, theY});
+		return (Point) BasicProjectIntrospection.createInstance(Point.class, new Object[] { theX, theY});
 
 //		return (Point) ProjectIntrospection.createInstance(ACartesianPoint.class, new Object[] { theX, theY});
 	}

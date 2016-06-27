@@ -12,7 +12,7 @@ import grader.project.flexible.FlexibleClassDescription;
 import grader.project.flexible.FlexibleClassesManager;
 import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

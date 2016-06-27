@@ -7,7 +7,7 @@ import org.junit.Test;
 import util.annotations.MaxValue;
 import framework.project.CurrentProjectHolder;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointTest;

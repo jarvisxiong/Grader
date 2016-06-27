@@ -16,7 +16,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  *
@@ -392,7 +392,7 @@ public class LoggingMethodExecutionTestCase extends BasicTestCase {
     }
     
     public static Method[] recursiveFindMethod(Class<?> root, String name, String tag, String nameRegex, String tagRegex, int maxDepth) {
-        List<Method> methodList = ProjectIntrospection.findMethod(root, name, tag, nameRegex, tagRegex);
+        List<Method> methodList = BasicProjectIntrospection.findMethod(root, name, tag, nameRegex, tagRegex);
         if (methodList.isEmpty()) {
             if (maxDepth == 0) {
                 return null;

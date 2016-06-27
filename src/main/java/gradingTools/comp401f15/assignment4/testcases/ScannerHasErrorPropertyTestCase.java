@@ -10,7 +10,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
 
@@ -36,7 +36,7 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
     String[] outputPropertyNames = {};
 
     public TestCaseResult test(Project aProject, Class[] aConstructorArgTypes, Object[] aConstructorArgs, String aScannedString) throws NotAutomatableException, NotGradableException {
-        Class aClass = ProjectIntrospection.findClass(aProject,
+        Class aClass = BasicProjectIntrospection.findClass(aProject,
                 scannerDescriptions[0],
                 scannerDescriptions[1],
                 scannerDescriptions[2],

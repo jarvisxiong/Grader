@@ -173,7 +173,10 @@ public class AConfigurationManager implements ConfigurationManager {
     PropertiesConfiguration createStaticConfiguration(String[] args) {
         userPropsFile = null;
         try {
-            if (args.length == 0) {
+        //  this seems wrong, one should use the satic file and overrwrite those args
+        	// Best is to use course configuration and use overwrite or set property to overrwrite it
+        	// will not change until I have tried out andrew's server
+            if (args.length == 0) { 
                 return new PropertiesConfiguration(STATIC_CONFIGURATION_FILE_NAME);
             }
 //		           UserPropertyWriter userProperties = new UserPropertyWriter(Paths.get("config", "config.properties").toString());

@@ -119,7 +119,7 @@ public class AHeadlessGradingManager implements GradingManager {
         
         start = configuration.getString("grader.headless.start", null);
         if (start != null) {
-            graderSettingsManager.setStartingOnyen("grader.headless", start);
+            graderSettingsManager.setStartingOnyen("grader.headless", start); // is this ever retrieved? why is the module grader.headless?
         }
 
         end = configuration.getString("grader.headless.end", null);

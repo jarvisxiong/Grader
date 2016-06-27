@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases;
 
 import grader.junit.JUnitUtils;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import org.junit.Assert;
 import org.junit.Test;

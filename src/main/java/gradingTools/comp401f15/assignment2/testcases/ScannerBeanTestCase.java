@@ -19,7 +19,7 @@ import framework.project.Project;
 import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 
@@ -58,7 +58,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
      	SakaiProject aProject = ((ProjectWrapper) project).getProject();
         
 //        Set<ClassDescription> aClasses = project.getClassesManager().get().findClassesAndInterfaces(null, "ScannerBean", ".*Bean.*", ".*Bean.*");
-        Set<Class> aClasses = ProjectIntrospection.findClasses(project, null, "ScannerBean", ".*Bean.*", ".*Bean.*");
+        Set<Class> aClasses = BasicProjectIntrospection.findClasses(project, null, "ScannerBean", ".*Bean.*", ".*Bean.*");
 
         if (aClasses.size() != 1) {
         	return  fail ("Cannot find unique scanner bean class");

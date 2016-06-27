@@ -32,7 +32,7 @@ public class UserPropertyWriter {
             String propValue = null;
             
             String problem = null;
-            String module = null;
+            String module = null; // it never seems to be set, and is yet retrieved a lot
 
             userProperties[i] = userProperties[i].trim();
             switch (userProperties[i]) {
@@ -56,7 +56,7 @@ public class UserPropertyWriter {
                         problem = null;
                     }
                     break;
-                case "--grader-controller":
+                case "--grader-controller": // this seems to be the only interesting property here
                     propName = "grader.controller";
                     propValue = userProperties[++i].trim();
                     break;

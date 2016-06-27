@@ -149,7 +149,7 @@ public class ARootCodeFolder implements RootCodeFolder {
                 projectFolder = binaryFolderName;
             	}
             }
-        } else {
+        } else if (sourceFolderName != null){
             projectFolder = binaryFolderName;
             //added this.
             sourceFolder = root.getFileEntry(sourceFolderName + "/"); //no idea whey I need sometimes ending backslash, need to debu
@@ -159,6 +159,8 @@ public class ARootCodeFolder implements RootCodeFolder {
             }
             binaryFolder = sourceFolder;
 //			sourceFolder = root;
+        } else {
+        	System.err.println("No Source folder found in:" + aRoot);
         }
 
         SourceFolderIdentified.newCase(sourceFolderName, this);

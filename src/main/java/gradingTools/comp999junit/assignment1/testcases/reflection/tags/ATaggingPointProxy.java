@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointProxy;
 
@@ -23,7 +23,7 @@ public class ATaggingPointProxy extends AReflectivePointProxy implements PointPr
 	
 	public Class getCartesianPointClass() throws ClassNotFoundException  {
 		Project aProject = CurrentProjectHolder.getOrCreateCurrentProject();
-		return ProjectIntrospection.findClass(aProject, "ACartesianPoint");
+		return BasicProjectIntrospection.findClass(aProject, "ACartesianPoint");
 //		return IntrospectionUtil.findUniqueClassByTag(aProject, new String[] {"cartesian", "point"});
 
 	}
@@ -31,11 +31,11 @@ public class ATaggingPointProxy extends AReflectivePointProxy implements PointPr
 	
 	public Method findRadiusMethod() throws Exception {
 //		return IntrospectionUtil.findMethod(aCartesianPointClass, "getRadius", emptyClassArray);
-		return ProjectIntrospection.findUniqueMethodByTag(aCartesianPointClass, new String[] {"Radius", "Getter"}, emptyClassArray);
+		return BasicProjectIntrospection.findUniqueMethodByTag(aCartesianPointClass, new String[] {"Radius", "Getter"}, emptyClassArray);
 	}
 	
 	public Method findAngleMethod() throws Exception {
-		return ProjectIntrospection.findMethod(aCartesianPointClass, "getAngle", emptyClassArray);
+		return BasicProjectIntrospection.findMethod(aCartesianPointClass, "getAngle", emptyClassArray);
 	}
 
 

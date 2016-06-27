@@ -515,7 +515,7 @@ public class ProjectExecution {
 		redirectOutput();
 		System.out.println("Testcase:" + aCheckName);
 		System.out.println ("Finding class matching:" + Common.toString(aBeanDescriptions));
-		Class aClass = ProjectIntrospection.findClass(aProject, 
+		Class aClass = BasicProjectIntrospection.findClass(aProject, 
         		aBeanDescriptions[0],
         		aBeanDescriptions[1],
         		aBeanDescriptions[2],
@@ -535,7 +535,7 @@ public class ProjectExecution {
 			Object anObject = timedInvoke(aConstructor, aConstructorArgs, 600);
 			for (String aPropertyName:anInputs.keySet()) {
 				if (aPropertyName == null) continue;
-				PropertyDescriptor aProperty = ProjectIntrospection.findProperty(aClass, aPropertyName);
+				PropertyDescriptor aProperty = BasicProjectIntrospection.findProperty(aClass, aPropertyName);
 				if (aProperty == null) {
 					anActualOutputs.put(MISSING_PROPERTY, true);
 					anActualOutputs.put(MISSING_PROPERTY+"." + aPropertyName, true);
@@ -555,7 +555,7 @@ public class ProjectExecution {
 			for (String anOutputPropertyName:anOutputProperties) {
 				if (anOutputPropertyName == null)
 					continue;
-				PropertyDescriptor aProperty = ProjectIntrospection.findProperty(aClass, anOutputPropertyName);
+				PropertyDescriptor aProperty = BasicProjectIntrospection.findProperty(aClass, anOutputPropertyName);
 				if (aProperty == null) {
 					
 //					System.out.println("Property " +  aPropertyName + "not found");
@@ -681,7 +681,7 @@ public class ProjectExecution {
 	 }
 	 public static String forkProjectMainWithExplicitCommand(Class aProxyClass, String[] args,
 				int timeout, String... input) throws NotRunnableException {
-			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			// this should depend on whether class path
 			
 //		 	String aClassPath = System.getProperty("java.class.path");
@@ -705,7 +705,7 @@ public class ProjectExecution {
 	 public static ResultingOutErr forkProjectMain(Class aProxyClass, String[] args,
 				int timeout, String... input) throws NotRunnableException {	
 		 	// use tags for search if necessary, hence the finding. Duplicated work in main class finder unfortunately
-			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			String aMainClassName =null;
 			if (aMainClass != null)
 				aMainClassName = aMainClass.getName();
@@ -784,7 +784,7 @@ public class ProjectExecution {
 	 public static ResultingOutErr invokeCorrespondingMain(Class aProxyClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
+			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
 			if (aMainClass == null)
 				return null;
 			return invokeMain(aMainClass, args, anInput);		
@@ -797,7 +797,7 @@ public class ProjectExecution {
 	 public static ResultingOutErr invokeMain(String aMainClassName, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-			Class aMainClass = ProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
+			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
 			if (aMainClass == null)
 				return null;
 			return invokeMain(aMainClass, args, anInput);		
@@ -828,7 +828,7 @@ public class ProjectExecution {
 		 try {
 		 ProjectExecution.redirectInputOutputError(RunningProjectUtils.toInputString(anInput));		
 			
-			Method aMainMethod = ProjectIntrospection.findMethod(aMainClass, "main", new Class[] {String[].class});
+			Method aMainMethod = BasicProjectIntrospection.findMethod(aMainClass, "main", new Class[] {String[].class});
 			ProjectExecution.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
 //			aMainMethod.invoke(aMainClass, new Object[] {args});		
 //			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();

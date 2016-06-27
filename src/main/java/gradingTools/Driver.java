@@ -119,6 +119,9 @@ public class Driver {
         ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
 
         configuration = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
+// we can set typed properties!
+//        configuration.setProperty("foo", new String[] {"a", "b"});
+//        List retVal = (List) configuration.getL("foo");
         // moved
         // , in progress
         // this does nothing but slow things down, we should use some other mechanism to find requirements
@@ -240,7 +243,7 @@ public class Driver {
                     }
                 } else if (args[i].equals("--compile-executor")) {
                     settingsModel.compileExecutor();
-                }
+                } 
             }
 //            for(String arg : args) {
 //                if (arg.equals("--clean-slate")) {
@@ -731,6 +734,7 @@ public class Driver {
                     break;
             }
         }
+        // this seems to take the place of UserPropertyWriter
         course = Character.toUpperCase(course.charAt(0)) + course.substring(1).toLowerCase();
         graderSettingsManager.setModule(course);
         graderSettingsManager.setStartingOnyen(course, start);

@@ -8,7 +8,7 @@ import grader.navigation.NavigationKind;
 import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -556,14 +556,14 @@ public class BasicProjectClassesManager implements ClassesManager {
     @Override
     public Set<ClassDescription> findByTag(String[] aTags) {
 //    	String normalizedTag = tag.replaceAll("\\s","");
-    	ProjectIntrospection.normalizeTags(aTags); // using array instead
+    	BasicProjectIntrospection.normalizeTags(aTags); // using array instead
     	List<String> aSpecificationList = Arrays.asList(aTags);
         Set<ClassDescription> classes = new HashSet<>();
         for (ClassDescription description : classDescriptions) {
 //        	if (description.getJavaClass().isInterface())
 //        		continue;
         	String[] anActualTags = description.getTags();
-        	if (ProjectIntrospection.matchesTags(aSpecificationList, anActualTags )) {
+        	if (BasicProjectIntrospection.matchesTags(aSpecificationList, anActualTags )) {
         		 classes.add(description);
         	}
 //            for (String t : description.getTags()) {

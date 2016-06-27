@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  *
@@ -32,7 +32,7 @@ public class BasicTokenDefinitions {
             }
         }
         for(String[] description : basicTokens()) {
-            Class clazz = ProjectIntrospection.findClass(p, description[0],
+            Class clazz = BasicProjectIntrospection.findClass(p, description[0],
                                                          description[1],
                                                          description[2],
                                                          description[3]);

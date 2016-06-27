@@ -5,7 +5,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +21,7 @@ public class LocatableTagTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        if (ProjectIntrospection.findClass(project, "Locatable") != null) {
+        if (BasicProjectIntrospection.findClass(project, "Locatable") != null) {
             return pass();
         } else {
             return fail("Can't find class tagged Locatable");

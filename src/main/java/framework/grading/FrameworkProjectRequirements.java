@@ -22,7 +22,7 @@ import framework.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  * This is the fundamental container which holds all the features and
@@ -32,7 +32,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 
     private List<Feature> features;
     private List<Restriction> restrictions;
-    protected Map<Object, Object> userData = new HashMap();
+//    protected Map<Object, Object> userData = new HashMap();
     private List<DueDate> dueDates = new ArrayList<DueDate>();
 
     /**
@@ -135,9 +135,10 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
      * @return A list of {@link CheckResult} corresponding to the features
      */
     public List<CheckResult> checkFeatures(Project project) {
-    	getUserData().clear();
+//    	getUserData().clear();
+    	clearUserObjects();
     	CurrentProjectHolder.setProject(project); // for Junit test cases
-    	ProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
+    	BasicProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {
@@ -213,11 +214,13 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     }
     @Override
     public Object getUserObject (Object aKey) {
-    	return userData.get(aKey);
+//    	return userData.get(aKey);
+    	return BasicProjectIntrospection.getUserObject(aKey);
     }
     @Override
     public void putUserObject (Object aKey, Object aValue) {
-    	 userData.put(aKey, aValue);
+//    	 userData.put(aKey, aValue);
+    	BasicProjectIntrospection.putUserObject(aKey, aValue);
     }
     boolean isInteractiveRun(Checkable aFeature) {
     	return aFeature.getName().equals(INTERACTIVE_RUN);
@@ -242,9 +245,13 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 		return null;
 	}
 
+//	@Override
+//	public Map<Object, Object> getUserData() {
+//		return userData;
+//	}
 	@Override
-	public Map<Object, Object> getUserData() {
-		return userData;
+	public void clearUserObjects() {
+		BasicProjectIntrospection.clearUserObjects();
 	}
 
 }

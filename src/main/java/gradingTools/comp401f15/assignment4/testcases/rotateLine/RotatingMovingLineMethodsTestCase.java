@@ -7,7 +7,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  *
@@ -19,7 +19,7 @@ public class RotatingMovingLineMethodsTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class aClass = ProjectIntrospection.findClass(project, 
+        Class aClass = BasicProjectIntrospection.findClass(project, 
                             classDescriptions[0],
                             classDescriptions[1],
                             classDescriptions[2],

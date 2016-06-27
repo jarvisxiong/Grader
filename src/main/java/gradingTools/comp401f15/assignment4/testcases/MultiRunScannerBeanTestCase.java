@@ -14,7 +14,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 
@@ -40,7 +40,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class scannerClass = ProjectIntrospection.findClass(project, 
+        Class scannerClass = BasicProjectIntrospection.findClass(project, 
                                 scannerDescriptions[0],
                                 scannerDescriptions[1],
                                 scannerDescriptions[2],

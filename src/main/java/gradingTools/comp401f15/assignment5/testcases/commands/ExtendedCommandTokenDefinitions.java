@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 
 /**
@@ -35,7 +35,7 @@ public class ExtendedCommandTokenDefinitions {
         }
         extendedCommandTokenClassMap.putAll(CommandTokenDefinitions.commandTokenClassMap);
         for(String[] description : added()) {
-            Class clazz = ProjectIntrospection.findClass(p, description[0],
+            Class clazz = BasicProjectIntrospection.findClass(p, description[0],
                                                          description[1],
                                                          description[2],
                                                          description[3]);

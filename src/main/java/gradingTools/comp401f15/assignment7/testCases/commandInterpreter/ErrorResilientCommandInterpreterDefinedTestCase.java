@@ -13,7 +13,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ErrorResilientCommandInterpreterDefinedTestCase extends BasicTestCa
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class<?> commandInterpreterClass = ProjectIntrospection.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
+        Class<?> commandInterpreterClass = BasicProjectIntrospection.findClass(project, null, "CommandInterpreter", ".*[cC]ommand.*[iI]nterpreter.*", ".*[cC]ommand[iI]nterpreter.*");
         if (commandInterpreterClass == null) {
             return fail("Can't find CommandInterpreter");
         }

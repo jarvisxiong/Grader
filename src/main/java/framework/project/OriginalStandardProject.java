@@ -14,7 +14,7 @@ import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -256,7 +256,7 @@ public class OriginalStandardProject implements Project {
     	try {
 			BasicGradingEnvironment.get().setLoadClasses(true);
 			Project aProject = new OriginalStandardProject(null, new File("."), null);
-			Class aClass = ProjectIntrospection.findClass(aProject, "ACartesianPoint");
+			Class aClass = BasicProjectIntrospection.findClass(aProject, "ACartesianPoint");
 			System.out.println (aClass);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

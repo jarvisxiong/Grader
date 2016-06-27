@@ -9,7 +9,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 /**
  *
@@ -27,12 +27,12 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class angleShapeClass = ProjectIntrospection.findClass(project, 
+        Class angleShapeClass = BasicProjectIntrospection.findClass(project, 
                                                             classDescriptions[0],
                                                             classDescriptions[1],
                                                             classDescriptions[2],
                                                             classDescriptions[3]);
-        Class lineClass = ProjectIntrospection.findClass(project, 
+        Class lineClass = BasicProjectIntrospection.findClass(project, 
                                                             lineDescriptions[0],
                                                             lineDescriptions[1],
                                                             lineDescriptions[2],

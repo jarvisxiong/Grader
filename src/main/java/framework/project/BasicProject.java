@@ -13,7 +13,7 @@ import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -358,11 +358,11 @@ public class BasicProject implements Project {
 //			Project aProject = new BasicProject(null, new File("."), null);
 			Project anAllCorrectProject = new BasicProject(null, new File("."), null, "allcorrect");
 
-			Class anAllCorrectClass = ProjectIntrospection.findClass(anAllCorrectProject, "ACartesianPoint");
+			Class anAllCorrectClass = BasicProjectIntrospection.findClass(anAllCorrectProject, "ACartesianPoint");
 			System.out.println (anAllCorrectClass);
 			Project aWrongAngleProject = new BasicProject(null, new File("."), null, "wrongangle");
 
-			Class aWrongAngleClass = ProjectIntrospection.findClass(anAllCorrectProject, "ACartesianPoint");
+			Class aWrongAngleClass = BasicProjectIntrospection.findClass(anAllCorrectProject, "ACartesianPoint");
 			System.out.println (aWrongAngleClass);
 			
 			

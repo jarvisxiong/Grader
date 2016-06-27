@@ -14,7 +14,7 @@ import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 public class BeanTestCase extends OutputAndErrorCheckingTestCase{
 	String tag;
@@ -43,7 +43,7 @@ public class BeanTestCase extends OutputAndErrorCheckingTestCase{
             throw new NotGradableException();
         
      	SakaiProject aProject = ((ProjectWrapper) project).getProject();
-     	Class aParserClass = ProjectIntrospection.findClass(project, tag);
+     	Class aParserClass = BasicProjectIntrospection.findClass(project, tag);
      	if (aParserClass == null) {
      		return fail ("Did not find unique class for tag:" + tag);
      	}

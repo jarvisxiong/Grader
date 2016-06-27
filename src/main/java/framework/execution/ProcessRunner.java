@@ -11,7 +11,7 @@ import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.sakai.project.SakaiProject;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.InputStream;
@@ -299,7 +299,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	public String classWithEntryTagTarget(String anEntryTag) {
 		if (anEntryTag == null)
 			return "";
-		Class aClass = ProjectIntrospection.findUniqueClassByTag(project, anEntryTag);
+		Class aClass = BasicProjectIntrospection.findUniqueClassByTag(project, anEntryTag);
 		if (aClass != null) {
 			String aRetVal = aClass.getName();
 		}
@@ -327,7 +327,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	public String classWithEntryTagsTarget(List<String> anEntryTags) {
 		if (anEntryTags == null)
 			return "";
-		Class aClass = ProjectIntrospection.findClassByTags(project, anEntryTags.toArray(emptyStringArray));
+		Class aClass = BasicProjectIntrospection.findClassByTags(project, anEntryTags.toArray(emptyStringArray));
 		if (aClass != null) {
 			String aRetVal = aClass.getName();
 		}

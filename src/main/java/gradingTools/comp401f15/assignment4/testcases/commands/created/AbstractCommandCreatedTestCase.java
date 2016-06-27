@@ -11,7 +11,7 @@ import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 
@@ -72,7 +72,7 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
                 return fail("Can't find token getter");
             }
             if (token != null) {
-                Class aClass = ProjectIntrospection.findClass(aProject, 
+                Class aClass = BasicProjectIntrospection.findClass(aProject, 
                             commandDescriptions()[0],
                             commandDescriptions()[1],
                             commandDescriptions()[2],

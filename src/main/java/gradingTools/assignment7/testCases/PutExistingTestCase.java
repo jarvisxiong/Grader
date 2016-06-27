@@ -10,7 +10,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.project.Project;
-import grader.util.ProjectIntrospection;
+import grader.util.BasicProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;
 
@@ -29,7 +29,7 @@ public class PutExistingTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        Class<?> tableClass = ProjectIntrospection.findClass(project, null, "Table", ".*[tT]able.*", ".*[tT]able.*");
+        Class<?> tableClass = BasicProjectIntrospection.findClass(project, null, "Table", ".*[tT]able.*", ".*[tT]able.*");
         Constructor<?> tableConstructor;
         try {
             tableConstructor = tableClass.getConstructor();
