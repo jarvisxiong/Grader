@@ -36,6 +36,7 @@ import bus.uigen.ObjectEditor;
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
    ECreditPointRadiusTest.class,
+   ECreditPointMainTest.class,
    
 })
 public class ECreditCartesianPointSuite {
