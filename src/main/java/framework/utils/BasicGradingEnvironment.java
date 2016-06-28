@@ -44,7 +44,7 @@ public class BasicGradingEnvironment {
     protected String diff;
     protected String browser;
     protected String classpathSeparator;
-    protected String classpath, canonicalClassPath, oeClassPath, canonicalOEClassPath;
+    protected String classpath, canonicalClassPath, oeClassPath, junitClassPath;
     protected String assignmentName;
     protected String defaulAssignmentsDataFolderName;
     protected boolean forkMain;
@@ -94,6 +94,16 @@ public class BasicGradingEnvironment {
         maybeSetClasspaths();
     }
 	
+	public String getClassPathSeparator() {
+		return classpathSeparator;
+	}
+	public String getOEClassPath() {
+		return oeClassPath;
+	}
+	public String getJUnitClassPath() {
+		return junitClassPath;
+	}
+	
 	protected void maybeSetClasspaths() {
 		setClasspaths();
 	}
@@ -106,15 +116,16 @@ public class BasicGradingEnvironment {
         return "";
     }
     // as the name indicates this is a badly designed method
-  protected  String findClasspathAndSetAssociatedClasspaths(String separator) {
+  protected  String findSystemClasspathAndSetAssociatedClasspaths(String separator) {
 	  String retVal = System.getProperty("java.class.path");
-	  canonicalOEClassPath = retVal; 
+	  classpath = retVal;  // this is done twice, once here and once below
 	  oeClassPath = findOEClassPath(separator);
+	  junitClassPath = findJUnitClassPath(separator);
 	  return retVal;
   }
   
   public void setClasspaths() {
-	  classpath = findClasspathAndSetAssociatedClasspaths(classpathSeparator);
+	  classpath = findSystemClasspathAndSetAssociatedClasspaths(classpathSeparator);
   }
 
 
@@ -143,15 +154,38 @@ public class BasicGradingEnvironment {
 //        return aCanoicalClassPath;
     }
     protected String findOEClassPath(String separator) {
+//    	String myClassPath = System.getProperty("java.class.path");
+//    	String[] paths = myClassPath.split(separator);
+//    	for (String aPath:paths) {
+//    		if (aPath.contains("oeall")) {
+//    			return aPath;
+//    		}
+//    	}
+//    	return null;
+    	return findLibInMyClassPath(separator, "oeall");
+    }
+    protected String findJUnitClassPath(String separator) {
+//    	String myClassPath = System.getProperty("java.class.path");
+//    	String[] paths = myClassPath.split(separator);
+//    	for (String aPath:paths) {
+//    		if (aPath.contains("oeall")) {
+//    			return aPath;
+//    		}
+//    	}
+//    	return null;
+    	return findLibInMyClassPath(separator, "junit");
+    }
+    protected String findLibInMyClassPath(String separator, String aLibName) {
     	String myClassPath = System.getProperty("java.class.path");
     	String[] paths = myClassPath.split(separator);
     	for (String aPath:paths) {
-    		if (aPath.contains("oeall")) {
+    		if (aPath.contains(aLibName)) {
     			return aPath;
     		}
     	}
-    	return null;
+    	return ""; // the lib will be replaced with nothing , good for server
     }
+    // this is the code that worked and is refactored in the subclass
 //    private  String findClasspath(String separator) {
 //    	String systemClassPath = System.getenv("CLASSPATH");
 ////    	String myClassPath = System.getProperty("java.class.path");
@@ -189,7 +223,7 @@ public class BasicGradingEnvironment {
 //    }
     
 
-    public String getClasspath() {
+    public String getClassPath() {
         return classpath;
     }
     public String getCanonicalClasspath() {

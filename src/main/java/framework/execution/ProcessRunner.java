@@ -819,7 +819,7 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 		return JavaProjectToPermissionFile.getPermissionFile(project);
 	}
 	protected String getClassPath() {
-		return BasicGradingEnvironment.get().getClasspath();
+		return BasicGradingEnvironment.get().getClassPath();
 	}
 	protected String[] maybeToExecutorCommand(String[] aCommand) {
 		return ExecutorSelector.getExecutor().maybeToExecutorCommand(aCommand);

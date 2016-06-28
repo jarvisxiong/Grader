@@ -16,10 +16,4 @@ APointPrintTest                                        0.0 /  0.0
   Points Deducted: 0.0
 
   Features Score: 39.0
-
-Notes from grading restrictions:
-----------------------------------
-APointPrintTest:
-  -- java.lang.NullPointerException null
-
   Total Score: 39.0

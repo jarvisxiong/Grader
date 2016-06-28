@@ -27,10 +27,4 @@ PointAngleSuite:
   -- computedAngle 0.0 != correctAngle 0.7853981633974483 
   -- computedAngle 0.0 != correctAngle -1.5707963267948966 
 
-
-Notes from grading restrictions:
-----------------------------------
-APointPrintTest:
-  -- java.lang.NullPointerException null
-
   Total Score: 24.0

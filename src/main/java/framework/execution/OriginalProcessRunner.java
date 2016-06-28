@@ -675,7 +675,7 @@ public class OriginalProcessRunner implements Runner {
 			runner.start();
 
 			// // Prepare to run the process
-			String classPath = BasicGradingEnvironment.get().getClasspath();
+			String classPath = BasicGradingEnvironment.get().getClassPath();
 			// // ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 			// GradingEnvironment.get()
 			// // .getClasspath(), entryPoint);
@@ -703,7 +703,7 @@ public class OriginalProcessRunner implements Runner {
 				// ProcessBuilder builder = new ProcessBuilder("java", "-cp",
 				// GradingEnvironment.get().getClasspath(), entryPoint);
 				builder = new ProcessBuilder("java", 
-						"-cp", BasicGradingEnvironment.get().getClasspath(), 
+						"-cp", BasicGradingEnvironment.get().getClassPath(), 
 						"-Djava.security.manager",
 						"-Djava.security.policy==\"" + aPermissionsFile.getAbsolutePath() + "\"",						
 						getEntryPoints().get(

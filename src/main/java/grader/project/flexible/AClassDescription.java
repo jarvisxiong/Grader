@@ -105,7 +105,7 @@ public class AClassDescription implements FlexibleClassDescription {
                             // for now letting it be
                             // so as long as we have one class programs, we are fine it seems
                             byte[] classBytes = ParserMain.compile(aClassName, aText, BasicGradingEnvironment
-                                    .get().getClasspath());
+                                    .get().getClassPath());
                             if (classBytes != null) {
                                 SourceTextCompiledInMemory.newCase(aClassName, classBytes, this);
                                 javaClass = aClassLoader.defineDynamicallyCompiledClass(aClassName, classBytes);
@@ -294,7 +294,7 @@ public class AClassDescription implements FlexibleClassDescription {
         if (javacSourceClass == null) {
             // added classpath, should not really be accessed
             javacSourceClass = SourceClassManager.getInstance().getOrCreateClassInfo(className, BasicGradingEnvironment
-                    .get().getClasspath());
+                    .get().getClassPath());
             JavacSourceClassCreated.newCase(className, this);
 
         }

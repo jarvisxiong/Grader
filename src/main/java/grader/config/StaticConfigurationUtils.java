@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import util.trace.Tracer;
+
 public class StaticConfigurationUtils {
 
 	public static final String DEFAULT = "default";
@@ -48,7 +50,9 @@ public class StaticConfigurationUtils {
 
 	public static final String CLASS_PATH = "classPath";
 	public static final String OE_PATH = "oePath";
+	public static final String JUNIT_PATH = "junitPath";
 	public static final String OE_AND_CLASS_PATH = "oeAndClassPath";
+	public static final String CLASS_PATH_SEPARATOR = ":";
 
 	public static final String PROCESS_TEAMS = "processTeams";
 
@@ -63,9 +67,12 @@ public class StaticConfigurationUtils {
 	public static final String JAVA = "Java";
 
 	public static final String CLASS_PATH_VAR = toVariable(CLASS_PATH);
+	public static final String CLASS_PATH_SEPARATOR_VAR = toVariable(CLASS_PATH_SEPARATOR);
 	public static final String OE_PATH_VAR = toVariable(OE_PATH);
+	public static final String JUNIT_PATH_VAR = toVariable(JUNIT_PATH);
 	public static final String OE_AND_CLASS_PATH_VAR = toVariable(OE_AND_CLASS_PATH );
 	public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
+	public static final String BUILD_FOLDER_VAR = toVariable(BUILD_FOLDER);
 	public static final String IMPLICIT_REQUIRMENTS_ROOT = "implicitRequirementsRoot";
 	public static final String DEFAULT_IMPLICIT_REQUIRMENTS_ROOT = "gradingTools";
 	public static final String USE_EXECEUTOR = "useExecutor";
@@ -490,113 +497,144 @@ public class StaticConfigurationUtils {
 	    
 	    return quotPath.toString();
 	}
+	
+	public static int getClassPathFlagIndex(List<String> aBasicCommand) {
+		int aCpIndex = aBasicCommand.indexOf("-cp");
+		if (aCpIndex < 0) 
+			aCpIndex = aBasicCommand.indexOf("-classpath");
+		return aCpIndex;
+	}
+	
+	public static String getExecutionCommandRawClassPath() {
+		List<String> aBasicCommand = getBasicCommand();
+		int aCpIndex = getClassPathFlagIndex(aBasicCommand);
+		if (aCpIndex < 0)
+			return null;
+		if (aCpIndex + 1 >= aBasicCommand.size())
+			return null;
+		return getReplacedRawClassPath(aBasicCommand.get(aCpIndex + 1));
+		
+	}
+	
+	public static String getReplacedRawClassPath (String command) {
+		// do we really need all of these ifs, more efficient without them? - debugging will be easier
+					// all of these will be in the same command
+					if (command.contains(CLASS_PATH_VAR)) {
 
-	public static String[] getExecutionCommand(Project aProject,
-			String aProcessName, File aBuildFolder, String anEntryPoint,
-			String anEntryTagTarget, String[] anArgs) {
+						command = command.replace(CLASS_PATH_VAR,
+								BasicGradingEnvironment.get().getClassPath());
+					}
 
-		List<String> basicCommand = null;
-		if (aProcessName == null || aProcessName.isEmpty()) {
-			// basicCommand =
-			// getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
-			basicCommand = getBasicCommand();
-		} else {
-			// basicCommand = getInheritedListModuleProblemProperty(aProcessName
-			// + "." + EXECUTION_COMMAND);
-			basicCommand = getBasicCommand(aProcessName);
+					if (command.contains(CLASS_PATH_SEPARATOR_VAR)) {
+						command = command.replace(CLASS_PATH_SEPARATOR_VAR,
+								BasicGradingEnvironment.get().getClassPathSeparator());
+					}
+					if (command.contains(OE_PATH_VAR)) {
 
+						command = command.replace(OE_PATH_VAR,
+						// BasicGradingEnvironment.get().getClasspath());
+								BasicGradingEnvironment.get().getOEClassPath());
+
+					} 
+					if (command.contains(JUNIT_PATH_VAR)) {
+						command = command.replace(JUNIT_PATH_VAR,
+								BasicGradingEnvironment.get().getJUnitClassPath());
+						// } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
+						// command = command.replace(OE_AND_CLASS_PATH_VAR,
+						// BasicGradingEnvironment.get().getClassPath());
+					} 
+					String aClassPathSeparator = BasicGradingEnvironment.get().getClassPathSeparator();
+					if (duplicatedClassPathSeparator == null) {
+						//just avoding new String creation
+						duplicatedClassPathSeparator = aClassPathSeparator + aClassPathSeparator;
+					}
+					// certain libraries may not exist, specially in the server, see what happens without them
+					command = command.replaceAll(duplicatedClassPathSeparator, aClassPathSeparator);
+					return command;
+					// javac wants no quotes!
+//					String anOSPath = BasicGradingEnvironment.get().toOSClassPath(command);
+//					return anOSPath;
+	}
+	static String duplicatedClassPathSeparator;
+	public static void replaceClassPathVars (List<String> basicCommand) {
+		int aCpIndex = getClassPathFlagIndex(basicCommand);
+		if (aCpIndex < 0)
+			return ;
+		
+		if (aCpIndex + 1 >= basicCommand.size()) {
+			Tracer.warning("Nothing follows classpath flag");
+			return ;
 		}
-		List<String> retVal = new ArrayList(basicCommand.size());
-		// for (int aCommandIndex = 0; aCommandIndex < basicCommand.size();
-		// aCommandIndex++) {
-		//
-		// String command =
-		// basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH),
-		// GradingEnvironment.get().getClasspath());
-		// command = command.replace(toVariable(PERMISSIONS),
-		// "\"" +
-		// JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath()
-		// + "\"");
-		// if (anEntryPoint != null) {
-		// command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
-		// }
-		// if (anEntryTagTarget != null) {
-		// command = command.replace(toVariable(ENTRY_TAGS), anEntryTagTarget);
-		// command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);
-		// // will match tags also
-		//
-		// }
-		//
-		// // if (anEntryTagTarget != null)
-		// command = command.replace(toVariable(BUILD_FOLDER),
-		// aBuildFolder.getAbsolutePath());
-		//
-		// retVal.add(command);
-		// }
+		String aReplacement = getReplacedRawClassPath(basicCommand.get(aCpIndex + 1));
+		String anOSPath = BasicGradingEnvironment.get().toOSClassPath(aReplacement);
+		basicCommand.set(aCpIndex + 1, anOSPath);
 
+		
+//		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+//
+//			String command = basicCommand.get(aCommandIndex);
+//			
+////			// do we really need all of these ifs, more efficient without them? - debugging will be easier
+////			// all of these will be in the same command
+////			if (command.contains(CLASS_PATH_VAR)) {
+////
+////				command = command.replace(CLASS_PATH_VAR,
+////						BasicGradingEnvironment.get().getClassPath());
+////			}
+////
+////			if (command.contains(CLASS_PATH_SEPARATOR_VAR)) {
+////				command = command.replace(CLASS_PATH_SEPARATOR_VAR,
+////						BasicGradingEnvironment.get().getClassPathSeparator());
+////			}
+////			if (command.contains(OE_PATH_VAR)) {
+////
+////				command = command.replace(OE_PATH_VAR,
+////				// BasicGradingEnvironment.get().getClasspath());
+////						BasicGradingEnvironment.get().getOEClassPath());
+////
+////			} 
+////			if (command.contains(JUNIT_PATH_VAR)) {
+////				command = command.replace(JUNIT_PATH_VAR,
+////						BasicGradingEnvironment.get().getJUnitClassPath());
+////				// } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
+////				// command = command.replace(OE_AND_CLASS_PATH_VAR,
+////				// BasicGradingEnvironment.get().getClassPath());
+////			} 
+//			command = getReplacedClassPath(command);
+//			basicCommand.set(aCommandIndex, command);
+//		}
+	}
+	
+	public static void replacePermissionVariables(List<String> basicCommand, Project aProject) {
 		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
 
 			String command = basicCommand.get(aCommandIndex);
-			if (command.contains(CLASS_PATH_VAR)) {
-//				command = command.replace(CLASS_PATH_VAR, "\""
-//						+ GradingEnvironment.get().getClasspath() + "\"");
-				command = command.replace(CLASS_PATH_VAR, 
-						BasicGradingEnvironment.get().getClasspath());
+			if (doPermissions && command.contains(PERMISSIONS_VAR)) {
 
-				// } else if (command.contains(PERMISSIONS_VAR)) {
-				// command = command.replace(PERMISSIONS_VAR,
-				// "\"" +
-				// JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath()
-				// + "\"");
-				// }
-			} else if (command.contains(OE_PATH_VAR)) {
-//				command = command.replace(CLASS_PATH_VAR, "\""
-//				+ GradingEnvironment.get().getClasspath() + "\"");
-		         command = command.replace(OE_PATH_VAR, 
-				BasicGradingEnvironment.get().getClasspath());
-
-	      } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
-	    	   command = command.replace(OE_AND_CLASS_PATH_VAR, 
-	   				BasicGradingEnvironment.get().getClasspath());
-	      }
-			else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
-				// URL policyFileURL =
-				// Class.class.getResource("/server/model/easy.policy");
 				String aPolicyFilePath = JavaProjectToPermissionFile
 						.getPermissionFile(aProject).getAbsolutePath();
 				try {
 					aPolicyFilePath = JavaProjectToPermissionFile
 							.getPermissionFile(aProject).getCanonicalPath();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				aPolicyFilePath = aPolicyFilePath.replace("\\", "/");
 
-//				aPolicyFilePath = "C:/Users/dewan/Downloads/A7/\"Assignment 7\"/permissions0.txt";
-				
 				aPolicyFilePath = quotePath(aPolicyFilePath);
 
-//				try {
-//					URL aPermissionFileURL = Class.class
-//							.getResource(aPolicyFilePath);
-//
-//					aPolicyFilePath = URLDecoder.decode(
-//							aPermissionFileURL.getFile(), "UTF-8");
-//				} catch (Exception e) {
-//					System.err.println("Could not decode: " + e.getMessage());
-//				}
-				command = command.replace(
-						PERMISSIONS_VAR,
-//						"\"" +
-								aPolicyFilePath
-//								JavaProjectToPermissionFile
-//										.getPermissionFile(aProject)
-//										.getAbsolutePath() + 
-//										+ "\""
-								);
-			}
+				command = command.replace(PERMISSIONS_VAR, aPolicyFilePath);
+				basicCommand.set(aCommandIndex, command);
 
+			}
+		}
+	}
+	
+	public static void replaceEntryPoint(List<String> basicCommand,  String anEntryPoint,
+			String anEntryTagTarget) {
+		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+
+			String command = basicCommand.get(aCommandIndex);
 			if (anEntryPoint != null) {
 				command = command
 						.replace(toVariable(ENTRY_POINT), anEntryPoint);
@@ -608,24 +646,266 @@ public class StaticConfigurationUtils {
 						anEntryTagTarget); // will match tags also
 
 			}
-
-			// if (anEntryTagTarget != null)
-			command = command.replace(toVariable(BUILD_FOLDER),
-					aBuildFolder.getAbsolutePath());
-
-			retVal.add(command);
+			basicCommand.set(aCommandIndex, command);
 		}
-		int argsIndex = retVal.indexOf(toVariable(ARGS));
+	}
+	public static void replaceBuildFolder(List<String> basicCommand,  File aBuildFolder) {
+		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+
+			String command = basicCommand.get(aCommandIndex);
+			// we should always have a build folder I suppose
+			// this is meant for C like programs
+			if (command.contains(BUILD_FOLDER_VAR)) {
+			command = command.replace(BUILD_FOLDER_VAR,
+					aBuildFolder.getAbsolutePath());
+			basicCommand.set(aCommandIndex, command);
+
+			}
+		}
+	}
+	public static void replaceArgs(List<String> basicCommand,  String[] anArgs) {
+		int argsIndex = basicCommand.indexOf(toVariable(ARGS));
 		if (argsIndex >= 0) {
-			retVal.remove(argsIndex);
+			basicCommand.remove(argsIndex);
 			for (int i = 0; i < anArgs.length; i++) {
-				retVal.add(argsIndex + i, anArgs[i]);
+				basicCommand.add(argsIndex + i, anArgs[i]);
 			}
 
 		}
+	}
+
+	public static String[] getExecutionCommand(Project aProject,
+			String aProcessName, File aBuildFolder, String anEntryPoint,
+			String anEntryTagTarget, String[] anArgs) {
+
+		List<String> basicCommand = null;
+		if (aProcessName == null || aProcessName.isEmpty()) {
+		
+			basicCommand = getBasicCommand();
+		} else {
+		
+			basicCommand = getBasicCommand(aProcessName);
+
+		}
+//		List<String> retVal = new ArrayList(basicCommand.size());
+		List<String> retVal = new ArrayList(basicCommand.size() + 5); // to accommodate args
+		retVal.addAll(basicCommand);
+		replaceClassPathVars(retVal);
+		replacePermissionVariables(retVal, aProject);
+		replaceEntryPoint(retVal, anEntryPoint, anEntryTagTarget);
+		replaceBuildFolder(retVal, aBuildFolder);
+		replaceArgs(retVal, anArgs);
 		return retVal.toArray(new String[0]);
 
+
+//		
+//		
+//		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+//
+//			String command = basicCommand.get(aCommandIndex);
+//			if (command.contains(CLASS_PATH_VAR)) {
+//
+//				command = command.replace(CLASS_PATH_VAR,
+//						BasicGradingEnvironment.get().getClassPath());
+//
+//			} else if (command.contains(CLASS_PATH_SEPARATOR_VAR)) {
+//				command = command.replace(CLASS_PATH_SEPARATOR_VAR,
+//						BasicGradingEnvironment.get().getClassPathSeparator());
+//			} else if (command.contains(OE_PATH_VAR)) {
+//
+//				command = command.replace(OE_PATH_VAR,
+//				// BasicGradingEnvironment.get().getClasspath());
+//						BasicGradingEnvironment.get().getOEClassPath());
+//
+//			} else if (command.contains(JUNIT_PATH_VAR)) {
+//				command = command.replace(JUNIT_PATH_VAR,
+//						BasicGradingEnvironment.get().getJUnitClassPath());
+//				// } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
+//				// command = command.replace(OE_AND_CLASS_PATH_VAR,
+//				// BasicGradingEnvironment.get().getClassPath());
+//			} else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
+//
+//				String aPolicyFilePath = JavaProjectToPermissionFile
+//						.getPermissionFile(aProject).getAbsolutePath();
+//				try {
+//					aPolicyFilePath = JavaProjectToPermissionFile
+//							.getPermissionFile(aProject).getCanonicalPath();
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
+//				aPolicyFilePath = aPolicyFilePath.replace("\\", "/");
+//
+//				aPolicyFilePath = quotePath(aPolicyFilePath);
+//
+//				command = command.replace(PERMISSIONS_VAR, aPolicyFilePath
+//
+//				);
+//			}
+//
+//			if (anEntryPoint != null) {
+//				command = command
+//						.replace(toVariable(ENTRY_POINT), anEntryPoint);
+//			}
+//			if (anEntryTagTarget != null) {
+//				command = command.replace(toVariable(ENTRY_TAGS),
+//						anEntryTagTarget);
+//				command = command.replace(toVariable(ENTRY_TAG),
+//						anEntryTagTarget); // will match tags also
+//
+//			}
+//
+//			command = command.replace(toVariable(BUILD_FOLDER),
+//					aBuildFolder.getAbsolutePath());
+//
+//			retVal.add(command);
+//		}
+//		int argsIndex = retVal.indexOf(toVariable(ARGS));
+//		if (argsIndex >= 0) {
+//			retVal.remove(argsIndex);
+//			for (int i = 0; i < anArgs.length; i++) {
+//				retVal.add(argsIndex + i, anArgs[i]);
+//			}
+//
+//		}
+//		return retVal.toArray(new String[0]);
+
 	}
+	// this stuff worked with oritinal class path stuff
+//	public static String[] getExecutionCommand(Project aProject,
+//			String aProcessName, File aBuildFolder, String anEntryPoint,
+//			String anEntryTagTarget, String[] anArgs) {
+//
+//		List<String> basicCommand = null;
+//		if (aProcessName == null || aProcessName.isEmpty()) {
+//			// basicCommand =
+//			// getInheritedListModuleProblemProperty(EXECUTION_COMMAND);
+//			basicCommand = getBasicCommand();
+//		} else {
+//			// basicCommand = getInheritedListModuleProblemProperty(aProcessName
+//			// + "." + EXECUTION_COMMAND);
+//			basicCommand = getBasicCommand(aProcessName);
+//
+//		}
+//		List<String> retVal = new ArrayList(basicCommand.size());
+//		// for (int aCommandIndex = 0; aCommandIndex < basicCommand.size();
+//		// aCommandIndex++) {
+//		//
+//		// String command =
+//		// basicCommand.get(aCommandIndex).replace(toVariable(CLASS_PATH),
+//		// GradingEnvironment.get().getClasspath());
+//		// command = command.replace(toVariable(PERMISSIONS),
+//		// "\"" +
+//		// JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath()
+//		// + "\"");
+//		// if (anEntryPoint != null) {
+//		// command = command.replace(toVariable(ENTRY_POINT), anEntryPoint);
+//		// }
+//		// if (anEntryTagTarget != null) {
+//		// command = command.replace(toVariable(ENTRY_TAGS), anEntryTagTarget);
+//		// command = command.replace(toVariable(ENTRY_TAG), anEntryTagTarget);
+//		// // will match tags also
+//		//
+//		// }
+//		//
+//		// // if (anEntryTagTarget != null)
+//		// command = command.replace(toVariable(BUILD_FOLDER),
+//		// aBuildFolder.getAbsolutePath());
+//		//
+//		// retVal.add(command);
+//		// }
+//
+//		for (int aCommandIndex = 0; aCommandIndex < basicCommand.size(); aCommandIndex++) {
+//
+//			String command = basicCommand.get(aCommandIndex);
+//			if (command.contains(CLASS_PATH_VAR)) {
+////				command = command.replace(CLASS_PATH_VAR, "\""
+////						+ GradingEnvironment.get().getClasspath() + "\"");
+//				command = command.replace(CLASS_PATH_VAR, 
+//						BasicGradingEnvironment.get().getClasspath());
+//
+//				// } else if (command.contains(PERMISSIONS_VAR)) {
+//				// command = command.replace(PERMISSIONS_VAR,
+//				// "\"" +
+//				// JavaProjectToPermissionFile.getPermissionFile(aProject).getAbsolutePath()
+//				// + "\"");
+//				// }
+//			} else if (command.contains(OE_PATH_VAR)) {
+////				command = command.replace(CLASS_PATH_VAR, "\""
+////				+ GradingEnvironment.get().getClasspath() + "\"");
+//		         command = command.replace(OE_PATH_VAR, 
+//				BasicGradingEnvironment.get().getClasspath());
+//
+//	      } else if (command.contains(OE_AND_CLASS_PATH_VAR)) {
+//	    	   command = command.replace(OE_AND_CLASS_PATH_VAR, 
+//	   				BasicGradingEnvironment.get().getClasspath());
+//	      }
+//			else if (doPermissions && command.contains(PERMISSIONS_VAR)) {
+//				// URL policyFileURL =
+//				// Class.class.getResource("/server/model/easy.policy");
+//				String aPolicyFilePath = JavaProjectToPermissionFile
+//						.getPermissionFile(aProject).getAbsolutePath();
+//				try {
+//					aPolicyFilePath = JavaProjectToPermissionFile
+//							.getPermissionFile(aProject).getCanonicalPath();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				aPolicyFilePath = aPolicyFilePath.replace("\\", "/");
+//
+////				aPolicyFilePath = "C:/Users/dewan/Downloads/A7/\"Assignment 7\"/permissions0.txt";
+//				
+//				aPolicyFilePath = quotePath(aPolicyFilePath);
+//
+////				try {
+////					URL aPermissionFileURL = Class.class
+////							.getResource(aPolicyFilePath);
+////
+////					aPolicyFilePath = URLDecoder.decode(
+////							aPermissionFileURL.getFile(), "UTF-8");
+////				} catch (Exception e) {
+////					System.err.println("Could not decode: " + e.getMessage());
+////				}
+//				command = command.replace(
+//						PERMISSIONS_VAR,
+////						"\"" +
+//								aPolicyFilePath
+////								JavaProjectToPermissionFile
+////										.getPermissionFile(aProject)
+////										.getAbsolutePath() + 
+////										+ "\""
+//								);
+//			}
+//
+//			if (anEntryPoint != null) {
+//				command = command
+//						.replace(toVariable(ENTRY_POINT), anEntryPoint);
+//			}
+//			if (anEntryTagTarget != null) {
+//				command = command.replace(toVariable(ENTRY_TAGS),
+//						anEntryTagTarget);
+//				command = command.replace(toVariable(ENTRY_TAG),
+//						anEntryTagTarget); // will match tags also
+//
+//			}
+//
+//			// if (anEntryTagTarget != null)
+//			command = command.replace(toVariable(BUILD_FOLDER),
+//					aBuildFolder.getAbsolutePath());
+//
+//			retVal.add(command);
+//		}
+//		int argsIndex = retVal.indexOf(toVariable(ARGS));
+//		if (argsIndex >= 0) {
+//			retVal.remove(argsIndex);
+//			for (int i = 0; i < anArgs.length; i++) {
+//				retVal.add(argsIndex + i, anArgs[i]);
+//			}
+//
+//		}
+//		return retVal.toArray(new String[0]);
+//
+//	}
 	public static List getCourseOrStaticList(String aProperty, List aDefault) {
 		PropertiesConfiguration staticConfiguration = ConfigurationManagerSelector
 				.getConfigurationManager().getStaticConfiguration();

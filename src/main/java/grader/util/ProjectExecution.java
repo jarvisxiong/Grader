@@ -685,7 +685,7 @@ public class ProjectExecution {
 			// this should depend on whether class path
 			
 //		 	String aClassPath = System.getProperty("java.class.path");
-		 	String aClassPath = BasicGradingEnvironment.get().getClasspath();
+		 	String aClassPath = BasicGradingEnvironment.get().getClassPath();
 		 	String aMainClassName = aMainClass.getName();
 	        String[] command = {"java",  "-cp",  aClassPath, aMainClassName};
 	        

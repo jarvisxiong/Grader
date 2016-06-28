@@ -134,40 +134,52 @@ public class GradingEnvironment extends BasicGradingEnvironment {
 	}
 	// this one uses static configuration utils
 	@Override
-    protected  String findClasspathAndSetAssociatedClasspaths(String separator) {
+    protected  String findSystemClasspathAndSetAssociatedClasspaths(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
 //    	String originalClassPath = systemClassPath;
-    	canonicalOEClassPath = findOEClassPath(separator);    	
-//        File oe = new File("oeall-22.jar");
-//        String[] paths = new String[] { ".", "..", oe.getAbsolutePath()};
-//        String[] paths = new String[] { ".", originalClassPath};
-//      String[] paths = new String[] { ".", "..", originalClassPath};
+    	oeClassPath = findOEClassPath(separator); 
+  	    junitClassPath = findJUnitClassPath(separator);
 
+
+// added this stuff below to replace the commented code below
     	String[] paths = null;
     	if (StaticConfigurationUtils.hasClassPath() ) {
-    		paths = new String[] { ".", "..", systemClassPath};
-    	} else if (StaticConfigurationUtils.hasOEClassPath()) {
-    		paths = new String[] { ".", "..", canonicalOEClassPath};
-    	} else if (StaticConfigurationUtils.hasOEOrClassPath()) {
-    		paths = new String[] { ".", "..", canonicalOEClassPath, systemClassPath};
+    		canonicalClassPath = systemClassPath;    		
     	}
-    	
-//        String[] paths = new String[] { ".", "..", originalClassPath};
+    	// getting rid of this from here, execution command will convert to osPath
+//    	String anOSClassPath = toOSClassPath(systemClassPath);
+//    	classpath = anOSClassPath;
+    	classpath = systemClassPath;
+    	return systemClassPath;
+    			
+//    	return anOSClassPath; // at some pt get rid if this return value
+    	//the stuff below is a mess but may need to be uncommented
 
-
-
-        String classpath = "";
-        
-        for (String path : paths)
-            classpath += (classpath.isEmpty() ? "" : separator) + path;
-        canonicalClassPath = classpath;
-        classpath = toOSClassPath(canonicalClassPath);
-//        if (osName.equals("Windows"))
-//        	classpath = "\""+ classpath + "\"";
-//        else
-//        	classpath = classpath.replaceAll(" ", "\\ ");
-        return classpath;
+//    	if (StaticConfigurationUtils.hasClassPath() ) {
+//    		paths = new String[] { ".", "..", systemClassPath};
+//    	} 
+    	// will add oe classpath separately
+//    	else if (StaticConfigurationUtils.hasOEClassPath()) {
+//    		paths = new String[] { ".", "..", canonicalOEClassPath};
+//    	} else if (StaticConfigurationUtils.hasOEOrClassPath()) {
+//    		paths = new String[] { ".", "..", canonicalOEClassPath, systemClassPath};
+//    	}
+//    	
+//
+//
+//
+//        String classpath = "";
+//        
+//        for (String path : paths)
+//            classpath += (classpath.isEmpty() ? "" : separator) + path;
+//        canonicalClassPath = classpath;
+//        classpath = toOSClassPath(canonicalClassPath);
+////        if (osName.equals("Windows"))
+////        	classpath = "\""+ classpath + "\"";
+////        else
+////        	classpath = classpath.replaceAll(" ", "\\ ");
+//        return classpath;
     }
 //    
 //

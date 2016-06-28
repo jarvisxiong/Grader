@@ -210,7 +210,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
+	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClassPath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	        	else {
 	        		builder = new ProcessBuilder(command);
 	        		System.out.println("Running command:"
@@ -352,7 +352,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
 
 	            // Prepare to run the process
 //	            ProcessBuilder builder = new ProcessBuilder("java", "-cp", GradingEnvironment.get().getClasspath(), entryPoint);
-	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClasspath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
+	             builder = new ProcessBuilder("java", "-cp", BasicGradingEnvironment.get().getClassPath(), entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
 	        	else
 	        		builder = new ProcessBuilder(command);
 
