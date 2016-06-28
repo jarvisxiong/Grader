@@ -176,17 +176,23 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		}
 		return retVal;
 	}
-	
+	protected void synthesizeAndDisplayPropertes() {
+		numTests = numTests();
+		fractionComplete = ((double) numTestsSuceeded())/children.size();
+		showColor();
+		showScore();
+	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 //		if (!"Status".equals(evt.getPropertyName())) 
 //				return; // do not want this computed multiple times for different properties of test
 		if (!"Score".equals(evt.getPropertyName())) 
 			return; // do not want this computed multiple times for different properties of test
-		numTests = numTests();
-		fractionComplete = ((double) numTestsSuceeded())/children.size();
-		showColor();
-		showScore();
+		synthesizeAndDisplayPropertes();
+//		numTests = numTests();
+//		fractionComplete = ((double) numTestsSuceeded())/children.size();
+//		showColor();
+//		showScore();
 		
 	}
 	@Override
@@ -199,6 +205,8 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	@Override
 	@Visible(false)
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
+		synthesizeAndDisplayPropertes();
+//		numTests = numTests();
 		super.addPropertyChangeListener(arg0);	
 		
 	}

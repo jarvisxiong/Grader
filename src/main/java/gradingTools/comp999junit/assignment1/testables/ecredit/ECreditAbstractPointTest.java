@@ -22,12 +22,16 @@ public abstract class ECreditAbstractPointTest {
 		Assert.assertTrue("computedRadius " + aComputed + " != correctRadius " + aCorrect + " :" + fractionComplete, Math.abs(aComputed - aCorrect) < 0.1);
 	}
 	protected abstract void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) ;
+	public void createPoint(int theX, int theY) {
+		point = (ECreditPoint) BasicProjectIntrospection.createInstance(
+				ECreditPoint.class, new Object[] { theX, theY});
+	}
 	public void test(int theX, int theY, double aCorrectRadius,
 			double aCorrectAngle) {
 		try {
-			point = (ECreditPoint) BasicProjectIntrospection.createInstance(
-					ECreditPoint.class, new Object[] { theX, theY});
-
+//			point = (ECreditPoint) BasicProjectIntrospection.createInstance(
+//					ECreditPoint.class, new Object[] { theX, theY});
+			createPoint(theX, theY);
 			double aComputedRadius =  point.getRadius();
 			double aComputedAngle = point.getAngle();
 			checkComputations(aComputedAngle, aComputedRadius, aCorrectAngle, aCorrectRadius);		
