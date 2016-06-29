@@ -9,6 +9,7 @@ import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDeg
 import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.APointTranslationTest;
 import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
 
 import java.io.File;
@@ -28,7 +29,8 @@ import org.junit.runners.Suite;
    APointAngleNinetyDegreeTest.class,
    APointAngleFortyFiveDegreeTest.class,
    APointAngleMinusNinetyDegreeTest.class,
-   APointRadiusTest.class,
+   APointRadiusTest.class
+//   APointTranslationTest.class
    
 })
 public class TaggingCartesianPointSuite {

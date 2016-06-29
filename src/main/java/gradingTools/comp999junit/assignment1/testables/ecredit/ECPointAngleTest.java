@@ -7,8 +7,8 @@ import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 
-@Group(ECreditAbstractPointTest.ANGLE_TESTS)
-public class ECreditPointAngleTest extends ECreditAbstractPointTest {
+@Group(ECAbstractPointTest.ANGLE_TESTS)
+public class ECPointAngleTest extends ECAbstractPointTest {
 	
 	
 	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {

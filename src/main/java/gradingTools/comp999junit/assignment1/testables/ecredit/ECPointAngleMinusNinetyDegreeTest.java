@@ -5,9 +5,9 @@ package gradingTools.comp999junit.assignment1.testables.ecredit;
 import org.junit.Test;
 
 
-public class ECredittPointAngleMinusNinetyDegreeTest extends ECreditPointAngleTest {
+public class ECPointAngleMinusNinetyDegreeTest extends ECPointAngleTest {
 	
-	public  ECredittPointAngleMinusNinetyDegreeTest() {
+	public  ECPointAngleMinusNinetyDegreeTest() {
 		checkStructure = false;
 	}
 	@Test

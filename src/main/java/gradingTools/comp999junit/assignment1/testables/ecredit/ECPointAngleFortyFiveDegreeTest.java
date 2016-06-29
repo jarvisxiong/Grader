@@ -2,10 +2,10 @@ package gradingTools.comp999junit.assignment1.testables.ecredit;
 
 
 import org.junit.Test;
-public class ECreditPointAngleFortyFiveDegreeTest extends ECreditPointAngleTest {
+public class ECPointAngleFortyFiveDegreeTest extends ECPointAngleTest {
 
 	
-	public  ECreditPointAngleFortyFiveDegreeTest() {
+	public  ECPointAngleFortyFiveDegreeTest() {
 		checkStructure = false;	
 	}
 	@Test

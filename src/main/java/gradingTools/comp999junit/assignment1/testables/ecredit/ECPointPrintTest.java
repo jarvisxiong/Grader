@@ -7,7 +7,7 @@ import grader.util.BasicProjectIntrospection;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ECreditPointPrintTest extends ECreditAbstractPointTest{
+public class ECPointPrintTest extends ECAbstractPointTest{
 
 	@Override
 	protected void checkComputations(double aComputedAngle,

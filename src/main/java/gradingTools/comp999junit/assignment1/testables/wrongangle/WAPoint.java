@@ -4,11 +4,11 @@ import util.annotations.Tags;
 //@StructurePattern(StructurePatternNames.POINT_PATTERN)
 @Explanation("Location in Java coordinate System.")
 @Tags({"Point"}) // the interface is named wrong
-public interface WrongPoint {
+public interface WAPoint {
 	public int getX(); 
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(WrongPoint aPoint, String aString);
-	WrongPoint translate(int anXDelta, int aYDelta, WrongPoint aPoint); 
+	void print(WAPoint aPoint, String aString);
+	WAPoint translate(int anXDelta, int aYDelta, WAPoint aPoint); 
 }

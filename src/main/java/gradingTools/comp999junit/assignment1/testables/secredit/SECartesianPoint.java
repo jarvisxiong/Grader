@@ -1,17 +1,17 @@
-package gradingTools.comp999junit.assignment1.testables.ecredit;
+package gradingTools.comp999junit.assignment1.testables.secredit;
 
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 @Tags({"cartesian", "point"})
-public class ECreditCartesianPoint implements ECreditPoint {	
+public class SECartesianPoint implements SEPoint {	
 	protected int x, y;
-	public ECreditCartesianPoint(int theX, int theY) {
+	public SECartesianPoint(int theX, int theY) {
 		x = theX;
 		y = theY;
 	}
-	public ECreditCartesianPoint(double theRadius, double theAngle) {
+	public SECartesianPoint(double theRadius, double theAngle) {
 		x =  (int) (theRadius*Math.cos(theAngle));
 		y = (int) (theRadius*Math.sin(theAngle));
 	}
@@ -27,13 +27,13 @@ public class ECreditCartesianPoint implements ECreditPoint {
 //		return 0;
 	}
 	@Override
-	public void print (String aString, ECreditPoint aPoint) {
+	public void print (String aString, SEPoint aPoint) {
 		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
 	}
 	public static void main(String args[]) {
-		ECreditPoint point =  new ECreditCartesianPoint (50, 100);
+		SEPoint point =  new SECartesianPoint (50, 100);
 		ObjectEditor.edit(point);
-		point = new ECreditCartesianPoint(100, Math.PI/4);
+		point = new SECartesianPoint(100, Math.PI/4);
 		ObjectEditor.edit(point);
 //		
 	}

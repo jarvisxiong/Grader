@@ -3,8 +3,8 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
 import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
 import gradingTools.comp999junit.assignment1.testcases.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
@@ -119,7 +119,7 @@ public class ADirectPointProxy implements PointProxy{
 	@Override
 	public Point translate(Point aPoint, int anXDelta, int aYDelta) {
 		// TODO Auto-generated method stub
-		return null;
+		return point.translate(aPoint, anXDelta, aYDelta);
 	}
 
 

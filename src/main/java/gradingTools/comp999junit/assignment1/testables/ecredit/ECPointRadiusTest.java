@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testables.secredit;
+package gradingTools.comp999junit.assignment1.testables.ecredit;
 
 
 //import org.junit.Test;
@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import util.annotations.IsExtra;
 import util.annotations.MaxValue;
-public class SECreditPointRadiusTest extends SECreditAbstractPointTest  {	
+
+public class ECPointRadiusTest extends ECAbstractPointTest  {	
 		
 	@Test
 	// all or nothing for radius

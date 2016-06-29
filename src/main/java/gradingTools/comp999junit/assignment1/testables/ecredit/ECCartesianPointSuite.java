@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testables.secredit;
+package gradingTools.comp999junit.assignment1.testables.ecredit;
 
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
@@ -30,15 +30,17 @@ import bus.uigen.ObjectEditor;
 //@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-   SECreditPointAngleZeroDegreeTest.class,
+   ECPointAngleSuite.class,
 //   APointAngleZeroDegreeTest.class,
 //   APointAngleNinetyDegreeTest.class,
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
-   SECreditPointRadiusTest.class,
+   ECPointRadiusTest.class,
+   ECPointMainTest.class,
+   ECPointPrintTest.class
    
 })
-public class SECreditCartesianPointSuite {
+public class ECCartesianPointSuite {
 //	public static final String ANGLE_TESTS = "Angle Tests";
 
 	public static void main (String[] args) {
@@ -46,11 +48,11 @@ public class SECreditCartesianPointSuite {
 //		BasicGradingEnvironment.get().setLoadClasses(false);
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
-		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(SECreditCartesianPointSuite.class);
+		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(ECCartesianPointSuite.class);
 		aGradable.testAll();
 		System.out.println(aGradable.getText());
 		ObjectEditor.treeEdit(aGradable);
-		Result aResult = JUnitCore.runClasses(SECreditCartesianPointSuite.class);
+		Result aResult = JUnitCore.runClasses(ECCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {
 	         System.out.println(failure.toString());
 	      }

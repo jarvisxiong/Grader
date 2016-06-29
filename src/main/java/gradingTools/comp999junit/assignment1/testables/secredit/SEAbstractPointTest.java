@@ -5,7 +5,7 @@ import grader.util.BasicProjectIntrospection;
 
 import org.junit.Assert;
 
-public abstract class SECreditAbstractPointTest {
+public abstract class SEAbstractPointTest {
 
 	public static final String ANGLE_TESTS = "Angle Tests";
 	boolean checkStructure;

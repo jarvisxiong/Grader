@@ -23,7 +23,7 @@ public class AGradedClassProxyInvocationHandler implements InvocationHandler {
 			return null;
 		}
 		if (args != null) {
-		int[] aPermutedIndices= BasicProjectIntrospection.getArgIndices(actualClass, aProxyMethod);
+		Integer[] aPermutedIndices= BasicProjectIntrospection.getArgIndices(actualClass, aProxyMethod);
 		if (aPermutedIndices != null) {
 			Object[] anOriginalArgs = Arrays.copyOf(args, args.length);
 			for (int i = 0; i < args.length; i++) {

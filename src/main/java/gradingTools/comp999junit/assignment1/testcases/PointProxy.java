@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
-import gradingTools.comp999junit.assignment1.testables.wrongangle.WrongPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.WAPoint;
 
 public interface PointProxy {
 

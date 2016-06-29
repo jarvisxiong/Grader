@@ -30,7 +30,7 @@ public class BasicProjectIntrospection {
 
 	static Map<String, Class> keyToClass = new HashMap();
 	static Map<String, Method> keyToMethod = new HashMap();
-	static Map<String, int[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
+	static Map<String, Integer[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
 	static Map<Object, Object> userObjects = new HashMap();
 	static Hashcodetable<Object, Object> proxyToObject = new Hashcodetable<>();
 	static Hashcodetable<Object, Object> objectToProxy = new Hashcodetable<>();
@@ -1008,19 +1008,52 @@ public class BasicProjectIntrospection {
 		}
 		return result;
 	}
+	public static <T> Map<T, List<Integer>> findElementsIndices(T[] anElements) {
+		Map<T, List<Integer>> elementToIndices = new HashMap();
+		for (int i= 0; i < anElements.length; i++) {
+			List<Integer> aList = elementToIndices.get(anElements[i]);
+			if (aList == null) {
+				aList = new ArrayList();
+				elementToIndices.put(anElements[i], aList);
+			}
+			aList.add(i);
+		}
+		return elementToIndices;
+	}
+	public static void removeDuplicates(Integer[] anIndices, Class[] aTargetParameterTypes ) {
+		Map<Integer, List<Integer>> indexToIndices = findElementsIndices(anIndices);
+		Map<Class, List<Integer>> classToIndices = findElementsIndices(aTargetParameterTypes);
+
+		for (Integer anIndex:indexToIndices.keySet()) {
+			List<Integer> anOccurences = indexToIndices.get(anIndex);
+			if (anOccurences.size() == 1) continue;
+			Class aClass = aTargetParameterTypes[anIndex];
+			List<Integer> classIndices = classToIndices.get(aClass);
+			for (int anOccurenceIndex = 0; anOccurenceIndex < anOccurences.size(); anOccurenceIndex++) {
+				int aDuplicatedIndex = anOccurences.get(anOccurenceIndex);
+				anIndices[aDuplicatedIndex] = classIndices.get(anOccurenceIndex);
+				
+			}
+			
+		}
+		
+		
+	}
 	// we have tried equals
-	public static int[] isPermutationOf(Class[] anActualParameterTypes, Class[] aTargetParameterTypes) {
-		int[] retVal = null;
+	public static Integer[] isPermutationOf(Class[] anActualParameterTypes, Class[] aTargetParameterTypes) {
+		Integer[] retVal = null;
 		if (anActualParameterTypes.length != aTargetParameterTypes.length) return retVal;
 		if (aTargetParameterTypes.length == 1) return retVal; // no new permutations
 		Permutations<Class> permutations = new Permutations<Class> (aTargetParameterTypes);
+		List<Integer[]> aMatchedndices = new ArrayList();
 		while (permutations.hasNext()) {
 			retVal = permutations.getIndices();
 			Class[] aPermutedTargetParameterTypes = permutations.next();
 			if (matchesParameters(anActualParameterTypes, aPermutedTargetParameterTypes)) {// we have alrady tried this
-				return retVal;
+				aMatchedndices.add(retVal);
 			}
 		}
+		removeDuplicates(retVal, aTargetParameterTypes);
 		return retVal;
 	}
 
@@ -1038,7 +1071,7 @@ public class BasicProjectIntrospection {
 		if (aRetVal != null) {
 			return aRetVal;
 		}
-		int[] anIndices = null;
+		Integer[] anIndices = null;
 		// now we should try all permutations of method parameter types
 		for (Method aMethod : aMethods) {
 			anIndices = isPermutationOf(aMethod.getParameterTypes(), aParameterTypes);
@@ -1060,7 +1093,7 @@ public class BasicProjectIntrospection {
 		return findMethod(aJavaClass, aProxy.getName(),
 				aProxy.getParameterTypes());
 	}
-	public static int[] getArgIndices(Class aJavaClass, Method aProxy) {
+	public static Integer[] getArgIndices(Class aJavaClass, Method aProxy) {
 		return getMethodArgIndices(aJavaClass, aProxy.getName(),
 				aProxy.getParameterTypes());
 	}
@@ -1084,7 +1117,7 @@ public class BasicProjectIntrospection {
 		 return toMethodTag(aClass, aMethodTags, aParameterTypes);
 	}
 	
-	public static int[] getMethodArgIndices(Class aClass, String aMethodName,
+	public static Integer[] getMethodArgIndices(Class aClass, String aMethodName,
 			Class[] aParameterTypes) {
 		
 		String aKey = toMethodKey(aClass, aMethodName, aParameterTypes);

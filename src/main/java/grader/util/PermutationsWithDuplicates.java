@@ -3,26 +3,22 @@ package grader.util;
 import java.lang.reflect.Array;
 import java.util.*;
 // code stolen from here: http://stackoverflow.com/questions/2920315/permutation-of-array
-public class Permutations<E> implements  Iterator<E[]>{
+public class PermutationsWithDuplicates<E> implements  Iterator<E[]>{
 
     private E[] permutable;
-    private Integer[] indices;
+    private int[] indices;
     private boolean has_next;
 
     protected E[] output;//next() returns this array, make it public
 
-    Permutations(E[] arr){
+    public PermutationsWithDuplicates(E[] arr){
         this.permutable = arr.clone();
-        indices = new Integer[arr.length];
+        indices = new int[arr.length];
         //convert an array of any elements into array of integers - first occurrence is used to enumerate
-        Map<E, Integer> hm = new HashMap<E, Integer>();
+//        Map<E, Integer> hm = new HashMap<E, Integer>();
         for(int i = 0; i < arr.length; i++){
-            Integer n = hm.get(arr[i]);
-            if (n == null){
-                hm.put(arr[i], i);
-                n = i;
-            }
-            indices[i] = n.intValue();
+           
+            indices[i] = i;
         }
         Arrays.sort(indices);//start with ascending sequence of integers
 
@@ -73,7 +69,7 @@ public class Permutations<E> implements  Iterator<E[]>{
         return output;
     }
 
-    private void swap(Integer[] arr, int i, int j){
+    private void swap(int[] arr, int i, int j){
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;
@@ -82,7 +78,7 @@ public class Permutations<E> implements  Iterator<E[]>{
     public void remove() {
 
     }
-    public Integer[] getIndices() {
+    public int[] getIndices() {
     	return indices;
     }
     public static void main(String[] args) {
@@ -92,7 +88,7 @@ public class Permutations<E> implements  Iterator<E[]>{
 //    			Double.class, 
     			Integer.TYPE
     			};
-    	Permutations permutations = new Permutations(aTypes);
+    	PermutationsWithDuplicates permutations = new PermutationsWithDuplicates(aTypes);
     	while (permutations.hasNext()) {
     		System.out.println("Indices:" + Arrays.toString(permutations.getIndices()));
     		System.out.println ("permutation" + Arrays.toString(permutations.next()));

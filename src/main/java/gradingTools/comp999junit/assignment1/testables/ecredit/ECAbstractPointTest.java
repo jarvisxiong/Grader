@@ -2,16 +2,16 @@ package gradingTools.comp999junit.assignment1.testables.ecredit;
 
 import grader.junit.JUnitUtils;
 import grader.util.BasicProjectIntrospection;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
 
 import org.junit.Assert;
 
-public abstract class ECreditAbstractPointTest {
+public abstract class ECAbstractPointTest {
 
 	public static final String ANGLE_TESTS = "Angle Tests";
 	boolean checkStructure;
 
-	ECreditPoint point;
+	ECPoint point;
 	double fractionComplete = 0.0;
 
 	protected void assertAngle(double aComputed, double aCorrect) {
@@ -23,8 +23,8 @@ public abstract class ECreditAbstractPointTest {
 	}
 	protected abstract void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) ;
 	public void createPoint(int theX, int theY) {
-		point = (ECreditPoint) BasicProjectIntrospection.createInstance(
-				ECreditPoint.class, new Object[] { theX, theY});
+		point = (ECPoint) BasicProjectIntrospection.createInstance(
+				ECPoint.class, new Object[] { theX, theY});
 	}
 	public void test(int theX, int theY, double aCorrectRadius,
 			double aCorrectAngle) {

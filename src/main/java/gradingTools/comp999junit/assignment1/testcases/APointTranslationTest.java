@@ -15,20 +15,19 @@ public class APointTranslationTest extends AnAbstractPointTest{
 		// TODO Auto-generated method stub
 		
 	}
+	// all or nothing
 	@Test
-	// all or nothing for radius
 	public void test() {
 		try {
-			int anX = 5;
-			int aY = 10;
-			pointProxy.createCartesianPoint(anX, aY);
-			ProjectExecution.redirectOutput();
-			String aHeader = "The point is:";
-			pointProxy.print(aHeader, pointProxy.getPoint());
-			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
-			String anExpectedOutput =  aHeader + anX + " " + aY + "\n";
-			Assert.assertTrue(anOutput + " is not equal to: " + anExpectedOutput, anExpectedOutput.equals(anOutput));
-
+			
+			pointProxy.createCartesianPoint(5, 10);
+			Point retVal = pointProxy.translate(pointProxy.getPoint(), 5, 10);
+			int actualX = retVal.getX();
+			int actualY = retVal.getY();
+			Assert.assertTrue(
+					"X property " +  actualX +  " is not equal to 10 or " +						
+					"Y property " + actualY + " is not equal to 20 ",					
+					actualX == 10 && actualY == 20) ;
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);
 		}

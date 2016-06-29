@@ -13,14 +13,14 @@ import util.annotations.MaxValue;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-   ECreditPointAngleZeroDegreeTest.class,
-   ECreditPointAngleNinetyDegreeTest.class,
-   ECreditPointAngleFortyFiveDegreeTest.class,
-   ECredittPointAngleMinusNinetyDegreeTest.class,
+   ECPointAngleZeroDegreeTest.class,
+   ECPointAngleNinetyDegreeTest.class,
+   ECPointAngleFortyFiveDegreeTest.class,
+   ECPointAngleMinusNinetyDegreeTest.class,
 
    
 })
-public class ECreditPointAngleSuite {
+public class ECPointAngleSuite {
 
 
 }

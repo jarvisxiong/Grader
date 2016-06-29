@@ -7,7 +7,7 @@ import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import org.junit.Assert;
 import org.junit.Test;
 
-public  class ECreditPointMainTest extends ECreditAbstractPointTest {
+public  class ECPointMainTest extends ECAbstractPointTest {
 	
 	protected  String runMain (String[] anArgs, String... anInput) {
 		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;

@@ -3,7 +3,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
 import gradingTools.comp999junit.assignment1.testcases.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 

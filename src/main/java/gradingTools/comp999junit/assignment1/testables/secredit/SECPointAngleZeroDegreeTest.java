@@ -7,7 +7,7 @@ import org.junit.Test;
 import util.annotations.Group;
 import util.annotations.MaxValue;
 
-public class SECreditPointAngleZeroDegreeTest extends SECreditAbstractPointTest {	
+public class SECPointAngleZeroDegreeTest extends SEAbstractPointTest {	
 	@Test
 	public void test() {	
 		test(10, 0, 10.0, 0); // 0 degree angle		
