@@ -31,6 +31,7 @@ public class APointPrintTest extends AnAbstractPointTest{
 
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);
+			e.printStackTrace();
 		}
 	}
 
