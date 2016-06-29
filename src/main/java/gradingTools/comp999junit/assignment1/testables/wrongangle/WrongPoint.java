@@ -9,5 +9,6 @@ public interface WrongPoint {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(WrongPoint aPoint, String aString); 
+	void print(WrongPoint aPoint, String aString);
+	WrongPoint translate(int anXDelta, int aYDelta, WrongPoint aPoint); 
 }

@@ -1,20 +1,19 @@
 package gradingTools.comp999junit.assignment1.testables.wrongangle;
 
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 //@Tags({"cartesian", "point"})
-public class ACartesianPoint implements WrongPoint {	
+public class AWrongCartesianPoint implements WrongPoint {	
 	protected int x, y;
-	public ACartesianPoint(int theX, int theY) {
+	public AWrongCartesianPoint(int theX, int theY) {
 		x = theX;
 		y = theY;
 	}
-	public ACartesianPoint(double theRadius, double theAngle) {
-		x =  (int) (theRadius*Math.cos(theAngle));
-		y = (int) (theRadius*Math.sin(theAngle));
-	}
+	
 	public int getX() { return x; }
 	public int getY() { return y; } 	
 	@Tags({"angle", "getter"})
@@ -31,11 +30,9 @@ public class ACartesianPoint implements WrongPoint {
 	public void print (WrongPoint aPoint, String aString) {
 		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
 	}
-	public static void main(String args[]) {
-		WrongPoint point =  new ACartesianPoint (50, 100);
-		ObjectEditor.edit(point);
-		point = new ACartesianPoint(100, Math.PI/4);
-		ObjectEditor.edit(point);
-//		
+	@Override
+	public WrongPoint translate (int anXDelta, int aYDelta, WrongPoint aPoint) {
+		return new AWrongCartesianPoint(aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
+	
 }

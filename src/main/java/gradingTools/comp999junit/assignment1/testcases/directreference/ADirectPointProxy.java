@@ -3,13 +3,17 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.CartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.testcases.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 //import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
 //import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
+
+
 
 
 
@@ -63,7 +67,7 @@ public class ADirectPointProxy implements PointProxy{
 	}
 	// make this public
 	protected Point instantiatePoint(int theX, int theY) {
-		return new CartesianPoint(theX, theY);
+		return new ACartesianPoint(theX, theY);
 	}
 	
 	@Override
@@ -110,6 +114,12 @@ public class ADirectPointProxy implements PointProxy{
 	@Override
 	public Point getPoint() {
 		return point;
+	}
+
+	@Override
+	public Point translate(Point aPoint, int anXDelta, int aYDelta) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

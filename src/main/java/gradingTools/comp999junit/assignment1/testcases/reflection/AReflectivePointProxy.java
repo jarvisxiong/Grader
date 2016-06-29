@@ -3,7 +3,8 @@ package gradingTools.comp999junit.assignment1.testcases.reflection;
 
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testcases.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 
 import java.lang.reflect.Constructor;
@@ -127,6 +128,11 @@ public class AReflectivePointProxy implements PointProxy{
 	}
 	@Override
 	public Point getPoint() {
+		return null;
+	}
+	@Override
+	public Point translate(Point aPoint, int anXDelta, int aYDelta) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

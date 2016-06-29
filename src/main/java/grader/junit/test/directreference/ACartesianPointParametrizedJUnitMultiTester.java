@@ -1,7 +1,7 @@
 package grader.junit.test.directreference;
 
-import gradingTools.comp999junit.assignment1.testables.allcorrect.CartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,7 +17,7 @@ public class ACartesianPointParametrizedJUnitMultiTester {
 	int y;
 	double correctRadius;
 	double correctAngle;
-	Point point; 
+	ACorrectPoint point; 
 		
 //	@BeforeClass
 //	public static void constructPoint() {
@@ -29,7 +29,7 @@ public class ACartesianPointParametrizedJUnitMultiTester {
 		y = theY;
 		correctRadius = theCorrectRadius;
 		correctAngle = theCorrectAngle;		
-		point =  new CartesianPoint(x, y);
+		point =  new ACorrectCartesianPoint(x, y);
 	}
 	
 	@Parameters

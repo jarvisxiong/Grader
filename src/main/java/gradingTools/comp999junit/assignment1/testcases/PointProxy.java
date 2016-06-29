@@ -1,6 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACorrectPoint;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.WrongPoint;
 
 public interface PointProxy {
 
@@ -13,4 +14,6 @@ public interface PointProxy {
 	double getAngle() throws Exception;
 	void print (String aString, Point aPoint);
 	Point getPoint();
+	Point translate(Point aPoint, int anXDelta, int aYDelta); 
+
 }

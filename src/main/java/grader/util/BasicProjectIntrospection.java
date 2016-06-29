@@ -27,6 +27,25 @@ import framework.project.Project;
 
 public class BasicProjectIntrospection {
 
+
+	static Map<String, Class> keyToClass = new HashMap();
+	static Map<String, Method> keyToMethod = new HashMap();
+	static Map<String, int[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
+	static Map<Object, Object> userObjects = new HashMap();
+	static Hashcodetable<Object, Object> proxyToObject = new Hashcodetable<>();
+	static Hashcodetable<Object, Object> objectToProxy = new Hashcodetable<>();
+	static Set<String> predefinedPackages = new HashSet();
+	public static void clearProjectCaches() {
+		keyToClass.clear();
+		keyToMethod.clear();
+		methodKeysToArgIndices.clear();
+		userObjects.clear();
+		proxyToObject.clear();
+		objectToProxy.clear();
+	}
+	static Map<Class, Class> classToType = new HashMap();
+
+
 	public static Class<?> getClassForInterface(Project project, Class<?> target) {
 		Set<ClassDescription> classes = project.getClassesManager().get()
 				.getClassDescriptions();
@@ -621,22 +640,6 @@ public class BasicProjectIntrospection {
 		// return aClasses.get(0).getJavaClass();
 
 	}
-
-	static Map<String, Class> keyToClass = new HashMap();
-	static Map<String, Method> keyToMethod = new HashMap();
-	static Map<String, int[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
-	static Map<Object, Object> userObjects = new HashMap();
-	static Hashcodetable<Object, Object> proxyToObject = new Hashcodetable<>();
-	static Hashcodetable<Object, Object> objectToProxy = new Hashcodetable<>();
-	public static void clearProjectCaches() {
-		keyToClass.clear();
-		keyToMethod.clear();
-		methodKeysToArgIndices.clear();
-		userObjects.clear();
-		proxyToObject.clear();
-		objectToProxy.clear();
-	}
-	
 	public static void putUserObject(Object aKey, Object aValue) {
 		userObjects.put(aKey, aValue);
 	}
@@ -1160,17 +1163,7 @@ public class BasicProjectIntrospection {
 		return aClasses;
 	}
 	
-	static Map<Class, Class> classToType = new HashMap();
-	static {
-		classToType.put(Integer.class, Integer.TYPE);
-		classToType.put(Long.class, Long.TYPE);
-		classToType.put(Short.class, Short.TYPE);
-		classToType.put(Double.class, Double.TYPE);
-		classToType.put(Boolean.class, Boolean.TYPE);
-		classToType.put(Character.class, Character.TYPE);
-		// more later
 
-	}
 	
 	
 	public static void toPrimitiveTypes(Class[] aClasses) {
@@ -1200,7 +1193,25 @@ public class BasicProjectIntrospection {
 			anInterfaces = aClassOrInterface.getInterfaces();
 		return anInterfaces;
 	}
-
+	
+	
+	
+	public static Object createProxy (Class aProxyClass, Object anActualObject) {
+		InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
+				anActualObject);
+		Class[] anInterfaces = null;
+//		if (aProxyClass.isInterface())
+//			anInterfaces = new Class[] {aProxyClass};
+//		else
+//			anInterfaces = aProxyClass.getInterfaces();
+//		return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+//				aProxyClass.getInterfaces(), aHandler);
+		Object aProxy = Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+				getInterfaces(aProxyClass), aHandler);
+		proxyToObject.put(aProxy, anActualObject);
+		objectToProxy.put(anActualObject, aProxy);
+		return aProxy;
+	}
 	public static Object createInstance(Class aProxyClass,
 			Class[] aConctructArgsTypes, Object[] anArgs) {
 		try {
@@ -1213,21 +1224,21 @@ public class BasicProjectIntrospection {
 					.getConstructor(aConctructArgsTypes);
 //			Object anActualObject = aConstructor.newInstance(anArgs);
 			Object anActualObject = ProjectExecution.timedInvoke(aConstructor, anArgs);
-
-			InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
-					anActualObject);
-			Class[] anInterfaces = null;
-//			if (aProxyClass.isInterface())
-//				anInterfaces = new Class[] {aProxyClass};
-//			else
-//				anInterfaces = aProxyClass.getInterfaces();
-//			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
-//					aProxyClass.getInterfaces(), aHandler);
-			Object aProxy = Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
-					getInterfaces(aProxyClass), aHandler);
-			proxyToObject.put(aProxy, anActualObject);
-			objectToProxy.put(anActualObject, aProxy);
-			return aProxy;
+			return createProxy(aProxyClass, anActualObject);
+//			InvocationHandler aHandler = new AGradedClassProxyInvocationHandler(
+//					anActualObject);
+//			Class[] anInterfaces = null;
+////			if (aProxyClass.isInterface())
+////				anInterfaces = new Class[] {aProxyClass};
+////			else
+////				anInterfaces = aProxyClass.getInterfaces();
+////			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+////					aProxyClass.getInterfaces(), aHandler);
+//			Object aProxy = Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+//					getInterfaces(aProxyClass), aHandler);
+//			proxyToObject.put(aProxy, anActualObject);
+//			objectToProxy.put(anActualObject, aProxy);
+//			return aProxy;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -1303,6 +1314,27 @@ public class BasicProjectIntrospection {
 		} else {
 			return interfaces.iterator().next();
 		}
+	}
+	public static void addPredefinedTypes (String... aPackages ) {
+		predefinedPackages.addAll(Arrays.asList(aPackages));
+	}
+	public static boolean isPredefinedType(Class aType) {
+		return (
+			classToType.keySet().contains(aType) ||
+			classToType.values().contains(aType) ||
+			aType.getPackage().getName().startsWith("java") ||
+			predefinedPackages.contains(aType.getPackage().getName()));
+		
+	}
+	static {
+		classToType.put(Integer.class, Integer.TYPE);
+		classToType.put(Long.class, Long.TYPE);
+		classToType.put(Short.class, Short.TYPE);
+		classToType.put(Double.class, Double.TYPE);
+		classToType.put(Boolean.class, Boolean.TYPE);
+		classToType.put(Character.class, Character.TYPE);
+		// more later
+
 	}
 	// public static String setPropertyInteractive (Class aClass, Method
 	// aWriteMethod, Object aValue) {
