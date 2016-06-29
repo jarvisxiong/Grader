@@ -1,6 +1,5 @@
 package gradingTools.comp999junit.assignment1.testables.wrongangle;
 
-import gradingTools.comp999junit.assignment1.testables.allcorrect.Point;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
@@ -29,7 +28,7 @@ public class ACartesianPoint implements WrongPoint {
 //		return 0;
 	}	
 	@Override
-	public void print (Point aPoint, String aString) {
+	public void print (WrongPoint aPoint, String aString) {
 		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
 	}
 	public static void main(String args[]) {

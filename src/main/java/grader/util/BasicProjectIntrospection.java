@@ -19,6 +19,7 @@ import java.util.Vector;
 
 import util.annotations.Tags;
 import util.introspect.JavaIntrospectUtility;
+import util.models.Hashcodetable;
 //import framework.grading.testing.TestCase;
 import framework.project.ClassDescription;
 import framework.project.CurrentProjectHolder;
@@ -625,11 +626,15 @@ public class BasicProjectIntrospection {
 	static Map<String, Method> keyToMethod = new HashMap();
 	static Map<String, int[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
 	static Map<Object, Object> userObjects = new HashMap();
+	static Hashcodetable<Object, Object> proxyToObject = new Hashcodetable<>();
+	static Hashcodetable<Object, Object> objectToProxy = new Hashcodetable<>();
 	public static void clearProjectCaches() {
 		keyToClass.clear();
 		keyToMethod.clear();
 		methodKeysToArgIndices.clear();
 		userObjects.clear();
+		proxyToObject.clear();
+		objectToProxy.clear();
 	}
 	
 	public static void putUserObject(Object aKey, Object aValue) {
@@ -1218,13 +1223,24 @@ public class BasicProjectIntrospection {
 //				anInterfaces = aProxyClass.getInterfaces();
 //			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
 //					aProxyClass.getInterfaces(), aHandler);
-			return Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
+			Object aProxy = Proxy.newProxyInstance(aProxyClass.getClassLoader(), 
 					getInterfaces(aProxyClass), aHandler);
+			proxyToObject.put(aProxy, anActualObject);
+			objectToProxy.put(anActualObject, aProxy);
+			return aProxy;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 
+	}
+	
+	public static Object  getRealObject (Object aProxy) {
+		return proxyToObject.get(aProxy);
+	}
+	
+	public static Object getProxyObject (Object aRealObject) {
+		return  objectToProxy.get(aRealObject);
 	}
 
 	public static List<Method> findMethod(Class aJavaClass, String aName,
