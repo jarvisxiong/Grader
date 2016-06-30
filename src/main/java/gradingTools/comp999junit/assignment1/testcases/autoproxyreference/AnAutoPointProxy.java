@@ -4,7 +4,7 @@ package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 //import org.junit.Test;
 import grader.util.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 import gradingTools.comp999junit.assignment1.testcases.directreference.ADirectPointProxy;
 import gradingTools.comp999junit.assignment1.testcases.Point;
 import gradingTools.comp999junit.assignment1.testcases.PointProxy;

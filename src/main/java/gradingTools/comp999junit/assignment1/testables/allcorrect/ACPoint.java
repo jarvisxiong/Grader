@@ -2,11 +2,11 @@ package gradingTools.comp999junit.assignment1.testables.allcorrect;
 import util.annotations.Explanation;
 //@StructurePattern(StructurePatternNames.POINT_PATTERN)
 @Explanation("Location in Java coordinate System.")
-public interface APoint {
+public interface ACPoint {
 	public int getX(); 
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(String aString, APoint aPoint);
-	APoint translate(APoint aPoint, int anXDelta, int aYDelta); 
+	void print(String aString, ACPoint aPoint);
+	ACPoint translate(ACPoint aPoint, int anXDelta, int aYDelta); 
 }

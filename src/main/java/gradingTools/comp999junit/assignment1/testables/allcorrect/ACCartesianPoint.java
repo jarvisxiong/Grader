@@ -5,7 +5,7 @@ import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 @Tags({"cartesian", "point"})
-public class ACCartesianPoint implements APoint {	
+public class ACCartesianPoint implements ACPoint {	
 	protected int x, y;
 	public ACCartesianPoint(int theX, int theY) {
 		x = theX;
@@ -27,15 +27,15 @@ public class ACCartesianPoint implements APoint {
 //		return 0;
 	}
 	@Override
-	public void print (String aString, APoint aPoint) {
+	public void print (String aString, ACPoint aPoint) {
 		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
 	}
 	@Override
-	public APoint translate (APoint aPoint, int anXDelta, int aYDelta) {
+	public ACPoint translate (ACPoint aPoint, int anXDelta, int aYDelta) {
 		return new ACCartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
 	public static void main(String args[]) {
-		APoint point =  new ACCartesianPoint (50, 100);
+		ACPoint point =  new ACCartesianPoint (50, 100);
 		ObjectEditor.edit(point);
 		point = new ACCartesianPoint(100, Math.PI/4);
 		ObjectEditor.edit(point);

@@ -7,6 +7,7 @@ public interface Point {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(String aString, Point aPoint);
+//	void print(String aString, Point aPoint);
+	void print();
 	Point translate(Point aPoint, int anXDelta, int aYDelta); 
 }

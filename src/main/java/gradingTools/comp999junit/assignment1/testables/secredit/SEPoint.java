@@ -8,6 +8,9 @@ public interface SEPoint {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(String aString, SEPoint aPoint); 
+//	void print(String aString, SEPoint aPoint); 
+	void print();
+	public SEPoint translate (SEPoint aPoint, int anXDelta, int aYDelta);
+
 
 }

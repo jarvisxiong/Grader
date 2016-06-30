@@ -7,7 +7,7 @@ import grader.util.BasicProjectIntrospection;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ECPointPrintTest extends ECAbstractPointTest{
+public class ECPointTranslationTest extends ECAbstractPointTest{
 
 	@Override
 	protected void checkComputations(double aComputedAngle,
@@ -15,22 +15,19 @@ public class ECPointPrintTest extends ECAbstractPointTest{
 		// TODO Auto-generated method stub
 		
 	}
+	// all or nothing
 	@Test
-	// all or nothing for radius
 	public void test() {
 		try {
-			int anX = 5;
-			int aY = 10;
-			createPoint(anX, aY);
-			ProjectExecution.redirectOutput();
-//			String aHeader = "The point is:";
-//			point.print(aHeader, point);
-//			String aHeader = "The point is:";
-			point.print();
-			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
-			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
-					anOutput.contains(" " + anX) &&
-					anOutput.contains(" " + aY));
+			
+			createPoint(5, 10);
+			ECPoint retVal = point.translate(point, 5, 10);
+			int actualX = retVal.getX();
+			int actualY = retVal.getY();
+			Assert.assertTrue(
+					"X property " +  actualX +  " is not equal to 10 or " +						
+					"Y property " + actualY + " is not equal to 20 ",					
+					actualX == 10 && actualY == 20) ;
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);
 		}

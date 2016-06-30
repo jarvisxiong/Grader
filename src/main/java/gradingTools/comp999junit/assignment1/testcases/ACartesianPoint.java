@@ -26,9 +26,13 @@ public class ACartesianPoint implements Point {
 		return Math.sqrt(x*x + y*y); 
 //		return 0;
 	}
+//	@Override
+//	public void print (String aString, Point aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
 	@Override
-	public void print (String aString, Point aPoint) {
-		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+	public void print () {
+		System.out.println ("The point is " +  getX() + " " + getY());
 	}
 	@Override
 	public Point translate (Point aPoint, int anXDelta, int aYDelta) {

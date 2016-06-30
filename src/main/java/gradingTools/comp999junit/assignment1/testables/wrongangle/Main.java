@@ -11,7 +11,7 @@ public class Main {
 		String aYLine = aScanner.nextLine();
 		int anX = Integer.parseInt(anXLine);
 		int aY = Integer.parseInt(aYLine);
-		WAPoint aPoint =  new WACartesianPoint (anX, aY);
+		WACartesianPoint aPoint =  new WACartesianPoint (anX, aY);
 		System.out.println ("" + aPoint.getRadius());
 		System.out.println ("" + aPoint.getAngle());
 //		

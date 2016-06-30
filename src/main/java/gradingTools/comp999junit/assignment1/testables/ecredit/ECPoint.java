@@ -9,5 +9,9 @@ public interface ECPoint {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(String aString, ECPoint aPoint); 
+//	void print(String aString, ECPoint aPoint); 
+	void print(); 
+	ECPoint translate(ECPoint aPoint, int anXDelta, int aYDelta); 
+
+
 }

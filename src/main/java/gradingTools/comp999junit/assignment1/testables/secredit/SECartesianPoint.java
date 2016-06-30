@@ -1,5 +1,7 @@
 package gradingTools.comp999junit.assignment1.testables.secredit;
 
+import gradingTools.comp999junit.assignment1.testables.ecredit.ECCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.ecredit.ECPoint;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
@@ -26,9 +28,15 @@ public class SECartesianPoint implements SEPoint {
 		return Math.sqrt(x*x + y*y); 
 //		return 0;
 	}
-	@Override
-	public void print (String aString, SEPoint aPoint) {
-		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	@Override
+//	public void print (String aString, SEPoint aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
+	public void print () {
+		System.out.println ("[" + x + "," + y + "]");
+	}
+	public SEPoint translate (SEPoint aPoint, int anXDelta, int aYDelta) {
+		return new SECartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
 	public static void main(String args[]) {
 		SEPoint point =  new SECartesianPoint (50, 100);

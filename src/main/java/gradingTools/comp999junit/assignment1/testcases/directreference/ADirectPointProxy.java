@@ -4,7 +4,7 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.APoint;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
 import gradingTools.comp999junit.assignment1.testcases.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
@@ -106,9 +106,14 @@ public class ADirectPointProxy implements PointProxy{
 		return retVal;
 
 	}
+//	@Override
+//	public void print(String aString, Point aPoint) {
+//		point.print(aString, aPoint);
+//		
+//	}
 	@Override
-	public void print(String aString, Point aPoint) {
-		point.print(aString, aPoint);
+	public void print() {
+		point.print();
 		
 	}
 	@Override

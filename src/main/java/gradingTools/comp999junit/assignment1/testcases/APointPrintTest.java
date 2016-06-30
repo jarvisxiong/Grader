@@ -16,18 +16,19 @@ public class APointPrintTest extends AnAbstractPointTest{
 		
 	}
 	@Test
-	// all or nothing for radius
 	public void test() {
 		try {
 			int anX = 5;
 			int aY = 10;
 			pointProxy.createCartesianPoint(anX, aY);
 			ProjectExecution.redirectOutput();
-			String aHeader = "The point is:";
-			pointProxy.print(aHeader, pointProxy.getPoint());
+//			pointProxy.print(aHeader, pointProxy.getPoint());
+			pointProxy.print();
 			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
-			String anExpectedOutput =  aHeader + anX + " " + aY + "\n";
-			Assert.assertTrue(anOutput + " is not equal to: " + anExpectedOutput, anExpectedOutput.equals(anOutput));
+			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
+					anOutput.contains(" " + anX) &&
+					anOutput.contains(" " + aY));
+			
 
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);

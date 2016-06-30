@@ -1,5 +1,7 @@
 package gradingTools.comp999junit.assignment1.testables.ecredit;
 
+import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
+import gradingTools.comp999junit.assignment1.testcases.Point;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
@@ -26,9 +28,16 @@ public class ECCartesianPoint implements ECPoint {
 		return Math.sqrt(x*x + y*y); 
 //		return 0;
 	}
+//	@Override
+//	public void print (String aString, ECPoint aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
 	@Override
-	public void print (String aString, ECPoint aPoint) {
-		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+	public void print () {
+		System.out.println ("(" + x + "," + y + ")");
+	}
+	public ECPoint translate (ECPoint aPoint, int anXDelta, int aYDelta) {
+		return new ECCartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
 	public static void main(String args[]) {
 		ECPoint point =  new ECCartesianPoint (50, 100);

@@ -9,6 +9,7 @@ public interface WAPoint {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(WAPoint aPoint, String aString);
+//	void print(WAPoint aPoint, String aString);
+	void print();
 	WAPoint translate(int anXDelta, int aYDelta, WAPoint aPoint); 
 }
