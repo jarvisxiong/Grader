@@ -1,1 +1,8 @@
-### gradingTools.comp999junit.assignment1.testcases.autoproxyreference.AnAutoPointProxy: 1.0
+test(gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointRadiusTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointPrintTest): java.lang.NullPointerException null:0.0
+test(gradingTools.comp999junit.assignment1.testcases.PointTranslationTest): java.lang.NullPointerException null:0.0
+false

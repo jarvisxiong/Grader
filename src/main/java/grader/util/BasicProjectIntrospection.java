@@ -29,6 +29,8 @@ public class BasicProjectIntrospection {
 
 
 	static Map<String, Class> keyToClass = new HashMap();
+	static Map<String, Class> keyToInterface = new HashMap();
+
 	static Map<String, Method> keyToMethod = new HashMap();
 	static Map<String, Integer[]> methodKeysToArgIndices = new HashMap(); // should be combined with revious hashmap
 	static Map<Object, Object> userObjects = new HashMap();
@@ -37,6 +39,7 @@ public class BasicProjectIntrospection {
 	static Set<String> predefinedPackages = new HashSet();
 	public static void clearProjectCaches() {
 		keyToClass.clear();
+		keyToInterface.clear();
 		keyToMethod.clear();
 		methodKeysToArgIndices.clear();
 		userObjects.clear();
@@ -82,6 +85,13 @@ public class BasicProjectIntrospection {
 		return findClass(aProject, aName, aTags, aNameMatch,
 				aTagMatch);
 	}
+	public static Class findInterface(Project aProject, String aName, String aTag,
+			String aNameMatch, String aTagMatch) {
+		String[] aTags = (aTag == null)? emptyStrings:new String[] { aTag };
+	
+		return findInterface(aProject, aName, aTags, aNameMatch,
+				aTagMatch);
+	}
 	//not unique class
 	// why is this not calling fincClasses
 //	public static Class findClass(Project aProject, String aName,
@@ -106,15 +116,7 @@ public class BasicProjectIntrospection {
 			String[] aTag, String aNameMatch, String aTagMatch) {
 		Set<Class> aClasses = findClasses(aProject, aName, aTag, aNameMatch, aTagMatch);
 		
-//		int i = 0;
-//		List<ClassDescription> aClasses = aProject.getClassesManager().get()
-//				.findClass(aName, aTag, aNameMatch, aTagMatch);
-//		for (ClassDescription aClass : aClasses) {
-//			if (aClass.getJavaClass().isInterface())
-//				continue;
-//			return aClass.getJavaClass();
-//		}
-//		return null;
+
 		aClasses = removeSuperTypes(aClasses);
 		 if (aClasses.size() != 1) {
 		 return null;
@@ -122,8 +124,20 @@ public class BasicProjectIntrospection {
 		 return aClasses.iterator().next();
 
 	}
-	public static Class findClassByMethods(Project aProject, Method[] aMethods) {
-		Set<Class> aClasses = findClassesByMethods(aProject, aMethods);
+	public static Class findInterface(Project aProject, String aName,
+			String[] aTag, String aNameMatch, String aTagMatch) {
+		Set<Class> aClasses = findInterfaces(aProject, aName, aTag, aNameMatch, aTagMatch);
+		
+
+		aClasses = removeSuperTypes(aClasses);
+		 if (aClasses.size() != 1) {
+		 return null;
+		 }
+		 return aClasses.iterator().next();
+
+	}
+	public static Class findClassByMethods(Project aProject, Method[] aMethods, boolean findClass) {
+		Set<Class> aClasses = findClassesByMethods(aProject, aMethods, findClass);
 		
 		
 //		int i = 0;
@@ -172,18 +186,34 @@ public class BasicProjectIntrospection {
 		return aRetVal;		
 	}
 	
+	public static boolean matchCandidateClass(Class aCandidate, Class aProxy) {
+		return findProjectClass(aProxy) == aCandidate;
+		
+	}
+	public static boolean matchCandidateInterface(Class aCandidate, Class aProxy) {
+		return findProjectInterface(aProxy) == aCandidate;
+		
+	}
+	
 	public static boolean matchesParameters(Class[] aCandidates, Class[] aProxies) {
 		if (aCandidates.length != aProxies.length) return false;
 		for (int anIndex = 0; anIndex < aProxies.length; anIndex++) {
 			if (aCandidates[anIndex] == aProxies[anIndex])
 				continue;
-			String aProxySimpleName = aProxies[anIndex].getSimpleName();
-			String aCandidateSimpleName = aCandidates[anIndex].getSimpleName();
-			if (
-					BasicProjectIntrospection.getCachedClass(aProxySimpleName) != aCandidates[anIndex] &&
-					!aProxySimpleName.equals(aCandidateSimpleName)) { // if am inteface and the class has not been looked up
-				return false;
+			// types in two different systems
+			if (aCandidates[anIndex].isInterface()) {
+				return matchCandidateInterface(aCandidates[anIndex], aProxies[anIndex]);
+			} else {
+				return matchCandidateClass(aCandidates[anIndex], aProxies[anIndex]);
 			}
+//
+//			String aProxySimpleName = aProxies[anIndex].getSimpleName();
+//			String aCandidateSimpleName = aCandidates[anIndex].getSimpleName();
+//			if (
+//					BasicProjectIntrospection.getCachedClass(aProxySimpleName) != aCandidates[anIndex] &&
+//					!aProxySimpleName.equals(aCandidateSimpleName)) { // if am inteface and the class has not been looked up
+//				return false;
+//			}
 			
 //			if (aProxies[anIndex].getCanonicalName().startsWith("java")) {
 //				return false; // means this is not a user defined class
@@ -236,16 +266,33 @@ public class BasicProjectIntrospection {
 		 }
 		 return aResult;		 
 	}
-	public static Set<Class> findClassesByMethods(Project aProject,  Method[] aMethods) {
+	static Set<String> pendingMatches = new HashSet();
+	public static String constructKey (Class aClass, Method[] aMethods) {
+		return aClass.getName() + ":" + Arrays.toString(aMethods);
+	}
+	public static Set<Class> findClassesByMethods(Project aProject,  Method[] aMethods, boolean findClass) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
 		 Set<Class> aResult = new HashSet();
 		 for (ClassDescription aClassDescription : aClassDescriptions) {
 				Class aClass = aClassDescription.getJavaClass();
-				if (aClass.isInterface()) {
+				if (aClass.isInterface() && findClass ||
+						!aClass.isInterface() && !findClass) {
 					continue;
 				}
-				if (matchesMethods(aClass, aMethods))
+//				String aMatchKey = aClass.getName() + ":" + Arrays.toString(aMethods);
+				String aMatchKey = constructKey(aClass, aMethods);
+
+				if (pendingMatches.contains(aMatchKey)) {
+					aResult.add(aClass); // assume this one will work, at the top level it might fail, do not want infinite recursion
+				}
+				else {
+					pendingMatches.add(aMatchKey);
+					if (matchesMethods(aClass, aMethods)) {
+				
 					aResult.add(aClass);
+					}
+					pendingMatches.remove(aMatchKey);
+				}
 				
 			}
 		 return aResult;		 
@@ -321,6 +368,7 @@ public class BasicProjectIntrospection {
 			// return aClasses.get(0).getJavaClass();
 
 		}
+		
 
 	public static Class find(Project aProject, String aName, String aTag,
 			String aNameMatch, String aTagMatch) {
@@ -539,6 +587,13 @@ public class BasicProjectIntrospection {
 		String[] aResult = aTagList.toArray(emptyStringArray);
 		return aResult;
 	}
+	
+	public static Class findProjectClass(Class aProxyClass) {
+		return findClass(CurrentProjectHolder.getCurrentProject(), aProxyClass);
+	}
+	public static Class findProjectInterface(Class aProxyClass) {
+		return findInterface(CurrentProjectHolder.getCurrentProject(), aProxyClass);
+	}
 
 	public static Class findClass(Project aProject, Class aProxyClass) {
 		Class aCachedClass = keyToClass.get(aProxyClass.getName());
@@ -557,12 +612,68 @@ public class BasicProjectIntrospection {
 		}
 		if (retVal == null)
 		
-		retVal = findClassByMethods(aProject, aProxyClass.getMethods());
+		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), true);
+		String aKey = null;
+
 		if (retVal == null)
 			retVal = Object.class;
+		else
+			aKey = constructKey(retVal, aProxyClass.getMethods());
 		aCachedClass = retVal;
 
+		if (aKey != null && !pendingMatches.contains(aKey)) {
+
+//		aCachedClass = retVal;
+
 		keyToClass.put(aProxyClass.getName(), aCachedClass);
+		}
+		}
+		if (aCachedClass == Object.class)
+			return null;
+		return aCachedClass;
+		
+//		if (retVal == null)
+//			retVal = Object.class;
+//		aCachedClass = retVal;
+//
+//		keyToClass.put(aProxyClass.getName(), aCachedClass);
+//		}
+//		if (aCachedClass == Object.class)
+//			return null;
+//		return aCachedClass;
+	}
+	public static Class findInterface(Project aProject, Class aProxyClass) {
+		Class aCachedClass = keyToInterface.get(aProxyClass.getName());
+		if (aCachedClass == null) {
+		String[] aTags = getTags(aProxyClass);
+		Class retVal = findInterfaceByTags(aProject, aTags);
+		if (retVal == null)
+		retVal = findInterface(aProject, aProxyClass.getCanonicalName());
+		if (retVal == null) 
+		retVal = findInterface(aProject, aProxyClass.getSimpleName());
+		if (retVal == null) {
+		// see if the interfaces of the desired class match
+		// do not need this as we are already checking for interfaces in findClass(aProxyClass.getSimpleName()), which uses the namealso as a tag, but keep this
+		String[] aComputedTags = getComputedInterfaceTags(aProxyClass);
+		retVal = findInterfaceByTags(aProject, aComputedTags);
+		}
+		if (retVal == null)
+		
+		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), false);
+		String aKey = null;
+
+		if (retVal == null)
+			retVal = Object.class;
+		else
+			aKey = constructKey(retVal, aProxyClass.getMethods());
+		aCachedClass = retVal;
+
+		if (aKey != null && !pendingMatches.contains(aKey)) {
+
+//		aCachedClass = retVal;
+
+		keyToInterface.put(aProxyClass.getName(), aCachedClass);
+		}
 		}
 		if (aCachedClass == Object.class)
 			return null;
@@ -593,7 +704,7 @@ public class BasicProjectIntrospection {
 		return keyToClass.get(aName);
 	}
 
-	public static Class findClass(Project aProject, String aName) {
+	public static Class findClassCaching(Project aProject, String aName) {
 		Class aClass = keyToClass.get(aName);
 		if (aClass == null) {
 			aClass = findClass(aProject, aName, aName, aName, aName);
@@ -610,6 +721,38 @@ public class BasicProjectIntrospection {
 		// toRegex(aName) );
 		// return findClass(aProject, aName, aName, aName, aName );
 	}
+	public static Class findClass(Project aProject, String aName) {
+		return findClass(aProject, aName, aName, aName, aName);			
+		// return findClass(aProject, null, aName, toRegex(aName),
+		// toRegex(aName) );
+		// return findClass(aProject, aName, aName, aName, aName );
+	}
+	public static Class findInterfaceCaching(Project aProject, String aName) {
+		Class aClass = keyToInterface.get(aName);
+		if (aClass == null) {
+			aClass = findInterface(aProject, aName, aName, aName, aName);
+			if (aClass == null) {
+				aClass = Object.class;
+			}
+			keyToInterface.put(aName, aClass);
+		}
+		if (aClass == Object.class) {
+			return null;
+		}
+		return aClass;
+		// return findClass(aProject, null, aName, toRegex(aName),
+		// toRegex(aName) );
+		// return findClass(aProject, aName, aName, aName, aName );
+	}
+	public static Class findInterface(Project aProject, String aName) {
+//		Class aClass = keyToInterface.get(aName);
+//		if (aClass == null) {
+			return findInterface(aProject, aName, aName, aName, aName);
+			
+		// return findClass(aProject, null, aName, toRegex(aName),
+		// toRegex(aName) );
+		// return findClass(aProject, aName, aName, aName, aName );
+	}
 
 	public static Set<Class> findClasses(Project aProject, String aName) {
 		return findClasses(aProject, null, aName, toRegex(aName),
@@ -617,11 +760,11 @@ public class BasicProjectIntrospection {
 
 	}
 
-	public static Class findInterface(Project aProject, String aName) {
-		return findInterface(aProject, null, aName, toRegex(aName),
-				toRegex(aName));
-
-	}
+//	public static Class findInterface(Project aProject, String aName) {
+//		return findInterface(aProject, null,  new String[] { aName }, toRegex(aName),
+//				toRegex(aName));
+//
+//	}
 
 	public static Set<Class> findInterfaces(Project aProject, String aName) {
 		return findInterfaces(aProject, null, new String[] { aName },
@@ -658,8 +801,16 @@ public class BasicProjectIntrospection {
 	public static Class findUniqueClassByTag(Project aProject, String aTag) {
 		return findClassByTags(aProject, new String[] {aTag});
 	}
-
 	public static Class findClassByTags(Project aProject, String[] aTags) {
+		if (aTags.length == 0) {
+			return null;
+		}	
+		Arrays.sort(aTags);
+		String aKey = Arrays.toString(aTags);
+		return findClass(aProject, null, aTags, null, null);
+	}
+
+	public static Class findClassByTagsCaching(Project aProject, String[] aTags) {
 		if (aTags.length == 0) {
 			return null;
 		}	
@@ -682,6 +833,39 @@ public class BasicProjectIntrospection {
 			return null;
 		}
 		return aCachedClass;
+	}
+	public static Class findInterfaceByTagsCaching(Project aProject, String[] aTags) {
+		if (aTags.length == 0) {
+			return null;
+		}	
+		Arrays.sort(aTags);
+		String aKey = Arrays.toString(aTags);
+		Class aCachedClass = keyToClass.get(aKey);
+		if (aCachedClass == null) {
+			Class aClass = findClass(aProject, null, aTags, null, null);
+
+			if (aClass == null) {
+				aCachedClass = Object.class;
+
+			}
+
+			aCachedClass = aClass;
+			keyToClass.put(aKey, aCachedClass);
+
+		}
+		if (aCachedClass == Object.class) {
+			return null;
+		}
+		return aCachedClass;
+	}
+	public static Class findInterfaceByTags(Project aProject, String[] aTags) {
+		if (aTags.length == 0) {
+			return null;
+		}	
+		Arrays.sort(aTags);
+		String aKey = Arrays.toString(aTags);
+		return findClass(aProject, null, aTags, null, null);
+			
 	}
 //	public static Class findClassByTags(Project aProject, String[] aTags) {
 //		if (aTags.length == 0) {
@@ -776,23 +960,34 @@ public class BasicProjectIntrospection {
 
 	}
 
-	public static Class findInterface(Project aProject, String aName,
-			String aTag, String aNameMatch, String aTagMatch) {
-		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
-				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
-		for (ClassDescription aClass : aClasses) {
-			if (!aClass.getJavaClass().isInterface())
-				continue;
-			return aClass.getJavaClass();
-		}
-		return null;
-
-		// if (aClasses.size() != 1) {
-		// return null;
-		// }
-		// return aClasses.get(0).getJavaClass();
-
-	}
+//	public static Class findInterface(Project aProject, String aName,
+//			String aTag, String aNameMatch, String aTagMatch) {
+//		Set<ClassDescription> aClasses = aProject.getClassesManager().get()
+//				.findClassesAndInterfaces(aName, aTag, aNameMatch, aTagMatch);
+//		for (ClassDescription aClass : aClasses) {
+//			if (!aClass.getJavaClass().isInterface())
+//				continue;
+//			return aClass.getJavaClass();
+//		}
+//		return null;
+//
+//		// if (aClasses.size() != 1) {
+//		// return null;
+//		// }
+//		// return aClasses.get(0).getJavaClass();
+//
+//	}
+//	public static Class findInterface(Project aProject, String aName,
+//			String aTag, String aNameMatch, String aTagMatch) {
+//		Set<Class> anInterfaces = findInterfaces(aProject, aName, aTag, aNameMatch, aTagMatch);
+//		if (anInterface)
+//
+//		// if (aClasses.size() != 1) {
+//		// return null;
+//		// }
+//		// return aClasses.get(0).getJavaClass();
+//
+//	}
 
 	public static Set<Class> findInterfaces(Project aProject, String aName,
 			String aTag, String aNameMatch, String aTagMatch) {
@@ -1053,15 +1248,20 @@ public class BasicProjectIntrospection {
 				aMatchedndices.add(retVal);
 			}
 		}
-		removeDuplicates(retVal, aTargetParameterTypes);
-		return retVal;
+		if (aMatchedndices.size() != 1) {
+			return null;
+		}
+		Integer[] aMatch = aMatchedndices.get(0);
+		removeDuplicates(aMatch, aTargetParameterTypes);
+		return aMatch;
 	}
 
 	public static Method selectMethodAndCacheIndices(String aTag, List<Method> aMethods,
 			Class[] aParameterTypes) {
 		Method aRetVal = null;
 		for (Method aMethod : aMethods) {
-			if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+//			if (Arrays.equals(aMethod.getParameterTypes(), aParameterTypes)) {
+			if (matchesParameters(aMethod.getParameterTypes(), aParameterTypes)) {
 				if (aRetVal != null)
 					return null;
 				aRetVal = aMethod;

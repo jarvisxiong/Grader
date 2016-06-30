@@ -2,7 +2,6 @@ package gradingTools.comp999junit.assignment1.testcases;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 //@StructurePattern(StructurePatternNames.POINT_PATTERN)
-@Tags({"Point"})
 @Explanation("Location in Java coordinate System.")
 public interface Point {
 	public int getX(); 

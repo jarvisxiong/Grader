@@ -7,6 +7,7 @@ public interface ACPoint {
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-	void print(String aString, ACPoint aPoint);
+//	void print(String aString, ACPoint aPoint);
+	void print();
 	ACPoint translate(ACPoint aPoint, int anXDelta, int aYDelta); 
 }

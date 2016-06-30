@@ -47,7 +47,10 @@ public class CartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 //		BasicGradingEnvironment.get().setLoadClasses(false);
-		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "ecredit"));
+
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(CartesianPointSuite.class);
 		aGradable.testAll();
