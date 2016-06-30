@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 
 
 //import org.junit.Test;
@@ -8,7 +8,7 @@ import util.annotations.IsExtra;
 import util.annotations.MaxValue;
 @IsExtra(true)
 @MaxValue(15)
-public class APointRadiusTest extends AnAbstractPointTest  {	
+public class MultiPointRadiusTest extends MultiAbstractPointTest  {	
 		
 	@Test
 	// all or nothing for radius

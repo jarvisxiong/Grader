@@ -10,32 +10,19 @@ import org.junit.runners.Suite;
 
 import util.annotations.MaxValue;
 
-//@RunWith(Suite.class)
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-   APointAngleZeroDegreeTest.class,
-   APointAngleNinetyDegreeTest.class,
-   APointAngleFortyFiveDegreeTest.class,
-   APointAngleMinusNinetyDegreeTest.class,
+   PointAngleZeroDegreeTest.class,
+   PointAngleNinetyDegreeTest.class,
+   PointAngleFortyFiveDegreeTest.class,
+   PointAngleMinusNinetyDegreeTest.class,
 
    
 })
 @MaxValue(13)
 public class PointAngleSuite {
-//	public static final String ANGLE_TESTS = "Angle Tests";
 
-	public static void main (String[] args) {
-		PointProxyFactory.setPointProxy(new ADirectPointProxy());
-		Result aResult = JUnitCore.runClasses(PointAngleSuite.class);
-		
-		for (Failure failure : aResult.getFailures()) {
-	         System.err.println("Failed Test:" + failure.toString());
-	    }
-	    System.out.println(aResult.wasSuccessful());
-	    System.exit(0);
-	}
-	
 
 }
 

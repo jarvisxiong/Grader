@@ -1,17 +1,15 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 //@StructurePattern(StructurePatternNames.POINT_PATTERN)
-@Tags({"Point"})
 @Explanation("Location in Java coordinate System.")
-public interface Point {
+@Tags({"Point"})
+public interface MultiPoint {
 	public int getX(); 
 	public int getY(); 	
 	public double getAngle(); 
 	public double getRadius();
-//	void print(String aString, ECPoint aPoint); 
-	void print(); 
-	Point translate(Point aPoint, int anXDelta, int aYDelta); 
-
-
+//	void print(String aString, Point aPoint);
+	void print();
+	MultiPoint translate(MultiPoint aPoint, int anXDelta, int aYDelta); 
 }

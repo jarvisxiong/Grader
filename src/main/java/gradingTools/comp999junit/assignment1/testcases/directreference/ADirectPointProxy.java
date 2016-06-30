@@ -5,17 +5,18 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 import grader.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
-import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.testcases.Point;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.Point;
-import gradingTools.comp999junit.assignment1.testcases.PointProxy;
 //import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
 //import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
 
 
 
 
+
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
 
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ import util.annotations.MaxValue;
 @MaxValue(6)
 //@Explanation("Radius and Angle Correctly Computed")
 //@Group(CartesianPointSuite.ANGLE_TESTS)
-public class ADirectPointProxy implements PointProxy{
+public class ADirectPointProxy implements MultiPointProxy{
 	// weights
 	public static final double CORRECT_CLASS = 0.2;
 	public static final double CORRECT_CONSTRUCTOR = 0.2;
@@ -59,15 +60,15 @@ public class ADirectPointProxy implements PointProxy{
 //	static Class[] emptyClassArray = {};
 //	static Object[] emptyObjectArray = {};
 //	Class aCartesianPointClass;
-	Point point;
+	MultiPoint point;
 
 	
 	boolean checkStructure() {
 		return checkStructure;
 	}
 	// make this public
-	protected Point instantiatePoint(int theX, int theY) {
-		return new ACartesianPoint(theX, theY);
+	protected MultiPoint instantiatePoint(int theX, int theY) {
+		return new MultiCartesianPoint(theX, theY);
 	}
 	
 	@Override
@@ -117,12 +118,12 @@ public class ADirectPointProxy implements PointProxy{
 		
 	}
 	@Override
-	public Point getPoint() {
+	public MultiPoint getPoint() {
 		return point;
 	}
 
 	@Override
-	public Point translate(Point aPoint, int anXDelta, int aYDelta) {
+	public MultiPoint translate(MultiPoint aPoint, int anXDelta, int aYDelta) {
 		// TODO Auto-generated method stub
 		return point.translate(aPoint, anXDelta, aYDelta);
 	}

@@ -1,9 +1,9 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.WAPoint;
 
-public interface PointProxy {
+public interface MultiPointProxy {
 
 	void createCartesianPoint(int theX, int theY) throws Exception;
 //	public void test(int theX, int theY, double aCorrectRadius,
@@ -15,7 +15,7 @@ public interface PointProxy {
 //	void print (String aString, Point aPoint);
 	void print ();
 
-	Point getPoint();
-	Point translate(Point aPoint, int anXDelta, int aYDelta); 
+	MultiPoint getPoint();
+	MultiPoint translate(MultiPoint aPoint, int anXDelta, int aYDelta); 
 
 }

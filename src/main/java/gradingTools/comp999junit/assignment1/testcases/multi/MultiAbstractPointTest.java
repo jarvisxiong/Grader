@@ -1,17 +1,17 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import grader.junit.JUnitUtils;
 
 import org.junit.Assert;
 
-public abstract class AnAbstractPointTest {
+public abstract class MultiAbstractPointTest {
 	public static final String ANGLE_TESTS = "Angle Tests";
 
 	int testNumber = 0;
 	boolean checkStructure;
 	double fractionComplete = 0.0;
 //	PointProxy pointProxy = new AReflectivePointProxy();
-	PointProxy pointProxy = PointProxyFactory.getPointProxy();
+	MultiPointProxy pointProxy = MultiPointProxyFactory.getPointProxy();
 //	protected abstract String runMain (String anInput, String[] anArgs) ;
 //	protected  void testMain(int theX, int theY, double aCorrectRadius,
 //			double aCorrectAngle) {

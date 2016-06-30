@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testables.ecredit;
 
-import gradingTools.comp999junit.assignment1.testcases.ACartesianPoint;
-import gradingTools.comp999junit.assignment1.testcases.Point;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;

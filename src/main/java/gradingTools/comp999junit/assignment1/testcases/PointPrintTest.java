@@ -7,7 +7,9 @@ import grader.util.BasicProjectIntrospection;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class APointPrintTest extends AnAbstractPointTest{
+import util.annotations.MaxValue;
+@MaxValue(3)
+public class PointPrintTest extends AbstractPointTest{
 
 	@Override
 	protected void checkComputations(double aComputedAngle,
@@ -16,23 +18,23 @@ public class APointPrintTest extends AnAbstractPointTest{
 		
 	}
 	@Test
+	// all or nothing for radius
 	public void test() {
 		try {
 			int anX = 5;
 			int aY = 10;
-			pointProxy.createCartesianPoint(anX, aY);
+			createPoint(anX, aY);
 			ProjectExecution.redirectOutput();
-//			pointProxy.print(aHeader, pointProxy.getPoint());
-			pointProxy.print();
+//			String aHeader = "The point is:";
+//			point.print(aHeader, point);
+//			String aHeader = "The point is:";
+			point.print();
 			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
 			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
 					anOutput.contains(" " + anX) &&
 					anOutput.contains(" " + aY));
-			
-
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);
-			e.printStackTrace();
 		}
 	}
 

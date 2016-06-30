@@ -1,10 +1,10 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import grader.junit.JUnitUtils;
 
 import org.junit.Assert;
 
-public abstract class AnAbstractPointMainTest extends AnAbstractPointTest {
+public abstract class MultiAbstractPointMainTest extends MultiAbstractPointTest {
 	
 	protected abstract  String runMain (String[] anArgs, String... anInput) ;
 	protected  void testMain(int theX, int theY, double aCorrectRadius,

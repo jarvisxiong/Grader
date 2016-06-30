@@ -1,12 +1,12 @@
 package gradingTools.comp999junit.assignment1.testcases.reflection;
 
-import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
-import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -19,12 +19,12 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    AReflectivePointMainTest.class,
    AReflectivePointProxy.class,
-   PointAngleSuite.class,
+   MultiPointAngleSuite.class,
 //   APointAngleZeroDegreeTest.class,
 //   APointAngleNinetyDegreeTest.class,
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
-   APointRadiusTest.class,
+   MultiPointRadiusTest.class,
    
 })
 public class ReflectiveCartesianPointSuite {
@@ -41,7 +41,7 @@ public class ReflectiveCartesianPointSuite {
 //		Suite.SuiteClasses aSuiteClassAnnotation = ReflectiveCartesianPointSuite.class.getAnnotation(Suite.SuiteClasses.class);
 //		Class[] aTestClasses = aSuiteClassAnnotation.value();
 //		System.out.println(Arrays.toString(aTestClasses));
-		PointProxyFactory.setPointProxy(new AReflectivePointProxy());		
+		MultiPointProxyFactory.setPointProxy(new AReflectivePointProxy());		
 		Result aResult = JUnitCore.runClasses(ReflectiveCartesianPointSuite.class);
 		for (Failure failure : aResult.getFailures()) {
 	         System.out.println(failure.toString());

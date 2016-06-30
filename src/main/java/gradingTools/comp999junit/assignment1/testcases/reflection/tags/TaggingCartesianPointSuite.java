@@ -4,13 +4,13 @@ import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
 import grader.project.flexible.AFlexibleProject;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.APointTranslationTest;
-import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointTranslationTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,11 +25,11 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
    ATaggingPointProxy.class,
-   APointAngleZeroDegreeTest.class,
-   APointAngleNinetyDegreeTest.class,
-   APointAngleFortyFiveDegreeTest.class,
-   APointAngleMinusNinetyDegreeTest.class,
-   APointRadiusTest.class
+   MultiPointAngleZeroDegreeTest.class,
+   MultiPointAngleNinetyDegreeTest.class,
+   MultiPointAngleFortyFiveDegreeTest.class,
+   MultiPointAngleMinusNinetyDegreeTest.class,
+   MultiPointRadiusTest.class
 //   APointTranslationTest.class
    
 })
@@ -38,7 +38,7 @@ public class TaggingCartesianPointSuite {
 	public static void main (String[] args) {
 		BasicGradingEnvironment.get().setLoadClasses(true);
 
-		PointProxyFactory.setPointProxy(new ATaggingPointProxy());
+		MultiPointProxyFactory.setPointProxy(new ATaggingPointProxy());
 		try {
 //			CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 			CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));

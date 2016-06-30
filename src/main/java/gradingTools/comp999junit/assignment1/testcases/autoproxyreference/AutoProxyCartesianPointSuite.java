@@ -6,15 +6,15 @@ import framework.utils.BasicGradingEnvironment;
 import grader.junit.GradableJUnitSuite;
 import grader.junit.JUnitUtils;
 import grader.project.flexible.AFlexibleProject;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointPrintTest;
-import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.APointTranslationTest;
-import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
-import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointPrintTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointTranslationTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest;
 
 import java.io.File;
@@ -33,14 +33,14 @@ import bus.uigen.ObjectEditor;
 @Suite.SuiteClasses({
    AReflectivePointMainTest.class,
    AnAutoPointProxy.class,
-   PointAngleSuite.class,
+   MultiPointAngleSuite.class,
 //   APointAngleZeroDegreeTest.class,
 //   APointAngleNinetyDegreeTest.class,
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
-   APointRadiusTest.class,
-   APointPrintTest.class,
-   APointTranslationTest.class
+   MultiPointRadiusTest.class,
+   MultiPointPrintTest.class,
+   MultiPointTranslationTest.class
    
 })
 public class AutoProxyCartesianPointSuite {
@@ -48,7 +48,7 @@ public class AutoProxyCartesianPointSuite {
 
 	public static void main (String[] args) {
 		try {
-		PointProxyFactory.setPointProxy(new AnAutoPointProxy());
+		MultiPointProxyFactory.setPointProxy(new AnAutoPointProxy());
 //		BasicGradingEnvironment.get().setLoadClasses(false);
 		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));

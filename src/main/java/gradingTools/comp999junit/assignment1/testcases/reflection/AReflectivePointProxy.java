@@ -4,8 +4,8 @@ package gradingTools.comp999junit.assignment1.testcases.reflection;
 //import org.junit.Test;
 import grader.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
-import gradingTools.comp999junit.assignment1.testcases.Point;
-import gradingTools.comp999junit.assignment1.testcases.PointProxy;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ import util.introspect.ClassLoaderFactory;
 @MaxValue(6)
 //@Explanation("Radius and Angle Correctly Computed")
 //@Group(CartesianPointSuite.ANGLE_TESTS)
-public class AReflectivePointProxy implements PointProxy{
+public class AReflectivePointProxy implements MultiPointProxy{
 	// weights
 	public static final double CORRECT_CLASS = 0.2;
 	public static final double CORRECT_CONSTRUCTOR = 0.2;
@@ -127,11 +127,11 @@ public class AReflectivePointProxy implements PointProxy{
 		
 	}
 	@Override
-	public Point getPoint() {
+	public MultiPoint getPoint() {
 		return null;
 	}
 	@Override
-	public Point translate(Point aPoint, int anXDelta, int aYDelta) {
+	public MultiPoint translate(MultiPoint aPoint, int anXDelta, int aYDelta) {
 		// TODO Auto-generated method stub
 		return null;
 	}

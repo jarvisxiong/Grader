@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testcases;
+package gradingTools.comp999junit.assignment1.testcases.multi;
 
 
 //import org.junit.Test;
@@ -9,11 +9,11 @@ import util.annotations.MaxValue;
 @MaxValue(10)
 //@Explanation("Radius and Angle Correctly Computed")
 //@Group(CartesianPointSuite.POLAR_COORDINATES)
-@Group(AnAbstractPointTest.ANGLE_TESTS)
-public class APointAngleFortyFiveDegreeTest extends APointAngleTest {
+@Group(MultiAbstractPointTest.ANGLE_TESTS)
+public class MultiPointAngleFortyFiveDegreeTest extends MultiPointAngleTest {
 
 	
-	public  APointAngleFortyFiveDegreeTest() {
+	public  MultiPointAngleFortyFiveDegreeTest() {
 		checkStructure = false;	
 	}
 	@Test

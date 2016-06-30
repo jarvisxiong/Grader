@@ -1,12 +1,12 @@
 package gradingTools.comp999junit.assignment1.testcases.directreference;
 
-import gradingTools.comp999junit.assignment1.testcases.APointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.APointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.PointAngleSuite;
-import gradingTools.comp999junit.assignment1.testcases.PointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -19,19 +19,19 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    ADirectPointMainTest.class,
    ADirectPointProxy.class,
-   PointAngleSuite.class,
+   MultiPointAngleSuite.class,
 //   APointAngleZeroDegreeTest.class,
 //   APointAngleNinetyDegreeTest.class,
 //   APointAngleFortyFiveDegreeTest.class,
 //   APointAngleMinusNinetyDegreeTest.class,
-   APointRadiusTest.class,
+   MultiPointRadiusTest.class,
    
 })
 public class DirectCartesianPointSuite {
 //	public static final String ANGLE_TESTS = "Angle Tests";
 
 	public static void main (String[] args) {
-		PointProxyFactory.setPointProxy(new ADirectPointProxy());
+		MultiPointProxyFactory.setPointProxy(new ADirectPointProxy());
 		Result aResult = JUnitCore.runClasses(DirectCartesianPointSuite.class);
 		
 		for (Failure failure : aResult.getFailures()) {

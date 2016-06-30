@@ -9,11 +9,11 @@ import framework.project.CurrentProjectHolder;
 import grader.util.ProjectExecution;
 import grader.util.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
-import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointMainTest;
-import gradingTools.comp999junit.assignment1.testcases.AnAbstractPointTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointMainTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointTest;
 
 @MaxValue(5)
-public class AReflectivePointMainTest extends AnAbstractPointMainTest {
+public class AReflectivePointMainTest extends MultiAbstractPointMainTest {
 
 	@Override
 	protected String runMain(String[] anArgs, String... anInput) {

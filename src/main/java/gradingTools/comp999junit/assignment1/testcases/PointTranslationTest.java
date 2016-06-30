@@ -7,7 +7,9 @@ import grader.util.BasicProjectIntrospection;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class APointTranslationTest extends AnAbstractPointTest{
+import util.annotations.MaxValue;
+@MaxValue(4)
+public class PointTranslationTest extends AbstractPointTest{
 
 	@Override
 	protected void checkComputations(double aComputedAngle,
@@ -20,8 +22,8 @@ public class APointTranslationTest extends AnAbstractPointTest{
 	public void test() {
 		try {
 			
-			pointProxy.createCartesianPoint(5, 10);
-			Point retVal = pointProxy.translate(pointProxy.getPoint(), 5, 10);
+			createPoint(5, 10);
+			Point retVal = point.translate(point, 5, 10);
 			int actualX = retVal.getX();
 			int actualY = retVal.getY();
 			Assert.assertTrue(

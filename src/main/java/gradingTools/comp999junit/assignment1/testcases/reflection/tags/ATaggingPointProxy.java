@@ -3,7 +3,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.util.BasicProjectIntrospection;
-import gradingTools.comp999junit.assignment1.testcases.PointProxy;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointProxy;
 
 import java.lang.reflect.Method;
@@ -13,7 +13,7 @@ import org.junit.Test;
 import util.annotations.MaxValue;
 
 @MaxValue(6)
-public class ATaggingPointProxy extends AReflectivePointProxy implements PointProxy{
+public class ATaggingPointProxy extends AReflectivePointProxy implements MultiPointProxy{
 
 	@Test
 	public void test() {
