@@ -516,7 +516,7 @@ public class BasicProjectClassesManager implements ClassesManager {
     		return findByClassOrInterfaceName(null); // return all classes
     	}
     	Set<ClassDescription> result = new HashSet();
-    	if (aTag != null)
+    	if (aTag != null && !(aTag.length == 0))
     		result = findByTag(aTag); 
     	if (aTag != null && aTag.length > 0 && result.isEmpty())
     		result = finByPattern(aTag[0]); 
@@ -556,6 +556,9 @@ public class BasicProjectClassesManager implements ClassesManager {
      */
     @Override
     public Set<ClassDescription> findByTag(String[] aTags) {
+    	if (aTags.length == 0) {
+    		return null;
+    	}
 //    	String normalizedTag = tag.replaceAll("\\s","");
     	BasicProjectIntrospection.normalizeTags(aTags); // using array instead
     	List<String> aSpecificationList = Arrays.asList(aTags);

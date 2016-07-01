@@ -687,6 +687,12 @@ public class BasicProjectIntrospection {
 		retVal = findClass(aProject, aProxyClass.getCanonicalName());
 		if (retVal == null) 
 		retVal = findClass(aProject, aProxyClass.getSimpleName());
+		if (retVal == null && aTags.length == 1) {
+			retVal = findClassByTagMatch(aProject, aTags[0]);
+		}
+		if (retVal == null) {
+			retVal = findClassByNameMatch(aProject, aProxyClass.getSimpleName());
+		}
 		if (retVal == null) {
 		// see if the interfaces of the desired class match
 		// do not need this as we are already checking for interfaces in findClass(aProxyClass.getSimpleName()), which uses the namealso as a tag, but keep this
@@ -816,6 +822,19 @@ public class BasicProjectIntrospection {
 		// toRegex(aName) );
 		// return findClass(aProject, aName, aName, aName, aName );
 	}
+	public static Class findClassByNameMatch(Project aProject, String aName) {
+		return findClass(aProject, (String) null, (String) null,  toRegex(aName), null);			
+		// return findClass(aProject, null, aName, toRegex(aName),
+		// toRegex(aName) );
+		// return findClass(aProject, aName, aName, aName, aName );
+	}
+	public static Class findClassByTagMatch(Project aProject, String aName) {
+		return findClass(aProject, (String) null, (String) null,  null, toRegex(aName));			
+		// return findClass(aProject, null, aName, toRegex(aName),
+		// toRegex(aName) );
+		// return findClass(aProject, aName, aName, aName, aName );
+	}
+	
 	public static Class findInterfaceCaching(Project aProject, String aName) {
 		Class aClass = keyToInterface.get(aName);
 		if (aClass == null) {
