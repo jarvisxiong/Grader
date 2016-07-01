@@ -45,6 +45,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.codehaus.jackson.map.ser.PropertyBuilder.EmptyStringChecker;
+import org.junit.Assert;
 
 import util.misc.Common;
 import util.misc.TeePrintStream;
@@ -785,8 +786,10 @@ public class ProjectExecution {
 				String... anInput) throws NotRunnableException {
 		 try {
 			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
-			if (aMainClass == null)
-				return null;
+			Assert.assertTrue("Main class correspnding to " + aProxyClass.getSimpleName() + " not found", aMainClass != null);
+
+				
+			
 			return invokeMain(aMainClass, args, anInput);		
 		 } catch (Exception e) {
 			 e.printStackTrace();

@@ -214,7 +214,7 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	}
 
 	@Override
-	public int numTests() {
+	public int numExecutions() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -264,6 +264,16 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	@Override
 	public double getComputedMaxScore() {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int numLeafNodeDescendents() {
+		return 0;
+	}
+
+	@Override
+	public int numInternalNodeDescendents() {
 		return 0;
 	}
 }

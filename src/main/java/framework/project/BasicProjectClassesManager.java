@@ -499,7 +499,8 @@ public class BasicProjectClassesManager implements ClassesManager {
 //        	return classes;
         //  search the canonical names
         for (ClassDescription description : classDescriptions) {
-            if (description.getJavaClass().getCanonicalName().matches(className)) {
+            if (!className.contains("[") && 
+            		description.getJavaClass().getCanonicalName().matches(className)) {
                 classes.add(description);
             }
         }
@@ -603,7 +604,11 @@ public class BasicProjectClassesManager implements ClassesManager {
      */
     @Override
     public Set<ClassDescription> findByTagMatch(String regex) {
+    
+    	
         Set<ClassDescription> classes = new HashSet<>();
+        if (regex.contains("["))
+    		return classes;
         for (ClassDescription description : classDescriptions) {
             for (String t : description.getTags()) {
                 if (t.matches(regex)) {

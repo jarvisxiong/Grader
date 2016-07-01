@@ -24,6 +24,8 @@ import util.models.Hashcodetable;
 import framework.project.ClassDescription;
 import framework.project.CurrentProjectHolder;
 import framework.project.Project;
+import grader.junit.GradableJUnitSuite;
+import grader.junit.JUnitUtils;
 
 public class BasicProjectIntrospection {
 
@@ -37,6 +39,7 @@ public class BasicProjectIntrospection {
 	static Hashcodetable<Object, Object> proxyToObject = new Hashcodetable<>();
 	static Hashcodetable<Object, Object> objectToProxy = new Hashcodetable<>();
 	static Set<String> predefinedPackages = new HashSet();
+	static Set<GradableJUnitSuite> topLevelSuites = null;
 	public static void clearProjectCaches() {
 		keyToClass.clear();
 		keyToInterface.clear();
@@ -45,6 +48,7 @@ public class BasicProjectIntrospection {
 		userObjects.clear();
 		proxyToObject.clear();
 		objectToProxy.clear();
+		topLevelSuites = null;
 	}
 	static Map<Class, Class> classToType = new HashMap();
 
@@ -138,6 +142,26 @@ public class BasicProjectIntrospection {
 	}
 	public static Class findClassByMethods(Project aProject, Method[] aMethods, boolean findClass) {
 		Set<Class> aClasses = findClassesByMethods(aProject, aMethods, findClass);
+		
+		
+//		int i = 0;
+//		List<ClassDescription> aClasses = aProject.getClassesManager().get()
+//				.findClass(aName, aTag, aNameMatch, aTagMatch);
+//		for (ClassDescription aClass : aClasses) {
+//			if (aClass.getJavaClass().isInterface())
+//				continue;
+//			return aClass.getJavaClass();
+//		}
+//		return null;
+		 aClasses = removeSuperTypes(aClasses);
+		 if (aClasses.size() != 1) {
+		 return null;
+		 }
+		 return aClasses.iterator().next();
+
+	}
+	public static Class findBestClassByMethods(Project aProject, Method[] aMethods, boolean findClass) {
+		Set<Class> aClasses = findBestClassesByMethods(aProject, aMethods, findClass);
 		
 		
 //		int i = 0;
@@ -270,6 +294,61 @@ public class BasicProjectIntrospection {
 	public static String constructKey (Class aClass, Method[] aMethods) {
 		return aClass.getName() + ":" + Arrays.toString(aMethods);
 	}
+	static Method[] emptyMethodArray = {};
+	public static Method[] getNonObjectMethods(Class aClass) {
+		List<Method> retVal =new ArrayList();
+		for (Method aMethod:aClass.getMethods()) {
+			if (aMethod.getDeclaringClass() != Object.class) {
+				retVal.add(aMethod);
+			}
+		}
+		return retVal.toArray(emptyMethodArray);
+		
+	}
+	public static Set<Class> findBestClassesByMethods(Project aProject,  Method[] aMethods, boolean findClass) {
+		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
+		 Set<Class> aResult = new HashSet();
+		 if (aMethods.length == 0) { //e.g. an array
+			 return aResult;
+		 }
+		 double aMaxDegree = 0;
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getJavaClass();
+				if (aClass.isInterface() && findClass ||
+						!aClass.isInterface() && !findClass) {
+					continue;
+				}
+//				String aMatchKey = aClass.getName() + ":" + Arrays.toString(aMethods);
+				String aMatchKey = constructKey(aClass, aMethods);
+
+				if (pendingMatches.contains(aMatchKey)) {
+					aResult.add(aClass); // assume this one will work, at the top level it might fail, do not want infinite recursion
+					return aResult;
+				}
+				else {
+					pendingMatches.add(aMatchKey);
+					double aCurrentDegree = degreeMethodMatches(aClass, aMethods);
+
+//					if (matchesMethods(aClass, aMethods)) {
+					if (aCurrentDegree >= 0.5 && aCurrentDegree == aMaxDegree) {
+						aResult.add(aClass);
+					} else if (aCurrentDegree > aMaxDegree) {
+						aResult.clear();
+						aResult.add(aClass);
+						aMaxDegree = aCurrentDegree;
+					}
+
+					
+				}
+				
+			}
+		 for (ClassDescription aClassDescription : aClassDescriptions) {
+				Class aClass = aClassDescription.getJavaClass();
+				String aMatchKey = constructKey(aClass, aMethods);
+				pendingMatches.remove(aMatchKey); // remove all might remove searchs for other classes
+		 }
+		 return aResult;		 
+	}
 	public static Set<Class> findClassesByMethods(Project aProject,  Method[] aMethods, boolean findClass) {
 		 Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get().getClassDescriptions();
 		 Set<Class> aResult = new HashSet();
@@ -284,17 +363,21 @@ public class BasicProjectIntrospection {
 
 				if (pendingMatches.contains(aMatchKey)) {
 					aResult.add(aClass); // assume this one will work, at the top level it might fail, do not want infinite recursion
+					return aResult;
 				}
 				else {
 					pendingMatches.add(aMatchKey);
 					if (matchesMethods(aClass, aMethods)) {
+
 				
 					aResult.add(aClass);
 					}
 					pendingMatches.remove(aMatchKey);
+					
 				}
 				
 			}
+		 
 		 return aResult;		 
 	}
 	// why are these not all sets?
@@ -612,7 +695,11 @@ public class BasicProjectIntrospection {
 		}
 		if (retVal == null)
 		
-		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), true);
+//		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), true);
+//		retVal = findBestClassByMethods(aProject, aProxyClass.getMethods(), true);
+		retVal = findBestClassByMethods(aProject, getNonObjectMethods(aProxyClass), true);
+
+
 		String aKey = null;
 
 		if (retVal == null)
@@ -659,7 +746,9 @@ public class BasicProjectIntrospection {
 		}
 		if (retVal == null)
 		
-		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), false);
+//		retVal = findClassByMethods(aProject, aProxyClass.getMethods(), false);
+		retVal = findBestClassByMethods(aProject, getNonObjectMethods(aProxyClass), false);
+
 		String aKey = null;
 
 		if (retVal == null)
@@ -864,7 +953,7 @@ public class BasicProjectIntrospection {
 		}	
 		Arrays.sort(aTags);
 		String aKey = Arrays.toString(aTags);
-		return findClass(aProject, null, aTags, null, null);
+		return findInterface(aProject, null, aTags, null, null);
 			
 	}
 //	public static Class findClassByTags(Project aProject, String[] aTags) {
@@ -1083,7 +1172,7 @@ public class BasicProjectIntrospection {
 				}
 				keyToMethod.put(aKey, aMethod);
 			}
-			if (aMethod == Object.class.getMethod("wait", emptyClassArray)) {
+			if (aMethod.equals(Object.class.getMethod("wait", emptyClassArray))) {
 				return null;
 			}
 			return aMethod;
@@ -1290,8 +1379,28 @@ public class BasicProjectIntrospection {
 	}
 
 	public static Method findMethod(Class aJavaClass, Method aProxy) {
-		return findMethod(aJavaClass, aProxy.getName(),
+		Method retVal = findMethod(aJavaClass, aProxy.getName(),
 				aProxy.getParameterTypes());
+		if (retVal == null) {
+			String[] aTags = getTags(aProxy);
+			if (aTags.length != 0) {
+			retVal = findUniqueMethodByTag(aJavaClass, aProxy);
+			}
+			if (retVal == null && aTags.length == 1 && !aTags[0].equalsIgnoreCase(aProxy.getName())) {
+				retVal = findMethod(aJavaClass, aTags[0],
+						aProxy.getParameterTypes()); // just in case the name of the method is the unique tag
+			}
+		}
+		// this is pretty expensive if methods o fall classes are being looked up to find the class
+		if (retVal == null) {
+//			Method[] aMethods = aJavaClass.getMethods();
+			Method[] aMethods = getNonObjectMethods(aJavaClass); // object methods would have been already found
+
+			String aTag = toMethodKey(aJavaClass, aProxy.getName(), aProxy.getParameterTypes()) ;
+
+			retVal = selectMethodAndCacheIndices(aTag, Arrays.asList(aMethods), aProxy.getParameterTypes());
+		}
+		return retVal;
 	}
 	public static Integer[] getArgIndices(Class aJavaClass, Method aProxy) {
 		return getMethodArgIndices(aJavaClass, aProxy.getName(),
@@ -1299,10 +1408,26 @@ public class BasicProjectIntrospection {
 	}
 	public static boolean matchesMethods(Class aJavaClass, Method[] aProxyMethods) {
 		for (Method aProxyMethod:aProxyMethods) {
+			if (aProxyMethod.getDeclaringClass() == Object.class)
+				continue;
 			if (findMethod(aJavaClass, aProxyMethod) == null)
 				return false;
 		}
 		return true;
+	}
+	public static int numMethodMatches(Class aJavaClass, Method[] aProxyMethods) {
+		int numMatches = 0;
+		for (Method aProxyMethod:aProxyMethods) {
+//			if (aProxyMethod.getDeclaringClass() == Object.class)
+//				continue;
+			if ( findMethod(aJavaClass, aProxyMethod) != null)
+				numMatches++;
+		}
+		return numMatches;
+	}
+	public static double degreeMethodMatches(Class aJavaClass, Method[] aProxyMethods) {
+		double aLength = aProxyMethods.length;
+		return aLength == 0?1.0:numMethodMatches(aJavaClass, aProxyMethods)/aLength;
 	}
 	
 	public static String toMethodTag(Class aClass, String[] aMethodTags,
@@ -1444,6 +1569,16 @@ public class BasicProjectIntrospection {
 		proxyToObject.put(aProxy, anActualObject);
 		objectToProxy.put(anActualObject, aProxy);
 		return aProxy;
+	}
+	public static Set<GradableJUnitSuite> findTopLevelGradabableTrees() {
+		if (topLevelSuites == null) {
+			Set<Class> aClasses = getAllClasses();
+			topLevelSuites = JUnitUtils.findGradableTrees(aClasses);
+			
+		}
+		return topLevelSuites;
+	
+		
 	}
 	public static Object createInstance(Class aProxyClass,
 			Class[] aConctructArgsTypes, Object[] anArgs) {

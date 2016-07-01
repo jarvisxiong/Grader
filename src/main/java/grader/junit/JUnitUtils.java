@@ -3,6 +3,7 @@ package grader.junit;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +17,13 @@ import bus.uigen.ObjectEditor;
 
 public class JUnitUtils {
 
-	public static void assertTrue (Exception e, double aFractionComplete) {
+	public static void assertTrue (Throwable e, double aFractionComplete) {
+		if (e instanceof AssertionError) {
+			Assert.assertTrue(e.getMessage() + ":" + aFractionComplete, false);
+
+		} else {
 		Assert.assertTrue(e.getClass().getName() + " " + e.getMessage() + ":" + aFractionComplete, false);
+		}
 	}
 	public static  Map<String,List<GraderTestCase>>  toGraderTestCaseMap (Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap) {
 		Map<String,List<GraderTestCase>> retVal = new HashMap();
@@ -26,6 +32,22 @@ public class JUnitUtils {
 		}
 		return retVal;
 	}
+	public static Set<GradableJUnitSuite> findGradableTrees(Collection<Class> aClasses) {
+		Set<Class> aSuiteClasses = findTopLevelSuites(aClasses);
+		return toGradableTrees(aSuiteClasses);
+	}
+	
+	public static Set<GradableJUnitSuite> toGradableTrees(Collection<Class> aJUnitClasses ) {
+		Set<GradableJUnitSuite> result = new HashSet();
+		for (Class aClass:aJUnitClasses) {
+			GradableJUnitSuite aTree = toGradableTree (aClass);
+			if (aTree != null) {
+				result.add(aTree);
+			}
+		}
+		return result;
+	}
+	
 	public static GradableJUnitSuite toGradableTree (Class<?> aJUnitSuiteClass) {
 		Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap = JUnitUtils.toGroupedGradables(aJUnitSuiteClass);
 		GradableJUnitSuite retVal = new AGradableJUnitTopLevelSuite(aJUnitSuiteClass);
@@ -253,6 +275,7 @@ public class JUnitUtils {
 //		}
 //		return aResult;
 //	}
+	
 	public static  Map<String, List<GradableJUnitTest>> toTopLevelGradables
 	(List<Class> aJUnitClasses) {
 		Map<String, List<GradableJUnitTest>> aResult = new HashMap();
@@ -312,7 +335,7 @@ public class JUnitUtils {
 	public static boolean isJUnitSuite (Class<?> aClass) {
 		return aClass.getAnnotation(Suite.SuiteClasses.class) != null;
 	}
-	public static List<Class> selectSuites(List<Class> aClasses) {
+	public static List<Class> selectSuites(Collection<Class> aClasses) {
 		List<Class> result = new ArrayList();
 		for (Class aClass:aClasses) {
 			if (isJUnitSuite(aClass)) {
@@ -325,7 +348,7 @@ public class JUnitUtils {
 		List<Class> aTestsAndSuites = getComponentTestsAndSuites (aContainingSuite);
 		return selectSuites(aTestsAndSuites);		
 	}
-	public static Set<Class> getAllComponentSuites(List<Class> aSuites) {
+	public static Set<Class> getAllComponentSuites(Collection<Class> aSuites) {
 		Set<Class>	result = new HashSet();	
 		for (Class aSuite:aSuites) {
 			result.addAll(getComponentSuites(aSuite));
@@ -334,12 +357,12 @@ public class JUnitUtils {
 		
 	}
 	
-	public static Set<Class> findTopLevelSuites(List<Class> aClasses) {
+	public static Set<Class> findTopLevelSuites(Collection<Class> aClasses) {
 		List<Class> aSuites = selectSuites(aClasses);
 		return selectTopLevelSuites(aClasses);		
 	}
 	
-	public static Set<Class> selectTopLevelSuites(List<Class> aClasses) {
+	public static Set<Class> selectTopLevelSuites(Collection<Class> aClasses) {
 		Set<Class> aComponentSuites = getAllComponentSuites(aClasses);
 		Set<Class> aResult = new HashSet(aClasses);
 		aResult.removeAll(aComponentSuites);

@@ -30,9 +30,9 @@ public class PointPrintTest extends AbstractPointTest{
 //			String aHeader = "The point is:";
 			point.print();
 			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
-			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
-					anOutput.contains(" " + anX) &&
-					anOutput.contains(" " + aY));
+			Assert.assertTrue(anOutput + " Does not contain prints of " + anX + " " + aY, 
+					anOutput.contains("" + anX) &&
+					anOutput.contains("" + aY));
 		} catch (Exception e) {
 			JUnitUtils.assertTrue(e, fractionComplete);
 		}

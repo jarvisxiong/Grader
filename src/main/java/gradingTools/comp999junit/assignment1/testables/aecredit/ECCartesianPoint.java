@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testables.ecredit;
+package gradingTools.comp999junit.assignment1.testables.aecredit;
 
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;

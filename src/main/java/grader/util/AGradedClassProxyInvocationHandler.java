@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import org.junit.Assert;
 import util.trace.Tracer;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
@@ -19,6 +20,7 @@ public class AGradedClassProxyInvocationHandler implements InvocationHandler {
 	public Object invoke(Object proxy, Method aProxyMethod, Object[] args)
 			throws Throwable {
 		Method anActualMethod = BasicProjectIntrospection.findMethod(actualClass, aProxyMethod);
+		Assert.assertTrue("Method matching " + aProxyMethod.getName() + " not found in class: " + actualClass, anActualMethod != null);
 		if (anActualMethod == null) {
 			return null;
 		}

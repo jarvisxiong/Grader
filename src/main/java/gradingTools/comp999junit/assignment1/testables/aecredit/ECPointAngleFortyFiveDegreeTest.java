@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testables.ecredit;
+package gradingTools.comp999junit.assignment1.testables.aecredit;
 
 
 import org.junit.Test;

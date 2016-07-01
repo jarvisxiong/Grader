@@ -205,8 +205,8 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	}
 
 	@Override
-	public int numTests() {
-		return graderProperties.numTests();
+	public int numExecutions() {
+		return graderProperties.numExecutions();
 	}
 
 	@Override
@@ -253,5 +253,16 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public double getComputedMaxScore() {
 		// TODO Auto-generated method stub
 		return graderProperties.getComputedMaxScore();
+	}
+
+	@Override
+	public int numLeafNodeDescendents() {
+		return graderProperties.numLeafNodeDescendents();
+	}
+
+	@Override
+	public int numInternalNodeDescendents() {
+		// TODO Auto-generated method stub
+		return graderProperties.numInternalNodeDescendents();
 	}
 }

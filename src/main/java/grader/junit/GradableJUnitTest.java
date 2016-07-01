@@ -37,7 +37,7 @@ public interface GradableJUnitTest extends PropertyListenerRegisterer  {
 	TestCaseResult test();
 	String getMessage();
 	String getStatus();
-	int numTests();
+	int numExecutions();
 	void addPropertyChangeListenerRecursive(PropertyChangeListener arg0);
 	double getFractionComplete();
 	List<Double> getPercentages();
@@ -46,5 +46,7 @@ public interface GradableJUnitTest extends PropertyListenerRegisterer  {
 	double getScore();
 	String getText();
 	double getComputedMaxScore();
+	int numLeafNodeDescendents();
+	int numInternalNodeDescendents();
 
 }

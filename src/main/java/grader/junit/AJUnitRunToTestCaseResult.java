@@ -39,12 +39,14 @@ public class AJUnitRunToTestCaseResult extends RunListener {
 				checkResult = new TestCaseResult(false, 
 						aNotes, name, true);
 			} else {
-				String aPercentageString = aNotesAndScore[1].trim();
+				String aPercentageString = aNotesAndScore[aNotesAndScore.length - 1].trim();
 				try {
 				double aPercentage = Double.parseDouble(aPercentageString);
 				checkResult =new TestCaseResult(aPercentage, aNotes, name, true);
 
 				} catch (Exception e) {
+					checkResult = new TestCaseResult(false, 
+							aMessage, name, true);
 					
 				}
 				

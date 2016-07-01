@@ -25,6 +25,8 @@ public abstract class AbstractPointTest {
 	public void createPoint(int theX, int theY) {
 		point = (Point) BasicProjectIntrospection.createInstance(
 				Point.class, new Object[] { theX, theY});
+		Assert.assertTrue("A Cartesian Point class not found", point != null);
+		
 	}
 	public void test(int theX, int theY, double aCorrectRadius,
 			double aCorrectAngle) {

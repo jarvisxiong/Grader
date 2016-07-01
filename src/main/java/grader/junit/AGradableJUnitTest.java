@@ -312,7 +312,7 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	}
 	@Override
 	@Visible(false)
-	public int numTests() {
+	public int numExecutions() {
 		return numTests;
 	}
 	protected Color computeColor(int aNumTests,double aFractionComplete) {
@@ -380,10 +380,22 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public double getComputedMaxScore() {
 		return maxScore;
 	}
+	@Override
+	public int numLeafNodeDescendents() {
+		return 0;
+	}
 	public static void main (String[] args) {
 		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
 		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
 //		foo.setJUnitClass(ACartesianPointJUnitTester.class);
 		System.out.println (foo);
 	}
+
+	@Override
+	public int numInternalNodeDescendents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }

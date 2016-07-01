@@ -1,4 +1,4 @@
-package gradingTools.comp999junit.assignment1.testables.ecredit;
+package gradingTools.comp999junit.assignment1.testables.aecredit;
 import util.annotations.Explanation;
 import util.annotations.Tags;
 //@StructurePattern(StructurePatternNames.POINT_PATTERN)

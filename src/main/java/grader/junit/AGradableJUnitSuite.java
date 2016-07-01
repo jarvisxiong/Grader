@@ -80,12 +80,16 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		}
 		return retVal;
 	}
+	@Override
+	public int numLeafNodeDescendents() {
+		return children.size();
+	}
 	@Visible(false)
-	public int numTests() {
+	public int numExecutions() {
 		int retVal = 0;
 		for (GradableJUnitTest aTest:children) {
 				
-				retVal += aTest.numTests() > 0?1:0;;
+				retVal += aTest.numExecutions() > 0?1:0;;
 		}
 		return retVal;
 	}
@@ -177,7 +181,7 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 		return retVal;
 	}
 	protected void synthesizeAndDisplayPropertes() {
-		numTests = numTests();
+		numTests = numExecutions();
 		fractionComplete = ((double) numTestsSuceeded())/children.size();
 		showColor();
 		showScore();
