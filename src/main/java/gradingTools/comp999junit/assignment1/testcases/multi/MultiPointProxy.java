@@ -1,7 +1,6 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
-import gradingTools.comp999junit.assignment1.testables.wrongangle.WAPoint;
 
 public interface MultiPointProxy {
 

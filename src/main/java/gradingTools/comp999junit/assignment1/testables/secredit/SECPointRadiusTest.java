@@ -3,9 +3,6 @@ package gradingTools.comp999junit.assignment1.testables.secredit;
 
 //import org.junit.Test;
 import org.junit.Test;
-
-import util.annotations.IsExtra;
-import util.annotations.MaxValue;
 public class SECPointRadiusTest extends SEAbstractPointTest  {	
 		
 	@Test

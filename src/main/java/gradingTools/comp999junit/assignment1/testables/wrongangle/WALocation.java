@@ -5,10 +5,10 @@ import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 //@Tags({"cartesian", "point"})
-public class WACartesianPoint
+public class WALocation
 	{	
 	protected int x, y;
-	public WACartesianPoint(int theX, int theY) {
+	public WALocation(int theX, int theY) {
 		x = theX;
 		y = theY;
 	}
@@ -32,8 +32,8 @@ public class WACartesianPoint
 	}
 	// cannot make argumenyt WAPoint!
 	// changed the name from translate to move, changed the order of parameters
-	public WACartesianPoint move (int anXDelta, int aYDelta, WACartesianPoint aPoint) {
-		return new WACartesianPoint(aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
+	public WALocation move (int anXDelta, int aYDelta, WALocation aPoint) {
+		return new WALocation(aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
 	
 }

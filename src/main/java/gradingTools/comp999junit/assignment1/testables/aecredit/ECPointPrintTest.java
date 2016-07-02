@@ -2,7 +2,6 @@ package gradingTools.comp999junit.assignment1.testables.aecredit;
 
 import grader.junit.JUnitUtils;
 import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,10 +1,7 @@
 package gradingTools.comp999junit.assignment1.testables.aecredit;
 
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
 import util.annotations.Explanation;
 import util.annotations.Tags;
-import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 @Tags({"cartesian", "point"})
 public class ECCartesianPoint implements ECPoint {	
@@ -39,11 +36,5 @@ public class ECCartesianPoint implements ECPoint {
 	public ECPoint translate (ECPoint aPoint, int anXDelta, int aYDelta) {
 		return new ECCartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
-	public static void main(String args[]) {
-		ECPoint point =  new ECCartesianPoint (50, 100);
-		ObjectEditor.edit(point);
-		point = new ECCartesianPoint(100, Math.PI/4);
-		ObjectEditor.edit(point);
-//		
-	}
+	
 }

@@ -1,6 +1,5 @@
 package gradingTools.comp999junit.assignment1.testables.aecredit;
 
-import grader.junit.JUnitUtils;
 import grader.util.ProjectExecution;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 

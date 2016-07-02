@@ -2,8 +2,6 @@ package gradingTools.comp999junit.assignment1.testables.aecredit;
 
 import java.util.Scanner;
 
-import bus.uigen.ObjectEditor;
-
 public class Main {
 	public static void main(String args[]) {
 		Scanner aScanner = new Scanner (System.in);

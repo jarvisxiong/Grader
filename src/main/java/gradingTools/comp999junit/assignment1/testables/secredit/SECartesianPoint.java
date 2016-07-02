@@ -1,10 +1,7 @@
 package gradingTools.comp999junit.assignment1.testables.secredit;
 
-import gradingTools.comp999junit.assignment1.testables.aecredit.ECCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.aecredit.ECPoint;
 import util.annotations.Explanation;
 import util.annotations.Tags;
-import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 @Tags({"cartesian", "point"})
 public class SECartesianPoint implements SEPoint {	
@@ -38,11 +35,5 @@ public class SECartesianPoint implements SEPoint {
 	public SEPoint translate (SEPoint aPoint, int anXDelta, int aYDelta) {
 		return new SECartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
 	}
-	public static void main(String args[]) {
-		SEPoint point =  new SECartesianPoint (50, 100);
-		ObjectEditor.edit(point);
-		point = new SECartesianPoint(100, Math.PI/4);
-		ObjectEditor.edit(point);
-//		
-	}
+	
 }

@@ -1,18 +1,17 @@
-//START OF FILE: src/acartesianpoint.java
+//START OF FILE: src/accartesianpoint.java
+
 import util.annotations.Explanation;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
 import util.annotations.Tags;
 import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
-@Tags({"cartesian", "point"})
-public class ACartesianPoint implements Point {	
+//@Tags({"cartesian", "point"})
+public class ACCartesianPoint implements ACPoint {	
 	protected int x, y;
-	public ACartesianPoint(int theX, int theY) {
+	public ACCartesianPoint(int theX, int theY) {
 		x = theX;
 		y = theY;
 	}
-	public ACartesianPoint(double theRadius, double theAngle) {
+	public ACCartesianPoint(double theRadius, double theAngle) {
 		x =  (int) (theRadius*Math.cos(theAngle));
 		y = (int) (theRadius*Math.sin(theAngle));
 	}
@@ -26,20 +25,48 @@ public class ACartesianPoint implements Point {
 	public double getRadius() { 
 		return Math.sqrt(x*x + y*y); 
 //		return 0;
-	}	
+	}
+//	@Override
+//	public void print (String aString, ACPoint aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
+	public void print () {
+		System.out.println ("X: " + x + " Y:" + y);
+	}
+	@Override
+	public ACPoint translate (ACPoint aPoint, int anXDelta, int aYDelta) {
+		return new ACCartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
+	}
 	public static void main(String args[]) {
-		Point point =  new ACartesianPoint (50, 100);
+		ACPoint point =  new ACCartesianPoint (50, 100);
 		ObjectEditor.edit(point);
-		point = new ACartesianPoint(100, Math.PI/4);
+		point = new ACCartesianPoint(100, Math.PI/4);
 		ObjectEditor.edit(point);
 //		
 	}
 }
 //END OF FILE
+//START OF FILE: src/acpoint.java
+//package gradingTools.comp999junit.assignment1.testables.allcorrect;
+import util.annotations.Explanation;
+//@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Explanation("Location in Java coordinate System.")
+public interface ACPoint {
+	public int getX(); 
+	public int getY(); 	
+	public double getAngle(); 
+	public double getRadius();
+//	void print(String aString, ACPoint aPoint);
+	void print();
+	ACPoint translate(ACPoint aPoint, int anXDelta, int aYDelta); 
+}
+//END OF FILE
 //START OF FILE: src/main.java
+//package gradingTools.comp999junit.assignment1.testables.allcorrect;
 
 import java.util.Scanner;
 
+import bus.uigen.ObjectEditor;
 
 public class Main {
 	public static void main(String args[]) {
@@ -48,24 +75,11 @@ public class Main {
 		String aYLine = aScanner.nextLine();
 		int anX = Integer.parseInt(anXLine);
 		int aY = Integer.parseInt(aYLine);
-		Point aPoint =  new ACartesianPoint (anX, aY);
+		ACPoint aPoint =  new ACCartesianPoint (anX, aY);
 		System.out.println ("" + aPoint.getRadius());
 		System.out.println ("" + aPoint.getAngle());
 //		
 	}
 
-}
-//END OF FILE
-//START OF FILE: src/point.java
-import util.annotations.Explanation;
-import util.annotations.StructurePattern;
-import util.annotations.StructurePatternNames;
-//@StructurePattern(StructurePatternNames.POINT_PATTERN)
-@Explanation("Location in Java coordinate System.")
-public interface Point {
-	public int getX(); 
-	public int getY(); 	
-	public double getAngle(); 
-	public double getRadius(); 
 }
 //END OF FILE

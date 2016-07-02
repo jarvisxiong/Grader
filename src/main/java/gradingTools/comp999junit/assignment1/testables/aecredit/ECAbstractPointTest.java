@@ -2,7 +2,6 @@ package gradingTools.comp999junit.assignment1.testables.aecredit;
 
 import grader.junit.JUnitUtils;
 import grader.util.BasicProjectIntrospection;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 
 import org.junit.Assert;
 

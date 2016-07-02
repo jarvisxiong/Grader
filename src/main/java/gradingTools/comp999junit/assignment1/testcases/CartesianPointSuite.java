@@ -50,10 +50,10 @@ public class CartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 //		BasicGradingEnvironment.get().setLoadClasses(false);
-//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "aecredit"));
-		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "secredit"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "secredit"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "missingcode"));
 
 

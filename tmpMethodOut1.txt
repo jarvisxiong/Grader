@@ -1,6 +1,0 @@
-test(gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest): computedAngle 0.0 != correctAngle 1.5707963267948966 :0.0
-test(gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest): computedAngle 0.0 != correctAngle 0.7853981633974483 :0.0
-test(gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest): computedAngle 0.0 != correctAngle -1.5707963267948966 :0.0
-test(gradingTools.comp999junit.assignment1.testcases.PointMainTest): Main class correspnding to Main not found
-test(gradingTools.comp999junit.assignment1.testcases.PointPrintTest): Method matching print not found in class: class gradingTools.comp999junit.assignment1.testables.missingcode.MCCartesianPoint
-false

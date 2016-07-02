@@ -83,6 +83,9 @@ public class BasicProject implements Project {
     protected void setProject (Object aProject) {
     	
     }
+    public BasicProject(String aSourceFilePattern) throws FileNotFoundException {
+    	this (null,  new File("."), null, aSourceFilePattern);
+    }
     // rewriting Josh's code
     // going back to Josh';s code
     public BasicProject(Object aProject, File aDirectory, String name, String aSourceFilePattern) throws FileNotFoundException {

@@ -4,8 +4,6 @@ package gradingTools.comp999junit.assignment1.testables.secredit;
 //import org.junit.Test;
 import org.junit.Test;
 
-import util.annotations.Group;
-import util.annotations.MaxValue;
 import util.annotations.Tags;
 @Tags({"AngleTest"})
 public class SECPointAngleZeroDegreeTest extends SEAbstractPointTest {	

@@ -1,6 +1,8 @@
+//package gradingTools.comp999junit.assignment1.testables.wrongangle;
 
 import java.util.Scanner;
 
+import bus.uigen.ObjectEditor;
 
 public class Main {
 	public static void main(String args[]) {
@@ -9,7 +11,7 @@ public class Main {
 		String aYLine = aScanner.nextLine();
 		int anX = Integer.parseInt(anXLine);
 		int aY = Integer.parseInt(aYLine);
-		Point aPoint =  new ACartesianPoint (anX, aY);
+		WALocation aPoint =  new WALocation (anX, aY);
 		System.out.println ("" + aPoint.getRadius());
 		System.out.println ("" + aPoint.getAngle());
 //		
