@@ -242,11 +242,27 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 		} catch (InitializationError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			TestCaseResult aTestCaseResult = new TestCaseResult(false, e.getMessage(), getExplanation(), true);
+			String anExceptionMessage = e.getMessage();
+			String aMessage = e.getClass().getSimpleName() + " Could not initialize an instance of test class ";
+			TestCaseResult aTestCaseResult = new TestCaseResult(false, aMessage, getExplanation(), true);
 			showResult(aTestCaseResult);
 			return aTestCaseResult;
 //			return fail(e.getMessage());
+		} catch (IllegalArgumentException e ) {
+			e.printStackTrace();
+			String anExceptionMessage = e.getMessage();
+			TestCaseResult aTestCaseResult = new TestCaseResult(false,  e.getMessage(), getExplanation(), true);
+			showResult(aTestCaseResult);
+			return aTestCaseResult;
+		} catch (Exception e) {
+			e.printStackTrace();
+			String anExceptionMessage = e.getMessage();
+			TestCaseResult aTestCaseResult = new TestCaseResult(false, e.getMessage(), getExplanation(), true);
+			showResult(aTestCaseResult);
+			return aTestCaseResult;
 		}
+			
+		
 		// InitializationError
 //		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitTester.class);
 //		Runner aRunner = new BlockJUnit4ClassRunner(ASinglePointBeforeClassJUnitMultiTester.class);

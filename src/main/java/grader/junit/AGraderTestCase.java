@@ -17,6 +17,7 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
+import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
@@ -132,6 +133,7 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade)
 			throws NotAutomatableException, NotGradableException {
+    	CurrentProjectHolder.setProject(project); // in case some test reset the project
 		return test();
 //		try {
 //			Class aJUnitClass = getJUnitClass();

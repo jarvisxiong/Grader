@@ -9,7 +9,8 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
 import util.annotations.MaxValue;
-
+import util.annotations.Tags;
+@Tags({"AngleTest"})
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 

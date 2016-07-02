@@ -352,6 +352,9 @@ public class BasicProject implements Project {
     public File getSourceFolder() {
         return sourceFolder;
     }
+    public String toString() {
+    	return sourceFolder + " :" + sourceFilePattern;
+    }
     public static void main (String[] args) {
     	try {
 			BasicGradingEnvironment.get().setLoadClasses(true);

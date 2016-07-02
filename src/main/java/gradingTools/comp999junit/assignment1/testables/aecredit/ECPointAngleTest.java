@@ -7,7 +7,6 @@ import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 
-@Group(ECAbstractPointTest.ANGLE_TESTS)
 public class ECPointAngleTest extends ECAbstractPointTest {
 	
 	

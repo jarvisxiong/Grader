@@ -8,6 +8,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
 import framework.grading.ProjectRequirements;
+import framework.project.CurrentProjectHolder;
 import framework.project.Project;
 import grader.assignment.GradingFeature;
 import grader.trace.feature.FeatureChecked;
@@ -122,6 +123,7 @@ public abstract class Checkable implements Gradable {
             for (TestCase testCase : testCases) {
             	if (testCase == null)
             		continue;
+//            	CurrentProjectHolder.setProject(project); // in case some test reset the project
             	if (project instanceof ProjectWrapper) {
             		((ProjectWrapper) project).getProject().setCurrentTestCase(testCase);
             	}

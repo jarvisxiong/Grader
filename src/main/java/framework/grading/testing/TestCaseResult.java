@@ -93,6 +93,17 @@ public class TestCaseResult {
     public double getPercentage() {
         return percentage;
     }
+    
+    public boolean isPass() {
+    	return percentage == 1.0;
+    }
+    public boolean isPartialPass() {
+    	return !isPass() && !isFail();
+    }
+    
+    public boolean isFail() {
+    	return percentage == 0.0;
+    }
 
     /**
      * @return Any notes about the result

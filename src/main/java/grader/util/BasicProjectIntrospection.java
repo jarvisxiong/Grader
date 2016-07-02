@@ -677,6 +677,37 @@ public class BasicProjectIntrospection {
 	public static Class findProjectInterface(Class aProxyClass) {
 		return findInterface(CurrentProjectHolder.getCurrentProject(), aProxyClass);
 	}
+	public static Class findClassByKeyword(String aKey) {
+		return findClassByKeyword(CurrentProjectHolder.getOrCreateCurrentProject(), aKey);
+	}	
+	
+
+	
+	public static Class findClassByKeyword(Project aProject, String aKey) {
+		Class aCachedClass = keyToClass.get(aKey);
+		if (aCachedClass == null) {
+			aCachedClass = findClassByTag(aProject, aKey); // tag or name match
+		 
+		if (aCachedClass == null)  {
+			aCachedClass = findClassByName(aProject, aKey);
+		}
+		if (aCachedClass == null) {
+			aCachedClass = findClassByTagMatch(aProject, aKey);
+		}
+		if (aCachedClass == null) {
+			aCachedClass = findClassByNameMatch(aProject, aKey);
+		}
+		if (aCachedClass == null) {
+			aCachedClass = Object.class;
+		}
+		keyToClass.put(aKey, aCachedClass);
+
+		}
+		if (aCachedClass == Object.class)
+			return null;
+		return aCachedClass;	
+	}
+
 
 	public static Class findClass(Project aProject, Class aProxyClass) {
 		Class aCachedClass = keyToClass.get(aProxyClass.getName());
@@ -684,9 +715,9 @@ public class BasicProjectIntrospection {
 		String[] aTags = getTags(aProxyClass);
 		Class retVal = findClassByTags(aProject, aTags);
 		if (retVal == null)
-		retVal = findClass(aProject, aProxyClass.getCanonicalName());
+		retVal = findClassByName(aProject, aProxyClass.getCanonicalName());
 		if (retVal == null) 
-		retVal = findClass(aProject, aProxyClass.getSimpleName());
+		retVal = findClassByName(aProject, aProxyClass.getSimpleName());
 		if (retVal == null && aTags.length == 1) {
 			retVal = findClassByTagMatch(aProject, aTags[0]);
 		}
@@ -909,7 +940,7 @@ public class BasicProjectIntrospection {
 	public static Class findUniqueClassByTag(Project aProject, String aTag) {
 		return findClassByTags(aProject, new String[] {aTag});
 	}
-	public static Class findClassByTags(Project aProject, String[] aTags) {
+	public static Class findClassByTags(Project aProject, String... aTags) {
 		if (aTags.length == 0) {
 			return null;
 		}	
@@ -918,7 +949,7 @@ public class BasicProjectIntrospection {
 		return findClass(aProject, null, aTags, null, null);
 	}
 
-	public static Class findClassByTagsCaching(Project aProject, String[] aTags) {
+	public static Class findClassByTagsCaching(Project aProject, String... aTags) {
 		if (aTags.length == 0) {
 			return null;
 		}	
@@ -1022,8 +1053,22 @@ public class BasicProjectIntrospection {
 
 	}
 	public static Class findClassByTag(
-			Project aProject, String[] aTags) {
+			Project aProject, String... aTags) {
 		Set<Class> aClasses = findClassesByTag(aProject, aTags);
+		aClasses = removeSuperTypes(aClasses);
+		if (aClasses.size() != 1)
+			return null;
+		return aClasses.iterator().next();
+
+		// if (aClasses.size() != 1) {
+		// return null;
+		// }
+		// return aClasses.get(0).getJavaClass();
+
+	}
+	public static Class findClassByName(
+			Project aProject, String aName) {
+		Set<Class> aClasses = findClassesByName(aProject, aName);
 		aClasses = removeSuperTypes(aClasses);
 		if (aClasses.size() != 1)
 			return null;
@@ -1055,6 +1100,24 @@ public class BasicProjectIntrospection {
 
 		Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get()
 				.findClassAndInterfaces(null, aTag, null, null);
+		Set<Class> aResult = new HashSet();
+		for (ClassDescription aDescription:aClassDescriptions) {
+			aResult.add(aDescription.getJavaClass());
+		}
+		return aResult;
+
+		// if (aClasses.size() != 1) {
+		// return null;
+		// }
+		// return aClasses.get(0).getJavaClass();
+
+	}
+	public static Set<Class> findClassesByName(Project aProject,
+			String aName) {
+		// List<String> aSortableTagList = new ArrayList(Arrays.asList(aTag));
+
+		Set<ClassDescription> aClassDescriptions = aProject.getClassesManager().get()
+				.findClassAndInterfaces(aName, null, null, null);
 		Set<Class> aResult = new HashSet();
 		for (ClassDescription aDescription:aClassDescriptions) {
 			aResult.add(aDescription.getJavaClass());

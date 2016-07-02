@@ -1,6 +1,7 @@
 package grader.junit;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import grader.util.BasicProjectIntrospection;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,8 +48,29 @@ public class JUnitUtils {
 		}
 		return result;
 	}
+	public static GradableJUnitTest toGradable (Class<?> aSuiteOrTestClass) {
+		if (aSuiteOrTestClass == null) {
+			return null;
+		}
 	
+	if (!isJUnitSuite(aSuiteOrTestClass)) {
+		
+		return new AGradableJUnitTest(aSuiteOrTestClass);
+	}
+	return toGradableTree(aSuiteOrTestClass);
+	}
+	public  static GradableJUnitTest createGradable (String aKeyWord) {
+		Class aClass = BasicProjectIntrospection.findClassByKeyword(aKeyWord);
+		return toGradable(aClass);
+	}
 	public static GradableJUnitSuite toGradableTree (Class<?> aJUnitSuiteClass) {
+		if (aJUnitSuiteClass == null) {
+			return null;
+		}
+//		if (!isJUnitSuite(aJUnitSuiteClass)) {
+//			
+//			return new AGradableJUnitTest(aJUnitSuiteClass);
+//		}
 		Map<String,List<GradableJUnitTest>> aGradableJUnitTestCaseMap = JUnitUtils.toGroupedGradables(aJUnitSuiteClass);
 		GradableJUnitSuite retVal = new AGradableJUnitTopLevelSuite(aJUnitSuiteClass);
 //		List<GradableJUnitTest> retVal = new ArrayList();

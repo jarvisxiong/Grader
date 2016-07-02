@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import util.annotations.Group;
 import util.annotations.MaxValue;
-
+import util.annotations.Tags;
+@Tags({"AngleTest"})
 public class SECPointAngleZeroDegreeTest extends SEAbstractPointTest {	
 	@Test
 	public void test() {	

@@ -1,5 +1,6 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
+import framework.grading.testing.TestCaseResult;
 import framework.project.BasicProject;
 import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
@@ -15,6 +16,7 @@ import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTes
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest;
+import gradingTools.comp999junit.assignment1.testcases.testcases.TestsTestSuite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +40,8 @@ import bus.uigen.ObjectEditor;
    PointRadiusTest.class,
    PointMainTest.class,
    PointPrintTest.class,
-   PointTranslationTest.class
+   PointTranslationTest.class,
+   TestsTestSuite.class
    
 })
 public class CartesianPointSuite {
@@ -47,17 +50,17 @@ public class CartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 //		BasicGradingEnvironment.get().setLoadClasses(false);
-		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "aecredit"));
-//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "secredit"));
+		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "secredit"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "missingcode"));
 
 
 
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(CartesianPointSuite.class);
-		aGradable.testAll();
+		TestCaseResult aTestCaseResult = aGradable.test();
 		System.out.println(aGradable.getText());
 		ObjectEditor.treeEdit(aGradable);
 		Result aResult = JUnitCore.runClasses(CartesianPointSuite.class);

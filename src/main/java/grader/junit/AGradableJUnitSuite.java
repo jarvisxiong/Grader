@@ -102,7 +102,7 @@ public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJ
 	public TestCaseResult test()
 			throws NotAutomatableException, NotGradableException {
 		for (GradableJUnitTest aTest:children) {
-			aTest.test();
+			TestCaseResult aChildResult = aTest.test();
 		}
 		int aNumSuccesses = numTestsSuceeded();
 		if (aNumSuccesses == children.size()) {

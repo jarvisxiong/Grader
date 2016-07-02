@@ -137,7 +137,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public List<CheckResult> checkFeatures(Project project) {
 //    	getUserData().clear();
     	clearUserObjects();
-    	CurrentProjectHolder.setProject(project); // for Junit test cases
+//    	CurrentProjectHolder.setProject(project); // for Junit test cases
     	BasicProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
@@ -148,6 +148,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         for (Feature feature : features) {
 //        	if (feature.isManual()) 
 //        		continue;
+//        	CurrentProjectHolder.setProject(project); // in case some feature reset the project
         	ProjectExecution.redirectOutput();
         	if (isInteractiveRun(feature))
         		results.add(feature.check(project, false)); // added again below

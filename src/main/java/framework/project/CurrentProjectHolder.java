@@ -1,5 +1,7 @@
 package framework.project;
 
+import grader.util.BasicProjectIntrospection;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -16,6 +18,7 @@ public class CurrentProjectHolder {
 	}
 	public static void setProject(Project aProject) {
 		currentProject = aProject;
+		BasicProjectIntrospection.clearProjectCaches();// avoid having to make an extra call for this
 	}
 	public static Project createCurrentProject() {
 		try {
