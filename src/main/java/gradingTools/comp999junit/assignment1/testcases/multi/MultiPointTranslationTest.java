@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import grader.basics.execution.BasicProjectExecution;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
@@ -31,7 +31,7 @@ public class MultiPointTranslationTest extends MultiAbstractPointTest{
 					"Y property " + actualY + " is not equal to 20 ",					
 					actualX == 10 && actualY == 20) ;
 		} catch (Exception e) {
-			JUnitUtils.assertTrue(e, fractionComplete);
+			BasicJUnitUtils.assertTrue(e, fractionComplete);
 		}
 	}
 

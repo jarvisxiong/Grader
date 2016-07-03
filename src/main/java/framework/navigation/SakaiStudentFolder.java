@@ -12,8 +12,8 @@ import org.joda.time.DateTime;
 
 import util.misc.Common;
 import framework.project.StandardProject;
-import grader.basics.project.Option;
 import grader.basics.util.DirectoryUtils;
+import grader.basics.util.Option;
 import grader.project.flexible.AFlexibleProject;
 
 /**

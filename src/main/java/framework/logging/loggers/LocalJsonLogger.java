@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import framework.logging.recorder.RecordingSession;
 import framework.logging.serializers.SerializationUtils;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 
 /**
  * This saves data to a local location

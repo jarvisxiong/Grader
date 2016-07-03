@@ -1,6 +1,6 @@
 package grader.project.flexible;
 
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;

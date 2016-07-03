@@ -1,6 +1,6 @@
 package gradingTools.comp999junit.assignment1.testables.secredit;
 
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
@@ -30,7 +30,7 @@ public abstract class SEAbstractPointTest {
 			checkComputations(aComputedAngle, aComputedRadius, aCorrectAngle, aCorrectRadius);		
 
 		} catch (Exception e) {
-			JUnitUtils.assertTrue(e, fractionComplete);
+			BasicJUnitUtils.assertTrue(e, fractionComplete);
 		}
 	}
 }

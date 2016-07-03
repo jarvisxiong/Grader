@@ -1,5 +1,6 @@
 package framework.execution;
 
+import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.Project;
 import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;

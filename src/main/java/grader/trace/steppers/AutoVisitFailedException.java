@@ -1,6 +1,6 @@
 package grader.trace.steppers;
 
-import grader.trace.UncheckedGraderException;
+import grader.basics.trace.UncheckedGraderException;
 
 public class AutoVisitFailedException extends UncheckedGraderException { // will be user error
 	

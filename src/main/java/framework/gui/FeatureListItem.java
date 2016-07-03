@@ -12,9 +12,9 @@ import javax.swing.event.ChangeListener;
 
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
-import framework.grading.testing.TestCaseResult;
-import grader.basics.project.Option;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.Project;
+import grader.basics.util.Option;
 
 /**
  * This represents a row in the feature list and handles setting up all the listeners.

@@ -2,7 +2,7 @@ package gradingTools.sharedTestCase;
 
 import java.util.regex.Pattern;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 
 public class RestrictedRegexOutsideComments extends RestrictedStringOutsideComments {
 

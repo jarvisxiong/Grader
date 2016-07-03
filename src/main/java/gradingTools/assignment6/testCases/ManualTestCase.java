@@ -1,8 +1,8 @@
 package gradingTools.assignment6.testCases;
 
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 /**

@@ -1,11 +1,11 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import framework.grading.testing.TestCaseResult;
-import framework.utils.BasicGradingEnvironment;
 import grader.basics.junit.GradableJUnitSuite;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProject;
 import grader.basics.project.CurrentProjectHolder;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
@@ -59,7 +59,7 @@ public class CartesianPointSuite {
 
 
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
-		GradableJUnitSuite aGradable = JUnitUtils.toGradableTree(CartesianPointSuite.class);
+		GradableJUnitSuite aGradable = BasicJUnitUtils.toGradableTree(CartesianPointSuite.class);
 		TestCaseResult aTestCaseResult = aGradable.test();
 		System.out.println(aGradable.getText());
 		ObjectEditor.treeEdit(aGradable);

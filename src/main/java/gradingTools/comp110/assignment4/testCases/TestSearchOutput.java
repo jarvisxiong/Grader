@@ -2,9 +2,9 @@ package gradingTools.comp110.assignment4.testCases;
 
 import java.util.regex.Pattern;
 
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.TestCaseResult;
 import grader.basics.execution.RunningProject;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 

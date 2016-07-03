@@ -1,9 +1,9 @@
 package gradingTools.comp999junit.assignment1.testcases.testcases;
 import java.io.File;
 
-import framework.grading.testing.TestCaseResult;
 import grader.basics.junit.GradableJUnitTest;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
@@ -18,7 +18,7 @@ public class AngleTestTest {
 		double aFractionComplete = 0.0;
 		try {
 		String aKey = "AngleTest";
-		GradableJUnitTest aTest = JUnitUtils.createGradable("AngleTest");
+		GradableJUnitTest aTest = BasicJUnitUtils.createGradable("AngleTest");
 		Assert.assertTrue("Could not find class matching " + aKey, aTest != null);
 		aFractionComplete += 0.1; // they had a test class at least
 		Project aWrongAngleProject = new BasicProject(null, new File("."), null, "wrongangle");
@@ -34,7 +34,7 @@ public class AngleTestTest {
 		aFractionComplete = 1.0;
 
 		} catch (Exception e) {
-			JUnitUtils.assertTrue(e, aFractionComplete);
+			BasicJUnitUtils.assertTrue(e, aFractionComplete);
 		} finally {
 			CurrentProjectHolder.setProject(aGradedProject);
 

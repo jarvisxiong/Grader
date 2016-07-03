@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Restriction;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 
 /**
  * This represents a row in the restriction list and handles setting up all the listeners.

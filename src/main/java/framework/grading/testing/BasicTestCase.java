@@ -1,5 +1,7 @@
 package framework.grading.testing;
 
+import grader.basics.junit.TestCaseResult;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 

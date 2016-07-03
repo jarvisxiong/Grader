@@ -1,6 +1,6 @@
 package grader.trace.sakai_bulk_folder;
 
-import grader.trace.UncheckedGraderException;
+import grader.basics.trace.UncheckedGraderException;
 
 public class FinalGradeFileNotFound extends UncheckedGraderException {
 	String fileName;

@@ -4,7 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import util.models.PropertyListenerRegisterer;
-import framework.grading.testing.TestCaseResult;
 
 
 public interface GradableJUnitTest extends PropertyListenerRegisterer  {

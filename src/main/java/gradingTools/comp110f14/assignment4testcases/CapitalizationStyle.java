@@ -1,6 +1,6 @@
 package gradingTools.comp110f14.assignment4testcases;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
 import java.util.ArrayList;

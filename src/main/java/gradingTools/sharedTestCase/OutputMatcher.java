@@ -1,9 +1,9 @@
 package gradingTools.sharedTestCase;
 
-import framework.execution.NotRunnableException;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
+import grader.basics.junit.NotAutomatableException;
 import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 

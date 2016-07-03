@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import util.misc.Common;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
-import framework.grading.testing.TestCaseResult;
 import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.util.ProjectExecution;
 

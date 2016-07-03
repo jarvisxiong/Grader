@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
 import grader.basics.execution.BasicProjectExecution;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
@@ -34,7 +34,7 @@ public class PointPrintTest extends AbstractPointTest{
 					anOutput.contains("" + anX) &&
 					anOutput.contains("" + aY));
 		} catch (Exception e) {
-			JUnitUtils.assertTrue(e, fractionComplete);
+			BasicJUnitUtils.assertTrue(e, fractionComplete);
 		}
 	}
 

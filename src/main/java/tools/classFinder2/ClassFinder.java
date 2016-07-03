@@ -11,7 +11,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import scala.Option;
-import framework.grading.testing.NotAutomatableException;
+import grader.basics.junit.NotAutomatableException;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.Project;
 

@@ -1,7 +1,7 @@
 package gradingTools.assignment1;
 
 import framework.execution.ARunningProject;
-import framework.execution.NotRunnableException;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.Project;
 

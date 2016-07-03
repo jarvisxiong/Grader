@@ -1,5 +1,8 @@
 package framework.grading.testing;
 
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.permissions.Permissible;
 

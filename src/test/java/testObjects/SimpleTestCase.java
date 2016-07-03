@@ -2,7 +2,7 @@ package testObjects;
 
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.Checkable;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.Project;
 
 /**

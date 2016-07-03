@@ -22,11 +22,11 @@ import com.github.antlrjavaparser.api.stmt.Statement;
 import com.github.antlrjavaparser.api.stmt.WhileStmt;
 
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
 import framework.project.ParsableClassDescription;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.ClassDescription;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 public class RestrictedStringOutsideComments extends BasicTestCase {

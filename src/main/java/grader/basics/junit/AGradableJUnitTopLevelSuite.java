@@ -1,8 +1,5 @@
 package grader.basics.junit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;

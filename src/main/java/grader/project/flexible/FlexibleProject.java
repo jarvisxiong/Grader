@@ -2,8 +2,8 @@ package grader.project.flexible;
 
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
+import grader.basics.execution.MainClassFinder;
 import grader.basics.execution.RunningProject;
-import grader.execution.MainClassFinder;
 import grader.execution.ProxyBasedClassesManager;
 import grader.execution.ProxyClassLoader;
 import grader.project.folder.RootCodeFolder;

@@ -1,10 +1,10 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
-import framework.execution.NotRunnableException;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.execution.NotRunnableException;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 

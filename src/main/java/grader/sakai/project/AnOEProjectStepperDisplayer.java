@@ -1,7 +1,7 @@
 package grader.sakai.project;
 
-import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeatureList;
+import grader.basics.settings.BasicGradingEnvironment;
 import util.trace.TraceableWarning;
 import bus.uigen.ObjectEditor;
 import bus.uigen.uiFrame;

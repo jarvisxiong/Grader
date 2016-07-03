@@ -13,7 +13,7 @@ import javax.tools.ToolProvider;
 
 import util.trace.javac.CompilerNotFound;
 import framework.execution.ARunningProject;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.trace.compilation.SourceFileCompiled;
 

@@ -1,6 +1,6 @@
 package grader.trace.project;
 
-import grader.trace.UncheckedGraderException;
+import grader.basics.trace.UncheckedGraderException;
 
 public class BinaryFolderNotFound extends UncheckedGraderException {
 	String projectFolder;

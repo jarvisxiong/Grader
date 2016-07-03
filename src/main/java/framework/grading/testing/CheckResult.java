@@ -1,5 +1,7 @@
 package framework.grading.testing;
 
+import grader.basics.junit.TestCaseResult;
+
 import java.util.ArrayList;
 import java.util.List;
 

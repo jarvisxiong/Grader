@@ -1,10 +1,10 @@
 package gradingTools.comp999junit.assignment1.testcases.testcases;
 
-import framework.utils.BasicGradingEnvironment;
 import grader.basics.junit.GradableJUnitSuite;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.project.BasicProject;
 import grader.basics.project.CurrentProjectHolder;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;

@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment12.testcases;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
 import gradingTools.sharedTestCase.CheckStyleTestCase;
 

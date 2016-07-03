@@ -1,11 +1,11 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.utils.BasicGradingEnvironment;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicClassDescription;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.ClassesManager;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.basics.util.DirectoryUtils;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;

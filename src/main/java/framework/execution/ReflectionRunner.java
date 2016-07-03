@@ -7,13 +7,15 @@ import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import tools.TimedProcess;
 import util.misc.TeePrintStream;
 import util.pipe.InputGenerator;
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.Runner;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.ClassesManager;
 import grader.basics.project.Project;
+import grader.basics.util.TimedProcess;
 
 /**
  * Runs a project in the same JVM using reflection to invoke the main method.

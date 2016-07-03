@@ -9,12 +9,15 @@ import java.io.OutputStreamWriter;
 import java.util.Map;
 import java.util.Scanner;
 
-import tools.TimedProcess;
 import util.misc.Common;
 import util.pipe.InputGenerator;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.Runner;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.util.TimedProcess;
 import grader.config.StaticConfigurationUtils;
 import grader.language.LanguageDependencyManager;
 import grader.trace.execution.MainClassFound;
@@ -74,7 +77,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * This runs the project with no arguments
      * @param input The input is ignored.
      * @return A RunningProject object which you can use for synchronization and acquiring output
-     * @throws framework.execution.NotRunnableException
+     * @throws grader.basics.execution.NotRunnableException
      */
     @Override
     public ARunningProject run(String input) throws NotRunnableException {
@@ -89,7 +92,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @param input The input is ignored.
      * @param timeout The timeout, in seconds. Set to -1 for no timeout
      * @return A RunningProject object which you can use for synchronization and acquiring output
-     * @throws framework.execution.NotRunnableException
+     * @throws grader.basics.execution.NotRunnableException
      */
     @Override
     public ARunningProject run(String input, int timeout) throws NotRunnableException {
@@ -102,7 +105,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
      * @param args The arguments to pass in
      * @param timeout The timeout, in seconds. Set to -1 for no timeout
      * @return A RunningProject object which you can use for synchronization and acquiring output
-     * @throws framework.execution.NotRunnableException
+     * @throws grader.basics.execution.NotRunnableException
      */
     @Override
 	public ARunningProject run(InputGenerator aDynamicInputProvider, String anEntryPoint, String input,

@@ -2,11 +2,11 @@ package wrappers.grader.checkers;
 
 import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.Checkable;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
 import framework.logging.recorder.ConglomerateRecorder;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.checkers.ACheckResult;
 import grader.checkers.CheckResult;
 

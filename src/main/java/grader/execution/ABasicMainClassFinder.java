@@ -1,12 +1,16 @@
 package grader.execution;
 
 
-import framework.execution.BasicProcessRunner;
-import framework.execution.NotRunnableException;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.MainClassFinder;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.project.flexible.FlexibleClassDescription;
 import grader.project.flexible.FlexibleClassesManager;
 //import grader.project.Project;
+
+
+
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -93,7 +97,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
      * This figures out what class is the "entry point", or, what class has main(args)
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
-     * @throws framework.execution.NotRunnableException
+     * @throws grader.basics.execution.NotRunnableException
      * @see grader.execution.ABasicMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */

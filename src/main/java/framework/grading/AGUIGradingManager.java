@@ -21,8 +21,8 @@ import framework.navigation.BulkDownloadFolder;
 import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
-import grader.basics.project.Option;
 import grader.basics.project.Project;
+import grader.basics.util.Option;
 
 /**
  * This class is responsible for the entire grading pipeline, which is:

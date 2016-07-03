@@ -2,6 +2,7 @@ package framework.grading.testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import grader.basics.junit.TestCaseResult;
 
 import org.junit.Test;
 

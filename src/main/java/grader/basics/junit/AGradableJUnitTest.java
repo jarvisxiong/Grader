@@ -1,5 +1,7 @@
 package grader.basics.junit;
 
+import grader.basics.project.NotGradableException;
+
 import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -11,9 +13,6 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
-import bus.uigen.ObjectEditor;
-import bus.uigen.attributes.AttributeNames;
-import bus.uigen.introspect.Attribute;
 import util.annotations.Explanation;
 import util.annotations.Group;
 import util.annotations.IsExtra;
@@ -23,12 +22,8 @@ import util.annotations.Position;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
-import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import grader.basics.project.Project;
-import grader.junit.test.directreference.ACartesianPointJUnitTester;
+import bus.uigen.attributes.AttributeNames;
+import bus.uigen.introspect.Attribute;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 public class AGradableJUnitTest implements GradableJUnitTest{
 	public static final Color UNTESTED_COLOR = Color.BLACK;
@@ -400,12 +395,12 @@ public class AGradableJUnitTest implements GradableJUnitTest{
 	public int numLeafNodeDescendents() {
 		return 0;
 	}
-	public static void main (String[] args) {
-		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
-		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
-//		foo.setJUnitClass(ACartesianPointJUnitTester.class);
-		System.out.println (foo);
-	}
+//	public static void main (String[] args) {
+//		ObjectEditor.edit(new bus.uigen.test.ACompositeColorer());
+//		AGradableJUnitTest foo = new AGradableJUnitTest(ACartesianPointJUnitTester.class);
+////		foo.setJUnitClass(ACartesianPointJUnitTester.class);
+//		System.out.println (foo);
+//	}
 
 	@Override
 	public int numInternalNodeDescendents() {

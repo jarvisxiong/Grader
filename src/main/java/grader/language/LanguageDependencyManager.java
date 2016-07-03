@@ -1,5 +1,6 @@
 package grader.language;
 
+import grader.basics.BasicLanguageDependencyManager;
 import grader.checkStyle.CheckStyleInvoker;
 import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.ClassFilesCompiler;

@@ -1,20 +1,16 @@
 package grader.basics.project;
 
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.RunningProject;
+import grader.basics.util.Option;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
-
 //import scala.Option;
-
-
-
-
 import util.pipe.InputGenerator;
+
 import util.trace.TraceableLog;
-import framework.execution.BasicProcessRunner;
-import framework.execution.NotRunnableException;
-import grader.basics.execution.RunningProject;
-import grader.basics.project.Option;
 
 /**
  * Based on {@link grader.project.flexible.FlexibleProject}

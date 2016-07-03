@@ -1,8 +1,7 @@
 package grader.basics.util;
 
-import framework.utils.BasicGradingEnvironment;
-import grader.basics.project.Option;
-import grader.language.BasicLanguageDependencyManager;
+import grader.basics.BasicLanguageDependencyManager;
+import grader.basics.settings.BasicGradingEnvironment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 //import scala.Option;
+
+
+
 
 import util.misc.Common;
 import util.trace.Tracer;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import scala.Option;
 import tools.classFinder2.ClassFinder;
-import framework.grading.testing.NotAutomatableException;
+import grader.basics.junit.NotAutomatableException;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.Project;
 

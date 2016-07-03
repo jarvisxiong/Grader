@@ -2,16 +2,16 @@ package framework.project;
 
 import framework.execution.ARunningProject;
 import framework.execution.InteractiveConsoleProcessRunner;
-import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.ClassesManager;
-import grader.basics.project.Option;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.basics.util.DirectoryUtils;
+import grader.basics.util.Option;
 import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Set;
 
 //import scala.Option;
+
+
+
 
 
 

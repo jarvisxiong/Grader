@@ -2,7 +2,7 @@ package grader.checkers;
 
 import java.util.List;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 
 public interface CheckResult {
     public double getScore();

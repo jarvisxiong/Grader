@@ -3,9 +3,9 @@ package grader.spreadsheet;
 import java.util.List;
 
 import framework.grading.testing.CheckResult;
-import framework.grading.testing.TestCaseResult;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.basics.junit.TestCaseResult;
 
 public interface FeatureGradeRecorder extends FinalGradeRecorder{
 	void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore);

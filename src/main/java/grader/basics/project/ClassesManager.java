@@ -1,6 +1,5 @@
 package grader.basics.project;
 
-import java.util.List;
 import java.util.Set;
 
 /**

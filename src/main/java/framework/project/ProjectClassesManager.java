@@ -1,14 +1,15 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.BasicLanguageDependencyManager;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicClassDescription;
 import grader.basics.project.BasicProjectClassesManager;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.ClassesManager;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.basics.util.DirectoryUtils;
-import grader.language.BasicLanguageDependencyManager;
+import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
 import grader.project.flexible.AFlexibleProject;
@@ -35,7 +36,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //    private final File buildFolder;
 //    private final File sourceFolder;
 //    private ClassLoader classLoader;
-//    protected ProxyClassLoader proxyClassLoader;
+    protected ProxyClassLoader proxyClassLoader;
 //    private final Set<ClassDescription> classDescriptions;
 //    List<String> classNamesToCompile = new ArrayList();
 
@@ -77,6 +78,18 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //        	}
             classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
         }
+    }
+    protected Class loadClass(String className) throws ClassNotFoundException {
+    	if (BasicGradingEnvironment.get().isLoadClasses() && 
+				proxyClassLoader != null) // if we are precompiling or cleaning up, this will be null
+		{
+//			c = classLoader.loadClass(className);
+			return proxyClassLoader.loadClass(className);
+		}
+		if (BasicGradingEnvironment.get().isLoadClasses() && proxyClassLoader == null) {
+			return classLoader.loadClass(className);
+		}
+		return null;
     }
     protected ClassDescription createClassDescription (Class<?> javaClass, File source) {
     	return new AParsableClassDescription(javaClass, source);

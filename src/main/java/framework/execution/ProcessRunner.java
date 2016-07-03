@@ -1,9 +1,16 @@
 package framework.execution;
 
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.ARunnerErrorStreamProcessor;
+import grader.basics.execution.ARunnerInputStreamProcessor;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.Runner;
+import grader.basics.execution.RunnerErrorOrOutStreamProcessor;
+import grader.basics.execution.RunnerInputStreamProcessor;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
@@ -787,6 +794,12 @@ public class ProcessRunner extends BasicProcessRunner implements Runner {
 	protected RunningProject createRunningProject(Project aProject, InputGenerator anOutputBasedInputGenerator, String anInput) {
 		return new ARunningProject(aProject, anOutputBasedInputGenerator, anInput);
 	}
+	protected RunningProject createRunningProject(Project aProject, 
+			InputGenerator anOutputBasedInputGenerator, 
+			List<String> aProcesses, Map<String, String> aProcessToInput) {
+ 
+	return new ARunningProject(project, anOutputBasedInputGenerator, processes, aProcessToInput);
+}
 	
 	protected String mainEntryPoint() {
 		return  BasicProcessRunner.MAIN_ENTRY_POINT;

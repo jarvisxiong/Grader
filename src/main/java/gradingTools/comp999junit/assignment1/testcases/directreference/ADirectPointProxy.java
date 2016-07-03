@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 
 //import org.junit.Test;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
@@ -54,7 +54,7 @@ public class ADirectPointProxy implements MultiPointProxy{
 		getAngle();
 		} catch (Exception e) {
 			e.printStackTrace();
-			JUnitUtils.assertTrue(e,fractionComplete);
+			BasicJUnitUtils.assertTrue(e,fractionComplete);
 		}
 	}	
 //	static Class[] emptyClassArray = {};

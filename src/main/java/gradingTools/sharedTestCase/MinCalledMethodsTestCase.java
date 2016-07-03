@@ -2,7 +2,7 @@ package gradingTools.sharedTestCase;
 
 import java.util.List;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
 
 

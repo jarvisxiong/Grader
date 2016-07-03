@@ -10,28 +10,35 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import tools.TimedProcess;
 import util.misc.Common;
 import util.misc.ThreadSupport;
 import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.ARunnerErrorStreamProcessor;
+import grader.basics.execution.ARunnerInputStreamProcessor;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.NoTerminatingProcessSpecified;
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.Runner;
+import grader.basics.execution.RunnerErrorOrOutStreamProcessor;
+import grader.basics.execution.RunnerInputStreamProcessor;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.trace.UserProcessExecutionFinished;
+import grader.basics.trace.UserProcessExecutionStarted;
+import grader.basics.trace.UserProcessExecutionTimedOut;
+import grader.basics.util.TimedProcess;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
 import grader.execution.ExecutionSpecificationSelector;
-import grader.execution.NoTerminatingProcessSpecified;
 import grader.execution.TagNotFound;
 import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.sakai.project.SakaiProject;
-import grader.trace.execution.UserProcessExecutionFinished;
-import grader.trace.execution.UserProcessExecutionStarted;
-import grader.trace.execution.UserProcessExecutionTimedOut;
 
 /**
  * This runs the program in a new process.

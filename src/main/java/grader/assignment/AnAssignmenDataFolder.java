@@ -1,7 +1,7 @@
 package grader.assignment;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.AConfigurationManager;
 import grader.config.StaticConfigurationUtils;
 import grader.file.FileProxy;

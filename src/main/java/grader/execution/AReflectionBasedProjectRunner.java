@@ -1,6 +1,6 @@
 package grader.execution;
 
-import framework.execution.NotRunnableException;
+import grader.basics.execution.NotRunnableException;
 import grader.project.flexible.FlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.execution.UserThreadExecutionFinished;

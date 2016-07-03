@@ -24,15 +24,15 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
-import framework.execution.NotRunnableException;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.navigation.StudentFolder;
-import framework.utils.BasicGradingEnvironment;
-import grader.basics.project.Option;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.util.Option;
 
 /**
  * Created with IntelliJ IDEA.

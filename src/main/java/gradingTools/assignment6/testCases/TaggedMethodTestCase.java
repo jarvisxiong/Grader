@@ -5,9 +5,9 @@ import java.util.Set;
 
 import util.annotations.Tags;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.ClassDescription;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 /**

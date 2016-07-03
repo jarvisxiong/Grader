@@ -1,6 +1,6 @@
 package grader.executor;
 
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.compilation.c.CFilesCompilerSelector;
 import grader.config.StaticConfigurationUtils;
 

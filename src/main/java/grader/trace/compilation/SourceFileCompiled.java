@@ -1,6 +1,6 @@
 package grader.trace.compilation;
 
-import grader.trace.UncheckedGraderException;
+import grader.basics.trace.UncheckedGraderException;
 
 public class SourceFileCompiled extends UncheckedGraderException {
 	String fileName;

@@ -1,5 +1,6 @@
 package framework.execution;
 
+import grader.basics.execution.ARunnerErrorOrOutStreamProcessor;
 import grader.config.StaticConfigurationUtils;
 
 import java.io.InputStream;

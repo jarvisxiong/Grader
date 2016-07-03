@@ -8,9 +8,9 @@ import framework.navigation.BulkDownloadFolder;
 import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
-import framework.utils.BasicGradingEnvironment;
-import grader.basics.project.Option;
 import grader.basics.project.Project;
+import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.util.Option;
 import grader.settings.GraderSettingsManager;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment10.testCases;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
 import util.trace.TraceableListener;
 

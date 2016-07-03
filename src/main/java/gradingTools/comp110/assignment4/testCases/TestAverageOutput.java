@@ -1,6 +1,6 @@
 package gradingTools.comp110.assignment4.testCases;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 
 public class TestAverageOutput extends TestGerbilInputWithCommand {
 

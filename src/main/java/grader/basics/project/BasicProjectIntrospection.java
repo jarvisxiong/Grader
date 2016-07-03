@@ -23,7 +23,8 @@ import util.models.Hashcodetable;
 import grader.basics.execution.BasicProjectExecution;
 //import framework.grading.testing.TestCase;
 import grader.basics.junit.GradableJUnitSuite;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
+import grader.basics.util.Permutations;
 
 public class BasicProjectIntrospection {
 
@@ -1653,7 +1654,7 @@ public class BasicProjectIntrospection {
 	public static Set<GradableJUnitSuite> findTopLevelGradabableTrees() {
 		if (topLevelSuites == null) {
 			Set<Class> aClasses = getAllClasses();
-			topLevelSuites = JUnitUtils.findGradableTrees(aClasses);
+			topLevelSuites = BasicJUnitUtils.findGradableTrees(aClasses);
 			
 		}
 		return topLevelSuites;

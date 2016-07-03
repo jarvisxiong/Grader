@@ -1,8 +1,8 @@
 package grader.execution;
 
 
-import framework.execution.BasicProcessRunner;
-import framework.execution.NotRunnableException;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;

@@ -1,6 +1,6 @@
 package grader.interaction_logger;
 
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.interaction_logger.manual_grading_stats.GradingHistoryManagerSelector;
 import grader.trace.CSVSerializable;

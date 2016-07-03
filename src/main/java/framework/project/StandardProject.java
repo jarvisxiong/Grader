@@ -2,14 +2,14 @@ package framework.project;
 
 import framework.execution.ARunningProject;
 import framework.execution.InteractiveConsoleProcessRunner;
-import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
+import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicProject;
 import grader.basics.project.ClassesManager;
-import grader.basics.project.Option;
 import grader.basics.project.Project;
+import grader.basics.util.Option;
 import grader.sakai.project.SakaiProject;
 
 import java.io.File;

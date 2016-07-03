@@ -1,8 +1,8 @@
 package gradingTools.comp790Colab.assignment1.testcases;
 
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 public class CollaborativeInputAddAndMultiplyTestCase extends CollaborativeInputPrintAddAndMultiplyTestCase {

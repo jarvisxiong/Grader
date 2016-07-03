@@ -1,6 +1,6 @@
 package gradingTools.comp999junit.assignment1;
 
-import grader.basics.junit.AJUnitProjectRequirements;
+import grader.junit.AJUnitProjectRequirements;
 import gradingTools.comp999junit.assignment1.testcases.CartesianPointSuite;
 import gradingTools.comp999junit.assignment1.testcases.autoproxyreference.AnAutoPointProxy;
 import gradingTools.comp999junit.assignment1.testcases.autoproxyreference.AutoProxyCartesianPointSuite;

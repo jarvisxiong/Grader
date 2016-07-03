@@ -1,8 +1,9 @@
 package grader.execution;
 
 
-import framework.execution.BasicProcessRunner;
-import framework.execution.NotRunnableException;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.MainClassFinder;
+import grader.basics.execution.NotRunnableException;
 import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
@@ -77,7 +78,7 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
      * This figures out what class is the "entry point", or, what class has main(args)
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
-     * @throws framework.execution.NotRunnableException
+     * @throws grader.basics.execution.NotRunnableException
      * @see grader.execution.AnOriginalMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */

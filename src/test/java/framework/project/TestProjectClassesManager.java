@@ -2,7 +2,7 @@ package framework.project;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.project.flexible.AFlexibleProject;
 

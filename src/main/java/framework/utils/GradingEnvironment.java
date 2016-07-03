@@ -1,5 +1,6 @@
 package framework.utils;
 
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 
 import java.io.File;

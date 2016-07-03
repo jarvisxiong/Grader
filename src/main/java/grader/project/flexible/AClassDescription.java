@@ -1,7 +1,7 @@
 //non Java doc reg exp: (?s)/\*[^*](?:(?!\*/).)*\(non-javadoc\)(?:(?!\*/).)*\*/
 package grader.project.flexible;
 
-import framework.utils.BasicGradingEnvironment;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.execution.ProxyClassLoader;
 import grader.file.FileProxy;
 import grader.trace.compilation.ClassFileCouldNotBeCompiled;
@@ -35,6 +35,7 @@ import bus.uigen.reflect.ClassProxy;
 import bus.uigen.reflect.local.AClassProxy;
 // gets the source from AClassesManager
 // converts class name to class object
+
 
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;

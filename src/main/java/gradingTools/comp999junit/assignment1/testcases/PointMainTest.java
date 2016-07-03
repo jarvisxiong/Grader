@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
 import grader.basics.execution.BasicProjectExecution;
-import grader.basics.junit.JUnitUtils;
+import grader.basics.junit.BasicJUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 
 import org.junit.Assert;

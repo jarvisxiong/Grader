@@ -1,11 +1,8 @@
 package grader.basics.project;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
-
-import com.github.antlrjavaparser.api.CompilationUnit;
 
 /**
  * Based on {@link grader.project.flexible.FlexibleClassDescription}

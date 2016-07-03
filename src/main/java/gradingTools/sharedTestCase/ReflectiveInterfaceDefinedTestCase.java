@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 
 /**

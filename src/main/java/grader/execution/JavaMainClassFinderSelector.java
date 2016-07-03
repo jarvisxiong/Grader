@@ -1,5 +1,7 @@
 package grader.execution;
 
+import grader.basics.execution.MainClassFinder;
+
 public class JavaMainClassFinderSelector {
 	static MainClassFinder mainClassFinder = new ABasicMainClassFinder();
 

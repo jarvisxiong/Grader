@@ -1,5 +1,6 @@
 package framework.execution;
 
+import grader.basics.execution.ABasicRunnerOutputStreamProcessor;
 import grader.basics.execution.RunningProject;
 import grader.config.StaticConfigurationUtils;
 

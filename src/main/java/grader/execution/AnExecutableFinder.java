@@ -5,8 +5,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import framework.execution.BasicProcessRunner;
-import framework.execution.NotRunnableException;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.MainClassFinder;
+import grader.basics.execution.NotRunnableException;
 import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 //import framework.project.ClassDescription;

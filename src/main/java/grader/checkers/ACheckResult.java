@@ -3,7 +3,7 @@ package grader.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 
 public class ACheckResult implements CheckResult {
 	List<String> log = new ArrayList();

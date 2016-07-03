@@ -1,6 +1,6 @@
 package gradingTools.comp110f14lab.lab4.testcases;
 
-import framework.grading.testing.TestCaseResult;
+import grader.basics.junit.TestCaseResult;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
 import com.github.antlrjavaparser.api.stmt.WhileStmt;

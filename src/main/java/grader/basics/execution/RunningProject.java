@@ -3,10 +3,7 @@ package grader.basics.execution;
 import java.io.Closeable;
 import java.util.Map;
 
-import framework.execution.NotRunnableException;
-import framework.execution.RunnerErrorOrOutStreamProcessor;
-import framework.execution.RunnerInputStreamProcessor;
-import tools.TimedProcess;
+import grader.basics.util.TimedProcess;
 
 public interface RunningProject {
 

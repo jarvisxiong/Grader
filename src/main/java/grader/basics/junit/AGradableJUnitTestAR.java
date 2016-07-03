@@ -1,10 +1,7 @@
 package grader.basics.junit;
 
-import java.awt.Color;
-
 import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
-import bus.uigen.models.AMainClassListLauncher;
 import bus.uigen.undo.ExecutableCommand;
 
 public class AGradableJUnitTestAR implements ExecutableCommand {

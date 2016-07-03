@@ -20,8 +20,8 @@ import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.logging.recorder.RecordingSession;
 import framework.utils.GraderSettings;
-import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeature;
+import grader.basics.settings.BasicGradingEnvironment;
 import grader.settings.GraderSettingsManagerSelector;
 
 /**

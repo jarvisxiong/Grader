@@ -1,10 +1,10 @@
 package grader.compilation.c;
 
 import framework.execution.ProcessRunner;
-import framework.execution.Runner;
+import grader.basics.BasicLanguageDependencyManager;
+import grader.basics.execution.Runner;
 import grader.basics.execution.RunningProject;
 import grader.compilation.ClassFilesCompiler;
-import grader.language.BasicLanguageDependencyManager;
 import grader.language.LanguageDependencyManager;
 import grader.settings.GraderSettingsManagerSelector;
 

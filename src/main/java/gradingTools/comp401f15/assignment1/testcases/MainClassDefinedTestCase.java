@@ -1,7 +1,7 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
-import framework.execution.BasicProcessRunner;
-import framework.grading.testing.TestCaseResult;
+import grader.basics.execution.BasicProcessRunner;
+import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
 import gradingTools.sharedTestCase.ClassDefinedTestCase;
 

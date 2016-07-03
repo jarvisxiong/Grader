@@ -1,6 +1,6 @@
 package grader.trace.project;
 
-import grader.trace.UncheckedGraderException;
+import grader.basics.trace.UncheckedGraderException;
 
 public class SourceFolderNotFound extends UncheckedGraderException {
 	String projectFolder;
