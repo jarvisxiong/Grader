@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 
 //import org.junit.Test;
-import grader.junit.JUnitUtils;
+import grader.basics.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 //import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;

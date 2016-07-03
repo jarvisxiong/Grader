@@ -1,7 +1,7 @@
 package gradingTools.comp110f14.assignment3testcases;
 
-import framework.execution.RunningProject;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class SharedOutput {

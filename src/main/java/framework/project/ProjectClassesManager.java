@@ -1,16 +1,31 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.execution.RunningProject;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicClassDescription;
+import grader.basics.project.BasicProjectClassesManager;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.util.DirectoryUtils;
+import grader.language.BasicLanguageDependencyManager;
 import grader.language.LanguageDependencyManager;
+import grader.navigation.NavigationKind;
 import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
+import grader.settings.GraderSettingsModelSelector;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * @see ClassesManager
@@ -23,6 +38,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //    protected ProxyClassLoader proxyClassLoader;
 //    private final Set<ClassDescription> classDescriptions;
 //    List<String> classNamesToCompile = new ArrayList();
+
     SakaiProject project;
     protected void setProject (Object aProject) {
     	project = (SakaiProject) aProject;
@@ -49,6 +65,18 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //
 //        loadClasses(sourceFolder);
 //        checkStyle(project, sourceFolder);
+    }
+    protected void initializeClassLoaders() throws IOException{
+    	// Create the Class Loader and load the classes
+        if (BasicGradingEnvironment.get().isLoadClasses() ) {
+//        	classLoader = project.getClassLoader();
+//        	if (classLoader == null)
+        	setOtherLoaders();
+//        	if (project != null) {
+//        	proxyClassLoader = project.getClassLoader();
+//        	}
+            classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
+        }
     }
     protected ClassDescription createClassDescription (Class<?> javaClass, File source) {
     	return new AParsableClassDescription(javaClass, source);
@@ -131,18 +159,137 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //     * @throws ClassNotFoundException
 //     * @throws IOException
 //     */
-//    private void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
+    protected void maybeCompileSourceFiles ( Set<File> sourceFiles ) throws IOException {
+    	if (BasicGradingEnvironment.get().isCompileMissingObjectCode()
+                || BasicGradingEnvironment.get().isForceCompile()
+                || BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
+
+            // Check if any files need to be compiled
+            ArrayList<File> aFilesToCompile = new ArrayList<File>();
+            for (File file : sourceFiles) {
+                String className = getClassName(file);
+                File classFile = getClassFile(className);
+                if (shouldCompile(file, classFile)) {
+                    classNamesToCompile.add(className);
+                    aFilesToCompile.add(file);
+                }
+            }
+            if (aFilesToCompile.size() > 0) {
+                if (GraderSettingsModelSelector.getGraderSettingsModel() != null
+                        && GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC
+                        && !BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
+                    return;
+                }
+                try {
+                    System.out.println("Attempting to compile files.");
+//                    project.setHasBeenCompiled(true);
+                    maybeSetHasBeenCompiled(true);
+                    aFilesToCompile = new ArrayList<>(sourceFiles); // compile all if we have to compile one because the previpusly comppiled files may be different version from ours
+                	
+    //				compile(aFilesToCompile);
+                    //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
+                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+                    if (runningProject != null) {
+                        //					String outputAndErrors = runningProject.getOutputAndErrors();
+//                        runningProject.appendOutputAndErrorsToTranscriptFile(project);
+                        appendOutputAndErrorsToTranscriptFile(runningProject);
+
+                    }
+                    System.out.println("Compilation attempt finished.");
+                    maybeSetCanBeCompiled(true);
+//                    project.setCanBeCompiled(true);
+                    // reuse the same loader as its binary folder name has changed
+//                    project.setNewClassLoader();
+//					proxyClassLoader = project.getClassLoader();
+//                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+                	setBinaryFileSystemFolderName();
+
+                } catch (Exception e) {
+                    System.out.println("Compilation failed: " + e.toString());
+                    e.printStackTrace();
+//                    project.setCanBeCompiled(false);
+                    maybeSetCanBeCompiled(false);
+                }
+            }
+        }
+//        if (project != null) {
+//        project.setHasBeenLoaded(true);
+//        project.setCanBeLoaded(true);
+//        }
+    }
+    protected void maybeCompileWrongVersion (String className, File file, Set<File> sourceFiles) {
+    	try {
+			System.out
+					.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
+//			List<File> recompiledFileList = new ArrayList<>();
+//			recompiledFileList.add(file);
+//			if (project.hasBeenCompiled() )
+			if (hasBeenCompiled())
+				return;
+//			project.setHasBeenCompiled(true);
+			maybeSetHasBeenCompiled(true);
+			List<File> recompiledFileList = new ArrayList<>(sourceFiles);
+//			recompiledFileList.add(file);
+			System.out.println("Recompiling files:" + recompiledFileList);
+			RunningProject runningProject = LanguageDependencyManager
+					.getSourceFilesCompiler().compile(sourceFolder,
+							buildFolder, recompiledFileList);
+//			project.setCanBeCompiled(true);
+			maybeSetCanBeCompiled(true);
+			// may have to unload class so am doing this reset
+			manageClassLoader();
+//			project.setNewClassLoader();
+//			proxyClassLoader = project.getClassLoader();
+//        	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+
+            classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
+
+
+			if (runningProject != null) {
+				appendOutputAndErrorsToTranscriptFile( runningProject);
+//				runningProject
+//						.appendOutputAndErrorsToTranscriptFile(project);
+
+			}
+			System.out.println("Compilation attempt finished.");
+
+			Class c = null;
+			if (BasicGradingEnvironment.get().isLoadClasses()) {
+//				c = classLoader.loadClass(className);
+				c = proxyClassLoader.loadClass(className);
+
+			}
+
+			if (c != null) {
+				classDescriptions
+						.add(new BasicClassDescription(c, file));
+			}
+		} catch (Exception ex) {
+//			project.setCanBeCompiled(false);
+			maybeSetCanBeCompiled(false);
+
+			System.out.println("Compilation failed: " + ex.toString());
+		}
+    }
+//    /**
+//     * This loads all the classes based on the source code files.
+//     *
+//     * @param sourceFolder The folder containing the source code
+//     * @throws ClassNotFoundException
+//     * @throws IOException
+//     */
+//    protected void loadClasses(File sourceFolder) throws ClassNotFoundException, IOException {
 //    	
-//        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder);
+//        Set<File> sourceFiles = DirectoryUtils.getSourceFiles(sourceFolder, sourceFilePattern);
 ////		Set<File> javaFiles = DirectoryUtils.getFiles(sourceFolder, new FileFilter() {
 ////			@Override
 ////			public boolean accept(File pathname) {
 ////				return pathname.getName().endsWith(".java");
 ////			}
 ////		});
-//        if (AProject.isCompileMissingObjectCode()
-//                || AProject.isForceCompile()
-//                || AProject.isPreCompileMissingObjectCode()) {
+//        if (BasicGradingEnvironment.get().isCompileMissingObjectCode()
+//                || BasicGradingEnvironment.get().isForceCompile()
+//                || BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
 //
 //            // Check if any files need to be compiled
 //            ArrayList<File> aFilesToCompile = new ArrayList<File>();
@@ -157,57 +304,68 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //            if (aFilesToCompile.size() > 0) {
 //                if (GraderSettingsModelSelector.getGraderSettingsModel() != null
 //                        && GraderSettingsModelSelector.getGraderSettingsModel().getNavigationSetter().getNavigationKind() != NavigationKind.AUTOMATIC
-//                        && !AProject.isPreCompileMissingObjectCode()) {
+//                        && !BasicGradingEnvironment.get().isPreCompileMissingObjectCode()) {
 //                    return;
 //                }
 //                try {
 //                    System.out.println("Attempting to compile files.");
-//                    project.setHasBeenCompiled(true);
+////                    project.setHasBeenCompiled(true);
+//                    maybeSetHasBeenCompiled(true);
 //                    aFilesToCompile = new ArrayList<>(sourceFiles); // compile all if we have to compile one because the previpusly comppiled files may be different version from ours
 //                	
 //    //				compile(aFilesToCompile);
 //                    //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-//                    RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
+//                    RunningProject runningProject = LanguageDependencyManager.
+//                    		getSourceFilesCompiler().
+//                    			compile(sourceFolder, buildFolder, aFilesToCompile);
 //                    if (runningProject != null) {
 //                        //					String outputAndErrors = runningProject.getOutputAndErrors();
-//                        runningProject.appendOutputAndErrorsToTranscriptFile(project);
+////                        runningProject.appendOutputAndErrorsToTranscriptFile(project);
+//                        appendOutputAndErrorsToTranscriptFile(runningProject);
 //
 //                    }
 //                    System.out.println("Compilation attempt finished.");
-//                    project.setCanBeCompiled(true);
+//                    maybeSetCanBeCompiled(true);
+////                    project.setCanBeCompiled(true);
 //                    // reuse the same loader as its binary folder name has changed
 ////                    project.setNewClassLoader();
 ////					proxyClassLoader = project.getClassLoader();
-//                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+////                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+//                	setBinaryFileSystemFolderName();
 //
 //                } catch (Exception e) {
 //                    System.out.println("Compilation failed: " + e.toString());
 //                    e.printStackTrace();
-//                    project.setCanBeCompiled(false);
+////                    project.setCanBeCompiled(false);
+//                    maybeSetCanBeCompiled(false);
 //                }
 //            }
 //        }
-//        if (project != null) {
-//        project.setHasBeenLoaded(true);
-//        project.setCanBeLoaded(true);
-//        }
+////        if (project != null) {
+////        project.setHasBeenLoaded(true);
+////        project.setCanBeLoaded(true);
+////        }
+//        setHasBeenLoaded(true);
+//        setCanBeLoaded(true);
 //
 //		for (File file : sourceFiles) {
 //			String className = getClassName(file);
 //			// System.out.println(className);
 //			try {
 //				Class c = null;
-//				if (AProject.isLoadClasses() && 
+//				if (BasicGradingEnvironment.get().isLoadClasses() && 
 //						proxyClassLoader != null) // if we are precompiling or cleaning up, this will be null
 //				{
 ////					c = classLoader.loadClass(className);
 //					c = proxyClassLoader.loadClass(className);
 //				}
-//				if (AProject.isLoadClasses() && proxyClassLoader == null) {
+//				if (BasicGradingEnvironment.get().isLoadClasses() && proxyClassLoader == null) {
 //					c = classLoader.loadClass(className);
 //				}
 //				if (c != null) {
-//					classDescriptions.add(new BasicClassDescription(c, file));
+////					classDescriptions.add(new BasicClassDescription(c, file));
+//					classDescriptions.add(createClassDescription(c, file));
+//
 //				} 
 ////				else if (AProject.isLoadClasses()) {
 ////					c = classLoader.loadClass(className);
@@ -223,33 +381,38 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //							.println("Class files are the incorrect version for the current Java version. Attempting to recompile files.");
 ////					List<File> recompiledFileList = new ArrayList<>();
 ////					recompiledFileList.add(file);
-//					if (project.hasBeenCompiled() )
+////					if (project.hasBeenCompiled() )
+//					if (hasBeenCompiled())
 //						break;
-//					project.setHasBeenCompiled(true);
+////					project.setHasBeenCompiled(true);
+//					maybeSetHasBeenCompiled(true);
 //					List<File> recompiledFileList = new ArrayList<>(sourceFiles);
 ////					recompiledFileList.add(file);
 //					System.out.println("Recompiling files:" + recompiledFileList);
 //					RunningProject runningProject = LanguageDependencyManager
 //							.getSourceFilesCompiler().compile(sourceFolder,
 //									buildFolder, recompiledFileList);
-//					project.setCanBeCompiled(true);
+////					project.setCanBeCompiled(true);
+//					maybeSetCanBeCompiled(true);
 //					// may have to unload class so am doing this reset
-//					project.setNewClassLoader();
-//					proxyClassLoader = project.getClassLoader();
-//                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
+//					manageClassLoader();
+////					project.setNewClassLoader();
+////					proxyClassLoader = project.getClassLoader();
+////                	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
 //
 //		            classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
 //
 //
 //					if (runningProject != null) {
-//						runningProject
-//								.appendOutputAndErrorsToTranscriptFile(project);
+//						appendOutputAndErrorsToTranscriptFile( runningProject);
+////						runningProject
+////								.appendOutputAndErrorsToTranscriptFile(project);
 //
 //					}
 //					System.out.println("Compilation attempt finished.");
 //
 //					Class c = null;
-//					if (AProject.isLoadClasses()) {
+//					if (BasicGradingEnvironment.get().isLoadClasses()) {
 ////						c = classLoader.loadClass(className);
 //						c = proxyClassLoader.loadClass(className);
 //
@@ -260,7 +423,8 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //								.add(new BasicClassDescription(c, file));
 //					}
 //				} catch (Exception ex) {
-//					project.setCanBeCompiled(false);
+////					project.setCanBeCompiled(false);
+//					maybeSetCanBeCompiled(false);
 //
 //					System.out.println("Compilation failed: " + ex.toString());
 //				}
@@ -291,7 +455,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //     * @return The canonical class name.
 //     * @throws IOException
 //     */
-//    private String getClassName(File file) throws IOException {
+//    protected String getClassName(File file) throws IOException {
 //
 //        // Figure out the package
 //        List<String> lines = FileUtils.readLines(file, null);
@@ -304,67 +468,69 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //
 //        // Figure out the class name and combine it with the package
 ////		String className = file.getName().replace(".java", "");
-//        String className = file.getName().replace(LanguageDependencyManager.getSourceFileSuffix(), "");
+//        String className = file.getName().replace(BasicLanguageDependencyManager.getSourceFileSuffix(), "");
 //
 //        return packageName + className;
 //    }
 //
-//    /**
-//     * Given a Java class name, this finds associated .class file.
-//     *
-//     * @param className The canonical name of the Java class
-//     * @return The .class File.
-//     */
-//    private File getClassFile(String className) {
-//
-//        File classFolder = buildFolder;
-//        String[] splitClassName = className.split("\\.");
-//        for (int i = 0; i < splitClassName.length - 1; i++) {
-//            String packagePart = splitClassName[i];
-//            classFolder = new File(classFolder, packagePart);
-//        }
-//
-//        String classFileName;
-//        if (splitClassName.length > 0) {
-////			classFileName = splitClassName[splitClassName.length - 1] + ".class";
-//            classFileName = splitClassName[splitClassName.length - 1] + LanguageDependencyManager.getBinaryFileSuffix();
-//
-//        } else {
-//            classFileName = className + ".class";
-//        }
-//
-//        return new File(classFolder, classFileName);
-//    }
-//
-//    /**
-//     * Given a .java and .class file, returns whether the .java file needs to be
-//     * compiled or recompiled
-//     *
-//     * @param javaFile The Java file
-//     * @param classFile The class file
-//     * @return boolean true if should compile/recompile false otherwise
-//     */
-//    private boolean shouldCompile(File javaFile, File classFile) {
-////		System.out.println("Class time:" + classFile.lastModified() + " source time:" + javaFile.lastModified());
-//    	String javaName = javaFile.getName();
-//    	String className = classFile.getName();
-//        return !project.hasBeenCompiled() && !classFile.getName().startsWith("_") &&
-//        		!javaFile.getName().startsWith("._") &&
-//        		( AProject.isForceCompile()
-//                || !classFile.exists()
-//                || classFile.lastModified() < javaFile.lastModified());
-////				(classFile.lastModified() - javaFile.lastModified()) < 1000;
-//
-//    }
-//
-////	/**
-////	 * Given an ArrayList of .javaFiles, returns whether the .java file needs to
-////	 * be compiled or recompiled
-////	 * 
-////	 * @param javaFiles
-////	 *            ArrayList of .java files
-////	 * @throws IOException
-////	 */
+    /**
+     * Given a Java class name, this finds associated .class file.
+     *
+     * @param className The canonical name of the Java class
+     * @return The .class File.
+     */
+    private File getClassFile(String className) {
+
+        File classFolder = buildFolder;
+        String[] splitClassName = className.split("\\.");
+        for (int i = 0; i < splitClassName.length - 1; i++) {
+            String packagePart = splitClassName[i];
+            classFolder = new File(classFolder, packagePart);
+        }
+
+        String classFileName;
+        if (splitClassName.length > 0) {
+//			classFileName = splitClassName[splitClassName.length - 1] + ".class";
+            classFileName = splitClassName[splitClassName.length - 1] + BasicLanguageDependencyManager.getBinaryFileSuffix();
+
+        } else {
+            classFileName = className + ".class";
+        }
+
+        return new File(classFolder, classFileName);
+    }
+
+    /**
+     * Given a .java and .class file, returns whether the .java file needs to be
+     * compiled or recompiled
+     *
+     * @param javaFile The Java file
+     * @param classFile The class file
+     * @return boolean true if should compile/recompile false otherwise
+     */
+    private boolean shouldCompile(File javaFile, File classFile) {
+//		System.out.println("Class time:" + classFile.lastModified() + " source time:" + javaFile.lastModified());
+    	String javaName = javaFile.getName();
+    	String className = classFile.getName();
+        return !hasBeenCompiled()
+//        		!project.hasBeenCompiled() 
+        		&& !classFile.getName().startsWith("_") &&
+        		!javaFile.getName().startsWith("._") &&
+        		( BasicGradingEnvironment.get().isForceCompile()
+                || !classFile.exists()
+                || classFile.lastModified() < javaFile.lastModified());
+//				(classFile.lastModified() - javaFile.lastModified()) < 1000;
+
+    }
+
+//	/**
+//	 * Given an ArrayList of .javaFiles, returns whether the .java file needs to
+//	 * be compiled or recompiled
+//	 * 
+//	 * @param javaFiles
+//	 *            ArrayList of .java files
+//	 * @throws IOException
+//	 */
 ////	private void compile(ArrayList<File> javaFiles) throws IOException, IllegalStateException {
 ////
 ////		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -543,14 +709,14 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //    }
 //
 //    @Override
-//    public List<String> getClassNamesToCompile() {
-//        return classNamesToCompile;
-//    }
-//
+    public List<String> getClassNamesToCompile() {
+        return classNamesToCompile;
+    }
+
 //    @Override
-//    public void setClassNamesToCompile(List<String> classNamesToCompile) {
-//        this.classNamesToCompile = classNamesToCompile;
-//    }
+    public void setClassNamesToCompile(List<String> classNamesToCompile) {
+        this.classNamesToCompile = classNamesToCompile;
+    }
     
    
 }

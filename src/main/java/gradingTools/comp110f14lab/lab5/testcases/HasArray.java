@@ -3,7 +3,7 @@ package gradingTools.comp110f14lab.lab5.testcases;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 import gradingTools.sharedTestCase.CodeInspectorTestCase;
 
 import com.github.antlrjavaparser.api.expr.VariableDeclarationExpr;

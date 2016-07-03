@@ -1,0 +1,29 @@
+Grading result for: Wrong, Angle (wangle)
+
+Grading features...
+----------------------------------
+PointPrintTest                                         3.0 /  3.0
+TestsTestSuite                                         0.0 / 10.0
+PointMainTest                                          0.0 /  5.0
+PointTranslationTest                                   4.0 /  4.0
+PointAngleSuite                                        3.3 / 13.0
+PointRadiusTest                                        10.0 / 10.0
+----------------------------------
+  Points Awarded: 20.3
+
+  Features Score: 20.3
+
+Notes from grading features:
+----------------------------------
+TestsTestSuite:
+  -- Could not find class matching AngleTest
+
+PointMainTest:
+  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
+
+PointAngleSuite:
+  -- computedAngle 0.0 != correctAngle 1.5707963267948966 
+  -- computedAngle 0.0 != correctAngle 0.7853981633974483 
+  -- computedAngle 0.0 != correctAngle -1.5707963267948966 
+
+  Total Score: 20.0

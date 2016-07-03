@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
-import framework.execution.RunningProject;
+import grader.basics.execution.RunningProject;
 import grader.sakai.project.ASakaiProjectDatabase;
 
 public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{

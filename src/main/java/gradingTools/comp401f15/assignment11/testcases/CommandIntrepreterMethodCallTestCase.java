@@ -1,12 +1,12 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
-import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
+import static grader.basics.execution.BasicProjectExecution.restoreOutputAndGetRedirectedOutput;
 import framework.execution.ARunningProject;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 
@@ -45,7 +45,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 		if (foundMethod == null) {
 			return fail(superValue.getNotes());
 		}
-		ProjectExecution.redirectOutput();
+		BasicProjectExecution.redirectOutput();
 
 		try {
 			commandInterpreter = ProjectIntrospection.getInstance(aProject, this, "CommandInterpreter");
@@ -144,20 +144,20 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 
 					scannerBeanInstance = ProjectIntrospection.getInstance(aProject, this, "ScannerBean");
 					if (scannerBeanInstance == null) {
-						scannerBeanInstance = ProjectExecution.timedInvoke(scannerBeanConstructor, new Object[] {});
+						scannerBeanInstance = BasicProjectExecution.timedInvoke(scannerBeanConstructor, new Object[] {});
 						ProjectIntrospection.putInstance(aProject, this, "ScannerBean", scannerBeanInstance);
 					}
 				}
 				bridgeSceneInstance = ProjectIntrospection.getInstance(aProject, this, "BridgeScene");
 				if (bridgeSceneInstance == null) {
-				bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[] {});
+				bridgeSceneInstance = BasicProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[] {});
 				ProjectIntrospection.putInstance(aProject, this, "BridgeScene", bridgeSceneInstance);
 
 				}
 				if (usesClearanceManager) {
 					broadcastingClearanceManagerInstance = ProjectIntrospection.getInstance(aProject, this, "BroadcastingClearanceManager");
 					if (broadcastingClearanceManagerInstance != null) {
-					broadcastingClearanceManagerInstance = ProjectExecution.timedInvoke(clearanceManagerConstructor,
+					broadcastingClearanceManagerInstance = BasicProjectExecution.timedInvoke(clearanceManagerConstructor,
 							new Object[] {});
 					ProjectIntrospection.putInstance(aProject, this, "BroadcastingClearanceManager", broadcastingClearanceManagerInstance);
 
@@ -169,19 +169,19 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 				// }
 				// int i = 0;
 				if (bridgeOnly) {
-					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = BasicProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance });
 				} else if (usesClearanceManager && clearanceManagerFirst) {
-					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = BasicProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { broadcastingClearanceManagerInstance, bridgeSceneInstance });
 				} else if (usesClearanceManager && !clearanceManagerFirst) {
-					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = BasicProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance, broadcastingClearanceManagerInstance });
 				} else if (bridgeFirst) {
-					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = BasicProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { bridgeSceneInstance, scannerBeanInstance });
 				} else {
-					commandInterpreter = ProjectExecution.timedInvoke(commandInterpreterConstructor,
+					commandInterpreter = BasicProjectExecution.timedInvoke(commandInterpreterConstructor,
 							new Object[] { scannerBeanInstance, bridgeSceneInstance });
 				}
 				if (commandInterpreter == null || bridgeSceneInstance == null)

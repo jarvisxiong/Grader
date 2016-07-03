@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment9.testCases;
 
-import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
+import static grader.basics.execution.BasicProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
@@ -26,8 +26,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.ExecutionData;
@@ -140,7 +140,7 @@ public class MoveSingleAvatarTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ProjectExecution.redirectOutput();
+        BasicProjectExecution.redirectOutput();
         try {
             if (GraphicsEnvironment.isHeadless()) {
                 throw new NotGradableException("Cannon run GUI on headless system");
@@ -283,8 +283,8 @@ public class MoveSingleAvatarTestCase extends BasicTestCase {
     }
     
     private boolean[] checkMovement(Constructor<?> bridgeSceneControllerConstructor, Constructor<?> scenePainterConstructor, Constructor<?> bridgeSceneConstructor, Method getAvatar, Method[] getX, Method[] getY, boolean controllerIsListener, boolean controllerTakesComponent) {
-        Object bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
-        Object scenePainter = ProjectExecution.timedInvoke(scenePainterConstructor, new Object[]{bridgeSceneInstance});
+        Object bridgeSceneInstance = BasicProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
+        Object scenePainter = BasicProjectExecution.timedInvoke(scenePainterConstructor, new Object[]{bridgeSceneInstance});
         
         Object bridgeSceneController;
         Component component = null;
@@ -293,7 +293,7 @@ public class MoveSingleAvatarTestCase extends BasicTestCase {
             if (scenePainter instanceof Component) {
                 component = (Component)scenePainter;
                 try {
-                    bridgeSceneController = ProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance, component});
+                    bridgeSceneController = BasicProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance, component});
                 } catch (Exception ex) {
                     return new boolean[]{false};
                 }
@@ -302,7 +302,7 @@ public class MoveSingleAvatarTestCase extends BasicTestCase {
             }
         } else {
             try {
-                bridgeSceneController = ProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance});
+                bridgeSceneController = BasicProjectExecution.timedInvokeWithExceptions(bridgeSceneControllerConstructor, new Object[]{bridgeSceneInstance});
             } catch (Exception ex) {
                 return new boolean[]{false};
             }

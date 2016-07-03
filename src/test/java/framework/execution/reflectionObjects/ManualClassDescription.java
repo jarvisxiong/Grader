@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.github.antlrjavaparser.api.CompilationUnit;
 
-import framework.project.ClassDescription;
 import framework.project.ParsableClassDescription;
+import grader.basics.project.ClassDescription;
 
 /**
  * Created with IntelliJ IDEA.

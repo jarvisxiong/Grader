@@ -9,9 +9,10 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment6.testcases.ClearableHistoryFunctionTestCase;
 
@@ -48,10 +49,10 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
         anInputs.put("ScannedString", aScannedString);
         Map<String, Object> anActualOutputs = ProjectExecution.testBean(getCheckable().getName(), getName(), aProject, beanDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames());
 
-        if (anActualOutputs.get(ProjectExecution.MISSING_CLASS) != null) { // only output, no object
+        if (anActualOutputs.get(BasicProjectExecution.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
         }
-        if (!anActualOutputs.containsKey(ProjectExecution.MISSING_READ)) {
+        if (!anActualOutputs.containsKey(BasicProjectExecution.MISSING_READ)) {
             Object tokenRet = anActualOutputs.get(tokenPropertyName);
             Object token = null;
             
@@ -61,7 +62,7 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
                 Class<?> clearableHistoryClass = clearMethod.getReturnType();
                 Method getTokens = Arrays.stream(clearableHistoryClass.getMethods()).filter((m)->m.getName().matches(".*get.*")).findFirst().orElse(null);
                 if (getTokens != null) {
-                    token = ProjectExecution.timedInvoke(tokenRet, getTokens, (Object)0);
+                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, (Object)0);
                 } else {
                     return fail("Can't find method to get from clearable history");
                 }

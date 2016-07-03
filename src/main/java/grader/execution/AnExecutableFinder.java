@@ -20,7 +20,7 @@ public class AnExecutableFinder implements MainClassFinder {
     }
     
 
-    public Map<String, String> getEntryPoints(framework.project.Project frameworkProject, String aSpecifiedMainClass) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(grader.basics.project.Project frameworkProject, String aSpecifiedMainClass) throws NotRunnableException {
         try {
     	File binaryFolder = frameworkProject.getBuildFolder("");
     	File[] binaryChildren =  binaryFolder.listFiles();

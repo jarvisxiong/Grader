@@ -1,8 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import grader.junit.JUnitUtils;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,12 +24,12 @@ public class PointPrintTest extends AbstractPointTest{
 			int anX = 5;
 			int aY = 10;
 			createPoint(anX, aY);
-			ProjectExecution.redirectOutput();
+			BasicProjectExecution.redirectOutput();
 //			String aHeader = "The point is:";
 //			point.print(aHeader, point);
 //			String aHeader = "The point is:";
 			point.print();
-			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
+			String anOutput = BasicProjectExecution.restoreOutputAndGetRedirectedOutput();
 			Assert.assertTrue(anOutput + " Does not contain prints of " + anX + " " + aY, 
 					anOutput.contains("" + anX) &&
 					anOutput.contains("" + aY));

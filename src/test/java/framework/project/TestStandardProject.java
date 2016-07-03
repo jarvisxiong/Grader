@@ -1,6 +1,7 @@
 package framework.project;
 
 import static org.junit.Assert.assertTrue;
+import grader.basics.project.Project;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,6 +1,7 @@
 package demoAndTest.basic;
 
 import grader.assignment.GradingFeature;
+import grader.basics.util.DirectoryUtils;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.GradingStatus;
 import grader.project.source.ATACommentsExtractor;
@@ -12,7 +13,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import tools.DirectoryUtils;
 import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;

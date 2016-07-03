@@ -1,0 +1,43 @@
+*****************************(PointPrintTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointPrintTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointPrintTest: 0.0
+*****************************(TestsTestSuite)*****************************
+### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 0.0
+*****************************(PointMainTest)*****************************
+INPUT(PointMainTest)
+10
+10
+OUTPUT(PointMainTest)
+14.142135623730951
+0.7853981633974483
+
+*****************************(PointMainTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointMainTest: 1.0
+Running command:java -cp ".;..;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;C:\Users\Dewan\.m2\repository\edu\unc\oeall\22\oeall-22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" Main
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp999JUnit\Assignment 1\All, ExtraCredit (aecredit)\Submission attachment(s)\Assignment1\Assignment1\bin
+$10
+10
+Process line:14.142135623730951
+14.142135623730951
+New output 14.142135623730951
+ aprocess main
+Process line:0.7853981633974483
+0.7853981633974483
+New output 0.7853981633974483
+ aprocess main
+*****************************(PointTranslationTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointTranslationTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointTranslationTest: 0.0
+*****************************(PointAngleSuite)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 0.0
+*****************************(PointRadiusTest)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointRadiusTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointRadiusTest: 0.0

@@ -4,8 +4,8 @@ import java.util.Map;
 
 import util.pipe.InputGenerator;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 
 /*
  * Class that contains various static helper methods for running projects and processing their output

@@ -5,8 +5,13 @@ import framework.execution.InteractiveConsoleProcessRunner;
 import framework.execution.NotRunnableException;
 import framework.execution.ProcessRunner;
 import framework.execution.ReflectionRunner;
-import framework.execution.RunningProject;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
+import grader.basics.util.DirectoryUtils;
 import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.trace.project.BinaryFolderMade;
@@ -14,7 +19,6 @@ import grader.trace.project.BinaryFolderNotFound;
 import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.SourceFolderAssumed;
 import grader.trace.project.SourceFolderNotFound;
-import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,8 +26,11 @@ import java.util.Map;
 import java.util.Set;
 
 //import scala.Option;
-import framework.project.Option;
-import tools.DirectoryUtils;
+
+
+
+
+
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
@@ -31,7 +38,7 @@ import util.trace.TraceableLogFactory;
 /**
  * A "standard" project. That is, an IDE-based java project.
  */
-public class OriginalStandardProject implements Project {
+public class OriginalStandardProject implements FatProject {
     
 
     private File directory;

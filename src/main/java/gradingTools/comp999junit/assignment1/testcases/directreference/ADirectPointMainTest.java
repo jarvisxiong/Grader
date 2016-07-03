@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.internal.runners.statements.InvokeMethod;
 
 import util.annotations.MaxValue;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointTest;
@@ -14,7 +14,7 @@ public class ADirectPointMainTest extends MultiAbstractPointMainTest {
 
 	@Override
 	protected String runMain(String[] anArgs, String... anInput) {
-		return ProjectExecution.invokeMain(Main.class, anArgs, anInput).out;
+		return BasicProjectExecution.invokeMain(Main.class, anArgs, anInput).out;
 				
 	}
 	@Test

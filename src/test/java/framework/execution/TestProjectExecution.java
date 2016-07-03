@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import framework.execution.reflectionObjects.ManualProject;
-import framework.project.Project;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

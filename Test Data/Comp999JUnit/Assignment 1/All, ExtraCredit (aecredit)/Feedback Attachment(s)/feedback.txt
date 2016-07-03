@@ -1,0 +1,36 @@
+Grading result for: All, ExtraCredit (aecredit)
+
+Grading features...
+----------------------------------
+PointPrintTest                                         0.0 /  3.0
+TestsTestSuite                                         0.0 / 10.0
+PointMainTest                                          5.0 /  5.0
+PointTranslationTest                                   0.0 /  4.0
+PointAngleSuite                                        0.0 / 13.0
+PointRadiusTest                                        0.0 / 10.0
+----------------------------------
+  Points Awarded: 5.0
+
+  Features Score: 5.0
+
+Notes from grading features:
+----------------------------------
+PointPrintTest:
+  -- A Cartesian Point class not found
+
+TestsTestSuite:
+  -- Could not find class matching AngleTest
+
+PointTranslationTest:
+  -- A Cartesian Point class not found
+
+PointAngleSuite:
+  -- A Cartesian Point class not found
+  -- A Cartesian Point class not found
+  -- A Cartesian Point class not found
+  -- A Cartesian Point class not found
+
+PointRadiusTest:
+  -- A Cartesian Point class not found
+
+  Total Score: 5.0

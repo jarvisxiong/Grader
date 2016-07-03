@@ -12,6 +12,8 @@ import framework.utils.GraderSettings;
 import framework.utils.BasicGradingEnvironment;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.basics.project.Option;
+import grader.basics.util.DirectoryUtils;
 import grader.sakai.project.AProjectStepper;
 import grader.sakai.project.ProjectStepper;
 import grader.sakai.project.ProjectStepperDisplayer;
@@ -28,8 +30,6 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import framework.project.Option;
-import tools.DirectoryUtils;
 import wrappers.framework.grading.testing.TestCaseWrapper;
 import wrappers.framework.project.ProjectWrapper;
 
@@ -104,7 +104,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
 //                project.setCanBeRun(true);
 //                project.setHasBeenRun(true);
                 project.maybeMakeClassDescriptions();
-                framework.project.Project wrappedProject = new ProjectWrapper(this.project, BasicGradingEnvironment.get().getAssignmentName());
+                grader.basics.project.Project wrappedProject = new ProjectWrapper(this.project, BasicGradingEnvironment.get().getAssignmentName());
                 featureResults = requirements.checkFeatures(wrappedProject);
                 restrictionResults = requirements.checkRestrictions(wrappedProject);
                 window = GradingWindow.create(requirements, studentFolder, Option.apply(wrappedProject), featureResults, restrictionResults);
@@ -117,7 +117,7 @@ public class ProjectStepperDisplayerWrapper implements ProjectStepperDisplayer, 
                     featureResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, feature));
                 for (Restriction restriction : requirements.getRestrictions())
                     restrictionResults.add(new CheckResult(0, "", CheckResult.CheckStatus.NotGraded, restriction));
-                Option<framework.project.Project> wrappedProject = Option.empty();
+                Option<grader.basics.project.Project> wrappedProject = Option.empty();
                 window = GradingWindow.create(requirements, studentFolder, wrappedProject, featureResults, restrictionResults);
             }
 

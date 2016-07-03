@@ -1,6 +1,6 @@
 package framework.execution;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.config.StaticConfigurationUtils;
 import grader.sakai.project.SakaiProject;
 import grader.trace.overall_transcript.OverallTranscriptSaved;

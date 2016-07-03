@@ -2,8 +2,8 @@ package gradingTools.assignment1;
 
 import framework.execution.ARunningProject;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 
 /**
  * This tries to run the program with a space at the end of each line and adds the terminating character '.'

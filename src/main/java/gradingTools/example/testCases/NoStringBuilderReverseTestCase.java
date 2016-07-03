@@ -1,11 +1,11 @@
 package gradingTools.example.testCases;
 
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 
 /**
  * This test case looks for the usage of StringBuilder.reverse by using modified classes.

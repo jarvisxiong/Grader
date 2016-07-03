@@ -1,0 +1,453 @@
+//START OF FILE: src/ecabstractpointtest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import grader.junit.JUnitUtils;
+import grader.util.BasicProjectIntrospection;
+import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
+
+import org.junit.Assert;
+
+public abstract class ECAbstractPointTest {
+
+	public static final String ANGLE_TESTS = "Angle Tests";
+	boolean checkStructure;
+
+	ECPoint point;
+	double fractionComplete = 0.0;
+
+	protected void assertAngle(double aComputed, double aCorrect) {
+		Assert.assertTrue("computedAngle " + aComputed + " != correctAngle " + aCorrect + " :" + fractionComplete, Math.abs(aComputed - aCorrect) < 0.1);
+
+	}
+	protected void assertRadius(double aComputed, double aCorrect) {
+		Assert.assertTrue("computedRadius " + aComputed + " != correctRadius " + aCorrect + " :" + fractionComplete, Math.abs(aComputed - aCorrect) < 0.1);
+	}
+	protected abstract void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) ;
+	public void createPoint(int theX, int theY) {
+		point = (ECPoint) BasicProjectIntrospection.createInstance(
+				ECPoint.class, new Object[] { theX, theY});
+	}
+	public void test(int theX, int theY, double aCorrectRadius,
+			double aCorrectAngle) {
+		try {
+//			point = (ECreditPoint) BasicProjectIntrospection.createInstance(
+//					ECreditPoint.class, new Object[] { theX, theY});
+			createPoint(theX, theY);
+			double aComputedRadius =  point.getRadius();
+			double aComputedAngle = point.getAngle();
+			checkComputations(aComputedAngle, aComputedRadius, aCorrectAngle, aCorrectRadius);		
+
+		} catch (Exception e) {
+			JUnitUtils.assertTrue(e, fractionComplete);
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/eccartesianpoint.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
+import util.annotations.Explanation;
+import util.annotations.Tags;
+import bus.uigen.ObjectEditor;
+@Explanation("Uses Cartesian representation.")
+@Tags({"cartesian", "point"})
+public class ECCartesianPoint implements ECPoint {	
+	protected int x, y;
+	public ECCartesianPoint(int theX, int theY) {
+		x = theX;
+		y = theY;
+	}
+	public ECCartesianPoint(double theRadius, double theAngle) {
+		x =  (int) (theRadius*Math.cos(theAngle));
+		y = (int) (theRadius*Math.sin(theAngle));
+	}
+	public int getX() { return x; }
+	public int getY() { return y; } 	
+	public double getAngle() { 
+		return Math.atan2(y, x); 
+//		return 0;
+	}
+	@Tags({"radius", "getter"})	
+	public double getRadius() { 
+		return Math.sqrt(x*x + y*y); 
+//		return 0;
+	}
+//	@Override
+//	public void print (String aString, ECPoint aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
+	@Override
+	public void print () {
+		System.out.println ("(" + x + "," + y + ")");
+	}
+	public ECPoint translate (ECPoint aPoint, int anXDelta, int aYDelta) {
+		return new ECCartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
+	}
+	public static void main(String args[]) {
+		ECPoint point =  new ECCartesianPoint (50, 100);
+		ObjectEditor.edit(point);
+		point = new ECCartesianPoint(100, Math.PI/4);
+		ObjectEditor.edit(point);
+//		
+	}
+}
+//END OF FILE
+//START OF FILE: src/eccartesianpointsuite.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+//@RunWith(Suite.class)
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+   ECPointAngleSuite.class,
+//   APointAngleZeroDegreeTest.class,
+//   APointAngleNinetyDegreeTest.class,
+//   APointAngleFortyFiveDegreeTest.class,
+//   APointAngleMinusNinetyDegreeTest.class,
+   ECPointRadiusTest.class,
+   ECPointMainTest.class,
+   ECPointPrintTest.class
+   
+})
+public class ECCartesianPointSuite {
+//	public static final String ANGLE_TESTS = "Angle Tests";
+
+	
+
+}
+
+//END OF FILE
+//START OF FILE: src/ecpoint.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+import util.annotations.Explanation;
+import util.annotations.Tags;
+//@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Tags({"Point"})
+@Explanation("Location in Java coordinate System.")
+public interface ECPoint {
+	public int getX(); 
+	public int getY(); 	
+	public double getAngle(); 
+	public double getRadius();
+//	void print(String aString, ECPoint aPoint); 
+	void print(); 
+	ECPoint translate(ECPoint aPoint, int anXDelta, int aYDelta); 
+
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointanglefortyfivedegreetest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+import org.junit.Test;
+public class ECPointAngleFortyFiveDegreeTest extends ECPointAngleTest {
+
+	
+	public  ECPointAngleFortyFiveDegreeTest() {
+		checkStructure = false;	
+	}
+	@Test
+	public void test() {
+		test(10, 10, 14.142, Math.PI/4); // 45 degree angle		
+	}
+	
+	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertAngle(aComputedAngle, aCorrectAngle);
+//		assertRadius(aComputedRadius, aCorrectRadius);
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointangleminusninetydegreetest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+
+
+public class ECPointAngleMinusNinetyDegreeTest extends ECPointAngleTest {
+	
+	public  ECPointAngleMinusNinetyDegreeTest() {
+		checkStructure = false;
+	}
+	@Test
+	public void test() {	
+		test(0, -10, 10.0, -Math.PI / 2); // -90 degree angle
+	}
+	
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointangleninetydegreetest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+
+public class ECPointAngleNinetyDegreeTest extends ECPointAngleTest {	
+	@Test
+	public void test() {
+		test(0, 10, 10.0, Math.PI / 2); // 90 degree angle
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointanglesuite.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import gradingTools.comp999junit.assignment1.testcases.directreference.ADirectPointProxy;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
+import org.junit.runners.Suite;
+
+import util.annotations.MaxValue;
+import util.annotations.Tags;
+@Tags({"AngleTest"})
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+
+   ECPointAngleZeroDegreeTest.class,
+   ECPointAngleNinetyDegreeTest.class,
+   ECPointAngleFortyFiveDegreeTest.class,
+   ECPointAngleMinusNinetyDegreeTest.class,
+
+   
+})
+public class ECPointAngleSuite {
+
+
+}
+
+//END OF FILE
+//START OF FILE: src/ecpointangletest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+//import org.junit.Test;
+import util.annotations.Group;
+import util.annotations.IsExtra;
+import util.annotations.IsRestriction;
+import util.annotations.MaxValue;
+
+public class ECPointAngleTest extends ECAbstractPointTest {
+	
+	
+	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertAngle(aComputedAngle, aCorrectAngle);
+//		assertRadius(aComputedRadius, aCorrectRadius);
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointanglezerodegreetest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+
+import util.annotations.Group;
+import util.annotations.MaxValue;
+
+public class ECPointAngleZeroDegreeTest extends ECPointAngleTest {	
+	@Test
+	public void test() {	
+		test(10, 0, 10.0, 0); // 0 degree angle		
+	}
+}
+//END OF FILE
+//START OF FILE: src/ecpointmaintest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import grader.junit.JUnitUtils;
+import grader.util.ProjectExecution;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+public  class ECPointMainTest extends ECAbstractPointTest {
+	
+	protected  String runMain (String[] anArgs, String... anInput) {
+		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
+
+	}
+	@Test
+	public void test() {
+		testMain(10, 10, 14.142, Math.PI/4); // 45 degree angle
+	}
+	protected  void testMain(int theX, int theY, double aCorrectRadius,
+			double aCorrectAngle) {
+		double fractionComplete = 0.0;
+//		String anInput = theX + "\n" + theY;
+//		String anOutput = runMain(new String[]{}, anInput);
+		String anOutput = runMain(new String[]{}, "" + theX, "" + theY);
+//		String anOutput2 = runMain(new String[]{}, "" + theX, "" + theY);
+
+		
+		String[] anOutputLines = anOutput.split("\n");
+		if (anOutputLines.length != 2) {
+			Assert.assertTrue("Expecting exactly two output lines:" + fractionComplete, false);
+		}
+		fractionComplete += 0.1;
+		try {
+			Double aComputedRadius = Double.parseDouble (anOutputLines[0]);
+			Double aComputedAngle = Double.parseDouble(anOutputLines[1]);
+			checkComputations(aComputedAngle, aComputedRadius, aCorrectAngle, aCorrectRadius);		
+
+
+		} catch (Exception e) {
+			Assert.assertTrue("One or more output does not parse as a double:" + fractionComplete, false);
+		}
+		
+	}
+	@Override
+	protected void checkComputations(double aComputedAngle,
+			double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertAngle(aComputedAngle, aCorrectAngle);
+		assertRadius(aComputedRadius, aCorrectRadius);
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/ecpointprinttest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import grader.junit.JUnitUtils;
+import grader.util.ProjectExecution;
+import grader.util.BasicProjectIntrospection;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+public class ECPointPrintTest extends ECAbstractPointTest{
+
+	@Override
+	protected void checkComputations(double aComputedAngle,
+			double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Test
+	// all or nothing for radius
+	public void test() {
+		try {
+			int anX = 5;
+			int aY = 10;
+			createPoint(anX, aY);
+			ProjectExecution.redirectOutput();
+//			String aHeader = "The point is:";
+//			point.print(aHeader, point);
+//			String aHeader = "The point is:";
+			point.print();
+			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
+			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
+					anOutput.contains(" " + anX) &&
+					anOutput.contains(" " + aY));
+		} catch (Exception e) {
+			JUnitUtils.assertTrue(e, fractionComplete);
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointradiustest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+
+import util.annotations.IsExtra;
+import util.annotations.MaxValue;
+
+public class ECPointRadiusTest extends ECAbstractPointTest  {	
+		
+	@Test
+	// all or nothing for radius
+	public void test() {
+		test(10, 10, 14.142, Math.PI); // 45 degree angle
+		test(5, 0, 5.0, 0); // 0 degree angle
+		test(0, 7, 7, Math.PI / 2); // 90 degree angle
+		test(10, 10, 14.142, Math.PI / 4); // 90 degree angle
+		test(0, -10, 10.0, -Math.PI / 2); // -90 degree angle
+	}
+	
+	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertRadius(aComputedRadius, aCorrectRadius);
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/ecpointtranslationtest.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import grader.junit.JUnitUtils;
+import grader.util.ProjectExecution;
+import grader.util.BasicProjectIntrospection;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+public class ECPointTranslationTest extends ECAbstractPointTest{
+
+	@Override
+	protected void checkComputations(double aComputedAngle,
+			double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		// TODO Auto-generated method stub
+		
+	}
+	// all or nothing
+	@Test
+	public void test() {
+		try {
+			
+			createPoint(5, 10);
+			ECPoint retVal = point.translate(point, 5, 10);
+			int actualX = retVal.getX();
+			int actualY = retVal.getY();
+			Assert.assertTrue(
+					"X property " +  actualX +  " is not equal to 10 or " +						
+					"Y property " + actualY + " is not equal to 20 ",					
+					actualX == 10 && actualY == 20) ;
+		} catch (Exception e) {
+			JUnitUtils.assertTrue(e, fractionComplete);
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main.java
+//package gradingTools.comp999junit.assignment1.testables.aecredit;
+
+import java.util.Scanner;
+
+import bus.uigen.ObjectEditor;
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner aScanner = new Scanner (System.in);
+		String anXLine = aScanner.nextLine();
+		String aYLine = aScanner.nextLine();
+		int anX = Integer.parseInt(anXLine);
+		int aY = Integer.parseInt(aYLine);
+		ECPoint aPoint =  new ECCartesianPoint (anX, aY);
+		System.out.println ("" + aPoint.getRadius());
+		System.out.println ("" + aPoint.getAngle());
+//		
+	}
+
+}
+//END OF FILE

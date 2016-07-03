@@ -1,6 +1,6 @@
 package gradingTools.comp790ColabInc.assignment1.testcases;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 import gradingTools.comp790Colab.assignment1.testcases.CollaborativeInputPromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 

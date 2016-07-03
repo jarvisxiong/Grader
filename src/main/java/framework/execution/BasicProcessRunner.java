@@ -18,8 +18,10 @@ import util.misc.ThreadSupport;
 import util.pipe.InputGenerator;
 import util.trace.Tracer;
 import wrappers.framework.project.ProjectWrapper;
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 //import grader.config.StaticConfigurationUtils;
 //import grader.execution.ExecutionSpecification;
 //import grader.config.StaticConfigurationUtils;
@@ -36,7 +38,6 @@ import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.trace.execution.UserProcessExecutionFinished;
 import grader.trace.execution.UserProcessExecutionStarted;
 import grader.trace.execution.UserProcessExecutionTimedOut;
-import grader.util.BasicProjectIntrospection;
 
 /**
  * This runs the program in a new process.

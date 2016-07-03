@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import grader.junit.JUnitUtils;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 
 import org.junit.Assert;
@@ -12,7 +12,7 @@ import util.annotations.MaxValue;
 public  class PointMainTest extends AbstractPointTest {
 	
 	protected  String runMain (String[] anArgs, String... anInput) {
-		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
+		return BasicProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
 
 	}
 	@Test

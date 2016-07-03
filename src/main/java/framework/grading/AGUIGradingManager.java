@@ -11,7 +11,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.joda.time.DateTime;
 
-import framework.project.Option;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
@@ -22,7 +21,8 @@ import framework.navigation.BulkDownloadFolder;
 import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
-import framework.project.Project;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 
 /**
  * This class is responsible for the entire grading pipeline, which is:

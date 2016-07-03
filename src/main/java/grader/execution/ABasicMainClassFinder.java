@@ -3,10 +3,10 @@ package grader.execution;
 
 import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
+import grader.basics.project.BasicProjectIntrospection;
 import grader.project.flexible.FlexibleClassDescription;
 import grader.project.flexible.FlexibleClassesManager;
 //import grader.project.Project;
-import grader.util.BasicProjectIntrospection;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
     protected boolean isEntryPoint (String aCandidate,
-    		framework.project.Project aProject
+    		grader.basics.project.Project aProject
 //    		framework.project.ClassesManager manager
     		) {
     	if (aCandidate == null)
@@ -83,7 +83,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
 //		}
 //		throw new NotRunnableException();
 //	}
-    protected void setEntryPoints(framework.project.Project project, Map<String, String> anEntryPoints) {
+    protected void setEntryPoints(grader.basics.project.Project project, Map<String, String> anEntryPoints) {
 //      ProjectWrapper projectWrapper = (ProjectWrapper) project;
 //      projectWrapper.getProject().setEntryPoints(anEntryPoints);
 
@@ -97,7 +97,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
      * @see grader.execution.ABasicMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
-    public Map<String, String> getEntryPoints(framework.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(grader.basics.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
 //        ProjectWrapper projectWrapper = (ProjectWrapper) project;
@@ -121,9 +121,9 @@ public class ABasicMainClassFinder implements MainClassFinder {
 			entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, aCandidate);
 			return entryPoints;
 		}
-        framework.project.ClassesManager manager = project.getClassesManager().get();
+        grader.basics.project.ClassesManager manager = project.getClassesManager().get();
 
-        for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+        for (grader.basics.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
                 entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());

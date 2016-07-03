@@ -1,6 +1,6 @@
 package framework.grading.testing;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.permissions.Permissible;
 
 /**

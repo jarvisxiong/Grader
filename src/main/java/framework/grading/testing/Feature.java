@@ -2,7 +2,7 @@ package framework.grading.testing;
 
 import java.util.List;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 
 /**
  * Features are aspects of the program that it "should" have.

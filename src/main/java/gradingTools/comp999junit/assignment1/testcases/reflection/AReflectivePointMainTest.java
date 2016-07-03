@@ -5,9 +5,9 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import util.annotations.MaxValue;
-import framework.project.CurrentProjectHolder;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.CurrentProjectHolder;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointMainTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointTest;
@@ -31,7 +31,7 @@ public class AReflectivePointMainTest extends MultiAbstractPointMainTest {
 //		}
 //		return ExecutionUtil.invokeCorrespondingMain(Main.class, anInput, anArgs);
 //		return ExecutionUtil.forkProjectMain(Main.class, anInput, anArgs);
-		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
+		return BasicProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
 
 
 	}

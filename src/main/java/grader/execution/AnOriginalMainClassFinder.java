@@ -25,10 +25,10 @@ import wrappers.framework.project.ProjectWrapper;
 public class AnOriginalMainClassFinder implements MainClassFinder {
     public static final String DEFAULT_MAIN_PACKAGE_NAME = "main";
     
-    protected boolean isEntryPoint (String aCandidate, framework.project.ClassesManager manager) {
+    protected boolean isEntryPoint (String aCandidate, grader.basics.project.ClassesManager manager) {
     	if (aCandidate == null)
     		return false;
-    	for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+    	for (grader.basics.project.ClassDescription description : manager.getClassDescriptions()) {
 			try {
 				if (!description.getJavaClass().getCanonicalName().equals(aCandidate))
 					continue;
@@ -81,19 +81,19 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
      * @see grader.execution.AnOriginalMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
-    public Map<String, String> getEntryPoints(framework.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
+    public Map<String, String> getEntryPoints(grader.basics.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {
         if (project.getClassesManager().isEmpty())
             throw new NotRunnableException();
         ProjectWrapper projectWrapper = (ProjectWrapper) project;
 		Map<String, String> entryPoints = new HashMap();
 
-        framework.project.ClassesManager manager = project.getClassesManager().get();
+        grader.basics.project.ClassesManager manager = project.getClassesManager().get();
         String aCandidate = StaticConfigurationUtils.getEntryPoint();
 		if (isEntryPoint(aCandidate, manager)) {
 			entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, aCandidate);
 			return entryPoints;
 		}
-        for (framework.project.ClassDescription description : manager.getClassDescriptions()) {
+        for (grader.basics.project.ClassDescription description : manager.getClassDescriptions()) {
             try {
                 description.getJavaClass().getMethod("main", String[].class);
                 entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, description.getJavaClass().getCanonicalName());

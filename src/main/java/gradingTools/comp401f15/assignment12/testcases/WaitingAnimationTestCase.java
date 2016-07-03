@@ -3,8 +3,8 @@ package gradingTools.comp401f15.assignment12.testcases;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
 
 import java.lang.reflect.Method;
@@ -42,8 +42,8 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 	protected void callAsynchronousMethods() {
 		Method waitMethod1 = getUniqueParameterlessMethod("waitingArthur");
 		Method waitMethod2 = getUniqueParameterlessMethod("waitingLancelot");
-		Object retVal = ProjectExecution.timedInvoke(commandInterpreter, waitMethod1);
-		retVal = ProjectExecution.timedInvoke(commandInterpreter, waitMethod2);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod1);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod2);
 
 
 		proceedAllDone = false;
@@ -66,7 +66,7 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 			
 		}
 		initThreadState(); // reset data to see if we get more events
-		retVal = ProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
 
 		
 	}

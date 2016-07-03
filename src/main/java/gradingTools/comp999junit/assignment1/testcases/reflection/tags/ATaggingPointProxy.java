@@ -1,8 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 
-import framework.project.CurrentProjectHolder;
-import framework.project.Project;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.CurrentProjectHolder;
+import grader.basics.project.Project;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointProxy;
 

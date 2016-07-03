@@ -1,0 +1,196 @@
+//START OF FILE: src/main.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+import java.util.Scanner;
+
+import bus.uigen.ObjectEditor;
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner aScanner = new Scanner (System.in);
+		String anXLine = aScanner.nextLine();
+		String aYLine = aScanner.nextLine();
+		int anX = Integer.parseInt(anXLine);
+		int aY = Integer.parseInt(aYLine);
+		SEPoint aPoint =  new SECartesianPoint (anX, aY);
+		System.out.println ("" + aPoint.getRadius());
+		System.out.println ("" + aPoint.getAngle());
+//		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/seabstractpointtest.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+import grader.junit.JUnitUtils;
+import grader.util.BasicProjectIntrospection;
+
+import org.junit.Assert;
+
+public abstract class SEAbstractPointTest {
+
+	public static final String ANGLE_TESTS = "Angle Tests";
+	boolean checkStructure;
+
+	SEPoint point;
+	double fractionComplete = 0.0;
+
+	protected void assertAngle(double aComputed, double aCorrect) {
+		Assert.assertTrue("computedAngle " + aComputed + " != correctAngle " + aCorrect + " :" + fractionComplete, Math.abs(aComputed - aCorrect) < 0.1);
+
+	}
+	protected void assertRadius(double aComputed, double aCorrect) {
+		Assert.assertTrue("computedRadius " + aComputed + " != correctRadius " + aCorrect + " :" + fractionComplete, Math.abs(aComputed - aCorrect) < 0.1);
+	}
+	protected abstract void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) ;
+	public void test(int theX, int theY, double aCorrectRadius,
+			double aCorrectAngle) {
+		try {
+			point = (SEPoint) BasicProjectIntrospection.createInstance(SEPoint.class, new Object[] { theX, theY});
+			double aComputedRadius =  point.getRadius();
+			double aComputedAngle = point.getAngle();
+			checkComputations(aComputedAngle, aComputedRadius, aCorrectAngle, aCorrectRadius);		
+
+		} catch (Exception e) {
+			JUnitUtils.assertTrue(e, fractionComplete);
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/secpointanglezerodegreetest.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+
+import util.annotations.Tags;
+@Tags({"AngleTest"})
+public class SECPointAngleZeroDegreeTest extends SEAbstractPointTest {	
+	@Test
+	public void test() {	
+		test(10, 0, 10.0, 0); // 0 degree angle		
+	}
+	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertAngle(aComputedAngle, aCorrectAngle);
+//		assertRadius(aComputedRadius, aCorrectRadius);
+	}
+}
+//END OF FILE
+//START OF FILE: src/secpointradiustest.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+
+//import org.junit.Test;
+import org.junit.Test;
+public class SECPointRadiusTest extends SEAbstractPointTest  {	
+		
+	@Test
+	// all or nothing for radius
+	public void test() {
+		test(10, 10, 14.142, Math.PI); // 45 degree angle
+		test(5, 0, 5.0, 0); // 0 degree angle
+		test(0, 7, 7, Math.PI / 2); // 90 degree angle
+		test(10, 10, 14.142, Math.PI / 4); // 90 degree angle
+		test(0, -10, 10.0, -Math.PI / 2); // -90 degree angle
+	}
+	
+	protected void checkComputations (double aComputedAngle, double aComputedRadius, double aCorrectAngle, double aCorrectRadius) {
+		assertRadius(aComputedRadius, aCorrectRadius);
+	}	
+
+}
+//END OF FILE
+//START OF FILE: src/secartesianpoint.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+import gradingTools.comp999junit.assignment1.testables.aecredit.ECCartesianPoint;
+import gradingTools.comp999junit.assignment1.testables.aecredit.ECPoint;
+import util.annotations.Explanation;
+import util.annotations.Tags;
+import bus.uigen.ObjectEditor;
+@Explanation("Uses Cartesian representation.")
+@Tags({"cartesian", "point"})
+public class SECartesianPoint implements SEPoint {	
+	protected int x, y;
+	public SECartesianPoint(int theX, int theY) {
+		x = theX;
+		y = theY;
+	}
+	public SECartesianPoint(double theRadius, double theAngle) {
+		x =  (int) (theRadius*Math.cos(theAngle));
+		y = (int) (theRadius*Math.sin(theAngle));
+	}
+	public int getX() { return x; }
+	public int getY() { return y; } 	
+	public double getAngle() { 
+		return Math.atan2(y, x); 
+//		return 0;
+	}
+	@Tags({"radius", "getter"})	
+	public double getRadius() { 
+		return Math.sqrt(x*x + y*y); 
+//		return 0;
+	}
+//	@Override
+//	public void print (String aString, SEPoint aPoint) {
+//		System.out.println (aString + aPoint.getX() + " " + aPoint.getY());
+//	}
+	public void print () {
+		System.out.println ("[" + x + "," + y + "]");
+	}
+	public SEPoint translate (SEPoint aPoint, int anXDelta, int aYDelta) {
+		return new SECartesianPoint (aPoint.getX() + anXDelta, aPoint.getY() + aYDelta);
+	}
+	public static void main(String args[]) {
+		SEPoint point =  new SECartesianPoint (50, 100);
+		ObjectEditor.edit(point);
+		point = new SECartesianPoint(100, Math.PI/4);
+		ObjectEditor.edit(point);
+//		
+	}
+}
+//END OF FILE
+//START OF FILE: src/secartesianpointsuite.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+//@RunWith(Suite.class)
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+   SECPointAngleZeroDegreeTest.class,
+//   APointAngleZeroDegreeTest.class,
+//   APointAngleNinetyDegreeTest.class,
+//   APointAngleFortyFiveDegreeTest.class,
+//   APointAngleMinusNinetyDegreeTest.class,
+   SECPointRadiusTest.class,
+   
+})
+public class SECartesianPointSuite {
+//	public static final String ANGLE_TESTS = "Angle Tests";
+
+	
+
+}
+
+//END OF FILE
+//START OF FILE: src/sepoint.java
+//package gradingTools.comp999junit.assignment1.testables.secredit;
+import util.annotations.Explanation;
+//@StructurePattern(StructurePatternNames.POINT_PATTERN)
+@Explanation("Location in Java coordinate System.")
+public interface SEPoint {
+	public int getX(); 
+	public int getY(); 	
+	public double getAngle(); 
+	public double getRadius();
+//	void print(String aString, SEPoint aPoint); 
+	void print();
+	public SEPoint translate (SEPoint aPoint, int anXDelta, int aYDelta);
+
+
+}
+//END OF FILE

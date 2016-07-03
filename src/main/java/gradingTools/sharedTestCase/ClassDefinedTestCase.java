@@ -6,10 +6,10 @@ import java.util.Set;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.BasicProjectIntrospection;
 
 
 public class ClassDefinedTestCase extends CheckStyleTestCase {

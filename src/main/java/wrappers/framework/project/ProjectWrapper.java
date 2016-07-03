@@ -6,11 +6,11 @@ import java.io.FileNotFoundException;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
-import tools.DirectoryUtils;
 import framework.navigation.SakaiStudentFolder;
 import framework.navigation.StudentFolder;
 import framework.project.StandardProject;
 import framework.utils.GraderSettings;
+import grader.basics.util.DirectoryUtils;
 import grader.project.flexible.AFlexibleProject;
 import grader.project.flexible.FlexibleProject;
 import grader.sakai.project.SakaiProject;

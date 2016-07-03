@@ -1,6 +1,6 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
-import grader.junit.JUnitUtils;
+import grader.basics.junit.JUnitUtils;
 
 import org.junit.Assert;
 

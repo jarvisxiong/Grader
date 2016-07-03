@@ -3,7 +3,7 @@ package testObjects;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

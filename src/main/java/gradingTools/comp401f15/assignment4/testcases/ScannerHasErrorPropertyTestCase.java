@@ -8,9 +8,10 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
 
 public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
 
@@ -62,7 +63,7 @@ public class ScannerHasErrorPropertyTestCase extends BasicTestCase {
         String errorPropertyName = errorPropertyGetter.getName().substring(3);
         outputPropertyNames = new String[]{errorPropertyName};
         Map<String, Object> anActualOutputs = ProjectExecution.testBean(getCheckable().getName(), getName(), aProject, scannerDescriptions, aConstructorArgTypes, aConstructorArgs, anInputs, outputPropertyNames);
-        if (anActualOutputs.get(ProjectExecution.MISSING_CLASS) != null) { // only output, no object
+        if (anActualOutputs.get(BasicProjectExecution.MISSING_CLASS) != null) { // only output, no object
             return fail("Could not find scanner bean");
         }
         if (errorPropertyGetter.getReturnType().isArray()) {

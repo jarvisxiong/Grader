@@ -1,11 +1,11 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
 import framework.grading.testing.TestCaseResult;
-import framework.project.BasicProject;
-import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
-import grader.junit.GradableJUnitSuite;
-import grader.junit.JUnitUtils;
+import grader.basics.junit.GradableJUnitSuite;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProject;
+import grader.basics.project.CurrentProjectHolder;
 import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
@@ -50,8 +50,8 @@ public class CartesianPointSuite {
 	public static void main (String[] args) {
 		try {
 //		BasicGradingEnvironment.get().setLoadClasses(false);
-		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
-//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
+//		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "wrongangle"));
+		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "allcorrect"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "aecredit"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "secredit"));
 //		CurrentProjectHolder.setProject(new BasicProject(null, new File("."), null, "missingcode"));

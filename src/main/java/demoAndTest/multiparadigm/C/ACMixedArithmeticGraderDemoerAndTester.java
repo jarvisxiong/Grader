@@ -1,6 +1,7 @@
 package demoAndTest.multiparadigm.C;
 
 import grader.assignment.GradingFeature;
+import grader.basics.util.DirectoryUtils;
 import grader.navigation.NavigationKind;
 import grader.navigation.filter.GradingStatus;
 import grader.steppers.OverviewProjectStepper;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //import bus.uigen.pipe.DemoerAndTester;
-import tools.DirectoryUtils;
+
 import util.trace.Tracer;
 import demoAndTest.GraderDemoerAndTester;
 import demoAndTest.basic.AJavaPalindromeBasedGraderDemoerAndTester;

@@ -2,12 +2,12 @@ package gradingTools.comp110f14.assignment5testcases;
 
 import java.util.regex.Pattern;
 
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class AskingAgain extends BasicTestCase{

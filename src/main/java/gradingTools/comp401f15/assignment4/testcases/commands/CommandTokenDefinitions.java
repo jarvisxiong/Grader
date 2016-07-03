@@ -5,8 +5,8 @@ import static gradingTools.comp401f15.assignment2.testcases.BasicTokenDefinition
 import java.util.HashMap;
 import java.util.Map;
 
-import framework.project.Project;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 
 /**
  *

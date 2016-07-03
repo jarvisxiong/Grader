@@ -1,5 +1,7 @@
 package framework.project;
 
+import grader.basics.project.BasicClassDescription;
+
 import java.io.File;
 import java.io.IOException;
 

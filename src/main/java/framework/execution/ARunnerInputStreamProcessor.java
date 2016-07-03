@@ -1,5 +1,7 @@
 package framework.execution;
 
+import grader.basics.execution.RunningProject;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;

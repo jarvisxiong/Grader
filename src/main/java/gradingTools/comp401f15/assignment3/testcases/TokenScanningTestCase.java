@@ -9,7 +9,8 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectExecution;
 
 public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestCase{
@@ -67,11 +68,11 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
 //        if (aTranscript != null && !aTranscript.isEmpty()) {
 //        	RunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), aTranscript);
 //        }
-        if (anActualOutputs.get(ProjectExecution.MISSING_CLASS) != null) { // only output, no object
+        if (anActualOutputs.get(BasicProjectExecution.MISSING_CLASS) != null) { // only output, no object
         	return fail ("Could not find scanner bean");
         }
-        Boolean getsReturnedSets = (Boolean) anActualOutputs.get(ProjectExecution.GETS_EQUAL_SETS);
-        String anOutput = (String) anActualOutputs.get(ProjectExecution.PRINTS);
+        Boolean getsReturnedSets = (Boolean) anActualOutputs.get(BasicProjectExecution.GETS_EQUAL_SETS);
+        String anOutput = (String) anActualOutputs.get(BasicProjectExecution.PRINTS);
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;

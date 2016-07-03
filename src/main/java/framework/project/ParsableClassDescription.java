@@ -1,5 +1,7 @@
 package framework.project;
 
+import grader.basics.project.ClassDescription;
+
 import java.io.IOException;
 
 import com.github.antlrjavaparser.api.CompilationUnit;

@@ -3,14 +3,14 @@ package gradingTools.comp110.assignment3.testCases;
 
 
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
-import grader.util.ResultingOutErr;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.ResultingOutErr;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class PromptStringTestCase extends BasicTestCase {
@@ -58,7 +58,7 @@ public class PromptStringTestCase extends BasicTestCase {
 			// Get the output after inputting one string, as both prompts should now be up
 //			RunningProject oneInputRunningProject = RunningProjectUtils.runProject(project, 1, "hello");
 //			String oneInputPrompt = oneInputRunningProject.await();
-			ResultingOutErr aResult = ProjectExecution.callMain("hello");
+			ResultingOutErr aResult = BasicProjectExecution.callMain("hello");
 //			String oneInputPrompt = ProjectExecution.callMain("hello").out;
 			String oneInputPrompt = aResult.out;
 			String oneInputErr = aResult.err;

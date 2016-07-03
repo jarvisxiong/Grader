@@ -3,13 +3,13 @@ package gradingTools.comp110.assignment3.testCases;
 import java.util.regex.Pattern;
 
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
@@ -45,7 +45,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 		try {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input);
 //			String prompt = runningProject.await();
-			String prompt = ProjectExecution.callMain(input).out; // writing to a file replaces tab with spaces
+			String prompt = BasicProjectExecution.callMain(input).out; // writing to a file replaces tab with spaces
 			if (prompt.endsWith("\n")) {
 				prompt = prompt.substring(0, prompt.length() - 1);
 			}
@@ -55,7 +55,7 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 
 //			runningProject = RunningProjectUtils.runProject(project, 1, input, choice);
 //			String output = runningProject.await();
-			String output = ProjectExecution.callMain(input, choice).out;
+			String output = BasicProjectExecution.callMain(input, choice).out;
 //			if (!output.equals(output2)) {
 //				System.out.println (output + "\n != \n" + output2);
 //			}

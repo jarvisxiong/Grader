@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,13 +40,13 @@ public class ManualClassesManager implements ClassesManager {
         return classDescriptions;
     }
 
-	@Override
+//	@Override
 	public List<String> getClassNamesToCompile() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+//	@Override
 	public void setClassNamesToCompile(List<String> classNamesToCompile) {
 		// TODO Auto-generated method stub
 		

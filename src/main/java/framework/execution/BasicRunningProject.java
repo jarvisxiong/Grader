@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
+
+
+
 //import grader.config.StaticConfigurationUtils;
 //import grader.sakai.project.SakaiProject;
 //import grader.trace.overall_transcript.OverallTranscriptSaved;
@@ -16,7 +19,8 @@ import tools.TimedProcess;
 import util.pipe.InputGenerator;
 import util.pipe.ProcessInputListener;
 import util.trace.Tracer;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 
 /**
  * This is a wrapper for a running project independent of the method of

@@ -1,6 +1,6 @@
 package framework.execution;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 
 public class RunnerSelector {
 	static RunnerFactory factory = new BasicProcessRunnerFactory();

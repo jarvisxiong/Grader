@@ -11,7 +11,7 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.MethodEnvironment;

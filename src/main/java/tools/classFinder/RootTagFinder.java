@@ -3,8 +3,8 @@ package tools.classFinder;
 import java.util.Set;
 
 import scala.Option;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

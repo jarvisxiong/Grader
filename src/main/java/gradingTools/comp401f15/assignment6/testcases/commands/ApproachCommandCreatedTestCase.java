@@ -2,7 +2,7 @@ package gradingTools.comp401f15.assignment6.testcases.commands;
 
 import framework.grading.testing.TestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 import gradingTools.comp401f15.assignment4.testcases.ScannerBeanReturnsTokenInterfaceArrayTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.created.AbstractCommandCreatedTestCase;
 

@@ -10,10 +10,10 @@ import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
-import framework.project.Option;
-import tools.DirectoryUtils;
 import util.misc.Common;
 import framework.project.StandardProject;
+import grader.basics.project.Option;
+import grader.basics.util.DirectoryUtils;
 import grader.project.flexible.AFlexibleProject;
 
 /**

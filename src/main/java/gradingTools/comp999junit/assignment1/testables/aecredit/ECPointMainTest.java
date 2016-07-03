@@ -1,6 +1,6 @@
 package gradingTools.comp999junit.assignment1.testables.aecredit;
 
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
 import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 
 import org.junit.Assert;
@@ -9,7 +9,7 @@ import org.junit.Test;
 public  class ECPointMainTest extends ECAbstractPointTest {
 	
 	protected  String runMain (String[] anArgs, String... anInput) {
-		return ProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
+		return BasicProjectExecution.callCorrespondingMain(Main.class, anArgs, anInput).out;
 
 	}
 	@Test

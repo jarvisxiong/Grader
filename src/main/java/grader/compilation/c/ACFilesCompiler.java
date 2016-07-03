@@ -2,8 +2,9 @@ package grader.compilation.c;
 
 import framework.execution.ProcessRunner;
 import framework.execution.Runner;
-import framework.execution.RunningProject;
+import grader.basics.execution.RunningProject;
 import grader.compilation.ClassFilesCompiler;
+import grader.language.BasicLanguageDependencyManager;
 import grader.language.LanguageDependencyManager;
 import grader.settings.GraderSettingsManagerSelector;
 
@@ -40,7 +41,7 @@ public class ACFilesCompiler implements ClassFilesCompiler {
 	
 	public RunningProject compileFile(String aFileName, String workingDirectory) {
         String windowsName = Common.toWindowsFileName(aFileName);
-        int extensionIndex = aFileName.indexOf(LanguageDependencyManager.getSourceFileSuffix());
+        int extensionIndex = aFileName.indexOf(BasicLanguageDependencyManager.getSourceFileSuffix());
         if (extensionIndex < 1)
         	return null;
         String baseName = aFileName.substring(0, extensionIndex);

@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 
 import scala.Option;
 import framework.grading.testing.NotAutomatableException;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

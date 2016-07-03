@@ -12,9 +12,9 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import gradingTools.comp401f15.assignment3.testcases.ExtendedTokenDefinitions;
 import gradingTools.comp401f15.assignment4.testcases.commands.CommandTokenDefinitions;
 
@@ -88,7 +88,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
                 String testing = scannerTestValues[i];
                 String[] expected = scannerTestExpectedTags[i].split(" ");
                 Object[] args = {testing};
-                ProjectExecution.timedInvoke(scanner, stringSetterMethod, testing);
+                BasicProjectExecution.timedInvoke(scanner, stringSetterMethod, testing);
 //                stringSetterMethod.invoke(scanner, testing);
                 Object[] tokens = (Object[]) tokenMethod.invoke(scanner);
                 Map<String, Class> tokenClassMap = new HashMap<>();

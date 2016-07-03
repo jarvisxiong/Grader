@@ -2,12 +2,12 @@ package gradingTools.comp999junit.assignment1.testcases.testcases;
 import java.io.File;
 
 import framework.grading.testing.TestCaseResult;
-import framework.project.BasicProject;
-import framework.project.CurrentProjectHolder;
-import framework.project.Project;
-import grader.junit.GradableJUnitTest;
-import grader.junit.JUnitUtils;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.junit.GradableJUnitTest;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProject;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.CurrentProjectHolder;
+import grader.basics.project.Project;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -3,6 +3,7 @@ package grader.execution;
 
 import framework.execution.BasicProcessRunner;
 import framework.execution.NotRunnableException;
+import grader.basics.project.BasicProjectIntrospection;
 import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
@@ -12,7 +13,6 @@ import grader.project.flexible.FlexibleClassDescription;
 import grader.project.flexible.FlexibleClassesManager;
 import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
-import grader.util.BasicProjectIntrospection;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -137,7 +137,7 @@ public class AFlexibleMainClassFinder extends ABasicMainClassFinder implements F
 //    }
 //    
 	@Override
-	  protected void setEntryPoints(framework.project.Project project, Map<String, String> anEntryPoints) {
+	  protected void setEntryPoints(grader.basics.project.Project project, Map<String, String> anEntryPoints) {
 	      ProjectWrapper projectWrapper = (ProjectWrapper) project;
 	      projectWrapper.getProject().setEntryPoints(anEntryPoints);
 

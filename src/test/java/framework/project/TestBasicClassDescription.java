@@ -1,6 +1,8 @@
 package framework.project;
 
 import static org.junit.Assert.assertEquals;
+import grader.basics.project.BasicClassDescription;
+import grader.basics.project.ClassDescription;
 
 import java.io.File;
 

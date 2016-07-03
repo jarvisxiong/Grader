@@ -1,6 +1,6 @@
 package gradingTools.comp999junit.assignment1.testables.aecredit;
 
-import grader.junit.JUnitUtils;
+import grader.basics.junit.JUnitUtils;
 
 import org.junit.Assert;
 import org.junit.Test;

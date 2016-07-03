@@ -1,7 +1,7 @@
 package gradingTools.comp999junit.assignment1.testcases;
 
-import grader.junit.JUnitUtils;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProjectIntrospection;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 
 import org.junit.Assert;

@@ -20,8 +20,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
-import framework.project.Option;
-
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -32,8 +30,9 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.navigation.StudentFolder;
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

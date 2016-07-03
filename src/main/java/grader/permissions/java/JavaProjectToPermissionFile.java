@@ -4,7 +4,7 @@ import java.io.File;
 
 import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.TestCase;
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.language.LanguageDependencyManager;
 
 public class JavaProjectToPermissionFile {

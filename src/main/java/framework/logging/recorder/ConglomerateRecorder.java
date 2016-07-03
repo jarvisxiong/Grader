@@ -11,6 +11,7 @@ import framework.logging.serializers.SerializationUtils;
 import framework.utils.GraderSettings;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
+import grader.basics.util.DirectoryUtils;
 import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.file.FileProxy;
@@ -20,8 +21,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
-
-import tools.DirectoryUtils;
 
 /**
  * Created with IntelliJ IDEA.

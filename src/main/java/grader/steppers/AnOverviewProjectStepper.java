@@ -106,7 +106,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	String commentsFileName = "";
 
 	SakaiProject project;
-	framework.project.Project wrappedProject;
+	grader.basics.project.Project wrappedProject;
 	// FinalGradeRecorder gradeRecorder;
 //	boolean hasMoreSteps = true;
 	FinalGradeRecorder totalScoreRecorder;

@@ -8,8 +8,9 @@ import framework.navigation.BulkDownloadFolder;
 import framework.navigation.NotValidDownloadFolderException;
 import framework.navigation.SakaiBulkDownloadFolder;
 import framework.navigation.StudentFolder;
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 import grader.settings.GraderSettingsManager;
 
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ import java.util.List;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.joda.time.DateTime;
-
-import framework.project.Option;
 
 /**
  * Created by Andrew on 1/1/14.

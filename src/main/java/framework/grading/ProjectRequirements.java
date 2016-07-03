@@ -4,7 +4,7 @@ import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.permissions.Permissible;
 
 import java.util.List;

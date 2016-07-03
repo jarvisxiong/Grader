@@ -1,13 +1,13 @@
 package gradingTools.comp110.assignment3.testCases;
 
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
 
 public class InfiniteLoopComputationTestCase extends BasicTestCase {
@@ -34,7 +34,7 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 //			RunningProject runningProject = RunningProjectUtils.runProject(project, 1, input1,
 //					choice1);
 //			String output1 = runningProject.await();
-			String output1 = ProjectExecution.callMain(input1, choice1).out;
+			String output1 = BasicProjectExecution.callMain(input1, choice1).out;
 //			if (output1.endsWith("\n")) {
 //				output1 = output1.substring(0, output1.length() - 1);
 //			}
@@ -42,7 +42,7 @@ public class InfiniteLoopComputationTestCase extends BasicTestCase {
 //			RunningProject runningProject2 = RunningProjectUtils.runProject(project, 2, input1,
 //					choice1, input2, choice2);
 //			String output2 = runningProject2.await();
-			String output2 = ProjectExecution.callMain(input1, choice1, input2, choice2).out;
+			String output2 = BasicProjectExecution.callMain(input1, choice1, input2, choice2).out;
 			if (output2.startsWith(output1)) {
 				if (output2.length() > output1.length() + 1) {
 					return pass();

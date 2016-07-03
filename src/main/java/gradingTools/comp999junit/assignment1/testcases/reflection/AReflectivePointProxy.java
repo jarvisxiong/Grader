@@ -2,7 +2,7 @@ package gradingTools.comp999junit.assignment1.testcases.reflection;
 
 
 //import org.junit.Test;
-import grader.junit.JUnitUtils;
+import grader.basics.junit.JUnitUtils;
 import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;

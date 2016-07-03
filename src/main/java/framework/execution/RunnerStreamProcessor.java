@@ -1,5 +1,7 @@
 package framework.execution;
 
+import grader.basics.execution.RunningProject;
+
 import java.util.concurrent.Semaphore;
 
 public interface RunnerStreamProcessor {

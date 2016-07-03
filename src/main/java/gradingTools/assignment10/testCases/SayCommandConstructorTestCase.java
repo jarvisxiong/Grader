@@ -11,8 +11,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,7 +1,7 @@
 package gradingTools.comp401f15.assignment11.testcases;
 
 import framework.grading.testing.TestCaseResult;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
 import util.misc.ThreadSupport;
 import util.trace.TraceableListener;
 
@@ -13,8 +13,8 @@ public class SynchronizedAnimationTestCase extends CommandInterpreterAnimationTe
 		ThreadSupport.sleep(2000);
 	}
 	protected void callAsynchronousMethods() {
-		Object retVal = ProjectExecution.timedInvoke(commandInterpreter, foundMethod);
-		retVal = ProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
 		
 	}
 

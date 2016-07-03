@@ -1,7 +1,9 @@
 package framework.execution;
 
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.EntryPointNotFound;
 import grader.execution.ExecutionSpecification;
@@ -11,7 +13,6 @@ import grader.executor.ExecutorSelector;
 import grader.language.LanguageDependencyManager;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.sakai.project.SakaiProject;
-import grader.util.BasicProjectIntrospection;
 
 import java.io.File;
 import java.io.InputStream;

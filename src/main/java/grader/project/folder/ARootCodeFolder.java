@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import util.misc.Common;
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;

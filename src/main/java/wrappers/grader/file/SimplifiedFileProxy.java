@@ -1,5 +1,6 @@
 package wrappers.grader.file;
 
+import grader.basics.util.DirectoryUtils;
 import grader.file.FileProxy;
 
 import java.io.File;
@@ -14,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import tools.DirectoryUtils;
 import util.misc.Common;
 
 /**

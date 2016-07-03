@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import scala.Option;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 
 /**
  * This is part of the manual class locator system.

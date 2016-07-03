@@ -10,11 +10,11 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import framework.project.Option;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Feature;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 
 /**
  * This represents a row in the feature list and handles setting up all the listeners.

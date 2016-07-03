@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import framework.grading.testing.TestCase;
-import framework.project.Project;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 
 public class ProjectIntrospection extends BasicProjectIntrospection {
 	public static Object getInstance(Project aProject, TestCase aTestCase,

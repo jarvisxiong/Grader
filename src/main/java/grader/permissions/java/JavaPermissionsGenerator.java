@@ -1,6 +1,6 @@
 package grader.permissions.java;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.permissions.PermissionsGenerator;
 import grader.sakai.project.ASakaiProjectDatabase;
 

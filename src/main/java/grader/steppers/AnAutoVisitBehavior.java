@@ -1,6 +1,5 @@
 package grader.steppers;
 
-import framework.execution.RunningProject;
 import framework.grading.ProjectRequirements;
 import framework.grading.testing.CheckResult;
 import framework.grading.testing.Checkable;
@@ -10,6 +9,8 @@ import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.auto_notes.NotesGenerator;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Option;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
@@ -36,7 +37,6 @@ import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
 
-import framework.project.Option;
 import util.annotations.ComponentWidth;
 import util.annotations.Row;
 import util.annotations.StructurePattern;
@@ -65,7 +65,7 @@ public class AnAutoVisitBehavior implements
 
     SakaiProject project;
     OverviewProjectStepper projectStepper;
-    framework.project.Project wrappedProject;
+    grader.basics.project.Project wrappedProject;
 
     List<CheckResult> featureResults;
     List<CheckResult> restrictionResults;

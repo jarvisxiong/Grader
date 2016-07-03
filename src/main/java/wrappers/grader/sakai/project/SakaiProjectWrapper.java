@@ -1,6 +1,6 @@
 package wrappers.grader.sakai.project;
 
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.ASakaiStudentCodingAssignment;
 import grader.sakai.StudentCodingAssignment;

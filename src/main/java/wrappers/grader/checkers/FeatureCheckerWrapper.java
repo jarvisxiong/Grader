@@ -5,8 +5,8 @@ import framework.grading.testing.Checkable;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
 import framework.logging.recorder.ConglomerateRecorder;
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.project.Project;
 import grader.checkers.ACheckResult;
 import grader.checkers.CheckResult;
 

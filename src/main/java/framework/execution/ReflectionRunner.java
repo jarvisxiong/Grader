@@ -10,9 +10,10 @@ import java.lang.reflect.Modifier;
 import tools.TimedProcess;
 import util.misc.TeePrintStream;
 import util.pipe.InputGenerator;
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Project;
 
 /**
  * Runs a project in the same JVM using reflection to invoke the main method.

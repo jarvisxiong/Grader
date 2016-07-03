@@ -1,18 +1,31 @@
 package framework.project;
 
+import framework.execution.ARunningProject;
+import framework.execution.InteractiveConsoleProcessRunner;
+import framework.execution.NotRunnableException;
+import framework.execution.ProcessRunner;
+import framework.execution.ReflectionRunner;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicProject;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
+
+import util.pipe.InputGenerator;
 
 //import scala.Option;
-import framework.project.Option;
+
 
 /**
  * A "standard" project. That is, an IDE-based java project.
  */
-public class StandardProject extends BasicProject implements Project {
+public class StandardProject extends BasicProject implements FatProject {
     
 //
 //    private File directory;
@@ -186,53 +199,53 @@ public class StandardProject extends BasicProject implements Project {
 //        return traceableLog;
 //    }
 //
-//    @Override
-//    public RunningProject start(String input) throws NotRunnableException {
-//        return new ReflectionRunner(this).run(input);
-//    }
-//
-//    @Override
-//    public RunningProject launch(String input) throws NotRunnableException {
-//        return new ProcessRunner(this).run(input);
-//    }
-//
-//    @Override
-//    public RunningProject start(String input, int timeout) throws NotRunnableException {
-//        return new ReflectionRunner(this).run(input, timeout);
-//    }
-//
-//    @Override
-//    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
-//        return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
-//    }
-//    @Override
-//    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
-//        return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
-//    }
-//    
-//    @Override
-//    public RunningProject launch( String input, int timeout) throws NotRunnableException {
-//        return new ProcessRunner(this).run(input, timeout);
-//    }
-//    @Override
-//    public RunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
-//        return new ProcessRunner(this).run(input, anArgs, timeout);
-//    }
-//
-//    @Override
-//    public RunningProject launchInteractive() throws NotRunnableException {
-//    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
-////    	retVal.createFeatureTranscript();
-//    	return retVal;
-////        return new InteractiveConsoleProcessRunner(this).run("");
-//    }
-//    @Override
-//    public RunningProject launchInteractive(String[] args) throws NotRunnableException {
-//    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
-////    	retVal.createFeatureTranscript();
-//    	return retVal;
-////        return new InteractiveConsoleProcessRunner(this).run("");
-//    }
+    @Override
+    public ARunningProject start(String input) throws NotRunnableException {
+        return new ReflectionRunner(this).run(input);
+    }
+
+    @Override
+    public RunningProject launch(String input) throws NotRunnableException {
+        return new ProcessRunner(this).run(input);
+    }
+
+    @Override
+    public RunningProject start(String input, int timeout) throws NotRunnableException {
+        return new ReflectionRunner(this).run(input, timeout);
+    }
+
+    @Override
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, String input, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, input, timeout);
+    }
+    @Override
+    public RunningProject launch(InputGenerator anOutputBasedInputGenerator, Map<String, String> aProcessToInput, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(anOutputBasedInputGenerator, aProcessToInput, timeout);
+    }
+    
+    @Override
+    public RunningProject launch( String input, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(input, timeout);
+    }
+    @Override
+    public RunningProject launch( String input, String[] anArgs, int timeout) throws NotRunnableException {
+        return new ProcessRunner(this).run(input, anArgs, timeout);
+    }
+
+    @Override
+    public RunningProject launchInteractive() throws NotRunnableException {
+    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("");
+//    	retVal.createFeatureTranscript();
+    	return retVal;
+//        return new InteractiveConsoleProcessRunner(this).run("");
+    }
+    @Override
+    public RunningProject launchInteractive(String[] args) throws NotRunnableException {
+    	RunningProject retVal = new InteractiveConsoleProcessRunner(this).run("", args);
+//    	retVal.createFeatureTranscript();
+    	return retVal;
+//        return new InteractiveConsoleProcessRunner(this).run("");
+    }
 //
 //    @Override
 //    public Option<ClassesManager> getClassesManager() {

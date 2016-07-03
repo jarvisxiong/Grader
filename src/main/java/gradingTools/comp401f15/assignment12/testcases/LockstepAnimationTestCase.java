@@ -3,8 +3,8 @@ package gradingTools.comp401f15.assignment12.testcases;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import gradingTools.comp401f15.assignment11.testcases.CommandInterpreterAnimationTestCase;
 
 import java.lang.reflect.Method;
@@ -42,12 +42,12 @@ public class LockstepAnimationTestCase extends CommandInterpreterAnimationTestCa
 		
 		// put the waiting method in wait state
 		// start the wait method
-		Object retVal = ProjectExecution.timedInvoke(commandInterpreter, waitMethod);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod);
 		//sleep so it goes into wait
 		waitForThreads();
 		initThreadState();
 		// now start lockstep method and let them do the lockstep
-		retVal = ProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
 //		waitForThreads();
 		
 

@@ -3,17 +3,21 @@ package gradingTools.comp410s16.assignment2.testcases;
 import java.util.Set;
 
 //import scala.Option;
-import framework.project.Option;
+
+
+
+
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 
 /**

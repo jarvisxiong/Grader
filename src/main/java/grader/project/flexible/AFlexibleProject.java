@@ -1,10 +1,10 @@
 package grader.project.flexible;
 
-import framework.execution.RunningProject;
 import framework.grading.testing.Checkable;
 import framework.grading.testing.TestCase;
 import framework.logging.loggers.FeedbackTextSummaryLogger;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.FlexibleMainClassFinder;
 import grader.execution.MainClassFinder;

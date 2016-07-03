@@ -1,8 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
-import grader.junit.JUnitUtils;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
 import org.junit.Test;

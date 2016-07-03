@@ -7,9 +7,9 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 
 /**
  *
@@ -73,7 +73,7 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
     }
     
     private TestCaseResult testEmptyConstructor(Constructor emptyConstructor, Class angleShapeClass) {
-        ProjectExecution.timedInvoke(emptyConstructor, null, CONSTRUCTOR_TIMEOUT);
+        BasicProjectExecution.timedInvoke(emptyConstructor, null, CONSTRUCTOR_TIMEOUT);
         return pass();
     }
     
@@ -81,12 +81,12 @@ public class AngleShapeFunctionTestCase extends BasicTestCase {
         if (lineClass == null) {
             return fail("Can't find empty constructor\nCan't find line class to test fallback line parameter constructor");
         }
-        Object line1 = ProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
-        Object line2 = ProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
+        Object line1 = BasicProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
+        Object line2 = BasicProjectExecution.timedInvoke(lineParamConstructor, null, CONSTRUCTOR_TIMEOUT);
         if (line1 == null || line2 == null) {
             return fail("Can't find empty constructor\nFailed to instantiate lines to test fallback line parameter constructor");
         }
-        Object angleShape = ProjectExecution.timedInvoke(lineParamConstructor, new Object[]{line1, line2}, CONSTRUCTOR_TIMEOUT);
+        Object angleShape = BasicProjectExecution.timedInvoke(lineParamConstructor, new Object[]{line1, line2}, CONSTRUCTOR_TIMEOUT);
         if (angleShape == null) {
             return fail("Can't find empty constructor\nFailed to instantiate line parameter constructor");
         }

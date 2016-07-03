@@ -5,7 +5,7 @@ import java.util.List;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 
 

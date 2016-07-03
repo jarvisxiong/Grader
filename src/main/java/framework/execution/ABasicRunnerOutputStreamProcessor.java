@@ -1,5 +1,7 @@
 package framework.execution;
 
+import grader.basics.execution.RunningProject;
+
 import java.io.InputStream;
 
 public class ABasicRunnerOutputStreamProcessor extends ARunnerErrorOrOutStreamProcessor implements Runnable {

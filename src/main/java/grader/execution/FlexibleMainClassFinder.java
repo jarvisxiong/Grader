@@ -1,7 +1,7 @@
 package grader.execution;
 
 import framework.execution.NotRunnableException;
-import framework.project.BasicProject;
+import grader.basics.project.BasicProject;
 import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 

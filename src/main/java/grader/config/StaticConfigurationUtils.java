@@ -1,9 +1,9 @@
 package grader.config;
 
 import framework.grading.ProjectRequirements;
-import framework.project.Project;
 import framework.utils.BasicGradingEnvironment;
 import grader.assignment.AnAssignmenDataFolder;
+import grader.basics.project.Project;
 import grader.permissions.java.JavaProjectToPermissionFile;
 import grader.requirements.interpreter.AnInterpretedRequirements;
 import grader.requirements.interpreter.specification.CSVRequirementsSpecification;

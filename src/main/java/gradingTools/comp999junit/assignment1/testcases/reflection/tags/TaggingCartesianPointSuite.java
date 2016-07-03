@@ -1,8 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 
-import framework.project.BasicProject;
-import framework.project.CurrentProjectHolder;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.project.BasicProject;
+import grader.basics.project.CurrentProjectHolder;
 import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;

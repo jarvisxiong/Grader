@@ -1,6 +1,6 @@
 package gradingTools.comp401f15.assignment8.testCase;
 
-import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
+import static grader.basics.execution.BasicProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -17,8 +17,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;
 import gradingTools.sharedTestCase.MethodExecutionTestCase;
 import gradingTools.sharedTestCase.MethodExecutionTestCase.ExecutionData;
@@ -36,7 +36,7 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ProjectExecution.redirectOutput();
+        BasicProjectExecution.redirectOutput();
         try {
             Class<?> consoleSceneViewClass = ProjectIntrospection.findClass(project, null, "ConsoleSceneView", ".*[cC]console.*[sS]cene.*", ".*[cC]onsole[sS]cene[vV]iew.*");
             Class<?> bridgeSceneClass = ProjectIntrospection.findClass(project, null, "BridgeScene", ".*[bB]ridge.*[sS]cene.*", ".*[bB]ridge[sS]cene.*");
@@ -142,7 +142,7 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
         
     private static boolean[] checkConsoleScene(Constructor<?> consoleSceneViewConstructor, Constructor<?> bridgeSceneConstructor, Method approach, Method fail, Method getArthur, Method[] getX, Method[] getY) {
         boolean[] ret = new boolean[4];
-        Object bridgeSceneInstance = ProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
+        Object bridgeSceneInstance = BasicProjectExecution.timedInvoke(bridgeSceneConstructor, new Object[]{});
         
         MethodEnvironment[] methods = new MethodExecutionTestCase.MethodEnvironment[]{
             MethodEnvironment.get(bridgeSceneInstance, getArthur),

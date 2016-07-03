@@ -1,5 +1,6 @@
 package framework.execution;
 
+import grader.basics.execution.RunningProject;
 import tools.TimedProcess;
 import util.pipe.InputGenerator;
 

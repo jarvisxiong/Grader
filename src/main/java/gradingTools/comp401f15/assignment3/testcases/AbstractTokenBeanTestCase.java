@@ -8,7 +8,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectExecution;
 
 
@@ -45,8 +46,8 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
         try {
         	Map<String, Object> retVal = ProjectExecution.testBeanWithStringConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), input(), inputPropertyName(), input(), outputPropertyName(), value());
-        	Boolean missingExpectedConstructor = (Boolean) retVal.get(ProjectExecution.MISSING_CONSTRUCTOR);
-        	Boolean missingClass = (Boolean) retVal.get(ProjectExecution.MISSING_CLASS);
+        	Boolean missingExpectedConstructor = (Boolean) retVal.get(BasicProjectExecution.MISSING_CONSTRUCTOR);
+        	Boolean missingClass = (Boolean) retVal.get(BasicProjectExecution.MISSING_CLASS);
         	double penalty = 0.0;
         	String aMessage = "";
         	// clear existing value
@@ -56,7 +57,7 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
         	if (missingClass != null) {
         		return fail ("Class matching:" + Common.toString(beanDescriptions()) + " not found");
         	} else {
-        		getCheckable().getRequirements().putUserObject(classIdentifier(), retVal.get(ProjectExecution.CLASS_MATCHED));
+        		getCheckable().getRequirements().putUserObject(classIdentifier(), retVal.get(BasicProjectExecution.CLASS_MATCHED));
         	}
         	if (missingExpectedConstructor != null) {
             	 retVal = ProjectExecution.testBeanWithNoConstructor(getCheckable().getName(), getName(), project, beanDescriptions(), inputPropertyName(), input(), outputPropertyName(), value());
@@ -66,9 +67,9 @@ public abstract class AbstractTokenBeanTestCase extends BasicTestCase {
         	}
         	
         	        	
-        	boolean getterReturnsSetter = isNullOrTrue((Boolean) retVal.get(ProjectExecution.EXPECTED_EQUAL_ACTUAL));
-        	boolean correctDependent = isNullOrTrue((Boolean) retVal.get(ProjectExecution.EXPECTED_EQUAL_ACTUAL));
-        	boolean missingProperty = isNotNullAndTrue((Boolean) retVal.get(ProjectExecution.MISSING_PROPERTY));
+        	boolean getterReturnsSetter = isNullOrTrue((Boolean) retVal.get(BasicProjectExecution.EXPECTED_EQUAL_ACTUAL));
+        	boolean correctDependent = isNullOrTrue((Boolean) retVal.get(BasicProjectExecution.EXPECTED_EQUAL_ACTUAL));
+        	boolean missingProperty = isNotNullAndTrue((Boolean) retVal.get(BasicProjectExecution.MISSING_PROPERTY));
         	if (missingProperty) {
         		penalty += missingPropertyPenalty();
         		aMessage += "Property missing " ;

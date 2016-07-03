@@ -17,12 +17,12 @@ import framework.grading.testing.Checkable;
 import framework.grading.testing.Feature;
 import framework.grading.testing.Restriction;
 import framework.grading.testing.TestCase;
-import framework.project.CurrentProjectHolder;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.CurrentProjectHolder;
+import grader.basics.project.Project;
 import grader.language.LanguageDependencyManager;
 import grader.sakai.project.SakaiProject;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
 
 /**
  * This is the fundamental container which holds all the features and
@@ -137,8 +137,9 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
     public List<CheckResult> checkFeatures(Project project) {
 //    	getUserData().clear();
     	clearUserObjects();
-//    	CurrentProjectHolder.setProject(project); // for Junit test cases
-    	BasicProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
+    	// need to do this once for all features and test cases to prserve caches
+    	CurrentProjectHolder.setProject(project); // for Junit test cases
+//    	BasicProjectIntrospection.clearProjectCaches(); // all th eclasses and methods cached
         List<CheckResult> results = new LinkedList<CheckResult>();
         SakaiProject sakaiProject = null;
         if (project instanceof ProjectWrapper) {
@@ -149,7 +150,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
 //        	if (feature.isManual()) 
 //        		continue;
 //        	CurrentProjectHolder.setProject(project); // in case some feature reset the project
-        	ProjectExecution.redirectOutput();
+        	BasicProjectExecution.redirectOutput();
         	if (isInteractiveRun(feature))
         		results.add(feature.check(project, false)); // added again below
             if (sakaiProject != null) { // should we do the check anyway, regardless of whether sakaiProject is null or not
@@ -161,7 +162,7 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
                 e.printStackTrace();
             } finally {
             
-        			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
+        			String anOutput = BasicProjectExecution.restoreOutputAndGetRedirectedOutput();
         			 if (anOutput != null && !anOutput.isEmpty()) {
                      	ARunningProject.appendToTranscriptFile(project, feature.getName(), anOutput);
                      }

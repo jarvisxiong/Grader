@@ -3,7 +3,7 @@ package gradingTools.assignment6.testCases;
 import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

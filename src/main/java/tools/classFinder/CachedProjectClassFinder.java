@@ -10,8 +10,8 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import scala.Option;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 
 /**
  * This keeps track of classes and their corresponding tags. If it has no tag then it asks the user.

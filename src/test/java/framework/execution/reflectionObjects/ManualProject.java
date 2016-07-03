@@ -5,13 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 //import scala.Option;
-import framework.project.Option;
+
+
 import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import framework.execution.ARunningProject;
 import framework.execution.NotRunnableException;
-import framework.project.ClassesManager;
-import framework.project.Project;
+import framework.project.FatProject;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +23,7 @@ import framework.project.Project;
  * Time: 11:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ManualProject implements Project {
+public class ManualProject implements FatProject {
 
     private ClassesManager classesManager;
 

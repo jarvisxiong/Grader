@@ -7,8 +7,8 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;
 
 public class FactoryMethodTestCase extends BasicTestCase {
@@ -45,7 +45,7 @@ public class FactoryMethodTestCase extends BasicTestCase {
 			return fail("Instantiated class does not have parameterless constructor:");		
 		}
 		
-		Object instantiatedObject = ProjectExecution.timedInvoke(aConstructor, new Object[]{});
+		Object instantiatedObject = BasicProjectExecution.timedInvoke(aConstructor, new Object[]{});
 		if (instantiatedObject == null) {
 			return fail ("Instantiation returned null");
 		}

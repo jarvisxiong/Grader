@@ -14,12 +14,12 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
 import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
 
 public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 
@@ -34,12 +34,12 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
 		try {
 			aConstructor = aClass.getConstructor();
 //			return aConstructor.newInstance();
-			Object aResult = ProjectExecution.timedInvoke(aConstructor, emptyArgs, 300);
+			Object aResult = BasicProjectExecution.timedInvoke(aConstructor, emptyArgs, 300);
 			return aResult;
 		} catch (Exception e) {
 			try {
 				aConstructor = aClass.getConstructor(String.class);
-				Object aResult = ProjectExecution.timedInvoke(aConstructor, new String[] {""}, 300);
+				Object aResult = BasicProjectExecution.timedInvoke(aConstructor, new String[] {""}, 300);
 
 				return aResult;
 			} catch (Exception e1) {
@@ -81,7 +81,7 @@ public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{
                         Object anInstance = createScannerBean((description));
                         
 
-                    	ResultWithOutput aResultWithOutput = ProjectExecution.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
+                    	ResultWithOutput aResultWithOutput = BasicProjectExecution.timedInteractiveInvoke(anInstance, descriptor.getWriteMethod(), new String[]{"22 32 45 "}, 200);
                         String anOutput = aResultWithOutput.getOutput();
                         if (anOutput != null && !anOutput.isEmpty()) {
                         	ARunningProject.appendToTranscriptFile(aProject, getCheckable().getName(), anOutput);

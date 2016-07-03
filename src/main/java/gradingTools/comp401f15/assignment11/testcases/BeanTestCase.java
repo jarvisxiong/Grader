@@ -12,9 +12,9 @@ import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.BasicProjectIntrospection;
 
 public class BeanTestCase extends OutputAndErrorCheckingTestCase{
 	String tag;

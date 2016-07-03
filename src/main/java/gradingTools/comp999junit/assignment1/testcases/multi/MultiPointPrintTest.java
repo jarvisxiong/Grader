@@ -1,8 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
-import grader.junit.JUnitUtils;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.JUnitUtils;
+import grader.basics.project.BasicProjectIntrospection;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,10 +23,10 @@ public class MultiPointPrintTest extends MultiAbstractPointTest{
 			int anX = 5;
 			int aY = 10;
 			pointProxy.createCartesianPoint(anX, aY);
-			ProjectExecution.redirectOutput();
+			BasicProjectExecution.redirectOutput();
 //			pointProxy.print(aHeader, pointProxy.getPoint());
 			pointProxy.print();
-			String anOutput = ProjectExecution.restoreOutputAndGetRedirectedOutput();
+			String anOutput = BasicProjectExecution.restoreOutputAndGetRedirectedOutput();
 			Assert.assertTrue(anOutput + " does not contain prints of " + anX + " " + aY, 
 					anOutput.contains(" " + anX) &&
 					anOutput.contains(" " + aY));

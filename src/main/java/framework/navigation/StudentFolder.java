@@ -4,8 +4,8 @@ import java.io.File;
 
 import org.joda.time.DateTime;
 
-import framework.project.Option;
-import framework.project.Project;
+import grader.basics.project.Option;
+import grader.basics.project.Project;
 
 /**
  * Based on {@link grader.sakai.StudentAssignment}

@@ -1,8 +1,12 @@
 package framework.project;
 
 import framework.execution.ARunningProject;
-import framework.execution.RunningProject;
 import framework.utils.BasicGradingEnvironment;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.BasicClassDescription;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.util.DirectoryUtils;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
@@ -25,7 +29,6 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 
 import scala.Option;
-import tools.DirectoryUtils;
 
 /**
  * @see ClassesManager
@@ -507,12 +510,12 @@ public class OriginalProjectClassesManager implements ClassesManager {
         return classDescriptions;
     }
 
-    @Override
+//    @Override
     public List<String> getClassNamesToCompile() {
         return classNamesToCompile;
     }
 
-    @Override
+//    @Override
     public void setClassNamesToCompile(List<String> classNamesToCompile) {
         this.classNamesToCompile = classNamesToCompile;
     }

@@ -1,6 +1,6 @@
 package gradingTools.sharedTestCase;
 
-import static grader.util.ProjectExecution.restoreOutputAndGetRedirectedOutput;
+import static grader.basics.execution.BasicProjectExecution.restoreOutputAndGetRedirectedOutput;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,9 +15,9 @@ import framework.grading.testing.BasicTestCase;
 import framework.grading.testing.NotAutomatableException;
 import framework.grading.testing.NotGradableException;
 import framework.grading.testing.TestCaseResult;
-import framework.project.Project;
-import grader.util.ProjectExecution;
-import grader.util.BasicProjectIntrospection;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.Project;
 import gradingTools.sharedTestCase.utils.RedirectionEnvironment;
 
 /**
@@ -105,7 +105,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        ProjectExecution.redirectOutput();
+        BasicProjectExecution.redirectOutput();
         String anOutput = "";
         System.out.println("Testcase: " + name);
         Object[] details;
@@ -137,7 +137,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         if (details == null || details.length == 0) {
             return fail("Couldn't grade or find problems, something is very wrong");
         }
-        ProjectExecution.redirectOutput();
+        BasicProjectExecution.redirectOutput();
         int passed = 0;
         int dnc = 0;
         String errors = "";
@@ -315,7 +315,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static Object[] invoke(Constructor<?> c, Object[] cArgs, Method m[], Object[]... arguments) {
         Object o;
         try {
-            o = ProjectExecution.timedInvokeWithExceptions(c, cArgs);
+            o = BasicProjectExecution.timedInvokeWithExceptions(c, cArgs);
             return invoke(o, m, arguments);
         } catch (InstantiationException ex) {
             return new Object[]{ex};
@@ -348,7 +348,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
     public static Object invoke(Constructor<?> c, Object[] cArgs, Method m, Object... arguments) {
         Object o;
         try {
-            o = ProjectExecution.timedInvokeWithExceptions(c, cArgs);
+            o = BasicProjectExecution.timedInvokeWithExceptions(c, cArgs);
             return invoke(o, m, arguments);
         } catch (InstantiationException ex) {
             return ex;
@@ -375,9 +375,9 @@ public class MethodExecutionTestCase extends BasicTestCase {
         
         try {
             if (timeout > 0) {
-                ret = ProjectExecution.timedInvokeWithExceptions(o, m, timeout, arguments);
+                ret = BasicProjectExecution.timedInvokeWithExceptions(o, m, timeout, arguments);
             } else {
-                ret = ProjectExecution.timedInvokeWithExceptions(o, m, arguments);
+                ret = BasicProjectExecution.timedInvokeWithExceptions(o, m, arguments);
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             exception = ex;
@@ -407,7 +407,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
         Object o = null;
         
         try {
-            o = ProjectExecution.timedInvokeWithExceptions(constructor, arguments);
+            o = BasicProjectExecution.timedInvokeWithExceptions(constructor, arguments);
         } catch (Exception e) {
             exception = e;
         }

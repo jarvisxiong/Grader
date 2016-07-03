@@ -24,6 +24,7 @@ import grader.assignment.AGradingFeature;
 import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.auto_notes.NotesGenerator;
+import grader.basics.project.Option;
 import grader.documents.DocumentDisplayerRegistry;
 import grader.feedback.ScoreFeedback;
 import grader.navigation.NavigationKind;
@@ -65,7 +66,6 @@ import javax.swing.JTextArea;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 
-import framework.project.Option;
 import util.annotations.ComponentHeight;
 import util.annotations.ComponentWidth;
 import util.annotations.PreferredWidgetClass;
@@ -119,7 +119,7 @@ public class AProjectStepper extends AClearanceManager implements
 	String commentsFileName = "";
 
 	SakaiProject project;
-	framework.project.Project wrappedProject;
+	grader.basics.project.Project wrappedProject;
 	// FinalGradeRecorder gradeRecorder;
 //>>>>>>> working
 	boolean hasMoreSteps = true;

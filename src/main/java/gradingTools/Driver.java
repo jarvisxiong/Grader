@@ -32,6 +32,7 @@ import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GraderSettings;
 import framework.utils.BasicGradingEnvironment;
 import framework.utils.GradingEnvironment;
+import grader.basics.execution.BasicProjectExecution;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.AFlexibleMainClassFinder;
@@ -53,7 +54,6 @@ import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
 import grader.trace.settings.GraderSettingsDisplayed;
-import grader.util.ProjectExecution;
 
 /**
  * This is the entry class for the grading tools that Maven will reference. Use
@@ -105,7 +105,7 @@ public class Driver {
         BasicGradingEnvironment.get().setUnzipFiles(StaticConfigurationUtils.getUnzipFiles(configuration, graderSettingsManager));
 //        AProject.setCheckStyle(StaticConfigurationUtils.getCheckStyle(configuration, graderSettingsManager));
         BasicGradingEnvironment.get().setCheckStyle(StaticConfigurationUtils.getCheckStyle());
-        ProjectExecution.setUseMethodAndConstructorTimeOut(true);
+        BasicProjectExecution.setUseMethodAndConstructorTimeOut(true);
 	}
 
     public static void drive(String[] args, int settingsFrameX, int settingsFrameY) {
