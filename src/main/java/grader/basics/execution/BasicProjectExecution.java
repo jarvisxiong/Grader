@@ -1,9 +1,6 @@
 package grader.basics.execution;
 
 //import framework.execution.ARunningProject;
-import framework.execution.ProcessRunner;
-import framework.execution.ProcessRunnerFactory;
-import framework.execution.RunnerSelector;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.settings.BasicGradingEnvironment;
@@ -12,10 +9,8 @@ import grader.execution.AMethodExecutionCallable;
 import grader.execution.AResultWithOutput;
 import grader.execution.JavaMainClassFinderSelector;
 import grader.execution.ResultWithOutput;
-import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
 import gradingTools.utils.RunningProjectUtils;
 
-import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,9 +20,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -40,12 +33,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.codehaus.jackson.map.ser.PropertyBuilder.EmptyStringChecker;
-import org.junit.Assert;
 
 import util.misc.Common;
 import util.misc.TeePrintStream;
-import util.trace.Tracer;
 
 public class BasicProjectExecution {
 	static boolean useMethodAndConstructorTimeOut = false;
@@ -782,7 +772,10 @@ public class BasicProjectExecution {
 				String... anInput) throws NotRunnableException {
 		 try {
 			Class aMainClass = BasicProjectIntrospection.findClass(CurrentProjectHolder.getOrCreateCurrentProject(), aProxyClass);
-			Assert.assertTrue("Main class correspnding to " + aProxyClass.getSimpleName() + " not found", aMainClass != null);
+			if (aMainClass == null) {
+				throw new NotRunnableException("Main class correspnding to " + aProxyClass.getSimpleName() + " not found");
+			}
+//			Assert.assertTrue("Main class correspnding to " + aProxyClass.getSimpleName() + " not found", aMainClass != null);
 
 				
 			

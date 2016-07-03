@@ -1,6 +1,7 @@
 package framework.execution;
 
 import grader.basics.execution.Runner;
+import grader.basics.execution.RunnerFactory;
 import grader.basics.project.Project;
 
 public class ProcessRunnerFactory implements RunnerFactory{

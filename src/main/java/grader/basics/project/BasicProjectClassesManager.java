@@ -14,7 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
+
+import util.misc.Common;
 
 
 
@@ -578,7 +579,10 @@ public class BasicProjectClassesManager implements ClassesManager {
     protected String getClassName(File file) throws IOException {
 
         // Figure out the package
-        List<String> lines = FileUtils.readLines(file, null);
+//        List<String> lines = FileUtils.readLines(file, null);
+        String aText = Common.toText(file);
+        String[] aLines = aText.split("\n");
+        List<String> lines = Arrays.asList(aLines);
         String packageName = "";
         for (String line : lines) {
             if (line.startsWith("package ")) {

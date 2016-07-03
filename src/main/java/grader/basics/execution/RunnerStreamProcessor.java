@@ -1,6 +1,4 @@
-package framework.execution;
-
-import grader.basics.execution.RunningProject;
+package grader.basics.execution;
 
 import java.util.concurrent.Semaphore;
 

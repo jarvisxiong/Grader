@@ -21,6 +21,9 @@ PointPrintTest:
 TestsTestSuite:
   -- Could not find class matching AngleTest
 
+PointMainTest:
+  -- grader.basics.execution.NotRunnableException 
+
 PointTranslationTest:
   -- A Cartesian Point class not found
 

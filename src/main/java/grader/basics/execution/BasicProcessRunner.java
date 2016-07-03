@@ -16,9 +16,7 @@ import util.misc.Common;
 import util.misc.ThreadSupport;
 import util.pipe.InputGenerator;
 import util.trace.Tracer;
-import wrappers.framework.project.ProjectWrapper;
 //import framework.execution.ARunningProject;
-import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.Project;
 import grader.basics.trace.UserProcessExecutionFinished;
 import grader.basics.trace.UserProcessExecutionStarted;
@@ -362,34 +360,34 @@ public class BasicProcessRunner implements Runner {
 //		return null; // this should never be executed
 //	}
 	protected static String[] emptyStringArray = {};
-	public String classWithEntryTagsTarget(List<String> anEntryTags) {
-		if (anEntryTags == null)
-			return "";
-		Class aClass = BasicProjectIntrospection.findClassByTags(project, anEntryTags.toArray(emptyStringArray));
-		if (aClass != null) {
-			String aRetVal = aClass.getName();
-		}
-		// we should not have to do what is below
-		if (project instanceof ProjectWrapper) {
-			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
-					.getProject();
-			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
-					.getClassesManager()
-					.tagsToUniqueClassDescription(anEntryTags);
-			return aClassDescription.getClassName();
-			// if (aClassDescriptions.size() == 0) {
-			// throw NoClassWithTag.newCase(this, anEntryTag);
-			// } else if (aClassDescriptions.size() > 0) {
-			// throw MultipleClassesWithTag.newCase(this, anEntryTag);
-			// }
-			// for (grader.project.ClassDescription
-			// aClassDescription:aClassDescriptions) {
-			// return aClassDescription.getClassName();
-			//
-			// }
-		}
-		return null; // this should never be executed
-	}
+//	public String classWithEntryTagsTarget(List<String> anEntryTags) {
+//		if (anEntryTags == null)
+//			return "";
+//		Class aClass = BasicProjectIntrospection.findClassByTags(project, anEntryTags.toArray(emptyStringArray));
+//		if (aClass != null) {
+//			String aRetVal = aClass.getName();
+//		}
+//		// we should not have to do what is below
+//		if (project instanceof ProjectWrapper) {
+//			grader.project.flexible.FlexibleProject graderProject = ((ProjectWrapper) project)
+//					.getProject();
+//			grader.project.flexible.FlexibleClassDescription aClassDescription = graderProject
+//					.getClassesManager()
+//					.tagsToUniqueClassDescription(anEntryTags);
+//			return aClassDescription.getClassName();
+//			// if (aClassDescriptions.size() == 0) {
+//			// throw NoClassWithTag.newCase(this, anEntryTag);
+//			// } else if (aClassDescriptions.size() > 0) {
+//			// throw MultipleClassesWithTag.newCase(this, anEntryTag);
+//			// }
+//			// for (grader.project.ClassDescription
+//			// aClassDescription:aClassDescriptions) {
+//			// return aClassDescription.getClassName();
+//			//
+//			// }
+//		}
+//		return null; // this should never be executed
+//	}
 
 	
 	void acquireIOLocks() {
