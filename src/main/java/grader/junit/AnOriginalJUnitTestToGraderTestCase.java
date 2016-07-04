@@ -14,7 +14,7 @@ import util.annotations.IsExtra;
 import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 import framework.grading.testing.BasicTestCase;
-import grader.basics.junit.AJUnitRunToTestCaseResult;
+import grader.basics.junit.AJUnitTestResult;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
@@ -31,7 +31,7 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	String explanation;
 	String group = "";
 	RunNotifier aRunNotifier = new RunNotifier();
-	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
+	AJUnitTestResult runListener = new AJUnitTestResult();
 	
 	public AnOriginalJUnitTestToGraderTestCase (Class aJUnitClass) {
 		init();
@@ -277,4 +277,36 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	public int numInternalNodeDescendents() {
 		return 0;
 	}
+
+//	@Override
+//	public void setWriteToConsole(boolean newVal) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public boolean isWriteToConsole() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean isWriteToFile() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public void setWriteToFile(boolean writeToFile) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public boolean isWriteToServer() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+
+	
 }

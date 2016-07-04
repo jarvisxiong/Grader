@@ -5,7 +5,7 @@ import java.util.List;
 
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.AGradableJUnitTest;
-import grader.basics.junit.AJUnitRunToTestCaseResult;
+import grader.basics.junit.AJUnitTestResult;
 import grader.basics.junit.GradableJUnitTest;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
@@ -24,7 +24,7 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 //	String group = "";
 //	RunNotifier runNotifier = new RunNotifier();
 	GradableJUnitTest graderProperties;
-	AJUnitRunToTestCaseResult runListener = new AJUnitRunToTestCaseResult();
+	AJUnitTestResult runListener = new AJUnitTestResult();
 	
 	public AGraderTestCase (GradableJUnitTest aGraderProperties) {
 	
@@ -260,4 +260,36 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 		// TODO Auto-generated method stub
 		return graderProperties.numInternalNodeDescendents();
 	}
+
+	
+
+//	@Override
+//	public boolean isWriteToConsole() {
+//		// TODO Auto-generated method stub
+//		return graderProperties.isWriteToConsole();
+//	}
+//
+//	@Override
+//	public void setWriteToConsole(boolean newVal) {
+//		graderProperties.setWriteToConsole(newVal);
+//		
+//	}
+//
+//	@Override
+//	public boolean isWriteToFile() {
+//		// TODO Auto-generated method stub
+//		return graderProperties.isWriteToFile();
+//	}
+//
+//	@Override
+//	public void setWriteToFile(boolean writeToFile) {
+//		graderProperties.setWriteToFile(writeToFile);
+//		
+//	}
+//
+//	@Override
+//	public boolean isWriteToServer() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 }
