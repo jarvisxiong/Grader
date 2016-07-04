@@ -1,22 +1,12 @@
-package grader.execution;
+package grader.basics.execution;
 
 
-import grader.basics.execution.BasicProcessRunner;
-import grader.basics.execution.MainClassFinder;
-import grader.basics.execution.NotRunnableException;
 import grader.basics.project.BasicProjectIntrospection;
-import grader.project.flexible.FlexibleClassDescription;
-import grader.project.flexible.FlexibleClassesManager;
-//import grader.project.Project;
-
-
-
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+//import grader.project.Project;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
@@ -98,7 +88,7 @@ public class ABasicMainClassFinder implements MainClassFinder {
      * @param project The project to run
      * @return The class canonical name. i.e. "foo.bar.SomeClass"
      * @throws grader.basics.execution.NotRunnableException
-     * @see grader.execution.ABasicMainClassFinder which repeats this code (sigh)
+     * @see grader.basics.execution.ABasicMainClassFinder which repeats this code (sigh)
      * Both need to be kept consistent
      */
     public Map<String, String> getEntryPoints(grader.basics.project.Project project, String aSpecifiedMainClass) throws NotRunnableException {

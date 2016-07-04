@@ -2,7 +2,6 @@ package gradingTools.comp999junit.assignment1.testcases.multi;
 
 import util.annotations.Explanation;
 import util.annotations.Tags;
-import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 @Tags({"cartesian", "point"})
 public class MultiCartesianPoint implements MultiPoint {	

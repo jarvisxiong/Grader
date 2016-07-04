@@ -1,6 +1,6 @@
 package grader.trace.assignment_data;
 
-import grader.trace.GraderInfo;
+import grader.basics.trace.GraderInfo;
 
 import java.util.Collection;
 

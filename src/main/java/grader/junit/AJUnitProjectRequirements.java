@@ -1,17 +1,11 @@
 package grader.junit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.runners.Suite;
-
-import bus.uigen.ObjectEditor;
-import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.FrameworkProjectRequirements;
-import grader.basics.junit.GradableJUnitTest;
 import grader.basics.junit.BasicJUnitUtils;
+import grader.basics.junit.GradableJUnitTest;
 import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
 
 
@@ -113,8 +107,8 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 	public void addGroupedTwoLevelTestCases(Map<String, List<GraderTestCase>> aTestCases) {
 		for (String aGroup:aTestCases.keySet()) {
 			List<GraderTestCase> aJUnitTestToGraderTestCases = aTestCases.get(aGroup);
-			double aTotalScore = BasicJUnitUtils.computeTotalScore(aJUnitTestToGraderTestCases);
-			BasicJUnitUtils.setPointWeights(aJUnitTestToGraderTestCases, aTotalScore);
+			double aTotalScore = JUnitUtils.computeTotalScore(aJUnitTestToGraderTestCases);
+			JUnitUtils.setPointWeights(aJUnitTestToGraderTestCases, aTotalScore);
 			GraderTestCase aFirstCase = aJUnitTestToGraderTestCases.get(0);
 			
 			boolean anIsRestriction = aFirstCase.isRestriction();

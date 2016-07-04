@@ -1,12 +1,12 @@
 package grader.checkStyle;
 
-import java.io.File;
-import java.io.IOException;
-
 import framework.execution.ProcessRunner;
 import grader.basics.execution.Runner;
 import grader.basics.execution.RunningProject;
 import grader.sakai.project.ASakaiProjectDatabase;
+
+import java.io.File;
+import java.io.IOException;
 
 public class AJavaCheckStyleInvoker  implements CheckStyleInvoker{
 	

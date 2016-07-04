@@ -1,9 +1,9 @@
 package grader.basics.execution;
 
+import grader.basics.util.TimedProcess;
+
 import java.io.Closeable;
 import java.util.Map;
-
-import grader.basics.util.TimedProcess;
 
 public interface RunningProject {
 

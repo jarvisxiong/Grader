@@ -1,4 +1,4 @@
-package grader.execution;
+package grader.basics.execution;
 
 public class AResultWithOutput implements ResultWithOutput {
 	

@@ -4,13 +4,13 @@ import grader.basics.execution.BasicProcessRunner;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.trace.BinaryFolderMade;
+import grader.basics.trace.BinaryFolderNotFound;
+import grader.basics.trace.ProjectFolderNotFound;
+import grader.basics.trace.SourceFolderAssumed;
+import grader.basics.trace.SourceFolderNotFound;
 import grader.basics.util.DirectoryUtils;
 import grader.basics.util.Option;
-import grader.trace.project.BinaryFolderMade;
-import grader.trace.project.BinaryFolderNotFound;
-import grader.trace.project.ProjectFolderNotFound;
-import grader.trace.project.SourceFolderAssumed;
-import grader.trace.project.SourceFolderNotFound;
 
 import java.io.File;
 import java.io.FileNotFoundException;

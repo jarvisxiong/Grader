@@ -1,6 +1,6 @@
 package grader.trace.checkStyle;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class CheckStyleFileLoaded extends FileInfo {
 

@@ -2,7 +2,6 @@ package gradingTools.assignment9.testCases;
 
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;

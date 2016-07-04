@@ -1,5 +1,8 @@
 package tools.classFinder;
 
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,8 +13,6 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import scala.Option;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.Project;
 
 /**
  * This keeps track of classes and their corresponding tags. If it has no tag then it asks the user.

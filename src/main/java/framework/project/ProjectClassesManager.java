@@ -8,11 +8,9 @@ import grader.basics.project.BasicProjectClassesManager;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.ClassesManager;
 import grader.basics.settings.BasicGradingEnvironment;
-import grader.basics.util.DirectoryUtils;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
-import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 
@@ -25,8 +23,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.FileUtils;
 
 /**
  * @see ClassesManager

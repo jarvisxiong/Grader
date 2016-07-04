@@ -1,8 +1,8 @@
 package grader.checkers;
 
-import java.util.List;
-
 import grader.basics.junit.TestCaseResult;
+
+import java.util.List;
 
 public interface CheckResult {
     public double getScore();

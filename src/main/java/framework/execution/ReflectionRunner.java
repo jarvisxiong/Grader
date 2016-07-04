@@ -1,5 +1,13 @@
 package framework.execution;
 
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.Runner;
+import grader.basics.execution.RunningProject;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.Project;
+import grader.basics.util.TimedProcess;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -9,13 +17,6 @@ import java.lang.reflect.Modifier;
 
 import util.misc.TeePrintStream;
 import util.pipe.InputGenerator;
-import grader.basics.execution.NotRunnableException;
-import grader.basics.execution.Runner;
-import grader.basics.execution.RunningProject;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.ClassesManager;
-import grader.basics.project.Project;
-import grader.basics.util.TimedProcess;
 
 /**
  * Runs a project in the same JVM using reflection to invoke the main method.

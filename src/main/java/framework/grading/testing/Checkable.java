@@ -11,7 +11,6 @@ import framework.grading.ProjectRequirements;
 import grader.assignment.GradingFeature;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
-import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.trace.feature.FeatureChecked;

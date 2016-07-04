@@ -10,33 +10,24 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.ClassesManager;
 import grader.basics.project.Project;
 import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.trace.BinaryFolderMade;
+import grader.basics.trace.BinaryFolderNotFound;
+import grader.basics.trace.ProjectFolderNotFound;
+import grader.basics.trace.SourceFolderAssumed;
+import grader.basics.trace.SourceFolderNotFound;
 import grader.basics.util.DirectoryUtils;
 import grader.basics.util.Option;
-import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
-import grader.trace.project.BinaryFolderMade;
-import grader.trace.project.BinaryFolderNotFound;
-import grader.trace.project.ProjectFolderNotFound;
-import grader.trace.project.SourceFolderAssumed;
-import grader.trace.project.SourceFolderNotFound;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Set;
 
-//import scala.Option;
-
-
-
-
-
-
-
-
-import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import util.trace.TraceableLogFactory;
+//import scala.Option;
+import util.pipe.InputGenerator;
 
 /**
  * A "standard" project. That is, an IDE-based java project.

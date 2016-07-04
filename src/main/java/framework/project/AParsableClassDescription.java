@@ -5,8 +5,8 @@ import grader.basics.project.BasicClassDescription;
 import java.io.File;
 import java.io.IOException;
 
-import com.github.antlrjavaparser.api.CompilationUnit;
 import com.github.antlrjavaparser.JavaParser;
+import com.github.antlrjavaparser.api.CompilationUnit;
 
 
 public class AParsableClassDescription  extends BasicClassDescription implements ParsableClassDescription{

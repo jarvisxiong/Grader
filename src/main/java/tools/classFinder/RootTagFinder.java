@@ -1,10 +1,11 @@
 package tools.classFinder;
 
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
+
 import java.util.Set;
 
 import scala.Option;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

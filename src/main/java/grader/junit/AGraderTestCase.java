@@ -3,23 +3,12 @@ package grader.junit;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.junit.runner.Runner;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.runners.model.InitializationError;
-
-import util.annotations.Explanation;
-import util.annotations.Group;
-import util.annotations.IsExtra;
-import util.annotations.IsRestriction;
-import util.annotations.MaxValue;
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.AGradableJUnitTest;
 import grader.basics.junit.AJUnitRunToTestCaseResult;
 import grader.basics.junit.GradableJUnitTest;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
-import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.junit.test.directreference.ACartesianPointJUnitTester;

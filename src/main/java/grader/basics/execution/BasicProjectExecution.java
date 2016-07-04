@@ -4,12 +4,6 @@ package grader.basics.execution;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.settings.BasicGradingEnvironment;
-import grader.execution.AConstructorExecutionCallable;
-import grader.execution.AMethodExecutionCallable;
-import grader.execution.AResultWithOutput;
-import grader.execution.JavaMainClassFinderSelector;
-import grader.execution.ResultWithOutput;
-import gradingTools.utils.RunningProjectUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +26,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
 
 import util.misc.Common;
 import util.misc.TeePrintStream;
@@ -685,7 +678,7 @@ public class BasicProjectExecution {
 	        }
 	        Runner processRunner = new BasicProcessRunner(aBuildFolder);
 
-	       RunningProject aRunningProject = processRunner.run(null, command, RunningProjectUtils.toInputString(input), args, timeout);
+	       RunningProject aRunningProject = processRunner.run(null, command, BasicProjectExecution.toInputString(input), args, timeout);
 	       return aRunningProject.await();
 
 	}
@@ -718,7 +711,7 @@ public class BasicProjectExecution {
 
 		   Runner aProcessRunner = RunnerSelector.createProcessRunner(CurrentProjectHolder.getOrCreateCurrentProject(), aMainClassName);
 
-	       RunningProject aRunningProject = aProcessRunner.run(RunningProjectUtils.toInputString(input), args, timeout);
+	       RunningProject aRunningProject = aProcessRunner.run(BasicProjectExecution.toInputString(input), args, timeout);
 	       String anOutput = aRunningProject.await();
 	       String anError = aRunningProject.getErrorOutput();
 	       return new ResultingOutErr(anOutput, anError);
@@ -818,7 +811,7 @@ public class BasicProjectExecution {
 	 public static ResultingOutErr invokeMain(Class aMainClass, String[] args,
 				String... anInput) throws NotRunnableException {
 		 try {
-		 BasicProjectExecution.redirectInputOutputError(RunningProjectUtils.toInputString(anInput));		
+		 BasicProjectExecution.redirectInputOutputError(BasicProjectExecution.toInputString(anInput));		
 			
 			Method aMainMethod = BasicProjectIntrospection.findMethod(aMainClass, "main", new Class[] {String[].class});
 			BasicProjectExecution.timedInvoke(aMainClass, aMainMethod, new Object[] {args});
@@ -832,4 +825,19 @@ public class BasicProjectExecution {
 			 return null;
 		 }
 		}
+
+	public static String toInputString(String... inputs) {
+		return toString (DEFAULT_INPUT_SEPARATOR, inputs);
+	}
+	public static String toString(String inputSeparator, String... inputs) {
+		String allInputsStr = "";
+		for (int i = 0; i < inputs.length; i++) {
+			if (i > 0) {
+				allInputsStr += inputSeparator;
+			}
+			allInputsStr += inputs[i];
+		}
+		return allInputsStr;
+	}
+	public static final String DEFAULT_INPUT_SEPARATOR = "\n";
 }

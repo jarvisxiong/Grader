@@ -1,9 +1,7 @@
-package grader.execution;
+package grader.basics.execution;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
-
-import util.misc.Common;
 
 public class AMethodExecutionCallable implements Callable{
 	Method method;

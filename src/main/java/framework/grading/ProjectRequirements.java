@@ -8,7 +8,6 @@ import grader.basics.project.Project;
 import grader.permissions.Permissible;
 
 import java.util.List;
-import java.util.Map;
 
 import org.joda.time.DateTime;
 

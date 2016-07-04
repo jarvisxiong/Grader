@@ -1,5 +1,8 @@
 package grader.basics.execution;
 
+import grader.basics.project.Project;
+import grader.basics.util.TimedProcess;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,23 +12,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-
-
-
-
+import util.pipe.ProcessInputListener;
 //import grader.config.StaticConfigurationUtils;
 //import grader.sakai.project.SakaiProject;
 //import grader.trace.overall_transcript.OverallTranscriptSaved;
-
-
-
-
-
 import util.pipe.InputGenerator;
-import util.pipe.ProcessInputListener;
+
 import util.trace.Tracer;
-import grader.basics.project.Project;
-import grader.basics.util.TimedProcess;
 
 /**
  * This is a wrapper for a running project independent of the method of

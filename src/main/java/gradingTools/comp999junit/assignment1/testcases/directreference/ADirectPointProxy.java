@@ -3,17 +3,6 @@ package gradingTools.comp999junit.assignment1.testcases.directreference;
 
 //import org.junit.Test;
 import grader.basics.junit.BasicJUnitUtils;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
-//import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
-//import gradingTools.comp999junit.assignment1.allcorrect.Point;
-//import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
-//import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
-
-
-
-
-
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiCartesianPoint;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPoint;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
@@ -21,6 +10,10 @@ import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxy;
 import org.junit.Test;
 
 import util.annotations.MaxValue;
+//import gradingTools.comp999junit.assignment1.allcorrect.ACartesianPoint;
+//import gradingTools.comp999junit.assignment1.allcorrect.Point;
+//import gradingTools.testables.comp999junit.assignment1.wrongangle.ACartesianPoint;
+//import gradingTools.testables.comp999junit.assignment1.wrongangle.Point;
 
 @MaxValue(6)
 //@Explanation("Radius and Angle Correctly Computed")

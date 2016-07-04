@@ -1,13 +1,13 @@
 package gradingTools.assignment11.tools;
 
-import java.util.List;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
+
 import java.util.Set;
 
 import scala.Option;
 import tools.classFinder2.ClassFinder;
-import grader.basics.junit.NotAutomatableException;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

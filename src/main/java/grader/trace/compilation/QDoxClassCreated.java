@@ -1,6 +1,6 @@
 package grader.trace.compilation;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class QDoxClassCreated extends FileInfo {
 

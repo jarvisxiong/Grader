@@ -1,10 +1,6 @@
 package gradingTools.comp999junit.assignment1.testables.missingcode;
 
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACCartesianPoint;
-import gradingTools.comp999junit.assignment1.testables.allcorrect.ACPoint;
 import util.annotations.Explanation;
-import util.annotations.Tags;
-import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 //@Tags({"cartesian", "point"})
 public class MCCartesianPoint

@@ -1,7 +1,7 @@
 package grader.trace.execution;
 
+import grader.basics.trace.GraderInfo;
 import grader.project.flexible.FlexibleProject;
-import grader.trace.GraderInfo;
 
 import java.lang.reflect.Method;
 

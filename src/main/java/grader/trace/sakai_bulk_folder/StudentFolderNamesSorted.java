@@ -1,6 +1,6 @@
 package grader.trace.sakai_bulk_folder;
 
-import grader.trace.GraderInfo;
+import grader.basics.trace.GraderInfo;
 
 import java.util.Collection;
 

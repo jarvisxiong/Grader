@@ -3,7 +3,6 @@ package gradingTools.comp401f15.assignment10.testCases;
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
-import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.util.ProjectIntrospection;

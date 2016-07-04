@@ -1,6 +1,6 @@
 package grader.trace.assignment_data;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class LogFileCreated extends FileInfo {
 

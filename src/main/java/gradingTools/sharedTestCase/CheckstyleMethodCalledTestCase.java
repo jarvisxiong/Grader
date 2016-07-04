@@ -1,12 +1,12 @@
 package gradingTools.sharedTestCase;
 
-import java.util.List;
-
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+
+import java.util.List;
 
 
 public class CheckstyleMethodCalledTestCase extends CheckStyleTestCase {

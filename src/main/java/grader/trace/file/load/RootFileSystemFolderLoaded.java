@@ -1,6 +1,6 @@
 package grader.trace.file.load;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class RootFileSystemFolderLoaded extends FileInfo {
 

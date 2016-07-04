@@ -1,4 +1,4 @@
-package grader.trace;
+package grader.basics.trace;
 
 import util.trace.TraceableInfo;
 

@@ -1,5 +1,17 @@
 package grader.project.folder;
 
+import grader.basics.project.Project;
+import grader.basics.trace.BinaryFolderNotFound;
+import grader.basics.trace.ProjectFolderNotFound;
+import grader.basics.trace.SourceFolderAssumed;
+import grader.basics.trace.SourceFolderNotFound;
+import grader.file.FileProxy;
+import grader.file.RootFolderProxy;
+import grader.file.zipfile.AZippedRootFolderProxy;
+import grader.language.LanguageDependencyManager;
+import grader.trace.project.BinaryFolderIdentified;
+import grader.trace.project.SourceFolderIdentified;
+
 import java.io.File;
 import java.nio.file.Paths;
 //a root folder containing source and binary directories
@@ -7,17 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import util.misc.Common;
-import grader.basics.project.Project;
-import grader.file.FileProxy;
-import grader.file.RootFolderProxy;
-import grader.file.zipfile.AZippedRootFolderProxy;
-import grader.language.LanguageDependencyManager;
-import grader.trace.project.BinaryFolderIdentified;
-import grader.trace.project.BinaryFolderNotFound;
-import grader.trace.project.ProjectFolderNotFound;
-import grader.trace.project.SourceFolderAssumed;
-import grader.trace.project.SourceFolderIdentified;
-import grader.trace.project.SourceFolderNotFound;
 
 public class ARootCodeFolder implements RootCodeFolder {
 

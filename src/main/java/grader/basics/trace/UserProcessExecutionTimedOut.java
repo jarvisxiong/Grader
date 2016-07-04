@@ -1,6 +1,5 @@
 package grader.basics.trace;
 
-import grader.trace.execution.UserProcessExecutionInfo;
 
 
 

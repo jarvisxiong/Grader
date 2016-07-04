@@ -4,19 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-//import scala.Option;
-
-
-
-
-import util.pipe.InputGenerator;
 import util.trace.TraceableLog;
 import framework.execution.ARunningProject;
 import framework.project.FatProject;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.project.ClassesManager;
-import grader.basics.project.Project;
 import grader.basics.util.Option;
+//import scala.Option;
+import util.pipe.InputGenerator;
 
 /**
  * Created with IntelliJ IDEA.

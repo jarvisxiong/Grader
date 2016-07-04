@@ -1,11 +1,11 @@
 package framework.execution.reflectionObjects;
 
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import grader.basics.project.ClassDescription;
-import grader.basics.project.ClassesManager;
 
 /**
  * Created with IntelliJ IDEA.

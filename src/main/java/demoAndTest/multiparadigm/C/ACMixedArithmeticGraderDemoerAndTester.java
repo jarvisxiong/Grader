@@ -11,11 +11,10 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-//import bus.uigen.pipe.DemoerAndTester;
-
-import util.trace.Tracer;
 import demoAndTest.GraderDemoerAndTester;
 import demoAndTest.basic.AJavaPalindromeBasedGraderDemoerAndTester;
+//import bus.uigen.pipe.DemoerAndTester;
+import util.trace.Tracer;
 /*
  * This is different from DemoerAndTester as it uses Assignment 1 rather than Assignment 3
  * The steps and grading criteria are hardwired

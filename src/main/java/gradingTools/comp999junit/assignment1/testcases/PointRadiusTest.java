@@ -4,7 +4,6 @@ package gradingTools.comp999junit.assignment1.testcases;
 //import org.junit.Test;
 import org.junit.Test;
 
-import util.annotations.IsExtra;
 import util.annotations.MaxValue;
 @MaxValue(10)
 public class PointRadiusTest extends AbstractPointTest  {	

@@ -1,8 +1,8 @@
 package gradingTools.sharedTestCase;
 
-import java.util.regex.Pattern;
-
 import grader.basics.junit.TestCaseResult;
+
+import java.util.regex.Pattern;
 
 public class RestrictedRegexOutsideComments extends RestrictedStringOutsideComments {
 

@@ -8,7 +8,6 @@ import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicProject;
 import grader.basics.project.ClassesManager;
-import grader.basics.project.Project;
 import grader.basics.util.Option;
 import grader.sakai.project.SakaiProject;
 

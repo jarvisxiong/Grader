@@ -1,12 +1,8 @@
 package gradingTools.comp999junit.assignment1.testcases.directreference;
 
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;

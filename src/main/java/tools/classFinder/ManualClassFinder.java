@@ -1,11 +1,12 @@
 package tools.classFinder;
 
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import scala.Option;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.Project;
 
 /**
  * This is part of the manual class locator system.

@@ -1,30 +1,21 @@
 package wrappers.grader.sakai.project;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import framework.grading.ProjectRequirements;
 import framework.utils.GraderSettings;
 import grader.assignment.AnAssignmenDataFolder;
 import grader.basics.settings.BasicGradingEnvironment;
-import grader.navigation.AlphabeticNavigationListManager;
-import grader.navigation.NavigationListManager;
 import grader.navigation.NavigationListManagerFactory;
-import grader.navigation.sorter.AFileObjectSorter;
-import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.ASakaiStudentCodingAssignmentsDatabase;
 import grader.sakai.project.ASakaiProjectDatabase;
 import grader.trace.assignment_data.StudentFolderNamesWrittenInOnyenFile;
-import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 
 import util.misc.Common;
-import util.trace.Tracer;
 
 /**
  * This extends the project database class to support adding FrameworkProjectRequirements

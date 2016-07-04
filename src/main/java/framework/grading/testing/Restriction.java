@@ -1,8 +1,8 @@
 package framework.grading.testing;
 
-import java.util.List;
-
 import grader.basics.project.Project;
+
+import java.util.List;
 
 /**
  * Restrictions are aspects of the program that it "should not" have.

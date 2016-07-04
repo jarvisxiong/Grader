@@ -1,6 +1,7 @@
 package grader.language;
 
 import grader.basics.BasicLanguageDependencyManager;
+import grader.basics.execution.JavaMainClassFinderSelector;
 import grader.checkStyle.CheckStyleInvoker;
 import grader.checkStyle.JavaCheckStyleInvokerFactory;
 import grader.compilation.ClassFilesCompiler;
@@ -9,7 +10,6 @@ import grader.compilation.c.CFilesCompilerSelector;
 import grader.config.ConfigurationManager;
 import grader.config.StaticConfigurationUtils;
 import grader.execution.ExecutableFinderSelector;
-import grader.execution.JavaMainClassFinderSelector;
 import grader.permissions.Permissible;
 import grader.permissions.PermissionsGenerator;
 import grader.permissions.java.DefaultJavaPermissible;

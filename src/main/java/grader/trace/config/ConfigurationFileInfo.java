@@ -1,6 +1,6 @@
 package grader.trace.config;
 
-import grader.trace.GraderInfo;
+import grader.basics.trace.GraderInfo;
 
 public class ConfigurationFileInfo extends GraderInfo{
 	String configurationFileName;

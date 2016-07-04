@@ -1,9 +1,9 @@
 package gradingTools.sharedTestCase;
 
-import java.util.List;
-
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
+
+import java.util.List;
 
 
 public class MinCalledMethodsTestCase extends CheckStyleTestCase {

@@ -1,10 +1,11 @@
 package framework.grading.testing;
 
+import grader.basics.execution.RunningProject;
+import grader.basics.project.Project;
+
 import java.util.List;
 
 import util.misc.Common;
-import grader.basics.execution.RunningProject;
-import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

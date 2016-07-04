@@ -1,12 +1,12 @@
 package grader.sakai;
 
+import grader.basics.trace.ProjectFolderNotFound;
 import grader.file.FileProxy;
 import grader.file.RootFolderProxy;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.project.flexible.AFlexibleProject;
 import grader.project.flexible.FlexibleProject;
 import grader.trace.project.ProjectFolderAssumed;
-import grader.trace.project.ProjectFolderNotFound;
 import grader.trace.project.RubrickFileLoaded;
 
 import java.nio.file.Paths;

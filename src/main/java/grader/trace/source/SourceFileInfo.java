@@ -1,6 +1,6 @@
 package grader.trace.source;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class SourceFileInfo extends FileInfo {
 	

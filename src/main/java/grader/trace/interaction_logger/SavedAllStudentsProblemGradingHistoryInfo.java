@@ -1,7 +1,7 @@
 package grader.trace.interaction_logger;
 
+import grader.basics.trace.GraderInfo;
 import grader.interaction_logger.manual_grading_stats.AllStudentsProblemHistory;
-import grader.trace.GraderInfo;
 
 public class SavedAllStudentsProblemGradingHistoryInfo extends GraderInfo{
 	AllStudentsProblemHistory savedProblemGradingHistory;

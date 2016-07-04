@@ -1,8 +1,6 @@
 package gradingTools.comp999junit.assignment1.testables.wrongangle;
 
 import util.annotations.Explanation;
-import util.annotations.Tags;
-import bus.uigen.ObjectEditor;
 @Explanation("Uses Cartesian representation.")
 //@Tags({"cartesian", "point"})
 public class WALocation

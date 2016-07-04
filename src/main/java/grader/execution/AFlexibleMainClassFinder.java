@@ -1,10 +1,8 @@
 package grader.execution;
 
 
-import grader.basics.execution.BasicProcessRunner;
+import grader.basics.execution.ABasicMainClassFinder;
 import grader.basics.execution.NotRunnableException;
-import grader.basics.project.BasicProjectIntrospection;
-import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
 //import framework.project.Project;
@@ -14,9 +12,7 @@ import grader.project.flexible.FlexibleClassesManager;
 import grader.project.flexible.FlexibleProject;
 import grader.project.folder.RootCodeFolder;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

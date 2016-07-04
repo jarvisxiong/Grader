@@ -1,5 +1,9 @@
 package tools.classFinder2;
 
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.Project;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,9 +15,6 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import scala.Option;
-import grader.basics.junit.NotAutomatableException;
-import grader.basics.project.ClassDescription;
-import grader.basics.project.Project;
 
 /**
  * Created with IntelliJ IDEA.

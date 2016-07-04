@@ -1,16 +1,12 @@
 package gradingTools.comp999junit.assignment1.testcases.reflection;
 
-import java.lang.reflect.Method;
+import grader.basics.execution.BasicProjectExecution;
+import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointMainTest;
 
 import org.junit.Test;
 
 import util.annotations.MaxValue;
-import grader.basics.execution.BasicProjectExecution;
-import grader.basics.project.BasicProjectIntrospection;
-import grader.basics.project.CurrentProjectHolder;
-import gradingTools.comp999junit.assignment1.testables.wrongangle.Main;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointMainTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiAbstractPointTest;
 
 @MaxValue(5)
 public class AReflectivePointMainTest extends MultiAbstractPointMainTest {

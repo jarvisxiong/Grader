@@ -1,6 +1,6 @@
 package grader.trace.sakai_bulk_folder;
 
-import grader.trace.file.FileInfo;
+import grader.basics.trace.FileInfo;
 
 public class FeedbackFolderLoaded extends FileInfo {
 

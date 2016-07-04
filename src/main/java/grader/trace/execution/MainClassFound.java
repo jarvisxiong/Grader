@@ -1,6 +1,6 @@
 package grader.trace.execution;
 
-import grader.trace.GraderInfo;
+import grader.basics.trace.GraderInfo;
 
 public class MainClassFound extends GraderInfo{
 	String mainClassName;

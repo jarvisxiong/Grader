@@ -3,9 +3,6 @@ package framework.utils;
 import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.StaticConfigurationUtils;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
  * A singleton that investigates the machine for certain things. It looks for:
  * <ul>

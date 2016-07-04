@@ -1,9 +1,9 @@
 package grader.checkers;
 
+import grader.basics.junit.TestCaseResult;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import grader.basics.junit.TestCaseResult;
 
 public class ACheckResult implements CheckResult {
 	List<String> log = new ArrayList();

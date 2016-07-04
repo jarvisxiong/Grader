@@ -1,12 +1,12 @@
 package gradingTools.comp110.assignment4.testCases;
 
-import java.util.regex.Pattern;
-
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.Project;
 import gradingTools.utils.RunningProjectUtils;
+
+import java.util.regex.Pattern;
 
 public class TestSearchOutput extends TestGerbilInputWithCommand {
 

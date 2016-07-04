@@ -1,7 +1,5 @@
 package gradingTools.comp999junit.assignment1.testcases.multi;
 
-import grader.basics.junit.BasicJUnitUtils;
-
 import org.junit.Assert;
 
 public abstract class MultiAbstractPointMainTest extends MultiAbstractPointTest {

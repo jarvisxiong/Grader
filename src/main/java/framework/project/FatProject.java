@@ -1,11 +1,7 @@
 package framework.project;
 
-import java.util.Map;
-
-import util.pipe.InputGenerator;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
-import grader.basics.project.ClassesManager;
 import grader.basics.project.Project;
 
 public interface FatProject extends Project{

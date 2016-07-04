@@ -1,7 +1,11 @@
 package grader.basics.util;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
 // code stolen from here: http://stackoverflow.com/questions/2920315/permutation-of-array
 public class Permutations<E> implements  Iterator<E[]>{
 

@@ -6,6 +6,7 @@ import framework.logging.loggers.FeedbackTextSummaryLogger;
 import grader.basics.execution.MainClassFinder;
 import grader.basics.execution.RunningProject;
 import grader.basics.settings.BasicGradingEnvironment;
+import grader.basics.trace.ProjectFolderNotFound;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.FlexibleMainClassFinder;
 import grader.execution.ProjectRunnerSelector;
@@ -27,7 +28,6 @@ import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
 import grader.trace.execution.MainMethodNotFound;
 import grader.trace.overall_transcript.OverallTranscriptCleared;
-import grader.trace.project.ProjectFolderNotFound;
 
 import java.io.File;
 import java.io.FileWriter;

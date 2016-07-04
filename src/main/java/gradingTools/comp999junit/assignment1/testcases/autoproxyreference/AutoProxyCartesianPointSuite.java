@@ -1,20 +1,14 @@
 package gradingTools.comp999junit.assignment1.testcases.autoproxyreference;
 
-import grader.basics.junit.GradableJUnitSuite;
 import grader.basics.junit.BasicJUnitUtils;
+import grader.basics.junit.GradableJUnitSuite;
 import grader.basics.project.BasicProject;
 import grader.basics.project.CurrentProjectHolder;
-import grader.basics.settings.BasicGradingEnvironment;
-import grader.project.flexible.AFlexibleProject;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointPrintTest;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointTranslationTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleSuite;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
 import gradingTools.comp999junit.assignment1.testcases.reflection.AReflectivePointMainTest;
 
 import java.io.File;

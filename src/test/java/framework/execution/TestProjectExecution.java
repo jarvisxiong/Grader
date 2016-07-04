@@ -1,12 +1,11 @@
 package framework.execution;
 
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import framework.execution.reflectionObjects.ManualProject;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.project.Project;
+
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.

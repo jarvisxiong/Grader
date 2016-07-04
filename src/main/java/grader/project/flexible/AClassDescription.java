@@ -36,7 +36,6 @@ import bus.uigen.reflect.local.AClassProxy;
 // gets the source from AClassesManager
 // converts class name to class object
 
-
 import com.github.antlrjavaparser.JavaParser;
 import com.github.antlrjavaparser.api.CompilationUnit;
 import com.thoughtworks.qdox.JavaDocBuilder;

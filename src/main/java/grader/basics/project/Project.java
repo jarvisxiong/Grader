@@ -7,9 +7,9 @@ import grader.basics.util.Option;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
+
 //import scala.Option;
 import util.pipe.InputGenerator;
-
 import util.trace.TraceableLog;
 
 /**

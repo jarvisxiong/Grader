@@ -1,6 +1,5 @@
-package grader.trace.file;
+package grader.basics.trace;
 
-import grader.trace.GraderInfo;
 
 public class FileInfo extends GraderInfo {
 	

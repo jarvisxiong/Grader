@@ -5,20 +5,18 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.Set;
 
 import wrappers.framework.project.ProjectWrapper;
 import framework.execution.ARunningProject;
 import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.ResultWithOutput;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProjectIntrospection;
-import grader.basics.project.ClassDescription;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import grader.execution.ResultWithOutput;
 import grader.sakai.project.SakaiProject;
 
 public class ScannerBeanTestCase extends OutputAndErrorCheckingTestCase{

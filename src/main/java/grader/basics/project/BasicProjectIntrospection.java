@@ -1,5 +1,11 @@
 package grader.basics.project;
 
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.junit.BasicJUnitUtils;
+//import framework.grading.testing.TestCase;
+import grader.basics.junit.GradableJUnitSuite;
+import grader.basics.util.Permutations;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -20,11 +26,6 @@ import java.util.Vector;
 import util.annotations.Tags;
 import util.introspect.JavaIntrospectUtility;
 import util.models.Hashcodetable;
-import grader.basics.execution.BasicProjectExecution;
-//import framework.grading.testing.TestCase;
-import grader.basics.junit.GradableJUnitSuite;
-import grader.basics.junit.BasicJUnitUtils;
-import grader.basics.util.Permutations;
 
 public class BasicProjectIntrospection {
 

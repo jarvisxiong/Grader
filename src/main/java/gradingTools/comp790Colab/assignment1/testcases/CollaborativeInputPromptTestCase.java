@@ -5,6 +5,7 @@ import java.util.Map;
 
 import util.tags.DistributedTags;
 import framework.grading.testing.BasicTestCase;
+import grader.basics.execution.BasicProjectExecution;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -45,9 +46,9 @@ public class CollaborativeInputPromptTestCase extends BasicTestCase {
 	public static RunningProject runAliceBobProject(Project project, int timeout, Integer anInteger, Double aDouble) {
 		Map<String, String> processToInput = new HashMap();
 		if (anInteger != null)
-			processToInput.put(DistributedTags.CLIENT_1, RunningProjectUtils.toInputString(anInteger.toString()));
+			processToInput.put(DistributedTags.CLIENT_1, BasicProjectExecution.toInputString(anInteger.toString()));
 		if (aDouble != null)
-			processToInput.put(DistributedTags.CLIENT_2, RunningProjectUtils.toInputString(aDouble.toString()));
+			processToInput.put(DistributedTags.CLIENT_2, BasicProjectExecution.toInputString(aDouble.toString()));
 		return RunningProjectUtils.runProject(project, timeout, processToInput);
 		
 	}

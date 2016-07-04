@@ -3,7 +3,6 @@ package gradingTools.assignment9.testCases;
 import java.awt.Graphics2D;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;

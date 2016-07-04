@@ -3,14 +3,12 @@ package gradingTools.comp999junit.assignment1.testcases.reflection.tags;
 import grader.basics.project.BasicProject;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.settings.BasicGradingEnvironment;
-import grader.project.flexible.AFlexibleProject;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleFortyFiveDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleMinusNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleNinetyDegreeTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointAngleZeroDegreeTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
-import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointTranslationTest;
 import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointProxyFactory;
+import gradingTools.comp999junit.assignment1.testcases.multi.MultiPointRadiusTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,12 +1,12 @@
 package grader.util;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Set;
-
 import framework.grading.testing.TestCase;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.Project;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Set;
 
 public class ProjectIntrospection extends BasicProjectIntrospection {
 	public static Object getInstance(Project aProject, TestCase aTestCase,

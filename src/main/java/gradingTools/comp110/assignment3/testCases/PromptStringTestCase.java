@@ -6,12 +6,10 @@ import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.BasicProjectExecution;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.ResultingOutErr;
-import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import gradingTools.utils.RunningProjectUtils;
 
 public class PromptStringTestCase extends BasicTestCase {
 	public PromptStringTestCase() {

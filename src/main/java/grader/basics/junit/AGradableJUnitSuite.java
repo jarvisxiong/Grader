@@ -1,5 +1,7 @@
 package grader.basics.junit;
 
+import grader.basics.project.NotGradableException;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import util.annotations.Position;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 import util.annotations.Visible;
-import grader.basics.project.NotGradableException;
 // why is the implicit pattern stack pattern?
 @StructurePattern(StructurePatternNames.LIST_PATTERN)
 public class AGradableJUnitSuite extends AGradableJUnitTest implements GradableJUnitSuite, PropertyChangeListener{

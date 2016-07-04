@@ -1,8 +1,5 @@
 package gradingTools.sharedTestCase;
 
-import java.util.List;
-import java.util.Set;
-
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProjectIntrospection;
@@ -10,6 +7,9 @@ import grader.basics.project.ClassDescription;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+
+import java.util.List;
+import java.util.Set;
 
 
 public class ClassDefinedTestCase extends CheckStyleTestCase {

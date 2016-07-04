@@ -1,5 +1,7 @@
 package grader.trace;
 
+import grader.basics.trace.GraderInfo;
+
 import java.util.Date;
 
 public class SerializableGraderInfo extends GraderInfo implements CSVSerializable {

@@ -1,11 +1,12 @@
 package grader.permissions.java;
 
-import java.io.File;
-
-import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.TestCase;
 import grader.basics.project.Project;
 import grader.language.LanguageDependencyManager;
+
+import java.io.File;
+
+import wrappers.framework.project.ProjectWrapper;
 
 public class JavaProjectToPermissionFile {
 

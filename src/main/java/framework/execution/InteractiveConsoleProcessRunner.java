@@ -1,16 +1,5 @@
 package framework.execution;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Map;
-import java.util.Scanner;
-
-import util.misc.Common;
-import util.pipe.InputGenerator;
 import grader.basics.execution.BasicProcessRunner;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.Runner;
@@ -22,6 +11,18 @@ import grader.config.StaticConfigurationUtils;
 import grader.language.LanguageDependencyManager;
 import grader.trace.execution.MainClassFound;
 import grader.trace.execution.MainClassNotFound;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Map;
+import java.util.Scanner;
+
+import util.misc.Common;
+import util.pipe.InputGenerator;
 
 /**
  * This runs the program in a new process.

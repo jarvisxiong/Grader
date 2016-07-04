@@ -10,7 +10,6 @@ import grader.basics.util.DirectoryUtils;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
-import grader.project.flexible.AFlexibleProject;
 import grader.sakai.project.SakaiProject;
 import grader.settings.GraderSettingsModelSelector;
 
@@ -21,7 +20,6 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
