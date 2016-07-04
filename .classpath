@@ -19,5 +19,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_60"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GraderBasics"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GraderChecks"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
