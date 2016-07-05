@@ -6,6 +6,7 @@ import java.util.List;
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.AGradableJUnitTest;
 import grader.basics.junit.AJUnitTestResult;
+import grader.basics.junit.GradableJUnitSuite;
 import grader.basics.junit.GradableJUnitTest;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
@@ -260,6 +261,53 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 		// TODO Auto-generated method stub
 		return graderProperties.numInternalNodeDescendents();
 	}
+
+	@Override
+	public Class[] getLeafClasses() {
+		// TODO Auto-generated method stub
+		return graderProperties.getLeafClasses();
+	}
+
+	@Override
+	public Class[] getPassClasses() {
+		// TODO Auto-generated method stub
+		return graderProperties.getLeafClasses();
+	}
+
+	@Override
+	public Class[] getPartialPassClasses() {
+		// TODO Auto-generated method stub
+		return graderProperties.getPartialPassClasses();
+	}
+
+	@Override
+	public Class[] getFailedClasses() {
+		// TODO Auto-generated method stub
+		return graderProperties.getFailedClasses();
+	}
+
+	@Override
+	public void setTopLevelSuite(GradableJUnitSuite newVal) {
+		graderProperties.setTopLevelSuite(newVal);
+		
+	}
+
+	@Override
+	public GradableJUnitSuite getTopLevelSuite() {
+		return graderProperties.getTopLevelSuite();
+	}
+
+//	@Override
+//	public Class[] getFailedClasses() {
+//		// TODO Auto-generated method stub
+//		return graderProperties.getFailedClasses();
+//	}
+
+//	@Override
+//	public Class[] getUntestedClasses() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	
 

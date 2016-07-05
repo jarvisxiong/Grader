@@ -15,6 +15,7 @@ import util.annotations.IsRestriction;
 import util.annotations.MaxValue;
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.AJUnitTestResult;
+import grader.basics.junit.GradableJUnitSuite;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
@@ -277,6 +278,48 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	public int numInternalNodeDescendents() {
 		return 0;
 	}
+
+	@Override
+	public Class[] getLeafClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class[] getPassClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class[] getPartialPassClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class[] getFailedClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTopLevelSuite(GradableJUnitSuite newVal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public GradableJUnitSuite getTopLevelSuite() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public Class[] getUntestedClasses() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 //	@Override
 //	public void setWriteToConsole(boolean newVal) {
