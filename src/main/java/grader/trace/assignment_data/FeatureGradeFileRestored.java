@@ -1,6 +1,6 @@
 package grader.trace.assignment_data;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.basics.trace.SerializableFileInfo;
 
 public class FeatureGradeFileRestored extends SerializableFileInfo {
 

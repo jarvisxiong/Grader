@@ -1,6 +1,6 @@
 package grader.trace.file.open;
 
-import grader.trace.file.SerializableFileInfo;
+import grader.basics.trace.SerializableFileInfo;
 
 public class WordOpenedFile extends SerializableFileInfo {
 

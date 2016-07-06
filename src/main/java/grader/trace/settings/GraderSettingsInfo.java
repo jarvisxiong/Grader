@@ -1,7 +1,7 @@
 package grader.trace.settings;
 
+import grader.basics.trace.SerializableGraderInfo;
 import grader.settings.GraderSettingsModel;
-import grader.trace.SerializableGraderInfo;
 
 public class GraderSettingsInfo extends SerializableGraderInfo {
 	GraderSettingsModel gradingSettingsModel; 

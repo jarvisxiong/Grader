@@ -1,6 +1,6 @@
 package grader.interaction_logger;
 
-import grader.trace.SerializableGraderInfo;
+import grader.basics.trace.SerializableGraderInfo;
 import grader.trace.interaction_logger.InteractionLogFileNotFound;
 
 import java.beans.PropertyChangeEvent;

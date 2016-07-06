@@ -1,8 +1,8 @@
 package grader.trace.steppers;
 
+import grader.basics.trace.SerializableGraderInfo;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.steppers.OverviewProjectStepper;
-import grader.trace.SerializableGraderInfo;
 
 public class ProjectStepperStarted extends SerializableGraderInfo {
 	SakaiProjectDatabase sakaiProjectDatabase; 	

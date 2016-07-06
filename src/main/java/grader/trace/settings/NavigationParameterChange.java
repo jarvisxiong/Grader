@@ -1,6 +1,6 @@
 package grader.trace.settings;
 
-import grader.trace.SerializableGraderInfo;
+import grader.basics.trace.SerializableGraderInfo;
 
 public class NavigationParameterChange extends SerializableGraderInfo {
 	
