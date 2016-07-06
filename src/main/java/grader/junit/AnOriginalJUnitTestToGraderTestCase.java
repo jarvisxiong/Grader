@@ -2,6 +2,7 @@ package grader.junit;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
@@ -280,40 +281,46 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	}
 
 	@Override
-	public Class[] getLeafClasses() {
+	public Set<Class> getLeafClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Class[] getPassClasses() {
+	public Set<Class> getPassClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Class[] getPartialPassClasses() {
+	public Set<Class> getPartialPassClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Class[] getFailedClasses() {
+	public Set<Class> getFailClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setTopLevelSuite(GradableJUnitSuite newVal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public GradableJUnitSuite getTopLevelSuite() {
+	public Set<Class> getUntestedClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public void setTopLevelSuite(GradableJUnitSuite newVal) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public GradableJUnitSuite getTopLevelSuite() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 //	@Override
 //	public Class[] getUntestedClasses() {

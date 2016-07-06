@@ -2,6 +2,7 @@ package grader.junit;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Set;
 
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.AGradableJUnitTest;
@@ -263,39 +264,45 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	}
 
 	@Override
-	public Class[] getLeafClasses() {
+	public Set<Class> getLeafClasses() {
 		// TODO Auto-generated method stub
 		return graderProperties.getLeafClasses();
 	}
 
 	@Override
-	public Class[] getPassClasses() {
+	public Set<Class>  getPassClasses() {
 		// TODO Auto-generated method stub
 		return graderProperties.getLeafClasses();
 	}
 
 	@Override
-	public Class[] getPartialPassClasses() {
+	public Set<Class> getPartialPassClasses() {
 		// TODO Auto-generated method stub
 		return graderProperties.getPartialPassClasses();
 	}
 
 	@Override
-	public Class[] getFailedClasses() {
+	public Set<Class> getFailClasses() {
 		// TODO Auto-generated method stub
-		return graderProperties.getFailedClasses();
+		return graderProperties.getFailClasses();
 	}
 
 	@Override
-	public void setTopLevelSuite(GradableJUnitSuite newVal) {
-		graderProperties.setTopLevelSuite(newVal);
-		
+	public Set<Class> getUntestedClasses() {
+		// TODO Auto-generated method stub
+		return graderProperties.getUntestedClasses();
 	}
 
-	@Override
-	public GradableJUnitSuite getTopLevelSuite() {
-		return graderProperties.getTopLevelSuite();
-	}
+//	@Override
+//	public void setTopLevelSuite(GradableJUnitSuite newVal) {
+//		graderProperties.setTopLevelSuite(newVal);
+//		
+//	}
+//
+//	@Override
+//	public GradableJUnitSuite getTopLevelSuite() {
+//		return graderProperties.getTopLevelSuite();
+//	}
 
 //	@Override
 //	public Class[] getFailedClasses() {
