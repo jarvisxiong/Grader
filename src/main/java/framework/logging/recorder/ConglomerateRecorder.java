@@ -16,6 +16,8 @@ import grader.feedback.AutoFeedback;
 import grader.feedback.ManualFeedback;
 import grader.file.FileProxy;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.spreadsheet.csv.AllStudentsHistoryManager;
+import grader.spreadsheet.csv.AllStudentsHistoryManagerFactory;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -242,6 +244,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         checkSession(anOnyen);
         save(results);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setGrade(aStudentName, anOnyen, aFeature, aScore);
     }
 
     /**

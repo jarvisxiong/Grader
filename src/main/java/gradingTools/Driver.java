@@ -52,6 +52,7 @@ import grader.settings.GraderSettingsModelSelector;
 import grader.spreadsheet.BasicFeatureGradeRecorderSelector;
 import grader.spreadsheet.FeatureGradeRecorderSelector;
 import grader.spreadsheet.csv.AFeatureGradeRecorderFactory;
+import grader.spreadsheet.csv.AllStudentsHistoryManagerFactory;
 import grader.trace.settings.GraderSettingsDisplayed;
 
 /**
@@ -335,7 +336,6 @@ public class Driver {
             return;
 //            System.exit(-1);
         }
-
         initLoggers(requirements, configuration);
 
         database.setProjectRequirements(requirements);
@@ -356,6 +356,9 @@ public class Driver {
         List<String> visitActions = StaticConfigurationUtils.autoVisitActions(graderSettingsManager);
 
         ProjectStepper projectStepper = database.getOrCreateProjectStepper();
+        // need to create project stepper before allstudenthistory manager so it cn listen for events
+        AllStudentsHistoryManagerFactory.getOrCreateAllStudentsHistoryManager(database);
+
 //                    OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
         if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE)) {
             projectStepper.setAutoAutoGrade(true);

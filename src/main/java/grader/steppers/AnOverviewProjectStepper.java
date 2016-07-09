@@ -1634,6 +1634,7 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	@Row(0)
 	@Column(0)
 	@Visible(true)
+	@Override
 	public GradedProjectOverview getGradedProjectOverview() {
 		return gradedProjectOverview;
 	}
@@ -1783,6 +1784,11 @@ public class AnOverviewProjectStepper extends AClearanceManager implements
 	public DynamicEnum runArgs() {
 		// TODO Auto-generated method stub
 		return runArgs;
+	}
+	@Override
+	public GradedProjectTextOverview getTextOverview() {
+		// TODO Auto-generated method stub
+		return gradedProjectOverview.getTextOverview();
 	}
 	
 }

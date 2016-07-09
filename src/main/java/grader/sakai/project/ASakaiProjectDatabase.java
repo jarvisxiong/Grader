@@ -716,7 +716,9 @@ public class ASakaiProjectDatabase implements SakaiProjectDatabase {
 
 	public ProjectStepper getOrCreateProjectStepper() {
 		if (projectStepper == null) {
-			projectStepper = new AComplexProjectStepper();
+//			projectStepper = new AComplexProjectStepper();
+			projectStepper = ProjectStepperFactory.createProjectStepper();
+
 
 			// projectStepper = new AMainProjectStepper();
 

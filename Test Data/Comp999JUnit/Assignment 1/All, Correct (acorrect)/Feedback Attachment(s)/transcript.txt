@@ -6,6 +6,19 @@ X: 5 Y:10
 *****************************(TestsTestSuite)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 1.0
 ### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 0.0
+*****************************(Angle correctly computed for diferent values of X and Y)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 1.0
+calling constructor: public ACCartesianPoint(int,int) 10, 0
+called constructor: public ACCartesianPoint(int,int) 10, 0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 1.0
+calling constructor: public ACCartesianPoint(int,int) 0, 10
+called constructor: public ACCartesianPoint(int,int) 0, 10
+### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 1.0
+calling constructor: public ACCartesianPoint(int,int) 10, 10
+called constructor: public ACCartesianPoint(int,int) 10, 10
+### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 1.0
+calling constructor: public ACCartesianPoint(int,int) 0, -10
+called constructor: public ACCartesianPoint(int,int) 0, -10
 *****************************(PointMainTest)*****************************
 INPUT(PointMainTest)
 10
@@ -32,19 +45,6 @@ New output 0.7853981633974483
 ### gradingTools.comp999junit.assignment1.testcases.PointTranslationTest: 1.0
 calling constructor: public ACCartesianPoint(int,int) 5, 10
 called constructor: public ACCartesianPoint(int,int) 5, 10
-*****************************(PointAngleSuite)*****************************
-### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 1.0
-calling constructor: public ACCartesianPoint(int,int) 10, 0
-called constructor: public ACCartesianPoint(int,int) 10, 0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 1.0
-calling constructor: public ACCartesianPoint(int,int) 0, 10
-called constructor: public ACCartesianPoint(int,int) 0, 10
-### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 1.0
-calling constructor: public ACCartesianPoint(int,int) 10, 10
-called constructor: public ACCartesianPoint(int,int) 10, 10
-### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 1.0
-calling constructor: public ACCartesianPoint(int,int) 0, -10
-called constructor: public ACCartesianPoint(int,int) 0, -10
 *****************************(PointRadiusTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.PointRadiusTest: 1.0
 calling constructor: public ACCartesianPoint(int,int) 10, 10

@@ -35,5 +35,6 @@ public interface OverviewProjectStepper extends ProjectStepper, GradedProjectNav
 	String getResultDiff();
 
 	String getSourceChecks();
+	GradedProjectOverview getGradedProjectOverview();
 
 }

@@ -654,6 +654,20 @@ public class AComplexProjectStepper implements ComplexProjectStepper{
 	public DynamicEnum runArgs() {
 		return mainProjectStepper.runArgs();
 	}
+	@Override
+	@Visible(false)
+
+	public GradedProjectOverview getGradedProjectOverview() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.getGradedProjectOverview();
+	}
+	@Override
+	
+	@Visible(false)
+	public GradedProjectTextOverview getTextOverview() {
+		// TODO Auto-generated method stub
+		return mainProjectStepper.getTextOverview();
+	}
 
 
 }

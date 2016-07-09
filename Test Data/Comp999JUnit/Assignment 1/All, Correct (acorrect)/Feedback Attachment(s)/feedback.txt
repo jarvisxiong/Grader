@@ -4,9 +4,9 @@ Grading features...
 ----------------------------------
 PointPrintTest                                         3.0 /  3.0
 TestsTestSuite                                         0.0 / 10.0
+Angle correctly computed for diferent values of X and Y13.0 / 13.0
 PointMainTest                                          5.0 /  5.0
 PointTranslationTest                                   4.0 /  4.0
-PointAngleSuite                                        13.0 / 13.0
 PointRadiusTest                                        10.0 / 10.0
 ----------------------------------
   Points Awarded: 35.0

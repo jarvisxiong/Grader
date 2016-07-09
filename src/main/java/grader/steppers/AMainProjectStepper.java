@@ -643,6 +643,19 @@ public class AMainProjectStepper implements MainProjectStepper {
 		// TODO Auto-generated method stub
 		return overviewProjectStepper.runArgs();
 	}
+	@Override
+	@Visible(false)
+
+	public GradedProjectOverview getGradedProjectOverview() {
+		// TODO Auto-generated method stub
+		return overviewProjectStepper.getGradedProjectOverview();
+	}
+	@Override
+	@Visible(false)
+
+	public GradedProjectTextOverview getTextOverview() {
+		return overviewProjectStepper.getTextOverview();
+	}
 	
 //	@Override
 //	public void newFocus(String aProperty) {

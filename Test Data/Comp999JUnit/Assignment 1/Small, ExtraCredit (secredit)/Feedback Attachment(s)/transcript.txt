@@ -4,6 +4,15 @@
 *****************************(TestsTestSuite)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 1.0
 ### gradingTools.comp999junit.assignment1.testcases.testcases.AngleTestTest: 0.0
+*****************************(Angle correctly computed for diferent values of X and Y)*****************************
+### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 0.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 1.0
+### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 0.0
 *****************************(PointMainTest)*****************************
 INPUT(PointMainTest)
 10
@@ -29,15 +38,6 @@ New output 0.7853981633974483
 *****************************(PointTranslationTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.PointTranslationTest: 1.0
 ### gradingTools.comp999junit.assignment1.testcases.PointTranslationTest: 0.0
-*****************************(PointAngleSuite)*****************************
-### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 1.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleZeroDegreeTest: 0.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 1.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleNinetyDegreeTest: 0.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 1.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleFortyFiveDegreeTest: 0.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 1.0
-### gradingTools.comp999junit.assignment1.testcases.PointAngleMinusNinetyDegreeTest: 0.0
 *****************************(PointRadiusTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.PointRadiusTest: 1.0
 ### gradingTools.comp999junit.assignment1.testcases.PointRadiusTest: 0.0

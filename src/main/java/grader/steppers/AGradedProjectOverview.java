@@ -106,6 +106,7 @@ public class AGradedProjectOverview  implements
 
 //	@Visible(true)
 	@Column(1)
+	@Override
 	public GradedProjectTextOverview getTextOverview() {
 		return textOverview;
 	}

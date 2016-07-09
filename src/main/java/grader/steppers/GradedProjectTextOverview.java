@@ -98,6 +98,7 @@ public interface GradedProjectTextOverview  extends /*ClearanceManager,*/ Proper
 	String getDisplayedOnyen();
 	String getDisplayedName();
 
+
 //	String getFeedback();
 //
 //	String getTranscript();

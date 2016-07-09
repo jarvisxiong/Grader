@@ -166,7 +166,11 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	
 		
 	}
-	
+	protected void checkSizes() {
+		if (table.size() != originalTableSize) {
+			System.err.println ("Spreadsheet table size:" + table.size() + " != " + originalTableSize); // should we delete extra rows?
+		}
+	}
 	void writeTable() {
 		OutputStream output = gradeSpreadsheet.getOutputStream();
 		if (output == null) {
@@ -174,9 +178,10 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 			return;
 		}
 		CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(output));
-		if (table.size() != originalTableSize) {
-			System.err.println ("Spreadsheet table size:" + table.size() + " != " + originalTableSize); // should we delete extra rows?
-		}
+		checkSizes();
+//		if (table.size() != originalTableSize) {
+//			System.err.println ("Spreadsheet table size:" + table.size() + " != " + originalTableSize); // should we delete extra rows?
+//		}
 		csvWriter.writeAll(table);
 		try {
 			csvWriter.close();
