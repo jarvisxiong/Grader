@@ -86,6 +86,8 @@ public class AGradingFeature implements GradingFeature {
 
 	public AGradingFeature(String aFeature, double aMaxScore,
 			FeatureChecker aFeatureChecker) {
+//		String[] aFeatureParts= aFeature.split(":");
+//		featureName = aFeatureParts[0];
 		featureName = aFeature;
 		maxScore = aMaxScore;
 		processMaxScore();

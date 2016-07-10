@@ -18,6 +18,7 @@ import grader.file.FileProxy;
 import grader.spreadsheet.FeatureGradeRecorder;
 import grader.spreadsheet.csv.AllStudentsHistoryManager;
 import grader.spreadsheet.csv.AllStudentsHistoryManagerFactory;
+import grader.spreadsheet.csv.AnAllStudentsHistoryManager;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -233,6 +234,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         checkSession(anOnyen);
         save(aFeature, aScore);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setGrade(aStudentName, anOnyen, aFeature, aScore);
     }
     
     /**
@@ -244,7 +246,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         checkSession(anOnyen);
         save(results);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aFeature, aScore);
-        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setGrade(aStudentName, anOnyen, aFeature, aScore);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setGrade(aStudentName, anOnyen, aFeature, aScore, results);
     }
 
     /**
@@ -273,6 +275,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setGrade(String aStudentName, String anOnyen, double aScore) {
         checkSession(anOnyen);
         basicFeatureGradeRecorder.setGrade(aStudentName, anOnyen, aScore); // so this is pd's recorder, and the recording session is josh's.
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setGrade(aStudentName, anOnyen, aScore);
         recordingSession.setScore(aScore);
     }
 
@@ -333,6 +336,9 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void setNotes(String aStudentName, String anOnyen, String aFeature,
             String aNotes) {
+        basicFeatureGradeRecorder.setNotes(aStudentName, anOnyen, aFeature, aNotes);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setNotes(aStudentName, anOnyen, aFeature, aNotes);
+
         save(aFeature, aNotes);
     }
 
@@ -362,6 +368,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
         recordingSession.setLatePenalty(aScore);
 
         basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setEarlyLatePoints(aStudentName, anOnyen, aScore);
     }
 
     @Override
@@ -374,6 +381,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setResultFormat(String aStudentName, String anOnyen, String aFeature,
             String aResult) {
         basicFeatureGradeRecorder.setResultFormat(aStudentName, anOnyen, aFeature, aResult);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setResultFormat(aStudentName, anOnyen, aFeature, aResult);
 
     }
 
@@ -412,6 +420,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     public void setSourcePoints(String aStudentName, String anOnyen,
             double aScore) {
         basicFeatureGradeRecorder.setSourcePoints(aStudentName, anOnyen, aScore);
+        AllStudentsHistoryManagerFactory.getAllStudentsHistoryManager().setSourcePoints(aStudentName, anOnyen, aScore);
         recordingSession.setSourcePoints(aScore);
 
     }

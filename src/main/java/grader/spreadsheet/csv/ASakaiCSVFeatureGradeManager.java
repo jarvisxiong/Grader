@@ -236,6 +236,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 			
 		}		
 	}
+	// called after feature scores, or maybe before and after
 	public void setGrade(String aStudentName, String anOnyen, double aScore) {
 		super.setGrade(aStudentName, anOnyen, aScore);
 		String[] row = getStudentRow(table, aStudentName, anOnyen);

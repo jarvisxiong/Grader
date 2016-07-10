@@ -4,7 +4,7 @@ Grading features...
 ----------------------------------
 PointPrintTest                                         0.0 /  3.0
 TestsTestSuite                                         0.0 / 10.0
-Angle correctly computed for diferent values of X and Y0.0 / 13.0
+PointAngleSuite:Angle correctly computed for diferent values of X and Y 0.0 / 13.0
 PointMainTest                                          5.0 /  5.0
 PointTranslationTest                                   0.0 /  4.0
 PointRadiusTest                                        0.0 / 10.0
@@ -21,7 +21,7 @@ PointPrintTest:
 TestsTestSuite:
   -- Could not find class matching AngleTest
 
-Angle correctly computed for diferent values of X and Y:
+PointAngleSuite:Angle correctly computed for diferent values of X and Y:
   -- A Cartesian Point class not found
   -- A Cartesian Point class not found
   -- A Cartesian Point class not found
