@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wrappers.framework.project.ProjectWrapper;
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;

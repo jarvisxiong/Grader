@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wrappers.framework.project.ProjectWrapper;
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
 
 public class BeanTestCase extends OutputAndErrorCheckingTestCase{
 	String tag;

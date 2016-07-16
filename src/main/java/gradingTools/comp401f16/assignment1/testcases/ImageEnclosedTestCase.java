@@ -1,8 +1,10 @@
-package gradingTools.comp401f15.assignment1.testcases;
+package gradingTools.comp401f16.assignment1.testcases;
 
 import java.util.List;
 
+import util.annotations.Explanation;
 import wrappers.framework.project.ProjectWrapper;
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
@@ -10,10 +12,10 @@ import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.util.GraderCommon;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
-
-
-public class ImageEnclosedTestCase extends OutputAndErrorCheckingTestCase {
+import gradingTools.shared.testcases.OutputAndErrorCheckingTestCase;
+// does not make sense to make it a Junit test case as it checks the student directory
+// maybe need a better abstraction to get the student directory
+public class ImageEnclosedTestCase extends BasicTestCase {
 
     public ImageEnclosedTestCase() {
         super("Image enclosed test case");

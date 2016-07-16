@@ -1,29 +1,27 @@
-package framework.grading.testing;
+package gradingTools.shared.testcases;
 
-import grader.basics.execution.RunningProject;
-import grader.basics.project.Project;
+import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.ResultingOutErr;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import util.misc.Common;
 
-/**
- * Created with IntelliJ IDEA.
- * User: josh
- * Date: 11/7/13
- * Time: 12:37 PM
- * To change this template use File | Settings | File Templates.
- */
-public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
+
+public abstract class OutputAndErrorCheckingTestCase  {
+	
 	public enum OutputErrorStatus {
 		CORRECT_OUTPUT_NO_ERRORS,
 		CORRECT_OUTPUT_ERRORS,
 		INCORRECT_OUTPUT_NO_ERRORS,
 		INCORRECT_OUTPUT_ERRORS
 	}
-    public OutputAndErrorCheckingTestCase(String aMessage) {
-        super(aMessage);
-    }
+    
+	protected boolean outputsMustBeInDifferentLines() {
+		return true;
+	}
 
 
     public static boolean isValidOutputInDifferentLines(List<String> anOutput, String[] anExpectedStrings){
@@ -46,14 +44,18 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
    	return true;
    }
    protected  boolean isValidOutput(String anOutput, String[] anExpectedStrings){
-	   	 List anOutputLines = Common.arrayToArrayList(anOutput.split("\n"));
+	   	 List<String> anOutputLines = new ArrayList(Arrays.asList(anOutput.split("\n")));
 	   			 
 
  		return isValidOutput(anOutputLines, anExpectedStrings);
  }
    protected  boolean isValidOutput(List<String> anOutput, String[] anExpectedStrings){
+	   if (outputsMustBeInDifferentLines())
+		   return isValidOutputInDifferentLines(anOutput, anExpectedStrings);
 	   return isValidOutputInSameOrDifferentLines(anOutput, anExpectedStrings);
    }
+   
+  
    
    public static int indexOf (List<String> anOutputs, String anExpectedString) {
 	   for (int index = 0; index < anOutputs.size(); index++) {
@@ -80,13 +82,16 @@ public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
    protected  boolean hasError(String anError){
     	return !anError.isEmpty();
     }
-    
-   protected  OutputErrorStatus test (Project project, String anInput, String[] anExpectedStrings, boolean autoGrade) {
-	   RunningProject runner = project.launch(anInput, 1);
-        String output = runner.await();
-        boolean validOutput = isValidOutput(output, anExpectedStrings);
-        String error = runner.getErrorOutput();
-        boolean hasError = hasError(error);
+   protected String[] emptyStringArray = {};
+   protected  OutputErrorStatus test (String aMainName, String anInput, String[] anExpectedStrings) {
+//	   Project project = CurrentProjectHolder.getOrCreateCurrentProject();
+//	   RunningProject runner = project.launch(anInput, 1);
+//        String output = runner.await();
+	   
+	   ResultingOutErr aResult = BasicProjectExecution.callMain(aMainName, emptyStringArray,
+				anInput);
+        boolean validOutput = isValidOutput(aResult.out, anExpectedStrings);
+        boolean hasError = hasError(aResult.err);
         if (validOutput && !hasError) {
         	return OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS;
         }

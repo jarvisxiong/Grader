@@ -1,11 +1,11 @@
 package gradingTools.comp401f15.assignment1.testcases;
 
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
+import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
 
 
 public class InvalidCharacterTestCase extends OutputAndErrorCheckingTestCase {

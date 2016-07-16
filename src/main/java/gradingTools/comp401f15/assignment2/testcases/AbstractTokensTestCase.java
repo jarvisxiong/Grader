@@ -2,12 +2,12 @@ package gradingTools.comp401f15.assignment2.testcases;
 
 import java.util.List;
 
-import framework.grading.testing.OutputAndErrorCheckingTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
+import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
 
 
 public abstract class AbstractTokensTestCase extends OutputAndErrorCheckingTestCase {

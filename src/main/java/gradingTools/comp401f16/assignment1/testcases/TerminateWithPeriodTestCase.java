@@ -1,4 +1,4 @@
-package gradingTools.comp401f15.assignment1.testcases;
+package gradingTools.comp401f16.assignment1.testcases;
 
 import grader.basics.execution.NotRunnableException;
 import grader.basics.junit.NotAutomatableException;
