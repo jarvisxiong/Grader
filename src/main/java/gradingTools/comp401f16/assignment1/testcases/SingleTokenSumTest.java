@@ -3,12 +3,12 @@ import java.util.List;
 
 import util.annotations.Explanation;
 @Explanation("Single Token")
-public class SingleTokenOutputTest extends AbstractScanningTest{
+public class SingleTokenSumTest extends AbstractScanningTest{
 	protected String[][] tokenLines = {{"0202"}};
 
 	@Override
 	protected String[] expectedOutputs() {
-		return expectedTokenOutputs();
+		return expectedSumOutput();
 		
 	}  
 }

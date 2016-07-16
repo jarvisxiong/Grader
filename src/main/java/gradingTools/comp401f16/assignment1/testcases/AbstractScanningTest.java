@@ -109,7 +109,7 @@ protected String[][] tokenLines = {{"22", "44", "66"}, {"11" , "33", "55"}};
 		 String[] aTokens = allTokens();
 		 for (String aToken: aTokens) {
 			 try {
-				 int aNum = Integer.parseInt(aToken);
+				 int aNum = Integer.parseInt(aToken.trim());
 				 aProduct *= aNum;
 				 
 				 
@@ -124,7 +124,7 @@ protected String[][] tokenLines = {{"22", "44", "66"}, {"11" , "33", "55"}};
 		 String[] aTokens = allTokens();
 		 for (String aToken: aTokens) {
 			 try {
-				 int aNum = Integer.parseInt(aToken);
+				 int aNum = Integer.parseInt(aToken.trim());
 				 aSum += aNum;
 				 
 				 

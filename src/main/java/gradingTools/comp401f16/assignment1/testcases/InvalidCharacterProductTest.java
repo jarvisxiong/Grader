@@ -16,7 +16,7 @@ import gradingTools.shared.testcases.OutputAndErrorCheckingTestCase;
 
 @Explanation("Invalid Character Tokens")
 @IsExtra(true)
-public class InvalidCharacterTest extends AbstractScanningTest {
+public class InvalidCharacterProductTest extends AbstractScanningTest {
 	protected String[][] tokenLines = {{"0", "ten", "20"}, {"40" , "forty", "50", " !@@"}};
 
 //    String inputWithNoEndingSpace = "10 ten 20\n40 forty 50!\n.";

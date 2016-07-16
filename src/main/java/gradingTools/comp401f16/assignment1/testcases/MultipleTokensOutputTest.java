@@ -54,6 +54,7 @@ public class MultipleTokensOutputTest extends AbstractScanningTest {
 	public static void main (String[] args) {
 		String aTestOutput = "The tokens are:22\n44\n66\n11\n33\n55\n Sum: 231 \n Product: 1275523920";
 		String aTest1Output = "The tokens are:22\n44\n66\n1i\n33\n55\n Sum: 23 \n Product: 127552392";
+		String aTest2Output = "The tokens are:22 44 66 11 33 55";
 
 		MultipleTokensOutputTest aTestCase = new MultipleTokensOutputTest();
 		String anInputWithNoSpace = aTestCase.inputWithNoEndingSpace();
@@ -67,10 +68,16 @@ public class MultipleTokensOutputTest extends AbstractScanningTest {
 		boolean aCorrectSumProduct = aTestCase.isValidOutput(aTestOutput, anExpectedSumProduct);
 		boolean aCorrectSum = aTestCase.isValidOutput(aTestOutput, anExpectedSum);
 		boolean aCorrectProduct = aTestCase.isValidOutput(aTest1Output, anExpectedProduct);
+		
 		boolean aCorectTokens1 = aTestCase.isValidOutput(aTest1Output, anExpectedTokens);
 		boolean aCorrectSumProduct1 = aTestCase.isValidOutput(aTest1Output, anExpectedSumProduct);
 		boolean aCorrectSum1 = aTestCase.isValidOutput(aTest1Output, anExpectedSum);
 		boolean aCorrectProduct1 = aTestCase.isValidOutput(aTest1Output, anExpectedProduct);
+		
+		boolean aCorectTokens2 = aTestCase.isValidOutput(aTest2Output, anExpectedTokens);
+		boolean aCorrectSumProduct2 = aTestCase.isValidOutput(aTest2Output, anExpectedSumProduct);
+		boolean aCorrectSum2 = aTestCase.isValidOutput(aTest2Output, anExpectedSum);
+		boolean aCorrectProduct2 = aTestCase.isValidOutput(aTest2Output, anExpectedProduct);
 
 
 		
