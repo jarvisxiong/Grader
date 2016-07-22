@@ -14,7 +14,7 @@ import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import gradingTools.shared.testcases.OutputAndErrorCheckingTestCase;
 
-@Explanation("Invalid Character Tokens")
+@Explanation("Invalid Character Sum")
 @IsExtra(true)
 public class InvalidCharacterSumTest extends InvalidCharacterOutputTest {
 	
@@ -22,8 +22,9 @@ public class InvalidCharacterSumTest extends InvalidCharacterOutputTest {
     
     @Override
     protected String[] expectedOutputs() {
-    	return expectedSumOutput();
+    	return expectedSumOutputs();
     }
+    
     
 	
 }
