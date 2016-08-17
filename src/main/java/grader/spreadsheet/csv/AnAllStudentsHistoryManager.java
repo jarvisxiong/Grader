@@ -12,6 +12,8 @@ import grader.sakai.project.ProjectStepperFactory;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorder;
+import grader.trace.studentHistory.StudentHistoryFileCreated;
+import grader.trace.studentHistory.StudentHistoryManagerCreated;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -27,7 +29,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	String historyFolderName;
 	public static final String STUDENT_HISTORY_FOLDER = "StudentHistory";
 
-	Map<String, IndividualStidentHistoryManager> onyenToSpreadsheet = new HashMap();
+	Map<String, IndividualStudentHistoryManager> onyenToSpreadsheet = new HashMap();
 	public AnAllStudentsHistoryManager(SakaiProjectDatabase aProjectDatabase) {
 		projectDataBase = aProjectDatabase;
 		historyFolderName = projectDataBase.getAssignmentDataFolder().getMixedCaseAbsoluteName() +
@@ -41,12 +43,12 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 
 	}
 	
-	protected IndividualStidentHistoryManager getOrCreateSpreadsheet(String anOnyen){
+	protected IndividualStudentHistoryManager getOrCreateSpreadsheet(String anOnyen){
 		File aFolder = new File (historyFolderName);
 		if (!aFolder.exists()) {
 			aFolder.mkdirs();
 		}
-		IndividualStidentHistoryManager result = onyenToSpreadsheet.get(anOnyen);
+		IndividualStudentHistoryManager result = onyenToSpreadsheet.get(anOnyen);
 		if (result == null) {
 			String aFileName = historyFolderName
 					+ "/" + anOnyen 
@@ -60,6 +62,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
                 try {
 					Files.copy(aFetaureSpreadsheet.toPath(), aFile.toPath(), REPLACE_EXISTING);
 					newHistory = true;
+					StudentHistoryFileCreated.newCase(aFeatureSpreadSheetName, this);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -69,6 +72,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
             FileProxy aFileProxy = new AFileSystemFileProxy(aFile);
             result = new AnIndividualStudentHistoryManager(aFileProxy, projectDataBase.getGradingFeatures());
             onyenToSpreadsheet.put(anOnyen, result); 
+            StudentHistoryManagerCreated.newCase(result, aFileProxy.getMixedCaseAbsoluteName(), this);
             if (newHistory) {
             	result.resetHistory();
             }
@@ -78,7 +82,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	
 	public void setGrade(String aStudentName, String anOnyen, String aFeature, double aScore) {
 		// this should always be get
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setGrade(aStudentName, anOnyen, aFeature, aScore);
 	}
 
@@ -101,7 +105,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 
 	@Override
 	public void setGrade(String aStudentName, String anOnyen, double aScore) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setGrade(aStudentName, anOnyen, aScore);
 		
 	}
@@ -127,7 +131,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	@Override
 	public void setGrade(String aStudentName, String anOnyen, String aFeature,
 			double aScore, List<CheckResult> results) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setGrade(aStudentName, anOnyen, aFeature, aScore, results);
 		
 	}
@@ -141,7 +145,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	@Override
 	public void setNotes(String aStudentName, String anOnyen, String aFeature,
 			String aNotes) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setNotes(aStudentName, anOnyen, aFeature, aNotes);
 		
 	}
@@ -154,7 +158,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 
 	@Override
 	public void newSession(String anOnyen) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.addNewRow();
 		
 	}
@@ -218,7 +222,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	@Override
 	public void setEarlyLatePoints(String aStudentName, String anOnyen,
 			double aScore) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setEarlyLatePoints(aStudentName, anOnyen, aScore);
 
 		
@@ -239,7 +243,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	@Override
 	public void setResultFormat(String aStudentName, String anOnyen,
 			String aFeature, String aResult) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setResultFormat(aStudentName, anOnyen, aFeature, aResult);
 
 		
@@ -272,7 +276,7 @@ public class AnAllStudentsHistoryManager implements AllStudentsHistoryManager, F
 	@Override
 	public void setSourcePoints(String aStudentName, String anOnyen,
 			double aScore) {
-		IndividualStidentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
+		IndividualStudentHistoryManager aManager = getOrCreateSpreadsheet(anOnyen);
 		aManager.setSourcePoints(aStudentName, anOnyen, aScore);
 
 		

@@ -263,7 +263,9 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	}
 	
 	void removeQuotesAndTrim() {
-		String aFileName = gradeSpreadsheet.getAbsoluteName();
+//		String aFileName = gradeSpreadsheet.getAbsoluteName();
+		String aFileName = gradeSpreadsheet.getMixedCaseAbsoluteName();
+
 		StringBuffer aText = Common.toText(aFileName);
 		String aNewText = aText.toString().replaceAll("\"", "");
 //		 aNewText = aNewText.toString().replaceAll("\\n\\n", "\\n");

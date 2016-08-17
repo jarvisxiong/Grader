@@ -25,8 +25,10 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
     public AFileSystemFileProxy(RootFolderProxy aRootFolderProxy, File aFile, String aRootFolderName) {
         super(aRootFolderProxy);
         file = aFile;
-        mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
-        absoluteName = mixedCaseAbsoluteName.toLowerCase();
+        initAbsoluteNames(aFile);
+        
+//        mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
+//        absoluteName = mixedCaseAbsoluteName.toLowerCase();
 
         //System.out.println(this.getClass().getName());
         mixedCaseLocalName = GraderFileUtils.toRelativeName(aRootFolderName, mixedCaseAbsoluteName);
@@ -34,11 +36,19 @@ public class AFileSystemFileProxy extends AnAbstractFileProxy implements FilePro
 //        mixedCaseLocalName = GraderFileUtils.toRelativeName(aRootFolderName, getMixedCaseAbsoluteName());
         localName = mixedCaseLocalName.toLowerCase();
     }
+    void initAbsoluteNames(File aFile) {
+    	mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
+        absoluteName = mixedCaseAbsoluteName.toLowerCase();
+    }
 
     public AFileSystemFileProxy(File aFile) {
         super(null);
         file = aFile;
-        absoluteName = Common.toCanonicalFileName(file.getAbsolutePath()).toLowerCase();
+        initAbsoluteNames(aFile);
+//        mixedCaseAbsoluteName = Common.toCanonicalFileName(file.getAbsolutePath());
+//        absoluteName = mixedCaseAbsoluteName.toLowerCase();
+
+//        absoluteName = Common.toCanonicalFileName(file.getAbsolutePath()).toLowerCase();
     }
 
     public String toString() {

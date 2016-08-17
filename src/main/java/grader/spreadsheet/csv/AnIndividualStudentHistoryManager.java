@@ -12,7 +12,7 @@ import grader.file.FileProxy;
 import grader.sakai.project.ProjectStepperFactory;
 import grader.sakai.project.SakaiProjectDatabase;
 
-public class AnIndividualStudentHistoryManager extends ASakaiCSVFeatureGradeManager implements IndividualStidentHistoryManager {
+public class AnIndividualStudentHistoryManager extends ASakaiCSVFeatureGradeManager implements IndividualStudentHistoryManager {
 	public static final int RUN_INDEX = 0;
 	public static final int DATE_INDEX = 1;
 	public static final int SCORE_DELTA_INDEX = 2;
