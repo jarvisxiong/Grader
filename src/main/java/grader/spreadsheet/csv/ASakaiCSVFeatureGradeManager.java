@@ -77,6 +77,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 	
 	void makeMap() {
+//		System.out.println ("Making map for features:" + gradingFeatures);
 		for (int i = 0; i < gradingFeatures.size(); i++) {
 			int featureColumn = PRE_FEATURE_COLUMN + 1 + i;
 			featureToColumnNumber.put(gradingFeatures.get(i).getFeatureName(), featureColumn);
@@ -118,12 +119,26 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 	
 	public void recordGrade (String[] aRow, String aFeature, double aScore) {
-		recordGrade(aRow, featureToColumnNumber.get(aFeature), aScore);
-
+		Integer aColumnNumber = featureToColumnNumber.get(aFeature);
+		if (aColumnNumber == null) {
+			System.err.println("No column number for:" + aFeature);
+			System.err.println(featureToColumnNumber);
+			return;
+		}
+//		recordGrade(aRow, featureToColumnNumber.get(aFeature), aScore);
+		recordGrade(aRow, aColumnNumber, aScore);
 	}
 	
 	public void recordResult (String[] aRow, String aFeature, String aScore) {
-		recordResult(aRow, resultToColumnNumber.get(aFeature), aScore);
+		Integer aColumnNumber = featureToColumnNumber.get(aFeature);
+		if (aColumnNumber == null) {
+			System.err.println("No column number for:" + aFeature);
+			System.err.println(featureToColumnNumber);
+			return;
+		}
+//		recordResult(aRow, resultToColumnNumber.get(aFeature), aScore);
+		recordResult(aRow, aColumnNumber, aScore);
+
 
 	}
 
