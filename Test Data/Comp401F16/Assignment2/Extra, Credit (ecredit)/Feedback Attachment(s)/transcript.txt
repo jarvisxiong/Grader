@@ -1,0 +1,130 @@
+*****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.BeanStringScanner() 
+called method: public grail.BeanStringScanner() 
+calling method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args 22 32 45 
+number: 22
+number: 32
+number: 45
+called method: public void grail.BeanStringScanner.setScannedString(java.lang.String) with args:22 32 45  result:null
+calling method: public java.lang.String grail.BeanStringScanner.getScannedString() with args 
+called method: public java.lang.String grail.BeanStringScanner.getScannedString() with args: result:22 32 45 
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+hello    "h e l l o"   10   goodbye  "go odb ye" 20
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye "go odb ye" - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+ hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+word: goodbye
+quoted string: go odb ye
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+Processed by bean class
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+hello    "h e l l o"   10   goodbye  "go odb ye 20
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+Processed by bean class
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+closed quota is missing.....
+go odb ye 20
+

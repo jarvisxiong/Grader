@@ -1,0 +1,6157 @@
+//START OF FILE: src/main/apropertylistenersupport.java
+package main;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+public class APropertyListenerSupport implements PropertyListenerSupport {
+    public final int MAX_SIZE = 50;
+    PropertyChangeListener[] contents = new PropertyChangeListener[MAX_SIZE];
+    int size = 0;
+
+    public int size() {
+        return size;
+    }
+    
+    public PropertyChangeListener get (int index) {
+        return contents[index];
+    }
+
+    public boolean isFull() {
+        return size == MAX_SIZE;
+
+    }
+
+    public void add(PropertyChangeListener l) {
+        if (isFull())
+            System.out.println("Adding item to a full collection");
+        else {
+            contents[size] = l;
+            size++;
+        }
+    }  
+    public void notifyAllListeners(PropertyChangeEvent event) {
+        for (int index = 0; index < size(); index++) {
+            get(index).propertyChange(event);
+        }
+    }
+    public void remove(PropertyChangeListener element) {
+        contents[indexOf(element)] = contents[size - 1];
+        size--;
+    }
+
+    public void remove(int startIndex) {
+        shiftUp(startIndex);
+        size--;
+    }
+
+    void shiftUp(int startIndex) {
+        for (int index = startIndex; index + 1 < size; index++)
+            contents[index] = contents[index + 1];
+    }
+
+    public int indexOf(PropertyChangeListener element) {
+        int index;
+        for (index = 0; index < size && !element.equals(contents[index]); index++)
+            ;
+        return index;
+    }
+
+    public boolean member(PropertyChangeListener element) {
+        return indexOf(element) < size;
+
+    }
+
+    public void clear() {
+        size = 0;
+    }
+}
+//END OF FILE
+//START OF FILE: src/main/atable.java
+package main;
+
+import mp.Avatar;
+import util.annotations.Tags;
+
+@Tags({"Table"})
+public class ATable implements Table {
+	private String[] key;
+	private Object[] val;
+	private String y = "sure";
+	
+	public ATable(){
+		key = new String[1];
+		val = new Object[1];
+		
+	}
+	
+	public void put(String key, Object val){
+		if(key == null || val == null){
+			// Do nothing
+		}else{
+		String[] k = new String[this.key.length + 1];
+		Object[] v = new Object[this.key.length + 1];
+		for(int i = 0; i < this.key.length; i++){
+			k[i] = this.key[i];
+			v[i] = this.val[i];
+			}
+		k[this.key.length] = key;
+		v[this.key.length] = val;
+		
+		this.key = k;
+		this.val = v;
+		}
+	}
+	
+	public Object get(String output){
+		int n = 0;
+		for(int i = 0; i < this.key.length; i++){
+			if(output.equalsIgnoreCase(this.key[i])){
+				n = i;
+			}else{
+				y = Integer.toString(n);
+			}
+		}
+		if(y != "sure" && n == 0){
+			return null;
+		}else{
+			return val[n];
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/animatingavatars.java
+package main;
+
+import mp.Avatar;
+import util.annotations.Tags;
+import util.misc.ThreadSupport;
+
+@Tags({"Animator"})
+public class AnimatingAvatars implements Animator{
+	
+	Avatar avatar;
+	
+	public AnimatingAvatars(Avatar newAvatar){
+		avatar = newAvatar;
+	}
+	@Tags({"animateAvatar"})
+	public void animateAvatar() {
+		avatar.animatedMove(100, 100);
+		ThreadSupport.sleep(1000);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/animatingcommands.java
+package main;
+
+import mp.Avatar;
+import util.annotations.Tags;
+import util.misc.ThreadSupport;
+
+@Tags({"AnimatingCommand"})
+public class AnimatingCommands implements Runnable{
+	
+	Animator animation;
+	
+	public AnimatingCommands(Avatar newAvatar){
+		
+		Animator animate = new AnimatingAvatars(newAvatar);
+		animation = animate;
+	}
+	
+	public void run() {
+		animation.animateAvatar();
+		ThreadSupport.sleep(1000);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/animator.java
+package main;
+
+public interface Animator {
+	void animateAvatar();
+}
+//END OF FILE
+//START OF FILE: src/main/assignment10.java
+package main;
+
+import java.awt.Component;
+import java.awt.Window;
+import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+import bus.uigen.OEFrame;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.misc.ThreadSupport;
+import bus.uigen.ObjectEditor;
+import mp.Avatar;
+import mp.Circle;
+import mp.Gorge;
+import mp.Rectangle;
+
+
+@PropertyNames({"Occupied", "KnightTurn"})
+public class Assignment10 {
+		static Avatar Arthur, Galahad, Lancelot, Robin, Guard;
+		static Rectangle Bridge;
+		static String Occupied; 
+		static String KnightTurn = "FALSE";	
+		static String input;
+		
+		public static void main(String[] args) throws InterruptedException{
+					
+			//Scanner reads, stores input into a String, & initiates new ScannerBean Object------------------------------------
+			//Scanner scanner = new Scanner(System.in);		
+			// Initializing Objects ---------------------------------------------------------------------------------------------------------
+			
+			ScannerBeanInterface scannerBean = new ScannerBean();
+			BridgeSceneInterface Window = new BridgeScene();
+			Command command = new CommandInterpreter(Window, scannerBean);
+			InheritingBridgeScenePainter view = new InheritingBridgeScenePainter(Window);
+			
+			// MVC------------------------------------------------------------------------------
+			
+			ConsoleSceneViewInter scene = new ConsoleSceneView(Window);
+			
+			OEFrame editor = ObjectEditor.edit(Window);
+			editor.setSize(1500, 1000);
+			//sleep(2000);
+			
+			JFrame frame = new JFrame("A Scene View");
+			frame.add((Component) view);
+			frame.setSize(1000, 400);
+			frame.setVisible(true);
+			
+			BridgeSceneController controller = new BridgeSceneController(Window, view);
+			
+			// Avatars------------------------------------------------------------------------------
+
+			Arthur = Window.getArthur();
+			Galahad = Window.getGalahad();
+			Lancelot = Window.getLancelot();
+			Robin = Window.getRobin();
+			Guard = Window.getGuard();
+			Bridge = Window.getGorge().getBridge();
+			
+			//Asynchronous(command);
+			
+			//Thread.sleep(9000);
+			
+			// Approaching Avatars------------------------------------------------------------------------------
+			
+			
+			Window.approach(Galahad);
+			Window.say("What is your quest?");
+			Thread.sleep(1000);
+			Window.say("To seek the Holy Grail.");
+			Thread.sleep(1000);
+			Window.say("Cool Beans");
+			Thread.sleep(1000);
+			Window.passed();
+			Thread.sleep(1000);
+			Window.approach(Robin);
+			Window.say("What is your quest?");
+			Thread.sleep(1000);
+			Window.say("Wahey!");
+			Thread.sleep(1000);
+			Window.failed();
+			Thread.sleep(3000);
+			
+			Asynchronous(command);
+			Thread.sleep(9000);
+
+			
+						
+			
+			// Demo ---------------------------------------------------------------------------------------------------
+			
+			
+			/*
+			input = "say \"what is your quest?\"";
+			command.setCommand(input);	
+			Thread.sleep(1000);
+			*/
+			
+			/*
+			input = "move Arthur 326 42";
+			command.setCommand(input);
+			
+			input = "move Robin 0 30";
+			command.setCommand(input);
+			
+			input = "move galaHad 90 50";
+			command.setCommand(input);
+			
+			input = "move lancelot -30 40";
+			command.setCommand(input);
+			
+			
+			Thread.sleep(1000);
+			input = "say \"This was a test for Assignment 9\"";
+			command.setCommand(input);		
+			*/
+			
+			
+			//================================================================================================================================================================================================================================================================================================
+			
+			}
+		public static void Asynchronous(Command command){
+			command.asynArthur();
+			command.asynGalahad();
+			command.asynLancelot();
+			command.asynRobin();
+		}
+	
+		public static void sleep(long interval) {
+			try {
+				Thread.sleep(interval);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+		
+//END OF FILE
+//START OF FILE: src/main/bridgescene.java
+package main;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import mp.ACircle;
+import mp.AGorge;
+import mp.AnAvatar;
+import mp.Avatar;
+import mp.Circle;
+import mp.Gorge;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"BridgeScene"})
+@PropertyNames({"Arthur", "Galahad","Lancelot","Robin", "Guard","Gorge","knightArea","guardArea", "Occupied", "KnightTurn"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public class BridgeScene implements BridgeSceneInterface{
+	// Setting up parameters------------------------------------------------------------------------------------------------------------------------------------
+		// Images
+		private static final String artPic = "arthur.jpg";
+		private static final String galPic = "galahad.jpg";
+		private static final String lanPic = "lancelot.jpg";
+		private static final String robPic = "robin.jpg";
+		private static final String guaPic = "guard.jpg";
+		
+		// Avatar---------------------------------------------------------------------------------------------------------------------------------------------
+		Avatar Arthur, Galahad, Lancelot, Robin, Guard;
+		
+		// Scenario--------------------------------------------------------------------------------------------------------------------------------------------
+		Gorge gorge;
+		Circle knightArea, guardArea;
+		
+		// Other Parameters-------------------------------------------------------------------------------------------------------------------------------------
+		
+		int x;
+		int y;
+		boolean Occupied; 
+		boolean KnightTurn;
+		Avatar standingKnight; 
+		PropertyListenerSupport propertySupport;
+		
+		// Constructors--------------------------------------------------------------------------------------------------------------------------------------------
+		public BridgeScene(){
+			Arthur = new AnAvatar(artPic, 100, 100);
+			Galahad = new AnAvatar(galPic, 200, 100);
+			Lancelot = new AnAvatar(lanPic, 300, 100);
+			Robin = new AnAvatar(robPic, 400, 100);
+			gorge = new AGorge();
+			
+			// Gorge parameters
+			int knightareaX = gorge.getBridge().getX() - 175;
+			int knightareaY = gorge.getBridge().getY();
+			int diameter = 60;
+			int guardareaX = gorge.getBridge().getX() - 75;
+			int guardareaY = gorge.getBridge().getY(); 
+	
+			x = knightareaX;
+			y = knightareaY;
+			knightArea = new ACircle(knightareaX,knightareaY,diameter, diameter);
+			guardArea = new ACircle(guardareaX,guardareaY,diameter, diameter);
+			Guard = new AnAvatar(guaPic, guardareaX + diameter/2, guardareaY + diameter/2 - 75);
+			Occupied = false;
+			KnightTurn = false;
+			propertySupport = new APropertyListenerSupport();
+		}
+		
+		@Tags({"approach"})
+		public void approach(Avatar avatar){
+			assert preApproach();
+			if(Occupied == false){
+				int destinationX = knightArea.getX() + knightArea.getWidth()/2;
+				int destinationY = Guard.getArms().getLeftLine().getY();
+				int avatarX = avatar.getArms().getLeftLine().getX();
+				int avatarY = avatar.getArms().getRightLine().getY();
+				int approachX = destinationX - avatarX;
+				int approachY = destinationY - avatarY;
+				avatar.animatedMove(approachX, approachY);
+				standingKnight = avatar;
+				Occupied = true;
+				KnightTurn = false;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Occupied",false, true));
+			}
+		}
+		
+		@Tags({"passed"})
+		public void passed(){
+			assert prePassed();
+			if(Occupied == true){
+				int ahead = gorge.getBridge().getX() + gorge.getBridge().getWidth() + gorge.getBridge().getWidth()/2;
+				int standing = standingKnight.getArms().getLeftLine().getX();
+				int pass = ahead - standing;
+				standingKnight.getText().setText("");
+				Guard.getText().setText("");
+				standingKnight.animatedMove(pass, 0);
+				Occupied = false;
+				KnightTurn = false;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Occupied",true, false));
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "KnightTurn",true, false));
+			}
+		}
+		
+		@Tags({"failed"})
+		public void failed(){
+			assert preFailed();
+			if(Occupied == true && KnightTurn == false){
+				int avatarX = standingKnight.getArms().getLeftLine().getX();
+				int avatarY = standingKnight.getArms().getLeftLine().getY();
+				int banishedX = gorge.getG2().getX() - gorge.getG1().getX();
+				int banishedY = gorge.getG1().getHeight()/5;
+				int failedX = gorge.getG1().getX() - avatarX + banishedX/2;
+				int failedY = banishedY - avatarY;
+				standingKnight.getText().setText("");
+				Guard.getText().setText("");
+				standingKnight.animatedMove(failedX, failedY);
+				Occupied = false;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Occupied",true, false));
+			}else if(Occupied == true && KnightTurn == true){
+				int avatarX = Guard.getArms().getLeftLine().getX();
+				int avatarY = Guard.getArms().getLeftLine().getY();
+				int banishedX = gorge.getG2().getX() - gorge.getG1().getX();
+				int banishedY = gorge.getG1().getHeight()/5;
+				int failedX = gorge.getG1().getX() - avatarX + banishedX/2;
+				int failedY = banishedY - avatarY;
+				standingKnight.getText().setText("");
+				Guard.getText().setText("");
+				Guard.animatedMove(failedX, failedY);
+				Occupied = true;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Occupied",true, false));
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "KnightTurn",false, true));
+			}
+		}
+		
+		@Tags({"say"})
+		public void say(String text){
+			assert preSay();
+			if(Occupied == false){}
+			else if(Occupied == true && KnightTurn == false){
+				standingKnight.getText().setText("");
+				Guard.getText().setText(text);
+				KnightTurn = true;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "KnightTurn",false, true));
+			}else if(Occupied == true && KnightTurn == true){
+				Guard.getText().setText("");
+				standingKnight.getText().setText(text);
+				KnightTurn = false;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "KnightTurn",true, false));
+			}
+		}
+		
+		@Tags({"Occupied"})
+		public boolean getOccupied(){
+			return Occupied;
+			
+		}
+		
+		@Tags({"KnightTurn"})
+		public boolean getKnightTurn(){
+			return KnightTurn;
+			
+		}
+		
+		
+		
+		
+		
+		// Getter for Avatars----------------------------------------------------------------------------------------------------------------------------------------
+
+		public Avatar getArthur(){return Arthur;}
+		public Avatar getGalahad(){return Galahad;}
+		public Avatar getLancelot(){return Lancelot;}
+		public Avatar getRobin(){return Robin;}
+		public Avatar getGuard(){return Guard;}
+		public Gorge getGorge(){return gorge;}
+		public Circle getKnightArea(){return knightArea;}
+		public Circle getGuardArea(){return guardArea;}
+
+
+
+		// Adding PropertyChange----------------------------------------------------------------------------------------------------------------------------------------
+		@Override
+		public void addPropertyChangeListener(InheritingBridgeScenePainter inheritingBridgeScenePainter) {
+			// TODO Auto-generated method stub
+		}
+		
+		// Assertion----------------------------------------------------------------------------------------------------------------------------------------
+		
+		public boolean preApproach(){
+			return Occupied == false;
+		}
+		
+		public boolean preSay(){
+			return Occupied == true;
+		}
+		
+		public boolean prePassed(){
+			return Occupied == true;
+		}
+		
+		public boolean preFailed(){
+			return Occupied == true;
+		}
+
+		@Override
+		public void addPropertyChangeListener(PropertyChangeListener listener) {
+			propertySupport.add(listener);				
+		}
+
+}
+//END OF FILE
+//START OF FILE: src/main/bridgescenecontroller.java
+package main;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+import mp.ALine;
+import mp.Avatar;
+import util.annotations.Tags;
+
+@Tags({"BridgeSceneController"})
+public class BridgeSceneController extends InheritingBridgeScenePainter implements BridgeSceneMouseListener, BridgeSceneKeyListener {
+	static BridgeSceneInterface newScene;
+	InheritingBridgeScenePainter aView;
+	int oldX, oldY;
+	int x = 0;
+	int y = 0;
+	int ArthurX,ArthurY, GalahadX, GalahadY, LancelotX, LancelotY, RobinX, RobinY;
+	
+	public BridgeSceneController(BridgeSceneInterface scene, InheritingBridgeScenePainter view){
+		super(scene);
+		newScene = scene;
+		ArthurX = newScene.getArthur().getArms().getX();
+		ArthurY = newScene.getArthur().getArms().getY();
+		GalahadX = newScene.getGalahad().getArms().getX();
+		GalahadY = newScene.getGalahad().getArms().getY();
+		LancelotX = newScene.getLancelot().getArms().getX();
+		LancelotY = newScene.getLancelot().getArms().getY();
+		RobinX = newScene.getRobin().getArms().getX();
+		RobinY = newScene.getRobin().getArms().getY();
+		aView = view;
+		aView.addMouseListener(this);
+		aView.addKeyListener(this);
+	}
+	public void mouseClicked(MouseEvent e) {
+		oldX = x;
+		oldY = y;
+		x = e.getX();
+		y = e.getY();
+		System.out.println(x);
+		System.out.println(y);
+	}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	
+	public void keyTyped(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_A){
+			setAvatar(newScene.getArthur(),x,y);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_G){
+			setAvatar(newScene.getGalahad(),x,y); 
+		}
+		if(e.getKeyCode() == KeyEvent.VK_L){
+			setAvatar(newScene.getLancelot(),x,y);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_R){
+			setAvatar(newScene.getRobin(),x,y);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_O){
+			setAvatar(newScene.getArthur(),ArthurX,ArthurY);
+			setAvatar(newScene.getGalahad(),GalahadX,GalahadY);
+			setAvatar(newScene.getLancelot(),LancelotX,LancelotY);
+			setAvatar(newScene.getRobin(),RobinX,RobinY);
+		}
+	}
+	public void keyReleased(KeyEvent e) {}
+	
+	public void setAvatar(Avatar avatar, int newX, int newY){
+		//avatar.preciseMove(1, 0);
+		//aView.addPropertyChangeListener(this);
+		
+		if(newX > avatar.getArms().getLeftLine().getX()){
+			for(int i = avatar.getArms().getLeftLine().getX(); i < newX; i++){
+				avatar.preciseMove(1, 0);
+			}
+		}
+		if(newX < avatar.getArms().getLeftLine().getX()){
+			for(int i = avatar.getArms().getLeftLine().getX(); newX < i; i--){
+				avatar.preciseMove(-1, 0);
+				}
+		}
+		if(newY > avatar.getArms().getLeftLine().getY()){
+			for(int i = avatar.getArms().getLeftLine().getY(); i < newY; i++){
+				avatar.preciseMove(0, 1);
+			}
+		}
+		if(newY < avatar.getArms().getLeftLine().getY()){
+			for(int i = avatar.getArms().getLeftLine().getY(); newY < i; i--){
+				avatar.preciseMove(0, -1);
+			}
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: src/main/bridgesceneinterface.java
+package main;
+
+import java.beans.PropertyChangeListener;
+
+import mp.Avatar;
+import mp.Circle;
+import mp.Gorge;
+import util.models.PropertyListenerRegisterer;
+
+
+public interface BridgeSceneInterface extends PropertyListenerRegisterer{
+	
+	public Avatar getArthur();
+	public Avatar getGalahad();
+	public Avatar getLancelot();
+	public Avatar getRobin();
+	public Avatar getGuard();
+	public Gorge getGorge();
+	public Circle getKnightArea();
+	public Circle getGuardArea();
+	public void approach(Avatar avatar);
+	public boolean preApproach();
+	public void say(String text);
+	public boolean preSay();
+	public void passed();
+	public boolean prePassed();
+	public void failed();
+	public boolean preFailed();
+	boolean getOccupied();
+	boolean getKnightTurn();
+	public void addPropertyChangeListener(InheritingBridgeScenePainter inheritingBridgeScenePainter);
+	public void addPropertyChangeListener(PropertyChangeListener listener);
+	
+}
+//END OF FILE
+//START OF FILE: src/main/bridgescenekeylistener.java
+package main;
+
+import java.awt.event.KeyListener;
+
+public interface BridgeSceneKeyListener extends KeyListener{
+
+}
+//END OF FILE
+//START OF FILE: src/main/bridgescenemouselistener.java
+package main;
+
+import java.awt.event.MouseListener;
+
+public interface BridgeSceneMouseListener extends MouseListener {
+
+}
+//END OF FILE
+//START OF FILE: src/main/command.java
+package main;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
+
+@Tags({"CommandInterpreter"})
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public interface Command {
+	
+	public String scan(String[] input);
+	@Visible(false)
+	public String[] getCommand();
+	public void setCommand(String input);
+	public Thread setMoveT(String output, int moveX, int moveY);
+	public Thread setSay();
+	public void setMove(String output, int moveX, int moveY);
+	public void asynArthur();
+	public void asynGalahad();
+	public void asynLancelot();
+	public void asynRobin();
+	
+}
+//END OF FILE
+//START OF FILE: src/main/commandinterpreter.java
+package main;
+
+import bus.uigen.OEFrame;
+import mp.Avatar;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
+
+@Tags({"CommandInterpreter"})
+@PropertyNames({"Command"})
+@EditablePropertyNames({"Command"})
+public class CommandInterpreter implements Command {
+	String[] scan;
+	String[] parsedString;
+	String output, token1, token2, token3, token4, tokenAvatar;
+	BridgeSceneInterface scene;
+	ScannerBeanInterface scannerBean;
+	int x, y;
+	Table table;
+	OEFrame frame;
+	
+	public CommandInterpreter(BridgeSceneInterface newScene, ScannerBeanInterface newScannerBean){
+		// Establishing Table
+		//System.out.println("Establishing Table");
+		table = new ATable();
+					
+		// Associating keys with values
+		table.put("arthur", (Object) newScene.getArthur());
+		//System.out.println("<arthur, "+table.get("arthur") + "> Using the term arthur to retrieve Object Arthur");
+		table.put("galahad", (Object) newScene.getGalahad());
+		//System.out.println("<galahad, " + table.get("galahad") + "> Using the term galahad to retrieve Object Galahad");
+		table.put("lancelot", (Object) newScene.getLancelot());
+		//System.out.println("<lancelot, " + table.get("lancelot") + "> Using the term lancelot to retrieve Object Lancelot");
+		table.put("robin", (Object) newScene.getRobin());
+		//System.out.println("<robin, " + table.get("robin") + "> Using the term robin to retrieve Object Robin");
+		table.put("guard",(Object) newScene.getGuard());
+		//System.out.println("<guard, " + table.get("guard") + "> Using the term guard to retrieve Object Guard");
+		
+		scene = newScene;
+		scannerBean = newScannerBean;
+		this.scan = scannerBean.getTokens();
+		this.parsedString = scannerBean.getParse();
+		//output = scan(this.scan);
+	}
+	
+	@Tags({"parseMove"})
+	public Thread setMoveT(String output, int moveX, int moveY){
+		Object moveAvatar = table.get(output);
+		Thread move = new Thread(new MoveCommand(((Avatar) moveAvatar), moveX, moveY));
+		return move;
+	}
+	
+	public void setMove(String output, int moveX, int moveY){
+		Object moveAvatar = table.get(output);
+		((Avatar) moveAvatar).animatedMove(moveX, moveY);
+	}
+	
+	@Visible(false)
+	public String[] getCommand() {return this.parsedString;}
+	
+	public String scan(String[] input){
+		
+		String scanned = "";
+		for(int i = 0; i < input.length - 1; i++){ // Say Command must be 2 tokens long 
+			// Checks each token within array for "say"
+			token1 = input[i].toLowerCase(); // "say token" or "move token"
+			token2 = input[i+1].toLowerCase();// "quote token"
+			if("say token".equals(token1)){ // Does token1 == "say token"
+				// Check the next token to see if is a quote token
+				if("quote token".equals(token2)){ // Does token2 == "quote token"
+					scanned = scannerBean.getParse()[i+1]; // Build String "scanned" with actual input
+				}
+			}else if("move token".equals(token1) && i < input.length - 3){
+				tokenAvatar = scannerBean.getParse()[i+1];
+				token3 = input[i+2].toLowerCase();
+				token4 = input[i+3].toLowerCase();
+				if("arthur".equalsIgnoreCase(tokenAvatar)){
+					if("number token".equals(token3)){
+						scanned = scannerBean.getParse()[i+1];
+						if("number token".equals(token4)){
+							String moveX = scannerBean.getParse()[i+2];
+							x = Integer.parseInt(moveX);
+							String moveY = scannerBean.getParse()[i+3];
+							y = Integer.parseInt(moveY);
+						}
+					}
+				}else if("galahad".equalsIgnoreCase(tokenAvatar)){
+					if("number token".equals(token3)){
+						scanned = scannerBean.getParse()[i+1];
+						if("number token".equals(token4)){
+							String moveX = scannerBean.getParse()[i+2];
+							x = Integer.parseInt(moveX);
+							String moveY = scannerBean.getParse()[i+3];
+							y = Integer.parseInt(moveY);
+						}
+					}
+				}else if("lancelot".equalsIgnoreCase(tokenAvatar)){
+					if("number token".equals(token3)){
+						scanned = scannerBean.getParse()[i+1];
+						if("number token".equals(token4)){
+							String moveX = scannerBean.getParse()[i+2];
+							x = Integer.parseInt(moveX);
+							String moveY = scannerBean.getParse()[i+3];
+							y = Integer.parseInt(moveY);
+						}
+					}
+				}else if("robin".equalsIgnoreCase(tokenAvatar)){
+					if("number token".equals(token3)){
+						scanned = scannerBean.getParse()[i+1];
+						if("number token".equals(token4)){
+							String moveX = scannerBean.getParse()[i+2];
+							x = Integer.parseInt(moveX);
+							String moveY = scannerBean.getParse()[i+3];
+							y = Integer.parseInt(moveY);
+						}
+					}
+				}else if("guard".equalsIgnoreCase(tokenAvatar)){
+					if("number token".equals(token3)){
+						scanned = scannerBean.getParse()[i+1];
+						if("number token".equals(token4)){
+							String moveX = scannerBean.getParse()[i+2];
+							x = Integer.parseInt(moveX);
+							String moveY = scannerBean.getParse()[i+3];
+							y = Integer.parseInt(moveY);
+						}
+					}
+				}
+			}
+		}
+		return scanned;
+	}
+	
+	public void setCommand(String Command) {
+		scannerBean.setScannedString(Command);
+		String[] tokens = scannerBean.getTokens(); // returns Tokens Array
+		String[] parse = scannerBean.getParse(); // returns Parsed String[]
+		
+		// This calls method "scan" to parse and return a string that is either a 
+		String output = scan(tokens); // scans Tokens Array and outputs a command string
+		
+		if("arthur".equalsIgnoreCase(output)){
+			Thread moveArthur = setMoveT(output, x, y);
+			moveArthur.start();
+		}else if("galahad".equalsIgnoreCase(output)){
+			Thread moveGalahad = setMoveT(output, x, y);	
+			moveGalahad.start();
+		}else if("lancelot".equalsIgnoreCase(output)){
+			Thread moveLancelot = setMoveT(output, x, y);	
+			moveLancelot.start();
+		}else if("robin".equalsIgnoreCase(output)){
+			Thread moveRobin = setMoveT(output, x, y);
+			moveRobin.start();
+		}else if("guard".equalsIgnoreCase(output)){
+			Thread moveGuard = 	setMoveT(output, x, y);	
+			moveGuard.start();
+		}
+		// This allows Avatar to speak
+		//scene.getGuard().getText().setText(output);
+		Thread speech = setSay();
+		speech.start();
+	}
+	
+	@Tags({"parseSay"})
+	public Thread setSay(){
+		Thread say = new Thread(new SayCommand(scene,output));
+		return say;
+	}
+	
+	@Tags({"asynchronousArthur"})
+	public void asynArthur(){
+		Avatar arthurAv = scene.getArthur();
+		Runnable arthur = new AnimatingCommands(arthurAv);
+		Thread art = new Thread(arthur);
+		art.start();
+	}
+	
+	@Tags({"asynchronousGalahad"})
+	public void asynGalahad(){
+		Runnable galahad = new AnimatingCommands(scene.getGalahad());
+		Thread gal = new Thread(galahad);
+		gal.start();
+	}
+	
+	@Tags({"asynchronousLancelot"})
+	public void asynLancelot(){
+		Runnable lancelot = new AnimatingCommands(scene.getLancelot());
+		Thread lan = new Thread(lancelot);
+		lan.start();
+	}
+	
+	@Tags({"asynchronousRobin"})
+	public void asynRobin(){
+		Runnable robin = new AnimatingCommands(scene.getRobin());
+		Thread rob = new Thread(robin);
+		rob.start();
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/main/consolesceneview.java
+package main;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+
+@Tags({"ConsoleSceneView"})
+public class ConsoleSceneView implements ConsoleSceneViewInter{
+	BridgeSceneInterface scene;
+	
+	public ConsoleSceneView(BridgeSceneInterface window){
+		this.scene = window;
+		//Arthur------------------------------------------------------------------------------------------------
+		/*
+		window.getArthur().getText().addPropertyChangeListener(this);
+		window.getArthur().getHead().addPropertyChangeListener(this);
+		window.getArthur().getArms().getLeftLine().addPropertyChangeListener(this);
+		window.getArthur().getArms().getRightLine().addPropertyChangeListener(this);
+		window.getArthur().getBody().addPropertyChangeListener(this);
+		window.getArthur().getLegs().getLeftLine().addPropertyChangeListener(this);
+		window.getArthur().getLegs().getRightLine().addPropertyChangeListener(this);
+		
+		//Galahad------------------------------------------------------------------------------------------------
+		window.getGalahad().getText().addPropertyChangeListener(this);
+		window.getGalahad().getHead().addPropertyChangeListener(this);
+		window.getGalahad().getArms().getLeftLine().addPropertyChangeListener(this);
+		window.getGalahad().getArms().getRightLine().addPropertyChangeListener(this);
+		window.getGalahad().getBody().addPropertyChangeListener(this);
+		window.getGalahad().getLegs().getLeftLine().addPropertyChangeListener(this);
+		window.getGalahad().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Lancelot------------------------------------------------------------------------------------------------
+		window.getLancelot().getText().addPropertyChangeListener(this);
+		window.getLancelot().getHead().addPropertyChangeListener(this);
+		window.getLancelot().getArms().getLeftLine().addPropertyChangeListener(this);
+		window.getLancelot().getArms().getRightLine().addPropertyChangeListener(this);
+		window.getLancelot().getBody().addPropertyChangeListener(this);
+		window.getLancelot().getLegs().getLeftLine().addPropertyChangeListener(this);
+		window.getLancelot().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Robin------------------------------------------------------------------------------------------------
+		window.getRobin().getText().addPropertyChangeListener(this);
+		window.getRobin().getHead().addPropertyChangeListener(this);
+		window.getRobin().getArms().getLeftLine().addPropertyChangeListener(this);
+		window.getRobin().getArms().getRightLine().addPropertyChangeListener(this);
+		window.getRobin().getBody().addPropertyChangeListener(this);
+		window.getRobin().getLegs().getLeftLine().addPropertyChangeListener(this);
+		window.getRobin().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Guard------------------------------------------------------------------------------------------------
+		window.getGuard().getText().addPropertyChangeListener(this);
+		window.getGuard().getHead().addPropertyChangeListener(this);
+		window.getGuard().getArms().getLeftLine().addPropertyChangeListener(this);
+		window.getGuard().getArms().getRightLine().addPropertyChangeListener(this);
+		window.getGuard().getBody().addPropertyChangeListener(this);
+		window.getGuard().getLegs().getLeftLine().addPropertyChangeListener(this);
+		window.getGuard().getLegs().getRightLine().addPropertyChangeListener(this);
+		*/
+		window.addPropertyChangeListener(this);
+		
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		String current = "";
+		if (arg0.getSource() == scene.getArthur().getText())
+			current = "Arthur's Text";
+		else if (arg0.getSource() == scene.getArthur().getHead())
+			current = "Arthur's Head";
+		else if (arg0.getSource() == scene.getArthur().getArms().getLeftLine())
+			current = "Arthur's Left Arm";
+		else if (arg0.getSource() == scene.getArthur().getArms().getRightLine())
+			current = "Arthur's Right Arm";
+		else if (arg0.getSource() == scene.getArthur().getBody())
+			current = "Arthur's Body";
+		else if (arg0.getSource() == scene.getArthur().getLegs().getLeftLine())
+			current = "Arthur's Left Leg";
+		else if (arg0.getSource() == scene.getArthur().getLegs().getRightLine())
+			current = "Arthur's Right Leg";
+		
+		else if (arg0.getSource() == scene.getGalahad().getText())
+			current = "Galahad's Text";
+		else if (arg0.getSource() == scene.getGalahad().getHead())
+			current = "Galahad's Head";
+		else if (arg0.getSource() == scene.getGalahad().getArms().getLeftLine())
+			current = "Galahad's Left Arm";
+		else if (arg0.getSource() == scene.getGalahad().getArms().getRightLine())
+			current = "Galahad's Right Arm";
+		else if (arg0.getSource() == scene.getGalahad().getBody())
+			current = "Galahad's Body";
+		else if (arg0.getSource() == scene.getGalahad().getLegs().getLeftLine())
+			current = "Galahad's Left Leg";
+		else if (arg0.getSource() == scene.getGalahad().getLegs().getRightLine())
+			current = "Galahad's Right Leg";
+		
+		else if (arg0.getSource() == scene.getLancelot().getText())
+			current = "Lancelot's Text";
+		else if (arg0.getSource() == scene.getLancelot().getHead())
+			current = "Lancelot's Head";
+		else if (arg0.getSource() == scene.getLancelot().getArms().getLeftLine())
+			current = "Lancelot's Left Arm";
+		else if (arg0.getSource() == scene.getLancelot().getArms().getRightLine())
+			current = "Lancelot's Right Arm";
+		else if (arg0.getSource() == scene.getLancelot().getBody())
+			current = "Lancelot's Body";
+		else if (arg0.getSource() == scene.getLancelot().getLegs().getLeftLine())
+			current = "Lancelot's Left Leg";
+		else if (arg0.getSource() == scene.getLancelot().getLegs().getRightLine())
+			current = "Lancelot's Right Leg";
+		
+		else if (arg0.getSource() == scene.getRobin().getText())
+			current = "Robin's Text";
+		else if (arg0.getSource() == scene.getRobin().getHead())
+			current = "Robin's Head";
+		else if (arg0.getSource() == scene.getRobin().getArms().getLeftLine())
+			current = "Robin's Left Arm";
+		else if (arg0.getSource() == scene.getRobin().getArms().getRightLine())
+			current = "Robin's Right Arm";
+		else if (arg0.getSource() == scene.getRobin().getBody())
+			current = "Robin's Body";
+		else if (arg0.getSource() == scene.getRobin().getLegs().getLeftLine())
+			current = "Robin's Left Leg";
+		else if (arg0.getSource() == scene.getRobin().getLegs().getRightLine())
+			current = "Robin's Right Leg";
+		
+		else if (arg0.getSource() == scene.getGuard().getText())
+			current = "Guard's Text";
+		else if (arg0.getSource() == scene.getGuard().getHead())
+			current = "Guard's Head";
+		else if (arg0.getSource() == scene.getGuard().getArms().getLeftLine())
+			current = "Guard's Left Arm";
+		else if (arg0.getSource() == scene.getGuard().getArms().getRightLine())
+			current = "Guard's Right Arm";
+		else if (arg0.getSource() == scene.getGuard().getBody())
+			current = "Guard's Body";
+		else if (arg0.getSource() == scene.getGuard().getLegs().getLeftLine())
+			current = "Guard's Left Leg";
+		else if (arg0.getSource() == scene.getGuard().getLegs().getRightLine())
+			current = "Guard's Right Leg";
+			
+		System.out.println("Object: " + current + "\t Property name: "
+				+ arg0.getPropertyName() + "\t old value: "
+				+ arg0.getOldValue() + "\t new value: " + arg0.getNewValue());
+	}
+	public void register (PropertyListenerRegisterer aPropertyChangeRegister){
+		aPropertyChangeRegister.addPropertyChangeListener(this);        
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/main/consolesceneviewinter.java
+package main;
+
+import java.beans.PropertyChangeListener;
+
+import util.models.PropertyListenerRegisterer;
+
+public interface ConsoleSceneViewInter extends PropertyChangeListener {
+	public void register (PropertyListenerRegisterer aPropertyChangeRegister);
+}
+//END OF FILE
+//START OF FILE: src/main/inheritingbridgescenepainter.java
+package main;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import mp.Avatar;
+import mp.Circle;
+import mp.Gorge;
+import mp.Line;
+import mp.Rectangle;
+import mp.StringShape;
+import mp.VShape;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({"InheritingBridgeScenePainter"})
+public class InheritingBridgeScenePainter extends Component implements PropertyChangeListener{
+	
+	BridgeSceneInterface aScene,scene;
+	
+	public InheritingBridgeScenePainter(BridgeSceneInterface theScene){
+		aScene = theScene;
+		scene = theScene;
+		setFocusable(true);
+		//Arthur------------------------------------------------------------------------------------------------
+			aScene.getArthur().getText().addPropertyChangeListener(this);
+			aScene.getArthur().getHead().addPropertyChangeListener(this);
+			aScene.getArthur().getArms().getLeftLine().addPropertyChangeListener(this);
+			aScene.getArthur().getArms().getRightLine().addPropertyChangeListener(this);				
+			aScene.getArthur().getBody().addPropertyChangeListener(this);
+			aScene.getArthur().getLegs().getLeftLine().addPropertyChangeListener(this);
+			aScene.getArthur().getLegs().getRightLine().addPropertyChangeListener(this);
+				
+		//Galahad------------------------------------------------------------------------------------------------
+			aScene.getGalahad().getText().addPropertyChangeListener(this);
+			aScene.getGalahad().getHead().addPropertyChangeListener(this);
+			aScene.getGalahad().getArms().getLeftLine().addPropertyChangeListener(this);
+			aScene.getGalahad().getArms().getRightLine().addPropertyChangeListener(this);
+			aScene.getGalahad().getBody().addPropertyChangeListener(this);
+			aScene.getGalahad().getLegs().getLeftLine().addPropertyChangeListener(this);
+			aScene.getGalahad().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Lancelot------------------------------------------------------------------------------------------------
+			aScene.getLancelot().getText().addPropertyChangeListener(this);
+			aScene.getLancelot().getHead().addPropertyChangeListener(this);
+			aScene.getLancelot().getArms().getLeftLine().addPropertyChangeListener(this);
+			aScene.getLancelot().getArms().getRightLine().addPropertyChangeListener(this);
+			aScene.getLancelot().getBody().addPropertyChangeListener(this);
+			aScene.getLancelot().getLegs().getLeftLine().addPropertyChangeListener(this);
+			aScene.getLancelot().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Robin------------------------------------------------------------------------------------------------
+			aScene.getRobin().getText().addPropertyChangeListener(this);
+			aScene.getRobin().getHead().addPropertyChangeListener(this);
+			aScene.getRobin().getArms().getLeftLine().addPropertyChangeListener(this);
+			aScene.getRobin().getArms().getRightLine().addPropertyChangeListener(this);
+			aScene.getRobin().getBody().addPropertyChangeListener(this);
+			aScene.getRobin().getLegs().getLeftLine().addPropertyChangeListener(this);
+			aScene.getRobin().getLegs().getRightLine().addPropertyChangeListener(this);
+		//Guard------------------------------------------------------------------------------------------------
+			aScene.getGuard().getText().addPropertyChangeListener(this);
+			aScene.getGuard().getHead().addPropertyChangeListener(this);
+			aScene.getGuard().getArms().getLeftLine().addPropertyChangeListener(this);
+			aScene.getGuard().getArms().getRightLine().addPropertyChangeListener(this);
+			aScene.getGuard().getBody().addPropertyChangeListener(this);
+			aScene.getGuard().getLegs().getLeftLine().addPropertyChangeListener(this);
+			aScene.getGuard().getLegs().getRightLine().addPropertyChangeListener(this);
+			
+	}
+	
+	public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        draw(g2, aScene);
+    }
+	public void draw(Graphics2D g, BridgeSceneInterface scene){
+		draw(g, scene.getArthur());
+		draw(g, scene.getGalahad());
+        draw(g, scene.getLancelot());
+        draw(g, scene.getRobin());
+        draw(g, scene.getGuard());
+        draw(g, scene.getGorge());
+        draw(g, scene.getGuardArea());
+        draw(g, scene.getKnightArea());
+	}
+	
+	public void draw(Graphics2D g, Avatar avatar){
+		draw(g, avatar.getText());
+		draw(g, avatar.getHead());
+		draw(g, avatar.getArms());
+		draw(g, avatar.getBody());
+		draw(g, avatar.getLegs());
+	}
+	
+	public void draw(Graphics2D g, StringShape text){
+		String s = text.getText();
+		g.drawString(s, text.getX(), text.getY());
+	}
+	
+	public void draw(Graphics2D g, mp.Image image){
+		Image img = Toolkit.getDefaultToolkit().getImage(image.getImageFileName());
+        g.drawImage(img, image.getX(), image.getY(), this); 
+	}
+	
+	public void draw(Graphics2D g, VShape shape){
+		Line left = shape.getLeftLine();
+		Line right = shape.getRightLine();
+		g.drawLine(left.getX(), left.getY(), left.getX() - 25, left.getY() + 25);
+		g.drawLine(right.getX(), right.getY(), right.getX() + 25, right.getY() + 25);
+	}
+	public void draw(Graphics2D g, Gorge aGorge){
+		Gorge gorge = aGorge;
+		Line left = gorge.getG1();
+		Line right = gorge.getG2();
+		Rectangle bridge = gorge.getBridge();
+		g.drawLine(left.getX(), left.getY(), left.getX(), left.getY() + 800);
+		g.drawLine(right.getX(), right.getY(), right.getX(), right.getY() + 800);
+		g.drawRect(bridge.getX(),bridge.getY(), 100,50);
+	}
+	
+	public void draw(Graphics2D g, Line line){
+		Line body = line;
+		g.drawLine(body.getX(), body.getY(), body.getX(), body.getY() + 50);
+	}
+	
+	public void draw(Graphics2D g, Circle circle){
+		Circle area = circle;
+		g.drawOval(area.getX(), area.getY(), area.getWidth(), area.getHeight());
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		repaint();
+		/*
+		String current = "";
+		if (arg0.getSource() == scene.getArthur().getText())
+			current = "Arthur's Text";
+		else if (arg0.getSource() == scene.getArthur().getHead())
+			current = "Arthur's Head";
+		else if (arg0.getSource() == scene.getArthur().getArms().getLeftLine())
+			current = "Arthur's Left Arm";
+		else if (arg0.getSource() == scene.getArthur().getArms().getRightLine())
+			current = "Arthur's Right Arm";
+		else if (arg0.getSource() == scene.getArthur().getBody())
+			current = "Arthur's Body";
+		else if (arg0.getSource() == scene.getArthur().getLegs().getLeftLine())
+			current = "Arthur's Left Leg";
+		else if (arg0.getSource() == scene.getArthur().getLegs().getRightLine())
+			current = "Arthur's Right Leg";
+		
+		else if (arg0 == scene.getGalahad().getText())
+			current = "Galahad's Text";
+		else if (arg0.getSource() == scene.getGalahad().getHead())
+			current = "Galahad's Head";
+		else if (arg0.getSource() == scene.getGalahad().getArms().getLeftLine())
+			current = "Galahad's Left Arm";
+		else if (arg0.getSource() == scene.getGalahad().getArms().getRightLine())
+			current = "Galahad's Right Arm";
+		else if (arg0.getSource() == scene.getGalahad().getBody())
+			current = "Galahad's Body";
+		else if (arg0.getSource() == scene.getGalahad().getLegs().getLeftLine())
+			current = "Galahad's Left Leg";
+		else if (arg0.getSource() == scene.getGalahad().getLegs().getRightLine())
+			current = "Galahad's Right Leg";
+		
+		else if (arg0 == scene.getLancelot().getText())
+			current = "Lancelot's Text";
+		else if (arg0.getSource() == scene.getLancelot().getHead())
+			current = "Lancelot's Head";
+		else if (arg0.getSource() == scene.getLancelot().getArms().getLeftLine())
+			current = "Lancelot's Left Arm";
+		else if (arg0.getSource() == scene.getLancelot().getArms().getRightLine())
+			current = "Lancelot's Right Arm";
+		else if (arg0.getSource() == scene.getLancelot().getBody())
+			current = "Lancelot's Body";
+		else if (arg0.getSource() == scene.getLancelot().getLegs().getLeftLine())
+			current = "Lancelot's Left Leg";
+		else if (arg0.getSource() == scene.getLancelot().getLegs().getRightLine())
+			current = "Lancelot's Right Leg";
+		
+		else if (arg0 == scene.getRobin().getText())
+			current = "Robin's Text";
+		else if (arg0.getSource() == scene.getRobin().getHead())
+			current = "Robin's Head";
+		else if (arg0.getSource() == scene.getRobin().getArms().getLeftLine())
+			current = "Robin's Left Arm";
+		else if (arg0.getSource() == scene.getRobin().getArms().getRightLine())
+			current = "Robin's Right Arm";
+		else if (arg0.getSource() == scene.getRobin().getBody())
+			current = "Robin's Body";
+		else if (arg0.getSource() == scene.getRobin().getLegs().getLeftLine())
+			current = "Robin's Left Leg";
+		else if (arg0.getSource() == scene.getRobin().getLegs().getRightLine())
+			current = "Robin's Right Leg";
+		
+		else if (arg0 == scene.getGuard().getText())
+			current = "Guard's Text";
+		else if (arg0.getSource() == scene.getGuard().getHead())
+			current = "Guard's Head";
+		else if (arg0.getSource() == scene.getGuard().getArms().getLeftLine())
+			current = "Guard's Left Arm";
+		else if (arg0.getSource() == scene.getGuard().getArms().getRightLine())
+			current = "Guard's Right Arm";
+		else if (arg0.getSource() == scene.getGuard().getBody())
+			current = "Guard's Body";
+		else if (arg0.getSource() == scene.getGuard().getLegs().getLeftLine())
+			current = "Guard's Left Leg";
+		else if (arg0.getSource() == scene.getGuard().getLegs().getRightLine())
+			current = "Guard's Right Leg";
+			
+		System.out.println("Object: " + current + "\t Property name: "
+				+ arg0.getPropertyName() + "\t old value: "
+				+ arg0.getOldValue() + "\t new value: " + arg0.getNewValue());
+		*/
+	}
+	
+	public void register (PropertyListenerRegisterer aPropertyChangeRegister){
+		aPropertyChangeRegister.addPropertyChangeListener(this);        
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/movecommand.java
+package main;
+
+import mp.Avatar;
+import util.misc.ThreadSupport;
+
+public class MoveCommand implements Runnable {
+	
+	Avatar avatar;
+	int moveX, moveY;
+	
+	public MoveCommand(Avatar anAvatar, int newX, int newY){
+		avatar = anAvatar;
+		moveX = newX;
+		moveY = newY;
+	}
+	
+	public void run() {
+		avatar.animatedMove(moveX, moveY);
+		ThreadSupport.sleep(1000);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/objectwindow.java
+package main;
+
+public class ObjectWindow {
+	// Used to test shapes in OE
+	// Setting up parameters------------------------------------------------------------------------------------------------------------------------------------
+		
+		// Constructors--------------------------------------------------------------------------------------------------------------------------------------------
+		public ObjectWindow(){
+			BridgeScene Window = new BridgeScene();	
+		}
+}
+//END OF FILE
+//START OF FILE: src/main/propertylistenersupport.java
+package main;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+public interface PropertyListenerSupport {
+    public void add(PropertyChangeListener l);
+    public PropertyChangeListener get(int index); 
+    public int size();
+    public void notifyAllListeners(PropertyChangeEvent event);
+    public void remove(PropertyChangeListener element) ;
+    public void remove(int startIndex) ;
+    public int indexOf(PropertyChangeListener element);
+    public boolean member(PropertyChangeListener element);
+}
+//END OF FILE
+//START OF FILE: src/main/saycommand.java
+package main;
+
+import mp.Avatar;
+import util.misc.ThreadSupport;
+
+public class SayCommand implements Runnable {
+
+	BridgeSceneInterface scene;
+	String text;
+	
+	public SayCommand(BridgeSceneInterface scene, String aText){
+		this.scene = scene;
+		text = aText;
+	}
+	
+	public void run() {
+		scene.getGuard().getText().setText(text);
+		ThreadSupport.sleep(1000);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/main/scannerbean.java
+package main;
+
+import tokens.CallEditable;
+import tokens.End;
+import tokens.EndInterface;
+import tokens.Number;
+import tokens.NumberEditable;
+import tokens.Quote;
+import tokens.QuoteInterface;
+import tokens.Start;
+import tokens.StartInterface;
+import tokens.ThreadEditable;
+import tokens.Word;
+import tokens.WordEditable;
+import tokens.approach;
+import tokens.call;
+import tokens.define;
+import tokens.defineEditable;
+import tokens.move;
+import tokens.moveEditable;
+import tokens.proceedAll;
+import tokens.proceedAllEditable;
+import tokens.redo;
+import tokens.redoEditable;
+import tokens.repeat;
+import tokens.repeatEditable;
+import tokens.rotateLeftArm;
+import tokens.rotateLeftArmEditable;
+import tokens.rotateRightArm;
+import tokens.rotateRightArmEditable;
+import tokens.say;
+import tokens.sayEditable;
+import tokens.sleep;
+import tokens.sleepEditable;
+import tokens.thread;
+import tokens.undo;
+import tokens.undoEditable;
+import tokens.wait;
+import tokens.waitEditable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import util.annotations.Visible;
+
+
+@Tags({"ScannerBean"})
+@PropertyNames({"ScannedString","Tokens"})
+@EditablePropertyNames({"ScannedString"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+
+public class ScannerBean implements ScannerBeanInterface {
+	
+	// prints out exit statement for the program
+	public static void exit(){
+		System.out.println("END");
+	}
+	
+	// initialize private parameter
+	private String ScannedString;
+	private String[] Tokens;
+	private String[] ParsedString;
+	private String[] Parse;
+	private int quote = 0;
+	
+	// getter that returns ScannedString
+	@Visible(false)
+	public String getScannedString(){return ScannedString;}
+	@Visible(false)
+	public String[] getTokens(){return Tokens;}
+	@Visible(false)
+	public String[] getParse(){return Parse;}
+	
+	// setter that takes an input, parses input, and prints out tokens
+	public void setScannedString(String input){
+		if(input.charAt(0) == '.'){
+			// Ends the program if a '.' is the first scanned character
+			exit();
+		}else{
+				// Initialize parameters
+				String token = "";
+				String[] Large = new String[20];
+				String[] ParsedLarge = new String[20];
+				int large = 0;
+				int compact = 0;
+				
+				// Loop that scans each character of the inputed string
+				for(int i = 0; i < input.length(); i++){
+					
+					// parameter that indicates the ith character in the input
+					char check = input.charAt(i);
+					char check2 = input.charAt(i);
+					
+					// checks when there is a space in between tokens
+					if(check == ' '){
+						char last = input.charAt(i-1);
+						//char next = input.charAt(i+1);
+						
+						// determines if the last character is a digit
+						if(Character.isDigit(last)){
+							ScannedString = token;
+							Large[large] = "number token";
+							ParsedLarge[large] = ScannedString;
+							large++;
+							// Creates a new instant of the Number object
+							NumberEditable n = new Number(ScannedString);
+							
+							// Prints out parameters
+							System.out.println(n);
+							token = "";
+							
+						// determines if the last character is a letter
+						}else if(check2 == ' ' && quote == 1){
+							token += check2;
+						}else if(Character.isLetter(last) && quote == 0){
+							
+							// Establishing command tokens as Strings
+							ScannedString = token;
+							
+							String app = "approach";
+							String def = "define";
+							String mov = "move";
+							String sa = "say";
+							String cal = "call";
+							String pro = "proceedall";
+							String red = "redo";
+							String repe = "repeat";
+							String rla = "rotateleftarm";
+							String rra = "rotaterightarm";
+							String sle = "sleep";
+							String thre = "thread";
+							String und = "undo";
+							String wai = "wait";
+
+							if(def.equalsIgnoreCase(ScannedString)){
+								Large[large] = "define token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								defineEditable d = new define(ScannedString);
+								System.out.println(d);
+								token = "";
+							}else if(mov.equalsIgnoreCase(ScannedString)){
+								Large[large] = "move token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								moveEditable m = new move(ScannedString);
+								System.out.println(m);
+								token= "";
+							}else if(app.equalsIgnoreCase(ScannedString)){
+								Large[large] = "approach token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								approach a = new approach(ScannedString);
+								System.out.println(a);
+								token= "";
+							}else if(sa.equalsIgnoreCase(ScannedString)){
+								Large[large] = "say token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								sayEditable s = new say(ScannedString);
+								//System.out.println(s);
+								token = "";
+							}else if(cal.equalsIgnoreCase(ScannedString)){
+								Large[large] = "call token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								CallEditable c = new call(ScannedString);
+								System.out.println(c);
+								token = "";
+							}else if(pro.equalsIgnoreCase(ScannedString)){
+								Large[large] = "proceedAll token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								proceedAllEditable p = new proceedAll(ScannedString);
+								System.out.println(p);
+								token = "";
+							}else if(red.equalsIgnoreCase(ScannedString)){
+								Large[large] = "redo token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								redoEditable r = new redo(ScannedString);
+								System.out.println(r);
+								token = "";
+							}else if(repe.equalsIgnoreCase(ScannedString)){
+								Large[large] = "repeat token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								repeatEditable re = new repeat(ScannedString);
+								System.out.println(re);
+								token = "";
+							}else if(rla.equalsIgnoreCase(ScannedString)){
+								Large[large] = "rotateLeftArm token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								rotateLeftArmEditable rl = new rotateLeftArm(ScannedString);
+								System.out.println(rl);
+								token = "";
+							}else if(rra.equalsIgnoreCase(ScannedString)){
+								Large[large] = "rotateRightArm token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								rotateRightArmEditable rr = new rotateRightArm(ScannedString);
+								System.out.println(rr);
+								token = "";
+							}else if(sle.equalsIgnoreCase(ScannedString)){
+								Large[large] = "sleep token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								sleepEditable sl = new sleep(ScannedString);
+								System.out.println(sl);
+								token = "";
+							}else if(thre.equalsIgnoreCase(ScannedString)){
+								Large[large] = "thread token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								ThreadEditable th = new thread(ScannedString);
+								System.out.println(th);
+								token = "";
+							}else if(und.equalsIgnoreCase(ScannedString)){
+								Large[large] = "undo token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								undoEditable u = new undo(ScannedString);
+								System.out.println(u);
+								token = "";
+							}else if(wai.equalsIgnoreCase(ScannedString)){
+								Large[large] = "wait token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								waitEditable w = new wait(ScannedString);
+								System.out.println(w);
+								token = "";
+							}else{
+								Large[large] = "word token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								WordEditable wo = new Word(ScannedString);
+								System.out.println(wo);
+								token = "";
+							}
+						// determines if the last character is a quote
+						}else if(last == '"'){
+							quote = 0;
+							ScannedString = token;
+							Large[large] = "quote token";
+							ParsedLarge[large] = ScannedString;
+							large++;
+							
+							QuoteInterface q = new Quote(ScannedString);
+							
+							// Prints out parameters
+							//System.out.println(q);
+							token = "";
+						}
+					
+					// determines if the ith character is a digit
+					}else if(i+1 == input.length()){
+						
+						char Last = input.charAt(i);
+						
+						// determines if the last character is a digit
+						if(Character.isDigit(Last)){
+							token += Last;
+							ScannedString = token;
+							Large[large] = "number token";
+							ParsedLarge[large] = ScannedString;
+							large++;
+							// Creates a new instant of the Number object
+							NumberEditable n = new Number(ScannedString);
+							
+							// Prints out parameters
+							System.out.println(n);
+							token = "";
+							
+						// determines if the last character is a letter
+						}else if(Character.isLetter(Last)){
+							
+							token += Last;
+							// Establishing command tokens as Strings
+							ScannedString = token;
+							
+							String app = "approach";
+							String def = "define";
+							String mov = "move";
+							String sa = "say";
+							String cal = "call";
+							String pro = "proceedall";
+							String red = "redo";
+							String repe = "repeat";
+							String rla = "rotateleftarm";
+							String rra = "rotaterightarm";
+							String sle = "sleep";
+							String thre = "thread";
+							String und = "undo";
+							String wai = "wait";
+
+							if(def.equalsIgnoreCase(ScannedString)){
+								Large[large] = "define token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								defineEditable d = new define(ScannedString);
+								System.out.println(d);
+								token = "";
+							}else if(mov.equalsIgnoreCase(ScannedString)){
+								Large[large] = "move token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								moveEditable m = new move(ScannedString);
+								System.out.println(m);
+								token= "";
+							}else if(app.equalsIgnoreCase(ScannedString)){
+								Large[large] = "approach token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								approach a = new approach(ScannedString);
+								System.out.println(a);
+								token= "";
+							}else if(sa.equalsIgnoreCase(ScannedString)){
+								Large[large] = "say token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								sayEditable s = new say(ScannedString);
+								//System.out.println(s);
+								token = "";
+							}else if(cal.equalsIgnoreCase(ScannedString)){
+								Large[large] = "call token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								CallEditable c = new call(ScannedString);
+								System.out.println(c);
+								token = "";
+							}else if(pro.equalsIgnoreCase(ScannedString)){
+								Large[large] = "proceedAll token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								proceedAllEditable p = new proceedAll(ScannedString);
+								System.out.println(p);
+								token = "";
+							}else if(red.equalsIgnoreCase(ScannedString)){
+								Large[large] = "redo token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								redoEditable r = new redo(ScannedString);
+								System.out.println(r);
+								token = "";
+							}else if(repe.equalsIgnoreCase(ScannedString)){
+								Large[large] = "repeat token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								repeatEditable re = new repeat(ScannedString);
+								System.out.println(re);
+								token = "";
+							}else if(rla.equalsIgnoreCase(ScannedString)){
+								Large[large] = "rotateLeftArm token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								rotateLeftArmEditable rl = new rotateLeftArm(ScannedString);
+								System.out.println(rl);
+								token = "";
+							}else if(rra.equalsIgnoreCase(ScannedString)){
+								Large[large] = "rotateRightArm token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								rotateRightArmEditable rr = new rotateRightArm(ScannedString);
+								System.out.println(rr);
+								token = "";
+							}else if(sle.equalsIgnoreCase(ScannedString)){
+								Large[large] = "sleep token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								sleepEditable sl = new sleep(ScannedString);
+								System.out.println(sl);
+								token = "";
+							}else if(thre.equalsIgnoreCase(ScannedString)){
+								Large[large] = "thread token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								ThreadEditable th = new thread(ScannedString);
+								System.out.println(th);
+								token = "";
+							}else if(und.equalsIgnoreCase(ScannedString)){
+								Large[large] = "undo token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								undoEditable u = new undo(ScannedString);
+								System.out.println(u);
+								token = "";
+							}else if(wai.equalsIgnoreCase(ScannedString)){
+								Large[large] = "wait token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								waitEditable w = new wait(ScannedString);
+								System.out.println(w);
+								token = "";
+							}else{
+								Large[large] = "word token";
+								ParsedLarge[large] = ScannedString;
+								large++;
+								WordEditable wo = new Word(ScannedString);
+								System.out.println(wo);
+								token = "";
+							}
+						// determines if the last character is a quote
+						}else if(Last == '"'){
+							//token += Last;
+							ScannedString = token;
+							Large[large] = "quote token";
+							ParsedLarge[large] = ScannedString;
+							quote = 0;
+							large++;
+							
+							QuoteInterface q = new Quote(ScannedString);
+							
+							// Prints out parameters
+							//System.out.println(q);
+							// Create an new instant of the Quote object
+							//String quote = q.getQuote();
+							
+							// Prints out parameters
+							//System.out.println(quote);
+							token = "";
+						}else if(Last == '{'){
+							Large[large] = "start token";
+							ParsedLarge[large] = ScannedString;
+							large++;
+							token += check2;
+							ScannedString = token;
+							
+							// Established a new instant Start object 
+							StartInterface s = new Start(ScannedString);
+							
+							// Prints out parameters
+							System.out.println(s);
+							//String start = s.getStart();
+							//System.out.println(start);
+							token = "";
+						}else if(Last == '}'){
+							Large[large] = "end token";
+							ParsedLarge[large] = ScannedString;
+							large++;
+							//System.out.println(token);
+							token = "";
+							token += check2;
+							ScannedString = token;
+							
+							// Established a new instant Start object 
+							EndInterface e = new End(ScannedString);
+							
+							// Prints out parameters
+							System.out.println(e);
+							//String end = e.getEnd();
+							//System.out.println(end);
+							token = "";
+						}
+					}else if(Character.isDigit(check2)){
+							token += check2;
+					// determines if the ith character is a letter				
+					}else if(Character.isLetter(check2)){
+							token += check2;
+					}else if(check2 == '"' && quote == 1){
+						//token += check2;
+						ScannedString = token;
+						Large[large] = "quote token";
+						ParsedLarge[large] = ScannedString;
+						large++;
+						quote = 0;
+						token = "";
+					// determines if the last character is a quotation mark
+					}else if(check2 == '"' && quote == 0){
+						// do nothing about the q marks but realize that this is the beginning of a quote in scanner
+						quote = 1;
+						char next = input.charAt(i+1);
+						if(next == '"'){
+							// Do nothing
+						}
+					}else if(check2 == '{'){
+						Large[large] = "start token";
+						ParsedLarge[large] = ScannedString;
+						large++;
+						token += check2;
+						ScannedString = token;
+						
+						// Established a new instant Start object 
+						StartInterface s = new Start(ScannedString);
+						
+						// Prints out parameters
+						System.out.println(s);
+						//String start = s.getStart();
+						//System.out.println(start);
+						token = "";
+					}else if(check2 == '}'){
+						Large[large] = "end token";
+						ParsedLarge[large] = ScannedString;
+						large++;
+						System.out.println(token);
+						token = "";
+						token += check2;
+						ScannedString = token;
+						
+						// Established a new instant Start object 
+						EndInterface e = new End(ScannedString);
+						
+						// Prints out parameters
+						//System.out.println(e);
+						//String end = e.getEnd();
+						//System.out.println(end);
+						token = "";
+					}else{	
+							token += check2;
+					}
+				}
+			for(int j = 0; Large[j] != null; j++ ){
+				// counts the number of tokens in the Large Array
+				compact = j +1;
+				}
+			// Compact Array in created with indicated size equal to the number of tokens scanned
+			String[] Compact = new String[compact];
+			ParsedString = new String[compact];
+			for(int k = 0; k != compact; k++){
+				Compact[k] = Large[k];
+				ParsedString[k] = ParsedLarge[k];
+			}
+			// Tokens Array will then be used for the Command Interpreter
+			Tokens = Compact;
+			Parse = ParsedString;
+			// Printing out the tokens in the arrays
+			
+			/*
+			System.out.print("Large Array: {");
+			for(int index = 0; index <= 19; index ++){
+				System.out.print(" " + Large[index] +",");
+				}
+			System.out.print(" }");
+			System.out.println();
+			System.out.print("Compact Array: {");
+			for(int index2 = 0; index2 < compact; index2++){
+				System.out.print(" " + Tokens[index2] + ",");
+				}
+			System.out.print(" }");
+			System.out.println();
+			System.out.print("Parsed Array: {");
+			for(int index3 = 0; index3 < compact; index3++){
+				System.out.print(" " + Parse[index3] + ",");
+				}
+			System.out.print(" }");
+			System.out.println();
+			
+			*/
+			}
+		}
+	}
+
+//END OF FILE
+//START OF FILE: src/main/scannerbeaninterface.java
+package main;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+
+
+public interface ScannerBeanInterface {
+	
+	void setScannedString(String input);
+	public String getScannedString();
+	public String[] getTokens();
+	public String[] getParse();
+}
+//END OF FILE
+//START OF FILE: src/main/table.java
+package main;
+
+import mp.Avatar;
+import util.annotations.Tags;
+
+@Tags({"Table"})
+public interface Table {
+	public void put (String key, Object val);
+	public Object get(String key);
+}
+//END OF FILE
+//START OF FILE: src/mp/acircle.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import mp.BoundedShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+
+@Tags({"Circle"})
+@PropertyNames({"x","y","width","height"})
+@EditablePropertyNames({"x","y","width","height"})
+public class ACircle extends BoundedShape implements Circle, PropertyListenerRegisterer{
+	public ACircle(int iniX, int iniY, int iniWidth, int iniHeight){
+		x = iniX;
+		y = iniY;
+		width = iniWidth;
+		height = iniHeight;
+	}
+	
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.add(listener);		
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/agorge.java
+package mp;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+@Tags({"Gorge"})
+@PropertyNames({"x","y","G1","G2","bridge"})
+//@EditablePropertyNames({"x","y"}) 
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public class AGorge extends Locatable implements Gorge {
+	Line G1, G2;
+	Rectangle bridge;
+	public AGorge(){
+		G1 = new ALine(900,0,800,900);
+		G2 = new ALine(950,0,800,950);
+		bridge = new ARectangle(875,350,100,50);
+	}
+	
+	public Line getG1(){return G1;}
+	public Line getG2(){return G2;}
+	public Rectangle getBridge(){return bridge;}
+}
+//END OF FILE
+//START OF FILE: src/mp/aline.java
+package mp;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import mp.BoundedShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({"RotatingLine"})
+@PropertyNames({"x","y","width","height","radius", "angle"})
+@EditablePropertyNames({"x","y","radius","angle","height","width"}) 
+
+public class ALine extends BoundedShape implements Line, PropertyListenerRegisterer{
+	double radius, angle, plus;
+	
+	// Constructors -------------------------------------------------------------------------------
+	public ALine(int initX, int initY, int initHeight, int initWidth){
+		x = initX;
+		y = initY;
+		height = initHeight - initY;
+		width = initWidth - initX;
+		radius = Math.sqrt(width*width + height*height);
+		angle = Math.atan((double) height/width);
+		}
+	
+	public ALine(double theRadius, double theAngle){
+		radius = theRadius;
+		angle = theAngle;
+	}
+	
+	//Getters-----------------------------------------------------------------------------------------------------------------------------------------
+	public double getRadius(){ return radius;}
+	public double getAngle(){ return angle;}
+	
+	// Setters----------------------------------------------------------------------------------------------------------------------------------------
+	public void setRadius(double newRadius){
+		double oldRadius = radius;
+		radius = newRadius;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Radius", oldRadius, newRadius));
+	}
+	public void setAngle(double newAngleUnit){
+		plus = newAngleUnit*(Math.PI/32);
+		double oldAngle = angle;
+		angle += plus;
+		double newAngle = angle;
+		width = (int) Math.ceil(Math.sqrt(((radius*radius)*(Math.cos(angle)))));
+		height = (int) Math.ceil(Math.sqrt((radius*radius)-(width*width)));
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Angle", oldAngle, newAngle));
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.add(listener);
+	}
+	
+}
+
+//END OF FILE
+//START OF FILE: src/mp/apoint.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.models.PropertyListenerRegisterer;
+
+@PropertyNames({"x","y"})
+@EditablePropertyNames({"x","y"}) 
+public class APoint extends Locatable implements Point, PropertyListenerRegisterer{
+	public APoint(int iniX, int iniY){
+		x = iniX;
+		y = iniY;
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		// TODO Auto-generated method stub
+		propertySupport.add(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/arectangle.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import mp.BoundedShape;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+
+@Tags({"Rectangle"})
+@PropertyNames({"x","y","width","height"})
+@EditablePropertyNames({"x","y","height","width"}) 
+public class ARectangle extends BoundedShape implements Rectangle, PropertyListenerRegisterer {
+	public ARectangle(int iniX, int iniY, int iniWidth, int iniHeight){
+		x = iniX;
+		y = iniY;
+		width = iniWidth;
+		height = iniHeight;
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.add(listener);
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/astringshape.java
+package mp;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.models.PropertyListenerRegisterer;
+
+@PropertyNames({"x","y","text"})
+@EditablePropertyNames({"x","y","text"}) 
+@StructurePattern(StructurePatternNames.STRING_PATTERN)
+public class AStringShape extends Locatable implements StringShape, PropertyListenerRegisterer{
+	
+	String text;
+	public AStringShape(String iniText, int iniX, int iniY){
+		text = iniText;
+		x = iniX;
+		y = iniY;
+	}
+	
+	public void setText(String newText){
+		String oldText = text;
+		text = newText;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this,"Text", oldText,newText));
+	}
+	public String getText(){return text;}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.add(listener);
+		
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/avshape.java
+package mp;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@Tags({"Angle"})
+public class AVShape extends Locatable implements VShape {
+	Line LeftLine, RightLine;
+	
+	public AVShape(int originX, int originY){
+		LeftLine = new ALine(originX,originY,originY + 25, originX - 25);
+		RightLine = new ALine(originX,originY,originY + 25, originX + 25);
+		x = originX;
+		y = originY;
+	}
+	
+	public Line getLeftLine(){return LeftLine;}
+	public Line getRightLine(){return RightLine;}
+}
+//END OF FILE
+//START OF FILE: src/mp/anavatar.java
+package mp;
+
+import mp.Locatable;
+import util.annotations.Tags;
+import util.annotations.Visible;
+
+@Tags({"Avatar"})
+public class AnAvatar extends Locatable implements Avatar{
+	String Hello = "";
+	StringShape Text;
+	Image Head;
+	VShape Arms;
+	Line Body;
+	VShape Legs;
+	
+	
+	// Body Parts------------------------------------------------------------------------------------------------
+	public AnAvatar(String fileName, int originX, int originY){
+		x = originX;
+		y = originY;
+		Text = new AStringShape(Hello, originX + 25, originY - 75);
+		Head = new AnImage(fileName, x - 20, y - 63);
+		Arms = new AVShape(originX, originY);
+		Body = new ALine(originX, originY, originY + 50, originX);
+		Legs = new AVShape(originX, originY + 50);
+		
+	}
+	// Move Methods -----------------------------------------------------------------------------------------------
+	
+	public void move(int stepsX, int stepsY){
+		
+		int moveX = stepsX*5;
+		int moveY = stepsY*5;
+		
+		x += moveX;
+		y += moveY;
+		
+		// Move Text
+		Text.setX(x + 25);
+		Text.setY(y - 75);
+		
+		// Move Head
+		Head.setX(x - 20);
+		Head.setY(y - 63);
+		
+		// Move Arms
+		Arms.getLeftLine().setX(x);
+		Arms.getRightLine().setX(x);
+		Arms.getLeftLine().setY(y);
+		Arms.getRightLine().setY(y);
+	
+		// Move Body
+		Body.setX(x);
+		Body.setY(y);
+		
+		// Move Legs
+		Legs.getLeftLine().setX(x);
+		Legs.getRightLine().setX(x);
+		Legs.getLeftLine().setY(y+50);
+		Legs.getRightLine().setY(y+50);
+		
+	}
+	
+	public void animatedMove(int moveX, int moveY){
+		if(moveX > 0){
+			for(int i = 0; i < moveX; i++){
+				preciseMove(1, 0);
+			}
+		}
+		if(moveX < 0){
+			for(int i = 0; moveX < i; i--){
+				preciseMove(-1, 0);
+			}
+		}
+		if(moveY > 0){
+			for(int i = 0; i < moveY; i++){
+				preciseMove(0, 1);
+			}
+		}
+		if(moveY < 0){
+			for(int i = 0; moveY < i; i--){
+				preciseMove(0, -1);
+			}
+		}
+	}
+	
+	
+	public void preciseMove(int newX, int newY){
+		x += newX;
+		y += newY;
+		
+		// Move Text
+		Text.setX(x + 25);
+		Text.setY(y - 75);
+		
+		// Move Head
+		Head.setX(x - 20);
+		Head.setY(y - 63);
+		
+		// Move Arms
+		Arms.getLeftLine().setX(x);
+		Arms.getRightLine().setX(x);
+		Arms.getLeftLine().setY(y);
+		Arms.getRightLine().setY(y);
+	
+		// Move Body
+		Body.setX(x);
+		Body.setY(y);
+		
+		// Move Legs
+		Legs.getLeftLine().setX(x);
+		Legs.getRightLine().setX(x);
+		Legs.getLeftLine().setY(y+50);
+		Legs.getRightLine().setY(y+50);
+	}
+
+	// Relocate Method -----------------------------------------------------------------------------------------------
+	
+	public void relocate(int newX, int newY){
+		int moveX = newX*5;
+		int moveY = newY*5;
+		x += moveX;
+		y += moveY;
+		
+		// Move Text
+		Text.setX(x + 25);
+		Text.setY(y - 75);
+				
+		// Move Head
+		Head.setX(x - 20);
+		Head.setY(y - 63);
+				
+		// Move Arms
+		Arms.getLeftLine().setX(x);
+		Arms.getRightLine().setX(x);
+		Arms.getLeftLine().setY(y);
+		Arms.getRightLine().setY(y);
+			
+		// Move Body
+		Body.setX(x);
+		Body.setY(y);
+				
+		// Move Legs
+		Legs.getLeftLine().setX(x);
+		Legs.getRightLine().setX(x);
+		Legs.getLeftLine().setY(y+50);
+		Legs.getRightLine().setY(y+50);
+	}
+	
+	// Getters -----------------------------------------------------------------------------------------------
+	
+	public StringShape getText(){ return Text;}
+	
+	public Image getHead(){return Head;}
+	
+	public VShape getArms(){return Arms;}
+	
+	public Line getBody(){return Body;}
+	
+	public VShape getLegs(){return Legs;}
+}
+//END OF FILE
+//START OF FILE: src/mp/animage.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
+
+@Tags({"Images"})
+@PropertyNames({"x","y","imageFileName"})
+@EditablePropertyNames({"x","y","imageFileName"}) 
+@StructurePattern(StructurePatternNames.IMAGE_PATTERN)
+
+public class AnImage extends Locatable implements Image {
+	String imageFileName;
+	//ArrayList<PropertyChangeListener> listeners;
+	//PropertyListenerSupport propertySupport = new APropertyListenerSupport();
+
+	public AnImage (String initImageFileName, int initX, int initY) {
+		//listeners = new ArrayList<PropertyChangeListener>();
+		imageFileName = initImageFileName;
+		x = initX;
+		y = initY;
+	}
+	
+	
+	public String getImageFileName() {
+		return imageFileName;
+		}
+	public void setImageFileName(String newVal) {
+		String oldVal = imageFileName;
+		imageFileName = newVal ;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "ImageFileName", oldVal,newVal));
+		}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.add(listener);
+		//listeners.add(listener);
+	}
+	
+	public int listenerCount() {
+		return propertySupport.size();
+	}
+}
+//END OF FILE
+//START OF FILE: src/mp/avatar.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public interface Avatar extends LocatableInter{
+	public StringShape getText();
+	public Image getHead();
+	public VShape getArms();
+	public Line getBody();
+	public VShape getLegs();
+	public void move(int stepsX, int stepsY);
+	public void preciseMove(int newX,int newY);
+	public void animatedMove(int newX, int newY);
+	public void relocate(int x, int y);
+}
+//END OF FILE
+//START OF FILE: src/mp/boundedshape.java
+package mp;
+
+import mp.Locatable;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import util.models.PropertyListenerRegisterer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+
+@Tags({"BoundedShape"})
+@PropertyNames({"x","y","width","height"})
+@EditablePropertyNames({"x","y","width","height"}) 
+public class BoundedShape extends Locatable implements BoundedShapeInter {
+	public int width,height;
+	// Getters-------------------------------------------------------------------------------------------------------------------------------------
+
+		public int getWidth(){return width;}
+		public int getHeight(){return height;}
+		
+	// Setters-------------------------------------------------------------------------------------------------------------------------------------
+	
+		public void setWidth(int newWidth){
+			int oldWidth = width;
+			width = newWidth;
+			propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Width", oldWidth, newWidth));
+			}
+		public void setHeight(int newHeight){
+			int oldHeight = height;
+			height = newHeight;
+			propertySupport.notifyAllListeners(new PropertyChangeEvent(this,"Height", oldHeight, newHeight));
+			}
+		public void propertyChangeWidth(int newWidth, PropertyChangeEvent evt){
+			width = newWidth;
+		}
+		public void propertyChangeHeight(int newHeight, PropertyChangeEvent evt){
+			height = newHeight;
+		}
+}
+//END OF FILE
+//START OF FILE: src/mp/boundedshapeinter.java
+package mp;
+
+import util.annotations.Tags;
+
+@Tags({"BoundedShape"})
+public interface BoundedShapeInter extends LocatableInter {
+	public int getWidth();
+	public int getHeight();
+
+	public void setWidth(int newWidth);
+	public void setHeight(int newHeight);
+}
+//END OF FILE
+//START OF FILE: src/mp/circle.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.OVAL_PATTERN)
+public interface Circle extends BoundedShapeInter{
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/gorge.java
+package mp;
+
+public interface Gorge extends LocatableInter{
+	public Line getG1();
+	public Line getG2();
+	public Rectangle getBridge();
+}
+//END OF FILE
+//START OF FILE: src/mp/image.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.models.PropertyListenerRegisterer;
+
+@StructurePattern(StructurePatternNames.IMAGE_PATTERN)
+public interface Image extends LocatableInter, PropertyListenerRegisterer {
+
+	/*public int getX(); 
+	public void setX(int newX);
+	public int getY(); 
+	public void setY(int newY); 
+	*/
+	public String getImageFileName(); 
+	public void setImageFileName(String newVal); 
+	public int listenerCount();
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/line.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.LINE_PATTERN)
+
+public interface Line extends BoundedShapeInter{
+	
+	public double getRadius();
+	public double getAngle();
+	void setAngle(double add);
+	void addPropertyChangeListener(PropertyChangeListener listener);
+}
+//END OF FILE
+//START OF FILE: src/mp/locatable.java
+package mp;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import main.APropertyListenerSupport;
+import main.PropertyListenerSupport;
+
+@Tags({"Locatable"})
+@PropertyNames({"x","y"})
+@EditablePropertyNames({"x","y"}) 
+public class Locatable {
+	public int x,y;
+	PropertyListenerSupport propertySupport = new APropertyListenerSupport();
+	
+	// Getters-------------------------------------------------------------------------------------------------------------------------------------
+			public int getX(){return x;}
+			public int getY(){return y;}
+			
+	// Setters-------------------------------------------------------------------------------------------------------------------------------------
+			public void setX(int newX){
+				int oldVal = x;
+				x = newX;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal, newX));
+				}
+			
+			public void setY(int newY){
+				int oldVal = y;
+				y = newY;
+				propertySupport.notifyAllListeners(new PropertyChangeEvent(this,"Y", oldVal, newY));
+				}
+			
+			public void propertyChangeX(int newX, PropertyChangeEvent evt){
+				x = newX;
+			}
+			public void propertyChangeY(int newY, PropertyChangeEvent evt){
+				y = newY;
+			}
+}
+//END OF FILE
+//START OF FILE: src/mp/locatableinter.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Tags;
+
+
+@Tags({"Locatable"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public interface LocatableInter {
+	public int getX();
+	public int getY();
+	
+	public void setX(int newX);
+	public void setY(int newY);
+}
+//END OF FILE
+//START OF FILE: src/mp/point.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.POINT_PATTERN)
+
+public interface Point extends LocatableInter {
+	/*
+	public int getX();
+	public int getY();
+	*/
+}
+//END OF FILE
+//START OF FILE: src/mp/rectangle.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+
+@StructurePattern(StructurePatternNames.RECTANGLE_PATTERN)
+public interface Rectangle extends BoundedShapeInter{
+	
+}
+//END OF FILE
+//START OF FILE: src/mp/stringshape.java
+package mp;
+
+import java.beans.PropertyChangeListener;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@StructurePattern(StructurePatternNames.STRING_PATTERN)
+public interface StringShape extends LocatableInter {
+	void setText(String newText);
+	String getText();
+	void addPropertyChangeListener(PropertyChangeListener listener);
+
+}
+//END OF FILE
+//START OF FILE: src/mp/vshape.java
+package mp;
+
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+import util.annotations.Visible;
+
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+public interface VShape extends LocatableInter {
+	
+	Line getLeftLine();
+	Line getRightLine();
+}
+//END OF FILE
+//START OF FILE: src/tokens/calleditable.java
+package tokens;
+
+public interface CallEditable {
+	void setCall(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/callread.java
+package tokens;
+
+public interface CallRead {
+	String getCall();
+}
+//END OF FILE
+//START OF FILE: src/tokens/end.java
+package tokens;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@Tags ({"End"})
+@EditablePropertyNames({"End"})
+@PropertyNames({"End"})
+
+
+public class End implements EndInterface{
+	
+	private String End;
+	
+	public End(String in){
+		setEnd(in);
+		getEnd();
+	}
+	
+	public void setEnd(String in){
+		End = in;
+	}
+	
+	public String getEnd(){
+		return End;
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/endinterface.java
+package tokens;
+
+public interface EndInterface {
+	void setEnd(String in);
+	String getEnd();
+}
+//END OF FILE
+//START OF FILE: src/tokens/number.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+@Tags ({"Number"})
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class Number implements NumberEditable, NumberRead{
+	
+	// Establish private parameters
+	private String Input;
+	private int Value;
+	
+	
+	// Establishing the constructor
+	public Number(String in){
+		setNumber(in);
+		getInput();
+		Value = Integer.parseInt(Input);
+		
+	}
+
+	// Establishing Number token getter that return Value
+	public int getNumber(){
+		return Value;
+	}
+	
+	// Establishing Number token setter that set Input
+	public void setNumber(String token){
+		Input = token;
+	}	
+	
+	// Establishing Number token getter that return Input
+	public String getInput(){
+		return Input;
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/numbereditable.java
+package tokens;
+
+public interface NumberEditable {
+	void setNumber(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/numberread.java
+package tokens;
+
+public interface NumberRead {
+	
+	int getNumber();
+}
+//END OF FILE
+//START OF FILE: src/tokens/quote.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+
+@Tags ({"Quote"})
+@EditablePropertyNames({"Quote"})
+@PropertyNames({"Quote"})
+
+
+public class Quote implements QuoteInterface{
+	
+	private String Quote;
+	
+	public Quote(String in){
+		setQuote(in);
+		getQuote();
+	}
+	public String getQuote(){
+		return Quote;
+	}
+	
+	public void setQuote(String token){
+		Quote = token;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/tokens/quoteinterface.java
+package tokens;
+
+public interface QuoteInterface {
+	void setQuote(String in);
+	String getQuote();
+}
+//END OF FILE
+//START OF FILE: src/tokens/start.java
+package tokens;
+
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.Tags;
+
+@Tags ({"Start"})
+@EditablePropertyNames({"Start"})
+@PropertyNames({"Start"})
+
+public class Start implements StartInterface {
+	
+	private String Start;
+	
+	public Start(String in){
+		setStart(in);
+		getStart();
+	}
+	
+	public void setStart(String in){
+		Start = in;
+	}
+	
+	public String getStart(){
+		return Start;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: src/tokens/startinterface.java
+package tokens;
+
+public interface StartInterface {
+	void setStart(String in);
+	String getStart();
+}
+//END OF FILE
+//START OF FILE: src/tokens/threadeditable.java
+package tokens;
+
+public interface ThreadEditable {
+	void setThread(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/threadread.java
+package tokens;
+
+public interface ThreadRead {
+	String getThread();
+}
+//END OF FILE
+//START OF FILE: src/tokens/tokens.java
+package tokens;
+
+public interface Tokens extends CallEditable, CallRead, defineEditable, defineRead, moveEditable, moveRead, proceedAllEditable, proceedAllRead, redoEditable, redoRead, repeatEditable, repeatRead, rotateLeftArmRead, rotateLeftArmEditable, rotateRightArmRead, rotateRightArmEditable, sayRead, sayEditable, sleepRead, sleepEditable, ThreadRead, ThreadEditable, undoRead, undoEditable, waitRead, waitEditable, approachInterface{
+
+}
+//END OF FILE
+//START OF FILE: src/tokens/word.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class Word implements Tokens, WordEditable {
+	
+	// Establishing private string editable properties
+	private String Input;
+	private String Value = "";
+
+	// Establishing constructor
+	public Word(String in){
+		setWord(in);
+		getInput();
+		int index = 0;
+		char LowercaseLetter;
+		Value = "";
+		while(index < Input.length()){
+			char Letter = Input.charAt(index);
+			if(Character.isUpperCase(Letter)){
+				LowercaseLetter = Character.toLowerCase(Letter);
+				Value += LowercaseLetter;
+				index++;
+			}else{
+				Value += Letter;
+				index++;
+			}
+		}
+	}
+		
+	// Establishing Word token getter that return Value
+	public String getWord(){
+		return Value;
+	}
+	
+	// Establishing Word setter that sets Input
+	public void setWord(String token){
+		Input = token;
+	}
+
+	// Establishing Word getter that return Input
+	public String getInput(){
+		return Input;
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setApproach(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getApproach() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/wordeditable.java
+package tokens;
+
+public interface WordEditable {
+
+		void setWord(String token);
+		String getInput();
+		
+}
+//END OF FILE
+//START OF FILE: src/tokens/wordread.java
+package tokens;
+
+public interface WordRead {
+	
+	String getWord();
+}
+//END OF FILE
+//START OF FILE: src/tokens/approach.java
+package tokens;
+
+import util.annotations.Tags;
+
+@Tags ({"approach"})
+public class approach extends Word implements Tokens {
+
+	public approach(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/tokens/approachinterface.java
+package tokens;
+
+public interface approachInterface {
+	void setApproach(String token);
+	String getInput();
+	String getApproach();
+}
+//END OF FILE
+//START OF FILE: src/tokens/call.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+//@Tags ({"Word"})
+//@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+//@EditablePropertyNames({"Input"})
+//@PropertyNames({"Input","Value"})
+
+public class call extends Word implements Tokens{
+
+	public call(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public call(String in){
+			setCall(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getCall(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setCall(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}*/
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/define.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Define"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class define extends Word implements Tokens{
+
+	public define(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public define(String in){
+			setDefine(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Define token getter that return Value
+		public String getDefine(){
+			return Value;
+		}
+		
+		// Establishing Define setter that sets Input
+		public void setDefine(String token){
+			Input = token;
+		}
+
+		// Establishing Define getter that return Input
+		public String getInput(){
+			return Input;
+		}
+*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/defineeditable.java
+package tokens;
+
+public interface defineEditable {
+	void setDefine(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/defineread.java
+package tokens;
+
+public interface defineRead {
+	String getDefine();
+}
+//END OF FILE
+//START OF FILE: src/tokens/move.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class move extends Word implements Tokens{
+
+	public move(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+	
+	/*
+		// Establishing private string editable properties
+			private String Input;
+			private String Value = "";
+
+			// Establishing constructor
+			public move(String in){
+				setMove(in);
+				getInput();
+				int index = 0;
+				char LowercaseLetter;
+				Value = "";
+				while(index < Input.length()){
+					char Letter = Input.charAt(index);
+					if(Character.isUpperCase(Letter)){
+						LowercaseLetter = Character.toLowerCase(Letter);
+						Value += LowercaseLetter;
+						index++;
+					}else{
+						Value += Letter;
+						index++;
+					}
+				}
+			}
+				
+			// Establishing Define token getter that return Value
+			public String getMove(){
+				return Value;
+			}
+			
+			// Establishing Define setter that sets Input
+			public void setMove(String token){
+				Input = token;
+			}
+
+			// Establishing Define getter that return Input
+			public String getInput(){
+				return Input;
+			}
+		*/
+	}
+
+//END OF FILE
+//START OF FILE: src/tokens/moveeditable.java
+package tokens;
+
+public interface moveEditable {
+	void setMove(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/moveread.java
+package tokens;
+
+public interface moveRead {
+	String getMove();
+}
+//END OF FILE
+//START OF FILE: src/tokens/proceedall.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class proceedAll extends Word implements Tokens{
+
+	public proceedAll(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public proceedAll(String in){
+			setProceedAll(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getProceedAll(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setProceedAll(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/proceedalleditable.java
+package tokens;
+
+public interface proceedAllEditable {
+	void setProceedAll(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/proceedallread.java
+package tokens;
+
+public interface proceedAllRead {
+	String getProceedAll();
+}
+//END OF FILE
+//START OF FILE: src/tokens/redo.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class redo extends Word implements Tokens {
+
+	public redo(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public redo(String in){
+			setRedo(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getRedo(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setRedo(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/redoeditable.java
+package tokens;
+
+public interface redoEditable {
+	void setRedo(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/redoread.java
+package tokens;
+
+public interface redoRead {
+	String getRedo();
+}
+//END OF FILE
+//START OF FILE: src/tokens/repeat.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class repeat extends Word implements Tokens{
+
+	public repeat(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public repeat(String in){
+			setRepeat(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getRepeat(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setRepeat(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/repeateditable.java
+package tokens;
+
+public interface repeatEditable {
+	void setRepeat(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/repeatread.java
+package tokens;
+
+public interface repeatRead {
+	String getRepeat();
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotateleftarm.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class rotateLeftArm extends Word implements Tokens{
+
+	public rotateLeftArm(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public rotateLeftArm(String in){
+			setRotateLeftArm(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getRotateLeftArm(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setRotateLeftArm(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotateleftarmeditable.java
+package tokens;
+
+public interface rotateLeftArmEditable {
+	void setRotateLeftArm(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotateleftarmread.java
+package tokens;
+
+public interface rotateLeftArmRead {
+	String getRotateLeftArm();
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotaterightarm.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class rotateRightArm extends Word implements Tokens{
+
+	public rotateRightArm(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public rotateRightArm(String in){
+			setRotateRightArm(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getRotateRightArm(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setRotateRightArm(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotaterightarmeditable.java
+package tokens;
+
+public interface rotateRightArmEditable {
+	void setRotateRightArm(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/rotaterightarmread.java
+package tokens;
+
+public interface rotateRightArmRead {
+	String getRotateRightArm();
+}
+//END OF FILE
+//START OF FILE: src/tokens/say.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class say extends Word implements Tokens{
+
+	public say(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public say(String in){
+			setSay(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getSay(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setSay(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/sayeditable.java
+package tokens;
+
+public interface sayEditable {
+	void setSay(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/sayread.java
+package tokens;
+
+public interface sayRead {
+	String getSay();
+}
+//END OF FILE
+//START OF FILE: src/tokens/sleep.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class sleep extends Word implements Tokens{
+
+	public sleep(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public sleep(String in){
+			setSleep(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getSleep(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setSleep(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/sleepeditable.java
+package tokens;
+
+public interface sleepEditable {
+	void setSleep(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/sleepread.java
+package tokens;
+
+public interface sleepRead {
+	String getSleep();
+}
+//END OF FILE
+//START OF FILE: src/tokens/thread.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class thread extends Word implements Tokens{
+
+	public thread(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public thread(String in){
+			setThread(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getThread(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setThread(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+	*/
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/undo.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class undo extends Word implements Tokens{
+
+	public undo(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public undo(String in){
+			setUndo(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getUndo(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setUndo(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+//END OF FILE
+//START OF FILE: src/tokens/undoeditable.java
+package tokens;
+
+public interface undoEditable {
+	void setUndo(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/undoread.java
+package tokens;
+
+public interface undoRead {
+	String getUndo();
+}
+//END OF FILE
+//START OF FILE: src/tokens/wait.java
+package tokens;
+
+import util.annotations.Tags;
+import util.annotations.EditablePropertyNames;
+import util.annotations.PropertyNames;
+import util.annotations.StructurePattern;
+import util.annotations.StructurePatternNames;
+
+@Tags ({"Word"})
+@StructurePattern(StructurePatternNames.BEAN_PATTERN)
+@EditablePropertyNames({"Input"})
+@PropertyNames({"Input","Value"})
+
+public class wait extends Word implements Tokens{
+
+	public wait(String in) {
+		super(in);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void setCall(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getCall() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDefine(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDefine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMove(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProceedAll(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getProceedAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRedo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRedo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRepeat(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRepeat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRotateLeftArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateLeftArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getRotateRightArm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRotateRightArm(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSay(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSleep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSleep(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getThread() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setThread(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getUndo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUndo(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWait() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWait(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/*
+	// Establishing private string editable properties
+		private String Input;
+		private String Value = "";
+
+		// Establishing constructor
+		public wait(String in){
+			setWait(in);
+			getInput();
+			int index = 0;
+			char LowercaseLetter;
+			Value = "";
+			while(index < Input.length()){
+				char Letter = Input.charAt(index);
+				if(Character.isUpperCase(Letter)){
+					LowercaseLetter = Character.toLowerCase(Letter);
+					Value += LowercaseLetter;
+					index++;
+				}else{
+					Value += Letter;
+					index++;
+				}
+			}
+		}
+			
+		// Establishing Word token getter that return Value
+		public String getWait(){
+			return Value;
+		}
+		
+		// Establishing Word setter that sets Input
+		public void setWait(String token){
+			Input = token;
+		}
+
+		// Establishing Word getter that return Input
+		public String getInput(){
+			return Input;
+		}
+		*/
+}
+//END OF FILE
+//START OF FILE: src/tokens/waiteditable.java
+package tokens;
+
+public interface waitEditable {
+	void setWait(String token);
+	String getInput();
+}
+//END OF FILE
+//START OF FILE: src/tokens/waitread.java
+package tokens;
+
+public interface waitRead {
+	String getWait();
+}
+//END OF FILE

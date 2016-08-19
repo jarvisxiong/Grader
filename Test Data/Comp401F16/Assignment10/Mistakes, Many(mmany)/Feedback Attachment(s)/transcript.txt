@@ -1,0 +1,170 @@
+*****************************(Precondition execution)*****************************
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+Adding traceable listner
+calling method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args: result:mp.shapes.AnAvatar@70091872
+calling method: public mp.shapes.Avatar main.ABridgeScene.getLancelot() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getLancelot() with args: result:mp.shapes.AnAvatar@7af1d072
+calling method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args mp.shapes.AnAvatar@70091872
+called method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args:mp.shapes.AnAvatar@70091872 result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:true
+calling method: public boolean main.ABridgeScene.preSay() with args 
+called method: public boolean main.ABridgeScene.preSay() with args: result:true
+calling method: public void main.ABridgeScene.say(java.lang.String) with args Name?
+called method: public void main.ABridgeScene.say(java.lang.String) with args:Name? result:null
+calling method: public void main.ABridgeScene.say(java.lang.String) with args Arthur?
+called method: public void main.ABridgeScene.say(java.lang.String) with args:Arthur? result:null
+calling method: public void main.ABridgeScene.passed() with args 
+called method: public void main.ABridgeScene.passed() with args: result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:false
+calling method: public boolean main.ABridgeScene.preSay() with args 
+called method: public boolean main.ABridgeScene.preSay() with args: result:false
+calling method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args mp.shapes.AnAvatar@7af1d072
+called method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args:mp.shapes.AnAvatar@7af1d072 result:null
+calling method: public void main.ABridgeScene.say(java.lang.String) with args Name
+called method: public void main.ABridgeScene.say(java.lang.String) with args:Name result:null
+calling method: public void main.ABridgeScene.say(java.lang.String) with args Lancelot
+called method: public void main.ABridgeScene.say(java.lang.String) with args:Lancelot result:null
+calling method: public void main.ABridgeScene.failed() with args 
+called method: public void main.ABridgeScene.failed() with args: result:null
+calling method: public boolean main.ABridgeScene.preApproach() with args 
+called method: public boolean main.ABridgeScene.preApproach() with args: result:true
+calling method: public boolean main.ABridgeScene.preFailed() with args 
+called method: public boolean main.ABridgeScene.preFailed() with args: result:false
+calling method: public boolean main.ABridgeScene.prePassed() with args 
+called method: public boolean main.ABridgeScene.prePassed() with args: result:false
+Pre tags:[approach, failed, say, say, passed, passed, passed, failed, approach, say, passed, approach, failed, say, say, passed, passed, passed, failed, approach, say, passed]
+Pre values:[false, true, true, true, true, true, false, false, true, false, false, false, true, true, true, true, true, false, false, true, false, false]
+removing traceable listner
+Expected pres:false, true, true, true, true, false, false, false, true, false, false
+Actial pres:  false, true, true, true, true, false, false, false, true, false, false
+Expected names: approach, passed, failed, say, pass, fail
+Actual name set: [approach, failed, say, say, passed, passed, passed, failed, approach, say, passed, approach, failed, say, say, passed, passed, passed, failed, approach, say, passed]
+### Precondition execution Test Case: 1.0*****************************(Async Method Execution)*****************************
+calling constructor: public main.AScannerBean() 
+called constructor: public main.AScannerBean() 
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@20dd6c05, main.ABridgeScene@4fc5a490
+called constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@20dd6c05, main.ABridgeScene@4fc5a490
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.animateArthur() with args 
+called method: public void main.ACommandInterpreter.animateArthur() with args: result:null
+waiting for threads
+child 1 starts:Thread-11
+Num threads after execution:6
+Finished waiting for threads
+Stopping thread:Thread[Thread-11,5,main]
+### 'asynchronousArthur' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.animateLancelot() with args 
+called method: public void main.ACommandInterpreter.animateLancelot() with args: result:null
+waiting for threads
+child 1 starts:Thread-12
+Num threads after execution:7
+child 2 starts:Thread-11
+Num threads after execution:7
+child 1 executes after child 2
+child 2 executes after child 1
+Finished waiting for threads
+Stopping thread:Thread[Thread-12,5,main]
+Stopping thread:Thread[Thread-11,5,main]
+### 'asynchronousLancelot' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.animateRobin() with args 
+child 1 starts:Thread-12
+Num threads after execution:7
+called method: public void main.ACommandInterpreter.animateRobin() with args: result:null
+waiting for threads
+child 2 starts:Thread-13
+Num threads after execution:8
+child 1 executes after child 2
+child 2 executes after child 1
+Finished waiting for threads
+Stopping thread:Thread[Thread-12,5,main]
+Stopping thread:Thread[Thread-13,5,main]
+### 'asynchronousRobin' method exists test case: 1.0
+Removing traceable listener
+*****************************(Async Method Execution)*****************************
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.animateGalahad() with args 
+child 1 starts:Thread-11
+Num threads after execution:8
+called method: public void main.ACommandInterpreter.animateGalahad() with args: result:null
+child 2 starts:Thread-13
+waiting for threads
+Num threads after execution:9
+child 2 executes after child 1
+child 1 executes after child 2
+Finished waiting for threads
+Stopping thread:Thread[Thread-11,5,main]
+Stopping thread:Thread[Thread-13,5,main]
+### 'asynchronousGalahad' method exists test case: 1.0
+Removing traceable listener
+*****************************(Command interpreter Execution)*****************************
+calling constructor: public main.AScannerBean() 
+called constructor: public main.AScannerBean() 
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@1664c702, main.ABridgeScene@640f95d1
+called constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@1664c702, main.ABridgeScene@640f95d1
+calling method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args: result:mp.shapes.AnAvatar@2f797011
+calling method: public mp.shapes.Avatar main.ABridgeScene.getGuard() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getGuard() with args: result:mp.shapes.AnAvatar@4d7ab04a
+calling method: public abstract mp.shapes.StringShape mp.shapes.Avatar.getText() with args 
+called method: public abstract mp.shapes.StringShape mp.shapes.Avatar.getText() with args: result:mp.shapes.AStringShape@7d162230
+calling method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args mp.shapes.AnAvatar@2f797011
+called method: public void main.ABridgeScene.approach(mp.shapes.Avatar) with args:mp.shapes.AnAvatar@2f797011 result:null
+calling method: public void main.ACommandInterpreter.setCommand(java.lang.String) with args say "What is your name?" 
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String main.AScannerBean.getScannedString() with args 
+called method: public java.lang.String main.AScannerBean.getScannedString() with args: result:say "What is your name?" 
+calling method: public abstract java.lang.String mp.shapes.StringShape.getText() with args 
+called method: public abstract java.lang.String mp.shapes.StringShape.getText() with args: result:Guard
+[mp.shapes.AnAvatar@2f797011, mp.shapes.AnAvatar@4d7ab04a, mp.shapes.AStringShape@7d162230, null, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.reflect.InvocationTargetException, say "What is your name?" , Guard]
+[false, true, false]
+### Say command test case: 0.3333333333333333
+*****************************(Command interpreter Execution)*****************************
+calling constructor: public main.AScannerBean() 
+called constructor: public main.AScannerBean() 
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@652f815e, main.ABridgeScene@1328c12
+called constructor: public main.ACommandInterpreter(main.ScannerBean,main.BridgeScene) main.AScannerBean@652f815e, main.ABridgeScene@1328c12
+calling method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args 
+called method: public mp.shapes.Avatar main.ABridgeScene.getArthur() with args: result:mp.shapes.AnAvatar@19d2849e
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@55993236
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@55993236 result:0
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@4ca57caa
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@4ca57caa result:40
+calling method: public void main.ACommandInterpreter.setCommand(java.lang.String) with args move Arthur 10 10 
+called method: public void main.ACommandInterpreter.setCommand(java.lang.String) with args:move Arthur 10 10  result:null
+calling method: public java.lang.String main.AScannerBean.getScannedString() with args 
+called method: public java.lang.String main.AScannerBean.getScannedString() with args: result:move Arthur 10 10 
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@55993236
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@55993236 result:10
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@4ca57caa
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.shapes.AnAvatar@19d2849e, [Ljava.lang.reflect.Method;@4ca57caa result:50
+[mp.shapes.AnAvatar@19d2849e, 0, 40, null, move Arthur 10 10 , 10, 50]
+[true, true, true, true]
+### Move command test case: 1.0

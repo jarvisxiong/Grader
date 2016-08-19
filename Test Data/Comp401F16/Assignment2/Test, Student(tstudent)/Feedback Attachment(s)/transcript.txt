@@ -1,0 +1,120 @@
+*****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public main.BeanA2() 
+called method: public main.BeanA2() 
+calling method: public void main.BeanA2.setScannedString(java.lang.String) with args 22 32 45 
+number: 22
+number: 32
+number: 45
+Illegal characters entered: "2", "3", "4" 
+called method: public void main.BeanA2.setScannedString(java.lang.String) with args:22 32 45  result:null
+Missing read method for property ScannedString
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
+
+ERRORS(Numbers and words)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at main.Assignment2.main(Assignment2.java:12)
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
+
+ERRORS(Numbers and words)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at main.Assignment2.main(Assignment2.java:12)
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+hello    "h e l l o"   10   goodbye  "go odb ye" 20
+.
+
+OUTPUT(Quoted string)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+quoted string: go odb ye
+number: 20
+Illegal characters entered: "h", "1", "g", "2" 
+Please enter a line of text: 
+
+ERRORS(Quoted string)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at main.Assignment2.main(Assignment2.java:12)
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+sign: +
+word: goodbye
+quoted string: go odb ye
+sign: -
+Illegal characters entered: "h", "g" 
+Please enter a line of text: 
+
+ERRORS(Plus minus)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at main.Assignment2.main(Assignment2.java:12)
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+hello    "h e l l o"   10   goodbye  "go odb ye 20
+.
+
+OUTPUT(Missing quote)
+Please enter a line of text: 
+word: hello
+quoted string: h e l l o
+number: 10
+word: goodbye
+ERROR: Closing double quote is missing!
+Good thing my program is smarter than you are!
+Here is your "quoted" string anyway:
+quoted string: go odb ye 20 
+Illegal characters entered: "h", "1", "g" 
+Please enter a line of text: 
+
+ERRORS(Missing quote)
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1585)
+	at main.Assignment2.main(Assignment2.java:12)
+

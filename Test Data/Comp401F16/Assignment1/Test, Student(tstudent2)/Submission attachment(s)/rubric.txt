@@ -1,0 +1,14 @@
+Assignment 1
+Functionality
+* (40 points) Process and print out the tokens the user entered CHECK
+* (10 points) Compute correctly and print out the sum and product CHECK
+* (10 points) Terminate when the line starts with '.'   CHECK
+Style
+* (20 points) Loop only once through the input string CHECK
+* (10 points) The code contains at least two meaningful methods CHECK
+* (10 points) Include screenshots show test data output CHECK
+Extra Credit
+* (5 points) Handle "invalid" characters CHECK
+* (10 points) Use an additional class for the parser. It must not use an array SEMI-CHECK -PARSER PROCESS IS LOCATED IN ANOTHER CLASS
+*  (10 points) Especially nice code (Extra meaningful methods, useful classes, good comments/documentation) SEMI-CHECK - OPINIONATED
+

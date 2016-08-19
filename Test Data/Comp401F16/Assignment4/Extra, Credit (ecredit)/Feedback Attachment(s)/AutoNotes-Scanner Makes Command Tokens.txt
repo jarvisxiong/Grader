@@ -1,0 +1,13 @@
+  -- Correctly creates 'call' command tokens
+  -- Correctly creates 'define' command tokens
+  -- Correctly creates 'move' command tokens
+  -- Correctly creates 'proceedAll' command tokens
+  -- Correctly creates 'redo' command tokens
+  -- Correctly creates 'repeat' command tokens
+  -- Correctly creates 'rotateLeftArm' command tokens
+  -- Correctly creates 'rotateRightArm' command tokens
+  -- Correctly creates 'say' command tokens
+  -- Correctly creates 'sleep' command tokens
+  -- Correctly creates 'thread' command tokens
+  -- Correctly creates 'undo' command tokens
+  -- Correctly creates 'wait' command tokens

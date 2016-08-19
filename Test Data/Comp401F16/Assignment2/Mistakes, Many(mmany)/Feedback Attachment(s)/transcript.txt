@@ -1,0 +1,745 @@
+*****************************(Bean class)*****************************
+Testcase:Scanner Bean class test case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+No class matching: null, ScannerBean, .*Bean.*, .*Bean.*
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye "go odb ye" 20 
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+10 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+10 20 
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello "h e l l o" 10 goodbye "go odb ye" 20 
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello goodbye
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
+
+*****************************(Numbers and words)*****************************
+INPUT(Numbers and words)
+hello goodbye 
+.
+
+OUTPUT(Numbers and words)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+hello    "h e l l o"   10   goodbye  "go odb ye" 20
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+hello   "h e l l o"  10   goodbye "go odb ye" 20 
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+ shello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:s
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+"h e l l o" "go odb ye"
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
+
+*****************************(Quoted string)*****************************
+INPUT(Quoted string)
+"h e l l o" "go odb ye" 
+.
+
+OUTPUT(Quoted string)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:+
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+hello "h e l l o" + goodbye "go odb ye" - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:+
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
+ hello "h e l l o" + goodbye  "go odb ye" -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:+
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ -
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:+
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Plus minus)*****************************
+INPUT(Plus minus)
++ - 
+.
+
+OUTPUT(Plus minus)
+please enter a string:
+unexpected character:+
+unexpected character:-
+Numbers: Sum: 0 Product: 1
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+hello    "h e l l o"   10   goodbye  "go odb ye 20
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+hello   "h e l l o"  10   goodbye "go odb ye 20 
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+ hello "h e l l o" 10 goodbye  "go odb ye" 20
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: 10 20 Sum: 30 Product: 200
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+"h e l l o" "go odb ye
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+Numbers: Sum: 0 Product: 1
+
+*****************************(Missing quote)*****************************
+INPUT(Missing quote)
+"h e l l o" "go odb ye" 
+.
+
+OUTPUT(Missing quote)
+please enter a string:
+unexpected character:"
+unexpected character:h
+unexpected character:e
+unexpected character:l
+unexpected character:l
+unexpected character:o
+unexpected character:"
+unexpected character:"
+unexpected character:g
+unexpected character:o
+unexpected character:o
+unexpected character:d
+unexpected character:b
+unexpected character:y
+unexpected character:e
+unexpected character:"
+Numbers: Sum: 0 Product: 1
+

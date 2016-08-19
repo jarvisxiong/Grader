@@ -1,0 +1,4 @@
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class

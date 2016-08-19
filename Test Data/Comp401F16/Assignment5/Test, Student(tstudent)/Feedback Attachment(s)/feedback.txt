@@ -1,0 +1,43 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Angle Bean                                             6.0 /  6.0
+Avatar Bean                                            15.0 / 15.0
+Bridge Scene Bean                                      10.0 / 10.0
+Angle connection                                       0.0 /  7.0
+Angle move                                             0.0 /  7.0
+Avatar connection                                      0.0 / 15.0
+Avatar move                                            0.0 / 15.0
+Bridge Scene Display Constraints                       0.0 /  5.0
+Scene  Demo                                            0.0 / 10.0
+Avatar Move Demo                                       0.0 / 10.0
+Avatar Scale Method                                    0.0 /  2.0 (Extra credit)
+Avatar scale demo                                      0.0 /  6.0 (Extra credit)
+Rotate arm demo                                        0.0 /  7.0 (Extra credit)
+----------------------------------
+  Points Awarded: 31.0
+
+Grading restrictions...
+----------------------------------
+Class has interface check                   0.0 /  -5.0
+Variable has class type                     0.0 /  -5.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              0.0 /  -9.0
+No image files.                             -5.0 /  -5.0
+No public variables.                        0.0 /  -5.0
+No System.exit()                            0.0 /  -5.0
+Interactive Run                             -5.0 /  -5.0
+----------------------------------
+  Points Deducted: -10.0
+
+  Features Score: 21.0
+
+Notes from grading features:
+----------------------------------
+Avatar Scale Method:
+  -- Can't find 'scale' method in class 'AnAvatar'
+
+
+Early benefit: 105.0%
+  Total Score: 22.05

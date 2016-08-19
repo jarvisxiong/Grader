@@ -1,0 +1,36 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Multi Property Token Beans                             25.0 / 25.0
+Single Property Token Beans                            15.0 / 15.0
+Scanner Check                                          25.0 / 25.0
+Class has interface check                              22.5 / 25.0
+Variable has class type                                10.0 / 10.0
+Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
+Plus Minus Scanner Check                               4.0 /  4.0 (Extra credit)
+Screenshots enclosed                                   0.0 / 10.0
+----------------------------------
+  Points Awarded: 107.5
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              0.0 /  -18.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 107.5
+
+Notes from grading features:
+----------------------------------
+Class has interface check:
+  -- Class has no interface: Assignment3
+
+Screenshots enclosed:
+  -- Missing images
+
+
+Early benefit: 105.0%
+  Total Score: 113.4

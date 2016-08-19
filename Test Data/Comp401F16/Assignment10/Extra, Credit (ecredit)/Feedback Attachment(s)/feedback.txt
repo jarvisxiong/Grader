@@ -1,0 +1,40 @@
+Grading result for: Extra, Credit (ecredit)
+
+Grading features...
+----------------------------------
+Precondition structure                                 8.0 /  8.0
+Precondition execution                                 17.6 / 22.0
+Command Classes Structure                              10.0 / 10.0
+Animator Structure                                     10.0 / 10.0
+Async Method Execution                                 28.0 / 28.0
+Command Interpreter Structure                          8.0 /  8.0
+Command interpreter Execution                          5.0 / 10.0
+Guard method exists                                    0.0 /  2.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
+----------------------------------
+  Points Awarded: 86.6
+
+Grading restrictions...
+----------------------------------
+Previous Classes Exist (No pts)                        0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 86.6
+
+Notes from grading features:
+----------------------------------
+Precondition execution:
+  -- Values and/or tags did not match,see transcript:
+
+Command interpreter Execution:
+  -- Incorrect or no fail
+
+Guard method exists:
+  -- No method tagged: asynchronousGuard
+
+
+Early benefit: 105.0%
+  Total Score: 91.35000000000001

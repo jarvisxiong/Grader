@@ -1,0 +1,18 @@
+*****************************(Coordinated animation starts)*****************************
+calling constructor: public main.ABridgeScene() 
+called constructor: public main.ABridgeScene() 
+calling constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@7d2f6f8e
+called constructor: public main.ACommandInterpreter(mp.helpers.BroadcastingClearanceManager,main.BridgeScene) null, main.ABridgeScene@7d2f6f8e
+calling methods
+Adding traceable listener
+calling method: public void main.ACommandInterpreter.waitingArthur() with args 
+called method: public void main.ACommandInterpreter.waitingArthur() with args: result:null
+calling method: public void main.ACommandInterpreter.waitingLancelot() with args 
+called method: public void main.ACommandInterpreter.waitingLancelot() with args: result:null
+calling method: public void main.ACommandInterpreter.startAnimation() with args 
+Terminated execution after milliseconds:2000
+waiting for threads
+Finished waiting for threads
+No threads created
+### 'startAnimation' method exists test case: 0.0
+Removing traceable listener

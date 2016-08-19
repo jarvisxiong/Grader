@@ -1,0 +1,58 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Multi Property Token Beans                             25.0 / 25.0
+Single Property Token Beans                            15.0 / 15.0
+Scanner Check                                          25.0 / 25.0
+Class has interface check                              22.9 / 25.0
+Variable has class type                                0.0 / 10.0
+Plus Minus Token Beans                                 6.0 /  6.0 (Extra credit)
+Plus Minus Scanner Check                               2.2 /  4.0 (Extra credit)
+Screenshots enclosed                                   10.0 / 10.0
+----------------------------------
+  Points Awarded: 106.10000000000001
+
+Grading restrictions...
+----------------------------------
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              -9.0 /  -18.0
+----------------------------------
+  Points Deducted: -9.0
+
+  Features Score: 97.10000000000001
+
+Notes from grading features:
+----------------------------------
+Class has interface check:
+  -- Class has no interface: BeanStringScanner
+
+Variable has class type:
+  -- variableHasClassType: (Assignment3.java:20) Class ExtBeanStringScanner rather than interface used as the type of bss
+variableHasClassType: (ExtBeanStringScanner.java:79) Class EndToken rather than interface used as the type of et
+variableHasClassType: (ExtBeanStringScanner.java:144) Class Minus rather than interface used as the type of pl
+variableHasClassType: (ExtBeanStringScanner.java:167) Class Minus rather than interface used as the type of pl
+variableHasClassType: (ExtBeanStringScanner.java:193) Class mp.Number rather than interface used as the type of num
+variableHasClassType: (ExtBeanStringScanner.java:138) Class Plus rather than interface used as the type of pl
+variableHasClassType: (ExtBeanStringScanner.java:161) Class Plus rather than interface used as the type of pl
+variableHasClassType: (ExtBeanStringScanner.java:73) Class StartToken rather than interface used as the type of st
+variableHasClassType: (ExtBeanStringScanner.java:154) Class mp.Word rather than interface used as the type of ww
+variableHasClassType: (ExtBeanStringScanner.java:204) Class mp.Word rather than interface used as the type of ww
+
+
+Plus Minus Scanner Check:
+  -- Incorrect tokens printed:Plus class test case
+  -- Incorrect tokens printed:Minus class test case
+
+
+Notes from grading restrictions:
+----------------------------------
+Classes Tagged :
+  -- No class tagged: Quote
+  -- No class tagged: Start
+  -- No class tagged: End
+
+
+Early benefit: 105.0%
+  Total Score: 101.85000000000001

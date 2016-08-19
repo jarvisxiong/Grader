@@ -1,0 +1,66 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Command Classes Implemented                            15.0 / 15.0
+Scanner bean returns token array                       4.5 /  5.0
+Scanner Makes Command Tokens                           17.0 / 17.0
+Multiple scanner Sets check                            8.0 /  8.0
+Class has interface check                              4.7 /  5.0
+Variable has class type                                5.0 /  5.0
+Scanner object displays properly in ObjectEditor and tests for every token type 0.0 / 15.0
+Scanner has error property                             1.5 /  5.0 (Extra credit)
+Scanner displays errors correctly                      0.0 /  5.0 (Extra credit)
+Rotating fixed line                                    4.5 /  6.0 (Extra credit)
+Rotating moving line                                   5.0 /  5.0 (Extra credit)
+Object Editor rotating, moving line                    0.0 / 24.0 (Extra credit)
+----------------------------------
+  Points Awarded: 65.2
+
+Grading restrictions...
+----------------------------------
+Multi Property Token Beans                             0.0 /  0.0
+Single Property Token Beans                            0.0 /  0.0
+Illegal import or call                      0.0 /  -25.0
+Single main.Assignment                      0.0 /  -10.0
+Classes Tagged                              0.0 /  -39.0
+Common token interface not T                0.0 /  -5.0
+Interactive Run                             -5.0 /  -5.0
+----------------------------------
+  Points Deducted: -5.0
+
+  Features Score: 60.2
+
+Notes from grading features:
+----------------------------------
+Scanner bean returns token array:
+  -- tokens getter should be getTokens
+
+Scanner Makes Command Tokens:
+  -- Correctly creates 'call' command tokens
+  -- Correctly creates 'define' command tokens
+  -- Correctly creates 'move' command tokens
+  -- Correctly creates 'proceedAll' command tokens
+  -- Correctly creates 'redo' command tokens
+  -- Correctly creates 'repeat' command tokens
+  -- Correctly creates 'rotateLeftArm' command tokens
+  -- Correctly creates 'rotateRightArm' command tokens
+  -- Correctly creates 'say' command tokens
+  -- Correctly creates 'sleep' command tokens
+  -- Correctly creates 'thread' command tokens
+  -- Correctly creates 'undo' command tokens
+  -- Correctly creates 'wait' command tokens
+
+Class has interface check:
+  -- Class has no interface: BeanStringScanner
+Class has no interface: ExtBeanStringScanner
+
+Scanner has error property:
+  -- Errors not logged
+
+Rotating fixed line:
+  -- Missing default constructor
+
+
+Early benefit: 105.0%
+  Total Score: 63.0

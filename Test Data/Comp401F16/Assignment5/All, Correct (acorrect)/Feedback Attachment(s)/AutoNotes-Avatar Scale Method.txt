@@ -1,0 +1,1 @@
+  -- 'scale' method(s) found ([public void grail.Avatar.scale(int)]), but without proper return type '('void')' nor parameters (('double'), ('double')) in class 'Avatar'

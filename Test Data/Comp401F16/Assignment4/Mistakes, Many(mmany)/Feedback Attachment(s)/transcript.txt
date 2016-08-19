@@ -1,0 +1,538 @@
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Number Token Bean Case
+Finding class matching:null, Number, .*Number.*, .*Number.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Number(java.lang.String) 006500
+called method: public mp.Number(java.lang.String) 006500
+calling method: public void mp.Number.setInput(java.lang.String) with args 006500
+called method: public void mp.Number.setInput(java.lang.String) with args:006500 result:null
+calling method: public int mp.Number.getValue() with args 
+called method: public int mp.Number.getValue() with args: result:6500
+*****************************(Multi Property Token Beans)*****************************
+Testcase:Word Token Bean Case
+Finding class matching:null, Word, .*Word.*, .*Word.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.Word(java.lang.String) MixedCamelCase
+called method: public mp.Word(java.lang.String) MixedCamelCase
+calling method: public void mp.Word.setInput(java.lang.String) with args MixedCamelCase
+called method: public void mp.Word.setInput(java.lang.String) with args:MixedCamelCase result:null
+calling method: public java.lang.String mp.Word.getValue() with args 
+called method: public java.lang.String mp.Word.getValue() with args: result:mixedcamelcase
+*****************************(Single Property Token Beans)*****************************
+Testcase:Quote Token Bean Case
+Finding class matching:null, Quote, .*Quote.*, .*Quote.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.QuotedString(java.lang.String) This is a Quote
+called method: public mp.QuotedString(java.lang.String) This is a Quote
+calling method: public void mp.QuotedString.setInput(java.lang.String) with args This is a Quote
+called method: public void mp.QuotedString.setInput(java.lang.String) with args:This is a Quote result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:Start Token Bean Case
+Finding class matching:null, Start, .*Start.*, .*Start.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.StartToken(java.lang.String) {
+called method: public mp.StartToken(java.lang.String) {
+calling method: public void mp.StartToken.setInput(java.lang.String) with args {
+called method: public void mp.StartToken.setInput(java.lang.String) with args:{ result:null
+*****************************(Single Property Token Beans)*****************************
+Testcase:End
+Finding class matching:null, End, .*End.*, .*End.*
+Finding constructor matching:class java.lang.String
+calling method: public mp.EndToken(java.lang.String) End
+called method: public mp.EndToken(java.lang.String) End
+calling method: public void mp.EndToken.setInput(java.lang.String) with args End
+called method: public void mp.EndToken.setInput(java.lang.String) with args:End result:null
+*****************************(Command Classes Implemented)*****************************
+Testcase:Call Command Bean Case
+Finding class matching:null, call, .*call.*, .*call.*
+No class matching: null, call, .*call.*, .*call.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Define Command Bean Case
+Finding class matching:null, define, .*define.*, .*define.*
+No class matching: null, define, .*define.*, .*define.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Move Command Bean Case
+Finding class matching:null, move, .*move.*, .*move.*
+No class matching: null, move, .*move.*, .*move.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Proceed All Command Bean Case
+Finding class matching:null, proceedAll, .*proceedAll.*, .*proceedAll.*
+No class matching: null, proceedAll, .*proceedAll.*, .*proceedAll.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Redo Command Bean Case
+Finding class matching:null, redo, .*redo.*, .*redo.*
+No class matching: null, redo, .*redo.*, .*redo.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Repeat Command Bean Case
+Finding class matching:null, repeat, .*repeat.*, .*repeat.*
+No class matching: null, repeat, .*repeat.*, .*repeat.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Left Arm Command Bean Case
+Finding class matching:null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.*
+No class matching: null, rotateLeftArm, .*rotateLeftArm.*, .*rotateLeftArm.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Rotate Right Arm Command Bean Case
+Finding class matching:null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.*
+No class matching: null, rotateRightArm, .*rotateRightArm.*, .*rotateRightArm.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Say Command Bean Case
+Finding class matching:null, say, .*say.*, .*say.*
+No class matching: null, say, .*say.*, .*say.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Sleep Command Bean Case
+Finding class matching:null, sleep, .*sleep.*, .*sleep.*
+No class matching: null, sleep, .*sleep.*, .*sleep.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Thread Command Bean Case
+Finding class matching:null, thread, .*thread.*, .*thread.*
+No class matching: null, thread, .*thread.*, .*thread.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Undo Command Bean Case
+Finding class matching:null, undo, .*undo.*, .*undo.*
+No class matching: null, undo, .*undo.*, .*undo.*
+*****************************(Command Classes Implemented)*****************************
+Testcase:Wait Command Bean Case
+Finding class matching:null, wait, .*wait.*, .*wait.*
+No class matching: null, wait, .*wait.*, .*wait.*
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args call 
+mp.Word@2b59d3d8
+call
+call
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:call  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args call
+mp.Word@73a11f8c
+call
+call
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:call result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Call Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args define 
+mp.Word@201097e7
+define
+define
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:define  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args define
+mp.Word@47eb57f4
+define
+define
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:define result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Define Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args move 
+mp.Word@22499bc2
+move
+move
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:move  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args move
+mp.Word@596fad78
+move
+move
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:move result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Move Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args proceedAll 
+mp.Word@7d64b61d
+proceedAll
+proceedall
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:proceedAll  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args proceedAll
+mp.Word@60ad1ab2
+proceedAll
+proceedall
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:proceedAll result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Proceed All Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args redo 
+mp.Word@ed41aee
+redo
+redo
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:redo  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args redo
+mp.Word@2a747221
+redo
+redo
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:redo result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Redo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args repeat 
+mp.Word@72f8ed2c
+repeat
+repeat
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:repeat  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args repeat
+mp.Word@7a08014b
+repeat
+repeat
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:repeat result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Repeat Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateLeftArm 
+mp.Word@54a5678e
+rotateLeftArm
+rotateleftarm
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateLeftArm  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateLeftArm
+mp.Word@5d49e241
+rotateLeftArm
+rotateleftarm
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateLeftArm result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Left Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateRightArm 
+mp.Word@68ede549
+rotateRightArm
+rotaterightarm
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateRightArm  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args rotateRightArm
+mp.Word@478aa541
+rotateRightArm
+rotaterightarm
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:rotateRightArm result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Rotate Right Arm Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args say 
+mp.Word@7331bd2a
+say
+say
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:say  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args say
+mp.Word@183c8697
+say
+say
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:say result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Say Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args sleep 
+mp.Word@771d3d65
+sleep
+sleep
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:sleep  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args sleep
+mp.Word@65af3e6a
+sleep
+sleep
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:sleep result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Sleep Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args thread 
+mp.Word@1b090718
+thread
+thread
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:thread  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args thread
+mp.Word@677d32d0
+thread
+thread
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:thread result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Thread Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args undo 
+mp.Word@7915dd4f
+undo
+undo
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:undo  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args undo
+mp.Word@6555f069
+undo
+undo
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:undo result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Undo Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args wait 
+mp.Word@36371a1c
+wait
+wait
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:wait  result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:
+calling method: public grail.ExtBeanStringScanner() 
+called method: public grail.ExtBeanStringScanner() 
+calling method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args wait
+mp.Word@385255b8
+wait
+wait
+called method: public void grail.ExtBeanStringScanner.setScannedString(java.lang.String) with args:wait result:null
+Property Tokens not found
+*****************************(Scanner Makes Command Tokens)*****************************
+Testcase:Wait Command Token Created Test Case
+Finding class matching:null, ScannerBean, .*Bean.*, .*Bean.*
+Finding constructor matching:class java.lang.String
+Constructor not found:grail.ExtBeanStringScanner.<init>(java.lang.String)

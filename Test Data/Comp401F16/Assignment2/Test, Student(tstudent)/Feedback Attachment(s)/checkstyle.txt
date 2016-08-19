@@ -1,0 +1,5 @@
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\Assignment2.java:1: classDefined: (Assignment2.java:1) Class matching main.Assignment(.*) defined, unmatched expected classes/tags [@ScannerBean]
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:92:17: warning: Conditional logic can be removed.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F15\Assignment2\Test, Student(tstudent)\Submission attachment(s)\Assignment2\Assignment2\Assignment2\src\main\BeanA2.java:102:109: warning: Expression can be simplified.
+Audit done.

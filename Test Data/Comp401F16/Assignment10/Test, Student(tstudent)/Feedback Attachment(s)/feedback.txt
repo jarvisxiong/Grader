@@ -1,0 +1,37 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+Precondition structure                                 8.0 /  8.0
+Precondition execution                                 15.0 / 22.0
+Command Classes Structure                              10.0 / 10.0
+Animator Structure                                     10.0 / 10.0
+Async Method Execution                                 22.4 / 28.0
+Command Interpreter Structure                          8.0 /  8.0
+Command interpreter Execution                          10.0 / 10.0
+Guard method exists                                    2.0 /  2.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
+----------------------------------
+  Points Awarded: 85.4
+
+Grading restrictions...
+----------------------------------
+Previous Classes Exist (No pts)                        0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 85.4
+
+Notes from grading features:
+----------------------------------
+Precondition execution:
+  -- Values and/or tags did not match,see transcript:
+
+Async Method Execution:
+  -- No  thread created (maybe race conditions) by:public void grail.commander.BasicCommandInterpreter.asynchronousLancelot()
+
+
+Early benefit: 105.0%
+  Total Score: 89.25

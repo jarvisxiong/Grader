@@ -1,0 +1,47 @@
+Grading result for: All, Correct (acorrect)
+
+Grading features...
+----------------------------------
+Precondition structure                                 8.0 /  8.0
+Precondition execution                                 22.0 / 22.0
+Command Classes Structure                              10.0 / 10.0
+Animator Structure                                     10.0 / 10.0
+Async Method Execution                                 0.0 / 28.0
+Command Interpreter Structure                          0.0 /  8.0
+Command interpreter Execution                          10.0 / 10.0
+Guard method exists                                    2.0 /  2.0 (Extra credit)
+Guard claps                                            0.0 /  4.0 (Extra credit)
+Command Interpreter Buttons                            0.0 /  5.0 (Extra credit)
+Dynamically  Enabled Buttons                           0.0 /  5.0 (Extra credit)
+----------------------------------
+  Points Awarded: 62.0
+
+Grading restrictions...
+----------------------------------
+Previous Classes Exist (No pts)                        0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 62.0
+
+Notes from grading features:
+----------------------------------
+Async Method Execution:
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+  -- Can't find 'CommandInterpreter' class
+
+Command Interpreter Structure:
+  -- Type CommandInterpreter not defined, cannot check
+  -- Type CommandInterpreter not defined, cannot check
+
+
+Notes from grading restrictions:
+----------------------------------
+Previous Classes Exist (No pts):
+  -- CommandInterpreter not found.
+
+
+Early benefit: 105.0%
+  Total Score: 65.10000000000001

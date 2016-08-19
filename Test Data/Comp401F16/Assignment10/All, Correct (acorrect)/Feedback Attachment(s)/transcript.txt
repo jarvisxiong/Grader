@@ -1,0 +1,109 @@
+*****************************(Precondition execution)*****************************
+calling constructor: public mp.Scene.TheBridgeScene() 
+called constructor: public mp.Scene.TheBridgeScene() 
+W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListener) for method public static void mp.Scene.AnAvatar.addPropertyChangeListener(mp.Scene.Avatar,java.beans.PropertyChangeListener)
+W***Use annotation @ObserverRegisterer(interface java.beans.PropertyChangeListener) for method public static void mp.Scene.TheGorge.addPropertyChangeListener(mp.Scene.Gorge,java.beans.PropertyChangeListener)
+Adding traceable listner
+calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args 
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@379ce046
+calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args 
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getLancelot() with args: result:mp.Scene.AnAvatar@46d63dbb
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@379ce046
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@379ce046 result:null
+calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:false
+calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args: result:true
+calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Name?
+called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Name? result:null
+calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Arthur?
+called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Arthur? result:null
+calling method: public void mp.Scene.TheBridgeScene.passedScene() with args 
+called method: public void mp.Scene.TheBridgeScene.passedScene() with args: result:null
+calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args: result:false
+calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:false
+calling method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preSayScene() with args: result:false
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@46d63dbb
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@46d63dbb result:null
+calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Name
+called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Name result:null
+calling method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args Lancelot
+called method: public void mp.Scene.TheBridgeScene.sayScene(java.lang.String) with args:Lancelot result:null
+calling method: public void mp.Scene.TheBridgeScene.failedScene() with args 
+W***Lower Y = -1 < 0 of .lancelot.arms.leftLine (mp.Scene.ALine@28757abd)
+W***Lower Y = -1 < 0 of .lancelot.arms.rightLine (mp.Scene.ALine@2e766822)
+W***Lower Y = -1 < 0 of .lancelot.torso (mp.Scene.ALine@64920dc2)
+W***Lower Y = -10 < 0 of .lancelot.text (mp.Scene.AStringShape@493ac8d3)
+called method: public void mp.Scene.TheBridgeScene.failedScene() with args: result:null
+calling method: public boolean mp.Scene.TheBridgeScene.preApproach() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preApproach() with args: result:true
+calling method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.preFailedScene() with args: result:false
+calling method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args 
+called method: public boolean mp.Scene.TheBridgeScene.prePassedScene() with args: result:false
+Pre tags:[approach, say, pass, fail, pass, pass, approach, say, pass, fail, approach, say, pass, fail, pass, pass, approach, say, pass, fail]
+Pre values:[false, true, true, true, false, true, true, false, false, false, false, true, true, true, false, true, true, false, false, false]
+removing traceable listner
+Expected pres:false, true, true, true, true, false, false, false, true, false, false
+Actial pres:  false, true, true, true, true, false, false, false, true, false, false
+Expected names: approach, passed, failed, say, pass, fail
+Actual name set: [approach, say, pass, fail, pass, pass, approach, say, pass, fail, approach, say, pass, fail, pass, pass, approach, say, pass, fail]
+### Precondition execution Test Case: 1.0*****************************(Command interpreter Execution)*****************************
+calling constructor: public grail.ScannerBeanImpl() 
+called constructor: public grail.ScannerBeanImpl() 
+calling constructor: public mp.Scene.TheBridgeScene() 
+called constructor: public mp.Scene.TheBridgeScene() 
+calling constructor: public mp.command.ACommandInterpreter(mp.Scene.BridgeScene,grail.ScannerBean) mp.Scene.TheBridgeScene@4ca89ab, grail.ScannerBeanImpl@33ed04b
+called constructor: public mp.command.ACommandInterpreter(mp.Scene.BridgeScene,grail.ScannerBean) mp.Scene.TheBridgeScene@4ca89ab, grail.ScannerBeanImpl@33ed04b
+calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args 
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@7bb1f0dc
+calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getGuard() with args 
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getGuard() with args: result:mp.Scene.AnAvatar@746e768d
+calling method: public abstract mp.Scene.StringShape mp.Scene.Avatar.getText() with args 
+called method: public abstract mp.Scene.StringShape mp.Scene.Avatar.getText() with args: result:mp.Scene.AStringShape@24b92e7a
+calling method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args mp.Scene.AnAvatar@7bb1f0dc
+called method: public void mp.Scene.TheBridgeScene.approach(mp.Scene.Avatar) with args:mp.Scene.AnAvatar@7bb1f0dc result:null
+calling method: public void mp.command.ACommandInterpreter.setCommand(java.lang.String) with args say "What is your name?" 
+Please input again.
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String grail.ScannerBeanImpl.getScannedString() with args 
+called method: public java.lang.String grail.ScannerBeanImpl.getScannedString() with args: result:say "What is your name?" 
+calling method: public abstract java.lang.String mp.Scene.StringShape.getText() with args 
+called method: public abstract java.lang.String mp.Scene.StringShape.getText() with args: result:
+[mp.Scene.AnAvatar@7bb1f0dc, mp.Scene.AnAvatar@746e768d, mp.Scene.AStringShape@24b92e7a, null, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.reflect.InvocationTargetException, say "What is your name?" , ]
+[false, true, false]
+### Say command test case: 0.3333333333333333
+*****************************(Command interpreter Execution)*****************************
+calling constructor: public grail.ScannerBeanImpl() 
+called constructor: public grail.ScannerBeanImpl() 
+calling constructor: public mp.Scene.TheBridgeScene() 
+called constructor: public mp.Scene.TheBridgeScene() 
+calling constructor: public mp.command.ACommandInterpreter(mp.Scene.BridgeScene,grail.ScannerBean) mp.Scene.TheBridgeScene@51701e2e, grail.ScannerBeanImpl@25b333cc
+called constructor: public mp.command.ACommandInterpreter(mp.Scene.BridgeScene,grail.ScannerBean) mp.Scene.TheBridgeScene@51701e2e, grail.ScannerBeanImpl@25b333cc
+calling method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args 
+called method: public mp.Scene.Avatar mp.Scene.TheBridgeScene.getArthur() with args: result:mp.Scene.AnAvatar@226ee3e9
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@4f49c320
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@4f49c320 result:30
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@1e192589
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@1e192589 result:30
+calling method: public void mp.command.ACommandInterpreter.setCommand(java.lang.String) with args move Arthur 10 10 
+Please input again.
+Terminated execution after milliseconds:2000
+calling method: public java.lang.String grail.ScannerBeanImpl.getScannedString() with args 
+called method: public java.lang.String grail.ScannerBeanImpl.getScannedString() with args: result:move Arthur 10 10 
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@4f49c320
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@4f49c320 result:30
+calling method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@1e192589
+called method: public static java.lang.Object gradingTools.sharedTestCase.MethodExecutionTestCase.cyclicGetProperty(java.lang.Object,java.lang.reflect.Method[]) throws java.lang.Exception with args:mp.Scene.AnAvatar@226ee3e9, [Ljava.lang.reflect.Method;@1e192589 result:30
+[mp.Scene.AnAvatar@226ee3e9, 30, 30, gradingTools.sharedTestCase.MethodExecutionTestCase$ExecutionFailureException: java.util.concurrent.ExecutionException: java.lang.reflect.InvocationTargetException, move Arthur 10 10 , 30, 30]
+[false, true, false, false]
+### Move command test case: 0.25
