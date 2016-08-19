@@ -134,7 +134,8 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		if (aColumnNumber == null) {
 			System.err.println("No column number for:" + aFeature);
 			System.err.println(featureToColumnNumber);
-			return;
+			// get a stack trace so we can see on the console
+//			return;
 		}
 //		recordResult(aRow, resultToColumnNumber.get(aFeature), aScore);
 		recordResult(aRow, aColumnNumber, aScore);

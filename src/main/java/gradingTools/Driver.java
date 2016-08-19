@@ -357,7 +357,8 @@ public class Driver {
 
         ProjectStepper projectStepper = database.getOrCreateProjectStepper();
         // need to create project stepper before allstudenthistory manager so it cn listen for events
-        AllStudentsHistoryManagerFactory.getOrCreateAllStudentsHistoryManager(database);
+       // need to create fresh manager
+        AllStudentsHistoryManagerFactory.createAllStudentsHistoryManager(database);
 
 //                    OEFrame settingsFrame = (OEFrame) projectStepper.getFrame();
         if (visitActions.contains(StaticConfigurationUtils.AUTO_GRADE)) {
