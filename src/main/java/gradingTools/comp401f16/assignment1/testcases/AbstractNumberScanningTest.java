@@ -41,20 +41,32 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
             
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
             	return;
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-            	Assert.assertTrue(correctOutputButErrorsMessage() +
-            			+ NotesAndScore.PERECTAGE_CHARACTER 
+            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
+//            	String aMessage = correctOutputButErrorsMessage() + 
+//            			NotesAndScore.PERECTAGE_CHARACTER +
+//            			+ correctOutputButErrorsCredit();
+//            	Assert.assertTrue(
+//            			aMessage, false);
+            	// This results in character becoming an int if marker is a character!
+            	Assert.assertTrue(
+            			correctOutputButErrorsMessage() +
+            			NotesAndScore.PERCENTAGE_MARKER 
             			+ correctOutputButErrorsCredit(), false);
-             retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithNoEndingSpace(), expectedOutputs());
+            }
+            retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithNoEndingSpace(), expectedOutputs());
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
             	return;
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS)
-            	Assert.assertTrue(correctOutputButErrorsMessage() +
-            			+ NotesAndScore.PERECTAGE_CHARACTER 
-            			+ correctOutputButErrorsCredit(), false);      	
+            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
+            	
+            	Assert.assertTrue(
+            			correctOutputButErrorsMessage() +
+            			NotesAndScore.PERCENTAGE_MARKER 
+            			+ correctOutputButErrorsCredit(), false);  
+            }
 
-            Assert.assertTrue(incorrectOutputMessage() +
-            		+ NotesAndScore.PERECTAGE_CHARACTER
+            Assert.assertTrue(
+            		incorrectOutputMessage() +
+            		NotesAndScore.PERCENTAGE_MARKER
             		+ incorrectOutputCredit(),
             		
             		false);
@@ -222,5 +234,13 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
 		boolean aCorrectProduct = aTestCase.isValidOutput(aTestOutput, anExpectedProduct);
 		return aCorectOutput;		
 	}
+//	public static String foo() {
+//		return "foo";
+//	}
+//	public static void main (String[] args) {
+//		Assert.assertTrue(foo() + NotesAndScore.PERECTAGE_CHARACTER + 0.5, false);
+//		System.out.println (foo()+ NotesAndScore.PERECTAGE_CHARACTER + 0.5);
+//		System.out.println (NotesAndScore.PERECTAGE_CHARACTER + 0.5);
+//	}
 }
 

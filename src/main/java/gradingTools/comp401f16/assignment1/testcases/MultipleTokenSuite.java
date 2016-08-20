@@ -15,7 +15,7 @@ import util.annotations.MaxValue;
    
 })
 @MaxValue(13)
-@Explanation("Angle correctly computed for diferent values of X and Y")
+@Explanation("Can process multiple tokens")
 public class MultipleTokenSuite {
 
 
