@@ -9,14 +9,14 @@ import util.annotations.MaxValue;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-   SingleTokenOutputTest.class,
-   SingleTokenSumTest.class,
-   SingleTokenProductTest.class,
+   TerminatesWithPeriodOutputTest.class,
+   TerminatesWithPeriodSumTest.class,
+   TerminatesWithPeriodProductTest.class,
    
 })
-@MaxValue(10)
-@Explanation("Can process a single token")
-public class SingleTokenSuite {
+@MaxValue(5)
+@Explanation("Handles Variable Spaces")
+public class TerminatesWithPeriodSuite {
 
 
 }

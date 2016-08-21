@@ -1,0 +1,53 @@
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call         processInput:->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        (.*)!hasNext:->boolean//EC 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        (.*)!next:->String//EC
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        indexOf:String;char;int->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        indexOfNot:String;char;int->void//EC 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        scanString:String->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:4: warning: illegalTypeImported: (Assignment1.java:4) Used disallowed class java.util.StringTokenizer 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: indexOf:String;char;int->int
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: indexOfNot:String;char;int->int//EC
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: processInput:->void
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: scanString:String->void
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: minDeclaredMethods: (Assignment1.java:12) Min declared methods: 1, actual Assignment1
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: typeDefined: (Assignment1.java:12) Class/Interface Assignment1 matching tag main.Assignment(.*) defined
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: illegalMethodCall: (Assignment1.java:19) called disallowed method main-->Scanner.delimiter
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: uncessaryMethodCall: (Assignment1.java:19) called unnecessary method Assignment1
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:20: warning: illegalMethodCall: (Assignment1.java:20) called disallowed method main-->String.split
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:20: warning: uncessaryMethodCall: (Assignment1.java:20) called unnecessary method Assignment1
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: 'if' construct must use '{}'s.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: uncessaryMethodCall: (Assignment1.java:25) called unnecessary method Assignment1
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25:32: warning: String literal expressions should be on the left side of an equals comparison.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:3: warning: minDeclaredMethods: (StringScanner.java:3) Min declared methods: 1, actual StringScanner
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:3: typeDefined: (StringScanner.java:3) Class/Interface StringScanner matching tag No Expected Tag defined
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:36:51: warning: The String " " appears 3 times in the file.
+Audit done.

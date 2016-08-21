@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import util.annotations.Explanation;
 import util.annotations.IsExtra;
+import util.annotations.MaxValue;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.NotesAndScore;
@@ -15,8 +16,9 @@ import grader.basics.project.Project;
 import gradingTools.comp401f15.assignment1.testcases.InvalidCharacterTestCase;
 import gradingTools.shared.testcases.OutputAndErrorCheckingTestCase;
 
-@Explanation("Invalid Character Tokens")
+//@Explanation("Invalid Character Tokens")
 @IsExtra(true)
+@MaxValue(10)
 public class TerminatesWithPeriodOutputTest extends MultipleTokensOutputTest {
 	@Override
 	protected String inputWithNoEndingSpace(){
@@ -27,6 +29,12 @@ public class TerminatesWithPeriodOutputTest extends MultipleTokensOutputTest {
     protected String[] expectedOutputs() {
     	return expectedTokenOutputs();
     }
+    protected boolean hasError(String anError) {
+		return !anError.isEmpty();
+	}
+    protected double correctOutputButErrorsCredit() {
+		return 0.0; // should not have errors
+	}
 //    public static void main (String[] args) {
 //		String aTestOutput = "The tokens are:2\n20\nSum: 22\n Product: 40\n 40\n 50\n Sum: 90 \n Product: 2000";
 //		String aTest1Output = "The tokens are:11\n20\nSum: 22\n Product: 40\n 40\n 50\n Sum: 90 \n Product: 2000";

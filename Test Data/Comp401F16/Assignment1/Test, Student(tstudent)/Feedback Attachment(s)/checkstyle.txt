@@ -1,0 +1,17 @@
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\src\main\Scan.java:4: typeDefined: (Scan.java:4) Class/Interface Scan matching tag No Expected Tag defined
+Audit done.

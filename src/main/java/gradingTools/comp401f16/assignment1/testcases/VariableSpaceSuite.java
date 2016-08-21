@@ -14,8 +14,8 @@ import util.annotations.MaxValue;
    VariableSpaceProductTest.class,
    
 })
-@MaxValue(13)
-@Explanation("Angle correctly computed for diferent values of X and Y")
+@MaxValue(5)
+@Explanation("Handles Variable Spaces")
 public class VariableSpaceSuite {
 
 

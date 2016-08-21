@@ -1,0 +1,46 @@
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Ask for consent: Checking if in plugin:true
+Starting audit...
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call         processInput:->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        (.*)!hasNext:->boolean//EC 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        (.*)!next:->String//EC
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        indexOf:String;char;int->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        indexOfNot:String;char;int->void//EC 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        scanString:String->void 
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: warning: expectedDeclaredSignatures: (Assignment1.java:7) In type Assignment1, missing declared signature: indexOf:String;char;int->int
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: warning: expectedDeclaredSignatures: (Assignment1.java:7) In type Assignment1, missing declared signature: indexOfNot:String;char;int->int//EC
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: warning: expectedDeclaredSignatures: (Assignment1.java:7) In type Assignment1, missing declared signature: processInput:->void
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: warning: expectedDeclaredSignatures: (Assignment1.java:7) In type Assignment1, missing declared signature: scanString:String->void
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: warning: minDeclaredMethods: (Assignment1.java:7) Min declared methods: 1, actual Assignment1
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:7: typeDefined: (Assignment1.java:7) Class/Interface Assignment1 matching tag main.Assignment(.*) defined
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\Assignment1.java:17:44: warning: The String "Type your input or \".\" if you'd like to stop" appears 2 times in the file.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\stringProcessor.java:3: typeDefined: (stringProcessor.java:3) Class/Interface stringProcessor matching tag No Expected Tag defined
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\stringProcessor.java:3:14: warning: Name 'stringProcessor' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent2)\Submission attachment(s)\main\Assignment1\src\main\stringProcessor.java:27:75: warning: The String " " appears 3 times in the file.
+Audit done.

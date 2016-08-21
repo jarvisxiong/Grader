@@ -34,6 +34,10 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
 	protected double incorrectOutputCredit() {
 		return 0.0;
 	}
+	protected boolean hasError(String anError) {
+		return !anError.isEmpty() &&
+				!anError.contains ("No line found"); // we will penalize for no terminating . separately
+	}
 	@Test
     public void test() {
         try {
@@ -52,6 +56,7 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
             			correctOutputButErrorsMessage() +
             			NotesAndScore.PERCENTAGE_MARKER 
             			+ correctOutputButErrorsCredit(), false);
+            	return;
             }
             retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithNoEndingSpace(), expectedOutputs());
             if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
@@ -61,7 +66,8 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
             	Assert.assertTrue(
             			correctOutputButErrorsMessage() +
             			NotesAndScore.PERCENTAGE_MARKER 
-            			+ correctOutputButErrorsCredit(), false);  
+            			+ correctOutputButErrorsCredit(), false); 
+            	return;
             }
 
             Assert.assertTrue(

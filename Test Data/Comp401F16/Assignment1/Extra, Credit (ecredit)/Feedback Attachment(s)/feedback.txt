@@ -1,0 +1,56 @@
+Grading result for: Extra, Credit (ecredit)
+
+Grading features...
+----------------------------------
+MultipleTokenSuite:Can process multiple tokens         20.0 / 30.0
+InvalidCharacterSuite:Handles Invalid Characters       3.3 /  5.0
+TerminatesWithPeriodSuite:Handles Variable Spaces      3.3 /  5.0
+SingleTokenSuite:Can process a single token            6.7 / 10.0
+VariableSpaceSuite:Handles Variable Spaces             3.3 /  5.0
+Screenshots enclosed                                   0.0 / 10.0
+Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
+Interactive Run                                        0.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 36.6
+
+Grading restrictions...
+----------------------------------
+Interactive Run                                        0.0 / 20.0 (Extra credit)
+Illegal import or call                      0.0 /  -25.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 36.6
+
+Notes from grading features:
+----------------------------------
+MultipleTokenSuite:Can process multiple tokens:
+  -- Incorrect output
+
+InvalidCharacterSuite:Handles Invalid Characters:
+  -- Incorrect output
+
+TerminatesWithPeriodSuite:Handles Variable Spaces:
+  -- Incorrect output
+
+SingleTokenSuite:Can process a single token:
+  -- Incorrect output
+
+VariableSpaceSuite:Handles Variable Spaces:
+  -- Incorrect output
+
+Screenshots enclosed:
+  -- Missing images
+
+Interactive Run:
+  -- No graded in auto run
+
+
+Notes from grading restrictions:
+----------------------------------
+Illegal import or call:
+  -- No project run interactively
+
+
+Early benefit: 105.0%
+  Total Score: 38.85

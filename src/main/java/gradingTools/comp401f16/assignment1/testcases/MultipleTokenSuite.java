@@ -14,7 +14,7 @@ import util.annotations.MaxValue;
    MultipleTokenProductTest.class,
    
 })
-@MaxValue(13)
+@MaxValue(30)
 @Explanation("Can process multiple tokens")
 public class MultipleTokenSuite {
 

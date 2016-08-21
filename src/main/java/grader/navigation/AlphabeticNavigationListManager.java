@@ -129,7 +129,7 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 //    	String anEndOnyen = GraderSettings.get().get("end");
     	String aStartFilePart = "(" + aStartOnyen + ")";
     	String anEndFilePart = "(" + anEndOnyen + ")";
-    	System.out.println(" Searching for onyens between:" + aStartOnyen + "->" + anEndOnyen);
+    	System.out.println("Searching for onyens between:" + aStartOnyen + "->" + anEndOnyen);
     	boolean foundStart = false;
 
         for (File file : files) {

@@ -1,0 +1,54 @@
+Grading result for: Test, Student(tstudent)
+
+Grading features...
+----------------------------------
+MultipleTokenSuite:Can process multiple tokens         20.0 / 30.0
+InvalidCharacterSuite:Handles Invalid Characters       0.0 /  5.0
+TerminatesWithPeriodSuite:Handles Variable Spaces      3.3 /  5.0
+SingleTokenSuite:Can process a single token            10.0 / 10.0
+VariableSpaceSuite:Handles Variable Spaces             0.0 /  5.0
+Screenshots enclosed                                   10.0 / 10.0
+Use an extra class with iterator like interface        0.0 / 10.0 (Extra credit)
+Interactive Run                                        0.0 / 20.0 (Extra credit)
+----------------------------------
+  Points Awarded: 43.3
+
+Grading restrictions...
+----------------------------------
+Interactive Run                                        0.0 / 20.0 (Extra credit)
+Illegal import or call                      0.0 /  -25.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 43.3
+
+Notes from grading features:
+----------------------------------
+MultipleTokenSuite:Can process multiple tokens:
+  -- Incorrect output
+
+InvalidCharacterSuite:Handles Invalid Characters:
+  -- Incorrect output
+  -- Incorrect output
+  -- Incorrect output
+
+TerminatesWithPeriodSuite:Handles Variable Spaces:
+  -- Incorrect output
+
+VariableSpaceSuite:Handles Variable Spaces:
+  -- Incorrect output
+  -- Incorrect output
+  -- Incorrect output
+
+Interactive Run:
+  -- No graded in auto run
+
+
+Notes from grading restrictions:
+----------------------------------
+Illegal import or call:
+  -- No project run interactively
+
+
+Early benefit: 105.0%
+  Total Score: 45.15

@@ -1,0 +1,648 @@
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66 
+11 33 55 1 
+. 
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 
+Numbers: 
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66
+11 33 55 1
+.
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66 
+11 33 55 1 
+. 
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 
+Numbers: 
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66
+11 33 55 1
+.
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66 
+11 33 55 1 
+. 
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 
+Numbers: 
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+INPUT(MultipleTokenSuite:Can process multiple tokens)
+22 44 66
+11 33 55 1
+.
+
+OUTPUT(MultipleTokenSuite:Can process multiple tokens)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokensOutputTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokensOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenSumTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenProductTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 
+Numbers: 
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 22 two44 
+
+ERRORS(InvalidCharacterSuite:Handles Invalid Characters)
+Exception in thread "main" java.lang.NumberFormatException: For input string: "two44"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 
+Numbers: 
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 22 two44 
+
+ERRORS(InvalidCharacterSuite:Handles Invalid Characters)
+Exception in thread "main" java.lang.NumberFormatException: For input string: "two44"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 
+Numbers: 
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+INPUT(InvalidCharacterSuite:Handles Invalid Characters)
+22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+OUTPUT(InvalidCharacterSuite:Handles Invalid Characters)
+Numbers: 22 two44 
+
+ERRORS(InvalidCharacterSuite:Handles Invalid Characters)
+Exception in thread "main" java.lang.NumberFormatException: For input string: "two44"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterOutputTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+Process line:Numbers: 22 two44 
+Numbers: 22 two44 
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterSumTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+Process line:Numbers: 22 two44 
+Numbers: 22 two44 
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterProductTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,; 
+11 ^&33 !@@55 "1 the end 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 two44 !@66,;
+11 ^&33 !@@55 "1 the end
+.
+
+Process line:Numbers: 22 two44 
+Numbers: 22 two44 
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterProductTest: 0.0
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66 
+11 33 55 1 
+. 
+45 
+
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66
+11 33 55 1
+.
+45
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66 
+11 33 55 1 
+. 
+45 
+
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66
+11 33 55 1
+.
+45
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66 
+11 33 55 1 
+. 
+45 
+
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+INPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+22 44 66
+11 33 55 1
+.
+45
+OUTPUT(TerminatesWithPeriodSuite:Handles Variable Spaces)
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+
+*****************************(TerminatesWithPeriodSuite:Handles Variable Spaces)*****************************
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodOutputTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+45 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+45
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodSumTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+45 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+45
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodProductTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66 
+11 33 55 1 
+. 
+45 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22 44 66
+11 33 55 1
+.
+45
+Process line:Numbers: 22 44 66 Sum: 132 Product: 63888
+Numbers: 22 44 66 Sum: 132 Product: 63888
+Process line:Numbers: 11 33 55 1 Sum: 100 Product: 19965
+Numbers: 11 33 55 1 Sum: 100 Product: 19965
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202 
+. 
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202
+.
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 0202 Sum: 202 Product: 202
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202 
+. 
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202
+.
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 0202 Sum: 202 Product: 202
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202 
+. 
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+INPUT(SingleTokenSuite:Can process a single token)
+0202
+.
+
+OUTPUT(SingleTokenSuite:Can process a single token)
+Numbers: 0202 Sum: 202 Product: 202
+
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenOutputTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202
+.
+
+Process line:Numbers: 0202 Sum: 202 Product: 202
+Numbers: 0202 Sum: 202 Product: 202
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenSumTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202
+.
+
+Process line:Numbers: 0202 Sum: 202 Product: 202
+Numbers: 0202 Sum: 202 Product: 202
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenProductTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$0202
+.
+
+Process line:Numbers: 0202 Sum: 202 Product: 202
+Numbers: 0202 Sum: 202 Product: 202
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66     
+11 33    55  1 
+. 
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66    
+11 33    55  1
+.
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 11 33  
+
+ERRORS(VariableSpaceSuite:Handles Variable Spaces)
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66     
+11 33    55  1 
+. 
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66    
+11 33    55  1
+.
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 11 33  
+
+ERRORS(VariableSpaceSuite:Handles Variable Spaces)
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66     
+11 33    55  1 
+. 
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+INPUT(VariableSpaceSuite:Handles Variable Spaces)
+22    44 66    
+11 33    55  1
+.
+
+OUTPUT(VariableSpaceSuite:Handles Variable Spaces)
+Numbers: 
+Numbers: 11 33  
+
+ERRORS(VariableSpaceSuite:Handles Variable Spaces)
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at main.Scan.scan(Scan.java:46)
+	at main.Scan.main(Scan.java:16)
+
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceOutputTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66     
+11 33    55  1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66    
+11 33    55  1
+.
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 11 33  
+Numbers: 11 33  
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceSumTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66     
+11 33    55  1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66    
+11 33    55  1
+.
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 11 33  
+Numbers: 11 33  
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceProductTest: 1.0
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66     
+11 33    55  1 
+. 
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 
+Numbers: 
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-R-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" main.Scan
+Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Test, Student(tstudent)\Submission attachment(s)\Assignment1\A1\bin
+$22    44 66    
+11 33    55  1
+.
+
+Process line:Numbers: 
+Numbers: 
+Process line:Numbers: 11 33  
+Numbers: 11 33  
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceProductTest: 0.0
+*****************************(Screenshots enclosed)*****************************
+### Image enclosed test case: 1.0
+*****************************(Interactive Run)*****************************
+### No warning test case: 0.0
+### No warning test case: 0.0
