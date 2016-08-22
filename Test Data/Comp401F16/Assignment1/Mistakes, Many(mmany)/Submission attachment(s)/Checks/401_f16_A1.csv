@@ -1,0 +1,18 @@
+0,Mon Aug 22 13:48:27 EDT 2016,true,main\Assignment1.java,typeDefined,Assignment1,main.Assignment(.*)
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,illegalTypeImported,Assignment1,java.util.StringTokenizer,Assignment1
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,uncessaryMethodCall,Assignment1,main-->Scanner.delimiter
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,illegalMethodCall,Assignment1,main-->Scanner.delimiter
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,uncessaryMethodCall,Assignment1,main-->String.split
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,illegalMethodCall,Assignment1,main-->String.split
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,uncessaryMethodCall,Assignment1,main-->String.equals
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,        processInput:->void 
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       scanString:String->void 
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       indexOf:String;char;int->void 
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       indexOfNot:String;char;int->void//EC 
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       (.*)!hasNext:->boolean//EC 
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       (.*)!next:->String//EC
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,processInput:->void,Assignment1
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,scanString:String->void,Assignment1
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,indexOf:String;char;int->int,Assignment1
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,indexOfNot:String;char;int->int//EC,Assignment1
+0,Mon Aug 22 13:48:28 EDT 2016,true,main\StringScanner.java,typeDefined,StringScanner,No Expected Tag

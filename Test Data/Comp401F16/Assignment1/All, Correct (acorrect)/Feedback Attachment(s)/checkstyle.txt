@@ -1,19 +1,19 @@
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
+begin tree:unc.cs.checks.STBuilderCheck@5479e3f
+begin tree:unc.cs.checks.ExpectedInterfacesCheck@2ac1fdc4
+begin tree:unc.cs.checks.UnnecessaryMethodCallCheck@2fc14f68
+begin tree:unc.cs.checks.ExpectedConstructorsCheck@3930015a
+begin tree:unc.cs.checks.InvalidPackageNameCheck@3ab39c39
+begin tree:unc.cs.checks.IllegalMethodCallCheck@7a92922
+begin tree:unc.cs.checks.LiberalMagicNumberCheck@28864e92
+begin tree:unc.cs.checks.MissingMethodCallCheck@50675690
+begin tree:unc.cs.checks.ExpectedDeclaredSignaturesCheck@2d6d8735
+begin tree:unc.cs.checks.DuplicateShortTypeNameCheck@13b6d03
+begin tree:unc.cs.checks.IllegalTypeImportedCheck@61a52fbd
+begin tree:unc.cs.checks.FunctionAssignsGlobalCheck@6fffcba5
+begin tree:unc.cs.checks.NoFullTypeNameCheck@483bf400
+begin tree:unc.cs.checks.IllegalTypeDefinedCheck@7006c658
+begin tree:unc.cs.checks.InvalidPackageNameCheck@71be98f5
 Starting audit...
-D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\All, Correct (acorrect)\Submission attachment(s)\Assignment1\Assignment1\src\main\ProcString.java:12: warning: minDeclaredMethods: (ProcString.java:12) Min declared methods: 1, actual ProcString
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\All, Correct (acorrect)\Submission attachment(s)\Assignment1\Assignment1\src\main\ProcString.java:12: typeDefined: (ProcString.java:12) Class/Interface ProcString matching tag No Expected Tag defined
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\All, Correct (acorrect)\Submission attachment(s)\Assignment1\Assignment1\src\main\ProcString.java:19:27: warning: Literal Strings should be compared using equals(), not '!='.
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\All, Correct (acorrect)\Submission attachment(s)\Assignment1\Assignment1\src\main\ProcString.java:50:51: warning: The String " " appears 3 times in the file.

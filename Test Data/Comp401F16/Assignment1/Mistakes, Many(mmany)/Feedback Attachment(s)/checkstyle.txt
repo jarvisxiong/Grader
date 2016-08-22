@@ -1,31 +1,33 @@
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
-Ask for consent: Checking if in plugin:true
+begin tree:unc.cs.checks.STBuilderCheck@5479e3f
+begin tree:unc.cs.checks.ExpectedInterfacesCheck@2ac1fdc4
+begin tree:unc.cs.checks.UnnecessaryMethodCallCheck@2fc14f68
+begin tree:unc.cs.checks.ExpectedConstructorsCheck@3930015a
+begin tree:unc.cs.checks.InvalidPackageNameCheck@3ab39c39
+begin tree:unc.cs.checks.IllegalMethodCallCheck@7a92922
+begin tree:unc.cs.checks.LiberalMagicNumberCheck@28864e92
+begin tree:unc.cs.checks.MissingMethodCallCheck@50675690
+begin tree:unc.cs.checks.ExpectedDeclaredSignaturesCheck@2d6d8735
+begin tree:unc.cs.checks.DuplicateShortTypeNameCheck@13b6d03
+begin tree:unc.cs.checks.IllegalTypeImportedCheck@61a52fbd
+begin tree:unc.cs.checks.FunctionAssignsGlobalCheck@6fffcba5
+begin tree:unc.cs.checks.NoFullTypeNameCheck@483bf400
+begin tree:unc.cs.checks.IllegalTypeDefinedCheck@7006c658
+begin tree:unc.cs.checks.InvalidPackageNameCheck@71be98f5
+begin tree:unc.cs.checks.STBuilderCheck@5479e3f
+begin tree:unc.cs.checks.ExpectedInterfacesCheck@2ac1fdc4
+begin tree:unc.cs.checks.UnnecessaryMethodCallCheck@2fc14f68
+begin tree:unc.cs.checks.ExpectedConstructorsCheck@3930015a
+begin tree:unc.cs.checks.InvalidPackageNameCheck@3ab39c39
+begin tree:unc.cs.checks.IllegalMethodCallCheck@7a92922
+begin tree:unc.cs.checks.LiberalMagicNumberCheck@28864e92
+begin tree:unc.cs.checks.MissingMethodCallCheck@50675690
+begin tree:unc.cs.checks.ExpectedDeclaredSignaturesCheck@2d6d8735
+begin tree:unc.cs.checks.DuplicateShortTypeNameCheck@13b6d03
+begin tree:unc.cs.checks.IllegalTypeImportedCheck@61a52fbd
+begin tree:unc.cs.checks.FunctionAssignsGlobalCheck@6fffcba5
+begin tree:unc.cs.checks.NoFullTypeNameCheck@483bf400
+begin tree:unc.cs.checks.IllegalTypeDefinedCheck@7006c658
+begin tree:unc.cs.checks.InvalidPackageNameCheck@71be98f5
 Starting audit...
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call         processInput:->void 
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:1: warning: missingMethodCall: (Assignment1.java:1) has not made expected call        (.*)!hasNext:->boolean//EC 
@@ -38,7 +40,6 @@ D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mman
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: indexOfNot:String;char;int->int//EC
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: processInput:->void
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: expectedDeclaredSignatures: (Assignment1.java:12) In type Assignment1, missing declared signature: scanString:String->void
-D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: warning: minDeclaredMethods: (Assignment1.java:12) Min declared methods: 1, actual Assignment1
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:12: typeDefined: (Assignment1.java:12) Class/Interface Assignment1 matching tag main.Assignment(.*) defined
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: illegalMethodCall: (Assignment1.java:19) called disallowed method main-->Scanner.delimiter
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:19: warning: uncessaryMethodCall: (Assignment1.java:19) called unnecessary method Assignment1
@@ -47,7 +48,6 @@ D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mman
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: 'if' construct must use '{}'s.
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25: warning: uncessaryMethodCall: (Assignment1.java:25) called unnecessary method Assignment1
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\Assignment1.java:25:32: warning: String literal expressions should be on the left side of an equals comparison.
-D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:3: warning: minDeclaredMethods: (StringScanner.java:3) Min declared methods: 1, actual StringScanner
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:3: typeDefined: (StringScanner.java:3) Class/Interface StringScanner matching tag No Expected Tag defined
 D:\dewan_backup\Java\Grader\Test Data\Comp401F16\Assignment1\Mistakes, Many(mmany)\Submission attachment(s)\Assignment1\Assignment1\src\main\StringScanner.java:36:51: warning: The String " " appears 3 times in the file.
 Audit done.

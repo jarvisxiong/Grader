@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This configuration file was written by the eclipse-cs plugin configuration 
+	editor -->
+<!-- Checkstyle-Configuration: Test Description: none -->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+
+<module name="unc.tools.checkstyle.AnExtendibleChecker">
+		
+
+	<property name="severity" value="warning" />
+
+
+	<module name="unc.tools.checkstyle.AnExtendibleTreeWalker">
+		<property name="severity" value="info" />
+
+		<module name="STBuilder">
+			<property name="includeTypeTags" value="*" />
+			<property name="severity" value="info" />
+			<property name="projectPackagePrefixes" value="test,lectures, main, grail" />
+			<property name="existingClasses"
+				value="java.util.List, java.util.ArrayList, java.util.Vector, java.util.HashMap" />
+			<property name="importsAsExistingClasses" value="true" />
+			<property name="checksName"
+				value="401_f16_A1" />
+			<property name="expectedTypes" value="
+				main.Assignment(.*),
+				mp.scanner.ScanningIterator//EC
+				" />				
+
+		</module>
+		
+
+	</module>
+
+
+	<module name="unc.tools.checkstyle.ANonCachingTreeWalker">
+		<property name="severity" value="warning" />
+	
+		<module name="ExpectedDeclaredSignatures">
+				<property name="severity" value="warning" />
+		
+				<property name="expectedSignatures"
+					value="
+					main.Assignment1 = 
+						processInput:->void AND
+						scanString:String->void AND
+						indexOf:String;char;int->int AND
+						indexOfNot:String;char;int->int//EC,
+					grail.scanner.ScanningIterator=
+						indexOf:String;char;int->void AND
+						indexOfNot:String;char;int->void//EC	
+					" />
+			</module>
+			<module name="MissingMethodCall">
+			<property name="severity" value="warning" />			
+			<property name="expectedCalls"
+				value="
+				main.Assignment1 = 
+						processInput:->void AND
+						scanString:String->void AND
+						indexOf:String;char;int->void AND
+						indexOfNot:String;char;int->void//EC AND
+						(.*)!hasNext:->boolean//EC AND
+						(.*)!next:->String//EC,
+				mp.scanner.ScanningIterator=
+						indexOf:String;char;int->void AND
+						indexOfNot:String;char;int->void//EC
+						" />
+			</module>
+			
+		<module name="ExpectedConstructors">
+			<property name="severity" value="warning" />		
+			<property name="expectedSignatures"
+				value="
+				mp.scanner.ScanningIterator =:String,												
+				" />
+		</module>
+		
+		<module name="ExpectedInterfaces">
+			<property name="severity" value="warning" />		
+			<property name="expectedInterfaces"
+				value="
+				ScanningIterator = Iterator//EC
+				" />
+		</module>				
+		
+		
+		<module name="DuplicateShortTypeName">
+			<property name="severity" value="warning" />
+			<property name="includeTypeTags" value="*" />
+		</module>
+		
+		<module name="NoFullTypeName">
+			<property name="severity" value="warning" />
+			<property name="includeTypeTags" value="*" />
+		</module>
+
+		<module name="IllegalMethodCall">		
+			<property name="severity" value="warning" />
+			<property name="disallowedCalls" value="Scanner, String" />
+			<property name="exceptionCalls"
+				value="String.substring, String.charAt, String.length, String.equals, Scanner.nextLine, Scanner.hasNext, Scanner.close" />
+		</module>
+		
+		<module name="UnnecessaryMethodCall">
+			<property name="severity" value="warning" />
+			<property name="disallowedCalls" value="Scanner, String" />
+			<property name="exceptionCalls"
+				value="String.substring, String.charAt, String.length, Scanner.nextLine, Scanner.close" />
+		</module>
+		
+		
+		<module name="IllegalTypeImported">
+			<property name="severity" value="warning" />
+			<property name="illegalPrefixes" value="*" />
+			<property name="legalPrefixes"
+				value="bus.uigen, util, shapes, java.beans, java.util.Scanner, java.util.List, java.util.ArrayList, java.util.Vector, java.util.LinkedList, java.util.Iterator, java.util.NoSuchElementException" />
+		</module>
+		
+		<module name="IllegalTypeDefined">
+			<property name="severity" value="warning" />
+			<property name="illegalTypeNames"
+				value="PropertyChangeEvent, PropertyChangeListener, PropertyListenerRegisterer" />
+		</module>
+		
+		<module name="FunctionAssignsGlobal">
+			<property name="severity" value="warning" />
+			<property name="excludeMethodTags"
+				value="next(.*), pop(.*), delete(.*), remove(.*), read(.*), create(.*), set(.*), process(.*), scan(.*)" />
+
+		</module>
+		
+ 		<module name="InvalidPackageName">
+			<property name="severity" value="warning" />
+		</module>
+		<module name="LiberalMagicNumber" >
+			<property name="severity" value="warning" />
+			<property name="allowedSiblings" value=
+				"Math.(.*)" 
+			/>
+			
+		</module>
+		
+
+
+	</module>
+	<module name="TreeWalker">		
+		<module name="EqualsAvoidNull" />
+		<module name="EmptyStatement" />
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+		<module name="StringLiteralEquality" />
+		<module name="NestedForDepth">
+			<property name="max" value="1" />
+		</module>
+		<module name="NestedIfDepth">
+			<property name="max" value="1" />
+		</module>
+		<module name="PackageDeclaration" />		
+		<module name="AvoidStarImport" />
+		<module name="HiddenField"/>
+
+		
+		<module name="VisibilityModifier">
+			<property name="packageAllowed" value="true" />
+			<property name="protectedAllowed" value="true" />
+		</module>
+		<module name="ConstantName" />
+		<module name="TypeName" />
+		<module name="MethodName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="StaticVariableName" />
+		<module name="NeedBraces"/>
+		<module name="MultipleStringLiterals"/>		
+ 		<module name="InvalidPackageName"/>
+
+
+	</module>
+</module>
+

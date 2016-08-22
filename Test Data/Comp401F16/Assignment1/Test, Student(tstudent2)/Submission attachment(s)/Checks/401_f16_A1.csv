@@ -1,0 +1,12 @@
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,typeDefined,Assignment1,main.Assignment(.*)
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,        processInput:->void 
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       scanString:String->void 
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       indexOf:String;char;int->void 
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       indexOfNot:String;char;int->void//EC 
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       (.*)!hasNext:->boolean//EC 
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,missingMethodCall,Assignment1,       (.*)!next:->String//EC
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,processInput:->void,Assignment1
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,scanString:String->void,Assignment1
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,indexOf:String;char;int->int,Assignment1
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\Assignment1.java,expectedDeclaredSignatures,Assignment1,indexOfNot:String;char;int->int//EC,Assignment1
+0,Mon Aug 22 13:49:02 EDT 2016,true,main\stringProcessor.java,typeDefined,stringProcessor,No Expected Tag
