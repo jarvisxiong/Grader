@@ -253,7 +253,7 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	}
 
 	@Override
-	public double getScore() {
+	public double getUnroundedScore() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -308,6 +308,12 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 	public Set<Class> getUntestedClasses() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public double getDisplayedScore() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 //	@Override

@@ -235,9 +235,9 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	}
 
 	@Override
-	public double getScore() {
+	public double getUnroundedScore() {
 		// TODO Auto-generated method stub
-		return graderProperties.getScore();
+		return graderProperties.getUnroundedScore();
 	}
 
 	@Override
@@ -291,6 +291,12 @@ public class AGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public Set<Class> getUntestedClasses() {
 		// TODO Auto-generated method stub
 		return graderProperties.getUntestedClasses();
+	}
+
+	@Override
+	public double getDisplayedScore() {
+		// TODO Auto-generated method stub
+		return graderProperties.getDisplayedScore();
 	}
 
 //	@Override
