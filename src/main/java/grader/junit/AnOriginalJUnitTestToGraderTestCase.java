@@ -21,7 +21,7 @@ import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import grader.junit.test.directreference.ACartesianPointJUnitTester;
+//import grader.junit.test.directreference.ACartesianPointJUnitTester;
 
 public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implements GraderTestCase{
 	public static int DEFAULT_SCORE = 10;	
@@ -157,11 +157,11 @@ public class AnOriginalJUnitTestToGraderTestCase extends BasicTestCase implement
 //		Runner aRunner = new BlockJUnit4ClassRunner(ACartesianPointParametrizedJUnitMultiTester.class);
 //		return null;
 	}
-	public static void main (String[] args) {
-		AnOriginalJUnitTestToGraderTestCase foo = new AnOriginalJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class);
-//		foo.setJUnitClass(ACartesianPointJUnitTester.class);
-		System.out.println (foo);
-	}
+//	public static void main (String[] args) {
+//		AnOriginalJUnitTestToGraderTestCase foo = new AnOriginalJUnitTestToGraderTestCase(ACartesianPointJUnitTester.class);
+////		foo.setJUnitClass(ACartesianPointJUnitTester.class);
+//		System.out.println (foo);
+//	}
 
 	@Override
 	public void setMaxScore(double aMaxScore) {

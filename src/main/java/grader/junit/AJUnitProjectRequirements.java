@@ -6,7 +6,7 @@ import java.util.Map;
 import framework.grading.FrameworkProjectRequirements;
 import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.junit.GradableJUnitTest;
-import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
+//import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
 
 
 public class AJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
@@ -321,12 +321,12 @@ public class AJUnitProjectRequirements extends FrameworkProjectRequirements impl
 //		return Arrays.asList(aTestClasses);
 //	}
 	
-	public static void main (String[] args) {
-		JUnitProjectRequirements aJUnitProjectRequirements = new AJUnitProjectRequirements();
-		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
-		aJUnitProjectRequirements.checkFeatures(null);
-//		addJUnitTestSuite (CartesianPointSuite.class);
-		
-	}
+//	public static void main (String[] args) {
+//		JUnitProjectRequirements aJUnitProjectRequirements = new AJUnitProjectRequirements();
+//		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
+//		aJUnitProjectRequirements.checkFeatures(null);
+////		addJUnitTestSuite (CartesianPointSuite.class);
+//		
+//	}
 
 }

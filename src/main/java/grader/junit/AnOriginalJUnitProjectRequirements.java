@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 
 import framework.grading.FrameworkProjectRequirements;
 import grader.basics.junit.AGradableJUnitTest;
-import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
+//import gradingTools.comp999junit.assignment1.testcases.reflection.ReflectiveCartesianPointSuite;
 
 
 public class AnOriginalJUnitProjectRequirements extends FrameworkProjectRequirements implements JUnitProjectRequirements{
@@ -82,12 +82,12 @@ public class AnOriginalJUnitProjectRequirements extends FrameworkProjectRequirem
 		return aTestClasses;
 	}
 	
-	public static void main (String[] args) {
-		JUnitProjectRequirements aJUnitProjectRequirements = new AnOriginalJUnitProjectRequirements();
-		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
-		aJUnitProjectRequirements.checkFeatures(null);
-//		addJUnitTestSuite (CartesianPointSuite.class);
-		
-	}
+//	public static void main (String[] args) {
+//		JUnitProjectRequirements aJUnitProjectRequirements = new AnOriginalJUnitProjectRequirements();
+//		aJUnitProjectRequirements.addJUnitTestSuite(ReflectiveCartesianPointSuite.class);
+//		aJUnitProjectRequirements.checkFeatures(null);
+////		addJUnitTestSuite (CartesianPointSuite.class);
+//		
+//	}
 
 }
