@@ -131,13 +131,18 @@ public class GradingEnvironment extends BasicGradingEnvironment {
 //		setClasspaths();
 	}
 	// this one uses static configuration utils
+    // this is overriding the superclass
 	@Override
     protected  String findSystemClasspathAndSetAssociatedClasspaths(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
 //    	String myClassPath = System.getProperty("java.class.path");
 //    	String originalClassPath = systemClassPath;
+    	
+    	
+    	//should we not call the parent class methods here?
     	oeClassPath = findOEClassPath(separator); 
   	    junitClassPath = findJUnitClassPath(separator);
+  	    localGraderClassPath = findLocalGraderClassPath(separator);
 
 
 // added this stuff below to replace the commented code below

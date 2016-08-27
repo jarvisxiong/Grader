@@ -16,21 +16,21 @@ PointRadiusTest                                        0.0 / 10.0
 Notes from grading features:
 ----------------------------------
 PointPrintTest:
-  -- A Cartesian Point class not found
+  -- Cartesian Point class not found
 
 TestsTestSuite:
   -- Could not find class matching AngleTest
 
 PointAngleSuite:Angle correctly computed for diferent values of X and Y:
-  -- A Cartesian Point class not found
-  -- A Cartesian Point class not found
-  -- A Cartesian Point class not found
-  -- A Cartesian Point class not found
+  -- Cartesian Point class not found
+  -- Cartesian Point class not found
+  -- Cartesian Point class not found
+  -- Cartesian Point class not found
 
 PointTranslationTest:
-  -- A Cartesian Point class not found
+  -- Cartesian Point class not found
 
 PointRadiusTest:
-  -- A Cartesian Point class not found
+  -- Cartesian Point class not found
 
   Total Score: 5.0

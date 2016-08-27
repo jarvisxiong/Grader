@@ -23,7 +23,7 @@ OUTPUT(PointMainTest)
 
 *****************************(PointMainTest)*****************************
 ### gradingTools.comp999junit.assignment1.testcases.PointMainTest: 1.0
-Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;C:\Users\Dewan\.m2\repository\edu\unc\oeall\22\oeall-22.jar;C:\Users\Dewan\.m2\repository\junit\junit\4.11\junit-4.11.jar" Main
+Running command:java -cp ".;..;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\Program Files\eclipse-standard-kepler-SR1-win32-x86_64\eclipse\plugins\net.sf.eclipsecs.checkstyle_6.5.0.201504121610\checkstyle-6.5-all.jar;D:\dewan_backup\Java\GraderBasics\bin;C:\Users\Dewan\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Dewan\.m2\repository\edu\unc\oeall\22\oeall-22.jar" Main
 Running in folder: D:\dewan_backup\Java\Grader\Test Data\Comp999JUnit\Assignment 1\All, ExtraCredit (aecredit)\Submission attachment(s)\Assignment1\Assignment1\bin
 $10
 10

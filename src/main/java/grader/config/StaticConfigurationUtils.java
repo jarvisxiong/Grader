@@ -51,6 +51,7 @@ public class StaticConfigurationUtils {
 	public static final String CLASS_PATH = "classPath";
 	public static final String OE_PATH = "oePath";
 	public static final String JUNIT_PATH = "junitPath";
+	public static final String LOCAL_GRADER_PATH = "localGraderPath";
 	public static final String OE_AND_CLASS_PATH = "oeAndClassPath";
 	public static final String CLASS_PATH_SEPARATOR = ":";
 
@@ -69,6 +70,8 @@ public class StaticConfigurationUtils {
 	public static final String CLASS_PATH_VAR = toVariable(CLASS_PATH);
 	public static final String CLASS_PATH_SEPARATOR_VAR = toVariable(CLASS_PATH_SEPARATOR);
 	public static final String OE_PATH_VAR = toVariable(OE_PATH);
+	public static final String LOCAL_GRADER_PATH_VAR = toVariable(LOCAL_GRADER_PATH);
+
 	public static final String JUNIT_PATH_VAR = toVariable(JUNIT_PATH);
 	public static final String OE_AND_CLASS_PATH_VAR = toVariable(OE_AND_CLASS_PATH );
 	public static final String PERMISSIONS_VAR = toVariable(PERMISSIONS);
@@ -529,13 +532,27 @@ public class StaticConfigurationUtils {
 						command = command.replace(CLASS_PATH_SEPARATOR_VAR,
 								BasicGradingEnvironment.get().getClassPathSeparator());
 					}
-					if (command.contains(OE_PATH_VAR)) {
+					 
+					if (command.contains(LOCAL_GRADER_PATH_VAR)) {
 
+						command = command.replace(LOCAL_GRADER_PATH_VAR,
+						// BasicGradingEnvironment.get().getClasspath());
+								BasicGradingEnvironment.get().getLocalGraderClassPath());
+
+					} 
+					if (command.contains(OE_PATH_VAR)) {
+						if (command.toLowerCase().contains("local")) { // we already have oeall
+							command = command.replace(OE_PATH_VAR,
+									// BasicGradingEnvironment.get().getClasspath());
+									"");
+						} else {
 						command = command.replace(OE_PATH_VAR,
 						// BasicGradingEnvironment.get().getClasspath());
 								BasicGradingEnvironment.get().getOEClassPath());
+						}
 
-					} 
+					}
+
 					if (command.contains(JUNIT_PATH_VAR)) {
 						command = command.replace(JUNIT_PATH_VAR,
 								BasicGradingEnvironment.get().getJUnitClassPath());
