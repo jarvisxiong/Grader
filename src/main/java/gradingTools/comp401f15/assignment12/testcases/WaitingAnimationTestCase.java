@@ -39,11 +39,13 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 //	}
 	boolean proceedAllDone;
 	boolean didNotWait;
+	static Object[] emptyObjects = {};
+
 	protected void callAsynchronousMethods() {
 		Method waitMethod1 = getUniqueParameterlessMethod("waitingArthur");
 		Method waitMethod2 = getUniqueParameterlessMethod("waitingLancelot");
-		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod1);
-		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod2);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod1, emptyObjects);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod2, emptyObjects);
 
 
 		proceedAllDone = false;
@@ -66,7 +68,7 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 			
 		}
 		initThreadState(); // reset data to see if we get more events
-		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
 
 		
 	}

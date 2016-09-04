@@ -62,7 +62,9 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
                 Class<?> clearableHistoryClass = clearMethod.getReturnType();
                 Method getTokens = Arrays.stream(clearableHistoryClass.getMethods()).filter((m)->m.getName().matches(".*get.*")).findFirst().orElse(null);
                 if (getTokens != null) {
-                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, (Object)0);
+//                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, (Object)0);
+                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, new Object[] {0});
+
                 } else {
                     return fail("Can't find method to get from clearable history");
                 }

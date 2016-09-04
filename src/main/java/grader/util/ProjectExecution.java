@@ -75,8 +75,10 @@ public class ProjectExecution extends BasicProjectExecution {
 						continue;
 					}
 					Object aValue = anInputs.get(aPropertyName);
-					timedInvoke(anObject, aWriteMethod, getMethodTimeOut(),
-							new Object[] { aValue });
+//					timedInvoke(anObject, aWriteMethod, getMethodTimeOut(),
+//							new Object[] { aValue });
+					timedInvoke(anObject, aWriteMethod, 
+							new Object[] { aValue }, getMethodTimeOut());
 				}
 				for (String anOutputPropertyName : anOutputProperties) {
 					if (anOutputPropertyName == null)
@@ -98,8 +100,10 @@ public class ProjectExecution extends BasicProjectExecution {
 								+ anOutputPropertyName, true);
 						continue;
 					}
+//					Object result = timedInvoke(anObject, aReadMethod,
+//							getMethodTimeOut(), emptyArgs);
 					Object result = timedInvoke(anObject, aReadMethod,
-							getMethodTimeOut(), emptyArgs);
+							 emptyArgs, getMethodTimeOut());
 					anActualOutputs.put(anOutputPropertyName, result);
 				}
 			}

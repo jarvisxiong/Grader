@@ -32,6 +32,7 @@ public class LockstepAnimationTestCase extends CommandInterpreterAnimationTestCa
 	protected boolean didNotHaveTwoThreads = false;
 //	protected Method waitMethod;
 //	public static final String COORDINATED_METHOD = "lockstepArthur";
+	static Object[] emptyObjects = {};
 
 	protected void callAsynchronousMethods() {
 		Method waitMethod = getUniqueParameterlessMethod(coordinatedMethod);
@@ -42,12 +43,12 @@ public class LockstepAnimationTestCase extends CommandInterpreterAnimationTestCa
 		
 		// put the waiting method in wait state
 		// start the wait method
-		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod, emptyObjects);
 		//sleep so it goes into wait
 		waitForThreads();
 		initThreadState();
 		// now start lockstep method and let them do the lockstep
-		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
 //		waitForThreads();
 		
 

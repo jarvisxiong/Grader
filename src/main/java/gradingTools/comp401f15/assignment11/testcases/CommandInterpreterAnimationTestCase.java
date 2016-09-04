@@ -128,9 +128,12 @@ public  class CommandInterpreterAnimationTestCase extends CommandIntrepreterMeth
 	protected void waitForThreads() {
 		ThreadSupport.sleep(2500);
 	}
+	static Object[] emptyObjects = {};
 	protected void callAsynchronousMethods() {
-		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
-//		retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
+//		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
+
+	//		retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
 		
 	}
 	

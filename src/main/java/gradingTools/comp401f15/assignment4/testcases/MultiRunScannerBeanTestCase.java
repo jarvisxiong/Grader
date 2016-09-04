@@ -37,6 +37,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
 //                                                    "thread Begin rotatRightArm Word Minus Number End"};
     												"thread Start rotateRightArm Word Number End"};
 
+	static Object[] emptyObjects = {};
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -88,7 +89,7 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
                 String testing = scannerTestValues[i];
                 String[] expected = scannerTestExpectedTags[i].split(" ");
                 Object[] args = {testing};
-                BasicProjectExecution.timedInvoke(scanner, stringSetterMethod, testing);
+                BasicProjectExecution.timedInvoke(scanner, stringSetterMethod, new Object[] {testing});
 //                stringSetterMethod.invoke(scanner, testing);
                 Object[] tokens = (Object[]) tokenMethod.invoke(scanner);
                 Map<String, Class> tokenClassMap = new HashMap<>();

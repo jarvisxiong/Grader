@@ -12,9 +12,11 @@ public class SynchronizedAnimationTestCase extends CommandInterpreterAnimationTe
 	protected void waitForThreads() {
 		ThreadSupport.sleep(2000);
 	}
+	static Object[] emptyObjects = {};
+
 	protected void callAsynchronousMethods() {
-		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
-		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
+		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
+		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
 		
 	}
 
