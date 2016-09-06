@@ -9,11 +9,11 @@ import java.util.List;
 
 import util.misc.Common;
 
-public abstract class OutputAndErrorCheckingTestCase {
+public abstract class OutputAndErrorCheckingTestCase extends MethodExecutionTest{
 
-	public enum OutputErrorStatus {
-		CORRECT_OUTPUT_NO_ERRORS, CORRECT_OUTPUT_ERRORS, INCORRECT_OUTPUT_NO_ERRORS, INCORRECT_OUTPUT_ERRORS
-	}
+//	public enum OutputErrorStatus {
+//		CORRECT_OUTPUT_NO_ERRORS, CORRECT_OUTPUT_ERRORS, INCORRECT_OUTPUT_NO_ERRORS, INCORRECT_OUTPUT_ERRORS
+//	}
 
 	protected boolean outputsMustBeInDifferentLines() {
 		return true;

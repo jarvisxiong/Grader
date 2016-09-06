@@ -38,49 +38,50 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
 		return !anError.isEmpty() &&
 				!anError.contains ("No line found"); // we will penalize for no terminating . separately
 	}
-	@Test
-    public void test() {
-        try {
-            OutputErrorStatus retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithEndingSpace(), expectedOutputs());
-            
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
-            	return;
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
-//            	String aMessage = correctOutputButErrorsMessage() + 
-//            			NotesAndScore.PERECTAGE_CHARACTER +
-//            			+ correctOutputButErrorsCredit();
+//	@Test
+//	@Override
+//    public void test() {
+//        try {
+//            OutputErrorStatus retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithEndingSpace(), expectedOutputs());
+//            
+//            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
+//            	return;
+//            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
+////            	String aMessage = correctOutputButErrorsMessage() + 
+////            			NotesAndScore.PERECTAGE_CHARACTER +
+////            			+ correctOutputButErrorsCredit();
+////            	Assert.assertTrue(
+////            			aMessage, false);
+//            	// This results in character becoming an int if marker is a character!
 //            	Assert.assertTrue(
-//            			aMessage, false);
-            	// This results in character becoming an int if marker is a character!
-            	Assert.assertTrue(
-            			correctOutputButErrorsMessage() +
-            			NotesAndScore.PERCENTAGE_MARKER 
-            			+ correctOutputButErrorsCredit(), false);
-            	return;
-            }
-            retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithNoEndingSpace(), expectedOutputs());
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
-            	return;
-            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
-            	
-            	Assert.assertTrue(
-            			correctOutputButErrorsMessage() +
-            			NotesAndScore.PERCENTAGE_MARKER 
-            			+ correctOutputButErrorsCredit(), false); 
-            	return;
-            }
-
-            Assert.assertTrue(
-            		incorrectOutputMessage() +
-            		NotesAndScore.PERCENTAGE_MARKER
-            		+ incorrectOutputCredit(),
-            		
-            		false);
-            
-        } catch (NotRunnableException e) {
-            throw new NotGradableException();
-        }
-    }
+//            			correctOutputButErrorsMessage() +
+//            			NotesAndScore.PERCENTAGE_MARKER 
+//            			+ correctOutputButErrorsCredit(), false);
+//            	return;
+//            }
+//            retVal = test(Assignment1Suite.MAIN_CLASS_NAME, inputWithNoEndingSpace(), expectedOutputs());
+//            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_NO_ERRORS)
+//            	return;
+//            if (retVal == OutputErrorStatus.CORRECT_OUTPUT_ERRORS) {
+//            	
+//            	Assert.assertTrue(
+//            			correctOutputButErrorsMessage() +
+//            			NotesAndScore.PERCENTAGE_MARKER 
+//            			+ correctOutputButErrorsCredit(), false); 
+//            	return;
+//            }
+//
+//            Assert.assertTrue(
+//            		incorrectOutputMessage() +
+//            		NotesAndScore.PERCENTAGE_MARKER
+//            		+ incorrectOutputCredit(),
+//            		
+//            		false);
+//            
+//        } catch (NotRunnableException e) {
+//            throw new NotGradableException();
+//        }
+//    }
 	protected static StringBuilder stringBuilder = new StringBuilder();
 
     public static String toSpacedInput(String anInput) {
