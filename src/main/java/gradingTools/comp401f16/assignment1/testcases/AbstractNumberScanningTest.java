@@ -19,9 +19,9 @@ public abstract class AbstractNumberScanningTest extends OutputAndErrorCheckingT
     }    
   ;
   
-    protected String toRegex(String aString) {
- 	   return MATCH_ANY + aString + MATCH_ANY;
-    }
+//    protected String toRegex(String aString) {
+// 	   return MATCH_ANY + aString + MATCH_ANY;
+//    }
 	protected String correctOutputButErrorsMessage() {
 		return "Correct output but errors";
 	}
