@@ -20,8 +20,10 @@ public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
 
 	@Override
 	public String failMessageSpecifier() {
+		// TODO Auto-generated method stub
 		return "Illegal type or call";
 	}
+  //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 	    	return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
 	    	
