@@ -7,6 +7,8 @@ import wrappers.framework.project.ProjectWrapper;
 import framework.grading.testing.BasicTestCase;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
+import grader.basics.project.BasicProjectIntrospection;
+import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
@@ -141,7 +143,9 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         if (aTypeTag != null) {
 //        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
         	// class exists check should have cached the class
-        Class aClass = ProjectIntrospection.getClass(project, this, typeTag); 
+//        Class aClass = ProjectIntrospection.getClass(project, this, typeTag); 
+        Class aClass = BasicProjectIntrospection.findClass(
+        		project,typeTag);
 
         if (aClass == null) {
 	    	 return fail("Type " + aTypeTag + " not defined, cannot check");
