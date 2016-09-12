@@ -1,16 +1,22 @@
 package gradingTools.comp410s16.assignment5.testcases;
 
-import framework.execution.NotRunnableException;
-import framework.execution.RunningProject;
+//import framework.execution.NotRunnableException;
+//import framework.execution.RunningProject;
 import framework.grading.testing.BasicTestCase;
-import framework.grading.testing.NotAutomatableException;
-import framework.grading.testing.NotGradableException;
-import framework.grading.testing.TestCaseResult;
-import framework.project.ClassDescription;
-import framework.project.ClassesManager;
-import framework.project.Project;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.ClassDescription;
+import grader.basics.project.ClassesManager;
+import grader.basics.project.NotGradableException;
+import grader.basics.project.Project;
+//import framework.grading.testing.NotAutomatableException;
+//import framework.grading.testing.NotGradableException;
+//import framework.grading.testing.TestCaseResult;
+//import framework.project.ClassDescription;
+//import framework.project.ClassesManager;
+//import framework.project.Project;
 import grader.sakai.project.SakaiProject;
-import grader.util.ExecutionUtil;
+//import grader.util.ExecutionUtil;
 import gradingTools.comp410s16.assignment5.EntryPair;
 import gradingTools.comp410s16.assignment5.HeapInterface;
 import org.apache.maven.plugin.lifecycle.Execution;
@@ -37,7 +43,7 @@ public class FunctionalityTestCase extends BasicTestCase {
         String message = "";
 
 
-        Option<ClassesManager> classesManager = project.getClassesManager();
+        grader.basics.util.Option<ClassesManager> classesManager = project.getClassesManager();
         Set<ClassDescription> names = classesManager.get().getClassDescriptions();
         System.out.println("class descriptions: " + names);
         String heapClassName="";
@@ -49,8 +55,8 @@ public class FunctionalityTestCase extends BasicTestCase {
             }
         }
         if(heapClassName.equals("")) return fail("Heap class not found");
-        Class<?> heapClass = classesManager.get().findByClassName(heapClassName).get(0).getJavaClass();
-        Class<?> pairClass = classesManager.get().findByClassName("EntryPair").get(0).getJavaClass();
+        Class<?> heapClass = classesManager.get().findByClassOrInterfaceName(heapClassName).iterator().next().getJavaClass();
+        Class<?> pairClass = classesManager.get().findByClassOrInterfaceName("EntryPair").iterator().next().getJavaClass();
         Class<?> pairArrayClass = Array.newInstance(pairClass, 0).getClass();
 
         Object heap = null;
@@ -210,4 +216,11 @@ public class FunctionalityTestCase extends BasicTestCase {
 
 
     }
+
+//	@Override
+//	public TestCaseResult test(Project project, boolean autoGrade)
+//			throws NotAutomatableException, NotGradableException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
