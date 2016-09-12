@@ -135,6 +135,9 @@ public class GradingEnvironment extends BasicGradingEnvironment {
 	@Override
     protected  String findSystemClasspathAndSetAssociatedClasspaths(String separator) {
     	String systemClassPath = System.getenv("CLASSPATH");
+    	if(systemClassPath==null) {
+    		systemClassPath="";
+    	}
 //    	String myClassPath = System.getProperty("java.class.path");
 //    	String originalClassPath = systemClassPath;
     	
