@@ -31,6 +31,7 @@ import framework.logging.recorder.ConglomerateRecorderFactory;
 import framework.utils.GraderSettings;
 import framework.utils.GradingEnvironment;
 import grader.basics.execution.BasicProjectExecution;
+import grader.basics.execution.GradingMode;
 import grader.basics.execution.JavaMainClassFinderSelector;
 import grader.basics.execution.RunnerSelector;
 import grader.basics.settings.BasicGradingEnvironment;
@@ -113,7 +114,7 @@ public class Driver {
 //        BasicGradingEnvironment.set(new GradingEnvironment());
 
         setTracing();
-
+        GradingMode.setGraderRun(true);
 //	  ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 
         ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
