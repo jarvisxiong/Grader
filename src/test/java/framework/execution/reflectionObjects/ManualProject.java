@@ -105,4 +105,16 @@ public class ManualProject implements FatProject {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean isInfinite() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setInfinite(boolean newVal) {
+		// TODO Auto-generated method stub
+		
+	}
 }

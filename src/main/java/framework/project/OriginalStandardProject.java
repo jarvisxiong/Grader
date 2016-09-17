@@ -264,4 +264,16 @@ public class OriginalStandardProject implements FatProject {
 			e.printStackTrace();
 		}
     }
+
+	@Override
+	public boolean isInfinite() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setInfinite(boolean newVal) {
+		// TODO Auto-generated method stub
+		
+	}
 }
