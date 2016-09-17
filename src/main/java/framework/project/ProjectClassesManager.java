@@ -8,6 +8,7 @@ import grader.basics.project.BasicProjectClassesManager;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.ClassesManager;
 import grader.basics.settings.BasicGradingEnvironment;
+import grader.execution.ABuildFolderClassLoader;
 import grader.execution.ProxyClassLoader;
 import grader.language.LanguageDependencyManager;
 import grader.navigation.NavigationKind;
@@ -73,6 +74,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 //        	proxyClassLoader = project.getClassLoader();
 //        	}
             classLoader = new URLClassLoader(new URL[]{buildFolder.toURI().toURL()});
+//            classLoader = new ABuildFolderClassLoader(buildFolder);
         }
     }
     protected Class loadClass(String className) throws ClassNotFoundException {
