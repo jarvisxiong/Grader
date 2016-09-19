@@ -115,6 +115,7 @@ public class Driver {
 
         setTracing();
         GradingMode.setGraderRun(true);
+        BasicProjectExecution.setReRunInfiniteProcesses(false);
 //	  ObjectEditor.setDefaultAttribute(AttributeNames.SHOW_DEBUG_INFO_WITH_TOOL_TIP, false);
 
         ConfigurationManagerSelector.getConfigurationManager().init(args); // need to do this
