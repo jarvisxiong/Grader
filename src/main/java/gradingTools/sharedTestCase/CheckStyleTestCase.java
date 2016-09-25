@@ -41,6 +41,29 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return true;
     }
     
+    protected String toLinesString(List<String> aLines) {
+    	StringBuilder aString = new StringBuilder();
+    	for (String aLine:aLines) {
+    		aString.append(aLine);
+    	}
+    	return aString.toString();
+    }
+    protected  String warningName(){
+    	return "";
+    }
+	protected String beautify (String aCheckstyleString) {
+		return aCheckstyleString.substring(aCheckstyleString.indexOf(warningName())) + "\n";
+	}
+	protected String beautify (List<String> aList) {
+		StringBuffer sb = new StringBuffer();
+		for (String aString: aList) {
+			String beautifiedString = beautify(aString);
+			sb.append(beautifiedString);
+			
+		}
+		return sb.toString();
+	}
+    
     public static  List<String> matchedLines (String[] aLines, String aRegex) {
     	List<String> result = new ArrayList();    
 //    	int aCount = 0;
@@ -54,7 +77,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return matchedLines(aLines, aRegex).size();
     }
     public abstract String regexLineFilter();
-    public abstract String failMessageSpecifier();
+    public abstract String failMessageSpecifier(List<String> aMatchedLines);
     protected TestCaseResult test(SakaiProject aProject, String[] aCheckStyleLines, boolean autoGrade) {
     	String aTypeTag = typeTag();
     	if (aTypeTag != null) {
@@ -72,7 +95,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     protected TestCaseResult classFractionResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
     	int aNumMatchedInstances = aMatchedLines.size();    	
         int aTotalClassCount = aProject.getClassesManager().getClassDescriptions().size();
-        String aNotes = failMessageSpecifier() + " in " + aNumMatchedInstances + " out of " + aTotalClassCount + " classes ";
+        String aNotes = failMessageSpecifier(aMatchedLines) + " in " + aNumMatchedInstances + " out of " + aTotalClassCount + " classes ";
         return partialPass((aTotalClassCount - aNumMatchedInstances)/aTotalClassCount, aNotes, autoGrade);    
     	
     }
@@ -80,14 +103,14 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	int aNumFailedInstances = aFailedLines.size();   
     	int i = 0;
     	double aScore = scoreForMatches(aNumFailedInstances);
-        String aNotes = failMessageSpecifier() + " " + aNumFailedInstances + " number of times";
+        String aNotes = failMessageSpecifier(aFailedLines) + " " + aNumFailedInstances + " number of times";
         return partialPass((1 - aScore), aNotes, autoGrade);    
     	
     }
     
     protected TestCaseResult singleMatchScore (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
     	
-        String aNotes = failMessageSpecifier(); 
+        String aNotes = failMessageSpecifier(aFailedLines); 
         return fail(aNotes, autoGrade);    
     	
     }

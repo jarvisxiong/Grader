@@ -44,7 +44,7 @@ public class CheckstylePropertyDefinedTestCase extends CheckStyleTestCase {
 //	    }
 
 	@Override
-	public String failMessageSpecifier() {
+	public String failMessageSpecifier(List<String> aFailedLines) {
 		// TODO Auto-generated method stub
 		return "Property matching " + descriptor + " not defined";
 	}

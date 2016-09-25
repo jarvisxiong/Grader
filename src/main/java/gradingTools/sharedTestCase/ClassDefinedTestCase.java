@@ -65,7 +65,7 @@ public class ClassDefinedTestCase extends CheckStyleTestCase {
 //	    }
 
 	@Override
-	public String failMessageSpecifier() {
+	public String failMessageSpecifier(List<String> aFailedLines) {
 		// TODO Auto-generated method stub
 		return "Class matching " + descriptor + " not defined";
 	}

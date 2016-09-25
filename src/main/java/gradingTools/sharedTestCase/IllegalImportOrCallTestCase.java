@@ -7,6 +7,8 @@ import java.util.List;
 
 
 public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
+	public static final String WARNING_NAME = "illegal";
+
 	 public IllegalImportOrCallTestCase() {
 	        super(null, "Illegal import or call test case");
 	    }
@@ -16,11 +18,14 @@ public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
 		return "((.*)illegalTypeImported(.*))|((.*)illegalMethodCall(.*))";
 	}
 
-
+	@Override
+	protected  String warningName(){
+	   return WARNING_NAME;
+	}
 
 	@Override
-	public String failMessageSpecifier() {
-		return "Illegal type or call";
+	public String failMessageSpecifier(List<String> aFailedLines) {
+		return "Illegal type or call in:\n" + beautify(aFailedLines);
 	}
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 	    	return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);

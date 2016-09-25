@@ -5,29 +5,35 @@ import grader.sakai.project.SakaiProject;
 
 import java.util.List;
 
-public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
-	public VariableHasClassTypeTestCase(String aMessage) {
+public class MagicNumberTestCase extends CheckStyleTestCase {
+	public MagicNumberTestCase(String aMessage) {
 		super(null, aMessage);
 	}
-	public VariableHasClassTypeTestCase() {
-		super(null, "variable has class type");
+	public MagicNumberTestCase() {
+		super(null, "magic number");
 	}
-	public static final String WARNING_NAME = "variableHasClassType";
+	public static final String WARNING_NAME = "magic";
 	@Override
 	public String regexLineFilter() {
 		// TODO Auto-generated method stub
 		return ".*" + WARNING_NAME + ".*";
 	}
+	@Override
+	 protected  String warningName(){
+	    	return WARNING_NAME;
+	    }
 
 	@Override
 	public String failMessageSpecifier(List<String> aFailedLines) {
-		return "Variable has class type failed in:\n" + beautify(aFailedLines);
+		return "Magic number failed in:\n" + toLinesString(aFailedLines);
 	}
-	
-//	String beautify (String aCheckstyleString) {
-//		return aCheckstyleString.substring(aCheckstyleString.indexOf(WARNING_NAME)) + "\n";
+//	protected String warningName() {
+//		return WARNING_NAME;
 //	}
-//	String beautify (List<String> aList) {
+//	protected String beautify (String aCheckstyleString) {
+//		return aCheckstyleString.substring(aCheckstyleString.indexOf(warningName())) + "\n";
+//	}
+//	protected String beautify (List<String> aList) {
 //		StringBuffer sb = new StringBuffer();
 //		for (String aString: aList) {
 //			String beautifiedString = beautify(aString);
@@ -36,10 +42,6 @@ public class VariableHasClassTypeTestCase extends CheckStyleTestCase {
 //		}
 //		return sb.toString();
 //	}
-	@Override
-	 protected  String warningName(){
-	    	return WARNING_NAME;
-	    }
 	
 	protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
 		if (aMatchedLines.size() == 0) {

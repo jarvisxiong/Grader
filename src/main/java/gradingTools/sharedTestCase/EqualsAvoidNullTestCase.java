@@ -1,5 +1,7 @@
 package gradingTools.sharedTestCase;
 
+import java.util.List;
+
 
 
 public class EqualsAvoidNullTestCase extends CheckStyleTestCase {
@@ -15,7 +17,7 @@ public class EqualsAvoidNullTestCase extends CheckStyleTestCase {
 
 
 	@Override
-	public String failMessageSpecifier() {
+	public String failMessageSpecifier(List<String> aFailedLines) {
 		// TODO Auto-generated method stub
 		return "Literal should be target rather than argument of equals(Ignorecase)";
 	}

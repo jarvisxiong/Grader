@@ -21,7 +21,7 @@ public class MinDeclaredMethodsTestCase extends CheckStyleTestCase {
 
 
 	@Override
-	public String failMessageSpecifier() {
+	public String failMessageSpecifier(List<String> aFailedLines) {
 		// TODO Auto-generated method stub
 		return "Number of declared methods less than" + minimum;
 	}
