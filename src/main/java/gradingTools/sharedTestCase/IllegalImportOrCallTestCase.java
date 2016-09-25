@@ -13,7 +13,7 @@ public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
     
 	@Override
 	public String regexLineFilter() {
-		return "(.*)illegalTypeImported(.*) | (.*)illegalMethodCall(.*)";
+		return "((.*)illegalTypeImported(.*))|((.*)illegalMethodCall(.*))";
 	}
 
 
@@ -26,6 +26,12 @@ public class IllegalImportOrCallTestCase extends CheckStyleTestCase {
 	    	return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
 	    	
 	}
+	 public static void main (String[] args) {		 
+		 System.out.println(
+				 "illegalMethodCall: (Assignment4.java:31) called disallowed method main--String.split	Assignment4.java" 	
+				  .matches("((.*)illegalTypeImported(.*))|((.*)illegalMethodCall(.*))"));
+
+	 }
 
 }
 
