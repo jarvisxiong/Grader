@@ -1,7 +1,9 @@
-package gradingTools.shared.testcases;
+package gradingTools.sharedTestCase;
 
 import grader.basics.execution.BasicProjectExecution;
 import grader.basics.execution.ResultingOutErr;
+import gradingTools.shared.testcases.MethodExecutionTest;
+import gradingTools.shared.testcases.MethodExecutionTest.OutputErrorStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
