@@ -13,7 +13,7 @@ import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 
 
-public class NoWarningOrErrorTestCase extends OutputAndErrorCheckingTestCase {
+public class NoWarningOrErrorTestCase extends OldOutputAndErrorCheckingTestCase {
 	protected String ignoreFilter;
 	protected String includeFilter;
 	protected double penalty;

@@ -5,10 +5,10 @@ import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
 
 
-public class TerminateWithPeriodTestCase extends OutputAndErrorCheckingTestCase {
+public class TerminateWithPeriodTestCase extends OldOutputAndErrorCheckingTestCase {
 
     public TerminateWithPeriodTestCase() {
         super("Terminates with period test case");

@@ -11,9 +11,9 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.util.ProjectExecution;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
 
-public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestCase{
+public abstract class  TokenScanningTestCase extends OldOutputAndErrorCheckingTestCase{
 
 	public TokenScanningTestCase(String aName) {
         super(aName);
@@ -76,7 +76,7 @@ public abstract class  TokenScanningTestCase extends OutputAndErrorCheckingTestC
         String[] anOutputLines =anOutput.split("\n");
         List<String> anOutputLinesList = Common.arrayToArrayList(anOutputLines);
         int i = 0;
-        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, anExpectedOutputs);
+        boolean correctTokensPrinted = OldOutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, anExpectedOutputs);
 
 //        boolean correctTokensPrinted = OutputAndErrorCheckingTestCase.isValidOutputInDifferentLines(anOutputLinesList, expectedOutputs());
         if (getsReturnedSets && correctTokensPrinted) {

@@ -14,9 +14,9 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
 
-public class BeanTestCase extends OutputAndErrorCheckingTestCase{
+public class BeanTestCase extends OldOutputAndErrorCheckingTestCase{
 	String tag;
 	List<String> readOnlyProperties;
 	List<String> editableProperties;

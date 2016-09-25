@@ -10,10 +10,10 @@ import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
 import grader.util.GraderCommon;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
 
 
-public class ImageEnclosedTestCase extends OutputAndErrorCheckingTestCase {
+public class ImageEnclosedTestCase extends OldOutputAndErrorCheckingTestCase {
 
     public ImageEnclosedTestCase() {
         super("Image enclosed test case");

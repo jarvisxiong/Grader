@@ -15,14 +15,14 @@ import util.misc.Common;
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class OutputAndErrorCheckingTestCase extends BasicTestCase {
+public abstract class OldOutputAndErrorCheckingTestCase extends BasicTestCase {
 	public enum OutputErrorStatus {
 		CORRECT_OUTPUT_NO_ERRORS,
 		CORRECT_OUTPUT_ERRORS,
 		INCORRECT_OUTPUT_NO_ERRORS,
 		INCORRECT_OUTPUT_ERRORS
 	}
-    public OutputAndErrorCheckingTestCase(String aMessage) {
+    public OldOutputAndErrorCheckingTestCase(String aMessage) {
         super(aMessage);
     }
 

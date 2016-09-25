@@ -5,7 +5,7 @@ import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +14,7 @@ import gradingTools.sharedTestCase.OutputAndErrorCheckingTestCase;
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class VariableSpacesTestCase extends OutputAndErrorCheckingTestCase {
+public class VariableSpacesTestCase extends OldOutputAndErrorCheckingTestCase {
 
     public VariableSpacesTestCase() {
         super("Variable Space Test");
