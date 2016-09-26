@@ -2,6 +2,7 @@ package grader.assignment;
 
 import framework.grading.testing.Checkable;
 import grader.auto_notes.NotesGenerator;
+import grader.basics.project.CurrentProjectHolder;
 import grader.checkers.CheckResult;
 import grader.checkers.FeatureChecker;
 import grader.file.FileProxy;
@@ -257,6 +258,7 @@ public class AGradingFeature implements GradingFeature {
 		if (cannotAutoGrade) {
 			return;
 		}
+		CurrentProjectHolder.getOrCreateCurrentProject().setInfinite(false);
 //		propertyChangeSupport.firePropertyChange("AutoGrade", false, true); // change the selected feature before autograding
 		
 		project.setCurrentGradingFeature(feature); // change the selected feature before autograding
