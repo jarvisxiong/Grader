@@ -78,7 +78,20 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     }
     public abstract String regexLineFilter();
     public abstract String failMessageSpecifier(List<String> aMatchedLines);
+    protected String actualType = null;
+    public String getActualType() {
+    	return actualType;
+    }
+    protected String getType(String aLine) {
+    	final String prefix = "Class/Interface ";
+    	int beginIndex = aLine.indexOf(prefix);
+    	String aSuffix = aLine.substring(beginIndex+prefix.length());
+    	int endIndex = aSuffix.indexOf(" ");
+    	
+    	return aSuffix.substring(0, endIndex);
+    }
     protected TestCaseResult test(SakaiProject aProject, String[] aCheckStyleLines, boolean autoGrade) {
+  
     	String aTypeTag = typeTag();
     	if (aTypeTag != null) {
     	List<String> aTypeDefinedLines = matchedLines(aCheckStyleLines, typeRegex(aTypeTag));
@@ -86,6 +99,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	  if (!foundType) {
     		  return fail (aTypeTag + " not found by checkstyle");
     	  }
+    	  actualType = getType(aTypeDefinedLines.get(0));
     	}
     	List<String> aFailedLines = matchedLines(aCheckStyleLines, regexLineFilter());
     	
@@ -161,16 +175,16 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
         if (project.getClassesManager().isEmpty())
             throw new NotGradableException();
         String aTypeTag = typeTag();
-        if (aTypeTag != null) {
+//        if (aTypeTag != null) {
 //        Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 
         	// class exists check should have cached the class
-        Class aClass = ProjectIntrospection.getClass(project, this, typeTag); 
-
-        if (aClass == null) {
-	    	 return fail("Type " + aTypeTag + " not defined, cannot check");
-	     }
-	     typeName = aClass.getSimpleName();
-        }
+//        Class aClass = ProjectIntrospection.getClass(project, this, typeTag); 
+//
+//        if (aClass == null) {
+//	    	 return fail("Type " + aTypeTag + " not defined, cannot check");
+//	     }
+//	     typeName = aClass.getSimpleName();
+//        }
         SakaiProject aProject = ((ProjectWrapper) project).getProject();
         String aCheckStyleText = aProject.getCheckstyleText();
         String aCheckStyleFileName = aProject.getCheckStyleFileName(); // can read lines from this, maybe more efficient

@@ -25,7 +25,7 @@ public class CheckstyleMethodCalledTestCase extends CheckStyleTestCase {
 	public String regexLineFilter() {
 		
 //		return "(.*)Signature(.*)" + method + "(.*)" + type + "(.*)";
-		return "(.*)" + typeName + "(.*)not made expected call(.*)" + method + "(.*)";
+		return "(.*)" + getActualType() + "(.*)not made expected call(.*)" + method + "(.*)";
 
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
