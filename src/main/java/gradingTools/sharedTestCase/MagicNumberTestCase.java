@@ -5,53 +5,30 @@ import grader.sakai.project.SakaiProject;
 
 import java.util.List;
 
-public class MagicNumberTestCase extends CheckStyleTestCase {
+public class MagicNumberTestCase extends CountingWarningsTestCase {
+	;
+	public static final String WARNING_NAME = "magic";
+	public static final String MESSAGE = "No magic number";
+	public static final double DEFAULT_PENALTY_PER_MISTAKE = 0.1;
+
 	public MagicNumberTestCase(String aMessage) {
 		super(null, aMessage);
+		penaltyPerMistake = DEFAULT_PENALTY_PER_MISTAKE;
 	}
+
 	public MagicNumberTestCase() {
-		super(null, "magic number");
+		super(null, MESSAGE);
+		penaltyPerMistake = DEFAULT_PENALTY_PER_MISTAKE;
 	}
-	public static final String WARNING_NAME = "magic";
-	@Override
-	public String regexLineFilter() {
-		// TODO Auto-generated method stub
-		return ".*" + WARNING_NAME + ".*";
+
+	public MagicNumberTestCase(double aPenaltyPerMistake) {
+		super(null, MESSAGE, aPenaltyPerMistake);
+
 	}
-	@Override
-	 protected  String warningName(){
-	    	return WARNING_NAME;
-	    }
 
 	@Override
-	public String failMessageSpecifier(List<String> aFailedLines) {
-		return "Magic number failed in:\n" + toLinesString(aFailedLines);
+	protected String warningName() {
+		return WARNING_NAME;
 	}
-//	protected String warningName() {
-//		return WARNING_NAME;
-//	}
-//	protected String beautify (String aCheckstyleString) {
-//		return aCheckstyleString.substring(aCheckstyleString.indexOf(warningName())) + "\n";
-//	}
-//	protected String beautify (List<String> aList) {
-//		StringBuffer sb = new StringBuffer();
-//		for (String aString: aList) {
-//			String beautifiedString = beautify(aString);
-//			sb.append(beautifiedString);
-//			
-//		}
-//		return sb.toString();
-//	}
-	
-	protected  TestCaseResult test (SakaiProject aProject, String[] aCheckStyleLines, List<String> aMatchedLines, boolean autoGrade) {
-		if (aMatchedLines.size() == 0) {
-			return pass();
-		}
-		double score = Math.min(aMatchedLines.size(), 5) / 5.0;
-        score = Math.max(0, 1 - score);
-        return partialPass(score, beautify(aMatchedLines));
-    	
-    }
-	 
 
 }
