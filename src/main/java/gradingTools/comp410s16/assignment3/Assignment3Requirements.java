@@ -2,8 +2,8 @@ package gradingTools.comp410s16.assignment3;
 
 import framework.grading.FrameworkProjectRequirements;
 import gradingTools.comp410s16.assignment3.testcases.FunctionalityTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
 
 /**
  * Created by andrewwg94 on 3/7/16.

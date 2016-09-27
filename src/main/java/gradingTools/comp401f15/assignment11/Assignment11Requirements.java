@@ -9,8 +9,8 @@ import gradingTools.comp401f15.assignment11.testcases.BeanTestCase;
 import gradingTools.comp401f15.assignment11.testcases.SynchronizedAnimationTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.function.FailCommandBeanTestCase;
 import gradingTools.comp401f15.assignment4.testcases.commands.function.PassCommandBeanTestCase;
-import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
-import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleConstructorDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleMethodDefinedTestCase;
 import wrappers.framework.grading.ExtendedProjectRequirements;
 
 /**

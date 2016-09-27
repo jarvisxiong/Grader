@@ -12,8 +12,8 @@ import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MinDeclaredMethodsInSameOrDifferentClassTestCase;
 import gradingTools.comp401f15.assignment1.testcases.TerminateWithPeriodTestCase;
 import gradingTools.comp401f15.assignment1.testcases.VariableSpacesTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,7 +57,7 @@ public class Assignment1Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("Handle invalid chars", 5, true);
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
 //        addRestriction("Single main.Assigment", 10, new ClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Single main.Assigment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         

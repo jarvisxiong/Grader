@@ -14,9 +14,9 @@ import gradingTools.assignment8.testCases.ShapesRegisterListenerTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
 import gradingTools.comp401f15.assignment8.testCase.ConsoleScenePrintsTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 /**
  * Project 8 requirements.
@@ -61,8 +61,8 @@ public class Assignment8Requirements extends FrameworkProjectRequirements {
         // TODO: Method/interface check
         addRestriction("No System.exit()", 5, new SystemExitTestCase("System.exit test case"));
     	addRestriction("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
-    	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+    	addRestriction("Variable has class type", 5, new CheckStyleVariableHasClassTypeTestCase("Variable has class type"));
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range|Hashtable Pattern).*", ".*Assuming implicit pattern.*", 0.3));
 

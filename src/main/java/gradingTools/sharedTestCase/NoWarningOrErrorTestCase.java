@@ -11,6 +11,7 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+import gradingTools.sharedTestCase.checkstyle.OldOutputAndErrorCheckingTestCase;
 
 
 public class NoWarningOrErrorTestCase extends OldOutputAndErrorCheckingTestCase {

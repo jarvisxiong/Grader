@@ -3,11 +3,11 @@ package gradingTools.comp401f15.assignment1.testcases;
 import grader.basics.execution.BasicProcessRunner;
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
 
 import java.util.List;
 
-public class MainClassDefinedTestCase extends ClassDefinedTestCase {
+public class MainClassDefinedTestCase extends CheckStyleClassDefinedTestCase {
 
 	public MainClassDefinedTestCase(String aDescriptor) {
 		super(aDescriptor);

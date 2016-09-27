@@ -11,7 +11,7 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.util.ProjectExecution;
-import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.checkstyle.OldOutputAndErrorCheckingTestCase;
 
 public abstract class  TokenScanningTestCase extends OldOutputAndErrorCheckingTestCase{
 

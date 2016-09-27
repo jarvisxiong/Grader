@@ -9,9 +9,9 @@ import gradingTools.comp401f15.assignment10.testCases.MoveCommandPartiallyInterp
 import gradingTools.comp401f15.assignment10.testCases.PreconditionExecutionTestCase;
 import gradingTools.comp401f15.assignment10.testCases.PreconditionTestCase;
 import gradingTools.comp401f15.assignment10.testCases.SayCommandPartiallyInterpretedTestCase;
-import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
-import gradingTools.sharedTestCase.CheckstyleMethodCalledTestCase;
-import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleConstructorDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleMethodCalledTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleMethodDefinedTestCase;
 
 /**
  * Created with IntelliJ IDEA.

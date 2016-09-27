@@ -27,9 +27,9 @@ import gradingTools.comp401f15.assignment3.testcases.WordClassTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordComputationTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordEchoTestCase;
 import gradingTools.comp401f15.assignment3.testcases.WordTokenBeanTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
@@ -65,7 +65,7 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
     			
     			);
     	addFeature("Class has interface check", 25, new HasInterfaceTestCase("Has interface"));
-    	addFeature("Variable has class type", 10, new VariableHasClassTypeTestCase("Variable has class type"));
+    	addFeature("Variable has class type", 10, new CheckStyleVariableHasClassTypeTestCase("Variable has class type"));
 
     	addFeature("Plus Minus Token Beans", 6, true,
     			new PlusTokenBeanTestCase(),
@@ -122,15 +122,15 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("Handle invalid chars", 5, true);
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 18, 
-        		new ClassDefinedTestCase("@ScannerBean"),
-        		new ClassDefinedTestCase("@Word"),
-        		new ClassDefinedTestCase("@Number"),
-        		new ClassDefinedTestCase("@Quote"),
-        		new ClassDefinedTestCase("@Start"),
-        		new ClassDefinedTestCase("@End"));
+        		new CheckStyleClassDefinedTestCase("@ScannerBean"),
+        		new CheckStyleClassDefinedTestCase("@Word"),
+        		new CheckStyleClassDefinedTestCase("@Number"),
+        		new CheckStyleClassDefinedTestCase("@Quote"),
+        		new CheckStyleClassDefinedTestCase("@Start"),
+        		new CheckStyleClassDefinedTestCase("@End"));
 
 
        

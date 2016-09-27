@@ -41,10 +41,10 @@ import gradingTools.comp401f15.assignment4.testcases.commands.function.WaitComma
 import gradingTools.comp401f15.assignment4.testcases.rotateLine.RotatingFixedLineMethodsTestCase;
 import gradingTools.comp401f15.assignment4.testcases.rotateLine.RotatingLineDefinedTestCase;
 import gradingTools.comp401f15.assignment4.testcases.rotateLine.RotatingMovingLineMethodsTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 
 public class Assignment4Requirements extends FrameworkProjectRequirements {
@@ -111,7 +111,7 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
     	addFeature("Multiple scanner Sets check", 8, new MultiRunScannerBeanTestCase());
 
     	addFeature("Class has interface check", 5, new HasInterfaceTestCase());
-    	addFeature("Variable has class type", 5, new VariableHasClassTypeTestCase());
+    	addFeature("Variable has class type", 5, new CheckStyleVariableHasClassTypeTestCase());
 
         addManualFeature("Scanner object displays properly in ObjectEditor and tests for every token type", 15);
         
@@ -141,22 +141,22 @@ public class Assignment4Requirements extends FrameworkProjectRequirements {
         
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 39, 
-        		new ClassDefinedTestCase("@Call"),
-        		new ClassDefinedTestCase("@Define"),
-        		new ClassDefinedTestCase("@Move"),
-        		new ClassDefinedTestCase("@ProceedAll"),
-        		new ClassDefinedTestCase("@Redo"),
-        		new ClassDefinedTestCase("@Repeat"),
-        		new ClassDefinedTestCase("@RotateLeftArm"),
-        		new ClassDefinedTestCase("@RotateRightArm"),
-        		new ClassDefinedTestCase("@Say"),
-        		new ClassDefinedTestCase("@Sleep"),
-        		new ClassDefinedTestCase("@Thread"),
-        		new ClassDefinedTestCase("@Undo"),
-        		new ClassDefinedTestCase("@Wait"));
+        		new CheckStyleClassDefinedTestCase("@Call"),
+        		new CheckStyleClassDefinedTestCase("@Define"),
+        		new CheckStyleClassDefinedTestCase("@Move"),
+        		new CheckStyleClassDefinedTestCase("@ProceedAll"),
+        		new CheckStyleClassDefinedTestCase("@Redo"),
+        		new CheckStyleClassDefinedTestCase("@Repeat"),
+        		new CheckStyleClassDefinedTestCase("@RotateLeftArm"),
+        		new CheckStyleClassDefinedTestCase("@RotateRightArm"),
+        		new CheckStyleClassDefinedTestCase("@Say"),
+        		new CheckStyleClassDefinedTestCase("@Sleep"),
+        		new CheckStyleClassDefinedTestCase("@Thread"),
+        		new CheckStyleClassDefinedTestCase("@Undo"),
+        		new CheckStyleClassDefinedTestCase("@Wait"));
         addRestriction("Common token interface not T", 5, new CommonTokenInterfaceNotTTestCase());
 //        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.* | .*not in range.*", 0.3));
         addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range).*", ".*Assuming implicit pattern.*", 0.3));

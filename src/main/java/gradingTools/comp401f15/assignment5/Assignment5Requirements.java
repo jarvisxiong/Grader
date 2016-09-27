@@ -6,11 +6,11 @@ import gradingTools.assignment6.testCases.EncapsulationTestCase;
 import gradingTools.assignment6.testCases.SystemExitTestCase;
 import gradingTools.comp401f15.assignment1.testcases.MainClassDefinedTestCase;
 import gradingTools.comp401f15.assignment3.testcases.HasInterfaceTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 
 public class Assignment5Requirements extends FrameworkProjectRequirements {
@@ -77,12 +77,12 @@ public class Assignment5Requirements extends FrameworkProjectRequirements {
 
         
     	addRestriction("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
-    	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+    	addRestriction("Variable has class type", 5, new CheckStyleVariableHasClassTypeTestCase("Variable has class type"));
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 9, 
-        		new ClassDefinedTestCase("@Angle"),
-        		new ClassDefinedTestCase("@Avatar"),
-        		new ClassDefinedTestCase("@BridgeScene")
+        		new CheckStyleClassDefinedTestCase("@Angle"),
+        		new CheckStyleClassDefinedTestCase("@Avatar"),
+        		new CheckStyleClassDefinedTestCase("@BridgeScene")
         	);
         addManualRestriction("No image files.", 5);
         addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));

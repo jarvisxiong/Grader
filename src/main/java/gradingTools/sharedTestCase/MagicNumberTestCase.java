@@ -2,10 +2,11 @@ package gradingTools.sharedTestCase;
 
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleCountingWarningsTestCase;
 
 import java.util.List;
 
-public class MagicNumberTestCase extends CountingWarningsTestCase {
+public class MagicNumberTestCase extends CheckStyleCountingWarningsTestCase {
 	;
 	public static final String WARNING_NAME = "magic";
 	public static final String MESSAGE = "No magic number";

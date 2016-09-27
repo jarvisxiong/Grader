@@ -15,9 +15,9 @@ import gradingTools.comp110.assignment3.testCases.InfiniteLoopComputationTestCas
 import gradingTools.comp110.assignment3.testCases.IsPalindromeTestCase;
 import gradingTools.comp110.assignment3.testCases.PromptStringTestCase;
 import gradingTools.comp110.assignment3.testCases.ReverseWordCharacters;
-import gradingTools.sharedTestCase.EqualsAvoidNullTestCase;
 import gradingTools.sharedTestCase.MultipleRestrictedValsOutsideComments;
-import gradingTools.sharedTestCase.PackageDeclarationTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleEqualsAvoidNullTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStylePackageDeclarationTestCase;
 
 public class Assignment3Requirements extends FrameworkProjectRequirements {
 	public Assignment3Requirements() {
@@ -32,10 +32,10 @@ public class Assignment3Requirements extends FrameworkProjectRequirements {
 		
 		 
         // Package declaration, make it extra credit
-        addFeature("Package declarations", 5, true, new PackageDeclarationTestCase());
+        addFeature("Package declarations", 5, true, new CheckStylePackageDeclarationTestCase());
         
         // EqualsNull
-        addFeature("Equal avoid null", 5, true, new EqualsAvoidNullTestCase());
+        addFeature("Equal avoid null", 5, true, new CheckStyleEqualsAvoidNullTestCase());
 
 
 		// Checks for prompt of String and Computation

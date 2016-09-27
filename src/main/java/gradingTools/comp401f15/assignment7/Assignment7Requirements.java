@@ -21,14 +21,14 @@ import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.ErrorRes
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.MoveCommandInterpretedTestCase;
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SayCommandInterpretedTestCase;
 import gradingTools.comp401f15.assignment7.testCases.commandInterpreter.SignedMoveCommandInterpretedTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
 import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveInterfaceDefinedTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 
 public class Assignment7Requirements extends FrameworkProjectRequirements {
@@ -78,7 +78,7 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
 
         // Extra credit
         addFeature("Signed move", 8, true,
-                new ClassDefinedTestCase("@SignedMove"),
+                new CheckStyleClassDefinedTestCase("@SignedMove"),
                 new SignedMoveCommandInterpretedTestCase());
         addFeature("Error Resilient Command Interpreter", 7, true,
                 new ErrorResilientCommandInterpreterDefinedTestCase(),
@@ -92,26 +92,26 @@ public class Assignment7Requirements extends FrameworkProjectRequirements {
         addRestriction("No System.exit()", 5, new SystemExitTestCase("System.exit test case"));
         
     	addRestriction("Class has interface check", 5, new HasInterfaceTestCase("Has interface"));
-    	addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+    	addRestriction("Variable has class type", 5, new CheckStyleVariableHasClassTypeTestCase("Variable has class type"));
         
 //        addFeature("Screenshots enclosed", 10, new ImageEnclosedTestCase());
         
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
         addRestriction("Single main.Assignment", 10, new MainClassDefinedTestCase("main.Assignment(.*)"));
         addRestriction("Classes Tagged ", 39, 
-        		new ClassDefinedTestCase("@Call"),
-        		new ClassDefinedTestCase("@Define"),
-        		new ClassDefinedTestCase("@Move"),
-        		new ClassDefinedTestCase("@ProceedAll"),
-        		new ClassDefinedTestCase("@Redo"),
-        		new ClassDefinedTestCase("@Repeat"),
-        		new ClassDefinedTestCase("@RotateLeftArm"),
-        		new ClassDefinedTestCase("@RotateRightArm"),
-        		new ClassDefinedTestCase("@Say"),
-        		new ClassDefinedTestCase("@Sleep"),
-        		new ClassDefinedTestCase("@Thread"),
-        		new ClassDefinedTestCase("@Undo"),
-        		new ClassDefinedTestCase("@Wait"));
+        		new CheckStyleClassDefinedTestCase("@Call"),
+        		new CheckStyleClassDefinedTestCase("@Define"),
+        		new CheckStyleClassDefinedTestCase("@Move"),
+        		new CheckStyleClassDefinedTestCase("@ProceedAll"),
+        		new CheckStyleClassDefinedTestCase("@Redo"),
+        		new CheckStyleClassDefinedTestCase("@Repeat"),
+        		new CheckStyleClassDefinedTestCase("@RotateLeftArm"),
+        		new CheckStyleClassDefinedTestCase("@RotateRightArm"),
+        		new CheckStyleClassDefinedTestCase("@Say"),
+        		new CheckStyleClassDefinedTestCase("@Sleep"),
+        		new CheckStyleClassDefinedTestCase("@Thread"),
+        		new CheckStyleClassDefinedTestCase("@Undo"),
+        		new CheckStyleClassDefinedTestCase("@Wait"));
 //        addManualRestriction(INTERACTIVE_RUN, 10, new NoWarningOrErrorTestCase("OE Warnings", ".*efresh.* | .*not in range.*", 0.3));
         addManualRestriction(INTERACTIVE_RUN, 5, new NoWarningOrErrorTestCase("OE Warnings", ".*(efresh|not in range|Hashtable Pattern).*", ".*Assuming implicit pattern.*", 0.3));
 

@@ -3,7 +3,7 @@ package gradingTools.comp410s16.assignment5;
 import framework.grading.FrameworkProjectRequirements;
 //import gradingTools.assignment6.testCases.ManualTestCase;
 import gradingTools.comp410s16.assignment5.testcases.FunctionalityTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
 
 /**
  * Created by andrewwg94 on 4/30/16.

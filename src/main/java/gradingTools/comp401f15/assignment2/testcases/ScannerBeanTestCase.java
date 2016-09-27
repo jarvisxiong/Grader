@@ -17,7 +17,7 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.checkstyle.OldOutputAndErrorCheckingTestCase;
 
 public class ScannerBeanTestCase extends OldOutputAndErrorCheckingTestCase{
 

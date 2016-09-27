@@ -21,7 +21,7 @@ import gradingTools.sharedTestCase.MethodDefinedTestCase;
 import gradingTools.sharedTestCase.NoWarningOrErrorTestCase;
 import gradingTools.sharedTestCase.PropertyDefinedTestCase;
 import gradingTools.sharedTestCase.ReflectiveClassDefinedTestCase;
-import gradingTools.sharedTestCase.VariableHasClassTypeTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleVariableHasClassTypeTestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -110,7 +110,7 @@ public class Assignment6Requirements extends FrameworkProjectRequirements {
 //        addRestriction("No public variables.", -5, new EncapsulationTestCase("Encapsulation test case"));
         addRestriction("Interface object assignments.", 5, new InterfaceTypeTestCase("Interface type test case"));
         addRestriction("At least three packages.", 5, new ThreePackageTestCase("Three package test case"));
-        addRestriction("Variable has class type", 5, new VariableHasClassTypeTestCase("Variable has class type"));
+        addRestriction("Variable has class type", 5, new CheckStyleVariableHasClassTypeTestCase("Variable has class type"));
         addRestriction("No public variables.", 5, new EncapsulationTestCase("Encapsulation test case"));
 
         // TODO: Method/interface check

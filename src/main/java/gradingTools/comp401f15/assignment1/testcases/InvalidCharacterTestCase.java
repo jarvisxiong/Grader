@@ -5,7 +5,7 @@ import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import gradingTools.sharedTestCase.OldOutputAndErrorCheckingTestCase;
+import gradingTools.sharedTestCase.checkstyle.OldOutputAndErrorCheckingTestCase;
 
 
 public class InvalidCharacterTestCase extends OldOutputAndErrorCheckingTestCase {

@@ -8,8 +8,8 @@ import gradingTools.comp401f15.assignment2.testcases.NumberTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.PlusMinusTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.QuotedStringTokensTestCase;
 import gradingTools.comp401f15.assignment2.testcases.WordTokensTestCase;
-import gradingTools.sharedTestCase.ClassDefinedTestCase;
-import gradingTools.sharedTestCase.IllegalImportOrCallTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleClassDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleIllegalImportOrCallTestCase;
 
 
 public class Assignment2Requirements extends FrameworkProjectRequirements {
@@ -63,9 +63,9 @@ public class Assignment2Requirements extends FrameworkProjectRequirements {
 //        addManualFeature("Handle invalid chars", 5, true);
 //        addManualFeature("No-array parser class", 10, true);
 //        addManualFeature("Variable spaces", 5, true);
-        addRestriction("Illegal import or call", 25, new IllegalImportOrCallTestCase());
+        addRestriction("Illegal import or call", 25, new CheckStyleIllegalImportOrCallTestCase());
 //        addRestriction("Single main.Assignment", 1, new ClassDefinedlTestCase("main.Assignment(.*)"));
-        addRestriction("Scanner Bean Tagged ", 5, new ClassDefinedTestCase("@ScannerBean"));
+        addRestriction("Scanner Bean Tagged ", 5, new CheckStyleClassDefinedTestCase("@ScannerBean"));
 
 
        

@@ -2,7 +2,7 @@ package gradingTools.comp401f15.assignment12.testcases;
 
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.CheckStyleTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleTestCase;
 
 import java.util.List;
 

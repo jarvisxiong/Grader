@@ -6,8 +6,8 @@ import gradingTools.comp401f15.assignment12.testcases.FactoryMethodTestCase;
 import gradingTools.comp401f15.assignment12.testcases.GenerictClassCheckStyleTestCase;
 import gradingTools.comp401f15.assignment12.testcases.LockstepAnimationTestCase;
 import gradingTools.comp401f15.assignment12.testcases.WaitingAnimationTestCase;
-import gradingTools.sharedTestCase.CheckstyleConstructorDefinedTestCase;
-import gradingTools.sharedTestCase.CheckstyleMethodDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleConstructorDefinedTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckstyleMethodDefinedTestCase;
 import wrappers.framework.grading.ExtendedProjectRequirements;
 import bus.uigen.widgets.TextFieldFactory;
 

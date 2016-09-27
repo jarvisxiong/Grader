@@ -5,11 +5,11 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.MinDeclaredMethodsTestCase;
+import gradingTools.sharedTestCase.checkstyle.CheckStyleMinDeclaredMethodsTestCase;
 import wrappers.framework.project.ProjectWrapper;
 
 
-public class MinDeclaredMethodsInSameOrDifferentClassTestCase extends MinDeclaredMethodsTestCase {
+public class MinDeclaredMethodsInSameOrDifferentClassTestCase extends CheckStyleMinDeclaredMethodsTestCase {
 	 public MinDeclaredMethodsInSameOrDifferentClassTestCase(int aMinimum) {
 	        super(aMinimum);
 	    }
