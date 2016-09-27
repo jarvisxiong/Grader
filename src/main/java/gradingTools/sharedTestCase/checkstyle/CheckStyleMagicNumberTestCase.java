@@ -1,28 +1,27 @@
-package gradingTools.sharedTestCase;
+package gradingTools.sharedTestCase.checkstyle;
 
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
-import gradingTools.sharedTestCase.checkstyle.CheckStyleCountingWarningsTestCase;
 
 import java.util.List;
 
-public class MagicNumberTestCase extends CheckStyleCountingWarningsTestCase {
+public class CheckStyleMagicNumberTestCase extends CheckStyleCountingWarningsTestCase {
 	;
 	public static final String WARNING_NAME = "magic";
 	public static final String MESSAGE = "No magic number";
 	public static final double DEFAULT_PENALTY_PER_MISTAKE = 0.1;
 
-	public MagicNumberTestCase(String aMessage) {
+	public CheckStyleMagicNumberTestCase(String aMessage) {
 		super(null, aMessage);
 		penaltyPerMistake = DEFAULT_PENALTY_PER_MISTAKE;
 	}
 
-	public MagicNumberTestCase() {
+	public CheckStyleMagicNumberTestCase() {
 		super(null, MESSAGE);
 		penaltyPerMistake = DEFAULT_PENALTY_PER_MISTAKE;
 	}
 
-	public MagicNumberTestCase(double aPenaltyPerMistake) {
+	public CheckStyleMagicNumberTestCase(double aPenaltyPerMistake) {
 		super(null, MESSAGE, aPenaltyPerMistake);
 
 	}

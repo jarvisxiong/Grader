@@ -5,21 +5,27 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+import gradingTools.shared.testcases.MethodExecutionTest;
 
 import java.util.List;
 
 
-public class CheckstylePropertyDefinedTestCase extends CheckStyleTestCase {
+public class CheckStyleEditablePropertyDefinedTestCase extends CheckStyleTestCase {
 	 protected String descriptor;
-	 public CheckstylePropertyDefinedTestCase(String aDescriptor) {
-	        super(null, aDescriptor + " defined");
-	        descriptor = aDescriptor;
+	 protected String property;
+	 protected String  propertyType;
+	 public CheckStyleEditablePropertyDefinedTestCase(String aTypeName, String aProperty, String aPropertyType) {
+	        super(null, aTypeName + " defined");
+	        descriptor = aTypeName;
+	        property = aProperty;
+	        propertyType = aPropertyType;
 	  }
 	
     
 	@Override
 	public String regexLineFilter() {
-		return "(.*)Getter for property " +getActualType() +".* not defined";
+		return MethodExecutionTest.toRegex(getActualType() + ",missing setter for property "+ property + " of type " + propertyType);
+				
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
 	        TestCaseResult aResult = super.test(project, autoGrade);
