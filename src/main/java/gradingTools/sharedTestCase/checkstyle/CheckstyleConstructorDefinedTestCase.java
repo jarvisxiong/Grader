@@ -53,7 +53,7 @@ public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
 	@Override
 	public String failMessageSpecifier(List<String> aFailedLines) {
 		// TODO Auto-generated method stub
-		return "Constructor matching " + constructor + " not defined in " + typeName;
+		return "Constructor matching " + constructor + " not defined in " + getActualType();
 	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
