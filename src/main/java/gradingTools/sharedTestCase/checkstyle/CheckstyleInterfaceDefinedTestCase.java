@@ -11,19 +11,24 @@ import java.util.List;
 
 
 public class CheckstyleInterfaceDefinedTestCase extends CheckStyleTestCase {
-	 protected String descriptor;
+	public static final String WARNING_NAME = "expectedInterface";
+
+	protected String descriptor;
 	 String expectedInterface;
 	 public CheckstyleInterfaceDefinedTestCase(String aTypeName, String anInterface) {
-	        super(null, aTypeName + " defined");
+	        super(aTypeName, aTypeName + " defined");
 	        descriptor = aTypeName;
 	        expectedInterface = anInterface;
 	  }
-	
+	 @Override
+	protected String warningName() {
+		return WARNING_NAME;
+	}
     
 	@Override
 	public String regexLineFilter() {
 		return MethodExecutionTest.toRegex(
-				"In type " + getActualType() +", missing interface: " + expectedInterface);
+				"In type(.*)" + getActualType() +"(.*)missing interface:(.*)" + expectedInterface);
 				
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -49,10 +54,11 @@ public class CheckstyleInterfaceDefinedTestCase extends CheckStyleTestCase {
 //	    }
 
 	@Override
-	public String failMessageSpecifier(List<String> aFailedLines) {
-		// TODO Auto-generated method stub
-		return "Property matching " + descriptor + " not defined";
-	}
+//	public String failMessageSpecifier(List<String> aFailedLines) {
+//		// TODO Auto-generated method stub
+//		return "Type:" + getActualType() +"missing interface:" + expectedInterface;
+//		
+//	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 		 return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);

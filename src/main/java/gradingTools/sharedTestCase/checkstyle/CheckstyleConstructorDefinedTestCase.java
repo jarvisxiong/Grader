@@ -8,7 +8,8 @@ import java.util.List;
 
 
 public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
-	 protected String constructor;
+	public static final String WARNING_NAME = "expectedConstructor";
+	protected String constructor;
 //	 protected String typeTag;
 //	 protected String typeName;
 	 public CheckstyleConstructorDefinedTestCase(String aType, String aConstructor) {
@@ -17,6 +18,10 @@ public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
 	        constructor = aConstructor;
 	        
 	  }
+	 @Override
+	protected String warningName() {
+		return WARNING_NAME;
+	}
 	
     
 	@Override
@@ -51,11 +56,11 @@ public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
 //	    	
 //	    }
 
-	@Override
-	public String failMessageSpecifier(List<String> aFailedLines) {
-		// TODO Auto-generated method stub
-		return "Constructor matching " + constructor + " not defined in " + getActualType();
-	}
+//	@Override
+//	public String failMessageSpecifier(List<String> aFailedLines) {
+//		// TODO Auto-generated method stub
+//		return "Constructor matching " + constructor + " not defined in " + getActualType();
+//	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 		 return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);

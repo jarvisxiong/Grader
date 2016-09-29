@@ -58,11 +58,11 @@ public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
 //	    	
 //	    }
 
-	@Override
-	public String failMessageSpecifier(List<String> aFailedLines) {
-		// TODO Auto-generated method stub
-		return "Method call matching " + method + " not defined by " + getActualType();
-	}
+//	@Override
+//	public String failMessageSpecifier(List<String> aFailedLines) {
+//		// TODO Auto-generated method stub
+//		return "Method call matching " + method + " not defined by " + getActualType();
+//	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 		 return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);

@@ -94,7 +94,9 @@ public class Restriction extends Checkable {
     public String getSummary() {
         String spaces = "                                            ";
         String score = points < 10 ? " " + points : points + "";
-        return name + spaces.substring(name.length()) + "%.1f / " + score;
+        String padding = name.length() >= spaces.length()?"":spaces.substring(name.length());
+        return name + padding + "%.1f / " + score;
+//        return name + spaces.substring(name.length()) + "%.1f / " + score;
     }
 	@Override
 	public Object[] getPermissions() {

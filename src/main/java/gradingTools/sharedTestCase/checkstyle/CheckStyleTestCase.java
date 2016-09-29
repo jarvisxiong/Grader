@@ -23,6 +23,9 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     public CheckStyleTestCase(String aTypeTag, String aName) {
         super(aName);
         foundType = false;
+//        if (aTypeTag == null) {
+//        	System.out.println ("Null type tag");
+//        }
         typeTag = aTypeTag;
     }
     
@@ -68,8 +71,8 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	List<String> result = new ArrayList();    
 //    	int aCount = 0;
     	for (String aLine:aLines) {
-//    		if (aLine.contains("Word")) {
-//    			System.out.println ("Found word");
+//    		if (aLine.contains("Number")) {
+//    			System.out.println ("Found number");
 //    		}
     		if (aLine.matches(aRegex))
     			result.add(aLine);
@@ -80,7 +83,9 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return matchedLines(aLines, aRegex).size();
     }
     public abstract String regexLineFilter();
-    public abstract String failMessageSpecifier(List<String> aMatchedLines);
+    public  String failMessageSpecifier(List<String> aMatchedLines) {
+    	return beautify(aMatchedLines);
+    }
     protected String actualType = null;
     public String getActualType() {
     	return actualType;

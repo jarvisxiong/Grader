@@ -14,17 +14,22 @@ public class CheckStyleEditablePropertyDefinedTestCase extends CheckStyleTestCas
 	 protected String descriptor;
 	 protected String property;
 	 protected String  propertyType;
+		public static final String WARNING_NAME = "expectedSetter";
+
 	 public CheckStyleEditablePropertyDefinedTestCase(String aTypeName, String aProperty, String aPropertyType) {
-	        super(null, aTypeName + " defined");
+	        super(aTypeName, aTypeName + " defines setter for property "  + aProperty);
 	        descriptor = aTypeName;
 	        property = aProperty;
 	        propertyType = aPropertyType;
 	  }
-	
+	 @Override
+		protected String warningName() {
+			return WARNING_NAME;
+		}
     
 	@Override
 	public String regexLineFilter() {
-		return MethodExecutionTest.toRegex(getActualType() + ",missing setter for property "+ property + " of type " + propertyType);
+		return MethodExecutionTest.toRegex(getActualType() + ", missing setter for property "+ property + " of type " + propertyType);
 				
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
@@ -49,11 +54,11 @@ public class CheckStyleEditablePropertyDefinedTestCase extends CheckStyleTestCas
 //	    	
 //	    }
 
-	@Override
-	public String failMessageSpecifier(List<String> aFailedLines) {
-		// TODO Auto-generated method stub
-		return "Property matching " + descriptor + " not defined";
-	}
+//	@Override
+//	public String failMessageSpecifier(List<String> aFailedLines) {
+//		// TODO Auto-generated method stub
+//		return "Setter for property " + descriptor + " not defined";
+//	}
   //String literal expressions should be on the left side
 	 protected TestCaseResult computeResult (SakaiProject aProject, String[] aCheckStyleLines, List<String> aFailedLines, boolean autoGrade) {
 		 return singleMatchScore(aProject, aCheckStyleLines, aFailedLines, autoGrade);
