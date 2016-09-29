@@ -44,7 +44,7 @@ public class GenerictClassCheckStyleTestCase extends CheckStyleTestCase {
 	@Override
 	public String regexLineFilter() {
 		// TODO Auto-generated method stub
-		return "(.*)" + typeName + "(.*)" + "should be generic" + "(.*)";
+		return "(.*)" + getActualType() + "(.*)" + "should be generic" + "(.*)";
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
 	
 	protected boolean foundType;
 	protected String typeTag;
-	 protected String typeName;
+//	 protected String typeName;
 
 
     public CheckStyleTestCase(String aTypeTag, String aName) {

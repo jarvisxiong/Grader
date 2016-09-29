@@ -2,6 +2,7 @@ package gradingTools.sharedTestCase.checkstyle;
 
 import grader.basics.junit.TestCaseResult;
 import grader.sakai.project.SakaiProject;
+import gradingTools.shared.testcases.MethodExecutionTest;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class CheckstyleConstructorDefinedTestCase extends CheckStyleTestCase {
     
 	@Override
 	public String regexLineFilter() {
-		
-		return "(.*)Constructor(.*)" + constructor + "(.*)" + typeName + "(.*)";
+		return  MethodExecutionTest.toRegex("In type " + getActualType() +", missing constructor: " + constructor);
+//		return "(.*)Constructor(.*)" + constructor + "(.*)" + getActualType() + "(.*)";
 	}
 //	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
 //	     Class aClass = IntrospectionUtil.getOrFindClass(project, this, typeTag); 

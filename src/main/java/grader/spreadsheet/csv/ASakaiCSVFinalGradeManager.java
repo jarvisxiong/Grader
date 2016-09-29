@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import util.misc.Common;
@@ -98,6 +99,9 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public void recordGrade (String[] aRow, int aColumn, double aScore) {
 		
 		String aGradeCell = aRow[aColumn];
+		if (aColumn >= aRow.length) {
+			System.err.println("No column:" + aColumn + " in row:" + Arrays.toString(aRow));
+		}
 		aRow[aColumn] = Double.toString(aScore);
 		
 	}
