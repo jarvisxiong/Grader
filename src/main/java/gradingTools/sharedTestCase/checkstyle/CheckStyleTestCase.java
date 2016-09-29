@@ -34,7 +34,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
 	}
 	// interface defined should also use similar syntax
 	protected String typeRegex(String aTypeTag) {
-		return "(.*)" + "matching" + "(.*)" + aTypeTag + "(.*)" + "defined" + "(.*)" ;
+		return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)" + aTypeTag + "(.*)" + "defined" + "(.*)" ;
 	}
     
     protected boolean failOnMatch() {
@@ -68,6 +68,9 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	List<String> result = new ArrayList();    
 //    	int aCount = 0;
     	for (String aLine:aLines) {
+//    		if (aLine.contains("Word")) {
+//    			System.out.println ("Found word");
+//    		}
     		if (aLine.matches(aRegex))
     			result.add(aLine);
     	}
@@ -83,7 +86,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     	return actualType;
     }
     protected String getType(String aLine) {
-    	final String prefix = "Class/Interface ";
+    	final String prefix = "Class ";
     	int beginIndex = aLine.indexOf(prefix);
     	String aSuffix = aLine.substring(beginIndex+prefix.length());
     	int endIndex = aSuffix.indexOf(" ");
