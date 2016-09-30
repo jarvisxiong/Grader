@@ -233,8 +233,15 @@ public class AClassDescription implements FlexibleClassDescription {
         if (classProxy == null) {
             return new String[]{};
         }
-        Tags tags = classProxy.getAnnotation(Tags.class);
+        try {
+        	Tags tags = classProxy.getAnnotation(Tags.class);
+        
         return tags == null ? new String[]{} : tags.value();
+        }
+        catch(Throwable e) {
+        	e.printStackTrace();
+        	return new String[]{};
+        }
     }
 
     @Override

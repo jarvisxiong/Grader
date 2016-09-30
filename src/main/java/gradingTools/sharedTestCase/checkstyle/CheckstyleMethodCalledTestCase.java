@@ -26,6 +26,7 @@ public class CheckstyleMethodCalledTestCase extends CheckStyleTestCase {
 		
 //		return "(.*)Signature(.*)" + method + "(.*)" + type + "(.*)";
 		return "(.*)" + getActualType() + "(.*)not made expected call(.*)" + method + "(.*)";
+//		return "(.*)" + getActualType() + " has not made expected call(.*)" + method + "(.*)";
 
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
