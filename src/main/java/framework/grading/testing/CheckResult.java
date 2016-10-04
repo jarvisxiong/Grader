@@ -20,6 +20,7 @@ public class CheckResult implements Describable {
     private List<TestCaseResult> results;
     private String notes;
     private Gradable target;
+    String name;
 
     // Values for grading, not needed later
     private CheckStatus status;
@@ -43,6 +44,10 @@ public class CheckResult implements Describable {
         results = new ArrayList<TestCaseResult>();
         notes = "";
         status = CheckStatus.NotGraded;
+        name = "";
+//        if (pointWeight < 0) {
+//        	
+//        }
     }
 
     /**
@@ -92,6 +97,10 @@ public class CheckResult implements Describable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+    
+    public String toString() {
+		return  name + ":" + score + " " + autoNotes;
+	}
 
     /**
      * @return The grading status
@@ -159,7 +168,11 @@ public class CheckResult implements Describable {
     	if (!testNotes.isEmpty())
     		autoNotes += "  -- " + result.getNotes() + "\n";
         score += result.getPercentage() * aPointWeight * totalPoints;
+//        if (score < 0 || result.getPercentage() < 0) {
+//        	System.out.println ("Negative Score");
+//        }
         results.add(result);
+        name += result.getName() + " ";
     }
     
     public String getMessage() {
@@ -193,6 +206,9 @@ public class CheckResult implements Describable {
 
 	public void setAutoNotes(String autoNotes) {
 		this.autoNotes = autoNotes;
+	}
+	public String getName() {
+		return name;
 	}
 
 }

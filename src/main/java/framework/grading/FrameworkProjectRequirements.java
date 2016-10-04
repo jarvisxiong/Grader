@@ -183,7 +183,8 @@ public class FrameworkProjectRequirements implements ProjectRequirements {
         for (Restriction restriction : restrictions) {
         	if (isInteractiveRun(restriction))
         		results.add(restriction.check(project, false));
-            results.add(restriction.check(project));
+        	else
+              results.add(restriction.check(project));
         }
         return results;
     }

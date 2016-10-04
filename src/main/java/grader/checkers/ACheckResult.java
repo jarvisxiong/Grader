@@ -21,6 +21,9 @@ public class ACheckResult implements CheckResult {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	public String toString() {
+		return  score + " " + autoNotes;
+	}
 	public List<String> getLog() {
 		return log;
 	}
