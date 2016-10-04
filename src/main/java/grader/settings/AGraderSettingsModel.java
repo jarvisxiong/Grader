@@ -58,7 +58,7 @@ import bus.uigen.ObjectEditor;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 @Label("Starter")
 public class AGraderSettingsModel implements GraderSettingsModel {
-
+	
     GraderFilesSetterModel fileBrowsing = new AGraderFilesSetterModel();
     NavigationSetter navigationSetter = new ANavigationSetter(this);
     OnyenRangeModel onyens = new AnOnyenRangeModel(this);
@@ -318,12 +318,12 @@ public class AGraderSettingsModel implements GraderSettingsModel {
             String downloadPath = GraderSettings.get().get("path");
             fileBrowsing.getDownloadFolder().getLabel().setText(downloadPath);
         }
-        if (GraderSettings.get().has("start")) {
-            String startingOnyen = GraderSettings.get().get("start");
+        if (GraderSettings.get().has(START_ONYEN)) {
+            String startingOnyen = GraderSettings.get().get(START_ONYEN);
             onyens.setDisplayedStartingOnyen(startingOnyen);
         }
-        if (GraderSettings.get().has("end")) {
-            String endingOnyen = GraderSettings.get().get("end");
+        if (GraderSettings.get().has(END_ONYEN)) {
+            String endingOnyen = GraderSettings.get().get(END_ONYEN);
             onyens.setDisplayedEndingOnyen(endingOnyen);
         }
 //        List objectModules = GradingEnvironment.get().getConfigurationManager().getStaticConfiguration().getList("modules");
@@ -490,6 +490,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
             moduleProblemSelector.getModule().addPropertyChangeListener(this);
             moduleProblemSelector.getProblem().addPropertyChangeListener(this);
             fileBrowsing.getDownloadFolder().getLabel().addPropertyChangeListener(this);
+            onyens.addPropertyChangeListener(this);
         }
 
     }
@@ -921,6 +922,13 @@ public class AGraderSettingsModel implements GraderSettingsModel {
             graderSettingsManager.setDownloadPath(currentModule, newPath);
             refreshAll();
             DownloadPathUserChange.newCase(newPath, this, this);
+        } else if (evt.getSource() == onyens) {
+        	if (evt.getPropertyName().equals("displayedStartingOnyen")) {
+        		GraderSettings.get().set(START_ONYEN,  (String)evt.getNewValue());
+        		
+        	} else if (evt.getPropertyName().equals("displayedEndingOnyen")) {
+        		GraderSettings.get().set(END_ONYEN, (String) evt.getNewValue());
+        	}
         }
 
     }

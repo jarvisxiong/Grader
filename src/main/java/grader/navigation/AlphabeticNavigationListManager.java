@@ -6,6 +6,7 @@ import grader.navigation.sorter.AFileObjectSorter;
 import grader.navigation.sorter.FileNameSorterSelector;
 import grader.sakai.project.SakaiProject;
 import grader.sakai.project.SakaiProjectDatabase;
+import grader.settings.AGraderSettingsModel;
 import grader.settings.GraderSettingsModelSelector;
 import grader.steppers.OverviewProjectStepper;
 import grader.trace.sakai_bulk_folder.StudentFolderNamesSorted;
@@ -62,6 +63,7 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 	public static boolean isGoToOnyenList() {
 		return maybeGetGoToOnyenList() != null;
 	}
+
 	@Override
 	// this is called only once so let us not do caching
     public List<String> getRawOnyenNavigationList() {
@@ -70,8 +72,10 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 //    		return aGoToOnyensList;
 //    	}
         File aDirectory = new File(GraderSettings.get().get("path"));
-        String aStartOnyen = GraderSettings.get().get("start");
-    	String anEndOnyen = GraderSettings.get().get("end");
+//        String aStartOnyen = GraderSettings.get().get("start");
+//    	String anEndOnyen = GraderSettings.get().get("end");
+    	String aStartOnyen = GraderSettings.get().get(AGraderSettingsModel.START_ONYEN);
+    	String anEndOnyen = GraderSettings.get().get(AGraderSettingsModel.END_ONYEN);
     	String aGoToOnyen = GraderSettingsModelSelector.getGraderSettingsModel().getOnyens().getGoToOnyens();
 //    	if (aStartOnyen == null ||
 //    			aStartOnyen.isEmpty() ||
