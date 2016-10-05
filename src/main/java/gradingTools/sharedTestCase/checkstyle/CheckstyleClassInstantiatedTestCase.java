@@ -25,7 +25,7 @@ public class CheckstyleClassInstantiatedTestCase extends CheckStyleTestCase {
 	public String regexLineFilter() {
 		
 //		return "(.*)Signature(.*)" + method + "(.*)" + type + "(.*)";
-		return "Type(.*)" + instantiatedType + "(.*)should be instantiated by(.*)" + getActualType() + "(.*)";
+		return "(.*)Type(.*)" + instantiatedType + "(.*)should be instantiated by(.*)" + getActualType() + "(.*)";
 //		expectedClassInstantiations: (ScannerBean.java:1) Type @Call//EC should be instantiated by grail.ScannerBean 	ScannerBean.java	/Assignment3-Semion/src/grail	line 1	Checkstyle Problem
 
 	}
