@@ -14,7 +14,8 @@ import grader.util.ProjectIntrospection;
 
 
 public abstract class CheckStyleTestCase extends BasicTestCase {
-	
+	public static final String COMMENT_START = "//";
+
 	protected boolean foundType;
 	protected String typeTag;
 //	 protected String typeName;
@@ -90,6 +91,12 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
     public String getActualType() {
     	return actualType;
     }
+    public static String maybeStripComment(String aString) {	 
+	 	int aCommentStart = aString.indexOf(COMMENT_START);
+	 	if (aCommentStart < 0)
+	 		return aString.trim();
+	 	return aString.substring(0, aCommentStart).trim();
+	 }
     protected String getType(String aLine) {
     	final String prefix = "Class ";
     	int beginIndex = aLine.indexOf(prefix);

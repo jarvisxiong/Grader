@@ -5,11 +5,14 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.sakai.project.SakaiProject;
+import gradingTools.shared.testcases.MethodExecutionTest;
 
 import java.util.List;
 
 
 public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
+	public static final String WARNING_NAME = "expectedDeclaredSignature";
+
 	 protected String method;
 //	 protected String typeTag;
 //	 protected String typeName;
@@ -23,12 +26,18 @@ public class CheckstyleMethodDefinedTestCase extends CheckStyleTestCase {
 	 protected String typeTag() {
 			return typeTag;
 		}
-    
+	 @Override
+		protected String warningName() {
+			return WARNING_NAME;
+		}
+		
 	@Override
 	public String regexLineFilter() {
 		
 //		return "(.*)Signature(.*)" + method + "(.*)" + type + "(.*)";
-		return "(.*)Signature(.*)" + method + "(.*)" + getActualType() + "(.*)";
+//		return "(.*)Signature(.*)" + method + "(.*)" + getActualType() + "(.*)";
+		return  MethodExecutionTest.toRegex("In type " + getActualType() +", missing declared signature: " + method);
+
 
 	}
 	 public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
