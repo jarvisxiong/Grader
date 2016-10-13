@@ -430,7 +430,7 @@ public class StaticConfigurationUtils {
 //		return emptyEntryPoints;
 //	}
 	
-	public static void getPotentialMainEntryPointNames(String[] aNames) {
+	public static void setPotentialMainEntryPointNames(String[] aNames) {
 		potentialMainEntryPoints = aNames;
 	}
 	
