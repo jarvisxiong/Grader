@@ -101,7 +101,7 @@ public class OriginalProcessRunner implements Runner {
 	public Map<String, String> getEntryPoints() {
 		if (entryPoints == null) {
 			entryPoints = LanguageDependencyManager.getMainClassFinder()
-					.getEntryPoints(project, null);
+					.getEntryPoints(project, new String[]{});
 
 		}
 		return entryPoints;

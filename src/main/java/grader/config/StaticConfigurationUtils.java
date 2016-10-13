@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.junit.experimental.theories.PotentialAssignment;
 
 import util.trace.Tracer;
 
@@ -417,15 +418,34 @@ public class StaticConfigurationUtils {
 		return hasClassPath() || hasOEClassPath();
 	}
 	
+	static String[] emptyEntryPoints = {};
+	protected static String[] potentialMainEntryPoints;
+//	public static String[] getPotentialMainEntryPointNames() {
+//		String retVal = getInheritedStringModuleProblemProperty(ENTRY_POINT, null);
+//		if (retVal != null) {
+//			GraderSettingsManager manager = GraderSettingsManagerSelector.getGraderSettingsManager();
+//			retVal = manager.replaceModuleProblemVars(retVal);
+//			return new String[]{retVal.replaceAll(" ", "")};
+//		}
+//		return emptyEntryPoints;
+//	}
 	
-	public static String getEntryPoint() {
+	public static void getPotentialMainEntryPointNames(String[] aNames) {
+		potentialMainEntryPoints = aNames;
+	}
+	
+	public static String[] getPotentialMainEntryPointNames() {
+		if (potentialMainEntryPoints == null) {
 		String retVal = getInheritedStringModuleProblemProperty(ENTRY_POINT, null);
 		if (retVal != null) {
 			GraderSettingsManager manager = GraderSettingsManagerSelector.getGraderSettingsManager();
 			retVal = manager.replaceModuleProblemVars(retVal);
-			return retVal.replaceAll(" ", "");
+			potentialMainEntryPoints = new String[]{retVal.replaceAll(" ", "")};
+		} else {
+			potentialMainEntryPoints = emptyEntryPoints;
 		}
-		return retVal;
+		}
+		return potentialMainEntryPoints;
 	}
 
 	public static List<String> getBasicCommand(String aProcessName) {

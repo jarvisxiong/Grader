@@ -41,7 +41,7 @@ public class InteractiveConsoleProcessRunner implements Runner {
         try {
 //            entryPoint = getEntryPoint(aProject);
 //            entryPoint = JavaMainClassFinderSelector.getMainClassFinder().getEntryPoint(aProject);
-            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject, null);
+            entryPoints = LanguageDependencyManager.getMainClassFinder().getEntryPoints(aProject, StaticConfigurationUtils.getPotentialMainEntryPointNames());
 
             folder = aProject.getBuildFolder(entryPoints.get(BasicProcessRunner.MAIN_ENTRY_POINT));
             project = aProject;

@@ -4,6 +4,7 @@ package grader.execution;
 import grader.basics.execution.BasicProcessRunner;
 import grader.basics.execution.MainClassFinder;
 import grader.basics.execution.NotRunnableException;
+import grader.basics.project.Project;
 import grader.config.StaticConfigurationUtils;
 //import framework.project.ClassDescription;
 //import framework.project.ClassesManager;
@@ -89,7 +90,7 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
 		Map<String, String> entryPoints = new HashMap();
 
         grader.basics.project.ClassesManager manager = project.getClassesManager().get();
-        String aCandidate = StaticConfigurationUtils.getEntryPoint();
+        String aCandidate = StaticConfigurationUtils.getPotentialMainEntryPointNames()[0];
 		if (isEntryPoint(aCandidate, manager)) {
 			entryPoints.put(BasicProcessRunner.MAIN_ENTRY_POINT, aCandidate);
 			return entryPoints;
@@ -161,5 +162,12 @@ public class AnOriginalMainClassFinder implements MainClassFinder {
 
         return null;
     }
+
+	@Override
+	public Map<String, String> getEntryPoints(Project project,
+			String[] aSpecifiedMainClasses) throws NotRunnableException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

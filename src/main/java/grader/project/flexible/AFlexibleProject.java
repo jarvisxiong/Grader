@@ -7,6 +7,7 @@ import grader.basics.execution.MainClassFinder;
 import grader.basics.execution.RunningProject;
 import grader.basics.settings.BasicGradingEnvironment;
 import grader.basics.trace.ProjectFolderNotFound;
+import grader.config.StaticConfigurationUtils;
 import grader.execution.AProxyProjectClassLoader;
 import grader.execution.FlexibleMainClassFinder;
 import grader.execution.ProjectRunnerSelector;
@@ -723,7 +724,7 @@ public class AFlexibleProject implements FlexibleProject {
 	    public Map<String, String> getEntryPoints() {
 	    	if (entryPoints == null) {
 				entryPoints = LanguageDependencyManager.getMainClassFinder()
-						.getEntryPoints(getWrapper(), null);
+						.getEntryPoints(getWrapper(), StaticConfigurationUtils.getPotentialMainEntryPointNames());
 
 			}
 			return entryPoints;
