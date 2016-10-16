@@ -71,7 +71,14 @@ public class AlphabeticNavigationListManager implements NavigationListManager {
 //    	if (aGoToOnyensList != null) {
 //    		return aGoToOnyensList;
 //    	}
-        File aDirectory = new File(GraderSettings.get().get("path"));
+		String aPath = GraderSettings.get().get("path");
+		if (aPath == null) {
+			System.err.println("Download path not specified");
+			return null;
+		}
+//        File aDirectory = new File(GraderSettings.get().get("path"));
+        File aDirectory = new File(aPath);
+
 //        String aStartOnyen = GraderSettings.get().get("start");
 //    	String anEndOnyen = GraderSettings.get().get("end");
     	String aStartOnyen = GraderSettings.get().get(AGraderSettingsModel.START_ONYEN);

@@ -300,6 +300,7 @@ public class AGraderSettingsModel implements GraderSettingsModel {
         } else {
         	Tracer.error("Null problem download path");
         }
+        GraderSettings.get().set("path", problemDownloadPath);
 
     }
 
