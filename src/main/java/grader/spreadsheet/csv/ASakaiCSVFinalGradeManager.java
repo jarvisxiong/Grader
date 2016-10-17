@@ -1,9 +1,11 @@
 package grader.spreadsheet.csv;
 
 import grader.file.FileProxy;
+import grader.file.filesystem.AFileSystemFileProxy;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FinalGradeRecorder;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,10 +20,13 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 //import bus.uigen.Message;
 // This is the class that manages the grades.csv file. Josh's stuff might interfere with this
-public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
+public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 	public static final int ONYEN_COLUMN = 0;
+	public static final int LAST_NAME_COLUMN = 2;
+	public static final int FIRT_NAME_COLUMN = 3;
 	public static final int GRADE_COLUMN = 4;
 	public static final int TITLE_ROW = 2;
+	public static final int FIRST_STUDENT_ROW = TITLE_ROW + 1;
 	 public static final String DEFAULT_CHAR = "";
 	 public static final double  DEFAULT_VALUE = -1;
 
@@ -35,9 +40,42 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 	public ASakaiCSVFinalGradeManager(FileProxy aGradeSpreadsheet) {
 		gradeSpreadsheet = aGradeSpreadsheet;		
 	}
-	
+	public ASakaiCSVFinalGradeManager(File aGradeSpreadsheet) {
+		gradeSpreadsheet = new AFileSystemFileProxy(aGradeSpreadsheet)	;	
+	}
+	public ASakaiCSVFinalGradeManager(String aFileName) {
+		gradeSpreadsheet = new AFileSystemFileProxy(new File(aFileName))	;	
+	}
 	public ASakaiCSVFinalGradeManager(SakaiProjectDatabase aSakaiProjectDatabase) {
 		gradeSpreadsheet = aSakaiProjectDatabase.getBulkAssignmentFolder().getSpreadsheet();		
+	}
+	public List<String[]> getTable() {
+		return table;
+	}
+	public int size() {
+		return table.size() - FIRST_STUDENT_ROW;
+	}
+	protected int toActualRow(int aRowNum) {
+		return aRowNum + FIRST_STUDENT_ROW;
+	}
+	public String getOnyen(int aRowIndex) {
+		return table.get(toActualRow(aRowIndex))[ONYEN_COLUMN];		
+	}
+	public String getFirstName(int aRowIndex) {
+		return table.get(toActualRow(aRowIndex))[FIRT_NAME_COLUMN];
+	}
+	public String getLastName(int aRowIndex) {
+		return table.get(toActualRow(aRowIndex))[LAST_NAME_COLUMN];
+	}
+	public String getFullName(int aRowIndex) {
+		return getFirstName(aRowIndex) + " " + getLastName(aRowIndex);
+	}
+	public double getGrade (int aRowIndex) {
+		return getGrade(table.get(toActualRow(aRowIndex)), GRADE_COLUMN);
+
+	}
+	public String[] getStudentRow(int aRowIndex) {
+		return table.get(toActualRow(aRowIndex));
 	}
 	
 	protected void maybeCreateTable() {
@@ -47,7 +85,7 @@ public class ASakaiCSVFinalGradeManager implements FinalGradeRecorder {
 		
 	}
 	
-	protected void createTable() {
+	public void createTable() {
 		
 		try {
 			InputStream input = gradeSpreadsheet.getInputStream();

@@ -5,15 +5,19 @@ import grader.assignment.GradingFeature;
 import grader.assignment.GradingFeatureList;
 import grader.basics.junit.TestCaseResult;
 import grader.file.FileProxy;
+import grader.file.filesystem.AFileSystemFileProxy;
 import grader.sakai.project.SakaiProjectDatabase;
 import grader.spreadsheet.FeatureGradeRecorder;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 //import bus.uigen.Message;
 
-public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager implements FeatureGradeRecorder {
+public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager implements SakaiCSVFeatureGradeManager {
 //	SakaiProjectDatabase projectDatabase;
 //	public static final int ONYEN_COLUMN = 0;
 //	public static final int GRADE_COLUMN = 4;
@@ -24,6 +28,7 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	 List<GradingFeature> gradingFeatures;
 	 Map<String, Integer> featureToColumnNumber = new HashMap();
 	 Map<String, Integer> resultToColumnNumber = new HashMap();
+	 List<String> featureNames = new ArrayList();
 	 public static final int SOURCE_POINTS_COLUMN = GRADE_COLUMN + 1;
 	 public static final int EARLY_LATE_COLUMN = SOURCE_POINTS_COLUMN + 1;
 	 public static final String SOURCE_POINTS_TITLE = "Source Points";
@@ -38,6 +43,12 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		
 //		gradeSpreadsheet = aGradeSpreadsheet;		
 	}
+	public ASakaiCSVFeatureGradeManager(File aGradeSpreadsheet) {
+		super(aGradeSpreadsheet)	;	
+	}
+	public ASakaiCSVFeatureGradeManager(String aFileName) {
+		super(aFileName)	;
+	}
 	
 	public ASakaiCSVFeatureGradeManager(SakaiProjectDatabase aSakaiProjectDatabase) {
 		super(aSakaiProjectDatabase.getAssignmentDataFolder().getFeatureGradeFile());
@@ -45,8 +56,23 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		
 //		gradeSpreadsheet = aGradeSpreadsheet;		
 	}
+	@Override
+	public void readFeatureNames() {
+		featureNames.clear();
+		String[] aTitleRow = table.get(TITLE_ROW);
+		int aNumFeatureResultColumns = aTitleRow.length - PRE_FEATURE_COLUMN - 1;
+		int aFirstFeatureColumn = PRE_FEATURE_COLUMN + 1;
+		int aNumFeatures = aNumFeatureResultColumns/2;
+		for (int i= aFirstFeatureColumn; i < aFirstFeatureColumn + aNumFeatures; i++) {
+			String aFeatureName = aTitleRow[i];
+			featureNames.add(aFeatureName);
+			featureToColumnNumber.put(aFeatureName, i);
+			resultToColumnNumber.put(aFeatureName, i + aNumFeatures );
+		}
+		
+	}
 	
-	protected void createTable() {
+	public void createTable() {
 		super.createTable();
 		if (gradingFeatures == null) return;
 		String[] headers = table.get(TITLE_ROW);
@@ -59,7 +85,6 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		makeMap();
 		
 	}
-	
 	void makeTitles() {
 		String[] titleRow = table.get(TITLE_ROW);
 		titleRow[EARLY_LATE_COLUMN] = LATE_TITLE;
@@ -108,9 +133,14 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		return retVal;
 		
 	}
+	
 	public double getGrade (String[] aRow, String aFeatureName) {
 		return getGrade(aRow, featureToColumnNumber.get(aFeatureName));
 
+	}
+	@Override
+	public String getResult(int aRowNum, String aFeature) {
+		return getResult(table.get(toActualRow(aRowNum)), aFeature );
 	}
 	
 	public String getResult (String[] aRow, String aFeatureName) {
@@ -207,6 +237,10 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 		
 	}
 		
+	}
+	@Override
+	public double getGrade(int aRowNum, String aFeature) {
+		return getGrade(table.get(toActualRow(aRowNum)), aFeature );
 	}
 
 	@Override
@@ -413,6 +447,10 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	public void setGradingFeatures(GradingFeatureList newVal) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public List<String> getFeatureNames() {
+		return featureNames;
 	}
 
 	@Override
