@@ -8,6 +8,7 @@ import grader.spreadsheet.csv.SakaiCSVFinalGradeRecorder;
 
 public class FinalSpreadsheetManipulator {
 	public static void main (String[] args) {
+		
 		SakaiCSVFinalGradeRecorder aFinalGradeRecorder = new ASakaiCSVFinalGradeManager("tmp/grades.csv");
 		aFinalGradeRecorder.createTable();
 		for (int i=0; i < aFinalGradeRecorder.size(); i++) {
