@@ -214,14 +214,14 @@ public class ConsoleScenePrintsTestCase extends BasicTestCase {
         return ret;
     }
     
-    private static String[][] parsePropertyChanges(String lines) {
+    public static String[][] parsePropertyChanges(String lines) {
         return Arrays.stream(lines.split("\n")).parallel()
                 .filter((line) -> line.startsWith("java.beans.PropertyChangeEvent"))
                 .map(ConsoleScenePrintsTestCase::parsePropertyChange)
                 .toArray(String[][]::new);
     }
     
-    private static String[] parsePropertyChange(String line) {
+    public static String[] parsePropertyChange(String line) {
         line = line.substring(line.indexOf('[')+1, line.lastIndexOf(']'));
         return Arrays.stream(line.split("; ")).parallel()
                 .map((s) -> s.split("=")[1]).toArray(String[]::new);
