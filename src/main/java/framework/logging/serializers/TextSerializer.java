@@ -99,7 +99,12 @@ public class TextSerializer implements RecordingSessionSerializer {
         		 continue;
         	 }
              awarded += gradingFeature.getScore();
-             log += String.format(gradingFeature.getResultFormat(), gradingFeature.getScore()) + "\n";
+             String format = gradingFeature.getResultFormat();
+             String entry = String.format(format, gradingFeature.getScore()) + "\n";
+             log+= entry;
+//             log += String.format(gradingFeature.getResultFormat(), gradingFeature.getScore()) + "\n";
+//           log += String.format(format, gradingFeature.getScore()) + "\n";
+
          }
          log += "----------------------------------\n";
          log += "  Points Awarded: " + awarded + "\n\n";

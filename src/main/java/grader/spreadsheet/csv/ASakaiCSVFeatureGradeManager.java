@@ -160,10 +160,13 @@ public class ASakaiCSVFeatureGradeManager extends ASakaiCSVFinalGradeManager imp
 	}
 	
 	public void recordResult (String[] aRow, String aFeature, String aScore) {
-		Integer aColumnNumber = featureToColumnNumber.get(aFeature);
+//		Integer aColumnNumber = featureToColumnNumber.get(aFeature);
+		Integer aColumnNumber = resultToColumnNumber.get(aFeature);
+
 		if (aColumnNumber == null) {
 			System.err.println("No column number for:" + aFeature);
-			System.err.println(featureToColumnNumber);
+//			System.err.println(featureToColumnNumber);
+			System.err.println(resultToColumnNumber);
 			// get a stack trace so we can see on the console
 //			return;
 		}
