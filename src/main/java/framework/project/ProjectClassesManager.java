@@ -2,6 +2,7 @@ package framework.project;
 
 import framework.execution.ARunningProject;
 import grader.basics.BasicLanguageDependencyManager;
+import grader.basics.execution.BasicProjectExecution;
 import grader.basics.execution.RunningProject;
 import grader.basics.project.BasicClassDescription;
 import grader.basics.project.BasicProjectClassesManager;
@@ -143,10 +144,13 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
+    	    boolean anOldProcessTimeOut = BasicProjectExecution.isUseProcessTimeOut();
+    		BasicProjectExecution.setUseProcessTimeOut(true);
     	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
-			String[] aLines = aCheckStyleOutput.split("\n");			
+			String[] aLines = aCheckStyleOutput.split("\n");	
+			BasicProjectExecution.setUseProcessTimeOut(anOldProcessTimeOut);
 			try {
 				PrintWriter pw = new PrintWriter(new FileWriter(aCheckStyleOutputFile));
 				 
