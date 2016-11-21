@@ -144,13 +144,13 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	    if (aFile.exists()) { // have already run it, should we add a method to project to record?
     	    	return;
     	    }
-    	    boolean anOldProcessTimeOut = BasicProjectExecution.isUseProcessTimeOut();
-    		BasicProjectExecution.setUseProcessTimeOut(true);
+    	    boolean aSavedValue = BasicProjectExecution.isWaitForMethodConstructorsAndProcesses();
+    		BasicProjectExecution.setWaitForMethodConstructorsAndProcesses(true);
     	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
 			String[] aLines = aCheckStyleOutput.split("\n");	
-			BasicProjectExecution.setUseProcessTimeOut(anOldProcessTimeOut);
+			BasicProjectExecution.setWaitForMethodConstructorsAndProcesses(aSavedValue);
 			try {
 				PrintWriter pw = new PrintWriter(new FileWriter(aCheckStyleOutputFile));
 				 
@@ -203,8 +203,8 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
                 	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
-                    boolean aSavedUseTimeOut = BasicProjectExecution.isUseProcessTimeOut();
-                    BasicProjectExecution.setUseProcessTimeOut(true);
+                    boolean aSavedValue = BasicProjectExecution.isWaitForMethodConstructorsAndProcesses();
+                    BasicProjectExecution.setWaitForMethodConstructorsAndProcesses(true);
                     RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
                     if (runningProject != null) {
                         //					String outputAndErrors = runningProject.getOutputAndErrors();
@@ -214,7 +214,7 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
                     }
                     System.out.println("Compilation attempt finished.");
                     maybeSetCanBeCompiled(true);
-                    BasicProjectExecution.setUseProcessTimeOut(aSavedUseTimeOut);
+                    BasicProjectExecution.setWaitForMethodConstructorsAndProcesses(aSavedValue);
 
 //                    project.setCanBeCompiled(true);
                     // reuse the same loader as its binary folder name has changed
