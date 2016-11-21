@@ -935,4 +935,10 @@ public class OriginalProcessRunner implements Runner {
 		// return runner;
 		return process;
 	}
+
+	@Override
+	public void terminateProcess() {
+		// TODO Auto-generated method stub
+		
+	}
 }

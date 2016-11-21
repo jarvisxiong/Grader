@@ -494,5 +494,11 @@ public class InteractiveConsoleProcessRunner implements Runner {
 		return null;
 	}
 
+	@Override
+	public void terminateProcess() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

@@ -203,6 +203,8 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
                 	
     //				compile(aFilesToCompile);
                     //				JavaClassFilesCompilerSelector.getClassFilesCompiler().compile(buildFolder, aFilesToCompile);
+                    boolean aSavedUseTimeOut = BasicProjectExecution.isUseProcessTimeOut();
+                    BasicProjectExecution.setUseProcessTimeOut(true);
                     RunningProject runningProject = LanguageDependencyManager.getSourceFilesCompiler().compile(sourceFolder, buildFolder, aFilesToCompile);
                     if (runningProject != null) {
                         //					String outputAndErrors = runningProject.getOutputAndErrors();
@@ -212,6 +214,8 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
                     }
                     System.out.println("Compilation attempt finished.");
                     maybeSetCanBeCompiled(true);
+                    BasicProjectExecution.setUseProcessTimeOut(aSavedUseTimeOut);
+
 //                    project.setCanBeCompiled(true);
                     // reuse the same loader as its binary folder name has changed
 //                    project.setNewClassLoader();

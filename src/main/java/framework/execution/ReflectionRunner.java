@@ -177,4 +177,10 @@ public class ReflectionRunner implements Runner {
 		return null;
 	}
 
+	@Override
+	public void terminateProcess() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
