@@ -37,9 +37,13 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
 		return foundType;
 	}
 	// interface defined should also use similar syntax
+//	protected String typeRegex(String aTypeTag) {
+//		return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)" + aTypeTag + "(.*)" + "defined" + "(.*)" ;
+//	}
+	
 	protected String typeRegex(String aTypeTag) {
-		return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)" + aTypeTag + "(.*)" + "defined" + "(.*)" ;
-	}
+        return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)@" + aTypeTag + "[ /](.*)" + "defined" + "(.*)" ;
+    }
     
     protected boolean failOnMatch() {
     	return true;
