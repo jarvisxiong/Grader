@@ -25,7 +25,7 @@ public class CheckstyleMethodCalledTestCase extends CheckStyleTestCase {
 	public String regexLineFilter() {
 		
 //		return "(.*)Signature(.*)" + method + "(.*)" + type + "(.*)";
-		return "(.*)" + getActualType() + "(.*)not made expected call(.*)" + method + "(.*)";
+		return "(.*)" + getActualType() + "(.*)not made expected call(.*)\\Q" + method + "\\E(.*)";
 //		return "(.*)" + getActualType() + " has not made expected call(.*)" + method + "(.*)";
 
 	}
