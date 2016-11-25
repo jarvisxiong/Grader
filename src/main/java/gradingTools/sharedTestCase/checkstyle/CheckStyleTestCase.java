@@ -42,7 +42,7 @@ public abstract class CheckStyleTestCase extends BasicTestCase {
 //	}
 	
 	protected String typeRegex(String aTypeTag) {
-        return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)@" + aTypeTag + "[ /](.*)" + "defined" + "(.*)" ;
+        return "(.*)" + "Class" + "(.*)" + "matching" + "(.*)[@ ]" + aTypeTag + "[ /](.*)" + "defined" + "(.*)" ;
     }
     
     protected boolean failOnMatch() {
