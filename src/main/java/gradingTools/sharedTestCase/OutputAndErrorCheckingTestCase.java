@@ -94,6 +94,7 @@ public abstract class OutputAndErrorCheckingTestCase extends MethodExecutionTest
 		// Project project = CurrentProjectHolder.getOrCreateCurrentProject();
 		// RunningProject runner = project.launch(anInput, 1);
 		// String output = runner.await();
+		try {
 
 		ResultingOutErr aResult = BasicProjectExecution.callMain(aMainName,
 				emptyStringArray, anInput);
@@ -109,6 +110,10 @@ public abstract class OutputAndErrorCheckingTestCase extends MethodExecutionTest
 			return OutputErrorStatus.INCORRECT_OUTPUT_NO_ERRORS;
 		}
 		return OutputErrorStatus.INCORRECT_OUTPUT_ERRORS;
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return OutputErrorStatus.INCORRECT_OUTPUT_ERRORS;
+		}
 	}
 
 	public static void main(String[] args) {

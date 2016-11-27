@@ -63,7 +63,13 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
                 Method getTokens = Arrays.stream(clearableHistoryClass.getMethods()).filter((m)->m.getName().matches(".*get.*")).findFirst().orElse(null);
                 if (getTokens != null) {
 //                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, (Object)0);
-                    token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, new Object[] {0});
+                    try {
+						token = BasicProjectExecution.timedInvoke(tokenRet, getTokens, new Object[] {0});
+					} catch (Throwable e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return fail("Invocation exception:" + e.getMessage());
+					}
 
                 } else {
                     return fail("Can't find method to get from clearable history");
@@ -97,7 +103,8 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
 
     @Override
     public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException, NotGradableException {
-        if (project.getClassesManager().isEmpty()) {
+       try {
+    	if (project.getClassesManager().isEmpty()) {
             throw new NotGradableException();
         }
 
@@ -115,5 +122,10 @@ public abstract class AbstractCommandCreatedTestCase extends BasicTestCase {
             }
         }
         return result;
+       } catch (Throwable e) {
+    	   e.printStackTrace();
+       		throw new  NotGradableException();
+       }
     }
+    
 }

@@ -77,8 +77,19 @@ public class ProjectExecution extends BasicProjectExecution {
 					Object aValue = anInputs.get(aPropertyName);
 //					timedInvoke(anObject, aWriteMethod, getMethodTimeOut(),
 //							new Object[] { aValue });
-					timedInvoke(anObject, aWriteMethod, 
-							new Object[] { aValue }, getMethodTimeOut());
+					try {
+						timedInvoke(anObject, aWriteMethod, 
+								new Object[] { aValue }, getMethodTimeOut());
+					} catch (Throwable e) {
+						e.printStackTrace();
+						anActualOutputs.put(MISSING_WRITE, true);
+						anActualOutputs.put(
+								MISSING_WRITE + "." + aPropertyName, true);
+						System.out.println("Erroneous write method for property "
+								+ aPropertyName);
+						continue;
+						// TODO Auto-generated catch block
+					}
 				}
 				for (String anOutputPropertyName : anOutputProperties) {
 					if (anOutputPropertyName == null)
@@ -117,6 +128,11 @@ public class ProjectExecution extends BasicProjectExecution {
 			anActualOutputs = null;
 
 			e.printStackTrace();
+		} catch (Throwable e) {
+			anActualOutputs = null;
+
+			e.printStackTrace();
+			// TODO Auto-generated catch block
 		} finally {
 			anOutput = restoreOutputAndGetRedirectedOutput();
 			if (anOutput != null && !anOutput.isEmpty()) {

@@ -89,7 +89,10 @@ public class ScannerBeanTestCase extends OldOutputAndErrorCheckingTestCase{
                 }
             } catch (IntrospectionException e) {
                 // Do nothing if it fails
-            }
+            } catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         
         return fail("Couldn't find a class that satisfies the bean class requirements (string w/ a getter and setter).", autoGrade);
     }

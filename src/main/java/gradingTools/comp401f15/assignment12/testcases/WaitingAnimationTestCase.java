@@ -41,7 +41,7 @@ public class WaitingAnimationTestCase extends CommandInterpreterAnimationTestCas
 	boolean didNotWait;
 	static Object[] emptyObjects = {};
 
-	protected void callAsynchronousMethods() {
+	protected void callAsynchronousMethods() throws Throwable {
 		Method waitMethod1 = getUniqueParameterlessMethod("waitingArthur");
 		Method waitMethod2 = getUniqueParameterlessMethod("waitingLancelot");
 		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, waitMethod1, emptyObjects);

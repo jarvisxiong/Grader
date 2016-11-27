@@ -98,6 +98,12 @@ public class CorrectOutputTypeOnComputationChoice extends BasicTestCase {
 			}
 		} catch (NotRunnableException e) {
 			throw new NotAutomatableException();
+		} catch (Throwable e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NotAutomatableException();
+
 		}
 	}
 }

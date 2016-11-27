@@ -129,9 +129,11 @@ public  class CommandInterpreterAnimationTestCase extends CommandIntrepreterMeth
 		ThreadSupport.sleep(2500);
 	}
 	static Object[] emptyObjects = {};
-	protected void callAsynchronousMethods() {
+	protected void callAsynchronousMethods() throws Throwable {
 //		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod);
-		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
+		
+			Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
+		
 
 	//		retVal = ExecutionUtil.timedInvoke(commandInterpreter, foundMethod);
 		
@@ -198,7 +200,7 @@ public  class CommandInterpreterAnimationTestCase extends CommandIntrepreterMeth
 		   maxEventTime = 0;
 	}
 	@Override
-	protected TestCaseResult callMethods() {
+	protected TestCaseResult callMethods() throws Throwable {
 		try {
 		System.out.println("calling methods");
 //		parentThread = null;

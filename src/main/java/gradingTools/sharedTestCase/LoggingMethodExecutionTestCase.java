@@ -345,7 +345,7 @@ public class LoggingMethodExecutionTestCase extends BasicTestCase {
             return BasicProjectExecution.timedInvokeWithExceptions(o, m, arguments);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             return ex;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return new ExecutionFailureException(e);
         }
     }
@@ -447,7 +447,7 @@ public class LoggingMethodExecutionTestCase extends BasicTestCase {
     
     public static class ExecutionFailureException extends Exception {
 
-        private ExecutionFailureException(Exception e) {
+        private ExecutionFailureException(Throwable e) {
             super(e);
         }
         

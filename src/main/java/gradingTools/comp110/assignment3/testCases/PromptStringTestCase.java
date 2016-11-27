@@ -70,6 +70,11 @@ public class PromptStringTestCase extends BasicTestCase {
 
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NotGradableException();
+
 		}
 	}
 }

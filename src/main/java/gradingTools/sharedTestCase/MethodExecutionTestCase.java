@@ -381,7 +381,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             exception = ex;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             exception = new ExecutionFailureException(e);
         }
         
@@ -555,7 +555,7 @@ public class MethodExecutionTestCase extends BasicTestCase {
 
     public static class ExecutionFailureException extends Exception {
 
-        private ExecutionFailureException(Exception e) {
+        private ExecutionFailureException(Throwable e) {
             super(e);
         }
 

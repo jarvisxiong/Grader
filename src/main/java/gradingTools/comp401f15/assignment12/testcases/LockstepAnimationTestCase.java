@@ -34,7 +34,7 @@ public class LockstepAnimationTestCase extends CommandInterpreterAnimationTestCa
 //	public static final String COORDINATED_METHOD = "lockstepArthur";
 	static Object[] emptyObjects = {};
 
-	protected void callAsynchronousMethods() {
+	protected void callAsynchronousMethods() throws Throwable {
 		Method waitMethod = getUniqueParameterlessMethod(coordinatedMethod);
 		if (waitMethod == null) {
 			System.out.println("Did not find coordinated method:" + coordinatedMethod);

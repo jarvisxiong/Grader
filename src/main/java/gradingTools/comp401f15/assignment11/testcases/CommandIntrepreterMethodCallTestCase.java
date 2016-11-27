@@ -23,7 +23,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 	}
 
 	// protected abstract void processFinally();
-	protected abstract TestCaseResult callMethods();
+	protected abstract TestCaseResult callMethods() throws Throwable;
 
 	Object scannerBeanInstance;
 	Object bridgeSceneInstance;
@@ -220,7 +220,7 @@ public abstract class CommandIntrepreterMethodCallTestCase extends MethodDefined
 			// }
 			// System.out.println("Executed method");
 
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			return fail("Could not instantiate aCommand Interpreter");
 		} finally {
 			// TraceableBus.removeTraceableListener(this);

@@ -16,6 +16,9 @@ public class FutureTester {
 		BasicProjectExecution.timedInvoke(futureTester, test, new Object[]{});
 		} catch (Exception e) {
 			
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

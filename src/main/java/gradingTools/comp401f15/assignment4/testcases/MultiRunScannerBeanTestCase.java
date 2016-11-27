@@ -137,7 +137,11 @@ public class MultiRunScannerBeanTestCase extends BasicTestCase {
                 }
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 tests[i] = 0;
-            }
+            } catch (Throwable e) {
+            	tests[i] = 0;
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
         int sum = 0;

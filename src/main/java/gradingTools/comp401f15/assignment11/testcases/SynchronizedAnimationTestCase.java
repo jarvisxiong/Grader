@@ -14,7 +14,7 @@ public class SynchronizedAnimationTestCase extends CommandInterpreterAnimationTe
 	}
 	static Object[] emptyObjects = {};
 
-	protected void callAsynchronousMethods() {
+	protected void callAsynchronousMethods() throws Throwable {
 		Object retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
 		retVal = BasicProjectExecution.timedInvoke(commandInterpreter, foundMethod, emptyObjects);
 		
