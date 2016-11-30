@@ -145,7 +145,9 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	String aRetVal = aLine;
     	int aTruncateIndex = aLine.indexOf(SRC_STRING);
     	if (aTruncateIndex != -1) {
-    		aRetVal = aLine.substring(aTruncateIndex + SRC_STRING.length() + 1);
+//    		aRetVal = aLine.substring(aTruncateIndex + SRC_STRING.length() + 1);
+    		aRetVal = aLine.substring(aTruncateIndex);
+
     		return aRetVal;
     	}
     	aTruncateIndex = aLine.indexOf(SRC_STRING);
