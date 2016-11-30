@@ -137,6 +137,47 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 		proxyClassLoader = project.getClassLoader();
     	project.getClassLoader().setBinaryFileSystemFolderName(buildFolder.getAbsolutePath());
     }
+    public static final String INFO_PREFIX = "info:";
+    public static final String WARNING_PREFIX = "warning:";
+    public static final String SRC_STRING = "src";
+    public static final String ATTACHMENT_STRING = "Submission attachment(s)";
+    public static String beautify(String aLine) { 
+    	String aRetVal = aLine;
+    	int aTruncateIndex = aLine.indexOf(SRC_STRING);
+    	if (aTruncateIndex != -1) {
+    		aRetVal = aLine.substring(aTruncateIndex + SRC_STRING.length() + 1);
+    		return aRetVal;
+    	}
+    	aTruncateIndex = aLine.indexOf(SRC_STRING);
+    	if (aTruncateIndex != -1) {
+    		aRetVal = aLine.substring(aTruncateIndex + ATTACHMENT_STRING.length() + 1);
+    		return aRetVal;
+    	}
+    	return aLine;
+    	
+    }
+    /*
+     * Pending checks have different source file names
+     */
+    public static final String FILE_NAME_SUFFIX_0 = "java:0:";
+    public static final String FILE_NAME_SUFFIX_1 = "java:1:";
+
+    public static String removeFileName(String aLine) { 
+    	String aRetVal = aLine;
+    	int aTruncateIndex = aLine.indexOf(FILE_NAME_SUFFIX_0);
+    	if (aTruncateIndex != -1) {
+    		aRetVal = aLine.substring(aTruncateIndex + FILE_NAME_SUFFIX_0.length());
+    		return aRetVal;
+    	}
+    	aTruncateIndex = aLine.indexOf(FILE_NAME_SUFFIX_1);
+    	if (aTruncateIndex != -1) {
+    		aRetVal = aLine.substring(aTruncateIndex + FILE_NAME_SUFFIX_1.length());
+    		return aRetVal;
+    	}
+    	
+    	return aLine;
+    	
+    }
     
     protected void checkStyle(SakaiProject aProject, File aSourceFolder) {
     		if (!BasicGradingEnvironment.get().isCheckStyle())
@@ -158,10 +199,12 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
 				 
 				for (int i = 0; i < aLines.length; i++) {
 					String aLine = aLines[i];
-					if (anOutputLines.contains(aLine))
+					String aLineWithoutFileName = removeFileName(aLine);
+					if (anOutputLines.contains(aLineWithoutFileName))
 						continue;
-					pw.println(aLine);
-					anOutputLines.add(aLine);
+					String aBeautifiedLine = beautify(aLine);
+					pw.println(aBeautifiedLine);
+					anOutputLines.add(aLineWithoutFileName);
 				}
 			 
 				pw.close();
