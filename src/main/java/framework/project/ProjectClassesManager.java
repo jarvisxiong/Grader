@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -149,13 +150,18 @@ public class ProjectClassesManager extends BasicProjectClassesManager implements
     	    RunningProject aRunner = LanguageDependencyManager.getCheckStyleInvoker().checkStyle(aSourceFolder.getAbsolutePath());
 			String aCheckStyleOutputFile = aProject.getCheckStyleFileName();
 			String aCheckStyleOutput = aRunner.getOutput();
-			String[] aLines = aCheckStyleOutput.split("\n");	
+			String[] aLines = aCheckStyleOutput.split("\n");
+			Set<String> anOutputLines = new HashSet<String>();
 			BasicProjectExecution.setWaitForMethodConstructorsAndProcesses(aSavedValue);
 			try {
 				PrintWriter pw = new PrintWriter(new FileWriter(aCheckStyleOutputFile));
 				 
 				for (int i = 0; i < aLines.length; i++) {
-					pw.println(aLines[i]);
+					String aLine = aLines[i];
+					if (anOutputLines.contains(aLine))
+						continue;
+					pw.println(aLine);
+					anOutputLines.add(aLine);
 				}
 			 
 				pw.close();
