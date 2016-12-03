@@ -256,7 +256,9 @@ public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 				System.out.println("Cannot find row for:" + aStudentName + " " + anOnyen);
 				return;
 		    }
-		    
+		    if (getClass().equals(ASakaiCSVFinalGradeManager.class)) {
+		    	System.out.println("Recording final grade:" + aScore + " in file " + gradeSpreadsheet.getAbsoluteName());
+		    }
 		    recordGrade(row, aScore);
 		    writeTable();
 

@@ -3,6 +3,7 @@ package gradingTools;
 import static framework.grading.GradingMangerType.A_HEADLESS_GRADING_MANAGER;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
@@ -663,7 +664,10 @@ public class Driver {
             recorder.setProjectRequirements(requirements);
 
             String[] loggingMethods = configuration.getString("grader.logger", "csv").split("\\s*\\+\\s*");
+            
+            System.out.println ("Found loggers:" + Arrays.asList(loggingMethods));
             //lazy coding means feedback should be the last step so that isSaved works correctly
+            recorder.addLogger(new CsvLogger()); // always add this
 
             for (String method : loggingMethods) {
 
@@ -683,9 +687,9 @@ public class Driver {
                 if (method.equals("spreadsheet")) {
                     recorder.addLogger(new SpreadsheetLogger(requirements));
                 }
-                if (method.equals("csv")) {
-                    recorder.addLogger(new CsvLogger());
-                }
+//                if (method.equals("csv")) {
+//                    recorder.addLogger(new CsvLogger());
+//                }
             }
         } catch (ConfigurationException e) {
             System.err.println("Error loading config file.");
