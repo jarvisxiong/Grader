@@ -25,6 +25,7 @@ public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 	public static final int LAST_NAME_COLUMN = 2;
 	public static final int FIRT_NAME_COLUMN = 3;
 	public static final int GRADE_COLUMN = 4;
+	public static final int ROW_SIZE = GRADE_COLUMN + 1;
 	public static final int TITLE_ROW = 2;
 	public static final int FIRST_STUDENT_ROW = TITLE_ROW + 1;
 	 public static final String DEFAULT_CHAR = "";
@@ -84,6 +85,26 @@ public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 		createTable();
 		
 	}
+   protected String[] createNewRow(String aStudentName, String anOnyen) {
+		String aLastName = DEFAULT_CHAR;
+		String aFirstName = DEFAULT_CHAR;
+		String aGrade = DEFAULT_CHAR;
+		
+		if (aStudentName != null) {
+			String[] aNames = aStudentName.split(" ");
+			if (aNames.length != 0)
+				aLastName = aNames[0];
+			if (aNames.length != 1)
+				aFirstName = aNames[1];
+		}
+		String[] aNewRow = new String[ROW_SIZE];
+		aNewRow[ONYEN_COLUMN] = anOnyen;
+		aNewRow[LAST_NAME_COLUMN] = aLastName;
+		aNewRow[FIRT_NAME_COLUMN] = aFirstName;
+		aNewRow[GRADE_COLUMN] = aGrade;
+		table.add(aNewRow);
+		return aNewRow;
+	}
 	
 	public void createTable() {
 		
@@ -114,7 +135,10 @@ public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 			 if (aRow[ONYEN_COLUMN].equals(anOnyen))
 				 return aRow;
 		 }
-		 return null;
+		System.err.println("Cannot find row for:" + aStudentName + " " + anOnyen);
+		System.err.println("Creating row for:" + aStudentName + " " + anOnyen);
+		return createNewRow(aStudentName, anOnyen);
+//		 return null;
 		
 	}
 	
@@ -122,8 +146,10 @@ public class ASakaiCSVFinalGradeManager implements SakaiCSVFinalGradeRecorder {
 		 String[] aRow = getStudentRow(aSheet, aStudentName, anOnyen);
 		 if (aRow != null) {
 			 for (int aColumn = 0; aColumn < aRow.length; aColumn++) {
-				 if (aColumn == ONYEN_COLUMN) continue;
-				 aRow[aColumn] = "";
+//				 if (aColumn == ONYEN_COLUMN) continue;
+				 if (aColumn < GRADE_COLUMN) continue;
+
+				 aRow[aColumn] = DEFAULT_CHAR;
 			 }
 		 }
 		
