@@ -696,6 +696,7 @@ public class AnAutoVisitBehavior implements
 				// double gradePercentage = timestamp.isDefined() ?
         // projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
         // : 0;
+        System.out.println("time stamp defined:" + timestamp);
         double aMultiplier = timestamp.isDefined()
                 ? projectDatabase.getProjectRequirements().checkDueDate(timestamp.get())
                 : 0;

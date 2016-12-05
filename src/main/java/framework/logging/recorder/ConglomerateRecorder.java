@@ -102,6 +102,8 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
 
     @Override
     public void saveMultiplier(double gradePercentage) {
+    	System.out.println ("save Multiplier:Setting Late Penalty:" + gradePercentage);
+
         recordingSession.setLatePenalty(gradePercentage);
 //        basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);
     }
@@ -365,6 +367,7 @@ public class ConglomerateRecorder implements FeatureGradeRecorder, AutoFeedback,
     @Override
     public void setEarlyLatePoints(String aStudentName, String anOnyen,
             double aScore) {
+    	System.out.println ("setEarlyLatePoints:Setting Late Penalty:" + anOnyen + " score " + aScore);
         recordingSession.setLatePenalty(aScore);
 
         basicFeatureGradeRecorder.setEarlyLatePoints(aStudentName, anOnyen, aScore);

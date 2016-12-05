@@ -3,14 +3,14 @@ package gradingTools;
 import java.util.ArrayList;
 import java.util.List;
 
-import framework.grading.GradingMangerType;
+import grader.driver.GradingManagerType;
 // does not work right now with incremental args
 public class HeadlessDriver {
 	static String[] emptyStringArray = {};
 	public static void main(String[] anArgs) {
 		List<String> anArgsList = new ArrayList<>(15);
 		fillCleanStateAll(anArgsList);
-		fillController(anArgsList, GradingMangerType.HEADLESS_GRADING_MANAGER);
+		fillController(anArgsList, GradingManagerType.HEADLESS_GRADING_MANAGER);
 		String[] aDriverArgs =  anArgsList.toArray(emptyStringArray);
 		Driver.main(aDriverArgs);
 	}

@@ -3,6 +3,7 @@ package framework.navigation;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.util.Date;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -139,9 +140,18 @@ public class SakaiStudentFolder implements StudentFolder<StandardProject> {
     public Option<DateTime> getTimestamp() {
         File timestampFile = new File(folder, "timestamp.txt");
         if (timestampFile.exists()) {
+        	System.out.println(("Found timestamp file:" + timestampFile.getAbsolutePath()));
             try {
                 String timestampText = FileUtils.readFileToString(timestampFile);
-                return Option.apply(new DateTime(Common.toDate(timestampText)));
+            	System.out.println("Found timestamp:" + timestampText);
+            	Date aDate = Common.toDate(timestampText);
+            	System.out.println ("Timestamp Date:" + aDate );
+            	DateTime aDateTime = new DateTime(aDate);
+            	System.out.println ("Date time:" + aDateTime );
+            	return Option.apply(aDateTime);
+
+
+            //    return Option.apply(new DateTime(Common.toDate(timestampText)));
             } catch (IOException e) {
                 return Option.empty();
             }

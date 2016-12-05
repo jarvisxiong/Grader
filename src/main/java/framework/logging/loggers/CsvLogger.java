@@ -197,6 +197,8 @@ public class CsvLogger implements Logger {
 //	            
 //	         }
 			double rawScore = recordingSession.getScore();
+			System.out.println ("CSV logger raw score:" + rawScore);
+			System.out.println("Late Penalty/Multiplier:" + recordingSession.getLatePenalty());
 			double total = ASakaiCSVFeatureGradeManager.getTotalGrade(rawScore, recordingSession.getLatePenalty(), recordingSession.getSourcePoints());
 
 			aRecorder.setGrade(id, onyen, total);

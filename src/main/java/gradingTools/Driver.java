@@ -1,6 +1,6 @@
 package gradingTools;
 
-import static framework.grading.GradingMangerType.A_HEADLESS_GRADING_MANAGER;
+import static grader.driver.GradingManagerType.A_HEADLESS_GRADING_MANAGER;
 
 import java.io.File;
 import java.util.Arrays;
@@ -18,7 +18,6 @@ import bus.uigen.ObjectEditor;
 import bus.uigen.attributes.AttributeNames;
 import framework.execution.ProcessRunnerFactory;
 import framework.grading.GradingManager;
-import framework.grading.GradingMangerType;
 import framework.grading.ProjectRequirements;
 import framework.gui.SettingsWindow;
 import framework.logging.loggers.CsvLogger;
@@ -38,6 +37,8 @@ import grader.basics.execution.RunnerSelector;
 import grader.basics.settings.BasicGradingEnvironment;
 import grader.config.ConfigurationManagerSelector;
 import grader.config.StaticConfigurationUtils;
+import grader.driver.GradingManagerFactory;
+import grader.driver.GradingManagerType;
 import grader.execution.AFlexibleMainClassFinder;
 import grader.file.zipfile.AZippedRootFolderProxy;
 import grader.interaction_logger.InteractionLogWriter;
@@ -65,7 +66,7 @@ public class Driver {
 
     static PropertiesConfiguration configuration; // = ConfigurationManagerSelector.getConfigurationManager().getStaticConfiguration();
 
-    static GradingMangerType controller;
+    static GradingManagerType controller;
     static ProjectDatabaseWrapper database = null;
 
     static GraderSettingsManager graderSettingsManager; //  = GraderSettingsManagerSelector.getGraderSettingsManager();
@@ -130,7 +131,8 @@ public class Driver {
         // this does nothing but slow things down, we should use some other mechanism to find requirements
 //        (new ARequirementsToCourseInfoTranslator()).findAssignmentsDirectory(configuration);
 
-        controller = GradingMangerType.getFromConfigName(configuration.getString("grader.controller", "GradingManager"));
+        controller = GradingManagerType.getFromConfigName(configuration.getString("grader.controller", "ger"));
+        GradingManagerFactory.setGradingManagerType(controller);
 //        if (!controller.equals("AHeadlessGradingManager")) {
         // want static confoguration utils to be set by this time, so this should not happen prematurely
         // this should actuall happen after settings model is initialized
@@ -709,11 +711,15 @@ public class Driver {
     }
 
     private static boolean isHeadless() {
-        return controller.equals(A_HEADLESS_GRADING_MANAGER);
+//        return controller.equals(A_HEADLESS_GRADING_MANAGER);
+//    	return GradingManagerFactory.getGradingManagerType().equals(A_HEADLESS_GRADING_MANAGER);
+    	return GradingManagerFactory.isHeadless();
+
     }
 
     private static boolean isNotHeadless() {
-        return !controller.equals(A_HEADLESS_GRADING_MANAGER);
+//        return !controller.equals(A_HEADLESS_GRADING_MANAGER);
+        return !isHeadless();
     }
     // why just headless, why not always and just return if userProperties is empty
     private static void setupHeadlessGrader(String[] userProperties) {
