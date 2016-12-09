@@ -270,6 +270,7 @@ public class Driver {
                 settingsModel.preSettings();
                 settingsModel.postSettings();
                 settingsModel.begin();
+                System.out.println("Calling clean slate all in headless mode");
                 settingsModel.cleanSlateAll();
             }
 //            settingsModel.maybePreCompile();
@@ -710,14 +711,14 @@ public class Driver {
 //		Tracer.setKeywordPrintStatus(Tracer.ALL_KEYWORDS, true);
     }
 
-    private static boolean isHeadless() {
+    public static boolean isHeadless() {
 //        return controller.equals(A_HEADLESS_GRADING_MANAGER);
 //    	return GradingManagerFactory.getGradingManagerType().equals(A_HEADLESS_GRADING_MANAGER);
     	return GradingManagerFactory.isHeadless();
 
     }
 
-    private static boolean isNotHeadless() {
+    public static boolean isNotHeadless() {
 //        return !controller.equals(A_HEADLESS_GRADING_MANAGER);
         return !isHeadless();
     }

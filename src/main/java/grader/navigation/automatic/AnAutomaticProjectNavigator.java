@@ -9,6 +9,7 @@ import grader.trace.settings.AutomaticNavigationEnded;
 import grader.trace.settings.AutomaticNavigationStarted;
 import grader.trace.settings.InvalidOnyenRangeException;
 import grader.trace.settings.MissingOnyenException;
+import gradingTools.Driver;
 import util.misc.ClearanceManager;
 import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
@@ -46,6 +47,10 @@ public class AnAutomaticProjectNavigator implements AutomaticProjectNavigator {
                 e.printStackTrace(); // should never come here
             } catch (InvalidOnyenRangeException e) {
                 AManualProjectNavigator.maybeTryAgain(settingsModel, false, e.getMessage() + ". Try again.");
+                if (Driver.isHeadless()) {
+                	System.out.println("Headless mode, returning from navigate");
+                	return;
+                }
 //			continue;
             }
             settingsModel.awaitBegin();
